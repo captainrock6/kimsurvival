@@ -1034,7 +1034,12 @@ namespace ParallelQA
             Require(!Enum.GetNames(typeof(StructureKind)).Any(name => name.IndexOf("Signal", StringComparison.OrdinalIgnoreCase) >= 0), "signal is not a general freely placed structure kind");
             string runtime = File.ReadAllText(Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Runtime", "KimSurvivalPrototype.cs"));
             Require(runtime.Contains("world.signal_anchor"), "dedicated signal anchor has localized world feedback");
-            Require(runtime.Contains("new Vector2(6.1f, -1.2f)"), "signal anchor has a dedicated fixed world position");
+            Require(
+                runtime.Contains("private const float CampSignalAnchorNormalizedX") &&
+                runtime.Contains("private const float CampSignalAnchorNormalizedY") &&
+                runtime.Contains("GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)"),
+                "signal anchor has a dedicated background-relative world position");
+            Require(runtime.Contains("signalAnchor.x > PrototypeCampPlacement.BuildMaximumX"), "signal anchor remains outside general facility placement bounds");
             Require(runtime.Contains("delegate { session.TryUpgradeSignal(); RefreshAll(); }"), "signal action upgrades the anchor rather than entering general placement");
 
             GameSession session = new GameSession();

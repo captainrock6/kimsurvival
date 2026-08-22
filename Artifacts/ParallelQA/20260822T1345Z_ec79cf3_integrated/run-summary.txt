@@ -1,0 +1,26 @@
+Integrated Wave 3 regression summary
+Run ID: 20260822T1345Z_ec79cf3_integrated
+Unity: 6000.4.9f1
+Integrated baseline: ec79cf3
+
+OVERALL: FAIL - NOT READY FOR PC/STEAM RELEASE
+
+PASS - Unity compile; 0 compiler errors, 0 compiler warnings.
+PASS - Standard Edit Mode verification.
+PASS - Independent Edit Mode verification (9/9 checks).
+PASS - Korean/English locale relaunch persistence.
+PASS - Korean/English natural Day 1-3 full loop, placement, crafting, research, overflow replacement, swimming, return, and rescue without Grant shortcuts.
+PASS - Automated shared keyboard/gamepad action paths, EventSystem Submit, and directional navigation.
+PASS - Windows x64 Development build; 0 errors, 0 warnings, 161721515 bytes.
+PASS - Built Windows player remained alive through the five-second startup smoke interval.
+
+FAIL - Wave 3 projected-text visual gate.
+  Placement: 24 targets, 22 failures.
+  Exploration/swimming: 10 targets, 10 failures.
+  Pseudo-long localization: 10 targets, 9 failures.
+  Contrast generally passes; remaining failures are primarily glyph height, viewport bounds, and long-text overflow.
+
+UNVERIFIED - Physical gamepad execution; Unity batch Play Mode exposed zero joystick names.
+
+Release interpretation:
+The integrated slice is functionally playable and buildable, but the current screen-space readability and long-locale layout do not meet the independent PC presentation gate. Steam release readiness remains NOT READY until those failures and physical-device validation are closed.
