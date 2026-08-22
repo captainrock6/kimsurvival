@@ -601,11 +601,21 @@
         "배치 유령의 위치와 유효성 판정이 마우스와 게임패드 입력에서 같은 결과를 낸다.",
         "배치 확정과 재배치 후 김씨의 필수 이동 경로와 모든 설비 상호작용 지점이 접근 가능하다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/CampPlacementSystem.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T10:15:38.551Z"
+      "status": "done",
+      "updatedAt": "2026-08-22T11:32:13.820Z",
+      "note": "",
+      "completedAt": "2026-08-22T11:32:13.820Z",
+      "createdAt": "2026-08-22T11:32:13.820Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -652,8 +662,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T07:58:18.329Z"
+      "status": "review",
+      "updatedAt": "2026-08-22T11:30:43.536Z",
+      "completedAt": null
     },
     {
       "id": "task.art.character.mr-kim",
@@ -1228,11 +1239,22 @@
         "로케일별 TextMeshPro 기본 폰트와 폴백 목록을 데이터로 교체할 수 있으며 지원 글리프 누락을 검출한다.",
         "es, ja, zh-Hans, zh-Hant 같은 새 로케일 등록에 게임 플레이 코드 수정이 필요하지 않다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
+        "Assets/_Project/Scripts/Localization"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T10:29:49.581Z"
+      "status": "done",
+      "updatedAt": "2026-08-22T11:32:14.998Z",
+      "note": "",
+      "completedAt": "2026-08-22T11:32:14.998Z",
+      "createdAt": "2026-08-22T11:32:14.998Z"
     },
     {
       "id": "task.feature.feature.localization",
@@ -1254,11 +1276,21 @@
         "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
         "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Localization"
+      ],
+      "evidence": [
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
+        "Artifacts/Verification/windows-build.txt"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T10:29:49.581Z"
+      "status": "done",
+      "updatedAt": "2026-08-22T11:32:16.130Z",
+      "note": "",
+      "completedAt": "2026-08-22T11:32:16.130Z",
+      "createdAt": "2026-08-22T11:32:16.130Z"
     },
     {
       "id": "task.qa.feature.localization",
@@ -1283,7 +1315,8 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "ready",
+      "updatedAt": "2026-08-22T11:32:16.130Z"
     },
     {
       "id": "task.art.icon.resource-tool-set",
@@ -1335,5 +1368,5 @@
       "updatedAt": "2026-08-22T07:58:18.329Z"
     }
   ],
-  "updatedAt": "2026-08-22T10:29:49.580Z"
+  "updatedAt": "2026-08-22T11:32:16.130Z"
 }

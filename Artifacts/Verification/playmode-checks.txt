@@ -1,6 +1,6 @@
 PASS
-PASS · UI 건설·제작·연구, 10개 수색 지점, 해안 입수·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산·신호대 확인
+PASS · ko/en 즉시 전환·한국어 폴백·TMP 폰트, UI 자유 배치·유령·경계/겹침/출입구/통로·무료 재배치, 제작·연구, 10개 수색 지점, 해안 입수·수영 점프 금지·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산·전용 신호대 확인
 Swimming screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-swimming-1280x800.png
 Exploration screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-exploration-1280x800.png
 Camp screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-playmode-1280x800.png
-Completed UTC: 2026-08-22T09:23:06.8400390Z
+Completed UTC: 2026-08-22T11:29:11.9562497Z
