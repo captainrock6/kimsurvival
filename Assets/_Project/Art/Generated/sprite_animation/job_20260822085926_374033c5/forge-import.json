@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T09:08:11.952Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "character.mr-kim",
+  "jobId": "job_20260822085926_374033c5",
+  "assetType": "sprite_animation",
+  "sourceFiles": [
+    "exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "pixelsPerUnit": 128,
+    "filterMode": "Bilinear",
+    "compression": "Normal",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": false
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

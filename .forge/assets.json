@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T07:59:42.969Z",
+  "updatedAt": "2026-08-22T09:09:25.735Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -149,7 +149,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-22T07:58:18.357Z"
+      "updatedAt": "2026-08-22T09:09:25.659Z"
     },
     {
       "id": "background.coast-forest",
@@ -174,15 +174,15 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-22T07:58:18.369Z"
+      "updatedAt": "2026-08-22T09:09:25.672Z"
     },
     {
       "id": "character.mr-kim",
       "name": "김씨 2D 캐릭터",
       "assetType": "sprite_animation",
       "request": "평범하지만 생활력 있어 보이는 오리지널 한국인 성인 김씨의 2D 측면 캐릭터. 특정 배우나 기존 캐릭터를 닮지 않으며, 해진 일상복과 급조한 작은 가방을 착용한다. 과장된 표정과 몸짓이 작은 화면에서도 읽혀야 하며 대기, 걷기, 점프, 오르기, 채집, 수색, 도구 반동, 기력 소진의 핵심 포즈가 같은 비율과 기준점으로 제공되어야 한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "status": "engine_ready",
+      "source": "forge-job",
       "tags": [
         "unity",
         "2d",
@@ -192,14 +192,86 @@
         "animation"
       ],
       "dependencies": [],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260822085926_374033c5"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822085926_374033c5",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T08:59:26.771Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822085926_374033c5",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T09:00:56.122Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822085926_374033c5",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-22T09:08:11.817Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260822085926_374033c5",
       "parentJobId": null,
-      "artifacts": [],
-      "engine": {},
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 46001,
+          "url": "/outputs/jobs/job_20260822085926_374033c5/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 42019,
+          "url": "/outputs/jobs/job_20260822085926_374033c5/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+          "contentType": "image/png",
+          "bytes": 2331950,
+          "url": "/outputs/jobs/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 742,
+          "url": "/outputs/jobs/job_20260822085926_374033c5/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1407,
+          "url": "/outputs/jobs/job_20260822085926_374033c5/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9719,
+          "url": "/outputs/jobs/job_20260822085926_374033c5/qa-preview-exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.jpg"
+        }
+      ],
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\sprite_animation\\job_20260822085926_374033c5",
+        "manifest": "Assets\\_Project\\Art\\Generated\\sprite_animation\\job_20260822085926_374033c5\\forge-import.json",
+        "packagedAt": "2026-08-22T09:08:11.959Z"
+      },
       "createdAt": "2026-08-22T07:58:18.376Z",
-      "updatedAt": "2026-08-22T07:58:18.376Z"
+      "updatedAt": "2026-08-22T09:09:25.682Z"
     },
     {
       "id": "object.camp-structures",
@@ -226,7 +298,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-22T07:58:18.385Z"
+      "updatedAt": "2026-08-22T09:09:25.695Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -250,7 +322,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-22T07:58:18.394Z"
+      "updatedAt": "2026-08-22T09:09:25.703Z"
     },
     {
       "id": "ui.survival-hud",
@@ -278,7 +350,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-22T07:58:18.404Z"
+      "updatedAt": "2026-08-22T09:09:25.716Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -305,7 +377,34 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.414Z",
-      "updatedAt": "2026-08-22T07:58:18.414Z"
+      "updatedAt": "2026-08-22T09:09:25.727Z"
+    },
+    {
+      "id": "animation.mr-kim.swim",
+      "name": "김씨 수영 애니메이션",
+      "assetType": "sprite_animation",
+      "request": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "unity",
+        "2d",
+        "side-view",
+        "character",
+        "swimming",
+        "animation"
+      ],
+      "dependencies": [
+        "character.mr-kim"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T09:09:25.735Z",
+      "updatedAt": "2026-08-22T09:09:25.735Z"
     }
   ]
 }

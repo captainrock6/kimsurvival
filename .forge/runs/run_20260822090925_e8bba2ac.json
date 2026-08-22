@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260822090925_e8bba2ac",
+  "createdAt": "2026-08-22T09:09:25.631Z",
+  "updatedAt": "2026-08-22T09:10:24.053Z",
+  "sourceRequest": "사용자가 정식 제작 범위에 수영이 있다고 명시했다. 기존 횡스크롤 수색에 해안 수면 수영을 추가한다.",
+  "state": "in_progress",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-22T09:09:25.631Z"
+    },
+    "art": {
+      "status": "in_progress",
+      "note": "Base Mr. Kim character is adopted and Unity packaged; swimming animation is planned as a separate dependent asset.",
+      "evidence": [
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/quality-report.json",
+        "Artifacts/Verification/editmode-checks.txt"
+      ],
+      "updatedAt": "2026-08-22T09:10:24.053Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T09:09:25.631Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T09:09:25.631Z"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 1,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.7212,
+      "contrastStdDev": 43.13,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 22,
+        "top": 20,
+        "right": 21,
+        "bottom": 39
+      },
+      "previewFile": "qa-preview-exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.jpg",
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-22T09:00:56.058Z",
+  "jobId": "job_20260822085926_374033c5",
+  "assetType": "sprite_animation"
+}

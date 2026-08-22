@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260822075818_5ba8e5ff",
   "createdAt": "2026-08-22T07:58:18.328Z",
-  "updatedAt": "2026-08-22T08:24:45.119Z",
+  "updatedAt": "2026-08-22T09:02:00.061Z",
   "sourceRequest": "첫 편을 김씨 생존기: 무인도로 확정하고 기획을 전면 교체. Unity를 사용하고 Windows PC와 Steam 출시를 목표로 함.",
   "state": "in_progress",
   "stages": {
@@ -11,8 +11,12 @@
       "updatedAt": "2026-08-22T07:58:18.328Z"
     },
     "art": {
-      "status": "planned",
-      "updatedAt": "2026-08-22T07:58:18.328Z"
+      "status": "in_progress",
+      "note": "First production art anchor character.mr-kim is in user review; not adopted or engine-ready.",
+      "evidence": [
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/quality-report.json"
+      ],
+      "updatedAt": "2026-08-22T09:02:00.061Z"
     },
     "implementation": {
       "status": "complete",

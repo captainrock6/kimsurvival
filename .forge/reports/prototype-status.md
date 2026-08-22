@@ -4,22 +4,22 @@
 
 ## 버티컬 슬라이스
 
-플레이어가 20분 이내에 베이스캠프 준비와 섬 수색을 최소 두 번 반복하고, 제한된 가방 때문에 실제 자원 선택을 한 뒤 제작·건설·연구가 다음 원정을 바꾸는 경험을 거쳐 3일 안에 구조 신호를 완성하거나 생존에 실패하도록 한다.
+플레이어가 20분 이내에 베이스캠프 준비와 육상·수면 수색을 최소 두 번 반복하고, 제한된 가방 때문에 실제 자원 선택을 한 뒤 제작·건설·연구가 다음 원정을 바꾸는 경험을 거쳐 3일 안에 구조 신호를 완성하거나 생존에 실패하도록 한다.
 
 ## 실행 단계
 
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | planned |  |
-| implementation | complete |  |
-| verification | in_progress | Core keyboard/mouse loop, logic, responsive UI, and Windows build passed; physical gamepad end-to-end QA remains. |
+| art | in_progress | Base Mr. Kim character is adopted and Unity packaged; swimming animation is planned as a separate dependent asset. |
+| implementation | planned |  |
+| verification | planned |  |
 
 ## 다음 작업
 
+- **김씨 수영 애니메이션 제작** (art, high) — task.art.animation.mr-kim.swim
 - **해변·숲 수색 구역 제작** (art, high) — task.art.background.coast-forest
 - **무인도 베이스캠프 배경 제작** (art, high) — task.art.background.island-camp
-- **김씨 2D 캐릭터 제작** (art, high) — task.art.character.mr-kim
 - **캠프 설비 분리 파츠 제작** (art, high) — task.art.object.camp-structures
 - **PC·Steam 프로토타입 UI 제작** (art, high) — task.art.ui.survival-hud
 
@@ -45,7 +45,7 @@
 | task.qa.feature.island-exploration | qa | critical | done | 횡스크롤 섬 수색 검증 |
 | task.art.background.island-camp | art | high | ready | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | ready | 해변·숲 수색 구역 제작 |
-| task.art.character.mr-kim | art | high | ready | 김씨 2D 캐릭터 제작 |
+| task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
 | task.art.object.camp-structures | art | high | ready | 캠프 설비 분리 파츠 제작 |
 | task.art.ui.survival-hud | art | high | ready | PC·Steam 프로토타입 UI 제작 |
 | task.system.system.survival | implementation | high | done | 허기·체력과 하루 정산 구현 |
@@ -58,6 +58,10 @@
 | task.qa.feature.escape-outcome | qa | high | done | 구조 신호와 결말 검증 |
 | task.feature.feature.dual-input | implementation | high | done | PC 이중 입력 구현 |
 | task.qa.feature.dual-input | qa | high | ready | PC 이중 입력 검증 |
+| task.art.animation.mr-kim.swim | art | high | ready | 김씨 수영 애니메이션 제작 |
+| task.system.system.swimming | implementation | high | ready | 수영 이동과 수상 위험 구현 |
+| task.feature.feature.swimming | implementation | high | ready | 해안 수영과 수상 수색 구현 |
+| task.qa.feature.swimming | qa | high | planned | 해안 수영과 수상 수색 검증 |
 | task.art.icon.resource-tool-set | art | medium | ready | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | ready | 코믹 피드백 효과 세트 제작 |
 
@@ -65,11 +69,11 @@
 
 - background.island-camp: needed · 무인도 베이스캠프 배경
 - background.coast-forest: needed · 해변·숲 수색 구역
-- character.mr-kim: needed · 김씨 2D 캐릭터
 - object.camp-structures: needed · 캠프 설비 분리 파츠
 - icon.resource-tool-set: needed · 자원·도구 아이콘 세트
 - ui.survival-hud: needed · PC·Steam 프로토타입 UI
 - effect.comedy-feedback: needed · 코믹 피드백 효과 세트
+- animation.mr-kim.swim: needed · 김씨 수영 애니메이션
 
 ## 검증 증거
 
@@ -126,6 +130,7 @@
 - task.qa.feature.island-exploration: Artifacts/Verification/playmode-checks.txt
 - task.qa.feature.island-exploration: Artifacts/Verification/kim-survival-exploration-1280x800.png
 - task.qa.feature.island-exploration: Artifacts/Verification/kim-survival-playmode-1280x800.png
+- task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.system.system.survival: Artifacts/Verification/editmode-checks.txt
 - task.system.system.survival: Artifacts/Verification/playmode-checks.txt
 - task.system.system.survival: Artifacts/Verification/windows-build.txt

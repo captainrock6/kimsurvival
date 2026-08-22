@@ -63,7 +63,14 @@
       "rationale": "제작 비용을 줄이고 채집→귀환→건설·연구 루프 자체의 재미를 먼저 검증한다.",
       "source": "codex-assumption",
       "createdAt": "2026-08-22T07:58:18.328Z"
+    },
+    {
+      "id": "decision.swimming.surface-scope",
+      "summary": "첫 수영 구현은 수면 이동과 해안 수색으로 제한한다.",
+      "rationale": "사용자가 상상한 수영을 핵심 횡스크롤 수색에 포함하면서도 잠수, 산소, 수중 전투로 제작 범위가 확장되는 것을 막는다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-22T09:09:25.631Z"
     }
   ],
-  "updatedAt": "2026-08-22T07:58:18.328Z"
+  "updatedAt": "2026-08-22T09:09:25.631Z"
 }

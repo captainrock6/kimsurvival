@@ -634,10 +634,13 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset character.mr-kim adopted via job_20260822085926_374033c5"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T07:58:18.329Z"
+      "status": "done",
+      "updatedAt": "2026-08-22T09:09:25.746Z",
+      "completedAt": "2026-08-22T09:09:25.746Z"
     },
     {
       "id": "task.art.object.camp-structures",
@@ -1032,6 +1035,105 @@
       "updatedAt": "2026-08-22T08:24:43.665Z"
     },
     {
+      "id": "task.art.animation.mr-kim.swim",
+      "lane": "art",
+      "title": "김씨 수영 애니메이션 제작",
+      "description": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [
+        "animation.mr-kim.swim"
+      ],
+      "acceptanceCriteria": [
+        "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T09:09:25.632Z"
+    },
+    {
+      "id": "task.system.system.swimming",
+      "lane": "implementation",
+      "title": "수영 이동과 수상 위험 구현",
+      "description": "물 영역 감지, 육상·수영 상태 전환, 수면 이동, 해안 복귀, 추가 체력·일광 비용과 수상 수색 지점을 처리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "수영 상태가 육상 이동·점프와 충돌하지 않고 진입과 이탈 때 플레이어 위치와 생존 상태를 보존한다.",
+        "수영 비용과 수상 보상이 동일한 규칙으로 재현되며 강제 귀환·실패 판정과 연결된다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T09:09:25.632Z"
+    },
+    {
+      "id": "task.feature.feature.swimming",
+      "lane": "implementation",
+      "title": "해안 수영과 수상 수색 구현",
+      "description": "김씨가 해안에서 수면으로 자연스럽게 진입해 헤엄치고, 육지보다 큰 체력·일광 비용을 감수해 수상 표류물과 암초 수색 지점에 접근한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.island-exploration",
+        "task.feature.feature.survival-pressure"
+      ],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [
+        "background.coast-forest",
+        "character.mr-kim",
+        "animation.mr-kim.swim",
+        "ui.survival-hud",
+        "effect.comedy-feedback"
+      ],
+      "acceptanceCriteria": [
+        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
+        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
+        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
+        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T09:09:25.632Z"
+    },
+    {
+      "id": "task.qa.feature.swimming",
+      "lane": "qa",
+      "title": "해안 수영과 수상 수색 검증",
+      "description": "해안 수영과 수상 수색의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.swimming"
+      ],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
+        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
+        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
+        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
       "id": "task.art.icon.resource-tool-set",
       "lane": "art",
       "title": "자원·도구 아이콘 세트 제작",
@@ -1081,5 +1183,5 @@
       "updatedAt": "2026-08-22T07:58:18.329Z"
     }
   ],
-  "updatedAt": "2026-08-22T08:24:44.452Z"
+  "updatedAt": "2026-08-22T09:09:25.747Z"
 }
