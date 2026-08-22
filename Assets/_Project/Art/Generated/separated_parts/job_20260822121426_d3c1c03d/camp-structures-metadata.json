@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "assetId": "object.camp-structures",
+  "jobId": "job_20260822121426_d3c1c03d",
+  "pixelsPerUnit": 100,
+  "atlas": {
+    "file": "camp_structures_atlas_alpha.png",
+    "width": 1672,
+    "height": 941,
+    "cellCount": 4,
+    "cellWidth": 418
+  },
+  "placementStateRendering": {
+    "method": "engine-tint-or-optional-single-color-mask",
+    "bakedStateSprites": false,
+    "requiredStates": ["ghost", "valid", "invalid"]
+  },
+  "parts": [
+    {
+      "id": "campfire",
+      "file": "campfire.png",
+      "pixelSize": [400, 427],
+      "pivotNormalized": [0.5, 0.07494],
+      "pivotPixelsFromBottomLeft": [200, 32],
+      "anchorType": "free-grid",
+      "footprintWidth": 2.7,
+      "footprintHeight": 0.8,
+      "interactionRadius": 1.4,
+      "blocksTraversal": true
+    },
+    {
+      "id": "workbench",
+      "file": "workbench.png",
+      "pixelSize": [418, 371],
+      "pivotNormalized": [0.5, 0.08625],
+      "pivotPixelsFromBottomLeft": [209, 32],
+      "anchorType": "free-grid",
+      "footprintWidth": 3.3,
+      "footprintHeight": 1.0,
+      "interactionRadius": 1.5,
+      "blocksTraversal": true
+    },
+    {
+      "id": "rain-collector",
+      "file": "rain_collector.png",
+      "pixelSize": [403, 626],
+      "pivotNormalized": [0.5, 0.05112],
+      "pivotPixelsFromBottomLeft": [201.5, 32],
+      "anchorType": "free-grid",
+      "footprintWidth": 3.1,
+      "footprintHeight": 1.0,
+      "interactionRadius": 1.5,
+      "blocksTraversal": true
+    },
+    {
+      "id": "rescue-signal",
+      "file": "rescue_signal.png",
+      "pixelSize": [409, 798],
+      "pivotNormalized": [0.5, 0.0401],
+      "pivotPixelsFromBottomLeft": [204.5, 32],
+      "anchorType": "signal-fixed",
+      "footprintWidth": 3.2,
+      "footprintHeight": 1.0,
+      "interactionRadius": 1.8,
+      "blocksTraversal": true
+    }
+  ],
+  "constraints": [
+    "General facilities may be placed only inside validated buildable X ranges.",
+    "The rescue signal uses the dedicated external signal anchor.",
+    "Keep at least one character-width interaction approach clear beside each placed facility.",
+    "Do not bake labels, icons, grids, fixed pads or localized text into sprites."
+  ]
+}
