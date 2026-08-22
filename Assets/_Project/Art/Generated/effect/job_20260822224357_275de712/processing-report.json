@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260822224357_275de712",
+  "provider": "codex-built-in-imagegen",
+  "externalPaidApiCalled": false,
+  "imageGenerationAttempts": 1,
+  "automaticGenerationRetries": 0,
+  "source": {
+    "fileName": "exec-76249dcc-d8af-4546-8502-80624fee6ff1.png",
+    "sha256": "afa746c0d545e186a7a12d76fadc1f2ea4b3f69c616d6c01649329726dbae6d8",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "issue": "The generated preview contained an opaque light-neutral checker field instead of an alpha channel."
+  },
+  "deterministicProcessing": {
+    "method": "Edge-connected neutral-background flood removal, per-cell tiny-component cleanup, 3x2 slicing, high-quality normalization to 256x256 with 24px minimum transparent padding.",
+    "backgroundCandidate": "minimum RGB channel >= 226 and maximum channel spread <= 16",
+    "backgroundPixelsRemoved": 1323365,
+    "tinyComponentThresholdPixels": 18,
+    "tinyComponentPixelsRemoved": 21,
+    "contentRepainted": false,
+    "contentRegenerated": false
+  },
+  "outputs": [
+    "source-sheet-alpha.png",
+    "sprite-sheet.png",
+    "collect_success.png",
+    "bag_full_swap.png",
+    "placement_invalid.png",
+    "hunger_exhaustion.png",
+    "craft_build_complete.png",
+    "rescue_success.png",
+    "readability-24-32-64.png",
+    "visual-review.png"
+  ]
+}

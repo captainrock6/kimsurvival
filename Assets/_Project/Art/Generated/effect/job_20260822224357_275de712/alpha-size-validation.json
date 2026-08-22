@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260822224357_275de712",
+  "result": "pass",
+  "checks": {
+    "individualCanvas": "256x256",
+    "individualPixelFormat": "32bpp RGBA",
+    "minimumTransparentPadding": 24,
+    "edgeTouchCount": 0,
+    "sourceGrid": "3x2-row-major",
+    "atlasCanvas": "768x512",
+    "readabilitySizes": [24, 32, 64]
+  },
+  "sprites": [
+    {"id":"collect_success","bounds":[24,25,208,206],"minimumTransparentPadding":24,"edgeTouch":false,"transparentRatio":0.8508},
+    {"id":"bag_full_swap","bounds":[24,39,208,177],"minimumTransparentPadding":24,"edgeTouch":false,"transparentRatio":0.696274},
+    {"id":"placement_invalid","bounds":[24,33,208,190],"minimumTransparentPadding":24,"edgeTouch":false,"transparentRatio":0.6978},
+    {"id":"hunger_exhaustion","bounds":[40,24,176,208],"minimumTransparentPadding":24,"edgeTouch":false,"transparentRatio":0.815323},
+    {"id":"craft_build_complete","bounds":[24,35,208,186],"minimumTransparentPadding":24,"edgeTouch":false,"transparentRatio":0.819595},
+    {"id":"rescue_success","bounds":[43,24,170,208],"minimumTransparentPadding":24,"edgeTouch":false,"transparentRatio":0.76239}
+  ]
+}

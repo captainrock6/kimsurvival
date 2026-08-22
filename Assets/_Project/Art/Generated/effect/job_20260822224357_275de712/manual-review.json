@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260822224357_275de712",
+  "reviewedAt": "2026-08-22T22:50:59.3202071Z",
+  "status": "review",
+  "adopted": false,
+  "verdict": "pass-as-review-candidate",
+  "checks": [
+    {"name":"six-required-semantics","result":"pass","note":"All six requested feedback meanings are present in the required row-major order."},
+    {"name":"language-independent","result":"pass","note":"No Korean, English, other text, numbers, labels, logos or UI copy are rasterized."},
+    {"name":"style-continuity","result":"pass","note":"Bold dark accents, warm tropical colors and hand-painted comic shapes align with adopted project art."},
+    {"name":"small-size-readability","result":"pass-with-note","note":"Dominant silhouette and color remain distinct at 24px; secondary chips and spark fragments intentionally collapse first."},
+    {"name":"alpha-and-spacing","result":"pass","note":"True alpha, at least 24px transparent padding and no edge contact on every 256px sprite."},
+    {"name":"cross-locale-use","result":"pass","note":"All meaning is pictorial and independent of ko/en localization."}
+  ],
+  "concerns": [
+    "Craft/build completion and rescue success are static source effects; final timing, scale punch and particle emission require in-engine authoring.",
+    "Placement invalid uses a strong X silhouette; keep its red-orange palette reserved for invalid placement to avoid semantic dilution."
+  ],
+  "adoptionRequired": true
+}
