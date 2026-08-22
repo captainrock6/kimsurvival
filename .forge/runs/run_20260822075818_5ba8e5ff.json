@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260822075818_5ba8e5ff",
+  "createdAt": "2026-08-22T07:58:18.328Z",
+  "updatedAt": "2026-08-22T08:24:45.119Z",
+  "sourceRequest": "첫 편을 김씨 생존기: 무인도로 확정하고 기획을 전면 교체. Unity를 사용하고 Windows PC와 Steam 출시를 목표로 함.",
+  "state": "in_progress",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-22T07:58:18.328Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T07:58:18.328Z"
+    },
+    "implementation": {
+      "status": "complete",
+      "note": "",
+      "evidence": [
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/Verification/playmode-checks.txt"
+      ],
+      "updatedAt": "2026-08-22T08:24:45.023Z"
+    },
+    "verification": {
+      "status": "in_progress",
+      "note": "Core keyboard/mouse loop, logic, responsive UI, and Windows build passed; physical gamepad end-to-end QA remains.",
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt"
+      ],
+      "updatedAt": "2026-08-22T08:24:45.119Z"
+    }
+  }
+}

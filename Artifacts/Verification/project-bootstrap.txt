@@ -1,0 +1,5 @@
+PASS
+Unity: 6000.4.9f1
+Scene: Assets/_Project/Scenes/KimSurvivalPrototype.unity
+Resolution targets: 1920x1080, 1280x800
+Placeholder asset IDs remain wired in KimSurvivalPrototype.cs

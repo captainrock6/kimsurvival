@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "projectName": "김씨 생존기: 무인도",
+  "engine": "unity",
+  "projectContext": "Unity로 제작하는 Windows PC·Steam 목표의 코믹 2D 횡스크롤 생존 게임. 무인도에 조난된 평범한 김씨가 베이스캠프에서 제작·건설·연구를 하고 해변과 숲을 수색해 구조 신호를 완성한다. 시리즈 공통 루프는 캠프 준비→제한된 가방으로 수색→귀환→생존·성장 투자→탈출이며, 첫 수직 슬라이스는 3일·20분 분량이다.",
+  "designDocuments": [
+    ".forge/design/concept.md"
+  ],
+  "referenceImages": [],
+  "styleProfile": ".forge/style-profile.json",
+  "feedbackMemory": ".forge/feedback.json",
+  "assetRegistry": ".forge/assets.json",
+  "outputFolder": "Assets/_Project/Art/Generated",
+  "defaultStyle": "밝고 따뜻한 열대색의 오리지널 2D 측면 일러스트, 굵고 읽기 쉬운 형태, 과장된 포즈와 표정, 표류물로 급조한 비뚤지만 기능적인 설비, 코믹한 반응과 명확한 생존 정보 계층.",
+  "negativePrompt": "특정 게임·영화의 로고, 고유 캐릭터, 배우 외모, 고유 아이콘, 문구, 정확한 화면 배치 또는 독점적 시각 요소 복제, 워터마크, 래스터 본문 텍스트, 지나치게 잔혹하거나 음울한 표현",
+  "provider": "codex",
+  "options": {
+    "quality": "high",
+    "size": "1024x1024",
+    "count": 1,
+    "fps": 12,
+    "spriteColumns": 8,
+    "duration": 6,
+    "refine3d": true,
+    "outputFormat": "png",
+    "qualityChecks": true
+  },
+  "assetDefaults": {},
+  "engineIntegration": {
+    "packageAfterAdoption": true,
+    "localVariantsAfterAdoption": false
+  },
+  "forge": {
+    "home": "C:\\Users\\dev\\Documents\\ChatGPT\\아트 리소스 제작",
+    "url": "http://127.0.0.1:4173",
+    "autoStart": true
+  }
+}

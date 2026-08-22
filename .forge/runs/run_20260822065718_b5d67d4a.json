@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260822065718_b5d67d4a",
+  "createdAt": "2026-08-22T06:57:18.751Z",
+  "updatedAt": "2026-08-22T06:57:18.751Z",
+  "sourceRequest": "2D 횡스크롤 거점 생존 게임. 거주지 발전과 저녁 수색·채집을 반복하며 생존하거나 탈출하는 컨셉을 먼저 확정하고 이후 프로토타입까지 진행.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-22T06:57:18.751Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T06:57:18.751Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T06:57:18.751Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T06:57:18.751Z"
+    }
+  }
+}

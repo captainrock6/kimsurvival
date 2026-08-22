@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "projectId": "project_db816549bd50",
+  "projectName": "김씨 생존기: 무인도",
+  "updatedAt": "2026-08-22T07:59:42.969Z",
+  "assets": [
+    {
+      "id": "background.shelter",
+      "name": "이전 검은 폭풍 콘셉트의 구조소 배경. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "assetType": "background",
+      "request": "이전 검은 폭풍 콘셉트의 구조소 배경. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "status": "hold",
+      "source": "codex",
+      "tags": [
+        "2d",
+        "side-view",
+        "shelter",
+        "layered",
+        "superseded-concept"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T06:57:18.786Z",
+      "updatedAt": "2026-08-22T07:59:30.185Z"
+    },
+    {
+      "id": "background.scavenge-zone",
+      "name": "이전 검은 폭풍 콘셉트의 폐허 수색 구역. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "assetType": "background",
+      "request": "이전 검은 폭풍 콘셉트의 폐허 수색 구역. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "status": "hold",
+      "source": "codex",
+      "tags": [
+        "2d",
+        "side-scroller",
+        "ruins",
+        "layered",
+        "superseded-concept"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T06:57:18.794Z",
+      "updatedAt": "2026-08-22T07:59:42.529Z"
+    },
+    {
+      "id": "character.survivor",
+      "name": "이전 검은 폭풍 콘셉트의 생존자 캐릭터. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "assetType": "sprite_animation",
+      "request": "이전 검은 폭풍 콘셉트의 생존자 캐릭터. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "status": "hold",
+      "source": "codex",
+      "tags": [
+        "2d",
+        "side-view",
+        "survivor",
+        "animation",
+        "superseded-concept"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T06:57:18.801Z",
+      "updatedAt": "2026-08-22T07:59:42.682Z"
+    },
+    {
+      "id": "icon.resource-set",
+      "name": "이전 검은 폭풍 콘셉트의 자원 아이콘. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "assetType": "logo_icon",
+      "request": "이전 검은 폭풍 콘셉트의 자원 아이콘. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "status": "hold",
+      "source": "codex",
+      "tags": [
+        "ui",
+        "icons",
+        "resources",
+        "transparent",
+        "superseded-concept"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T06:57:18.807Z",
+      "updatedAt": "2026-08-22T07:59:42.826Z"
+    },
+    {
+      "id": "ui.prototype-hud",
+      "name": "이전 검은 폭풍 콘셉트의 프로토타입 UI. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "assetType": "ui_set",
+      "request": "이전 검은 폭풍 콘셉트의 프로토타입 UI. 김씨 생존기: 무인도 전면 교체로 생산 보류.",
+      "status": "hold",
+      "source": "codex",
+      "tags": [
+        "ui",
+        "hud",
+        "pc",
+        "editable",
+        "superseded-concept"
+      ],
+      "dependencies": [
+        "icon.resource-set"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T06:57:18.813Z",
+      "updatedAt": "2026-08-22T07:59:42.969Z"
+    },
+    {
+      "id": "background.island-camp",
+      "name": "무인도 베이스캠프 배경",
+      "assetType": "background",
+      "request": "Unity 2D 16:9 측면 거점용 오리지널 배경. 열대 해변의 작은 베이스캠프가 한 화면에 보이고 모닥불, 작업대, 빗물받이, 구조 신호대의 건설 자리가 명확히 분리된다. 배경, 지면, 전경과 각 설비의 미건설·건설 오버레이를 교체 가능한 레이어로 제공한다. 밝고 따뜻한 열대색, 굵은 형태, 코믹하게 급조한 재료를 사용하고 김씨와 UI가 읽힐 여백을 둔다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "unity",
+        "2d",
+        "side-view",
+        "island",
+        "camp",
+        "layered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T07:58:18.357Z",
+      "updatedAt": "2026-08-22T07:58:18.357Z"
+    },
+    {
+      "id": "background.coast-forest",
+      "name": "해변·숲 수색 구역",
+      "assetType": "background",
+      "request": "Unity 2D 횡스크롤 플레이용 오리지널 무인도 구역. 해변에서 얕은 숲으로 이어지는 한 개 레벨이며 이동 지면, 오르기 지점, 막힌 숲길, 최소 8개 채집·수색 위치를 배치할 수 있는 레이어 구조를 가진다. 따뜻한 낮빛과 일몰 변화를 지원하고 충돌 경계, 캐릭터 실루엣과 상호작용 지점 가독성을 우선한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "unity",
+        "2d",
+        "side-scroller",
+        "coast",
+        "forest",
+        "layered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T07:58:18.369Z",
+      "updatedAt": "2026-08-22T07:58:18.369Z"
+    },
+    {
+      "id": "character.mr-kim",
+      "name": "김씨 2D 캐릭터",
+      "assetType": "sprite_animation",
+      "request": "평범하지만 생활력 있어 보이는 오리지널 한국인 성인 김씨의 2D 측면 캐릭터. 특정 배우나 기존 캐릭터를 닮지 않으며, 해진 일상복과 급조한 작은 가방을 착용한다. 과장된 표정과 몸짓이 작은 화면에서도 읽혀야 하며 대기, 걷기, 점프, 오르기, 채집, 수색, 도구 반동, 기력 소진의 핵심 포즈가 같은 비율과 기준점으로 제공되어야 한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "unity",
+        "2d",
+        "side-view",
+        "character",
+        "comedy",
+        "animation"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T07:58:18.376Z",
+      "updatedAt": "2026-08-22T07:58:18.376Z"
+    },
+    {
+      "id": "object.camp-structures",
+      "name": "캠프 설비 분리 파츠",
+      "assetType": "separated_parts",
+      "request": "모닥불, 작업대, 빗물받이, 구조 신호대의 미건설 표시·건설 완료·작동 상태를 Unity에서 개별 배치하고 교체할 수 있는 투명 배경 2D 파츠 세트. 나뭇가지, 돌, 잎, 표류 고철을 엉뚱하지만 기능적으로 조합한 코믹한 형태이며 베이스캠프 배경의 원근과 조명을 따른다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "unity",
+        "2d",
+        "camp",
+        "structures",
+        "states",
+        "transparent"
+      ],
+      "dependencies": [
+        "background.island-camp"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T07:58:18.385Z",
+      "updatedAt": "2026-08-22T07:58:18.385Z"
+    },
+    {
+      "id": "icon.resource-tool-set",
+      "name": "자원·도구 아이콘 세트",
+      "assetType": "logo_icon",
+      "request": "나무, 돌, 식량, 표류물, 돌도끼, 밧줄과 기본 건설 설비를 24~64px에서도 즉시 구분하는 오리지널 픽토그램 세트. 굵고 통일된 외곽선, 자원별 명확한 색·형태 차이, 투명 배경을 사용한다. 본문 텍스트와 기존 게임의 고유 아이콘은 포함하지 않는다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "ui",
+        "icons",
+        "resources",
+        "tools",
+        "transparent"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T07:58:18.394Z",
+      "updatedAt": "2026-08-22T07:58:18.394Z"
+    },
+    {
+      "id": "ui.survival-hud",
+      "name": "PC·Steam 프로토타입 UI",
+      "assetType": "ui_set",
+      "request": "Unity PC 프로토타입용 편집 가능한 UI 세트. 날짜와 일광, 허기와 체력, 4칸 가방, 캠프 창고, 제작·건설·연구 비용, 구조 신호 진척도, 귀환, 결과 요약과 게임패드 포커스 상태를 포함한다. 1920×1080과 1280×800에서 읽히는 앵커와 정보 계층을 정의하고 최종 한글 본문은 래스터가 아닌 엔진 텍스트로 유지한다. 키보드·마우스와 게임패드 안내가 교체될 자리를 제공한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "unity",
+        "ui",
+        "hud",
+        "pc",
+        "steam",
+        "gamepad",
+        "editable"
+      ],
+      "dependencies": [
+        "icon.resource-tool-set"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T07:58:18.404Z",
+      "updatedAt": "2026-08-22T07:58:18.404Z"
+    },
+    {
+      "id": "effect.comedy-feedback",
+      "name": "코믹 피드백 효과 세트",
+      "assetType": "effect",
+      "request": "도구 반동, 야자열매 충돌, 자원 부족, 기력 소진, 엉성한 설비 작동에 사용할 짧고 가벼운 2D 효과 세트. 과장된 움직임 선, 작은 먼지 구름, 별·땀방울 계열의 오리지널 기호를 투명 배경과 엔진 파티클로 재현하기 쉬운 분리 요소로 제공한다. 실패 원인과 상호작용 가독성을 가리지 않는다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "unity",
+        "2d",
+        "effect",
+        "comedy",
+        "feedback",
+        "transparent"
+      ],
+      "dependencies": [
+        "character.mr-kim"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-22T07:58:18.414Z",
+      "updatedAt": "2026-08-22T07:58:18.414Z"
+    }
+  ]
+}
