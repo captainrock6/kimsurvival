@@ -1,0 +1,18 @@
+Wave 5 background and qps-long layout verification
+Run ID: 20260822T225050Z_wave5_background_qps
+Baseline: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Unity: 6000.4.9f1
+
+PASS · Active build scene serializes background_opaque, gameplay_ground_alpha, and foreground_alpha from job_20260822130341_c082e4b6.
+PASS · Source canvas 1672x941, walkable baseline top Y=721, signal anchor top Y=596, and background-to-ground-to-foreground sorting are asserted.
+PASS · Unity script compilation: 0 errors, 0 warnings.
+PASS · Standard deterministic Edit Mode verification.
+PASS · Independent deterministic Edit Mode verification: 9/9 routes.
+PASS · Standard Play Mode verification with Wave 5 KO/EN 1280x800 captures.
+PASS · Independent KO/EN Day 1-3 natural Play Mode loop, including limited placement, swimming, gathering, return, settlement, and rescue.
+PASS · Normal KO/EN placement visual gate: 24/24 targets.
+PASS · Exploration and swimming visual gate: 10/10 targets.
+PASS · qps-long placement visual gate: 10/10 targets.
+PASS · Windows x64 Development build: 0 errors, 0 warnings.
+
+UNVERIFIED · Physical gamepad actuation; no physical joystick was exposed to Unity batch Play Mode. Shared action conversion, Submit, navigation, and gamepad prompt paths passed automatically.
