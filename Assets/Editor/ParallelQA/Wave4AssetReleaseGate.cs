@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
@@ -217,6 +218,32 @@ namespace ParallelQA
         }
 
         [Serializable]
+        private sealed class VisualFact
+        {
+            public string status;
+            public int targets;
+            public int failures;
+            public string evidenceLine;
+        }
+
+        [Serializable]
+        private sealed class CurrentVisualFacts
+        {
+            public int schemaVersion = 1;
+            public string runId;
+            public string baselineCommit;
+            public string unityVersion;
+            public string observedUtc;
+            public string source;
+            public string standardKoEnOverall;
+            public string qpsLongOverall;
+            public string overall;
+            public VisualFact placement;
+            public VisualFact explorationSwimming;
+            public VisualFact qpsLong;
+        }
+
+        [Serializable]
         public sealed class AddressSnapshot
         {
             public string observedUtc;
@@ -240,6 +267,8 @@ namespace ParallelQA
             public string overall;
             public bool preflightToBeforeStable;
             public bool beforeToAfterStable;
+            public bool temporaryCopyCleanupPassed;
+            public string temporaryCopyCleanupEvidence;
             public AddressSnapshot preflight;
             public AddressSnapshot beforeBuild;
             public AddressSnapshot afterBuild;
@@ -268,6 +297,12 @@ namespace ParallelQA
             public long executableBytes;
             public string executableSha256;
             public string addressablesLinkContract;
+        }
+
+        [Serializable]
+        private sealed class TemporaryCleanupEvidence
+        {
+            public string overall;
         }
 
         [Serializable]
@@ -337,11 +372,11 @@ namespace ParallelQA
             List<CheckRecord> checks = new List<CheckRecord>();
             List<FileRecord> files = new List<FileRecord>();
 
-            PreflightReport preflight = ReadJson<PreflightReport>(Path.Combine(EvidenceFolder, "wave4-preflight.json"));
+            PreflightReport preflight = ReadJson<PreflightReport>(Path.Combine(EvidenceFolder, "wave5-preflight.json"));
             AddressSnapshot addressAtContract = CaptureAddressSnapshot();
             bool addressMatchesPreflight = preflight != null && SameAddress(preflight.addressables, addressAtContract);
             AddCheck(checks, "addressables.preflight_stability", "addressables", addressMatchesPreflight, "P1",
-                "link.xml and .meta hashes/GUID unchanged between pre-Unity snapshot and contract execution",
+                "Addressables-owned temporary link.xml is absent and its empty SHA/GUID state is unchanged after Editor load",
                 AddressComparison(preflight == null ? null : preflight.addressables, addressAtContract), LinkPath);
 
             string visualGatePath = ToFull("Assets/Editor/ParallelQA/Wave3VisualGate.cs");
@@ -349,9 +384,7 @@ namespace ParallelQA
                                       string.Equals(Sha256(visualGatePath), preflight.visualGate.sourceSha256, StringComparison.OrdinalIgnoreCase);
             AddCheck(checks, "visual.wave3_threshold_source_unchanged", "baseline-preservation", visualSourceStable, "P1",
                 "Wave3VisualGate.cs SHA-256 unchanged from preflight", visualSourceStable ? "unchanged" : "changed or preflight missing", "Assets/Editor/ParallelQA/Wave3VisualGate.cs");
-            bool visualFailPreserved = preflight != null && preflight.visualGate != null && preflight.visualGate.overall == "FAIL";
-            AddCheck(checks, "visual.wave3_fail_fact_preserved", "baseline-preservation", visualFailPreserved, "P1",
-                "fed5066 Wave 3 pixel gate remains recorded as FAIL", preflight == null || preflight.visualGate == null ? "preflight missing" : preflight.visualGate.overall, preflight == null || preflight.visualGate == null ? string.Empty : preflight.visualGate.reportPath);
+            AuditCurrentVisualFacts(checks);
 
             string ledgerFullPath = ToFull(AssetLedgerPath);
             AssetLedger ledger = ReadJson<AssetLedger>(ledgerFullPath);
@@ -406,7 +439,7 @@ namespace ParallelQA
 
             if (report.failed > 0)
             {
-                throw new InvalidOperationException("Wave 4 asset contracts failed. See " + Path.Combine(EvidenceFolder, "asset-contracts.json"));
+                throw new InvalidOperationException("Wave 5 asset/release contracts failed. See " + Path.Combine(EvidenceFolder, "asset-contracts.json"));
             }
         }
 
@@ -415,7 +448,7 @@ namespace ParallelQA
             DateTime started = DateTime.UtcNow;
             Directory.CreateDirectory(EvidenceFolder);
             Directory.CreateDirectory(BuildFolder);
-            PreflightReport preflight = ReadJson<PreflightReport>(Path.Combine(EvidenceFolder, "wave4-preflight.json"));
+            PreflightReport preflight = ReadJson<PreflightReport>(Path.Combine(EvidenceFolder, "wave5-preflight.json"));
             AddressSnapshot before = CaptureAddressSnapshot();
             string executable = Path.Combine(BuildFolder, "KimSurvivalIsland.exe");
             BuildPlayerOptions options = new BuildPlayerOptions
@@ -428,17 +461,23 @@ namespace ParallelQA
 
             BuildReport report = BuildPipeline.BuildPlayer(options);
             BuildSummary summary = report.summary;
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             AddressSnapshot after = CaptureAddressSnapshot();
             bool preflightStable = preflight != null && SameAddress(preflight.addressables, before);
             bool buildStable = SameAddress(before, after);
+            string cleanupEvidencePath = Path.Combine(EvidenceFolder, "addressables-generated-link-cleanup.json");
+            TemporaryCleanupEvidence cleanupEvidence = ReadJson<TemporaryCleanupEvidence>(cleanupEvidencePath);
+            bool cleanupPassed = cleanupEvidence != null && cleanupEvidence.overall == "PASS";
             AddressBuildContract addressContract = new AddressBuildContract
             {
                 runId = RunId,
                 baselineCommit = BaselineCommit,
                 unityVersion = Application.unityVersion,
-                overall = preflightStable && buildStable ? "PASS" : "FAIL",
+                overall = preflightStable && buildStable && cleanupPassed ? "PASS" : "FAIL",
                 preflightToBeforeStable = preflightStable,
                 beforeToAfterStable = buildStable,
+                temporaryCopyCleanupPassed = cleanupPassed,
+                temporaryCopyCleanupEvidence = cleanupEvidencePath,
                 preflight = preflight == null ? null : preflight.addressables,
                 beforeBuild = before,
                 afterBuild = after
@@ -480,7 +519,7 @@ namespace ParallelQA
 
             if (summary.result != BuildResult.Succeeded || !File.Exists(executable) || addressContract.overall != "PASS")
             {
-                throw new InvalidOperationException("Wave 4 Windows build or Addressables link contract failed. See " + EvidenceFolder);
+                throw new InvalidOperationException("Wave 5 Windows build or Addressables link ownership contract failed. See " + EvidenceFolder);
             }
         }
 
@@ -730,6 +769,68 @@ namespace ParallelQA
             }
         }
 
+        private static void AuditCurrentVisualFacts(List<CheckRecord> checks)
+        {
+            string reportPath = Path.Combine(EvidenceFolder, "wave3-visual-gate.txt");
+            string[] lines = File.Exists(reportPath) ? File.ReadAllLines(reportPath) : Array.Empty<string>();
+            VisualFact placement = ParseVisualFact(lines, "PLACEMENT_GATE");
+            VisualFact exploration = ParseVisualFact(lines, "EXPLORATION_SWIMMING_GATE");
+            VisualFact qpsLong = ParseVisualFact(lines, "PSEUDO_LONG_GATE");
+            bool baselineIdentity = lines.Any(line => string.Equals(line.Trim(), "Baseline commit: " + BaselineCommit, StringComparison.Ordinal));
+            bool placementPass = placement.status == "PASS" && placement.targets == 24 && placement.failures == 0;
+            bool explorationPass = exploration.status == "PASS" && exploration.targets == 10 && exploration.failures == 0;
+            bool qpsPass = qpsLong.status == "PASS" && qpsLong.targets == 10 && qpsLong.failures == 0;
+
+            AddCheck(checks, "visual.current_baseline_identity", "current-integrated-visual", File.Exists(reportPath) && baselineIdentity, "P1",
+                "fresh visual gate evidence identifies the current 671c4e9 baseline", File.Exists(reportPath) ? lines.FirstOrDefault(line => line.StartsWith("Baseline commit:", StringComparison.Ordinal)) ?? "baseline line missing" : "report missing", reportPath);
+            AddCheck(checks, "visual.current_normal_ko_en_placement", "current-integrated-visual", placementPass, "P1",
+                "normal ko/en placement 24/24 PASS", placement.evidenceLine, reportPath);
+            AddCheck(checks, "visual.current_normal_ko_en_exploration_swimming", "current-integrated-visual", explorationPass, "P1",
+                "normal ko/en exploration/swimming 10/10 PASS", exploration.evidenceLine, reportPath);
+            AddRecord(checks, "visual.current_qps_long", "current-integrated-visual", qpsPass ? "PASS" : "FAIL", "P1",
+                "qps-long 10/10 PASS is required for future-locale release readiness",
+                qpsLong.evidenceLine + (qpsLong.status == "FAIL" && qpsLong.targets == 10 && qpsLong.failures == 8 ? " · known 671c4e9 system-work input" : string.Empty), reportPath);
+
+            CurrentVisualFacts facts = new CurrentVisualFacts
+            {
+                runId = RunId,
+                baselineCommit = BaselineCommit,
+                unityVersion = Application.unityVersion,
+                observedUtc = DateTime.UtcNow.ToString("O"),
+                source = reportPath,
+                standardKoEnOverall = placementPass && explorationPass ? "PASS" : "FAIL",
+                qpsLongOverall = qpsPass ? "PASS" : "FAIL",
+                overall = placementPass && explorationPass && qpsPass ? "PASS" : "FAIL",
+                placement = placement,
+                explorationSwimming = exploration,
+                qpsLong = qpsLong
+            };
+            WriteJson(Path.Combine(EvidenceFolder, "wave5-current-visual-facts.json"), facts);
+            StringBuilder text = new StringBuilder();
+            text.AppendLine("Wave 5 current integrated 1280x800 visual facts");
+            text.AppendLine("Run ID: " + RunId);
+            text.AppendLine("Baseline: " + BaselineCommit);
+            text.AppendLine("Normal ko/en: " + facts.standardKoEnOverall);
+            text.AppendLine("Placement: " + placement.evidenceLine);
+            text.AppendLine("Exploration/swimming: " + exploration.evidenceLine);
+            text.AppendLine("qps-long: " + qpsLong.evidenceLine);
+            text.AppendLine("qps-long classification: " + (qpsPass ? "PASS" : "FAIL · retained as Unity system-work input"));
+            File.WriteAllText(Path.Combine(EvidenceFolder, "wave5-current-visual-facts.txt"), text.ToString(), new UTF8Encoding(false));
+        }
+
+        private static VisualFact ParseVisualFact(string[] lines, string gateName)
+        {
+            string line = lines.FirstOrDefault(value => value.StartsWith(gateName + ":", StringComparison.Ordinal)) ?? "MISSING";
+            Match match = Regex.Match(line, @"^[^:]+:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
+            return new VisualFact
+            {
+                status = match.Success ? match.Groups[1].Value : "MISSING",
+                targets = match.Success ? int.Parse(match.Groups[2].Value) : -1,
+                failures = match.Success ? int.Parse(match.Groups[3].Value) : -1,
+                evidenceLine = line
+            };
+        }
+
         private static void WriteSteamReadiness()
         {
             string[] roots = { "Assets", "Packages", "ProjectSettings" };
@@ -808,16 +909,31 @@ namespace ParallelQA
                 metaBytes = File.Exists(meta) ? new FileInfo(meta).Length : 0,
                 metaSha256 = File.Exists(meta) ? Sha256(meta) : string.Empty,
                 metaGuid = File.Exists(meta) ? ParseGuid(File.ReadAllText(meta)) : string.Empty,
-                assetDatabaseGuid = AssetDatabase.AssetPathToGUID(LinkPath)
+                assetDatabaseGuid = AssetDatabase.AssetPathToGUID(
+                    LinkPath,
+                    AssetPathToGUIDOptions.OnlyExistingAssets)
             };
         }
 
         private static bool SameAddress(AddressSnapshot left, AddressSnapshot right)
         {
-            return left != null && right != null && left.linkExists && right.linkExists && left.metaExists && right.metaExists &&
+            if (left == null || right == null) return false;
+            bool leftAbsent = !left.linkExists && !left.metaExists;
+            bool rightAbsent = !right.linkExists && !right.metaExists;
+            if (leftAbsent || rightAbsent)
+            {
+                return leftAbsent && rightAbsent &&
+                       string.IsNullOrEmpty(left.linkSha256) && string.IsNullOrEmpty(right.linkSha256) &&
+                       string.IsNullOrEmpty(left.metaSha256) && string.IsNullOrEmpty(right.metaSha256) &&
+                       string.IsNullOrEmpty(left.metaGuid) && string.IsNullOrEmpty(right.metaGuid) &&
+                       string.IsNullOrEmpty(left.assetDatabaseGuid) && string.IsNullOrEmpty(right.assetDatabaseGuid);
+            }
+
+            return left.linkExists && right.linkExists && left.metaExists && right.metaExists &&
                    string.Equals(left.linkSha256, right.linkSha256, StringComparison.OrdinalIgnoreCase) &&
                    string.Equals(left.metaSha256, right.metaSha256, StringComparison.OrdinalIgnoreCase) &&
                    string.Equals(left.metaGuid, right.metaGuid, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(left.assetDatabaseGuid, right.assetDatabaseGuid, StringComparison.OrdinalIgnoreCase) &&
                    string.Equals(right.metaGuid, right.assetDatabaseGuid, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -825,14 +941,14 @@ namespace ParallelQA
         {
             if (expected == null) return "preflight missing";
             if (actual == null) return "current snapshot missing";
-            return "expected link=" + expected.linkSha256 + " meta=" + expected.metaSha256 + " guid=" + expected.metaGuid +
-                   " | actual link=" + actual.linkSha256 + " meta=" + actual.metaSha256 + " guid=" + actual.metaGuid + " assetDatabaseGuid=" + actual.assetDatabaseGuid;
+            return "expected exists=" + expected.linkExists + "/" + expected.metaExists + " link=" + expected.linkSha256 + " meta=" + expected.metaSha256 + " guid=" + expected.metaGuid +
+                   " | actual exists=" + actual.linkExists + "/" + actual.metaExists + " link=" + actual.linkSha256 + " meta=" + actual.metaSha256 + " guid=" + actual.metaGuid + " assetDatabaseGuid=" + actual.assetDatabaseGuid;
         }
 
         private static void WriteContractText(AssetContractReport report)
         {
             StringBuilder text = new StringBuilder();
-            text.AppendLine("Wave 4 adopted asset release contracts");
+            text.AppendLine("Wave 5 integrated asset and release contracts");
             text.AppendLine("Run ID: " + report.runId);
             text.AppendLine("Baseline: " + report.baselineCommit);
             text.AppendLine("Unity: " + report.unityVersion);
@@ -850,7 +966,7 @@ namespace ParallelQA
         private static void WriteBuildText(BuildEvidence evidence, AddressBuildContract addressContract)
         {
             StringBuilder text = new StringBuilder();
-            text.AppendLine("Wave 4 Windows x64 Development Build");
+            text.AppendLine("Wave 5 Windows x64 Development Build");
             text.AppendLine("Run ID: " + evidence.runId);
             text.AppendLine("Baseline: " + evidence.baselineCommit);
             text.AppendLine("Unity: " + evidence.unityVersion);
@@ -861,6 +977,8 @@ namespace ParallelQA
             text.AppendLine("Addressables link contract: " + addressContract.overall);
             text.AppendLine("Preflight -> before build stable: " + addressContract.preflightToBeforeStable);
             text.AppendLine("Before -> after build stable: " + addressContract.beforeToAfterStable);
+            text.AppendLine("Generated temporary copy cleanup: " + addressContract.temporaryCopyCleanupPassed);
+            text.AppendLine("Generated temporary copy evidence: " + addressContract.temporaryCopyCleanupEvidence);
             text.AppendLine("Executable: " + evidence.executable);
             text.AppendLine("Executable exists: " + evidence.executableExists);
             text.AppendLine("Executable bytes: " + evidence.executableBytes);

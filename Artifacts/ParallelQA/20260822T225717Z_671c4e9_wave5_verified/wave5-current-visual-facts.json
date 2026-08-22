@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260822T225717Z_671c4e9_wave5_verified",
+    "baselineCommit": "671c4e9df8c144a22421e9eeab6693617aa2b3b1",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-22T22:59:50.3203680Z",
+    "source": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260822T225717Z_671c4e9_wave5_verified\\wave3-visual-gate.txt",
+    "standardKoEnOverall": "PASS",
+    "qpsLongOverall": "FAIL",
+    "overall": "FAIL",
+    "placement": {
+        "status": "PASS",
+        "targets": 24,
+        "failures": 0,
+        "evidenceLine": "PLACEMENT_GATE: PASS · targets=24 · failures=0"
+    },
+    "explorationSwimming": {
+        "status": "PASS",
+        "targets": 10,
+        "failures": 0,
+        "evidenceLine": "EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0"
+    },
+    "qpsLong": {
+        "status": "FAIL",
+        "targets": 10,
+        "failures": 8,
+        "evidenceLine": "PSEUDO_LONG_GATE: FAIL · targets=10 · failures=8"
+    }
+}

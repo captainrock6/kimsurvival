@@ -1,0 +1,30 @@
+Wave 5 Addressables link.xml ownership research
+Run ID: 20260822T225717Z_671c4e9_wave5_verified
+Baseline: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Unity: 6000.4.9f1
+Installed Addressables package: 2.9.1
+
+Official package implementation:
+- Library/PackageCache/com.unity.addressables@8460f1c9c927/Editor/Build/AddressablesPlayerBuildProcessor.cs
+- SHA-256: df3a38aa47d486c764e44750a59b526ab5012f739650aeacb4c23bdaf9ef3075
+- InitializeOnLoad CleanTemporaryPlayerBuildData calls RemovePlayerBuildLinkXML.
+- PrepareForPlayerbuild copies Library/.../AddressablesLink/link.xml into AddressableAssetSettings.ConfigFolder.
+
+Baseline/source comparison:
+- Baseline tracked link.xml Git blob: d9caf5334ae41ec95f68f1a75dc5432e7728fc92
+- Baseline tracked link.xml.meta Git blob: 7848dc9957be62930daedcfe1b2a68751ee372af
+- Baseline tracked meta GUID: 6cc923a77c080d942b9683f3b4ad54f7
+- Current generated Library link.xml: Library/com.unity.addressables/aa/Windows/AddressablesLink/link.xml
+- Current generated Library link.xml bytes: 2121
+- Current generated Library link.xml SHA-256: 1d2d8692d9ce6300bac7a7b46b20fae4f0d7cc42fdc7bb2d072cd9b2a5c28d85
+- Baseline and generated XML content lines: identical (26/26); the historical file was not a custom linker declaration.
+
+Conclusion:
+- Assets/AddressableAssetsData/link.xml and .meta are Addressables-generated temporary Player-build inputs, not durable repository source.
+- Canonical durable state is ABSENT: files absent, SHA-256 empty, meta GUID empty, AssetDatabase existing-only GUID empty.
+- The build hook records the temporary copy and deletes only that ConfigFolder copy after all build postprocessors.
+- AssetDatabase GUID checks use OnlyExistingAssets so Unity's recently-deleted GUID cache cannot masquerade as a physical file.
+
+Official references:
+- https://docs.unity3d.com/kr/Packages/com.unity.addressables%401.21/manual/build-artifacts-included.html
+- https://docs.unity3d.com/kr/Packages/com.unity.addressables%401.21/manual/ContinuousIntegration.html
