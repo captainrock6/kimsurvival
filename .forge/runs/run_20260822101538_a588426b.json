@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260822101538_a588426b",
+  "createdAt": "2026-08-22T10:15:38.550Z",
+  "updatedAt": "2026-08-22T10:15:38.550Z",
+  "sourceRequest": "베이스캠프는 일반 설비의 제한적 자유 배치를 기본으로 하고, 위치가 중요한 특정 오브젝트만 고정 설치 포인트를 사용한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-22T10:15:38.550Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T10:15:38.550Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T10:15:38.550Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T10:15:38.550Z"
+    }
+  }
+}

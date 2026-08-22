@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T09:15:36.895Z",
+  "updatedAt": "2026-08-22T10:29:49.679Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -130,7 +130,7 @@
       "id": "background.island-camp",
       "name": "무인도 베이스캠프 배경",
       "assetType": "background",
-      "request": "Unity 2D 16:9 측면 거점용 오리지널 배경. 열대 해변의 작은 베이스캠프가 한 화면에 보이고 모닥불, 작업대, 빗물받이, 구조 신호대의 건설 자리가 명확히 분리된다. 배경, 지면, 전경과 각 설비의 미건설·건설 오버레이를 교체 가능한 레이어로 제공한다. 밝고 따뜻한 열대색, 굵은 형태, 코믹하게 급조한 재료를 사용하고 김씨와 UI가 읽힐 여백을 둔다.",
+      "request": "Unity 2D 16:9 측면 거점용 오리지널 배경. 열대 해변의 작은 베이스캠프와 김씨의 이동 바닥, 일반 설비를 여러 위치에 놓을 수 있는 넓고 평평한 건설 구역, 구조 신호대용 외부 앵커가 한 화면에 읽힌다. 특정 설비의 자리를 배경에 고정해 그리지 말고 배경·지면·전경·건설 가능 구역 안내를 교체 가능한 레이어로 제공한다. 밝고 따뜻한 열대색, 굵은 형태, 코믹하게 급조한 재료를 사용하고 김씨, 자유 배치 설비와 UI가 읽힐 여백을 둔다.",
       "status": "needed",
       "source": "forge-director",
       "tags": [
@@ -139,7 +139,8 @@
         "side-view",
         "island",
         "camp",
-        "layered"
+        "layered",
+        "free-placement"
       ],
       "dependencies": [],
       "jobIds": [],
@@ -149,7 +150,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-22T09:09:25.659Z"
+      "updatedAt": "2026-08-22T10:29:49.595Z"
     },
     {
       "id": "background.coast-forest",
@@ -174,7 +175,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-22T09:09:25.672Z"
+      "updatedAt": "2026-08-22T10:29:49.608Z"
     },
     {
       "id": "character.mr-kim",
@@ -271,13 +272,13 @@
         "packagedAt": "2026-08-22T09:08:11.959Z"
       },
       "createdAt": "2026-08-22T07:58:18.376Z",
-      "updatedAt": "2026-08-22T09:09:25.682Z"
+      "updatedAt": "2026-08-22T10:29:49.617Z"
     },
     {
       "id": "object.camp-structures",
       "name": "캠프 설비 분리 파츠",
       "assetType": "separated_parts",
-      "request": "모닥불, 작업대, 빗물받이, 구조 신호대의 미건설 표시·건설 완료·작동 상태를 Unity에서 개별 배치하고 교체할 수 있는 투명 배경 2D 파츠 세트. 나뭇가지, 돌, 잎, 표류 고철을 엉뚱하지만 기능적으로 조합한 코믹한 형태이며 베이스캠프 배경의 원근과 조명을 따른다.",
+      "request": "모닥불, 작업대, 빗물받이와 구조 신호대의 건설 완료·작동 상태를 Unity에서 독립적으로 자유 배치할 수 있는 투명 배경 2D 파츠 세트. 각 파츠는 일관된 바닥 접점, 상호작용 여백과 배치 발자국을 가지며 정상, 배치 유령, 유효, 무효 표시를 엔진에서 적용할 수 있도록 깨끗한 실루엣과 마스크용 분리를 제공한다. 나뭇가지, 돌, 잎, 표류 고철을 엉뚱하지만 기능적으로 조합한 코믹한 형태이며 베이스캠프의 측면 원근과 조명을 따른다.",
       "status": "needed",
       "source": "forge-director",
       "tags": [
@@ -286,7 +287,8 @@
         "camp",
         "structures",
         "states",
-        "transparent"
+        "transparent",
+        "placement-pivot"
       ],
       "dependencies": [
         "background.island-camp"
@@ -298,7 +300,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-22T09:09:25.695Z"
+      "updatedAt": "2026-08-22T10:29:49.633Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -322,13 +324,13 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-22T09:09:25.703Z"
+      "updatedAt": "2026-08-22T10:29:49.646Z"
     },
     {
       "id": "ui.survival-hud",
-      "name": "PC·Steam 프로토타입 UI",
+      "name": "PC·Steam 다국어 프로토타입 UI",
       "assetType": "ui_set",
-      "request": "Unity PC 프로토타입용 편집 가능한 UI 세트. 날짜와 일광, 허기와 체력, 4칸 가방, 캠프 창고, 제작·건설·연구 비용, 구조 신호 진척도, 귀환, 결과 요약과 게임패드 포커스 상태를 포함한다. 1920×1080과 1280×800에서 읽히는 앵커와 정보 계층을 정의하고 최종 한글 본문은 래스터가 아닌 엔진 텍스트로 유지한다. 키보드·마우스와 게임패드 안내가 교체될 자리를 제공한다.",
+      "request": "Unity PC 프로토타입용 편집 가능한 다국어 UI 세트. 날짜와 일광, 허기와 체력, 4칸 가방, 캠프 창고, 제작·건설·배치·연구 비용, 구조 신호 진척도, 귀환, 결과 요약, 설정의 언어 선택과 게임패드 포커스 상태를 포함한다. 1920×1080과 1280×800에서 한글과 영어가 모두 읽히도록 고정 폭 본문을 피하고 텍스트 확장 여백, 줄바꿈, 최소 글자 크기와 포커스 영역을 정의한다. 모든 본문과 버튼 문구는 래스터에 굽지 않고 엔진 텍스트로 유지하며 로케일별 TextMeshPro 폰트와 입력 안내가 교체될 자리를 제공한다.",
       "status": "needed",
       "source": "forge-director",
       "tags": [
@@ -338,7 +340,10 @@
         "pc",
         "steam",
         "gamepad",
-        "editable"
+        "editable",
+        "localization-ready",
+        "korean",
+        "english"
       ],
       "dependencies": [
         "icon.resource-tool-set"
@@ -350,7 +355,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-22T09:09:25.716Z"
+      "updatedAt": "2026-08-22T10:29:49.660Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -377,13 +382,13 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.414Z",
-      "updatedAt": "2026-08-22T09:09:25.727Z"
+      "updatedAt": "2026-08-22T10:29:49.670Z"
     },
     {
       "id": "animation.mr-kim.swim",
       "name": "김씨 수영 애니메이션",
       "assetType": "sprite_animation",
-      "request": "채택된 character.mr-kim의 얼굴, 성인 비율, 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 정확히 유지한다. 오른쪽을 향해 수면에서 다소 서툴게 헤엄치는 한 동작만 6프레임으로 표현한다. 팔 젓기와 발차기가 자연스럽게 이어지는 루프이며 각 프레임의 몸 크기, 중심, 수면 높이와 기준점을 완전히 고정한다. 6개 동일 셀을 가로 한 줄로 배치하고 서로 겹치지 않으며 실제 투명 배경을 사용한다. 물, 물보라, 그림자, 프레임 선, 글자, 숫자, 라벨, 다른 캐릭터와 소품은 포함하지 않는다.",
+      "request": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -464,7 +469,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-22T09:15:36.895Z"
+      "updatedAt": "2026-08-22T10:29:49.679Z"
     }
   ]
 }
