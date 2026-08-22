@@ -1,0 +1,23 @@
+Wave 4 normal KO/EN 1280x800 gate summary
+Run ID: 20260822T1415Z_wave4_fed5066
+Baseline commit: fed5066
+Unity: 6000.4.9f1
+Completed UTC: 2026-08-22T14:22:52.1361473Z
+
+Mandatory normal scenarios: PASS
+- Placement: 24/24 PASS
+- Exploration/swimming: 10/10 PASS
+- Overflow: 0
+- Significant text overlap: 0
+- World-text UI occlusion: 0
+
+locale/category              pass   minimum glyph   minimum viewport margin
+en/exploration-world         5/5    20.1px          97.7px
+en/placement-status          2/2    18.8px          119.8px
+en/placement-world          10/10   17.0px          48.1px
+ko/exploration-world         5/5    20.4px          190.9px
+ko/placement-status          2/2    23.9px          115.9px
+ko/placement-world          10/10   17.8px          78.2px
+
+Non-mandatory qps-long: FAIL, 8/10 failures (integrated baseline had 9/10 failures; not worsened).
+Source: wave3-visual-gate.txt and wave3-visual-metrics.tsv in this folder. Gate thresholds and harness code were not changed.

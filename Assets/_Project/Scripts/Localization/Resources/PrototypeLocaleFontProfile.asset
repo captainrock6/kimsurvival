@@ -19,9 +19,11 @@ MonoBehaviour:
     primarySystemFont: Malgun Gothic
     fallbackSystemFonts:
     - Arial
+    worldTextScale: 1
   - localeCode: en
     primaryFont: {fileID: 0}
     fallbackFonts: []
     primarySystemFont: Arial
     fallbackSystemFonts:
     - Malgun Gothic
+    worldTextScale: 1.62
