@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T14:14:56.095Z",
+  "updatedAt": "2026-08-22T22:03:55.370Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -728,7 +728,7 @@
       "name": "생존 자원·도구 아이콘 세트",
       "assetType": "logo_icon",
       "request": "Wave 4 QA 패키징 가공 전용 자식 작업. 부모 job_20260822135915_4a6e7e98의 sprite-sheet.png와 wood, stone, food, scrap, axe, rope, campfire, rain_collector, workbench, rescue_signal 256px 투명 PNG를 픽셀 변경 없이 그대로 사용한다. 24/32/64px 가독성 증거는 각 크기마다 5열×2행으로 10종을 배치한 672x416 이내의 실제 투명 RGBA 시트로 다시 구성한다. 육안 검토 캡처도 배경색을 굽지 않은 투명 RGBA 5열×2행 캔버스로 구성해 alpha와 외곽 여백을 유지한다. 기존 메타데이터와 Unity forge-import 매니페스트를 동기화한다. ImageGen, 외부 API, 리페인트, 아이콘 내용·색·실루엣 변경, 텍스트·라벨 추가를 하지 않는다.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "ui",
@@ -769,6 +769,13 @@
           "parentJobId": "job_20260822135915_4a6e7e98",
           "status": "review",
           "at": "2026-08-22T14:14:56.093Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822141317_caf8e11d",
+          "parentJobId": "job_20260822135915_4a6e7e98",
+          "status": "adopted",
+          "at": "2026-08-22T22:03:37.662Z",
           "qualityScore": 100
         }
       ],
@@ -1014,9 +1021,14 @@
           "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-visual-review.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d",
+        "manifest": "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\forge-import.json",
+        "packagedAt": "2026-08-22T22:03:55.368Z"
+      },
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-22T14:14:56.095Z"
+      "updatedAt": "2026-08-22T22:03:55.370Z"
     },
     {
       "id": "ui.survival-hud",
