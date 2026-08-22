@@ -84,7 +84,28 @@
       "rationale": "현재 한국어 중심의 코미디와 개발 속도를 유지하면서 Steam의 국제 이용자에게 영어를 제공하고, 향후 스페인어·일본어·중국어 추가 때 코드와 UI를 다시 설계하는 비용을 피하기 위해서다.",
       "source": "user",
       "createdAt": "2026-08-22T10:29:49.580Z"
+    },
+    {
+      "id": "decision.wave3.balance-v0-2-golden-path",
+      "summary": "Wave 3는 시작 F0·H70·하루 허기 -35의 밸런스 v0.2와 3일차 구조 골든 경로를 본선 승인 기준으로 사용한다.",
+      "rationale": "2회 숙련 성공 가능성을 보존하면서 3회 일반 경로에서 식량, 연구, 도구, 일반 설비, 수영과 구조 신호 2단계를 모두 검증하기 위해서다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "decision.wave3.localization-qps-long",
+      "summary": "비출하 qps-long을 세 번째 로케일로 등록해 canonical 138키, 35~50% 텍스트 팽창, 폰트·입력 프롬프트와 언어 비의존 저장을 검증한다.",
+      "rationale": "실제 es·ja·zh 번역을 범위에 추가하지 않고도 세 번째 로케일 등록 비용과 장문·다중 스크립트 위험을 구현 단계에서 드러내기 위해서다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "decision.wave3.readiness-triage",
+      "summary": "남은 P1 월드 라벨과 P2 제3 로케일·공간형 캠프·v0.2는 다음 구현, 배치 가독성과 물리 게임패드는 QA 선행, Steam 출하 구성은 수직 슬라이스 이후로 분리한다.",
+      "rationale": "이미 구현된 항목을 중복 수정하지 않고 독립 증거가 필요한 항목과 명시적으로 범위 밖인 출시 작업을 구분해 Wave 3 착수 순서를 고정하기 위해서다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-22T10:29:49.580Z"
+  "updatedAt": "2026-08-22T13:15:00.000Z"
 }

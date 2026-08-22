@@ -229,12 +229,16 @@
 
 ## 6. 후속 언어 확장 규칙
 
+- Wave 3의 세 번째 로케일은 비출하 `qps-long`으로 고정한다. en 문자열을 35~50% 결정적으로 확장하고 `⟦…⟧`로 감싸되 named placeholder, 숫자, 리치텍스트 태그와 입력 action 토큰은 변형하지 않는다.
+- `qps-long`은 canonical 138개 키를 모두 가져야 하며 제품의 일반 언어 목록에는 노출하지 않는다. 이 로케일은 번역 품질이 아니라 장문 레이아웃, 라틴 확장 글리프, 데이터 기반 등록과 저장 불변성을 검증한다.
 - `es`, `ja`, `zh-Hans`, `zh-Hant`는 위 키를 그대로 사용하고 `context`, `intent`, placeholder, 길이 등급, 직역 금지 메모를 복사해 번역을 시작한다.
 - locale마다 새 키를 만들지 않는다. 특정 언어에만 필요한 문법 분기는 같은 의미 아래 ICU-style plural/select variant로 둔다.
 - `zh-Hans`와 `zh-Hant`는 한쪽을 자동 변환해 승인하지 않는다. 같은 키에서 별도 번역·검수한다.
 - `ja`와 중국어는 `김씨`의 호칭 관계를 임의로 친근하게 만들지 않는다. 평범한 성인에 대한 약간의 거리감을 보존한다.
 - `es`는 성별·주어 생략 때문에 김씨의 행위자가 사라지지 않도록 context를 따른다.
 - 후속 locale 추가 전에 key coverage 100%, placeholder 집합 동일, fallback 0건을 자동 검사한다.
+- 개발용 글리프 probe에서 `Español`, `日本語`, `简体中文`, `繁體中文`을 각 예정 폰트 체인으로 렌더하되 실제 es/ja/zh 번역 승인으로 간주하지 않는다.
+- 플레이어용 세이브·로드는 추가하지 않는다. 현재 locale 설정 저장과 QA용 정규화 진행 snapshot은 분리하고, snapshot에는 stable item·tech·structure ID, 수치, 좌표와 결과 enum만 보존하며 번역 문자열·표시명·locale별 table entry ID를 넣지 않는다.
 
 ## 7. 플레이테스트·언어 QA 수용 조건
 
@@ -244,6 +248,9 @@
 - 영어 코미디는 한국어의 `intent`와 `transcreation_note`를 충족하되 어순·비유·말장난을 재창작할 수 있다. 역번역의 단어 일치보다 상황 의미와 감정 강도의 동일성을 우선한다.
 - 모든 동적 문자열은 locale별 완성형 template를 사용하고 placeholder 누락·추가·자료형 불일치가 0건이어야 한다.
 - 언어 변경 뒤 현재 화면의 모든 문자열이 선택 locale로 갱신되고, 이전 locale 잔존·키 노출·fallback이 없어야 한다.
+- `qps-long`의 캠프, HUD, 배치, 수색·수영, 가방, 설정, 결과 화면을 1280×800에서 캡처해 35~50% 팽창, 잘림·겹침·tofu·의미를 숨기는 말줄임표 각 0건을 확인한다. 본문 18px, 버튼·핵심 수치 20px 미만 축소는 허용하지 않는다.
+- 같은 QA 진행 snapshot을 `ko→en→qps-long→ko` 순서로 복원해 Day, 자원, E/H/L, 연구·도구, 설비 좌표, 신호 단계와 결과가 정규화 비교에서 완전히 같아야 한다.
+- 키보드·마우스와 게임패드 전환은 locale과 게임 상태를 바꾸지 않고 `{device}`, `{move}`, `{confirm}`, `{cancel}`, `{language}` action placeholder만 갱신한다.
 
 ## 8. 통합 프로토타입에서 추가된 canonical 레코드 15개
 
