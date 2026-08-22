@@ -1,13 +1,14 @@
 # 《김씨 생존기: 무인도》 수직 슬라이스 현지화 명세
 
-- 상태: 기획 기준 `localization v0.1`
-- 기준 커밋: `f60a456698b327209607254f9d2fb50cfa7eb6ed`
+- 상태: 통합 프로토타입 대조 완료 `localization contract v0.2`
+- 기준 커밋: `e695c36d4a0a15c19f25630fe177fdd56298c1d6`
+- canonical 제안: 기존 계약 123개를 유지하고 통합 프로토타입에서 확인된 새 의미 15개를 더한 **138개**
 - 기준 원문: 한국어 `ko`
 - 첫 지원 언어: 영어 `en`
 - 후속 언어: 스페인어 `es`, 일본어 `ja`, 중국어 간체 `zh-Hans`, 중국어 번체 `zh-Hant`
 - 공식 영문 게임 제목: **미정(TBD)**. 별도 사용자 결정 전 번역·음역·스토어 표기를 확정하지 않는다.
 
-이 문서는 현재 3일 수직 슬라이스에서 플레이어에게 보이는 문자열의 기획 정본이다. 한국어가 의미, 정보 우선순위, 김씨의 코미디 톤을 판정하는 기준 원문이며 영어는 한국어를 직역하지 않고 같은 상황·행동 유도·웃음의 기능을 재현한다.
+이 문서는 현재 3일 수직 슬라이스에서 플레이어에게 보이는 문자열의 기획 정본이다. 한국어가 의미, 정보 우선순위, 김씨의 코미디 톤을 판정하는 기준 원문이며 영어는 한국어를 직역하지 않고 같은 상황·행동 유도·웃음의 기능을 재현한다. 통합 프로토타입의 118개 Unity String Table과의 차이, migration alias, 전체 canonical 색인은 `integrated-prototype-contract-audit.md`를 따른다.
 
 ## 1. 안정적인 문자열 키 체계
 
@@ -243,3 +244,27 @@
 - 영어 코미디는 한국어의 `intent`와 `transcreation_note`를 충족하되 어순·비유·말장난을 재창작할 수 있다. 역번역의 단어 일치보다 상황 의미와 감정 강도의 동일성을 우선한다.
 - 모든 동적 문자열은 locale별 완성형 template를 사용하고 placeholder 누락·추가·자료형 불일치가 0건이어야 한다.
 - 언어 변경 뒤 현재 화면의 모든 문자열이 선택 locale로 갱신되고, 이전 locale 잔존·키 노출·fallback이 없어야 한다.
+
+## 8. 통합 프로토타입에서 추가된 canonical 레코드 15개
+
+아래 레코드는 기존 123개와 의미가 겹치지 않으면서 통합 프로토타입의 배치·월드 라벨·언어 전환에 실제로 필요한 문구다. 기존 123개를 삭제하거나 이름을 바꾸지 않고 더한다. `Max`는 공백과 placeholder 치환 결과를 포함한 `ko/en` 권장 상한이다.
+
+| Key | 사용 상황 | 의도 | ko | en | Max ko/en | Placeholder·직역 금지 메모 |
+|---|---|---|---|---|---:|---|
+| `character.kim.name` | 월드 캐릭터 라벨 | 평범한 성인 김씨 식별 | 김씨 | Mr. Kim | 6/12 | 고유 영웅명처럼 꾸미지 않음 |
+| `controls.placement` | 일반 설비 배치 모드 | 장치 공통 이동·확정·취소 안내 | {device} · {move} 위치 이동 · {confirm} 확정 · {cancel} 취소 | {device} · {move} Move · {confirm} Confirm · {cancel} Cancel | 64/92 | 명명 placeholder 4개 유지; 키 이름을 본문에 굽지 않음 |
+| `interaction.placement.blocked_entrance` | 출입구를 막는 배치 | 거부 원인과 통로 보존 | 캠프 출입구를 막을 수 없다. | The camp entrance must stay clear. | 26/44 | 농담보다 원인 우선 |
+| `interaction.placement.invalid` | 다른 세부 원인이 없는 무효 위치 | 일반 배치 거부 | 배치할 수 없는 위치다. | That position is invalid. | 22/34 | 기술 오류 코드처럼 쓰지 않음 |
+| `interaction.placement.valid` | 배치 유령의 유효 상태 | 확정 가능 상태 | 설치 가능 | Valid Placement | 10/20 | 성공 확정이 아니라 위치 유효성 |
+| `interaction.placement.valid_build` | 신규 설비 유효 미리보기 | 설비·스냅 규칙 확인 | {structure} 배치 가능 · 0.5m 바닥 스냅 | Place {structure} · 0.5m floor snap | 38/52 | `{structure}` 유지; 완전 자유 배치로 번역 금지 |
+| `interaction.placement.valid_move` | 기존 설비 유효 재배치 | 무비용 이동 위치 확인 | {structure} 재배치 가능 · 0.5m 바닥 스냅 | Move {structure} · 0.5m floor snap | 40/52 | 건설을 다시 하는 의미 금지 |
+| `settings.language.switch` | 즉시 언어 전환 버튼 | 현재·다음 언어 명시 | 언어: {current} → {next} | Language: {current} → {next} | 34/44 | locale 이름은 `settings.language.option.*`에서 가져옴 |
+| `structure.generic.name` | 알 수 없는 일반 설비 fallback | 안전한 설비 총칭 | 설비 | Facility | 6/12 | 특정 설비로 추측하지 않음 |
+| `ui.action.relocate_free` | 일반 설비 재배치 버튼 | 대상과 비용 0 명시 | {structure} 무료 재배치 | Move {structure} for Free | 24/34 | 해체·환불 의미 금지 |
+| `world.build_zone.general_ground` | 일반 설비 호환 구역 라벨 | 제한적 자유 배치 구역과 스냅 표시 | 일반 설비 · 0.5m 바닥 스냅 | General Facilities · 0.5m Floor Snap | 30/46 | 완전 자유 배치로 확대 금지 |
+| `world.keep_clear.entrance` | 캠프 출입구 보호 라벨 | 배치 금지 이유 예고 | 출입구 보호 | Keep Entrance Clear | 12/24 | 장식 표지판이 아니라 배치 규칙 |
+| `world.keep_clear.required_path` | 필수 이동 통로 라벨 | 접근·귀환 동선 보존 | 필수 통로 | Required Path | 10/20 | 선택 경로로 약화 금지 |
+| `world.signal_anchor.progress` | 구조 신호대 전용 앵커 | 고정 대상과 단계 표시 | 전용 앵커 · 신호대 {stage}/2 | Dedicated Anchor · Signal {stage}/2 | 28/40 | `{stage}` 정수; 일반 설비 구역과 혼동 금지 |
+| `world.structure.relocate_free` | 배치된 일반 설비 월드 라벨 | 대상 설비의 무료 재배치 가능성 | {structure}\n↔ 무료 재배치 | {structure}\n↔ Move Free | 24/30 | 최대 2줄; 순간이동 기능으로 설명하지 않음 |
+
+추가 레코드도 `ko`를 기준 원문으로 하고, 향후 `es`, `ja`, `zh-Hans`, `zh-Hant`가 같은 key·context·intent·placeholder·길이·직역 금지 메모를 공유한다. 공식 영문 제목은 이 추가로도 결정되지 않으며 `game.title/en = TBD`를 유지한다.
