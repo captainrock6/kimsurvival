@@ -16,17 +16,20 @@ namespace KimSurvival
             [SerializeField] private List<TMP_FontAsset> fallbackFonts = new List<TMP_FontAsset>();
             [SerializeField] private string primarySystemFont;
             [SerializeField] private List<string> fallbackSystemFonts = new List<string>();
+            [SerializeField] private float worldTextScale = 1f;
 
             public string LocaleCode { get { return localeCode; } }
             public TMP_FontAsset PrimaryFont { get { return primaryFont; } }
             public IReadOnlyList<TMP_FontAsset> FallbackFonts { get { return fallbackFonts; } }
             public string PrimarySystemFont { get { return primarySystemFont; } }
             public IReadOnlyList<string> FallbackSystemFonts { get { return fallbackSystemFonts; } }
+            public float WorldTextScale { get { return worldTextScale > 0f ? worldTextScale : 1f; } }
 
-            public LocaleFontMapping(string code, string systemFont, params string[] systemFallbacks)
+            public LocaleFontMapping(string code, string systemFont, float worldScale, params string[] systemFallbacks)
             {
                 localeCode = code;
                 primarySystemFont = systemFont;
+                worldTextScale = worldScale;
                 fallbackSystemFonts = new List<string>(systemFallbacks ?? Array.Empty<string>());
             }
         }
@@ -63,12 +66,12 @@ namespace KimSurvival
         {
             if (!Contains(PrototypeLocalization.KoreanLocaleCode))
             {
-                mappings.Add(new LocaleFontMapping("ko", "Malgun Gothic", "Arial"));
+                mappings.Add(new LocaleFontMapping("ko", "Malgun Gothic", 1f, "Arial"));
             }
 
             if (!Contains(PrototypeLocalization.EnglishLocaleCode))
             {
-                mappings.Add(new LocaleFontMapping("en", "Arial", "Malgun Gothic"));
+                mappings.Add(new LocaleFontMapping("en", "Arial", 1.62f, "Malgun Gothic"));
             }
         }
 

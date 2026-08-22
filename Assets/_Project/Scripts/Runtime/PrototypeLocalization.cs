@@ -67,6 +67,15 @@ namespace KimSurvival
             }
         }
 
+        public float CurrentWorldTextScale
+        {
+            get
+            {
+                PrototypeLocaleFontProfile.LocaleFontMapping mapping = fontProfile == null ? null : fontProfile.Find(CurrentLocaleCode);
+                return mapping == null ? 1f : mapping.WorldTextScale;
+            }
+        }
+
         public string ResolveStartupLocale(string savedCode)
         {
             if (LocalizationSettings.AvailableLocales.GetLocale(savedCode) != null)

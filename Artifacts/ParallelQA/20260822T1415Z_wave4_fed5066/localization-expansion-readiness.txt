@@ -1,0 +1,21 @@
+Locale expansion readiness audit
+Run ID: 20260822T1415Z_wave4_fed5066
+Started UTC: 2026-08-22T14:22:24.1767822Z
+Completed UTC: 2026-08-22T14:22:24.3219843Z
+Unity: 6000.4.9f1
+Baseline commit: fed5066
+Project: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunEditChecks -logFile "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\ParallelQA\20260822T1415Z_wave4_fed5066\unity-edit-final.log"
+PASS · Unity AvailableLocales contains ko/en · observed=en,ko
+PASS · current localization source schema is exactly Key/ko/en · header=Key/ko/en
+PARTIAL · runtime SetLocale can resolve a configured locale by data code
+NOT READY · font profile storage is list-based for future mappings
+NOT READY · language cycling is not multi-locale (binary ko/en implementation detected)
+NOT READY · asset builder explicitly provisions only ko/en
+NOT READY · import schema explicitly rejects a third locale column
+NOT READY · language button label branches only ko/en
+PASS · non-shipping deterministic 142% pseudo-long fixture exists in QA harness
+Current ko/en readiness: PASS
+Pseudo-long stress fixture: PASS
+Third-locale shipping readiness: NOT READY
+Decision: third locale requires schema, builder, cycle/selection UI, tables, and font mapping additions; the QA pseudo-locale is deliberately not a shipping locale.
