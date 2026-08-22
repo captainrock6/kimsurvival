@@ -20,9 +20,13 @@ namespace KimSurvival
         private const string AssetComedy = "effect.comedy-feedback";
 
         private const float CampBackgroundWorldWidth = 20f;
-        private const float CampBackgroundGroundNormalizedY = 0.234f;
+        private const float CampCanvasWidthPixels = 1672f;
+        private const float CampCanvasHeightPixels = 941f;
+        private const float CampWalkableBaselineTopPixels = 721f;
+        private const float CampSignalAnchorTopPixels = 596f;
+        private const float CampBackgroundGroundNormalizedY = (CampCanvasHeightPixels - CampWalkableBaselineTopPixels) / CampCanvasHeightPixels;
         private const float CampSignalAnchorNormalizedX = 0.86f;
-        private const float CampSignalAnchorNormalizedY = 0.365f;
+        private const float CampSignalAnchorNormalizedY = (CampCanvasHeightPixels - CampSignalAnchorTopPixels) / CampCanvasHeightPixels;
         private const float CampSignalLabelX = 5.1f;
         private const float ResourceLabelWidth = 4.35f;
         private const float ResourceLabelHeight = 1.55f;
@@ -32,6 +36,8 @@ namespace KimSurvival
 
         [SerializeField] private GameObject playerVisualPrefab;
         [SerializeField] private Sprite campBackgroundSprite;
+        [SerializeField] private Sprite campGameplayGroundSprite;
+        [SerializeField] private Sprite campForegroundSprite;
         [SerializeField] private Sprite campfireSprite;
         [SerializeField] private Sprite workbenchSprite;
         [SerializeField] private Sprite rainCollectorSprite;
@@ -65,6 +71,8 @@ namespace KimSurvival
         private Sprite squareSprite;
         private Transform worldRoot;
         private SpriteRenderer campBackgroundRenderer;
+        private SpriteRenderer campGameplayGroundRenderer;
+        private SpriteRenderer campForegroundRenderer;
         private SpriteRenderer rescueSignalRenderer;
         private Transform playerRoot;
         private PrototypePlayerPresentation playerPresentation;
@@ -144,9 +152,11 @@ namespace KimSurvival
             }
         }
 
-        public void ConfigureCampBackground(Sprite sprite)
+        public void ConfigureCampBackgroundLayers(Sprite background, Sprite gameplayGround, Sprite foreground)
         {
-            campBackgroundSprite = sprite;
+            campBackgroundSprite = background;
+            campGameplayGroundSprite = gameplayGround;
+            campForegroundSprite = foreground;
         }
 
         public void ConfigureCampStructureArt(Sprite campfire, Sprite workbench, Sprite rainCollector, Sprite rescueSignal)
@@ -214,17 +224,38 @@ namespace KimSurvival
             scaler.matchWidthOrHeight = 0.5f;
             canvasObject.AddComponent<GraphicRaycaster>();
 
-            RectTransform top = CreatePanel("상태 HUD", canvas.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -118f), new Vector2(-24f, -20f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
-            statusText = CreateText("날짜·상태", top, new Vector2(0f, 0f), new Vector2(0.55f, 1f), new Vector2(24f, 8f), new Vector2(-8f, -8f), 30, TextAnchor.MiddleLeft, Color.white);
-            resourceText = CreateText("보유 자원", top, new Vector2(0.55f, 0f), new Vector2(1f, 1f), new Vector2(8f, 8f), new Vector2(-24f, -8f), 27, TextAnchor.MiddleRight, new Color(1f, 0.9f, 0.52f));
+            RectTransform top = CreatePanel("상태 HUD", canvas.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -190f), new Vector2(-24f, -20f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
+            VerticalLayoutGroup topLayout = top.gameObject.AddComponent<VerticalLayoutGroup>();
+            topLayout.padding = new RectOffset(160, 160, 8, 8);
+            topLayout.spacing = 0f;
+            topLayout.childAlignment = TextAnchor.MiddleCenter;
+            topLayout.childControlWidth = true;
+            topLayout.childControlHeight = true;
+            topLayout.childForceExpandWidth = true;
+            topLayout.childForceExpandHeight = true;
+            statusText = CreateText("날짜·상태", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleLeft, Color.white);
+            ConfigureLayout(statusText.gameObject, 1f, 1f, 0f, 68f);
+            resourceText = CreateText("보유 자원", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleRight, new Color(1f, 0.9f, 0.52f));
+            ConfigureLayout(resourceText.gameObject, 1f, 1f, 0f, 68f);
 
-            RectTransform message = CreatePanel("김씨 독백 · 배치 상태 · " + AssetComedy, canvas.transform, new Vector2(0.2f, 0.74f), new Vector2(0.8f, 0.9f), Vector2.zero, Vector2.zero, new Color(0.07f, 0.08f, 0.07f, 0.88f));
+            RectTransform message = CreatePanel("김씨 독백 · 배치 상태 · " + AssetComedy, canvas.transform, new Vector2(0.18f, 0.65f), new Vector2(0.82f, 0.82f), Vector2.zero, Vector2.zero, new Color(0.07f, 0.08f, 0.07f, 0.88f));
             messagePanelImage = message.GetComponent<Image>();
             messageText = CreateText("김씨 독백 또는 배치 상태", message, Vector2.zero, Vector2.one, new Vector2(26f, 10f), new Vector2(-26f, -10f), 29, TextAnchor.MiddleCenter, Color.white);
 
-            RectTransform controlPanel = CreatePanel("조작 안내", canvas.transform, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 20f), new Vector2(-24f, 103f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
-            controlsText = CreateText("조작", controlPanel, Vector2.zero, new Vector2(0.81f, 1f), new Vector2(22f, 4f), new Vector2(-10f, -4f), 25, TextAnchor.MiddleCenter, Color.white);
-            languageButton = CreateButton("언어 설정", controlPanel, new Vector2(0.82f, 0.12f), new Vector2(0.985f, 0.88f), string.Empty, delegate { localization.CycleLocale(); });
+            RectTransform controlPanel = CreatePanel("조작 안내", canvas.transform, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 20f), new Vector2(-24f, 165f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
+            HorizontalLayoutGroup controlLayout = controlPanel.gameObject.AddComponent<HorizontalLayoutGroup>();
+            controlLayout.padding = new RectOffset(110, 110, 8, 8);
+            controlLayout.spacing = 16f;
+            controlLayout.childAlignment = TextAnchor.MiddleCenter;
+            controlLayout.childControlWidth = true;
+            controlLayout.childControlHeight = true;
+            controlLayout.childForceExpandWidth = true;
+            controlLayout.childForceExpandHeight = true;
+            controlsText = CreateText("조작", controlPanel, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleCenter, Color.white);
+            ConfigureLayout(controlsText.gameObject, 4f, 1f, 760f, 0f);
+            languageButton = CreateButton("언어 설정", controlPanel, Vector2.zero, Vector2.one, string.Empty, delegate { localization.CycleLocale(); });
+            ConfigureLayout(languageButton.gameObject, 1.45f, 1f, 270f, 0f);
+            languageButton.GetComponentInChildren<TMP_Text>().fontSize = 32f;
 
             campActions = CreatePanel("캠프 행동", canvas.transform, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(30f, 130f), new Vector2(765f, 715f), new Color(0.06f, 0.12f, 0.11f, 0.91f)).gameObject;
             actionTitleText = CreateText("캠프 행동 제목", campActions.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -64f), new Vector2(-18f, -12f), 32, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
@@ -422,6 +453,8 @@ namespace KimSurvival
             placementGhostBadgeRenderer = null;
             placementGhostLabel = null;
             campBackgroundRenderer = null;
+            campGameplayGroundRenderer = null;
+            campForegroundRenderer = null;
             rescueSignalRenderer = null;
             placementGhostOutlineRenderers.Clear();
 
@@ -447,7 +480,7 @@ namespace KimSurvival
                 CreateRect("호환 건설 구역", new Vector2(buildCenter, PrototypeCampPlacement.FloorY + 0.08f), new Vector2(buildWidth, 0.16f), new Color(0.16f, 0.72f, 0.38f, 0.78f), -5);
                 CreateRect("건설 구역 왼쪽 경계", new Vector2(PrototypeCampPlacement.BuildMinimumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), new Color(0.75f, 1f, 0.72f, 0.92f), -3);
                 CreateRect("건설 구역 오른쪽 경계", new Vector2(PrototypeCampPlacement.BuildMaximumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), new Color(0.75f, 1f, 0.72f, 0.92f), -3);
-                CreateWorldBadge("호환 건설 구역 안내", localization.Format("world.build_zone"), new Vector2(2.5f, -3.45f), new Vector2(4.8f, 1.15f), new Color(0.04f, 0.25f, 0.13f, 0.96f), Color.white);
+                CreateWorldBadge("호환 건설 구역 안내", localization.Format("world.build_zone"), new Vector2(2.5f, -3.15f), new Vector2(4.8f, 1.65f), new Color(0.04f, 0.25f, 0.13f, 0.96f), Color.white);
                 CreateReservedCampStrip("world.entrance", PrototypeCampPlacement.EntranceMinimumX, PrototypeCampPlacement.EntranceMaximumX, new Color(0.95f, 0.38f, 0.18f, 0.72f));
                 CreateReservedCampStrip("world.required_path", PrototypeCampPlacement.RequiredPathMinimumX, PrototypeCampPlacement.RequiredPathMaximumX, new Color(1f, 0.72f, 0.16f, 0.72f));
             }
@@ -469,22 +502,32 @@ namespace KimSurvival
 
         private void CreateCampBackground()
         {
-            if (campBackgroundSprite == null)
+            if (campBackgroundSprite == null || campGameplayGroundSprite == null || campForegroundSprite == null)
             {
-                CreateRect("캠프 배경 누락 · " + AssetCampBackground, Vector2.zero, new Vector2(20f, 11.25f), new Color(0.36f, 0.77f, 0.9f), -20);
-                Debug.LogError("[Kim Survival] Adopted camp background is not assigned: " + AssetCampBackground);
+                CreateRect("캠프 배경 레이어 누락 · " + AssetCampBackground, Vector2.zero, new Vector2(20f, 11.25f), new Color(0.36f, 0.77f, 0.9f), -30);
+                Debug.LogError("[Kim Survival] Adopted three-layer camp background is not fully assigned: " + AssetCampBackground);
                 return;
             }
 
-            GameObject background = new GameObject("채택 캠프 배경 · " + AssetCampBackground);
-            background.transform.SetParent(worldRoot, false);
-            campBackgroundRenderer = background.AddComponent<SpriteRenderer>();
-            campBackgroundRenderer.sprite = campBackgroundSprite;
-            campBackgroundRenderer.sortingOrder = -20;
+            GameObject backgroundRoot = new GameObject("채택 캠프 3레이어 · " + AssetCampBackground);
+            backgroundRoot.transform.SetParent(worldRoot, false);
             float scale = CampBackgroundWorldWidth / campBackgroundSprite.bounds.size.x;
             float sourceGroundY = Mathf.Lerp(campBackgroundSprite.bounds.min.y, campBackgroundSprite.bounds.max.y, CampBackgroundGroundNormalizedY);
-            background.transform.localScale = new Vector3(scale, scale, 1f);
-            background.transform.localPosition = new Vector3(0f, PrototypeCampPlacement.FloorY - sourceGroundY * scale, 0f);
+            backgroundRoot.transform.localScale = new Vector3(scale, scale, 1f);
+            backgroundRoot.transform.localPosition = new Vector3(0f, PrototypeCampPlacement.FloorY - sourceGroundY * scale, 0f);
+            campBackgroundRenderer = CreateCampBackgroundLayer(backgroundRoot.transform, "배경", campBackgroundSprite, -30);
+            campGameplayGroundRenderer = CreateCampBackgroundLayer(backgroundRoot.transform, "게임플레이 지면", campGameplayGroundSprite, -20);
+            campForegroundRenderer = CreateCampBackgroundLayer(backgroundRoot.transform, "전경", campForegroundSprite, 12);
+        }
+
+        private static SpriteRenderer CreateCampBackgroundLayer(Transform parent, string name, Sprite sprite, int sortingOrder)
+        {
+            GameObject layer = new GameObject(name);
+            layer.transform.SetParent(parent, false);
+            SpriteRenderer renderer = layer.AddComponent<SpriteRenderer>();
+            renderer.sprite = sprite;
+            renderer.sortingOrder = sortingOrder;
+            return renderer;
         }
 
         private Vector2 GetCampArtPoint(float normalizedX, float normalizedY)
@@ -881,10 +924,25 @@ namespace KimSurvival
 
         private void RequireCampBackgroundAlignment()
         {
-            Require(campBackgroundSprite != null && campBackgroundRenderer != null && campBackgroundRenderer.sprite == campBackgroundSprite, "채택 캠프 배경 런타임 연결");
+            Require(campBackgroundSprite != null && campGameplayGroundSprite != null && campForegroundSprite != null &&
+                    campBackgroundRenderer != null && campBackgroundRenderer.sprite == campBackgroundSprite &&
+                    campGameplayGroundRenderer != null && campGameplayGroundRenderer.sprite == campGameplayGroundSprite &&
+                    campForegroundRenderer != null && campForegroundRenderer.sprite == campForegroundSprite,
+                "채택 캠프 3레이어 런타임 연결");
+            Require(campGameplayGroundSprite.rect == campBackgroundSprite.rect &&
+                    campForegroundSprite.rect == campBackgroundSprite.rect,
+                "캠프 3레이어 공유 캔버스");
+            Require(Mathf.Abs(campBackgroundSprite.rect.width / campBackgroundSprite.rect.height - CampCanvasWidthPixels / CampCanvasHeightPixels) < 0.001f,
+                "캠프 3레이어 1672x941 원본 캔버스 비율");
+            Require(campBackgroundRenderer.sortingOrder < campGameplayGroundRenderer.sortingOrder &&
+                    campGameplayGroundRenderer.sortingOrder < campForegroundRenderer.sortingOrder,
+                "캠프 배경→게임플레이 지면→전경 렌더 순서");
             Vector2 mappedFloor = GetCampArtPoint(0.5f, CampBackgroundGroundNormalizedY);
             Vector2 signalAnchor = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
             Require(Mathf.Abs(mappedFloor.y - PrototypeCampPlacement.FloorY) < 0.01f, "채택 배경 지면선과 건설 바닥 정렬");
+            float expectedSignalAnchorY = PrototypeCampPlacement.FloorY +
+                                          (CampWalkableBaselineTopPixels - CampSignalAnchorTopPixels) * CampBackgroundWorldWidth / CampCanvasWidthPixels;
+            Require(Mathf.Abs(signalAnchor.y - expectedSignalAnchorY) < 0.01f, "채택 배경 신호대 top Y=596 앵커 정렬");
             Require(signalAnchor.x > PrototypeCampPlacement.BuildMaximumX && signalAnchor.y > PrototypeCampPlacement.FloorY, "우측 바위 턱의 전용 신호대 앵커 정렬");
         }
 
@@ -1080,9 +1138,10 @@ namespace KimSurvival
                 : new Color(0.43f, 0.25f, 0.03f, 0.96f);
             bool entrance = localizationKey == "world.entrance";
             float badgeCenter = entrance ? -3.4f : -1.1f;
-            float badgeWidth = entrance ? 2.3f : 2.2f;
-            float badgeHeight = entrance ? 1.55f : 1.15f;
-            CreateWorldBadge(localizationKey + " 안내", localization.Format(localizationKey), new Vector2(badgeCenter, -3.45f), new Vector2(badgeWidth, badgeHeight), badgeColor, Color.white);
+            float badgeY = entrance ? -2.8f : -3.15f;
+            float badgeWidth = entrance ? 3.2f : 2.8f;
+            float badgeHeight = entrance ? 2.5f : 1.65f;
+            CreateWorldBadge(localizationKey + " 안내", localization.Format(localizationKey), new Vector2(badgeCenter, badgeY), new Vector2(badgeWidth, badgeHeight), badgeColor, Color.white);
         }
 
         private void CreatePlacedStructure(StructureKind kind, Color color)
@@ -1123,7 +1182,7 @@ namespace KimSurvival
                 "배치 판정",
                 string.Empty,
                 new Vector2(0f, visualTop + 0.58f),
-                new Vector2(Mathf.Max(4.35f, size.x + 0.7f), 1.15f),
+                new Vector2(Mathf.Max(4.35f, size.x + 0.7f), 1.65f),
                 Color.black,
                 Color.white,
                 out placementGhostBadgeRenderer);
@@ -1411,6 +1470,15 @@ namespace KimSurvival
             Image image = panel.AddComponent<Image>();
             image.color = color;
             return rect;
+        }
+
+        private static void ConfigureLayout(GameObject target, float flexibleWidth, float flexibleHeight, float minimumWidth, float minimumHeight)
+        {
+            LayoutElement element = target.AddComponent<LayoutElement>();
+            element.flexibleWidth = flexibleWidth;
+            element.flexibleHeight = flexibleHeight;
+            element.minWidth = minimumWidth;
+            element.minHeight = minimumHeight;
         }
 
         private TMP_Text CreateText(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, Vector2 offsetMin, Vector2 offsetMax, int fontSize, TextAnchor alignment, Color color)

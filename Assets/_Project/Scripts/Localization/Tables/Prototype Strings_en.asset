@@ -250,11 +250,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972580
-    m_Localized: "General Facilities \xB7 0.5m Floor Snap"
+    m_Localized: 'General Facilities
+
+      0.5m Floor Snap'
     m_Metadata:
       m_Items: []
   - m_Id: 900972581
-    m_Localized: Keep Entrance Clear
+    m_Localized: 'Keep Entrance
+
+      Clear'
     m_Metadata:
       m_Items: []
   - m_Id: 900972582
@@ -538,14 +542,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 14658173124608
-    m_Localized: "{0} \xB7 Move with mouse \xB7 Click/Enter confirm \xB7 Right-click/Esc
-      cancel \xB7 F1 language"
+    m_Localized: "{0} \xB7 Move with mouse\nClick/Enter confirm \xB7 Right-click/Esc
+      cancel\nF1 language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 14658219261952
-    m_Localized: "{0} \xB7 Move with left stick \xB7 A confirm \xB7 B cancel \xB7
-      Y language"
+    m_Localized: "{0} \xB7 Move with left stick\nA confirm \xB7 B cancel\nY language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867

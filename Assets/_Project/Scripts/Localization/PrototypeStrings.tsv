@@ -11,8 +11,8 @@ phase.result	결과	Result
 hud.status.camp	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4}
 hud.status.exploring	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4} | 일광 {5}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Daylight {5}
 hud.resources	나무 {0}   돌 {1}   식량 {2}   표류물 {3}\n신호대 {4}/2   도끼 {5}   밧줄 {6}	Wood {0}   Stone {1}   Food {2}   Salvage {3}\nSignal {4}/2   Axe {5}   Rope {6}
-controls.placement.keyboard_mouse	{0} · 마우스로 위치 이동 · 클릭/Enter 확정 · 우클릭/Esc 취소 · F1 언어	{0} · Move with mouse · Click/Enter confirm · Right-click/Esc cancel · F1 language
-controls.placement.gamepad	{0} · 왼쪽 스틱으로 위치 이동 · A 확정 · B 취소 · Y 언어	{0} · Move with left stick · A confirm · B cancel · Y language
+controls.placement.keyboard_mouse	{0} · 마우스로 위치 이동\n클릭/Enter 확정 · 우클릭/Esc 취소\nF1 언어	{0} · Move with mouse\nClick/Enter confirm · Right-click/Esc cancel\nF1 language
+controls.placement.gamepad	{0} · 왼쪽 스틱으로 위치 이동\nA 확정 · B 취소\nY 언어	{0} · Move with left stick\nA confirm · B cancel\nY language
 controls.camp.keyboard_mouse	{0} · 클릭 또는 방향키+Enter로 행동 선택 · 완공 설비는 무료 재배치 · F1 언어	{0} · Click or arrows+Enter to select · Built facilities move free · F1 language
 controls.camp.gamepad	{0} · 방향 패드/왼쪽 스틱으로 선택 · A 실행 · 완공 설비는 무료 재배치 · Y 언어	{0} · D-pad/left stick select · A action · Built facilities move free · Y language
 controls.explore	{0} · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환 · F1/Y 언어	{0} · A/D or stick move · Auto-swim at shore · Space/A jump · E/X search · R/B return · F1/Y language
@@ -53,8 +53,8 @@ structure.campfire	모닥불	Campfire
 structure.workbench	작업대	Workbench
 structure.rain_collector	빗물받이	Rain Collector
 structure.generic	설비	Facility
-world.build_zone	일반 설비 · 0.5m 바닥 스냅	General Facilities · 0.5m Floor Snap
-world.entrance	출입구 보호	Keep Entrance Clear
+world.build_zone	일반 설비\n0.5m 바닥 스냅	General Facilities\n0.5m Floor Snap
+world.entrance	출입구\n보호	Keep Entrance\nClear
 world.required_path	필수 통로	Required Path
 world.signal_anchor	전용 앵커 · 신호대 {0}/2	Dedicated Anchor · Signal {0}/2
 world.return	CAMP	CAMP
