@@ -82,6 +82,7 @@ namespace KimSurvival
         public GamePhase Phase { get; private set; }
         public RunResult Result { get; private set; }
         public bool ExpeditionCompleted { get; private set; }
+        public bool IsSwimming { get; private set; }
         public int SignalStage { get; private set; }
         public string LastMessage { get; private set; }
         public ResourceKind? PendingKind { get; private set; }
@@ -126,6 +127,7 @@ namespace KimSurvival
             Phase = GamePhase.Camp;
             Result = RunResult.None;
             ExpeditionCompleted = false;
+            IsSwimming = false;
             SignalStage = 0;
             PendingKind = null;
             PendingAmount = 0;
@@ -331,8 +333,28 @@ namespace KimSurvival
 
             ClearBag();
             Daylight = 100f;
+            IsSwimming = false;
             Phase = GamePhase.Exploring;
             LastMessage = "김씨 출발. 해 지기 전에는 돌아오는 것이 소박한 목표다.";
+            return true;
+        }
+
+        public bool SetSwimming(bool swimming)
+        {
+            if (Phase != GamePhase.Exploring || Result != RunResult.None)
+            {
+                return false;
+            }
+
+            if (IsSwimming == swimming)
+            {
+                return true;
+            }
+
+            IsSwimming = swimming;
+            LastMessage = swimming
+                ? "김씨 입수. 물은 생각보다 차갑고 가방은 생각보다 무겁다."
+                : "육지 복귀. 땅이 이렇게 믿음직스러울 줄은 몰랐다.";
             return true;
         }
 
@@ -343,10 +365,12 @@ namespace KimSurvival
                 return;
             }
 
-            Daylight = Math.Max(0f, Daylight - deltaTime * 0.75f);
-            if (moving)
+            float daylightDrain = IsSwimming ? 1.15f : 0.75f;
+            float energyDrain = IsSwimming ? (moving ? 0.65f : 0.22f) : (moving ? 0.18f : 0f);
+            Daylight = Math.Max(0f, Daylight - deltaTime * daylightDrain);
+            if (energyDrain > 0f)
             {
-                Energy = Math.Max(0f, Energy - deltaTime * 0.18f);
+                Energy = Math.Max(0f, Energy - deltaTime * energyDrain);
             }
 
             if (Energy <= 0f)
@@ -359,15 +383,21 @@ namespace KimSurvival
             }
         }
 
-        public GatherResult TryGather(ResourceKind kind, int baseAmount)
+        public GatherResult TryGather(ResourceKind kind, int baseAmount, bool waterSearch = false)
         {
             if (Phase != GamePhase.Exploring || HasPendingLoot || baseAmount <= 0)
             {
                 return GatherResult.Rejected;
             }
 
+            if (waterSearch && !IsSwimming)
+            {
+                LastMessage = "저 물건은 물에 떠 있다. 발만 담가서는 닿지 않는다.";
+                return GatherResult.Rejected;
+            }
+
             int amount = kind == ResourceKind.Wood && HasAxe ? baseAmount + 1 : baseAmount;
-            Energy = Math.Max(0f, Energy - 6f);
+            Energy = Math.Max(0f, Energy - (waterSearch ? 9f : 6f));
             int remaining = AddToBag(kind, amount);
             if (Energy <= 0f)
             {
@@ -383,7 +413,11 @@ namespace KimSurvival
                 return GatherResult.PendingSwap;
             }
 
-            LastMessage = kind == ResourceKind.Wood && HasAxe ? "돌도끼가 활약했다. 나무를 하나 더 챙겼다." : ResourceName(kind) + "을(를) 챙겼다.";
+            LastMessage = waterSearch
+                ? "파도와 씨름해 " + ResourceName(kind) + "을(를) 건졌다. 체력도 같이 떠내려갔다."
+                : kind == ResourceKind.Wood && HasAxe
+                    ? "돌도끼가 활약했다. 나무를 하나 더 챙겼다."
+                    : ResourceName(kind) + "을(를) 챙겼다.";
             return GatherResult.Added;
         }
 
@@ -432,6 +466,7 @@ namespace KimSurvival
 
             ClearBag();
             ExpeditionCompleted = true;
+            IsSwimming = false;
             Phase = GamePhase.Camp;
             if (forced)
             {
@@ -519,6 +554,7 @@ namespace KimSurvival
 
         private void Finish(RunResult result)
         {
+            IsSwimming = false;
             Result = result;
             Phase = GamePhase.Result;
             LastMessage = ResultDetail();

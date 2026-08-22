@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "grade": "fail",
+  "score": 70,
+  "summary": {
+    "files": 1,
+    "errors": 1,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "exec-71e8e101-9429-46d2-88f5-5900153d941a.png",
+      "kind": "raster",
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 43.75,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-exec-71e8e101-9429-46d2-88f5-5900153d941a.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-22T09:15:36.840Z",
+  "jobId": "job_20260822091448_251bc2a1",
+  "assetType": "sprite_animation"
+}

@@ -11,17 +11,17 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | in_progress | Base Mr. Kim character is adopted and Unity packaged; swimming animation is planned as a separate dependent asset. |
-| implementation | planned |  |
-| verification | planned |  |
+| art | in_progress | Swim sheet candidate generated and preserved in review. Forge quality gate failed on missing real alpha, so production art remains open and the prototype uses a placeholder pose. |
+| implementation | complete | Shallow-water swimming vertical-slice mechanics are implemented. |
+| verification | complete | Deterministic checks, rendered Play Mode route, and Windows development build passed. |
 
 ## 다음 작업
 
-- **김씨 수영 애니메이션 제작** (art, high) — task.art.animation.mr-kim.swim
 - **해변·숲 수색 구역 제작** (art, high) — task.art.background.coast-forest
 - **무인도 베이스캠프 배경 제작** (art, high) — task.art.background.island-camp
 - **캠프 설비 분리 파츠 제작** (art, high) — task.art.object.camp-structures
 - **PC·Steam 프로토타입 UI 제작** (art, high) — task.art.ui.survival-hud
+- **PC 이중 입력 검증** (qa, high) — task.qa.feature.dual-input
 
 ## 작업
 
@@ -58,10 +58,10 @@
 | task.qa.feature.escape-outcome | qa | high | done | 구조 신호와 결말 검증 |
 | task.feature.feature.dual-input | implementation | high | done | PC 이중 입력 구현 |
 | task.qa.feature.dual-input | qa | high | ready | PC 이중 입력 검증 |
-| task.art.animation.mr-kim.swim | art | high | ready | 김씨 수영 애니메이션 제작 |
-| task.system.system.swimming | implementation | high | ready | 수영 이동과 수상 위험 구현 |
-| task.feature.feature.swimming | implementation | high | ready | 해안 수영과 수상 수색 구현 |
-| task.qa.feature.swimming | qa | high | planned | 해안 수영과 수상 수색 검증 |
+| task.art.animation.mr-kim.swim | art | high | review | 김씨 수영 애니메이션 제작 |
+| task.system.system.swimming | implementation | high | done | 수영 이동과 수상 위험 구현 |
+| task.feature.feature.swimming | implementation | high | done | 해안 수영과 수상 수색 구현 |
+| task.qa.feature.swimming | qa | high | done | 해안 수영과 수상 수색 검증 |
 | task.art.icon.resource-tool-set | art | medium | ready | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | ready | 코믹 피드백 효과 세트 제작 |
 
@@ -73,7 +73,7 @@
 - icon.resource-tool-set: needed · 자원·도구 아이콘 세트
 - ui.survival-hud: needed · PC·Steam 프로토타입 UI
 - effect.comedy-feedback: needed · 코믹 피드백 효과 세트
-- animation.mr-kim.swim: needed · 김씨 수영 애니메이션
+- animation.mr-kim.swim: review · 김씨 수영 애니메이션
 
 ## 검증 증거
 
@@ -160,6 +160,15 @@
 - task.feature.feature.dual-input: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.dual-input: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.dual-input: Artifacts/Verification/windows-build.txt
+- task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json
+- task.system.system.swimming: Artifacts/Verification/editmode-checks.txt
+- task.system.system.swimming: Artifacts/Verification/kim-survival-swimming-1280x800.png
+- task.feature.feature.swimming: Artifacts/Verification/playmode-checks.txt
+- task.feature.feature.swimming: Artifacts/Verification/kim-survival-swimming-1280x800.png
+- task.qa.feature.swimming: Artifacts/Verification/editmode-checks.txt
+- task.qa.feature.swimming: Artifacts/Verification/playmode-checks.txt
+- task.qa.feature.swimming: Artifacts/Verification/windows-build.txt
+- task.qa.feature.swimming: Artifacts/Verification/kim-survival-swimming-1280x800.png
 
 ## 차단 요소
 

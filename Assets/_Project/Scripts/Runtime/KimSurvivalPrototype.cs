@@ -12,16 +12,21 @@ namespace KimSurvival
         private const string AssetCampBackground = "background.island-camp";
         private const string AssetSearchBackground = "background.coast-forest";
         private const string AssetKim = "character.mr-kim";
+        private const string AssetSwim = "animation.mr-kim.swim";
         private const string AssetStructures = "object.camp-structures";
         private const string AssetHud = "ui.survival-hud";
         private const string AssetIcons = "icon.resource-tool-set";
         private const string AssetComedy = "effect.comedy-feedback";
+        private const float CoastlineX = -4.2f;
+        private const float LandY = -2.15f;
+        private const float WaterY = -1.88f;
 
         private sealed class NodeView
         {
             public ResourceKind Kind;
             public int Amount;
             public float X;
+            public bool Water;
             public GameObject Root;
             public bool Collected;
         }
@@ -37,6 +42,7 @@ namespace KimSurvival
         private Sprite squareSprite;
         private Transform worldRoot;
         private Transform playerRoot;
+        private Transform swimWakeRoot;
         private Text statusText;
         private Text resourceText;
         private Text messageText;
@@ -233,7 +239,7 @@ namespace KimSurvival
 
         private void RefreshHud()
         {
-            string phaseName = session.Phase == GamePhase.Camp ? (session.ExpeditionCompleted ? "귀환 후 정비" : "캠프 준비") : session.Phase == GamePhase.Exploring ? "섬 수색" : "결과";
+            string phaseName = session.Phase == GamePhase.Camp ? (session.ExpeditionCompleted ? "귀환 후 정비" : "캠프 준비") : session.Phase == GamePhase.Exploring ? (session.IsSwimming ? "얕은 연안 수영" : "섬 수색") : "결과";
             statusText.text = "DAY " + session.Day + "/" + GameSession.FinalDay + "  ·  " + phaseName + "\n허기 " + Mathf.RoundToInt(session.Hunger) + "  |  체력 " + Mathf.RoundToInt(session.Energy) + (session.Phase == GamePhase.Exploring ? "  |  일광 " + Mathf.RoundToInt(session.Daylight) : string.Empty);
             resourceText.text = "나무 " + session.GetStorage(ResourceKind.Wood) + "   돌 " + session.GetStorage(ResourceKind.Stone) + "   식량 " + session.GetStorage(ResourceKind.Food) + "   표류물 " + session.GetStorage(ResourceKind.Salvage) + "\n신호대 " + session.SignalStage + "/2   도끼 " + YesNo(session.HasAxe) + "   밧줄 " + YesNo(session.HasRope);
             messageText.text = session.LastMessage;
@@ -245,7 +251,7 @@ namespace KimSurvival
             }
             else if (session.Phase == GamePhase.Exploring)
             {
-                controlsText.text = activeDevice + " · A/D 또는 스틱 이동 · Space/A 점프 · E/X 수색 · R/B 귀환";
+                controlsText.text = activeDevice + " · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환";
                 bagTitleText.text = session.HasPendingLoot ? "가방이 꽉 찼습니다\n버릴 슬롯을 선택" : "수색 가방 4칸\n한 묶음 최대 2개";
             }
 
@@ -293,6 +299,7 @@ namespace KimSurvival
             nodes.Clear();
             structureViews.Clear();
             playerRoot = null;
+            swimWakeRoot = null;
 
             if (session.Phase == GamePhase.Exploring)
             {
@@ -327,39 +334,44 @@ namespace KimSurvival
 
         private void CreateSearchWorld()
         {
-            playerX = -8.4f;
-            playerY = -2.15f;
+            playerX = -3f;
+            playerY = LandY;
             verticalVelocity = 0f;
             grounded = true;
             barrierMessageShown = false;
-            worldCamera.transform.position = new Vector3(-4f, 0f, -10f);
+            worldCamera.transform.position = new Vector3(-3.8f, 0f, -10f);
             worldCamera.backgroundColor = new Color(0.35f, 0.74f, 0.9f);
             CreateRect("하늘 · " + AssetSearchBackground, new Vector2(4f, 1.5f), new Vector2(36f, 8.2f), new Color(0.35f, 0.74f, 0.9f), -20);
-            CreateRect("바다", new Vector2(-4f, -1.2f), new Vector2(16f, 2.8f), new Color(0.12f, 0.55f, 0.76f), -15);
-            CreateRect("해변과 숲 바닥", new Vector2(4f, -3.25f), new Vector2(36f, 1.9f), new Color(0.87f, 0.68f, 0.34f), -10);
+            CreateRect("얕은 연안", new Vector2(-8f, -1.15f), new Vector2(10f, 3f), new Color(0.12f, 0.55f, 0.76f), -15);
+            CreateRect("연안 모래 바닥", new Vector2(-8f, -3.55f), new Vector2(10f, 1.3f), new Color(0.66f, 0.57f, 0.34f), -12);
+            CreateRect("해변과 숲 바닥", new Vector2(8.5f, -3.25f), new Vector2(25f, 1.9f), new Color(0.87f, 0.68f, 0.34f), -10);
+            CreateRect("해안선", new Vector2(CoastlineX, -2.35f), new Vector2(0.28f, 1.25f), new Color(0.86f, 0.94f, 0.86f), -4);
             CreateSun(new Vector2(-1f, 3.6f));
             for (int i = 0; i < 7; i += 1)
             {
                 CreatePalm(new Vector2(2.8f + i * 2.35f, -2.28f), 0.75f + (i % 2) * 0.14f);
             }
 
-            GameObject returnFlag = CreateRect("귀환 지점", new Vector2(-9.1f, -1.25f), new Vector2(0.18f, 2.6f), new Color(0.35f, 0.2f, 0.08f), 2);
-            CreateRect("귀환 깃발", new Vector2(-8.55f, -0.35f), new Vector2(1.1f, 0.65f), new Color(1f, 0.48f, 0.16f), 3);
+            GameObject returnFlag = CreateRect("귀환 지점", new Vector2(-2.7f, -1.25f), new Vector2(0.18f, 2.6f), new Color(0.35f, 0.2f, 0.08f), 2);
+            CreateRect("귀환 깃발", new Vector2(-2.15f, -0.35f), new Vector2(1.1f, 0.65f), new Color(1f, 0.48f, 0.16f), 3);
             CreateWorldLabel(returnFlag.transform, "CAMP", new Vector3(0.6f, 1.7f, -0.1f), 45, Color.black);
 
             Color barrierColor = session.HasRope ? new Color(0.25f, 0.7f, 0.3f, 0.35f) : new Color(0.2f, 0.42f, 0.17f, 0.95f);
-            GameObject barrier = CreateRect("밧줄 필요 숲길", new Vector2(7.7f, -0.75f), new Vector2(1.25f, 5f), barrierColor, 1);
+            GameObject barrier = CreateRect("밧줄 필요 숲길", new Vector2(8.7f, -0.75f), new Vector2(1.25f, 5f), barrierColor, 1);
             CreateWorldLabel(barrier.transform, session.HasRope ? "밧줄로 통과" : "밧줄 필요", new Vector3(0f, 2.9f, -0.1f), 38, Color.black);
 
-            SpawnNode(-5.6f, ResourceKind.Wood, 2);
-            SpawnNode(-2.4f, ResourceKind.Stone, 2);
-            SpawnNode(0.7f, ResourceKind.Food, 2);
-            SpawnNode(3.5f, ResourceKind.Salvage, 2);
-            SpawnNode(6.2f, ResourceKind.Wood, 2);
-            SpawnNode(9.4f, ResourceKind.Salvage, 2);
-            SpawnNode(12.5f, ResourceKind.Stone, 2);
-            SpawnNode(15.5f, ResourceKind.Salvage, 2);
+            SpawnNode(-8.2f, ResourceKind.Salvage, 2, true);
+            SpawnNode(-5.8f, ResourceKind.Food, 2, true);
+            SpawnNode(-1.1f, ResourceKind.Wood, 2);
+            SpawnNode(1.5f, ResourceKind.Stone, 2);
+            SpawnNode(4.1f, ResourceKind.Food, 2);
+            SpawnNode(6.8f, ResourceKind.Salvage, 2);
+            SpawnNode(10.2f, ResourceKind.Wood, 2);
+            SpawnNode(12.8f, ResourceKind.Salvage, 2);
+            SpawnNode(15.2f, ResourceKind.Stone, 2);
+            SpawnNode(17.7f, ResourceKind.Salvage, 2);
             CreateKim(new Vector2(playerX, playerY));
+            CreateSwimWake();
         }
 
         private void UpdateExploration()
@@ -392,43 +404,55 @@ namespace KimSurvival
                 if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) horizontal = 1f;
             }
 
-            playerX += horizontal * 4.2f * Time.deltaTime;
-            float maximumX = session.HasRope ? 17.2f : 7.0f;
-            playerX = Mathf.Clamp(playerX, -9f, maximumX);
-            if (!session.HasRope && playerX > 6.75f && !barrierMessageShown)
+            float moveSpeed = session.IsSwimming ? 2.65f : 4.2f;
+            playerX += horizontal * moveSpeed * Time.deltaTime;
+            float maximumX = session.HasRope ? 19f : 8.0f;
+            playerX = Mathf.Clamp(playerX, -10.5f, maximumX);
+            if (!session.HasRope && playerX > 7.75f && !barrierMessageShown)
             {
                 barrierMessageShown = true;
                 messageText.text = "숲이 너무 빽빽하다. 밧줄을 만들면 넘어갈 방법이 생길 것 같다.";
             }
 
+            bool wasSwimming = session.IsSwimming;
+            bool shouldSwim = playerX < CoastlineX;
+            session.SetSwimming(shouldSwim);
+
             bool jumpPressed = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.JoystickButton0);
-            if (jumpPressed && grounded)
+            if (session.IsSwimming)
+            {
+                grounded = true;
+                verticalVelocity = 0f;
+                playerY = WaterY + Mathf.Sin(Time.time * 4.2f) * 0.08f;
+            }
+            else if (jumpPressed && grounded)
             {
                 grounded = false;
                 verticalVelocity = 6.5f;
             }
 
-            if (!grounded)
+            if (!session.IsSwimming && wasSwimming)
+            {
+                playerY = LandY;
+                verticalVelocity = 0f;
+                grounded = true;
+            }
+
+            if (!session.IsSwimming && !grounded)
             {
                 verticalVelocity -= 18f * Time.deltaTime;
                 playerY += verticalVelocity * Time.deltaTime;
-                if (playerY <= -2.15f)
+                if (playerY <= LandY)
                 {
-                    playerY = -2.15f;
+                    playerY = LandY;
                     verticalVelocity = 0f;
                     grounded = true;
                 }
             }
 
-            if (playerRoot != null)
-            {
-                playerRoot.position = new Vector3(playerX, playerY, 0f);
-                Vector3 scale = playerRoot.localScale;
-                scale.x = Mathf.Abs(scale.x) * (horizontal < -0.01f ? -1f : horizontal > 0.01f ? 1f : Mathf.Sign(scale.x));
-                playerRoot.localScale = scale;
-            }
+            ApplyPlayerPresentation(horizontal);
 
-            float targetCameraX = Mathf.Clamp(playerX + 2.5f, -3.6f, 11.5f);
+            float targetCameraX = Mathf.Clamp(playerX + 2.5f, -6.5f, 12.5f);
             Vector3 cameraPosition = worldCamera.transform.position;
             cameraPosition.x = Mathf.Lerp(cameraPosition.x, targetCameraX, Time.deltaTime * 4f);
             worldCamera.transform.position = cameraPosition;
@@ -477,7 +501,7 @@ namespace KimSurvival
                 return;
             }
 
-            GatherResult result = session.TryGather(nearest.Kind, nearest.Amount);
+            GatherResult result = session.TryGather(nearest.Kind, nearest.Amount, nearest.Water);
             if (result != GatherResult.Rejected)
             {
                 nearest.Collected = true;
@@ -516,7 +540,7 @@ namespace KimSurvival
             }
         }
 
-        public string RunAutomatedVerification(string explorationScreenshotPath)
+        public string RunAutomatedVerification(string explorationScreenshotPath, string swimmingScreenshotPath)
         {
             session.Reset();
             session.Grant(ResourceKind.Wood, 20);
@@ -539,18 +563,42 @@ namespace KimSurvival
 
             phaseButton.onClick.Invoke();
             Require(session.Phase == GamePhase.Exploring, "수색 시작 UI 경로");
-            Require(nodes.Count >= 8, "8개 이상 채집 지점");
-            HashSet<ResourceKind> gatheredKinds = new HashSet<ResourceKind>();
+            Require(nodes.Count >= 10, "10개 이상 채집 지점");
+            NodeView waterNode = nodes.Find(node => node.Water);
+            Require(waterNode != null && nodes.FindAll(node => node.Water).Count >= 2, "얕은 연안 수색 지점 2개");
+            float waterDaylightBefore = session.Daylight;
+            float waterEnergyBefore = session.Energy;
+            playerX = waterNode.X;
+            playerY = WaterY;
+            Require(session.SetSwimming(true), "해안 입수 전환");
+            session.TickSearch(1f, true);
+            Require(waterDaylightBefore - session.Daylight > 0.9f && waterEnergyBefore - session.Energy > 0.5f, "수영의 추가 일광·체력 소모");
+            ApplyPlayerPresentation(-1f);
+            worldCamera.transform.position = new Vector3(Mathf.Clamp(playerX + 2.5f, -6.5f, 12.5f), 0f, -10f);
+            RefreshHud();
+            if (!string.IsNullOrWhiteSpace(swimmingScreenshotPath))
+            {
+                CaptureVerificationPng(swimmingScreenshotPath, 1280, 800);
+            }
+
+            GatherNearestNode();
+            Require(waterNode.Collected, "수영 중 연안 자원 수색");
+            HashSet<ResourceKind> gatheredKinds = new HashSet<ResourceKind> { waterNode.Kind };
+            Require(session.SetSwimming(false), "해안 이탈 전환");
+            playerX = -1.1f;
+            playerY = LandY;
+            ApplyPlayerPresentation(1f);
             for (int i = 0; i < nodes.Count && gatheredKinds.Count < 4; i += 1)
             {
                 NodeView node = nodes[i];
-                if (gatheredKinds.Contains(node.Kind))
+                if (node.Water || gatheredKinds.Contains(node.Kind))
                 {
                     continue;
                 }
 
                 playerX = node.X;
-                playerRoot.position = new Vector3(playerX, playerY, 0f);
+                playerY = LandY;
+                ApplyPlayerPresentation(1f);
                 GatherNearestNode();
                 gatheredKinds.Add(node.Kind);
                 if (session.HasPendingLoot)
@@ -564,6 +612,7 @@ namespace KimSurvival
             float energyBeforeMovement = session.Energy;
             session.TickSearch(1f, true);
             Require(session.Daylight < daylightBeforeMovement && session.Energy < energyBeforeMovement, "이동 중 일광·체력 소모");
+            worldCamera.transform.position = new Vector3(Mathf.Clamp(playerX + 2.5f, -6.5f, 12.5f), 0f, -10f);
             RefreshHud();
             if (!string.IsNullOrWhiteSpace(explorationScreenshotPath))
             {
@@ -578,7 +627,7 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · UI 버튼 건설·제작·연구, 8개 수색 지점, 월드 이동·4종 채집, 가방 교체, 귀환·정산, 신호대 진척 확인";
+            return "PASS · UI 건설·제작·연구, 10개 수색 지점, 해안 입수·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산·신호대 확인";
         }
 
         public void CaptureVerificationPng(string absolutePath, int width, int height)
@@ -601,15 +650,46 @@ namespace KimSurvival
             Destroy(image);
         }
 
-        private void SpawnNode(float x, ResourceKind kind, int amount)
+        private void SpawnNode(float x, ResourceKind kind, int amount, bool water = false)
         {
-            GameObject root = new GameObject("채집 · " + GameSession.ResourceName(kind));
+            GameObject root = new GameObject((water ? "연안 수색 · " : "채집 · ") + GameSession.ResourceName(kind));
             root.transform.SetParent(worldRoot, false);
-            root.transform.position = new Vector3(x, -2.25f, 0f);
+            root.transform.position = new Vector3(x, water ? -1.72f : -2.25f, 0f);
             GameObject marker = CreateRect(root.transform, "자원", Vector2.zero, new Vector2(0.95f, 0.95f), ResourceColor(kind, 1f), 4);
             marker.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
-            CreateWorldLabel(root.transform, GameSession.ResourceName(kind) + " ×" + amount, new Vector3(0f, 0.9f, -0.1f), 42, Color.black);
-            nodes.Add(new NodeView { Kind = kind, Amount = amount, X = x, Root = root, Collected = false });
+            CreateWorldLabel(root.transform, (water ? "헤엄쳐 수색\n" : string.Empty) + GameSession.ResourceName(kind) + " ×" + amount, new Vector3(0f, 0.9f, -0.1f), 42, water ? Color.white : Color.black);
+            nodes.Add(new NodeView { Kind = kind, Amount = amount, X = x, Water = water, Root = root, Collected = false });
+        }
+
+        private void CreateSwimWake()
+        {
+            GameObject root = new GameObject("수영 임시 표현 · " + AssetSwim);
+            root.transform.SetParent(worldRoot, false);
+            CreateRect(root.transform, "앞 물결", new Vector2(0.7f, 0f), new Vector2(1.15f, 0.12f), new Color(0.82f, 0.96f, 1f, 0.9f), 11);
+            CreateRect(root.transform, "뒤 물결", new Vector2(-0.8f, -0.18f), new Vector2(1.55f, 0.1f), new Color(0.72f, 0.91f, 1f, 0.78f), 11);
+            swimWakeRoot = root.transform;
+            swimWakeRoot.gameObject.SetActive(false);
+        }
+
+        private void ApplyPlayerPresentation(float horizontal)
+        {
+            if (playerRoot == null)
+            {
+                return;
+            }
+
+            float currentSign = Mathf.Sign(playerRoot.localScale.x);
+            float facing = horizontal < -0.01f ? -1f : horizontal > 0.01f ? 1f : (Mathf.Abs(currentSign) < 0.01f ? 1f : currentSign);
+            playerRoot.position = new Vector3(playerX, playerY, 0f);
+            playerRoot.localScale = session.IsSwimming ? new Vector3(facing * 1.25f, 0.72f, 1f) : new Vector3(facing, 1f, 1f);
+            playerRoot.localRotation = Quaternion.Euler(0f, 0f, session.IsSwimming ? -68f : 0f);
+
+            if (swimWakeRoot != null)
+            {
+                swimWakeRoot.gameObject.SetActive(session.IsSwimming);
+                swimWakeRoot.position = new Vector3(playerX, WaterY - 0.25f, 0f);
+                swimWakeRoot.localScale = new Vector3(facing, 1f, 1f);
+            }
         }
 
         private void CreateStructurePlaceholder(StructureKind kind, Vector2 position, Vector2 size, Color color, string label)

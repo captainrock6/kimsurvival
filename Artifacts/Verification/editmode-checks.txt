@@ -1,4 +1,4 @@
 PASS · deterministic edit checks
-Started UTC: 2026-08-22T09:10:08.6234386Z
-Completed UTC: 2026-08-22T09:10:08.6343020Z
-Checks: inventory overflow/swap, return transfer, camp structures, research, crafting, rescue success, deadline failure
+Started UTC: 2026-08-22T09:22:10.4833477Z
+Completed UTC: 2026-08-22T09:22:10.4893336Z
+Checks: inventory overflow/swap, return transfer, shore transitions, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure

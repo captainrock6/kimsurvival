@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T09:09:25.735Z",
+  "updatedAt": "2026-08-22T09:15:36.895Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -383,9 +383,9 @@
       "id": "animation.mr-kim.swim",
       "name": "김씨 수영 애니메이션",
       "assetType": "sprite_animation",
-      "request": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "채택된 character.mr-kim의 얼굴, 성인 비율, 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 정확히 유지한다. 오른쪽을 향해 수면에서 다소 서툴게 헤엄치는 한 동작만 6프레임으로 표현한다. 팔 젓기와 발차기가 자연스럽게 이어지는 루프이며 각 프레임의 몸 크기, 중심, 수면 높이와 기준점을 완전히 고정한다. 6개 동일 셀을 가로 한 줄로 배치하고 서로 겹치지 않으며 실제 투명 배경을 사용한다. 물, 물보라, 그림자, 프레임 선, 글자, 숫자, 라벨, 다른 캐릭터와 소품은 포함하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "2d",
@@ -397,14 +397,74 @@
       "dependencies": [
         "character.mr-kim"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260822091448_251bc2a1"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822091448_251bc2a1",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T09:14:48.694Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822091448_251bc2a1",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T09:15:36.895Z",
+          "qualityScore": 70
+        }
+      ],
+      "currentJobId": "job_20260822091448_251bc2a1",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 51369,
+          "url": "/outputs/jobs/job_20260822091448_251bc2a1/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 46776,
+          "url": "/outputs/jobs/job_20260822091448_251bc2a1/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-71e8e101-9429-46d2-88f5-5900153d941a.png",
+          "contentType": "image/png",
+          "bytes": 988472,
+          "url": "/outputs/jobs/job_20260822091448_251bc2a1/exec-71e8e101-9429-46d2-88f5-5900153d941a.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 963,
+          "url": "/outputs/jobs/job_20260822091448_251bc2a1/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1536,
+          "url": "/outputs/jobs/job_20260822091448_251bc2a1/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-71e8e101-9429-46d2-88f5-5900153d941a.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6237,
+          "url": "/outputs/jobs/job_20260822091448_251bc2a1/qa-preview-exec-71e8e101-9429-46d2-88f5-5900153d941a.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-22T09:09:25.735Z"
+      "updatedAt": "2026-08-22T09:15:36.895Z"
     }
   ]
 }

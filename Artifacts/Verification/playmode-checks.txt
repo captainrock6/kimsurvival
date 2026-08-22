@@ -1,5 +1,6 @@
 PASS
-PASS · UI 버튼 건설·제작·연구, 8개 수색 지점, 월드 이동·4종 채집, 가방 교체, 귀환·정산, 신호대 진척 확인
+PASS · UI 건설·제작·연구, 10개 수색 지점, 해안 입수·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산·신호대 확인
+Swimming screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-swimming-1280x800.png
 Exploration screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-exploration-1280x800.png
 Camp screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-playmode-1280x800.png
-Completed UTC: 2026-08-22T08:22:57.3573411Z
+Completed UTC: 2026-08-22T09:23:06.8400390Z

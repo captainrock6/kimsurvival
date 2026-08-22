@@ -70,6 +70,22 @@ namespace KimSurvival.EditorTools
             Assert(inventory.ReturnToCamp(false), "Bag transfers on return");
             Assert(inventory.GetStorage(ResourceKind.Wood) >= 3, "Returned wood reaches storage");
 
+            GameSession landTravel = new GameSession();
+            Assert(landTravel.BeginSearch(), "Land travel scenario begins search");
+            landTravel.TickSearch(10f, true);
+            float landEnergyCost = 100f - landTravel.Energy;
+            float landDaylightCost = 100f - landTravel.Daylight;
+
+            GameSession swimTravel = new GameSession();
+            Assert(swimTravel.BeginSearch(), "Swimming scenario begins search");
+            Assert(swimTravel.TryGather(ResourceKind.Salvage, 1, true) == GatherResult.Rejected, "Water node rejects land interaction");
+            Assert(swimTravel.SetSwimming(true) && swimTravel.IsSwimming, "Shore entry enables swimming");
+            swimTravel.TickSearch(10f, true);
+            Assert(100f - swimTravel.Energy > landEnergyCost, "Swimming costs more energy than land movement");
+            Assert(100f - swimTravel.Daylight > landDaylightCost, "Swimming costs more daylight than land movement");
+            Assert(swimTravel.TryGather(ResourceKind.Salvage, 1, true) == GatherResult.Added, "Water node can be searched while swimming");
+            Assert(swimTravel.SetSwimming(false) && !swimTravel.IsSwimming, "Shore exit restores land state");
+
             GameSession progression = new GameSession();
             progression.Grant(ResourceKind.Wood, 20);
             progression.Grant(ResourceKind.Stone, 10);
@@ -100,7 +116,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: inventory overflow/swap, return transfer, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: inventory overflow/swap, return transfer, shore transitions, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -247,11 +263,12 @@ namespace KimSurvival.EditorTools
             try
             {
                 string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-exploration-1280x800.png"));
-                string result = prototype.RunAutomatedVerification(explorationScreenshot);
+                string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-swimming-1280x800.png"));
+                string result = prototype.RunAutomatedVerification(explorationScreenshot, swimmingScreenshot);
                 string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-playmode-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
-                SessionState.SetString(MessageKey, result + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);
+                SessionState.SetString(MessageKey, result + "\nSwimming screenshot: " + swimmingScreenshot + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);
             }
             catch (Exception exception)
             {

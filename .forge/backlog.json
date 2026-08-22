@@ -1050,11 +1050,18 @@
       "acceptanceCriteria": [
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1"
+      ],
+      "evidence": [
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T09:09:25.632Z"
+      "status": "review",
+      "updatedAt": "2026-08-22T09:25:35.054Z",
+      "note": "Six-frame candidate preserved for review; quality gate failed because the checkerboard background is baked pixels rather than real alpha. Do not adopt until revised.",
+      "completedAt": null,
+      "createdAt": "2026-08-22T09:25:35.033Z"
     },
     {
       "id": "task.system.system.swimming",
@@ -1071,11 +1078,20 @@
         "수영 상태가 육상 이동·점프와 충돌하지 않고 진입과 이탈 때 플레이어 위치와 생존 상태를 보존한다.",
         "수영 비용과 수상 보상이 동일한 규칙으로 재현되며 강제 귀환·실패 판정과 연결된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T09:09:25.632Z"
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:36.302Z",
+      "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
+      "completedAt": "2026-08-22T09:25:36.301Z",
+      "createdAt": "2026-08-22T09:25:36.302Z"
     },
     {
       "id": "task.feature.feature.swimming",
@@ -1103,11 +1119,20 @@
         "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
         "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "README.md"
+      ],
+      "evidence": [
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T09:09:25.632Z"
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:37.709Z",
+      "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
+      "completedAt": "2026-08-22T09:25:37.708Z",
+      "createdAt": "2026-08-22T09:25:37.709Z"
     },
     {
       "id": "task.qa.feature.swimming",
@@ -1129,9 +1154,18 @@
         "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:39.001Z",
+      "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
+      "completedAt": "2026-08-22T09:25:39.001Z",
+      "createdAt": "2026-08-22T09:25:39.001Z"
     },
     {
       "id": "task.art.icon.resource-tool-set",
@@ -1183,5 +1217,5 @@
       "updatedAt": "2026-08-22T07:58:18.329Z"
     }
   ],
-  "updatedAt": "2026-08-22T09:09:25.747Z"
+  "updatedAt": "2026-08-22T09:25:39.001Z"
 }

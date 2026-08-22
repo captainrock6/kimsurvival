@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260822090925_e8bba2ac",
   "createdAt": "2026-08-22T09:09:25.631Z",
-  "updatedAt": "2026-08-22T09:10:24.053Z",
+  "updatedAt": "2026-08-22T09:26:01.975Z",
   "sourceRequest": "사용자가 정식 제작 범위에 수영이 있다고 명시했다. 기존 횡스크롤 수색에 해안 수면 수영을 추가한다.",
   "state": "in_progress",
   "stages": {
@@ -12,20 +12,31 @@
     },
     "art": {
       "status": "in_progress",
-      "note": "Base Mr. Kim character is adopted and Unity packaged; swimming animation is planned as a separate dependent asset.",
+      "note": "Swim sheet candidate generated and preserved in review. Forge quality gate failed on missing real alpha, so production art remains open and the prototype uses a placeholder pose.",
       "evidence": [
-        "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/quality-report.json",
-        "Artifacts/Verification/editmode-checks.txt"
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json"
       ],
-      "updatedAt": "2026-08-22T09:10:24.053Z"
+      "updatedAt": "2026-08-22T09:25:59.343Z"
     },
     "implementation": {
-      "status": "planned",
-      "updatedAt": "2026-08-22T09:09:25.631Z"
+      "status": "complete",
+      "note": "Shallow-water swimming vertical-slice mechanics are implemented.",
+      "evidence": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "updatedAt": "2026-08-22T09:26:00.673Z"
     },
     "verification": {
-      "status": "planned",
-      "updatedAt": "2026-08-22T09:09:25.631Z"
+      "status": "complete",
+      "note": "Deterministic checks, rendered Play Mode route, and Windows development build passed.",
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "updatedAt": "2026-08-22T09:26:01.975Z"
     }
   }
 }
