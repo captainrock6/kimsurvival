@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetId": "effect.comedy-feedback",
+  "jobId": "job_20260822224357_275de712",
+  "status": "review",
+  "generatedAt": "2026-08-22T22:50:59.3202071Z",
+  "languageDependency": "none",
+  "canvas": {
+    "file": "sprite-sheet.png",
+    "width": 768,
+    "height": 512,
+    "layout": "3x2-row-major",
+    "cellWidth": 256,
+    "cellHeight": 256,
+    "origin": "top-left",
+    "background": "transparent-alpha"
+  },
+  "unity": {
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "pivot": [0.5, 0.5],
+    "usage": "Static source sprites for short scale, rotation, alpha and particle-driven feedback; timing is authored in engine."
+  },
+  "effects": [
+    {
+      "id": "collect_success",
+      "file": "collect_success.png",
+      "column": 0,
+      "row": 0,
+      "atlasRectTopLeft": [0, 0, 256, 256],
+      "suggestedDurationSeconds": 0.35,
+      "semantic": "gather-success"
+    },
+    {
+      "id": "bag_full_swap",
+      "file": "bag_full_swap.png",
+      "column": 1,
+      "row": 0,
+      "atlasRectTopLeft": [256, 0, 256, 256],
+      "suggestedDurationSeconds": 0.45,
+      "semantic": "inventory-full-or-swap"
+    },
+    {
+      "id": "placement_invalid",
+      "file": "placement_invalid.png",
+      "column": 2,
+      "row": 0,
+      "atlasRectTopLeft": [512, 0, 256, 256],
+      "suggestedDurationSeconds": 0.35,
+      "semantic": "placement-invalid"
+    },
+    {
+      "id": "hunger_exhaustion",
+      "file": "hunger_exhaustion.png",
+      "column": 0,
+      "row": 1,
+      "atlasRectTopLeft": [0, 256, 256, 256],
+      "suggestedDurationSeconds": 0.6,
+      "semantic": "hunger-or-exhaustion"
+    },
+    {
+      "id": "craft_build_complete",
+      "file": "craft_build_complete.png",
+      "column": 1,
+      "row": 1,
+      "atlasRectTopLeft": [256, 256, 256, 256],
+      "suggestedDurationSeconds": 0.45,
+      "semantic": "craft-or-build-complete"
+    },
+    {
+      "id": "rescue_success",
+      "file": "rescue_success.png",
+      "column": 2,
+      "row": 1,
+      "atlasRectTopLeft": [512, 256, 256, 256],
+      "suggestedDurationSeconds": 0.8,
+      "semantic": "rescue-success"
+    }
+  ]
+}

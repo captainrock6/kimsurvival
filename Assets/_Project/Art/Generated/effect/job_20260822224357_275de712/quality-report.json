@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 15,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "source-sheet-alpha.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.8898,
+      "contrastStdDev": 39.72,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 113,
+        "top": 110,
+        "right": 102,
+        "bottom": 110
+      },
+      "previewFile": "qa-preview-source-sheet-alpha.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "sprite-sheet.png",
+      "kind": "raster",
+      "width": 768,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.8527,
+      "contrastStdDev": 65.35,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 25,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-sprite-sheet.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "collect_success.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.8958,
+      "contrastStdDev": 49.72,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 25,
+        "right": 24,
+        "bottom": 25
+      },
+      "previewFile": "qa-preview-collect_success.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "bag_full_swap.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7523,
+      "contrastStdDev": 74.58,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 39,
+        "right": 24,
+        "bottom": 40
+      },
+      "previewFile": "qa-preview-bag_full_swap.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "placement_invalid.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7436,
+      "contrastStdDev": 67.24,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 33,
+        "right": 24,
+        "bottom": 33
+      },
+      "previewFile": "qa-preview-placement_invalid.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "hunger_exhaustion.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.8676,
+      "contrastStdDev": 54.07,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 40,
+        "top": 24,
+        "right": 40,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-hunger_exhaustion.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "craft_build_complete.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.8754,
+      "contrastStdDev": 70.36,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 35,
+        "right": 24,
+        "bottom": 35
+      },
+      "previewFile": "qa-preview-craft_build_complete.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "rescue_success.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.8076,
+      "contrastStdDev": 85.22,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 43,
+        "top": 24,
+        "right": 43,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-rescue_success.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "readability-24-32-64.png",
+      "kind": "raster",
+      "width": 768,
+      "height": 768,
+      "hasAlpha": true,
+      "transparentRatio": 0.9974,
+      "contrastStdDev": 17.86,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 102,
+        "top": 54,
+        "right": 102,
+        "bottom": 37
+      },
+      "previewFile": "qa-preview-readability-24-32-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "visual-review.png",
+      "kind": "raster",
+      "width": 768,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.8527,
+      "contrastStdDev": 65.35,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 25,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-visual-review.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "effect-metadata.json",
+      "kind": "editable-source",
+      "bytes": 2200,
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 1160,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 1359,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 1471,
+      "issues": []
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 1081,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-22T22:52:20.370Z",
+  "jobId": "job_20260822224357_275de712",
+  "assetType": "effect"
+}
