@@ -66,6 +66,7 @@ namespace KimSurvival.EditorTools
         {
             Directory.CreateDirectory(VerificationFolder);
             DateTime started = DateTime.UtcNow;
+            PrototypeLocalizationAssetBuilder.SyncAssets();
 
             GameSession inventory = new GameSession();
             Assert(inventory.BeginSearch(), "Inventory scenario begins search");
@@ -119,6 +120,44 @@ namespace KimSurvival.EditorTools
             Assert(keyboardActions.ReturnPressed && gamepadActions.ReturnPressed, "Keyboard and gamepad share the return action");
             Assert(keyboardActions.CancelPressed && gamepadActions.CancelPressed, "Keyboard and gamepad share the cancel action");
             Assert(keyboardActions.BagSlotIndex == 2, "Keyboard loot slot maps into the shared action snapshot");
+
+            PrototypeSystemActions keyboardSystemActions = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { KeyboardLanguage = true });
+            PrototypeSystemActions gamepadSystemActions = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { GamepadLanguage = true });
+            Assert(keyboardSystemActions.LanguagePressed && gamepadSystemActions.LanguagePressed, "Keyboard and gamepad share the language action");
+
+            bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
+            string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
+            PrototypeLocalization localization = new PrototypeLocalization();
+            string originalLocale = localization.CurrentLocaleCode;
+            try
+            {
+                Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false), "English locale is selectable");
+                Assert(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English String Table is active immediately");
+                Assert(localization.Format("hud.status.camp", 1, 3, "Camp", 75, 100).Contains("Hunger 75"), "Smart String arguments format in English");
+                Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
+                Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
+                Assert(localization.Format("ui.camp.title") == "베이스캠프 · 제작 / 건설 / 연구", "Korean source string restores immediately");
+                Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
+                Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
+                Assert(PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey) == PrototypeLocalization.EnglishLocaleCode, "Persisted locale is available to the next launch");
+
+                PrototypeLocaleFontProfile fontProfile = Resources.Load<PrototypeLocaleFontProfile>("PrototypeLocaleFontProfile");
+                Assert(fontProfile != null && fontProfile.Find("ko") != null && fontProfile.Find("en") != null, "Locale-specific TMP primary and fallback mappings are data assets");
+            }
+            finally
+            {
+                localization.SetLocale(originalLocale, false);
+                localization.Dispose();
+                if (hadLocalePreference)
+                {
+                    PlayerPrefs.SetString(PrototypeLocalization.PreferenceKey, originalLocalePreference);
+                }
+                else
+                {
+                    PlayerPrefs.DeleteKey(PrototypeLocalization.PreferenceKey);
+                }
+                PlayerPrefs.Save();
+            }
 
             PrototypeCampPlacementActions mousePlacementActions = PrototypeCampPlacementActions.FromRaw(new PrototypeRawCampPlacementInput
             {
@@ -218,7 +257,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: inventory overflow/swap, shared keyboard/gamepad actions, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: inventory overflow/swap, shared keyboard/gamepad actions including language, ko/en Unity String Tables, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -226,6 +265,7 @@ namespace KimSurvival.EditorTools
         [MenuItem("Kim Survival/Build Windows Prototype")]
         public static void BuildWindows()
         {
+            PrototypeLocalizationAssetBuilder.SyncAssets();
             if (!File.Exists(ScenePath))
             {
                 CreateProject();

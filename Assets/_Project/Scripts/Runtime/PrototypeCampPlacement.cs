@@ -58,30 +58,29 @@ namespace KimSurvival
             get { return IsActive ? Validate(selectedKind, candidateX) : CampPlacementValidity.Valid; }
         }
 
-        public string CurrentFeedback
+        public PrototypeLocalizedText CurrentFeedback
         {
             get
             {
                 if (!IsActive)
                 {
-                    return string.Empty;
+                    return PrototypeLocalizedText.Empty;
                 }
 
-                string action = IsRelocating ? "재배치" : "배치";
                 switch (CurrentValidity)
                 {
                     case CampPlacementValidity.Valid:
-                        return GetStructureName(selectedKind) + " " + action + " 가능 · 0.5m 바닥 스냅";
+                        return new PrototypeLocalizedText(IsRelocating ? "placement.valid.relocate" : "placement.valid.build", selectedKind);
                     case CampPlacementValidity.OutsideCampBounds:
-                        return "캠프의 호환 건설 구역 밖에는 놓을 수 없다.";
+                        return new PrototypeLocalizedText("placement.outside");
                     case CampPlacementValidity.OverlapsStructure:
-                        return "다른 설비와 겹친다. 김씨도 물건을 포개 쓰지는 않는다.";
+                        return new PrototypeLocalizedText("placement.overlap");
                     case CampPlacementValidity.BlocksEntrance:
-                        return "캠프 출입구를 막을 수 없다.";
+                        return new PrototypeLocalizedText("placement.entrance");
                     case CampPlacementValidity.BlocksRequiredPath:
-                        return "필수 이동 통로를 비워 둬야 한다.";
+                        return new PrototypeLocalizedText("placement.path");
                     default:
-                        return "배치할 수 없는 위치다.";
+                        return new PrototypeLocalizedText("placement.invalid");
                 }
             }
         }
@@ -224,21 +223,6 @@ namespace KimSurvival
                     return new Vector2(1.7f, 1.7f);
                 default:
                     return Vector2.one;
-            }
-        }
-
-        public static string GetStructureName(StructureKind kind)
-        {
-            switch (kind)
-            {
-                case StructureKind.Campfire:
-                    return "모닥불";
-                case StructureKind.Workbench:
-                    return "작업대";
-                case StructureKind.RainCollector:
-                    return "빗물받이";
-                default:
-                    return "설비";
             }
         }
 

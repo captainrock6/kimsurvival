@@ -111,14 +111,30 @@ namespace KimSurvival
         }
     }
 
+    public struct PrototypeRawSystemInput
+    {
+        public bool KeyboardLanguage;
+        public bool GamepadLanguage;
+    }
+
+    public readonly struct PrototypeSystemActions
+    {
+        public PrototypeSystemActions(bool languagePressed)
+        {
+            LanguagePressed = languagePressed;
+        }
+
+        public bool LanguagePressed { get; }
+
+        public static PrototypeSystemActions FromRaw(PrototypeRawSystemInput raw)
+        {
+            return new PrototypeSystemActions(raw.KeyboardLanguage || raw.GamepadLanguage);
+        }
+    }
+
     public sealed class LegacyPrototypePlayerInput
     {
         public PrototypeInputDevice ActiveDevice { get; private set; } = PrototypeInputDevice.KeyboardMouse;
-
-        public string ActiveDeviceLabel
-        {
-            get { return ActiveDevice == PrototypeInputDevice.Gamepad ? "게임패드" : "키보드·마우스"; }
-        }
 
         public void PollActiveDevice()
         {
@@ -201,6 +217,15 @@ namespace KimSurvival
                 GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
             };
             return PrototypeCampPlacementActions.FromRaw(raw);
+        }
+
+        public PrototypeSystemActions ReadSystemActions()
+        {
+            return PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput
+            {
+                KeyboardLanguage = Input.GetKeyDown(KeyCode.F1),
+                GamepadLanguage = Input.GetKeyDown(KeyCode.JoystickButton3)
+            });
         }
     }
 }

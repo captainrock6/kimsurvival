@@ -1,0 +1,119 @@
+Key	ko	en
+ui.camp.title	베이스캠프 · 제작 / 건설 / 연구	Base Camp · Craft / Build / Research
+ui.restart	다시 시작	Restart
+ui.language.switch.ko	언어: 한국어 → English	Language: Korean → English
+ui.language.switch.en	Language: English → 한국어	Language: English → Korean
+phase.camp.returned	귀환 후 정비	Post-expedition upkeep
+phase.camp.preparing	캠프 준비	Camp preparation
+phase.exploring.swimming	얕은 연안 수영	Swimming the shallows
+phase.exploring.land	섬 수색	Island expedition
+phase.result	결과	Result
+hud.status.camp	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4}
+hud.status.exploring	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4} | 일광 {5}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Daylight {5}
+hud.resources	나무 {0}   돌 {1}   식량 {2}   표류물 {3}\n신호대 {4}/2   도끼 {5}   밧줄 {6}	Wood {0}   Stone {1}   Food {2}   Salvage {3}\nSignal {4}/2   Axe {5}   Rope {6}
+controls.placement	{0} · 마우스 또는 스틱 좌우 배치 · 클릭/Enter/A 확정 · 우클릭/Esc/B 취소 · F1/Y 언어	{0} · Place with mouse or stick · Click/Enter/A confirm · Right-click/Esc/B cancel · F1/Y language
+controls.camp	{0} · 버튼을 선택해 캠프를 정비하세요 · 건설된 일반 설비는 무료 재배치 · F1/Y 언어	{0} · Select an action to tend camp · General facilities move for free · F1/Y language
+controls.explore	{0} · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환 · F1/Y 언어	{0} · A/D or stick move · Auto-swim at shore · Space/A jump · E/X search · R/B return · F1/Y language
+bag.camp	캠프 창고\n(수색 중에는 4칸 가방)	Camp Storage\n(4-slot bag while exploring)
+bag.pending	가방이 꽉 찼습니다\n버릴 슬롯을 선택	Bag Full\nChoose a slot to discard
+bag.exploring	수색 가방 4칸\n한 묶음 최대 2개	4-Slot Expedition Bag\nMaximum 2 per stack
+bag.slot.empty	{0}. 빈칸	{0}. Empty
+bag.slot.stack	{0}. {1} ×{2}	{0}. {1} ×{2}
+button.campfire.relocate	↔ 모닥불 무료 재배치	↔ Move Campfire Free
+button.campfire.build	모닥불 건설  나무2·돌1	Build Campfire  Wood 2 · Stone 1
+button.workbench.relocate	↔ 작업대 무료 재배치	↔ Move Workbench Free
+button.workbench.build	작업대 건설  나무2·표류물1	Build Workbench  Wood 2 · Salvage 1
+button.rain.relocate	↔ 빗물받이 무료 재배치	↔ Move Rain Collector Free
+button.rain.build	빗물받이  나무2·돌1·표류물1	Rain Collector  Wood 2 · Stone 1 · Salvage 1
+button.research.axe.done	[완료] 돌도끼 연구	[Done] Stone Axe Researched
+button.research.axe	돌도끼 연구  돌1·표류물1	Research Stone Axe  Stone 1 · Salvage 1
+button.craft.axe.done	[완료] 돌도끼 보유	[Done] Stone Axe Owned
+button.craft.axe	돌도끼 제작  나무1·돌1	Craft Stone Axe  Wood 1 · Stone 1
+button.research.rope.done	[완료] 밧줄 연구	[Done] Rope Researched
+button.research.rope	밧줄 연구  표류물1	Research Rope  Salvage 1
+button.craft.rope.done	[완료] 밧줄 보유	[Done] Rope Owned
+button.craft.rope	밧줄 제작  나무1·표류물1	Craft Rope  Wood 1 · Salvage 1
+button.signal.done	[완료] 구조 신호 발신	[Done] Rescue Signal Sent
+button.signal.progress	구조 신호대 {0}/2  나무2·표류물2	Rescue Signal {0}/2  Wood 2 · Salvage 2
+button.eat	식량 먹기  보유 {0}	Eat Food  Owned {0}
+button.day.final	마지막 날 정산	Settle Final Day
+button.day.next	다음 날로	Next Day
+button.search.start	섬 수색 출발	Start Expedition
+device.keyboard_mouse	키보드·마우스	Keyboard & Mouse
+device.gamepad	게임패드	Gamepad
+value.yes	보유	Owned
+value.no	없음	None
+resource.wood	나무	Wood
+resource.stone	돌	Stone
+resource.food	식량	Food
+resource.salvage	표류물	Salvage
+structure.campfire	모닥불	Campfire
+structure.workbench	작업대	Workbench
+structure.rain_collector	빗물받이	Rain Collector
+structure.generic	설비	Facility
+world.build_zone	일반 설비 · 0.5m 바닥 스냅	General Facilities · 0.5m Floor Snap
+world.entrance	출입구 보호	Keep Entrance Clear
+world.required_path	필수 통로	Required Path
+world.signal_anchor	전용 앵커 · 신호대 {0}/2	Dedicated Anchor · Signal {0}/2
+world.return	CAMP	CAMP
+world.rope.pass	밧줄로 통과	Cross with Rope
+world.rope.need	밧줄 필요	Rope Required
+world.resource.land	{0} ×{1}	{0} ×{1}
+world.resource.water	헤엄쳐 수색\n{0} ×{1}	Swim to Search\n{0} ×{1}
+world.structure.relocate	{0}\n↔ 무료 재배치	{0}\n↔ Move Free
+world.placement.valid	{0}\n설치 가능	{0}\nValid Placement
+world.placement.invalid	{0}\n설치 불가	{0}\nInvalid Placement
+world.kim	김씨	Mr. Kim
+placement.valid.build	{0} 배치 가능 · 0.5m 바닥 스냅	Place {0} · 0.5m floor snap
+placement.valid.relocate	{0} 재배치 가능 · 0.5m 바닥 스냅	Move {0} · 0.5m floor snap
+placement.outside	캠프의 호환 건설 구역 밖에는 놓을 수 없다.	Keep it inside the compatible camp build area.
+placement.overlap	다른 설비와 겹친다. 김씨도 물건을 포개 쓰지는 않는다.	It overlaps another facility. Even Mr. Kim does not stack furniture.
+placement.entrance	캠프 출입구를 막을 수 없다.	The camp entrance must stay clear.
+placement.path	필수 이동 통로를 비워 둬야 한다.	The required travel path must stay clear.
+placement.invalid	배치할 수 없는 위치다.	That position is invalid.
+message.reset	파도는 열심히 친다. 김씨도 일단 뭐라도 해보기로 했다.	The waves keep working. Mr. Kim decides he should, too.
+message.build.already	이미 지어 둔 물건이다. 김씨도 같은 걸 두 번 만들 만큼 한가하지 않다.	That is already built. Mr. Kim is not idle enough to build it twice.
+message.build.materials	재료가 모자란다. 주머니를 털어도 모래만 나온다.	Not enough materials. Shaking out his pockets produces only sand.
+message.build.campfire	모닥불 완성. 불은 문명이고, 연기는 눈물이다.	Campfire complete. Fire is civilization; smoke is tears.
+message.build.workbench	작업대 완성. 수평은 아니지만 물건은 올라간다.	Workbench complete. It is not level, but things stay on it.
+message.build.rain	빗물받이 완성. 비가 오면 김씨가 이긴다.	Rain collector complete. If it rains, Mr. Kim wins.
+message.research.workbench	연구하려면 먼저 작업대가 필요하다.	Research requires a workbench first.
+message.research.unavailable	연구 재료가 부족하거나 이미 알아낸 방법이다.	The research lacks materials or is already known.
+message.research.axe	연구 완료: 돌과 나무를 묶으면 제법 도끼처럼 보인다.	Research complete: tie stone to wood and it looks surprisingly axe-like.
+message.research.rope	연구 완료: 줄은 묶는 법보다 안 풀리게 하는 법이 중요했다.	Research complete: tying rope matters less than keeping it tied.
+message.craft.unavailable	제작법이나 재료를 다시 확인해야 한다.	Check the recipe and materials again.
+message.craft.axe	돌도끼 완성. 나무가 두 배로 억울해진다.	Stone axe complete. Trees now have twice the reason to complain.
+message.craft.rope	밧줄 완성. 이제 숲 안쪽도 김씨 관할이다.	Rope complete. The inner forest is now under Mr. Kim's jurisdiction.
+message.signal.rope	마지막 안테나를 세우려면 밧줄이 필요하다.	The final antenna needs rope.
+message.signal.materials	작업대와 나무 2, 표류물 2가 필요하다.	A workbench, 2 wood, and 2 salvage are required.
+message.signal.stage1	구조 신호대 골격 완성. 멀리서 보면 꽤 그럴듯하다.	Signal frame complete. From far away it looks almost convincing.
+message.signal.stage2	구조 신호 발신! 김씨의 엉성함이 마침내 주파수를 탔다.	Rescue signal sent! Mr. Kim's improvisation has finally found a frequency.
+message.food.none	먹을 것이 없다. 코코넛 그림이라도 그려 볼까.	Nothing to eat. Perhaps drawing a coconut would help.
+message.food.full	지금은 배가 충분히 부르다.	He is full enough for now.
+message.food.eaten	식사 완료. 메뉴 이름은 '그냥 익힌 것'이다.	Meal complete. The dish is called 'Something Cooked.'
+message.search.finished	오늘 수색은 끝났다. 캠프를 정리하고 다음 날로 넘어가자.	Today's expedition is over. Tend camp and move to the next day.
+message.search.unavailable	지금은 수색을 시작할 수 없다.	An expedition cannot start right now.
+message.search.begin	김씨 출발. 해 지기 전에는 돌아오는 것이 소박한 목표다.	Mr. Kim sets out. Returning before sunset is the modest goal.
+message.swim.enter	김씨 입수. 물은 생각보다 차갑고 가방은 생각보다 무겁다.	Mr. Kim enters the water. It is colder—and the bag heavier—than expected.
+message.swim.exit	육지 복귀. 땅이 이렇게 믿음직스러울 줄은 몰랐다.	Back on land. The ground has never felt so dependable.
+message.gather.need_swim	저 물건은 물에 떠 있다. 발만 담가서는 닿지 않는다.	That item is floating. Wet feet alone will not reach it.
+message.bag.full	가방이 꽉 찼다. 하나를 버려야 새 물건을 챙길 수 있다.	The bag is full. Discard something to take the new item.
+message.gather.water	파도와 씨름해 {0}을(를) 건졌다. 체력도 같이 떠내려갔다.	Mr. Kim wrestled {0} from the waves. Some energy drifted away with it.
+message.gather.axe	돌도끼가 활약했다. 나무를 하나 더 챙겼다.	The stone axe delivered. One extra wood came along.
+message.gather.land	{0}을(를) 챙겼다.	Collected {0}.
+message.bag.empty_fill	빈칸에 물건을 넣었다.	Placed the item in an empty slot.
+message.bag.replace	{0}을(를) 두고 새 물건을 챙겼다.	Left {0} behind and took the new item.
+message.bag.discard	{0}은(는) 아쉽지만 두고 간다.	Regrettably, {0} stays behind.
+message.return.forced	해가 져서 뛰어 돌아왔다. 게 한 마리가 끝까지 응원했다. 아마도.	He ran back after sunset. A crab cheered the whole way. Probably.
+message.return.safe	무사 귀환. 가방은 무겁고 김씨의 표정은 가볍지 않다.	Safe return. The bag is heavy, and Mr. Kim's expression is not light.
+message.endday.search	수색을 마쳐야 오늘을 정산할 수 있다.	Finish the expedition before settling the day.
+message.day.start	{0}일차 아침. 김씨는 아직도 섬이고, 섬도 아직 김씨다.	Morning of day {0}. Mr. Kim is still on the island, and the island still has Mr. Kim.
+message.rope.blocked	숲이 너무 빽빽하다. 밧줄을 만들면 넘어갈 방법이 생길 것 같다.	The forest is too dense. A rope might provide a way through.
+message.nothing_near	손을 뻗어 봤지만 잡히는 건 공기뿐이다.	He reaches out and catches only air.
+result.title.rescued	구조 성공!	Rescue Successful!
+result.title.exhausted	김씨, 잠시 누움	Mr. Kim Needs a Lie-Down
+result.title.deadline	구조 신호 미완성	Rescue Signal Incomplete
+result.detail.rescued	급조 안테나가 기적처럼 작동했다. 김씨는 구조대보다 먼저 사진부터 찍었다.	The improvised antenna worked by a miracle. Mr. Kim took a photo before the rescuers arrived.
+result.detail.exhausted	체력을 모두 소진했다. 다음에는 먹고 쉬고, 해 지기 전에 돌아오자.	All energy is gone. Next time, eat, rest, and return before sunset.
+result.detail.deadline	3일 안에 구조 신호를 완성하지 못했다. 필요한 표류물과 밧줄을 더 일찍 준비해야 한다.	The rescue signal was not completed within 3 days. Prepare salvage and rope earlier next time.
+dev.fallback_probe	한국어 폴백 확인	

@@ -1,0 +1,570 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Prototype Strings_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: b7940e419db960640a46f666a136b29c, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 828367071277219867
+  m_TableData:
+  - m_Id: 796114944
+    m_Localized: "Base Camp \xB7 Craft / Build / Research"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 888389632
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583936
+    m_Localized: "Language: Korean \u2192 English"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583937
+    m_Localized: "Language: English \u2192 Korean"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583938
+    m_Localized: Post-expedition upkeep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583939
+    m_Localized: Camp preparation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583940
+    m_Localized: Swimming the shallows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583941
+    m_Localized: Island expedition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583942
+    m_Localized: Result
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583943
+    m_Localized: "DAY {0}/{1} \xB7 {2}\nHunger {3} | Energy {4}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 896778240
+    m_Localized: "DAY {0}/{1} \xB7 {2}\nHunger {3} | Energy {4} | Daylight {5}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 896778241
+    m_Localized: 'Wood {0}   Stone {1}   Food {2}   Salvage {3}
+
+      Signal {4}/2  
+      Axe {5}   Rope {6}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 896778242
+    m_Localized: "{0} \xB7 Place with mouse or stick \xB7 Click/Enter/A confirm \xB7
+      Right-click/Esc/B cancel \xB7 F1/Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 896778243
+    m_Localized: "{0} \xB7 Select an action to tend camp \xB7 General facilities
+      move for free \xB7 F1/Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 896778244
+    m_Localized: "{0} \xB7 A/D or stick move \xB7 Auto-swim at shore \xB7 Space/A
+      jump \xB7 E/X search \xB7 R/B return \xB7 F1/Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 896778245
+    m_Localized: 'Camp Storage
+
+      (4-slot bag while exploring)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972544
+    m_Localized: 'Bag Full
+
+      Choose a slot to discard'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972545
+    m_Localized: '4-Slot Expedition Bag
+
+      Maximum 2 per stack'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972546
+    m_Localized: '{0}. Empty'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972547
+    m_Localized: "{0}. {1} \xD7{2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972548
+    m_Localized: "\u2194 Move Campfire Free"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972549
+    m_Localized: "Build Campfire  Wood 2 \xB7 Stone 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972550
+    m_Localized: "\u2194 Move Workbench Free"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972551
+    m_Localized: "Build Workbench  Wood 2 \xB7 Salvage 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972552
+    m_Localized: "\u2194 Move Rain Collector Free"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972553
+    m_Localized: "Rain Collector  Wood 2 \xB7 Stone 1 \xB7 Salvage 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972554
+    m_Localized: '[Done] Stone Axe Researched'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972555
+    m_Localized: "Research Stone Axe  Stone 1 \xB7 Salvage 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972556
+    m_Localized: '[Done] Stone Axe Owned'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972557
+    m_Localized: "Craft Stone Axe  Wood 1 \xB7 Stone 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972558
+    m_Localized: '[Done] Rope Researched'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972559
+    m_Localized: Research Rope  Salvage 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972560
+    m_Localized: '[Done] Rope Owned'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972561
+    m_Localized: "Craft Rope  Wood 1 \xB7 Salvage 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972562
+    m_Localized: '[Done] Rescue Signal Sent'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972563
+    m_Localized: "Rescue Signal {0}/2  Wood 2 \xB7 Salvage 2"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972564
+    m_Localized: Eat Food  Owned {0}
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972565
+    m_Localized: Settle Final Day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972566
+    m_Localized: Next Day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972567
+    m_Localized: Start Expedition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972568
+    m_Localized: Keyboard & Mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972569
+    m_Localized: Gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972570
+    m_Localized: Owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972571
+    m_Localized: None
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972572
+    m_Localized: Wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972573
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972574
+    m_Localized: Food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972575
+    m_Localized: Salvage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972576
+    m_Localized: Campfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972577
+    m_Localized: Workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972578
+    m_Localized: Rain Collector
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972579
+    m_Localized: Facility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972580
+    m_Localized: "General Facilities \xB7 0.5m Floor Snap"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972581
+    m_Localized: Keep Entrance Clear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972582
+    m_Localized: Required Path
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972583
+    m_Localized: "Dedicated Anchor \xB7 Signal {0}/2"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972584
+    m_Localized: CAMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972585
+    m_Localized: Cross with Rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972586
+    m_Localized: Rope Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972587
+    m_Localized: "{0} \xD7{1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972588
+    m_Localized: "Swim to Search\n{0} \xD7{1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972589
+    m_Localized: "{0}\n\u2194 Move Free"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972590
+    m_Localized: '{0}
+
+      Valid Placement'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972591
+    m_Localized: '{0}
+
+      Invalid Placement'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972592
+    m_Localized: Mr. Kim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972593
+    m_Localized: "Place {0} \xB7 0.5m floor snap"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972594
+    m_Localized: "Move {0} \xB7 0.5m floor snap"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972595
+    m_Localized: Keep it inside the compatible camp build area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972596
+    m_Localized: It overlaps another facility. Even Mr. Kim does not stack furniture.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972597
+    m_Localized: The camp entrance must stay clear.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972598
+    m_Localized: The required travel path must stay clear.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972599
+    m_Localized: That position is invalid.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972600
+    m_Localized: The waves keep working. Mr. Kim decides he should, too.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972601
+    m_Localized: That is already built. Mr. Kim is not idle enough to build it twice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972602
+    m_Localized: Not enough materials. Shaking out his pockets produces only sand.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972603
+    m_Localized: Campfire complete. Fire is civilization; smoke is tears.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972604
+    m_Localized: Workbench complete. It is not level, but things stay on it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972605
+    m_Localized: Rain collector complete. If it rains, Mr. Kim wins.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972606
+    m_Localized: Research requires a workbench first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972607
+    m_Localized: The research lacks materials or is already known.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972608
+    m_Localized: 'Research complete: tie stone to wood and it looks surprisingly
+      axe-like.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972609
+    m_Localized: 'Research complete: tying rope matters less than keeping it tied.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972610
+    m_Localized: Check the recipe and materials again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972611
+    m_Localized: Stone axe complete. Trees now have twice the reason to complain.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972612
+    m_Localized: Rope complete. The inner forest is now under Mr. Kim's jurisdiction.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972613
+    m_Localized: The final antenna needs rope.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972614
+    m_Localized: A workbench, 2 wood, and 2 salvage are required.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972615
+    m_Localized: Signal frame complete. From far away it looks almost convincing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972616
+    m_Localized: Rescue signal sent! Mr. Kim's improvisation has finally found a
+      frequency.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972617
+    m_Localized: Nothing to eat. Perhaps drawing a coconut would help.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972618
+    m_Localized: He is full enough for now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972619
+    m_Localized: Meal complete. The dish is called 'Something Cooked.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972620
+    m_Localized: Today's expedition is over. Tend camp and move to the next day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972621
+    m_Localized: An expedition cannot start right now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972622
+    m_Localized: Mr. Kim sets out. Returning before sunset is the modest goal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972623
+    m_Localized: "Mr. Kim enters the water. It is colder\u2014and the bag heavier\u2014than
+      expected."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972624
+    m_Localized: Back on land. The ground has never felt so dependable.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972625
+    m_Localized: That item is floating. Wet feet alone will not reach it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972626
+    m_Localized: The bag is full. Discard something to take the new item.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972627
+    m_Localized: Mr. Kim wrestled {0} from the waves. Some energy drifted away with
+      it.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972628
+    m_Localized: The stone axe delivered. One extra wood came along.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972629
+    m_Localized: Collected {0}.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972630
+    m_Localized: Placed the item in an empty slot.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972631
+    m_Localized: Left {0} behind and took the new item.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972632
+    m_Localized: Regrettably, {0} stays behind.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972633
+    m_Localized: He ran back after sunset. A crab cheered the whole way. Probably.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972634
+    m_Localized: Safe return. The bag is heavy, and Mr. Kim's expression is not light.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972635
+    m_Localized: Finish the expedition before settling the day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972636
+    m_Localized: Morning of day {0}. Mr. Kim is still on the island, and the island
+      still has Mr. Kim.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 900972637
+    m_Localized: The forest is too dense. A rope might provide a way through.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972638
+    m_Localized: He reaches out and catches only air.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972639
+    m_Localized: Rescue Successful!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972640
+    m_Localized: Mr. Kim Needs a Lie-Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972641
+    m_Localized: Rescue Signal Incomplete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972642
+    m_Localized: The improvised antenna worked by a miracle. Mr. Kim took a photo
+      before the rescuers arrived.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972643
+    m_Localized: All energy is gone. Next time, eat, rest, and return before sunset.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972644
+    m_Localized: The rescue signal was not completed within 3 days. Prepare salvage
+      and rope earlier next time.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972645
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 828367071277219867
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 892583943
+        - id: 896778240
+        - id: 896778241
+        - id: 896778242
+        - id: 896778243
+        - id: 896778244
+        - id: 900972546
+        - id: 900972547
+        - id: 900972563
+        - id: 900972564
+        - id: 900972583
+        - id: 900972587
+        - id: 900972588
+        - id: 900972589
+        - id: 900972590
+        - id: 900972591
+        - id: 900972593
+        - id: 900972594
+        - id: 900972627
+        - id: 900972629
+        - id: 900972631
+        - id: 900972632
+        - id: 900972636
