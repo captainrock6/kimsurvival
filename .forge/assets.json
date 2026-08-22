@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T10:29:49.679Z",
+  "updatedAt": "2026-08-22T10:31:40.465Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -130,41 +130,15 @@
       "id": "background.island-camp",
       "name": "무인도 베이스캠프 배경",
       "assetType": "background",
-      "request": "Unity 2D 16:9 측면 거점용 오리지널 배경. 열대 해변의 작은 베이스캠프와 김씨의 이동 바닥, 일반 설비를 여러 위치에 놓을 수 있는 넓고 평평한 건설 구역, 구조 신호대용 외부 앵커가 한 화면에 읽힌다. 특정 설비의 자리를 배경에 고정해 그리지 말고 배경·지면·전경·건설 가능 구역 안내를 교체 가능한 레이어로 제공한다. 밝고 따뜻한 열대색, 굵은 형태, 코믹하게 급조한 재료를 사용하고 김씨, 자유 배치 설비와 UI가 읽힐 여백을 둔다.",
+      "request": "Unity 2D 16:9 측면 거점용 오리지널 베이스캠프 배경. 일반 설비는 제한적 자유 배치가 기본이므로 모닥불, 작업대, 빗물받이의 고정 자리, 받침대, 윤곽선 또는 완성 형태를 환경에 미리 그리지 않는다. 김씨가 이동하고 여러 유효 위치에 설비를 놓을 수 있도록 중앙과 전경 지면에 넓고 연속적이며 읽기 쉬운 건설 구역, 평탄한 배치 면, 충분한 이동·상호작용 여백을 확보한다. 배경, 중경, 플레이 지면, 가장자리 전경을 교체 가능한 레이어 기준으로 분리하고 설비 파츠가 어느 허용 위치에 놓여도 원근, 조명, 실루엣이 자연스럽게 맞아야 한다. 특수 설비인 구조 신호대만 화면 외곽의 전용 고정 앵커를 사용하며, 해당 위치는 인공 슬롯이나 아이콘 없이 바람이 잘 통하고 하늘이 열린 자연스러운 외부 지형으로 읽히게 한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 형태, 김씨와 UI를 위한 여백을 유지한다. 캐릭터, UI, 글자, 수집 아이콘, 일반 설비의 고정 배치 표식은 포함하지 않으며 참조 자료의 고유 미술과 정확한 레이아웃을 복제하지 않는다.",
       "status": "needed",
-      "source": "forge-director",
+      "source": "codex",
       "tags": [
         "unity",
         "2d",
         "side-view",
         "island",
         "camp",
-        "layered",
-        "free-placement"
-      ],
-      "dependencies": [],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
-      "parentJobId": null,
-      "artifacts": [],
-      "engine": {},
-      "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-22T10:29:49.595Z"
-    },
-    {
-      "id": "background.coast-forest",
-      "name": "해변·숲 수색 구역",
-      "assetType": "background",
-      "request": "Unity 2D 횡스크롤 플레이용 오리지널 무인도 구역. 해변에서 얕은 숲으로 이어지는 한 개 레벨이며 이동 지면, 오르기 지점, 막힌 숲길, 최소 8개 채집·수색 위치를 배치할 수 있는 레이어 구조를 가진다. 따뜻한 낮빛과 일몰 변화를 지원하고 충돌 경계, 캐릭터 실루엣과 상호작용 지점 가독성을 우선한다.",
-      "status": "needed",
-      "source": "forge-director",
-      "tags": [
-        "unity",
-        "2d",
-        "side-scroller",
-        "coast",
-        "forest",
         "layered"
       ],
       "dependencies": [],
@@ -174,8 +148,98 @@
       "parentJobId": null,
       "artifacts": [],
       "engine": {},
+      "createdAt": "2026-08-22T07:58:18.357Z",
+      "updatedAt": "2026-08-22T10:18:49.071Z"
+    },
+    {
+      "id": "background.coast-forest",
+      "name": "해변·숲 수색 구역",
+      "assetType": "background",
+      "request": "Unity 2D PC 횡스크롤 수색 화면용 첫 고품질 배경 후보. 16:9 고정 측면 카메라에서 화면 왼쪽의 얕고 수영 가능한 청록빛 바다와 완만한 모래 해안이 중앙의 바위·야자 지대를 거쳐 화면 오른쪽의 얕고 무성한 열대 숲으로 자연스럽게 이어지는 하나의 플레이 구역이다. 김씨가 달리고 점프할 넓고 연속적인 지면 실루엣, 분명한 해안 진입 경사, 낮은 오르기 바위턱 하나, 도구로 열 수 있는 덩굴과 쓰러진 통나무의 막힌 숲길 하나, 나무·돌·식량·표류물을 배치할 수 있는 시각적으로 구분된 최소 8개의 비어 있는 채집·수색 포켓을 마련한다. 플레이 레인과 충돌 경계는 밝기와 색 대비로 명확하고, 전경 잎은 가장자리에만 두어 캐릭터와 상호작용 지점을 가리지 않는다. 먼 바다·섬 실루엣·하늘, 중경 숲과 바위, 플레이 지면, 가장자리 전경이 명료하게 분리되어 이후 레이어 제작 기준으로 쓸 수 있어야 한다. 채택된 김씨 캐릭터와 어울리는 굵고 깨끗한 외곽선, 손맛 나는 오리지널 2D 인디 게임 일러스트, 밝고 따뜻한 열대 낮빛, 코믹하지만 유아적이지 않은 분위기. 전체 불투명 배경. 캐릭터, 생물, UI, 글자, 숫자, 표지판, 라벨, 아이템 아이콘, 워터마크, 프레임, 접촉 그림자용 캐릭터 실루엣은 포함하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "unity",
+        "2d",
+        "side-scroller",
+        "coast",
+        "forest",
+        "layered"
+      ],
+      "dependencies": [],
+      "jobIds": [
+        "job_20260822095339_18288994"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822095339_18288994",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T09:53:39.257Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822095339_18288994",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T09:55:50.587Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260822095339_18288994",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 12002,
+          "url": "/outputs/jobs/job_20260822095339_18288994/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 10369,
+          "url": "/outputs/jobs/job_20260822095339_18288994/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png",
+          "contentType": "image/png",
+          "bytes": 2568614,
+          "url": "/outputs/jobs/job_20260822095339_18288994/exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 727,
+          "url": "/outputs/jobs/job_20260822095339_18288994/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1406,
+          "url": "/outputs/jobs/job_20260822095339_18288994/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9327,
+          "url": "/outputs/jobs/job_20260822095339_18288994/qa-preview-exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.jpg"
+        }
+      ],
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260822095339_18288994",
+        "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260822095339_18288994\\forge-import.json",
+        "packagedAt": "2026-08-22T09:56:23.030Z"
+      },
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-22T10:29:49.608Z"
+      "updatedAt": "2026-08-22T09:56:23.031Z"
     },
     {
       "id": "character.mr-kim",
@@ -272,23 +336,22 @@
         "packagedAt": "2026-08-22T09:08:11.959Z"
       },
       "createdAt": "2026-08-22T07:58:18.376Z",
-      "updatedAt": "2026-08-22T10:29:49.617Z"
+      "updatedAt": "2026-08-22T09:09:25.682Z"
     },
     {
       "id": "object.camp-structures",
       "name": "캠프 설비 분리 파츠",
       "assetType": "separated_parts",
-      "request": "모닥불, 작업대, 빗물받이와 구조 신호대의 건설 완료·작동 상태를 Unity에서 독립적으로 자유 배치할 수 있는 투명 배경 2D 파츠 세트. 각 파츠는 일관된 바닥 접점, 상호작용 여백과 배치 발자국을 가지며 정상, 배치 유령, 유효, 무효 표시를 엔진에서 적용할 수 있도록 깨끗한 실루엣과 마스크용 분리를 제공한다. 나뭇가지, 돌, 잎, 표류 고철을 엉뚱하지만 기능적으로 조합한 코믹한 형태이며 베이스캠프의 측면 원근과 조명을 따른다.",
+      "request": "모닥불, 작업대, 빗물받이, 구조 신호대를 Unity에서 개별 배치하고 교체할 수 있는 독립 투명 배경 2D 설비 파츠 세트. 일반 설비는 여러 허용 지면 위치에 제한적으로 자유 배치되므로 각 파츠는 주변 지면이나 고정 슬롯을 포함하지 않고 서로 겹치지 않는 독립 레이어로 제공한다. 모든 일반 설비는 동일한 바닥 기준선과 일관된 하단 중앙 피벗, 캐릭터 상호작용을 가리지 않는 좌우 여백, 엔진 충돌·배치 검사에 사용할 명확하고 문서화 가능한 배치 발자국을 갖는다. 원본의 알파 가장자리와 명암은 엔진 틴트 또는 별도 마스크로 배치 유령, 유효, 무효 상태를 표현해도 실루엣이 유지되도록 깨끗하고 중립적으로 제작한다. 구조 신호대는 베이스캠프 배경의 전용 외부 앵커에 맞는 별도 특수 설비 파츠로 취급한다. 나뭇가지, 돌, 잎, 표류 고철을 코믹하지만 기능적으로 조합하고 배경의 측면 원근과 조명을 따른다. 글자, 아이콘, 바닥 장식, 고정 위치 표식은 포함하지 않으며 참조 자료의 고유 미술과 정확한 레이아웃을 복제하지 않는다.",
       "status": "needed",
-      "source": "forge-director",
+      "source": "codex",
       "tags": [
         "unity",
         "2d",
         "camp",
         "structures",
         "states",
-        "transparent",
-        "placement-pivot"
+        "transparent"
       ],
       "dependencies": [
         "background.island-camp"
@@ -300,7 +363,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-22T10:29:49.633Z"
+      "updatedAt": "2026-08-22T10:18:49.234Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -324,15 +387,15 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-22T10:29:49.646Z"
+      "updatedAt": "2026-08-22T09:09:25.703Z"
     },
     {
       "id": "ui.survival-hud",
-      "name": "PC·Steam 다국어 프로토타입 UI",
+      "name": "PC·Steam 프로토타입 UI",
       "assetType": "ui_set",
-      "request": "Unity PC 프로토타입용 편집 가능한 다국어 UI 세트. 날짜와 일광, 허기와 체력, 4칸 가방, 캠프 창고, 제작·건설·배치·연구 비용, 구조 신호 진척도, 귀환, 결과 요약, 설정의 언어 선택과 게임패드 포커스 상태를 포함한다. 1920×1080과 1280×800에서 한글과 영어가 모두 읽히도록 고정 폭 본문을 피하고 텍스트 확장 여백, 줄바꿈, 최소 글자 크기와 포커스 영역을 정의한다. 모든 본문과 버튼 문구는 래스터에 굽지 않고 엔진 텍스트로 유지하며 로케일별 TextMeshPro 폰트와 입력 안내가 교체될 자리를 제공한다.",
+      "request": "Unity PC 프로토타입용 편집 가능한 국제화 대응 UI 세트. 날짜와 일광, 허기와 체력, 4칸 가방, 캠프 창고, 제작·건설·연구 비용, 구조 신호 진척도, 귀환, 결과 요약, 설정 화면과 게임패드 포커스 상태를 포함한다. 한국어를 기본 로케일로 하고 영어를 정식 지원하며, 이후 스페인어·일본어·중국어를 추가해도 레이아웃과 에셋을 다시 그리지 않는 구조를 전제로 한다. 언어별 본문, 버튼 글자, 제목과 상태 문구를 래스터 아트에 굽지 않고 모든 패널·버튼·탭에는 비어 있는 엔진 TextMeshPro 텍스트 영역만 제공한다. 공식 영문 게임 제목이 미정이므로 임의의 영문 로고, 워드마크, 제목 문자열을 만들지 않는다. 1920×1080과 1280×800에서 한글과 영어가 모두 읽혀야 하며 고정 폭 텍스트 박스를 피하고 콘텐츠 기반 확장, 가변 여백, 안전한 줄바꿈, 최대 줄 수와 오버플로 처리 영역을 정의한다. 영어·스페인어 문자열이 한국어보다 길어지는 상황을 기준으로 버튼과 패널의 가로·세로 여유를 두고, 1280×800 실효 화면에서 본문·보조문구는 18px 미만, 버튼 라벨·핵심 수치는 20px 미만으로 축소하지 않는다. 공간이 부족하면 글자를 더 줄이지 말고 컨테이너 확장, 줄바꿈 또는 스크롤을 사용한다. 게임패드 포커스 영역은 텍스트 길이와 무관하게 최소 48×48 실효 픽셀을 확보하고 전체 버튼 컨테이너를 포커스 대상으로 삼으며, 포커스·선택·비활성 상태가 모든 로케일에서 잘리지 않게 한다. 설정 화면에는 현재 적용 언어, 포커스된 언어, 선택 대기 언어, 적용 완료 상태를 구분하는 언어 선택 컴포넌트와 한국어·English 표시를 위한 엔진 텍스트 슬롯을 제공하고 향후 Español·日本語·中文 항목을 같은 컴포넌트로 추가할 수 있게 한다. 로케일별 TextMeshPro 기본 폰트 에셋과 폴백 체인을 교체할 슬롯을 한국어, 라틴 문자 기반 영어·스페인어, 일본어, 중국어용으로 분리한다. 글리프 검수 기준은 해당 로케일의 전체 제작 문자열, 숫자, 문장부호, 통화·단위 기호와 필수 UI 기호를 대상으로 누락 글리프·두부 문자·잘못된 폴백·기준선 흔들림이 없어야 하며, 1280×800에서 줄바꿈·잘림·겹침·포커스 윤곽 침범 여부를 실제 로케일별로 확인하는 것이다. 건설 UI는 일반 설비를 고정 슬롯에 끼우는 방식으로 가정하지 않고 넓은 캠프 건설 구역 안에서 제한적으로 자유 배치하는 흐름을 지원한다. 선택한 설비의 독립 투명 파츠를 배치 유령으로 표시하고 엔진 틴트 또는 마스크로 유효·무효 상태, 배치 발자국, 상호작용 여백을 명확히 구분하며 이동·확정·취소 입력 안내를 엔진 텍스트로 제공한다. 구조 신호대 같은 특수 설비에만 전용 외부 고정 앵커 안내를 사용한다. 키보드·마우스와 게임패드 안내가 교체될 자리를 제공하고, 참조 자료의 고유 미술, 아이콘, 문구와 정확한 화면 레이아웃을 복제하지 않는다.",
       "status": "needed",
-      "source": "forge-director",
+      "source": "codex",
       "tags": [
         "unity",
         "ui",
@@ -341,9 +404,8 @@
         "steam",
         "gamepad",
         "editable",
-        "localization-ready",
-        "korean",
-        "english"
+        "localization",
+        "tmp"
       ],
       "dependencies": [
         "icon.resource-tool-set"
@@ -355,7 +417,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-22T10:29:49.660Z"
+      "updatedAt": "2026-08-22T10:31:40.465Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -382,13 +444,13 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.414Z",
-      "updatedAt": "2026-08-22T10:29:49.670Z"
+      "updatedAt": "2026-08-22T09:09:25.727Z"
     },
     {
       "id": "animation.mr-kim.swim",
       "name": "김씨 수영 애니메이션",
       "assetType": "sprite_animation",
-      "request": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
+      "request": "채택된 character.mr-kim의 얼굴, 성인 비율, 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 정확히 유지한다. 오른쪽을 향해 수면에서 다소 서툴게 헤엄치는 한 동작만 6프레임으로 표현한다. 팔 젓기와 발차기가 자연스럽게 이어지는 루프이며 각 프레임의 몸 크기, 중심, 수면 높이와 기준점을 완전히 고정한다. 6개 동일 셀을 가로 한 줄로 배치하고 서로 겹치지 않으며 실제 투명 배경을 사용한다. 물, 물보라, 그림자, 프레임 선, 글자, 숫자, 라벨, 다른 캐릭터와 소품은 포함하지 않는다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -469,7 +531,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-22T10:29:49.679Z"
+      "updatedAt": "2026-08-22T09:15:36.895Z"
     }
   ]
 }
