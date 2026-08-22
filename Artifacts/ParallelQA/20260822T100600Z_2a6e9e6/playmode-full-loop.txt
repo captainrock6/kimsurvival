@@ -1,0 +1,19 @@
+Play Mode natural full-loop verification
+Run ID: 20260822T100600Z_2a6e9e6
+Started UTC: 2026-08-22T10:07:36.3315461Z
+Completed UTC: 2026-08-22T10:07:36.5041291Z
+Unity: 6000.4.9f1
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T100600Z_2a6e9e6\playmode-unity.log"
+PASS · No Grant calls used by the Play Mode route.
+PASS · Day 1-3 camp/search/return/settlement and rescue result.
+PASS · Shore entry, water gather, shore exit, and higher water-gather energy cost.
+PASS · Camp actions and bag replacement invoked through EventSystem Submit.
+PASS · Directional navigation reached all enabled camp buttons (initial 3, after Day 1 5).
+PASS · 1280x800 render-target captures produced.
+Screen reported by Unity: 640x480
+Estimated minimum uGUI text size at 1280x800: 16.2 px.
+FAIL (visual): nominal world TextMesh character height at 1280x800 is approximately 1.4 px; inspect captures.
+Detected non-empty joystick names: 0
+Joystick names: <none>
+Physical gamepad execution: UNVERIFIED (no device exposed to Unity batch Play Mode)
