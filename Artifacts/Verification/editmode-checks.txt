@@ -1,4 +1,4 @@
 PASS · deterministic edit checks
-Started UTC: 2026-08-22T11:49:46.9848084Z
-Completed UTC: 2026-08-22T11:49:47.1869585Z
+Started UTC: 2026-08-22T12:38:06.7283968Z
+Completed UTC: 2026-08-22T12:38:06.9983156Z
 Checks: inventory overflow/swap, shared keyboard/gamepad actions including language, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure
