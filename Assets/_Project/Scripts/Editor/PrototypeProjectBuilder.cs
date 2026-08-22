@@ -12,6 +12,7 @@ namespace KimSurvival.EditorTools
     public static class PrototypeProjectBuilder
     {
         public const string ScenePath = "Assets/_Project/Scenes/KimSurvivalPrototype.unity";
+        public const string CampBackgroundPath = "Assets/_Project/Art/Generated/background/job_20260822115849_82b3b250/exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png";
         private const string DefaultVerificationFolder = "Artifacts/Verification";
 
         private static string VerificationFolder
@@ -31,7 +32,14 @@ namespace KimSurvival.EditorTools
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             GameObject root = new GameObject("[BOOTSTRAP] 김씨 생존기: 무인도");
-            root.AddComponent<KimSurvivalPrototype>();
+            Sprite campBackground = AssetDatabase.LoadAssetAtPath<Sprite>(CampBackgroundPath);
+            if (campBackground == null)
+            {
+                throw new InvalidOperationException("Adopted camp background could not be loaded: " + CampBackgroundPath);
+            }
+
+            KimSurvivalPrototype prototype = root.AddComponent<KimSurvivalPrototype>();
+            prototype.ConfigureCampBackground(campBackground);
             EditorSceneManager.SaveScene(scene, ScenePath);
 
             EditorBuildSettings.scenes = new[]
@@ -57,7 +65,8 @@ namespace KimSurvival.EditorTools
                 "Unity: " + Application.unityVersion + "\n" +
                 "Scene: " + ScenePath + "\n" +
                 "Resolution targets: 1920x1080, 1280x800\n" +
-                "Placeholder asset IDs remain wired in KimSurvivalPrototype.cs\n");
+                "Adopted camp background: " + CampBackgroundPath + "\n" +
+                "Remaining placeholder asset IDs stay wired in KimSurvivalPrototype.cs\n");
             Debug.Log("[Kim Survival] Prototype scene created: " + ScenePath);
         }
 
@@ -67,6 +76,12 @@ namespace KimSurvival.EditorTools
             Directory.CreateDirectory(VerificationFolder);
             DateTime started = DateTime.UtcNow;
             PrototypeLocalizationAssetBuilder.SyncAssets();
+
+            Sprite campBackground = AssetDatabase.LoadAssetAtPath<Sprite>(CampBackgroundPath);
+            TextureImporter campBackgroundImporter = AssetImporter.GetAtPath(CampBackgroundPath) as TextureImporter;
+            Assert(campBackground != null, "Adopted camp background imports as a Unity sprite");
+            Assert(campBackgroundImporter != null && campBackgroundImporter.textureType == TextureImporterType.Sprite, "Adopted camp background keeps sprite import settings");
+            Assert(File.Exists(ScenePath) && File.ReadAllText(ScenePath).Contains(AssetDatabase.AssetPathToGUID(CampBackgroundPath)), "Prototype scene serializes the adopted camp background reference");
 
             GameSession inventory = new GameSession();
             Assert(inventory.BeginSearch(), "Inventory scenario begins search");
@@ -267,7 +282,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: inventory overflow/swap, shared keyboard/gamepad actions including language, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: adopted camp background sprite import and serialized scene reference, inventory overflow/swap, shared keyboard/gamepad actions including language, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -423,12 +438,12 @@ namespace KimSurvival.EditorTools
 
             try
             {
-                string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-exploration-1280x800.png"));
-                string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-swimming-1280x800.png"));
-                string placementKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-placement-ko-invalid-1280x800.png"));
-                string placementEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-placement-en-valid-gamepad-1280x800.png"));
+                string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave3-exploration-ko-1280x800.png"));
+                string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave3-swimming-en-1280x800.png"));
+                string placementKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave3-placement-ko-invalid-1280x800.png"));
+                string placementEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave3-placement-en-valid-gamepad-1280x800.png"));
                 string result = prototype.RunAutomatedVerification(explorationScreenshot, swimmingScreenshot, placementKoreanScreenshot, placementEnglishScreenshot);
-                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-playmode-1280x800.png"));
+                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave3-camp-en-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
                 SessionState.SetString(MessageKey, result + "\nPlacement Korean screenshot: " + placementKoreanScreenshot + "\nPlacement English/gamepad screenshot: " + placementEnglishScreenshot + "\nSwimming screenshot: " + swimmingScreenshot + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);

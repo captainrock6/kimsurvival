@@ -2,4 +2,5 @@ PASS
 Unity: 6000.4.9f1
 Scene: Assets/_Project/Scenes/KimSurvivalPrototype.unity
 Resolution targets: 1920x1080, 1280x800
-Placeholder asset IDs remain wired in KimSurvivalPrototype.cs
+Adopted camp background: Assets/_Project/Art/Generated/background/job_20260822115849_82b3b250/exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png
+Remaining placeholder asset IDs stay wired in KimSurvivalPrototype.cs
