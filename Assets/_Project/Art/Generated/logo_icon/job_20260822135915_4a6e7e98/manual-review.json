@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "assetId": "icon.resource-tool-set",
+  "jobId": "job_20260822135915_4a6e7e98",
+  "reviewStatus": "review",
+  "capture": "visual-review.png",
+  "readabilitySheet": "readability-24-32-64.png",
+  "checks": {
+    "requestedIconCount": 10,
+    "requestedOrderMatches": true,
+    "subjectsRecognizable": true,
+    "silhouettesDistinctAt24px": true,
+    "noBakedText": true,
+    "noCellBordersOrUiPanels": true,
+    "facilityIdentityMatchesAdoptedArt": true,
+    "transparentEdgesVisuallyClean": true
+  },
+  "reviewerNotes": [
+    "Wood/rope, stone/salvage and campfire/rescue-signal remain distinguishable by silhouette and dominant color.",
+    "Facility micro-detail intentionally collapses at 24px, while the primary silhouette remains readable.",
+    "User adoption is still required before this review candidate becomes the canonical icon set."
+  ]
+}

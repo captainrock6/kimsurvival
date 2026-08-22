@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T14:11:14.190Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "icon.resource-tool-set",
+  "jobId": "job_20260822135915_4a6e7e98",
+  "assetType": "logo_icon",
+  "reviewOnly": true,
+  "sourceFiles": [
+    "sprite-sheet.png",
+    "wood.png",
+    "stone.png",
+    "food.png",
+    "scrap.png",
+    "axe.png",
+    "rope.png",
+    "campfire.png",
+    "rain_collector.png",
+    "workbench.png",
+    "rescue_signal.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "CompressedHQ",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": false
+  },
+  "sliceGrid": {
+    "columns": 5,
+    "rows": 2,
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "frameCount": 10
+  },
+  "stateFiles": []
+}

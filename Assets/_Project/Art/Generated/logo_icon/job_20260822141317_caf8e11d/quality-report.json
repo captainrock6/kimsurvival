@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 17,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "sprite-sheet.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.7209,
+      "contrastStdDev": 50.84,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 37,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-sprite-sheet.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wood.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.6408,
+      "contrastStdDev": 51.95,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 41,
+        "right": 24,
+        "bottom": 41
+      },
+      "previewFile": "qa-preview-wood.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "stone.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.685,
+      "contrastStdDev": 52.14,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 48,
+        "right": 24,
+        "bottom": 49
+      },
+      "previewFile": "qa-preview-stone.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "food.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.666,
+      "contrastStdDev": 73.21,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 51,
+        "right": 24,
+        "bottom": 52
+      },
+      "previewFile": "qa-preview-food.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "scrap.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.6243,
+      "contrastStdDev": 56.85,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 36,
+        "right": 24,
+        "bottom": 37
+      },
+      "previewFile": "qa-preview-scrap.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "axe.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7817,
+      "contrastStdDev": 41.55,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 37,
+        "top": 24,
+        "right": 37,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-axe.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "rope.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.6182,
+      "contrastStdDev": 56.95,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 38,
+        "right": 24,
+        "bottom": 39
+      },
+      "previewFile": "qa-preview-rope.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "campfire.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.6947,
+      "contrastStdDev": 56.51,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 35,
+        "top": 24,
+        "right": 35,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-campfire.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "rain_collector.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7576,
+      "contrastStdDev": 43.64,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 59,
+        "top": 24,
+        "right": 60,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-rain_collector.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "workbench.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7107,
+      "contrastStdDev": 51.38,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 54,
+        "right": 24,
+        "bottom": 55
+      },
+      "previewFile": "qa-preview-workbench.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "rescue_signal.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7809,
+      "contrastStdDev": 53.97,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 60,
+        "top": 24,
+        "right": 61,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-rescue_signal.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "readability-24-32-64.png",
+      "kind": "raster",
+      "width": 672,
+      "height": 416,
+      "hasAlpha": true,
+      "transparentRatio": 0.9564,
+      "contrastStdDev": 25,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 53,
+        "top": 38,
+        "right": 57,
+        "bottom": 21
+      },
+      "previewFile": "qa-preview-readability-24-32-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "visual-review.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 600,
+      "hasAlpha": true,
+      "transparentRatio": 0.8282,
+      "contrastStdDev": 42.73,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 70,
+        "top": 50,
+        "right": 81,
+        "bottom": 100
+      },
+      "previewFile": "qa-preview-visual-review.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "resource-icons-metadata.json",
+      "kind": "editable-source",
+      "bytes": 2756,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 1458,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 959,
+      "issues": []
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 946,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-22T14:14:56.022Z",
+  "jobId": "job_20260822141317_caf8e11d",
+  "assetType": "logo_icon"
+}
