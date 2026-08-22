@@ -120,6 +120,61 @@ namespace KimSurvival.EditorTools
             Assert(keyboardActions.CancelPressed && gamepadActions.CancelPressed, "Keyboard and gamepad share the cancel action");
             Assert(keyboardActions.BagSlotIndex == 2, "Keyboard loot slot maps into the shared action snapshot");
 
+            PrototypeCampPlacementActions mousePlacementActions = PrototypeCampPlacementActions.FromRaw(new PrototypeRawCampPlacementInput
+            {
+                UsePointer = true,
+                PointerWorldX = 1.5f,
+                MouseConfirm = true,
+                MouseCancel = true
+            });
+            PrototypeCampPlacementActions gamepadPlacementActions = PrototypeCampPlacementActions.FromRaw(new PrototypeRawCampPlacementInput
+            {
+                HorizontalAxis = 1f,
+                GamepadConfirm = true,
+                GamepadCancel = true
+            });
+            PrototypeCampPlacement mousePlacement = new PrototypeCampPlacement();
+            PrototypeCampPlacement gamepadPlacement = new PrototypeCampPlacement();
+            mousePlacement.Begin(StructureKind.Campfire, false);
+            gamepadPlacement.Begin(StructureKind.Campfire, false);
+            mousePlacement.Update(mousePlacementActions, 1f);
+            gamepadPlacement.Update(gamepadPlacementActions, 1f);
+            Assert(Mathf.Approximately(mousePlacement.CandidateX, gamepadPlacement.CandidateX), "Mouse and gamepad drive the same placement state");
+            Assert(mousePlacementActions.ConfirmPressed && gamepadPlacementActions.ConfirmPressed, "Mouse and gamepad share placement confirm");
+            Assert(mousePlacementActions.CancelPressed && gamepadPlacementActions.CancelPressed, "Mouse and gamepad share placement cancel");
+
+            GameSession placementSession = new GameSession();
+            PrototypeCampPlacement placement = new PrototypeCampPlacement();
+            placement.Begin(StructureKind.Campfire, false);
+            placement.SetCandidateX(1.26f);
+            Assert(Mathf.Approximately(placement.CandidateX, 1.5f), "Placement snaps to the 0.5 metre floor grid");
+            placement.SetCandidateX(-5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.OutsideCampBounds, "Camp bounds reject placement");
+            placement.SetCandidateX(-2.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.BlocksEntrance, "Camp entrance rejects placement");
+            placement.SetCandidateX(0f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.BlocksRequiredPath, "Required travel path rejects placement");
+            placement.SetCandidateX(-1.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.Valid, "Campfire has a valid snapped location");
+            Assert(placementSession.TryBuild(StructureKind.Campfire) && placement.Commit(), "Campfire placement spends build cost once");
+
+            placementSession.Grant(ResourceKind.Wood, 2);
+            placementSession.Grant(ResourceKind.Salvage, 1);
+            placement.Begin(StructureKind.Workbench, false);
+            placement.SetCandidateX(-1.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.OverlapsStructure, "Installed structure overlap is rejected");
+            placement.SetCandidateX(1.5f);
+            Assert(placementSession.TryBuild(StructureKind.Workbench) && placement.Commit(), "Workbench uses the shared placement rules");
+            int woodBeforeMove = placementSession.GetStorage(ResourceKind.Wood);
+            int stoneBeforeMove = placementSession.GetStorage(ResourceKind.Stone);
+            int salvageBeforeMove = placementSession.GetStorage(ResourceKind.Salvage);
+            placement.Begin(StructureKind.Workbench, true);
+            placement.SetCandidateX(3.5f);
+            Assert(placement.Commit(), "Installed workbench can be repositioned");
+            Assert(placementSession.GetStorage(ResourceKind.Wood) == woodBeforeMove &&
+                   placementSession.GetStorage(ResourceKind.Stone) == stoneBeforeMove &&
+                   placementSession.GetStorage(ResourceKind.Salvage) == salvageBeforeMove, "Repositioning consumes no resources");
+
             GameSession shoreline = new GameSession();
             Assert(shoreline.BeginSearch(), "Traversal scenario begins search");
             PrototypePlayerTraversal traversal = new PrototypePlayerTraversal();
@@ -163,7 +218,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: inventory overflow/swap, return transfer, shared keyboard/gamepad actions, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: inventory overflow/swap, shared keyboard/gamepad actions, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }

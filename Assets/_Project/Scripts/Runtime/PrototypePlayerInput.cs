@@ -70,6 +70,47 @@ namespace KimSurvival
         }
     }
 
+    public struct PrototypeRawCampPlacementInput
+    {
+        public bool UsePointer;
+        public float PointerWorldX;
+        public float HorizontalAxis;
+        public bool MouseConfirm;
+        public bool KeyboardConfirm;
+        public bool GamepadConfirm;
+        public bool MouseCancel;
+        public bool KeyboardCancel;
+        public bool GamepadCancel;
+    }
+
+    public readonly struct PrototypeCampPlacementActions
+    {
+        public PrototypeCampPlacementActions(bool usePointer, float pointerWorldX, float horizontal, bool confirmPressed, bool cancelPressed)
+        {
+            UsePointer = usePointer;
+            PointerWorldX = pointerWorldX;
+            Horizontal = horizontal;
+            ConfirmPressed = confirmPressed;
+            CancelPressed = cancelPressed;
+        }
+
+        public bool UsePointer { get; }
+        public float PointerWorldX { get; }
+        public float Horizontal { get; }
+        public bool ConfirmPressed { get; }
+        public bool CancelPressed { get; }
+
+        public static PrototypeCampPlacementActions FromRaw(PrototypeRawCampPlacementInput raw)
+        {
+            return new PrototypeCampPlacementActions(
+                raw.UsePointer,
+                raw.PointerWorldX,
+                Mathf.Clamp(raw.HorizontalAxis, -1f, 1f),
+                raw.MouseConfirm || raw.KeyboardConfirm || raw.GamepadConfirm,
+                raw.MouseCancel || raw.KeyboardCancel || raw.GamepadCancel);
+        }
+    }
+
     public sealed class LegacyPrototypePlayerInput
     {
         public PrototypeInputDevice ActiveDevice { get; private set; } = PrototypeInputDevice.KeyboardMouse;
@@ -91,10 +132,15 @@ namespace KimSurvival
                 }
             }
 
-            bool keyboard = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) ||
-                            Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Space) ||
-                            Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0);
-            if (gamepad)
+            bool keyboardDirection = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) ||
+                                     Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow);
+            string[] joystickNames = Input.GetJoystickNames();
+            bool gamepadAxis = joystickNames.Length > 0 && !keyboardDirection &&
+                               (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.2f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
+            bool keyboard = keyboardDirection || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Space) ||
+                            Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) ||
+                            Mathf.Abs(Input.GetAxisRaw("Mouse X")) > 0.01f || Mathf.Abs(Input.GetAxisRaw("Mouse Y")) > 0.01f;
+            if (gamepad || gamepadAxis)
             {
                 ActiveDevice = PrototypeInputDevice.Gamepad;
             }
@@ -137,6 +183,24 @@ namespace KimSurvival
                 BagSlotIndex = bagSlotIndex
             };
             return PrototypePlayerActions.FromRaw(raw);
+        }
+
+        public PrototypeCampPlacementActions ReadCampPlacementActions(Camera worldCamera)
+        {
+            Vector3 pointerWorld = worldCamera.ScreenToWorldPoint(Input.mousePosition);
+            PrototypeRawCampPlacementInput raw = new PrototypeRawCampPlacementInput
+            {
+                UsePointer = ActiveDevice == PrototypeInputDevice.KeyboardMouse,
+                PointerWorldX = pointerWorld.x,
+                HorizontalAxis = Input.GetAxisRaw("Horizontal"),
+                MouseConfirm = Input.GetMouseButtonDown(0),
+                KeyboardConfirm = Input.GetKeyDown(KeyCode.Return),
+                GamepadConfirm = Input.GetKeyDown(KeyCode.JoystickButton0),
+                MouseCancel = Input.GetMouseButtonDown(1),
+                KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
+                GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
+            };
+            return PrototypeCampPlacementActions.FromRaw(raw);
         }
     }
 }

@@ -35,6 +35,7 @@ namespace KimSurvival
         private readonly Dictionary<StructureKind, GameObject> structureViews = new Dictionary<StructureKind, GameObject>();
         private readonly LegacyPrototypePlayerInput playerInput = new LegacyPrototypePlayerInput();
         private readonly PrototypePlayerTraversal playerTraversal = new PrototypePlayerTraversal();
+        private readonly PrototypeCampPlacement campPlacement = new PrototypeCampPlacement();
 
         private GameSession session;
         private Camera worldCamera;
@@ -44,6 +45,9 @@ namespace KimSurvival
         private Transform worldRoot;
         private Transform playerRoot;
         private PrototypePlayerPresentation playerPresentation;
+        private GameObject placementGhost;
+        private SpriteRenderer placementGhostRenderer;
+        private TextMesh placementGhostLabel;
         private Text statusText;
         private Text resourceText;
         private Text messageText;
@@ -91,6 +95,10 @@ namespace KimSurvival
             if (session.Phase == GamePhase.Exploring)
             {
                 UpdateExploration();
+            }
+            else if (session.Phase == GamePhase.Camp && campPlacement.IsActive)
+            {
+                UpdateCampPlacement();
             }
 
             if (renderedPhase != session.Phase)
@@ -160,9 +168,9 @@ namespace KimSurvival
             Text actionTitle = CreateText("캠프 행동 제목", campActions.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -64f), new Vector2(-18f, -12f), 32, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
             actionTitle.text = "베이스캠프 · 제작 / 건설 / 연구";
 
-            campfireButton = CreateActionButton(campActions.transform, 0, "모닥불 건설", delegate { session.TryBuild(StructureKind.Campfire); RefreshAll(); });
-            workbenchButton = CreateActionButton(campActions.transform, 1, "작업대 건설", delegate { session.TryBuild(StructureKind.Workbench); RefreshAll(); });
-            rainButton = CreateActionButton(campActions.transform, 2, "빗물받이 건설", delegate { session.TryBuild(StructureKind.RainCollector); RefreshAll(); });
+            campfireButton = CreateActionButton(campActions.transform, 0, "모닥불 건설", delegate { BeginCampPlacement(StructureKind.Campfire); });
+            workbenchButton = CreateActionButton(campActions.transform, 1, "작업대 건설", delegate { BeginCampPlacement(StructureKind.Workbench); });
+            rainButton = CreateActionButton(campActions.transform, 2, "빗물받이 건설", delegate { BeginCampPlacement(StructureKind.RainCollector); });
             researchAxeButton = CreateActionButton(campActions.transform, 3, "돌도끼 연구", delegate { session.TryResearch(TechKind.StoneAxe); RefreshAll(); });
             craftAxeButton = CreateActionButton(campActions.transform, 4, "돌도끼 제작", delegate { session.TryCraft(TechKind.StoneAxe); RefreshAll(); });
             researchRopeButton = CreateActionButton(campActions.transform, 5, "밧줄 연구", delegate { session.TryResearch(TechKind.Rope); RefreshAll(); });
@@ -183,11 +191,16 @@ namespace KimSurvival
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
-            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), "다시 시작", delegate { session.Reset(); RefreshAll(); });
+            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), "다시 시작", delegate { session.Reset(); campPlacement.Reset(); RefreshAll(); });
         }
 
         private void HandlePhaseButton()
         {
+            if (campPlacement.IsActive)
+            {
+                return;
+            }
+
             if (session.ExpeditionCompleted)
             {
                 session.EndDay();
@@ -217,7 +230,7 @@ namespace KimSurvival
             else if (camp)
             {
                 UpdateCampButtons();
-                EventSystem.current.SetSelectedGameObject(phaseButton.gameObject);
+                EventSystem.current.SetSelectedGameObject(campPlacement.IsActive ? null : phaseButton.gameObject);
             }
             else if (session.HasPendingLoot && bagButtons.Count > 0)
             {
@@ -241,7 +254,15 @@ namespace KimSurvival
 
             if (session.Phase == GamePhase.Camp)
             {
-                controlsText.text = playerInput.ActiveDeviceLabel + " · 버튼을 선택해 캠프를 정비하세요 · Tab/방향키 이동 · Enter/A 선택";
+                if (campPlacement.IsActive)
+                {
+                    messageText.text = campPlacement.CurrentFeedback;
+                    controlsText.text = playerInput.ActiveDeviceLabel + " · 마우스 또는 스틱 좌우 배치 · 클릭/Enter/A 확정 · 우클릭/Esc/B 취소";
+                }
+                else
+                {
+                    controlsText.text = playerInput.ActiveDeviceLabel + " · 버튼을 선택해 캠프를 정비하세요 · 건설된 일반 설비는 무료 재배치";
+                }
                 bagTitleText.text = "캠프 창고\n(수색 중에는 4칸 가방)";
             }
             else if (session.Phase == GamePhase.Exploring)
@@ -255,16 +276,17 @@ namespace KimSurvival
 
         private void UpdateCampButtons()
         {
-            SetButton(campfireButton, session.HasStructure(StructureKind.Campfire) ? "✓ 모닥불" : "모닥불 건설  나무2·돌1", session.CanBuild(StructureKind.Campfire));
-            SetButton(workbenchButton, session.HasStructure(StructureKind.Workbench) ? "✓ 작업대" : "작업대 건설  나무2·표류물1", session.CanBuild(StructureKind.Workbench));
-            SetButton(rainButton, session.HasStructure(StructureKind.RainCollector) ? "✓ 빗물받이" : "빗물받이  나무2·돌1·표류물1", session.CanBuild(StructureKind.RainCollector));
-            SetButton(researchAxeButton, session.HasResearched(TechKind.StoneAxe) ? "✓ 돌도끼 연구" : "돌도끼 연구  돌1·표류물1", session.CanResearch(TechKind.StoneAxe));
-            SetButton(craftAxeButton, session.HasAxe ? "✓ 돌도끼 보유" : "돌도끼 제작  나무1·돌1", session.CanCraft(TechKind.StoneAxe));
-            SetButton(researchRopeButton, session.HasResearched(TechKind.Rope) ? "✓ 밧줄 연구" : "밧줄 연구  표류물1", session.CanResearch(TechKind.Rope));
-            SetButton(craftRopeButton, session.HasRope ? "✓ 밧줄 보유" : "밧줄 제작  나무1·표류물1", session.CanCraft(TechKind.Rope));
-            SetButton(signalButton, session.SignalStage >= 2 ? "✓ 구조 신호 발신" : "구조 신호대 " + session.SignalStage + "/2  나무2·표류물2", session.CanUpgradeSignal());
-            SetButton(eatButton, "식량 먹기  보유 " + session.GetStorage(ResourceKind.Food), session.GetStorage(ResourceKind.Food) > 0 && session.Hunger < 100f);
-            SetButton(phaseButton, session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "마지막 날 정산" : "다음 날로") : "섬 수색 출발", true);
+            bool available = !campPlacement.IsActive;
+            SetButton(campfireButton, session.HasStructure(StructureKind.Campfire) ? "↔ 모닥불 무료 재배치" : "모닥불 건설  나무2·돌1", available && (session.HasStructure(StructureKind.Campfire) || session.CanBuild(StructureKind.Campfire)));
+            SetButton(workbenchButton, session.HasStructure(StructureKind.Workbench) ? "↔ 작업대 무료 재배치" : "작업대 건설  나무2·표류물1", available && (session.HasStructure(StructureKind.Workbench) || session.CanBuild(StructureKind.Workbench)));
+            SetButton(rainButton, session.HasStructure(StructureKind.RainCollector) ? "↔ 빗물받이 무료 재배치" : "빗물받이  나무2·돌1·표류물1", available && (session.HasStructure(StructureKind.RainCollector) || session.CanBuild(StructureKind.RainCollector)));
+            SetButton(researchAxeButton, session.HasResearched(TechKind.StoneAxe) ? "✓ 돌도끼 연구" : "돌도끼 연구  돌1·표류물1", available && session.CanResearch(TechKind.StoneAxe));
+            SetButton(craftAxeButton, session.HasAxe ? "✓ 돌도끼 보유" : "돌도끼 제작  나무1·돌1", available && session.CanCraft(TechKind.StoneAxe));
+            SetButton(researchRopeButton, session.HasResearched(TechKind.Rope) ? "✓ 밧줄 연구" : "밧줄 연구  표류물1", available && session.CanResearch(TechKind.Rope));
+            SetButton(craftRopeButton, session.HasRope ? "✓ 밧줄 보유" : "밧줄 제작  나무1·표류물1", available && session.CanCraft(TechKind.Rope));
+            SetButton(signalButton, session.SignalStage >= 2 ? "✓ 구조 신호 발신" : "구조 신호대 " + session.SignalStage + "/2  나무2·표류물2", available && session.CanUpgradeSignal());
+            SetButton(eatButton, "식량 먹기  보유 " + session.GetStorage(ResourceKind.Food), available && session.GetStorage(ResourceKind.Food) > 0 && session.Hunger < 100f);
+            SetButton(phaseButton, session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "마지막 날 정산" : "다음 날로") : "섬 수색 출발", available);
         }
 
         private void RefreshBagButtons()
@@ -295,6 +317,9 @@ namespace KimSurvival
             structureViews.Clear();
             playerRoot = null;
             playerPresentation = null;
+            placementGhost = null;
+            placementGhostRenderer = null;
+            placementGhostLabel = null;
 
             if (session.Phase == GamePhase.Exploring)
             {
@@ -313,18 +338,84 @@ namespace KimSurvival
             CreateRect("하늘 · " + AssetCampBackground, new Vector2(0f, 1.4f), new Vector2(20f, 8.5f), new Color(0.36f, 0.77f, 0.9f), -20);
             CreateRect("바다", new Vector2(0f, -1.2f), new Vector2(20f, 2.7f), new Color(0.13f, 0.55f, 0.75f), -15);
             CreateRect("모래", new Vector2(0f, -3.25f), new Vector2(20f, 1.9f), new Color(0.91f, 0.75f, 0.43f), -10);
+            float buildWidth = PrototypeCampPlacement.BuildMaximumX - PrototypeCampPlacement.BuildMinimumX;
+            float buildCenter = (PrototypeCampPlacement.BuildMinimumX + PrototypeCampPlacement.BuildMaximumX) * 0.5f;
+            GameObject buildZone = CreateRect("호환 건설 구역", new Vector2(buildCenter, -2.67f), new Vector2(buildWidth, 0.24f), new Color(0.2f, 0.68f, 0.35f, 0.55f), -5);
+            CreateWorldLabel(buildZone.transform, "일반 설비 · 0.5m 바닥 스냅", new Vector3(0f, 0.42f, -0.1f), 34, new Color(0.08f, 0.25f, 0.12f));
+            CreateReservedCampStrip("출입구 보호", PrototypeCampPlacement.EntranceMinimumX, PrototypeCampPlacement.EntranceMaximumX, new Color(0.95f, 0.38f, 0.18f, 0.72f));
+            CreateReservedCampStrip("필수 통로", PrototypeCampPlacement.RequiredPathMinimumX, PrototypeCampPlacement.RequiredPathMaximumX, new Color(1f, 0.72f, 0.16f, 0.72f));
             CreateSun(new Vector2(6.9f, 3.55f));
             CreatePalm(new Vector2(-7.1f, -2.25f), 1.2f);
             CreatePalm(new Vector2(7.5f, -2.35f), 0.9f);
             CreateKim(new Vector2(-5f, -2.18f));
 
-            CreateStructurePlaceholder(StructureKind.Campfire, new Vector2(-2.3f, -2.45f), new Vector2(1.5f, 0.9f), new Color(1f, 0.43f, 0.14f), "모닥불");
-            CreateStructurePlaceholder(StructureKind.Workbench, new Vector2(0.3f, -2.2f), new Vector2(2f, 1.2f), new Color(0.48f, 0.26f, 0.12f), "작업대");
-            CreateStructurePlaceholder(StructureKind.RainCollector, new Vector2(3.2f, -1.95f), new Vector2(1.7f, 1.7f), new Color(0.27f, 0.7f, 0.86f), "빗물받이");
+            CreatePlacedStructure(StructureKind.Campfire, new Color(1f, 0.43f, 0.14f), "모닥불");
+            CreatePlacedStructure(StructureKind.Workbench, new Color(0.48f, 0.26f, 0.12f), "작업대");
+            CreatePlacedStructure(StructureKind.RainCollector, new Color(0.27f, 0.7f, 0.86f), "빗물받이");
 
             Color signalColor = session.SignalStage == 0 ? new Color(0.38f, 0.42f, 0.4f, 0.55f) : session.SignalStage == 1 ? new Color(0.86f, 0.5f, 0.16f) : new Color(1f, 0.88f, 0.2f);
             GameObject signal = CreateRect("구조 신호대 · " + AssetStructures, new Vector2(6.1f, -1.2f), new Vector2(0.45f, session.SignalStage == 0 ? 2.7f : 4.1f), signalColor, 2);
-            CreateWorldLabel(signal.transform, "신호대 " + session.SignalStage + "/2", new Vector3(0f, 1.45f, -0.1f), 50, Color.black);
+            CreateWorldLabel(signal.transform, "전용 앵커 · 신호대 " + session.SignalStage + "/2", new Vector3(0f, 1.45f, -0.1f), 44, Color.black);
+            if (campPlacement.IsActive)
+            {
+                CreatePlacementGhost();
+            }
+        }
+
+        private void BeginCampPlacement(StructureKind kind)
+        {
+            bool relocating = session.HasStructure(kind);
+            if (!relocating && !session.CanBuild(kind))
+            {
+                return;
+            }
+
+            campPlacement.Begin(kind, relocating);
+            RefreshAll();
+        }
+
+        private void UpdateCampPlacement()
+        {
+            PrototypeCampPlacementActions actions = playerInput.ReadCampPlacementActions(worldCamera);
+            campPlacement.Update(actions, Time.deltaTime);
+            UpdatePlacementGhost();
+
+            if (actions.CancelPressed)
+            {
+                campPlacement.Cancel();
+                RefreshAll();
+                return;
+            }
+
+            if (actions.ConfirmPressed)
+            {
+                ConfirmCampPlacement();
+            }
+        }
+
+        private bool ConfirmCampPlacement()
+        {
+            if (!campPlacement.IsActive || campPlacement.CurrentValidity != CampPlacementValidity.Valid)
+            {
+                RefreshHud();
+                return false;
+            }
+
+            StructureKind kind = campPlacement.SelectedKind;
+            bool relocating = session.HasStructure(kind);
+            if (!relocating && !session.TryBuild(kind))
+            {
+                RefreshHud();
+                return false;
+            }
+
+            if (!campPlacement.Commit())
+            {
+                throw new InvalidOperationException("유효한 캠프 배치를 확정하지 못했습니다.");
+            }
+
+            RefreshAll();
+            return true;
         }
 
         private void CreateSearchWorld()
@@ -461,6 +552,7 @@ namespace KimSurvival
         public string RunAutomatedVerification(string explorationScreenshotPath, string swimmingScreenshotPath)
         {
             session.Reset();
+            campPlacement.Reset();
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
             session.Grant(ResourceKind.Food, 5);
@@ -468,8 +560,39 @@ namespace KimSurvival
             RefreshAll();
 
             campfireButton.onClick.Invoke();
+            Require(campPlacement.IsActive && placementGhost != null, "모닥불 배치 유령 UI");
+            campPlacement.SetCandidateX(-5f);
+            UpdatePlacementGhost();
+            Require(campPlacement.CurrentValidity == CampPlacementValidity.OutsideCampBounds && !ConfirmCampPlacement(), "캠프 경계 밖 배치 거부");
+            campPlacement.SetCandidateX(-2.5f);
+            UpdatePlacementGhost();
+            Require(campPlacement.CurrentValidity == CampPlacementValidity.BlocksEntrance && !ConfirmCampPlacement(), "출입구 차단 배치 거부");
+            campPlacement.SetCandidateX(0f);
+            UpdatePlacementGhost();
+            Require(campPlacement.CurrentValidity == CampPlacementValidity.BlocksRequiredPath && !ConfirmCampPlacement(), "필수 통로 차단 배치 거부");
+            campPlacement.SetCandidateX(-1.5f);
+            UpdatePlacementGhost();
+            Require(campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement(), "모닥불 스냅 배치 확정");
+
             workbenchButton.onClick.Invoke();
+            campPlacement.SetCandidateX(1.5f);
+            Require(ConfirmCampPlacement(), "작업대 스냅 배치 확정");
+            int woodBeforeRelocation = session.GetStorage(ResourceKind.Wood);
+            int stoneBeforeRelocation = session.GetStorage(ResourceKind.Stone);
+            int salvageBeforeRelocation = session.GetStorage(ResourceKind.Salvage);
+            workbenchButton.onClick.Invoke();
+            Require(campPlacement.IsRelocating, "건설된 작업대 재배치 진입");
+            campPlacement.SetCandidateX(3.5f);
+            Require(ConfirmCampPlacement(), "작업대 무료 재배치 확정");
+            Require(Mathf.Approximately(campPlacement.GetInstalledPosition(StructureKind.Workbench).x, 3.5f), "작업대 위치 변경");
+            Require(session.GetStorage(ResourceKind.Wood) == woodBeforeRelocation &&
+                    session.GetStorage(ResourceKind.Stone) == stoneBeforeRelocation &&
+                    session.GetStorage(ResourceKind.Salvage) == salvageBeforeRelocation, "재배치 추가 자원 비용 없음");
+
             rainButton.onClick.Invoke();
+            Require(campPlacement.CurrentValidity == CampPlacementValidity.OverlapsStructure && !ConfirmCampPlacement(), "설비 겹침 배치 거부");
+            campPlacement.SetCandidateX(1.5f);
+            Require(ConfirmCampPlacement(), "빗물받이 스냅 배치 확정");
             researchAxeButton.onClick.Invoke();
             craftAxeButton.onClick.Invoke();
             researchRopeButton.onClick.Invoke();
@@ -550,7 +673,7 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · UI 건설·제작·연구, 10개 수색 지점, 해안 입수·수영 점프 금지·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산·신호대 확인";
+            return "PASS · UI 자유 배치·유령·경계/겹침/출입구/통로·무료 재배치, 제작·연구, 10개 수색 지점, 해안 입수·수영 점프 금지·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산·전용 신호대 확인";
         }
 
         public void CaptureVerificationPng(string absolutePath, int width, int height)
@@ -595,12 +718,49 @@ namespace KimSurvival
             playerPresentation.Apply(playerTraversal.CurrentPresentation(session.IsSwimming));
         }
 
-        private void CreateStructurePlaceholder(StructureKind kind, Vector2 position, Vector2 size, Color color, string label)
+        private void CreateReservedCampStrip(string label, float minimumX, float maximumX, Color color)
         {
-            bool built = session.HasStructure(kind);
-            GameObject structure = CreateRect(label + " · " + AssetStructures, position, size, built ? color : new Color(0.3f, 0.34f, 0.32f, 0.48f), built ? 3 : 0);
-            CreateWorldLabel(structure.transform, built ? label : label + " 자리", new Vector3(0f, size.y * 0.68f, -0.1f), 42, built ? Color.black : new Color(0.15f, 0.18f, 0.17f));
+            float width = maximumX - minimumX;
+            GameObject strip = CreateRect(label, new Vector2((minimumX + maximumX) * 0.5f, -2.63f), new Vector2(width, 0.32f), color, -4);
+            CreateWorldLabel(strip.transform, label, new Vector3(0f, 0.5f, -0.1f), 30, new Color(0.32f, 0.09f, 0.03f));
+        }
+
+        private void CreatePlacedStructure(StructureKind kind, Color color, string label)
+        {
+            if (!session.HasStructure(kind))
+            {
+                return;
+            }
+
+            campPlacement.EnsureInstalled(kind);
+            Vector2 size = PrototypeCampPlacement.GetStructureSize(kind);
+            Vector2 position = campPlacement.GetInstalledPosition(kind);
+            GameObject structure = CreateRect(label + " · " + AssetStructures, position, size, color, 3);
+            CreateWorldLabel(structure.transform, label + "\n↔ 무료 재배치", new Vector3(0f, size.y * 0.68f, -0.1f), 38, Color.black);
             structureViews[kind] = structure;
+        }
+
+        private void CreatePlacementGhost()
+        {
+            Vector2 size = PrototypeCampPlacement.GetStructureSize(campPlacement.SelectedKind);
+            placementGhost = CreateRect("배치 유령 · " + AssetStructures, campPlacement.CandidatePosition, size, Color.white, 6);
+            placementGhostRenderer = placementGhost.GetComponent<SpriteRenderer>();
+            placementGhostLabel = CreateWorldLabel(placementGhost.transform, string.Empty, new Vector3(0f, size.y * 0.72f, -0.1f), 38, Color.white);
+            UpdatePlacementGhost();
+        }
+
+        private void UpdatePlacementGhost()
+        {
+            if (placementGhost == null)
+            {
+                return;
+            }
+
+            bool valid = campPlacement.CurrentValidity == CampPlacementValidity.Valid;
+            placementGhost.transform.position = campPlacement.CandidatePosition;
+            placementGhostRenderer.color = valid ? new Color(0.2f, 0.92f, 0.38f, 0.62f) : new Color(1f, 0.22f, 0.14f, 0.7f);
+            placementGhostLabel.text = PrototypeCampPlacement.GetStructureName(campPlacement.SelectedKind) + "\n" + (valid ? "✓ 설치 가능" : "✕ 설치 불가");
+            placementGhostLabel.color = valid ? new Color(0.04f, 0.28f, 0.08f) : new Color(0.45f, 0.03f, 0.02f);
         }
 
         private void CreateKim(Vector2 position)
@@ -684,7 +844,7 @@ namespace KimSurvival
             item.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
         }
 
-        private void CreateWorldLabel(Transform parent, string value, Vector3 localPosition, int size, Color color)
+        private TextMesh CreateWorldLabel(Transform parent, string value, Vector3 localPosition, int size, Color color)
         {
             GameObject labelObject = new GameObject("라벨");
             labelObject.transform.SetParent(parent, false);
@@ -700,6 +860,7 @@ namespace KimSurvival
             mesh.color = color;
             MeshRenderer renderer = labelObject.GetComponent<MeshRenderer>();
             renderer.sortingOrder = 20;
+            return mesh;
         }
 
         private RectTransform CreatePanel(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, Vector2 offsetMin, Vector2 offsetMax, Color color)
