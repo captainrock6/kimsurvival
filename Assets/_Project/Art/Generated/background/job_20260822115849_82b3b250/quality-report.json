@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 2,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 57.56,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "camp-structure-followup-package.txt",
+      "kind": "file",
+      "bytes": 2300,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-22T12:00:34.956Z",
+  "jobId": "job_20260822115849_82b3b250",
+  "assetType": "background"
+}

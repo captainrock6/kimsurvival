@@ -2,7 +2,7 @@
   "id": "job_20260822113720_fba8c8d1",
   "status": "succeeded",
   "createdAt": "2026-08-22T11:37:20.113Z",
-  "updatedAt": "2026-08-22T11:39:09.030Z",
+  "updatedAt": "2026-08-22T11:57:44.160Z",
   "input": {
     "assetType": "background",
     "assetId": "background.island-camp",
@@ -167,7 +167,15 @@
       "url": "/outputs/jobs/job_20260822113720_fba8c8d1/qa-preview-exec-53d875d4-8bcf-4a2c-8c15-d6b5d420abd5.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "revise",
+    "tags": [],
+    "note": "사용자는 현재 후보가 넓은 바닥 면이 원근 방향으로 후퇴하는 개활지로 보여 2D 횡스크롤에서 캐릭터와 설비를 같은 바닥선에 배치하기 어렵다고 판단했다. 다음 후보는 완전한 측면 직교 시점, 하나의 수평 지면선, X축 한정 자유 배치 구간, 측면 실루엣과 외곽 구조 신호대 앵커를 강제한다.",
+    "selectedArtifacts": [
+      "exec-53d875d4-8bcf-4a2c-8c15-d6b5d420abd5.png"
+    ],
+    "updatedAt": "2026-08-22T11:57:44.152Z"
+  },
   "events": [
     {
       "at": "2026-08-22T11:37:20.113Z",
@@ -203,6 +211,11 @@
       "at": "2026-08-22T11:39:09.030Z",
       "level": "info",
       "message": "Codex/로컬 결과 5개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-22T11:57:44.160Z",
+      "level": "info",
+      "message": "피드백 저장: 수정 필요"
     }
   ],
   "error": null,
