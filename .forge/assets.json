@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T10:31:40.465Z",
+  "updatedAt": "2026-08-22T12:28:06.871Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -130,9 +130,9 @@
       "id": "background.island-camp",
       "name": "무인도 베이스캠프 배경",
       "assetType": "background",
-      "request": "Unity 2D 16:9 측면 거점용 오리지널 베이스캠프 배경. 일반 설비는 제한적 자유 배치가 기본이므로 모닥불, 작업대, 빗물받이의 고정 자리, 받침대, 윤곽선 또는 완성 형태를 환경에 미리 그리지 않는다. 김씨가 이동하고 여러 유효 위치에 설비를 놓을 수 있도록 중앙과 전경 지면에 넓고 연속적이며 읽기 쉬운 건설 구역, 평탄한 배치 면, 충분한 이동·상호작용 여백을 확보한다. 배경, 중경, 플레이 지면, 가장자리 전경을 교체 가능한 레이어 기준으로 분리하고 설비 파츠가 어느 허용 위치에 놓여도 원근, 조명, 실루엣이 자연스럽게 맞아야 한다. 특수 설비인 구조 신호대만 화면 외곽의 전용 고정 앵커를 사용하며, 해당 위치는 인공 슬롯이나 아이콘 없이 바람이 잘 통하고 하늘이 열린 자연스러운 외부 지형으로 읽히게 한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 형태, 김씨와 UI를 위한 여백을 유지한다. 캐릭터, UI, 글자, 수집 아이콘, 일반 설비의 고정 배치 표식은 포함하지 않으며 참조 자료의 고유 미술과 정확한 레이아웃을 복제하지 않는다.",
-      "status": "needed",
-      "source": "codex",
+      "request": "채택된 background.island-camp의 화면 구도와 색을 바꾸지 않고 Unity 2D 패럴랙스 및 충돌 배치를 위해 같은 16:9 전체 캔버스 좌표를 공유하는 3개 생산 레이어로 분리한다. 산출물은 (1) 하늘·구름·바다·수평선·먼 섬과 먼 수림만 담고 제거된 앞 요소 뒤를 자연스럽게 복원한 완전 불투명 background_opaque, (2) 단일 수평 이동 지면과 흙 단면 및 오른쪽 한 단 높은 구조 신호대용 바위 턱만 담고 나머지가 실제 투명한 gameplay_ground_alpha, (3) 왼쪽 가까운 야자수·바위·가장자리 식생과 화면 아래 양쪽 잎 장식만 담고 지면·신호대 턱을 중복하지 않는 실제 투명 foreground_alpha. 세 파일은 동일한 캔버스 크기, 원점, 기준선과 픽셀 정렬을 사용하며 background→gameplay_ground→foreground 순으로 겹쳤을 때 채택 구도가 재현되어야 한다. 캐릭터, 설비, UI, 글자, 아이콘, 마커, 로고, 워터마크를 추가하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "2d",
@@ -142,14 +142,158 @@
         "layered"
       ],
       "dependencies": [],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
-      "parentJobId": null,
-      "artifacts": [],
-      "engine": {},
+      "jobIds": [
+        "job_20260822113720_fba8c8d1",
+        "job_20260822115849_82b3b250",
+        "job_20260822121407_ada388c8"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822113720_fba8c8d1",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T11:37:20.196Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822113720_fba8c8d1",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T11:39:09.046Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822113720_fba8c8d1",
+          "parentJobId": null,
+          "status": "revision_needed",
+          "at": "2026-08-22T11:57:44.181Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822115849_82b3b250",
+          "parentJobId": "job_20260822113720_fba8c8d1",
+          "status": "awaiting_import",
+          "at": "2026-08-22T11:58:49.570Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822115849_82b3b250",
+          "parentJobId": "job_20260822113720_fba8c8d1",
+          "status": "review",
+          "at": "2026-08-22T12:00:35.010Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822115849_82b3b250",
+          "parentJobId": "job_20260822113720_fba8c8d1",
+          "status": "adopted",
+          "at": "2026-08-22T12:06:56.210Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822121407_ada388c8",
+          "parentJobId": "job_20260822115849_82b3b250",
+          "status": "awaiting_import",
+          "at": "2026-08-22T12:14:07.655Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822121407_ada388c8",
+          "parentJobId": "job_20260822115849_82b3b250",
+          "status": "review",
+          "at": "2026-08-22T12:27:54.755Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260822121407_ada388c8",
+      "parentJobId": "job_20260822115849_82b3b250",
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 16110,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 13770,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "background_opaque.png",
+          "contentType": "image/png",
+          "bytes": 1531071,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/background_opaque.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "gameplay_ground_alpha.png",
+          "contentType": "image/png",
+          "bytes": 772662,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/gameplay_ground_alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "foreground_alpha.png",
+          "contentType": "image/png",
+          "bytes": 580953,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/foreground_alpha.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "island-camp-layer-manifest.json",
+          "contentType": "application/json",
+          "bytes": 1393,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/island-camp-layer-manifest.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 1662,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1900,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-background_opaque.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6209,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/qa-preview-background_opaque.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-gameplay_ground_alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3614,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/qa-preview-gameplay_ground_alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-foreground_alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3764,
+          "url": "/outputs/jobs/job_20260822121407_ada388c8/qa-preview-foreground_alpha.jpg"
+        }
+      ],
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260822115849_82b3b250",
+        "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260822115849_82b3b250\\forge-import.json",
+        "packagedAt": "2026-08-22T12:07:04.844Z"
+      },
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-22T10:18:49.071Z"
+      "updatedAt": "2026-08-22T12:27:54.755Z"
     },
     {
       "id": "background.coast-forest",
@@ -342,9 +486,9 @@
       "id": "object.camp-structures",
       "name": "캠프 설비 분리 파츠",
       "assetType": "separated_parts",
-      "request": "모닥불, 작업대, 빗물받이, 구조 신호대를 Unity에서 개별 배치하고 교체할 수 있는 독립 투명 배경 2D 설비 파츠 세트. 일반 설비는 여러 허용 지면 위치에 제한적으로 자유 배치되므로 각 파츠는 주변 지면이나 고정 슬롯을 포함하지 않고 서로 겹치지 않는 독립 레이어로 제공한다. 모든 일반 설비는 동일한 바닥 기준선과 일관된 하단 중앙 피벗, 캐릭터 상호작용을 가리지 않는 좌우 여백, 엔진 충돌·배치 검사에 사용할 명확하고 문서화 가능한 배치 발자국을 갖는다. 원본의 알파 가장자리와 명암은 엔진 틴트 또는 별도 마스크로 배치 유령, 유효, 무효 상태를 표현해도 실루엣이 유지되도록 깨끗하고 중립적으로 제작한다. 구조 신호대는 베이스캠프 배경의 전용 외부 앵커에 맞는 별도 특수 설비 파츠로 취급한다. 나뭇가지, 돌, 잎, 표류 고철을 코믹하지만 기능적으로 조합하고 배경의 측면 원근과 조명을 따른다. 글자, 아이콘, 바닥 장식, 고정 위치 표식은 포함하지 않으며 참조 자료의 고유 미술과 정확한 레이아웃을 복제하지 않는다.",
-      "status": "needed",
-      "source": "codex",
+      "request": "Unity 2D 측면 횡스크롤 베이스캠프용 독립 투명 설비 파츠 세트. 동일한 시트에 모닥불, 작업대, 빗물받이, 구조 신호대를 왼쪽부터 순서대로 서로 겹치지 않는 4개 동일 폭 셀에 하나씩 배치한다. 모든 파츠는 완전한 측면 직교 시점, 동일한 바닥 기준선, 하단 중앙 피벗을 위한 투명 여백, 일관된 성인 김씨 대비 스케일과 굵은 외곽선을 사용한다. 모닥불은 돌 고리와 표류 나무, 작업대는 표류 목재·돌·고철로 급조한 낮은 작업대, 빗물받이는 잎·천 조각·대나무 받침과 통, 구조 신호대는 오른쪽 외곽 바위 턱에 놓일 높은 표류 목재 프레임과 반사판·천 조각으로 구성하되 글자나 국기는 넣지 않는다. 각 파츠는 주변 지면, 고정 그림자, 받침대, 슬롯, 배치 마커를 포함하지 않는 실제 투명 배경이어야 하며 Unity에서 개별 크롭 후 바닥 접점이 일치해야 한다. 엔진 틴트나 단색 마스크를 적용해도 실루엣이 유지되도록 깨끗한 알파와 중립적인 내부 명암을 사용한다. 글자, 숫자, UI, 아이콘, 캐릭터, 사람, 동물, 로고, 워터마크를 포함하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "2d",
@@ -356,14 +500,137 @@
       "dependencies": [
         "background.island-camp"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260822121426_d3c1c03d"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822121426_d3c1c03d",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T12:14:26.207Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822121426_d3c1c03d",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T12:28:06.870Z",
+          "qualityScore": 76
+        }
+      ],
+      "currentJobId": "job_20260822121426_d3c1c03d",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 16334,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 13878,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "camp_structures_atlas_alpha.png",
+          "contentType": "image/png",
+          "bytes": 1056540,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/camp_structures_atlas_alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "campfire.png",
+          "contentType": "image/png",
+          "bytes": 130013,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/campfire.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "workbench.png",
+          "contentType": "image/png",
+          "bytes": 172282,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/workbench.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "rain_collector.png",
+          "contentType": "image/png",
+          "bytes": 365464,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/rain_collector.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "rescue_signal.png",
+          "contentType": "image/png",
+          "bytes": 352453,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/rescue_signal.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "camp-structures-metadata.json",
+          "contentType": "application/json",
+          "bytes": 2210,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/camp-structures-metadata.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 3230,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 2703,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-camp_structures_atlas_alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5376,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-camp_structures_atlas_alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-campfire.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7383,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-campfire.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-workbench.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7806,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-workbench.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-rain_collector.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7720,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-rain_collector.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-rescue_signal.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5996,
+          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-rescue_signal.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-22T10:18:49.234Z"
+      "updatedAt": "2026-08-22T12:28:06.870Z"
     },
     {
       "id": "icon.resource-tool-set",

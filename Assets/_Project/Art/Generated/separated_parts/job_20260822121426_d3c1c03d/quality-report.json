@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "grade": "review",
+  "score": 76,
+  "summary": {
+    "files": 6,
+    "errors": 0,
+    "warnings": 3
+  },
+  "files": [
+    {
+      "fileName": "camp_structures_atlas_alpha.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": true,
+      "transparentRatio": 0.8265,
+      "contrastStdDev": 42.99,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 50,
+        "top": 105,
+        "right": 41,
+        "bottom": 98
+      },
+      "previewFile": "qa-preview-camp_structures_atlas_alpha.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "campfire.png",
+      "kind": "raster",
+      "width": 400,
+      "height": 427,
+      "hasAlpha": true,
+      "transparentRatio": 0.78,
+      "contrastStdDev": 53.04,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 32,
+        "top": 32,
+        "right": 0,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-campfire.jpg",
+      "issues": [
+        {
+          "code": "edge-touch",
+          "severity": "warning",
+          "message": "�ֿ� ������Ʈ�� ĵ���� �����ڸ��� ��� �߸� ������ �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "workbench.png",
+      "kind": "raster",
+      "width": 418,
+      "height": 371,
+      "hasAlpha": true,
+      "transparentRatio": 0.652,
+      "contrastStdDev": 47.56,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 32,
+        "right": 0,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-workbench.jpg",
+      "issues": [
+        {
+          "code": "edge-touch",
+          "severity": "warning",
+          "message": "�ֿ� ������Ʈ�� ĵ���� �����ڸ��� ��� �߸� ������ �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "rain_collector.png",
+      "kind": "raster",
+      "width": 403,
+      "height": 626,
+      "hasAlpha": true,
+      "transparentRatio": 0.5652,
+      "contrastStdDev": 51.38,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-rain_collector.jpg",
+      "issues": [
+        {
+          "code": "edge-touch",
+          "severity": "warning",
+          "message": "�ֿ� ������Ʈ�� ĵ���� �����ڸ��� ��� �߸� ������ �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "rescue_signal.png",
+      "kind": "raster",
+      "width": 409,
+      "height": 798,
+      "hasAlpha": true,
+      "transparentRatio": 0.6728,
+      "contrastStdDev": 58.9,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 17,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-rescue_signal.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "camp-structures-metadata.json",
+      "kind": "editable-source",
+      "bytes": 2210,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-22T12:28:06.809Z",
+  "jobId": "job_20260822121426_d3c1c03d",
+  "assetType": "separated_parts"
+}
