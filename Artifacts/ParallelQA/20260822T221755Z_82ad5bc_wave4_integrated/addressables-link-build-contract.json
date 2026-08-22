@@ -1,0 +1,42 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260822T221755Z_82ad5bc_wave4_integrated",
+    "baselineCommit": "82ad5bc7b43b6793119a5006667cf3b0130a6839",
+    "unityVersion": "6000.4.9f1",
+    "overall": "FAIL",
+    "preflightToBeforeStable": false,
+    "beforeToAfterStable": false,
+    "preflight": {
+        "observedUtc": "2026-08-22T22:17:55.8926370Z",
+        "linkExists": true,
+        "linkBytes": 2121,
+        "linkSha256": "104d4d67be241603224407b1d409a9224ecfc0c8737e634d75fd47e41fef8f96",
+        "metaExists": true,
+        "metaBytes": 158,
+        "metaSha256": "15236daea60df06c415006c064c617b649a6eff289b194197e3b64135bd179c8",
+        "metaGuid": "6cc923a77c080d942b9683f3b4ad54f7",
+        "assetDatabaseGuid": "6cc923a77c080d942b9683f3b4ad54f7"
+    },
+    "beforeBuild": {
+        "observedUtc": "2026-08-22T22:35:02.9293742Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    },
+    "afterBuild": {
+        "observedUtc": "2026-08-22T22:35:27.7373184Z",
+        "linkExists": true,
+        "linkBytes": 2121,
+        "linkSha256": "1d2d8692d9ce6300bac7a7b46b20fae4f0d7cc42fdc7bb2d072cd9b2a5c28d85",
+        "metaExists": true,
+        "metaBytes": 158,
+        "metaSha256": "3afff3010bf5ed1fcdc6335c71d2e8ce12f9c777f1c56ed25fcba2c75cc06cae",
+        "metaGuid": "e917bcc878abb4b45b9641752c4ec54e",
+        "assetDatabaseGuid": "e917bcc878abb4b45b9641752c4ec54e"
+    }
+}

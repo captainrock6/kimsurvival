@@ -1,0 +1,12 @@
+Wave 4 release evidence summary
+Run ID: 20260822T221755Z_82ad5bc_wave4_integrated
+Baseline: 82ad5bc7b43b6793119a5006667cf3b0130a6839
+Overall: FAIL
+Asset contracts: FAIL
+Windows Development build: Succeeded
+Hidden smoke: PASS
+Addressables build contract: FAIL
+Addressables post-smoke contract: FAIL
+Wave 3 visual pixel gate baseline: FAIL
+Steam readiness: NOT_READY
+Physical gamepad: UNVERIFIED

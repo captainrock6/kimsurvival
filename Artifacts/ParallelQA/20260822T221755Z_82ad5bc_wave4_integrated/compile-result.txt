@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260822T221755Z_82ad5bc_wave4_integrated
+Started UTC: 2026-08-22T22:26:46.4606559Z
+Completed UTC: 2026-08-22T22:26:46.5162889Z
+Unity: 6000.4.9f1
+Baseline commit: 82ad5bc7b43b6793119a5006667cf3b0130a6839
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile work/ParallelQA/20260822T221755Z_82ad5bc_wave4_integrated/unity-compile-unsandboxed.log
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260822T221755Z_82ad5bc_wave4_integrated\unity-compile.log | C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260822T221755Z_82ad5bc_wave4_integrated\unity-compile-noupm.log | C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260822T221755Z_82ad5bc_wave4_integrated\unity-compile-retry.log | C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260822T221755Z_82ad5bc_wave4_integrated\unity-compile-stable-license.log | C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260822T221755Z_82ad5bc_wave4_integrated\unity-compile-unsandboxed.log | work/ParallelQA/20260822T221755Z_82ad5bc_wave4_integrated/unity-compile-unsandboxed.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

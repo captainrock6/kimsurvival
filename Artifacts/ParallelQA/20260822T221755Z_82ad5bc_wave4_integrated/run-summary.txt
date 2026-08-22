@@ -1,0 +1,25 @@
+Wave 4 integrated verification summary
+Run ID: 20260822T221755Z_82ad5bc_wave4_integrated
+Integrated baseline: 82ad5bc7b43b6793119a5006667cf3b0130a6839
+
+PASS · Unity 6000.4.9f1 script compilation · 0 compiler errors · 0 compiler warnings
+PASS · Standard deterministic Edit Mode verification
+PASS · Independent deterministic Edit Mode verification · 9/9 routes
+PASS · Korean/English locale persistence across fresh Unity processes
+PASS · Standard Play Mode verification
+PASS · Independent Korean and English Day 1-3 natural full loop, including placement, crafting/research, overflow choice, swimming, return, settlement, and rescue without Grant cheats
+PASS · Normal ko/en placement pixel gate · 24/24 targets
+PASS · Normal ko/en exploration and swimming pixel gate · 10/10 targets
+PASS · Windows x64 Development build · 0 errors · 0 warnings
+PASS · Hidden 1280x800 Windows Player smoke · alive and responding after 6 seconds
+
+FAIL · P1 pseudo-long localization stress gate · 8/10 targets fail bounds, height, or overflow
+FAIL · P1 current three-layer camp background package is not reachable from an enabled build scene or Addressables
+FAIL · P1 tracked Addressables link.xml and GUID are deleted on Unity load and regenerated during build; canonical repository files were restored after evidence capture
+UNVERIFIED · P2 physical gamepad actuation · no physical device exposed to batch Play Mode
+NOT_READY · Steamworks integration, App ID, depot/upload, Steam Input, Cloud, and Achievements remain outside the current prototype
+
+Asset contract totals: 202 PASS · 2 FAIL · 1 UNVERIFIED
+Release conclusion: the playable vertical slice and Windows executable are functional, but Wave 4 is not a release-ready Steam build. Wave 5 must close the background reachability, pseudo-long layout, and Addressables ownership gates before the next release review.
+
+Unity Licensing popup resolution: the 0xe0434352 popup was caused by the restricted Codex sandbox denying WMI machine identifiers and AppData cache access. All successful Unity verification commands were run outside that sandbox; the license and signed binaries were not modified.

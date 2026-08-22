@@ -1,0 +1,17 @@
+Wave 4 Windows hidden smoke
+Run ID: 20260822T221755Z_82ad5bc_wave4_integrated
+Baseline: 82ad5bc7b43b6793119a5006667cf3b0130a6839
+Command: & "Assets/Editor/ParallelQA/Invoke-Wave4WindowsSmoke.ps1" -RunId "20260822T221755Z_82ad5bc_wave4_integrated" -BaselineCommit "82ad5bc7b43b6793119a5006667cf3b0130a6839" -MinimumSeconds 6
+Result: PASS
+Executable: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260822T221755Z_82ad5bc_wave4_integrated\WindowsBuild\KimSurvivalIsland.exe
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d
+PID: 29596
+Hidden: True
+Resolution: 1280x800 windowed
+Required seconds: 6
+Observed seconds: 6.357
+Alive at minimum: True
+Responding at minimum: True
+Early exit: False
+Exit code: 
+Launch error: 

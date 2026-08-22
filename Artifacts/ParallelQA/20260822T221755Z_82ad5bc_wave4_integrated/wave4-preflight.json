@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260822T221755Z_82ad5bc_wave4_integrated",
+  "capturedUtc": "2026-08-22T22:17:55.8724563Z",
+  "command": "$runId=(Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ')+'_82ad5bc_wave4_integrated'; $head=(git rev-parse HEAD).Trim(); Write-Output \"RUN_ID=$runId\"; Write-Output \"HEAD=$head\"; & 'Assets/Editor/ParallelQA/Capture-Wave4Preflight.ps1' -RunId $runId -BaselineCommit $head",
+  "baselineCommit": "82ad5bc7b43b6793119a5006667cf3b0130a6839",
+  "observedHead": "82ad5bc7b43b6793119a5006667cf3b0130a6839",
+  "branch": "master",
+  "addressables": {
+    "observedUtc": "2026-08-22T22:17:55.8926370Z",
+    "linkExists": true,
+    "linkBytes": 2121,
+    "linkSha256": "104d4d67be241603224407b1d409a9224ecfc0c8737e634d75fd47e41fef8f96",
+    "metaExists": true,
+    "metaBytes": 158,
+    "metaSha256": "15236daea60df06c415006c064c617b649a6eff289b194197e3b64135bd179c8",
+    "metaGuid": "6cc923a77c080d942b9683f3b4ad54f7",
+    "assetDatabaseGuid": "6cc923a77c080d942b9683f3b4ad54f7"
+  },
+  "visualGate": {
+    "sourcePath": "Assets/Editor/ParallelQA/Wave3VisualGate.cs",
+    "sourceSha256": "a31f3b222068003149fb453e687cac78cb151df8b7e76ef16e5baef938faba6d",
+    "reportPath": "Artifacts/ParallelQA/20260822T130505Z_c1b18a6_wave3/wave3-visual-gate.txt",
+    "reportSha256": "d4d4443a74f9a32ad39031260f78542f4d0317324411265ce4f79e04acfe4d1a",
+    "overall": "FAIL",
+    "thresholds": "Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%."
+  }
+}
