@@ -1,0 +1,15 @@
+Wave 4 Windows x64 Development Build
+Run ID: 20260822T141021Z_fed5066_wave4
+Baseline: fed50669a37a66aec436c2174445e5107b74d57c
+Unity: 6000.4.9f1
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T141021Z_fed5066_wave4\unity-windows-development-build.log"
+Result: Succeeded
+Errors: 0
+Warnings: 0
+Addressables link contract: FAIL
+Preflight -> before build stable: False
+Before -> after build stable: False
+Executable: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T141021Z_fed5066_wave4\WindowsBuild\KimSurvivalIsland.exe
+Executable exists: True
+Executable bytes: 667648
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d

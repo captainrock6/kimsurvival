@@ -1,0 +1,17 @@
+Wave 4 Windows hidden smoke
+Run ID: 20260822T141021Z_fed5066_wave4
+Baseline: fed50669a37a66aec436c2174445e5107b74d57c
+Command: & 'Assets/Editor/ParallelQA/Invoke-Wave4WindowsSmoke.ps1' -RunId '20260822T141021Z_fed5066_wave4' -BaselineCommit 'fed50669a37a66aec436c2174445e5107b74d57c' -MinimumSeconds 6; Write-Output ('SMOKE_SCRIPT_EXIT=' + $LASTEXITCODE)
+Result: PASS
+Executable: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T141021Z_fed5066_wave4\WindowsBuild\KimSurvivalIsland.exe
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d
+PID: 57916
+Hidden: True
+Resolution: 1280x800 windowed
+Required seconds: 6
+Observed seconds: 6.279
+Alive at minimum: True
+Responding at minimum: True
+Early exit: False
+Exit code:
+Launch error:

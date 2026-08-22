@@ -1,0 +1,17 @@
+Wave 4 preflight snapshot
+Run ID: 20260822T141021Z_fed5066_wave4
+Captured UTC: 2026-08-22T14:10:21.5808975Z
+Command: $runId=((Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ'))+'_fed5066_wave4'; & 'Assets/Editor/ParallelQA/Capture-Wave4Preflight.ps1' -RunId $runId -BaselineCommit 'fed50669a37a66aec436c2174445e5107b74d57c'; Write-Output "RUN_ID=$runId"
+Branch: codex/wave4-asset-release-qa
+Baseline: fed50669a37a66aec436c2174445e5107b74d57c
+Observed HEAD: fed50669a37a66aec436c2174445e5107b74d57c
+Addressables link exists: True
+Addressables link SHA-256: 02d716e6363caa845a89b4ef65898be3deabd84614c0088fec2740931ce4f1f9
+Addressables meta exists: True
+Addressables meta SHA-256: 62c942a1508bff3a333a76ffe5f0e883b8354e57f018c4bcab5732a6e5a8574d
+Addressables GUID: 6cc923a77c080d942b9683f3b4ad54f7
+Wave 3 visual source SHA-256: be8ffd0fa05aa128bb6673eca4923429c3e068eca546e169fa678f44f9af541e
+Wave 3 evidence: Artifacts/ParallelQA/20260822T130505Z_c1b18a6_wave3/wave3-visual-gate.txt
+Wave 3 evidence SHA-256: d4d4443a74f9a32ad39031260f78542f4d0317324411265ce4f79e04acfe4d1a
+Wave 3 pixel-gate fact: FAIL
+Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.
