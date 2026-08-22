@@ -2,7 +2,7 @@
   "id": "job_20260822141317_caf8e11d",
   "status": "succeeded",
   "createdAt": "2026-08-22T14:13:17.264Z",
-  "updatedAt": "2026-08-22T14:14:56.046Z",
+  "updatedAt": "2026-08-22T22:03:37.601Z",
   "input": {
     "assetType": "logo_icon",
     "assetId": "icon.resource-tool-set",
@@ -346,7 +346,29 @@
       "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-visual-review.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "wave4-resource-icons-approved"
+    ],
+    "note": "사용자가 Wave 4 생존 자원·도구 아이콘 10종 후보를 명시적으로 채택했다.",
+    "selectedArtifacts": [
+      "sprite-sheet.png",
+      "wood.png",
+      "stone.png",
+      "food.png",
+      "scrap.png",
+      "axe.png",
+      "rope.png",
+      "campfire.png",
+      "rain_collector.png",
+      "workbench.png",
+      "rescue_signal.png",
+      "readability-24-32-64.png",
+      "visual-review.png"
+    ],
+    "updatedAt": "2026-08-22T22:03:37.593Z"
+  },
   "events": [
     {
       "at": "2026-08-22T14:13:17.264Z",
@@ -382,6 +404,11 @@
       "at": "2026-08-22T14:14:56.046Z",
       "level": "info",
       "message": "Codex/로컬 결과 32개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-22T22:03:37.601Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave4-resource-icons-approved"
     }
   ],
   "error": null,

@@ -77,7 +77,34 @@
         "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69\\rescue_signal.png"
       ],
       "updatedAt": "2026-08-22T13:36:29.871Z"
+    },
+    {
+      "jobId": "job_20260822141317_caf8e11d",
+      "assetId": "icon.resource-tool-set",
+      "assetType": "logo_icon",
+      "request": "Wave 4 QA 패키징 가공 전용 자식 작업. 부모 job_20260822135915_4a6e7e98의 sprite-sheet.png와 wood, stone, food, scrap, axe, rope, campfire, rain_collector, workbench, rescue_signal 256px 투명 PNG를 픽셀 변경 없이 그대로 사용한다. 24/32/64px 가독성 증거는 각 크기마다 5열×2행으로 10종을 배치한 672x416 이내의 실제 투명 RGBA 시트로 다시 구성한다. 육안 검토 캡처도 배경색을 굽지 않은 투명 RGBA 5열×2행 캔버스로 구성해 alpha와 외곽 여백을 유지한다. 기존 메타데이터와 Unity forge-import 매니페스트를 동기화한다. ImageGen, 외부 API, 리페인트, 아이콘 내용·색·실루엣 변경, 텍스트·라벨 추가를 하지 않는다.",
+      "decision": "adopted",
+      "tags": [
+        "wave4-resource-icons-approved"
+      ],
+      "note": "사용자가 Wave 4 생존 자원·도구 아이콘 10종 후보를 명시적으로 채택했다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\sprite-sheet.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\wood.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\stone.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\food.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\scrap.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\axe.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\rope.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\campfire.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\rain_collector.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\workbench.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\rescue_signal.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\readability-24-32-64.png",
+        "Assets\\_Project\\Art\\Generated\\logo_icon\\job_20260822141317_caf8e11d\\visual-review.png"
+      ],
+      "updatedAt": "2026-08-22T22:03:37.593Z"
     }
   ],
-  "updatedAt": "2026-08-22T13:36:29.916Z"
+  "updatedAt": "2026-08-22T22:03:37.669Z"
 }
