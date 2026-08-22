@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260822T225050Z_wave5_background_qps
+Started UTC: 2026-08-22T23:01:32.0091825Z
+Completed UTC: 2026-08-22T23:01:32.0698869Z
+Unity: 6000.4.9f1
+Baseline commit: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Project: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\ParallelQA\20260822T225050Z_wave5_background_qps\unity-compile-final-record.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\ParallelQA\20260822T225050Z_wave5_background_qps\unity-compile-final-record.log | C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\ParallelQA\20260822T225050Z_wave5_background_qps\unity-compile-layout-final.log | C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\ParallelQA\20260822T225050Z_wave5_background_qps\unity-compile-record.log | C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\ParallelQA\20260822T225050Z_wave5_background_qps\unity-compile-scene-create.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.
