@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260822140357_783e9e09",
+  "createdAt": "2026-08-22T14:03:57.336Z",
+  "updatedAt": "2026-08-22T14:03:57.336Z",
+  "sourceRequest": "Wave 4: 처음 보는 참가자 6명을 위한 20분 외부 플레이테스트 패킷, 수기 관찰, KO/EN 이해도, P0/P1/P2 환류와 별도 물리 게임패드 세션을 확정한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-22T14:03:57.336Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T14:03:57.336Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T14:03:57.336Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-22T14:03:57.336Z"
+    }
+  }
+}

@@ -105,7 +105,21 @@
       "rationale": "이미 구현된 항목을 중복 수정하지 않고 독립 증거가 필요한 항목과 명시적으로 범위 밖인 출시 작업을 구분해 Wave 3 착수 순서를 고정하기 위해서다.",
       "source": "user-and-codex",
       "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "decision.wave4.external-playtest-manual-naive",
+      "summary": "Wave 4 외부 플레이테스트는 첫 경험 참가자 6명(KO 3·EN 3), 정확히 20분 플레이, 튜토리얼·구체적 힌트 없음, 익명 수기 기록만으로 진행한다.",
+      "rationale": "자동 경로가 증명하지 못한 실제 발견성·완료 시간·언어 이해도를 개인정보나 게임 내 텔레메트리 없이 같은 조건에서 비교하기 위해서다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-22T14:03:57.336Z"
+    },
+    {
+      "id": "decision.wave4.playtest-severity-routing",
+      "summary": "외부 관찰은 공통 원인별로 P0/P1/P2에 환류하고, 물리 게임패드 ko/en 실기는 6인 키보드·마우스 표본과 분리한다.",
+      "rationale": "표본의 루프 이해도와 장치 호환성 변수를 섞지 않고 즉시 중단 결함, 핵심 루프 차단, 비차단 마찰을 일관되게 처리하기 위해서다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-22T14:03:57.336Z"
     }
   ],
-  "updatedAt": "2026-08-22T13:15:00.000Z"
+  "updatedAt": "2026-08-22T14:03:57.336Z"
 }
