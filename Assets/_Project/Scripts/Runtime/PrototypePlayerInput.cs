@@ -8,6 +8,48 @@ namespace KimSurvival
         Gamepad
     }
 
+    public readonly struct PrototypeInputActivity
+    {
+        public PrototypeInputActivity(bool keyboardMouse, bool gamepad)
+        {
+            KeyboardMouse = keyboardMouse;
+            Gamepad = gamepad;
+        }
+
+        public bool KeyboardMouse { get; }
+        public bool Gamepad { get; }
+    }
+
+    public sealed class PrototypeInputDeviceTracker
+    {
+        public PrototypeInputDevice ActiveDevice { get; private set; } = PrototypeInputDevice.KeyboardMouse;
+
+        public void Update(PrototypeInputActivity activity)
+        {
+            if (activity.Gamepad)
+            {
+                ActiveDevice = PrototypeInputDevice.Gamepad;
+            }
+            else if (activity.KeyboardMouse)
+            {
+                ActiveDevice = PrototypeInputDevice.KeyboardMouse;
+            }
+        }
+    }
+
+    public static class PrototypeInputPromptKeys
+    {
+        public static string Camp(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.camp.gamepad" : "controls.camp.keyboard_mouse";
+        }
+
+        public static string Placement(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.placement.gamepad" : "controls.placement.keyboard_mouse";
+        }
+    }
+
     public struct PrototypeRawInput
     {
         public float HorizontalAxis;
@@ -134,7 +176,12 @@ namespace KimSurvival
 
     public sealed class LegacyPrototypePlayerInput
     {
-        public PrototypeInputDevice ActiveDevice { get; private set; } = PrototypeInputDevice.KeyboardMouse;
+        private readonly PrototypeInputDeviceTracker deviceTracker = new PrototypeInputDeviceTracker();
+
+        public PrototypeInputDevice ActiveDevice
+        {
+            get { return deviceTracker.ActiveDevice; }
+        }
 
         public void PollActiveDevice()
         {
@@ -156,14 +203,7 @@ namespace KimSurvival
             bool keyboard = keyboardDirection || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Space) ||
                             Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) ||
                             Mathf.Abs(Input.GetAxisRaw("Mouse X")) > 0.01f || Mathf.Abs(Input.GetAxisRaw("Mouse Y")) > 0.01f;
-            if (gamepad || gamepadAxis)
-            {
-                ActiveDevice = PrototypeInputDevice.Gamepad;
-            }
-            else if (keyboard)
-            {
-                ActiveDevice = PrototypeInputDevice.KeyboardMouse;
-            }
+            deviceTracker.Update(new PrototypeInputActivity(keyboard, gamepad || gamepadAxis));
         }
 
         public PrototypePlayerActions ReadActions(bool choosingLoot)

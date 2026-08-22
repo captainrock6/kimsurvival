@@ -29,11 +29,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 892583936
-    m_Localized: "\uC5B8\uC5B4: \uD55C\uAD6D\uC5B4 \u2192 English"
+    m_Localized: "\uD55C\uAD6D\uC5B4 \u2192 English"
     m_Metadata:
       m_Items: []
   - m_Id: 892583937
-    m_Localized: "Language: English \u2192 \uD55C\uAD6D\uC5B4"
+    m_Localized: "English \u2192 \uD55C\uAD6D\uC5B4"
     m_Metadata:
       m_Items: []
   - m_Id: 892583938
@@ -571,6 +571,48 @@ MonoBehaviour:
     m_Localized: "\uD55C\uAD6D\uC5B4 \uD3F4\uBC31 \uD655\uC778"
     m_Metadata:
       m_Items: []
+  - m_Id: 14658173124608
+    m_Localized: "{0} \xB7 \uB9C8\uC6B0\uC2A4\uB85C \uC704\uCE58 \uC774\uB3D9 \xB7
+      \uD074\uB9AD/Enter \uD655\uC815 \xB7 \uC6B0\uD074\uB9AD/Esc \uCDE8\uC18C \xB7
+      F1 \uC5B8\uC5B4"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 14658219261952
+    m_Localized: "{0} \xB7 \uC67C\uCABD \uC2A4\uD2F1\uC73C\uB85C \uC704\uCE58 \uC774\uB3D9
+      \xB7 A \uD655\uC815 \xB7 B \uCDE8\uC18C \xB7 Y \uC5B8\uC5B4"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 14658219261953
+    m_Localized: "{0} \xB7 \uD074\uB9AD \uB610\uB294 \uBC29\uD5A5\uD0A4+Enter\uB85C
+      \uD589\uB3D9 \uC120\uD0DD \xB7 \uC644\uACF5 \uC124\uBE44\uB294 \uBB34\uB8CC
+      \uC7AC\uBC30\uCE58 \xB7 F1 \uC5B8\uC5B4"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 14658219261954
+    m_Localized: "{0} \xB7 \uBC29\uD5A5 \uD328\uB4DC/\uC67C\uCABD \uC2A4\uD2F1\uC73C\uB85C
+      \uC120\uD0DD \xB7 A \uC2E4\uD589 \xB7 \uC644\uACF5 \uC124\uBE44\uB294 \uBB34\uB8CC
+      \uC7AC\uBC30\uCE58 \xB7 Y \uC5B8\uC5B4"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 14658219261955
+    m_Localized: "[ \uC124\uCE58 \uAC00\uB2A5 ]"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261956
+    m_Localized: "[ \uC124\uCE58 \uBD88\uAC00 ]"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261957
+    m_Localized: '{0}
+
+      {1}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
   references:
     version: 2
     RefIds:
@@ -602,3 +644,8 @@ MonoBehaviour:
         - id: 900972631
         - id: 900972632
         - id: 900972636
+        - id: 14658173124608
+        - id: 14658219261952
+        - id: 14658219261953
+        - id: 14658219261954
+        - id: 14658219261957

@@ -125,6 +125,14 @@ namespace KimSurvival.EditorTools
             PrototypeSystemActions gamepadSystemActions = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { GamepadLanguage = true });
             Assert(keyboardSystemActions.LanguagePressed && gamepadSystemActions.LanguagePressed, "Keyboard and gamepad share the language action");
 
+            PrototypeInputDeviceTracker deviceTracker = new PrototypeInputDeviceTracker();
+            deviceTracker.Update(new PrototypeInputActivity(false, true));
+            Assert(deviceTracker.ActiveDevice == PrototypeInputDevice.Gamepad, "Gamepad activity switches the active input prompt");
+            deviceTracker.Update(new PrototypeInputActivity(true, false));
+            Assert(deviceTracker.ActiveDevice == PrototypeInputDevice.KeyboardMouse, "Keyboard or mouse activity restores the active input prompt");
+            Assert(PrototypeInputPromptKeys.Placement(PrototypeInputDevice.KeyboardMouse) == "controls.placement.keyboard_mouse" &&
+                   PrototypeInputPromptKeys.Placement(PrototypeInputDevice.Gamepad) == "controls.placement.gamepad", "Placement prompt selection follows the active device");
+
             bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
             string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
             PrototypeLocalization localization = new PrototypeLocalization();
@@ -134,9 +142,11 @@ namespace KimSurvival.EditorTools
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false), "English locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English String Table is active immediately");
                 Assert(localization.Format("hud.status.camp", 1, 3, "Camp", 75, 100).Contains("Hunger 75"), "Smart String arguments format in English");
+                Assert(localization.Format("controls.placement.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("left stick"), "English gamepad placement prompt is localized");
                 Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "베이스캠프 · 제작 / 건설 / 연구", "Korean source string restores immediately");
+                Assert(localization.Format("controls.placement.keyboard_mouse", localization.DeviceName(PrototypeInputDevice.KeyboardMouse)).Contains("마우스로 위치 이동"), "Korean keyboard and mouse placement prompt is localized");
                 Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
                 Assert(PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey) == PrototypeLocalization.EnglishLocaleCode, "Persisted locale is available to the next launch");
@@ -257,7 +267,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: inventory overflow/swap, shared keyboard/gamepad actions including language, ko/en Unity String Tables, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: inventory overflow/swap, shared keyboard/gamepad actions including language, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -415,11 +425,13 @@ namespace KimSurvival.EditorTools
             {
                 string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-exploration-1280x800.png"));
                 string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-swimming-1280x800.png"));
-                string result = prototype.RunAutomatedVerification(explorationScreenshot, swimmingScreenshot);
+                string placementKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-placement-ko-invalid-1280x800.png"));
+                string placementEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-placement-en-valid-gamepad-1280x800.png"));
+                string result = prototype.RunAutomatedVerification(explorationScreenshot, swimmingScreenshot, placementKoreanScreenshot, placementEnglishScreenshot);
                 string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-playmode-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
-                SessionState.SetString(MessageKey, result + "\nSwimming screenshot: " + swimmingScreenshot + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);
+                SessionState.SetString(MessageKey, result + "\nPlacement Korean screenshot: " + placementKoreanScreenshot + "\nPlacement English/gamepad screenshot: " + placementEnglishScreenshot + "\nSwimming screenshot: " + swimmingScreenshot + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);
             }
             catch (Exception exception)
             {

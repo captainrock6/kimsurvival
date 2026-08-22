@@ -1,8 +1,8 @@
 Key	ko	en
 ui.camp.title	베이스캠프 · 제작 / 건설 / 연구	Base Camp · Craft / Build / Research
 ui.restart	다시 시작	Restart
-ui.language.switch.ko	언어: 한국어 → English	Language: Korean → English
-ui.language.switch.en	Language: English → 한국어	Language: English → Korean
+ui.language.switch.ko	한국어 → English	Korean → English
+ui.language.switch.en	English → 한국어	English → Korean
 phase.camp.returned	귀환 후 정비	Post-expedition upkeep
 phase.camp.preparing	캠프 준비	Camp preparation
 phase.exploring.swimming	얕은 연안 수영	Swimming the shallows
@@ -11,8 +11,10 @@ phase.result	결과	Result
 hud.status.camp	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4}
 hud.status.exploring	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4} | 일광 {5}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Daylight {5}
 hud.resources	나무 {0}   돌 {1}   식량 {2}   표류물 {3}\n신호대 {4}/2   도끼 {5}   밧줄 {6}	Wood {0}   Stone {1}   Food {2}   Salvage {3}\nSignal {4}/2   Axe {5}   Rope {6}
-controls.placement	{0} · 마우스 또는 스틱 좌우 배치 · 클릭/Enter/A 확정 · 우클릭/Esc/B 취소 · F1/Y 언어	{0} · Place with mouse or stick · Click/Enter/A confirm · Right-click/Esc/B cancel · F1/Y language
-controls.camp	{0} · 버튼을 선택해 캠프를 정비하세요 · 건설된 일반 설비는 무료 재배치 · F1/Y 언어	{0} · Select an action to tend camp · General facilities move for free · F1/Y language
+controls.placement.keyboard_mouse	{0} · 마우스로 위치 이동 · 클릭/Enter 확정 · 우클릭/Esc 취소 · F1 언어	{0} · Move with mouse · Click/Enter confirm · Right-click/Esc cancel · F1 language
+controls.placement.gamepad	{0} · 왼쪽 스틱으로 위치 이동 · A 확정 · B 취소 · Y 언어	{0} · Move with left stick · A confirm · B cancel · Y language
+controls.camp.keyboard_mouse	{0} · 클릭 또는 방향키+Enter로 행동 선택 · 완공 설비는 무료 재배치 · F1 언어	{0} · Click or arrows+Enter to select · Built facilities move free · F1 language
+controls.camp.gamepad	{0} · 방향 패드/왼쪽 스틱으로 선택 · A 실행 · 완공 설비는 무료 재배치 · Y 언어	{0} · D-pad/left stick select · A action · Built facilities move free · Y language
 controls.explore	{0} · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환 · F1/Y 언어	{0} · A/D or stick move · Auto-swim at shore · Space/A jump · E/X search · R/B return · F1/Y language
 bag.camp	캠프 창고\n(수색 중에는 4칸 가방)	Camp Storage\n(4-slot bag while exploring)
 bag.pending	가방이 꽉 찼습니다\n버릴 슬롯을 선택	Bag Full\nChoose a slot to discard
@@ -71,6 +73,9 @@ placement.overlap	다른 설비와 겹친다. 김씨도 물건을 포개 쓰지�
 placement.entrance	캠프 출입구를 막을 수 없다.	The camp entrance must stay clear.
 placement.path	필수 이동 통로를 비워 둬야 한다.	The required travel path must stay clear.
 placement.invalid	배치할 수 없는 위치다.	That position is invalid.
+placement.state.valid	[ 설치 가능 ]	[ VALID ]
+placement.state.invalid	[ 설치 불가 ]	[ INVALID ]
+placement.summary	{0}\n{1}	{0}\n{1}
 message.reset	파도는 열심히 친다. 김씨도 일단 뭐라도 해보기로 했다.	The waves keep working. Mr. Kim decides he should, too.
 message.build.already	이미 지어 둔 물건이다. 김씨도 같은 걸 두 번 만들 만큼 한가하지 않다.	That is already built. Mr. Kim is not idle enough to build it twice.
 message.build.materials	재료가 모자란다. 주머니를 털어도 모래만 나온다.	Not enough materials. Shaking out his pockets produces only sand.

@@ -28,11 +28,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 892583936
-    m_Localized: "Language: Korean \u2192 English"
+    m_Localized: "Korean \u2192 English"
     m_Metadata:
       m_Items: []
   - m_Id: 892583937
-    m_Localized: "Language: English \u2192 Korean"
+    m_Localized: "English \u2192 Korean"
     m_Metadata:
       m_Items: []
   - m_Id: 892583938
@@ -537,6 +537,45 @@ MonoBehaviour:
     m_Localized: 
     m_Metadata:
       m_Items: []
+  - m_Id: 14658173124608
+    m_Localized: "{0} \xB7 Move with mouse \xB7 Click/Enter confirm \xB7 Right-click/Esc
+      cancel \xB7 F1 language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 14658219261952
+    m_Localized: "{0} \xB7 Move with left stick \xB7 A confirm \xB7 B cancel \xB7
+      Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 14658219261953
+    m_Localized: "{0} \xB7 Click or arrows+Enter to select \xB7 Built facilities
+      move free \xB7 F1 language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 14658219261954
+    m_Localized: "{0} \xB7 D-pad/left stick select \xB7 A action \xB7 Built facilities
+      move free \xB7 Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 14658219261955
+    m_Localized: '[ VALID ]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261956
+    m_Localized: '[ INVALID ]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261957
+    m_Localized: '{0}
+
+      {1}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -568,3 +607,8 @@ MonoBehaviour:
         - id: 900972631
         - id: 900972632
         - id: 900972636
+        - id: 14658173124608
+        - id: 14658219261952
+        - id: 14658219261953
+        - id: 14658219261954
+        - id: 14658219261957

@@ -487,6 +487,34 @@ MonoBehaviour:
     m_Key: dev.fallback_probe
     m_Metadata:
       m_Items: []
+  - m_Id: 14658173124608
+    m_Key: controls.placement.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261952
+    m_Key: controls.placement.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261953
+    m_Key: controls.camp.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261954
+    m_Key: controls.camp.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261955
+    m_Key: placement.state.valid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261956
+    m_Key: placement.state.invalid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14658219261957
+    m_Key: placement.summary
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
