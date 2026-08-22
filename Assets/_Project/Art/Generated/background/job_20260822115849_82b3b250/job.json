@@ -2,7 +2,7 @@
   "id": "job_20260822115849_82b3b250",
   "status": "succeeded",
   "createdAt": "2026-08-22T11:58:49.491Z",
-  "updatedAt": "2026-08-22T12:06:56.190Z",
+  "updatedAt": "2026-08-22T12:40:26.914Z",
   "input": {
     "assetType": "background",
     "assetId": "background.island-camp",
@@ -161,11 +161,11 @@
     "tags": [
       "side-scroller-composition-approved"
     ],
-    "note": "사용자는 이번 수정 후보의 완전한 측면 2D 횡스크롤 구도가 괜찮다고 승인했다. 단일 수평 지면선과 중앙 자유 배치 여백을 후속 배경·설비 아트의 구도 기준으로 유지한다.",
+    "note": "사용자가 채택한 완전 측면 횡스크롤 베이스캠프 배경을 정본으로 유지한다. 후속 레이어 및 설비 파츠는 별도 review 후보이며 이 채택을 대체하지 않는다.",
     "selectedArtifacts": [
       "exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png"
     ],
-    "updatedAt": "2026-08-22T12:06:56.179Z"
+    "updatedAt": "2026-08-22T12:40:26.903Z"
   },
   "events": [
     {
@@ -207,6 +207,11 @@
       "at": "2026-08-22T12:06:56.190Z",
       "level": "info",
       "message": "피드백 저장: 채택 · side-scroller-composition-approved"
+    },
+    {
+      "at": "2026-08-22T12:40:26.914Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,
