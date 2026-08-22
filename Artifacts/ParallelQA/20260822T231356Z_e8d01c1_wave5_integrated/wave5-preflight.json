@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 2,
+  "runId": "20260822T231356Z_e8d01c1_wave5_integrated",
+  "capturedUtc": "2026-08-22T23:14:04.6538395Z",
+  "command": "& Assets/Editor/ParallelQA/Capture-Wave5Preflight.ps1 -RunId \"20260822T231356Z_e8d01c1_wave5_integrated\" -BaselineCommit \"e8d01c119b736ee771d2361e5704ab318eefdb7d\"",
+  "baselineCommit": "e8d01c119b736ee771d2361e5704ab318eefdb7d",
+  "observedHead": "e8d01c119b736ee771d2361e5704ab318eefdb7d",
+  "branch": "master",
+  "ownershipOverall": "PASS",
+  "ownership": {
+    "policy": "ADDRESSABLES_GENERATED_TEMPORARY",
+    "canonicalDurableState": "ABSENT",
+    "trackedPaths": [],
+    "ignoredPaths": [
+      "Assets/AddressableAssetsData/link.xml",
+      "Assets/AddressableAssetsData/link.xml.meta"
+    ],
+    "ignoreFile": "Assets/AddressableAssetsData/.gitignore",
+    "ignoreFileSha256": "64680c97ffcf8bc166ac71fd62a3aeca01270831c164747d0f84d8fbeb036bf4"
+  },
+  "addressables": {
+    "observedUtc": "2026-08-22T23:14:04.6117050Z",
+    "linkExists": false,
+    "linkBytes": 0,
+    "linkSha256": "",
+    "metaExists": false,
+    "metaBytes": 0,
+    "metaSha256": "",
+    "metaGuid": "",
+    "assetDatabaseGuid": ""
+  },
+  "officialPackageImplementation": {
+    "path": "Library/PackageCache/com.unity.addressables@8460f1c9c927/Editor/Build/AddressablesPlayerBuildProcessor.cs",
+    "sha256": "df3a38aa47d486c764e44750a59b526ab5012f739650aeacb4c23bdaf9ef3075",
+    "initializeOnLoadMethod": "CleanTemporaryPlayerBuildData -> RemovePlayerBuildLinkXML",
+    "playerBuildMethod": "PrepareForPlayerbuild copies Library AddressablesLink/link.xml to AddressableAssetSettings.ConfigFolder"
+  },
+  "addressableSettings": {
+    "path": "Assets/AddressableAssetsData/AddressableAssetSettings.asset",
+    "sha256": "6c665fd38da65052cd72c4b17bb970861f821feea9929d894dd2b5cb46f149b4"
+  },
+  "visualGate": {
+    "sourcePath": "Assets/Editor/ParallelQA/Wave3VisualGate.cs",
+    "sourceSha256": "a31f3b222068003149fb453e687cac78cb151df8b7e76ef16e5baef938faba6d",
+    "reportPath": "",
+    "reportSha256": "",
+    "overall": "PENDING_FRESH_RUN",
+    "thresholds": "source hash captured before fresh 671c4e9 Play Mode run"
+  }
+}
