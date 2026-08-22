@@ -1,0 +1,4 @@
+# AddressablesPlayerBuildProcessor temporarily copies its generated linker file
+# into the settings ConfigFolder while building a Player. It is not source.
+/link.xml
+/link.xml.meta

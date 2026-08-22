@@ -1,0 +1,32 @@
+Wave 3 1280x800 projected-text visual gate
+Run ID: 20260822T225717Z_671c4e9_wave5_verified
+Started UTC: 2026-08-22T22:59:17.2190042Z
+Completed UTC: 2026-08-22T22:59:18.8052689Z
+Unity: 6000.4.9f1
+Baseline commit: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -force-d3d11 -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Artifacts\ParallelQA\20260822T225717Z_671c4e9_wave5_verified\unity-play-mode-verification.log"
+Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample.
+Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.
+PLACEMENT_GATE: PASS · targets=24 · failures=0
+EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+PSEUDO_LONG_GATE: FAIL · targets=10 · failures=8
+OVERALL: FAIL
+PASS · ko placement valid · gated=6 · screenshot=playmode-ko-placement-valid-1280x800.png
+PASS · ko placement invalid · gated=6 · screenshot=playmode-ko-placement-invalid-1280x800.png
+PASS · en placement valid · gated=6 · screenshot=playmode-en-placement-valid-1280x800.png
+PASS · en placement invalid · gated=6 · screenshot=playmode-en-placement-invalid-1280x800.png
+FAIL · qps-long placement valid · gated=10 · screenshot=playmode-qps-long-placement-1280x800.png
+PASS · ko day1 swimming · gated=2 · screenshot=playmode-ko-day1-swimming-1280x800.png
+PASS · ko day2 exploration · gated=3 · screenshot=playmode-ko-day2-exploration-1280x800.png
+NOT_APPLICABLE · ko rescue result · gated=0 · screenshot=playmode-ko-rescue-result-1280x800.png
+PASS · en day1 swimming · gated=2 · screenshot=playmode-en-day1-swimming-1280x800.png
+PASS · en day2 exploration · gated=3 · screenshot=playmode-en-day2-exploration-1280x800.png
+NOT_APPLICABLE · en rescue result · gated=0 · screenshot=playmode-en-rescue-result-1280x800.png
+  FAIL · pseudo-long · qps-long placement valid · [[Wáoéoídó 12   Sútüoñnáeé 11   Fíoóoúdü 1   Sñaálévíaógúeü 10/Sñiágéníaólú 0/2   Aüxñeá Néoníe   Roópeú None]] · glyph=14.2px · block=62.0px · bounds=[731.3,718.9 -> 1366.8,780.8] · contrast=14.5:1 · failures=height,bounds,overflow
+  FAIL · pseudo-long · qps-long placement valid · [[Ráeéqíuióreúd Path]] · glyph=21.7px · block=94.2px · bounds=[462.1,105.0 -> 630.1,199.3] · contrast=8.8:1 · failures=overflow
+  FAIL · pseudo-long · qps-long placement valid · [[Káeéyíbóoúaürñdá & Méoíuósúeü · Mñoávéeí wóiútühñ máoéuísóeú · Cülñiácékí/Eónútüeñrá céoínfóirúm · Riüghñt-cláicék/Esíc caóncúelü · F1 language]] · glyph=13.1px · block=37.2px · bounds=[-46.6,23.1 -> 1053.4,60.3] · contrast=18.1:1 · failures=height,bounds
+  FAIL · pseudo-long · qps-long placement valid · [[Gáeéníeórúaülñ Fáaécíiólúiütñieás · 0.5mé Fíloóor Snap]] · glyph=21.6px · block=94.5px · bounds=[667.8,105.0 -> 1038.0,199.5] · contrast=11.9:1 · failures=overflow
+  FAIL · pseudo-long · qps-long placement valid · [[Cáaémípófúiürñeá/Vaéliíd Plóacúement]] · glyph=21.7px · block=94.5px · bounds=[339.5,337.1 -> 685.4,431.6] · contrast=8.8:1 · failures=overflow
+  FAIL · pseudo-long · qps-long placement valid · [[DáAéYí 1/3 · Cóaúmüpñ páréeípóaúrüañtáiéoínó/Huúngüerñ 75 | Enáerégy 100]] · glyph=15.8px · block=44.6px · bounds=[-86.2,727.4 -> 477.2,772.0] · contrast=18.1:1 · failures=height,bounds
+  FAIL · pseudo-long · qps-long placement valid · [[Káeéeípó Eúnütrñanáceé Clear]] · glyph=21.6px · block=161.0px · bounds=[261.4,71.7 -> 438.7,232.7] · contrast=11.1:1 · failures=overflow
+  FAIL · pseudo-long · qps-long placement valid · [[Eánégílóiúshü → Kñorean]] · glyph=12.0px · block=33.9px · bounds=[1163.8,24.9 -> 1320.7,58.8] · contrast=8.2:1 · failures=height,bounds

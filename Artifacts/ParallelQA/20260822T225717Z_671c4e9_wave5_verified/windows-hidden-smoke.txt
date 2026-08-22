@@ -1,0 +1,11 @@
+Wave 5 Windows hidden smoke
+Run ID: 20260822T225717Z_671c4e9_wave5_verified
+Baseline: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Command: & Assets/Editor/ParallelQA/Invoke-Wave5WindowsSmoke.ps1 -RunId '20260822T225717Z_671c4e9_wave5_verified' -BaselineCommit '671c4e9df8c144a22421e9eeab6693617aa2b3b1' -MinimumSeconds 6
+Result: PASS
+Resolution: 1280x800 windowed
+Required seconds: 6
+Observed seconds: 6.383
+Alive at minimum: True
+Responding at minimum: True
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d

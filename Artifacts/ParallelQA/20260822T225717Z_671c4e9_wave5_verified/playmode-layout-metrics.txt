@@ -1,0 +1,24 @@
+Play Mode 1280x800 text metrics
+Run ID: 20260822T225717Z_671c4e9_wave5_verified
+Started UTC: 2026-08-22T22:59:17.2190042Z
+Completed UTC: 2026-08-22T22:59:18.8127259Z
+Unity: 6000.4.9f1
+Baseline commit: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -force-d3d11 -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Artifacts\ParallelQA\20260822T225717Z_671c4e9_wave5_verified\unity-play-mode-verification.log"
+PASS · ko placement valid · active TMP=10 · minimum rendered text bounds=21.5px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-ko-placement-valid-1280x800.png
+PASS · ko placement invalid · active TMP=10 · minimum rendered text bounds=21.5px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-ko-placement-invalid-1280x800.png
+PASS · en placement valid · active TMP=10 · minimum rendered text bounds=18.1px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-placement-valid-1280x800.png
+PASS · en placement invalid · active TMP=10 · minimum rendered text bounds=18.1px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-placement-invalid-1280x800.png
+METRIC-WARN · qps-long placement valid · active TMP=10 · minimum rendered text bounds=36.6px · TMP overflow=5 · small world text(<12px)=0 · screenshot=playmode-qps-long-placement-1280x800.png
+  overflow candidates: 보유 자원=[[Wáoéoídó 12   Sútüoñnáeé 11   Fíoóoúdü 1   Sñaálévíaógúeü 10/Sñiágéníaólú 0/2   Aüxñeá Néoníe   Roópeú None]] | 안내 문구=[[Ráeéqíuióreúd Path]] | 안내 문구=[[Gáeéníeórúaülñ Fáaécíiólúiütñieás · 0.5mé Fíloóor Snap]] | 안내 문구=[[Cáaémípófúiürñeá/Vaéliíd Plóacúement]] | 안내 문구=[[Káeéeípó Eúnütrñanáceé Clear]]
+METRIC-WARN · ko day1 swimming · active TMP=14 · minimum rendered text bounds=21.5px · TMP overflow=1 · small world text(<12px)=0 · screenshot=playmode-ko-day1-swimming-1280x800.png
+  overflow candidates: 가방 제목=수색 가방 4칸/한 묶음 최대 2개
+METRIC-WARN · ko day2 exploration · active TMP=15 · minimum rendered text bounds=21.5px · TMP overflow=1 · small world text(<12px)=0 · screenshot=playmode-ko-day2-exploration-1280x800.png
+  overflow candidates: 가방 제목=수색 가방 4칸/한 묶음 최대 2개
+PASS · ko rescue result · active TMP=8 · minimum rendered text bounds=21.5px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-ko-rescue-result-1280x800.png
+METRIC-WARN · en day1 swimming · active TMP=14 · minimum rendered text bounds=18.1px · TMP overflow=1 · small world text(<12px)=0 · screenshot=playmode-en-day1-swimming-1280x800.png
+  overflow candidates: 가방 제목=4-Slot Expedition Bag/Maximum 2 per stack
+METRIC-WARN · en day2 exploration · active TMP=15 · minimum rendered text bounds=18.1px · TMP overflow=1 · small world text(<12px)=0 · screenshot=playmode-en-day2-exploration-1280x800.png
+  overflow candidates: 가방 제목=4-Slot Expedition Bag/Maximum 2 per stack
+PASS · en rescue result · active TMP=8 · minimum rendered text bounds=18.1px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-rescue-result-1280x800.png

@@ -1,0 +1,19 @@
+Wave 5 Addressables ownership preflight
+Run ID: 20260822T225717Z_671c4e9_wave5_verified
+Captured UTC: 2026-08-22T22:57:27.6462623Z
+Command: & Assets/Editor/ParallelQA/Capture-Wave5Preflight.ps1 -RunId '20260822T225717Z_671c4e9_wave5_verified' -BaselineCommit '671c4e9df8c144a22421e9eeab6693617aa2b3b1'
+Branch: codex/wave5-addressables-release-gate
+Baseline: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Observed HEAD: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Ownership: PASS
+Canonical durable state: ABSENT
+Tracked temporary paths: 
+Ignored temporary paths: Assets/AddressableAssetsData/link.xml | Assets/AddressableAssetsData/link.xml.meta
+Link exists: False
+Link SHA-256: 
+Meta exists: False
+Meta SHA-256: 
+Meta GUID: 
+Installed processor: Library/PackageCache/com.unity.addressables@8460f1c9c927/Editor/Build/AddressablesPlayerBuildProcessor.cs
+Installed processor SHA-256: df3a38aa47d486c764e44750a59b526ab5012f739650aeacb4c23bdaf9ef3075
+Wave3VisualGate source SHA-256: be8ffd0fa05aa128bb6673eca4923429c3e068eca546e169fa678f44f9af541e

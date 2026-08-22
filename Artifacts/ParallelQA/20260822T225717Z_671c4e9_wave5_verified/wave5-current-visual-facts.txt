@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260822T225717Z_671c4e9_wave5_verified
+Baseline: 671c4e9df8c144a22421e9eeab6693617aa2b3b1
+Normal ko/en: PASS
+Placement: PLACEMENT_GATE: PASS · targets=24 · failures=0
+Exploration/swimming: EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+qps-long: PSEUDO_LONG_GATE: FAIL · targets=10 · failures=8
+qps-long classification: FAIL · retained as Unity system-work input
