@@ -1,0 +1,15 @@
+Windows development player launch smoke test
+Run ID: 20260822T100600Z_2a6e9e6
+Started UTC: 2026-08-22T10:08:35.5336042Z
+Completed UTC: 2026-08-22T10:08:43.6762047Z
+Unity runtime: 6000.4.9f1 (f7258d6eebbe)
+Command: KimSurvivalIsland.exe -screen-width 1280 -screen-height 800 -screen-fullscreen 0 -logFile "Artifacts/ParallelQA/20260822T100600Z_2a6e9e6/windows-player-smoke.log"
+Observed duration: 8 seconds
+Process exited early: False
+Process responding before QA termination: True
+Terminated by QA after observation window: True
+Engine initialization: PASS
+Direct3D initialization: PASS (D3D12, NVIDIA GeForce RTX 3080)
+Input initialization: PASS
+Exceptions/errors/crash markers: 0
+Result: PASS

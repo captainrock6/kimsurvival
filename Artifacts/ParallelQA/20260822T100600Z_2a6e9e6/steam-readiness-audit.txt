@@ -1,0 +1,15 @@
+Steam readiness static audit
+Run ID: 20260822T100600Z_2a6e9e6
+Checked UTC: 2026-08-22T10:09:00Z
+Scope restriction: No Steamworks integration, deployment, upload, or store mutation was performed.
+
+PASS · StandaloneWindows64 development build succeeded.
+PASS · 1280x800 windowed player launched, remained responsive, and initialized graphics/input.
+PASS · Product/company/version metadata exist (Kim Survival Studio / 김씨 생존기: 무인도 / 0.1.0-prototype).
+NOT READY · No Steamworks SDK, steam_appid, App ID, depot/upload configuration, achievements, or cloud-save integration was found.
+NOT READY · The audited player is Development + AllowDebugging and contains player-connection/debug configuration; it is not a shipping candidate.
+UNVERIFIED · No physical gamepad was exposed to Unity batch Play Mode, so controller compatibility and Steam Deck behavior are not certified.
+FAIL · The documented D-pad route has no dedicated legacy joystick axis mapping.
+FAIL · 1280x800 world interaction labels are visually unreadable.
+
+Conclusion: Windows prototype build readiness PASS; Steam shipping readiness NOT READY (expected at the current declared scope).

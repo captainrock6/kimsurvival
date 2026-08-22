@@ -1,0 +1,12 @@
+Deterministic Edit Check
+Run ID: 20260822T100600Z_2a6e9e6
+Started UTC: 2026-08-22T10:07:06.4017975Z
+Completed UTC: 2026-08-22T10:07:06.4095092Z
+Unity: 6000.4.9f1
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunEditChecks -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T100600Z_2a6e9e6\edit-checks-unity.log"
+PASS · Natural three-day resource route can rescue without Grant cheats
+PASS · Bag overflow creates an explicit replace-or-discard choice
+PASS · Swimming entry, extra cost, water gather, and land exit work
+PASS · Exhaustion and day-three deadline both reach explained results
+Overall: PASS
