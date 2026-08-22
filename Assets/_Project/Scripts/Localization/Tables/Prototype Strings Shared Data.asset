@@ -1,0 +1,500 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Prototype Strings Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Prototype Strings
+  m_TableCollectionNameGuidString: b7940e419db960640a46f666a136b29c
+  m_Entries:
+  - m_Id: 796114944
+    m_Key: ui.camp.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 888389632
+    m_Key: ui.restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583936
+    m_Key: ui.language.switch.ko
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583937
+    m_Key: ui.language.switch.en
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583938
+    m_Key: phase.camp.returned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583939
+    m_Key: phase.camp.preparing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583940
+    m_Key: phase.exploring.swimming
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583941
+    m_Key: phase.exploring.land
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583942
+    m_Key: phase.result
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892583943
+    m_Key: hud.status.camp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 896778240
+    m_Key: hud.status.exploring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 896778241
+    m_Key: hud.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 896778242
+    m_Key: controls.placement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 896778243
+    m_Key: controls.camp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 896778244
+    m_Key: controls.explore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 896778245
+    m_Key: bag.camp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972544
+    m_Key: bag.pending
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972545
+    m_Key: bag.exploring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972546
+    m_Key: bag.slot.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972547
+    m_Key: bag.slot.stack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972548
+    m_Key: button.campfire.relocate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972549
+    m_Key: button.campfire.build
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972550
+    m_Key: button.workbench.relocate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972551
+    m_Key: button.workbench.build
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972552
+    m_Key: button.rain.relocate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972553
+    m_Key: button.rain.build
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972554
+    m_Key: button.research.axe.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972555
+    m_Key: button.research.axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972556
+    m_Key: button.craft.axe.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972557
+    m_Key: button.craft.axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972558
+    m_Key: button.research.rope.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972559
+    m_Key: button.research.rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972560
+    m_Key: button.craft.rope.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972561
+    m_Key: button.craft.rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972562
+    m_Key: button.signal.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972563
+    m_Key: button.signal.progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972564
+    m_Key: button.eat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972565
+    m_Key: button.day.final
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972566
+    m_Key: button.day.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972567
+    m_Key: button.search.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972568
+    m_Key: device.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972569
+    m_Key: device.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972570
+    m_Key: value.yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972571
+    m_Key: value.no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972572
+    m_Key: resource.wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972573
+    m_Key: resource.stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972574
+    m_Key: resource.food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972575
+    m_Key: resource.salvage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972576
+    m_Key: structure.campfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972577
+    m_Key: structure.workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972578
+    m_Key: structure.rain_collector
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972579
+    m_Key: structure.generic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972580
+    m_Key: world.build_zone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972581
+    m_Key: world.entrance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972582
+    m_Key: world.required_path
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972583
+    m_Key: world.signal_anchor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972584
+    m_Key: world.return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972585
+    m_Key: world.rope.pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972586
+    m_Key: world.rope.need
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972587
+    m_Key: world.resource.land
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972588
+    m_Key: world.resource.water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972589
+    m_Key: world.structure.relocate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972590
+    m_Key: world.placement.valid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972591
+    m_Key: world.placement.invalid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972592
+    m_Key: world.kim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972593
+    m_Key: placement.valid.build
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972594
+    m_Key: placement.valid.relocate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972595
+    m_Key: placement.outside
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972596
+    m_Key: placement.overlap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972597
+    m_Key: placement.entrance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972598
+    m_Key: placement.path
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972599
+    m_Key: placement.invalid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972600
+    m_Key: message.reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972601
+    m_Key: message.build.already
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972602
+    m_Key: message.build.materials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972603
+    m_Key: message.build.campfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972604
+    m_Key: message.build.workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972605
+    m_Key: message.build.rain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972606
+    m_Key: message.research.workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972607
+    m_Key: message.research.unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972608
+    m_Key: message.research.axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972609
+    m_Key: message.research.rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972610
+    m_Key: message.craft.unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972611
+    m_Key: message.craft.axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972612
+    m_Key: message.craft.rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972613
+    m_Key: message.signal.rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972614
+    m_Key: message.signal.materials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972615
+    m_Key: message.signal.stage1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972616
+    m_Key: message.signal.stage2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972617
+    m_Key: message.food.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972618
+    m_Key: message.food.full
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972619
+    m_Key: message.food.eaten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972620
+    m_Key: message.search.finished
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972621
+    m_Key: message.search.unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972622
+    m_Key: message.search.begin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972623
+    m_Key: message.swim.enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972624
+    m_Key: message.swim.exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972625
+    m_Key: message.gather.need_swim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972626
+    m_Key: message.bag.full
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972627
+    m_Key: message.gather.water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972628
+    m_Key: message.gather.axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972629
+    m_Key: message.gather.land
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972630
+    m_Key: message.bag.empty_fill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972631
+    m_Key: message.bag.replace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972632
+    m_Key: message.bag.discard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972633
+    m_Key: message.return.forced
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972634
+    m_Key: message.return.safe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972635
+    m_Key: message.endday.search
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972636
+    m_Key: message.day.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972637
+    m_Key: message.rope.blocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972638
+    m_Key: message.nothing_near
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972639
+    m_Key: result.title.rescued
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972640
+    m_Key: result.title.exhausted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972641
+    m_Key: result.title.deadline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972642
+    m_Key: result.detail.rescued
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972643
+    m_Key: result.detail.exhausted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972644
+    m_Key: result.detail.deadline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 900972645
+    m_Key: dev.fallback_probe
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 828367071277219864
+  references:
+    version: 2
+    RefIds:
+    - rid: 828367071277219864
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1787395656270

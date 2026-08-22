@@ -12,7 +12,16 @@ namespace KimSurvival.EditorTools
     public static class PrototypeProjectBuilder
     {
         public const string ScenePath = "Assets/_Project/Scenes/KimSurvivalPrototype.unity";
-        private const string VerificationFolder = "Artifacts/Verification";
+        private const string DefaultVerificationFolder = "Artifacts/Verification";
+
+        private static string VerificationFolder
+        {
+            get
+            {
+                string overridePath = Environment.GetEnvironmentVariable("KIM_SURVIVAL_VERIFICATION_FOLDER");
+                return string.IsNullOrWhiteSpace(overridePath) ? DefaultVerificationFolder : overridePath;
+            }
+        }
 
         [MenuItem("Kim Survival/Create Prototype Scene")]
         public static void CreateProject()
@@ -57,6 +66,7 @@ namespace KimSurvival.EditorTools
         {
             Directory.CreateDirectory(VerificationFolder);
             DateTime started = DateTime.UtcNow;
+            PrototypeLocalizationAssetBuilder.SyncAssets();
 
             GameSession inventory = new GameSession();
             Assert(inventory.BeginSearch(), "Inventory scenario begins search");
@@ -85,6 +95,137 @@ namespace KimSurvival.EditorTools
             Assert(100f - swimTravel.Daylight > landDaylightCost, "Swimming costs more daylight than land movement");
             Assert(swimTravel.TryGather(ResourceKind.Salvage, 1, true) == GatherResult.Added, "Water node can be searched while swimming");
             Assert(swimTravel.SetSwimming(false) && !swimTravel.IsSwimming, "Shore exit restores land state");
+
+            PrototypePlayerActions keyboardActions = PrototypePlayerActions.FromRaw(new PrototypeRawInput
+            {
+                KeyboardLeft = true,
+                KeyboardJump = true,
+                KeyboardInteract = true,
+                KeyboardReturn = true,
+                KeyboardCancel = true,
+                BagSlotIndex = 2
+            });
+            PrototypePlayerActions gamepadActions = PrototypePlayerActions.FromRaw(new PrototypeRawInput
+            {
+                HorizontalAxis = -0.8f,
+                GamepadJump = true,
+                GamepadInteract = true,
+                GamepadReturn = true,
+                GamepadCancel = true,
+                BagSlotIndex = -1
+            });
+            Assert(keyboardActions.Horizontal < 0f && gamepadActions.Horizontal < 0f, "Keyboard and gamepad share the move action");
+            Assert(keyboardActions.JumpPressed && gamepadActions.JumpPressed, "Keyboard and gamepad share the jump action");
+            Assert(keyboardActions.InteractPressed && gamepadActions.InteractPressed, "Keyboard and gamepad share the interact action");
+            Assert(keyboardActions.ReturnPressed && gamepadActions.ReturnPressed, "Keyboard and gamepad share the return action");
+            Assert(keyboardActions.CancelPressed && gamepadActions.CancelPressed, "Keyboard and gamepad share the cancel action");
+            Assert(keyboardActions.BagSlotIndex == 2, "Keyboard loot slot maps into the shared action snapshot");
+
+            PrototypeSystemActions keyboardSystemActions = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { KeyboardLanguage = true });
+            PrototypeSystemActions gamepadSystemActions = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { GamepadLanguage = true });
+            Assert(keyboardSystemActions.LanguagePressed && gamepadSystemActions.LanguagePressed, "Keyboard and gamepad share the language action");
+
+            bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
+            string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
+            PrototypeLocalization localization = new PrototypeLocalization();
+            string originalLocale = localization.CurrentLocaleCode;
+            try
+            {
+                Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false), "English locale is selectable");
+                Assert(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English String Table is active immediately");
+                Assert(localization.Format("hud.status.camp", 1, 3, "Camp", 75, 100).Contains("Hunger 75"), "Smart String arguments format in English");
+                Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
+                Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
+                Assert(localization.Format("ui.camp.title") == "베이스캠프 · 제작 / 건설 / 연구", "Korean source string restores immediately");
+                Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
+                Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
+                Assert(PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey) == PrototypeLocalization.EnglishLocaleCode, "Persisted locale is available to the next launch");
+
+                PrototypeLocaleFontProfile fontProfile = Resources.Load<PrototypeLocaleFontProfile>("PrototypeLocaleFontProfile");
+                Assert(fontProfile != null && fontProfile.Find("ko") != null && fontProfile.Find("en") != null, "Locale-specific TMP primary and fallback mappings are data assets");
+            }
+            finally
+            {
+                localization.SetLocale(originalLocale, false);
+                localization.Dispose();
+                if (hadLocalePreference)
+                {
+                    PlayerPrefs.SetString(PrototypeLocalization.PreferenceKey, originalLocalePreference);
+                }
+                else
+                {
+                    PlayerPrefs.DeleteKey(PrototypeLocalization.PreferenceKey);
+                }
+                PlayerPrefs.Save();
+            }
+
+            PrototypeCampPlacementActions mousePlacementActions = PrototypeCampPlacementActions.FromRaw(new PrototypeRawCampPlacementInput
+            {
+                UsePointer = true,
+                PointerWorldX = 1.5f,
+                MouseConfirm = true,
+                MouseCancel = true
+            });
+            PrototypeCampPlacementActions gamepadPlacementActions = PrototypeCampPlacementActions.FromRaw(new PrototypeRawCampPlacementInput
+            {
+                HorizontalAxis = 1f,
+                GamepadConfirm = true,
+                GamepadCancel = true
+            });
+            PrototypeCampPlacement mousePlacement = new PrototypeCampPlacement();
+            PrototypeCampPlacement gamepadPlacement = new PrototypeCampPlacement();
+            mousePlacement.Begin(StructureKind.Campfire, false);
+            gamepadPlacement.Begin(StructureKind.Campfire, false);
+            mousePlacement.Update(mousePlacementActions, 1f);
+            gamepadPlacement.Update(gamepadPlacementActions, 1f);
+            Assert(Mathf.Approximately(mousePlacement.CandidateX, gamepadPlacement.CandidateX), "Mouse and gamepad drive the same placement state");
+            Assert(mousePlacementActions.ConfirmPressed && gamepadPlacementActions.ConfirmPressed, "Mouse and gamepad share placement confirm");
+            Assert(mousePlacementActions.CancelPressed && gamepadPlacementActions.CancelPressed, "Mouse and gamepad share placement cancel");
+
+            GameSession placementSession = new GameSession();
+            PrototypeCampPlacement placement = new PrototypeCampPlacement();
+            placement.Begin(StructureKind.Campfire, false);
+            placement.SetCandidateX(1.26f);
+            Assert(Mathf.Approximately(placement.CandidateX, 1.5f), "Placement snaps to the 0.5 metre floor grid");
+            placement.SetCandidateX(-5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.OutsideCampBounds, "Camp bounds reject placement");
+            placement.SetCandidateX(-2.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.BlocksEntrance, "Camp entrance rejects placement");
+            placement.SetCandidateX(0f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.BlocksRequiredPath, "Required travel path rejects placement");
+            placement.SetCandidateX(-1.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.Valid, "Campfire has a valid snapped location");
+            Assert(placementSession.TryBuild(StructureKind.Campfire) && placement.Commit(), "Campfire placement spends build cost once");
+
+            placementSession.Grant(ResourceKind.Wood, 2);
+            placementSession.Grant(ResourceKind.Salvage, 1);
+            placement.Begin(StructureKind.Workbench, false);
+            placement.SetCandidateX(-1.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.OverlapsStructure, "Installed structure overlap is rejected");
+            placement.SetCandidateX(1.5f);
+            Assert(placementSession.TryBuild(StructureKind.Workbench) && placement.Commit(), "Workbench uses the shared placement rules");
+            int woodBeforeMove = placementSession.GetStorage(ResourceKind.Wood);
+            int stoneBeforeMove = placementSession.GetStorage(ResourceKind.Stone);
+            int salvageBeforeMove = placementSession.GetStorage(ResourceKind.Salvage);
+            placement.Begin(StructureKind.Workbench, true);
+            placement.SetCandidateX(3.5f);
+            Assert(placement.Commit(), "Installed workbench can be repositioned");
+            Assert(placementSession.GetStorage(ResourceKind.Wood) == woodBeforeMove &&
+                   placementSession.GetStorage(ResourceKind.Stone) == stoneBeforeMove &&
+                   placementSession.GetStorage(ResourceKind.Salvage) == salvageBeforeMove, "Repositioning consumes no resources");
+
+            GameSession shoreline = new GameSession();
+            Assert(shoreline.BeginSearch(), "Traversal scenario begins search");
+            PrototypePlayerTraversal traversal = new PrototypePlayerTraversal();
+            traversal.Reset(PrototypePlayerTraversal.CoastlineX + 0.05f, PrototypePlayerTraversal.LandY);
+            PrototypeTraversalStep enteredWater = traversal.Step(new PrototypePlayerActions(-1f, false, false, false, false, -1), 0.1f, 0f, shoreline);
+            Assert(shoreline.IsSwimming && enteredWater.Presentation.IsSwimming, "Crossing the coastline enters swimming");
+            PrototypeTraversalStep blockedSwimJump = traversal.Step(new PrototypePlayerActions(0f, true, false, false, false, -1), 0.1f, 0.5f, shoreline);
+            Assert(blockedSwimJump.Presentation.IsSwimming && blockedSwimJump.Presentation.IsGrounded, "Jump is suppressed while swimming");
+            traversal.Warp(PrototypePlayerTraversal.CoastlineX - 0.05f, PrototypePlayerTraversal.WaterY, true);
+            PrototypeTraversalStep returnedToShore = traversal.Step(new PrototypePlayerActions(1f, false, false, false, false, -1), 0.1f, 1f, shoreline);
+            Assert(!shoreline.IsSwimming && !returnedToShore.Presentation.IsSwimming, "Crossing back over the coastline exits swimming");
+            Assert(Mathf.Approximately(traversal.Y, PrototypePlayerTraversal.LandY), "Shore return restores land height");
 
             GameSession progression = new GameSession();
             progression.Grant(ResourceKind.Wood, 20);
@@ -116,7 +257,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: inventory overflow/swap, return transfer, shore transitions, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: inventory overflow/swap, shared keyboard/gamepad actions including language, ko/en Unity String Tables, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -124,6 +265,7 @@ namespace KimSurvival.EditorTools
         [MenuItem("Kim Survival/Build Windows Prototype")]
         public static void BuildWindows()
         {
+            PrototypeLocalizationAssetBuilder.SyncAssets();
             if (!File.Exists(ScenePath))
             {
                 CreateProject();
@@ -173,10 +315,19 @@ namespace KimSurvival.EditorTools
         private const string RunningKey = "KimSurvival.PlayModeVerification.Running";
         private const string PassedKey = "KimSurvival.PlayModeVerification.Passed";
         private const string MessageKey = "KimSurvival.PlayModeVerification.Message";
-        private const string VerificationFolder = "Artifacts/Verification";
+        private const string DefaultVerificationFolder = "Artifacts/Verification";
         private static double earliestRunTime;
         private static double timeoutAt;
         private static bool tickAttached;
+
+        private static string VerificationFolder
+        {
+            get
+            {
+                string overridePath = Environment.GetEnvironmentVariable("KIM_SURVIVAL_VERIFICATION_FOLDER");
+                return string.IsNullOrWhiteSpace(overridePath) ? DefaultVerificationFolder : overridePath;
+            }
+        }
 
         static PrototypePlayModeVerifier()
         {
