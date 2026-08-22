@@ -250,11 +250,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972580
-    m_Localized: "\uC77C\uBC18 \uC124\uBE44 \xB7 0.5m \uBC14\uB2E5 \uC2A4\uB0C5"
+    m_Localized: "\uC77C\uBC18 \uC124\uBE44\n0.5m \uBC14\uB2E5 \uC2A4\uB0C5"
     m_Metadata:
       m_Items: []
   - m_Id: 900972581
-    m_Localized: "\uCD9C\uC785\uAD6C \uBCF4\uD638"
+    m_Localized: "\uCD9C\uC785\uAD6C\n\uBCF4\uD638"
     m_Metadata:
       m_Items: []
   - m_Id: 900972582
@@ -572,15 +572,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 14658173124608
-    m_Localized: "{0} \xB7 \uB9C8\uC6B0\uC2A4\uB85C \uC704\uCE58 \uC774\uB3D9 \xB7
-      \uD074\uB9AD/Enter \uD655\uC815 \xB7 \uC6B0\uD074\uB9AD/Esc \uCDE8\uC18C \xB7
-      F1 \uC5B8\uC5B4"
+    m_Localized: "{0} \xB7 \uB9C8\uC6B0\uC2A4\uB85C \uC704\uCE58 \uC774\uB3D9\n\uD074\uB9AD/Enter
+      \uD655\uC815 \xB7 \uC6B0\uD074\uB9AD/Esc \uCDE8\uC18C\nF1 \uC5B8\uC5B4"
     m_Metadata:
       m_Items:
       - rid: 828367071277219866
   - m_Id: 14658219261952
-    m_Localized: "{0} \xB7 \uC67C\uCABD \uC2A4\uD2F1\uC73C\uB85C \uC704\uCE58 \uC774\uB3D9
-      \xB7 A \uD655\uC815 \xB7 B \uCDE8\uC18C \xB7 Y \uC5B8\uC5B4"
+    m_Localized: "{0} \xB7 \uC67C\uCABD \uC2A4\uD2F1\uC73C\uB85C \uC704\uCE58 \uC774\uB3D9\nA
+      \uD655\uC815 \xB7 B \uCDE8\uC18C\nY \uC5B8\uC5B4"
     m_Metadata:
       m_Items:
       - rid: 828367071277219866
