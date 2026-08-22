@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T13:36:38.679Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "background.island-camp",
+  "jobId": "job_20260822130341_c082e4b6",
+  "assetType": "background",
+    "sourceFiles": [
+      "background_opaque.png",
+      "gameplay_ground_alpha.png",
+      "foreground_alpha.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "CompressedHQ",
+    "maxSize": 1536,
+    "mipmaps": true,
+      "alphaIsTransparency": true,
+    "nineSliceHint": false
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

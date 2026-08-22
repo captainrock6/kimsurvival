@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T13:36:38.840Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "object.camp-structures",
+  "jobId": "job_20260822130400_6d786a69",
+  "assetType": "separated_parts",
+  "sourceFiles": [
+    "camp_structures_atlas_alpha.png",
+    "campfire.png",
+    "workbench.png",
+    "rain_collector.png",
+    "rescue_signal.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "CompressedHQ",
+    "maxSize": 1536,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": false
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

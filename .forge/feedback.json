@@ -41,7 +41,43 @@
         "Assets\\_Project\\Art\\Generated\\background\\job_20260822115849_82b3b250\\exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png"
       ],
       "updatedAt": "2026-08-22T13:12:24.122Z"
+    },
+    {
+      "jobId": "job_20260822130341_c082e4b6",
+      "assetId": "background.island-camp",
+      "assetType": "background",
+      "request": "Wave 3 결정론적 로컬 정리 전용 작업. 부모 레이어 후보 job_20260822121407_ada388c8의 background_opaque.png, gameplay_ground_alpha.png, foreground_alpha.png를 동일한 1672x941 캔버스·top-left 원점·walkableBaselineY 721·signalAnchor topY 596으로 보존한다. gameplay_ground_alpha 최하단의 반투명 약 5px를 마지막 완전 불투명 흙 텍스처 행으로 연장해 재합성 시 청록색 원경이 비치지 않게 한다. background→gameplay_ground→foreground 순서로 재합성한 불투명 검증 PNG와 좌표·알파 검사 JSON을 함께 남긴다. 이미지 생성, 리페인트, 구도 변경, 크기 변경, 캐릭터·설비·UI 추가를 하지 않는다.",
+      "decision": "adopted",
+      "tags": [
+        "wave3-layer-cleanup-approved"
+      ],
+      "note": "사용자가 Wave 3 정리 결과를 채택했다. 하단 청록 이음선이 제거된 동일 캔버스 레이어 구성과 원점·바닥선·구조 신호대 앵커를 유지한다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\background\\job_20260822130341_c082e4b6\\background_opaque.png",
+        "Assets\\_Project\\Art\\Generated\\background\\job_20260822130341_c082e4b6\\gameplay_ground_alpha.png",
+        "Assets\\_Project\\Art\\Generated\\background\\job_20260822130341_c082e4b6\\foreground_alpha.png"
+      ],
+      "updatedAt": "2026-08-22T13:36:29.704Z"
+    },
+    {
+      "jobId": "job_20260822130400_6d786a69",
+      "assetId": "object.camp-structures",
+      "assetType": "separated_parts",
+      "request": "Wave 3 결정론적 로컬 정리 전용 작업. 부모 설비 후보 job_20260822121426_d3c1c03d의 정상 투명 atlas를 그대로 보존하고, 인접 파편이 섞인 campfire/workbench와 좌측 edge-touch가 있는 rain_collector를 명시적 sourceRect로 다시 자른다. atlas에서 각 실제 오브젝트 경계를 검출한 뒤 사방 32px 투명 여백을 포함하는 비중첩 사각형을 사용하고, rescue_signal도 동일 규칙의 정본 크롭으로 동기화한다. 각 PNG는 깨끗한 실제 알파, 주변 파편 없음, edge-touch 없음, 동일 바닥 접점 규칙을 만족해야 한다. camp-structures-metadata.json은 explicit-rects 방식, 새 pixelSize, bottom-center pivot, 기존 footprint/interaction/anchorType을 반영한다. 이미지 생성·리페인트·스타일 변경·신규 오브젝트 추가를 하지 않는다.",
+      "decision": "adopted",
+      "tags": [
+        "wave3-structure-cleanup-approved"
+      ],
+      "note": "사용자가 Wave 3 정리 결과를 채택했다. 파편 없는 campfire/workbench, edge-touch 없는 rain collector, 네 파츠의 사방 32px 투명 여백과 explicit atlas 슬라이스를 유지한다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69\\camp_structures_atlas_alpha.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69\\campfire.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69\\workbench.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69\\rain_collector.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69\\rescue_signal.png"
+      ],
+      "updatedAt": "2026-08-22T13:36:29.871Z"
     }
   ],
-  "updatedAt": "2026-08-22T13:12:24.155Z"
+  "updatedAt": "2026-08-22T13:36:29.916Z"
 }

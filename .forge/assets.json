@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T13:12:24.303Z",
+  "updatedAt": "2026-08-22T13:36:38.842Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -130,7 +130,7 @@
       "id": "background.island-camp",
       "name": "무인도 베이스캠프 배경",
       "assetType": "background",
-      "request": "Unity 2D PC 16:9 고정 카메라용 무인도 베이스캠프 배경의 수정 후보 1개. 반드시 무대 옆면을 정면에서 보는 완전한 측면 직교(side elevation) 횡스크롤 구도여야 한다. 카메라는 지면과 수평으로 바라보고, 플레이 가능한 모래·다져진 흙 지면의 윗모서리는 화면 아래 약 30퍼센트 높이에서 좌우로 곧게 이어지는 단 하나의 수평 바닥선으로 읽혀야 한다. 플레이어가 서는 지면은 얇은 옆면 단면만 보이며 관객 쪽으로 펼쳐지는 넓은 바닥 면, 소실점, 사선 원근, 위에서 내려다보는 시점, 3/4 시점, 아이소메트릭 표현을 절대 사용하지 않는다.\n\n화면 중앙 약 65퍼센트 폭에는 김씨가 좌우로 걷고 일반 설비를 X축을 따라 여러 위치에 제한적으로 자유 배치할 수 있는 길고 평평한 연속 구간을 둔다. 이 구간에는 모닥불·작업대·빗물받이·텐트·받침대·슬롯·발자국·배치 마커·그리드·고정 그림자를 그리지 않고, 큰 돌과 식생은 배경층 또는 가장자리로 물려 지면선과 설비 실루엣을 가리지 않는다. 화면 맨 오른쪽 외곽에는 구조 신호대 전용 위치가 자연스럽게 읽히는 한 단 높은 바위 턱 또는 해안 절벽 끝을 옆모습으로 두고, 열린 하늘을 충분히 확보하되 구조물·표지·아이콘·인공 고정대는 그리지 않는다.\n\n먼 바다와 수평선, 구름, 작은 섬 실루엣은 가장 뒤의 수평 배경층에, 야자수와 바위는 얕은 중경의 옆모습에, 최소한의 잎과 모래 단면은 전경 가장자리에 배치해 향후 패럴랙스 분리가 가능하게 한다. 채택된 김씨 캐릭터는 비율·외곽선 굵기·주황색 상의가 묻히지 않는 값 대비를 확인하는 참조로만 사용하며 배경 안에 캐릭터를 그리지 않는다. 밝고 따뜻한 열대색, 굵고 깨끗한 외곽선, 손맛 나는 오리지널 2D 인디 게임 일러스트, 코믹하지만 유아적이지 않은 생존 분위기. 상단 HUD와 좌우 UI가 놓일 여백을 남긴 전체 불투명 배경.\n\n캐릭터, 사람 실루엣, 동물, 일반 설비, 구조 신호대, 건물, UI, 글자, 숫자, 로고, 워터마크, 라벨, 수집 아이콘을 포함하지 않는다. 이전 후보의 원근 개활지 구도를 재현하지 않는다. 참조 자료의 고유 미술이나 정확한 화면 구성을 복제하지 않는다.",
+      "request": "Wave 3 결정론적 로컬 정리 전용 작업. 부모 레이어 후보 job_20260822121407_ada388c8의 background_opaque.png, gameplay_ground_alpha.png, foreground_alpha.png를 동일한 1672x941 캔버스·top-left 원점·walkableBaselineY 721·signalAnchor topY 596으로 보존한다. gameplay_ground_alpha 최하단의 반투명 약 5px를 마지막 완전 불투명 흙 텍스처 행으로 연장해 재합성 시 청록색 원경이 비치지 않게 한다. background→gameplay_ground→foreground 순서로 재합성한 불투명 검증 PNG와 좌표·알파 검사 JSON을 함께 남긴다. 이미지 생성, 리페인트, 구도 변경, 크기 변경, 캐릭터·설비·UI 추가를 하지 않는다.",
       "status": "engine_ready",
       "source": "forge-job",
       "tags": [
@@ -232,69 +232,125 @@
           "status": "adopted",
           "at": "2026-08-22T13:12:24.149Z",
           "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822130341_c082e4b6",
+          "parentJobId": "job_20260822121407_ada388c8",
+          "status": "adopted",
+          "at": "2026-08-22T13:36:29.745Z",
+          "qualityScore": 100
         }
       ],
-      "currentJobId": "job_20260822115849_82b3b250",
-      "parentJobId": "job_20260822113720_fba8c8d1",
+      "currentJobId": "job_20260822130341_c082e4b6",
+      "parentJobId": "job_20260822121407_ada388c8",
       "artifacts": [
         {
           "kind": "codex-request",
           "fileName": "codex-request.json",
           "contentType": "application/json",
-          "bytes": 17315,
-          "url": "/outputs/jobs/job_20260822115849_82b3b250/codex-request.json"
+          "bytes": 15990,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/codex-request.json"
         },
         {
           "kind": "prompt",
           "fileName": "prompt.txt",
           "contentType": "text/plain",
-          "bytes": 15245,
-          "url": "/outputs/jobs/job_20260822115849_82b3b250/prompt.txt"
+          "bytes": 13426,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/prompt.txt"
         },
         {
           "kind": "image",
-          "fileName": "exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png",
+          "fileName": "background_opaque.png",
           "contentType": "image/png",
-          "bytes": 1942007,
-          "url": "/outputs/jobs/job_20260822115849_82b3b250/exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png"
+          "bytes": 1531071,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/background_opaque.png"
         },
         {
-          "kind": "file",
-          "fileName": "camp-structure-followup-package.txt",
-          "contentType": "text/plain",
-          "bytes": 2300,
-          "url": "/outputs/jobs/job_20260822115849_82b3b250/camp-structure-followup-package.txt"
+          "kind": "image",
+          "fileName": "gameplay_ground_alpha.png",
+          "contentType": "image/png",
+          "bytes": 762300,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "foreground_alpha.png",
+          "contentType": "image/png",
+          "bytes": 580953,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "recomposed-verification.png",
+          "contentType": "image/png",
+          "bytes": 2680827,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/recomposed-verification.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "island-camp-layer-manifest.json",
+          "contentType": "application/json",
+          "bytes": 1802,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/island-camp-layer-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "layer-cleanup-verification.json",
+          "contentType": "application/json",
+          "bytes": 1011,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/layer-cleanup-verification.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.json",
           "contentType": "application/json",
-          "bytes": 859,
-          "url": "/outputs/jobs/job_20260822115849_82b3b250/quality-report.json"
+          "bytes": 2229,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/quality-report.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.html",
           "contentType": "text/html",
-          "bytes": 1544,
-          "url": "/outputs/jobs/job_20260822115849_82b3b250/quality-report.html"
+          "bytes": 2247,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/quality-report.html"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.jpg",
+          "fileName": "qa-preview-background_opaque.jpg",
           "contentType": "image/jpeg",
-          "bytes": 7201,
-          "url": "/outputs/jobs/job_20260822115849_82b3b250/qa-preview-exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.jpg"
+          "bytes": 6209,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/qa-preview-background_opaque.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-gameplay_ground_alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3560,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/qa-preview-gameplay_ground_alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-foreground_alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3764,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/qa-preview-foreground_alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-recomposed-verification.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7424,
+          "url": "/outputs/jobs/job_20260822130341_c082e4b6/qa-preview-recomposed-verification.jpg"
         }
       ],
       "engine": {
         "kind": "unity",
-        "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260822115849_82b3b250",
-        "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260822115849_82b3b250\\forge-import.json",
-        "packagedAt": "2026-08-22T13:12:24.301Z"
+        "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260822130341_c082e4b6",
+        "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260822130341_c082e4b6\\forge-import.json",
+        "packagedAt": "2026-08-22T13:36:38.680Z"
       },
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-22T13:12:24.303Z"
+      "updatedAt": "2026-08-22T13:36:38.681Z"
     },
     {
       "id": "background.coast-forest",
@@ -488,7 +544,7 @@
       "name": "캠프 설비 분리 파츠",
       "assetType": "separated_parts",
       "request": "Wave 3 결정론적 로컬 정리 전용 작업. 부모 설비 후보 job_20260822121426_d3c1c03d의 정상 투명 atlas를 그대로 보존하고, 인접 파편이 섞인 campfire/workbench와 좌측 edge-touch가 있는 rain_collector를 명시적 sourceRect로 다시 자른다. atlas에서 각 실제 오브젝트 경계를 검출한 뒤 사방 32px 투명 여백을 포함하는 비중첩 사각형을 사용하고, rescue_signal도 동일 규칙의 정본 크롭으로 동기화한다. 각 PNG는 깨끗한 실제 알파, 주변 파편 없음, edge-touch 없음, 동일 바닥 접점 규칙을 만족해야 한다. camp-structures-metadata.json은 explicit-rects 방식, 새 pixelSize, bottom-center pivot, 기존 footprint/interaction/anchorType을 반영한다. 이미지 생성·리페인트·스타일 변경·신규 오브젝트 추가를 하지 않는다.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "unity",
@@ -532,6 +588,13 @@
           "parentJobId": "job_20260822121426_d3c1c03d",
           "status": "review",
           "at": "2026-08-22T13:11:18.290Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822130400_6d786a69",
+          "parentJobId": "job_20260822121426_d3c1c03d",
+          "status": "adopted",
+          "at": "2026-08-22T13:36:29.907Z",
           "qualityScore": 100
         }
       ],
@@ -651,9 +714,14 @@
           "url": "/outputs/jobs/job_20260822130400_6d786a69/qa-preview-rescue_signal.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69",
+        "manifest": "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822130400_6d786a69\\forge-import.json",
+        "packagedAt": "2026-08-22T13:36:38.842Z"
+      },
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-22T13:11:18.291Z"
+      "updatedAt": "2026-08-22T13:36:38.842Z"
     },
     {
       "id": "icon.resource-tool-set",
