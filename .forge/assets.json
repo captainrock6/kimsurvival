@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T10:31:40.465Z",
+  "updatedAt": "2026-08-22T11:39:09.047Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -130,9 +130,9 @@
       "id": "background.island-camp",
       "name": "무인도 베이스캠프 배경",
       "assetType": "background",
-      "request": "Unity 2D 16:9 측면 거점용 오리지널 베이스캠프 배경. 일반 설비는 제한적 자유 배치가 기본이므로 모닥불, 작업대, 빗물받이의 고정 자리, 받침대, 윤곽선 또는 완성 형태를 환경에 미리 그리지 않는다. 김씨가 이동하고 여러 유효 위치에 설비를 놓을 수 있도록 중앙과 전경 지면에 넓고 연속적이며 읽기 쉬운 건설 구역, 평탄한 배치 면, 충분한 이동·상호작용 여백을 확보한다. 배경, 중경, 플레이 지면, 가장자리 전경을 교체 가능한 레이어 기준으로 분리하고 설비 파츠가 어느 허용 위치에 놓여도 원근, 조명, 실루엣이 자연스럽게 맞아야 한다. 특수 설비인 구조 신호대만 화면 외곽의 전용 고정 앵커를 사용하며, 해당 위치는 인공 슬롯이나 아이콘 없이 바람이 잘 통하고 하늘이 열린 자연스러운 외부 지형으로 읽히게 한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 형태, 김씨와 UI를 위한 여백을 유지한다. 캐릭터, UI, 글자, 수집 아이콘, 일반 설비의 고정 배치 표식은 포함하지 않으며 참조 자료의 고유 미술과 정확한 레이아웃을 복제하지 않는다.",
-      "status": "needed",
-      "source": "codex",
+      "request": "Unity 2D PC 16:9 고정 측면 카메라용 무인도 베이스캠프의 첫 정식 고품질 배경 후보. 따뜻한 낮빛의 열대 해변 개활지 한 화면으로, 먼 바다·하늘·작은 섬 실루엣의 배경, 야자수와 바위가 있는 중경, 넓고 평평한 플레이 지면, 화면 가장자리의 얕은 전경 식생이 명확히 분리되어 이후 레이어 제작 기준으로 사용할 수 있어야 한다. 화면 아래쪽 중앙의 약 60퍼센트 이상을 김씨가 걷고 일반 설비를 여러 유효 위치에 제한적으로 자유 배치할 수 있는 연속적이고 평탄한 모래·다져진 흙 건설 구역으로 비운다. 이 구역에는 모닥불, 작업대, 빗물받이의 받침대, 빈 슬롯, 윤곽선, 발자국, 그림자 또는 완성 형태를 전혀 그리지 않으며 설비 파츠가 어디에 놓여도 실루엣과 조명이 읽히도록 작은 돌과 잡초도 가장자리 위주로 제한한다. 화면 한쪽 바깥 가장자리에는 구조 신호대만 설치할 수 있는 하늘이 넓게 열린 약간 높은 바위 곶 또는 자연스러운 외부 전망 지형을 두되, 인공 표식·아이콘·고정대·신호대 자체는 그리지 않는다. 중앙 이동 레인과 건설 구역은 김씨, 후속 투명 설비 파츠, 상단 HUD와 좌우 패널이 겹쳐도 읽히는 값 대비와 여백을 가진다. 채택된 김씨 캐릭터와 어울리는 굵고 깨끗한 외곽선, 손맛 나는 오리지널 2D 인디 게임 일러스트, 밝고 따뜻한 열대 팔레트, 코믹하지만 유아적이지 않은 생존 분위기. 전체 불투명 배경. 캐릭터, 사람 실루엣, 동물, 일반 설비, 구조 신호대, 텐트, UI, 글자, 숫자, 표지판, 라벨, 아이콘, 배치 그리드, 건설 마커, 워터마크, 로고, 프레임을 포함하지 않는다. 참조 자료의 고유 미술이나 정확한 화면 구성을 복제하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "2d",
@@ -142,14 +142,81 @@
         "layered"
       ],
       "dependencies": [],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260822113720_fba8c8d1"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822113720_fba8c8d1",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T11:37:20.196Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822113720_fba8c8d1",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T11:39:09.046Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260822113720_fba8c8d1",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 21464,
+          "url": "/outputs/jobs/job_20260822113720_fba8c8d1/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 19269,
+          "url": "/outputs/jobs/job_20260822113720_fba8c8d1/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-53d875d4-8bcf-4a2c-8c15-d6b5d420abd5.png",
+          "contentType": "image/png",
+          "bytes": 2358081,
+          "url": "/outputs/jobs/job_20260822113720_fba8c8d1/exec-53d875d4-8bcf-4a2c-8c15-d6b5d420abd5.png"
+        },
+        {
+          "kind": "file",
+          "fileName": "camp-structure-followup-package.txt",
+          "contentType": "text/plain",
+          "bytes": 2300,
+          "url": "/outputs/jobs/job_20260822113720_fba8c8d1/camp-structure-followup-package.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 859,
+          "url": "/outputs/jobs/job_20260822113720_fba8c8d1/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1544,
+          "url": "/outputs/jobs/job_20260822113720_fba8c8d1/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-53d875d4-8bcf-4a2c-8c15-d6b5d420abd5.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8792,
+          "url": "/outputs/jobs/job_20260822113720_fba8c8d1/qa-preview-exec-53d875d4-8bcf-4a2c-8c15-d6b5d420abd5.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-22T10:18:49.071Z"
+      "updatedAt": "2026-08-22T11:39:09.047Z"
     },
     {
       "id": "background.coast-forest",
