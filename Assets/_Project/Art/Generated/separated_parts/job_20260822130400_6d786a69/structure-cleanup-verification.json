@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "assetId": "object.camp-structures",
+  "jobId": "job_20260822130400_6d786a69",
+  "parentJobId": "job_20260822121426_d3c1c03d",
+  "method": "deterministic-explicit-atlas-crop-no-generation",
+  "before": {
+    "forgeQualityScore": 76,
+    "forgeWarningCount": 3,
+    "warnings": [
+      "campfire included an adjacent workbench fragment",
+      "workbench included adjacent atlas fragments",
+      "rain_collector touched the left image edge"
+    ]
+  },
+  "after": {
+    "atlasDimensions": [1672, 941],
+    "atlasUnchanged": true,
+    "sliceMode": "explicit-rects",
+    "sliceCount": 4,
+    "sourceRectsNonOverlapping": true,
+    "transparentPaddingPixels": 32,
+    "edgeTouchCount": 0,
+    "adjacentFragmentCount": 0,
+    "metadataSynchronized": true
+  },
+  "reviewStatus": "review"
+}

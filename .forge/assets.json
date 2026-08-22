@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T12:40:28.136Z",
+  "updatedAt": "2026-08-22T13:12:24.303Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -145,7 +145,8 @@
       "jobIds": [
         "job_20260822113720_fba8c8d1",
         "job_20260822115849_82b3b250",
-        "job_20260822121407_ada388c8"
+        "job_20260822121407_ada388c8",
+        "job_20260822130341_c082e4b6"
       ],
       "versions": [
         {
@@ -210,6 +211,27 @@
           "status": "adopted",
           "at": "2026-08-22T12:40:26.933Z",
           "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822130341_c082e4b6",
+          "parentJobId": "job_20260822121407_ada388c8",
+          "status": "awaiting_import",
+          "at": "2026-08-22T13:03:41.263Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822130341_c082e4b6",
+          "parentJobId": "job_20260822121407_ada388c8",
+          "status": "review",
+          "at": "2026-08-22T13:11:08.683Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260822115849_82b3b250",
+          "parentJobId": "job_20260822113720_fba8c8d1",
+          "status": "adopted",
+          "at": "2026-08-22T13:12:24.149Z",
+          "qualityScore": 100
         }
       ],
       "currentJobId": "job_20260822115849_82b3b250",
@@ -269,10 +291,10 @@
         "kind": "unity",
         "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260822115849_82b3b250",
         "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260822115849_82b3b250\\forge-import.json",
-        "packagedAt": "2026-08-22T12:40:28.135Z"
+        "packagedAt": "2026-08-22T13:12:24.301Z"
       },
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-22T12:40:28.136Z"
+      "updatedAt": "2026-08-22T13:12:24.303Z"
     },
     {
       "id": "background.coast-forest",
@@ -465,7 +487,7 @@
       "id": "object.camp-structures",
       "name": "캠프 설비 분리 파츠",
       "assetType": "separated_parts",
-      "request": "Unity 2D 측면 횡스크롤 베이스캠프용 독립 투명 설비 파츠 세트. 동일한 시트에 모닥불, 작업대, 빗물받이, 구조 신호대를 왼쪽부터 순서대로 서로 겹치지 않는 4개 동일 폭 셀에 하나씩 배치한다. 모든 파츠는 완전한 측면 직교 시점, 동일한 바닥 기준선, 하단 중앙 피벗을 위한 투명 여백, 일관된 성인 김씨 대비 스케일과 굵은 외곽선을 사용한다. 모닥불은 돌 고리와 표류 나무, 작업대는 표류 목재·돌·고철로 급조한 낮은 작업대, 빗물받이는 잎·천 조각·대나무 받침과 통, 구조 신호대는 오른쪽 외곽 바위 턱에 놓일 높은 표류 목재 프레임과 반사판·천 조각으로 구성하되 글자나 국기는 넣지 않는다. 각 파츠는 주변 지면, 고정 그림자, 받침대, 슬롯, 배치 마커를 포함하지 않는 실제 투명 배경이어야 하며 Unity에서 개별 크롭 후 바닥 접점이 일치해야 한다. 엔진 틴트나 단색 마스크를 적용해도 실루엣이 유지되도록 깨끗한 알파와 중립적인 내부 명암을 사용한다. 글자, 숫자, UI, 아이콘, 캐릭터, 사람, 동물, 로고, 워터마크를 포함하지 않는다.",
+      "request": "Wave 3 결정론적 로컬 정리 전용 작업. 부모 설비 후보 job_20260822121426_d3c1c03d의 정상 투명 atlas를 그대로 보존하고, 인접 파편이 섞인 campfire/workbench와 좌측 edge-touch가 있는 rain_collector를 명시적 sourceRect로 다시 자른다. atlas에서 각 실제 오브젝트 경계를 검출한 뒤 사방 32px 투명 여백을 포함하는 비중첩 사각형을 사용하고, rescue_signal도 동일 규칙의 정본 크롭으로 동기화한다. 각 PNG는 깨끗한 실제 알파, 주변 파편 없음, edge-touch 없음, 동일 바닥 접점 규칙을 만족해야 한다. camp-structures-metadata.json은 explicit-rects 방식, 새 pixelSize, bottom-center pivot, 기존 footprint/interaction/anchorType을 반영한다. 이미지 생성·리페인트·스타일 변경·신규 오브젝트 추가를 하지 않는다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -480,7 +502,8 @@
         "background.island-camp"
       ],
       "jobIds": [
-        "job_20260822121426_d3c1c03d"
+        "job_20260822121426_d3c1c03d",
+        "job_20260822130400_6d786a69"
       ],
       "versions": [
         {
@@ -496,120 +519,141 @@
           "status": "review",
           "at": "2026-08-22T12:28:06.870Z",
           "qualityScore": 76
+        },
+        {
+          "jobId": "job_20260822130400_6d786a69",
+          "parentJobId": "job_20260822121426_d3c1c03d",
+          "status": "awaiting_import",
+          "at": "2026-08-22T13:04:00.400Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822130400_6d786a69",
+          "parentJobId": "job_20260822121426_d3c1c03d",
+          "status": "review",
+          "at": "2026-08-22T13:11:18.290Z",
+          "qualityScore": 100
         }
       ],
-      "currentJobId": "job_20260822121426_d3c1c03d",
-      "parentJobId": null,
+      "currentJobId": "job_20260822130400_6d786a69",
+      "parentJobId": "job_20260822121426_d3c1c03d",
       "artifacts": [
         {
           "kind": "codex-request",
           "fileName": "codex-request.json",
           "contentType": "application/json",
-          "bytes": 16334,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/codex-request.json"
+          "bytes": 16103,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/codex-request.json"
         },
         {
           "kind": "prompt",
           "fileName": "prompt.txt",
           "contentType": "text/plain",
-          "bytes": 13878,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/prompt.txt"
+          "bytes": 13787,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/prompt.txt"
         },
         {
           "kind": "image",
           "fileName": "camp_structures_atlas_alpha.png",
           "contentType": "image/png",
           "bytes": 1056540,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/camp_structures_atlas_alpha.png"
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
         },
         {
           "kind": "image",
           "fileName": "campfire.png",
           "contentType": "image/png",
-          "bytes": 130013,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/campfire.png"
+          "bytes": 110170,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/campfire.png"
         },
         {
           "kind": "image",
           "fileName": "workbench.png",
           "contentType": "image/png",
-          "bytes": 172282,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/workbench.png"
+          "bytes": 189419,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/workbench.png"
         },
         {
           "kind": "image",
           "fileName": "rain_collector.png",
           "contentType": "image/png",
-          "bytes": 365464,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/rain_collector.png"
+          "bytes": 367395,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/rain_collector.png"
         },
         {
           "kind": "image",
           "fileName": "rescue_signal.png",
           "contentType": "image/png",
-          "bytes": 352453,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/rescue_signal.png"
+          "bytes": 352865,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/rescue_signal.png"
         },
         {
           "kind": "editable-source",
           "fileName": "camp-structures-metadata.json",
           "contentType": "application/json",
-          "bytes": 2210,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/camp-structures-metadata.json"
+          "bytes": 2848,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/camp-structures-metadata.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "structure-cleanup-verification.json",
+          "contentType": "application/json",
+          "bytes": 810,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/structure-cleanup-verification.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.json",
           "contentType": "application/json",
-          "bytes": 3230,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/quality-report.json"
+          "bytes": 2630,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/quality-report.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.html",
           "contentType": "text/html",
-          "bytes": 2703,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/quality-report.html"
+          "bytes": 2400,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/quality-report.html"
         },
         {
           "kind": "quality-preview",
           "fileName": "qa-preview-camp_structures_atlas_alpha.jpg",
           "contentType": "image/jpeg",
           "bytes": 5376,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-camp_structures_atlas_alpha.jpg"
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/qa-preview-camp_structures_atlas_alpha.jpg"
         },
         {
           "kind": "quality-preview",
           "fileName": "qa-preview-campfire.jpg",
           "contentType": "image/jpeg",
-          "bytes": 7383,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-campfire.jpg"
+          "bytes": 6292,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/qa-preview-campfire.jpg"
         },
         {
           "kind": "quality-preview",
           "fileName": "qa-preview-workbench.jpg",
           "contentType": "image/jpeg",
-          "bytes": 7806,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-workbench.jpg"
+          "bytes": 7055,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/qa-preview-workbench.jpg"
         },
         {
           "kind": "quality-preview",
           "fileName": "qa-preview-rain_collector.jpg",
           "contentType": "image/jpeg",
-          "bytes": 7720,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-rain_collector.jpg"
+          "bytes": 7953,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/qa-preview-rain_collector.jpg"
         },
         {
           "kind": "quality-preview",
           "fileName": "qa-preview-rescue_signal.jpg",
           "contentType": "image/jpeg",
-          "bytes": 5996,
-          "url": "/outputs/jobs/job_20260822121426_d3c1c03d/qa-preview-rescue_signal.jpg"
+          "bytes": 6021,
+          "url": "/outputs/jobs/job_20260822130400_6d786a69/qa-preview-rescue_signal.jpg"
         }
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-22T12:28:06.870Z"
+      "updatedAt": "2026-08-22T13:11:18.291Z"
     },
     {
       "id": "icon.resource-tool-set",

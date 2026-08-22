@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "assetId": "background.island-camp",
+  "jobId": "job_20260822130341_c082e4b6",
+  "parentJobId": "job_20260822121407_ada388c8",
+  "method": "deterministic-local-cleanup-no-generation",
+  "before": {
+    "forgeQualityScore": 100,
+    "forgeWarningCount": 0,
+    "manualIssueCount": 1,
+    "manualIssues": ["Five partially transparent bottom rows exposed a cyan composite seam."],
+    "bottomRows": {
+      "y936Alpha": 213,
+      "y937Alpha": 170,
+      "y938Alpha": 128,
+      "y939Alpha": 85,
+      "y940Alpha": 42
+    }
+  },
+  "after": {
+    "canvas": [1672, 941],
+    "origin": "top-left",
+    "walkableBaselineY": 721,
+    "signalAnchorTopY": 596,
+    "repairedRowsY": [936, 937, 938, 939, 940],
+    "repairedRowsAlpha": 255,
+    "nonOpaquePixelsInRepairedRows": 0,
+    "layerDimensionsMatch": true,
+    "recompositionFile": "recomposed-verification.png",
+    "recompositionOpaque": true
+  },
+  "reviewStatus": "review",
+  "canonicalJobIdPreserved": "job_20260822115849_82b3b250"
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "assetId": "background.island-camp",
+  "jobId": "job_20260822130341_c082e4b6",
+  "parentJobId": "job_20260822121407_ada388c8",
+  "canvas": {
+    "width": 1672,
+    "height": 941,
+    "origin": "top-left"
+  },
+  "composition": {
+    "camera": "strict-orthographic-side-view",
+    "walkableBaselineY": 721,
+    "buildableRangeX": [500, 1300],
+    "signalAnchor": {
+      "rangeX": [1415, 1671],
+      "topY": 596,
+      "anchorType": "signal-fixed"
+    }
+  },
+  "layers": [
+    {
+      "file": "background_opaque.png",
+      "order": 0,
+      "role": "far-background",
+      "opaque": true,
+      "parallaxFactor": [0.15, 0.05],
+      "collision": false
+    },
+    {
+      "file": "gameplay_ground_alpha.png",
+      "order": 10,
+      "role": "gameplay-ground-and-signal-anchor",
+      "opaque": false,
+      "parallaxFactor": [1.0, 1.0],
+      "collision": true
+    },
+    {
+      "file": "foreground_alpha.png",
+      "order": 20,
+      "role": "decorative-edge-foreground",
+      "opaque": false,
+      "parallaxFactor": [1.08, 1.02],
+      "collision": false
+    }
+  ],
+  "cleanup": {
+    "method": "deterministic-alpha-row-repair",
+    "sourceLayer": "gameplay_ground_alpha.png",
+    "sourceRowY": 934,
+    "repairedRowsY": [936, 937, 938, 939, 940],
+    "preservedRowsY": [0, 935],
+    "recompositionEvidence": "recomposed-verification.png"
+  },
+  "notes": [
+    "All three layers share one full-canvas coordinate system.",
+    "The adopted composition remains the visual baseline; this cleaned layer set remains in review.",
+    "Facilities, placement markers, UI and localized text are not baked into any layer.",
+    "Only the five partially transparent bottom rows of the gameplay ground were repaired; canvas, origin, baseline and signal anchor are unchanged."
+  ]
+}

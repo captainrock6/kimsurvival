@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 7,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "camp_structures_atlas_alpha.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": true,
+      "transparentRatio": 0.8265,
+      "contrastStdDev": 42.99,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 50,
+        "top": 105,
+        "right": 41,
+        "bottom": 98
+      },
+      "previewFile": "qa-preview-camp_structures_atlas_alpha.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "campfire.png",
+      "kind": "raster",
+      "width": 340,
+      "height": 427,
+      "hasAlpha": true,
+      "transparentRatio": 0.7758,
+      "contrastStdDev": 54.67,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-campfire.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "workbench.png",
+      "kind": "raster",
+      "width": 468,
+      "height": 325,
+      "hasAlpha": true,
+      "transparentRatio": 0.6113,
+      "contrastStdDev": 49.6,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-workbench.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "rain_collector.png",
+      "kind": "raster",
+      "width": 447,
+      "height": 626,
+      "hasAlpha": true,
+      "transparentRatio": 0.6104,
+      "contrastStdDev": 50.24,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-rain_collector.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "rescue_signal.png",
+      "kind": "raster",
+      "width": 424,
+      "height": 798,
+      "hasAlpha": true,
+      "transparentRatio": 0.6838,
+      "contrastStdDev": 58.2,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 32,
+        "top": 32,
+        "right": 32,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-rescue_signal.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "camp-structures-metadata.json",
+      "kind": "editable-source",
+      "bytes": 2848,
+      "issues": []
+    },
+    {
+      "fileName": "structure-cleanup-verification.json",
+      "kind": "editable-source",
+      "bytes": 810,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-22T13:11:18.230Z",
+  "jobId": "job_20260822130400_6d786a69",
+  "assetType": "separated_parts"
+}

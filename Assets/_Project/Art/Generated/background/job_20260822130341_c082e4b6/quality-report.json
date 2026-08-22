@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 6,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "background_opaque.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 30.3,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-background_opaque.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "gameplay_ground_alpha.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": true,
+      "transparentRatio": 0.7451,
+      "contrastStdDev": 37.72,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 595,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-gameplay_ground_alpha.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "foreground_alpha.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": true,
+      "transparentRatio": 0.9052,
+      "contrastStdDev": 31.1,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 92,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-foreground_alpha.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "recomposed-verification.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 55.49,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-recomposed-verification.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "island-camp-layer-manifest.json",
+      "kind": "editable-source",
+      "bytes": 1802,
+      "issues": []
+    },
+    {
+      "fileName": "layer-cleanup-verification.json",
+      "kind": "editable-source",
+      "bytes": 1011,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-22T13:11:08.634Z",
+  "jobId": "job_20260822130341_c082e4b6",
+  "assetType": "background"
+}

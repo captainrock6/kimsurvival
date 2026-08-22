@@ -2,7 +2,7 @@
   "id": "job_20260822115849_82b3b250",
   "status": "succeeded",
   "createdAt": "2026-08-22T11:58:49.491Z",
-  "updatedAt": "2026-08-22T12:40:26.914Z",
+  "updatedAt": "2026-08-22T13:12:24.129Z",
   "input": {
     "assetType": "background",
     "assetId": "background.island-camp",
@@ -161,11 +161,11 @@
     "tags": [
       "side-scroller-composition-approved"
     ],
-    "note": "사용자가 채택한 완전 측면 횡스크롤 베이스캠프 배경을 정본으로 유지한다. 후속 레이어 및 설비 파츠는 별도 review 후보이며 이 채택을 대체하지 않는다.",
+    "note": "Wave 3 정리에서도 사용자가 채택한 완전 측면 횡스크롤 베이스캠프 배경을 정본으로 유지한다. 새 레이어 정리본은 재합성 검증용 review 후보이며 정본을 대체하지 않는다.",
     "selectedArtifacts": [
       "exec-649c0292-75ac-48ad-9dcd-0d3f40f56a30.png"
     ],
-    "updatedAt": "2026-08-22T12:40:26.903Z"
+    "updatedAt": "2026-08-22T13:12:24.122Z"
   },
   "events": [
     {
@@ -212,6 +212,11 @@
       "at": "2026-08-22T12:40:26.914Z",
       "level": "info",
       "message": "피드백 저장: 채택"
+    },
+    {
+      "at": "2026-08-22T13:12:24.129Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · side-scroller-composition-approved"
     }
   ],
   "error": null,
