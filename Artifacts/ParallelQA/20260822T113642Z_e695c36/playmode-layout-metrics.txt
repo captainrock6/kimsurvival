@@ -1,0 +1,36 @@
+Play Mode 1280x800 text metrics
+Run ID: 20260822T113642Z_e695c36
+Started UTC: 2026-08-22T12:17:13.2573839Z
+Completed UTC: 2026-08-22T12:17:14.4056174Z
+Unity: 6000.4.9f1
+Baseline commit: e695c36d4a0a15c19f25630fe177fdd56298c1d6
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T113642Z_e695c36\playmode-final-capture-fix.log"
+METRIC-WARN · ko placement valid · active TMP=27 · minimum rendered text bounds=1.5px · TMP overflow=1 · small world text(<12px)=4 · screenshot=playmode-ko-placement-valid-1280x800.png
+  overflow candidates: 가방 제목=캠프 창고/(수색 중에는 4칸 가방)
+  small world text: 필수 통로=1.8px | 일반 설비 · 0.5m 바닥 스냅=1.5px | 김씨=7.9px | 출입구 보호=1.8px
+METRIC-WARN · ko placement invalid · active TMP=27 · minimum rendered text bounds=1.5px · TMP overflow=1 · small world text(<12px)=4 · screenshot=playmode-ko-placement-invalid-1280x800.png
+  overflow candidates: 가방 제목=캠프 창고/(수색 중에는 4칸 가방)
+  small world text: 필수 통로=1.8px | 일반 설비 · 0.5m 바닥 스냅=1.5px | 김씨=7.9px | 출입구 보호=1.8px
+METRIC-WARN · en placement valid · active TMP=27 · minimum rendered text bounds=1.3px · TMP overflow=1 · small world text(<12px)=5 · screenshot=playmode-en-placement-valid-1280x800.png
+  overflow candidates: 가방 제목=Camp Storage/(4-slot bag while exploring)
+  small world text: Required Path=1.5px | Mr. Kim=6.7px | Campfire/Valid Placement=11.0px | Keep Entrance Clear=1.5px | General Facilities · 0.5m Floor Snap=1.3px
+METRIC-WARN · en placement invalid · active TMP=27 · minimum rendered text bounds=1.3px · TMP overflow=1 · small world text(<12px)=5 · screenshot=playmode-en-placement-invalid-1280x800.png
+  overflow candidates: 가방 제목=Camp Storage/(4-slot bag while exploring)
+  small world text: Required Path=1.5px | Mr. Kim=6.7px | Campfire/Invalid Placement=11.0px | Keep Entrance Clear=1.5px | General Facilities · 0.5m Floor Snap=1.3px
+METRIC-WARN · ko day1 swimming · active TMP=22 · minimum rendered text bounds=5.7px · TMP overflow=1 · small world text(<12px)=8 · screenshot=playmode-ko-day1-swimming-1280x800.png
+  overflow candidates: 가방 제목=수색 가방 4칸/한 묶음 최대 2개
+  small world text: 식량 ×2=7.9px | 표류물 ×2=7.9px | 나무 ×2=7.9px | 김씨=5.7px | 돌 ×2=7.9px | 돌 ×2=7.9px | 표류물 ×2=7.9px | 표류물 ×2=7.9px
+METRIC-WARN · ko day2 exploration · active TMP=23 · minimum rendered text bounds=7.9px · TMP overflow=1 · small world text(<12px)=9 · screenshot=playmode-ko-day2-exploration-1280x800.png
+  overflow candidates: 가방 제목=수색 가방 4칸/한 묶음 최대 2개
+  small world text: 김씨=7.9px | 표류물 ×2=7.9px | 나무 ×2=7.9px | 나무 ×2=7.9px | 돌 ×2=7.9px | 표류물 ×2=7.9px | 표류물 ×2=7.9px | 돌 ×2=7.9px | 식량 ×2=7.9px
+PASS · ko rescue result · active TMP=16 · minimum rendered text bounds=1.5px · TMP overflow=0 · small world text(<12px)=4 · screenshot=playmode-ko-rescue-result-1280x800.png
+  small world text: 일반 설비 · 0.5m 바닥 스냅=1.5px | 필수 통로=1.8px | 출입구 보호=1.8px | 김씨=7.9px
+METRIC-WARN · en day1 swimming · active TMP=22 · minimum rendered text bounds=4.8px · TMP overflow=1 · small world text(<12px)=8 · screenshot=playmode-en-day1-swimming-1280x800.png
+  overflow candidates: 가방 제목=4-Slot Expedition Bag/Maximum 2 per stack
+  small world text: Salvage ×2=6.7px | Food ×2=6.7px | Stone ×2=6.7px | Wood ×2=6.7px | Mr. Kim=4.8px | Salvage ×2=6.7px | Salvage ×2=6.7px | Stone ×2=6.7px
+METRIC-WARN · en day2 exploration · active TMP=23 · minimum rendered text bounds=6.7px · TMP overflow=1 · small world text(<12px)=9 · screenshot=playmode-en-day2-exploration-1280x800.png
+  overflow candidates: 가방 제목=4-Slot Expedition Bag/Maximum 2 per stack
+  small world text: Mr. Kim=6.7px | Salvage ×2=6.7px | Food ×2=6.7px | Wood ×2=6.7px | Salvage ×2=6.7px | Stone ×2=6.7px | Stone ×2=6.7px | Salvage ×2=6.7px | Wood ×2=6.7px
+PASS · en rescue result · active TMP=16 · minimum rendered text bounds=1.3px · TMP overflow=0 · small world text(<12px)=5 · screenshot=playmode-en-rescue-result-1280x800.png
+  small world text: General Facilities · 0.5m Floor Snap=1.3px | Required Path=1.5px | Campfire/↔ Move Free=11.0px | Keep Entrance Clear=1.5px | Mr. Kim=6.7px

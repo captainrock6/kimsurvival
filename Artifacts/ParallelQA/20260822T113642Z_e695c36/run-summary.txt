@@ -1,0 +1,21 @@
+Independent PC / Steam readiness summary
+Run ID: 20260822T113642Z_e695c36
+Baseline commit: e695c36d4a0a15c19f25630fe177fdd56298c1d6
+Unity: 6000.4.9f1 (f7258d6eebbe)
+Overall: FAIL
+
+PASS: clean fast-forward to exact origin/master baseline; Unity compile; deterministic Edit Check; ko/en natural Play Mode rescue loops; swimming/coastal gather/land return; placement rule model; immediate ko/en switch; separate-process locale persistence; missing-key Korean fallback/log; Smart String formatting; representative Hangul/Latin glyph prerequisites; hardcoded player-facing sink scan; 1280x800 main UI panels; Windows x64 Development build; Windows startup/liveness smoke.
+
+FAIL: P1 exploration/world resource labels are unreadable at 1280x800; P2 placement-space semantic labels are too small; Steam shipping integration/configuration is absent.
+
+UNVERIFIED: physical gamepad actuation and full hardware loop; Windows Player language persistence after process relaunch; qps-long 35-50% expansion layout; release/non-development build; Steam Deck/Steam client/depot/upload/store path.
+
+Input distinction:
+- Keyboard/mouse code path: PASS
+- Keyboard/mouse automated shared actions and UI Submit: PASS
+- Windows Player physical keyboard/mouse interaction: NOT PERFORMED in the startup-only smoke
+- Gamepad code path and automated shared actions/navigation: PASS
+- Unity-reported connected gamepad names: 0
+- Physical gamepad: UNVERIFIED
+
+Historical separation: Docs/QA/parallel-pc-steam-readiness-audit-2a6e9e6.md remains the old baseline report. None of its PASS/FAIL files were used as evidence for this e695c36 decision.

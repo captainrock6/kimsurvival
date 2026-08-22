@@ -1,0 +1,35 @@
+Independent 1280x800 visual review
+Run ID: 20260822T113642Z_e695c36
+Reviewed UTC: 2026-08-22T12:17Z
+Baseline commit: e695c36d4a0a15c19f25630fe177fdd56298c1d6
+Method: all ten newly generated PNG files were opened at original resolution and reviewed at 1:1. No 2a6e9e6 image was used.
+
+FAIL · P1 · Exploration resource and interaction world labels are not readable at the required resolution.
+- Korean resource labels render at approximately 7.9 px; English labels render at approximately 6.7 px.
+- Mr. Kim labels render at approximately 4.8-7.9 px.
+- The water interaction prefix (Swim to Search / Korean equivalent) is visibly too small to serve as immediate interaction guidance.
+- Reproduction captures: playmode-ko-day1-swimming-1280x800.png, playmode-ko-day2-exploration-1280x800.png, playmode-en-day1-swimming-1280x800.png, playmode-en-day2-exploration-1280x800.png.
+
+FAIL · P2 · Placement-space semantic labels are too small even though the main placement banner and color ghost remain usable.
+- Required Path / Keep Entrance Clear / general build-zone labels render at approximately 1.3-1.8 px.
+- The English placement ghost text renders at approximately 11.0 px; the dedicated signal-anchor text is likewise visually tiny.
+- Valid/invalid ghost color and the large top-center localized feedback remain visible, so this is not classified as a placement blocker.
+- Reproduction captures: playmode-ko-placement-valid-1280x800.png, playmode-ko-placement-invalid-1280x800.png, playmode-en-placement-valid-1280x800.png, playmode-en-placement-invalid-1280x800.png.
+
+PASS · The main Korean and English HUD, action buttons, resource counts, controls line, placement top banner, bag choice, and rescue result panel do not visibly clip or overlap in the reviewed images.
+PASS · Korean Hangul and English/Latin glyphs show no visible tofu or replacement boxes in the reviewed images.
+PASS · Valid and boundary-invalid placement states have distinct localized top-banner text; the boundary-invalid reason is readable in both ko/en. The out-of-bounds ghost itself is outside/behind the play-space UI in that fixture, while the valid green ghost remains visible.
+REVIEWED / NOT A DEFECT · TMP reported the two-line bag title as overflowing in camp/exploration captures, but 1:1 inspection shows both lines contained and readable. The metric is retained as a warning candidate, not promoted to a product defect.
+UNVERIFIED · qps-long / 35-50% expanded pseudo-locale captures were not produced by this run.
+
+Capture inventory:
+- playmode-ko-placement-valid-1280x800.png
+- playmode-ko-placement-invalid-1280x800.png
+- playmode-en-placement-valid-1280x800.png
+- playmode-en-placement-invalid-1280x800.png
+- playmode-ko-day1-swimming-1280x800.png
+- playmode-ko-day2-exploration-1280x800.png
+- playmode-ko-rescue-result-1280x800.png
+- playmode-en-day1-swimming-1280x800.png
+- playmode-en-day2-exploration-1280x800.png
+- playmode-en-rescue-result-1280x800.png
