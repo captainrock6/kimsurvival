@@ -2,7 +2,7 @@
   "id": "job_20260822224357_275de712",
   "status": "succeeded",
   "createdAt": "2026-08-22T22:43:57.498Z",
-  "updatedAt": "2026-08-22T22:52:20.393Z",
+  "updatedAt": "2026-08-22T22:55:59.124Z",
   "input": {
     "assetType": "effect",
     "assetId": "effect.comedy-feedback",
@@ -316,7 +316,23 @@
       "url": "/outputs/jobs/job_20260822224357_275de712/qa-preview-visual-review.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "wave5-comedy-feedback-approved"
+    ],
+    "note": "사용자가 Wave 5 코믹 피드백 효과 6종 후보를 명시적으로 채택했다.",
+    "selectedArtifacts": [
+      "sprite-sheet.png",
+      "collect_success.png",
+      "bag_full_swap.png",
+      "placement_invalid.png",
+      "hunger_exhaustion.png",
+      "craft_build_complete.png",
+      "rescue_success.png"
+    ],
+    "updatedAt": "2026-08-22T22:55:59.114Z"
+  },
   "events": [
     {
       "at": "2026-08-22T22:43:57.498Z",
@@ -352,6 +368,11 @@
       "at": "2026-08-22T22:52:20.393Z",
       "level": "info",
       "message": "Codex/로컬 결과 27개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-22T22:55:59.124Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave5-comedy-feedback-approved"
     }
   ],
   "error": null,
