@@ -1,46 +1,33 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-22T22:50:59.3202071Z",
+  "generatedAt": "2026-08-22T22:56:15.522Z",
   "projectId": "김씨 생존기: 무인도",
   "assetId": "effect.comedy-feedback",
   "jobId": "job_20260822224357_275de712",
   "assetType": "effect",
-  "reviewOnly": true,
   "sourceFiles": [
+    "source-sheet-alpha.png",
     "sprite-sheet.png",
     "collect_success.png",
     "bag_full_swap.png",
     "placement_invalid.png",
     "hunger_exhaustion.png",
     "craft_build_complete.png",
-    "rescue_success.png"
+    "rescue_success.png",
+    "readability-24-32-64.png",
+    "visual-review.png"
   ],
   "import": {
     "textureType": "Sprite",
-    "spriteMode": "Multiple",
+    "spriteMode": "Single",
     "pixelsPerUnit": 100,
     "filterMode": "Bilinear",
     "compression": "HighQuality",
     "maxSize": 2048,
     "mipmaps": false,
     "alphaIsTransparency": true,
-    "pivot": [0.5, 0.5]
+    "nineSliceHint": false
   },
-  "sliceGrid": {
-    "columns": 3,
-    "rows": 2,
-    "cellWidth": 256,
-    "cellHeight": 256,
-    "origin": "top-left",
-    "order": [
-      "collect_success",
-      "bag_full_swap",
-      "placement_invalid",
-      "hunger_exhaustion",
-      "craft_build_complete",
-      "rescue_success"
-    ]
-  },
-  "stateFiles": [],
-  "adoptionRequired": true
+  "sliceGrid": null,
+  "stateFiles": []
 }
