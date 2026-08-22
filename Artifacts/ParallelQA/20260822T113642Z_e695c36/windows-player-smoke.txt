@@ -1,0 +1,23 @@
+Windows Development Player startup smoke
+Run ID: 20260822T113642Z_e695c36
+Observed UTC: 2026-08-22T11:54:28Z
+Unity: 6000.4.9f1 (f7258d6eebbe)
+Baseline commit: e695c36d4a0a15c19f25630fe177fdd56298c1d6
+OS: Microsoft Windows NT 10.0.26200.0
+Command: KimSurvivalIsland.exe -screen-width 1280 -screen-height 800 -screen-fullscreen 0 -logFile <run work folder>/windows-player.log
+Build kind: Windows x64 Development + AllowDebugging
+Result: PASS (startup/liveness smoke only)
+Observed process: PID 31164, HasExited=False, Responding=True after 8 seconds; the exact QA process was then stopped.
+Requested window size: 1280x800 windowed
+Player-side pixel capture: NOT TAKEN; exact 1280x800 visual evidence comes from the Play Mode render-target captures.
+Input System: Initialized
+Graphics: Direct3D 12, NVIDIA GeForce RTX 3080, feature level 12.2
+Unity exceptions/crash/fatal errors: 0
+Localization missing/fallback warnings: 0
+Physical input actuation: NOT PERFORMED by this startup-only smoke
+Executable: work/ParallelQA/20260822T113642Z_e695c36/WindowsBuild/KimSurvivalIsland.exe
+Executable size: 667648 bytes
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d
+Raw player log (ignored): work/ParallelQA/20260822T113642Z_e695c36/windows-player.log
+Raw player log SHA-256: 4eefe682dd14a1bdc55d2f770e98c72b62c7d7f08785016c21c3636915a4c803
+Non-blocking environment note: d3d12 could not query the optional info queue interface (0x80004002); rendering initialization continued.

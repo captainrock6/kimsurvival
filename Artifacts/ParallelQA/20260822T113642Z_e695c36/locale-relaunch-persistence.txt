@@ -1,0 +1,12 @@
+Locale relaunch persistence stage 2
+Run ID: 20260822T113642Z_e695c36
+Started UTC: 2026-08-22T11:50:07.5798785Z
+Completed UTC: 2026-08-22T11:50:07.6321661Z
+Unity: 6000.4.9f1
+Baseline commit: e695c36d4a0a15c19f25630fe177fdd56298c1d6
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.VerifyLocalePersistenceProbe -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T113642Z_e695c36\locale-persistence-stage2-unity.log"
+PASS · A fresh Unity process restored the saved English locale.
+Observed locale: en
+Observed camp title: Base Camp · Craft / Build / Research
+Scope: separate Unity Editor batch processes; Windows Player preference actuation remains a manual check.

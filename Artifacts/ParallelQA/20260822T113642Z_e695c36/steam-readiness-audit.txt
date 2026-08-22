@@ -1,0 +1,21 @@
+PC / Steam readiness code and package audit
+Run ID: 20260822T113642Z_e695c36
+Recorded UTC: 2026-08-22T11:59Z
+Baseline commit: e695c36d4a0a15c19f25630fe177fdd56298c1d6
+Commands:
+- rg --files Assets Packages ProjectSettings | rg -i 'steam(appid|_api|works)|depot|steaminput'
+- rg -n -i 'steamworks|steam_appid|steam_api|depot|steam cloud|SteamInput' Assets/_Project/Scripts Packages ProjectSettings README.md
+Runtime/package Steam file matches: 0
+Runtime/package Steam reference matches: 0
+Steamworks SDK/API: NOT PRESENT
+steam_appid.txt / App ID configuration: NOT PRESENT
+Depot/upload configuration: NOT PRESENT
+Steam Input integration: NOT PRESENT
+Steam Cloud/achievements: NOT PRESENT
+Store/deployment changes performed by this audit: NO
+Windows Development build: PASS
+Windows startup smoke: PASS
+Release/non-development Windows build: NOT RUN
+Physical gamepad / Steam Deck: UNVERIFIED
+Overall Steam shipping readiness: FAIL / NOT READY
+Interpretation: the integrated prototype is Windows-development-buildable, but this audit found no Steam integration or shipping configuration. That is consistent with the documented prototype exclusion; it still prevents a Steam release-readiness PASS.
