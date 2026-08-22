@@ -32,7 +32,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:41.805Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:41.805Z",
       "createdAt": "2026-08-22T08:24:41.805Z"
@@ -64,7 +64,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:41.917Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:41.917Z",
       "createdAt": "2026-08-22T08:24:41.917Z"
@@ -98,7 +98,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.034Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.034Z",
       "createdAt": "2026-08-22T08:24:42.034Z"
@@ -130,7 +130,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.155Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.154Z",
       "createdAt": "2026-08-22T08:24:42.155Z"
@@ -166,7 +166,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T10:15:38.551Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.262Z",
       "createdAt": "2026-08-22T08:24:42.263Z"
@@ -199,7 +199,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.368Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.368Z",
       "createdAt": "2026-08-22T08:24:42.368Z"
@@ -234,7 +234,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.913Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.913Z",
       "createdAt": "2026-08-22T08:24:42.913Z"
@@ -268,7 +268,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.778Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.777Z",
       "createdAt": "2026-08-22T08:24:43.778Z"
@@ -304,7 +304,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.031Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.031Z",
       "createdAt": "2026-08-22T08:24:43.031Z"
@@ -338,7 +338,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.893Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.893Z",
       "createdAt": "2026-08-22T08:24:43.893Z"
@@ -377,7 +377,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.138Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.138Z",
       "createdAt": "2026-08-22T08:24:43.138Z"
@@ -411,7 +411,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:44.007Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.006Z",
       "createdAt": "2026-08-22T08:24:44.007Z"
@@ -459,7 +459,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T10:15:38.551Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.248Z",
       "createdAt": "2026-08-22T08:24:43.249Z"
@@ -487,22 +487,28 @@
         "모닥불과 작업대는 서로 다른 유효 위치에 자유 배치하고 완공 후 다시 옮길 수 있다.",
         "구조 신호대는 전용 외부 앵커에서만 건설할 수 있다.",
         "설비 건설 또는 재배치 직후 외형, 창고 자원, 상호작용 위치와 새로 열린 기능이 정확하게 갱신된다.",
-        "키보드·마우스와 게임패드 모두로 설비 선택, 위치 이동, 확정, 취소와 재배치를 완료할 수 있다."
+        "키보드·마우스와 게임패드 모두로 설비 선택, 위치 이동, 확정, 취소와 재배치를 완료할 수 있다.",
+        "c1b18a6 기반 독립 1280×800 캡처에서 색상 없이도 일반 구역, 출입구, 필수 통로, 전용 앵커와 유효·무효 사유를 판독할 수 있다."
       ],
       "paths": [
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/base-camp-limited-placement-test-plan.md"
       ],
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
+        "Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png",
+        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T10:15:38.551Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:44.124Z",
+      "status": "review",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
+      "note": "83205ba/e2ef2e3의 배치 카드·배지 증거는 존재하지만 e695 독립 감사 뒤 c1b18a6 기준 재감사가 필요하다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.124Z"
     },
     {
@@ -544,7 +550,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.353Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.353Z",
       "createdAt": "2026-08-22T08:24:43.353Z"
@@ -579,7 +585,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:44.230Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.230Z",
       "createdAt": "2026-08-22T08:24:44.230Z"
@@ -612,7 +618,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T11:32:13.820Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:13.820Z",
       "createdAt": "2026-08-22T11:32:13.820Z"
@@ -644,7 +650,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.476Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.475Z",
       "createdAt": "2026-08-22T08:24:42.476Z"
@@ -678,7 +684,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.590Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.589Z",
       "createdAt": "2026-08-22T08:24:42.590Z"
@@ -711,7 +717,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.698Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.697Z",
       "createdAt": "2026-08-22T08:24:42.698Z"
@@ -742,7 +748,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.801Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.800Z",
       "createdAt": "2026-08-22T08:24:42.801Z"
@@ -782,7 +788,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.457Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.456Z",
       "createdAt": "2026-08-22T08:24:43.457Z"
@@ -816,7 +822,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:44.342Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.342Z",
       "createdAt": "2026-08-22T08:24:44.342Z"
@@ -858,7 +864,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.558Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.558Z",
       "createdAt": "2026-08-22T08:24:43.558Z"
@@ -892,7 +898,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:44.452Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.451Z",
       "createdAt": "2026-08-22T08:24:44.452Z"
@@ -927,7 +933,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.665Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.664Z",
       "createdAt": "2026-08-22T08:24:43.665Z"
@@ -948,13 +954,23 @@
       "acceptanceCriteria": [
         "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
         "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
-        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다."
+        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다.",
+        "실제 XInput 또는 Steam Input 호환 장치의 제품명·VID/PID·연결 방식을 기록하고 ko/en 전체 루프, 배치, 수영, 가방 교체와 언어 설정을 실기 입력만으로 완주한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/input-code-path-audit.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt",
+        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png"
+      ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-22T08:24:43.665Z"
+      "updatedAt": "2026-08-22T14:03:57.338Z",
+      "note": "합성 입력은 PASS다. 제품 결함을 가정해 코드를 바꾸기 전에 실제 게임패드 QA를 선행한다.",
+      "createdAt": "2026-08-22T14:03:57.338Z"
     },
     {
       "id": "task.system.system.swimming",
@@ -981,7 +997,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T09:25:36.302Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
       "completedAt": "2026-08-22T09:25:36.301Z",
       "createdAt": "2026-08-22T09:25:36.302Z"
@@ -1022,7 +1038,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T09:25:37.709Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
       "completedAt": "2026-08-22T09:25:37.708Z",
       "createdAt": "2026-08-22T09:25:37.709Z"
@@ -1055,7 +1071,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T09:25:39.001Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
       "completedAt": "2026-08-22T09:25:39.001Z",
       "createdAt": "2026-08-22T09:25:39.001Z"
@@ -1090,7 +1106,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T11:32:14.998Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:14.998Z",
       "createdAt": "2026-08-22T11:32:14.998Z"
@@ -1126,7 +1142,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T11:32:16.130Z",
+      "updatedAt": "2026-08-22T14:03:57.338Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:16.130Z",
       "createdAt": "2026-08-22T11:32:16.130Z"
@@ -1149,14 +1165,259 @@
         "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
         "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
         "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
-        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다."
+        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다.",
+        "ko/en/qps-long의 canonical 138키와 named placeholder 집합이 일치하고 qps-long은 35~50% 팽창·글리프·1280×800 수용 기준을 통과한다.",
+        "플레이어용 세이브·로드를 추가하지 않고 ko에서 만든 QA 진행 snapshot을 en과 qps-long에서 복원해도 Day, 자원, 상태, 연구·설비·신호 단계가 변하지 않는다.",
+        "입력 프롬프트는 action placeholder로 장치에 따라 갱신되며 locale과 진행 상태를 바꾸지 않는다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-localization.md",
+        "Docs/QA/ko-en-localization-test-plan.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt"
+      ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-22T11:32:16.130Z"
+      "updatedAt": "2026-08-22T14:03:57.338Z",
+      "note": "현재 ko/en 기능 증거는 있으나 qps-long 등록·캡처와 저장 언어 비의존성 증거가 없어 P2가 열려 있다.",
+      "createdAt": "2026-08-22T14:03:57.338Z"
+    },
+    {
+      "id": "task.wave3.implementation.balance-v0-2",
+      "lane": "implementation",
+      "title": "Wave 3 밸런스 v0.2 적용",
+      "description": "시작 F0·H70·하루 허기 -35를 적용하고 동결된 가방·노드·연구·신호·이동 비용으로 2회 숙련 성공, 3일 본선 성공과 탈진·기한 실패를 모두 유지한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.system.system.survival",
+        "task.system.system.crafting-tech",
+        "task.system.system.swimming"
+      ],
+      "featureIds": [
+        "feature.survival-pressure",
+        "feature.crafting-research",
+        "feature.escape-outcome",
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "새 게임은 W2/S1/F0/D0, E100/H70/L100에서 시작하고 하루 정산은 허기 35를 소모한다.",
+        "grant와 좌표 warp 없이 Day 1~3 본선 경로, 2회 숙련 구조, 욕심 수영 탈진과 Day 3 기한 실패가 각각 재현된다.",
+        "가방 4×2, 총 10노드, 연구·제작·신호와 육상·수영 비용은 Wave 3 동결 수치와 일치한다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-balance.md",
+        "Assets/_Project/Scripts/Runtime/GameSession.cs"
+      ],
+      "evidence": [
+        "Docs/Design/integrated-prototype-contract-audit.md",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/edit-checks.txt"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.wave3.implementation.spatial-camp-use",
+      "lane": "implementation",
+      "title": "Wave 3 공간형 캠프 사용 정합화",
+      "description": "제한적 자유 배치를 장식이 아닌 공간형 거점으로 만들도록 일반 설비와 구조 신호대의 근접 사용, 빗물받이 전용 open-sky 구역과 상태 보존을 구현한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.camp-building"
+      ],
+      "featureIds": [
+        "feature.camp-building",
+        "feature.crafting-research",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [
+        "background.island-camp",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "작업대·모닥불·빗물받이 기능과 구조 신호 자원 투입은 김씨가 대상의 1.25 unit 안에 있을 때만 성공한다.",
+        "모닥불·작업대는 camp.general-ground, 빗물받이는 camp.open-sky-ground, 신호대는 단일 camp.signal-anchor 규칙을 따른다.",
+        "모닥불과 작업대를 각각 무료 재배치해도 자원·연구·신호·하루 보너스 상태가 변하지 않고 필수 보행 경로가 남는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-balance.md",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png",
+        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.wave3.implementation.world-label-readability",
+      "lane": "implementation",
+      "title": "Wave 3 P1 월드 라벨 가독성 수정",
+      "description": "1280×800 수색·수영 화면에서 자원명, 수량과 현재 상호작용을 원본 1:1 배율로 즉시 판독할 수 있게 한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.system.system.responsive-ui"
+      ],
+      "featureIds": [
+        "feature.island-exploration",
+        "feature.inventory-choice",
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "ko/en 1280×800 원본 캡처에서 자원명·수량과 수상 수색 행동을 UI를 가리지 않고 즉시 판독할 수 있다.",
+        "월드 스케일, 카메라 거리 또는 화면 공간 프롬프트를 사용하되 캐릭터·노드·가방 패널을 가리는 겹침이 0건이다.",
+        "신규 world-label-metrics와 동일 상태의 ko/en PNG가 P1 해결 증거로 남는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
+        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.wave3.qa.integrated-three-day",
+      "lane": "qa",
+      "title": "Wave 3 3일 통합 플레이테스트 승인",
+      "description": "fed5066 기능 기준선과 Wave 4 외부 플레이테스트 프로토콜로 자동 회귀, 처음 보는 참가자 6명의 20분 수기 관찰, KO/EN 이해도와 별도 물리 게임패드 실기를 함께 판정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.wave3.implementation.balance-v0-2",
+        "task.wave3.implementation.spatial-camp-use",
+        "task.wave3.implementation.world-label-readability",
+        "task.wave3.implementation.third-locale"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.inventory-choice",
+        "feature.crafting-research",
+        "feature.camp-building",
+        "feature.island-exploration",
+        "feature.survival-pressure",
+        "feature.escape-outcome",
+        "feature.swimming",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "grant·좌표 warp 없이 3일 본선 3회, 2일 숙련 2회, 탈진·강제 귀환·기한 실패 각 1회를 새 실행에서 재현한다.",
+        "신규 플레이어 6명 중 5명 이상 20분 내 결말, 성공 3~4명, 5명 이상 가방 교체·포기 경험을 기록한다.",
+        "fed5066에 포함된 통합 자동 증거와 Wave 4 익명 수기 집계가 서로 다른 실행 근거로 보존되고, 자동 PASS를 인간 20분 PASS로 대체하지 않는다.",
+        "동일 빌드에서 첫 경험 참가자 6명(KO 3명, EN 3명)이 튜토리얼 없이 정확히 20분 플레이하며 이름·연락처·음성·영상·게임 내 텔레메트리 없이 익명 수기 시트만 남긴다.",
+        "첫 채집 3분, 첫 귀환 6분, 첫 제작/연구 10분, 첫 유효 설치 12분, 물 왕복 14분을 각각 5/6명 이상과 locale별 2/3명 이상이 구체적 힌트 없이 달성한다.",
+        "5/6명 이상이 20분 안에 성공·실패 결말에 도달하고 구조 성공은 3~4/6명이며, 5문항 이해도는 5/6명 이상과 locale별 2/3명 이상이 4점 이상이다.",
+        "방향·정답을 주는 H2/H3 개입 뒤 달성한 이정표는 자연 달성 합격선에 포함하지 않고 진단 관찰로만 보존한다.",
+        "외부 결과는 공통 원인으로 묶어 P0/P1/P2에 환류하며, 물리 게임패드 ko/en 2회 실기는 6인 표본과 별도 판정한다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/ko-en-localization-test-plan.md",
+        "Docs/QA/base-camp-limited-placement-test-plan.md",
+        "Docs/Design/wave4-external-playtest-protocol.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/run-summary.txt",
+        "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/playmode-full-loop.txt"
+      ],
+      "blockedReason": "fed5066 자동 기능 경로는 PASS지만 화면 가독성 P1/P2, 처음 보는 참가자 6명의 외부 세션과 별도 물리 게임패드 ko/en 실기가 남아 있다.",
+      "status": "blocked",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.wave3.implementation.third-locale",
+      "lane": "implementation",
+      "title": "Wave 3 P2 제3 로케일·저장 독립성 구현",
+      "description": "비출하 qps-long을 데이터로 등록하고 canonical 138키, 장문 팽창, 확장 글리프, action 입력 프롬프트와 언어 비의존 QA 진행 snapshot 계약을 구현한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.localization"
+      ],
+      "featureIds": [
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "ko/en/qps-long이 데이터 기반 목록에 등록되고 qps-long 추가에 게임 플레이·화면 분기 코드 변경이 필요하지 않다.",
+        "qps-long 138키는 en 대비 35~50% 확장되고 named placeholder·숫자·태그·action 토큰을 보존한다.",
+        "플레이어용 세이브·로드를 추가하지 않고 ko→en→qps-long→ko QA snapshot 왕복에서 Day, 자원, E/H/L, 연구·도구, 설비 좌표, 신호와 결과가 동일하다.",
+        "qps-long은 제품 언어 목록에서 숨고 es/ja/zh 글리프 probe에 tofu가 없다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-localization.md",
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
+        "Assets/_Project/Scripts/Localization"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.postslice.steam-release-readiness",
+      "lane": "implementation",
+      "title": "수직 슬라이스 이후 Steam 출하 준비",
+      "description": "별도 승인 뒤 Steamworks, App ID, Depot, Steam Input, Cloud·업적, 공식 영문 제목, 스토어와 업로드를 release 범위로 개설한다.",
+      "priority": "low",
+      "dependencies": [
+        "task.wave3.qa.integrated-three-day"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "사용자가 공식 영문 제목, App ID와 배포 권한 범위를 별도로 승인한다.",
+        "Windows x64 release build, depot, Steam Input, store/upload와 선택한 Cloud·업적 범위를 별도 체크리스트로 검증한다.",
+        "Wave 3 수직 슬라이스 완료로 Steam 출하 준비를 완료 처리하지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt"
+      ],
+      "blockedReason": "수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.",
+      "status": "blocked",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-22T11:32:16.130Z"
+  "updatedAt": "2026-08-22T14:03:57.336Z"
 }

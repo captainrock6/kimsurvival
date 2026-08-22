@@ -622,6 +622,169 @@
       "createdAt": "2026-08-22T11:32:13.820Z"
     },
     {
+      "id": "task.wave3.implementation.balance-v0-2",
+      "lane": "implementation",
+      "title": "Wave 3 밸런스 v0.2 적용",
+      "description": "시작 F0·H70·하루 허기 -35를 적용하고 동결된 가방·노드·연구·신호·이동 비용으로 2회 숙련 성공, 3일 본선 성공과 탈진·기한 실패를 모두 유지한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.system.system.survival",
+        "task.system.system.crafting-tech",
+        "task.system.system.swimming"
+      ],
+      "featureIds": [
+        "feature.survival-pressure",
+        "feature.crafting-research",
+        "feature.escape-outcome",
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "새 게임은 W2/S1/F0/D0, E100/H70/L100에서 시작하고 하루 정산은 허기 35를 소모한다.",
+        "grant와 좌표 warp 없이 Day 1~3 본선 경로, 2회 숙련 구조, 욕심 수영 탈진과 Day 3 기한 실패가 각각 재현된다.",
+        "가방 4×2, 총 10노드, 연구·제작·신호와 육상·수영 비용은 Wave 3 동결 수치와 일치한다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-balance.md",
+        "Assets/_Project/Scripts/Runtime/GameSession.cs"
+      ],
+      "evidence": [
+        "Docs/Design/integrated-prototype-contract-audit.md",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/edit-checks.txt"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.wave3.implementation.spatial-camp-use",
+      "lane": "implementation",
+      "title": "Wave 3 공간형 캠프 사용 정합화",
+      "description": "제한적 자유 배치를 장식이 아닌 공간형 거점으로 만들도록 일반 설비와 구조 신호대의 근접 사용, 빗물받이 전용 open-sky 구역과 상태 보존을 구현한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.camp-building"
+      ],
+      "featureIds": [
+        "feature.camp-building",
+        "feature.crafting-research",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [
+        "background.island-camp",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "작업대·모닥불·빗물받이 기능과 구조 신호 자원 투입은 김씨가 대상의 1.25 unit 안에 있을 때만 성공한다.",
+        "모닥불·작업대는 camp.general-ground, 빗물받이는 camp.open-sky-ground, 신호대는 단일 camp.signal-anchor 규칙을 따른다.",
+        "모닥불과 작업대를 각각 무료 재배치해도 자원·연구·신호·하루 보너스 상태가 변하지 않고 필수 보행 경로가 남는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-balance.md",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png",
+        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.wave3.implementation.world-label-readability",
+      "lane": "implementation",
+      "title": "Wave 3 P1 월드 라벨 가독성 수정",
+      "description": "1280×800 수색·수영 화면에서 자원명, 수량과 현재 상호작용을 원본 1:1 배율로 즉시 판독할 수 있게 한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.system.system.responsive-ui"
+      ],
+      "featureIds": [
+        "feature.island-exploration",
+        "feature.inventory-choice",
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "ko/en 1280×800 원본 캡처에서 자원명·수량과 수상 수색 행동을 UI를 가리지 않고 즉시 판독할 수 있다.",
+        "월드 스케일, 카메라 거리 또는 화면 공간 프롬프트를 사용하되 캐릭터·노드·가방 패널을 가리는 겹침이 0건이다.",
+        "신규 world-label-metrics와 동일 상태의 ko/en PNG가 P1 해결 증거로 남는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
+        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.wave3.qa.integrated-three-day",
+      "lane": "qa",
+      "title": "Wave 3 3일 통합 플레이테스트 승인",
+      "description": "fed5066 기능 기준선과 Wave 4 외부 플레이테스트 프로토콜로 자동 회귀, 처음 보는 참가자 6명의 20분 수기 관찰, KO/EN 이해도와 별도 물리 게임패드 실기를 함께 판정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.wave3.implementation.balance-v0-2",
+        "task.wave3.implementation.spatial-camp-use",
+        "task.wave3.implementation.world-label-readability",
+        "task.wave3.implementation.third-locale"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.inventory-choice",
+        "feature.crafting-research",
+        "feature.camp-building",
+        "feature.island-exploration",
+        "feature.survival-pressure",
+        "feature.escape-outcome",
+        "feature.swimming",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "grant·좌표 warp 없이 3일 본선 3회, 2일 숙련 2회, 탈진·강제 귀환·기한 실패 각 1회를 새 실행에서 재현한다.",
+        "신규 플레이어 6명 중 5명 이상 20분 내 결말, 성공 3~4명, 5명 이상 가방 교체·포기 경험을 기록한다.",
+        "fed5066에 포함된 통합 자동 증거와 Wave 4 익명 수기 집계가 서로 다른 실행 근거로 보존되고, 자동 PASS를 인간 20분 PASS로 대체하지 않는다.",
+        "동일 빌드에서 첫 경험 참가자 6명(KO 3명, EN 3명)이 튜토리얼 없이 정확히 20분 플레이하며 이름·연락처·음성·영상·게임 내 텔레메트리 없이 익명 수기 시트만 남긴다.",
+        "첫 채집 3분, 첫 귀환 6분, 첫 제작/연구 10분, 첫 유효 설치 12분, 물 왕복 14분을 각각 5/6명 이상과 locale별 2/3명 이상이 구체적 힌트 없이 달성한다.",
+        "5/6명 이상이 20분 안에 성공·실패 결말에 도달하고 구조 성공은 3~4/6명이며, 5문항 이해도는 5/6명 이상과 locale별 2/3명 이상이 4점 이상이다.",
+        "방향·정답을 주는 H2/H3 개입 뒤 달성한 이정표는 자연 달성 합격선에 포함하지 않고 진단 관찰로만 보존한다.",
+        "외부 결과는 공통 원인으로 묶어 P0/P1/P2에 환류하며, 물리 게임패드 ko/en 2회 실기는 6인 표본과 별도 판정한다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/ko-en-localization-test-plan.md",
+        "Docs/QA/base-camp-limited-placement-test-plan.md",
+        "Docs/Design/wave4-external-playtest-protocol.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/run-summary.txt",
+        "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/playmode-full-loop.txt"
+      ],
+      "blockedReason": "fed5066 자동 기능 경로는 PASS지만 화면 가독성 P1/P2, 처음 보는 참가자 6명의 외부 세션과 별도 물리 게임패드 ko/en 실기가 남아 있다.",
+      "status": "blocked",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
       "id": "task.art.background.island-camp",
       "lane": "art",
       "title": "무인도 베이스캠프 배경 제작",
@@ -1351,119 +1514,6 @@
       "note": "현재 ko/en 기능 증거는 있으나 qps-long 등록·캡처와 저장 언어 비의존성 증거가 없어 P2가 열려 있다."
     },
     {
-      "id": "task.wave3.implementation.balance-v0-2",
-      "lane": "implementation",
-      "title": "Wave 3 밸런스 v0.2 적용",
-      "description": "시작 F0·H70·하루 허기 -35를 적용하고 동결된 가방·노드·연구·신호·이동 비용으로 2회 숙련 성공, 3일 본선 성공과 탈진·기한 실패를 모두 유지한다.",
-      "priority": "critical",
-      "dependencies": [
-        "task.system.system.survival",
-        "task.system.system.crafting-tech",
-        "task.system.system.swimming"
-      ],
-      "featureIds": [
-        "feature.survival-pressure",
-        "feature.crafting-research",
-        "feature.escape-outcome",
-        "feature.swimming"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "새 게임은 W2/S1/F0/D0, E100/H70/L100에서 시작하고 하루 정산은 허기 35를 소모한다.",
-        "grant와 좌표 warp 없이 Day 1~3 본선 경로, 2회 숙련 구조, 욕심 수영 탈진과 Day 3 기한 실패가 각각 재현된다.",
-        "가방 4×2, 총 10노드, 연구·제작·신호와 육상·수영 비용은 Wave 3 동결 수치와 일치한다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/Design/vertical-slice-balance.md",
-        "Assets/_Project/Scripts/Runtime/GameSession.cs"
-      ],
-      "evidence": [
-        "Docs/Design/integrated-prototype-contract-audit.md",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/edit-checks.txt"
-      ],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
-    },
-    {
-      "id": "task.wave3.implementation.spatial-camp-use",
-      "lane": "implementation",
-      "title": "Wave 3 공간형 캠프 사용 정합화",
-      "description": "제한적 자유 배치를 장식이 아닌 공간형 거점으로 만들도록 일반 설비와 구조 신호대의 근접 사용, 빗물받이 전용 open-sky 구역과 상태 보존을 구현한다.",
-      "priority": "critical",
-      "dependencies": [
-        "task.feature.feature.camp-building"
-      ],
-      "featureIds": [
-        "feature.camp-building",
-        "feature.crafting-research",
-        "feature.escape-outcome"
-      ],
-      "assetIds": [
-        "background.island-camp",
-        "object.camp-structures"
-      ],
-      "acceptanceCriteria": [
-        "작업대·모닥불·빗물받이 기능과 구조 신호 자원 투입은 김씨가 대상의 1.25 unit 안에 있을 때만 성공한다.",
-        "모닥불·작업대는 camp.general-ground, 빗물받이는 camp.open-sky-ground, 신호대는 단일 camp.signal-anchor 규칙을 따른다.",
-        "모닥불과 작업대를 각각 무료 재배치해도 자원·연구·신호·하루 보너스 상태가 변하지 않고 필수 보행 경로가 남는다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/Design/vertical-slice-balance.md",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png",
-        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
-    },
-    {
-      "id": "task.wave3.implementation.world-label-readability",
-      "lane": "implementation",
-      "title": "Wave 3 P1 월드 라벨 가독성 수정",
-      "description": "1280×800 수색·수영 화면에서 자원명, 수량과 현재 상호작용을 원본 1:1 배율로 즉시 판독할 수 있게 한다.",
-      "priority": "critical",
-      "dependencies": [
-        "task.system.system.responsive-ui"
-      ],
-      "featureIds": [
-        "feature.island-exploration",
-        "feature.inventory-choice",
-        "feature.swimming"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "ko/en 1280×800 원본 캡처에서 자원명·수량과 수상 수색 행동을 UI를 가리지 않고 즉시 판독할 수 있다.",
-        "월드 스케일, 카메라 거리 또는 화면 공간 프롬프트를 사용하되 캐릭터·노드·가방 패널을 가리는 겹침이 0건이다.",
-        "신규 world-label-metrics와 동일 상태의 ko/en PNG가 P1 해결 증거로 남는다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
-        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
-    },
-    {
       "id": "task.wave3.implementation.third-locale",
       "lane": "implementation",
       "title": "Wave 3 P2 제3 로케일·저장 독립성 구현",
@@ -1499,79 +1549,6 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
-    },
-    {
-      "id": "task.wave3.qa.integrated-three-day",
-      "lane": "qa",
-      "title": "Wave 3 3일 통합 플레이테스트 승인",
-      "description": "새 실행 증거로 Day 1~3 본선·숙련·실패 경로, 인간 20분 분포, ko/en/qps-long, 배치·수영·입력 회귀를 함께 판정한다.",
-      "priority": "critical",
-      "dependencies": [
-        "task.wave3.implementation.balance-v0-2",
-        "task.wave3.implementation.spatial-camp-use",
-        "task.wave3.implementation.world-label-readability",
-        "task.wave3.implementation.third-locale"
-      ],
-      "featureIds": [
-        "feature.phase-cycle",
-        "feature.inventory-choice",
-        "feature.crafting-research",
-        "feature.camp-building",
-        "feature.island-exploration",
-        "feature.survival-pressure",
-        "feature.escape-outcome",
-        "feature.swimming",
-        "feature.localization",
-        "feature.dual-input"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "grant·좌표 warp 없이 3일 본선 3회, 2일 숙련 2회, 탈진·강제 귀환·기한 실패 각 1회를 새 실행에서 재현한다.",
-        "신규 플레이어 6명 중 5명 이상 20분 내 결말, 성공 3~4명, 5명 이상 가방 교체·포기 경험을 기록한다.",
-        "Artifacts/Wave3/<run-id>/의 필수 텍스트·CSV·ko/en/qps-long 1280×800 캡처가 모두 존재한다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/QA/ko-en-localization-test-plan.md",
-        "Docs/QA/base-camp-limited-placement-test-plan.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/run-summary.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt"
-      ],
-      "blockedReason": "Wave 3 구현 4건과 인간 플레이테스트 표본이 필요하다.",
-      "status": "blocked",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
-    },
-    {
-      "id": "task.postslice.steam-release-readiness",
-      "lane": "implementation",
-      "title": "수직 슬라이스 이후 Steam 출하 준비",
-      "description": "별도 승인 뒤 Steamworks, App ID, Depot, Steam Input, Cloud·업적, 공식 영문 제목, 스토어와 업로드를 release 범위로 개설한다.",
-      "priority": "low",
-      "dependencies": [
-        "task.wave3.qa.integrated-three-day"
-      ],
-      "featureIds": [],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "사용자가 공식 영문 제목, App ID와 배포 권한 범위를 별도로 승인한다.",
-        "Windows x64 release build, depot, Steam Input, store/upload와 선택한 Cloud·업적 범위를 별도 체크리스트로 검증한다.",
-        "Wave 3 수직 슬라이스 완료로 Steam 출하 준비를 완료 처리하지 않는다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt"
-      ],
-      "blockedReason": "수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.",
-      "status": "blocked",
       "updatedAt": "2026-08-22T13:15:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
@@ -1623,7 +1600,36 @@
       "blockedReason": "",
       "status": "ready",
       "updatedAt": "2026-08-22T07:58:18.329Z"
+    },
+    {
+      "id": "task.postslice.steam-release-readiness",
+      "lane": "implementation",
+      "title": "수직 슬라이스 이후 Steam 출하 준비",
+      "description": "별도 승인 뒤 Steamworks, App ID, Depot, Steam Input, Cloud·업적, 공식 영문 제목, 스토어와 업로드를 release 범위로 개설한다.",
+      "priority": "low",
+      "dependencies": [
+        "task.wave3.qa.integrated-three-day"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "사용자가 공식 영문 제목, App ID와 배포 권한 범위를 별도로 승인한다.",
+        "Windows x64 release build, depot, Steam Input, store/upload와 선택한 Cloud·업적 범위를 별도 체크리스트로 검증한다.",
+        "Wave 3 수직 슬라이스 완료로 Steam 출하 준비를 완료 처리하지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt"
+      ],
+      "blockedReason": "수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.",
+      "status": "blocked",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-22T13:43:02.383Z"
+  "updatedAt": "2026-08-22T14:03:57.336Z"
 }
