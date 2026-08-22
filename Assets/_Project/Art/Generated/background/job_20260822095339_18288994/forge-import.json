@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T09:56:23.029Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "background.coast-forest",
+  "jobId": "job_20260822095339_18288994",
+  "assetType": "background",
+  "sourceFiles": [
+    "exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "NormalQuality",
+    "maxSize": 2048,
+    "mipmaps": true,
+    "alphaIsTransparency": false,
+    "nineSliceHint": false
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

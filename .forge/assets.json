@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T09:15:36.895Z",
+  "updatedAt": "2026-08-22T09:56:23.031Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -155,9 +155,9 @@
       "id": "background.coast-forest",
       "name": "해변·숲 수색 구역",
       "assetType": "background",
-      "request": "Unity 2D 횡스크롤 플레이용 오리지널 무인도 구역. 해변에서 얕은 숲으로 이어지는 한 개 레벨이며 이동 지면, 오르기 지점, 막힌 숲길, 최소 8개 채집·수색 위치를 배치할 수 있는 레이어 구조를 가진다. 따뜻한 낮빛과 일몰 변화를 지원하고 충돌 경계, 캐릭터 실루엣과 상호작용 지점 가독성을 우선한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Unity 2D PC 횡스크롤 수색 화면용 첫 고품질 배경 후보. 16:9 고정 측면 카메라에서 화면 왼쪽의 얕고 수영 가능한 청록빛 바다와 완만한 모래 해안이 중앙의 바위·야자 지대를 거쳐 화면 오른쪽의 얕고 무성한 열대 숲으로 자연스럽게 이어지는 하나의 플레이 구역이다. 김씨가 달리고 점프할 넓고 연속적인 지면 실루엣, 분명한 해안 진입 경사, 낮은 오르기 바위턱 하나, 도구로 열 수 있는 덩굴과 쓰러진 통나무의 막힌 숲길 하나, 나무·돌·식량·표류물을 배치할 수 있는 시각적으로 구분된 최소 8개의 비어 있는 채집·수색 포켓을 마련한다. 플레이 레인과 충돌 경계는 밝기와 색 대비로 명확하고, 전경 잎은 가장자리에만 두어 캐릭터와 상호작용 지점을 가리지 않는다. 먼 바다·섬 실루엣·하늘, 중경 숲과 바위, 플레이 지면, 가장자리 전경이 명료하게 분리되어 이후 레이어 제작 기준으로 쓸 수 있어야 한다. 채택된 김씨 캐릭터와 어울리는 굵고 깨끗한 외곽선, 손맛 나는 오리지널 2D 인디 게임 일러스트, 밝고 따뜻한 열대 낮빛, 코믹하지만 유아적이지 않은 분위기. 전체 불투명 배경. 캐릭터, 생물, UI, 글자, 숫자, 표지판, 라벨, 아이템 아이콘, 워터마크, 프레임, 접촉 그림자용 캐릭터 실루엣은 포함하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "2d",
@@ -167,14 +167,79 @@
         "layered"
       ],
       "dependencies": [],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260822095339_18288994"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822095339_18288994",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T09:53:39.257Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822095339_18288994",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T09:55:50.587Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260822095339_18288994",
       "parentJobId": null,
-      "artifacts": [],
-      "engine": {},
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 12002,
+          "url": "/outputs/jobs/job_20260822095339_18288994/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 10369,
+          "url": "/outputs/jobs/job_20260822095339_18288994/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png",
+          "contentType": "image/png",
+          "bytes": 2568614,
+          "url": "/outputs/jobs/job_20260822095339_18288994/exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 727,
+          "url": "/outputs/jobs/job_20260822095339_18288994/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1406,
+          "url": "/outputs/jobs/job_20260822095339_18288994/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9327,
+          "url": "/outputs/jobs/job_20260822095339_18288994/qa-preview-exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.jpg"
+        }
+      ],
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260822095339_18288994",
+        "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260822095339_18288994\\forge-import.json",
+        "packagedAt": "2026-08-22T09:56:23.030Z"
+      },
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-22T09:09:25.672Z"
+      "updatedAt": "2026-08-22T09:56:23.031Z"
     },
     {
       "id": "character.mr-kim",
