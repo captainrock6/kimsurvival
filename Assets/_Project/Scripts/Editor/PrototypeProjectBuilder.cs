@@ -12,7 +12,16 @@ namespace KimSurvival.EditorTools
     public static class PrototypeProjectBuilder
     {
         public const string ScenePath = "Assets/_Project/Scenes/KimSurvivalPrototype.unity";
-        private const string VerificationFolder = "Artifacts/Verification";
+        private const string DefaultVerificationFolder = "Artifacts/Verification";
+
+        private static string VerificationFolder
+        {
+            get
+            {
+                string overridePath = Environment.GetEnvironmentVariable("KIM_SURVIVAL_VERIFICATION_FOLDER");
+                return string.IsNullOrWhiteSpace(overridePath) ? DefaultVerificationFolder : overridePath;
+            }
+        }
 
         [MenuItem("Kim Survival/Create Prototype Scene")]
         public static void CreateProject()
@@ -86,6 +95,44 @@ namespace KimSurvival.EditorTools
             Assert(swimTravel.TryGather(ResourceKind.Salvage, 1, true) == GatherResult.Added, "Water node can be searched while swimming");
             Assert(swimTravel.SetSwimming(false) && !swimTravel.IsSwimming, "Shore exit restores land state");
 
+            PrototypePlayerActions keyboardActions = PrototypePlayerActions.FromRaw(new PrototypeRawInput
+            {
+                KeyboardLeft = true,
+                KeyboardJump = true,
+                KeyboardInteract = true,
+                KeyboardReturn = true,
+                KeyboardCancel = true,
+                BagSlotIndex = 2
+            });
+            PrototypePlayerActions gamepadActions = PrototypePlayerActions.FromRaw(new PrototypeRawInput
+            {
+                HorizontalAxis = -0.8f,
+                GamepadJump = true,
+                GamepadInteract = true,
+                GamepadReturn = true,
+                GamepadCancel = true,
+                BagSlotIndex = -1
+            });
+            Assert(keyboardActions.Horizontal < 0f && gamepadActions.Horizontal < 0f, "Keyboard and gamepad share the move action");
+            Assert(keyboardActions.JumpPressed && gamepadActions.JumpPressed, "Keyboard and gamepad share the jump action");
+            Assert(keyboardActions.InteractPressed && gamepadActions.InteractPressed, "Keyboard and gamepad share the interact action");
+            Assert(keyboardActions.ReturnPressed && gamepadActions.ReturnPressed, "Keyboard and gamepad share the return action");
+            Assert(keyboardActions.CancelPressed && gamepadActions.CancelPressed, "Keyboard and gamepad share the cancel action");
+            Assert(keyboardActions.BagSlotIndex == 2, "Keyboard loot slot maps into the shared action snapshot");
+
+            GameSession shoreline = new GameSession();
+            Assert(shoreline.BeginSearch(), "Traversal scenario begins search");
+            PrototypePlayerTraversal traversal = new PrototypePlayerTraversal();
+            traversal.Reset(PrototypePlayerTraversal.CoastlineX + 0.05f, PrototypePlayerTraversal.LandY);
+            PrototypeTraversalStep enteredWater = traversal.Step(new PrototypePlayerActions(-1f, false, false, false, false, -1), 0.1f, 0f, shoreline);
+            Assert(shoreline.IsSwimming && enteredWater.Presentation.IsSwimming, "Crossing the coastline enters swimming");
+            PrototypeTraversalStep blockedSwimJump = traversal.Step(new PrototypePlayerActions(0f, true, false, false, false, -1), 0.1f, 0.5f, shoreline);
+            Assert(blockedSwimJump.Presentation.IsSwimming && blockedSwimJump.Presentation.IsGrounded, "Jump is suppressed while swimming");
+            traversal.Warp(PrototypePlayerTraversal.CoastlineX - 0.05f, PrototypePlayerTraversal.WaterY, true);
+            PrototypeTraversalStep returnedToShore = traversal.Step(new PrototypePlayerActions(1f, false, false, false, false, -1), 0.1f, 1f, shoreline);
+            Assert(!shoreline.IsSwimming && !returnedToShore.Presentation.IsSwimming, "Crossing back over the coastline exits swimming");
+            Assert(Mathf.Approximately(traversal.Y, PrototypePlayerTraversal.LandY), "Shore return restores land height");
+
             GameSession progression = new GameSession();
             progression.Grant(ResourceKind.Wood, 20);
             progression.Grant(ResourceKind.Stone, 10);
@@ -116,7 +163,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: inventory overflow/swap, return transfer, shore transitions, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: inventory overflow/swap, return transfer, shared keyboard/gamepad actions, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -173,10 +220,19 @@ namespace KimSurvival.EditorTools
         private const string RunningKey = "KimSurvival.PlayModeVerification.Running";
         private const string PassedKey = "KimSurvival.PlayModeVerification.Passed";
         private const string MessageKey = "KimSurvival.PlayModeVerification.Message";
-        private const string VerificationFolder = "Artifacts/Verification";
+        private const string DefaultVerificationFolder = "Artifacts/Verification";
         private static double earliestRunTime;
         private static double timeoutAt;
         private static bool tickAttached;
+
+        private static string VerificationFolder
+        {
+            get
+            {
+                string overridePath = Environment.GetEnvironmentVariable("KIM_SURVIVAL_VERIFICATION_FOLDER");
+                return string.IsNullOrWhiteSpace(overridePath) ? DefaultVerificationFolder : overridePath;
+            }
+        }
 
         static PrototypePlayModeVerifier()
         {
