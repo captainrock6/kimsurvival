@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260822T141021Z_fed5066_wave4",
+  "baselineCommit": "fed50669a37a66aec436c2174445e5107b74d57c",
+  "observedUtc": "2026-08-22T14:13:00.2626252Z",
+  "overall": "FAIL",
+  "assetContracts": "FAIL",
+  "windowsDevelopmentBuild": "Succeeded",
+  "hiddenSmoke": "PASS",
+  "addressablesLinkBuildContract": "FAIL",
+  "addressablesLinkPostSmokeContract": "FAIL",
+  "visualPixelGateBaseline": "FAIL",
+  "steamReadiness": "NOT_READY",
+  "physicalGamepad": "UNVERIFIED",
+  "physicalGamepadReason": "No human physical-device actuation was performed; automated/code-path evidence cannot upgrade this status."
+}
