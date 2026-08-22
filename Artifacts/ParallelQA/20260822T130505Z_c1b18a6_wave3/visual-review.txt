@@ -1,0 +1,44 @@
+Wave 3 manual visual review of exact 1280x800 captures
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Reviewed UTC: 2026-08-22T13:22:08Z
+Unity: 6000.4.9f1 (f7258d6eebbe)
+Baseline commit: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Method: original 1280x800 PNGs reviewed at 100%, cross-checked against wave3-visual-metrics.tsv projected TMP character quads.
+
+NORMAL PLACEMENT IMPROVEMENT · PARTIAL PASS
+- The top valid/invalid status card is large, strongly contrasted, and visually separates valid green from invalid red.
+- Korean top status passes the 18px gate at 21.2-21.3px; English status is readable but misses the gate at 16.7px.
+- Normal ko/en placement captures have no TMP overflow or significant text overlap.
+- The bottom device-specific instruction line is readable in normal ko/en captures.
+- Remaining placement-world labels are 9.1-15.2px and all 20 miss the 16px gate. The right dedicated-anchor label reaches x=1296.4px in Korean and therefore exceeds the 1280px viewport.
+- Verdict: the c1b18a6 placement readability change is visibly material, but the complete placement gate remains FAIL. This is separated from the exploration/swimming P1 below.
+
+EXPLORATION / SWIMMING RESIDUAL · P1 FAIL
+- All 14 gated resource/interaction labels fail the 18px threshold; observed medians are 6.0-10.0px.
+- Water search labels have 3.8:1 contrast, below the 4.5:1 small-text threshold.
+- Stone labels fall to 1.1-1.4:1 and overlap the right bag UI in captured states; one English label also reaches the viewport edge.
+- At 100%, the tiny pale-blue swim labels and resource quantities require concentrated reading and are not reliable glanceable interaction cues.
+
+QPS-LONG / FUTURE LOCALE · P2 FAIL
+- The deterministic fixture expands every visible string to at least 142% and uses Latin accents present in the configured font.
+- Missing glyphs in the final GPU run: 0.
+- 9 of 10 gated texts fail. The status HUD, resources, controls, language button, and dedicated-anchor label exceed screen bounds; the resources TMP reports overflow.
+- This fixture is QA-only and is not presented as a selectable shipping locale.
+
+KO/EN GLYPHS AND NORMAL LAYOUT
+- Final GPU log contains no TMP missing-glyph warning.
+- Representative ko/en Hangul, Latin, and Spanish-extension glyph checks pass in edit-checks.txt.
+- Normal result screens are readable. Normal exploration bag title sets TMP isTextOverflowing, but visual inspection shows both lines inside the panel; it remains a metric warning, not a separate defect.
+
+Reviewed images:
+- playmode-ko-placement-valid-1280x800.png
+- playmode-ko-placement-invalid-1280x800.png
+- playmode-en-placement-valid-1280x800.png
+- playmode-en-placement-invalid-1280x800.png
+- playmode-qps-long-placement-1280x800.png
+- playmode-ko-day1-swimming-1280x800.png
+- playmode-ko-day2-exploration-1280x800.png
+- playmode-en-day1-swimming-1280x800.png
+- playmode-en-day2-exploration-1280x800.png
+- playmode-ko-rescue-result-1280x800.png
+- playmode-en-rescue-result-1280x800.png

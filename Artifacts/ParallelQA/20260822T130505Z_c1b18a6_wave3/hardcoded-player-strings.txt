@@ -1,0 +1,17 @@
+Player-facing hardcoded ko/en string sink audit
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Started UTC: 2026-08-22T13:14:50.2714135Z
+Completed UTC: 2026-08-22T13:14:50.4533109Z
+Unity: 6000.4.9f1
+Baseline commit: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunEditChecks -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-edit-check.log" -quit
+PASS · No unapproved literal flows directly into audited player-facing text sinks.
+GameSession Korean literal candidates: 0
+Direct TMP/uGUI .text literal assignments: 0
+Literal CreateWorldLabel values: 0
+Literal SetButton labels: 0
+KimSurvivalPrototype Korean literal candidates outside those sinks: 113
+Allowlist classification: internal GameObject/component names, exception/assertion text, and the non-shipping RunAutomatedVerification diagnostics.
+English audit method: syntax/sink checks above plus table-key routing review; naive ASCII matching is not used as a release decision.
+Audited files: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Assets\_Project\Scripts\Runtime\GameSession.cs | C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Assets\_Project\Scripts\Runtime\KimSurvivalPrototype.cs

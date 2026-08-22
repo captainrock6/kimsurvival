@@ -1,0 +1,20 @@
+Wave 3 baseline integrity
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Recorded UTC: 2026-08-22T13:22:08Z
+Required baseline: c1b18a6
+Observed origin/master: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Observed HEAD after switch: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Branch: codex/wave3-qa-gates
+Upstream: origin/master
+Pre-switch worktree: clean
+Commands:
+- git status --short
+- git fetch origin
+- git switch -c codex/wave3-qa-gates origin/master
+- git rev-parse HEAD
+- git rev-parse origin/master
+Result: PASS
+Prior baseline evidence reuse: NO. Every functional result, screenshot, metric, build, and readiness entry cited by this run was produced under this run ID.
+Existing Artifacts/Verification overwrite: NO
+Runtime/art/design/Steam configuration changes: NO
+Push or integration performed: NO

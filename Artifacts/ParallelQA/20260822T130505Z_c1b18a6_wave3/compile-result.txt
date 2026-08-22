@@ -1,0 +1,16 @@
+Unity script compilation
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Started UTC: 2026-08-22T13:18:22.5613165Z
+Completed UTC: 2026-08-22T13:18:22.6109607Z
+Unity: 6000.4.9f1
+Baseline commit: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-compile-after-gate-fix.log" -quit
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 2
+Raw logs: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-compile.log | C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-compile-after-gate-fix.log | C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-compile-final.log | C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-compile-validation.log
+Warning inventory:
+Assets\_Project\Scripts\Runtime\KimSurvivalPrototype.cs(798,89): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\_Project\Scripts\Runtime\KimSurvivalPrototype.cs(798,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

@@ -1,0 +1,14 @@
+Windows Development Build warning audit
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Recorded UTC: 2026-08-22T13:22:08Z
+Unity: 6000.4.9f1 (f7258d6eebbe)
+Baseline commit: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Build result: PASS / Succeeded
+Build errors: 0
+Build warnings: 2 unique compiler diagnostics (the raw build log repeats diagnostics across pipeline stages)
+Warning 1: Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs:798:89 · CS0618 · FindObjectsSortMode overload is obsolete.
+Warning 2: Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs:798:32 · CS0618 · Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode) is obsolete.
+Severity: P3; non-blocking today, migration debt for a later Unity API removal.
+Recommended fix file: Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs
+Runtime fix performed: NO
+Raw log (ignored): work/ParallelQA/20260822T130505Z_c1b18a6_wave3/unity-windows-build.log

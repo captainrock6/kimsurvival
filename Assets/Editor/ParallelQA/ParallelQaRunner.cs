@@ -76,12 +76,30 @@ namespace ParallelQA
         {
             Directory.CreateDirectory(EvidenceFolder);
             DateTime started = DateTime.UtcNow;
+            string[] arguments = Environment.GetCommandLineArgs();
+            int logIndex = Array.FindIndex(arguments, argument => string.Equals(argument, "-logFile", StringComparison.OrdinalIgnoreCase));
+            string logPath = logIndex >= 0 && logIndex + 1 < arguments.Length ? arguments[logIndex + 1] : string.Empty;
+            string[] compileLogs = Directory.Exists(WorkFolder)
+                ? Directory.GetFiles(WorkFolder, "unity-compile*.log").OrderBy(path => path).ToArray()
+                : Array.Empty<string>();
+            if (!string.IsNullOrEmpty(logPath) && File.Exists(logPath) && !compileLogs.Contains(logPath, StringComparer.OrdinalIgnoreCase))
+            {
+                compileLogs = compileLogs.Concat(new[] { logPath }).ToArray();
+            }
+            string log = string.Join(Environment.NewLine, compileLogs.Select(ReadSharedText));
+            string[] compilerErrors = Regex.Matches(log, @"^.*\): error CS\d+:.*$", RegexOptions.Multiline)
+                .Cast<Match>().Select(match => match.Value.Trim()).Distinct().ToArray();
+            string[] compilerWarnings = Regex.Matches(log, @"^.*\): warning CS\d+:.*$", RegexOptions.Multiline)
+                .Cast<Match>().Select(match => match.Value.Trim()).Distinct().ToArray();
             string report = Header("Unity script compilation", started) +
-                            "Result: PASS" + Environment.NewLine +
-                            "Compiler errors: 0" + Environment.NewLine +
-                            "Compiler warnings: 0" + Environment.NewLine +
-                            "Scope: Unity reached the independent QA execute method after script compilation." + Environment.NewLine;
+                            "Result: " + (compilerErrors.Length == 0 ? "PASS" : "FAIL") + Environment.NewLine +
+                            "Compiler errors: " + compilerErrors.Length + Environment.NewLine +
+                            "Compiler warnings: " + compilerWarnings.Length + Environment.NewLine +
+                            "Raw logs: " + (compileLogs.Length == 0 ? "<none found>" : string.Join(" | ", compileLogs)) + Environment.NewLine +
+                            (compilerWarnings.Length == 0 ? string.Empty : "Warning inventory:" + Environment.NewLine + string.Join(Environment.NewLine, compilerWarnings) + Environment.NewLine) +
+                            "Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log." + Environment.NewLine;
             File.WriteAllText(Path.Combine(EvidenceFolder, "compile-result.txt"), report, new UTF8Encoding(false));
+            Require(compilerErrors.Length == 0, "Unity compiler errors are zero");
         }
 
         public static void PrepareLocalePersistenceProbe()
@@ -184,6 +202,7 @@ namespace ParallelQA
 
             WriteInputCodePathAudit(started);
             WriteHardcodedPlayerStringAudit(started);
+            WriteLocaleExpansionReadiness(started);
             if (results.Any(line => line.StartsWith("FAIL", StringComparison.Ordinal)))
             {
                 throw new InvalidOperationException("Parallel QA deterministic Edit Check failed. See " + EvidenceFolder);
@@ -327,6 +346,7 @@ namespace ParallelQA
             PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
             PrototypeCampPlacement placement = GetPrivateField<PrototypeCampPlacement>(prototype, "campPlacement");
             List<string> layoutAudit = new List<string>();
+            List<Wave3VisualGate.FrameResult> wave3Frames = new List<Wave3VisualGate.FrameResult>();
 
             session.Reset();
             placement.Reset();
@@ -343,11 +363,21 @@ namespace ParallelQA
             Submit(languageButton);
             Require(localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode && actionTitle.text == "베이스캠프 · 제작 / 건설 / 연구", "UI Submit switches back to Korean immediately");
 
-            RunPlacementVisualProbe(prototype, PrototypeLocalization.KoreanLocaleCode, layoutAudit);
-            RunPlacementVisualProbe(prototype, PrototypeLocalization.EnglishLocaleCode, layoutAudit);
+            RunPlacementVisualProbe(prototype, PrototypeLocalization.KoreanLocaleCode, PrototypeInputDevice.KeyboardMouse, layoutAudit, wave3Frames);
+            RunPlacementVisualProbe(prototype, PrototypeLocalization.EnglishLocaleCode, PrototypeInputDevice.Gamepad, layoutAudit, wave3Frames);
+            RunPseudoLongPlacementProbe(prototype, layoutAudit, wave3Frames);
 
-            string koreanLoop = RunLocalizedNaturalLoop(prototype, PrototypeLocalization.KoreanLocaleCode, "ko", layoutAudit);
-            string englishLoop = RunLocalizedNaturalLoop(prototype, PrototypeLocalization.EnglishLocaleCode, "en", layoutAudit);
+            string koreanLoop = RunLocalizedNaturalLoop(prototype, PrototypeLocalization.KoreanLocaleCode, "ko", layoutAudit, wave3Frames);
+            string englishLoop = RunLocalizedNaturalLoop(prototype, PrototypeLocalization.EnglishLocaleCode, "en", layoutAudit, wave3Frames);
+
+            bool wave3VisualPass = Wave3VisualGate.WriteReports(
+                EvidenceFolder,
+                RunId,
+                BaselineCommit,
+                Application.unityVersion,
+                string.Join(" ", Environment.GetCommandLineArgs().Select(Quote)),
+                started,
+                wave3Frames);
 
             string[] joysticks = Input.GetJoystickNames() ?? Array.Empty<string>();
             int activeJoysticks = joysticks.Count(name => !string.IsNullOrWhiteSpace(name));
@@ -363,7 +393,8 @@ namespace ParallelQA
                    "PASS · Each locale exercised limited placement, crafting/research, overflow replacement, shore entry, water gather, shore exit, and signal completion." + Environment.NewLine +
                    "PASS · UI Submit switched language and invoked camp actions, placement entry, bag replacement, and result actions." + Environment.NewLine +
                    "PASS · Directional navigation reached every enabled initial camp control (" + initialReachableButtons + ")." + Environment.NewLine +
-                   "PASS · ko/en placement and full-loop 1280x800 render-target captures produced." + Environment.NewLine +
+                   "PASS · ko/en placement, pseudo-long, and full-loop exact 1280x800 render-target captures produced." + Environment.NewLine +
+                   "Wave 3 projected-text visual gate: " + (wave3VisualPass ? "PASS" : "FAIL (functional Play Mode route still completed; see wave3-visual-gate.txt)") + Environment.NewLine +
                    koreanLoop + Environment.NewLine +
                    englishLoop + Environment.NewLine +
                    "Screen reported by Unity: " + Screen.width + "x" + Screen.height + Environment.NewLine +
@@ -373,7 +404,12 @@ namespace ParallelQA
                    "Physical gamepad execution: " + (activeJoysticks == 0 ? "UNVERIFIED (no device exposed to Unity batch Play Mode)" : "UNVERIFIED (device detected, no human actuation captured)") + Environment.NewLine;
         }
 
-        private static void RunPlacementVisualProbe(KimSurvivalPrototype prototype, string localeCode, List<string> layoutAudit)
+        private static void RunPlacementVisualProbe(
+            KimSurvivalPrototype prototype,
+            string localeCode,
+            PrototypeInputDevice device,
+            List<string> layoutAudit,
+            List<Wave3VisualGate.FrameResult> wave3Frames)
         {
             GameSession session = prototype.Session;
             PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
@@ -387,22 +423,85 @@ namespace ParallelQA
             InvokePrivate(prototype, "RefreshAll");
 
             Submit(GetButton(prototype, "campfireButton"));
+            InvokePrivate(prototype, "ApplyPlacementGuidance", device);
+            TMP_Text controls = GetPrivateField<TMP_Text>(prototype, "controlsText");
+            Require(controls.text.Contains(localization.DeviceName(device)), localeCode + " placement prompt identifies " + device);
+            if (device == PrototypeInputDevice.KeyboardMouse)
+            {
+                Require(controls.text.Contains("Enter") && controls.text.Contains("Esc"), localeCode + " keyboard/mouse placement prompt exposes confirm and cancel");
+            }
+            else
+            {
+                Require(controls.text.Contains("left stick") && controls.text.Contains("A") && controls.text.Contains("B"), localeCode + " gamepad placement prompt exposes move, confirm, and cancel");
+            }
             placement.SetCandidateX(-1.5f);
             InvokePrivate(prototype, "UpdatePlacementGhost");
             InvokePrivate(prototype, "RefreshHud");
             Require(placement.CurrentValidity == CampPlacementValidity.Valid, localeCode + " placement valid probe");
-            CaptureAndAudit(prototype, "playmode-" + localeCode + "-placement-valid-1280x800.png", localeCode + " placement valid", layoutAudit);
+            CaptureAndAudit(prototype, "playmode-" + localeCode + "-placement-valid-1280x800.png", localeCode + " placement valid", layoutAudit, wave3Frames);
             placement.SetCandidateX(-5f);
             InvokePrivate(prototype, "UpdatePlacementGhost");
             InvokePrivate(prototype, "RefreshHud");
             Require(placement.CurrentValidity == CampPlacementValidity.OutsideCampBounds, localeCode + " placement invalid probe");
-            CaptureAndAudit(prototype, "playmode-" + localeCode + "-placement-invalid-1280x800.png", localeCode + " placement invalid", layoutAudit);
+            CaptureAndAudit(prototype, "playmode-" + localeCode + "-placement-invalid-1280x800.png", localeCode + " placement invalid", layoutAudit, wave3Frames);
             placement.Cancel();
             InvokePrivate(prototype, "RefreshAll");
             Require(!session.HasStructure(StructureKind.Campfire), localeCode + " placement cancel leaves no structure");
         }
 
-        private static string RunLocalizedNaturalLoop(KimSurvivalPrototype prototype, string localeCode, string prefix, List<string> layoutAudit)
+        private static void RunPseudoLongPlacementProbe(
+            KimSurvivalPrototype prototype,
+            List<string> layoutAudit,
+            List<Wave3VisualGate.FrameResult> wave3Frames)
+        {
+            GameSession session = prototype.Session;
+            PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
+            PrototypeCampPlacement placement = GetPrivateField<PrototypeCampPlacement>(prototype, "campPlacement");
+            session.Reset();
+            placement.Reset();
+            session.Grant(ResourceKind.Wood, 10);
+            session.Grant(ResourceKind.Stone, 10);
+            session.Grant(ResourceKind.Salvage, 10);
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            InvokePrivate(prototype, "RefreshAll");
+            Submit(GetButton(prototype, "campfireButton"));
+            InvokePrivate(prototype, "ApplyPlacementGuidance", PrototypeInputDevice.Gamepad);
+            placement.SetCandidateX(-1.5f);
+            InvokePrivate(prototype, "UpdatePlacementGhost");
+            InvokePrivate(prototype, "RefreshHud");
+            Require(placement.CurrentValidity == CampPlacementValidity.Valid, "pseudo-long placement fixture is valid");
+
+            TMP_Text[] texts = UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude);
+            Dictionary<TMP_Text, string> originals = texts.ToDictionary(text => text, text => text.text);
+            try
+            {
+                foreach (TMP_Text text in texts)
+                {
+                    text.text = Wave3VisualGate.ExpandPseudoLong(text.text);
+                }
+                CaptureAndAudit(prototype, "playmode-qps-long-placement-1280x800.png", "qps-long placement valid", layoutAudit, wave3Frames);
+            }
+            finally
+            {
+                foreach (KeyValuePair<TMP_Text, string> original in originals)
+                {
+                    if (original.Key != null)
+                    {
+                        original.Key.text = original.Value;
+                    }
+                }
+                placement.Cancel();
+                localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+                InvokePrivate(prototype, "RefreshAll");
+            }
+        }
+
+        private static string RunLocalizedNaturalLoop(
+            KimSurvivalPrototype prototype,
+            string localeCode,
+            string prefix,
+            List<string> layoutAudit,
+            List<Wave3VisualGate.FrameResult> wave3Frames)
         {
             GameSession session = prototype.Session;
             PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
@@ -419,7 +518,7 @@ namespace ParallelQA
             GatherAt(prototype, -1.1f, false);
             float landGatherCost = energyBeforeLandGather - session.Energy;
             PositionAt(prototype, -8.2f, true);
-            CaptureAndAudit(prototype, "playmode-" + prefix + "-day1-swimming-1280x800.png", prefix + " day1 swimming", layoutAudit);
+            CaptureAndAudit(prototype, "playmode-" + prefix + "-day1-swimming-1280x800.png", prefix + " day1 swimming", layoutAudit, wave3Frames);
             float energyBeforeWaterGather = session.Energy;
             InvokePrivate(prototype, "GatherNearestNode");
             float waterGatherCost = energyBeforeWaterGather - session.Energy;
@@ -447,7 +546,7 @@ namespace ParallelQA
             Require(EventSystem.current.currentSelectedGameObject != null, prefix + " bag replacement receives focus");
             Submit(EventSystem.current.currentSelectedGameObject.GetComponent<Button>());
             Require(!session.HasPendingLoot, prefix + " day 2 replacement resolved");
-            CaptureAndAudit(prototype, "playmode-" + prefix + "-day2-exploration-1280x800.png", prefix + " day2 exploration", layoutAudit);
+            CaptureAndAudit(prototype, "playmode-" + prefix + "-day2-exploration-1280x800.png", prefix + " day2 exploration", layoutAudit, wave3Frames);
             Require(session.ReturnToCamp(false), prefix + " day 2 returns");
             InvokePrivate(prototype, "RefreshAll");
             Submit(GetButton(prototype, "phaseButton"));
@@ -468,7 +567,7 @@ namespace ParallelQA
             Submit(GetButton(prototype, "signalButton"));
             Submit(GetButton(prototype, "signalButton"));
             Require(session.Result == RunResult.Rescued && session.Phase == GamePhase.Result, prefix + " natural route reaches rescue");
-            CaptureAndAudit(prototype, "playmode-" + prefix + "-rescue-result-1280x800.png", prefix + " rescue result", layoutAudit);
+            CaptureAndAudit(prototype, "playmode-" + prefix + "-rescue-result-1280x800.png", prefix + " rescue result", layoutAudit, wave3Frames);
 
             TMP_Text[] activeTexts = UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude);
             Require(activeTexts.All(text => string.IsNullOrEmpty(text.text) || !text.text.Contains("⟦")), prefix + " exposes no raw localization key markers");
@@ -487,14 +586,22 @@ namespace ParallelQA
             Require(confirmed && prototype.Session.HasStructure(kind), label + " placement confirms exactly one built structure");
         }
 
-        private static void CaptureAndAudit(KimSurvivalPrototype prototype, string fileName, string label, List<string> layoutAudit)
+        private static void CaptureAndAudit(
+            KimSurvivalPrototype prototype,
+            string fileName,
+            string label,
+            List<string> layoutAudit,
+            List<Wave3VisualGate.FrameResult> wave3Frames)
         {
             Capture(prototype, fileName);
             TMP_Text[] texts = UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude);
+            Camera camera = GetPrivateField<Camera>(prototype, "worldCamera");
+            wave3Frames.Add(Wave3VisualGate.Analyze(label, Path.Combine(EvidenceFolder, fileName), camera, texts));
             float canvasScale = Mathf.Sqrt((1280f / 1920f) * (800f / 1080f));
             float minimumPixelHeight = float.MaxValue;
             List<string> overflow = new List<string>();
             List<string> missingFont = new List<string>();
+            List<string> missingGlyph = new List<string>();
             List<string> smallWorldText = new List<string>();
             for (int i = 0; i < texts.Length; i += 1)
             {
@@ -508,6 +615,13 @@ namespace ParallelQA
                 if (text.isTextOverflowing)
                 {
                     overflow.Add(text.name + "=" + text.text.Replace('\n', '/'));
+                }
+                foreach (char character in text.text.Where(character => !char.IsWhiteSpace(character)).Distinct())
+                {
+                    if (!text.font.HasCharacter(character, true, false))
+                    {
+                        missingGlyph.Add(text.name + "=U+" + ((int)character).ToString("X4"));
+                    }
                 }
 
                 float pixels = text is TextMeshProUGUI
@@ -524,6 +638,7 @@ namespace ParallelQA
             }
 
             Require(missingFont.Count == 0, label + " has fonts on all active TMP text: " + string.Join(", ", missingFont));
+            Require(missingGlyph.Count == 0, label + " has no missing visible glyphs: " + string.Join(", ", missingGlyph.Distinct()));
             layoutAudit.Add((overflow.Count == 0 ? "PASS" : "METRIC-WARN") + " · " + label +
                             " · active TMP=" + texts.Length +
                             " · minimum rendered text bounds=" + minimumPixelHeight.ToString("0.0") + "px" +
@@ -777,6 +892,17 @@ namespace ParallelQA
             PrototypeSystemActions keyboardSystem = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { KeyboardLanguage = true });
             PrototypeSystemActions gamepadSystem = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { GamepadLanguage = true });
             Require(keyboardSystem.LanguagePressed && gamepadSystem.LanguagePressed, "shared language action");
+
+            PrototypeInputDeviceTracker tracker = new PrototypeInputDeviceTracker();
+            Require(tracker.ActiveDevice == PrototypeInputDevice.KeyboardMouse, "keyboard/mouse is the initial prompt device");
+            tracker.Update(new PrototypeInputActivity(false, true));
+            Require(tracker.ActiveDevice == PrototypeInputDevice.Gamepad, "gamepad activity switches prompt device");
+            tracker.Update(new PrototypeInputActivity(true, false));
+            Require(tracker.ActiveDevice == PrototypeInputDevice.KeyboardMouse, "keyboard/mouse activity switches prompt device back");
+            Require(PrototypeInputPromptKeys.Camp(PrototypeInputDevice.KeyboardMouse) == "controls.camp.keyboard_mouse", "keyboard/mouse camp prompt key");
+            Require(PrototypeInputPromptKeys.Camp(PrototypeInputDevice.Gamepad) == "controls.camp.gamepad", "gamepad camp prompt key");
+            Require(PrototypeInputPromptKeys.Placement(PrototypeInputDevice.KeyboardMouse) == "controls.placement.keyboard_mouse", "keyboard/mouse placement prompt key");
+            Require(PrototypeInputPromptKeys.Placement(PrototypeInputDevice.Gamepad) == "controls.placement.gamepad", "gamepad placement prompt key");
         }
 
         private static void VerifyLocalizationModel()
@@ -800,11 +926,19 @@ namespace ParallelQA
                 {
                     Require(localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode, "Korean is the no-preference default");
                     Require(localization.Format("ui.camp.title") == "베이스캠프 · 제작 / 건설 / 연구", "Korean source table renders");
+                    string koreanKeyboardPrompt = localization.Format(
+                        PrototypeInputPromptKeys.Placement(PrototypeInputDevice.KeyboardMouse),
+                        localization.DeviceName(PrototypeInputDevice.KeyboardMouse));
+                    Require(koreanKeyboardPrompt.Contains("마우스") && koreanKeyboardPrompt.Contains("Enter") && koreanKeyboardPrompt.Contains("Esc"), "Korean keyboard/mouse placement prompt renders device-specific actions");
                     bool eventRaised = false;
                     localization.LocaleChanged += delegate { eventRaised = true; };
                     Require(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false), "English locale selectable");
                     Require(eventRaised, "locale-changed event raised immediately");
                     Require(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English table active immediately");
+                    string englishGamepadPrompt = localization.Format(
+                        PrototypeInputPromptKeys.Placement(PrototypeInputDevice.Gamepad),
+                        localization.DeviceName(PrototypeInputDevice.Gamepad));
+                    Require(englishGamepadPrompt.Contains("left stick") && englishGamepadPrompt.Contains("A confirm") && englishGamepadPrompt.Contains("B cancel") && englishGamepadPrompt.Contains("Y language"), "English gamepad placement prompt renders device-specific actions");
                     string smart = localization.Format("hud.status.camp", 1, 3, "Camp", 75, 100);
                     Require(smart.Contains("DAY 1/3") && smart.Contains("Hunger 75") && smart.Contains("Energy 100"), "English Smart String arguments render");
                     foreach (int count in new[] { 0, 1, 2, 9999 })
@@ -993,6 +1127,48 @@ namespace ParallelQA
             File.WriteAllText(Path.Combine(EvidenceFolder, "hardcoded-player-strings.txt"), report, new UTF8Encoding(false));
         }
 
+        private static void WriteLocaleExpansionReadiness(DateTime started)
+        {
+            string localizationPath = Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Runtime", "PrototypeLocalization.cs");
+            string prototypePath = Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Runtime", "KimSurvivalPrototype.cs");
+            string builderPath = Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Editor", "PrototypeLocalizationAssetBuilder.cs");
+            string fontProfilePath = Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Runtime", "PrototypeLocaleFontProfile.cs");
+            string stringsPath = Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Localization", "PrototypeStrings.tsv");
+            string gatePath = Path.Combine(ProjectRoot, "Assets", "Editor", "ParallelQA", "Wave3VisualGate.cs");
+            string localization = File.ReadAllText(localizationPath);
+            string prototype = File.ReadAllText(prototypePath);
+            string builder = File.ReadAllText(builderPath);
+            string fontProfile = File.ReadAllText(fontProfilePath);
+            string header = File.ReadLines(stringsPath).FirstOrDefault() ?? string.Empty;
+            string gate = File.ReadAllText(gatePath);
+            string[] localeCodes = LocalizationSettings.AvailableLocales.Locales
+                .Where(locale => locale != null)
+                .Select(locale => locale.Identifier.Code)
+                .OrderBy(code => code)
+                .ToArray();
+
+            List<string> checks = new List<string>
+            {
+                (localeCodes.Contains("ko") && localeCodes.Contains("en") ? "PASS" : "FAIL") + " · Unity AvailableLocales contains ko/en · observed=" + string.Join(",", localeCodes),
+                (header == "Key\tko\ten" ? "PASS" : "FAIL") + " · current localization source schema is exactly Key/ko/en · header=" + header.Replace('\t', '/'),
+                (localization.Contains("SetLocale(string localeCode") && localization.Contains("AvailableLocales.GetLocale(localeCode)") ? "PARTIAL" : "NOT READY") + " · runtime SetLocale can resolve a configured locale by data code",
+                (fontProfile.Contains("List<PrototypeLocaleFontMapping>") ? "PARTIAL" : "NOT READY") + " · font profile storage is list-based for future mappings",
+                (localization.Contains("CurrentLocaleCode == KoreanLocaleCode ? EnglishLocaleCode : KoreanLocaleCode") ? "NOT READY" : "PASS") + " · language cycling is not multi-locale (binary ko/en implementation detected)",
+                (builder.Contains("EnsureLocale(PrototypeLocalization.KoreanLocaleCode") && builder.Contains("EnsureLocale(PrototypeLocalization.EnglishLocaleCode") ? "NOT READY" : "PASS") + " · asset builder explicitly provisions only ko/en",
+                (builder.Contains("lines[0] != \"Key\\tko\\ten\"") ? "NOT READY" : "PASS") + " · import schema explicitly rejects a third locale column",
+                (prototype.Contains("CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? \"ui.language.switch.ko\" : \"ui.language.switch.en\"") ? "NOT READY" : "PASS") + " · language button label branches only ko/en",
+                (gate.Contains("ExpandPseudoLong") && gate.Contains("1.42f") ? "PASS" : "FAIL") + " · non-shipping deterministic 142% pseudo-long fixture exists in QA harness"
+            };
+            bool currentKoEnPass = checks.Take(2).All(line => line.StartsWith("PASS", StringComparison.Ordinal));
+            string report = Header("Locale expansion readiness audit", started) +
+                            string.Join(Environment.NewLine, checks) + Environment.NewLine +
+                            "Current ko/en readiness: " + (currentKoEnPass ? "PASS" : "FAIL") + Environment.NewLine +
+                            "Pseudo-long stress fixture: " + (gate.Contains("ExpandPseudoLong") ? "PASS" : "FAIL") + Environment.NewLine +
+                            "Third-locale shipping readiness: NOT READY" + Environment.NewLine +
+                            "Decision: third locale requires schema, builder, cycle/selection UI, tables, and font mapping additions; the QA pseudo-locale is deliberately not a shipping locale." + Environment.NewLine;
+            File.WriteAllText(Path.Combine(EvidenceFolder, "localization-expansion-readiness.txt"), report, new UTF8Encoding(false));
+        }
+
         private static void GatherAt(KimSurvivalPrototype prototype, float x, bool swimming)
         {
             PositionAt(prototype, x, swimming);
@@ -1157,6 +1333,15 @@ namespace ParallelQA
         private static string Quote(string value)
         {
             return value.IndexOf(' ') >= 0 ? "\"" + value + "\"" : value;
+        }
+
+        private static string ReadSharedText(string path)
+        {
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8, true))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         private static string Sanitize(string value)

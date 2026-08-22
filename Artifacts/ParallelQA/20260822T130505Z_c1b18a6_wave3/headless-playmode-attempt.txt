@@ -1,0 +1,13 @@
+Wave 3 headless Play Mode attempt
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Attempt UTC: 2026-08-22T13:16Z
+Command shape: Unity.exe -batchmode -nographics -projectPath <project> -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile <run work folder>/unity-play-mode.log
+Result: FAIL / UNITY EDITOR CRASH during the first 1280x800 PNG capture
+Top native frame: GfxDevice::DrawSharedGeometryJobs
+Managed capture path: Camera.Render -> KimSurvivalPrototype.CaptureVerificationPng -> ParallelQaRunner.CaptureAndAudit
+Product loop verdict from this attempt: NOT PRODUCED
+Recovery: the same QA method was rerun with -batchmode and a real graphics device; it completed ko/en loops and all PNG/metric outputs.
+Classification: P2 QA-infrastructure portability risk, not a confirmed player defect.
+Reproduction: run the command shape above on Unity 6000.4.9f1 with -nographics and allow the first placement capture.
+Recommended fix file: Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs capture helper or Assets/Editor/ParallelQA capture backend; investigate render-texture capture support before enabling headless CI.
+Raw crash log (ignored): work/ParallelQA/20260822T130505Z_c1b18a6_wave3/unity-play-mode.log

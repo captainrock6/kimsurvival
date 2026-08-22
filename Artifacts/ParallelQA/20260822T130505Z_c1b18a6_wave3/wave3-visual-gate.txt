@@ -1,0 +1,69 @@
+Wave 3 1280x800 projected-text visual gate
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Started UTC: 2026-08-22T13:18:56.7927820Z
+Completed UTC: 2026-08-22T13:18:58.1653946Z
+Unity: 6000.4.9f1
+Baseline commit: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-play-mode-gpu-final.log"
+Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample.
+Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.
+PLACEMENT_GATE: FAIL · targets=24 · failures=22
+EXPLORATION_SWIMMING_GATE: FAIL · targets=14 · failures=14
+PSEUDO_LONG_GATE: FAIL · targets=10 · failures=9
+OVERALL: FAIL
+FAIL · ko placement valid · gated=6 · screenshot=playmode-ko-placement-valid-1280x800.png
+FAIL · ko placement invalid · gated=6 · screenshot=playmode-ko-placement-invalid-1280x800.png
+FAIL · en placement valid · gated=6 · screenshot=playmode-en-placement-valid-1280x800.png
+FAIL · en placement invalid · gated=6 · screenshot=playmode-en-placement-invalid-1280x800.png
+FAIL · qps-long placement valid · gated=10 · screenshot=playmode-qps-long-placement-1280x800.png
+FAIL · ko day1 swimming · gated=3 · screenshot=playmode-ko-day1-swimming-1280x800.png
+FAIL · ko day2 exploration · gated=4 · screenshot=playmode-ko-day2-exploration-1280x800.png
+NOT_APPLICABLE · ko rescue result · gated=0 · screenshot=playmode-ko-rescue-result-1280x800.png
+FAIL · en day1 swimming · gated=3 · screenshot=playmode-en-day1-swimming-1280x800.png
+FAIL · en day2 exploration · gated=4 · screenshot=playmode-en-day2-exploration-1280x800.png
+NOT_APPLICABLE · en rescue result · gated=0 · screenshot=playmode-en-rescue-result-1280x800.png
+  FAIL · placement-world · ko placement valid · 출입구 보호 · glyph=14.9px · block=15.7px · bounds=[321.3,146.3 -> 429.6,162.0] · contrast=11.1:1 · failures=height
+  FAIL · placement-world · ko placement valid · 일반 설비 · 0.5m 바닥 스냅 · glyph=15.0px · block=15.5px · bounds=[756.9,146.3 -> 1009.3,161.8] · contrast=11.9:1 · failures=height
+  FAIL · placement-world · ko placement valid · 필수 통로 · glyph=15.2px · block=15.5px · bounds=[596.9,146.3 -> 683.9,161.8] · contrast=8.8:1 · failures=height
+  FAIL · placement-world · ko placement valid · 전용 앵커 · 신호대 0/2 · glyph=15.0px · block=16.0px · bounds=[1084.6,145.8 -> 1296.4,161.8] · contrast=10.9:1 · failures=height,bounds
+  FAIL · placement-world · ko placement valid · 모닥불/설치 가능 · glyph=15.2px · block=36.8px · bounds=[468.3,287.1 -> 555.9,323.9] · contrast=8.8:1 · failures=height
+  FAIL · placement-world · ko placement invalid · 출입구 보호 · glyph=14.9px · block=15.7px · bounds=[321.3,146.3 -> 429.6,162.0] · contrast=11.1:1 · failures=height
+  FAIL · placement-world · ko placement invalid · 일반 설비 · 0.5m 바닥 스냅 · glyph=15.0px · block=15.5px · bounds=[756.9,146.3 -> 1009.3,161.8] · contrast=11.9:1 · failures=height
+  FAIL · placement-world · ko placement invalid · 필수 통로 · glyph=15.2px · block=15.5px · bounds=[596.9,146.3 -> 683.9,161.8] · contrast=8.8:1 · failures=height
+  FAIL · placement-world · ko placement invalid · 전용 앵커 · 신호대 0/2 · glyph=15.0px · block=16.0px · bounds=[1084.6,145.8 -> 1296.4,161.8] · contrast=10.9:1 · failures=height,bounds
+  FAIL · placement-world · ko placement invalid · 모닥불/설치 불가 · glyph=15.2px · block=36.8px · bounds=[169.7,287.1 -> 257.8,323.9] · contrast=10.7:1 · failures=height
+  FAIL · placement-world · en placement valid · General Facilities · 0.5m Floor Snap · glyph=9.1px · block=33.7px · bounds=[763.4,136.5 -> 1002.7,170.2] · contrast=11.9:1 · failures=height
+  FAIL · placement-world · en placement valid · Campfire/Valid Placement · glyph=11.7px · block=30.7px · bounds=[433.4,291.0 -> 590.5,321.7] · contrast=8.8:1 · failures=height
+  FAIL · placement-world · en placement valid · Dedicated Anchor · Signal 0/2 · glyph=11.9px · block=33.7px · bounds=[1098.2,136.3 -> 1281.9,170.0] · contrast=10.9:1 · failures=height,bounds
+  FAIL · placement-status · en placement valid · [ VALID ]/Place Campfire · 0.5m floor snap · glyph=16.7px · block=47.0px · bounds=[414.7,630.5 -> 866.3,677.5] · contrast=11.1:1 · failures=height
+  FAIL · placement-world · en placement valid · Required Path · glyph=11.9px · block=15.1px · bounds=[571.5,145.7 -> 708.8,160.8] · contrast=8.8:1 · failures=height
+  FAIL · placement-world · en placement valid · Keep Entrance Clear · glyph=9.1px · block=30.5px · bounds=[304.7,139.5 -> 446.9,170.0] · contrast=11.1:1 · failures=height
+  FAIL · placement-world · en placement invalid · General Facilities · 0.5m Floor Snap · glyph=9.1px · block=33.7px · bounds=[763.4,136.5 -> 1002.7,170.2] · contrast=11.9:1 · failures=height
+  FAIL · placement-world · en placement invalid · Campfire/Invalid Placement · glyph=9.1px · block=30.7px · bounds=[128.0,291.0 -> 300.3,321.7] · contrast=10.7:1 · failures=height
+  FAIL · placement-world · en placement invalid · Dedicated Anchor · Signal 0/2 · glyph=11.9px · block=33.7px · bounds=[1098.2,136.3 -> 1281.9,170.0] · contrast=10.9:1 · failures=height,bounds
+  FAIL · placement-status · en placement invalid · [ INVALID ]/Keep it inside the compatible camp build area. · glyph=16.7px · block=47.0px · bounds=[322.6,630.5 -> 957.0,677.5] · contrast=13.0:1 · failures=height
+  FAIL · placement-world · en placement invalid · Required Path · glyph=11.9px · block=15.1px · bounds=[571.5,145.7 -> 708.8,160.8] · contrast=8.8:1 · failures=height
+  FAIL · placement-world · en placement invalid · Keep Entrance Clear · glyph=9.1px · block=30.5px · bounds=[304.7,139.5 -> 446.9,170.0] · contrast=11.1:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · [[Káeéeípó Eúnütrñanáceé Clear]] · glyph=8.7px · block=37.8px · bounds=[322.8,134.7 -> 428.6,172.6] · contrast=11.1:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · [[Ráeéqíuióreúd Path]] · glyph=11.9px · block=33.5px · bounds=[563.1,136.5 -> 716.8,170.0] · contrast=8.8:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · [[DáAéYí 1/3 · Cóaúmüpñ páréeípóaúrüañtáiéoínó/Huúngüerñ 75 | Enáerégy 100]] · glyph=15.8px · block=44.6px · bounds=[-86.2,727.4 -> 477.2,772.0] · contrast=18.1:1 · failures=height,bounds
+  FAIL · pseudo-long · qps-long placement valid · [[Gáeéníeórúaülñ Fáaécíiólúiütñieás · 0.5mé Fíloóor Snap]] · glyph=9.8px · block=27.7px · bounds=[738.0,139.7 -> 1028.9,167.4] · contrast=11.9:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · [[Dáeédíiócúaütñeádé Aíncóhoúr · Siügnñal 0/2]] · glyph=11.2px · block=31.7px · bounds=[1069.7,137.4 -> 1309.9,169.1] · contrast=10.9:1 · failures=height,bounds
+  FAIL · pseudo-long · qps-long placement valid · [[Cáaémípófúiürñeá/Vaéliíd Plóacúement]] · glyph=12.0px · block=33.7px · bounds=[405.3,288.0 -> 617.5,321.7] · contrast=8.8:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · [[Wáoéoídó 12   Sútüoñnáeé 11   Fíoóoúdü 1   Sñaálévíaógúeü 10/Sñiágéníaólú 0/2   Aüxñeá Néoníe   Roópeú None]] · glyph=14.2px · block=62.0px · bounds=[731.3,718.9 -> 1366.8,780.8] · contrast=14.5:1 · failures=height,bounds,overflow
+  FAIL · pseudo-long · qps-long placement valid · [[Eánégílóiúshü → Kñorean]] · glyph=12.0px · block=33.9px · bounds=[1163.8,24.9 -> 1320.7,58.8] · contrast=8.2:1 · failures=height,bounds
+  FAIL · pseudo-long · qps-long placement valid · [[Káeéyíbóoúaürñdá & Méoíuósúeü · Mñoávéeí wóiútühñ máoéuísóeú · Cülñiácékí/Eónútüeñrá céoínfóirúm · Riüghñt-cláicék/Esíc caóncúelü · F1 language]] · glyph=13.1px · block=37.2px · bounds=[-46.6,23.1 -> 1053.4,60.3] · contrast=18.1:1 · failures=height,bounds
+  FAIL · exploration-world · ko day1 swimming · 헤엄쳐 수색/표류물 ×2 · glyph=9.8px · block=24.0px · bounds=[393.7,329.2 -> 458.7,353.3] · contrast=3.8:1 · failures=height,contrast
+  FAIL · exploration-world · ko day1 swimming · 돌 ×2 · glyph=7.9px · block=9.8px · bounds=[1238.7,298.6 -> 1270.1,308.4] · contrast=1.4:1 · failures=height,contrast,ui-occlusion
+  FAIL · exploration-world · ko day1 swimming · 헤엄쳐 수색/식량 ×2 · glyph=10.0px · block=24.0px · bounds=[598.5,329.2 -> 663.5,353.3] · contrast=3.8:1 · failures=height,contrast
+  FAIL · exploration-world · ko day2 exploration · 나무 ×2 · glyph=9.8px · block=10.1px · bounds=[849.3,298.5 -> 892.4,308.6] · contrast=9.8:1 · failures=height
+  FAIL · exploration-world · ko day2 exploration · 헤엄쳐 수색/표류물 ×2 · glyph=9.8px · block=24.0px · bounds=[231.6,329.2 -> 296.6,353.3] · contrast=3.8:1 · failures=height,contrast
+  FAIL · exploration-world · ko day2 exploration · 헤엄쳐 수색/식량 ×2 · glyph=10.0px · block=24.0px · bounds=[436.4,329.2 -> 501.4,353.3] · contrast=3.8:1 · failures=height,contrast
+  FAIL · exploration-world · ko day2 exploration · 돌 ×2 · glyph=7.9px · block=9.8px · bounds=[1076.6,298.6 -> 1108.0,308.4] · contrast=1.1:1 · failures=height,contrast,ui-occlusion
+  FAIL · exploration-world · en day1 swimming · Stone ×2 · glyph=6.0px · block=8.0px · bounds=[1229.5,300.1 -> 1279.2,308.1] · contrast=1.4:1 · failures=height,bounds,contrast,ui-occlusion
+  FAIL · exploration-world · en day1 swimming · Swim to Search/Salvage ×2 · glyph=6.0px · block=22.1px · bounds=[383.1,329.7 -> 469.9,351.8] · contrast=3.8:1 · failures=height,contrast
+  FAIL · exploration-world · en day1 swimming · Swim to Search/Food ×2 · glyph=6.0px · block=20.0px · bounds=[587.9,331.8 -> 674.7,351.8] · contrast=3.8:1 · failures=height,contrast
+  FAIL · exploration-world · en day2 exploration · Wood ×2 · glyph=7.8px · block=7.9px · bounds=[845.2,300.1 -> 895.1,308.0] · contrast=9.8:1 · failures=height
+  FAIL · exploration-world · en day2 exploration · Swim to Search/Food ×2 · glyph=6.0px · block=20.0px · bounds=[425.8,331.8 -> 512.6,351.8] · contrast=3.8:1 · failures=height,contrast
+  FAIL · exploration-world · en day2 exploration · Stone ×2 · glyph=6.0px · block=8.0px · bounds=[1067.4,300.1 -> 1117.1,308.1] · contrast=1.1:1 · failures=height,contrast,ui-occlusion
+  FAIL · exploration-world · en day2 exploration · Swim to Search/Salvage ×2 · glyph=6.0px · block=22.1px · bounds=[221.0,329.7 -> 307.8,351.8] · contrast=3.8:1 · failures=height,contrast

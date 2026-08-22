@@ -1,0 +1,27 @@
+Wave 3 independent regression gate summary
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Recorded UTC: 2026-08-22T13:22:08Z
+Baseline: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Branch: codex/wave3-qa-gates
+Unity: 6000.4.9f1 (f7258d6eebbe)
+OVERALL: FAIL / NOT READY FOR PC-STEAM RELEASE
+Unity compilation: PASS · 0 errors / 2 P3 obsolete-API warnings
+Deterministic Edit Check: PASS
+ko/en separate-process locale persistence: PASS
+ko full three-day Play Mode loop: PASS
+en full three-day Play Mode loop: PASS
+Limited free placement functional rules: PASS
+Swimming / shore gather / land return functional route: PASS
+Normal 1280x800 placement visual gate: FAIL · status 2/4 pass; world badges 0/20 pass
+1280x800 exploration/swimming visual gate: FAIL · 0/14 pass
+142% qps-long visual gate: FAIL · 1/10 pass; missing glyphs 0
+Keyboard/mouse automated path: PASS
+Gamepad automated/shared path and prompt fixture: PASS
+Physical gamepad: UNVERIFIED · Unity exposed 0 non-empty joystick names
+Windows Development Build: PASS · 0 errors / 2 warnings
+Windows Player startup smoke: PASS / liveness only
+Steamworks SDK/App ID/Depot/Input/Cloud/Achievements: NOT READY
+Primary blocker: P1 exploration/swimming label legibility and contrast at 1280x800
+Other release blockers: incomplete placement visual gate, pseudo-long/third-locale readiness, physical gamepad gap, missing Steam release configuration
+Runtime fixes performed: NO
+Push/integration performed: NO

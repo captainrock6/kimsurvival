@@ -1,0 +1,22 @@
+Wave 3 PC / Steam release readiness audit
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Recorded UTC: 2026-08-22T13:22:08Z
+Baseline commit: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Commands:
+- rg --files Assets Packages ProjectSettings | rg -i 'steam(appid|_api|works)|depot|steaminput'
+- rg -n 'Steam|steam_api|AppId|Cloud|Achievement|Depot|SteamInput' Assets Packages ProjectSettings -g '!Assets/_Project/Art/**' -g '!Artifacts/**'
+Targeted Steam file matches: 0
+Targeted runtime/package Steam reference matches: 0 (generic Unity cloud diagnostics/memory setting names are not Steam Cloud integration)
+Windows x64 Development Build: PASS
+Windows Player startup smoke: PASS
+Windows non-development release build: NOT RUN
+Steamworks SDK/API: NOT READY · no SDK/package/API wrapper found
+Steam App ID / steam_appid.txt: NOT READY · no configuration found
+Depot/build/upload scripts: NOT READY · no configuration found
+Steam Input: NOT READY · no Steam Input integration/actions found
+Steam Cloud: NOT READY · no Steam Cloud integration found
+Steam Achievements: NOT READY · no achievement integration found
+Store/deployment changes performed: NO
+Physical gamepad / Steam Deck: UNVERIFIED
+Overall Steam shipping readiness: FAIL / NOT READY
+Interpretation: the prototype produces and starts a Windows Development Player, but repository evidence for the six required Steam release areas is absent. No value was inferred from product intent or old reports.

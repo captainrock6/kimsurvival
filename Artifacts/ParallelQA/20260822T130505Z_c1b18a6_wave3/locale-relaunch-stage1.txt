@@ -1,0 +1,10 @@
+Locale relaunch persistence stage 1
+Run ID: 20260822T130505Z_c1b18a6_wave3
+Started UTC: 2026-08-22T13:15:29.7694049Z
+Completed UTC: 2026-08-22T13:15:29.8001192Z
+Unity: 6000.4.9f1
+Baseline commit: c1b18a6a2208cfbdb8ca5c726d861a4492fffc36
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.PrepareLocalePersistenceProbe -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260822T130505Z_c1b18a6_wave3\unity-locale-stage1.log" -quit
+PASS · English locale persisted for the next Unity process.
+Next expected locale: en
