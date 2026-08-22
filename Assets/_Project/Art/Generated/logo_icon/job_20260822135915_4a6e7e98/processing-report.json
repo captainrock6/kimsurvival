@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "assetId": "icon.resource-tool-set",
+  "jobId": "job_20260822135915_4a6e7e98",
+  "generation": {
+    "workflow": "built-in-codex-imagegen",
+    "attemptCount": 1,
+    "externalPaidApiCalled": false,
+    "sourceCanvas": [1536, 1024],
+    "sourcePixelFormat": "Format24bppRgb",
+    "sourceHadAlpha": false
+  },
+  "deterministicProcessing": {
+    "backgroundRemoval": "edge-connected light neutral checker removal; rain-collector enclosed checker cleanup only",
+    "lightNeutralThreshold": {
+      "minimumChannel": 225,
+      "maximumChannelSpread": 24
+    },
+    "isolatedComponentMinimumPixels": 500,
+    "normalizedIconCanvas": [256, 256],
+    "minimumTransparentPadding": 24,
+    "atlasGrid": [5, 2],
+    "atlasCanvas": [1280, 512],
+    "readabilitySizes": [24, 32, 64]
+  },
+  "resolvedIssues": [
+    "ImageGen source checkerboard was opaque rather than true alpha.",
+    "A small rescue-signal fragment crossed into the axe source cell.",
+    "An enclosed checker patch remained inside the rain-collector frame after edge-connected removal."
+  ],
+  "outputAlphaValidated": true,
+  "edgeTouchCount": 0
+}

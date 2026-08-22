@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "assetId": "icon.resource-tool-set",
+  "jobId": "job_20260822135915_4a6e7e98",
+  "reviewStatus": "review",
+  "languageNeutral": true,
+  "bakedText": false,
+  "sourceAtlas": {
+    "file": "sprite-sheet.png",
+    "width": 1280,
+    "height": 512,
+    "columns": 5,
+    "rows": 2,
+    "cellWidth": 256,
+    "cellHeight": 256,
+    "coordinateOrigin": "top-left",
+    "transparentBackground": true
+  },
+  "icons": [
+    {
+      "index": 0,
+      "id": "resource.wood",
+      "file": "wood.png",
+      "atlasRect": [0, 0, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 1,
+      "id": "resource.stone",
+      "file": "stone.png",
+      "atlasRect": [256, 0, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 2,
+      "id": "resource.food",
+      "file": "food.png",
+      "atlasRect": [512, 0, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 3,
+      "id": "resource.salvage",
+      "file": "scrap.png",
+      "atlasRect": [768, 0, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 4,
+      "id": "tool.axe",
+      "file": "axe.png",
+      "atlasRect": [1024, 0, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 5,
+      "id": "tool.rope",
+      "file": "rope.png",
+      "atlasRect": [0, 256, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 6,
+      "id": "facility.campfire",
+      "file": "campfire.png",
+      "atlasRect": [256, 256, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 7,
+      "id": "facility.rain_collector",
+      "file": "rain_collector.png",
+      "atlasRect": [512, 256, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 8,
+      "id": "facility.workbench",
+      "file": "workbench.png",
+      "atlasRect": [768, 256, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    },
+    {
+      "index": 9,
+      "id": "facility.rescue_signal",
+      "file": "rescue_signal.png",
+      "atlasRect": [1024, 256, 256, 256],
+      "pivotNormalized": [0.5, 0.5]
+    }
+  ],
+  "readabilityEvidence": {
+    "file": "readability-24-32-64.png",
+    "sizes": [24, 32, 64],
+    "cellSize": 64,
+    "outerPadding": 16,
+    "iconOrderMatchesAtlas": true
+  },
+  "constraints": [
+    "Localized Korean, English, Spanish, Japanese and Chinese labels remain engine text and are not baked into raster art.",
+    "Use the stable semantic icon IDs independently from locale-specific strings.",
+    "All production icons use true alpha and at least 24 pixels of transparent source padding."
+  ]
+}

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T13:36:38.842Z",
+  "updatedAt": "2026-08-22T14:14:56.095Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -725,11 +725,11 @@
     },
     {
       "id": "icon.resource-tool-set",
-      "name": "자원·도구 아이콘 세트",
+      "name": "생존 자원·도구 아이콘 세트",
       "assetType": "logo_icon",
-      "request": "나무, 돌, 식량, 표류물, 돌도끼, 밧줄과 기본 건설 설비를 24~64px에서도 즉시 구분하는 오리지널 픽토그램 세트. 굵고 통일된 외곽선, 자원별 명확한 색·형태 차이, 투명 배경을 사용한다. 본문 텍스트와 기존 게임의 고유 아이콘은 포함하지 않는다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 4 QA 패키징 가공 전용 자식 작업. 부모 job_20260822135915_4a6e7e98의 sprite-sheet.png와 wood, stone, food, scrap, axe, rope, campfire, rain_collector, workbench, rescue_signal 256px 투명 PNG를 픽셀 변경 없이 그대로 사용한다. 24/32/64px 가독성 증거는 각 크기마다 5열×2행으로 10종을 배치한 672x416 이내의 실제 투명 RGBA 시트로 다시 구성한다. 육안 검토 캡처도 배경색을 굽지 않은 투명 RGBA 5열×2행 캔버스로 구성해 alpha와 외곽 여백을 유지한다. 기존 메타데이터와 Unity forge-import 매니페스트를 동기화한다. ImageGen, 외부 API, 리페인트, 아이콘 내용·색·실루엣 변경, 텍스트·라벨 추가를 하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "ui",
         "icons",
@@ -738,14 +738,285 @@
         "transparent"
       ],
       "dependencies": [],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
-      "parentJobId": null,
-      "artifacts": [],
+      "jobIds": [
+        "job_20260822135915_4a6e7e98",
+        "job_20260822141317_caf8e11d"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822135915_4a6e7e98",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T13:59:15.886Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822135915_4a6e7e98",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-22T14:12:27.089Z",
+          "qualityScore": 54
+        },
+        {
+          "jobId": "job_20260822141317_caf8e11d",
+          "parentJobId": "job_20260822135915_4a6e7e98",
+          "status": "awaiting_import",
+          "at": "2026-08-22T14:13:17.355Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822141317_caf8e11d",
+          "parentJobId": "job_20260822135915_4a6e7e98",
+          "status": "review",
+          "at": "2026-08-22T14:14:56.093Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260822141317_caf8e11d",
+      "parentJobId": "job_20260822135915_4a6e7e98",
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 16882,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 14113,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "sprite-sheet.png",
+          "contentType": "image/png",
+          "bytes": 695191,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/sprite-sheet.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "wood.png",
+          "contentType": "image/png",
+          "bytes": 77771,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/wood.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "stone.png",
+          "contentType": "image/png",
+          "bytes": 67161,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/stone.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "food.png",
+          "contentType": "image/png",
+          "bytes": 72040,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/food.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "scrap.png",
+          "contentType": "image/png",
+          "bytes": 81986,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/scrap.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "axe.png",
+          "contentType": "image/png",
+          "bytes": 50856,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/axe.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "rope.png",
+          "contentType": "image/png",
+          "bytes": 83799,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/rope.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "campfire.png",
+          "contentType": "image/png",
+          "bytes": 68557,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/campfire.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "rain_collector.png",
+          "contentType": "image/png",
+          "bytes": 60997,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/rain_collector.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "workbench.png",
+          "contentType": "image/png",
+          "bytes": 62826,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/workbench.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "rescue_signal.png",
+          "contentType": "image/png",
+          "bytes": 53221,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/rescue_signal.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "readability-24-32-64.png",
+          "contentType": "image/png",
+          "bytes": 76836,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/readability-24-32-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "visual-review.png",
+          "contentType": "image/png",
+          "bytes": 532364,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/visual-review.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "resource-icons-metadata.json",
+          "contentType": "application/json",
+          "bytes": 2756,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/resource-icons-metadata.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 1458,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/processing-report.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 959,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/manual-review.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 946,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/forge-import.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 6039,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 4043,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-sprite-sheet.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6012,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-sprite-sheet.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-wood.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8640,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-wood.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-stone.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6880,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-stone.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-food.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7573,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-food.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-scrap.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8284,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-scrap.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-axe.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6599,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-axe.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-rope.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9585,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-rope.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-campfire.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7800,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-campfire.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-rain_collector.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7260,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-rain_collector.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-workbench.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7453,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-workbench.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-rescue_signal.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6801,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-rescue_signal.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-readability-24-32-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4541,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-readability-24-32-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-visual-review.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5388,
+          "url": "/outputs/jobs/job_20260822141317_caf8e11d/qa-preview-visual-review.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-22T09:09:25.703Z"
+      "updatedAt": "2026-08-22T14:14:56.095Z"
     },
     {
       "id": "ui.survival-hud",
