@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T144000Z_wave15_rebaseline_green",
+    "baselineCommit": "240427a31af9ed9f066a4dd45c326431442ff3bb",
+    "unityVersion": "6000.4.9f1",
+    "deadline": "",
+    "adoptedPackage": "",
+    "runtimeFrame": "spritePath=Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png; guid=070048b5b443d5d4a9c757c871873eb3; imageType=Sliced; border=(70.00, 12.00, 30.00, 12.00); separateGlyph=True; actionExcludesGlyph=True",
+    "inputLocaleIndependence": "target=slot.start.upper; progress=D1/W2/S1/F0/D0/signal0/bag4/Camp/None; syntheticGamepadOnly=True; enOnly=True; qpsOnly=True",
+    "captureLayout": "captures=12/12; png1280x800=True; wave11WorldClear=True; ko{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True} | en{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True} | qps-long{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True}",
+    "freshWave11Layout": "walkingPathClear=3/3; promptRects=3/3; failureReasonsNone=3/3; source=wave11-slot-play-evidence.json",
+    "freshWave3Visual": "generated=true; runId/baseline matched; visualOverall=PASS; frames=9; report=wave3-visual-gate.txt",
+    "screenshots": [
+        "wave12-ko-far-1280x800.png",
+        "wave12-ko-near-1280x800.png",
+        "wave12-ko-popup-1280x800.png",
+        "wave12-ko-direct-slot-1280x800.png",
+        "wave12-en-far-1280x800.png",
+        "wave12-en-near-1280x800.png",
+        "wave12-en-popup-1280x800.png",
+        "wave12-en-direct-slot-1280x800.png",
+        "wave12-qps-long-far-1280x800.png",
+        "wave12-qps-long-near-1280x800.png",
+        "wave12-qps-long-popup-1280x800.png",
+        "wave12-qps-long-direct-slot-1280x800.png"
+    ],
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}
