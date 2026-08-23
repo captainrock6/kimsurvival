@@ -1,0 +1,140 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T021548Z_19f050a_wave7_bag_final",
+    "baselineCommit": "19f050a69759e5715d1f8a2eaa72fade72164b4b",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T02:16:14.8939679Z",
+    "completedUtc": "2026-08-23T02:16:14.9028250Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave7BagCapacityRegressionRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T021548Z_19f050a_wave7_bag_final\\unity-wave7-edit.log\"",
+    "overall": "FAIL",
+    "productOverall": "FAIL",
+    "infrastructureOverall": "PASS",
+    "passed": 1,
+    "failed": 0,
+    "notImplemented": 10,
+    "unverified": 0,
+    "infrastructureFailed": 0,
+    "checks": [
+        {
+            "id": "W7-01.new_game.base_capacity",
+            "matrixItem": "1",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A new game starts with 4 active slots and stack limit 2",
+            "actual": "active=4 legacyStaticSlots=4 stackLimit=2 · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Create GameSession and inspect active capacity and stack limit.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-API.capacity_upgrade",
+            "matrixItem": "2-7,9,11",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "Discoverable per-session active bag capacity and atomic bag upgrade action",
+            "actual": "capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge the Unity Wave 7 implementation, then rerun this command without editing the QA harness.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-02.no_workbench.no_spend",
+            "matrixItem": "2",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "No-workbench rejection and resource invariance",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-03.insufficient_cancel.no_spend",
+            "matrixItem": "3",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "Insufficient-resource and cancel resource invariance",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-04.exact_once.to_six",
+            "matrixItem": "4",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "Exact one-time wood 2/salvage 1 spend activates six slots",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-05.repeat.no_spend",
+            "matrixItem": "5",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "Second attempt is rejected without spending",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-06.persistence_and_reset",
+            "matrixItem": "6",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "Day persistence and new-game reset",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-07.extended_slot_operations",
+            "matrixItem": "7",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "Locked pre-upgrade slots and full operations on slots 5/6",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-08.localization_semantics",
+            "matrixItem": "8",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P1",
+            "expected": "ko/en/qps-long keys, placeholders, and meaning",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge localization/UI implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-09.synthetic_dual_input",
+            "matrixItem": "9",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P1",
+            "expected": "Keyboard/mouse and synthetic gamepad operate all six slots",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge input/UI implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-11.natural_three_day_upgrade_rescue",
+            "matrixItem": "11",
+            "status": "NOT_IMPLEMENTED",
+            "classification": "PRODUCT_GAP",
+            "severity": "P0",
+            "expected": "Grant/warp-free three-day upgrade and rescue route",
+            "actual": "NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>",
+            "reproduction": "Merge implementation and rerun.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        }
+    ]
+}

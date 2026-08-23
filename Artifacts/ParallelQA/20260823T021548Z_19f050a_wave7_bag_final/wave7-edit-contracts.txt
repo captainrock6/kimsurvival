@@ -1,0 +1,18 @@
+Wave 7 bag capacity Edit contracts
+Run ID: 20260823T021548Z_19f050a_wave7_bag_final
+Baseline: 19f050a69759e5715d1f8a2eaa72fade72164b4b
+Unity: 6000.4.9f1
+Product: FAIL
+Infrastructure: PASS
+Counts: PASS=1 FAIL=0 NOT_IMPLEMENTED=10 INFRA_FAIL=0 UNVERIFIED=0
+PASS · NONE · P0 · W7-01.new_game.base_capacity · active=4 legacyStaticSlots=4 stackLimit=2 · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-API.capacity_upgrade · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-02.no_workbench.no_spend · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-03.insufficient_cancel.no_spend · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-04.exact_once.to_six · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-05.repeat.no_spend · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-06.persistence_and_reset · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-07.extended_slot_operations · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P1 · W7-08.localization_semantics · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P1 · W7-09.synthetic_dual_input · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
+NOT_IMPLEMENTED · PRODUCT_GAP · P0 · W7-11.natural_three_day_upgrade_rescue · NOT_IMPLEMENTED at baseline · capacity=<missing> upgrade=<missing> begin=<missing> cancel=<missing>
