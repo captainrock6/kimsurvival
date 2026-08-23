@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-22T22:56:15.526Z",
+  "updatedAt": "2026-08-23T00:03:11.452Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -1406,6 +1406,228 @@
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
       "updatedAt": "2026-08-22T09:15:36.895Z"
+    },
+    {
+      "id": "object.vine-wood-barrier",
+      "name": "덩굴·나무 길막 장벽",
+      "assetType": "separated_parts",
+      "request": "Wave 6 Unity 2D 횡스크롤 섬 수색용 object.vine-wood-barrier의 단일 고품질 3상태 소스 시트. 1536x1024 투명 RGBA 캔버스를 세 개의 동일한 세로 셀로 나누고 왼쪽부터 blocked, interactable, cleared를 정확히 배치한다. 모든 상태는 카메라와 평행한 완전 측면 시점, 동일한 오브젝트 비율, 동일한 바닥 접점과 bottom-center 원점, 셀 상단 약 20퍼센트의 완전 투명 엔진 텍스트 안전 여백, 셀 사방 충분한 투명 여백을 가진다. blocked는 2D 통로를 실제로 막는 높이로 두세 개의 가느다란 쓰러진 열대 나무와 교차 가지가 얽히고 두꺼운 덩굴과 넓은 잎이 그 사이를 묶은 장벽이다. 단단하지만 과도하게 거대한 성벽이 아니며 김씨 한 명의 통로를 막는 폭과 가슴에서 머리 정도 높이의 명확한 실루엣이다. interactable은 blocked와 같은 전체 실루엣과 앵커를 유지하되 중앙 하단의 손이 닿는 높이에 덩굴이 팽팽하게 모인 절단 묶음, 밝은 황갈색 노출 목질, 두세 개의 작은 V자 도끼 흠집이 명확히 보이고 주변 잎이 살짝 비켜 절단 지점이 읽힌다. 실제 도끼, 도끼 아이콘, 빛나는 UI 마커는 그리지 않는다. cleared는 같은 좌우 뿌리와 바닥 앵커를 유지하면서 중앙 폭 약 65퍼센트가 캐릭터 통로로 완전히 열리고, 양옆에는 짧은 잘린 덩굴과 낮은 그루터기, 바닥에는 잎과 짧은 가지 잔해만 남아 전체 높이가 blocked의 약 30퍼센트 이하로 내려간 상태다. 따뜻한 열대 낮빛, 올리브·야자 녹색과 황갈색 목재, 굵고 깨끗한 어두운 외곽선, 손맛 나는 코믹하지만 기능적인 오리지널 2D 생존 게임 일러스트. 1280x800에서 캐릭터와 자원 노드를 가리지 않고 blocked/cleared 차이가 즉시 읽혀야 한다. 기존 coast-forest 후보는 팔레트와 수색 환경 맥락만, 채택된 김씨는 상대 크기와 선 굵기만 참조한다. 캐릭터, 사람, 도구, 도끼, 자원 아이콘, 수집 노드, 배경 풍경, 바닥면, UI, 글자, 숫자, 말풍선, 프레임, 패널, 라벨, 로고, 워터마크, 체크무늬, 초록색 직사각형 임시 벽, 셀 구분선을 포함하지 않는다. 각 상태는 인접 셀로 침범하거나 캔버스 가장자리에 닿지 않아야 한다.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "unity",
+        "2d",
+        "side-view",
+        "barrier",
+        "axe",
+        "transparent"
+      ],
+      "dependencies": [
+        "background.coast-forest",
+        "icon.resource-tool-set",
+        "character.mr-kim"
+      ],
+      "jobIds": [
+        "job_20260822234631_ac651d92"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260822234631_ac651d92",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-22T23:46:32.006Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260822234631_ac651d92",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T00:03:11.451Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260822234631_ac651d92",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 19879,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 16466,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "source-sheet-alpha.png",
+          "contentType": "image/png",
+          "bytes": 1031129,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/source-sheet-alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "barrier-states-atlas.png",
+          "contentType": "image/png",
+          "bytes": 789540,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/barrier-states-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "blocked.png",
+          "contentType": "image/png",
+          "bytes": 354693,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/blocked.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "interactable.png",
+          "contentType": "image/png",
+          "bytes": 335081,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/interactable.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "cleared.png",
+          "contentType": "image/png",
+          "bytes": 96771,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/cleared.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "blocked-cleared-comparison.png",
+          "contentType": "image/png",
+          "bytes": 454913,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/blocked-cleared-comparison.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "review-board-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 413123,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/review-board-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "visual-review.png",
+          "contentType": "image/png",
+          "bytes": 413123,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/visual-review.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "barrier-metadata.json",
+          "contentType": "application/json",
+          "bytes": 2308,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/barrier-metadata.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 845,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/alpha-size-validation.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 1895,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/processing-report.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 2213,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/manual-review.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 1026,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/forge-import.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 4276,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3360,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-source-sheet-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4943,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-source-sheet-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-barrier-states-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4314,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-barrier-states-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-blocked.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9595,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-blocked.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-interactable.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9058,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-interactable.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-cleared.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4547,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-cleared.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-blocked-cleared-comparison.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4810,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-blocked-cleared-comparison.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-review-board-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3871,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-review-board-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-visual-review.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3871,
+          "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-visual-review.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-22T23:45:55.685Z",
+      "updatedAt": "2026-08-23T00:03:11.452Z"
     }
   ]
 }

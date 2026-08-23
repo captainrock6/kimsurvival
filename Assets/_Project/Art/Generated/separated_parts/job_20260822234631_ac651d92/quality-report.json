@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 13,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "source-sheet-alpha.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.8209,
+      "contrastStdDev": 72.18,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 11,
+        "top": 301,
+        "right": 6,
+        "bottom": 299
+      },
+      "previewFile": "qa-preview-source-sheet-alpha.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "barrier-states-atlas.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.7304,
+      "contrastStdDev": 42.33,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 35,
+        "top": 100,
+        "right": 32,
+        "bottom": 40
+      },
+      "previewFile": "qa-preview-barrier-states-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "blocked.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6061,
+      "contrastStdDev": 49.09,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 35,
+        "top": 100,
+        "right": 35,
+        "bottom": 40
+      },
+      "previewFile": "qa-preview-blocked.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "interactable.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6284,
+      "contrastStdDev": 49.65,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 40,
+        "top": 113,
+        "right": 40,
+        "bottom": 40
+      },
+      "previewFile": "qa-preview-interactable.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "cleared.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.9119,
+      "contrastStdDev": 29.27,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 32,
+        "top": 342,
+        "right": 32,
+        "bottom": 40
+      },
+      "previewFile": "qa-preview-cleared.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "blocked-cleared-comparison.png",
+      "kind": "raster",
+      "width": 1024,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.7664,
+      "contrastStdDev": 40.66,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 35,
+        "top": 100,
+        "right": 32,
+        "bottom": 40
+      },
+      "previewFile": "qa-preview-blocked-cleared-comparison.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "review-board-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.9005,
+      "contrastStdDev": 28.93,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 64,
+        "top": 352,
+        "right": 62,
+        "bottom": 100
+      },
+      "previewFile": "qa-preview-review-board-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "visual-review.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.9005,
+      "contrastStdDev": 28.93,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 64,
+        "top": 352,
+        "right": 62,
+        "bottom": 100
+      },
+      "previewFile": "qa-preview-visual-review.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "barrier-metadata.json",
+      "kind": "editable-source",
+      "bytes": 2308,
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 845,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 1895,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 2213,
+      "issues": []
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 992,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T00:03:11.357Z",
+  "jobId": "job_20260822234631_ac651d92",
+  "assetType": "separated_parts"
+}
