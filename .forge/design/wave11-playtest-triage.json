@@ -1,0 +1,360 @@
+{
+  "schemaVersion": 1,
+  "contractId": "playtest.wave11.user-session-triage.v1",
+  "sourceCommit": "72ec967a9009635fbeccbc758563183a67a4b311",
+  "updatedAt": "2026-08-23T09:41:36.163Z",
+  "inherits": [
+    "ux.wave10.module-onboarding.v1",
+    "balance.wave9.module-expansion.v0.2",
+    "feature.camp-object-interaction",
+    "feature.camp-module-expansion",
+    "screen.camp"
+  ],
+  "purpose": "Record one owner-operated Windows play session without inventing results, separate build capability from human discovery, and route evidence to the smallest justified next decision.",
+  "languageContract": {
+    "primaryHumanLocale": "ko",
+    "supportedHumanCheckLocale": "en",
+    "qaOnlyLocale": "qps-long",
+    "rules": [
+      "Use exactly one locale per human session and never switch mid-session when comparing comprehension.",
+      "Run Korean first for the canonical meaning and comedy-tone read.",
+      "Record English as a separate human language check.",
+      "Never collect fun, comedy, or comprehension ratings from qps-long; it is QA-only for expansion, fallback, glyph, and clipping checks."
+    ]
+  },
+  "evidenceSeparation": {
+    "humanEvidenceTypes": [
+      "owner_selftest",
+      "naive_human",
+      "physical_gamepad_human"
+    ],
+    "automatedEvidenceType": "automation_reference_only",
+    "rules": [
+      "Do not count automation as a human session or average its results with human ratings.",
+      "Do not count owner selftest as naive first-user discovery evidence.",
+      "Automation may corroborate a deterministic state or build baseline only when labeled separately.",
+      "Keyboard/mouse and physical gamepad results use separate session records; a mid-session device switch invalidates device comparison."
+    ]
+  },
+  "sourceCapabilityAudit": {
+    "auditType": "read_only_source_audit_not_human_result",
+    "auditedCommit": "72ec967a9009635fbeccbc758563183a67a4b311",
+    "modulePreviewOwnerBeforeCommit": "StoragePlanning",
+    "directStartSlotPreviewOwnerBeforeCommit": false,
+    "moduleConnectorRegistration": "after_module_commit_only",
+    "moduleConnectorActionAfterCommit": "traverse_committed_module",
+    "expectedEntryPathIfBuildMatchesSource": "STORAGE_PLANNING",
+    "automationReference": {
+      "path": "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-summary.json",
+      "overall": "PASS",
+      "physicalGamepad": "UNVERIFIED",
+      "humanMeaning": "none"
+    },
+    "humanRecordingRule": "Preflight the actual EXE. If direct-slot preview is absent, mark DIRECT_SLOT_NOT_AVAILABLE_IN_BUILD and do not score its 90-second miss as player confusion; still record the actual entry path and time."
+  },
+  "session": {
+    "maximumPlaySeconds": 1200,
+    "clockAnchor": "new_game_world_control_enabled",
+    "earlyEnd": "Stop gameplay at RESCUED, EXHAUSTED, DEADLINE, player request, crash, or hard/soft lock; record the first applicable outcome and elapsed time.",
+    "setup": [
+      "Record build commit, Windows EXE SHA-256, executable name, resolution, window mode, locale, evidence type, and input device before play.",
+      "Start a new game without grant, warp, debug console, solution notes, or developer overlay.",
+      "Use Korean for the primary owner session; run English as a separate session when checking language.",
+      "Use keyboard/mouse or one physical gamepad for the entire session."
+    ],
+    "observerWindows": [
+      {
+        "fromSeconds": 0,
+        "toSeconds": 90,
+        "focus": "first movement, nearby interaction, actual module entry capability and path"
+      },
+      {
+        "fromSeconds": 90,
+        "toSeconds": 360,
+        "focus": "facility approach, departure, land gathering, first resource choice"
+      },
+      {
+        "fromSeconds": 360,
+        "toSeconds": 600,
+        "focus": "swim entry/search/return and first camp return"
+      },
+      {
+        "fromSeconds": 600,
+        "toSeconds": 900,
+        "focus": "crafting, research, valid placement, bag upgrade seen/bought/skipped"
+      },
+      {
+        "fromSeconds": 900,
+        "toSeconds": 1200,
+        "focus": "room preview/commit attempt, rescue signal progress, rescue or failure"
+      }
+    ],
+    "windowRule": "Observer windows are note-taking prompts, not player instructions or mandatory order. Record each milestone at its first actual occurrence."
+  },
+  "milestones": [
+    {
+      "id": "MOVE_FIRST",
+      "definition": "First non-zero player movement."
+    },
+    {
+      "id": "FACILITY_NEAR",
+      "definition": "First facility proximity prompt caused by direct approach."
+    },
+    {
+      "id": "FACILITY_USE",
+      "definition": "First facility popup opened and one facility-owned action attempted."
+    },
+    {
+      "id": "LAND_GATHER",
+      "definition": "First land resource added to the bag."
+    },
+    {
+      "id": "SWIM_ROUNDTRIP",
+      "definition": "Enter water, search at least one water node, and return to land."
+    },
+    {
+      "id": "RETURN_FIRST",
+      "definition": "First return that transfers bag resources to camp storage."
+    },
+    {
+      "id": "CRAFT_OR_RESEARCH",
+      "definition": "First recipe research or crafted tool completed."
+    },
+    {
+      "id": "PLACEMENT_VALID",
+      "definition": "First general facility committed at a valid site and still directly approachable."
+    },
+    {
+      "id": "BAG_GROWTH_DECISION",
+      "definition": "Bag 4-to-6 upgrade cost is seen and the player buys, postpones, or rejects it."
+    },
+    {
+      "id": "MODULE_PREVIEW",
+      "definition": "Room preview opens through the actual build path and at least one candidate is visible."
+    },
+    {
+      "id": "MODULE_COMMIT_ATTEMPT",
+      "definition": "One room confirm is attempted; record exact success or failure reason and whether W2/D1 changed."
+    },
+    {
+      "id": "END",
+      "definition": "RESCUED, EXHAUSTED, DEADLINE, TIMEOUT, PLAYER_STOP, CRASH, or SOFTLOCK."
+    }
+  ],
+  "moduleDiscovery90Seconds": {
+    "requiredFields": [
+      "directSlotVisible",
+      "directSlotPromptAvailable",
+      "actualEntryPath",
+      "actualEntryFirstSeconds",
+      "previewFirstSeconds",
+      "allThreeCandidatesSeenSeconds",
+      "workbenchGateUnderstood",
+      "eligibility"
+    ],
+    "entryPathValues": [
+      "DIRECT_SLOT",
+      "STORAGE_PLANNING",
+      "OTHER_CONTEXTUAL_TARGET",
+      "NONE"
+    ],
+    "eligibilityValues": [
+      "EVALUABLE_DIRECT_SLOT",
+      "DIRECT_SLOT_NOT_AVAILABLE_IN_BUILD",
+      "TECHNICALLY_BLOCKED",
+      "NOT_OBSERVED"
+    ],
+    "classificationRules": [
+      "If no direct-slot target or prompt exists in the EXE, use DIRECT_SLOT_NOT_AVAILABLE_IN_BUILD; do not mark MODULE_SLOT_NEAR as player-failed.",
+      "If direct-slot entry exists but the owner selftest does not find it, record an owner diagnostic miss but do not count it as naive discovery evidence.",
+      "If storage planning opens preview, record STORAGE_PLANNING and its time even when direct-slot eligibility is false.",
+      "If an expected interaction exists but input, focus, or state prevents use, mark TECHNICALLY_BLOCKED and triage the technical defect."
+    ]
+  },
+  "experienceRatings": [
+    {
+      "id": "FUN",
+      "direction": "higher_is_better",
+      "anchors": {
+        "1": "No desire to continue; choices felt empty.",
+        "3": "Playable with at least one meaningful choice or satisfying moment.",
+        "5": "Strong desire to continue or retry; the loop produced clear tension and payoff."
+      }
+    },
+    {
+      "id": "CONFUSION",
+      "direction": "higher_is_worse",
+      "anchors": {
+        "1": "Next action and feedback were clear.",
+        "3": "One or two recoverable misunderstandings.",
+        "5": "Repeatedly unable to tell what action, place, cost, or result meant."
+      }
+    },
+    {
+      "id": "BLOCKAGE",
+      "direction": "higher_is_worse",
+      "anchors": {
+        "1": "No progression block.",
+        "3": "Stopped for 30 to 60 seconds but recovered without a shortcut.",
+        "5": "Could not continue or reach an ending without restart, workaround, or external answer."
+      }
+    },
+    {
+      "id": "REPETITION_FATIGUE",
+      "direction": "higher_is_worse",
+      "anchors": {
+        "1": "No repeated action felt excessive.",
+        "3": "One loop began to feel routine but remained tolerable.",
+        "5": "Repeated travel, search, popup, or action made the player want to stop."
+      }
+    },
+    {
+      "id": "COMEDY_MOMENT",
+      "direction": "higher_is_better",
+      "anchors": {
+        "1": "No noticeable comic beat.",
+        "3": "At least one smile or clearly amusing reaction.",
+        "5": "A memorable comic moment worth retelling."
+      }
+    }
+  ],
+  "causeClassification": {
+    "labels": [
+      "DISCOVERY",
+      "RESOURCE",
+      "MIXED_UX_FIRST",
+      "TECHNICAL",
+      "NO_ISSUE"
+    ],
+    "questions": [
+      "Before stopping, did the player know the correct target and action existed?",
+      "Was the full required cost, owned amount, and exact missing amount visible and understood?",
+      "After reaching the target, did the prompt, focus, or failure reason clearly indicate the next action?",
+      "With sufficient resources, did the same action succeed exactly once?",
+      "Did the shortage remain after the player deliberately prioritized the named resource without discovery delay or technical loss?"
+    ],
+    "rules": [
+      "Unknown target/action, hidden prompt, wrong assumed location, or late discovery is DISCOVERY.",
+      "Known target/action plus correct visible cost and an intentional but insufficient resource ledger is RESOURCE.",
+      "Late discovery caused the remaining time/resource shortage is MIXED_UX_FIRST and routes to discovery before balance.",
+      "Sufficient resources but rejected action, wrong spend, duplicated spend, or misleading state is TECHNICAL.",
+      "Never change balance from a single owner selftest or while DISCOVERY, MIXED_UX_FIRST, or TECHNICAL remains plausible."
+    ]
+  },
+  "triage": {
+    "severities": [
+      {
+        "id": "P0",
+        "conditions": [
+          "crash",
+          "save_or_run_state_corruption",
+          "permanent_softlock",
+          "complete_input_loss",
+          "unrecoverable_progression_block",
+          "privacy_or_recording_violation"
+        ],
+        "minimumEvidence": "One human occurrence stops the session and build. Reproduce once only when safe; a second human sample is not required to stop.",
+        "nextAction": "STOP, preserve reproduction information, fix, verify, and use a new build."
+      },
+      {
+        "id": "P1",
+        "conditions": [
+          "core-loop milestone blocked",
+          "wrong or missing interaction path",
+          "misleading failure reason or cost",
+          "ko/en meaning mismatch",
+          "physical gamepad cannot perform a keyboard-equivalent action",
+          "design-required direct-slot path absent from the build"
+        ],
+        "minimumEvidence": "Two independent valid human sessions on one build, or one valid human session plus a deterministic same-build manual reproduction. A source-confirmed build capability gap may be filed immediately but is not a player-discovery failure.",
+        "nextAction": "Fix one UX/input/contract axis, keep balance values frozen, then rerun affected human checks."
+      },
+      {
+        "id": "P2",
+        "conditions": [
+          "non-blocking hesitation",
+          "minor wording or hierarchy friction",
+          "repetition fatigue without abandonment",
+          "weak but understandable comedy beat"
+        ],
+        "minimumEvidence": "The same non-blocking pattern in three valid human sessions, or retain as an uncommitted note.",
+        "nextAction": "Queue after P0/P1; change only when it does not disturb the locked loop."
+      }
+    ],
+    "balanceReviewMinimum": "No balance change from owner selftest. Require the existing six-valid-session ko3/en3 external cohort, discovery/comprehension passing, and the same resource cause in at least two sessions before opening one-axis review.",
+    "stopGoRules": [
+      {
+        "id": "STOP_P0",
+        "condition": "Any P0 occurs.",
+        "decision": "Stop using the build."
+      },
+      {
+        "id": "HOLD_BUILD_CAPABILITY",
+        "condition": "Direct-slot entry is absent or not evaluable in the actual EXE.",
+        "decision": "Mark the 90-second direct-slot gate N/A for the player, record the actual path, and file a separate build-gap candidate without changing balance."
+      },
+      {
+        "id": "GO_COLLECT_MORE",
+        "condition": "One owner session finishes without P0.",
+        "decision": "Keep values unchanged; use the session as one diagnostic sample only."
+      },
+      {
+        "id": "GO_FIX_P1",
+        "condition": "A P1 meets its minimum evidence.",
+        "decision": "Fix the smallest responsible UX/input/contract axis and rerun on a new build."
+      },
+      {
+        "id": "GO_QUEUE_P2",
+        "condition": "A P2 pattern meets its three-human minimum.",
+        "decision": "Queue behind P0/P1; no immediate loop or balance change."
+      },
+      {
+        "id": "GO_ONE_AXIS_BALANCE_REVIEW",
+        "condition": "Six-session external cohort and resource-cause rules pass.",
+        "decision": "Open a proposal only; do not automatically change a value."
+      }
+    ]
+  },
+  "reproductionFields": [
+    "issueId",
+    "severityCandidate",
+    "buildCommit",
+    "exeSha256",
+    "locale",
+    "evidenceType",
+    "inputDeviceType",
+    "physicalGamepadModel",
+    "resolutionAndWindowMode",
+    "sessionSeconds",
+    "dayAndPhase",
+    "roomAndInteractionTarget",
+    "storageW_S_F_D",
+    "bagSlotsAndContents",
+    "energyHungerDaylight",
+    "toolsStructuresSignalModuleState",
+    "exactSteps",
+    "expected",
+    "observed",
+    "reproductionAttemptsAndCount",
+    "recoveryOrWorkaround",
+    "humanEvidenceReference",
+    "automationReferenceSeparate"
+  ],
+  "resultState": {
+    "humanSessionsRecorded": 0,
+    "status": "UNRUN",
+    "ratings": null,
+    "issues": [],
+    "decision": "NO_DECISION_BEFORE_HUMAN_PLAY"
+  },
+  "outOfScope": [
+    "new_content",
+    "new_mechanics",
+    "balance_value_change",
+    "runtime_or_qa_code_change",
+    "art_adoption_or_status_change",
+    "automated_human_result_generation",
+    "participant_identity_collection",
+    "steam_title_or_app_id_decision"
+  ]
+}
