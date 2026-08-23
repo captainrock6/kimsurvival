@@ -1,0 +1,908 @@
+{
+  "schemaVersion": 1,
+  "contractId": "balance.wave14.natural-route-ledger.v1",
+  "sourceCommit": "bd1c580bb53bdd662877efd1600c97500057c3ee",
+  "status": "design_arithmetic_verified_execution_unrun",
+  "updatedAt": "2026-08-23T14:40:00.000Z",
+  "inherits": [
+    "balance.wave12.five-day-rebaseline.v1",
+    "balance.wave9.module-expansion.v0.2",
+    "playtest.wave11.user-session-triage.v1",
+    "design.wave13-owner-playtest-intake"
+  ],
+  "purpose": "Define four executable fresh-run, no-grant, no-warp natural-play ledgers against the frozen five-day v0.2 economy and separate Wave 13 JSONL facts from human interpretation without inventing results.",
+  "executionStatus": {
+    "basicBag4": "UNRUN",
+    "bag6": "UNRUN",
+    "module1": "UNRUN",
+    "oversearchDeadline": "UNRUN",
+    "physicalGamepad": "UNVERIFIED",
+    "humanSessionsClaimed": 0
+  },
+  "evidenceBasis": {
+    "runtimeSource": [
+      "Assets/_Project/Scripts/Runtime/GameSession.cs",
+      "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+      "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs",
+      "Assets/_Project/Scripts/Runtime/PrototypePlaytestEventLog.cs"
+    ],
+    "design": [
+      ".forge/design/wave12-five-day-rebaseline.json",
+      ".forge/design/wave9-module-balance.json",
+      ".forge/design/wave13-owner-playtest-intake.json"
+    ],
+    "finalIntegratedEvidence": [
+      "Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/wave11-full-regression.txt",
+      "Artifacts/ParallelQA/20260823T123000Z_386a602_wave13_release/wave13-playtest-package.json"
+    ],
+    "meaning": "These sources prove the current constants and local JSONL wiring, not the four natural-route outcomes."
+  },
+  "runProtocol": {
+    "freshProcessPerRoute": true,
+    "freshSessionStartedStateRequired": true,
+    "maximumSeconds": 1200,
+    "grantAllowed": false,
+    "warpAllowed": false,
+    "debugStateInjectionAllowed": false,
+    "prescribedOwnerQaRoute": true,
+    "countsAsNaiveDiscoverySession": false,
+    "oneLocalePerRun": true,
+    "oneInputDevicePerRun": true,
+    "humanLocales": [
+      "ko",
+      "en"
+    ],
+    "qaOnlyLocales": [
+      "qps-long"
+    ],
+    "commonValidity": [
+      "The first session.started state is D1/Camp/None, W2/S1/F0/D0, E100/H70/L100, bag4 and signal0.",
+      "All sequence values are monotonic and every line has the same run_id.",
+      "No unexplained positive camp-storage delta, negative resource, duplicate cost, or Day 3/4 deadline occurs.",
+      "Successful routes use no forced return and keep energy and daylight above zero at each return.",
+      "Resource, day, signal, bag and result values are exact; energy/daylight reference values are diagnostic and the JSONL actual is canonical."
+    ]
+  },
+  "lockedBalanceV02": {
+    "calendar": {
+      "finalDay": 5,
+      "day3Deadline": false,
+      "day4Deadline": false,
+      "day5IncompleteDeadline": true,
+      "signalStage2ImmediateRescue": true
+    },
+    "start": {
+      "storage": {
+        "Wood": 2,
+        "Stone": 1,
+        "Food": 0,
+        "Salvage": 0
+      },
+      "energy": 100,
+      "hunger": 70,
+      "daylight": 100,
+      "bagSlots": 4,
+      "stackPerSlot": 2,
+      "signalStage": 0
+    },
+    "bagUpgrade": {
+      "Wood": 2,
+      "Salvage": 1,
+      "fromSlots": 4,
+      "toSlots": 6,
+      "timesPerRun": 1,
+      "requiresWorkbench": true
+    },
+    "costs": {
+      "structure.campfire": {
+        "Wood": 2,
+        "Stone": 1,
+        "Food": 0,
+        "Salvage": 0
+      },
+      "structure.workbench": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "structure.rain-collector": {
+        "Wood": 2,
+        "Stone": 1,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "research.stone-axe": {
+        "Wood": 0,
+        "Stone": 1,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "tool.stone-axe": {
+        "Wood": 1,
+        "Stone": 1,
+        "Food": 0,
+        "Salvage": 0
+      },
+      "research.rope": {
+        "Wood": 0,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "tool.rope": {
+        "Wood": 1,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "room.upper.standard": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "room.side.standard": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "room.basement.standard": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      },
+      "signal.stage-1": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 2
+      },
+      "signal.stage-2": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 2
+      }
+    },
+    "survival": {
+      "landMoveEnergyPerSecond": 0.18,
+      "landDaylightPerSecond": 0.75,
+      "swimMoveEnergyPerSecond": 0.65,
+      "swimIdleEnergyPerSecond": 0.22,
+      "swimDaylightPerSecond": 1.15,
+      "landGatherEnergy": 6,
+      "waterSearchEnergy": 9,
+      "forcedReturnEnergy": 22,
+      "foodHungerRecovery": 35,
+      "dailyHungerLoss": 35,
+      "hungerZeroEnergyPenalty": 35,
+      "baseDailyEnergyRecovery": 20,
+      "campfireTotalDailyEnergyRecovery": 38,
+      "rainCollectorAdditionalEnergyRecovery": 10
+    }
+  },
+  "nodeCatalog": [
+    {
+      "ledgerAlias": "node.water.salvage",
+      "x": -8.2,
+      "access": "swimming",
+      "resource": "Salvage",
+      "baseYield": 2,
+      "axeYield": 2
+    },
+    {
+      "ledgerAlias": "node.water.food",
+      "x": -5.8,
+      "access": "swimming",
+      "resource": "Food",
+      "baseYield": 2,
+      "axeYield": 2
+    },
+    {
+      "ledgerAlias": "node.near.wood",
+      "x": -1.1,
+      "access": "before_barrier",
+      "resource": "Wood",
+      "baseYield": 2,
+      "axeYield": 3
+    },
+    {
+      "ledgerAlias": "node.near.stone",
+      "x": 1.5,
+      "access": "before_barrier",
+      "resource": "Stone",
+      "baseYield": 2,
+      "axeYield": 2
+    },
+    {
+      "ledgerAlias": "node.near.food",
+      "x": 4.1,
+      "access": "before_barrier",
+      "resource": "Food",
+      "baseYield": 2,
+      "axeYield": 2
+    },
+    {
+      "ledgerAlias": "node.near.salvage",
+      "x": 6.8,
+      "access": "before_barrier",
+      "resource": "Salvage",
+      "baseYield": 2,
+      "axeYield": 2
+    },
+    {
+      "ledgerAlias": "node.far.wood",
+      "x": 10.2,
+      "access": "requires_stone_axe",
+      "resource": "Wood",
+      "baseYield": 2,
+      "axeYield": 3
+    },
+    {
+      "ledgerAlias": "node.far.salvage.1",
+      "x": 12.8,
+      "access": "requires_stone_axe",
+      "resource": "Salvage",
+      "baseYield": 2,
+      "axeYield": 2
+    },
+    {
+      "ledgerAlias": "node.far.stone",
+      "x": 15.2,
+      "access": "requires_stone_axe",
+      "resource": "Stone",
+      "baseYield": 2,
+      "axeYield": 2
+    },
+    {
+      "ledgerAlias": "node.far.salvage.2",
+      "x": 17.7,
+      "access": "requires_stone_axe",
+      "resource": "Salvage",
+      "baseYield": 2,
+      "axeYield": 2
+    }
+  ],
+  "jsonlContract": {
+    "schemaVersion": 1,
+    "stableEventNames": [
+      "log.started",
+      "log.stopped",
+      "session.started",
+      "day.changed",
+      "day.survived",
+      "phase.changed",
+      "resource.changed",
+      "facility.proximity.entered",
+      "facility.proximity.exited",
+      "facility.popup.opened",
+      "facility.popup.closed",
+      "facility.action.completed",
+      "facility.action.rejected",
+      "research.completed",
+      "crafting.completed",
+      "bag.capacity.upgraded",
+      "swimming.entered",
+      "swimming.exited",
+      "vine_barrier.blocked",
+      "vine_barrier.cleared",
+      "signal.stage1.completed",
+      "signal.stage2.completed",
+      "run.completed"
+    ],
+    "automaticFields": [
+      "schema_version",
+      "sequence",
+      "run_id",
+      "utc",
+      "event_name",
+      "locale",
+      "input_device",
+      "target_kind",
+      "target_id",
+      "action",
+      "outcome",
+      "resource",
+      "resource_location",
+      "delta",
+      "state_before",
+      "state_after"
+    ],
+    "humanOnlyJudgments": [
+      "why a target or action was selected",
+      "whether a prompt, cost, or failure reason was understood",
+      "why loot was replaced, abandoned, or deferred",
+      "why bag, room, or signal was prioritized",
+      "perceived hunger, energy, swimming, and comedy pressure",
+      "visible committed module and connector state"
+    ],
+    "modulePreviewAutomatic": {
+      "eventName": "facility.action.completed",
+      "action": "module.preview"
+    },
+    "moduleCommitPartialAutomatic": {
+      "eventName": "resource.changed",
+      "actionPattern": "module.commit.<upper|side|basement>",
+      "expectedDeltas": [
+        "storage Wood -2",
+        "storage Salvage -1"
+      ],
+      "limitation": "There is no dedicated module.committed event and committedModuleId is absent from the state fingerprint, so JSONL alone cannot prove visible room commitment."
+    },
+    "otherLimitations": [
+      "Individual resource node IDs are not logged.",
+      "Pending-loot discard or replacement intent is not logged as a stable event.",
+      "There is no starved runtime result; hunger pressure must remain separate from run.completed outcome."
+    ]
+  },
+  "routes": [
+    {
+      "routeId": "route.wave14.basic-bag4-rescue-d3",
+      "status": "UNRUN",
+      "objective": "Rescue on Day 3 with bag4, workbench and rope only, using before-barrier and water nodes.",
+      "expectedResult": "rescued",
+      "expectedResultDay": 3,
+      "dayLedger": [
+        {
+          "day": 1,
+          "startStorage": "W2/S1/F0/D0",
+          "nodes": [
+            "node.water.salvage",
+            "node.water.food",
+            "node.near.wood",
+            "node.near.salvage"
+          ],
+          "bagAtReturn": "W2/F2/D4; 4 of 4 slots",
+          "inflow": "W2/S0/F2/D4",
+          "spend": "workbench W2/D1; rope research D1; rope craft W1/D1; food F1",
+          "endStorage": "W1/S1/F1/D1",
+          "signalAfter": 0,
+          "bagSlotsAfter": 4,
+          "energyAtReturnReference": 67.515,
+          "energyAfterSettlementReference": 87.515,
+          "hungerAfterSettlement": 65,
+          "resultAfter": "none"
+        },
+        {
+          "day": 2,
+          "startStorage": "W1/S1/F1/D1",
+          "nodes": [
+            "node.water.salvage",
+            "node.water.food",
+            "node.near.wood",
+            "node.near.salvage"
+          ],
+          "bagAtReturn": "W2/F2/D4; 4 of 4 slots",
+          "inflow": "W2/S0/F2/D4",
+          "spend": "signal1 W2/D2; food F1",
+          "endStorage": "W1/S1/F2/D3",
+          "signalAfter": 1,
+          "bagSlotsAfter": 4,
+          "energyAtReturnReference": 55.03,
+          "energyAfterSettlementReference": 75.03,
+          "hungerAfterSettlement": 65,
+          "resultAfter": "none"
+        },
+        {
+          "day": 3,
+          "startStorage": "W1/S1/F2/D3",
+          "nodes": [
+            "node.near.wood"
+          ],
+          "bagAtReturn": "W2; 1 of 4 slots",
+          "inflow": "W2/S0/F0/D0",
+          "spend": "signal2 W2/D2",
+          "endStorage": "W1/S1/F2/D1",
+          "signalAfter": 2,
+          "bagSlotsAfter": 4,
+          "energyAtResultReference": 68.949,
+          "hungerAtResult": 65,
+          "resultAfter": "rescued"
+        }
+      ],
+      "requiredEvents": [
+        "swimming.entered",
+        "swimming.exited",
+        "research.completed:rope",
+        "crafting.completed:rope",
+        "signal.stage1.completed",
+        "day.changed:3",
+        "signal.stage2.completed",
+        "run.completed:rescued"
+      ]
+    },
+    {
+      "routeId": "route.wave14.bag6-axe-rescue-d3",
+      "status": "UNRUN",
+      "objective": "Buy the 4-to-6 bag upgrade, clear the barrier, use all six slots, and rescue on Day 3.",
+      "expectedResult": "rescued",
+      "expectedResultDay": 3,
+      "dayLedger": [
+        {
+          "day": 1,
+          "startStorage": "W2/S1/F0/D0",
+          "nodes": [
+            "node.near.wood",
+            "node.near.stone",
+            "node.near.food",
+            "node.near.salvage"
+          ],
+          "bagAtReturn": "W2/S2/F2/D2; 4 of 4 slots",
+          "inflow": "W2/S2/F2/D2",
+          "spend": "workbench W2/D1; axe research S1/D1; axe craft W1/S1; food F1",
+          "endStorage": "W1/S1/F1/D0",
+          "signalAfter": 0,
+          "bagSlotsAfter": 4,
+          "energyAtReturnReference": 75.58,
+          "energyAfterSettlementReference": 95.58,
+          "hungerAfterSettlement": 65,
+          "resultAfter": "none"
+        },
+        {
+          "day": 2,
+          "startStorage": "W1/S1/F1/D0",
+          "nodes": [
+            "node.near.wood",
+            "node.near.salvage",
+            "node.far.salvage.1"
+          ],
+          "bagAtReturn": "W3/D4; 4 of 4 slots",
+          "inflow": "W3/S0/F0/D4",
+          "spend": "rope research D1; rope craft W1/D1; bag upgrade W2/D1; food F1",
+          "endStorage": "W1/S1/F0/D1",
+          "signalAfter": 0,
+          "bagSlotsAfter": 6,
+          "energyAtReturnReference": 76.903,
+          "energyAfterSettlementReference": 96.903,
+          "hungerAfterSettlement": 65,
+          "resultAfter": "none"
+        },
+        {
+          "day": 3,
+          "startStorage": "W1/S1/F0/D1",
+          "nodes": [
+            "node.water.salvage",
+            "node.near.wood",
+            "node.near.food",
+            "node.near.salvage",
+            "node.far.wood"
+          ],
+          "bagAtReturn": "W6/F2/D4; 6 of 6 slots",
+          "inflow": "W6/S0/F2/D4",
+          "spend": "signal1 and signal2 W4/D4",
+          "endStorage": "W3/S1/F2/D1",
+          "signalAfter": 2,
+          "bagSlotsAfter": 6,
+          "energyAtResultReference": 61.272,
+          "hungerAtResult": 65,
+          "resultAfter": "rescued"
+        }
+      ],
+      "requiredEvents": [
+        "research.completed:stone_axe",
+        "crafting.completed:stone_axe",
+        "vine_barrier.cleared",
+        "research.completed:rope",
+        "crafting.completed:rope",
+        "bag.capacity.upgraded:4_to_6",
+        "swimming.entered",
+        "swimming.exited",
+        "signal.stage1.completed",
+        "signal.stage2.completed",
+        "run.completed:rescued"
+      ]
+    },
+    {
+      "routeId": "route.wave14.module1-signal-tension-rescue-d4",
+      "status": "UNRUN",
+      "objective": "Commit one standard room instead of signal stage 1 on Day 2, keep bag4, and recover to rescue on Day 4.",
+      "defaultModuleId": "room.upper.standard",
+      "substitutableModuleIds": [
+        "room.side.standard",
+        "room.basement.standard"
+      ],
+      "expectedResult": "rescued",
+      "expectedResultDay": 4,
+      "dayLedger": [
+        {
+          "day": 1,
+          "startStorage": "W2/S1/F0/D0",
+          "nodes": [
+            "node.water.salvage",
+            "node.water.food",
+            "node.near.wood",
+            "node.near.salvage"
+          ],
+          "bagAtReturn": "W2/F2/D4; 4 of 4 slots",
+          "inflow": "W2/S0/F2/D4",
+          "spend": "workbench W2/D1; rope research D1; rope craft W1/D1; food F1",
+          "endStorage": "W1/S1/F1/D1",
+          "signalAfter": 0,
+          "moduleAfter": null,
+          "bagSlotsAfter": 4,
+          "energyAfterSettlementReference": 87.515,
+          "hungerAfterSettlement": 65,
+          "resultAfter": "none"
+        },
+        {
+          "day": 2,
+          "startStorage": "W1/S1/F1/D1",
+          "nodes": [
+            "node.water.salvage",
+            "node.water.food",
+            "node.near.wood",
+            "node.near.salvage"
+          ],
+          "bagAtReturn": "W2/F2/D4; 4 of 4 slots",
+          "inflow": "W2/S0/F2/D4",
+          "spend": "room.upper.standard W2/D1; food F1",
+          "endStorage": "W1/S1/F2/D4",
+          "signalAfter": 0,
+          "moduleAfter": "room.upper.standard",
+          "bagSlotsAfter": 4,
+          "energyAfterSettlementReference": 75.03,
+          "hungerAfterSettlement": 65,
+          "resultAfter": "none"
+        },
+        {
+          "day": 3,
+          "startStorage": "W1/S1/F2/D4",
+          "nodes": [
+            "node.water.salvage",
+            "node.water.food",
+            "node.near.wood",
+            "node.near.salvage"
+          ],
+          "bagAtReturn": "W2/F2/D4; 4 of 4 slots",
+          "inflow": "W2/S0/F2/D4",
+          "spend": "signal1 W2/D2; food F1",
+          "endStorage": "W1/S1/F3/D6",
+          "signalAfter": 1,
+          "moduleAfter": "room.upper.standard",
+          "bagSlotsAfter": 4,
+          "energyAfterSettlementReference": 62.545,
+          "hungerAfterSettlement": 65,
+          "resultAfter": "none"
+        },
+        {
+          "day": 4,
+          "startStorage": "W1/S1/F3/D6",
+          "nodes": [
+            "node.near.wood"
+          ],
+          "bagAtReturn": "W2; 1 of 4 slots",
+          "inflow": "W2/S0/F0/D0",
+          "spend": "signal2 W2/D2",
+          "endStorage": "W1/S1/F3/D4",
+          "signalAfter": 2,
+          "moduleAfter": "room.upper.standard",
+          "bagSlotsAfter": 4,
+          "energyAtResultReference": 56.464,
+          "hungerAtResult": 65,
+          "resultAfter": "rescued"
+        }
+      ],
+      "requiredEvents": [
+        "facility.action.completed:module.preview",
+        "resource.changed:module.commit.upper:Wood:-2",
+        "resource.changed:module.commit.upper:Salvage:-1",
+        "signal.stage1.completed",
+        "day.changed:4",
+        "signal.stage2.completed",
+        "run.completed:rescued"
+      ],
+      "manualRequired": [
+        "room.upper.standard is visibly committed",
+        "the connector and room appear",
+        "no second module is committed"
+      ]
+    },
+    {
+      "routeId": "route.wave14.oversearch-hunger-deadline-d5",
+      "status": "UNRUN",
+      "objective": "Over-search in water, never eat, preserve signal0 through Day 5, and prove Day 3/4 continuation plus exact Day 5 deadline.",
+      "expectedResult": "deadline",
+      "expectedResultDay": 5,
+      "dayLedger": [
+        {
+          "day": 1,
+          "startStorage": "W2/S1/F0/D0",
+          "nodes": [
+            "node.water.salvage",
+            "node.water.food"
+          ],
+          "routeAction": "Keep swimming until daylight 50±2, return manually, do not eat.",
+          "inflow": "W0/S0/F2/D2",
+          "spend": "none",
+          "endStorage": "W2/S1/F2/D2",
+          "energyAtReturnReference": 53.809,
+          "energyAfterSettlementReference": 73.809,
+          "hungerAfterSettlement": 35,
+          "signalAfter": 0,
+          "resultAfter": "none"
+        },
+        {
+          "day": 2,
+          "startStorage": "W2/S1/F2/D2",
+          "nodes": [
+            "node.water.salvage",
+            "node.water.food"
+          ],
+          "routeAction": "Repeat Day 1, return at daylight 50±2, do not eat.",
+          "inflow": "W0/S0/F2/D2",
+          "spend": "none",
+          "endStorage": "W2/S1/F4/D4",
+          "energyAtReturnReference": 27.618,
+          "energyAfterSettlementReference": 20,
+          "hungerAfterSettlement": 0,
+          "signalAfter": 0,
+          "resultAfter": "none"
+        },
+        {
+          "day": 3,
+          "startStorage": "W2/S1/F4/D4",
+          "nodes": [],
+          "routeAction": "Begin search and return immediately; do not eat.",
+          "inflow": "W0/S0/F0/D0",
+          "spend": "none",
+          "endStorage": "W2/S1/F4/D4",
+          "energyAfterSettlementReference": 20,
+          "hungerAfterSettlement": 0,
+          "signalAfter": 0,
+          "resultAfter": "none"
+        },
+        {
+          "day": 4,
+          "startStorage": "W2/S1/F4/D4",
+          "nodes": [],
+          "routeAction": "Begin search and return immediately; do not eat.",
+          "inflow": "W0/S0/F0/D0",
+          "spend": "none",
+          "endStorage": "W2/S1/F4/D4",
+          "energyAfterSettlementReference": 20,
+          "hungerAfterSettlement": 0,
+          "signalAfter": 0,
+          "resultAfter": "none"
+        },
+        {
+          "day": 5,
+          "startStorage": "W2/S1/F4/D4",
+          "nodes": [],
+          "routeAction": "Begin search, return immediately, do not eat, and end Day 5.",
+          "inflow": "W0/S0/F0/D0",
+          "spend": "none",
+          "endStorage": "W2/S1/F4/D4",
+          "energyAtResultReference": 20,
+          "hungerAtResult": 0,
+          "signalAfter": 0,
+          "resultAfter": "deadline"
+        }
+      ],
+      "requiredEvents": [
+        "swimming.entered",
+        "swimming.exited",
+        "day.changed:3",
+        "day.changed:4",
+        "day.changed:5",
+        "run.completed:deadline"
+      ],
+      "forbiddenEvents": [
+        "signal.stage1.completed",
+        "signal.stage2.completed",
+        "bag.capacity.upgraded"
+      ],
+      "separateExhaustionBranch": "If the player continues swimming from Day 2 daylight 50 until Energy reaches zero, run.completed:exhausted must occur before the Day 5 ledger. Record this as a separate run."
+    }
+  ],
+  "arithmeticVerification": {
+    "resourceOrder": [
+      "Wood",
+      "Stone",
+      "Food",
+      "Salvage"
+    ],
+    "equation": "start + inflow - spend = end",
+    "days": [
+      {
+        "routeId": "route.wave14.basic-bag4-rescue-d3",
+        "day": 1,
+        "start": [2, 1, 0, 0],
+        "inflow": [2, 0, 2, 4],
+        "spend": [3, 0, 1, 3],
+        "end": [1, 1, 1, 1]
+      },
+      {
+        "routeId": "route.wave14.basic-bag4-rescue-d3",
+        "day": 2,
+        "start": [1, 1, 1, 1],
+        "inflow": [2, 0, 2, 4],
+        "spend": [2, 0, 1, 2],
+        "end": [1, 1, 2, 3]
+      },
+      {
+        "routeId": "route.wave14.basic-bag4-rescue-d3",
+        "day": 3,
+        "start": [1, 1, 2, 3],
+        "inflow": [2, 0, 0, 0],
+        "spend": [2, 0, 0, 2],
+        "end": [1, 1, 2, 1]
+      },
+      {
+        "routeId": "route.wave14.bag6-axe-rescue-d3",
+        "day": 1,
+        "start": [2, 1, 0, 0],
+        "inflow": [2, 2, 2, 2],
+        "spend": [3, 2, 1, 2],
+        "end": [1, 1, 1, 0]
+      },
+      {
+        "routeId": "route.wave14.bag6-axe-rescue-d3",
+        "day": 2,
+        "start": [1, 1, 1, 0],
+        "inflow": [3, 0, 0, 4],
+        "spend": [3, 0, 1, 3],
+        "end": [1, 1, 0, 1]
+      },
+      {
+        "routeId": "route.wave14.bag6-axe-rescue-d3",
+        "day": 3,
+        "start": [1, 1, 0, 1],
+        "inflow": [6, 0, 2, 4],
+        "spend": [4, 0, 0, 4],
+        "end": [3, 1, 2, 1]
+      },
+      {
+        "routeId": "route.wave14.module1-signal-tension-rescue-d4",
+        "day": 1,
+        "start": [2, 1, 0, 0],
+        "inflow": [2, 0, 2, 4],
+        "spend": [3, 0, 1, 3],
+        "end": [1, 1, 1, 1]
+      },
+      {
+        "routeId": "route.wave14.module1-signal-tension-rescue-d4",
+        "day": 2,
+        "start": [1, 1, 1, 1],
+        "inflow": [2, 0, 2, 4],
+        "spend": [2, 0, 1, 1],
+        "end": [1, 1, 2, 4]
+      },
+      {
+        "routeId": "route.wave14.module1-signal-tension-rescue-d4",
+        "day": 3,
+        "start": [1, 1, 2, 4],
+        "inflow": [2, 0, 2, 4],
+        "spend": [2, 0, 1, 2],
+        "end": [1, 1, 3, 6]
+      },
+      {
+        "routeId": "route.wave14.module1-signal-tension-rescue-d4",
+        "day": 4,
+        "start": [1, 1, 3, 6],
+        "inflow": [2, 0, 0, 0],
+        "spend": [2, 0, 0, 2],
+        "end": [1, 1, 3, 4]
+      },
+      {
+        "routeId": "route.wave14.oversearch-hunger-deadline-d5",
+        "day": 1,
+        "start": [2, 1, 0, 0],
+        "inflow": [0, 0, 2, 2],
+        "spend": [0, 0, 0, 0],
+        "end": [2, 1, 2, 2]
+      },
+      {
+        "routeId": "route.wave14.oversearch-hunger-deadline-d5",
+        "day": 2,
+        "start": [2, 1, 2, 2],
+        "inflow": [0, 0, 2, 2],
+        "spend": [0, 0, 0, 0],
+        "end": [2, 1, 4, 4]
+      },
+      {
+        "routeId": "route.wave14.oversearch-hunger-deadline-d5",
+        "day": 3,
+        "start": [2, 1, 4, 4],
+        "inflow": [0, 0, 0, 0],
+        "spend": [0, 0, 0, 0],
+        "end": [2, 1, 4, 4]
+      },
+      {
+        "routeId": "route.wave14.oversearch-hunger-deadline-d5",
+        "day": 4,
+        "start": [2, 1, 4, 4],
+        "inflow": [0, 0, 0, 0],
+        "spend": [0, 0, 0, 0],
+        "end": [2, 1, 4, 4]
+      },
+      {
+        "routeId": "route.wave14.oversearch-hunger-deadline-d5",
+        "day": 5,
+        "start": [2, 1, 4, 4],
+        "inflow": [0, 0, 0, 0],
+        "spend": [0, 0, 0, 0],
+        "end": [2, 1, 4, 4]
+      }
+    ]
+  },
+  "koEnCommonJudgment": {
+    "sameNumericContract": true,
+    "sameRouteIds": true,
+    "sameThresholds": true,
+    "meaningCheck": "In the active locale, the player explains the same missing resource, prerequisite and result cause without requiring word-for-word translation.",
+    "qpsLongHumanEvidenceAllowed": false,
+    "rules": [
+      "Never loosen a resource, time, day, signal, bag or result acceptance threshold for one locale.",
+      "Treat a KO/EN meaning mismatch as localization or discovery evidence before balance.",
+      "Do not combine locale ratings or comprehension with automation."
+    ]
+  },
+  "decisionGate": {
+    "singleOwnerRunCanChangeBalance": false,
+    "minimumBeforeProposal": {
+      "validHumanSessions": 6,
+      "ko": 3,
+      "en": 3,
+      "sameResourceCauseSessions": 2,
+      "discoveryAndComprehensionMustPass": true
+    },
+    "triageOrder": [
+      "technical_and_log_integrity",
+      "discovery_prompt_and_locale_meaning",
+      "route_focus_and_navigation",
+      "twenty_minute_pacing",
+      "one_balance_axis_proposal"
+    ],
+    "oneAxisOptions": [
+      "RESOURCE_INFLOW",
+      "INVESTMENT_COST",
+      "SURVIVAL_PRESSURE"
+    ],
+    "calendarChangeAllowedByThisGate": false,
+    "automaticChange": false,
+    "rerunRequirement": "Use the same four route IDs and the same KO/EN judgment after changing exactly one axis in a new build."
+  },
+  "decisions": [
+    {
+      "id": "decision.wave14.geometry-aware-ledger",
+      "decision": "Only node bundles that fit actual coordinates, barrier access, yields, and 4/6-slot stacking count as natural-route specifications."
+    },
+    {
+      "id": "decision.wave14.prescribed-route-not-discovery",
+      "decision": "The four directed routes are owner/QA validation and never count as naive first-user discovery sessions."
+    },
+    {
+      "id": "decision.wave14.auto-human-boundary",
+      "decision": "JSONL state and stable events prove numeric transitions; intention, understanding, loot choice, and visible module commitment remain human observations."
+    },
+    {
+      "id": "decision.wave14.one-axis-change",
+      "decision": "Even after the six-session threshold, open at most one balance-axis proposal and never mutate values automatically."
+    }
+  ],
+  "openQuestions": [
+    "Can each directed natural route finish within 20 minutes in the actual Windows Development Build?",
+    "How far do human movement and popup dwell times spread Energy and Daylight from the diagnostic references?",
+    "Should a later implementation add a dedicated module.committed event and committedModuleId to the fingerprint?"
+  ],
+  "blockers": [
+    "All four fresh natural runs and their original JSONL files are still missing.",
+    "The existing natural-route, integrated human, and bag-upgrade QA tasks cannot be completed from this arithmetic specification.",
+    "KO3/EN3 first-user sessions and physical-gamepad human evidence remain missing."
+  ],
+  "outOfScope": [
+    "runtime_or_qa_code_change",
+    "balance_cost_yield_or_survival_change",
+    "calendar_change",
+    "new_content_or_mechanic",
+    "fabricated_human_or_physical_gamepad_result",
+    "historical_evidence_mutation",
+    "steam_title_or_app_id_decision"
+  ],
+  "documents": [
+    "Docs/Design/Playtest/wave14-natural-route-ledger.md"
+  ]
+}

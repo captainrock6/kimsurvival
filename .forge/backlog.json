@@ -2296,6 +2296,57 @@
       "createdAt": "2026-08-23T13:20:00.000Z"
     },
     {
+      "id": "task.design.wave14-natural-route-ledger",
+      "lane": "design",
+      "title": "Wave 14 5일 자연 플레이 경로·밸런스 장부",
+      "description": "fresh save, grant/warp 없음으로 실행할 기본 bag4, bag 4→6, 방 모듈 1개 경쟁, 과수색·허기·Day 5 실패의 네 경로를 동결된 밸런스 v0.2와 Wave 13 JSONL 계약에 맞춰 정본화한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave13-owner-playtest-intake"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.survival-pressure",
+        "feature.inventory-choice",
+        "feature.inventory-capacity-upgrade",
+        "feature.crafting-research",
+        "feature.camp-object-interaction",
+        "feature.camp-module-expansion",
+        "feature.escape-outcome",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "현재 런타임 좌표·장벽 접근·노드 수확량·4/6칸 중첩을 만족하는 네 fresh natural route를 일자별 자원 원장과 결말로 정의한다.",
+        "밸런스 v0.2, Day 5 기한, 비용·획득량·E/H/L을 변경하지 않고 15개 일자의 시작+유입-지출=종료와 음수 없음이 성립한다.",
+        "Wave 13 stable JSONL event와 자동 수집값을 사람의 의도·이해·가시적 module 확정 판단과 분리한다.",
+        "KO/EN은 같은 수치·결말·의미 판정을 쓰고 qps-long, 물리 게임패드, 실행하지 않은 사용자 결과를 인간 PASS로 계산하지 않는다.",
+        "유효 KO3/EN3 외부 6세션과 같은 RESOURCE 원인 2회 전에는 값을 바꾸지 않으며, 이후에도 한 빌드에서 한 balance axis만 제안한다.",
+        "네 자연 run은 실제 실행 전 UNRUN이고 기존 자연 경로·가방·인간 QA 항목의 상태를 완료로 바꾸지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/Playtest/wave14-natural-route-ledger.md",
+        ".forge/design/wave14-natural-route-ledger.json",
+        ".forge/backlog.json"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/wave14-natural-route-ledger.md",
+        ".forge/design/wave14-natural-route-ledger.json",
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypePlaytestEventLog.cs",
+        "Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/wave11-full-regression.txt",
+        "Artifacts/ParallelQA/20260823T123000Z_386a602_wave13_release/wave13-playtest-package.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T14:40:00.000Z",
+      "note": "설계 산술과 실행 계약만 완료했다. 네 natural run과 인간 세션은 UNRUN, 물리 게임패드는 UNVERIFIED이며 기존 QA·implementation 상태는 변경하지 않았다.",
+      "completedAt": "2026-08-23T14:40:00.000Z",
+      "createdAt": "2026-08-23T14:40:00.000Z"
+    },
+    {
       "id": "task.postslice.steam-release-readiness",
       "lane": "implementation",
       "title": "수직 슬라이스 이후 Steam 출하 준비",
@@ -2325,5 +2376,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T13:20:00.000Z"
+  "updatedAt": "2026-08-23T14:40:00.000Z"
 }
