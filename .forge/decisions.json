@@ -210,7 +210,49 @@
       "rationale": "표준 밸런스와 QA 기준을 보존하면서 장기적으로 다양한 플레이 방식을 지원한다.",
       "source": "user-confirmed",
       "createdAt": "2026-08-23T14:16:09.801Z"
+    },
+    {
+      "id": "decision.wave15-five-method-axis-separation",
+      "summary": "escape.raft, smoke, radio, flare, beacon은 지역·연구·설비·핵심 부품·타이밍·위험 중 최소 두 축 이상 다르게 유지한다.",
+      "rationale": "다섯 탈출법이 재료명만 바뀐 동일 제작 버튼으로 수렴하지 않게 한다.",
+      "source": "wave15-design-contract",
+      "createdAt": "2026-08-23T14:52:07.110Z"
+    },
+    {
+      "id": "decision.wave15-protected-part-pity",
+      "summary": "핵심 부품은 seed당 최소 세 탈출 경로를 보장하고 primary·alternative 획득처, eligible-search pity와 획득 후 삭제 방지를 가진다.",
+      "rationale": "50일 run이 순수 RNG나 도난 한 번으로 softlock되는 것을 막되 탐색 불확실성은 유지한다.",
+      "source": "wave15-design-contract",
+      "createdAt": "2026-08-23T14:52:07.110Z"
+    },
+    {
+      "id": "decision.wave15-hazard-budget-atomicity",
+      "summary": "일일 위험 예산과 동시 active 제한을 두고 모든 위험 결과를 run-local idempotency key를 가진 원자 transaction으로 적용한다.",
+      "rationale": "여러 위험이 동시에 감당 불가능하게 폭발하거나 입력 재시도로 자원·피해가 중복되는 것을 막는다.",
+      "source": "wave15-design-contract",
+      "createdAt": "2026-08-23T14:52:07.110Z"
+    },
+    {
+      "id": "decision.wave15-ending-hysteresis-resolution",
+      "summary": "행동 정체성은 일일 cap과 switch lead hysteresis로 누적하고 rare→comic→normal→Day50 lifestyle→fallback 순서와 고정 tie-breaker로 하나의 엔딩만 판정한다.",
+      "rationale": "마지막 행동 하나가 50일 생활 방식을 뒤집지 않으면서 같은 snapshot의 결정론을 보장한다.",
+      "source": "wave15-design-contract",
+      "createdAt": "2026-08-23T14:52:07.110Z"
+    },
+    {
+      "id": "decision.wave15-smoke-data-not-final-balance",
+      "summary": "준비 일수, 자원 풍부함, pity 횟수, 위험 예산과 행동 임계값은 SAMPLE_ONLY이며 첫 구현 smoke와 플레이테스트 뒤 한 축씩 조정한다.",
+      "rationale": "정식 50일 경제를 실행 증거 없이 조기 확정하지 않는다.",
+      "source": "wave15-design-contract",
+      "createdAt": "2026-08-23T14:52:07.110Z"
+    },
+    {
+      "id": "decision.wave15-achievement-mapping-future-only",
+      "summary": "각 ending의 achievementMappingId는 향후 Steam 매핑용 안정 키일 뿐 현재 Steamworks 설정이나 업적 해금을 만들지 않는다.",
+      "rationale": "게임 내 갤러리와 외부 플랫폼 연동의 수명 주기와 권한을 분리한다.",
+      "source": "wave15-design-contract",
+      "createdAt": "2026-08-23T14:52:07.110Z"
     }
   ],
-  "updatedAt": "2026-08-23T14:16:09.801Z"
+  "updatedAt": "2026-08-23T14:52:07.110Z"
 }

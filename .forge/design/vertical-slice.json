@@ -11,7 +11,8 @@
     "배고픔과 함께 부상 1종, 기상 위험 1종, 캠프 식량 도난 또는 야생동물 침입 1종의 예고·발생·완화·회복 상태",
     "다섯 탈출 방법의 안정 ID와 데이터 계약, 그중 연기 신호와 무전 신호 두 경로의 플레이 가능한 대표 구현",
     "수영·농사 준비·사냥 또는 덫·기계공학·건설·수색·위험 대응·탈출법 선택을 기록할 행동 통계 기반",
-    "탈출 방식·우세 행동·특별 사건을 입력으로 받는 결정론적 엔딩 판정기와 정상·코믹·Day 50 잔류를 포함한 최소 4개 샘플 엔딩",
+    "정상 5·병맛 5·희귀 4·Day 50 잔류 5의 19개 ending ID 카탈로그와 재사용 modifier panel 계약",
+    "탈출 방식·우세 행동·특별 사건을 입력으로 받는 결정론적 엔딩 판정기와 대표 4개 sample ending",
     "엔진 텍스트를 사용하는 3장짜리 placeholder 코믹북 엔딩 컷신과 엔딩 갤러리 기록",
     "기존 직접 조작 캠프, 제한적 자유 배치, 모듈 증축, 4→6 가방, 육상·수영 수색의 회귀 보존",
     "한국어 기본·영어 지원·qps-long 레이아웃 검증과 키보드·게임패드 공통 액션 구조"
@@ -37,9 +38,11 @@
     "동일 seed·동일 지역·동일 행동은 같은 핵심 부품 배치를 만들고 서로 다른 seed는 허용 범위 안에서 결과가 달라지며 최소 세 탈출 경로가 softlock되지 않는다.",
     "플레이어가 위험을 사전에 확인하고 장비·설비·지역 변경 중 하나로 피해를 줄일 수 있으며 대부분의 위험은 원인 없이 즉사시키지 않는다.",
     "부상은 미처치 시 악화되고 치료 시 회복되며, 캠프 침입·도난은 저장고 보강 또는 방어 수단으로 완화되고 자원 변화가 한 번만 적용된다.",
-    "다섯 탈출 method ID가 존재하고 연기·무전 두 대표 경로는 서로 다른 자원·연구·설비 요구를 통해 조기 탈출할 수 있다.",
+    "escape.raft/smoke/radio/flare/beacon 다섯 method가 지역·연구·설비·핵심 부품·준비 기간·위험 중 최소 두 축 이상 다르고, 연기·무전 두 대표 경로는 플레이 가능한 smoke data로 조기 탈출할 수 있다.",
+    "시작 3개와 확장 3개의 region profile이 자원 풍부함·위험·날씨·장비·이동 시간·특별 발견과 핵심 부품의 primary·alternative·pity를 모두 가진다.",
+    "배고픔·질병·부상·자연재해·야생동물·식량 도난·캠프 피해의 7개 hazard가 예고→발생→완화→회복, 일일 예산과 원자 transaction을 가진다.",
     "엔딩 판정은 탈출 방법 또는 Day 50 상태, run 전체의 우세 행동 점수, 특별 사건을 순서대로 사용하고 마지막 행동 하나로 우세 생활 방식이 뒤집히지 않는다.",
-    "최소 4개 샘플 엔딩이 서로 다른 안정 ID, 해금 조건, 한국어·영어 제목·요약과 3장 placeholder 컷신을 가진다.",
+    "19개 ending이 안정 ID, ko/en 제목·요약, 3개 core panel beat, modifier panel, 갤러리 힌트와 future-only achievement mapping ID를 가지며 4개 sample ending만 먼저 실행한다.",
     "수집 지도와 엔딩 갤러리에서 미발견 희귀 결과는 실루엣·미확인으로 남아 반복 플레이 목표를 제공한다.",
     "1280×800 ko/en/qps-long에서 지역 카드, 위험 아이콘, 자원 범주, 지도 노드, 엔딩 패널이 잘리거나 겹치지 않고 색상 외 표식으로 상태를 구분한다.",
     "기존 캠프 근접 안내, 배치, 모듈, 가방, 구조 신호, 수영과 qps-long 10/10 GREEN 계약이 회귀하지 않는다.",
@@ -58,5 +61,26 @@
     "Steam 업적을 설계와 결합하면 외부 계정 작업으로 범위가 커지므로 지금은 안정 ending ID와 게임 내 갤러리까지만 구현한다."
   ],
   "playerPromise": "오늘 고른 지역과 감수한 위험, 캠프에 투자한 설비와 탈출 계획이 50일 뒤의 김씨와 엔딩을 바꾼다.",
-  "updatedAt": "2026-08-23T14:16:09.802Z"
+  "updatedAt": "2026-08-23T14:52:07.110Z",
+  "sampleDataContract": {
+    "status": "SAMPLE_ONLY_NOT_FINAL_BALANCE",
+    "source": "project.campaignContentContract.implementationSmoke",
+    "catalogMustLoad": [
+      "5 escape methods",
+      "6 region profiles",
+      "7 hazard profiles",
+      "19 endings",
+      "9 modifier panels"
+    ],
+    "smokeMustExecute": [
+      "3 starting regions",
+      "escape.smoke",
+      "escape.radio",
+      "hazard.injury",
+      "hazard.disaster",
+      "hazard.food-theft",
+      "4 sample endings"
+    ],
+    "balanceFreeze": "Do not treat preparation days, resource abundance, pity counts, hazard budget or behavior thresholds as final fifty-day balance; expose them as data and change one axis only after valid playtest evidence."
+  }
 }

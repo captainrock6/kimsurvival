@@ -37,7 +37,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:21:08.946Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:41.805Z"
@@ -72,7 +72,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:21:09.021Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:41.917Z"
@@ -106,7 +106,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.034Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.034Z",
       "createdAt": "2026-08-22T08:24:42.034Z"
@@ -138,7 +138,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.155Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.154Z",
       "createdAt": "2026-08-22T08:24:42.155Z"
@@ -174,7 +174,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T10:15:38.551Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.262Z",
       "createdAt": "2026-08-22T08:24:42.263Z"
@@ -210,7 +210,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:21:09.127Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:42.368Z"
@@ -252,7 +252,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:21:09.305Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:42.913Z"
@@ -290,7 +290,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-23T14:21:09.397Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.778Z"
@@ -326,7 +326,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.031Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.031Z",
       "createdAt": "2026-08-22T08:24:43.031Z"
@@ -360,7 +360,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.893Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.893Z",
       "createdAt": "2026-08-22T08:24:43.893Z"
@@ -399,7 +399,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.138Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.138Z",
       "createdAt": "2026-08-22T08:24:43.138Z"
@@ -433,7 +433,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:44.007Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.006Z",
       "createdAt": "2026-08-22T08:24:44.007Z"
@@ -481,7 +481,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T10:15:38.551Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.248Z",
       "createdAt": "2026-08-22T08:24:43.249Z"
@@ -528,7 +528,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "최종 일반 ko/en 배치 24/24와 제한적 자유 배치 회귀 PASS로 자동 계약을 완료했다. 물리 패드는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T08:24:44.124Z"
@@ -579,7 +579,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-23T14:21:09.470Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.353Z"
@@ -617,7 +617,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-23T14:21:09.607Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.230Z"
@@ -650,7 +650,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T11:32:13.820Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:13.820Z",
       "createdAt": "2026-08-22T11:32:13.820Z"
@@ -695,7 +695,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T14:17:12.252Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "5일 전이와 동결 계약 회귀는 PASS다. grant·warp 없는 fresh Day 4~5 자연 경로와 완전 자원 장부가 없어 ready를 유지한다.",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "completedAt": "2026-08-23T14:17:12.251Z"
@@ -739,7 +739,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T03:32:10.566Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "",
       "completedAt": "2026-08-23T03:32:10.566Z"
@@ -778,7 +778,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "최종 1280×800 일반 ko/en placement 24/24 및 exploration/swimming 10/10 PASS 증거로 완료했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
@@ -840,7 +840,7 @@
       ],
       "blockedReason": "자동 5일·compact A·Windows 빌드는 PASS다. grant·warp 없는 fresh 자연 경로, 첫 사용자 6세션(ko 3, en 3), 별도 물리 게임패드 ko/en 실기가 아직 없다.",
       "status": "blocked",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Stable legacy ID is preserved. Wave 12 5일 패키지가 canonical 실행 경로이며 외부 결과는 UNRUN, 과거 3일 자동 PASS는 역사적 증거다.",
       "completedAt": null
@@ -894,7 +894,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "Wave 12 P01-P03가 compact A 9-slice, 분리 glyph/TMP, far/near/popup, locale와 입력 의미를 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:35:59.187Z"
@@ -938,7 +938,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "최종 compact A와 직접 설비 상호작용 자동 계약을 통과했다. 물리 게임패드 실기는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -981,7 +981,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "Wave 11 최종 slot edit/play가 이전 expected gap을 닫고 직접 슬롯 3/3, 보행로 3/3, 미리보기·취소·확정 원자성을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:48:19.864Z"
@@ -1015,7 +1015,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:21:09.218Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:42.476Z"
@@ -1060,7 +1060,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-23T14:21:09.692Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.457Z"
@@ -1097,7 +1097,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-23T14:21:09.781Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.342Z"
@@ -1132,7 +1132,9 @@
         "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
         "뗏목·배, 연기, 무전, 조명탄, 고지대 신호의 안정 method ID와 서로 다른 요구 조건이 있다.",
         "Day 50 이전에 완성한 경로는 즉시 해당 탈출 판정을 시작한다.",
-        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다."
+        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다.",
+        "escape.raft, escape.smoke, escape.radio, escape.flare, escape.beacon은 지역·연구·설비·부품·준비 기간·위험 중 최소 두 축 이상 다르다.",
+        "19개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -1147,7 +1149,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-23T14:21:09.871Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.558Z"
@@ -1170,7 +1172,9 @@
         "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
         "뗏목·배, 연기, 무전, 조명탄, 고지대 신호의 안정 method ID와 서로 다른 요구 조건이 있다.",
         "Day 50 이전에 완성한 경로는 즉시 해당 탈출 판정을 시작한다.",
-        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다."
+        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다.",
+        "escape.raft, escape.smoke, escape.radio, escape.flare, escape.beacon은 지역·연구·설비·부품·준비 기간·위험 중 최소 두 축 이상 다르다.",
+        "19개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다."
       ],
       "paths": [
         "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
@@ -1184,7 +1188,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-23T14:21:09.962Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.452Z"
@@ -1210,7 +1214,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -1227,13 +1231,14 @@
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장과 핵심 부품 추적이 자동 검증된다."
+        "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장과 핵심 부품 추적이 자동 검증된다.",
+        "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장, protected part와 3/5 eligible-search SAMPLE pity 추적이 자동 검증된다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -1250,13 +1255,14 @@
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "무예고 치명 결과를 만들지 않고 동시 위험 예산과 평온일 규칙을 지키며 동일 seed를 재현한다."
+        "무예고 치명 결과를 만들지 않고 동시 위험 예산과 평온일 규칙을 지키며 동일 seed를 재현한다.",
+        "배고픔·질병·부상·재해·야생동물·도난·파손이 무예고 치명 결과 없이 동일 seed, 중첩 예산, 평온일과 원자 transaction 규칙을 지킨다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -1273,13 +1279,14 @@
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소를 지원한다."
+        "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소를 지원한다.",
+        "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소와 선언된 실패·변형 사건을 지원한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -1295,13 +1302,14 @@
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "같은 run snapshot은 같은 ending ID를 내고 tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다."
+        "같은 run snapshot은 같은 ending ID를 내고 tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다.",
+        "19개 ending catalog에서 같은 run snapshot은 같은 하나의 ending ID를 내고 priority, 조건 수, 사건 시점, ASCII ID tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -1332,7 +1340,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -1359,7 +1367,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.feature.feature.resource-randomization",
@@ -1382,14 +1390,15 @@
         "같은 seed와 행동은 같은 핵심 결과를 재현한다.",
         "다른 seed는 정의된 범위 안에서 자원 전망과 발견 결과가 달라진다.",
         "표준 run에서 최소 세 탈출 경로가 핵심 부품 부재로 막히지 않는다.",
-        "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다."
+        "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다.",
+        "장기 미발견 핵심 부품은 primary·alternative 획득처, eligible-search pity, 획득 후 삭제 방지와 손상 시 복구 경로를 모두 제공한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.qa.feature.resource-randomization",
@@ -1408,14 +1417,15 @@
         "같은 seed와 행동은 같은 핵심 결과를 재현한다.",
         "다른 seed는 정의된 범위 안에서 자원 전망과 발견 결과가 달라진다.",
         "표준 run에서 최소 세 탈출 경로가 핵심 부품 부재로 막히지 않는다.",
-        "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다."
+        "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다.",
+        "장기 미발견 핵심 부품은 primary·alternative 획득처, eligible-search pity, 획득 후 삭제 방지와 손상 시 복구 경로를 모두 제공한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.feature.feature.survival-hazards",
@@ -1440,14 +1450,15 @@
         "위험은 발생 전에 지도·날씨·환경 단서 중 하나로 예고된다.",
         "각 위험은 최소 하나의 준비 또는 완화 수단과 최소 하나의 회복 수단을 가진다.",
         "부상·질병은 미처치 악화와 치료 회복 상태를 구분한다.",
-        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다."
+        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다.",
+        "배고픔 포함 7개 hazard는 일일 중첩 예산과 run-local idempotency key를 공유하고 입력·locale 전환으로 중복 적용되지 않는다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.qa.feature.survival-hazards",
@@ -1466,14 +1477,15 @@
         "위험은 발생 전에 지도·날씨·환경 단서 중 하나로 예고된다.",
         "각 위험은 최소 하나의 준비 또는 완화 수단과 최소 하나의 회복 수단을 가진다.",
         "부상·질병은 미처치 악화와 치료 회복 상태를 구분한다.",
-        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다."
+        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다.",
+        "배고픔 포함 7개 hazard는 일일 중첩 예산과 run-local idempotency key를 공유하고 입력·locale 전환으로 중복 적용되지 않는다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.implementation.wave15-campaign-map-foundation",
@@ -1504,7 +1516,7 @@
       "blockedReason": "",
       "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:17:12.158Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.implementation.wave15-hazard-ending-foundation",
@@ -1536,7 +1548,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.qa.wave15-campaign-map-redfirst",
@@ -1565,7 +1577,7 @@
       "blockedReason": "",
       "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:17:12.158Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.system.system.comedy-feedback",
@@ -1596,7 +1608,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.590Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.589Z",
       "createdAt": "2026-08-22T08:24:42.590Z"
@@ -1629,7 +1641,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.698Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.697Z",
       "createdAt": "2026-08-22T08:24:42.698Z"
@@ -1660,7 +1672,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.801Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.800Z",
       "createdAt": "2026-08-22T08:24:42.801Z"
@@ -1695,7 +1707,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.665Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.664Z",
       "createdAt": "2026-08-22T08:24:43.665Z"
@@ -1731,8 +1743,9 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "Wave 12 합성 입력의 prompt·locale·진행 독립성은 PASS다. 실제 게임패드는 UNVERIFIED이므로 ready를 유지한다."
+      "updatedAt": "2026-08-23T14:52:07.113Z",
+      "note": "Wave 12 합성 입력의 prompt·locale·진행 독립성은 PASS다. 실제 게임패드는 UNVERIFIED이므로 ready를 유지한다.",
+      "createdAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.system.system.swimming",
@@ -1759,7 +1772,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T09:25:36.302Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
       "completedAt": "2026-08-22T09:25:36.301Z",
       "createdAt": "2026-08-22T09:25:36.302Z"
@@ -1800,7 +1813,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T09:25:37.709Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
       "completedAt": "2026-08-22T09:25:37.708Z",
       "createdAt": "2026-08-22T09:25:37.709Z"
@@ -1833,7 +1846,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T09:25:39.001Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
       "completedAt": "2026-08-22T09:25:39.001Z",
       "createdAt": "2026-08-22T09:25:39.001Z"
@@ -1868,7 +1881,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T11:32:14.998Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:14.998Z",
       "createdAt": "2026-08-22T11:32:14.998Z"
@@ -1904,7 +1917,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T11:32:16.130Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:16.130Z",
       "createdAt": "2026-08-22T11:32:16.130Z"
@@ -1952,7 +1965,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T13:34:37.660Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "Wave 14 제품 레이아웃 수정으로 1280x800 ko/en 배치 24/24, 수색·수영 10/10, 실제 qps-long 10/10을 PASS했다. locale/device 전환의 target·진행 지문 불변과 Wave 13 로그 포함 표준 Edit/Play 회귀를 재검증했다. 물리 게임패드 실기는 별도 dual-input QA 항목에 UNVERIFIED로 유지한다.",
       "completedAt": "2026-08-23T13:34:37.659Z",
       "createdAt": "2026-08-23T13:34:37.660Z"
@@ -1995,7 +2008,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T09:35:20.554Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Actual non-shipping qps-long locale passes data-driven module and layout checks while the player locale cycle remains ko/en.",
       "completedAt": "2026-08-23T09:35:20.554Z"
@@ -2026,7 +2039,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T03:05:27.413Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "4→6칸 원자적 1회 확장, 날짜 유지, 새 게임 초기화 및 KO/EN 상태 계약 통과.",
       "completedAt": "2026-08-23T03:05:27.413Z",
       "createdAt": "2026-08-23T03:05:27.413Z"
@@ -2066,7 +2079,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T03:05:27.511Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "가방 기능 자체는 완료 상태를 유지한다. 기존 자연 3일 구조 경로는 조기 성공 증거이며 Wave 12 통합 경로는 새 QA 대상이다.",
       "completedAt": "2026-08-23T03:05:27.510Z",
       "createdAt": "2026-08-23T03:05:27.511Z"
@@ -2103,7 +2116,7 @@
       ],
       "blockedReason": "4→6 기능과 원자성은 최종 회귀 PASS다. 구매 후 grant·warp 없는 자연 Day 4~5 구조 경로의 독립 증거가 아직 없다.",
       "status": "blocked",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "기능 회귀 PASS는 보존한다. 자연 경로와 물리 게임패드 실기 결과를 자동 계약과 섞지 않는다.",
       "completedAt": null,
       "createdAt": "2026-08-23T03:05:27.603Z"
@@ -2148,7 +2161,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T08:14:57.365Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "모듈 기능 자체는 완료 상태를 유지한다. Day 3 증축+구조 원장은 숙련자 조기 성공 증거이고, 첫 플레이어 Day 4~5 경로는 새 통합 QA 대상이다.",
       "completedAt": "2026-08-23T08:14:57.365Z"
     },
@@ -2190,7 +2203,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "note": "Wave 11 slot 계약과 최종 5일 전체 회귀가 W2/D1, run당 1회, 실패 무변경, 연결·통로 보존을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -2215,13 +2228,15 @@
         "행동 점수는 안정 category ID와 누적 규칙을 가진다.",
         "우세 생활 방식은 최소 기준과 tie-breaker를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
         "특별 사건 플래그가 필요한 희귀 엔딩은 행동 점수만으로 해금되지 않는다.",
-        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다."
+        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다.",
+        "우세 생활 방식은 action cap, 최소 기준, initial/switch lead와 hysteresis를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
+        "rare→comic→normal→Day50 lifestyle→fallback과 명시적 tie-breaker가 같은 snapshot에서 하나의 ending만 고른다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -2241,14 +2256,16 @@
         "행동 점수는 안정 category ID와 누적 규칙을 가진다.",
         "우세 생활 방식은 최소 기준과 tie-breaker를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
         "특별 사건 플래그가 필요한 희귀 엔딩은 행동 점수만으로 해금되지 않는다.",
-        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다."
+        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다.",
+        "우세 생활 방식은 action cap, 최소 기준, initial/switch lead와 hysteresis를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
+        "rare→comic→normal→Day50 lifestyle→fallback과 명시적 tie-breaker가 같은 snapshot에서 하나의 ending만 고른다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.qa.wave15-hazard-ending-redfirst",
@@ -2273,9 +2290,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
+      "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.system.system.ending-gallery",
@@ -2291,13 +2308,14 @@
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "게임 내 해금은 Steam 연결 없이 동작하며 외부 업적 키 부재가 플레이를 막지 않는다."
+        "게임 내 해금은 Steam 연결 없이 동작하며 외부 업적 키 부재가 플레이를 막지 않는다.",
+        "게임 내 해금·힌트·modifier panel은 Steam 연결 없이 동작하며 achievementMappingId는 future-only이고 외부 업적 키 부재가 플레이를 막지 않는다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -2327,7 +2345,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.qa.feature.ending-gallery",
@@ -2352,7 +2370,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.postslice.steam-release-readiness",
@@ -2380,7 +2398,7 @@
       ],
       "blockedReason": "수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.",
       "status": "blocked",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "updatedAt": "2026-08-23T14:52:07.113Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
     {
@@ -2410,7 +2428,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     },
     {
       "id": "task.qa.feature.custom-run-settings",
@@ -2435,8 +2453,8 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:16:09.804Z"
+      "updatedAt": "2026-08-23T14:52:07.113Z"
     }
   ],
-  "updatedAt": "2026-08-23T14:21:09.963Z"
+  "updatedAt": "2026-08-23T14:52:07.110Z"
 }

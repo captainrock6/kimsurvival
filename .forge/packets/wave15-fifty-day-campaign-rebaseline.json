@@ -69,8 +69,476 @@
       "엔딩 컷신은 3~5장 코믹북 패널을 기본으로 하고 희귀 대표 엔딩만 추가 애니메이션을 받을 수 있다.",
       "게임 내 엔딩 갤러리는 실루엣과 비스포일러 힌트를 제공하며, 사용자 설정 run의 업적 인정 정책은 Steam 연동 단계에서 별도로 결정한다.",
       "현재 5일 빌드와 Wave 12~14 자연 경로 문서는 새 구조의 구현 증거가 아니라 기존 캠프·수색·UI·원자성 회귀 기준으로만 보존한다.",
-      "사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다."
-    ]
+      "사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다.",
+      "Wave 15 콘텐츠 매트릭스의 준비 일수, 위험 예산, pity 횟수와 행동 점수 임계값은 구현 smoke용 SAMPLE_ONLY이며 사용자 플레이테스트 전 정식 50일 밸런스로 잠그지 않는다."
+    ],
+    "campaignContentContract": {
+      "schemaVersion": 1,
+      "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
+      "sourceCommit": "7796cf57568d0bad24595379e833e1dd9b4d8d3f",
+      "balanceStatus": "SAMPLE_ONLY_NOT_FINAL_FIFTY_DAY_BALANCE",
+      "humanDocument": "Docs/Design/wave15-escape-hazard-ending-matrix.md",
+      "escapeMethods": [
+        {
+          "id": "escape.raft",
+          "fantasyKo": "김씨가 직접 엮은 뗏목·소형 범선으로 조류와 날씨를 읽어 섬을 벗어난다.",
+          "fantasyEn": "Mr. Kim builds a raft or tiny sailboat and rides the current off the island.",
+          "primaryRegions": ["region.coast.beach", "region.sea.shallows", "region.cove.wreck"],
+          "researchIds": ["research.ropework", "research.coastal-navigation"],
+          "facilityId": "facility.shore-launch",
+          "coreMaterialCategories": ["resource.wood", "resource.fiber", "resource.fabric", "resource.food", "resource.water"],
+          "keyPartIds": ["part.raft.sailcloth"],
+          "samplePreparationDays": { "min": 6, "max": 10, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.disaster", "hazard.injury", "hazard.hunger"],
+          "failureEventIds": ["event.raft.launch-delayed", "event.raft.drift-return", "event.raft.hull-damaged"],
+          "variantEventIds": ["event.raft.coconut-ballast", "event.current.safe-window"],
+          "differentiationAxes": ["region", "navigation_research", "shore_anchor", "weather_window", "voyage_supplies"],
+          "completionRule": "Launch transaction succeeds only with a completed hull, sailcloth, voyage supplies and an allowed sea-weather window; failure preserves project progress and changes only the declared launch consequence once."
+        },
+        {
+          "id": "escape.smoke",
+          "fantasyKo": "고지대의 대형 연기 설비를 며칠간 유지해 멀리 있는 배나 항공기의 눈에 든다.",
+          "fantasyEn": "A sustained smoke beacon on high ground catches a distant ship or aircraft.",
+          "primaryRegions": ["region.forest.grove", "region.ridge.highland"],
+          "researchIds": ["research.signal-combustion", "research.wind-reading"],
+          "facilityId": "facility.smoke-beacon",
+          "coreMaterialCategories": ["resource.wood", "resource.fiber", "resource.fuel", "resource.fabric"],
+          "keyPartIds": ["part.smoke.catalyst"],
+          "samplePreparationDays": { "min": 3, "max": 6, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.disaster", "hazard.camp-damage", "hazard.hunger"],
+          "failureEventIds": ["event.smoke.rained-out", "event.smoke.wind-wrong-way", "event.smoke.firebreak-breach"],
+          "variantEventIds": ["event.smoke.barbecue-misread", "event.smoke.cloud-letter"],
+          "differentiationAxes": ["highland_region", "combustion_research", "fixed_beacon", "multi_day_fuel", "wind_and_rain"],
+          "completionRule": "A prepared beacon must survive its visible signal window; weather failure consumes only the declared daily fuel batch and never deletes the facility or protected catalyst."
+        },
+        {
+          "id": "escape.radio",
+          "fantasyKo": "폐시설과 난파선에서 모은 부품으로 무전기를 복구하고 정확한 주파수와 위치를 송신한다.",
+          "fantasyEn": "Salvaged electronics become a radio that broadcasts Mr. Kim's position.",
+          "primaryRegions": ["region.cove.wreck", "region.ruins.relay", "region.ridge.highland"],
+          "researchIds": ["research.electronics", "research.radio-frequency"],
+          "facilityId": "facility.radio-bench",
+          "coreMaterialCategories": ["resource.electronics", "resource.wire", "resource.battery", "resource.metal"],
+          "keyPartIds": ["part.radio.transceiver"],
+          "samplePreparationDays": { "min": 8, "max": 14, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.disaster", "hazard.camp-damage", "hazard.disease"],
+          "failureEventIds": ["event.radio.false-reply", "event.radio.water-short", "event.radio.antenna-detuned"],
+          "variantEventIds": ["event.radio.island-dj", "event.radio.repeated-reply"],
+          "differentiationAxes": ["ruin_and_wreck_regions", "electronics_research", "powered_bench", "frequency_puzzle", "moisture_and_lightning"],
+          "completionRule": "A valid reply requires a repaired transceiver, powered antenna and confirmed frequency; a failed transmission records one event and leaves repairable components instead of rerolling them."
+        },
+        {
+          "id": "escape.flare",
+          "fantasyKo": "단 한 번의 조명탄을 구조 대상이 보이는 짧은 시간 창에 정확히 쏜다.",
+          "fantasyEn": "One carefully timed flare turns a passing rescue opportunity into an escape.",
+          "primaryRegions": ["region.coast.beach", "region.sea.shallows", "region.cove.wreck"],
+          "researchIds": ["research.pyrotechnics", "research.signal-timing"],
+          "facilityId": "facility.flare-launcher",
+          "coreMaterialCategories": ["resource.chemicals", "resource.metal", "resource.fabric", "resource.fuel"],
+          "keyPartIds": ["part.flare.cartridge"],
+          "samplePreparationDays": { "min": 4, "max": 8, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.injury", "hazard.camp-damage", "hazard.disaster"],
+          "failureEventIds": ["event.flare.misfire", "event.flare.no-witness", "event.flare.launcher-damaged"],
+          "variantEventIds": ["event.flare.daylight-fireworks", "event.flare.perfect-window"],
+          "differentiationAxes": ["wreck_part", "pyrotechnics_research", "single_use_launcher", "passing_target_window", "misfire_risk"],
+          "completionRule": "Confirmation is enabled only during a telegraphed witness window; a miss or misfire is a single atomic event and never consumes more than the selected cartridge."
+        },
+        {
+          "id": "escape.beacon",
+          "fantasyKo": "산등성이의 폐중계소를 복구해 발전기와 신호등을 다시 켠다.",
+          "fantasyEn": "Mr. Kim restores an abandoned relay station and lights the ridge again.",
+          "primaryRegions": ["region.ridge.highland", "region.ruins.relay", "region.forest.grove"],
+          "researchIds": ["research.structural-repair", "research.generator-repair"],
+          "facilityId": "facility.relay-station",
+          "coreMaterialCategories": ["resource.wood", "resource.stone", "resource.metal", "resource.wire", "resource.fuel"],
+          "keyPartIds": ["part.beacon.generator-coil"],
+          "samplePreparationDays": { "min": 10, "max": 18, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.disaster", "hazard.injury", "hazard.camp-damage"],
+          "failureEventIds": ["event.beacon.power-drop", "event.beacon.stair-collapse", "event.beacon.lightning-trip"],
+          "variantEventIds": ["event.beacon.overpowered", "event.disaster.perfect-mitigation"],
+          "differentiationAxes": ["late_highland_region", "structural_and_generator_research", "fixed_ruin_anchor", "long_repair_chain", "storm_exposure"],
+          "completionRule": "The relay resolves only after structure, generator and signal head are all repaired; a storm trip changes the current powered state once and cannot erase completed structural stages."
+        }
+      ],
+      "regionProfiles": [
+        {
+          "id": "region.coast.beach",
+          "unlockTier": "start",
+          "resourceAbundance": { "abundant": ["resource.wood", "resource.salvage"], "common": ["resource.food", "resource.fabric"], "scarce": ["resource.electronics", "resource.chemicals"] },
+          "hazardIds": ["hazard.hunger", "hazard.injury", "hazard.disaster"],
+          "weatherIds": ["weather.clear", "weather.rain", "weather.high-surf"],
+          "equipmentIds": [],
+          "travelTimeBand": "short",
+          "specialDiscoveryIds": ["discovery.tide-cache", "discovery.sailcloth", "discovery.flare-washup"],
+          "keyPartCandidateIds": ["part.raft.sailcloth", "part.flare.cartridge"],
+          "alternativeRegionIds": ["region.forest.grove", "region.cove.wreck"]
+        },
+        {
+          "id": "region.forest.grove",
+          "unlockTier": "start",
+          "resourceAbundance": { "abundant": ["resource.wood", "resource.fiber"], "common": ["resource.food", "resource.medicine"], "scarce": ["resource.metal", "resource.electronics"] },
+          "hazardIds": ["hazard.hunger", "hazard.disease", "hazard.wildlife"],
+          "weatherIds": ["weather.clear", "weather.heat", "weather.rain"],
+          "equipmentIds": ["tool.stone-axe"],
+          "travelTimeBand": "short",
+          "specialDiscoveryIds": ["discovery.medicinal-grove", "discovery.resin-tree", "discovery.old-trap-line"],
+          "keyPartCandidateIds": ["part.smoke.catalyst", "part.raft.sailcloth"],
+          "alternativeRegionIds": ["region.ridge.highland", "region.coast.beach"]
+        },
+        {
+          "id": "region.sea.shallows",
+          "unlockTier": "start",
+          "resourceAbundance": { "abundant": ["resource.salvage", "resource.food"], "common": ["resource.metal", "resource.wire"], "scarce": ["resource.medicine", "resource.fuel"] },
+          "hazardIds": ["hazard.hunger", "hazard.injury", "hazard.disaster"],
+          "weatherIds": ["weather.clear", "weather.current", "weather.high-surf"],
+          "equipmentIds": ["equipment.swim-ready"],
+          "travelTimeBand": "medium",
+          "specialDiscoveryIds": ["discovery.submerged-crate", "discovery.wreck-chart", "discovery.copper-bundle"],
+          "keyPartCandidateIds": ["part.radio.transceiver", "part.beacon.generator-coil"],
+          "alternativeRegionIds": ["region.cove.wreck", "region.ruins.relay"]
+        },
+        {
+          "id": "region.ridge.highland",
+          "unlockTier": "expansion",
+          "resourceAbundance": { "abundant": ["resource.stone", "resource.wood"], "common": ["resource.fuel", "resource.medicine"], "scarce": ["resource.food", "resource.electronics"] },
+          "hazardIds": ["hazard.injury", "hazard.disaster", "hazard.wildlife"],
+          "weatherIds": ["weather.wind", "weather.lightning", "weather.clear"],
+          "equipmentIds": ["tool.rope", "equipment.weatherproof-kit"],
+          "travelTimeBand": "long",
+          "specialDiscoveryIds": ["discovery.signal-sightline", "discovery.weather-log", "discovery.old-lens"],
+          "keyPartCandidateIds": ["part.smoke.catalyst", "part.beacon.generator-coil"],
+          "alternativeRegionIds": ["region.forest.grove", "region.ruins.relay"]
+        },
+        {
+          "id": "region.cove.wreck",
+          "unlockTier": "expansion",
+          "resourceAbundance": { "abundant": ["resource.metal", "resource.salvage"], "common": ["resource.electronics", "resource.fabric", "resource.chemicals"], "scarce": ["resource.food", "resource.wood"] },
+          "hazardIds": ["hazard.injury", "hazard.disease", "hazard.disaster"],
+          "weatherIds": ["weather.current", "weather.high-surf", "weather.rain"],
+          "equipmentIds": ["equipment.swim-ready", "tool.rope"],
+          "travelTimeBand": "long",
+          "specialDiscoveryIds": ["discovery.radio-chassis", "discovery.flare-locker", "discovery.engine-scrap"],
+          "keyPartCandidateIds": ["part.radio.transceiver", "part.flare.cartridge", "part.raft.sailcloth"],
+          "alternativeRegionIds": ["region.sea.shallows", "region.coast.beach", "region.ruins.relay"]
+        },
+        {
+          "id": "region.ruins.relay",
+          "unlockTier": "expansion",
+          "resourceAbundance": { "abundant": ["resource.electronics", "resource.wire"], "common": ["resource.metal", "resource.fuel"], "scarce": ["resource.food", "resource.fiber"] },
+          "hazardIds": ["hazard.injury", "hazard.camp-damage", "hazard.disaster"],
+          "weatherIds": ["weather.lightning", "weather.wind", "weather.rain"],
+          "equipmentIds": ["tool.rope", "equipment.insulation-kit"],
+          "travelTimeBand": "long",
+          "specialDiscoveryIds": ["discovery.transceiver-core", "discovery.generator-coil", "discovery.relay-log"],
+          "keyPartCandidateIds": ["part.radio.transceiver", "part.beacon.generator-coil"],
+          "alternativeRegionIds": ["region.cove.wreck", "region.sea.shallows", "region.ridge.highland"]
+        }
+      ],
+      "keyPartProtection": {
+        "minimumCompletableEscapeMethodsPerSeed": 3,
+        "seedRule": "After region generation, reroll only key-part placements until at least three escape methods have a primary and alternative acquisition chain.",
+        "ownershipRule": "An acquired key part enters protected project inventory; theft and generic camp damage cannot delete it, while a declared hazard may mark it damaged with a deterministic repair path.",
+        "duplicateRule": "A duplicate never replaces a missing different key part and does not reset that part's pity counter.",
+        "samplePity": { "hintAfterEligibleSearches": 3, "guaranteeNextEligibleSearchAfter": 5, "status": "SAMPLE_ONLY" },
+        "pityRule": "Count only completed searches in a listed primary or alternative region while the part is still missing; at hint threshold reveal an alternative source, and at guarantee threshold place the part in the next eligible result before optional loot.",
+        "parts": [
+          { "id": "part.raft.sailcloth", "primary": "region.coast.beach", "alternatives": ["region.cove.wreck", "region.forest.grove"] },
+          { "id": "part.smoke.catalyst", "primary": "region.forest.grove", "alternatives": ["region.ridge.highland", "region.cove.wreck"] },
+          { "id": "part.radio.transceiver", "primary": "region.cove.wreck", "alternatives": ["region.ruins.relay", "region.sea.shallows"] },
+          { "id": "part.flare.cartridge", "primary": "region.cove.wreck", "alternatives": ["region.coast.beach", "region.sea.shallows"] },
+          { "id": "part.beacon.generator-coil", "primary": "region.ruins.relay", "alternatives": ["region.sea.shallows", "region.ridge.highland"] }
+        ]
+      },
+      "hazards": [
+        {
+          "id": "hazard.hunger",
+          "telegraph": "HUD trend and next-settlement forecast before critical hunger.",
+          "occurrence": "Daily settlement advances hunger state and, only at declared thresholds, applies the associated condition once.",
+          "mitigation": ["eat stored food", "prepare farming or preserved food", "shorten expedition"],
+          "recovery": ["food plus rest", "one calm settlement after leaving critical state"],
+          "sampleSeverityWeight": 1,
+          "behaviorStatIds": ["stat.farming", "stat.hazard-response"]
+        },
+        {
+          "id": "hazard.disease",
+          "telegraph": "Region card shows exposure source and camp status shows incubation before symptoms.",
+          "occurrence": "Untreated exposure becomes a timed disease condition, never an unannounced instant death.",
+          "mitigation": ["medicine", "clean water or dry gear", "avoid exposed region"],
+          "recovery": ["treatment action", "configured recovery days without new exposure"],
+          "sampleSeverityWeight": 2,
+          "behaviorStatIds": ["stat.search", "stat.hazard-response"]
+        },
+        {
+          "id": "hazard.injury",
+          "telegraph": "Traversal or tool risk marker appears before the dangerous action.",
+          "occurrence": "A failed risky action applies one named injury tier and movement or work penalty.",
+          "mitigation": ["protective equipment", "rope or safe route", "cancel risky action"],
+          "recovery": ["treatment", "rest", "avoid aggravating action"],
+          "sampleSeverityWeight": 2,
+          "behaviorStatIds": ["stat.swimming", "stat.hazard-response"]
+        },
+        {
+          "id": "hazard.disaster",
+          "telegraph": "Forecast at map and camp escalates from watch to warning before landfall.",
+          "occurrence": "A storm, flood or heat event selects one declared consequence within the daily budget.",
+          "mitigation": ["change region", "weatherproof equipment", "camp reinforcement"],
+          "recovery": ["repair transaction", "dry-out or calm day", "replace only declared consumables"],
+          "sampleSeverityWeight": 3,
+          "behaviorStatIds": ["stat.building", "stat.hazard-response"]
+        },
+        {
+          "id": "hazard.wildlife",
+          "telegraph": "Tracks, calls or disturbed stores reveal the animal family before contact.",
+          "occurrence": "Contact creates a choice to avoid, deter, trap or retreat rather than forcing combat.",
+          "mitigation": ["detour", "noise deterrent", "trap", "camp fence"],
+          "recovery": ["reset trap", "repair fence", "treat a resulting injury"],
+          "sampleSeverityWeight": 2,
+          "behaviorStatIds": ["stat.hunting-trapping", "stat.hazard-response"]
+        },
+        {
+          "id": "hazard.food-theft",
+          "telegraph": "Tracks or tampered storage warn of a pending raid at next settlement.",
+          "occurrence": "One incident removes at most the declared unprotected food batch in one transaction.",
+          "mitigation": ["reinforced storage", "trap", "move food into protected storage"],
+          "recovery": ["recover cache event", "replace food", "repair storage latch"],
+          "sampleSeverityWeight": 2,
+          "behaviorStatIds": ["stat.hunting-trapping", "stat.building", "stat.hazard-response"]
+        },
+        {
+          "id": "hazard.camp-damage",
+          "telegraph": "The threatened facility and damage type are named before settlement.",
+          "occurrence": "One facility changes from working to damaged; protected key parts and unrelated facilities remain unchanged.",
+          "mitigation": ["reinforcement", "weather cover", "preventive maintenance"],
+          "recovery": ["atomic repair action", "substitute ordinary material category"],
+          "sampleSeverityWeight": 2,
+          "behaviorStatIds": ["stat.mechanics", "stat.building", "stat.hazard-response"]
+        }
+      ],
+      "hazardStackContract": {
+        "sampleDailyBudget": 4,
+        "sampleMaximumNewMajor": 1,
+        "sampleMaximumConcurrentActive": 2,
+        "severityWeights": { "minor": 1, "moderate": 2, "major": 3 },
+        "rules": [
+          "Severe hunger is not randomly rolled but reserves one active slot while critical.",
+          "A major disaster and a new moderate injury cannot both be armed when their combined weight exceeds the daily budget.",
+          "Food theft and camp damage from one raid share one hazard instance and cannot charge two independent losses.",
+          "After a major resolved consequence, the next day reserves at least two budget points for recovery and cannot arm another major of the same family."
+        ],
+        "atomicity": "Each hazard has a run-local hazardInstanceId and idempotency key. Preview and cancel change nothing; resolve writes state, resources, behavior score and one log outcome together; retry, locale change and input-device change cannot apply it twice.",
+        "status": "SAMPLE_ONLY"
+      },
+      "behaviorScoring": {
+        "statIds": ["stat.swimming", "stat.farming", "stat.hunting-trapping", "stat.mechanics", "stat.building", "stat.search", "stat.hazard-response"],
+        "meaningfulActionOnly": true,
+        "sampleActionPointRange": { "min": 1, "max": 2 },
+        "samplePerStatDailyCap": 4,
+        "sampleCandidateMinimum": 12,
+        "sampleInitialLead": 4,
+        "sampleSwitchLead": 6,
+        "identityRule": "Update dominant identity after meaningful transactions with hysteresis. A challenger replaces an established identity only at switchLead, so one maximum-value action cannot reverse the run's lifestyle.",
+        "escapeCompletionAddsLifestylePoints": false,
+        "status": "SAMPLE_ONLY"
+      },
+      "endingResolution": {
+        "terminalOrder": ["escape_complete", "day50_settlement"],
+        "candidateOrder": ["rare", "comic", "normal", "day50_lifestyle", "day50_fallback"],
+        "tieBreaker": ["priority_desc", "matched_condition_count_desc", "special_event_first_day_asc", "ending_id_ascii_asc"],
+        "singleResult": true,
+        "modifierPolicy": "After the core ending is selected, insert at most one modifier.behavior.dominant panel for the locked dominant stat and at most one event-scar panel; modifiers never change endingId.",
+        "steamPolicy": "achievementMappingId is a future stable mapping key only; no Steamworks call, App ID or live achievement is created."
+      },
+      "modifierPanels": [
+        { "id": "modifier.behavior.dominant", "ko": "잠긴 우세 행동에 맞는 modifier.stat.* 패널 한 장을 선택하는 resolver", "en": "Resolver that selects one modifier.stat.* panel for the locked dominant behavior" },
+        { "id": "modifier.stat.swimming", "ko": "젖은 장비와 능숙한 물길 흔적", "en": "Wet gear and the marks of a practiced swimmer" },
+        { "id": "modifier.stat.farming", "ko": "짐보다 많은 작물 꾸러미", "en": "More crop bundles than luggage" },
+        { "id": "modifier.stat.hunting-trapping", "ko": "뒤에서 찰칵 닫히는 마지막 덫", "en": "One last trap snaps shut behind him" },
+        { "id": "modifier.stat.mechanics", "ko": "정체불명 예비 부품 상자", "en": "A box of suspicious spare parts" },
+        { "id": "modifier.stat.building", "ko": "섬 전체를 접은 설계도", "en": "Blueprints large enough to fold the island" },
+        { "id": "modifier.stat.search", "ko": "끝내 버리지 못한 최고의 표류물", "en": "The finest piece of salvage he could not leave behind" },
+        { "id": "modifier.stat.hazard-response", "ko": "수선 자국과 멀쩡한 비상 가방", "en": "Patch marks and an emergency bag that actually worked" },
+        { "id": "modifier.event.scar", "ko": "특별 사건의 흉터나 수리 자국 클로즈업", "en": "A close-up of the scar or repair left by a special event" }
+      ],
+      "endings": [
+        {
+          "id": "ending.escape.raft.open-water", "category": "normal", "terminal": "escape.raft", "priority": 100,
+          "title": { "ko": "수평선 너머로", "en": "Beyond the Horizon" },
+          "summary": { "ko": "김씨는 직접 엮은 뗏목으로 조류를 타고 섬을 벗어났다.", "en": "Mr. Kim rode the current off the island on a raft he built himself." },
+          "trigger": "escape.raft completed with no eligible higher-priority raft ending", "threshold": "none beyond method completion",
+          "panelBeats": ["해변에서 마지막 매듭을 조인다.", "파도를 넘어 섬이 작아진다.", "구조선에서 뗏목 설계도를 끝까지 챙긴다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "바다는 벽이 아니라 길일지도 모른다.", "en": "The sea may be a road, not a wall." }, "achievementMappingId": "achievement.ending.raft.open-water"
+        },
+        {
+          "id": "ending.escape.smoke.seen-from-afar", "category": "normal", "terminal": "escape.smoke", "priority": 100,
+          "title": { "ko": "연기는 답을 안다", "en": "Where There's Smoke" },
+          "summary": { "ko": "며칠간 지킨 연기 기둥이 마침내 지나가던 배를 불렀다.", "en": "The smoke column he tended for days finally drew a passing ship." },
+          "trigger": "escape.smoke completed with no eligible higher-priority smoke ending", "threshold": "none beyond method completion",
+          "panelBeats": ["젖은 장작을 골라내며 불씨를 지킨다.", "멀리서 항로가 방향을 튼다.", "김씨는 구조선에서도 연기 방향부터 확인한다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "멀리서도 보이는 하루를 만들어 보자.", "en": "Make a day visible from far away." }, "achievementMappingId": "achievement.ending.smoke.seen-from-afar"
+        },
+        {
+          "id": "ending.escape.radio.clear-signal", "category": "normal", "terminal": "escape.radio", "priority": 100,
+          "title": { "ko": "여기는 김씨, 응답하라", "en": "Kim Calling" },
+          "summary": { "ko": "잡음 속 정확한 한 문장이 김씨의 위치를 세상에 돌려놓았다.", "en": "One clear sentence through the static put Mr. Kim back on the map." },
+          "trigger": "escape.radio completed with no eligible higher-priority radio ending", "threshold": "none beyond method completion",
+          "panelBeats": ["부품을 두드리자 무전기에 불이 들어온다.", "잡음 너머에서 좌표 확인 응답이 온다.", "구조 뒤에도 김씨는 모든 라디오에 먼저 호출한다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "잡음도 오래 들으면 문장이 된다.", "en": "Listen long enough and static becomes a sentence." }, "achievementMappingId": "achievement.ending.radio.clear-signal"
+        },
+        {
+          "id": "ending.escape.flare.one-shot", "category": "normal", "terminal": "escape.flare", "priority": 100,
+          "title": { "ko": "딱 한 발", "en": "One Good Shot" },
+          "summary": { "ko": "김씨는 기다림 끝에 단 한 발을 가장 필요한 순간에 쐈다.", "en": "After waiting, Mr. Kim fired his one flare at exactly the right moment." },
+          "trigger": "escape.flare completed with no eligible higher-priority flare ending", "threshold": "none beyond method completion",
+          "panelBeats": ["지나가는 불빛을 확인하며 조명탄을 든다.", "한 줄기 빛이 하늘을 가른다.", "구조 헬기 안에서 빈 발사기를 양손으로 붙든다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "기회가 올 때까지 한 발을 아껴라.", "en": "Save one shot for the moment that matters." }, "achievementMappingId": "achievement.ending.flare.one-shot"
+        },
+        {
+          "id": "ending.escape.beacon.ridge-light", "category": "normal", "terminal": "escape.beacon", "priority": 100,
+          "title": { "ko": "불이 켜진 산꼭대기", "en": "The Light on the Ridge" },
+          "summary": { "ko": "폐중계소의 불빛이 다시 켜지고 김씨의 섬은 지도 위 점이 되었다.", "en": "The dead relay lit again, turning Mr. Kim's island into a point on the map." },
+          "trigger": "escape.beacon completed with no eligible higher-priority beacon ending", "threshold": "none beyond method completion",
+          "panelBeats": ["마지막 케이블을 연결한다.", "산등성이의 빛이 밤바다를 훑는다.", "구조 뒤 김씨는 고장 난 전등을 그냥 지나치지 못한다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "가장 높은 곳의 죽은 불을 깨워라.", "en": "Wake the dead light at the highest point." }, "achievementMappingId": "achievement.ending.beacon.ridge-light"
+        },
+        {
+          "id": "ending.comic.raft.coconut-navy", "category": "comic", "terminal": "escape.raft", "priority": 200,
+          "title": { "ko": "코코넛 해군", "en": "Coconut Navy" },
+          "summary": { "ko": "코코넛 평형추가 너무 훌륭해 뗏목보다 화물이 먼저 유명해졌다.", "en": "The coconut ballast worked so well that the cargo became famous before the raft." },
+          "trigger": "event.raft.coconut-ballast and stat.farming at sample comic threshold", "threshold": "stat.farming >= 8 SAMPLE_ONLY",
+          "panelBeats": ["뗏목 양옆에 코코넛을 끝없이 묶는다.", "파도마다 코코넛만 완벽히 수평을 유지한다.", "구조선 선원이 김씨보다 코코넛 수를 먼저 센다."],
+          "modifierPanelId": "modifier.stat.farming", "galleryHint": { "ko": "배에는 평형추가 필요하다. 너무 많지만 않다면.", "en": "A boat needs ballast. Just not quite that much." }, "achievementMappingId": "achievement.ending.comic.raft.coconut-navy"
+        },
+        {
+          "id": "ending.comic.smoke.island-barbecue", "category": "comic", "terminal": "escape.smoke", "priority": 200,
+          "title": { "ko": "무인도 맛집", "en": "Island Barbecue" },
+          "summary": { "ko": "구조대는 조난 신호보다 전설의 바비큐 연기라는 소문을 먼저 믿었다.", "en": "The rescuers followed rumors of legendary barbecue smoke before they believed the distress signal." },
+          "trigger": "event.smoke.barbecue-misread and stat.farming or stat.hunting-trapping at sample comic threshold", "threshold": "max(farming,hunting-trapping) >= 8 SAMPLE_ONLY",
+          "panelBeats": ["김씨가 연기 재료를 너무 맛있게 배열한다.", "배 위 사람들이 접시를 들고 방향을 튼다.", "구조 직후 메뉴판부터 요구받는다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "구조 신호가 지나치게 맛있어 보일 수도 있다.", "en": "A rescue signal can look a little too delicious." }, "achievementMappingId": "achievement.ending.comic.smoke.island-barbecue"
+        },
+        {
+          "id": "ending.comic.radio.island-dj", "category": "comic", "terminal": "escape.radio", "priority": 200,
+          "title": { "ko": "무인도 FM", "en": "Island FM" },
+          "summary": { "ko": "구조 요청 사이에 튼 김씨의 선곡이 먼저 고정 청취자를 만들었다.", "en": "Mr. Kim gained regular listeners with the songs between his distress calls." },
+          "trigger": "event.radio.island-dj and repeated completed radio broadcasts", "threshold": "sample broadcast count >= 3 SAMPLE_ONLY",
+          "panelBeats": ["김씨가 잡음 사이 박자를 탄다.", "멀리서 선박들이 같은 주파수에 맞춘다.", "구조 후 첫 방송 제목은 오늘의 표류물이다."],
+          "modifierPanelId": "modifier.stat.mechanics", "galleryHint": { "ko": "응답이 없으면 방송이라도 해 보자.", "en": "If nobody answers, try hosting a show." }, "achievementMappingId": "achievement.ending.comic.radio.island-dj"
+        },
+        {
+          "id": "ending.comic.flare.daylight-fireworks", "category": "comic", "terminal": "escape.flare", "priority": 200,
+          "title": { "ko": "대낮의 불꽃놀이", "en": "Fireworks at Noon" },
+          "summary": { "ko": "너무 이른 조명탄이 축포로 오해받았지만 구경하러 온 배가 김씨를 발견했다.", "en": "The early flare looked like a celebration, but the curious boat found Mr. Kim anyway." },
+          "trigger": "event.flare.daylight-fireworks followed by a valid witness response", "threshold": "special event only",
+          "panelBeats": ["김씨가 해를 향해 조명탄을 쏜다.", "멀리서 축제인 줄 안 배가 다가온다.", "김씨 혼자 박수치며 구조된다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "시간을 잘못 봐도 누군가는 볼 수 있다.", "en": "Even bad timing can attract an audience." }, "achievementMappingId": "achievement.ending.comic.flare.daylight-fireworks"
+        },
+        {
+          "id": "ending.comic.beacon.brightest-address", "category": "comic", "terminal": "escape.beacon", "priority": 200,
+          "title": { "ko": "전기세 없는 야경", "en": "The Brightest Address" },
+          "summary": { "ko": "과하게 복구한 중계소가 주변 항로의 새 야경 명소가 되었다.", "en": "The over-repaired relay became the brightest new landmark on the shipping route." },
+          "trigger": "event.beacon.overpowered and stat.building at sample comic threshold", "threshold": "stat.building >= 8 SAMPLE_ONLY",
+          "panelBeats": ["김씨가 필요 없는 전구까지 모두 연결한다.", "밤바다가 대낮처럼 밝아진다.", "구조선이 선글라스를 건네며 접근한다."],
+          "modifierPanelId": "modifier.stat.building", "galleryHint": { "ko": "필요한 빛보다 조금 더 켜 보자.", "en": "Try turning on slightly more light than necessary." }, "achievementMappingId": "achievement.ending.comic.beacon.brightest-address"
+        },
+        {
+          "id": "ending.rare.raft.current-reader", "category": "rare", "terminal": "escape.raft", "priority": 300,
+          "title": { "ko": "바다가 길을 열었다", "en": "The Sea Made a Road" },
+          "summary": { "ko": "김씨는 반복 수영으로 읽은 조류의 짧은 안전길을 놓치지 않았다.", "en": "Mr. Kim caught the brief safe current he had learned through countless swims." },
+          "trigger": "event.current.safe-window and dominant stat.swimming", "threshold": "stat.swimming >= 12 and hazard-response >= 6 SAMPLE_ONLY",
+          "panelBeats": ["김씨가 물결의 방향 변화를 알아본다.", "뗏목이 파도 사이 고요한 길을 탄다.", "구조선 항해사가 김씨의 손그림 해류도를 빌린다."],
+          "modifierPanelId": "modifier.stat.swimming", "galleryHint": { "ko": "같은 물길을 오래 오가면 바다가 먼저 말한다.", "en": "Swim the same water long enough and it speaks first." }, "achievementMappingId": "achievement.ending.rare.raft.current-reader"
+        },
+        {
+          "id": "ending.rare.smoke.cloud-letter", "category": "rare", "terminal": "escape.smoke", "priority": 300,
+          "title": { "ko": "구름에 쓴 구조 요청", "en": "SOS in the Clouds" },
+          "summary": { "ko": "바람을 견딘 연기가 우연히도 완벽한 구조 문양을 그렸다.", "en": "Smoke that survived the wind drew a perfect distress sign across the clouds." },
+          "trigger": "event.smoke.cloud-letter and dominant stat.hazard-response", "threshold": "stat.hazard-response >= 12 SAMPLE_ONLY",
+          "panelBeats": ["김씨가 바람이 바뀔 때마다 연기구를 조절한다.", "구름 아래 거대한 구조 문양이 완성된다.", "항공 사진 속 김씨는 점 하나로 찍힌다."],
+          "modifierPanelId": "modifier.stat.hazard-response", "galleryHint": { "ko": "바람과 싸우지 말고 문장을 맡겨 보자.", "en": "Do not fight the wind; give it a sentence." }, "achievementMappingId": "achievement.ending.rare.smoke.cloud-letter"
+        },
+        {
+          "id": "ending.rare.radio.forecast-rescue", "category": "rare", "terminal": "escape.radio", "priority": 300,
+          "title": { "ko": "첫 응답은 기상청", "en": "Forecast: Rescue" },
+          "summary": { "ko": "김씨의 반복 송신에 가장 먼저 답한 기상 관측망이 구조 항로까지 계산했다.", "en": "A weather network answered Mr. Kim's repeated calls and calculated the rescue route." },
+          "trigger": "event.radio.repeated-reply and dominant stat.mechanics", "threshold": "stat.mechanics >= 12 and successful broadcasts >= 3 SAMPLE_ONLY",
+          "panelBeats": ["낡은 관측 주파수에서 호출 부호가 돌아온다.", "폭풍 사이 구조 좌표가 계산된다.", "김씨가 구조선에서 내일 비가 온다고 먼저 알린다."],
+          "modifierPanelId": "modifier.stat.mechanics", "galleryHint": { "ko": "낡은 관측 기록에는 아직 듣는 귀가 있다.", "en": "An old weather record may still have someone listening." }, "achievementMappingId": "achievement.ending.rare.radio.forecast-rescue"
+        },
+        {
+          "id": "ending.rare.beacon.storm-eye", "category": "rare", "terminal": "escape.beacon", "priority": 300,
+          "title": { "ko": "폭풍의 눈에서", "en": "Inside the Eye" },
+          "summary": { "ko": "캠프와 중계소를 모두 지킨 김씨는 폭풍의 고요 속에서 신호를 켰다.", "en": "After protecting both camp and relay, Mr. Kim lit the signal in the storm's calm eye." },
+          "trigger": "event.disaster.perfect-mitigation during beacon completion", "threshold": "stat.building >= 10 and stat.hazard-response >= 10 SAMPLE_ONLY",
+          "panelBeats": ["보강된 캠프가 폭풍을 버틴다.", "폭풍의 눈에서 중계소가 켜진다.", "구조대가 멀쩡한 캠프를 보고 주소를 두 번 확인한다."],
+          "modifierPanelId": "modifier.event.scar", "galleryHint": { "ko": "가장 거센 날, 모든 대비가 한 번에 답할 수 있다.", "en": "On the worst day, every preparation may answer at once." }, "achievementMappingId": "achievement.ending.rare.beacon.storm-eye"
+        },
+        {
+          "id": "ending.stay.green-king", "category": "day50", "terminal": "day50", "priority": 50,
+          "title": { "ko": "김씨 농장 50일째", "en": "Kim Farm, Day 50" },
+          "summary": { "ko": "탈출은 못 했지만 김씨의 밭은 이제 계절표가 필요할 만큼 커졌다.", "en": "He did not escape, but Kim Farm had grown large enough to need a seasonal calendar." },
+          "trigger": "no escape at Day 50 and locked dominant stat.farming", "threshold": "identity snapshot farming candidate SAMPLE_ONLY",
+          "panelBeats": ["김씨가 Day 50 팻말 옆에 새 모종을 심는다.", "캠프 주변이 밭으로 가득 찬다.", "구조 신호대에는 허수아비가 기대어 선다."],
+          "modifierPanelId": "modifier.stat.farming", "galleryHint": { "ko": "떠나는 계획보다 심는 계획이 많아진다면.", "en": "What if planting plans outnumber escape plans?" }, "achievementMappingId": "achievement.ending.stay.green-king"
+        },
+        {
+          "id": "ending.stay.fortress-manager", "category": "day50", "terminal": "day50", "priority": 50,
+          "title": { "ko": "무인도 관리사무소", "en": "Island Facilities Office" },
+          "summary": { "ko": "김씨는 재해보다 점검표가 더 무서운 완벽한 캠프 관리자가 되었다.", "en": "Mr. Kim became a camp manager more feared by checklists than by storms." },
+          "trigger": "no escape at Day 50 and locked dominant stat.building or stat.hazard-response", "threshold": "identity snapshot in listed pair SAMPLE_ONLY",
+          "panelBeats": ["김씨가 시설 점검 도장을 찍는다.", "폭우가 배수로를 따라 얌전히 빠진다.", "섬 입구에 관리사무소 영업중 팻말이 선다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "고치고 막다 보면 섬도 관리 구역이 된다.", "en": "Repair enough things and the island becomes a managed property." }, "achievementMappingId": "achievement.ending.stay.fortress-manager"
+        },
+        {
+          "id": "ending.stay.scrap-professor", "category": "day50", "terminal": "day50", "priority": 50,
+          "title": { "ko": "표류물 공학 박사", "en": "Doctor of Driftwood Engineering" },
+          "summary": { "ko": "김씨는 쓸모없는 물건이 없다는 이론을 섬 전체로 증명했다.", "en": "Mr. Kim proved across an entire island that no piece of salvage is truly useless." },
+          "trigger": "no escape at Day 50 and locked dominant stat.mechanics or stat.search", "threshold": "identity snapshot in listed pair SAMPLE_ONLY",
+          "panelBeats": ["표류물마다 번호표가 붙어 있다.", "정체불명의 기계가 캠프 일을 척척 해낸다.", "김씨가 조개껍데기로 박사모를 만들어 쓴다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "주운 물건을 끝까지 연구해 보자.", "en": "Study every found object to its logical conclusion." }, "achievementMappingId": "achievement.ending.stay.scrap-professor"
+        },
+        {
+          "id": "ending.stay.island-ranger", "category": "day50", "terminal": "day50", "priority": 50,
+          "title": { "ko": "섬의 레인저", "en": "Island Ranger" },
+          "summary": { "ko": "물길과 동물 길을 모두 외운 김씨에게 섬은 더 이상 미지의 장소가 아니었다.", "en": "After learning every current and animal trail, the island was no longer unknown to Mr. Kim." },
+          "trigger": "no escape at Day 50 and locked dominant stat.swimming or stat.hunting-trapping", "threshold": "identity snapshot in listed pair SAMPLE_ONLY",
+          "panelBeats": ["김씨가 물길과 발자국을 한눈에 읽는다.", "동물들이 덫을 피해 정해진 길로 다닌다.", "김씨가 섬 순찰표에 오늘도 이상 없음을 적는다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "섬의 길을 사람보다 먼저 외워 보자.", "en": "Learn the island's paths before anyone comes for you." }, "achievementMappingId": "achievement.ending.stay.island-ranger"
+        },
+        {
+          "id": "ending.stay.just-kim", "category": "day50", "terminal": "day50", "priority": 0,
+          "title": { "ko": "그냥 잘 사는 김씨", "en": "Mr. Kim, Doing Fine" },
+          "summary": { "ko": "뚜렷한 전문가는 아니어도 김씨는 50일을 자기 방식대로 살아냈다.", "en": "He mastered no single lifestyle, but Mr. Kim made it through fifty days his own way." },
+          "trigger": "no escape at Day 50 and no higher-priority Day 50 lifestyle ending", "threshold": "fallback",
+          "panelBeats": ["서로 다른 도구가 캠프 곳곳에 놓여 있다.", "김씨가 오늘 할 일을 잠깐 고민한다.", "결국 익숙한 웃음으로 저녁 준비를 시작한다."],
+          "modifierPanelId": "modifier.behavior.dominant", "galleryHint": { "ko": "한 가지만 잘할 필요는 없다.", "en": "You do not have to be only one thing." }, "achievementMappingId": "achievement.ending.stay.just-kim"
+        }
+      ],
+      "implementationSmoke": {
+        "regions": ["region.coast.beach", "region.forest.grove", "region.sea.shallows"],
+        "playableEscapeMethods": ["escape.smoke", "escape.radio"],
+        "dataOnlyEscapeMethods": ["escape.raft", "escape.flare", "escape.beacon"],
+        "hazardInstances": ["hazard.injury", "hazard.disaster", "hazard.food-theft"],
+        "sampleEndingIds": ["ending.escape.smoke.seen-from-afar", "ending.escape.radio.clear-signal", "ending.comic.radio.island-dj", "ending.stay.just-kim"],
+        "requiredCatalogCounts": { "escapeMethods": 5, "regions": 6, "hazards": 7, "endings": 19, "modifierPanels": 9 },
+        "notImplementedBySmoke": ["final resource costs", "final drop rates", "final preparation days", "all ending art", "Steamworks achievements"]
+      },
+      "tunableFields": [
+        "escapeMethods[].samplePreparationDays",
+        "regionProfiles[].resourceAbundance",
+        "regionProfiles[].travelTimeBand",
+        "keyPartProtection.samplePity",
+        "hazards[].sampleSeverityWeight",
+        "hazardStackContract.sampleDailyBudget",
+        "hazardStackContract.sampleMaximumNewMajor",
+        "hazardStackContract.sampleMaximumConcurrentActive",
+        "behaviorScoring.sampleActionPointRange",
+        "behaviorScoring.samplePerStatDailyCap",
+        "behaviorScoring.sampleCandidateMinimum",
+        "behaviorScoring.sampleInitialLead",
+        "behaviorScoring.sampleSwitchLead",
+        "endings[].threshold"
+      ]
+    }
   },
   "verticalSlice": {
     "goal": "실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다.",
@@ -85,7 +553,8 @@
       "배고픔과 함께 부상 1종, 기상 위험 1종, 캠프 식량 도난 또는 야생동물 침입 1종의 예고·발생·완화·회복 상태",
       "다섯 탈출 방법의 안정 ID와 데이터 계약, 그중 연기 신호와 무전 신호 두 경로의 플레이 가능한 대표 구현",
       "수영·농사 준비·사냥 또는 덫·기계공학·건설·수색·위험 대응·탈출법 선택을 기록할 행동 통계 기반",
-      "탈출 방식·우세 행동·특별 사건을 입력으로 받는 결정론적 엔딩 판정기와 정상·코믹·Day 50 잔류를 포함한 최소 4개 샘플 엔딩",
+      "정상 5·병맛 5·희귀 4·Day 50 잔류 5의 19개 ending ID 카탈로그와 재사용 modifier panel 계약",
+      "탈출 방식·우세 행동·특별 사건을 입력으로 받는 결정론적 엔딩 판정기와 대표 4개 sample ending",
       "엔진 텍스트를 사용하는 3장짜리 placeholder 코믹북 엔딩 컷신과 엔딩 갤러리 기록",
       "기존 직접 조작 캠프, 제한적 자유 배치, 모듈 증축, 4→6 가방, 육상·수영 수색의 회귀 보존",
       "한국어 기본·영어 지원·qps-long 레이아웃 검증과 키보드·게임패드 공통 액션 구조"
@@ -111,9 +580,11 @@
       "동일 seed·동일 지역·동일 행동은 같은 핵심 부품 배치를 만들고 서로 다른 seed는 허용 범위 안에서 결과가 달라지며 최소 세 탈출 경로가 softlock되지 않는다.",
       "플레이어가 위험을 사전에 확인하고 장비·설비·지역 변경 중 하나로 피해를 줄일 수 있으며 대부분의 위험은 원인 없이 즉사시키지 않는다.",
       "부상은 미처치 시 악화되고 치료 시 회복되며, 캠프 침입·도난은 저장고 보강 또는 방어 수단으로 완화되고 자원 변화가 한 번만 적용된다.",
-      "다섯 탈출 method ID가 존재하고 연기·무전 두 대표 경로는 서로 다른 자원·연구·설비 요구를 통해 조기 탈출할 수 있다.",
+      "escape.raft/smoke/radio/flare/beacon 다섯 method가 지역·연구·설비·핵심 부품·준비 기간·위험 중 최소 두 축 이상 다르고, 연기·무전 두 대표 경로는 플레이 가능한 smoke data로 조기 탈출할 수 있다.",
+      "시작 3개와 확장 3개의 region profile이 자원 풍부함·위험·날씨·장비·이동 시간·특별 발견과 핵심 부품의 primary·alternative·pity를 모두 가진다.",
+      "배고픔·질병·부상·자연재해·야생동물·식량 도난·캠프 피해의 7개 hazard가 예고→발생→완화→회복, 일일 예산과 원자 transaction을 가진다.",
       "엔딩 판정은 탈출 방법 또는 Day 50 상태, run 전체의 우세 행동 점수, 특별 사건을 순서대로 사용하고 마지막 행동 하나로 우세 생활 방식이 뒤집히지 않는다.",
-      "최소 4개 샘플 엔딩이 서로 다른 안정 ID, 해금 조건, 한국어·영어 제목·요약과 3장 placeholder 컷신을 가진다.",
+      "19개 ending이 안정 ID, ko/en 제목·요약, 3개 core panel beat, modifier panel, 갤러리 힌트와 future-only achievement mapping ID를 가지며 4개 sample ending만 먼저 실행한다.",
       "수집 지도와 엔딩 갤러리에서 미발견 희귀 결과는 실루엣·미확인으로 남아 반복 플레이 목표를 제공한다.",
       "1280×800 ko/en/qps-long에서 지역 카드, 위험 아이콘, 자원 범주, 지도 노드, 엔딩 패널이 잘리거나 겹치지 않고 색상 외 표식으로 상태를 구분한다.",
       "기존 캠프 근접 안내, 배치, 모듈, 가방, 구조 신호, 수영과 qps-long 10/10 GREEN 계약이 회귀하지 않는다.",
@@ -130,7 +601,14 @@
       "정확한 자원 수량을 모두 공개하면 탐험성이 사라지고 너무 숨기면 선택 근거가 사라지므로 범주형 풍부함과 미확인 표시를 사용한다.",
       "사용자 설정이 표준 밸런스 검증을 무력화할 수 있으므로 표준 Day 50 규칙을 먼저 완성하고 커스텀은 별도 run profile로 분리한다.",
       "Steam 업적을 설계와 결합하면 외부 계정 작업으로 범위가 커지므로 지금은 안정 ending ID와 게임 내 갤러리까지만 구현한다."
-    ]
+    ],
+    "sampleDataContract": {
+      "status": "SAMPLE_ONLY_NOT_FINAL_BALANCE",
+      "source": "project.campaignContentContract.implementationSmoke",
+      "catalogMustLoad": ["5 escape methods", "6 region profiles", "7 hazard profiles", "19 endings", "9 modifier panels"],
+      "smokeMustExecute": ["3 starting regions", "escape.smoke", "escape.radio", "hazard.injury", "hazard.disaster", "hazard.food-theft", "4 sample endings"],
+      "balanceFreeze": "Do not treat preparation days, resource abundance, pity counts, hazard budget or behavior thresholds as final fifty-day balance; expose them as data and change one axis only after valid playtest evidence."
+    }
   },
   "features": [
     {
@@ -184,9 +662,10 @@
       "assetIds": ["ui.escape-project-progress", "ui.ending-comic", "ui.ending-gallery", "effect.comedy-feedback"],
       "dependencies": ["feature.crafting-research", "feature.survival-pressure", "feature.resource-randomization", "feature.behavioral-endings"],
       "acceptanceCriteria": [
-        "뗏목·배, 연기, 무전, 조명탄, 고지대 신호의 안정 method ID와 서로 다른 요구 조건이 있다.",
+        "escape.raft, escape.smoke, escape.radio, escape.flare, escape.beacon은 지역·연구·설비·부품·준비 기간·위험 중 최소 두 축 이상 다르다.",
         "Day 50 이전에 완성한 경로는 즉시 해당 탈출 판정을 시작한다.",
-        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다."
+        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다.",
+        "19개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다."
       ]
     },
     {
@@ -216,7 +695,7 @@
         "같은 seed와 행동은 같은 핵심 결과를 재현한다.",
         "다른 seed는 정의된 범위 안에서 자원 전망과 발견 결과가 달라진다.",
         "표준 run에서 최소 세 탈출 경로가 핵심 부품 부재로 막히지 않는다.",
-        "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다."
+        "장기 미발견 핵심 부품은 primary·alternative 획득처, eligible-search pity, 획득 후 삭제 방지와 손상 시 복구 경로를 모두 제공한다."
       ]
     },
     {
@@ -231,7 +710,8 @@
         "위험은 발생 전에 지도·날씨·환경 단서 중 하나로 예고된다.",
         "각 위험은 최소 하나의 준비 또는 완화 수단과 최소 하나의 회복 수단을 가진다.",
         "부상·질병은 미처치 악화와 치료 회복 상태를 구분한다.",
-        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다."
+        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다.",
+        "배고픔 포함 7개 hazard는 일일 중첩 예산과 run-local idempotency key를 공유하고 입력·locale 전환으로 중복 적용되지 않는다."
       ]
     },
     {
@@ -244,9 +724,10 @@
       "dependencies": ["feature.phase-cycle", "feature.escape-outcome"],
       "acceptanceCriteria": [
         "행동 점수는 안정 category ID와 누적 규칙을 가진다.",
-        "우세 생활 방식은 최소 기준과 tie-breaker를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
+        "우세 생활 방식은 action cap, 최소 기준, initial/switch lead와 hysteresis를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
         "특별 사건 플래그가 필요한 희귀 엔딩은 행동 점수만으로 해금되지 않는다.",
-        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다."
+        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다.",
+        "rare→comic→normal→Day50 lifestyle→fallback과 명시적 tie-breaker가 같은 snapshot에서 하나의 ending만 고른다."
       ]
     },
     {
@@ -388,7 +869,7 @@
       "priority": "critical",
       "featureIds": ["feature.resource-randomization", "feature.expedition-map", "feature.escape-outcome"],
       "dependencies": ["system.run-state", "system.inventory"],
-      "acceptanceCriteria": ["동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장과 핵심 부품 추적이 자동 검증된다."]
+      "acceptanceCriteria": ["동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장, protected part와 3/5 eligible-search SAMPLE pity 추적이 자동 검증된다."]
     },
     {
       "id": "system.hazard-director",
@@ -397,7 +878,7 @@
       "priority": "critical",
       "featureIds": ["feature.survival-hazards", "feature.survival-pressure", "feature.expedition-map"],
       "dependencies": ["system.run-state", "system.survival", "system.camp-structures"],
-      "acceptanceCriteria": ["무예고 치명 결과를 만들지 않고 동시 위험 예산과 평온일 규칙을 지키며 동일 seed를 재현한다."]
+      "acceptanceCriteria": ["배고픔·질병·부상·재해·야생동물·도난·파손이 무예고 치명 결과 없이 동일 seed, 중첩 예산, 평온일과 원자 transaction 규칙을 지킨다."]
     },
     {
       "id": "system.escape-projects",
@@ -406,7 +887,7 @@
       "priority": "critical",
       "featureIds": ["feature.escape-outcome", "feature.resource-randomization", "feature.crafting-research"],
       "dependencies": ["system.run-state", "system.inventory", "system.crafting-tech", "system.camp-structures"],
-      "acceptanceCriteria": ["각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소를 지원한다."]
+      "acceptanceCriteria": ["각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소와 선언된 실패·변형 사건을 지원한다."]
     },
     {
       "id": "system.ending-resolution",
@@ -415,7 +896,7 @@
       "priority": "critical",
       "featureIds": ["feature.escape-outcome", "feature.behavioral-endings"],
       "dependencies": ["system.run-state", "system.escape-projects", "system.phase-flow"],
-      "acceptanceCriteria": ["같은 run snapshot은 같은 ending ID를 내고 tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다."]
+      "acceptanceCriteria": ["19개 ending catalog에서 같은 run snapshot은 같은 하나의 ending ID를 내고 priority, 조건 수, 사건 시점, ASCII ID tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다."]
     },
     {
       "id": "system.ending-gallery",
@@ -424,7 +905,7 @@
       "priority": "medium",
       "featureIds": ["feature.ending-gallery", "feature.behavioral-endings", "feature.localization"],
       "dependencies": ["system.ending-resolution", "system.localization"],
-      "acceptanceCriteria": ["게임 내 해금은 Steam 연결 없이 동작하며 외부 업적 키 부재가 플레이를 막지 않는다."]
+      "acceptanceCriteria": ["게임 내 해금·힌트·modifier panel은 Steam 연결 없이 동작하며 achievementMappingId는 future-only이고 외부 업적 키 부재가 플레이를 막지 않는다."]
     }
   ],
   "artAssets": [
@@ -518,7 +999,18 @@
         "최소 5개 탈출법과 18개 엔딩에 안정 ID와 서로 겹치지 않는 판정 우선순위가 있다.",
         "각 위험에 예고·발생·완화·회복과 엔딩 통계 연결이 있다.",
         "마지막 행동 하나로 누적 정체성이 뒤집히지 않는 threshold와 tie-breaker가 있다."
-      ]
+      ],
+      "paths": [
+        ".forge/packets/wave15-fifty-day-campaign-rebaseline.json",
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave15-escape-hazard-ending-matrix.md"
+      ],
+      "evidence": [
+        ".forge/packets/wave15-fifty-day-campaign-rebaseline.json",
+        "Docs/Design/wave15-escape-hazard-ending-matrix.md"
+      ],
+      "status": "done"
     },
     {
       "id": "task.implementation.wave15-campaign-map-foundation",
@@ -623,9 +1115,43 @@
       "summary": "데드라인과 생존·위험·자원 규칙을 조절하는 사용자 설정 플레이는 표준 Day 50 캠페인 기반 이후 별도 profile로 구현한다.",
       "rationale": "표준 밸런스와 QA 기준을 보존하면서 장기적으로 다양한 플레이 방식을 지원한다.",
       "source": "user-confirmed"
+    },
+    {
+      "id": "decision.wave15-five-method-axis-separation",
+      "summary": "escape.raft, smoke, radio, flare, beacon은 지역·연구·설비·핵심 부품·타이밍·위험 중 최소 두 축 이상 다르게 유지한다.",
+      "rationale": "다섯 탈출법이 재료명만 바뀐 동일 제작 버튼으로 수렴하지 않게 한다.",
+      "source": "wave15-design-contract"
+    },
+    {
+      "id": "decision.wave15-protected-part-pity",
+      "summary": "핵심 부품은 seed당 최소 세 탈출 경로를 보장하고 primary·alternative 획득처, eligible-search pity와 획득 후 삭제 방지를 가진다.",
+      "rationale": "50일 run이 순수 RNG나 도난 한 번으로 softlock되는 것을 막되 탐색 불확실성은 유지한다.",
+      "source": "wave15-design-contract"
+    },
+    {
+      "id": "decision.wave15-hazard-budget-atomicity",
+      "summary": "일일 위험 예산과 동시 active 제한을 두고 모든 위험 결과를 run-local idempotency key를 가진 원자 transaction으로 적용한다.",
+      "rationale": "여러 위험이 동시에 감당 불가능하게 폭발하거나 입력 재시도로 자원·피해가 중복되는 것을 막는다.",
+      "source": "wave15-design-contract"
+    },
+    {
+      "id": "decision.wave15-ending-hysteresis-resolution",
+      "summary": "행동 정체성은 일일 cap과 switch lead hysteresis로 누적하고 rare→comic→normal→Day50 lifestyle→fallback 순서와 고정 tie-breaker로 하나의 엔딩만 판정한다.",
+      "rationale": "마지막 행동 하나가 50일 생활 방식을 뒤집지 않으면서 같은 snapshot의 결정론을 보장한다.",
+      "source": "wave15-design-contract"
+    },
+    {
+      "id": "decision.wave15-smoke-data-not-final-balance",
+      "summary": "준비 일수, 자원 풍부함, pity 횟수, 위험 예산과 행동 임계값은 SAMPLE_ONLY이며 첫 구현 smoke와 플레이테스트 뒤 한 축씩 조정한다.",
+      "rationale": "정식 50일 경제를 실행 증거 없이 조기 확정하지 않는다.",
+      "source": "wave15-design-contract"
+    },
+    {
+      "id": "decision.wave15-achievement-mapping-future-only",
+      "summary": "각 ending의 achievementMappingId는 향후 Steam 매핑용 안정 키일 뿐 현재 Steamworks 설정이나 업적 해금을 만들지 않는다.",
+      "rationale": "게임 내 갤러리와 외부 플랫폼 연동의 수명 주기와 권한을 분리한다.",
+      "source": "wave15-design-contract"
     }
   ],
-  "openQuestions": [
-    "사용자 설정 run에서 엔딩 갤러리와 향후 Steam 업적을 어느 범위까지 인정할지는 Steam 연동 단계에서 결정하며, 현재 50일 캠페인·지도·위험·엔딩 기반 구현을 막지 않는다."
-  ]
+  "openQuestions": []
 }
