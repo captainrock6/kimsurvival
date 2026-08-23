@@ -566,13 +566,15 @@ namespace ParallelQA
             }
 
             string[] sourceFiles = manifest == null || manifest.sourceFiles == null ? Array.Empty<string>() : manifest.sourceFiles;
-            AddCheck(checks, prefix + ".source_png_count", "forge-package", sourceFiles.Length > 0 && sourceFiles.All(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)), "P0",
-                "manifest declares one or more required PNG sourceFiles", string.Join(" | ", sourceFiles), manifestPath);
+            string[] pngSourceFiles = sourceFiles.Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)).ToArray();
+            AddCheck(checks, prefix + ".source_png_count", "forge-package", pngSourceFiles.Length > 0, "P0",
+                "manifest declares one or more required PNG sourceFiles; editable/non-raster sources may coexist",
+                "png=" + pngSourceFiles.Length + "/all=" + sourceFiles.Length + " · " + string.Join(" | ", sourceFiles), manifestPath);
             foreach (string fileName in sourceFiles)
             {
                 string assetPath = packagePath + "/" + fileName;
                 bool exists = File.Exists(ToFull(assetPath));
-                AddCheck(checks, prefix + ".source." + Sanitize(fileName), "forge-package", exists, "P0", "required PNG exists", exists ? "present" : "missing", assetPath);
+                AddCheck(checks, prefix + ".source." + Sanitize(fileName), "forge-package", exists, "P0", "declared source exists", exists ? "present" : "missing", assetPath);
                 if (exists)
                 {
                     string guid = AssetDatabase.AssetPathToGUID(assetPath);
@@ -585,7 +587,7 @@ namespace ParallelQA
                         sha256 = Sha256(ToFull(assetPath)),
                         guid = guid
                     });
-                    AddCheck(checks, prefix + ".source_guid." + Sanitize(fileName), "unity-import", !string.IsNullOrWhiteSpace(guid), "P0", "required PNG has a Unity GUID", string.IsNullOrWhiteSpace(guid) ? "missing" : guid, assetPath + ".meta");
+                    AddCheck(checks, prefix + ".source_guid." + Sanitize(fileName), "unity-import", !string.IsNullOrWhiteSpace(guid), "P0", "declared source has a Unity GUID", string.IsNullOrWhiteSpace(guid) ? "missing" : guid, assetPath + ".meta");
                 }
             }
 

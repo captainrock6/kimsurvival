@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 12 five-day compact-a RED-first gate",
+  "runId": "20260823T114000Z_86b6db8_wave12_final",
+  "baselineCommit": "86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91",
+  "observedUtc": "2026-08-23T11:06:33.4454796Z",
+  "overall": "FAIL",
+  "productOverall": "FAIL",
+  "infrastructureOverall": "PASS",
+  "freshWave3Visual": "PASS",
+  "wave11WalkingPath": "PASS 3/3 actual screen rects",
+  "expectedProductGapIds": [
+    "W12-D01.five_day_deadline",
+    "W12-A02.compact_a_static_runtime_reference",
+    "W12-P01.compact_a_frame_and_glyph_split",
+    "W12-P03.compact_a_locale_capture_layout"
+  ],
+  "expectedProductGaps": [
+    {
+      "id": "W12-D01.five_day_deadline",
+      "severity": "P0",
+      "actual": "FinalDay=3; day3Playable=True; day4Playable=False; day5Deadline=False; earlyDay1Rescue=True; states=start=D1>D2/Camp/None>D3/Camp/None>D3/Result/Deadline",
+      "reproduction": "Advance fresh GameSession instances without Grant/warp through Day 5 and independently complete the signal early.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W12-A02.compact_a_static_runtime_reference",
+      "severity": "P0",
+      "actual": "compactAReferenced=False; compactBReferenced=False; compactCReferenced=False",
+      "reproduction": "Search the enabled scene, Runtime source, Resources, and Addressables settings for the adopted A GUID/path and B/C GUIDs.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/**; Assets/_Project/Scenes/**; Assets/AddressableAssetsData/**"
+    },
+    {
+      "id": "W12-P01.compact_a_frame_and_glyph_split",
+      "severity": "P0",
+      "actual": "spritePath=<none>; guid=<none>; imageType=Simple; border=(0.00, 0.00, 0.00, 0.00); separateGlyph=False; actionExcludesGlyph=False",
+      "reproduction": "Approach a direct slot, inspect the prompt Image/Sprite/GUID/type/border and its descendant glyph/action components.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+    },
+    {
+      "id": "W12-P03.compact_a_locale_capture_layout",
+      "severity": "P1",
+      "actual": "captures=12/12; png1280x800=True; wave11WorldClear=True; ko{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=48.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=8.0,overflow=0/0/0,compact=False} | en{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=48.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=8.0,overflow=0/0/0,compact=False} | qps-long{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=48.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=8.0,overflow=0/4/0,compact=False}",
+      "reproduction": "Open all twelve Wave 12 captures at 1:1 and compare the recorded prompt/narration Rects and overflow counts.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "unexpectedProductFailures": [
+    {
+      "id": "W12-P04.current_normal_wave3_visual",
+      "severity": "P1",
+      "actual": "InvalidOperationException: placement=PLACEMENT_GATE: FAIL · targets=24 · failures=4; exploration=EXPLORATION_SWIMMING_GATE: FAIL · targets=10 · failures=1; source=wave3-visual-gate.txt",
+      "reproduction": "Open the fresh Wave 3 TSV/PNGs at 1:1 and inspect every normal placement/exploration failure row.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs"
+    }
+  ],
+  "compile": "PASS 0 errors",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "infrastructureFailures": [],
+  "greenTransition": "FinalDay=5; compact-a stable reference is connected as sliced UI with exact borders; glyph and TMP action are separate; all twelve locale/state captures satisfy geometry and overflow=0.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91' -MinimumSmokeSeconds 6",
+  "evidenceRoot": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T114000Z_86b6db8_wave12_final"
+}

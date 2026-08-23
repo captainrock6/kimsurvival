@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T114000Z_86b6db8_wave12_final",
+    "baselineCommit": "86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91",
+    "unityVersion": "6000.4.9f1",
+    "deadline": "",
+    "adoptedPackage": "",
+    "runtimeFrame": "spritePath=<none>; guid=<none>; imageType=Simple; border=(0.00, 0.00, 0.00, 0.00); separateGlyph=False; actionExcludesGlyph=False",
+    "inputLocaleIndependence": "target=slot.start.upper; progress=D1/W2/S1/F0/D0/signal0/bag4/Camp/None; syntheticGamepadOnly=True; enOnly=True; qpsOnly=True",
+    "captureLayout": "captures=12/12; png1280x800=True; wave11WorldClear=True; ko{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=48.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=8.0,overflow=0/0/0,compact=False} | en{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=48.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=8.0,overflow=0/0/0,compact=False} | qps-long{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=48.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=8.0,overflow=0/4/0,compact=False}",
+    "freshWave11Layout": "walkingPathClear=3/3; promptRects=3/3; failureReasonsNone=3/3; source=wave11-slot-play-evidence.json",
+    "freshWave3Visual": "generated=true; runId/baseline matched; visualOverall=FAIL_REVIEW_REPORT; frames=9; report=wave3-visual-gate.txt",
+    "screenshots": [
+        "wave12-ko-far-1280x800.png",
+        "wave12-ko-near-1280x800.png",
+        "wave12-ko-popup-1280x800.png",
+        "wave12-ko-direct-slot-1280x800.png",
+        "wave12-en-far-1280x800.png",
+        "wave12-en-near-1280x800.png",
+        "wave12-en-popup-1280x800.png",
+        "wave12-en-direct-slot-1280x800.png",
+        "wave12-qps-long-far-1280x800.png",
+        "wave12-qps-long-near-1280x800.png",
+        "wave12-qps-long-popup-1280x800.png",
+        "wave12-qps-long-direct-slot-1280x800.png"
+    ],
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}

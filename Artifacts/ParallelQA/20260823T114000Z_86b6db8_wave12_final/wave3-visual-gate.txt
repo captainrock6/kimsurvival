@@ -1,0 +1,33 @@
+Wave 3 1280x800 projected-text visual gate
+Run ID: 20260823T114000Z_86b6db8_wave12_final
+Started UTC: 2026-08-23T11:06:07.1533598Z
+Completed UTC: 2026-08-23T11:06:08.1916775Z
+Unity: 6000.4.9f1
+Baseline commit: 86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91
+Command: C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe -batchmode -force-d3d11 -projectPath C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부 -executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts -logFile C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260823T114000Z_86b6db8_wave12_final\unity-wave12-play.log
+Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample.
+Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.
+PLACEMENT_GATE: FAIL · targets=24 · failures=4
+EXPLORATION_SWIMMING_GATE: FAIL · targets=10 · failures=1
+PSEUDO_LONG_GATE: FAIL · targets=10 · failures=6
+OVERALL: FAIL
+FAIL · ko placement valid · gated=6 · screenshot=playmode-ko-placement-valid-1280x800.png
+FAIL · ko placement invalid · gated=6 · screenshot=playmode-ko-placement-invalid-1280x800.png
+FAIL · en placement valid · gated=6 · screenshot=playmode-en-placement-valid-1280x800.png
+FAIL · en placement invalid · gated=6 · screenshot=playmode-en-placement-invalid-1280x800.png
+FAIL · qps-long placement valid · gated=10 · screenshot=playmode-qps-long-placement-valid-1280x800.png
+PASS · ko day1 swimming · gated=2 · screenshot=playmode-ko-day1-swimming-1280x800.png
+FAIL · ko day2 exploration · gated=3 · screenshot=playmode-ko-day2-exploration-1280x800.png
+PASS · en day1 swimming · gated=2 · screenshot=playmode-en-day1-swimming-1280x800.png
+PASS · en day2 exploration · gated=3 · screenshot=playmode-en-day2-exploration-1280x800.png
+  FAIL · placement-world · ko placement valid · 설비·증축 계획 · glyph=13.6px · block=13.7px · bounds=[282.6,300.2 -> 398.6,313.9] · contrast=12.6:1 · failures=height
+  FAIL · placement-world · ko placement invalid · 설비·증축 계획 · glyph=13.6px · block=13.7px · bounds=[282.6,300.2 -> 398.6,313.9] · contrast=12.6:1 · failures=height
+  FAIL · placement-world · en placement valid · Facilities · Expansion · glyph=12.9px · block=47.5px · bounds=[270.8,281.8 -> 411.6,329.3] · contrast=12.6:1 · failures=height
+  FAIL · placement-world · en placement invalid · Facilities · Expansion · glyph=12.9px · block=47.5px · bounds=[270.8,281.8 -> 411.6,329.3] · contrast=12.6:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · ⟦⟦Cámpfíréá⟧/Válíd Plácéméñtáéíóúü⟧ · glyph=22.0px · block=99.5px · bounds=[352.6,333.2 -> 670.7,432.7] · contrast=8.8:1 · failures=overflow
+  FAIL · pseudo-long · qps-long placement valid · ⟦DÁY 1/3 · ⟦Cámp prépárátíóñáéíóú⟧/Húñgér 70 | Éñérgy 100áéíóúüñ¿¡áéíóúüñ⟧ · glyph=15.6px · block=50.0px · bounds=[28.8,726.8 -> 497.4,776.8] · contrast=18.1:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · ⟦Wóód 12   Stóñé 11   Fóód 0   Sálvágé 10/Sígñál 0/2   Áxé ⟦Ñóñé⟧   Rópé ⟦Ñóñé⟧áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧ · glyph=15.6px · block=46.6px · bounds=[420.4,672.7 -> 1252.0,719.3] · contrast=14.5:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · ⟦Géñérál Fácílíty Gróúñd/0.5m Flóór Sñápáéíóúüñ¿¡áéíóúü⟧ · glyph=22.0px · block=166.3px · bounds=[658.5,89.1 -> 1047.3,255.4] · contrast=11.9:1 · failures=overflow,text-overlap
+  FAIL · pseudo-long · qps-long placement valid · ⟦Éñglísh → Kóréáñáéíóú⟧ · glyph=17.1px · block=25.5px · bounds=[972.2,50.6 -> 1276.2,76.2] · contrast=8.2:1 · failures=bounds
+  FAIL · pseudo-long · qps-long placement valid · ⟦Dédícátéd Áñchór · Sígñál 0/2áéíóúüñ¿¡áé⟧ · glyph=22.0px · block=100.7px · bounds=[928.4,196.7 -> 1220.1,297.4] · contrast=10.9:1 · failures=overflow,text-overlap
+  FAIL · exploration-world · ko day2 exploration · 표류물 ×2 · glyph=16.5px · block=20.7px · bounds=[740.4,434.8 -> 868.1,455.5] · contrast=17.4:1 · failures=height

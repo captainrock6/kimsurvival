@@ -91,7 +91,26 @@ namespace ParallelQA
             public string firstCandidate;
             public string approachScreenshot;
             public string previewScreenshot;
+            public string promptScreenRect;
+            public string playerScreenRect;
+            public string targetScreenRect;
+            public string walkingBandScreenRect;
+            public string capturePixelRect;
+            public float canvasScaleFactor;
+            public string layoutFailureReasons;
             public string actual;
+        }
+
+        private sealed class PromptLayoutResult
+        {
+            public bool Passed;
+            public Rect Prompt;
+            public Rect Player;
+            public Rect Target;
+            public Rect WalkingBand;
+            public Rect CapturePixels;
+            public float CanvasScaleFactor;
+            public string FailureReasons;
         }
 
         [Serializable]
@@ -389,7 +408,8 @@ namespace ParallelQA
                 string activeId = ActiveTargetId(interaction);
                 bool selectedNear = registered && activeId == definition.StartSlotId;
                 bool singlePrompt = selectedNear && interaction.HasProximityPrompt && proximity.activeSelf && !popup.activeSelf;
-                bool walkingClear = singlePrompt && PromptClearsWalkingPath(proximity, camera, campUse.PlayerPosition, target.Position);
+                PromptLayoutResult promptLayout = MeasurePromptLayout(prototype, proximity, camera, target.Position);
+                bool walkingClear = singlePrompt && promptLayout.Passed;
 
                 string approachName = "wave11-slot-" + definition.Archetype.ToString().ToLowerInvariant() + "-" + locale + "-approach-1280x800.png";
                 prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, approachName), 1280, 800);
@@ -459,6 +479,13 @@ namespace ParallelQA
                     firstCandidate = firstCandidateName,
                     approachScreenshot = approachName,
                     previewScreenshot = previewName,
+                    promptScreenRect = FormatRect(promptLayout.Prompt),
+                    playerScreenRect = FormatRect(promptLayout.Player),
+                    targetScreenRect = FormatRect(promptLayout.Target),
+                    walkingBandScreenRect = FormatRect(promptLayout.WalkingBand),
+                    capturePixelRect = FormatRect(promptLayout.CapturePixels),
+                    canvasScaleFactor = promptLayout.CanvasScaleFactor,
+                    layoutFailureReasons = promptLayout.FailureReasons,
                     actual = registered
                         ? "active=" + activeId + ", prompt=" + singlePrompt + ", popup=" + popupOpened + ", action=" + singleAction + ", first=" + firstCandidateName + ", cancel=" + cancelRestored
                         : "canonical catalog slot exists, but no independent proximity target was registered"
@@ -476,7 +503,12 @@ namespace ParallelQA
                             observations.Count(item => item.popupOpened && item.singleExpandAction && item.firstCandidateMatches && item.cancelSnapshotRestored) + "/3; " +
                             string.Join(" | ", observations.Select(item => item.slotId + "{" + item.actual + "}"));
             string layout = "directScreens=" + screenshots.Count(name => name.Contains("wave11-slot-")) + "/6; clear=" +
-                            observations.Count(item => item.walkingPathClear) + "/3; captures are attempts when direct targets are absent and do not claim direct PASS";
+                            observations.Count(item => item.walkingPathClear) + "/3; " +
+                            string.Join(" | ", observations.Select(item => item.slotId + "{prompt=" + item.promptScreenRect +
+                                ", player=" + item.playerScreenRect + ", target=" + item.targetScreenRect +
+                                ", walking=" + item.walkingBandScreenRect + ", capture=" + item.capturePixelRect +
+                                ", scale=" + item.canvasScaleFactor.ToString("0.###") +
+                                ", failures=" + item.layoutFailureReasons + "}"));
             return new DirectObservationResult
             {
                 Passed = directPass,
@@ -717,23 +749,123 @@ namespace ParallelQA
                 .ToDictionary(columns => columns[0], columns => columns, StringComparer.Ordinal);
         }
 
-        private static bool PromptClearsWalkingPath(GameObject prompt, Camera camera, Vector2 player, Vector2 slot)
+        private static PromptLayoutResult MeasurePromptLayout(KimSurvivalPrototype prototype, GameObject prompt, Camera camera, Vector2 slot)
         {
             RectTransform rectTransform = prompt == null ? null : prompt.GetComponent<RectTransform>();
             if (rectTransform == null || camera == null)
             {
-                return false;
+                return new PromptLayoutResult { FailureReasons = "missing prompt RectTransform or camera" };
             }
+
+            Canvas canvas = prompt.GetComponentInParent<Canvas>();
+            if (canvas == null)
+            {
+                return new PromptLayoutResult { FailureReasons = "missing parent Canvas" };
+            }
+            RenderTexture previousTarget = camera.targetTexture;
+            RenderTexture captureTarget = RenderTexture.GetTemporary(1280, 800, 24, RenderTextureFormat.ARGB32);
+            try
+            {
+                camera.targetTexture = captureTarget;
+                Canvas.ForceUpdateCanvases();
+                Camera canvasCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+                Rect sourcePixels = canvas.pixelRect;
+                Rect promptRect = RectTransformScreenRect(rectTransform, canvasCamera, sourcePixels);
+                Transform playerRoot = GetField<Transform>(prototype, "playerRoot");
+                PrototypeCampUse campUse = GetField<PrototypeCampUse>(prototype, "campUse");
+                Rect playerRect = RendererScreenRect(playerRoot == null ? null : playerRoot.gameObject, camera, sourcePixels,
+                    new Rect(campUse.PlayerPosition.x - 0.45f, PrototypeCampPlacement.FloorY - 0.05f, 0.9f, 1.7f));
+                Rect targetRect = WorldRectToScreenRect(
+                    new Rect(slot.x - 0.55f, PrototypeCampPlacement.FloorY - 0.1f, 1.1f, 1.45f), camera, sourcePixels);
+                float captureAspect = sourcePixels.height > 0.01f ? sourcePixels.width / sourcePixels.height : 1.6f;
+                float halfWidth = camera.orthographicSize * captureAspect;
+                Rect walkingWorld = new Rect(
+                    camera.transform.position.x - halfWidth,
+                    PrototypeCampPlacement.FloorY - 0.25f,
+                    halfWidth * 2f,
+                    1.15f);
+                Rect walkingRect = WorldRectToScreenRect(walkingWorld, camera, sourcePixels);
+
+                List<string> failures = new List<string>();
+                if (promptRect.xMin < 0f || promptRect.yMin < 0f || promptRect.xMax > 1280f || promptRect.yMax > 800f)
+                {
+                    failures.Add("screen-bounds");
+                }
+                if (promptRect.Overlaps(playerRect)) failures.Add("player-silhouette");
+                if (promptRect.Overlaps(targetRect)) failures.Add("target-silhouette");
+                if (promptRect.Overlaps(walkingRect)) failures.Add("walking-band");
+
+                return new PromptLayoutResult
+                {
+                    Passed = failures.Count == 0,
+                    Prompt = promptRect,
+                    Player = playerRect,
+                    Target = targetRect,
+                    WalkingBand = walkingRect,
+                    CapturePixels = sourcePixels,
+                    CanvasScaleFactor = canvas.scaleFactor,
+                    FailureReasons = failures.Count == 0 ? "none" : string.Join(",", failures)
+                };
+            }
+            finally
+            {
+                camera.targetTexture = previousTarget;
+                Canvas.ForceUpdateCanvases();
+                RenderTexture.ReleaseTemporary(captureTarget);
+            }
+        }
+
+        private static Rect RectTransformScreenRect(RectTransform rectTransform, Camera camera, Rect sourcePixelRect)
+        {
             Vector3[] corners = new Vector3[4];
             rectTransform.GetWorldCorners(corners);
-            Rect promptRect = Rect.MinMaxRect(corners.Min(point => point.x), corners.Min(point => point.y), corners.Max(point => point.x), corners.Max(point => point.y));
-            Vector3 playerScreen = camera.WorldToScreenPoint(player);
-            Vector3 slotScreen = camera.WorldToScreenPoint(slot);
-            Rect playerRect = new Rect(playerScreen.x - 48f, playerScreen.y - 72f, 96f, 144f);
-            Rect slotRect = new Rect(slotScreen.x - 48f, slotScreen.y - 72f, 96f, 144f);
-            Rect walkingBand = new Rect(0f, 0f, Screen.width, Screen.height * 0.38f);
-            return promptRect.xMin >= 0f && promptRect.yMin >= 0f && promptRect.xMax <= Screen.width && promptRect.yMax <= Screen.height &&
-                   !promptRect.Overlaps(playerRect) && !promptRect.Overlaps(slotRect) && !promptRect.Overlaps(walkingBand);
+            Vector2[] points = corners.Select(corner => RectTransformUtility.WorldToScreenPoint(camera, corner)).ToArray();
+            return NormalizeToCapture(Rect.MinMaxRect(
+                points.Min(point => point.x), points.Min(point => point.y),
+                points.Max(point => point.x), points.Max(point => point.y)), sourcePixelRect);
+        }
+
+        private static Rect RendererScreenRect(GameObject root, Camera camera, Rect sourcePixelRect, Rect fallbackWorld)
+        {
+            Renderer[] renderers = root == null ? Array.Empty<Renderer>() : root.GetComponentsInChildren<Renderer>(true);
+            if (renderers.Length == 0)
+            {
+                return WorldRectToScreenRect(fallbackWorld, camera, sourcePixelRect);
+            }
+            Bounds bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i += 1) bounds.Encapsulate(renderers[i].bounds);
+            return WorldRectToScreenRect(new Rect(bounds.min.x, bounds.min.y, bounds.size.x, bounds.size.y), camera, sourcePixelRect);
+        }
+
+        private static Rect WorldRectToScreenRect(Rect worldRect, Camera camera, Rect sourcePixelRect)
+        {
+            Vector3[] points =
+            {
+                camera.WorldToScreenPoint(new Vector3(worldRect.xMin, worldRect.yMin, 0f)),
+                camera.WorldToScreenPoint(new Vector3(worldRect.xMin, worldRect.yMax, 0f)),
+                camera.WorldToScreenPoint(new Vector3(worldRect.xMax, worldRect.yMin, 0f)),
+                camera.WorldToScreenPoint(new Vector3(worldRect.xMax, worldRect.yMax, 0f))
+            };
+            return NormalizeToCapture(Rect.MinMaxRect(
+                points.Min(point => point.x), points.Min(point => point.y),
+                points.Max(point => point.x), points.Max(point => point.y)), sourcePixelRect);
+        }
+
+        private static Rect NormalizeToCapture(Rect rect, Rect sourcePixelRect)
+        {
+            float sourceWidth = sourcePixelRect.width > 0.01f ? sourcePixelRect.width : Mathf.Max(1f, Screen.width);
+            float sourceHeight = sourcePixelRect.height > 0.01f ? sourcePixelRect.height : Mathf.Max(1f, Screen.height);
+            return new Rect(
+                (rect.x - sourcePixelRect.x) * 1280f / sourceWidth,
+                (rect.y - sourcePixelRect.y) * 800f / sourceHeight,
+                rect.width * 1280f / sourceWidth,
+                rect.height * 800f / sourceHeight);
+        }
+
+        private static string FormatRect(Rect rect)
+        {
+            return "x=" + rect.x.ToString("0.0") + ",y=" + rect.y.ToString("0.0") +
+                   ",w=" + rect.width.ToString("0.0") + ",h=" + rect.height.ToString("0.0");
         }
 
         private static bool VerifyPng(string fileName)

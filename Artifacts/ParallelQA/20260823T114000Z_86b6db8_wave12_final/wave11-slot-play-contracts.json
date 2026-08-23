@@ -1,0 +1,74 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 11 direct slot Play contracts",
+    "runId": "20260823T114000Z_86b6db8_wave12_final",
+    "baselineCommit": "86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T11:05:44.6104790Z",
+    "completedUtc": "2026-08-23T11:05:48.4542650Z",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 4,
+    "expectedFailed": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 1,
+    "checks": [
+        {
+            "id": "W11-P01.direct_slot_discovery_popup_and_cancel",
+            "matrix": "direct slot flow",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Far shows zero direct prompts; each slot is an independent near target with one prompt, a one-action ui.module.expand popup, matching first candidate, and exact cancel snapshot restoration",
+            "actual": "farZero=True; registered=3/3; near=3/3; popup/action/first/cancel=3/3; slot.start.upper{active=slot.start.upper, prompt=True, popup=True, action=True, first=Upper, cancel=True} | slot.start.side{active=slot.start.side, prompt=True, popup=True, action=True, first=Side, cancel=True} | slot.start.basement{active=slot.start.basement, prompt=True, popup=True, action=True, first=Basement, cancel=True}",
+            "reproduction": "At room.start, move far away, then approach slot.start.upper/side/basement individually; open, preview, and cancel each.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+        },
+        {
+            "id": "W11-P02.direct_slot_1280_layout",
+            "matrix": "1280x800 layout",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Each direct approach and preview capture is 1280x800, on-screen, and does not cover Kim, its slot, or the required walking band",
+            "actual": "directScreens=6/6; clear=3/3; slot.start.upper{prompt=x=420.0,y=464.0,w=440.0,h=48.0, player=x=309.3,y=236.1,w=85.4,h=152.6, target=x=316.4,y=193.8,w=78.2,h=103.1, walking=x=0.0,y=183.1,w=1280.0,h=81.8, capture=x=0.0,y=0.0,w=1280.0,h=800.0, scale=0.703, failures=none} | slot.start.side{prompt=x=420.0,y=464.0,w=440.0,h=48.0, player=x=1169.8,y=236.1,w=85.4,h=152.6, target=x=1176.9,y=193.8,w=78.2,h=103.1, walking=x=0.0,y=183.1,w=1280.0,h=81.8, capture=x=0.0,y=0.0,w=1280.0,h=800.0, scale=0.703, failures=none} | slot.start.basement{prompt=x=420.0,y=464.0,w=440.0,h=48.0, player=x=700.4,y=236.1,w=85.4,h=152.6, target=x=707.6,y=193.8,w=78.2,h=103.1, walking=x=0.0,y=183.1,w=1280.0,h=81.8, capture=x=0.0,y=0.0,w=1280.0,h=800.0, scale=0.703, failures=none}",
+            "reproduction": "Open the six direct-slot PNGs at 1:1 and compare prompt/popup bounds with the player, slot, and lower walking band.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W11-P03.storage_planning_auxiliary_regression",
+            "matrix": "auxiliary path",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "storage.planning still opens module preview, cycles all candidates, and cancels neutrally, but is not counted as direct discovery",
+            "actual": "PASS · storage.planning retained; three candidates cycled; cancel restored; explicitly excluded from direct-slot numerator",
+            "reproduction": "Use the storage.planning popup separately and cycle Upper/Side/Basement before cancel.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W11-P04.full_survival_regression",
+            "matrix": "full playable regression",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Prompt, placement, bag, signal, search, swim, land return, room module, and natural three-day survival/rescue regression remains PASS",
+            "actual": "PASS · Wave 11 slot.start.upper/side/basement 직접 접근, 1.25u 단일 latch, 슬롯 전용 ui.module.expand 팝업, 접근 슬롯 초기 후보, upper→side→basement 순환, preview→동일 popup→동일 현장 Cancel, canonical interaction.module geometry/economy 사유, W2/D1 원자 확정과 run당 하나를 확인. ko/en/실제 qps-long 및 [E]/[X] action 의미, 1280x800 비용·사유 무잘림을 통과하고 storage.planning 보조 진입, 공간형 설비, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프를 회귀 확인",
+            "reproduction": "Run KimSurvivalPrototype.RunAutomatedVerification from a fresh Play scene.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W11-HW01.physical_gamepad",
+            "matrix": "input hardware",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "A human approaches all three slots, previews/cancels, and commits with a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows development build on hardware and record device name/VID/PID plus human actuation.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        }
+    ]
+}
