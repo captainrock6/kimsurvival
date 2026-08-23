@@ -11,9 +11,9 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | planned |  |
-| implementation | complete |  |
-| verification | in_progress |  |
+| art | in_progress | 가방 UI 후보 품질 점수 100 및 비교 보드 생성 완료. 사용자 승인 전이므로 review 상태를 유지하고 runtime 채택은 보류. |
+| implementation | complete | 4→6칸 1회 가방 확장, 비용·잠금·날짜 지속·새 게임 초기화·KO/EN UI 구현 완료. |
+| verification | complete | 최종 HEAD 8f16dad 기준 PRODUCT/INFRASTRUCTURE/기존 회귀 PASS. 물리 게임패드는 별도 실기 미검증. |
 
 ## 다음 작업
 
@@ -71,15 +71,21 @@
 | task.feature.feature.localization | implementation | high | done | 한국어·영어와 확장 가능한 국제화 구현 |
 | task.qa.feature.localization | qa | high | ready | 한국어·영어와 확장 가능한 국제화 검증 |
 | task.wave3.implementation.third-locale | implementation | high | ready | Wave 3 P2 제3 로케일·저장 독립성 구현 |
+| task.system.system.bag-capacity-upgrade | implementation | high | done | 가방 용량 성장 구현 |
+| task.feature.feature.inventory-capacity-upgrade | implementation | high | done | 가방 4→6칸 확장 구현 |
+| task.qa.feature.inventory-capacity-upgrade | qa | high | done | 가방 4→6칸 확장 검증 |
+| task.design.wave7-bag-capacity-balance | design | high | done | Wave 7 가방 확장 비용과 3일 경로 검증 |
 | task.art.icon.resource-tool-set | art | medium | done | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | done | 코믹 피드백 효과 세트 제작 |
+| task.art.ui.bag-capacity-upgrade | art | medium | review | 가방 확장 UI 상태 세트 제작 |
 | task.postslice.steam-release-readiness | implementation | low | blocked | 수직 슬라이스 이후 Steam 출하 준비 |
 
 ## 채택 대기 또는 플레이스홀더 아트
 
 - background.coast-forest: review · 해변·숲 수색 구역
-- ui.survival-hud: needed · PC·Steam 프로토타입 UI
+- ui.survival-hud: needed · PC·Steam 다국어 프로토타입 UI
 - animation.mr-kim.swim: review · 김씨 수영 애니메이션
+- ui.bag-capacity-upgrade: review · 가방 확장 UI 상태 세트
 
 ## 검증 증거
 
@@ -209,6 +215,15 @@
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt
+- task.system.system.bag-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-edit-contracts.txt
+- task.system.system.bag-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-play-contracts.txt
+- task.feature.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt
+- task.feature.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-layout-metrics.txt
+- task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt
+- task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/windows-hidden-smoke.txt
+- task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#4-업그레이드-전-가방-선택-보존-검증
+- task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#6-w2d1-구매-포함-자연-3일-구조-장부
+- task.design.wave7-bag-capacity-balance: Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-edit-contracts.txt
 - task.art.icon.resource-tool-set: Forge asset icon.resource-tool-set adopted via job_20260822141317_caf8e11d
 - task.art.effect.comedy-feedback: Forge asset effect.comedy-feedback adopted via job_20260822224357_275de712
 - task.postslice.steam-release-readiness: Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt

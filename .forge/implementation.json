@@ -32,7 +32,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:41.805Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:41.805Z",
       "createdAt": "2026-08-22T08:24:41.805Z"
@@ -64,7 +64,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:41.917Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:41.917Z",
       "createdAt": "2026-08-22T08:24:41.917Z"
@@ -98,7 +98,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:42.034Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.034Z",
       "createdAt": "2026-08-22T08:24:42.034Z"
@@ -130,7 +130,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:42.155Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.154Z",
       "createdAt": "2026-08-22T08:24:42.155Z"
@@ -166,7 +166,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T10:15:38.551Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.262Z",
       "createdAt": "2026-08-22T08:24:42.263Z"
@@ -199,7 +199,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:42.368Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.368Z",
       "createdAt": "2026-08-22T08:24:42.368Z"
@@ -234,7 +234,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:42.913Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.913Z",
       "createdAt": "2026-08-22T08:24:42.913Z"
@@ -268,7 +268,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:43.778Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.777Z",
       "createdAt": "2026-08-22T08:24:43.778Z"
@@ -304,7 +304,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:43.031Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.031Z",
       "createdAt": "2026-08-22T08:24:43.031Z"
@@ -338,7 +338,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:43.893Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.893Z",
       "createdAt": "2026-08-22T08:24:43.893Z"
@@ -377,7 +377,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:43.138Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.138Z",
       "createdAt": "2026-08-22T08:24:43.138Z"
@@ -411,7 +411,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T08:24:44.007Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.006Z",
       "createdAt": "2026-08-22T08:24:44.007Z"
@@ -459,7 +459,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.796Z",
+      "updatedAt": "2026-08-22T10:15:38.551Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.248Z",
       "createdAt": "2026-08-22T08:24:43.249Z"
@@ -491,22 +491,20 @@
         "c1b18a6 기반 독립 1280×800 캡처에서 색상 없이도 일반 구역, 출입구, 필수 통로, 전용 앵커와 유효·무효 사유를 판독할 수 있다."
       ],
       "paths": [
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
         "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/QA/base-camp-limited-placement-test-plan.md"
+        "Docs/QA/base-camp-limited-placement-test-plan.md",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
       ],
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
         "Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png",
         "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png",
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt"
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
       "note": "83205ba/e2ef2e3의 배치 카드·배지 증거는 존재하지만 e695 독립 감사 뒤 c1b18a6 기준 재감사가 필요하다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.124Z"
@@ -550,7 +548,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T08:24:43.353Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.353Z",
       "createdAt": "2026-08-22T08:24:43.353Z"
@@ -585,7 +583,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T08:24:44.230Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.230Z",
       "createdAt": "2026-08-22T08:24:44.230Z"
@@ -618,574 +616,10 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T11:32:13.820Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:13.820Z",
       "createdAt": "2026-08-22T11:32:13.820Z"
-    },
-    {
-      "id": "task.system.system.survival",
-      "lane": "implementation",
-      "title": "허기·체력과 하루 정산 구현",
-      "description": "행동의 체력 비용, 식량 사용, 휴식, 일몰 정산, 캠프 설비 보너스와 실패 판정을 처리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.survival-pressure",
-        "feature.escape-outcome"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "행동과 하루 정산이 허기·체력에 한 번씩 예측 가능하게 반영되고 0 도달 시 정확한 실패 원인이 기록된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.475Z",
-      "createdAt": "2026-08-22T08:24:42.476Z"
-    },
-    {
-      "id": "task.system.system.comedy-feedback",
-      "lane": "implementation",
-      "title": "상황형 코믹 피드백 구현",
-      "description": "자원 부족, 도구 반동, 환경 사고와 실패 결과에 짧은 연출·효과음 자리·김씨 독백을 규칙 기반으로 연결한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.crafting-research",
-        "feature.island-exploration",
-        "feature.survival-pressure",
-        "feature.escape-outcome"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "최소 3개 서로 다른 게임 상태에서 반복을 방해하지 않는 짧은 코믹 피드백이 발생하고 원래 결과가 명확히 전달된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.589Z",
-      "createdAt": "2026-08-22T08:24:42.590Z"
-    },
-    {
-      "id": "task.system.system.input-actions",
-      "lane": "implementation",
-      "title": "Unity 입력 액션 구현",
-      "description": "이동, 상호작용, 가방, 메뉴, 취소, 귀환을 장치 독립 액션으로 정의하고 키보드·마우스와 게임패드 바인딩을 제공한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.dual-input",
-        "feature.island-exploration",
-        "feature.camp-building"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "두 입력 방식이 같은 게임 로직을 호출하고 장치 전환 시 중복 입력이나 조작 불능이 발생하지 않는다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.697Z",
-      "createdAt": "2026-08-22T08:24:42.698Z"
-    },
-    {
-      "id": "task.system.system.responsive-ui",
-      "lane": "implementation",
-      "title": "PC·휴대형 UI 가독성 구현",
-      "description": "16:9와 16:10 화면에서 HUD 앵커, 텍스트 크기, 포커스, 입력 아이콘 전환을 관리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.dual-input"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "1920×1080과 1280×800에서 필수 정보가 잘리지 않고 게임패드 포커스와 현재 입력 안내가 보인다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.800Z",
-      "createdAt": "2026-08-22T08:24:42.801Z"
-    },
-    {
-      "id": "task.feature.feature.survival-pressure",
-      "lane": "implementation",
-      "title": "허기·체력 생존 정산 구현",
-      "description": "수색 행동과 하루 종료에서 허기·체력을 변화시키고 식량, 휴식과 설비 효과를 다음 날에 반영한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.camp-building",
-        "task.feature.feature.island-exploration"
-      ],
-      "featureIds": [
-        "feature.survival-pressure"
-      ],
-      "assetIds": [
-        "ui.survival-hud",
-        "icon.resource-tool-set",
-        "effect.comedy-feedback"
-      ],
-      "acceptanceCriteria": [
-        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
-        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
-        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.456Z",
-      "createdAt": "2026-08-22T08:24:43.457Z"
-    },
-    {
-      "id": "task.qa.feature.survival-pressure",
-      "lane": "qa",
-      "title": "허기·체력 생존 정산 검증",
-      "description": "허기·체력 생존 정산의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.survival-pressure"
-      ],
-      "featureIds": [
-        "feature.survival-pressure"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
-        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
-        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:44.342Z",
-      "createdAt": "2026-08-22T08:24:44.342Z"
-    },
-    {
-      "id": "task.feature.feature.escape-outcome",
-      "lane": "implementation",
-      "title": "구조 신호와 결말 구현",
-      "description": "표류물과 제작품을 구조 신호대에 투자해 단계적으로 완성하고 3일 내 구조를 요청한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.camp-building",
-        "task.feature.feature.crafting-research",
-        "task.feature.feature.survival-pressure"
-      ],
-      "featureIds": [
-        "feature.escape-outcome"
-      ],
-      "assetIds": [
-        "background.island-camp",
-        "object.camp-structures",
-        "ui.survival-hud",
-        "effect.comedy-feedback"
-      ],
-      "acceptanceCriteria": [
-        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
-        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
-        "완성 시 구조 성공, 3일차 종료 시 미완성이면 기한 실패 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.558Z",
-      "createdAt": "2026-08-22T08:24:43.558Z"
-    },
-    {
-      "id": "task.qa.feature.escape-outcome",
-      "lane": "qa",
-      "title": "구조 신호와 결말 검증",
-      "description": "구조 신호와 결말의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.escape-outcome"
-      ],
-      "featureIds": [
-        "feature.escape-outcome"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
-        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
-        "완성 시 구조 성공, 3일차 종료 시 미완성이면 기한 실패 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:44.451Z",
-      "createdAt": "2026-08-22T08:24:44.452Z"
-    },
-    {
-      "id": "task.feature.feature.dual-input",
-      "lane": "implementation",
-      "title": "PC 이중 입력 구현",
-      "description": "키보드·마우스와 게임패드가 같은 게임 액션을 사용하고 현재 입력 장치에 맞는 안내를 표시한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.dual-input"
-      ],
-      "assetIds": [
-        "ui.survival-hud"
-      ],
-      "acceptanceCriteria": [
-        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
-        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
-        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.664Z",
-      "createdAt": "2026-08-22T08:24:43.665Z"
-    },
-    {
-      "id": "task.qa.feature.dual-input",
-      "lane": "qa",
-      "title": "PC 이중 입력 검증",
-      "description": "PC 이중 입력의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.dual-input"
-      ],
-      "featureIds": [
-        "feature.dual-input"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
-        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
-        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다.",
-        "실제 XInput 또는 Steam Input 호환 장치의 제품명·VID/PID·연결 방식을 기록하고 ko/en 전체 루프, 배치, 수영, 가방 교체와 언어 설정을 실기 입력만으로 완주한다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/input-code-path-audit.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt",
-        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "합성 입력은 PASS다. 제품 결함을 가정해 코드를 바꾸기 전에 실제 게임패드 QA를 선행한다.",
-      "createdAt": "2026-08-22T14:03:57.338Z"
-    },
-    {
-      "id": "task.system.system.swimming",
-      "lane": "implementation",
-      "title": "수영 이동과 수상 위험 구현",
-      "description": "물 영역 감지, 육상·수영 상태 전환, 수면 이동, 해안 복귀, 추가 체력·일광 비용과 수상 수색 지점을 처리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.swimming"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "수영 상태가 육상 이동·점프와 충돌하지 않고 진입과 이탈 때 플레이어 위치와 생존 상태를 보존한다.",
-        "수영 비용과 수상 보상이 동일한 규칙으로 재현되며 강제 귀환·실패 판정과 연결된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
-      "completedAt": "2026-08-22T09:25:36.301Z",
-      "createdAt": "2026-08-22T09:25:36.302Z"
-    },
-    {
-      "id": "task.feature.feature.swimming",
-      "lane": "implementation",
-      "title": "해안 수영과 수상 수색 구현",
-      "description": "김씨가 해안에서 수면으로 자연스럽게 진입해 헤엄치고, 육지보다 큰 체력·일광 비용을 감수해 수상 표류물과 암초 수색 지점에 접근한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.island-exploration",
-        "task.feature.feature.survival-pressure"
-      ],
-      "featureIds": [
-        "feature.swimming"
-      ],
-      "assetIds": [
-        "background.coast-forest",
-        "character.mr-kim",
-        "animation.mr-kim.swim",
-        "ui.survival-hud",
-        "effect.comedy-feedback"
-      ],
-      "acceptanceCriteria": [
-        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
-        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
-        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
-        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "README.md"
-      ],
-      "evidence": [
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
-      "completedAt": "2026-08-22T09:25:37.708Z",
-      "createdAt": "2026-08-22T09:25:37.709Z"
-    },
-    {
-      "id": "task.qa.feature.swimming",
-      "lane": "qa",
-      "title": "해안 수영과 수상 수색 검증",
-      "description": "해안 수영과 수상 수색의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.swimming"
-      ],
-      "featureIds": [
-        "feature.swimming"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
-        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
-        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
-        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
-      ],
-      "paths": [],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt",
-        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
-      "completedAt": "2026-08-22T09:25:39.001Z",
-      "createdAt": "2026-08-22T09:25:39.001Z"
-    },
-    {
-      "id": "task.system.system.localization",
-      "lane": "implementation",
-      "title": "Unity 국제화와 현지화 구현",
-      "description": "Unity Localization 기반의 안정적인 문자열 키, 한국어·영어 테이블, Smart String 변수, 현재 로케일, 설정 저장, 한국어 폴백과 로케일별 TextMeshPro 폰트 매핑을 관리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.localization"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "모든 플레이어 노출 문구가 문자열 키를 통해 조회되고 수량·날짜·버튼명은 문자열 연결이 아닌 형식 인수로 전달된다.",
-        "ko와 en 로케일 전환이 현재 화면에 즉시 반영되고 선택 값이 재실행 후 복원된다.",
-        "누락 키 또는 번역은 한국어로 폴백되고 개발 빌드에서 식별 가능한 로그를 남긴다.",
-        "로케일별 TextMeshPro 기본 폰트와 폴백 목록을 데이터로 교체할 수 있으며 지원 글리프 누락을 검출한다.",
-        "es, ja, zh-Hans, zh-Hant 같은 새 로케일 등록에 게임 플레이 코드 수정이 필요하지 않다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
-        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
-        "Assets/_Project/Scripts/Localization"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T11:32:14.998Z",
-      "createdAt": "2026-08-22T11:32:14.998Z"
-    },
-    {
-      "id": "task.feature.feature.localization",
-      "lane": "implementation",
-      "title": "한국어·영어와 확장 가능한 국제화 구현",
-      "description": "한국어를 기본·원문 언어로, 영어를 첫 지원 언어로 제공하고 향후 로케일을 게임 로직 변경 없이 추가할 수 있게 한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.localization"
-      ],
-      "assetIds": [
-        "ui.survival-hud"
-      ],
-      "acceptanceCriteria": [
-        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
-        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
-        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
-        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
-        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
-        "Assets/_Project/Scripts/Localization"
-      ],
-      "evidence": [
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "",
-      "completedAt": "2026-08-22T11:32:16.130Z",
-      "createdAt": "2026-08-22T11:32:16.130Z"
-    },
-    {
-      "id": "task.qa.feature.localization",
-      "lane": "qa",
-      "title": "한국어·영어와 확장 가능한 국제화 검증",
-      "description": "한국어·영어와 확장 가능한 국제화의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.localization"
-      ],
-      "featureIds": [
-        "feature.localization"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
-        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
-        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
-        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
-        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다.",
-        "ko/en/qps-long의 canonical 138키와 named placeholder 집합이 일치하고 qps-long은 35~50% 팽창·글리프·1280×800 수용 기준을 통과한다.",
-        "플레이어용 세이브·로드를 추가하지 않고 ko에서 만든 QA 진행 snapshot을 en과 qps-long에서 복원해도 Day, 자원, 상태, 연구·설비·신호 단계가 변하지 않는다.",
-        "입력 프롬프트는 action placeholder로 장치에 따라 갱신되며 locale과 진행 상태를 바꾸지 않는다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/Design/vertical-slice-localization.md",
-        "Docs/QA/ko-en-localization-test-plan.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt"
-      ],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
-      "note": "현재 ko/en 기능 증거는 있으나 qps-long 등록·캡처와 저장 언어 비의존성 증거가 없어 P2가 열려 있다.",
-      "createdAt": "2026-08-22T14:03:57.338Z"
     },
     {
       "id": "task.wave3.implementation.balance-v0-2",
@@ -1221,7 +655,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
     {
@@ -1261,7 +695,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
     {
@@ -1297,7 +731,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
     {
@@ -1347,8 +781,570 @@
       ],
       "blockedReason": "fed5066 자동 기능 경로는 PASS지만 화면 가독성 P1/P2, 처음 보는 참가자 6명의 외부 세션과 별도 물리 게임패드 ko/en 실기가 남아 있다.",
       "status": "blocked",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T14:03:57.337Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.system.system.survival",
+      "lane": "implementation",
+      "title": "허기·체력과 하루 정산 구현",
+      "description": "행동의 체력 비용, 식량 사용, 휴식, 일몰 정산, 캠프 설비 보너스와 실패 판정을 처리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.survival-pressure",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "행동과 하루 정산이 허기·체력에 한 번씩 예측 가능하게 반영되고 0 도달 시 정확한 실패 원인이 기록된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:42.476Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:42.475Z",
+      "createdAt": "2026-08-22T08:24:42.476Z"
+    },
+    {
+      "id": "task.system.system.comedy-feedback",
+      "lane": "implementation",
+      "title": "상황형 코믹 피드백 구현",
+      "description": "자원 부족, 도구 반동, 환경 사고와 실패 결과에 짧은 연출·효과음 자리·김씨 독백을 규칙 기반으로 연결한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.crafting-research",
+        "feature.island-exploration",
+        "feature.survival-pressure",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "최소 3개 서로 다른 게임 상태에서 반복을 방해하지 않는 짧은 코믹 피드백이 발생하고 원래 결과가 명확히 전달된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:42.590Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:42.589Z",
+      "createdAt": "2026-08-22T08:24:42.590Z"
+    },
+    {
+      "id": "task.system.system.input-actions",
+      "lane": "implementation",
+      "title": "Unity 입력 액션 구현",
+      "description": "이동, 상호작용, 가방, 메뉴, 취소, 귀환을 장치 독립 액션으로 정의하고 키보드·마우스와 게임패드 바인딩을 제공한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.dual-input",
+        "feature.island-exploration",
+        "feature.camp-building"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "두 입력 방식이 같은 게임 로직을 호출하고 장치 전환 시 중복 입력이나 조작 불능이 발생하지 않는다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:42.698Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:42.697Z",
+      "createdAt": "2026-08-22T08:24:42.698Z"
+    },
+    {
+      "id": "task.system.system.responsive-ui",
+      "lane": "implementation",
+      "title": "PC·휴대형 UI 가독성 구현",
+      "description": "16:9와 16:10 화면에서 HUD 앵커, 텍스트 크기, 포커스, 입력 아이콘 전환을 관리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "1920×1080과 1280×800에서 필수 정보가 잘리지 않고 게임패드 포커스와 현재 입력 안내가 보인다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:42.801Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:42.800Z",
+      "createdAt": "2026-08-22T08:24:42.801Z"
+    },
+    {
+      "id": "task.feature.feature.survival-pressure",
+      "lane": "implementation",
+      "title": "허기·체력 생존 정산 구현",
+      "description": "수색 행동과 하루 종료에서 허기·체력을 변화시키고 식량, 휴식과 설비 효과를 다음 날에 반영한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.camp-building",
+        "task.feature.feature.island-exploration"
+      ],
+      "featureIds": [
+        "feature.survival-pressure"
+      ],
+      "assetIds": [
+        "ui.survival-hud",
+        "icon.resource-tool-set",
+        "effect.comedy-feedback"
+      ],
+      "acceptanceCriteria": [
+        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
+        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
+        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:43.457Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:43.456Z",
+      "createdAt": "2026-08-22T08:24:43.457Z"
+    },
+    {
+      "id": "task.qa.feature.survival-pressure",
+      "lane": "qa",
+      "title": "허기·체력 생존 정산 검증",
+      "description": "허기·체력 생존 정산의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.survival-pressure"
+      ],
+      "featureIds": [
+        "feature.survival-pressure"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
+        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
+        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:44.342Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:44.342Z",
+      "createdAt": "2026-08-22T08:24:44.342Z"
+    },
+    {
+      "id": "task.feature.feature.escape-outcome",
+      "lane": "implementation",
+      "title": "구조 신호와 결말 구현",
+      "description": "표류물과 제작품을 구조 신호대에 투자해 단계적으로 완성하고 3일 내 구조를 요청한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.camp-building",
+        "task.feature.feature.crafting-research",
+        "task.feature.feature.survival-pressure"
+      ],
+      "featureIds": [
+        "feature.escape-outcome"
+      ],
+      "assetIds": [
+        "background.island-camp",
+        "object.camp-structures",
+        "ui.survival-hud",
+        "effect.comedy-feedback"
+      ],
+      "acceptanceCriteria": [
+        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
+        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
+        "완성 시 구조 성공, 3일차 종료 시 미완성이면 기한 실패 결과가 표시된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:43.558Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:43.558Z",
+      "createdAt": "2026-08-22T08:24:43.558Z"
+    },
+    {
+      "id": "task.qa.feature.escape-outcome",
+      "lane": "qa",
+      "title": "구조 신호와 결말 검증",
+      "description": "구조 신호와 결말의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.escape-outcome"
+      ],
+      "featureIds": [
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
+        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
+        "완성 시 구조 성공, 3일차 종료 시 미완성이면 기한 실패 결과가 표시된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:44.452Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:44.451Z",
+      "createdAt": "2026-08-22T08:24:44.452Z"
+    },
+    {
+      "id": "task.feature.feature.dual-input",
+      "lane": "implementation",
+      "title": "PC 이중 입력 구현",
+      "description": "키보드·마우스와 게임패드가 같은 게임 액션을 사용하고 현재 입력 장치에 맞는 안내를 표시한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.dual-input"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
+        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
+        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:43.665Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:43.664Z",
+      "createdAt": "2026-08-22T08:24:43.665Z"
+    },
+    {
+      "id": "task.qa.feature.dual-input",
+      "lane": "qa",
+      "title": "PC 이중 입력 검증",
+      "description": "PC 이중 입력의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.dual-input"
+      ],
+      "featureIds": [
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
+        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
+        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다.",
+        "실제 XInput 또는 Steam Input 호환 장치의 제품명·VID/PID·연결 방식을 기록하고 ko/en 전체 루프, 배치, 수영, 가방 교체와 언어 설정을 실기 입력만으로 완주한다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/input-code-path-audit.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt",
+        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "note": "합성 입력은 PASS다. 제품 결함을 가정해 코드를 바꾸기 전에 실제 게임패드 QA를 선행한다."
+    },
+    {
+      "id": "task.system.system.swimming",
+      "lane": "implementation",
+      "title": "수영 이동과 수상 위험 구현",
+      "description": "물 영역 감지, 육상·수영 상태 전환, 수면 이동, 해안 복귀, 추가 체력·일광 비용과 수상 수색 지점을 처리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "수영 상태가 육상 이동·점프와 충돌하지 않고 진입과 이탈 때 플레이어 위치와 생존 상태를 보존한다.",
+        "수영 비용과 수상 보상이 동일한 규칙으로 재현되며 강제 귀환·실패 판정과 연결된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:36.302Z",
+      "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
+      "completedAt": "2026-08-22T09:25:36.301Z",
+      "createdAt": "2026-08-22T09:25:36.302Z"
+    },
+    {
+      "id": "task.feature.feature.swimming",
+      "lane": "implementation",
+      "title": "해안 수영과 수상 수색 구현",
+      "description": "김씨가 해안에서 수면으로 자연스럽게 진입해 헤엄치고, 육지보다 큰 체력·일광 비용을 감수해 수상 표류물과 암초 수색 지점에 접근한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.island-exploration",
+        "task.feature.feature.survival-pressure"
+      ],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [
+        "background.coast-forest",
+        "character.mr-kim",
+        "animation.mr-kim.swim",
+        "ui.survival-hud",
+        "effect.comedy-feedback"
+      ],
+      "acceptanceCriteria": [
+        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
+        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
+        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
+        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "README.md"
+      ],
+      "evidence": [
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:37.709Z",
+      "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
+      "completedAt": "2026-08-22T09:25:37.708Z",
+      "createdAt": "2026-08-22T09:25:37.709Z"
+    },
+    {
+      "id": "task.qa.feature.swimming",
+      "lane": "qa",
+      "title": "해안 수영과 수상 수색 검증",
+      "description": "해안 수영과 수상 수색의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.swimming"
+      ],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
+        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
+        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
+        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
+      ],
+      "paths": [],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:39.001Z",
+      "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
+      "completedAt": "2026-08-22T09:25:39.001Z",
+      "createdAt": "2026-08-22T09:25:39.001Z"
+    },
+    {
+      "id": "task.system.system.localization",
+      "lane": "implementation",
+      "title": "Unity 국제화와 현지화 구현",
+      "description": "Unity Localization 기반의 안정적인 문자열 키, 한국어·영어 테이블, Smart String 변수, 현재 로케일, 설정 저장, 한국어 폴백과 로케일별 TextMeshPro 폰트 매핑을 관리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "모든 플레이어 노출 문구가 문자열 키를 통해 조회되고 수량·날짜·버튼명은 문자열 연결이 아닌 형식 인수로 전달된다.",
+        "ko와 en 로케일 전환이 현재 화면에 즉시 반영되고 선택 값이 재실행 후 복원된다.",
+        "누락 키 또는 번역은 한국어로 폴백되고 개발 빌드에서 식별 가능한 로그를 남긴다.",
+        "로케일별 TextMeshPro 기본 폰트와 폴백 목록을 데이터로 교체할 수 있으며 지원 글리프 누락을 검출한다.",
+        "es, ja, zh-Hans, zh-Hant 같은 새 로케일 등록에 게임 플레이 코드 수정이 필요하지 않다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
+        "Assets/_Project/Scripts/Localization"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T11:32:14.998Z",
+      "note": "",
+      "completedAt": "2026-08-22T11:32:14.998Z",
+      "createdAt": "2026-08-22T11:32:14.998Z"
+    },
+    {
+      "id": "task.feature.feature.localization",
+      "lane": "implementation",
+      "title": "한국어·영어와 확장 가능한 국제화 구현",
+      "description": "한국어를 기본·원문 언어로, 영어를 첫 지원 언어로 제공하고 향후 로케일을 게임 로직 변경 없이 추가할 수 있게 한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.localization"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
+        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
+        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
+        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
+        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Localization"
+      ],
+      "evidence": [
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T11:32:16.130Z",
+      "note": "",
+      "completedAt": "2026-08-22T11:32:16.130Z",
+      "createdAt": "2026-08-22T11:32:16.130Z"
+    },
+    {
+      "id": "task.qa.feature.localization",
+      "lane": "qa",
+      "title": "한국어·영어와 확장 가능한 국제화 검증",
+      "description": "한국어·영어와 확장 가능한 국제화의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.localization"
+      ],
+      "featureIds": [
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
+        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
+        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
+        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
+        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다.",
+        "ko/en/qps-long의 canonical 138키와 named placeholder 집합이 일치하고 qps-long은 35~50% 팽창·글리프·1280×800 수용 기준을 통과한다.",
+        "플레이어용 세이브·로드를 추가하지 않고 ko에서 만든 QA 진행 snapshot을 en과 qps-long에서 복원해도 Day, 자원, 상태, 연구·설비·신호 단계가 변하지 않는다.",
+        "입력 프롬프트는 action placeholder로 장치에 따라 갱신되며 locale과 진행 상태를 바꾸지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-localization.md",
+        "Docs/QA/ko-en-localization-test-plan.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt"
+      ],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "note": "현재 ko/en 기능 증거는 있으나 qps-long 등록·캡처와 저장 언어 비의존성 증거가 없어 P2가 열려 있다."
     },
     {
       "id": "task.wave3.implementation.third-locale",
@@ -1386,8 +1382,115 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.system.system.bag-capacity-upgrade",
+      "lane": "implementation",
+      "title": "가방 용량 성장 구현",
+      "description": "현재 활성 가방 칸 수, 작업대 조건, 1회 비용 지불, 날짜 간 지속과 새 게임 초기화를 처리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "가방의 물리 배열과 현재 활성 용량을 분리해 잠긴 슬롯이 업그레이드 전에 획득·선택·교체 대상이 되지 않는다.",
+        "업그레이드 성공은 원자적으로 비용을 한 번 차감하고 활성 용량을 6으로 바꾸며 날짜 전환 후에도 유지한다.",
+        "새 게임 초기화는 활성 용량, 잠금 상태와 대기 중 교체 선택을 기본 4칸 상태로 되돌린다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-edit-contracts.txt",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T03:05:27.413Z",
+      "note": "4→6칸 원자적 1회 확장, 날짜 유지, 새 게임 초기화 및 KO/EN 상태 계약 통과.",
+      "completedAt": "2026-08-23T03:05:27.413Z",
+      "createdAt": "2026-08-23T03:05:27.413Z"
+    },
+    {
+      "id": "task.feature.feature.inventory-capacity-upgrade",
+      "lane": "implementation",
+      "title": "가방 4→6칸 확장 구현",
+      "description": "작업대에서 자원을 투자해 한 게임에 한 번 가방을 4칸에서 6칸으로 확장하고, 구조 신호 투자와 다음 수색 효율 사이의 선택을 만든다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.inventory-choice",
+        "task.feature.feature.crafting-research"
+      ],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [
+        "ui.survival-hud",
+        "ui.bag-capacity-upgrade"
+      ],
+      "acceptanceCriteria": [
+        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
+        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
+        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
+        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
+        "가방 확장을 선택한 자연스러운 3일 경로가 grant·좌표 warp 없이 Day 3 구조와 최종 W3/S1/F1/D3에 도달한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
+        "Docs/Design/wave7-bag-capacity-upgrade.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-layout-metrics.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T03:05:27.511Z",
+      "note": "자연 3일 구조 경로, 5·6번 슬롯, 키보드/합성 게임패드와 다국어 레이아웃 자동 게이트 통과.",
+      "completedAt": "2026-08-23T03:05:27.510Z",
+      "createdAt": "2026-08-23T03:05:27.511Z"
+    },
+    {
+      "id": "task.qa.feature.inventory-capacity-upgrade",
+      "lane": "qa",
+      "title": "가방 4→6칸 확장 검증",
+      "description": "가방 4→6칸 확장의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.inventory-capacity-upgrade"
+      ],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
+        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
+        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
+        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
+        "가방 확장을 선택한 자연스러운 3일 경로가 grant·좌표 warp 없이 Day 3 구조와 최종 W3/S1/F1/D3에 도달한다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA/Invoke-Wave7BagCapacityRegression.ps1",
+        "Assets/Editor/ParallelQA/Wave7BagCapacityRegressionRunner.cs",
+        "Docs/QA/wave7-bag-capacity-regression.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/windows-hidden-smoke.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T03:05:27.603Z",
+      "note": "PRODUCT/INFRASTRUCTURE/기존 회귀 PASS. 물리 게임패드는 별도 실기 게이트로 계속 UNVERIFIED.",
+      "completedAt": "2026-08-23T03:05:27.603Z",
+      "createdAt": "2026-08-23T03:05:27.603Z"
     },
     {
       "id": "task.postslice.steam-release-readiness",
@@ -1415,86 +1518,9 @@
       ],
       "blockedReason": "수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.",
       "status": "blocked",
-      "updatedAt": "2026-08-23T01:52:41.797Z",
+      "updatedAt": "2026-08-22T13:15:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
-    },
-    {
-      "id": "task.system.system.bag-capacity-upgrade",
-      "lane": "implementation",
-      "title": "가방 용량 성장 구현",
-      "description": "현재 활성 가방 칸 수, 작업대 조건, 1회 비용 지불, 날짜 간 지속과 새 게임 초기화를 처리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.inventory-capacity-upgrade"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "가방의 물리 배열과 현재 활성 용량을 분리해 잠긴 슬롯이 업그레이드 전에 획득·선택·교체 대상이 되지 않는다.",
-        "업그레이드 성공은 원자적으로 비용을 한 번 차감하고 활성 용량을 6으로 바꾸며 날짜 전환 후에도 유지한다.",
-        "새 게임 초기화는 활성 용량, 잠금 상태와 대기 중 교체 선택을 기본 4칸 상태로 되돌린다."
-      ],
-      "paths": [],
-      "evidence": [],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.796Z"
-    },
-    {
-      "id": "task.feature.feature.inventory-capacity-upgrade",
-      "lane": "implementation",
-      "title": "가방 4→6칸 확장 구현",
-      "description": "작업대에서 자원을 투자해 한 게임에 한 번 가방을 4칸에서 6칸으로 확장하고, 구조 신호 투자와 다음 수색 효율 사이의 선택을 만든다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.inventory-choice",
-        "task.feature.feature.crafting-research"
-      ],
-      "featureIds": [
-        "feature.inventory-capacity-upgrade"
-      ],
-      "assetIds": [
-        "ui.survival-hud",
-        "ui.bag-capacity-upgrade"
-      ],
-      "acceptanceCriteria": [
-        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
-        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
-        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
-        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 3일 경로에서도 구조 성공이 가능하다."
-      ],
-      "paths": [],
-      "evidence": [],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.796Z"
-    },
-    {
-      "id": "task.qa.feature.inventory-capacity-upgrade",
-      "lane": "qa",
-      "title": "가방 4→6칸 확장 검증",
-      "description": "가방 4→6칸 확장의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.inventory-capacity-upgrade"
-      ],
-      "featureIds": [
-        "feature.inventory-capacity-upgrade"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
-        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
-        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
-        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 3일 경로에서도 구조 성공이 가능하다."
-      ],
-      "paths": [],
-      "evidence": [],
-      "blockedReason": "",
-      "status": "planned"
     }
   ],
-  "updatedAt": "2026-08-23T01:52:41.795Z"
+  "updatedAt": "2026-08-23T03:05:27.604Z"
 }

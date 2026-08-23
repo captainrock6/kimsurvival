@@ -2,25 +2,38 @@
   "schemaVersion": 1,
   "id": "run_20260823020806_ae691586",
   "createdAt": "2026-08-23T02:08:06.197Z",
-  "updatedAt": "2026-08-23T02:08:06.197Z",
+  "updatedAt": "2026-08-23T03:05:38.960Z",
   "sourceRequest": "Wave 7 가방 용량 업그레이드의 기획·밸런스 검증: 4→6칸, 중첩 2, 작업대 1회 W2/D1, 3일 자연 구조 장부와 KO/EN 상태 계약을 확정한다.",
-  "state": "design_ready",
+  "state": "in_progress",
   "stages": {
     "design": {
       "status": "complete",
       "updatedAt": "2026-08-23T02:08:06.197Z"
     },
     "art": {
-      "status": "planned",
-      "updatedAt": "2026-08-23T02:08:06.197Z"
+      "status": "in_progress",
+      "note": "가방 UI 후보 품질 점수 100 및 비교 보드 생성 완료. 사용자 승인 전이므로 review 상태를 유지하고 runtime 채택은 보류.",
+      "evidence": [
+        "Assets/_Project/Art/Generated/ui_set/job_20260823015835_65b80963/comparison-board.png"
+      ],
+      "updatedAt": "2026-08-23T03:05:38.795Z"
     },
     "implementation": {
-      "status": "planned",
-      "updatedAt": "2026-08-23T02:08:06.197Z"
+      "status": "complete",
+      "note": "4→6칸 1회 가방 확장, 비용·잠금·날짜 지속·새 게임 초기화·KO/EN UI 구현 완료.",
+      "evidence": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-play-contracts.txt"
+      ],
+      "updatedAt": "2026-08-23T03:05:38.875Z"
     },
     "verification": {
-      "status": "planned",
-      "updatedAt": "2026-08-23T02:08:06.197Z"
+      "status": "complete",
+      "note": "최종 HEAD 8f16dad 기준 PRODUCT/INFRASTRUCTURE/기존 회귀 PASS. 물리 게임패드는 별도 실기 미검증.",
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt"
+      ],
+      "updatedAt": "2026-08-23T03:05:38.960Z"
     }
   }
 }
