@@ -1,0 +1,9 @@
+Wave 12 PowerShell compatibility preflight
+Run ID: 20260823T124000Z_386a602_wave13_ps7_final
+Baseline: 386a602f110ebfe2c404685f98f9cacf1b42c1d2
+PowerShell: Core 7.6.4
+Mode: PreflightOnly
+Preflight exit: 0
+Preflight JSON UTF-8 no BOM: True
+Preflight TXT UTF-8 no BOM: True
+Result: PASS

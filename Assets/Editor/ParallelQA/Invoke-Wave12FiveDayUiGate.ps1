@@ -8,7 +8,9 @@ param(
     [string]$UnityPath = 'C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe',
 
     [ValidateRange(5, 60)]
-    [int]$MinimumSmokeSeconds = 6
+    [int]$MinimumSmokeSeconds = 6,
+
+    [switch]$PreflightOnly
 )
 
 $ErrorActionPreference = 'Stop'
@@ -17,7 +19,7 @@ $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
 $workRoot = Join-Path $projectRoot (Join-Path 'work\ParallelQA' $RunId)
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
-if (-not (Test-Path -LiteralPath $UnityPath -PathType Leaf)) {
+if (-not $PreflightOnly -and -not (Test-Path -LiteralPath $UnityPath -PathType Leaf)) {
     throw "Unity Editor not found: $UnityPath"
 }
 if (Test-Path -LiteralPath $evidenceRoot) {
@@ -29,7 +31,9 @@ if ($LASTEXITCODE -ne 0 -or $head -ne $BaselineCommit) {
     throw "Wave 12 baseline mismatch. Expected $BaselineCommit, observed $head"
 }
 
-New-Item -ItemType Directory -Path $workRoot -Force | Out-Null
+if (-not $PreflightOnly) {
+    New-Item -ItemType Directory -Path $workRoot -Force | Out-Null
+}
 $env:KIM_PARALLEL_QA_RUN_ID = $RunId
 $env:KIM_PARALLEL_QA_BASELINE = $BaselineCommit
 
@@ -71,10 +75,17 @@ function Invoke-UnityStage(
 
 function Read-Json([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
-    return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    return Get-Content -LiteralPath $Path -Raw -Encoding UTF8 | ConvertFrom-Json
+}
+
+function Test-Utf8NoBom([string]$Path) {
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $false }
+    $bytes = [System.IO.File]::ReadAllBytes($Path)
+    return $bytes.Length -lt 3 -or -not ($bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF)
 }
 
 $runStarted = [DateTime]::UtcNow
+$global:LASTEXITCODE = 0
 $preflightOutput = @(& (Join-Path $PSScriptRoot 'Capture-Wave5Preflight.ps1') -RunId $RunId -BaselineCommit $BaselineCommit 2>&1)
 $preflightExit = $LASTEXITCODE
 $stages = New-Object System.Collections.Generic.List[object]
@@ -88,6 +99,50 @@ $stages.Add([ordered]@{
     command = "Capture-Wave5Preflight.ps1 -RunId '$RunId' -BaselineCommit '$BaselineCommit'"
     output = [string]::Join(' | ', $preflightOutput)
 })
+
+$preflightJson = Join-Path $evidenceRoot 'wave5-preflight.json'
+$preflightText = Join-Path $evidenceRoot 'wave5-preflight.txt'
+$preflightJsonNoBom = Test-Utf8NoBom $preflightJson
+$preflightTextNoBom = Test-Utf8NoBom $preflightText
+$shellEdition = if ([string]::IsNullOrWhiteSpace([string]$PSVersionTable.PSEdition)) { 'Desktop' } else { [string]$PSVersionTable.PSEdition }
+$shellVersion = [string]$PSVersionTable.PSVersion
+$shellCompatibilityOverall = if ($preflightExit -eq 0 -and $preflightJsonNoBom -and $preflightTextNoBom) { 'PASS' } else { 'FAIL' }
+$shellCompatibility = [ordered]@{
+    schemaVersion = 1
+    runId = $RunId
+    baselineCommit = $BaselineCommit
+    observedUtc = [DateTime]::UtcNow.ToString('O')
+    entryPoint = 'Invoke-Wave12FiveDayUiGate.ps1'
+    mode = if ($PreflightOnly) { 'PreflightOnly' } else { 'Full' }
+    psEdition = $shellEdition
+    psVersion = $shellVersion
+    preflightExitCode = $preflightExit
+    preflightJsonUtf8NoBom = $preflightJsonNoBom
+    preflightTextUtf8NoBom = $preflightTextNoBom
+    evidenceFormat = 'UTF-8 without BOM; existing Wave 5 JSON/TXT names and schemas preserved'
+    overall = $shellCompatibilityOverall
+}
+[System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'wave12-powershell-compatibility.json'), ($shellCompatibility | ConvertTo-Json -Depth 6) + [Environment]::NewLine, $utf8NoBom)
+[System.IO.File]::WriteAllLines((Join-Path $evidenceRoot 'wave12-powershell-compatibility.txt'), @(
+    'Wave 12 PowerShell compatibility preflight'
+    "Run ID: $RunId"
+    "Baseline: $BaselineCommit"
+    "PowerShell: $shellEdition $shellVersion"
+    "Mode: $($shellCompatibility.mode)"
+    "Preflight exit: $preflightExit"
+    "Preflight JSON UTF-8 no BOM: $preflightJsonNoBom"
+    "Preflight TXT UTF-8 no BOM: $preflightTextNoBom"
+    "Result: $shellCompatibilityOverall"
+), $utf8NoBom)
+
+if ($PreflightOnly) {
+    Write-Output "POWERSHELL_COMPATIBILITY=$shellCompatibilityOverall"
+    Write-Output "POWERSHELL_EDITION=$shellEdition"
+    Write-Output "POWERSHELL_VERSION=$shellVersion"
+    Write-Output "EVIDENCE=$evidenceRoot"
+    if ($shellCompatibilityOverall -ne 'PASS') { exit 1 }
+    exit 0
+}
 
 $stages.Add((Invoke-UnityStage 'compile' 'ParallelQA.ParallelQaRunner.RecordCompilePass' (Join-Path $workRoot 'unity-compile.log') $false $false))
 $stages.Add((Invoke-UnityStage 'wave11-slot-edit' 'ParallelQA.Wave11SlotDiscoveryGateRunner.RunEditContracts' (Join-Path $workRoot 'unity-wave11-edit.log') $false $false))
@@ -130,6 +185,7 @@ $commandResults = [ordered]@{
     completedUtc = [DateTime]::UtcNow.ToString('O')
     executionPolicy = 'All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.'
     evidencePolicy = 'Fresh run ID only. A fresh Wave 3 visual report is generated before the asset/release contracts.'
+    powershell = $shellCompatibility
     exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-Wave12FiveDayUiGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '$BaselineCommit' -MinimumSmokeSeconds $MinimumSmokeSeconds"
     stages = $stages.ToArray()
 }
@@ -138,8 +194,8 @@ $commandResults = [ordered]@{
 $stageByName = @{}
 foreach ($stage in $stages) { $stageByName[$stage.name] = $stage }
 $preflight = Read-Json (Join-Path $evidenceRoot 'wave5-preflight.json')
-$compileText = if (Test-Path -LiteralPath (Join-Path $evidenceRoot 'compile-result.txt')) { Get-Content -LiteralPath (Join-Path $evidenceRoot 'compile-result.txt') -Raw } else { '' }
-$wave3Text = if (Test-Path -LiteralPath (Join-Path $evidenceRoot 'wave3-visual-gate.txt')) { Get-Content -LiteralPath (Join-Path $evidenceRoot 'wave3-visual-gate.txt') -Raw } else { '' }
+$compileText = if (Test-Path -LiteralPath (Join-Path $evidenceRoot 'compile-result.txt')) { Get-Content -LiteralPath (Join-Path $evidenceRoot 'compile-result.txt') -Raw -Encoding UTF8 } else { '' }
+$wave3Text = if (Test-Path -LiteralPath (Join-Path $evidenceRoot 'wave3-visual-gate.txt')) { Get-Content -LiteralPath (Join-Path $evidenceRoot 'wave3-visual-gate.txt') -Raw -Encoding UTF8 } else { '' }
 $wave11Edit = Read-Json (Join-Path $evidenceRoot 'wave11-slot-edit-contracts.json')
 $wave11Play = Read-Json (Join-Path $evidenceRoot 'wave11-slot-play-contracts.json')
 $wave12Edit = Read-Json (Join-Path $evidenceRoot 'wave12-edit-contracts.json')
@@ -156,9 +212,9 @@ if ($preflightExit -ne 0 -or $null -eq $preflight -or $preflight.ownershipOveral
 if ($stageByName['compile'].exitCode -ne 0 -or $compileText -notmatch 'Result:\s+PASS' -or $compileText -notmatch 'Compiler errors:\s+0') { $infrastructureFailures.Add('Unity compile did not prove PASS with zero errors') }
 $freshWave3Pass = $wave3Text -match ('Run ID:\s+' + [regex]::Escape($RunId)) -and
     $wave3Text -match ('Baseline commit:\s+' + [regex]::Escape($BaselineCommit)) -and
-    $wave3Text -match 'PLACEMENT_GATE:\s+(PASS|FAIL)\s+·\s+targets=\d+\s+·\s+failures=\d+' -and
-    $wave3Text -match 'EXPLORATION_SWIMMING_GATE:\s+(PASS|FAIL)\s+·\s+targets=\d+\s+·\s+failures=\d+' -and
-    $wave3Text -match 'PSEUDO_LONG_GATE:\s+(PASS|FAIL)\s+·\s+targets=\d+\s+·\s+failures=\d+'
+    $wave3Text -match 'PLACEMENT_GATE:\s+(PASS|FAIL)\s+\u00B7\s+targets=\d+\s+\u00B7\s+failures=\d+' -and
+    $wave3Text -match 'EXPLORATION_SWIMMING_GATE:\s+(PASS|FAIL)\s+\u00B7\s+targets=\d+\s+\u00B7\s+failures=\d+' -and
+    $wave3Text -match 'PSEUDO_LONG_GATE:\s+(PASS|FAIL)\s+\u00B7\s+targets=\d+\s+\u00B7\s+failures=\d+'
 if (-not $freshWave3Pass) { $infrastructureFailures.Add('fresh Wave 3 visual report was not generated and parsed for the current RunId/baseline') }
 foreach ($name in @('wave11-slot-edit','wave11-slot-play','wave12-five-day-ui-edit','wave12-five-day-ui-play')) {
     $report = switch ($name) {
@@ -218,6 +274,7 @@ $summary = [ordered]@{
     hiddenSmoke = if ($smokePass) { 'PASS' } else { 'FAIL' }
     addressables = if ($addressPass) { 'PASS load/build/post-smoke' } else { 'FAIL' }
     physicalGamepad = 'UNVERIFIED'
+    powershellCompatibility = $shellCompatibilityOverall
     steamReadiness = $steamReadiness
     steamReadyClaim = $false
     infrastructureFailures = $infrastructureFailures.ToArray()
@@ -238,6 +295,7 @@ $lines.Add("Compile: $($summary.compile)")
 $lines.Add("Windows build: $($summary.windowsDevelopmentBuild), warnings=$warnings")
 $lines.Add("Hidden smoke: $($summary.hiddenSmoke)")
 $lines.Add("Addressables: $($summary.addressables)")
+$lines.Add("PowerShell compatibility: $($summary.powershellCompatibility) ($shellEdition $shellVersion)")
 $lines.Add('Physical gamepad: UNVERIFIED')
 $lines.Add("Steam: $steamReadiness (READY claim=false)")
 $lines.Add("Expected product gaps: $($expectedProductGaps.Count) [$([string]::Join(', ', @($summary.expectedProductGapIds)))]")
@@ -251,6 +309,7 @@ Write-Output "PRODUCT=$productOverall"
 Write-Output "INFRASTRUCTURE=$infrastructureOverall"
 Write-Output "FRESH_WAVE3=$($summary.freshWave3Visual)"
 Write-Output "WAVE11_WALKING_PATH=$($summary.wave11WalkingPath)"
+Write-Output "POWERSHELL_COMPATIBILITY=$($summary.powershellCompatibility)"
 Write-Output 'PHYSICAL_GAMEPAD=UNVERIFIED'
 Write-Output "STEAM=$steamReadiness"
 Write-Output "EVIDENCE=$evidenceRoot"

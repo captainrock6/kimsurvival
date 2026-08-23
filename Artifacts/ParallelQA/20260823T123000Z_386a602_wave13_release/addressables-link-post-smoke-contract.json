@@ -1,0 +1,30 @@
+{
+    "schemaVersion":  2,
+    "runId":  "20260823T123000Z_386a602_wave13_release",
+    "baselineCommit":  "386a602f110ebfe2c404685f98f9cacf1b42c1d2",
+    "overall":  "PASS",
+    "ownership":  "ADDRESSABLES_GENERATED_TEMPORARY",
+    "canonicalDurableState":  "ABSENT",
+    "preflight":  {
+                      "observedUtc":  "2026-08-23T12:13:09.4551516Z",
+                      "linkExists":  false,
+                      "linkBytes":  0,
+                      "linkSha256":  "",
+                      "metaExists":  false,
+                      "metaBytes":  0,
+                      "metaSha256":  "",
+                      "metaGuid":  "",
+                      "assetDatabaseGuid":  ""
+                  },
+    "postSmoke":  {
+                      "observedUtc":  "2026-08-23T12:14:23.9330973Z",
+                      "linkExists":  false,
+                      "linkBytes":  0,
+                      "linkSha256":  "",
+                      "metaExists":  false,
+                      "metaBytes":  0,
+                      "metaSha256":  "",
+                      "metaGuid":  "",
+                      "assetDatabaseGuid":  ""
+                  }
+}

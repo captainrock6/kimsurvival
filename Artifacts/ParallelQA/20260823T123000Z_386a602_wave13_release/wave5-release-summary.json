@@ -1,0 +1,22 @@
+{
+    "schemaVersion":  2,
+    "runId":  "20260823T123000Z_386a602_wave13_release",
+    "baselineCommit":  "386a602f110ebfe2c404685f98f9cacf1b42c1d2",
+    "observedUtc":  "2026-08-23T12:14:23.9839714Z",
+    "qaBuildInfrastructureGate":  "PASS",
+    "releaseOverall":  "FAIL",
+    "unityCompile":  "PASS",
+    "addressablesLoadContract":  "PASS",
+    "addressablesBuildContract":  "PASS",
+    "addressablesGeneratedTemporaryCleanup":  "PASS",
+    "addressablesPostSmokeContract":  "PASS",
+    "windowsDevelopmentBuild":  "Succeeded",
+    "hiddenSmoke":  "PASS",
+    "normalKoEnVisualGate":  "PASS",
+    "qpsLongVisualGate":  "FAIL",
+    "backgroundReachability":  "PASS",
+    "assetContracts":  "FAIL",
+    "steamReadiness":  "NOT_READY",
+    "physicalGamepad":  "UNVERIFIED",
+    "physicalGamepadReason":  "No physical-device actuation was performed; automated/code-path evidence cannot upgrade this status."
+}
