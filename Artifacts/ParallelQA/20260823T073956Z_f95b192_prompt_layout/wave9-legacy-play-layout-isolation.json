@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T073956Z_f95b192_prompt_layout",
+  "baselineCommit": "f95b192d45f04e36f173ae274e29a3684cce7bf0",
+  "classification": "STALE_DASHBOARD_LAYOUT_ASSUMPTION",
+  "productRollbackSignal": false,
+  "wave7Status": "ISOLATED_BY_DESIGN",
+  "wave7Checks": [
+    {
+      "id": "W7-08a.baseline_4slot_layout",
+      "actual": "metrics=0 failures=0 · none"
+    },
+    {
+      "id": "W7-08b.upgraded_bag_layout",
+      "actual": "relevantTexts=0 metrics=0 failures=0 upgradeButton=가방 용량 확장"
+    }
+  ],
+  "wave6Status": "ISOLATED_BY_DESIGN",
+  "wave6Checks": [
+    {
+      "id": "W6-08.ko.signal.readability",
+      "actual": "2단계에는 밧줄이 필요하다. 현재 밧줄이 없다. glyph=32.1px bounds=(x:221.82, y:570.29, width:836.36, height:32.71) contrast=18.5 overflow=False"
+    },
+    {
+      "id": "W6-08.en.signal.readability",
+      "actual": "Stage 2 requires rope. No rope is available. glyph=19.2px bounds=(x:252.04, y:568.74, width:774.23, height:32.59) contrast=18.5 overflow=False"
+    }
+  ],
+  "reason": "These historical Play fixtures submit or measure the former persistent dashboard/bag presentation. The Wave 9 replacement evidence approaches a world target, opens its contextual popup, and runs the full survival loop through RunAutomatedVerification.",
+  "replacementEvidence": [
+    "wave9-play-contracts.json",
+    "wave9-spatial-play-evidence.json",
+    "wave9-approach-first-regression.txt"
+  ]
+}

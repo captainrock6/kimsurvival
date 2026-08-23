@@ -1,0 +1,12 @@
+Wave 9 run metadata
+Run ID: 20260823T073956Z_f95b192_prompt_layout
+Baseline: f95b192d45f04e36f173ae274e29a3684cce7bf0
+Branch: codex/camp-interaction-prompt-layout-gate
+Unity: 6000.4.9f1
+Started/completed UTC: 2026-08-23T07:40:07.1892566Z / 2026-08-23T07:41:42.0056499Z
+OS: Microsoft Windows NT 10.0.26200.0
+Execution: sandbox_permissions=require_escalated; no -noUpm
+Evidence policy: fresh run only; prior PASS/FAIL files not reused as verdicts
+Physical gamepad: UNVERIFIED
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Exact rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'f95b192d45f04e36f173ae274e29a3684cce7bf0'

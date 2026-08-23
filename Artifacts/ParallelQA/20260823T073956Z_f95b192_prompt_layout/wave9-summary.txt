@@ -1,0 +1,19 @@
+Wave 9 spatial camp red-first QA contract gate
+Run ID: 20260823T073956Z_f95b192_prompt_layout
+Baseline: f95b192d45f04e36f173ae274e29a3684cce7bf0
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Compile: PASS 0 errors
+Normal camp dashboard / large bag: PASS absent / PASS absent/compact
+Far / near+popup / modal+return: PASS silent / PASS / PASS
+Module expansion: EXPECTED_FAIL/RED
+Approach-first core / Wave7 bag / Wave6 progression: PASS / ISOLATED_BY_DESIGN · old persistent bag/dashboard layout fixture / ISOLATED_BY_DESIGN · old dashboard signal layout fixture
+Legacy dashboard harness: ISOLATED_BY_DESIGN · stale distant-button assumptions are not a product rollback signal
+KO/EN 1280x800 captures: PASS fresh captures generated
+Asset core / Wave4 visual adapter: PASS 261 checks / ISOLATED_BY_DESIGN · historical Wave 5 filename/baseline coupling
+Windows build/smoke/addressables: PASS/PASS/PASS load/build/post-smoke · warnings=0
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY · READY claim=false
+Expected product gaps: 5
+Unexpected product failures: 0
+Infrastructure failures: 0
+Exact rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'f95b192d45f04e36f173ae274e29a3684cce7bf0'

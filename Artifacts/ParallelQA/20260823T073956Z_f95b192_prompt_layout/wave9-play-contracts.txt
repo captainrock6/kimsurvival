@@ -1,0 +1,18 @@
+Wave 9 spatial camp Play contracts
+Run ID: 20260823T073956Z_f95b192_prompt_layout
+Baseline: f95b192d45f04e36f173ae274e29a3684cce7bf0
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 10/1/0/0/1
+PASS · NONE · P0 · W9-P01.normal_camp_world_first · campActionsActive=False largeBagActive=False bagPixelArea=0
+PASS · NONE · P0 · W9-P02.far_state_is_silent · farPromptCount=0 farPopupCount=0 prompts=<none> popups=<none>
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9-P08.ko_en_1280_readability · koHeaderOverlap=False enHeaderOverlap=False koOverflow=2 enOverflow=0
+PASS · NONE · P0 · W9-P03.single_near_target_prompt · Campfire=1:CampProximityPrompt=[E] Use Campfire | Workbench=1:CampProximityPrompt=[E] Use Workbench | RainCollector=1:CampProximityPrompt=[E] Use Rain Collector | RescueSignal=1:CampProximityPrompt=[E] Use Rescue Signal
+PASS · NONE · P0 · W9-P04.popup_only_after_interact · Campfire=1:Campfire | Workbench=1:Workbench | RainCollector=1:RainCollector | RescueSignal=1:RescueSignal
+PASS · NONE · P0 · W9-P05.modal_movement_lock · discoverableActiveMovementLock=True
+PASS · NONE · P0 · W9-P06.confirm_cancel_return · popupOpened=True cancelReturn=True confirmReturn=True
+PASS · NONE · P0 · W9-P07.per_target_action_ownership · correctTargetPopups=True globalDashboardActive=False
+PASS · NONE · P0 · W9-I05.far_action_resource_atomicity · farStable=Wood=26,Stone=19,Food=10,Salvage=28 nearResearched=True
+PASS · NONE · P0 · W9-I06.capture_and_layout_infrastructure · screenshots=4 activeTMP=14 overflow=0 outOfBounds=1 minPx=22.0
+UNVERIFIED · HARDWARE_GAP · P1 · W9-HW01.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode
+PASS · NONE · P0 · W9-I04.approach_first_full_regression · PASS · Wave 9 정상 캠프 전역 대시보드/대형 가방 숨김, 원거리 무안내·근거리 단일 안내·상호작용 후 설비 전용 소형 팝업, 거리+바라보기 대상 선택·모달 이동 잠금·같은 위치 취소 복귀·확인 1회 원자성, 작업대/모닥불/빗물받이/신호대 행동 소유권, 1.25 unit 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 1280x800 ko/en 키보드/게임패드 회귀 확인

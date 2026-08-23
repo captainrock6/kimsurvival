@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 9 spatial camp red-first QA contract gate",
+  "runId": "20260823T073956Z_f95b192_prompt_layout",
+  "baselineCommit": "f95b192d45f04e36f173ae274e29a3684cce7bf0",
+  "observedUtc": "2026-08-23T07:41:41.9318344Z",
+  "overall": "RED",
+  "productOverall": "RED_EXPECTED_FAIL",
+  "infrastructureOverall": "PASS",
+  "compile": "PASS 0 errors",
+  "spatialCampContract": "RED_EXPECTED_FAIL",
+  "normalCampDashboard": "PASS absent",
+  "largeBagPanel": "PASS absent/compact",
+  "farState": "PASS silent",
+  "nearPromptAndPopup": "PASS",
+  "modalAndReturn": "PASS",
+  "moduleExpansion": "EXPECTED_FAIL/RED",
+  "approachFirstCoreRegression": "PASS",
+  "wave7BagRegression": "ISOLATED_BY_DESIGN · old persistent bag/dashboard layout fixture",
+  "wave6ProgressionRegression": "ISOLATED_BY_DESIGN · old dashboard signal layout fixture",
+  "legacyDashboardHarness": "ISOLATED_BY_DESIGN · stale distant-button assumptions are not a product rollback signal",
+  "koEn1280Captures": "PASS fresh captures generated",
+  "assetReleaseCore": "PASS 261 checks",
+  "wave4VisualEvidenceAdapter": "ISOLATED_BY_DESIGN · historical Wave 5 filename/baseline coupling",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "physicalGamepad": "UNVERIFIED",
+  "physicalGamepadReason": "Synthetic/shared code paths were automated; no physical-device human actuation was captured.",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "expectedProductGaps": [
+    {
+      "id": "W9-M01.upper_side_basement_candidates",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Module expansion exposes upper-floor, side-room, and basement candidates",
+      "actual": "types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False",
+      "reproduction": "Open module expansion at each connection slot and enumerate candidate kinds.",
+      "recommendedFiles": "future Wave 9 camp module runtime and localization implementation"
+    },
+    {
+      "id": "W9-M02.valid_invalid_reasons",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Every module candidate reports valid or a player-readable invalid reason",
+      "actual": "types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False",
+      "reproduction": "Move each candidate through valid and invalid cells and capture the reason key.",
+      "recommendedFiles": "future Wave 9 camp module runtime and localization implementation"
+    },
+    {
+      "id": "W9-M03.connection_slots_and_cost",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Module candidates are bound to explicit connection slots and show a deterministic cost before confirmation",
+      "actual": "types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False",
+      "reproduction": "Inspect available connection slots, open a candidate, cancel, then confirm with exact resources.",
+      "recommendedFiles": "future Wave 9 camp module runtime and localization implementation"
+    },
+    {
+      "id": "W9-M04.overlap_and_required_route",
+      "severity": "P0",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Module validation rejects overlap and preserves the camp entrance plus every required route",
+      "actual": "types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False",
+      "reproduction": "Try overlapping an existing module and blocking the required traversal path.",
+      "recommendedFiles": "future Wave 9 camp module runtime and navigation implementation"
+    },
+    {
+      "id": "W9-P08.ko_en_1280_readability",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Korean and English normal-camp headers have no rendered-text overlap or TMP overflow at 1280x800",
+      "actual": "koHeaderOverlap=False enHeaderOverlap=False koOverflow=2 enOverflow=0",
+      "reproduction": "Open both fresh normal-camp PNGs at 1:1; compare the status/resource header text and all visible panels.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "unexpectedProductFailures": [],
+  "infrastructureFailures": [],
+  "screenshots": [
+    "wave9-ko-normal-camp-1280x800.png",
+    "wave9-en-normal-camp-1280x800.png",
+    "wave9-ko-workbench-after-interact-1280x800.png",
+    "wave9-en-rain-after-interact-1280x800.png"
+  ],
+  "evidenceRoot": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T073956Z_f95b192_prompt_layout",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'f95b192d45f04e36f173ae274e29a3684cce7bf0'"
+}

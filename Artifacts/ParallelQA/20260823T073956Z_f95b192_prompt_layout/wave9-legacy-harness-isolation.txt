@@ -1,0 +1,7 @@
+Wave 9 legacy dashboard harness isolation
+Run ID: 20260823T073956Z_f95b192_prompt_layout
+Baseline: f95b192d45f04e36f173ae274e29a3684cce7bf0
+Status: ISOLATED_BY_DESIGN
+Classification: STALE_TEST_ASSUMPTION; product rollback signal=false
+Reason: The legacy Edit assertion searches for the pre-proximity signal delegate, and the legacy natural Play loop submits workbench/signal dashboard buttons without first approaching their spatial targets.
+Replacement: Wave9SpatialCampContractGateRunner uses the current approach-first RunAutomatedVerification plus independent near/interact/popup contracts.

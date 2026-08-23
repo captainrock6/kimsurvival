@@ -1,0 +1,1 @@
+Product=FAIL · Infrastructure=PASS · PhysicalGamepad=UNVERIFIED · Evidence=C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Artifacts\ParallelQA\20260823T073956Z_f95b192_prompt_layout\wave6-play-contracts.json

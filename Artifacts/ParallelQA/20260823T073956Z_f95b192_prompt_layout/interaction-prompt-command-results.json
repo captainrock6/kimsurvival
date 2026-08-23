@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T073956Z_f95b192_prompt_layout",
+  "baselineCommit": "f95b192d45f04e36f173ae274e29a3684cce7bf0",
+  "startedUtc": "2026-08-23T07:40:06.7283220Z",
+  "completedUtc": "2026-08-23T07:42:00.2819467Z",
+  "unityVersion": "6000.4.9f1",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave9InteractionPromptLayoutGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'f95b192d45f04e36f173ae274e29a3684cce7bf0' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "wave9-full-regression-gate",
+      "executeMethod": "Invoke-Wave9SpatialCampContractGate.ps1",
+      "startedUtc": "2026-08-23T07:40:06.7420590Z",
+      "completedUtc": "2026-08-23T07:41:42.0336842Z",
+      "exitCode": 2,
+      "stdout": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T073956Z_f95b192_prompt_layout\\wave9-base-gate.stdout.log",
+      "stderr": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T073956Z_f95b192_prompt_layout\\wave9-base-gate.stderr.log",
+      "command": "powershell -File Invoke-Wave9SpatialCampContractGate.ps1 -RunId '20260823T073956Z_f95b192_prompt_layout' -BaselineCommit 'f95b192d45f04e36f173ae274e29a3684cce7bf0' -MinimumSmokeSeconds 6"
+    },
+    {
+      "name": "prompt-layout-edit-contracts",
+      "executeMethod": "ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T07:41:42.0503830Z",
+      "completedUtc": "2026-08-23T07:41:49.5384504Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T073956Z_f95b192_prompt_layout\\unity-prompt-layout-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T073956Z_f95b192_prompt_layout\\unity-prompt-layout-edit.log\""
+    },
+    {
+      "name": "prompt-layout-play-contracts",
+      "executeMethod": "ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T07:41:49.5417592Z",
+      "completedUtc": "2026-08-23T07:42:00.1701118Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T073956Z_f95b192_prompt_layout\\unity-prompt-layout-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T073956Z_f95b192_prompt_layout\\unity-prompt-layout-play.log\""
+    }
+  ]
+}

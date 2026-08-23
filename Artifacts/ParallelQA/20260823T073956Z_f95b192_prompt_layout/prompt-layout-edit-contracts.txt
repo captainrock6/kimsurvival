@@ -1,0 +1,11 @@
+Wave 9 interaction prompt Edit contracts
+Run ID: 20260823T073956Z_f95b192_prompt_layout
+Baseline: f95b192d45f04e36f173ae274e29a3684cce7bf0
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 4/1/0/0/0
+PASS · NONE · P0 · W9P-E01.prompt_state_surface · HasProximityPrompt/IsPopupOpen/ClosePopup discoverable=True
+PASS · NONE · P0 · W9P-E02.shared_input_action · keyboard=E gamepad=X shared=InteractPressed
+PASS · NONE · P0 · W9P-E03.localized_prompt_keys · keyboardRow=camp.interaction.prompt.keyboard_mouse ↹ [E] {0} 사용 ↹ [E] Use {0} gamepadRow=camp.interaction.prompt.gamepad ↹ [X] {0} 사용 ↹ [X] Use {0}
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9P-E04.actual_qps_long_locale · qps-long column absent; synthetic stress cannot substitute for an actual locale
+PASS · NONE · P0 · W9P-E05.red_first_discriminator · baseline source signature observed; Play gate must report expected RED on measured pixels
