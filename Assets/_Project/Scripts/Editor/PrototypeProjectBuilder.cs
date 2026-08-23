@@ -307,6 +307,26 @@ namespace KimSurvival.EditorTools
                    PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad) == "input.glyph.interact.gamepad",
                 "Keyboard and gamepad interaction glyphs feed the same localized action pattern");
 
+            PrototypeExpeditionMapActions keyboardMapActions = PrototypeExpeditionMapActions.FromRaw(new PrototypeRawExpeditionMapInput
+            {
+                KeyboardNext = true,
+                KeyboardConfirm = true,
+                KeyboardCancel = true
+            });
+            PrototypeExpeditionMapActions gamepadMapActions = PrototypeExpeditionMapActions.FromRaw(new PrototypeRawExpeditionMapInput
+            {
+                HorizontalAxis = 1f,
+                GamepadConfirm = true,
+                GamepadCancel = true
+            });
+            Assert(keyboardMapActions.CycleDirection == gamepadMapActions.CycleDirection &&
+                   keyboardMapActions.ConfirmPressed && gamepadMapActions.ConfirmPressed &&
+                   keyboardMapActions.CancelPressed && gamepadMapActions.CancelPressed,
+                "Keyboard/mouse and gamepad converge on one expedition-map action snapshot");
+            Assert(PrototypeInputPromptKeys.ExpeditionMap(PrototypeInputDevice.KeyboardMouse) == "controls.expedition_map.keyboard_mouse" &&
+                   PrototypeInputPromptKeys.ExpeditionMap(PrototypeInputDevice.Gamepad) == "controls.expedition_map.gamepad",
+                "Expedition-map prompts follow the active device without changing region focus");
+
             bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
             string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
             PrototypeLocalization localization = new PrototypeLocalization();
@@ -315,9 +335,13 @@ namespace KimSurvival.EditorTools
             {
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false), "English locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English String Table is active immediately");
-                Assert(localization.Format("hud.status.camp", 1, GameSession.FinalDay, "Camp", 70, 100).Contains("DAY 1/5") &&
+                Assert(localization.Format("hud.status.camp", 1, GameSession.FinalDay, "Camp", 70, 100).Contains("DAY 1/50") &&
                        localization.Format("hud.status.camp", 1, GameSession.FinalDay, "Camp", 70, 100).Contains("Hunger 70"),
-                    "Five-day HUD Smart String arguments format in English");
+                    "Fifty-day HUD Smart String arguments format in English");
+                Assert(localization.Format("expedition.map.title", 1, GameSession.FinalDay).Contains("1/50") &&
+                       localization.Format("expedition.map.detail", "Beach", "Summary", "Wood", 20, "Low", "Clear", "None", "Smoke").Contains("Travel time: about 20 min") &&
+                       localization.Format("expedition.region.beach.resources").IndexOfAny("0123456789".ToCharArray()) < 0,
+                    "Expedition map uses localized arguments while resource forecasts hide exact loot quantities");
                 Assert(localization.Format("controls.placement.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("left stick"), "English gamepad placement prompt is localized");
                 Assert(localization.Format("camp.interaction.prompt.gamepad", localization.Format("structure.workbench")).Contains("[X] Use Workbench"), "English gamepad proximity prompt is localized");
                 Assert(localization.Format("camp.popup.detail.workbench").Contains("Craft, research, repair"), "English workbench popup owns the intended actions");
@@ -873,22 +897,24 @@ namespace KimSurvival.EditorTools
             Assert(naturalBagRoute.ReturnToCamp(false) && naturalBagRoute.TryUpgradeSignal() && naturalBagRoute.Result == RunResult.Rescued,
                 "Natural three-day route reaches rescue with the upgraded bag and no debug grants");
 
-            Assert(GameSession.FinalDay == 5, "Wave 12 deadline tuning uses the shared five-day constant");
+            Assert(GameSession.FinalDay == 50, "Wave 15 campaign tuning uses the shared fifty-day constant");
             GameSession deadline = new GameSession();
+            deadline.Grant(ResourceKind.Food, GameSession.FinalDay);
             for (int day = 1; day < GameSession.FinalDay; day += 1)
             {
                 Assert(deadline.BeginSearch(), "Deadline scenario search day " + day);
                 Assert(deadline.ReturnToCamp(false), "Deadline scenario returns day " + day);
+                Assert(deadline.UseFood(), "Deadline scenario consumes one existing food ration before settlement " + day);
                 Assert(deadline.EndDay(), "Deadline scenario ends day " + day);
                 Assert(deadline.Result == RunResult.None && deadline.Day == day + 1,
                     "Unfinished day " + day + " advances without an early deadline");
             }
-            Assert(deadline.Day == 5 && deadline.Result == RunResult.None,
-                "Day 3 and Day 4 survive and reach the playable fifth day");
-            Assert(deadline.BeginSearch() && deadline.ReturnToCamp(false) && deadline.EndDay() &&
-                   deadline.Result == RunResult.Deadline && deadline.Day == 5 &&
+            Assert(deadline.Day == 50 && deadline.Result == RunResult.None,
+                "Day 49 settlement survives and reaches the playable fiftieth day");
+            Assert(deadline.BeginSearch() && deadline.ReturnToCamp(false) && deadline.UseFood() && deadline.EndDay() &&
+                   deadline.Result == RunResult.Deadline && deadline.Day == 50 &&
                    deadline.ResultDetail().Key == "result.detail.deadline",
-                "Unfinished Day 5 fails only at settlement with an explained deadline");
+                "Unfinished Day 50 fails only at settlement with an explained terminal resolution");
 
             GameSession earlyRescue = new GameSession();
             earlyRescue.Grant(ResourceKind.Wood, 20);
@@ -897,7 +923,9 @@ namespace KimSurvival.EditorTools
                    earlyRescue.TryResearch(TechKind.Rope) && earlyRescue.TryCraft(TechKind.Rope) &&
                    earlyRescue.TryUpgradeSignal() && earlyRescue.TryUpgradeSignal() &&
                    earlyRescue.Result == RunResult.Rescued && earlyRescue.Day == 1,
-                "Completing the rescue signal before Day 5 succeeds immediately");
+                "Completing the rescue signal before Day 50 succeeds immediately");
+
+            VerifyCampaignMapContract();
 
             VerifyDevelopmentPlaytestLogContract();
 
@@ -905,9 +933,101 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 13 development-only local JSONL schema, stable event names, locale/input fields, before/after SHA-256 state fingerprints, resource/facility/craft/research/bag/swim/barrier/signal/day/result coverage and release no-op compile guard; Wave 12 five-day deadline (Day 3/4 survive, Day 5 settlement fails, early signal rescues immediately), adopted compact-a 384x64 sliced frame and Resources reference, separated 44x44 glyph/action TMP, locale-only action refresh and device-only glyph refresh, ko/en/qps-long one-line fit; Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit latch, popup/preview Cancel, W2/D1 atomic one-module limit; storage planning, placement, bag 4-to-6, swimming, barrier, signal, crafting and early Day 3 rescue regressions\n";
+                "Checks: Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
+        }
+
+        private static void VerifyCampaignMapContract()
+        {
+            IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
+            Assert(profiles.Count == 3 &&
+                   profiles[0].Id == PrototypeExpeditionRegionId.Beach &&
+                   profiles[1].Id == PrototypeExpeditionRegionId.Forest &&
+                   profiles[2].Id == PrototypeExpeditionRegionId.Shallows,
+                "Campaign map exposes exactly the beach, forest and shallows profiles in stable order");
+
+            int seed = PrototypeExpeditionRegionCatalog.DefaultRunSeed;
+            bool differentSeedVariesWithinProfile = false;
+            for (int profileIndex = 0; profileIndex < profiles.Count; profileIndex += 1)
+            {
+                PrototypeExpeditionRegionProfile profile = profiles[profileIndex];
+                for (int nodeIndex = 0; nodeIndex < profile.NodeCount; nodeIndex += 1)
+                {
+                    PrototypeExpeditionNodeResult first = profile.ResolveNode(seed, nodeIndex);
+                    PrototypeExpeditionNodeResult second = profile.ResolveNode(seed, nodeIndex);
+                    PrototypeExpeditionNodeResult alternateSeed = profile.ResolveNode(seed + 1, nodeIndex);
+                    Assert(first.ActionId == second.ActionId && first.Resource == second.Resource &&
+                           first.Amount == second.Amount && first.Water == second.Water && first.ResultId == second.ResultId,
+                        "Same seed, region and action resolve the same core result: " + profile.StableId + " node " + nodeIndex);
+                    differentSeedVariesWithinProfile |= first.Resource != alternateSeed.Resource ||
+                                                        first.Amount != alternateSeed.Amount ||
+                                                        first.ResultId != alternateSeed.ResultId;
+                }
+            }
+            Assert(differentSeedVariesWithinProfile,
+                "Different run seeds vary at least one profile result within the allowed resource patterns");
+
+            PrototypeExpeditionSeedManifest manifest = PrototypeExpeditionRegionCatalog.BuildSeedManifest(seed);
+            HashSet<string> routeIds = new HashSet<string>(StringComparer.Ordinal);
+            HashSet<string> coreIds = new HashSet<string>(StringComparer.Ordinal);
+            HashSet<PrototypeExpeditionRegionId> assignedRegions = new HashSet<PrototypeExpeditionRegionId>();
+            for (int guaranteeIndex = 0; guaranteeIndex < manifest.Guarantees.Count; guaranteeIndex += 1)
+            {
+                PrototypeEscapeRouteGuarantee guarantee = manifest.Guarantees[guaranteeIndex];
+                routeIds.Add(guarantee.EscapeRouteId);
+                coreIds.Add(guarantee.CoreResultId);
+                assignedRegions.Add(guarantee.Region);
+                PrototypeExpeditionRegionProfile profile = PrototypeExpeditionRegionCatalog.Get(guarantee.Region);
+                Assert(profile.ResolveNode(seed, profile.NodeCount - 1).ResultId == guarantee.CoreResultId,
+                    "Each guaranteed escape-route core is reachable from its assigned region profile");
+            }
+            Assert(manifest.HasMinimumSoftlockProtection && manifest.Guarantees.Count == 3 &&
+                   routeIds.Count == 3 && coreIds.Count == 3 && assignedRegions.Count == 3 &&
+                   manifest.GuaranteesRoute("escape.smoke") && manifest.GuaranteesRoute("escape.radio") && manifest.GuaranteesRoute("escape.raft"),
+                "Every run seed reserves three distinct escape-route cores across the three playable regions");
+
+            PrototypeCampUse campUse = new PrototypeCampUse();
+            PrototypeCampInteraction interaction = new PrototypeCampInteraction();
+            Vector2 mapPosition = new Vector2(2f, PrototypeCampUse.PlayerFloorY);
+            PrototypeCampInteractionTarget[] targets =
+            {
+                new PrototypeCampInteractionTarget("camp.expedition-map", PrototypeCampInteractionTargetKind.ExpeditionMap, mapPosition)
+            };
+            campUse.Warp(new Vector2(mapPosition.x - PrototypeCampUse.UseRange - 0.01f, mapPosition.y));
+            interaction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, targets);
+            Assert(!interaction.HasProximityPrompt && !interaction.IsPopupOpen,
+                "Expedition map has no prompt or popup outside the exact 1.25-unit range");
+            campUse.Warp(new Vector2(mapPosition.x - PrototypeCampUse.UseRange, mapPosition.y));
+            interaction.UpdateSelection(campUse.PlayerPosition, 1f, targets);
+            Vector2 returnPosition = campUse.PlayerPosition;
+            float returnFacing = campUse.FacingDirection;
+            Assert(interaction.HasProximityPrompt && interaction.ActiveTargetId == "camp.expedition-map" && interaction.TryOpenPopup(),
+                "Approaching and interacting with the map opens its contextual popup");
+            interaction.ClosePopup();
+            interaction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, targets);
+            Assert(campUse.PlayerPosition == returnPosition && Mathf.Approximately(campUse.FacingDirection, returnFacing) &&
+                   interaction.ActiveTargetId == "camp.expedition-map",
+                "Cancelling the map restores the same camp position, facing and target");
+
+            PrototypeExpeditionMapSelection selection = new PrototypeExpeditionMapSelection();
+            selection.Open(null);
+            Assert(selection.FocusedRegionId == PrototypeExpeditionRegionId.Beach && selection.StepFocus(1) &&
+                   selection.FocusedRegionId == PrototypeExpeditionRegionId.Forest && !selection.StepFocus(1),
+                "Map focus starts on beach and debounces shared directional input");
+            selection.StepFocus(0);
+            Assert(selection.StepFocus(1) && selection.FocusedRegionId == PrototypeExpeditionRegionId.Shallows,
+                "Map focus cycles beach to forest to shallows after release");
+
+            GameSession selected = new GameSession(seed);
+            PrototypeExpeditionRegionProfile forest = PrototypeExpeditionRegionCatalog.Get(PrototypeExpeditionRegionId.Forest);
+            PrototypeExpeditionNodeResult forestNode = forest.ResolveNode(seed, forest.WaterNodeCount);
+            Assert(selected.BeginSearch(PrototypeExpeditionRegionId.Forest) &&
+                   selected.SelectedRegionId == PrototypeExpeditionRegionId.Forest &&
+                   selected.ActiveRegionProfileId == forest.StableId &&
+                   selected.TryGather(forestNode.Resource, forestNode.Amount, forestNode.Water, forestNode.ActionId, forestNode.ResultId) == GatherResult.Added &&
+                   selected.LastExpeditionResultId == forestNode.ResultId,
+                "Only the selected region profile drives the active exploration node and logged result linkage");
         }
 
         private static void VerifyDevelopmentPlaytestLogContract()
@@ -943,6 +1063,16 @@ namespace KimSurvival.EditorTools
             recorder.ObserveState("verification.grant");
             Assert(session.BeginSearch(), "Playtest log verification begins an expedition");
             recorder.ObserveState("verification.begin_search");
+            PrototypeExpeditionRegionProfile selectedProfile = PrototypeExpeditionRegionCatalog.Get(session.SelectedRegionId.Value);
+            PrototypeExpeditionNodeResult deterministicNode = selectedProfile.ResolveNode(session.RunSeed, selectedProfile.WaterNodeCount);
+            Assert(session.TryGather(
+                       deterministicNode.Resource,
+                       deterministicNode.Amount,
+                       deterministicNode.Water,
+                       deterministicNode.ActionId,
+                       deterministicNode.ResultId) == GatherResult.Added,
+                "Playtest log verification resolves a deterministic region result");
+            recorder.ObserveState(deterministicNode.ActionId);
             Assert(session.SetSwimming(true), "Playtest log verification enters swimming");
             recorder.ObserveState("verification.swim_enter");
             Assert(session.SetSwimming(false), "Playtest log verification returns to land");
@@ -1002,6 +1132,7 @@ namespace KimSurvival.EditorTools
 
             HashSet<string> names = new HashSet<string>(StringComparer.Ordinal);
             bool sawEnglishGamepad = false;
+            bool sawCampaignLinkage = false;
             int expectedSequence = 1;
             IReadOnlyList<string> lines = recorder.VerificationLines;
             Assert(lines.Count > 20, "JSONL verification produces one compact record per event");
@@ -1019,6 +1150,10 @@ namespace KimSurvival.EditorTools
                     "Event payload contains no local path, user name, or hardware identifier field");
                 names.Add(record.event_name);
                 sawEnglishGamepad |= record.locale == PrototypeLocalization.EnglishLocaleCode && record.input_device == "gamepad";
+                sawCampaignLinkage |= record.run_seed == session.RunSeed &&
+                                      record.region_id == selectedProfile.StableId &&
+                                      record.profile_id == selectedProfile.StableId &&
+                                      record.result_id == deterministicNode.ResultId;
             }
 
             string[] requiredNames =
@@ -1045,6 +1180,9 @@ namespace KimSurvival.EditorTools
                 PrototypePlaytestEventNames.VineBarrierCleared,
                 PrototypePlaytestEventNames.SignalStageOneCompleted,
                 PrototypePlaytestEventNames.SignalStageTwoCompleted,
+                PrototypePlaytestEventNames.ExpeditionRegionSelected,
+                PrototypePlaytestEventNames.ExpeditionStarted,
+                PrototypePlaytestEventNames.ExpeditionResultResolved,
                 PrototypePlaytestEventNames.RunCompleted
             };
             for (int index = 0; index < requiredNames.Length; index += 1)
@@ -1052,6 +1190,7 @@ namespace KimSurvival.EditorTools
                 Assert(names.Contains(requiredNames[index]), "Required stable playtest event is covered: " + requiredNames[index]);
             }
             Assert(sawEnglishGamepad, "Locale and input device are independent fields on the same event");
+            Assert(sawCampaignLinkage, "Development log links seed, region, profile and deterministic result without personal data");
         }
 
         [MenuItem("Kim Survival/Build Windows Prototype")]

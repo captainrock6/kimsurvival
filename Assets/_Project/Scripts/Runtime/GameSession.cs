@@ -94,7 +94,7 @@ namespace KimSurvival
         public const int StackLimit = 2;
         public const int BagUpgradeWoodCost = 2;
         public const int BagUpgradeSalvageCost = 1;
-        public const int FinalDay = 5;
+        public const int FinalDay = 50;
 
         private readonly int[] storage = new int[4];
         private readonly BagStack[] bag = new BagStack[BagSlotCount];
@@ -115,6 +115,10 @@ namespace KimSurvival
         public PrototypeLocalizedText LastMessage { get; private set; }
         public ResourceKind? PendingKind { get; private set; }
         public int PendingAmount { get; private set; }
+        public int RunSeed { get; private set; }
+        public PrototypeExpeditionRegionId? SelectedRegionId { get; private set; }
+        public string ActiveRegionProfileId { get; private set; }
+        public string LastExpeditionResultId { get; private set; }
 
         public bool HasPendingLoot
         {
@@ -131,8 +135,9 @@ namespace KimSurvival
             get { return craftedTools[(int)TechKind.Rope]; }
         }
 
-        public GameSession()
+        public GameSession(int runSeed = PrototypeExpeditionRegionCatalog.DefaultRunSeed)
         {
+            RunSeed = runSeed;
             Reset();
         }
 
@@ -160,7 +165,16 @@ namespace KimSurvival
             ActiveBagSlotCount = DefaultBagSlotCount;
             PendingKind = null;
             PendingAmount = 0;
+            SelectedRegionId = null;
+            ActiveRegionProfileId = string.Empty;
+            LastExpeditionResultId = string.Empty;
             LastMessage = Text("message.reset");
+        }
+
+        public void Reset(int runSeed)
+        {
+            RunSeed = runSeed;
+            Reset();
         }
 
         public int GetStorage(ResourceKind kind)
@@ -510,17 +524,33 @@ namespace KimSurvival
 
         public bool BeginSearch()
         {
+            // Kept for deterministic legacy regression fixtures. The playable camp path
+            // hides the global start button and enters through the proximity map target.
+            return BeginSearch(PrototypeExpeditionRegionId.Beach);
+        }
+
+        public bool BeginSearch(PrototypeExpeditionRegionId region)
+        {
             if (Phase != GamePhase.Camp || ExpeditionCompleted || Result != RunResult.None)
             {
                 LastMessage = Text(ExpeditionCompleted ? "message.search.finished" : "message.search.unavailable");
                 return false;
             }
 
+            if (!Enum.IsDefined(typeof(PrototypeExpeditionRegionId), region))
+            {
+                LastMessage = Text("message.search.choose_region");
+                return false;
+            }
+
             ClearBag();
             Daylight = 100f;
             IsSwimming = false;
+            SelectedRegionId = region;
+            ActiveRegionProfileId = PrototypeExpeditionRegionCatalog.Get(region).StableId;
+            LastExpeditionResultId = string.Empty;
             Phase = GamePhase.Exploring;
-            LastMessage = Text("message.search.begin");
+            LastMessage = Text("message.search.begin_region", region);
             return true;
         }
 
@@ -566,7 +596,12 @@ namespace KimSurvival
             }
         }
 
-        public GatherResult TryGather(ResourceKind kind, int baseAmount, bool waterSearch = false)
+        public GatherResult TryGather(
+            ResourceKind kind,
+            int baseAmount,
+            bool waterSearch = false,
+            string actionId = "",
+            string resolvedResultId = "")
         {
             if (Phase != GamePhase.Exploring || HasPendingLoot || baseAmount <= 0)
             {
@@ -580,6 +615,13 @@ namespace KimSurvival
             }
 
             int amount = kind == ResourceKind.Wood && HasAxe ? baseAmount + 1 : baseAmount;
+            if (SelectedRegionId.HasValue && !string.IsNullOrWhiteSpace(actionId))
+            {
+                LastExpeditionResultId = !string.IsNullOrWhiteSpace(resolvedResultId)
+                    ? resolvedResultId
+                    : PrototypeExpeditionRegionCatalog.Get(SelectedRegionId.Value)
+                        .ResolveActionResultId(RunSeed, actionId);
+            }
             Energy = Math.Max(0f, Energy - (waterSearch ? 9f : 6f));
             int remaining = AddToBag(kind, amount);
             if (Energy <= 0f)

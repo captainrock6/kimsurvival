@@ -174,7 +174,7 @@ result.title.exhausted	김씨, 잠시 누움	Mr. Kim Needs a Lie-Down	⟦Mr. Kí
 result.title.deadline	구조 신호 미완성	Rescue Signal Incomplete	⟦Réscúé Sígñál Íñcómplétéáéíóúüñ¿⟧
 result.detail.rescued	급조 안테나가 기적처럼 작동했다. 김씨는 구조대보다 먼저 사진부터 찍었다.	The improvised antenna worked by a miracle. Mr. Kim took a photo before the rescuers arrived.	⟦Thé ímpróvíséd áñtéññá wórkéd by á míráclé. Mr. Kím tóók á phótó béfóré thé réscúérs árrívéd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 result.detail.exhausted	체력을 모두 소진했다. 다음에는 먹고 쉬고, 해 지기 전에 돌아오자.	All energy is gone. Next time, eat, rest, and return before sunset.	⟦Áll éñérgy ís góñé. Ñéxt tímé, éát, rést, áñd rétúrñ béfóré súñsét.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
-result.detail.deadline	5일 안에 구조 신호를 완성하지 못했다. 필요한 표류물과 밧줄을 더 일찍 준비해야 한다.	The rescue signal was not completed within 5 days. Prepare salvage and rope earlier next time.	⟦Thé réscúé sígñál wás ñót cómplétéd wíthíñ 5 dáys. Prépáré sálvágé áñd rópé éárlíér ñéxt tímé.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+result.detail.deadline	50일째 정산까지 탈출하지 못했다. 지금까지의 생존 기록으로 장기 잔류 결과를 판정한다.	Day 50 ended without an escape. The campaign now resolves a long-term survival outcome from this run.	⟦Dáy 50 éñdéd wíthóút áñ éscápé. Thé cámpáígñ ñów résólvés á lóñg-térm súrvívál óútcómé fróm thís rúñ.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 dev.fallback_probe	한국어 폴백 확인		
 controls.module_preview.keyboard_mouse	{0} · A/D 또는 ←/→ 후보 순환 · Enter/클릭 확정 · Esc/우클릭 취소	{0} · A/D or ←/→ cycle · Enter/click confirm · Esc/right-click cancel	⟦{0} · A/D ór ←/→ cyclé · Enter/clíck cóñfírm · Esc/ríght-clíck cáñcéláéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.module_preview.gamepad	{0} · 왼쪽 스틱 후보 순환 · A 확정 · B 취소	{0} · Left stick cycle · A confirm · B cancel	⟦{0} · Léft stíck cyclé · A cóñfírm · B cáñcéláéíóúüñ¿¡áéíóúüñ¿⟧
@@ -236,3 +236,37 @@ world.module.preview.valid	◇ {0} · {2}\n{1}	◇ {0} · {2}\n{1}	⟦◇ {0} ·
 world.module.preview.invalid	× {0} · {2}\n{1}	× {0} · {2}\n{1}	⟦× {0} · {2}\n{1}áéíóú⟧
 world.module.preview.slot.valid	◇ {0}	◇ {0}	⟦◇ {0}⟧
 world.module.preview.slot.invalid	× {0}	× {0}	⟦× {0}⟧
+camp.target.expedition_map	수집 지도·출구	Expedition Map & Exit	⟦Éxpédítíóñ Máp & Éxítáéíóú⟧
+world.expedition_map	◇ 수집 지도·출구	◇ Expedition Map & Exit	⟦◇ Éxpédítíóñ Máp & Éxítáéíóúü⟧
+camp.popup.detail.expedition_map	오늘 갈 지역의 전망과 위험을 비교한다.	Compare today's regions, forecasts, and risks.	⟦Cómpáré tódáy's régíóñs, fórécásts, áñd rísks.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+controls.expedition_map.keyboard_mouse	{0} · 방향키/A·D 지역 선택 · Enter 출발 · Esc 취소 · F1 언어	{0} · Arrows/A·D select region · Enter depart · Esc cancel · F1 language	⟦{0} · Árróws/A·D séléct régíóñ · Enter dépárt · Esc cáñcél · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+controls.expedition_map.gamepad	{0} · 방향 패드/스틱 지역 선택 · A 출발 · B 취소 · Y 언어	{0} · D-pad/stick select region · A depart · B cancel · Y language	⟦{0} · D-pád/stíck séléct régíóñ · A dépárt · B cáñcél · Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+expedition.map.title	수집 지도 · DAY {0}/{1} 원정 계획	Expedition Map · DAY {0}/{1} Plan	⟦Éxpédítíóñ Máp · DÁY {0}/{1} Pláñáéíóúüñ¿¡⟧
+expedition.map.node	◇ {0}	◇ {0}	⟦◇ {0}⟧
+expedition.map.node.focused	◆ {0} · 선택	◆ {0} · Selected	⟦◆ {0} · Séléctédáéíó⟧
+expedition.map.detail	{0}\n{1}\n예상 자원: {2}\n이동 시간: 약 {3}분\n현재 위험: {4}\n날씨: {5}\n필요 장비: {6}\n특별 발견: {7}	{0}\n{1}\nExpected resources: {2}\nTravel time: about {3} min\nCurrent risk: {4}\nWeather: {5}\nRequired gear: {6}\nSpecial discovery: {7}	⟦{0}\n{1}\nÉxpéctéd résóúrcés: {2}\nTrávél tímé: ábóút {3} míñútés\nCúrréñt rísk: {4}\nWéáthér: {5}\nRéqúíréd géár: {6}\nSpécíál díscóvéry: {7}áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñáéíóú⟧
+expedition.map.depart	{0}(으)로 출발	Depart for {0}	⟦Dépárt fór {0}áéí⟧
+expedition.map.cancel	캠프로 돌아가기	Return to Camp	⟦Rétúrñ tó Cámpáéí⟧
+expedition.region.beach.name	해변	Beach	⟦Béách⟧
+expedition.region.beach.summary	표류물이 밀려오는 넓은 모래 해안.	A broad sandy coast where useful debris washes ashore.	⟦Á bróád sáñdy cóást whéré úséfúl débrís wáshés áshóré.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+expedition.region.beach.resources	표류물 풍부 · 식량 보통 · 나무 보통	Salvage abundant · Food common · Wood common	⟦Sálvágé ábúñdáñt · Fóód cómmóñ · Wóód cómmóñáéíóúüñ¿¡áéíóúüñ¿¡⟧
+expedition.region.beach.risk	낮음 · 파도에 떠밀린 잔해	Low · Wave-driven debris	⟦Lów · Wávé-drívéñ débrísáéíóúü⟧
+expedition.region.beach.weather	맑음 · 바닷바람	Clear · Sea breeze	⟦Cléár · Séá bréézéáéíó⟧
+expedition.region.beach.equipment	필수 없음 · 여유 가방 권장	None required · Spare bag space advised	⟦Ñóñé réqúíréd · Spáré bág spácé ádvísédáéíóúüñ¿¡áéíóúüñ¿⟧
+expedition.region.beach.special	? 표류 상자 가능성	? Possible drift crate	⟦? Póssíblé dríft crátéáéíóúü⟧
+expedition.region.forest.name	숲	Forest	⟦Fórést⟧
+expedition.region.forest.summary	나무와 먹거리가 많지만 덩굴 길이 좁다.	Dense trees and food sources, with narrow vine-choked paths.	⟦Déñsé tréés áñd fóód sóúrcés, wíth ñárrów víñé-chókéd páths.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+expedition.region.forest.resources	나무 풍부 · 식량 보통 · 돌 희귀	Wood abundant · Food common · Stone scarce	⟦Wóód ábúñdáñt · Fóód cómmóñ · Stóñé scárcéáéíóúüñ¿¡áéíóúüñ¿¡⟧
+expedition.region.forest.risk	보통 · 덩굴·낙하 가지	Medium · Vines and falling branches	⟦Médíúm · Víñés áñd fállíñg bráñchésáéíóúüñ¿¡á⟧
+expedition.region.forest.weather	습함 · 약한 소나기 가능	Humid · Light showers possible	⟦Húmíd · Líght shówérs póssíbléáéíóúüñ¿⟧
+expedition.region.forest.equipment	돌도끼 권장	Stone axe recommended	⟦Stóñé áxé récómméñdédáéíóú⟧
+expedition.region.forest.special	? 오래된 야영 흔적	? Old campsite traces	⟦? Óld cámp síté trácésáéíóú⟧
+expedition.region.shallows.name	얕은 바다	Shallows	⟦Shállówsá⟧
+expedition.region.shallows.summary	헤엄쳐 닿는 암초와 얕은 물길.	Reefs and shallow channels reached by swimming.	⟦Rééfs áñd shállów cháññéls réáchéd by swímmíñg.áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
+expedition.region.shallows.resources	표류물 풍부 · 식량 보통 · 돌 희귀	Salvage abundant · Food common · Stone scarce	⟦Sálvágé ábúñdáñt · Fóód cómmóñ · Stóñé scárcéáéíóúüñ¿¡áéíóúüñ¿¡⟧
+expedition.region.shallows.risk	보통 · 조류와 미끄러운 암초	Medium · Currents and slick reefs	⟦Médíúm · Cúrréñts áñd slíck rééfsáéíóúüñ¿¡⟧
+expedition.region.shallows.weather	파도 약간 · 시야 양호	Small waves · Good visibility	⟦Smáll wávés · Góód vísíbílítyáéíóúüñ¿⟧
+expedition.region.shallows.equipment	수영 체력 필요 · 밧줄 권장	Swimming stamina required · Rope advised	⟦Swímmíñg stámiñá réqúíréd · Rópé ádvísédáéíóúüñ¿¡áéí⟧
+expedition.region.shallows.special	? 가라앉은 부품 가능성	? Possible sunken component	⟦? Póssíblé súñkéñ cómpóñéñtáéíóúüá⟧
+message.search.choose_region	지도·출구에서 오늘 갈 지역을 먼저 골라야 한다.	Choose today's region at the expedition map and exit first.	⟦Chóósé tódáy's régíóñ át thé éxpédítíóñ máp áñd éxít fírst.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+message.search.begin_region	{0}(으)로 출발한다. 정확한 수확량은 현장에서 확인하자.	Departing for {0}. Exact yields remain unknown until the search.	⟦Dépártíñg fór {0}. Éxáct yíélds rémáíñ úñkñówñ úñtíl thé séárch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧

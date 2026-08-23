@@ -78,9 +78,9 @@
 | task.qa.feature.survival-hazards | qa | critical | planned | 예고·대응 가능한 생존 위험 검증 |
 | task.design.wave15-fifty-day-campaign-rebaseline | design | critical | done | Wave 15 50일 캠페인·수집 지도·위험·다중 엔딩 재기준선 |
 | task.design.wave15-escape-hazard-ending-matrix | design | critical | ready | Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스 |
-| task.implementation.wave15-campaign-map-foundation | implementation | critical | ready | Wave 15 Day 50·수집 지도·시드형 지역 선택 기반 |
+| task.implementation.wave15-campaign-map-foundation | implementation | critical | done | Wave 15 Day 50·수집 지도·시드형 지역 선택 기반 |
 | task.implementation.wave15-hazard-ending-foundation | implementation | critical | planned | Wave 15 위험·다중 탈출·행동 엔딩 기반 |
-| task.qa.wave15-campaign-map-redfirst | qa | critical | ready | Wave 15 Day 50·수집 지도·RNG red-first 게이트 |
+| task.qa.wave15-campaign-map-redfirst | qa | critical | done | Wave 15 Day 50·수집 지도·RNG red-first 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
@@ -281,6 +281,8 @@
 - task.design.wave14-natural-route-ledger: Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/wave11-full-regression.txt
 - task.design.wave14-natural-route-ledger: Artifacts/ParallelQA/20260823T123000Z_386a602_wave13_release/wave13-playtest-package.json
 - task.design.wave15-fifty-day-campaign-rebaseline: .forge/design/project.json; .forge/design/vertical-slice.json; .forge/project.json
+- task.implementation.wave15-campaign-map-foundation: PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Artifacts/Verification/wave15-playmode/playmode-checks.txt; Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave14-qps-global-layout-gate.txt; Windows development build and 1280x800 hidden smoke PASS
+- task.qa.wave15-campaign-map-redfirst: RED recorded: Artifacts/Verification/wave15-campaign-map-red/wave15-campaign-map-contracts.txt; GREEN PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Edit/Play regression, ko/en/qps-long 1280x800 captures, Windows x64 development build and hidden smoke PASS
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69

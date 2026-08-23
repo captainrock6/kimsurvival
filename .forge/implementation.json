@@ -1499,12 +1499,18 @@
         "지도 오브젝트 근접→지도→지역 확정 또는 취소→수색 전이가 입력 장치와 locale에 무관하게 동작한다.",
         "동일 seed 재현과 세 지역의 서로 다른 profile이 검증된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs"
+      ],
+      "evidence": [
+        "PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Artifacts/Verification/wave15-playmode/playmode-checks.txt; Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave14-qps-global-layout-gate.txt; Windows development build and 1280x800 hidden smoke PASS"
+      ],
       "blockedReason": "",
-      "status": "ready",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:17:12.158Z"
+      "updatedAt": "2026-08-23T15:19:10.450Z",
+      "note": "",
+      "completedAt": "2026-08-23T15:19:10.449Z"
     },
     {
       "id": "task.implementation.wave15-hazard-ending-foundation",
@@ -1560,12 +1566,18 @@
         "제품 수정 뒤 같은 게이트가 0 gap GREEN 조건을 가진다.",
         "기존 qps-long 10/10, 캠프·가방·모듈·수영 회귀를 함께 잠근다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Editor/Wave15CampaignMapGate.cs"
+      ],
+      "evidence": [
+        "RED recorded: Artifacts/Verification/wave15-campaign-map-red/wave15-campaign-map-contracts.txt; GREEN PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Edit/Play regression, ko/en/qps-long 1280x800 captures, Windows x64 development build and hidden smoke PASS"
+      ],
       "blockedReason": "",
-      "status": "ready",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:17:12.158Z"
+      "updatedAt": "2026-08-23T15:19:11.523Z",
+      "note": "",
+      "completedAt": "2026-08-23T15:19:11.522Z"
     },
     {
       "id": "task.system.system.comedy-feedback",
@@ -2438,5 +2450,5 @@
       "updatedAt": "2026-08-23T14:16:09.804Z"
     }
   ],
-  "updatedAt": "2026-08-23T14:21:09.963Z"
+  "updatedAt": "2026-08-23T15:19:11.523Z"
 }

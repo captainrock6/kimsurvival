@@ -261,6 +261,10 @@ namespace KimSurvival
                 {
                     normalized[i] = StructureName(structure);
                 }
+                else if (value is PrototypeExpeditionRegionId region)
+                {
+                    normalized[i] = Format(PrototypeExpeditionRegionCatalog.Get(region).NameKey);
+                }
                 else
                 {
                     normalized[i] = value;

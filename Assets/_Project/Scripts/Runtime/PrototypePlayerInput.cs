@@ -69,6 +69,11 @@ namespace KimSurvival
             return device == PrototypeInputDevice.Gamepad ? "controls.module_preview.gamepad" : "controls.module_preview.keyboard_mouse";
         }
 
+        public static string ExpeditionMap(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.expedition_map.gamepad" : "controls.expedition_map.keyboard_mouse";
+        }
+
         public static string Explore(PrototypeInputDevice device)
         {
             return device == PrototypeInputDevice.Gamepad ? "controls.explore.gamepad" : "controls.explore.keyboard_mouse";
@@ -223,6 +228,52 @@ namespace KimSurvival
         }
     }
 
+    public struct PrototypeRawExpeditionMapInput
+    {
+        public float HorizontalAxis;
+        public float VerticalAxis;
+        public bool KeyboardPrevious;
+        public bool KeyboardNext;
+        public bool KeyboardConfirm;
+        public bool GamepadConfirm;
+        public bool KeyboardCancel;
+        public bool GamepadCancel;
+    }
+
+    public readonly struct PrototypeExpeditionMapActions
+    {
+        public PrototypeExpeditionMapActions(int cycleDirection, bool confirmPressed, bool cancelPressed)
+        {
+            CycleDirection = cycleDirection;
+            ConfirmPressed = confirmPressed;
+            CancelPressed = cancelPressed;
+        }
+
+        public int CycleDirection { get; }
+        public bool ConfirmPressed { get; }
+        public bool CancelPressed { get; }
+
+        public static PrototypeExpeditionMapActions FromRaw(PrototypeRawExpeditionMapInput raw)
+        {
+            float navigation = Mathf.Abs(raw.VerticalAxis) > Mathf.Abs(raw.HorizontalAxis)
+                ? -raw.VerticalAxis
+                : raw.HorizontalAxis;
+            if (raw.KeyboardPrevious)
+            {
+                navigation = -1f;
+            }
+            else if (raw.KeyboardNext)
+            {
+                navigation = 1f;
+            }
+
+            return new PrototypeExpeditionMapActions(
+                navigation < -0.5f ? -1 : navigation > 0.5f ? 1 : 0,
+                raw.KeyboardConfirm || raw.GamepadConfirm,
+                raw.KeyboardCancel || raw.GamepadCancel);
+        }
+    }
+
     public struct PrototypeRawSystemInput
     {
         public bool KeyboardLanguage;
@@ -351,6 +402,21 @@ namespace KimSurvival
                 KeyboardConfirm = Input.GetKeyDown(KeyCode.Return),
                 GamepadConfirm = Input.GetKeyDown(KeyCode.JoystickButton0),
                 MouseCancel = Input.GetMouseButtonDown(1),
+                KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
+                GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
+            });
+        }
+
+        public PrototypeExpeditionMapActions ReadExpeditionMapActions()
+        {
+            return PrototypeExpeditionMapActions.FromRaw(new PrototypeRawExpeditionMapInput
+            {
+                HorizontalAxis = Input.GetAxisRaw("Horizontal"),
+                VerticalAxis = Input.GetAxisRaw("Vertical"),
+                KeyboardPrevious = Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W),
+                KeyboardNext = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S),
+                KeyboardConfirm = Input.GetKeyDown(KeyCode.Return),
+                GamepadConfirm = Input.GetKeyDown(KeyCode.JoystickButton0),
                 KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
                 GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
             });

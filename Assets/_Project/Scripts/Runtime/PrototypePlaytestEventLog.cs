@@ -32,6 +32,9 @@ namespace KimSurvival
         public const string VineBarrierCleared = "vine_barrier.cleared";
         public const string SignalStageOneCompleted = "signal.stage1.completed";
         public const string SignalStageTwoCompleted = "signal.stage2.completed";
+        public const string ExpeditionRegionSelected = "expedition.region.selected";
+        public const string ExpeditionStarted = "expedition.started";
+        public const string ExpeditionResultResolved = "expedition.result.resolved";
         public const string RunCompleted = "run.completed";
     }
 
@@ -66,6 +69,10 @@ namespace KimSurvival
         public bool crafted_rope;
         public string pending_resource = string.Empty;
         public int pending_amount;
+        public int run_seed;
+        public string region_id = string.Empty;
+        public string profile_id = string.Empty;
+        public string expedition_result_id = string.Empty;
 
         public static PrototypePlaytestStateFingerprint Capture(GameSession session)
         {
@@ -93,7 +100,13 @@ namespace KimSurvival
                 crafted_stone_axe = session.HasCrafted(TechKind.StoneAxe),
                 crafted_rope = session.HasCrafted(TechKind.Rope),
                 pending_resource = session.PendingKind.HasValue ? StableName(session.PendingKind.Value) : string.Empty,
-                pending_amount = session.PendingAmount
+                pending_amount = session.PendingAmount,
+                run_seed = session.RunSeed,
+                region_id = session.SelectedRegionId.HasValue
+                    ? PrototypeExpeditionRegionCatalog.Get(session.SelectedRegionId.Value).StableId
+                    : string.Empty,
+                profile_id = session.ActiveRegionProfileId,
+                expedition_result_id = session.LastExpeditionResultId
             };
 
             for (int index = 0; index < session.ActiveBagSlotCount; index += 1)
@@ -147,7 +160,8 @@ namespace KimSurvival
                 campfire ? "1" : "0", workbench ? "1" : "0", rain_collector ? "1" : "0",
                 research_stone_axe ? "1" : "0", research_rope ? "1" : "0",
                 crafted_stone_axe ? "1" : "0", crafted_rope ? "1" : "0",
-                pending_resource, pending_amount.ToString(CultureInfo.InvariantCulture)
+                pending_resource, pending_amount.ToString(CultureInfo.InvariantCulture),
+                run_seed.ToString(CultureInfo.InvariantCulture), region_id, profile_id, expedition_result_id
             });
         }
 
@@ -188,6 +202,10 @@ namespace KimSurvival
         public string resource = string.Empty;
         public string resource_location = string.Empty;
         public int delta;
+        public int run_seed;
+        public string region_id = string.Empty;
+        public string profile_id = string.Empty;
+        public string result_id = string.Empty;
         public PrototypePlaytestStateFingerprint state_before;
         public PrototypePlaytestStateFingerprint state_after;
     }
@@ -472,6 +490,22 @@ namespace KimSurvival
             {
                 Write(PrototypePlaytestEventNames.PhaseChanged, before, after, action: action, outcome: after.phase);
             }
+            if (!string.Equals(before.region_id, after.region_id, StringComparison.Ordinal) && !string.IsNullOrEmpty(after.region_id))
+            {
+                Write(PrototypePlaytestEventNames.ExpeditionRegionSelected, before, after,
+                    targetKind: "expedition_region", targetId: after.region_id, action: action, outcome: "selected");
+            }
+            if (before.phase != "exploring" && after.phase == "exploring" && !string.IsNullOrEmpty(after.profile_id))
+            {
+                Write(PrototypePlaytestEventNames.ExpeditionStarted, before, after,
+                    targetKind: "expedition_region", targetId: after.region_id, action: action, outcome: after.profile_id);
+            }
+            if (!string.Equals(before.expedition_result_id, after.expedition_result_id, StringComparison.Ordinal) &&
+                !string.IsNullOrEmpty(after.expedition_result_id))
+            {
+                Write(PrototypePlaytestEventNames.ExpeditionResultResolved, before, after,
+                    targetKind: "expedition_region", targetId: after.region_id, action: action, outcome: after.expedition_result_id);
+            }
 
             EmitResourceDelta(before, after, "wood", "storage", before.storage_wood, after.storage_wood, action);
             EmitResourceDelta(before, after, "stone", "storage", before.storage_stone, after.storage_stone, action);
@@ -574,6 +608,10 @@ namespace KimSurvival
                 resource = resource ?? string.Empty,
                 resource_location = resourceLocation ?? string.Empty,
                 delta = delta,
+                run_seed = after.run_seed,
+                region_id = after.region_id ?? string.Empty,
+                profile_id = after.profile_id ?? string.Empty,
+                result_id = after.expedition_result_id ?? string.Empty,
                 state_before = before,
                 state_after = after
             };
