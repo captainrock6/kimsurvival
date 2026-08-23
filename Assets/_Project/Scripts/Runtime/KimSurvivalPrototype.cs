@@ -34,6 +34,10 @@ namespace KimSurvival
         private const float ResourceLabelViewportPadding = 0.22f;
         private const float ResourceLabelSafeViewportRight = 0.74f;
         private const float MinimumSupportedAspect = 1.6f;
+        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.30f, 0.58f);
+        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.70f, 0.64f);
+        private const float CampProximityPromptReferenceWidth = 1280f;
+        private const float CampProximityPromptReferenceHeight = 800f;
 
         [SerializeField] private GameObject playerVisualPrefab;
         [SerializeField] private Sprite campBackgroundSprite;
@@ -294,9 +298,15 @@ namespace KimSurvival
             campActions.transform.SetParent(canvas.transform, false);
             campActions.SetActive(false);
 
-            campProximityPrompt = CreatePanel("설비 근접 안내", canvas.transform, new Vector2(0.29f, 0.25f), new Vector2(0.71f, 0.36f), Vector2.zero, Vector2.zero, new Color(0.03f, 0.08f, 0.09f, 0.96f)).gameObject;
-            campProximityText = CreateText("설비 근접 안내 문구", campProximityPrompt.transform, Vector2.zero, Vector2.one, new Vector2(22f, 8f), new Vector2(-22f, -8f), 34, TextAnchor.MiddleCenter, Color.white);
+            campProximityPrompt = CreatePanel("설비 근접 안내", canvas.transform, CampProximityPromptAnchorMin, CampProximityPromptAnchorMax, Vector2.zero, Vector2.zero, new Color(0.03f, 0.08f, 0.09f, 0.92f)).gameObject;
+            campProximityText = CreateText("설비 근접 안내 문구", campProximityPrompt.transform, Vector2.zero, Vector2.one, new Vector2(18f, 4f), new Vector2(-18f, -4f), 24, TextAnchor.MiddleCenter, Color.white);
             campProximityText.fontStyle = FontStyles.Bold;
+            campProximityText.enableAutoSizing = true;
+            campProximityText.fontSizeMin = 20f;
+            campProximityText.fontSizeMax = 24f;
+            campProximityText.textWrappingMode = TextWrappingModes.NoWrap;
+            campProximityText.overflowMode = TextOverflowModes.Ellipsis;
+            campProximityText.maxVisibleLines = 1;
 
             campInteractionPopup = CreatePanel("설비 전용 소형 팝업", canvas.transform, new Vector2(0.56f, 0.2f), new Vector2(0.96f, 0.82f), Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.075f, 0.97f)).gameObject;
             actionTitleText = CreateText("설비 팝업 제목", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -70f), new Vector2(-24f, -12f), 36, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
@@ -375,7 +385,7 @@ namespace KimSurvival
             bool popup = camp && !placing && campInteraction.IsPopupOpen;
             campActions.SetActive(false);
             campInteractionPopup.SetActive(popup);
-            campProximityPrompt.SetActive(camp && !placing && campInteraction.HasProximityPrompt);
+            campProximityPrompt.SetActive(camp && !placing && !popup && campInteraction.HasProximityPrompt);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
             phaseButton.gameObject.SetActive(camp && !placing && !popup);
             messagePanelImage.gameObject.SetActive(!popup && !result);
@@ -553,7 +563,7 @@ namespace KimSurvival
 
             bool camp = session.Phase == GamePhase.Camp && !campPlacement.IsActive;
             campInteractionPopup.SetActive(camp && campInteraction.IsPopupOpen);
-            campProximityPrompt.SetActive(camp && campInteraction.HasProximityPrompt);
+            campProximityPrompt.SetActive(camp && !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt);
             if (campInteraction.HasProximityPrompt)
             {
                 string targetName = FormatCampInteractionTarget(campInteraction.ActiveTargetKind);
@@ -1221,6 +1231,13 @@ namespace KimSurvival
             string campWorkbenchEnglishScreenshotPath,
             string campCampfireKoreanScreenshotPath)
         {
+            string campProximityScreenshotFolder = Path.GetDirectoryName(campProximityKoreanScreenshotPath ?? string.Empty);
+            string campProximityEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-proximity-prompt-en-1280x800.png");
+            string campProximityQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-proximity-prompt-qps-long-1280x800.png");
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
@@ -1258,12 +1275,54 @@ namespace KimSurvival
                 "근접 시 대상 하나의 안내만 표시하고 팝업은 상호작용 전까지 숨김");
             if (!string.IsNullOrWhiteSpace(campProximityKoreanScreenshotPath))
             {
-                campProximityText.ForceMeshUpdate(true, true);
-                Require(!campProximityText.isTextOverflowing, "1280x800 한국어 근접 안내 잘림 없음");
+                RequireReadableCampProximityPrompt(false);
                 CaptureVerificationPng(campProximityKoreanScreenshotPath, 1280, 800);
             }
 
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            RequireReadableCampProximityPrompt(false);
+            if (!string.IsNullOrWhiteSpace(campProximityEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(campProximityEnglishScreenshotPath, 1280, 800);
+            }
+
+            string targetName = FormatCampInteractionTarget(campInteraction.ActiveTargetKind);
+            string gamepadPrompt = localization.Format(
+                PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.Gamepad),
+                targetName);
+            campProximityText.text = gamepadPrompt;
+            RequireReadableCampProximityPrompt(false);
+            campProximityText.text = "[!! " + new string('W', 96) + " !!]";
+            RequireReadableCampProximityPrompt(true);
+            if (!string.IsNullOrWhiteSpace(campProximityQpsLongScreenshotPath))
+            {
+                CaptureVerificationPng(campProximityQpsLongScreenshotPath, 1280, 800);
+            }
+
+            PrototypeCampInteractionTargetKind[] promptTargets =
+            {
+                PrototypeCampInteractionTargetKind.Campfire,
+                PrototypeCampInteractionTargetKind.Workbench,
+                PrototypeCampInteractionTargetKind.RainCollector,
+                PrototypeCampInteractionTargetKind.RescueSignal
+            };
+            for (int promptIndex = 0; promptIndex < promptTargets.Length; promptIndex += 1)
+            {
+                PrototypeCampInteractionTargetKind promptTarget = promptTargets[promptIndex];
+                campUse.Warp(GetCampInteractionTargetPosition(promptTarget));
+                RefreshAll();
+                Require(campInteraction.ActiveTargetKind == promptTarget && campProximityPrompt.activeSelf,
+                    promptTarget + " 근접 안내는 공통 소형 레이아웃 한 개만 표시");
+                RequireReadableCampProximityPrompt(false);
+            }
+
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.Campfire));
+            RefreshAll();
+
             OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Campfire);
+            Require(!campProximityPrompt.activeSelf, "설비 팝업이 열리면 근접 안내 숨김");
             Require(campfireButton.gameObject.activeSelf && cancelPopupButton.gameObject.activeSelf &&
                     !workbenchButton.gameObject.activeSelf && !signalButton.gameObject.activeSelf,
                 "미설치 모닥불 팝업은 해당 설비의 건설 행동만 소유");
@@ -1614,7 +1673,7 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · Wave 9 정상 캠프 전역 대시보드/대형 가방 숨김, 원거리 무안내·근거리 단일 안내·상호작용 후 설비 전용 소형 팝업, 거리+바라보기 대상 선택·모달 이동 잠금·같은 위치 취소 복귀·확인 1회 원자성, 작업대/모닥불/빗물받이/신호대 행동 소유권, 1.25 unit 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 1280x800 ko/en 키보드/게임패드 회귀 확인";
+            return "PASS · Wave 9 정상 캠프 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 1행 ko/en/qps-long 근거리 안내·상호작용 후 설비 전용 소형 팝업, 거리+바라보기 대상 선택·모달 이동 잠금·같은 위치 취소 복귀·확인 1회 원자성, 작업대/모닥불/빗물받이/신호대 행동 소유권, 1.25 unit 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 1280x800 ko/en 키보드/게임패드 회귀 확인";
         }
 
         private void RequireReadableBagUi()
@@ -1654,6 +1713,32 @@ namespace KimSurvival
                 label.ForceMeshUpdate(true, true);
                 Require(label.fontSizeMin >= 26f && !label.isTextOverflowing,
                     "1280x800 설비 팝업 행동 라벨 최소 크기·잘림 없음: " + campPopupButtons[i].name);
+            }
+        }
+
+        private void RequireReadableCampProximityPrompt(bool allowEllipsis)
+        {
+            RectTransform promptRect = campProximityPrompt.GetComponent<RectTransform>();
+            RectTransform messageRect = messagePanelImage.rectTransform;
+            campProximityText.ForceMeshUpdate(true, true);
+            Canvas.ForceUpdateCanvases();
+
+            float widthPixels = (promptRect.anchorMax.x - promptRect.anchorMin.x) * CampProximityPromptReferenceWidth;
+            float heightPixels = (promptRect.anchorMax.y - promptRect.anchorMin.y) * CampProximityPromptReferenceHeight;
+            float gapPixels = (messageRect.anchorMin.y - promptRect.anchorMax.y) * CampProximityPromptReferenceHeight;
+            Require(campProximityPrompt.transform.parent == canvas.transform,
+                "근접 안내는 월드가 아닌 Canvas 내 독립 UI");
+            Require(widthPixels <= 512.1f && heightPixels <= 50.1f,
+                "1280x800 근접 안내는 폭 40% 이하·높이 50px 이하");
+            Require(gapPixels >= 7.9f && gapPixels <= 16.1f && promptRect.anchorMin.y >= 0.55f,
+                "1280x800 내레이션 카드 아래 8~16px 간격·월드 보행 영역 보존");
+            Require(campProximityText.enableAutoSizing && campProximityText.fontSizeMin >= 20f &&
+                    campProximityText.fontSizeMax <= 24f && campProximityText.textWrappingMode == TextWrappingModes.NoWrap &&
+                    campProximityText.overflowMode == TextOverflowModes.Ellipsis && campProximityText.textInfo.lineCount <= 1,
+                "근접 안내 소형 단일행·자동 축소·말줄임 정책");
+            if (!allowEllipsis)
+            {
+                Require(!campProximityText.isTextOverflowing, "1280x800 ko/en/게임패드 근접 안내 잘림 없음");
             }
         }
 

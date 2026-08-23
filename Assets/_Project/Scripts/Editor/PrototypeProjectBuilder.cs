@@ -806,6 +806,8 @@ namespace KimSurvival.EditorTools
                 string bagUpgradedEnglish1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1920x1080.png"));
                 string campFarKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-camp-far-ko-1280x800.png"));
                 string campProximityKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-ko-1280x800.png"));
+                string campProximityEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-en-1280x800.png"));
+                string campProximityQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-qps-long-1280x800.png"));
                 string campWorkbenchEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-workbench-popup-en-1280x800.png"));
                 string campCampfireKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-campfire-popup-ko-1280x800.png"));
                 string result = prototype.RunAutomatedVerification(
@@ -833,6 +835,8 @@ namespace KimSurvival.EditorTools
                     "\nBag upgraded English 1920x1080: " + bagUpgradedEnglish1920Screenshot +
                     "\nWave 9 far camp Korean 1280x800: " + campFarKoreanScreenshot +
                     "\nWave 9 proximity prompt Korean 1280x800: " + campProximityKoreanScreenshot +
+                    "\nWave 9 proximity prompt English 1280x800: " + campProximityEnglishScreenshot +
+                    "\nWave 9 proximity prompt qps-long 1280x800: " + campProximityQpsLongScreenshot +
                     "\nWave 9 workbench popup English 1280x800: " + campWorkbenchEnglishScreenshot +
                     "\nWave 9 campfire popup Korean 1280x800: " + campCampfireKoreanScreenshot +
                     "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot +

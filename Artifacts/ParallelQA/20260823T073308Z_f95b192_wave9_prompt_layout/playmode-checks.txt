@@ -1,0 +1,20 @@
+PASS
+PASS · Wave 9 정상 캠프 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 1행 ko/en/qps-long 근거리 안내·상호작용 후 설비 전용 소형 팝업, 거리+바라보기 대상 선택·모달 이동 잠금·같은 위치 취소 복귀·확인 1회 원자성, 작업대/모닥불/빗물받이/신호대 행동 소유권, 1.25 unit 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 1280x800 ko/en 키보드/게임패드 회귀 확인
+Bag locked Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-bag-locked-ko-1280x800.png
+Bag upgraded English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-bag-upgraded-en-1280x800.png
+Bag locked Korean 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-bag-locked-ko-1920x1080.png
+Bag upgraded English 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-bag-upgraded-en-1920x1080.png
+Wave 9 far camp Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave9-camp-far-ko-1280x800.png
+Wave 9 proximity prompt Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave9-proximity-prompt-ko-1280x800.png
+Wave 9 proximity prompt English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave9-proximity-prompt-en-1280x800.png
+Wave 9 proximity prompt qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave9-proximity-prompt-qps-long-1280x800.png
+Wave 9 workbench popup English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave9-workbench-popup-en-1280x800.png
+Wave 9 campfire popup Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave9-campfire-popup-ko-1280x800.png
+Signal stage one missing/workbench Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
+Signal stage two missing/rope English screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
+Placement Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-placement-ko-invalid-1280x800.png
+Placement English/gamepad screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
+Swimming screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-swimming-en-1280x800.png
+Exploration screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-exploration-ko-1280x800.png
+Camp screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T073308Z_f95b192_wave9_prompt_layout\kim-survival-wave7-camp-en-1280x800.png
+Completed UTC: 2026-08-23T07:35:12.8046211Z
