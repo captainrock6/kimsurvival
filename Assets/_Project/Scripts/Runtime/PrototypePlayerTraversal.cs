@@ -81,9 +81,9 @@ namespace KimSurvival
             float horizontal = actions.Horizontal;
             float moveSpeed = session.IsSwimming ? SwimMoveSpeed : LandMoveSpeed;
             x += horizontal * moveSpeed * deltaTime;
-            x = Mathf.Clamp(x, MinimumX, session.HasRope ? UnlockedMaximumX : LockedMaximumX);
+            x = Mathf.Clamp(x, MinimumX, session.HasAxe ? UnlockedMaximumX : LockedMaximumX);
 
-            bool reachedBlockedPath = !session.HasRope && x > BarrierNoticeX && !barrierNoticeEmitted;
+            bool reachedBlockedPath = !session.HasAxe && x > BarrierNoticeX && !barrierNoticeEmitted;
             if (reachedBlockedPath)
             {
                 barrierNoticeEmitted = true;

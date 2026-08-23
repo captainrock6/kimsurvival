@@ -395,17 +395,18 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972612
-    m_Localized: Rope complete. The inner forest is now under Mr. Kim's jurisdiction.
+    m_Localized: Rope complete. The final rescue-signal antenna is ready to be raised.
     m_Metadata:
       m_Items: []
   - m_Id: 900972613
-    m_Localized: The final antenna needs rope.
+    m_Localized: Stage 2 requires rope. No rope is available.
     m_Metadata:
       m_Items: []
   - m_Id: 900972614
-    m_Localized: A workbench, 2 wood, and 2 salvage are required.
+    m_Localized: 'Wood and salvage are short. Current: Wood {0}/2, Salvage {1}/2.'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219867
   - m_Id: 900972615
     m_Localized: Signal frame complete. From far away it looks almost convincing.
     m_Metadata:
@@ -579,6 +580,44 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 197482050207744
+    m_Localized: "Signal Stage 1 \xB7 Workbench {0}\nWood {1}/2 \xB7 Salvage {2}/2"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 197482096345088
+    m_Localized: "Signal Stage 2 \xB7 Rope {0}\nWood {1}/2 \xB7 Salvage {2}/2"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 197482096345089
+    m_Localized: Clear Barrier with Stone Axe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345090
+    m_Localized: 'Stone Axe Required
+
+      Vine & Wood Barrier'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345091
+    m_Localized: Stage 1 requires a workbench. No workbench is available.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345092
+    m_Localized: 'Not enough wood. Current: {0}/2.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 197482096345093
+    m_Localized: 'Not enough salvage. Current: {0}/2.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 197482100539392
+    m_Localized: Vines and wood block the path. Clear the barrier with a stone axe.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -615,3 +654,8 @@ MonoBehaviour:
         - id: 14658219261953
         - id: 14658219261954
         - id: 14658219261957
+        - id: 197482050207744
+        - id: 197482096345088
+        - id: 900972614
+        - id: 197482096345092
+        - id: 197482096345093

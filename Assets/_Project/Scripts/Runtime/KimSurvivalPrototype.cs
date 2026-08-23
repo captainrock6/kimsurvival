@@ -412,10 +412,29 @@ namespace KimSurvival
             SetButton(craftAxeButton, localization.Format(session.HasAxe ? "button.craft.axe.done" : "button.craft.axe"), available && session.CanCraft(TechKind.StoneAxe));
             SetButton(researchRopeButton, localization.Format(session.HasResearched(TechKind.Rope) ? "button.research.rope.done" : "button.research.rope"), available && session.CanResearch(TechKind.Rope));
             SetButton(craftRopeButton, localization.Format(session.HasRope ? "button.craft.rope.done" : "button.craft.rope"), available && session.CanCraft(TechKind.Rope));
-            SetButton(signalButton, session.SignalStage >= 2 ? localization.Format("button.signal.done") : localization.Format("button.signal.progress", session.SignalStage), available && session.CanUpgradeSignal());
+            SetButton(signalButton, FormatSignalButton(), available && session.SignalStage < 2);
             SetButton(eatButton, localization.Format("button.eat", session.GetStorage(ResourceKind.Food)), available && session.GetStorage(ResourceKind.Food) > 0 && session.Hunger < 100f);
             string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "button.day.final" : "button.day.next") : "button.search.start";
             SetButton(phaseButton, localization.Format(phaseButtonKey), available);
+        }
+
+        private string FormatSignalButton()
+        {
+            if (session.SignalStage >= 2)
+            {
+                return localization.Format("button.signal.done");
+            }
+
+            string requirementState = localization.Format(
+                session.SignalStage == 0
+                    ? (session.HasStructure(StructureKind.Workbench) ? "value.yes" : "value.no")
+                    : (session.HasRope ? "value.yes" : "value.no"));
+            string key = session.SignalStage == 0 ? "button.signal.stage1" : "button.signal.stage2";
+            return localization.Format(
+                key,
+                requirementState,
+                Mathf.Min(2, session.GetStorage(ResourceKind.Wood)),
+                Mathf.Min(2, session.GetStorage(ResourceKind.Salvage)));
         }
 
         private void RefreshBagButtons()
@@ -621,9 +640,9 @@ namespace KimSurvival
             CreateRect("귀환 깃발", new Vector2(-2.15f, -0.35f), new Vector2(1.1f, 0.65f), new Color(1f, 0.48f, 0.16f), 3);
             CreateWorldLabel(returnFlag.transform, localization.Format("world.return"), new Vector3(0.6f, 1.7f, -0.1f), 45, Color.black);
 
-            Color barrierColor = session.HasRope ? new Color(0.25f, 0.7f, 0.3f, 0.35f) : new Color(0.2f, 0.42f, 0.17f, 0.95f);
-            GameObject barrier = CreateRect("밧줄 필요 숲길", new Vector2(8.7f, -0.75f), new Vector2(1.25f, 5f), barrierColor, 1);
-            CreateWorldLabel(barrier.transform, localization.Format(session.HasRope ? "world.rope.pass" : "world.rope.need"), new Vector3(0f, 2.9f, -0.1f), 38, Color.black);
+            Color barrierColor = session.HasAxe ? new Color(0.25f, 0.7f, 0.3f, 0.35f) : new Color(0.2f, 0.42f, 0.17f, 0.95f);
+            GameObject barrier = CreateRect("돌도끼 필요 덩굴·나무 장벽", new Vector2(8.7f, -0.75f), new Vector2(1.25f, 5f), barrierColor, 1);
+            CreateWorldLabel(barrier.transform, localization.Format(session.HasAxe ? "world.barrier.axe.pass" : "world.barrier.axe.need"), new Vector3(0f, 2.9f, -0.1f), 38, Color.black);
 
             SpawnNode(-8.2f, ResourceKind.Salvage, 2, true);
             SpawnNode(-5.8f, ResourceKind.Food, 2, true);
@@ -662,7 +681,7 @@ namespace KimSurvival
             PrototypeTraversalStep traversalStep = playerTraversal.Step(actions, Time.deltaTime, Time.time, session);
             if (traversalStep.ReachedBlockedPath)
             {
-                messageText.text = localization.Format("message.rope.blocked");
+                messageText.text = localization.Format("message.barrier.axe_blocked");
             }
 
             playerPresentation.Apply(traversalStep.Presentation);
@@ -733,7 +752,13 @@ namespace KimSurvival
             }
         }
 
-        public string RunAutomatedVerification(string explorationScreenshotPath, string swimmingScreenshotPath, string placementKoreanScreenshotPath, string placementEnglishScreenshotPath)
+        public string RunAutomatedVerification(
+            string explorationScreenshotPath,
+            string swimmingScreenshotPath,
+            string placementKoreanScreenshotPath,
+            string placementEnglishScreenshotPath,
+            string signalKoreanScreenshotPath,
+            string signalEnglishScreenshotPath)
         {
             session.Reset();
             campPlacement.Reset();
@@ -754,6 +779,48 @@ namespace KimSurvival
             Require(statusText.font != null && messageText.font != null, "로케일별 TMP 폰트 매핑 적용");
             RequireCampBackgroundAlignment();
             RequireCampStructureArt();
+
+            TMP_Text signalLabel = signalButton.GetComponentInChildren<TMP_Text>();
+            Require(signalButton.interactable && signalLabel.text.Contains("작업대 없음"), "재료가 부족해도 선택 가능한 1단계 작업대 요구 표시");
+            signalButton.onClick.Invoke();
+            Require(session.SignalStage == 0 && session.LastMessage.Key == "message.signal.workbench" && messageText.text.Contains("작업대가 없다"), "1단계 작업대 없음 실패 피드백");
+            RequireReadableSignalFeedback();
+            if (!string.IsNullOrWhiteSpace(signalKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(signalKoreanScreenshotPath, 1280, 800);
+            }
+
+            Require(session.TryBuild(StructureKind.Workbench), "신호대 단계 검증용 작업대 건설");
+            RefreshAll();
+            signalButton.onClick.Invoke();
+            Require(session.SignalStage == 1 && !session.HasRope, "밧줄 없이 가능한 구조 신호대 1단계 UI 경로");
+            Require(signalButton.interactable && signalLabel.text.Contains("밧줄 없음"), "재료가 부족해도 선택 가능한 2단계 밧줄 요구 표시");
+            signalButton.onClick.Invoke();
+            Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.rope", "밧줄 없는 구조 신호대 2단계의 명확한 거절");
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            Require(signalLabel.text.Contains("Rope None") && messageText.text.Contains("No rope"), "영어 2단계 요구조건과 부족 사유 즉시 전환");
+            RequireReadableSignalFeedback();
+            if (!string.IsNullOrWhiteSpace(signalEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(signalEnglishScreenshotPath, 1280, 800);
+            }
+
+            Require(session.TryResearch(TechKind.Rope) && session.TryCraft(TechKind.Rope), "재료 부족 UI 검증용 밧줄 제작");
+            session.Grant(ResourceKind.Wood, -999);
+            session.Grant(ResourceKind.Salvage, -999);
+            RefreshAll();
+            Require(signalButton.interactable, "나무·표류물 부족 상태에서도 구조 신호대 행동 선택 가능");
+            signalButton.onClick.Invoke();
+            Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.materials" && messageText.text.Contains("Wood and salvage are short"), "나무·표류물 동시 부족 UI 피드백");
+
+            session.Reset();
+            campPlacement.Reset();
+            session.Grant(ResourceKind.Wood, 20);
+            session.Grant(ResourceKind.Stone, 10);
+            session.Grant(ResourceKind.Food, 5);
+            session.Grant(ResourceKind.Salvage, 20);
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
 
             campfireButton.onClick.Invoke();
             Require(campPlacement.IsActive && placementGhost != null, "모닥불 배치 유령 UI");
@@ -908,7 +975,17 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 1280x800 배치 상태 카드·가장자리/수중 자원 배지·장치별 안내·비가림 패널, UI 자유 배치·아트 고스트·경계/겹침/출입구/통로·무료 재배치, 제작·연구, 10개 수색 지점, 해안 입수·수영 점프 금지·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산 확인";
+            return "PASS · ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 1280x800 배치 상태 카드·가장자리/수중 자원 배지·장치별 안내·비가림 패널, UI 자유 배치·아트 고스트·경계/겹침/출입구/통로·무료 재배치, 제작·연구, 10개 수색 지점, 해안 입수·수영 점프 금지·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산 확인";
+        }
+
+        private void RequireReadableSignalFeedback()
+        {
+            TMP_Text signalLabel = signalButton.GetComponentInChildren<TMP_Text>();
+            signalLabel.ForceMeshUpdate(true, true);
+            messageText.ForceMeshUpdate(true, true);
+            Canvas.ForceUpdateCanvases();
+            Require(signalLabel.fontSize >= 23f && !signalLabel.isTextOverflowing, "1280x800 신호대 단계·요구조건 라벨 잘림 없음");
+            Require(messageText.fontSize >= 29f && !messageText.isTextOverflowing, "1280x800 신호대 부족 사유 잘림 없음");
         }
 
         private void RequireReadablePlacementUi()
