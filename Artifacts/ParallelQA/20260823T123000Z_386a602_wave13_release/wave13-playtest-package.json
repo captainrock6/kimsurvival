@@ -1,0 +1,42 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 13 playtest distribution kit result",
+    "runId":  "20260823T123000Z_386a602_wave13_release",
+    "baselineCommit":  "386a602f110ebfe2c404685f98f9cacf1b42c1d2",
+    "observedUtc":  "2026-08-23T12:16:33.8890671Z",
+    "overall":  "PASS",
+    "wave12Overall":  "PASS",
+    "wave12Product":  "PASS",
+    "wave12Infrastructure":  "PASS",
+    "compile":  "PASS 0 errors",
+    "windowsDevelopmentBuild":  "PASS",
+    "hiddenSmoke":  "PASS",
+    "addressables":  "PASS load/build/post-smoke",
+    "packageManifest":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T123000Z_386a602_wave13_release\\wave13-playtest-package-manifest.json",
+    "packageManifestSha256":  "2ba85992d917ca768038a8abc90928717dac6f235718ec331333e5eab91c6625",
+    "sha256Sums":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T123000Z_386a602_wave13_release\\wave13-playtest-package-sha256s.txt",
+    "sha256SumsSha256":  "f68331ad6d82b3d763b65854823829710bcd41ac195d7fa45f19f255251b7646",
+    "packageZip":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\W13\\20260823T123_e13_release\\KimSurvivalIsland-Windows-x64-Development.zip",
+    "packageZipBytes":  69146634,
+    "packageZipSha256":  "b4d49b04faa92c2438afad19d7d5d0ee0a4beb5db3d60199d516221d2ead59c4",
+    "zipEntryCount":  268,
+    "zipRequired":  {
+                        "executable":  true,
+                        "dataDirectory":  true,
+                        "unityPlayer":  true,
+                        "monoBleedingEdge":  true,
+                        "manifest":  true,
+                        "sha256Sums":  true,
+                        "quickStart":  true,
+                        "keyboardMouseChecklist":  true,
+                        "physicalGamepadChecklist":  true
+                    },
+    "zipMissing":  [
+
+                   ],
+    "physicalGamepad":  "UNVERIFIED",
+    "physicalGamepadReason":  "No physical device and human actuation evidence was supplied. Synthetic gamepad coverage is not physical-device proof.",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\New-Wave13PlaytestPackage.ps1\u0027 -RunId \u002720260823T123000Z_386a602_wave13_release\u0027 -BaselineCommit \u0027386a602f110ebfe2c404685f98f9cacf1b42c1d2\u0027"
+}

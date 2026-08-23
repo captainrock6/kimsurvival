@@ -1,0 +1,12 @@
+Wave 13 playtest distribution kit
+Run ID: 20260823T123000Z_386a602_wave13_release
+Baseline: 386a602f110ebfe2c404685f98f9cacf1b42c1d2
+Result: PASS
+Wave 12 product/infrastructure: PASS/PASS
+Compile/build/smoke: PASS 0 errors/PASS/PASS
+Required components: 4/4 PASS
+ZIP required entries: 9/9 PASS
+ZIP: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\W13\20260823T123_e13_release\KimSurvivalIsland-Windows-x64-Development.zip
+ZIP SHA-256: b4d49b04faa92c2438afad19d7d5d0ee0a4beb5db3d60199d516221d2ead59c4
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)

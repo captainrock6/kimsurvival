@@ -9,6 +9,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
+$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 $linkRelative = 'Assets/AddressableAssetsData/link.xml'
 $metaRelative = 'Assets/AddressableAssetsData/link.xml.meta'
 $ignoreRelative = 'Assets/AddressableAssetsData/.gitignore'
@@ -102,8 +103,8 @@ $report = [ordered]@{
 
 $jsonPath = Join-Path $evidenceRoot 'wave5-preflight.json'
 $textPath = Join-Path $evidenceRoot 'wave5-preflight.txt'
-$report | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $jsonPath -Encoding utf8NoBOM
-@(
+[System.IO.File]::WriteAllText($jsonPath, ($report | ConvertTo-Json -Depth 10) + [Environment]::NewLine, $utf8NoBom)
+$textLines = @(
     'Wave 5 Addressables ownership preflight'
     "Run ID: $RunId"
     "Captured UTC: $($report.capturedUtc)"
@@ -123,10 +124,10 @@ $report | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $jsonPath -Encodin
     "Installed processor: $($report.officialPackageImplementation.path)"
     "Installed processor SHA-256: $($report.officialPackageImplementation.sha256)"
     "Wave3VisualGate source SHA-256: $($report.visualGate.sourceSha256)"
-) | Set-Content -LiteralPath $textPath -Encoding utf8NoBOM
+)
+[System.IO.File]::WriteAllLines($textPath, $textLines, $utf8NoBom)
 
 Write-Output "PREFLIGHT=$($report.ownershipOverall)"
 Write-Output "CANONICAL_ADDRESSABLES_LINK=ABSENT"
 Write-Output "EVIDENCE=$jsonPath"
 if (-not $ownershipPass) { exit 1 }
-

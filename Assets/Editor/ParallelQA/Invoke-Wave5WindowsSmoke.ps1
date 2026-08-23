@@ -12,6 +12,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
+$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 $executable = Join-Path $projectRoot (Join-Path (Join-Path 'work\ParallelQA' $RunId) 'WindowsBuild\KimSurvivalIsland.exe')
 $preflightPath = Join-Path $evidenceRoot 'wave5-preflight.json'
 $buildPath = Join-Path $evidenceRoot 'windows-development-build.json'
@@ -43,7 +44,7 @@ function Get-MetaGuid([string]$Path) {
 
 function Read-Json([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
-    return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    return Get-Content -LiteralPath $Path -Raw -Encoding UTF8 | ConvertFrom-Json
 }
 
 function Get-AddressSnapshot {
@@ -85,7 +86,7 @@ $cleanup = Read-Json $cleanupPath
 $contracts = Read-Json $contractsPath
 $visual = Read-Json $visualPath
 $steam = Read-Json $steamPath
-$compileText = if (Test-Path -LiteralPath $compilePath) { Get-Content -LiteralPath $compilePath -Raw } else { '' }
+$compileText = if (Test-Path -LiteralPath $compilePath) { Get-Content -LiteralPath $compilePath -Raw -Encoding UTF8 } else { '' }
 $startedUtc = [DateTime]::UtcNow
 $processId = 0
 $earlyExit = $false
@@ -164,8 +165,8 @@ $smoke = [ordered]@{
     launchError = $launchError
     result = $smokeStatus
 }
-$smoke | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidenceRoot 'windows-hidden-smoke.json') -Encoding utf8NoBOM
-@(
+[System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'windows-hidden-smoke.json'), ($smoke | ConvertTo-Json -Depth 8) + [Environment]::NewLine, $utf8NoBom)
+$smokeLines = @(
     'Wave 5 Windows hidden smoke'
     "Run ID: $RunId"
     "Baseline: $BaselineCommit"
@@ -177,7 +178,8 @@ $smoke | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidence
     "Alive at minimum: $aliveAtMinimum"
     "Responding at minimum: $responding"
     "Executable SHA-256: $($smoke.executableSha256)"
-) | Set-Content -LiteralPath (Join-Path $evidenceRoot 'windows-hidden-smoke.txt') -Encoding utf8NoBOM
+)
+[System.IO.File]::WriteAllLines((Join-Path $evidenceRoot 'windows-hidden-smoke.txt'), $smokeLines, $utf8NoBom)
 
 $postContract = [ordered]@{
     schemaVersion = 2
@@ -189,7 +191,7 @@ $postContract = [ordered]@{
     preflight = if ($null -eq $preflight) { $null } else { $preflight.addressables }
     postSmoke = $postAddress
 }
-$postContract | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidenceRoot 'addressables-link-post-smoke-contract.json') -Encoding utf8NoBOM
+[System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'addressables-link-post-smoke-contract.json'), ($postContract | ConvertTo-Json -Depth 8) + [Environment]::NewLine, $utf8NoBom)
 
 $summary = [ordered]@{
     schemaVersion = 2
@@ -213,8 +215,8 @@ $summary = [ordered]@{
     physicalGamepad = 'UNVERIFIED'
     physicalGamepadReason = 'No physical-device actuation was performed; automated/code-path evidence cannot upgrade this status.'
 }
-$summary | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidenceRoot 'wave5-release-summary.json') -Encoding utf8NoBOM
-@(
+[System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'wave5-release-summary.json'), ($summary | ConvertTo-Json -Depth 8) + [Environment]::NewLine, $utf8NoBom)
+$summaryLines = @(
     'Wave 5 release evidence summary'
     "Run ID: $RunId"
     "Baseline: $BaselineCommit"
@@ -230,7 +232,8 @@ $summary | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $eviden
     "Background reachability: $backgroundStatus"
     "Steam readiness: $steamStatus"
     'Physical gamepad: UNVERIFIED'
-) | Set-Content -LiteralPath (Join-Path $evidenceRoot 'wave5-release-summary.txt') -Encoding utf8NoBOM
+)
+[System.IO.File]::WriteAllLines((Join-Path $evidenceRoot 'wave5-release-summary.txt'), $summaryLines, $utf8NoBom)
 
 Write-Output "QA_BUILD_INFRASTRUCTURE=$infrastructureGate"
 Write-Output "RELEASE_OVERALL=$releaseOverall"
@@ -239,4 +242,3 @@ Write-Output "ADDRESSABLES_POST_SMOKE=$($summary.addressablesPostSmokeContract)"
 Write-Output 'PHYSICAL_GAMEPAD=UNVERIFIED'
 Write-Output "EVIDENCE=$evidenceRoot"
 if ($infrastructureGate -ne 'PASS') { exit 1 }
-
