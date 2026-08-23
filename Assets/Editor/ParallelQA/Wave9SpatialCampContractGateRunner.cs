@@ -583,7 +583,11 @@ namespace ParallelQA
                 Path.Combine(EvidenceFolder, prefix + "bag-locked-ko-1280x800.png"),
                 Path.Combine(EvidenceFolder, prefix + "bag-upgraded-en-1280x800.png"),
                 Path.Combine(EvidenceFolder, prefix + "bag-locked-ko-1920x1080.png"),
-                Path.Combine(EvidenceFolder, prefix + "bag-upgraded-en-1920x1080.png"));
+                Path.Combine(EvidenceFolder, prefix + "bag-upgraded-en-1920x1080.png"),
+                Path.Combine(EvidenceFolder, prefix + "camp-far-ko-1280x800.png"),
+                Path.Combine(EvidenceFolder, prefix + "camp-proximity-ko-1280x800.png"),
+                Path.Combine(EvidenceFolder, prefix + "camp-workbench-en-1280x800.png"),
+                Path.Combine(EvidenceFolder, prefix + "camp-campfire-ko-1280x800.png"));
             File.WriteAllText(Path.Combine(EvidenceFolder, "wave9-approach-first-regression.txt"), result + Environment.NewLine, new UTF8Encoding(false));
             return result;
         }

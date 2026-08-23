@@ -101,7 +101,11 @@ $stages.Add([ordered]@{
     output = [string]::Join(' | ', $preflightOutput)
 })
 
-$stages.Add((Invoke-UnityStage 'compile' 'ParallelQA.ParallelQaRunner.RecordCompilePass' (Join-Path $workRoot 'unity-compile.log') $false $false))
+$compileStage = Invoke-UnityStage 'compile' 'ParallelQA.ParallelQaRunner.RecordCompilePass' (Join-Path $workRoot 'unity-compile.log') $false $false
+$stages.Add($compileStage)
+if ($compileStage.exitCode -ne 0) {
+    throw "Unity compile stage failed with exit code $($compileStage.exitCode). See $($compileStage.log)"
+}
 $stages.Add((Invoke-UnityStage 'wave9-edit-contracts' 'ParallelQA.Wave9SpatialCampContractGateRunner.RunEditContracts' (Join-Path $workRoot 'unity-wave9-edit.log') $false $false))
 $stages.Add((Invoke-UnityStage 'wave9-play-contracts' 'ParallelQA.Wave9SpatialCampContractGateRunner.RunPlayContracts' (Join-Path $workRoot 'unity-wave9-play.log') $true $true))
 $stages.Add((Invoke-UnityStage 'wave7-edit-regression' 'ParallelQA.Wave7BagCapacityRegressionRunner.RunEditContracts' (Join-Path $workRoot 'unity-wave7-edit.log') $false $false))
