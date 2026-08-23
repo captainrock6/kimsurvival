@@ -882,11 +882,13 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset ui.camp-contextual-interaction adopted via job_20260823073121_f5da3402"
+      ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-23T05:00:59.139Z",
-      "completedAt": null
+      "status": "done",
+      "updatedAt": "2026-08-23T11:29:36.202Z",
+      "completedAt": "2026-08-23T11:29:36.202Z"
     },
     {
       "id": "task.feature.feature.camp-object-interaction",
@@ -2176,5 +2178,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T09:35:21.718Z"
+  "updatedAt": "2026-08-23T11:29:36.202Z"
 }
