@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T032400Z_2a542be_wave8_localization_release_gate",
+  "baselineCommit": "2a542be0c2c9fa0a49f501bab1965bb59b5f06f3",
+  "sourceMetrics": "wave3-visual-metrics.tsv",
+  "scenario": "qps-long placement valid",
+  "scope": "synthetic QA text mutation; not an actual qps-long locale",
+  "minimumSignificantBlockOverlap": 0.05,
+  "legacyGlyphGate": "PASS 10/10 at its existing 15% threshold; preserved unchanged",
+  "overall": "FAIL",
+  "overlaps": [
+    {
+      "leftText": "[[Káeéeípó Eúnütrñanáceé/Clear]]",
+      "rightText": "[[Ráeéqíuióreúd Path]]",
+      "intersectionWidthPixels": 32.0,
+      "intersectionHeightPixels": 61.0,
+      "overlapOfSmallerBlock": 0.1480
+    },
+    {
+      "leftText": "[[Dáeédíiócúaütñeádé Aíncóhoúr · Siügnñal 0/2]]",
+      "rightText": "[[Gáeéníeórúaülñ Fáaécíiólúitüieñs/0.5má Féloíor Snap]]",
+      "intersectionWidthPixels": 125.0,
+      "intersectionHeightPixels": 22.0,
+      "overlapOfSmallerBlock": 0.0971
+    }
+  ]
+}

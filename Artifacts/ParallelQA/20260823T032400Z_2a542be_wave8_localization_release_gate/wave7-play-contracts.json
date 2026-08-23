@@ -1,0 +1,63 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T032400Z_2a542be_wave8_localization_release_gate",
+    "baselineCommit": "2a542be0c2c9fa0a49f501bab1965bb59b5f06f3",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T03:24:06.1116393Z",
+    "completedUtc": "2026-08-23T03:24:07.1319149Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave7BagCapacityRegressionRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\unity-wave7-play.log\"",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 3,
+    "failed": 0,
+    "notImplemented": 0,
+    "unverified": 1,
+    "infrastructureFailed": 0,
+    "checks": [
+        {
+            "id": "W7-08a.baseline_4slot_layout",
+            "matrixItem": "8",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P2",
+            "expected": "Current four-slot ko/en bag text is at least 16 px and remains in bounds without overflow or overlap at 1280x800 and 1920x1080",
+            "actual": "metrics=32 failures=0 · none",
+            "reproduction": "Inspect the four fresh baseline-4slot PNGs and wave7-layout-metrics.json.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W7-08b.upgraded_bag_layout",
+            "matrixItem": "8",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Pre/post upgrade bag UI passes ko/en/qps-long at 1280x800 and 1920x1080",
+            "actual": "relevantTexts=8 metrics=48 failures=0 upgradeButton=가방 용량 확장",
+            "reproduction": "Run Play contracts, inspect eight ko/en frames plus qps-long stress frames and wave7-layout-metrics.json.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-09.ui_synthetic_gamepad",
+            "matrixItem": "9",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Six visible bag slots support pointer click and synthetic gamepad submit",
+            "actual": "bagButtons=6 pointerSlot5=True syntheticGamepadSlot6=True",
+            "reproduction": "Reach a six-slot full-bag state, click slot 5, then submit slot 6 through EventSystem ExecuteEvents.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"
+        },
+        {
+            "id": "W7-HW.physical_gamepad",
+            "matrixItem": "9",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "Human actuation on a physical gamepad completes upgrade, slots 5/6, discard, return, and rescue",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows build with a physical controller and record device name/VID/PID plus human actuation.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        }
+    ]
+}
