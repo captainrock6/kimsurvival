@@ -742,7 +742,7 @@
       "id": "task.wave3.qa.integrated-three-day",
       "lane": "qa",
       "title": "Wave 3 3일 통합 플레이테스트 승인",
-      "description": "fed5066 기능 기준선과 Wave 4 외부 플레이테스트 프로토콜로 자동 회귀, 처음 보는 참가자 6명의 20분 수기 관찰, KO/EN 이해도와 별도 물리 게임패드 실기를 함께 판정한다.",
+      "description": "2a542be 기능 기준선과 Wave 8 첫 사용자 실행 패키지로 자동 회귀, 처음 보는 참가자 6명의 20분 수기 관찰, KO/EN 이해도와 별도 물리 게임패드 실기를 함께 판정한다.",
       "priority": "critical",
       "dependencies": [
         "task.wave3.implementation.balance-v0-2",
@@ -765,28 +765,72 @@
       "assetIds": [],
       "acceptanceCriteria": [
         "grant·좌표 warp 없이 3일 본선 3회, 2일 숙련 2회, 탈진·강제 귀환·기한 실패 각 1회를 새 실행에서 재현한다.",
-        "신규 플레이어 6명 중 5명 이상 20분 내 결말, 성공 3~4명, 5명 이상 가방 교체·포기 경험을 기록한다.",
-        "fed5066에 포함된 통합 자동 증거와 Wave 4 익명 수기 집계가 서로 다른 실행 근거로 보존되고, 자동 PASS를 인간 20분 PASS로 대체하지 않는다.",
+        "신규 플레이어 6명 중 5명 이상 20분 내 결말, 성공 3~4명을 확인하고 가방 4칸 만석·교체/포기와 4→6 업그레이드 대 신호 투자 순서를 기록한다.",
+        "2a542be에 포함된 Wave 7 통합 자동 증거와 Wave 8 익명 수기 집계가 서로 다른 실행 근거로 보존되고, 자동 PASS를 인간 20분 PASS로 대체하지 않는다.",
         "동일 빌드에서 첫 경험 참가자 6명(KO 3명, EN 3명)이 튜토리얼 없이 정확히 20분 플레이하며 이름·연락처·음성·영상·게임 내 텔레메트리 없이 익명 수기 시트만 남긴다.",
         "첫 채집 3분, 첫 귀환 6분, 첫 제작/연구 10분, 첫 유효 설치 12분, 물 왕복 14분을 각각 5/6명 이상과 locale별 2/3명 이상이 구체적 힌트 없이 달성한다.",
         "5/6명 이상이 20분 안에 성공·실패 결말에 도달하고 구조 성공은 3~4/6명이며, 5문항 이해도는 5/6명 이상과 locale별 2/3명 이상이 4점 이상이다.",
-        "방향·정답을 주는 H2/H3 개입 뒤 달성한 이정표는 자연 달성 합격선에 포함하지 않고 진단 관찰로만 보존한다.",
+        "방향·정답을 주는 H2/H3 개입은 전면 금지하며, 구체적 해결 힌트가 제공된 세션은 오염으로 무효 처리하고 같은 locale의 새 첫 사용자로 대체한다.",
         "외부 결과는 공통 원인으로 묶어 P0/P1/P2에 환류하며, 물리 게임패드 ko/en 2회 실기는 6인 표본과 별도 판정한다."
       ],
       "paths": [
         "Docs/Design/wave3-implementation-acceptance.md",
         "Docs/QA/ko-en-localization-test-plan.md",
         "Docs/QA/base-camp-limited-placement-test-plan.md",
-        "Docs/Design/wave4-external-playtest-protocol.md"
+        "Docs/Design/wave4-external-playtest-protocol.md",
+        "Docs/Design/wave8-external-playtest-package.md"
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/run-summary.txt",
-        "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/playmode-full-loop.txt"
+        "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/playmode-full-loop.txt",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt"
       ],
-      "blockedReason": "fed5066 자동 기능 경로는 PASS지만 화면 가독성 P1/P2, 처음 보는 참가자 6명의 외부 세션과 별도 물리 게임패드 ko/en 실기가 남아 있다.",
+      "blockedReason": "2a542be 기준 Wave 7 자동 게이트는 PASS지만 동일 Windows 빌드의 첫 사용자 6세션(ko 3, en 3)과 별도 물리 게임패드 ko/en 실기는 아직 실행되지 않았다.",
       "status": "blocked",
-      "updatedAt": "2026-08-22T14:03:57.337Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
+      "updatedAt": "2026-08-23T03:18:54.458Z",
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "note": "Wave 8 익명 수기 실행 패키지를 canonical 실행 경로로 연결했다. 외부 결과는 없으며 자동 PASS를 인간 20분 PASS로 대체하지 않는다.",
+      "completedAt": null
+    },
+    {
+      "id": "task.design.wave8-external-playtest-package",
+      "lane": "design",
+      "title": "첫 사용자 20분 플레이테스트 실행 패키지",
+      "description": "origin/master 2a542be 기준의 현재 3일 수직 슬라이스를 처음 보는 ko 3명과 en 3명에게 동일 Windows 빌드로 정확히 20분씩, 구체적 해결 힌트 없이 실행할 수 있는 익명 수기 패키지를 고정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.inventory-choice",
+        "feature.inventory-capacity-upgrade",
+        "feature.crafting-research",
+        "feature.camp-building",
+        "feature.swimming",
+        "feature.escape-outcome",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "동일 Windows 빌드, 첫 사용자 ko 3명·en 3명, 참가자별 정확히 20분, 구체적 해결 힌트 금지가 한 문서의 고정 실행 조건으로 명시된다.",
+        "첫 채집 3분, 첫 귀환 6분, 첫 제작/연구 10분, 첫 유효 설치 12분, 물 왕복 14분, 결말과 구조 성공 분포를 기록하는 참가자별 기록지와 6인 집계표가 제공된다.",
+        "가방 4→6과 구조 신호 투자 경쟁, 돌도끼 장벽과 나무 +1, 밧줄 역할, 수영 E/L 위험, 직접 접근·사용하는 공간형 캠프가 관찰 항목과 사후 5문항에 포함된다.",
+        "개인 식별 정보·음성·영상·게임 내 텔레메트리 없이 익명 수기만 사용하며, 유효 6세션 결과 전에는 밸런스 수치를 변경하지 않는다.",
+        "참가자 섭외·외부 메시지·가상 결과를 만들지 않고 공식 영문 제목과 Steam 미결 항목을 TBD로 유지한다.",
+        "유효 6세션 뒤 STOP_P0, HOLD_INCOMPLETE, UX_FIRST_P1, KEEP_V0.2, OPEN_ONE_AXIS_REVIEW 순서로 판정하고 수치 검토는 한 축만 연다."
+      ],
+      "paths": [
+        "Docs/Design/wave8-external-playtest-package.md",
+        ".forge/packets/wave8-external-playtest-plan.json"
+      ],
+      "evidence": [
+        "Docs/Design/wave8-external-playtest-package.md"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T03:18:42.366Z",
+      "note": "실행 패키지 문서와 Forge 패킷 작성·상호 연결 완료. 참가자 섭외와 외부 세션은 수행하지 않았고 결과 필드는 비어 있으며 밸런스 수치는 동결 상태다.",
+      "completedAt": "2026-08-23T03:18:42.366Z",
+      "createdAt": "2026-08-23T03:18:42.366Z"
     },
     {
       "id": "task.art.background.island-camp",
