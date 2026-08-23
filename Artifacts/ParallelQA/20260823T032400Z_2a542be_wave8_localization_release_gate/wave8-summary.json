@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "title": "국제화 릴리스 게이트 독립 검증",
+  "runId": "20260823T032400Z_2a542be_wave8_localization_release_gate",
+  "baselineCommit": "2a542be0c2c9fa0a49f501bab1965bb59b5f06f3",
+  "observedUtc": "2026-08-23T03:25:42.8835659Z",
+  "overall": "FAIL",
+  "productOverall": "FAIL",
+  "infrastructureOverall": "PASS",
+  "compile": "PASS 0 errors",
+  "wave8Edit": "FAIL",
+  "localeRelaunchEditorProcesses": "PASS",
+  "wave7FullRegression": "PASS",
+  "placement": "PASS 24/24",
+  "explorationSwimming": "PASS 10/10",
+  "koEnBagLayout1280And1920": "PASS",
+  "syntheticPseudoVisualFixture": "LEGACY PASS 10/10 · QA text mutation only",
+  "independentQpsStressBlockOverlap": "FAIL · P2 · 2 significant world-label overlaps at 5% threshold",
+  "actualQpsLongLocale": "NOT_IMPLEMENTED",
+  "actualQpsLayout1280And1920": "NOT_IMPLEMENTED · synthetic fixture cannot substitute for an actual locale",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "physicalGamepad": "UNVERIFIED",
+  "physicalGamepadReason": "No physical-device human actuation was performed; synthetic/code-path automation cannot upgrade this status.",
+  "windowsPlayerLocaleRelaunch": "UNVERIFIED · Editor-process persistence is automated; no in-player locale selection/normal-exit/relaunch actuation was captured.",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "productDefects": [
+    {
+      "id": "W8-E01.canonical_key_count",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "The versioned canonical localization contract contains exactly the Forge-specified 138 unique keys",
+      "actual": "rows=144 forgeExpected=138 delta=6 duplicates=none",
+      "reproduction": "Import PrototypeStrings.tsv and compare its unique keys with task.qa.feature.localization.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; .forge/backlog.json"
+    },
+    {
+      "id": "W8-E04.named_placeholder_contract",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Player-facing formatted strings use stable named placeholders rather than positional {0} tokens",
+      "actual": "positionalKeys=43 namedPlaceholderTokens=0 examples=hud.status.camp | hud.status.exploring | hud.resources | controls.placement.keyboard_mouse | controls.placement.gamepad | controls.camp.keyboard_mouse | controls.camp.gamepad | controls.explore | controls.explore.keyboard_mouse | controls.explore.gamepad | bag.camp | bag.pending",
+      "reproduction": "Scan all ko/en/qps-long fields for positional placeholders and replace them through the product localization contract.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"
+    },
+    {
+      "id": "W8-E05.qps_long_data_registration",
+      "severity": "P2",
+      "classification": "PRODUCT_GAP",
+      "expected": "qps-long is a non-shipping data locale with a full table and an explicit font mapping",
+      "actual": "column=False localeAsset=False tableAsset=False fontMapping=False",
+      "reproduction": "Add the non-shipping qps-long data assets without adding locale-specific gameplay branches.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs; Assets/_Project/Scripts/Localization/Resources/PrototypeLocaleFontProfile.asset"
+    },
+    {
+      "id": "W8-E06.qps_long_expansion_tokens_glyphs",
+      "severity": "P2",
+      "classification": "PRODUCT_GAP",
+      "expected": "Every qps-long entry expands English by 35-50%, preserves tokens/digits/tags, is wrapped, and contains the required extended glyph probe",
+      "actual": "qps-long column is absent; actual locale expansion and glyph contract cannot execute",
+      "reproduction": "Run the source-table contract over the qps-long column and inspect each failing key.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Localization/Resources/PrototypeLocaleFontProfile.asset"
+    },
+    {
+      "id": "W8-E07.locale_snapshot_invariance",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "The same QA progress snapshot restores under ko, en, and qps-long without changing canonical progression state",
+      "actual": "ko->ko selected=True state=True/True | en->en selected=True state=True/True | qps-long->ko selected=False state=True/True",
+      "reproduction": "Restore wave8-progress-snapshot.json once per locale and compare canonical fingerprints before and after formatting.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs; Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+    },
+    {
+      "id": "W8-E09.action_placeholder_contract",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Input prompts are driven by named action placeholders instead of device-specific translated key branches and literal bindings",
+      "actual": "actionTokens=0 literalBindings=A/D | Space | Enter | Esc | left stick | D-pad deviceSpecificKeyBranches=True",
+      "reproduction": "Inspect controls.* source rows and PrototypeInputPromptKeys for named action tokens and locale-independent action IDs.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+    },
+    {
+      "id": "W8-U01.qps_stress_world_label_overlap",
+      "severity": "P2",
+      "classification": "PRODUCT_LAYOUT_DEFECT",
+      "expected": "At 1280x800, qps stress world-label text blocks remain separated with less than 5% overlap of the smaller block.",
+      "actual": "Independent block gate found 2 significant overlaps; the legacy 15% gate still reports 10/10 PASS.",
+      "reproduction": "Open playmode-qps-long-placement-1280x800.png at 1:1 and compare projected blocks in wave3-visual-metrics.tsv.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/Editor/ParallelQA/Wave3VisualGate.cs"
+    }
+  ],
+  "infrastructureFailures": [],
+  "manualGates": [
+    "Physical gamepad locale settings and ko/en core-loop human actuation",
+    "Windows Player locale selection, normal exit, and relaunch-first-frame persistence",
+    "Human 1:1 review of actual qps-long camp/HUD/placement/swim/bag/result frames after the locale exists",
+    "Resolve the independently reproduced synthetic qps 1280x800 world-label overlap without weakening the existing visual thresholds",
+    "Native-language review and official English game title decision"
+  ],
+  "evidenceRoot": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave8LocalizationReleaseGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '2a542be0c2c9fa0a49f501bab1965bb59b5f06f3'"
+}

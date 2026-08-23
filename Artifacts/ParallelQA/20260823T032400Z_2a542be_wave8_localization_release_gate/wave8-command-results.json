@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "title": "국제화 릴리스 게이트 독립 검증",
+  "runId": "20260823T032400Z_2a542be_wave8_localization_release_gate",
+  "baselineCommit": "2a542be0c2c9fa0a49f501bab1965bb59b5f06f3",
+  "unityVersionExpected": "6000.4.9f1",
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "invokedUtc": "2026-08-23T03:25:42.8076179Z",
+  "executionPolicy": "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+  "integratedEvidencePolicy": "Prior Wave 7 evidence was audited for test design only; every verdict below comes from this new run ID.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave8LocalizationReleaseGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '2a542be0c2c9fa0a49f501bab1965bb59b5f06f3'",
+  "stages": [
+    {
+      "name": "fresh-wave7-full-regression",
+      "executeMethod": "Invoke-Wave7BagCapacityRegression.ps1",
+      "startedUtc": "2026-08-23T03:23:43.4971234Z",
+      "completedUtc": "2026-08-23T03:25:19.4121815Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\wave7-child-stdout.log",
+      "stderr": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\wave7-child-stderr.log",
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave7BagCapacityRegression.ps1\" -RunId 20260823T032400Z_2a542be_wave8_localization_release_gate -BaselineCommit 2a542be0c2c9fa0a49f501bab1965bb59b5f06f3 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6"
+    },
+    {
+      "name": "wave8-localization-edit-contracts",
+      "executeMethod": "ParallelQA.Wave8LocalizationReleaseGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T03:25:19.4219776Z",
+      "completedUtc": "2026-08-23T03:25:27.8913323Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\unity-wave8-localization-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave8LocalizationReleaseGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\unity-wave8-localization-edit.log\""
+    },
+    {
+      "name": "locale-relaunch-prepare",
+      "executeMethod": "ParallelQA.ParallelQaRunner.PrepareLocalePersistenceProbe",
+      "startedUtc": "2026-08-23T03:25:27.8946855Z",
+      "completedUtc": "2026-08-23T03:25:35.3179884Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\unity-wave8-locale-prepare.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.PrepareLocalePersistenceProbe -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\unity-wave8-locale-prepare.log\""
+    },
+    {
+      "name": "locale-relaunch-verify",
+      "executeMethod": "ParallelQA.ParallelQaRunner.VerifyLocalePersistenceProbe",
+      "startedUtc": "2026-08-23T03:25:35.3189568Z",
+      "completedUtc": "2026-08-23T03:25:42.8073065Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\unity-wave8-locale-verify.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.VerifyLocalePersistenceProbe -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T032400Z_2a542be_wave8_localization_release_gate\\unity-wave8-locale-verify.log\""
+    }
+  ]
+}

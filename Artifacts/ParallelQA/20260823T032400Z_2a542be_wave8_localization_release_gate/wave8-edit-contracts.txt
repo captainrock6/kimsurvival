@@ -1,0 +1,20 @@
+Wave 8 independent localization release Edit contracts
+Run ID: 20260823T032400Z_2a542be_wave8_localization_release_gate
+Baseline: 2a542be0c2c9fa0a49f501bab1965bb59b5f06f3
+Unity: 6000.4.9f1
+Product: FAIL
+Infrastructure: PASS
+Counts: PASS=6 FAIL=4 NOT_IMPLEMENTED=2 INFRA_FAIL=0 UNVERIFIED=1
+FAIL · PRODUCT_DEFECT · P1 · W8-E01.canonical_key_count · rows=144 forgeExpected=138 delta=6 duplicates=none
+PASS · NONE · P1 · W8-E02.ko_en_key_value_parity · header=Key/ko/en emptyKo=none unexpectedEmptyEn=none
+PASS · NONE · P1 · W8-E03.ko_en_placeholder_parity · mismatches=none
+FAIL · PRODUCT_DEFECT · P1 · W8-E04.named_placeholder_contract · positionalKeys=43 namedPlaceholderTokens=0 examples=hud.status.camp | hud.status.exploring | hud.resources | controls.placement.keyboard_mouse | controls.placement.gamepad | controls.camp.keyboard_mouse | controls.camp.gamepad | controls.explore | controls.explore.keyboard_mouse | controls.explore.gamepad | bag.camp | bag.pending
+NOT_IMPLEMENTED · PRODUCT_GAP · P2 · W8-E05.qps_long_data_registration · column=False localeAsset=False tableAsset=False fontMapping=False
+NOT_IMPLEMENTED · PRODUCT_GAP · P2 · W8-E06.qps_long_expansion_tokens_glyphs · qps-long column is absent; actual locale expansion and glyph contract cannot execute
+PASS · NONE · P0 · W8-I01.qa_snapshot_roundtrip · baseCapacity=4 progressedCapacity=6 fingerprint=day=2;hunger=35.000;energy=100.000;daylight=100.000;phase=Camp;result=None;expeditionCompleted=False;swimming=False;signal=1;bagCapacity=6;storage=20,27,5,22;bag=Wood:0,Wood:0,Wood:0,Wood:0,Wood:0,Wood:0;structures=True,True,True;researched=True,True;crafted=True,True;placements=Campfire:-1.500,RainCollector:3.500,Workbench:1.500
+FAIL · PRODUCT_DEFECT · P1 · W8-E07.locale_snapshot_invariance · ko->ko selected=True state=True/True | en->en selected=True state=True/True | qps-long->ko selected=False state=True/True
+PASS · NONE · P1 · W8-E08.synthetic_device_prompt_state_invariance · keyboard=Keyboard & Mouse · Click or arrows+Enter to select · Built facilities move free · F1 language gamepad=Gamepad · D-pad/left stick select · A action · Built facilities move free · Y language locale=en->en stateUnchanged=True
+FAIL · PRODUCT_DEFECT · P1 · W8-E09.action_placeholder_contract · actionTokens=0 literalBindings=A/D | Space | Enter | Esc | left stick | D-pad deviceSpecificKeyBranches=True
+PASS · NONE · P1 · W8-E10.missing_key_korean_fallback_log · first=한국어 폴백 확인 second=한국어 폴백 확인 warningCount=1 stateUnchanged=True
+PASS · NONE · P1 · W8-E11.default_and_invalid_locale_fallback · clean=ko invalid=ko
+UNVERIFIED · HARDWARE_GAP · P1 · W8-HW.physical_gamepad · No human physical-device actuation is part of this batch contract; detection or synthetic actions cannot promote this gate.

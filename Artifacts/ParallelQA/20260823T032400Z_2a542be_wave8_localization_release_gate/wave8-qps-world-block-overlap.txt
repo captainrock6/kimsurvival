@@ -1,0 +1,10 @@
+Wave 8 independent qps stress world-label block overlap gate
+Run ID: 20260823T032400Z_2a542be_wave8_localization_release_gate
+Baseline: 2a542be0c2c9fa0a49f501bab1965bb59b5f06f3
+Scope: synthetic QA text mutation; not an actual qps-long locale
+Threshold: overlap of smaller projected text block < 5%
+Overall: FAIL
+FAIL · entrance <> required path · intersection=32.0x61.0px · smallerBlock=14.80%
+FAIL · dedicated anchor <> general facilities · intersection=125.0x22.0px · smallerBlock=9.71%
+Legacy result retained: PASS 10/10 at its existing 15% threshold.
+Manual 1:1 review: text overlap is visible in playmode-qps-long-placement-1280x800.png.

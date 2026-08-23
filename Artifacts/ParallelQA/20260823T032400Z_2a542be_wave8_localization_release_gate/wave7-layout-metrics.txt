@@ -1,0 +1,10 @@
+Wave 7 bag layout metrics
+Run ID: 20260823T032400Z_2a542be_wave8_localization_release_gate
+Baseline: 2a542be0c2c9fa0a49f501bab1965bb59b5f06f3
+Unity: 6000.4.9f1
+Implementation: MEASURED
+Baseline 4-slot: PASS
+Upgraded 6-slot: PASS
+Overall: PASS
+Frames: 10 · Metrics: 80 · Failures: 0
+Thresholds: >=16 px median glyph, 4 px viewport margin, contrast >=4.5:1 (<24 px) or >=3:1, significant text overlap <15%, TMP overflow false.

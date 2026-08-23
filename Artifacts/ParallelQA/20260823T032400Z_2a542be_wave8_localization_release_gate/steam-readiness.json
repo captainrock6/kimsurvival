@@ -1,0 +1,41 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T032400Z_2a542be_wave8_localization_release_gate",
+    "baselineCommit": "2a542be0c2c9fa0a49f501bab1965bb59b5f06f3",
+    "observedUtc": "2026-08-23T03:25:09.6074703Z",
+    "overall": "NOT_READY",
+    "scanScope": "Assets, Packages, ProjectSettings excluding QA harness and generated Forge art text",
+    "matchedFiles": [],
+    "areas": [
+        {
+            "area": "Steamworks SDK/API",
+            "status": "NOT_READY",
+            "evidence": "no targeted repository match"
+        },
+        {
+            "area": "Steam App ID",
+            "status": "NOT_READY",
+            "evidence": "no targeted repository match"
+        },
+        {
+            "area": "Depot/upload",
+            "status": "NOT_READY",
+            "evidence": "no targeted repository match"
+        },
+        {
+            "area": "Steam Input",
+            "status": "NOT_READY",
+            "evidence": "no targeted repository match"
+        },
+        {
+            "area": "Steam Cloud",
+            "status": "NOT_READY",
+            "evidence": "no targeted repository match"
+        },
+        {
+            "area": "Steam Achievements",
+            "status": "NOT_READY",
+            "evidence": "no targeted repository match"
+        }
+    ]
+}
