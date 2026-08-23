@@ -2,7 +2,7 @@
   "id": "job_20260823144023_146e6ff7",
   "status": "succeeded",
   "createdAt": "2026-08-23T14:40:23.124Z",
-  "updatedAt": "2026-08-23T14:51:50.567Z",
+  "updatedAt": "2026-08-23T15:01:49.477Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.expedition-map",
@@ -329,7 +329,17 @@
       "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-expedition-map-review-board.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "wave15-expedition-map-right-rail-a-approved"
+    ],
+    "note": "사용자가 Wave 15 수집 지역 선택 지도 후보 중 A안, 안정 ID ui.expedition-map.right-rail-a를 명시적으로 채택했다. 채택 범위는 우측 상세 rail 레이아웃과 candidate-a-right-rail-1280x800.png 한 개다. B bottom-drawer와 C compact-right, QA/리뷰 보드, localization overlay는 미선택이며 runtime 자산이 아니다. icon.expedition-resource-risk-set은 이번 A 선택과 독립된 review 자산으로 유지한다.",
+    "selectedArtifacts": [
+      "candidate-a-right-rail-1280x800.png"
+    ],
+    "updatedAt": "2026-08-23T15:01:49.465Z"
+  },
   "events": [
     {
       "at": "2026-08-23T14:40:23.124Z",
@@ -365,6 +375,16 @@
       "at": "2026-08-23T14:51:50.567Z",
       "level": "info",
       "message": "Codex/로컬 결과 21개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-23T15:01:20.430Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave15-expedition-map-right-rail-a-approved"
+    },
+    {
+      "at": "2026-08-23T15:01:49.477Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave15-expedition-map-right-rail-a-approved"
     }
   ],
   "error": null,

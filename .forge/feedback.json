@@ -172,7 +172,52 @@
         "Assets\\_Project\\Art\\Generated\\background\\job_20260823130453_32a9debf\\option-b-gameplay-band-contrast-1280x800.png"
       ],
       "updatedAt": "2026-08-23T13:24:04.892Z"
+    },
+    {
+      "jobId": "job_20260823144023_146e6ff7",
+      "assetId": "ui.expedition-map",
+      "assetType": "ui_set",
+      "request": "Wave 15 review-only 1280x800 상황형 수집 지역 선택 지도 UI. 캠프 지도 오브젝트와 상호작용하는 동안만 열리고 닫으면 캠프로 복귀한다. 밝고 따뜻한 열대색과 굵은 형태의 오리지널 손그림 무인도 지도에 해변·숲·얕은 바다 세 노드, 선택 경로와 이동 시간 슬롯, 우측 또는 하단 상세 카드가 결합된다. 상세 카드는 예상 자원 종류와 상대 풍부함(풍부/보통/희귀/미확인), 현재 위험, 날씨, 필요 장비, 특별 발견 가능성을 정확한 수량 없이 보여준다. 기본·선택·잠김·위험 경고·장비 부족·출발 가능·미확인 상태를 색상뿐 아니라 실루엣·테두리 패턴·문양으로 구분한다. production raster에는 실제 ko/en/qps-long 본문이나 입력 문자를 넣지 않고 TMP safe rect, 44px keyboard/mouse/gamepad focus/glyph slots, 1280x800 safe area를 편집 가능한 SVG/manifest와 annotated QA variant로 제공한다. A 우측 상세 rail, B 하단 drawer, C compact 우측 card의 안정 후보를 한 원화에서 결정론적으로 구성하고 추천 후보를 지정하되 selectedCandidate=null, status=review로 유지한다. 기존 background.coast-forest.gameplay-band-contrast B는 팔레트·명암·굵은 형태 참고만 하며 job_20260823132501_b4a82bed를 채택·패키징·runtime 연결하지 않는다. 특정 게임 화면을 복제하지 않는다.",
+      "decision": "adopted",
+      "tags": [
+        "wave15-expedition-map-right-rail-a-approved"
+      ],
+      "note": "사용자가 Wave 15 수집 지역 선택 지도 후보 중 A안, 안정 ID ui.expedition-map.right-rail-a를 명시적으로 채택했다. 채택 범위는 우측 상세 rail 레이아웃과 candidate-a-right-rail-1280x800.png 한 개다. B bottom-drawer와 C compact-right, QA/리뷰 보드, localization overlay는 미선택이며 runtime 자산이 아니다. icon.expedition-resource-risk-set은 이번 A 선택과 독립된 review 자산으로 유지한다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823144023_146e6ff7\\candidate-a-right-rail-1280x800.png"
+      ],
+      "updatedAt": "2026-08-23T15:01:49.465Z"
+    },
+    {
+      "jobId": "job_20260823150359_f60296bb",
+      "assetId": "ui.expedition-map",
+      "assetType": "ui_set",
+      "request": "Create a deterministic selected-only packaging child for the user-adopted Wave 15 expedition map candidate A (ui.expedition-map.right-rail-a). Reuse the exact existing A bitmap without alteration. Do not create new art. Runtime package allowlist must be A plus only the common editable island map source and SVG components; reject B/C and every review-only board/overlay. This is packaging preparation only, not runtime or scene connection.",
+      "decision": "adopted",
+      "tags": [
+        "wave15-expedition-map-right-rail-a-selected-only"
+      ],
+      "note": "사용자가 ui.expedition-map.right-rail-a(A안)를 명시적으로 채택했다. 이 자식 작업은 원본 A 비트맵과 필요한 공통 편집 소스만 보존한 pixel-identical selected-only 패키징 파생본이다. B/C, 리뷰/QA/로컬라이제이션 오버레이는 미선택이며 icon.expedition-resource-risk-set은 독립 review 상태다. 씬 또는 런타임 연결은 수행하지 않는다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823150359_f60296bb\\candidate-a-right-rail-1280x800.png"
+      ],
+      "updatedAt": "2026-08-23T15:05:52.699Z"
+    },
+    {
+      "jobId": "job_20260823150636_e3b39abc",
+      "assetId": "ui.expedition-map",
+      "assetType": "ui_set",
+      "request": "Prepare the deterministic selected-only package for adopted ui.expedition-map.right-rail-a. The 1280x800 candidate A composite and island-map-art are intentionally opaque full-screen/reference rasters; validate them with opaque background semantics. Import the exact existing bytes only. Do not generate or edit art. Allow only candidate-a-right-rail-1280x800.png, island-map-art.png, expedition-map-components.svg, selected-only manifest and handoff; reject B/C, QA/review overlays, and the independent icon asset. Packaging preparation only; no runtime or scene connection.",
+      "decision": "adopted",
+      "tags": [
+        "wave15-expedition-map-right-rail-a-selected-only-pass"
+      ],
+      "note": "사용자가 ui.expedition-map.right-rail-a(A안)를 명시적으로 채택했다. 이 작업은 원본 A와 공통 편집 소스를 byte-identical하게 보존하고 opaque full-screen/reference 계약으로 100점 검증된 selected-only 패키징 파생본이다. B/C, 리뷰/QA/로컬라이제이션 오버레이 및 icon.expedition-resource-risk-set은 미선택이다. 씬/런타임 연결은 수행하지 않는다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823150636_e3b39abc\\candidate-a-right-rail-1280x800.png"
+      ],
+      "updatedAt": "2026-08-23T15:07:06.177Z"
     }
   ],
-  "updatedAt": "2026-08-23T13:24:04.986Z"
+  "updatedAt": "2026-08-23T15:07:06.267Z"
 }

@@ -1,0 +1,33 @@
+Wave 15 expedition map selected-only handoff
+
+ADOPTED CANDIDATE
+ui.expedition-map.right-rail-a
+candidate-a-right-rail-1280x800.png
+
+RUNTIME SOURCE ALLOWLIST
+candidate-a-right-rail-1280x800.png
+island-map-art.png
+expedition-map-components.svg
+
+REJECT FROM RUNTIME
+candidate-a-localization-input-overlay-1280x800.png
+candidate-b-bottom-drawer-1280x800.png
+candidate-c-compact-right-1280x800.png
+expedition-map-input-focus-comparison.png
+expedition-map-review-board.png
+expedition-map-state-comparison-board.png
+qa-preview-*.jpg
+quality-report.*
+icon.expedition-resource-risk-set/**
+
+CANVAS AND IMPORT
+1280x800; PPU 100; Bilinear; sRGB; max size 2048; compression None.
+9-slice popup L32 R32 T28 B28; detail L24 R24 T20 B20; action L18 R18 T14 B14.
+Minimum focus and glyph slot: 44x44 px.
+
+LOCALIZATION
+Use replaceable TMP for ko/en/qps-long. No rasterized production translation text.
+Assume 150% qps-long expansion; wrap, then vertical reflow; never shrink below 18 px at 1280x800.
+Outer safe inset L36 R36 T38 B38; content safe inset L68 R70 T76 B74.
+
+This handoff does not connect a scene or runtime. B/C and the independent icon asset remain unselected/review-only.

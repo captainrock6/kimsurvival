@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T14:53:26.569Z",
+  "updatedAt": "2026-08-23T15:07:06.406Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -3620,10 +3620,10 @@
     },
     {
       "id": "ui.expedition-map",
-      "name": "Wave 15 review-only 1280x800 상황형 수집 지역 선택 지도 UI. 캠프 지도 오브젝트와 상호작용하는 동안만 열리고 닫으면 캠프로 복귀한다. 밝고 따뜻한 열대색과 굵은 형태의 오리지널 손그림 무인",
+      "name": "Prepare the deterministic selected-only package for adopted ui.expedition-map.right-rail-a. The 1280x800 candidate A com",
       "assetType": "ui_set",
-      "request": "Wave 15 review-only 1280x800 상황형 수집 지역 선택 지도 UI. 캠프 지도 오브젝트와 상호작용하는 동안만 열리고 닫으면 캠프로 복귀한다. 밝고 따뜻한 열대색과 굵은 형태의 오리지널 손그림 무인도 지도에 해변·숲·얕은 바다 세 노드, 선택 경로와 이동 시간 슬롯, 우측 또는 하단 상세 카드가 결합된다. 상세 카드는 예상 자원 종류와 상대 풍부함(풍부/보통/희귀/미확인), 현재 위험, 날씨, 필요 장비, 특별 발견 가능성을 정확한 수량 없이 보여준다. 기본·선택·잠김·위험 경고·장비 부족·출발 가능·미확인 상태를 색상뿐 아니라 실루엣·테두리 패턴·문양으로 구분한다. production raster에는 실제 ko/en/qps-long 본문이나 입력 문자를 넣지 않고 TMP safe rect, 44px keyboard/mouse/gamepad focus/glyph slots, 1280x800 safe area를 편집 가능한 SVG/manifest와 annotated QA variant로 제공한다. A 우측 상세 rail, B 하단 drawer, C compact 우측 card의 안정 후보를 한 원화에서 결정론적으로 구성하고 추천 후보를 지정하되 selectedCandidate=null, status=review로 유지한다. 기존 background.coast-forest.gameplay-band-contrast B는 팔레트·명암·굵은 형태 참고만 하며 job_20260823132501_b4a82bed를 채택·패키징·runtime 연결하지 않는다. 특정 게임 화면을 복제하지 않는다.",
-      "status": "review",
+      "request": "Prepare the deterministic selected-only package for adopted ui.expedition-map.right-rail-a. The 1280x800 candidate A composite and island-map-art are intentionally opaque full-screen/reference rasters; validate them with opaque background semantics. Import the exact existing bytes only. Do not generate or edit art. Allow only candidate-a-right-rail-1280x800.png, island-map-art.png, expedition-map-components.svg, selected-only manifest and handoff; reject B/C, QA/review overlays, and the independent icon asset. Packaging preparation only; no runtime or scene connection.",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "expedition-map",
@@ -3641,7 +3641,9 @@
         "ui.survival-hud"
       ],
       "jobIds": [
-        "job_20260823144023_146e6ff7"
+        "job_20260823144023_146e6ff7",
+        "job_20260823150359_f60296bb",
+        "job_20260823150636_e3b39abc"
       ],
       "versions": [
         {
@@ -3657,176 +3659,153 @@
           "status": "review",
           "at": "2026-08-23T14:51:50.632Z",
           "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823144023_146e6ff7",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T15:01:20.500Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823144023_146e6ff7",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T15:01:49.545Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823150359_f60296bb",
+          "parentJobId": "job_20260823144023_146e6ff7",
+          "status": "awaiting_import",
+          "at": "2026-08-23T15:03:59.189Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823150359_f60296bb",
+          "parentJobId": "job_20260823144023_146e6ff7",
+          "status": "review",
+          "at": "2026-08-23T15:05:42.913Z",
+          "qualityScore": 40
+        },
+        {
+          "jobId": "job_20260823150359_f60296bb",
+          "parentJobId": "job_20260823144023_146e6ff7",
+          "status": "adopted",
+          "at": "2026-08-23T15:05:52.750Z",
+          "qualityScore": 40
+        },
+        {
+          "jobId": "job_20260823150636_e3b39abc",
+          "parentJobId": "job_20260823150359_f60296bb",
+          "status": "awaiting_import",
+          "at": "2026-08-23T15:06:36.442Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823150636_e3b39abc",
+          "parentJobId": "job_20260823150359_f60296bb",
+          "status": "review",
+          "at": "2026-08-23T15:06:55.735Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823150636_e3b39abc",
+          "parentJobId": "job_20260823150359_f60296bb",
+          "status": "adopted",
+          "at": "2026-08-23T15:07:06.234Z",
+          "qualityScore": 100
         }
       ],
-      "currentJobId": "job_20260823144023_146e6ff7",
-      "parentJobId": null,
+      "currentJobId": "job_20260823150636_e3b39abc",
+      "parentJobId": "job_20260823150359_f60296bb",
       "artifacts": [
         {
           "kind": "codex-request",
           "fileName": "codex-request.json",
           "contentType": "application/json",
-          "bytes": 76067,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/codex-request.json"
+          "bytes": 23561,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/codex-request.json"
         },
         {
           "kind": "prompt",
           "fileName": "prompt.txt",
           "contentType": "text/plain",
-          "bytes": 69100,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/prompt.txt"
-        },
-        {
-          "kind": "image",
-          "fileName": "island-map-art.png",
-          "contentType": "image/png",
-          "bytes": 3061054,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/island-map-art.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "expedition-map-components.svg",
-          "contentType": "image/svg+xml",
-          "bytes": 2664,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-components.svg"
+          "bytes": 18192,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/prompt.txt"
         },
         {
           "kind": "image",
           "fileName": "candidate-a-right-rail-1280x800.png",
           "contentType": "image/png",
           "bytes": 1423073,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-a-right-rail-1280x800.png"
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/candidate-a-right-rail-1280x800.png"
         },
         {
           "kind": "image",
-          "fileName": "candidate-b-bottom-drawer-1280x800.png",
+          "fileName": "island-map-art.png",
           "contentType": "image/png",
-          "bytes": 1530497,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-b-bottom-drawer-1280x800.png"
+          "bytes": 3061054,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/island-map-art.png"
         },
         {
           "kind": "image",
-          "fileName": "candidate-c-compact-right-1280x800.png",
-          "contentType": "image/png",
-          "bytes": 1574216,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-c-compact-right-1280x800.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "candidate-a-localization-input-overlay-1280x800.png",
-          "contentType": "image/png",
-          "bytes": 1286478,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-a-localization-input-overlay-1280x800.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "expedition-map-state-comparison-board.png",
-          "contentType": "image/png",
-          "bytes": 72330,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-state-comparison-board.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "expedition-map-input-focus-comparison.png",
-          "contentType": "image/png",
-          "bytes": 36502,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-input-focus-comparison.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "expedition-map-review-board.png",
-          "contentType": "image/png",
-          "bytes": 2306376,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-review-board.png"
+          "fileName": "expedition-map-components.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 2664,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/expedition-map-components.svg"
         },
         {
           "kind": "editable-source",
-          "fileName": "expedition-map-review-manifest.json",
+          "fileName": "wave15-expedition-map-a-selected-only-manifest.json",
           "contentType": "application/json",
-          "bytes": 4376,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-review-manifest.json"
+          "bytes": 2714,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/wave15-expedition-map-a-selected-only-manifest.json"
         },
         {
-          "kind": "editable-source",
-          "fileName": "expedition-map-visual-qa.json",
-          "contentType": "application/json",
-          "bytes": 2124,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-visual-qa.json"
+          "kind": "file",
+          "fileName": "wave15-expedition-map-a-selected-only-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 1168,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/wave15-expedition-map-a-selected-only-handoff.txt"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.json",
           "contentType": "application/json",
-          "bytes": 4250,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/quality-report.json"
+          "bytes": 1554,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/quality-report.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.html",
           "contentType": "text/html",
-          "bytes": 3419,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/quality-report.html"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-island-map-art.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 9341,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-island-map-art.jpg"
+          "bytes": 2018,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/quality-report.html"
         },
         {
           "kind": "quality-preview",
           "fileName": "qa-preview-candidate-a-right-rail-1280x800.jpg",
           "contentType": "image/jpeg",
           "bytes": 9165,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-a-right-rail-1280x800.jpg"
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/qa-preview-candidate-a-right-rail-1280x800.jpg"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-candidate-b-bottom-drawer-1280x800.jpg",
+          "fileName": "qa-preview-island-map-art.jpg",
           "contentType": "image/jpeg",
-          "bytes": 9504,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-b-bottom-drawer-1280x800.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-candidate-c-compact-right-1280x800.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 9508,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-c-compact-right-1280x800.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-candidate-a-localization-input-overlay-1280x800.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 8188,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-a-localization-input-overlay-1280x800.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-expedition-map-state-comparison-board.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 7609,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-expedition-map-state-comparison-board.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-expedition-map-input-focus-comparison.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 5474,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-expedition-map-input-focus-comparison.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-expedition-map-review-board.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 11770,
-          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-expedition-map-review-board.jpg"
+          "bytes": 9341,
+          "url": "/outputs/jobs/job_20260823150636_e3b39abc/qa-preview-island-map-art.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823150636_e3b39abc",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823150636_e3b39abc\\forge-import.json",
+        "packagedAt": "2026-08-23T15:07:06.405Z"
+      },
       "createdAt": "2026-08-23T14:15:54.679Z",
-      "updatedAt": "2026-08-23T14:51:50.633Z"
+      "updatedAt": "2026-08-23T15:07:06.406Z"
     },
     {
       "id": "icon.expedition-resource-risk-set",
