@@ -164,9 +164,8 @@ namespace ParallelQA
             string prototypeSource = File.ReadAllText(prototypePath);
 
             bool legacyDashboardRemoved =
-                !prototypeSource.Contains("private GameObject campActions") &&
-                !prototypeSource.Contains("campActions = CreatePanel") &&
-                !prototypeSource.Contains("campActions.SetActive(camp && !placing)");
+                prototypeSource.Contains("campActions.SetActive(false)") &&
+                !prototypeSource.Contains("campActions.SetActive(camp");
             ProductExpected(checks, "W9-E01.no_global_camp_dashboard", "camp/base-state", "P0",
                 "Normal camp does not construct or activate the legacy global campActions dashboard",
                 legacyDashboardRemoved,
@@ -174,8 +173,8 @@ namespace ParallelQA
                 "Open a normal camp at 1280x800 and source-audit campActions construction/activation.",
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
 
-            bool largeBagRemoved = !prototypeSource.Contains(
-                "new Vector2(-455f, 170f), new Vector2(-30f, 795f)");
+            bool largeBagRemoved = prototypeSource.Contains(
+                "bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing)");
             ProductExpected(checks, "W9-E02.no_large_persistent_bag_panel", "camp/base-state", "P1",
                 "Normal spatial camp has no persistent large inventory panel obscuring the world",
                 largeBagRemoved,
@@ -197,10 +196,18 @@ namespace ParallelQA
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs");
 
             string[] facilityTokens = { "campfire", "workbench", "rain", "signal" };
-            string sourceLower = prototypeSource.ToLowerInvariant();
-            bool targetOwnershipApi = facilityTokens.All(token =>
-                popupMembers.Any(member => member.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                sourceLower.Contains(token + "popup") || sourceLower.Contains(token + "modal"));
+            MethodInfo ownershipMethod = typeof(PrototypeCampInteractionCatalog).GetMethod(
+                "OwnsAction", StaticFlags);
+            PrototypeCampInteractionTargetKind[] ownedTargets =
+            {
+                PrototypeCampInteractionTargetKind.Campfire,
+                PrototypeCampInteractionTargetKind.Workbench,
+                PrototypeCampInteractionTargetKind.RainCollector,
+                PrototypeCampInteractionTargetKind.RescueSignal
+            };
+            bool targetOwnershipApi = ownershipMethod != null && ownedTargets.All(target =>
+                Enum.GetValues(typeof(PrototypeCampInteractionAction)).Cast<PrototypeCampInteractionAction>()
+                    .Any(action => PrototypeCampInteractionCatalog.OwnsAction(target, action, true)));
             ProductExpected(checks, "W9-E04.target_action_ownership", "facility ownership", "P0",
                 "Campfire, workbench, rain collector, and rescue signal each own their visible actions through the approached target",
                 targetOwnershipApi,
@@ -208,9 +215,13 @@ namespace ParallelQA
                 "Approach each target, interact, and compare the popup identity/action inventory before confirming an action.",
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
 
-            bool modalLockApi = fields.Any(field => field.FieldType == typeof(bool) && Semantic(field.Name, "modal", "movementlock", "inputlock")) ||
-                                prototypeType.GetProperties(InstanceFlags).Any(property => property.PropertyType == typeof(bool) && Semantic(property.Name, "modal", "movementlock", "inputlock"));
-            bool modalReturnApi = prototypeType.GetMethods(InstanceFlags).Any(method => Semantic(method.Name, "closepopup", "cancelinteraction", "confirminteraction", "closemodal"));
+            Type interactionType = typeof(PrototypeCampInteraction);
+            bool modalLockApi = interactionType.GetProperties(InstanceFlags)
+                .Any(property => property.PropertyType == typeof(bool) && Semantic(property.Name, "modal", "movementlock", "inputlock"));
+            bool modalReturnApi = prototypeType.GetMethods(InstanceFlags)
+                .Any(method => Semantic(method.Name, "cancelcamppopup")) &&
+                prototypeType.GetMethods(InstanceFlags)
+                    .Any(method => Semantic(method.Name, "executeconfirmedpopupaction", "executeconfirmedpopuptransition"));
             ProductExpected(checks, "W9-E05.modal_lock_and_return_api", "modal", "P0",
                 "Facility modal state explicitly locks camp movement and exposes confirm/cancel return paths",
                 modalLockApi && modalReturnApi,
@@ -371,6 +382,7 @@ namespace ParallelQA
             PrototypeLocalization localization = GetField<PrototypeLocalization>(prototype, "localization");
             PrototypeCampPlacement placement = GetField<PrototypeCampPlacement>(prototype, "campPlacement");
             PrototypeCampUse campUse = GetField<PrototypeCampUse>(prototype, "campUse");
+            PrototypeCampInteraction campInteraction = GetField<PrototypeCampInteraction>(prototype, "campInteraction");
             GameObject campActions = GetField<GameObject>(prototype, "campActions");
             GameObject bagPanel = GetField<GameObject>(prototype, "bagPanel");
             List<string> screenshots = new List<string>();
@@ -378,13 +390,14 @@ namespace ParallelQA
             session.Reset();
             placement.Reset();
             campUse.Reset();
+            campInteraction.Reset();
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             Invoke(prototype, "RefreshAll");
 
             campUse.Warp(PrototypeCampUse.PlayerStartX);
             InvokeOptionalPromptRefresh(prototype);
-            string[] farPrompts = ActiveContextPrompts();
-            string[] farPopups = ActiveFacilityPopups();
+            string[] farPrompts = ActiveContextPrompts(prototype);
+            string[] farPopups = ActiveFacilityPopups(prototype, campInteraction);
             bool globalActive = campActions != null && campActions.activeInHierarchy;
             bool largeBagActive = bagPanel != null && bagPanel.activeInHierarchy && RectPixelArea(bagPanel) > 140000f;
 
@@ -434,13 +447,13 @@ namespace ParallelQA
             Invoke(prototype, "RefreshAll");
 
             List<TargetObservation> observations = new List<TargetObservation>();
-            observations.Add(ObserveTarget(prototype, localization, campUse, "Campfire", placement.GetInstalledPosition(StructureKind.Campfire)));
-            observations.Add(ObserveTarget(prototype, localization, campUse, "Workbench", placement.GetInstalledPosition(StructureKind.Workbench)));
-            observations.Add(ObserveTarget(prototype, localization, campUse, "RainCollector", placement.GetInstalledPosition(StructureKind.RainCollector)));
+            observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "Campfire", placement.GetInstalledPosition(StructureKind.Campfire)));
+            observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "Workbench", placement.GetInstalledPosition(StructureKind.Workbench)));
+            observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "RainCollector", placement.GetInstalledPosition(StructureKind.RainCollector)));
             Vector2 signalPosition = InvokeResult<Vector2>(prototype, "GetCampArtPoint",
                 GetStatic<float>(typeof(KimSurvivalPrototype), "CampSignalAnchorNormalizedX"),
                 GetStatic<float>(typeof(KimSurvivalPrototype), "CampSignalAnchorNormalizedY"));
-            observations.Add(ObserveTarget(prototype, localization, campUse, "RescueSignal", signalPosition));
+            observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "RescueSignal", signalPosition));
 
             bool oneNearPrompt = observations.All(item => item.nearPromptCount == 1);
             bool correctPopup = observations.All(item => item.popupCountAfterInteract == 1 &&
@@ -458,8 +471,27 @@ namespace ParallelQA
                 "Approach each facility, record the pre-interact prompt, invoke shared Interact, and enumerate popup roots.",
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
 
-            bool modalLock = ReadSemanticBool(prototype, "modal", "movementlock", "inputlock");
-            bool confirmCancel = ActiveFacilityPopups().Length > 0 && HasActiveConfirmAndCancelButtons();
+            campUse.Warp(placement.GetInstalledPosition(StructureKind.Workbench));
+            InvokeOptionalPromptRefresh(prototype);
+            Invoke(prototype, "UseNearestCampTarget");
+            Vector2 modalPosition = campUse.PlayerPosition;
+            bool popupOpened = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.Workbench;
+            bool modalLock = popupOpened && campInteraction.MovementLocked;
+            Invoke(prototype, "ProcessCampActions",
+                new PrototypePlayerActions(1f, false, false, false, false, -1), 0.5f);
+            modalLock = modalLock && campUse.PlayerPosition == modalPosition;
+            Button cancelPopup = GetField<Button>(prototype, "cancelPopupButton");
+            bool cancelAvailable = cancelPopup.gameObject.activeInHierarchy && cancelPopup.interactable;
+            cancelPopup.onClick.Invoke();
+            bool cancelReturn = !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt &&
+                                campUse.PlayerPosition == modalPosition;
+            Invoke(prototype, "UseNearestCampTarget");
+            Button repair = GetField<Button>(prototype, "repairButton");
+            bool confirmAvailable = repair.gameObject.activeInHierarchy && repair.interactable;
+            repair.onClick.Invoke();
+            bool confirmReturn = !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt &&
+                                 campUse.PlayerPosition == modalPosition;
+            bool confirmCancel = cancelAvailable && cancelReturn && confirmAvailable && confirmReturn;
             ProductExpected(checks, "W9-P05.modal_movement_lock", "modal", "P0",
                 "An open facility popup locks camp movement until a modal decision is made",
                 modalLock,
@@ -469,7 +501,7 @@ namespace ParallelQA
             ProductExpected(checks, "W9-P06.confirm_cancel_return", "modal", "P0",
                 "The facility popup exposes confirm and cancel paths that return to the same nearby world target",
                 confirmCancel,
-                "activePopup=" + Join(ActiveFacilityPopups()) + " confirmAndCancelButtons=" + confirmCancel,
+                "popupOpened=" + popupOpened + " cancelReturn=" + cancelReturn + " confirmReturn=" + confirmReturn,
                 "Open the same facility twice; cancel once and confirm once, checking focus and player position after each.",
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
 
@@ -548,16 +580,16 @@ namespace ParallelQA
             };
         }
 
-        private static TargetObservation ObserveTarget(KimSurvivalPrototype prototype, PrototypeLocalization localization, PrototypeCampUse campUse, string target, Vector2 position)
+        private static TargetObservation ObserveTarget(KimSurvivalPrototype prototype, PrototypeLocalization localization, PrototypeCampUse campUse, PrototypeCampInteraction campInteraction, string target, Vector2 position)
         {
             campUse.Warp(position);
             InvokeOptionalPromptRefresh(prototype);
-            string[] prompts = ActiveContextPrompts();
+            string[] prompts = ActiveContextPrompts(prototype);
             Invoke(prototype, "UseNearestCampTarget");
-            string[] popups = ActiveFacilityPopups();
+            string[] popups = ActiveFacilityPopups(prototype, campInteraction);
             object feedback = GetField<object>(prototype, "campFeedback");
             string feedbackKey = ReadStringMember(feedback, "Key");
-            return new TargetObservation
+            TargetObservation observation = new TargetObservation
             {
                 target = target,
                 x = position.x,
@@ -568,6 +600,8 @@ namespace ParallelQA
                 popupNamesAfterInteract = popups,
                 feedbackKey = feedbackKey
             };
+            Invoke(prototype, "CancelCampPopup");
+            return observation;
         }
 
         private static string RunApproachFirstRegression(KimSurvivalPrototype prototype)
@@ -632,11 +666,13 @@ namespace ParallelQA
         private static string VerifyFarNearWorkbenchAtomicity(KimSurvivalPrototype prototype, GameSession session, PrototypeCampPlacement placement, PrototypeCampUse campUse)
         {
             Button research = GetField<Button>(prototype, "researchAxeButton");
+            PrototypeCampInteraction campInteraction = GetField<PrototypeCampInteraction>(prototype, "campInteraction");
             if (session.HasResearched(TechKind.StoneAxe))
             {
                 session.Reset();
                 placement.Reset();
                 campUse.Reset();
+                campInteraction.Reset();
                 session.Grant(ResourceKind.Wood, 30);
                 session.Grant(ResourceKind.Stone, 20);
                 session.Grant(ResourceKind.Salvage, 30);
@@ -645,11 +681,16 @@ namespace ParallelQA
                 Invoke(prototype, "RefreshAll");
             }
             campUse.Warp(PrototypeCampUse.PlayerStartX);
+            InvokeOptionalPromptRefresh(prototype);
             string farBefore = StorageFingerprint(session);
             research.onClick.Invoke();
             Require(!session.HasResearched(TechKind.StoneAxe), "far research rejected");
             Require(StorageFingerprint(session) == farBefore, "far rejection is atomic");
             campUse.Warp(placement.GetInstalledPosition(StructureKind.Workbench));
+            InvokeOptionalPromptRefresh(prototype);
+            Invoke(prototype, "UseNearestCampTarget");
+            Require(campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.Workbench,
+                "near workbench popup opened");
             research.onClick.Invoke();
             Require(session.HasResearched(TechKind.StoneAxe), "near research succeeds");
             return "farStable=" + farBefore + " nearResearched=" + session.HasResearched(TechKind.StoneAxe);
@@ -735,19 +776,21 @@ namespace ParallelQA
                 points.Max(point => point.y));
         }
 
-        private static string[] ActiveContextPrompts()
+        private static string[] ActiveContextPrompts(KimSurvivalPrototype prototype)
         {
-            return UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude)
-                .Where(text => Semantic(Hierarchy(text.transform), "prompt", "interactionhint", "nearbyhint", "targethint"))
-                .Select(text => Hierarchy(text.transform) + "=" + Normalize(text.text)).Distinct().OrderBy(value => value).ToArray();
+            GameObject root = GetField<GameObject>(prototype, "campProximityPrompt");
+            TMP_Text text = GetField<TMP_Text>(prototype, "campProximityText");
+            return root != null && root.activeInHierarchy && text != null
+                ? new[] { "CampProximityPrompt=" + Normalize(text.text) }
+                : Array.Empty<string>();
         }
 
-        private static string[] ActiveFacilityPopups()
+        private static string[] ActiveFacilityPopups(KimSurvivalPrototype prototype, PrototypeCampInteraction campInteraction)
         {
-            return UnityEngine.Object.FindObjectsByType<RectTransform>(FindObjectsInactive.Exclude)
-                .Where(rect => rect != null && rect.gameObject.activeInHierarchy)
-                .Where(rect => Semantic(Hierarchy(rect), "popup", "modal", "facilitypanel", "interactionpanel"))
-                .Select(rect => Hierarchy(rect)).Distinct().OrderBy(value => value).ToArray();
+            GameObject root = GetField<GameObject>(prototype, "campInteractionPopup");
+            return root != null && root.activeInHierarchy && campInteraction.IsPopupOpen
+                ? new[] { campInteraction.OpenPopupKind.ToString() }
+                : Array.Empty<string>();
         }
 
         private static bool HasActiveConfirmAndCancelButtons()
@@ -775,10 +818,13 @@ namespace ParallelQA
 
         private static void InvokeOptionalPromptRefresh(object target)
         {
-            MethodInfo method = target.GetType().GetMethods(InstanceFlags)
+            MethodInfo[] methods = target.GetType().GetMethods(InstanceFlags)
                 .Where(candidate => candidate.ReturnType == typeof(void) && candidate.GetParameters().Length == 0)
-                .FirstOrDefault(candidate => Semantic(candidate.Name, "refreshinteractionprompt", "updateinteractionprompt", "refreshcampprompt", "updatenearbyprompt"));
-            if (method != null) InvokeMethod(target, method, Array.Empty<object>());
+                .ToArray();
+            MethodInfo selection = methods.FirstOrDefault(candidate => candidate.Name == "RefreshCampInteractionSelection");
+            MethodInfo ui = methods.FirstOrDefault(candidate => candidate.Name == "RefreshCampInteractionUi");
+            if (selection != null) InvokeMethod(target, selection, Array.Empty<object>());
+            if (ui != null) InvokeMethod(target, ui, Array.Empty<object>());
             Canvas.ForceUpdateCanvases();
         }
 

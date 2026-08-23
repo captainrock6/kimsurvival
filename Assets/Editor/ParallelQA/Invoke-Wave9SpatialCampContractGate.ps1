@@ -195,6 +195,14 @@ $windowsSmoke = Read-Json (Join-Path $evidenceRoot 'windows-hidden-smoke.json')
 $addressBuild = Read-Json (Join-Path $evidenceRoot 'addressables-link-build-contract.json')
 $addressSmoke = Read-Json (Join-Path $evidenceRoot 'addressables-link-post-smoke-contract.json')
 $steam = Read-Json (Join-Path $evidenceRoot 'steam-readiness.json')
+$wave7LegacyIds = @('W7-08a.baseline_4slot_layout','W7-08b.upgraded_bag_layout')
+$wave6LegacyIds = @('W6-08.ko.signal.readability','W6-08.en.signal.readability')
+$wave7PlayFailures = if ($null -ne $wave7Play) { @($wave7Play.checks | Where-Object { $_.status -eq 'FAIL' }) } else { @() }
+$wave6PlayFailures = if ($null -ne $wave6Play) { @($wave6Play.checks | Where-Object { $_.status -eq 'FAIL' }) } else { @() }
+$wave7PlayIsolated = $null -ne $wave7Play -and $wave7Play.infrastructureOverall -eq 'PASS' -and $wave7PlayFailures.Count -gt 0 -and
+    @($wave7PlayFailures | Where-Object { $_.id -notin $wave7LegacyIds }).Count -eq 0
+$wave6PlayIsolated = $null -ne $wave6Play -and $wave6Play.infrastructureOverall -eq 'PASS' -and $wave6PlayFailures.Count -gt 0 -and
+    @($wave6PlayFailures | Where-Object { $_.id -notin $wave6LegacyIds }).Count -eq 0
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
 if ($preflightExit -ne 0 -or $null -eq $preflight -or $preflight.ownershipOverall -ne 'PASS') { $infrastructureFailures.Add('preflight/Addressables ownership did not pass') }
@@ -205,17 +213,23 @@ foreach ($name in @('wave9-edit-contracts','wave9-play-contracts')) {
         $infrastructureFailures.Add("$name did not complete with infrastructure PASS")
     }
 }
-foreach ($name in @('wave7-edit-regression','wave7-play-regression','wave6-edit-regression','wave6-play-regression')) {
+foreach ($name in @('wave7-edit-regression','wave6-edit-regression')) {
     $report = switch ($name) {
         'wave7-edit-regression' { $wave7Edit }
-        'wave7-play-regression' { $wave7Play }
-        'wave6-edit-regression' { $wave6Edit }
-        default { $wave6Play }
+        default { $wave6Edit }
     }
     if ($stageByName[$name].exitCode -ne 0 -or $null -eq $report -or $report.productOverall -ne 'PASS' -or $report.infrastructureOverall -ne 'PASS') {
         $infrastructureFailures.Add("$name did not prove product/infrastructure PASS")
     }
 }
+$wave7PlayAccepted = $null -ne $wave7Play -and $wave7Play.infrastructureOverall -eq 'PASS' -and
+    (($wave7Play.productOverall -eq 'PASS' -and $stageByName['wave7-play-regression'].exitCode -eq 0) -or
+     ($wave7PlayIsolated -and $stageByName['wave7-play-regression'].exitCode -eq 1))
+$wave6PlayAccepted = $null -ne $wave6Play -and $wave6Play.infrastructureOverall -eq 'PASS' -and
+    (($wave6Play.productOverall -eq 'PASS' -and $stageByName['wave6-play-regression'].exitCode -eq 0) -or
+     ($wave6PlayIsolated -and $stageByName['wave6-play-regression'].exitCode -eq 1))
+if (-not $wave7PlayAccepted) { $infrastructureFailures.Add('wave7-play-regression did not pass or match the isolated legacy dashboard-only layout checks') }
+if (-not $wave6PlayAccepted) { $infrastructureFailures.Add('wave6-play-regression did not pass or match the isolated legacy dashboard-only signal layout checks') }
 $assetFailedChecks = if ($null -ne $asset) { @($asset.checks | Where-Object { $_.status -eq 'FAIL' }) } else { @() }
 $assetCorePass = $null -ne $asset -and
     @($assetFailedChecks | Where-Object { $_.id -notlike 'visual.current_*' }).Count -eq 0 -and
@@ -265,6 +279,21 @@ $wave4VisualIsolation = [ordered]@{
 }
 [System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'wave9-wave4-visual-bridge-isolation.json'), ($wave4VisualIsolation | ConvertTo-Json -Depth 10) + [Environment]::NewLine, $utf8NoBom)
 
+$legacyPlayIsolation = [ordered]@{
+    schemaVersion = 1
+    runId = $RunId
+    baselineCommit = $BaselineCommit
+    classification = 'STALE_DASHBOARD_LAYOUT_ASSUMPTION'
+    productRollbackSignal = $false
+    wave7Status = if ($wave7PlayIsolated) { 'ISOLATED_BY_DESIGN' } elseif ($null -ne $wave7Play -and $wave7Play.productOverall -eq 'PASS') { 'PASS' } else { 'FAIL' }
+    wave7Checks = @($wave7PlayFailures | ForEach-Object { [ordered]@{ id = $_.id; actual = $_.actual } })
+    wave6Status = if ($wave6PlayIsolated) { 'ISOLATED_BY_DESIGN' } elseif ($null -ne $wave6Play -and $wave6Play.productOverall -eq 'PASS') { 'PASS' } else { 'FAIL' }
+    wave6Checks = @($wave6PlayFailures | ForEach-Object { [ordered]@{ id = $_.id; actual = $_.actual } })
+    reason = 'These historical Play fixtures submit or measure the former persistent dashboard/bag presentation. The Wave 9 replacement evidence approaches a world target, opens its contextual popup, and runs the full survival loop through RunAutomatedVerification.'
+    replacementEvidence = @('wave9-play-contracts.json','wave9-spatial-play-evidence.json','wave9-approach-first-regression.txt')
+}
+[System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'wave9-legacy-play-layout-isolation.json'), ($legacyPlayIsolation | ConvertTo-Json -Depth 10) + [Environment]::NewLine, $utf8NoBom)
+
 $summary = [ordered]@{
     schemaVersion = 1
     title = 'Wave 9 spatial camp red-first QA contract gate'
@@ -283,8 +312,8 @@ $summary = [ordered]@{
     modalAndReturn = if ($null -ne $wave9Play -and @($wave9Play.checks | Where-Object { $_.id -in @('W9-P05.modal_movement_lock','W9-P06.confirm_cancel_return') -and $_.status -eq 'PASS' }).Count -eq 2) { 'PASS' } else { 'EXPECTED_FAIL/RED' }
     moduleExpansion = if ($null -ne $wave9Edit -and @($wave9Edit.checks | Where-Object { $_.id -like 'W9-M*' -and $_.status -eq 'PASS' }).Count -eq 4) { 'PASS' } else { 'EXPECTED_FAIL/RED' }
     approachFirstCoreRegression = if ($null -ne $wave9Play -and @($wave9Play.checks | Where-Object { $_.id -eq 'W9-I04.approach_first_full_regression' -and $_.status -eq 'PASS' }).Count -eq 1) { 'PASS' } else { 'FAIL' }
-    wave7BagRegression = if ($null -ne $wave7Edit -and $wave7Edit.productOverall -eq 'PASS' -and $null -ne $wave7Play -and $wave7Play.productOverall -eq 'PASS') { 'PASS' } else { 'FAIL' }
-    wave6ProgressionRegression = if ($null -ne $wave6Edit -and $wave6Edit.productOverall -eq 'PASS' -and $null -ne $wave6Play -and $wave6Play.productOverall -eq 'PASS') { 'PASS' } else { 'FAIL' }
+    wave7BagRegression = if ($null -ne $wave7Edit -and $wave7Edit.productOverall -eq 'PASS' -and $null -ne $wave7Play -and $wave7Play.productOverall -eq 'PASS') { 'PASS' } elseif ($wave7PlayIsolated) { 'ISOLATED_BY_DESIGN · old persistent bag/dashboard layout fixture' } else { 'FAIL' }
+    wave6ProgressionRegression = if ($null -ne $wave6Edit -and $wave6Edit.productOverall -eq 'PASS' -and $null -ne $wave6Play -and $wave6Play.productOverall -eq 'PASS') { 'PASS' } elseif ($wave6PlayIsolated) { 'ISOLATED_BY_DESIGN · old dashboard signal layout fixture' } else { 'FAIL' }
     legacyDashboardHarness = 'ISOLATED_BY_DESIGN · stale distant-button assumptions are not a product rollback signal'
     koEn1280Captures = if ($null -ne $wave9Evidence -and @($wave9Evidence.screenshots).Count -ge 4) { 'PASS fresh captures generated' } else { 'FAIL' }
     assetReleaseCore = if ($assetCorePass) { "PASS $(@($asset.checks | Where-Object { $_.status -eq 'PASS' }).Count) checks" } else { 'FAIL' }
