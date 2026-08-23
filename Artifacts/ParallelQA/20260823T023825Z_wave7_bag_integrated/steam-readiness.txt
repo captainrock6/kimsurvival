@@ -1,0 +1,10 @@
+Wave 4 Steam readiness
+Run ID: 20260823T023825Z_wave7_bag_integrated
+Baseline: 68226f86e8922b2d236e51e662259508f14c92ca
+Overall: NOT_READY
+NOT_READY · Steamworks SDK/API · no targeted repository match
+NOT_READY · Steam App ID · no targeted repository match
+NOT_READY · Depot/upload · no targeted repository match
+NOT_READY · Steam Input · no targeted repository match
+NOT_READY · Steam Cloud · no targeted repository match
+NOT_READY · Steam Achievements · no targeted repository match

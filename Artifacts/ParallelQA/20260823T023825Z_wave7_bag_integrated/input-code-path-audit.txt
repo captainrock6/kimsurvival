@@ -1,0 +1,34 @@
+Keyboard and gamepad code-path audit
+Run ID: 20260823T023825Z_wave7_bag_integrated
+Started UTC: 2026-08-23T02:39:44.0536165Z
+Completed UTC: 2026-08-23T02:39:44.1915168Z
+Unity: 6000.4.9f1
+Baseline commit: 68226f86e8922b2d236e51e662259508f14c92ca
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunEditChecks -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260823T023825Z_wave7_bag_integrated\unity-legacy-edit.log"
+PASS · keyboard/left-stick movement reads Horizontal
+PASS · keyboard A movement path
+PASS · keyboard D movement path
+PASS · keyboard jump path
+PASS · keyboard interact path
+PASS · keyboard return path
+PASS · gamepad A/jump and submit code path
+PASS · gamepad B/cancel and return code path
+PASS · gamepad X/interact code path
+PASS · gamepad Y/language code path
+PASS · mouse placement confirm path
+PASS · keyboard placement confirm path
+PASS · gamepad placement confirm path
+PASS · gamepad placement cancel path
+PASS · keyboard language switch path
+PASS · gamepad language switch path
+PASS · runtime consumes shared placement actions
+PASS · runtime consumes shared language action
+PASS · uGUI Submit axis exists
+PASS · uGUI gamepad submit mapping
+PASS · uGUI Cancel axis exists
+PASS · uGUI gamepad cancel mapping
+PASS · legacy joystick horizontal axis mapping
+PASS · legacy joystick vertical axis mapping
+Overall code-path audit: PASS
+Execution scope: raw keyboard/mouse and gamepad actions, UI Submit, and directional navigation are automated; physical gamepad actuation is reported separately in playmode-full-loop.txt.

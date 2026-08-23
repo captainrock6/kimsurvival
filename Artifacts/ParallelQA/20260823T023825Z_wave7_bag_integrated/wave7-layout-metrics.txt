@@ -1,0 +1,35 @@
+Wave 7 bag layout metrics
+Run ID: 20260823T023825Z_wave7_bag_integrated
+Baseline: 68226f86e8922b2d236e51e662259508f14c92ca
+Unity: 6000.4.9f1
+Implementation: MEASURED
+Baseline 4-slot: FAIL
+Upgraded 6-slot: FAIL
+Overall: FAIL
+Frames: 10 · Metrics: 80 · Failures: 25
+Thresholds: >=16 px median glyph, 4 px viewport margin, contrast >=4.5:1 (<24 px) or >=3:1, significant text overlap <15%, TMP overflow false.
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목 · glyph=13.4 contrast=14.00 bounds=921.6,421.5-1114.0,438.8 overlaps=
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨 · glyph=13.4 contrast=8.18 bounds=933.5,356.8-1100.9,394.5 overlaps=
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 0/라벨 · glyph=13.4 contrast=12.06 bounds=921.2,302.2-990.4,319.3 overlaps=
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 1/라벨 · glyph=13.4 contrast=12.06 bounds=1045.5,302.2-1116.2,319.3 overlaps=
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 2/라벨 · glyph=13.4 contrast=12.06 bounds=920.0,234.8-990.4,252.0 overlaps=
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 3/라벨 · glyph=13.4 contrast=12.06 bounds=1045.2,234.8-1116.2,251.9 overlaps=
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 4/라벨 · glyph=13.4 contrast=17.67 bounds=916.5,171.0-992.8,184.6 overlaps=
+FAIL · baseline-4slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 5/라벨 · glyph=13.4 contrast=17.67 bounds=1042.1,171.0-1118.5,184.6 overlaps=
+FAIL · upgraded-6slot-ko-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목 · glyph=15.5 contrast=14.00 bounds=937.1,421.7-1099.2,439.9 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목 · glyph=13.4 contrast=14.00 bounds=921.6,421.5-1114.0,438.8 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨 · glyph=13.2 contrast=8.18 bounds=912.0,360.2-1124.0,394.6 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 0/라벨 · glyph=13.4 contrast=12.06 bounds=921.2,302.2-990.4,319.3 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 1/라벨 · glyph=13.4 contrast=12.06 bounds=1045.5,302.2-1116.2,319.3 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 2/라벨 · glyph=13.4 contrast=12.06 bounds=920.0,234.8-990.4,252.0 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 3/라벨 · glyph=13.4 contrast=12.06 bounds=1045.2,234.8-1116.2,251.9 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 4/라벨 · glyph=13.4 contrast=12.06 bounds=920.0,167.4-990.4,184.6 overlaps=
+FAIL · upgraded-6slot-en-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 5/라벨 · glyph=13.4 contrast=12.06 bounds=1045.6,167.4-1116.2,184.6 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목 · glyph=13.6 contrast=14.00 bounds=907.9,411.1-1126.7,449.2 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨 · glyph=13.6 contrast=8.18 bounds=915.9,356.8-1120.8,394.5 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 0/라벨 · glyph=13.6 contrast=12.06 bounds=915.6,291.8-994.4,329.7 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 1/라벨 · glyph=13.6 contrast=12.06 bounds=1041.4,291.8-1120.1,329.7 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 2/라벨 · glyph=13.6 contrast=12.06 bounds=915.6,224.5-994.4,262.3 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 3/라벨 · glyph=13.6 contrast=12.06 bounds=1041.4,224.5-1120.1,262.3 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 4/라벨 · glyph=13.6 contrast=12.06 bounds=915.6,157.1-994.4,194.9 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 5/라벨 · glyph=13.6 contrast=12.06 bounds=1041.4,157.1-1120.1,195.0 overlaps=

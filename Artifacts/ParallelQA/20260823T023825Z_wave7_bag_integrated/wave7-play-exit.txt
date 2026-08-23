@@ -1,0 +1,1 @@
+Product=FAIL · Infrastructure=PASS · PhysicalGamepad=UNVERIFIED · Evidence=C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260823T023825Z_wave7_bag_integrated\wave7-play-contracts.json

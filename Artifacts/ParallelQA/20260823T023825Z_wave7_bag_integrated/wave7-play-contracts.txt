@@ -1,0 +1,11 @@
+Wave 7 bag capacity Play contracts
+Run ID: 20260823T023825Z_wave7_bag_integrated
+Baseline: 68226f86e8922b2d236e51e662259508f14c92ca
+Unity: 6000.4.9f1
+Product: FAIL
+Infrastructure: PASS
+Counts: PASS=0 FAIL=3 NOT_IMPLEMENTED=0 INFRA_FAIL=0 UNVERIFIED=1
+FAIL · PRODUCT_DEFECT · P2 · W7-08a.baseline_4slot_layout · metrics=32 failures=8 · baseline-4slot-en-1280x800:Camp Storage · Bag 4/6 glyph=13.4px bounds=True contrast=14.00 overflow=True overlap=True | baseline-4slot-en-1280x800:Bag Upgrade 4→6 Workbench Required glyph=13.4px bounds=True contrast=8.18 overflow=True overlap=True | baseline-4slot-en-1280x800:1. Empty glyph=13.4px bounds=True contrast=12.06 overflow=True overlap=True | baseline-4slot-en-1280x800:2. Empty glyph=13.4px bounds=True contrast=12.06 overflow=True overlap=True | baseline-4slot-en-1280x800:3. Empty glyph=13.4px bounds=True contrast=12.06 overflow=True overlap=True | baseline-4slot-en-1280x800:4. Empty glyph=13.4px bounds=True contrast=12.06 overflow=True overlap=True | baseline-4slot-en-1280x800:5. Locked glyph=13.4px bounds=True contrast=17.67 overflow=True overlap=True | baseline-4slot-en-1280x800:6. Locked glyph=13.4px bounds=True contrast=17.67 overflow=True overlap=True
+FAIL · PRODUCT_DEFECT · P1 · W7-08b.upgraded_bag_layout · relevantTexts=8 metrics=48 failures=17 upgradeButton=가방 용량 확장
+FAIL · PRODUCT_DEFECT · P1 · W7-09.ui_synthetic_gamepad · bagButtons=6 pointerSlot5=True syntheticGamepadSlot6=False
+UNVERIFIED · HARDWARE_GAP · P1 · W7-HW.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode

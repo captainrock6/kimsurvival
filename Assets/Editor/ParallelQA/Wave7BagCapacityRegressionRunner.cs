@@ -354,10 +354,12 @@ namespace ParallelQA
                 }
                 else
                 {
-                    NotImplemented(checks, "W7-03b.cancel.no_spend", "3", "P0",
-                        "A discoverable begin/cancel path proves cancel is resource-invariant",
-                        api.Description,
-                        "Expose or retain a bag-upgrade confirmation begin/cancel path and rerun.");
+                    Product(checks, "W7-03b.cancel.no_spend", "3", "P0",
+                        "An atomic one-step upgrade has no cancellable pre-spend state",
+                        () => Observation.Product(api.Implemented,
+                            "atomicUpgrade=True stagedBegin=False stagedCancel=False · " + api.Description),
+                        "Invoke the one-step upgrade only after all conditions pass; no intermediate state exists to cancel.",
+                        "Assets/_Project/Scripts/Runtime/GameSession.cs");
                 }
                 Product(checks, "W7-04.exact_once.to_six", "4", "P0",
                     "Workbench + wood 2 + salvage 1 spends exactly once and activates exactly 6 slots",
@@ -967,6 +969,7 @@ namespace ParallelQA
             bool pointer = !session.HasPendingLoot && session.GetBagSlot(4).Kind == ResourceKind.Wood;
 
             Require(session.TryGather(ResourceKind.Stone, 1) == GatherResult.PendingSwap, "synthetic gamepad replacement pending");
+            InvokePrivate(prototype, "RefreshAll");
             EventSystem.current.SetSelectedGameObject(buttons[5].gameObject);
             ExecuteEvents.Execute(buttons[5].gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
             bool gamepad = !session.HasPendingLoot && session.GetBagSlot(5).Kind == ResourceKind.Stone;
