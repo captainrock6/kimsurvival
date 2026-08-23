@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="64" viewBox="0 0 384 64">
+  <metadata>{"assetId":"ui.camp-contextual-interaction","candidateId":"ui.camp-contextual-interaction.compact-a","jobId":"job_20260823073121_f5da3402","scope":"selected-only-authoring-source","runtimeLoad":false}</metadata>
+  <g id="compact-a" transform="translate(8 8)">
+    <rect id="panel" width="368" height="48" rx="24" fill="#1f3844" stroke="#0d1f28" stroke-width="3"/>
+    <rect id="glyph-cap" x="4" y="4" width="56" height="40" rx="20" fill="#3fbec0"/>
+    <rect id="glyph-slot" x="8" y="4" width="40" height="40" rx="10" fill="#ffe5a3" stroke="#0d1f28" stroke-width="2"/>
+    <rect id="tmp-action-safe" x="70" y="9" width="268" height="30" rx="9" fill="#687f7e" fill-opacity=".38"/>
+    <circle id="end-cap-accent" cx="347" cy="24" r="5" fill="#f6b843"/>
+  </g>
+</svg>

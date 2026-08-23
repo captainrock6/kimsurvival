@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "validationId": "validation.wave12.compact-a.safe-zones",
+  "assetId": "ui.camp-contextual-interaction",
+  "candidateId": "ui.camp-contextual-interaction.compact-a",
+  "jobId": "job_20260823073121_f5da3402",
+  "status": "pass-with-importer-handoff-required",
+  "reference": {
+    "path": "actual-size-compact-a-1280x800.png",
+    "sha256": "8e5771c8a232fb9c530f96c65e2b8ae4ad459a03417901364cfdb462694092cb",
+    "resolutionPixels": [
+      1280,
+      800
+    ],
+    "coordinateOrigin": "top-left",
+    "rectFormat": "x,y,width,height; right and bottom are exclusive"
+  },
+  "safeZones": {
+    "topHudLeft": [
+      16,
+      16,
+      177,
+      66
+    ],
+    "topHudCenter": [
+      521,
+      22,
+      238,
+      58
+    ],
+    "topHudRight": [
+      956,
+      22,
+      302,
+      60
+    ],
+    "topHudEnvelope": [
+      16,
+      16,
+      1242,
+      66
+    ],
+    "narration": [
+      226,
+      145,
+      824,
+      136
+    ],
+    "compactACanvas": [
+      448,
+      285,
+      384,
+      64
+    ],
+    "compactAVisible": [
+      456,
+      293,
+      368,
+      48
+    ],
+    "compactAGlyphFocus": [
+      460,
+      295,
+      44,
+      44
+    ],
+    "compactATmpSafe": [
+      526,
+      302,
+      268,
+      30
+    ],
+    "qpsLongMaxCanvas": [
+      380,
+      285,
+      520,
+      64
+    ],
+    "qpsLongMaxVisible": [
+      388,
+      293,
+      504,
+      48
+    ],
+    "kimConservativeEnvelope": [
+      560,
+      380,
+      120,
+      200
+    ],
+    "walkableBand48": [
+      0,
+      485,
+      1280,
+      48
+    ],
+    "walkableBaselineY": 508.75,
+    "bottomBagEnvelope": [
+      16,
+      718,
+      216,
+      66
+    ]
+  },
+  "localeRects": {
+    "ko": {
+      "panelCanvas": [
+        490,
+        285,
+        300,
+        64
+      ],
+      "visible": [
+        498,
+        293,
+        284,
+        48
+      ],
+      "glyphFocus": [
+        502,
+        295,
+        44,
+        44
+      ],
+      "tmpSafe": [
+        568,
+        302,
+        184,
+        30
+      ]
+    },
+    "en": {
+      "panelCanvas": [
+        450,
+        285,
+        380,
+        64
+      ],
+      "visible": [
+        458,
+        293,
+        364,
+        48
+      ],
+      "glyphFocus": [
+        462,
+        295,
+        44,
+        44
+      ],
+      "tmpSafe": [
+        528,
+        302,
+        264,
+        30
+      ]
+    },
+    "qps-long": {
+      "panelCanvas": [
+        380,
+        285,
+        520,
+        64
+      ],
+      "visible": [
+        388,
+        293,
+        504,
+        48
+      ],
+      "glyphFocus": [
+        392,
+        295,
+        44,
+        44
+      ],
+      "tmpSafe": [
+        458,
+        302,
+        404,
+        30
+      ]
+    }
+  },
+  "mechanicalChecks": {
+    "sourcePngSha256Matches": true,
+    "sourcePngSizeMatches384x64": true,
+    "sourceHasTrueAlpha": true,
+    "sourceEdgeContactPixels": 0,
+    "nineSliceMatchesL70R30T12B12": true,
+    "pivotMatchesCenter": true,
+    "glyphFocusAtLeast44x44": true,
+    "narrationToVisiblePromptGapPixels": 12,
+    "topHudToNarrationGapPixels": 63,
+    "qpsCanvasToKimGapPixels": 31,
+    "qpsCanvasToWalkableBandGapPixels": 136,
+    "promptOverlapTopHudPixelsSquared": 0,
+    "promptOverlapNarrationPixelsSquared": 0,
+    "promptOverlapKimPixelsSquared": 0,
+    "promptOverlapWalkableBandPixelsSquared": 0,
+    "promptOverlapBottomBagPixelsSquared": 0,
+    "keyboardGamepadSwapChangesLayout": false,
+    "rasterLocalizedText": false,
+    "bOrCFileAllowedAtRuntime": false,
+    "wave11SlotCandidateSelected": false
+  },
+  "visualInvariants": [
+    "Prompt center remains x=640 and visible top remains y=293 for ko, en, and qps-long.",
+    "Only the horizontal center slice stretches; L70, R30, T12, and B12 borders remain fixed.",
+    "Glyph content scales with preserved aspect inside 40x40 while the focus rect remains 44x44.",
+    "Keyboard/gamepad or locale change updates only TMP/glyph content and never gameplay state or focus owner.",
+    "Prompt remains one line at minimum 20px and uses no meaning-bearing ellipsis.",
+    "The qps-long panel never exceeds 520px and does not overlap Kim or the 48px walking band.",
+    "No actual translated body text or input glyph is baked into compact-a.png."
+  ],
+  "upstreamForgeQuality": {
+    "score": 100,
+    "errors": 0,
+    "warnings": 0
+  },
+  "importerAudit": {
+    "status": "handoff-required",
+    "existingMetaModified": false,
+    "requiredBeforeRuntimeQA": [
+      "apply Texture Type Sprite (2D and UI) and Sprite Mode Single",
+      "disable mipmaps",
+      "set compression Uncompressed",
+      "apply 9-slice border L70 R30 T12 B12"
+    ]
+  }
+}
