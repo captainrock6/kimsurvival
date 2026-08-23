@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823094919_b97f9f61",
+  "reviewedAtReferenceResolution": [
+    1280,
+    800
+  ],
+  "visualReviewPasses": 1,
+  "overall": "pass-with-review-choice-pending",
+  "observations": [
+    "All three connection directions read from silhouette before state color is considered.",
+    "Upper hatch footprint ends above the reserved compact prompt top edge.",
+    "Side focus marker stays on the existing connector frame and does not cover Kim.",
+    "Basement hatch remains a narrow floor replacement and keeps the ladder and route visible.",
+    "No translated body text, button text, or keyboard/gamepad glyph is baked into production sprites."
+  ],
+  "approval": {
+    "selectedCandidate": null,
+    "required": true
+  },
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false
+  },
+  "parentJobId": "job_20260823094023_cdb015ec",
+  "qaCorrection": "missing-alpha on review evidence boards only; true-alpha channel added without changing candidate art"
+}

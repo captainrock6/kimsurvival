@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823094023_cdb015ec",
+  "source": {
+    "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823073121_f5da3402\\actual-size-compact-a-1280x800.png": "8e5771c8a232fb9c530f96c65e2b8ae4ad459a03417901364cfdb462694092cb"
+  },
+  "outputs": {
+    "alpha-size-validation.json": "a03df7462b768f9482000797e0ed33571547cdfc40ec1e50a13e15662990d00c",
+    "candidate-cutline-bracket-actual-1280x800.png": "42910731d5d1ae5b02cc71581535c27267c6b52cdd0421df21f6f1b4eee33319",
+    "candidate-lashed-hardware-actual-1280x800.png": "0b1885f8e05a4e8b39b04d7109ce4ef61b3522f0c227d45741e97a9b35192061",
+    "candidate-salvage-tab-actual-1280x800.png": "7335690974e15ac58423756dfc34dd0c52401320d83d6894132d4b7821f096e7",
+    "manual-review.json": "7b50100014d02342b34dc64b619531c0ccf83e8f355cadf7c1915e4f26032fb4",
+    "processing-report.json": "88673ca30e35bcf0cf384ffc812f1c958528d72441c6ccbf7b611ec2898fc231",
+    "slot-affordance-cutline-bracket-atlas.png": "379858427c0fafded4e3cdf619382e6d888f562aa7615982f9ee97259f39f841",
+    "slot-affordance-cutline-bracket-editable.svg": "d154e4f1017efca1cc878a21e71ff020bcc191ea0dd8dacdbbec6b6fb76f7393",
+    "slot-affordance-lashed-hardware-atlas.png": "7e9831c392d7d6f3a5e574516bb78652c7cf326f29834b6e20ed3390e757d668",
+    "slot-affordance-lashed-hardware-editable.svg": "80fc7299e4b84a780420e93faaa5286ff353078e1b3c49319c8478f431dd3e70",
+    "slot-affordance-salvage-tab-atlas.png": "9da9a3afeb12f46f766d6de95bda67d895ea8d969d55bf9542a8d45672f9b493",
+    "slot-affordance-salvage-tab-editable.svg": "9c4bf9ea3ff287f82b617b8b17bb5a1b4e9cdc5969f1776935afdad13bb0a112",
+    "slot-affordance-unity-manifest.json": "de1946257cce267e08d5febe65dabf0e631331a2972d6ce67c8c0d41516ba85a",
+    "wave11-slot-affordance-candidate-index.json": "85936652d7c127fa90fa74df7db26f9933b8e8fa2f146677511fea625202a170",
+    "wave11-slot-affordance-comparison-board.png": "2ae80f257fdd1c9e0c41ae01190aa85b6ec1741d4919df5468f8efeeb4277623",
+    "wave11-slot-affordance-state-matrix.png": "17afdf96e1fe2688a28e36a1e27a0341310d34de900c24f5bb965c03f6b74c30"
+  }
+}

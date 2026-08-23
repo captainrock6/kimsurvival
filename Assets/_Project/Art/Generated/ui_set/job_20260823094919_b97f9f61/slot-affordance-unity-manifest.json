@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.camp-connection-slot-affordance",
+  "jobId": "job_20260823094919_b97f9f61",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "canvas": {
+    "referenceResolution": [
+      1280,
+      800
+    ],
+    "origin": "top-left",
+    "pixelsPerUnit": 100
+  },
+  "candidates": [
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.lashed-hardware",
+      "status": "review",
+      "atlas": "slot-affordance-lashed-hardware-atlas.png",
+      "editableSource": "slot-affordance-lashed-hardware-editable.svg",
+      "actualScreen": "candidate-lashed-hardware-actual-1280x800.png",
+      "spriteRects": {
+        "upper.idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "upper.near-focus": [
+          128,
+          0,
+          128,
+          128
+        ],
+        "upper.preview-valid": [
+          256,
+          0,
+          128,
+          128
+        ],
+        "upper.invalid": [
+          384,
+          0,
+          128,
+          128
+        ],
+        "side.idle": [
+          0,
+          128,
+          128,
+          128
+        ],
+        "side.near-focus": [
+          128,
+          128,
+          128,
+          128
+        ],
+        "side.preview-valid": [
+          256,
+          128,
+          128,
+          128
+        ],
+        "side.invalid": [
+          384,
+          128,
+          128,
+          128
+        ],
+        "basement.idle": [
+          0,
+          256,
+          128,
+          128
+        ],
+        "basement.near-focus": [
+          128,
+          256,
+          128,
+          128
+        ],
+        "basement.preview-valid": [
+          256,
+          256,
+          128,
+          128
+        ],
+        "basement.invalid": [
+          384,
+          256,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.cutline-bracket",
+      "status": "review",
+      "atlas": "slot-affordance-cutline-bracket-atlas.png",
+      "editableSource": "slot-affordance-cutline-bracket-editable.svg",
+      "actualScreen": "candidate-cutline-bracket-actual-1280x800.png",
+      "spriteRects": {
+        "upper.idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "upper.near-focus": [
+          128,
+          0,
+          128,
+          128
+        ],
+        "upper.preview-valid": [
+          256,
+          0,
+          128,
+          128
+        ],
+        "upper.invalid": [
+          384,
+          0,
+          128,
+          128
+        ],
+        "side.idle": [
+          0,
+          128,
+          128,
+          128
+        ],
+        "side.near-focus": [
+          128,
+          128,
+          128,
+          128
+        ],
+        "side.preview-valid": [
+          256,
+          128,
+          128,
+          128
+        ],
+        "side.invalid": [
+          384,
+          128,
+          128,
+          128
+        ],
+        "basement.idle": [
+          0,
+          256,
+          128,
+          128
+        ],
+        "basement.near-focus": [
+          128,
+          256,
+          128,
+          128
+        ],
+        "basement.preview-valid": [
+          256,
+          256,
+          128,
+          128
+        ],
+        "basement.invalid": [
+          384,
+          256,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.salvage-tab",
+      "status": "review",
+      "atlas": "slot-affordance-salvage-tab-atlas.png",
+      "editableSource": "slot-affordance-salvage-tab-editable.svg",
+      "actualScreen": "candidate-salvage-tab-actual-1280x800.png",
+      "spriteRects": {
+        "upper.idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "upper.near-focus": [
+          128,
+          0,
+          128,
+          128
+        ],
+        "upper.preview-valid": [
+          256,
+          0,
+          128,
+          128
+        ],
+        "upper.invalid": [
+          384,
+          0,
+          128,
+          128
+        ],
+        "side.idle": [
+          0,
+          128,
+          128,
+          128
+        ],
+        "side.near-focus": [
+          128,
+          128,
+          128,
+          128
+        ],
+        "side.preview-valid": [
+          256,
+          128,
+          128,
+          128
+        ],
+        "side.invalid": [
+          384,
+          128,
+          128,
+          128
+        ],
+        "basement.idle": [
+          0,
+          256,
+          128,
+          128
+        ],
+        "basement.near-focus": [
+          128,
+          256,
+          128,
+          128
+        ],
+        "basement.preview-valid": [
+          256,
+          256,
+          128,
+          128
+        ],
+        "basement.invalid": [
+          384,
+          256,
+          128,
+          128
+        ]
+      }
+    }
+  ],
+  "connectionSlots1280x800": {
+    "slot.start.upper": {
+      "center": [
+        621.875,
+        277.5
+      ],
+      "visibleBounds": [
+        570,
+        264,
+        104,
+        26
+      ],
+      "direction": "up",
+      "worldMeaning": "ceiling hatch and future ladder connection",
+      "pivot": [
+        0.5,
+        0.5
+      ]
+    },
+    "slot.start.side": {
+      "center": [
+        775.0,
+        505.0
+      ],
+      "visibleBounds": [
+        763,
+        453,
+        24,
+        104
+      ],
+      "direction": "right",
+      "worldMeaning": "wall connector frame with temporary closure",
+      "pivot": [
+        0.5,
+        0.5
+      ]
+    },
+    "slot.start.basement": {
+      "center": [
+        442.5,
+        508.75
+      ],
+      "visibleBounds": [
+        391,
+        496,
+        104,
+        26
+      ],
+      "direction": "down",
+      "worldMeaning": "floor hatch and downward connection",
+      "pivot": [
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "states": {
+    "idle": {
+      "silhouette": "closed hatch/frame",
+      "pattern": "hinge, lash, or rivet rhythm",
+      "colorOnly": false
+    },
+    "near-focus": {
+      "silhouette": "expanded corner brackets or protruding tabs",
+      "pattern": "four-corner focus frame",
+      "colorOnly": false
+    },
+    "preview-valid": {
+      "silhouette": "opened connector or hinged flap",
+      "pattern": "double directional chevrons",
+      "colorOnly": false
+    },
+    "invalid": {
+      "silhouette": "closed connector with crossed braces",
+      "pattern": "broken/dashed hazard rhythm",
+      "colorOnly": false
+    }
+  },
+  "layersBackToFront": [
+    "camp.room.shell",
+    "camp.slot.idle",
+    "camp.slot.focus",
+    "camp.slot.previewState",
+    "camp.foreground",
+    "ui.contextPrompt.background",
+    "ui.contextPrompt.inputGlyphSlot",
+    "ui.contextPrompt.tmpActionSlot"
+  ],
+  "occlusionContract1280x800": {
+    "narrationSafeRect": [
+      226,
+      145,
+      824,
+      136
+    ],
+    "contextPromptReservedRect": [
+      420,
+      294,
+      440,
+      44
+    ],
+    "upperAffordanceBottomMax": 290,
+    "minimumGapToPromptPixels": 4,
+    "walkableBaselineY": 508.75,
+    "kimReviewSafeRect": [
+      560,
+      380,
+      120,
+      200
+    ],
+    "rule": "slot overlays may replace only the physical hatch/frame footprint; no full-room tint or filled focus rectangle"
+  },
+  "engineTextAndGlyphSlots": {
+    "rasterText": false,
+    "rasterInputGlyph": false,
+    "contextPromptAnchor": "top-center below narration; separate from world slot sprite",
+    "promptTop": "max(294, NarrationBottom + 12)",
+    "inputGlyphSlot": {
+      "size": [
+        44,
+        44
+      ],
+      "sources": [
+        "keyboard-mouse-sprite-asset",
+        "gamepad-sprite-asset"
+      ]
+    },
+    "tmpActionSlot": {
+      "minFontPixels": 18,
+      "singleLine": true,
+      "localeWidths": {
+        "ko": 300,
+        "en": 380,
+        "qps-long": 440
+      },
+      "overflow": "wrap is prohibited for compact prompt; use localized short action key before font reduction; no ellipsis"
+    }
+  },
+  "atlas": {
+    "size": [
+      512,
+      512
+    ],
+    "cell": [
+      128,
+      128
+    ],
+    "columns": [
+      "idle",
+      "near-focus",
+      "preview-valid",
+      "invalid"
+    ],
+    "rows": [
+      "upper",
+      "side",
+      "basement"
+    ],
+    "paddingPixels": 12,
+    "trueAlpha": true
+  },
+  "unityImport": {
+    "textureType": "Sprite (2D and UI)",
+    "spriteMode": "Multiple",
+    "filterMode": "Bilinear",
+    "pixelsPerUnit": 100,
+    "alphaIsTransparency": true,
+    "generateMipMaps": false,
+    "maxTextureSize": 2048,
+    "meshType": "Full Rect"
+  },
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false,
+    "userApprovalRequired": true
+  },
+  "parentJobId": "job_20260823094023_cdb015ec",
+  "qaCorrection": "review boards converted to RGBA with transparent 1px evidence margin; production art unchanged"
+}

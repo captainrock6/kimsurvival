@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823094919_b97f9f61",
+  "workflow": "codex-local-deterministic",
+  "imageGenCalls": 0,
+  "externalApiCalls": 0,
+  "tool": "Pillow local renderer + editable SVG",
+  "sourceBase": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823073121_f5da3402\\actual-size-compact-a-1280x800.png",
+  "candidateCount": 3,
+  "spritesPerCandidate": 12,
+  "status": "review",
+  "parentJobId": "job_20260823094023_cdb015ec",
+  "qaCorrection": "RGBA evidence-board format only",
+  "artRegenerated": false
+}

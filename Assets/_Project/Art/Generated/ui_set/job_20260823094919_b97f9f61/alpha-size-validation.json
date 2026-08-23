@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823094919_b97f9f61",
+  "status": "pass",
+  "atlases": {
+    "slot-affordance-lashed-hardware-atlas.png": {
+      "size": [
+        512,
+        512
+      ],
+      "hasAlpha": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBounds": [
+        11,
+        38,
+        501,
+        346
+      ],
+      "edgeTouchPixels": 0,
+      "passes": true
+    },
+    "slot-affordance-cutline-bracket-atlas.png": {
+      "size": [
+        512,
+        512
+      ],
+      "hasAlpha": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBounds": [
+        8,
+        36,
+        504,
+        348
+      ],
+      "edgeTouchPixels": 0,
+      "passes": true
+    },
+    "slot-affordance-salvage-tab-atlas.png": {
+      "size": [
+        512,
+        512
+      ],
+      "hasAlpha": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBounds": [
+        11,
+        19,
+        501,
+        365
+      ],
+      "edgeTouchPixels": 0,
+      "passes": true
+    }
+  },
+  "actualScreens": {
+    "candidate-lashed-hardware-actual-1280x800.png": {
+      "size": [
+        1280,
+        800
+      ],
+      "passes": true
+    },
+    "candidate-cutline-bracket-actual-1280x800.png": {
+      "size": [
+        1280,
+        800
+      ],
+      "passes": true
+    },
+    "candidate-salvage-tab-actual-1280x800.png": {
+      "size": [
+        1280,
+        800
+      ],
+      "passes": true
+    }
+  },
+  "checks": {
+    "stateCountPerCandidate": 12,
+    "stateNotColorOnly": true,
+    "rasterLocalizedText": false,
+    "rasterInputGlyph": false,
+    "upperDoesNotOverlapPrompt": true,
+    "kimAndFacilitiesReadable": true,
+    "walkableRouteReadable": true
+  },
+  "parentJobId": "job_20260823094023_cdb015ec",
+  "reviewBoards": {
+    "wave11-slot-affordance-comparison-board.png": {
+      "size": [
+        3840,
+        960
+      ],
+      "hasAlpha": true,
+      "edgeTransparent": true,
+      "passes": true
+    },
+    "wave11-slot-affordance-state-matrix.png": {
+      "size": [
+        1760,
+        1040
+      ],
+      "hasAlpha": true,
+      "edgeTransparent": true,
+      "passes": true
+    }
+  }
+}

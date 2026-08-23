@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.camp-connection-slot-affordance",
+  "jobId": "job_20260823094919_b97f9f61",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "candidates": [
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.lashed-hardware",
+      "status": "review",
+      "strengths": [
+        "most consistent with lashed bamboo and driftwood camp",
+        "physical hatch and frame read immediately"
+      ],
+      "concerns": [
+        "rope knots are the busiest at small scale"
+      ]
+    },
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.cutline-bracket",
+      "status": "review",
+      "strengths": [
+        "clearest state grammar and lowest world-art occlusion",
+        "cutline pattern remains distinct without color"
+      ],
+      "concerns": [
+        "more technical and less handmade than the other candidates"
+      ]
+    },
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.salvage-tab",
+      "status": "review",
+      "strengths": [
+        "compact riveted salvage silhouette",
+        "near-focus tabs and valid hinge movement are easy to scan"
+      ],
+      "concerns": [
+        "metal plate can read as a repair marker without motion"
+      ]
+    }
+  ],
+  "comparisonBoard": "wave11-slot-affordance-comparison-board.png",
+  "stateMatrix": "wave11-slot-affordance-state-matrix.png",
+  "promptCandidateIdsIndependent": true,
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false
+  },
+  "parentJobId": "job_20260823094023_cdb015ec"
+}

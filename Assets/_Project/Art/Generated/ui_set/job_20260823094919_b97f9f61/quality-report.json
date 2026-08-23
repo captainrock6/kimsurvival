@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 17,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "slot-affordance-lashed-hardware-atlas.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.938,
+      "contrastStdDev": 33.86,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 13,
+        "top": 40,
+        "right": 13,
+        "bottom": 168
+      },
+      "previewFile": "qa-preview-slot-affordance-lashed-hardware-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "slot-affordance-lashed-hardware-editable.svg",
+      "kind": "svg",
+      "viewBox": "0 0 512 512",
+      "issues": []
+    },
+    {
+      "fileName": "slot-affordance-cutline-bracket-atlas.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.9737,
+      "contrastStdDev": 40,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 10,
+        "top": 38,
+        "right": 10,
+        "bottom": 166
+      },
+      "previewFile": "qa-preview-slot-affordance-cutline-bracket-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "slot-affordance-cutline-bracket-editable.svg",
+      "kind": "svg",
+      "viewBox": "0 0 512 512",
+      "issues": []
+    },
+    {
+      "fileName": "slot-affordance-salvage-tab-atlas.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.9777,
+      "contrastStdDev": 45.41,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 13,
+        "top": 21,
+        "right": 13,
+        "bottom": 149
+      },
+      "previewFile": "qa-preview-slot-affordance-salvage-tab-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "slot-affordance-salvage-tab-editable.svg",
+      "kind": "svg",
+      "viewBox": "0 0 512 512",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-lashed-hardware-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1297,
+      "contrastStdDev": 53.72,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-lashed-hardware-actual-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-cutline-bracket-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1304,
+      "contrastStdDev": 53.77,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-cutline-bracket-actual-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-salvage-tab-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1292,
+      "contrastStdDev": 53.77,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-salvage-tab-actual-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wave11-slot-affordance-comparison-board.png",
+      "kind": "raster",
+      "width": 3840,
+      "height": 960,
+      "hasAlpha": true,
+      "transparentRatio": 0.0206,
+      "contrastStdDev": 50.6,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 1,
+        "top": 1,
+        "right": 1,
+        "bottom": 1
+      },
+      "previewFile": "qa-preview-wave11-slot-affordance-comparison-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wave11-slot-affordance-state-matrix.png",
+      "kind": "raster",
+      "width": 1760,
+      "height": 1040,
+      "hasAlpha": true,
+      "transparentRatio": 0.0207,
+      "contrastStdDev": 21.22,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 1,
+        "top": 1,
+        "right": 1,
+        "bottom": 1
+      },
+      "previewFile": "qa-preview-wave11-slot-affordance-state-matrix.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "slot-affordance-unity-manifest.json",
+      "kind": "editable-source",
+      "bytes": 9334,
+      "issues": []
+    },
+    {
+      "fileName": "wave11-slot-affordance-candidate-index.json",
+      "kind": "editable-source",
+      "bytes": 1653,
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 2304,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 1079,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 549,
+      "issues": []
+    },
+    {
+      "fileName": "source-checksums.json",
+      "kind": "editable-source",
+      "bytes": 2036,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T09:50:12.142Z",
+  "jobId": "job_20260823094919_b97f9f61",
+  "assetType": "ui_set"
+}

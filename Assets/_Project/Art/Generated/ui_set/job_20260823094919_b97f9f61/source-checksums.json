@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823094919_b97f9f61",
+  "parentJobId": "job_20260823094023_cdb015ec",
+  "correction": "true-alpha review-board packaging only",
+  "outputs": {
+    "alpha-size-validation.json": "c190d39970e0bca25b978e7077ade729878842021a332613fe2a5d79400ca1b0",
+    "candidate-cutline-bracket-actual-1280x800.png": "42910731d5d1ae5b02cc71581535c27267c6b52cdd0421df21f6f1b4eee33319",
+    "candidate-lashed-hardware-actual-1280x800.png": "0b1885f8e05a4e8b39b04d7109ce4ef61b3522f0c227d45741e97a9b35192061",
+    "candidate-salvage-tab-actual-1280x800.png": "7335690974e15ac58423756dfc34dd0c52401320d83d6894132d4b7821f096e7",
+    "manual-review.json": "f32f89ebb91536563898e17942c32b7663b4bc67a3d545a4e9b6cd48a80deac3",
+    "processing-report.json": "dca2f31d5749ea6c571e6b0d16ba1b6ecd5aac8cde21337fb4567dc8277ef2b9",
+    "slot-affordance-cutline-bracket-atlas.png": "379858427c0fafded4e3cdf619382e6d888f562aa7615982f9ee97259f39f841",
+    "slot-affordance-cutline-bracket-editable.svg": "d154e4f1017efca1cc878a21e71ff020bcc191ea0dd8dacdbbec6b6fb76f7393",
+    "slot-affordance-lashed-hardware-atlas.png": "7e9831c392d7d6f3a5e574516bb78652c7cf326f29834b6e20ed3390e757d668",
+    "slot-affordance-lashed-hardware-editable.svg": "80fc7299e4b84a780420e93faaa5286ff353078e1b3c49319c8478f431dd3e70",
+    "slot-affordance-salvage-tab-atlas.png": "9da9a3afeb12f46f766d6de95bda67d895ea8d969d55bf9542a8d45672f9b493",
+    "slot-affordance-salvage-tab-editable.svg": "9c4bf9ea3ff287f82b617b8b17bb5a1b4e9cdc5969f1776935afdad13bb0a112",
+    "slot-affordance-unity-manifest.json": "51a5267da6a38df43d86e7eb99f5565012f7f055802c69701c040509c601506b",
+    "wave11-slot-affordance-candidate-index.json": "d9b631187479be81688a1aa9aa8b2350d1240c6b71c103d1501dcbf665f97e5c",
+    "wave11-slot-affordance-comparison-board.png": "16b768020dda97a9fa6a1655e5f70c052fdb5db8db4f31f676157f0e7e742917",
+    "wave11-slot-affordance-state-matrix.png": "e80eca04949b6e94f86889a41561991952c1beac5bbdb59388483aca467f685c"
+  }
+}
