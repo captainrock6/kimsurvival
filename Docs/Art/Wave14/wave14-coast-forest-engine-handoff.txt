@@ -1,0 +1,27 @@
+WAVE14 COAST-FOREST REVIEW-ONLY HANDOFF
+asset=background.coast-forest
+job=job_20260823130453_32a9debf
+parent=job_20260822095339_18288994
+status=review
+selectedCandidate=null
+runtimeLoadAllowlist=[]
+adopted=false
+engineReady=false
+packaged=false
+runtimeConnected=false
+externalGenerationApiCalled=false
+recommendationOnly=background.coast-forest.gameplay-band-contrast
+selectionRequired=exactly one candidateId from the Wave14 manifest
+criticalBlocker=baked fallen trunk/vines must be removed or isolated before independent blocked/interactable/cleared barrier runtime use
+canvas=1672x941
+pivot=bottom-center(0.5,0.0)
+import=SpriteSingle,Bilinear,Clamp,PPU100,sRGB,mipmapsOff,max2048,reviewUncompressed
+safe.topHud=16,14,1247,119
+safe.narration=230,144,819,136
+safe.contextPrompt=420,292,440,44
+safe.inventoryRailObserved=961,241,297,440
+safe.bottomHelp=16,685,1247,101
+safe.criticalWorldSubject=64,336,876,349
+barrier.maximumRightWhenInventoryRailVisible=940
+runtimeReject=review board; option A; option B; option C; unselected parent background source
+wave11ConnectorCandidates=review-only,unselected,unchanged

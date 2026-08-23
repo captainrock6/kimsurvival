@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "handoffId": "handoff.wave14.background.coast-forest.review",
+  "assetId": "background.coast-forest",
+  "jobId": "job_20260823130453_32a9debf",
+  "parentJobId": "job_20260822095339_18288994",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "adopted": false,
+  "engineReady": false,
+  "packaged": false,
+  "runtimeConnected": false,
+  "externalGenerationApiCalled": false,
+  "generationMethod": "local deterministic composition of existing project art and existing 1280x800 runtime captures",
+  "currentForgeSource": {
+    "projectPath": "Assets/_Project/Art/Generated/background/job_20260822095339_18288994/exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png",
+    "sha256": "717f810175bdde47700e139827d97e62d8ff7a278d59005be805fdd0992b1e06",
+    "bytes": 2568614,
+    "sizePixels": [1672, 941],
+    "format": "RGB PNG",
+    "hasAlpha": false,
+    "paintedObstruction": "A fallen trunk and vines are baked into the right forest entrance. This cannot represent both blocked and cleared gameplay states without a selected separation or cleanup pass."
+  },
+  "reviewBoard": {
+    "projectPath": "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/wave14-coast-forest-review-board.png",
+    "sha256": "b7bd7d085e07bbfa7c9ef7834d3d937313edbfeeb71bb25035d480ad2eaa45f2",
+    "bytes": 8347291,
+    "sizePixels": [3840, 2300],
+    "format": "RGB PNG",
+    "runtimeLoad": false,
+    "containsLocalizedCaptureText": true,
+    "localizedTextScope": "Existing runtime screenshot evidence only. It is not production background or UI art."
+  },
+  "candidateReviewSet": [
+    {
+      "candidateId": "background.coast-forest.current-balanced",
+      "label": "A / current balanced",
+      "status": "review",
+      "selected": false,
+      "preview": "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-a-current-balanced-1280x800.png",
+      "sha256": "ef8e65d91c498e2ab5139a880e3cb628b78bfa58fc88e46571316ebbcf067481",
+      "pros": [
+        "Preserves the original warm comic tropical painting without a grading change.",
+        "Beach, rock shelf, forest entrance, and shallow water remain balanced in one view."
+      ],
+      "concerns": [
+        "The independent vine-wood barrier merges with dense right-side foliage.",
+        "The baked fallen trunk conflicts with a separate blocked/cleared state sprite.",
+        "The current right inventory rail can cover the forest interaction zone."
+      ]
+    },
+    {
+      "candidateId": "background.coast-forest.gameplay-band-contrast",
+      "label": "B / gameplay-band contrast",
+      "status": "review",
+      "selected": false,
+      "preview": "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-b-gameplay-band-contrast-1280x800.png",
+      "sha256": "791b92c2fe589f3737dec21f582dc060abc3e07261705c5706797ba4beeba9b2",
+      "pros": [
+        "Provides the strongest silhouette separation for Kim, resource nodes, and the barrier.",
+        "Keeps the original camera framing and beach-to-water transition.",
+        "Maps cleanly to independent far, midground, gameplay-ground, and foreground grading layers."
+      ],
+      "concerns": [
+        "The darker depth treatment is slightly flatter and must not become a full-screen tint.",
+        "Barrier placement must remain left of the persistent right inventory rail or that rail must collapse during exploration.",
+        "The baked fallen trunk still requires separation or a clean-path derivative after selection."
+      ]
+    },
+    {
+      "candidateId": "background.coast-forest.shoreline-first",
+      "label": "C / shoreline-first",
+      "status": "review",
+      "selected": false,
+      "preview": "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-c-shoreline-first-1280x800.png",
+      "sha256": "a9ffb8bed8c380ff001881ed20f98edb30d40de54a85e772683a3f840e6f08cc",
+      "pros": [
+        "Makes the shallow-water share and swim-entry slope easiest to read.",
+        "Preserves a broad central sand lane for Kim and resource nodes."
+      ],
+      "concerns": [
+        "The forest route has less horizontal breathing room.",
+        "The barrier and later forest nodes are closer to the screen edge and UI rail.",
+        "The zoomed crop reduces the usefulness of the far-right environment for future search pockets."
+      ]
+    }
+  ],
+  "recommendation": {
+    "candidateId": "background.coast-forest.gameplay-band-contrast",
+    "decision": "recommendation-only",
+    "selected": false,
+    "reason": "It preserves the approved composition while giving Kim, the four resource silhouettes, the swim boundary, and the adopted barrier the strongest non-text contrast.",
+    "condition": "After explicit selection, produce separated grading layers and remove or isolate the baked fallen trunk before any runtime connection."
+  },
+  "runtimeLoadAllowlist": [],
+  "runtimeRejectExact": [
+    "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/wave14-coast-forest-review-board.png",
+    "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-a-current-balanced-1280x800.png",
+    "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-b-gameplay-band-contrast-1280x800.png",
+    "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-c-shoreline-first-1280x800.png",
+    "Assets/_Project/Art/Generated/background/job_20260822095339_18288994/exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png"
+  ],
+  "selectionGate": {
+    "requiredUserValue": "exactly one candidateId from candidateReviewSet",
+    "untilSelected": "runtimeLoadAllowlist must remain empty",
+    "forbidden": [
+      "adopt",
+      "engine_ready",
+      "package",
+      "Addressables entry",
+      "Resources load",
+      "scene connection"
+    ]
+  },
+  "safeZones1280x800": {
+    "origin": "top-left",
+    "topHudRect": [16, 14, 1247, 119],
+    "narrationRect": [230, 144, 819, 136],
+    "contextPromptRect": [420, 292, 440, 44],
+    "rightInventoryRailObservedRect": [961, 241, 297, 440],
+    "bottomHelpRect": [16, 685, 1247, 101],
+    "criticalWorldSubjectRect": [64, 336, 876, 349],
+    "kimReviewEnvelope": [616, 475, 90, 150],
+    "resourceNodeDiameterPixels": 78,
+    "swimTransitionXByOption": {
+      "current-balanced": 338,
+      "gameplay-band-contrast": 338,
+      "shoreline-first": 390
+    },
+    "maximumBarrierRightWhenInventoryRailVisible": 940,
+    "minimumKimToNodeGapPixels": 20,
+    "rule": "Critical player, node, swim-transition, and barrier silhouettes stay outside HUD, narration, compact prompt, bottom help, and any persistent inventory rail."
+  },
+  "futureSelectedLayerContract": {
+    "appliesOnlyAfterUserSelection": true,
+    "commonCanvasPixels": [1672, 941],
+    "commonPivotNormalized": [0.5, 0.0],
+    "layersBackToFront": [
+      "coastForest.far.skySeaIslands",
+      "coastForest.mid.forestRocks",
+      "coastForest.ground.playableShore",
+      "coastForest.objects.resourceNodes",
+      "coastForest.objects.vineWoodBarrier",
+      "coastForest.player.mrKim",
+      "coastForest.foreground.edgeFoliage",
+      "ui.hud",
+      "ui.narration",
+      "ui.contextPrompt",
+      "ui.inventory",
+      "ui.bottomHelp"
+    ],
+    "requiredStateSeparation": {
+      "bakedFallenTrunk": "remove from the selected clean background or isolate as a non-runtime reference layer",
+      "vineWoodBarrier": "keep blocked/interactable/cleared as the existing independent true-alpha asset",
+      "resourceNodes": "independent true-alpha sprites with contact pivots",
+      "swimBoundary": "engine state/foam or mask; no text baked into the background"
+    }
+  },
+  "unityImportRecommendation": {
+    "backgroundLayers": {
+      "textureType": "Sprite (2D and UI)",
+      "spriteMode": "Single",
+      "spritePivot": "Bottom Center / normalized 0.5,0.0",
+      "filterMode": "Bilinear",
+      "wrapMode": "Clamp",
+      "pixelsPerUnit": 100,
+      "sRGB": true,
+      "alphaIsTransparency": "true for separated RGBA layers; false for the opaque far layer",
+      "generateMipMaps": false,
+      "maxTextureSize": 2048,
+      "compression": "Uncompressed during review; high-quality platform compression only after selection"
+    },
+    "reviewArtifacts": {
+      "runtimeLoad": false,
+      "addressable": false,
+      "resources": false,
+      "recommendedFolderRole": "EditorOnly review evidence"
+    }
+  },
+  "textContract": {
+    "localizedTextInProductionBackground": false,
+    "inputGlyphInProductionBackground": false,
+    "reviewBoardTextIsEvidenceOnly": true,
+    "koEnQpsLong": "handled by engine TMP in existing UI safe areas, never by this raster background package"
+  },
+  "wave11ConnectorIsolation": {
+    "assetId": "ui.camp-connection-slot-affordance",
+    "status": "review",
+    "selectedCandidate": null,
+    "runtimeLoadAllowlist": [],
+    "rule": "Wave 14 coast-forest review does not select or package any Wave 11 connection-slot candidate."
+  },
+  "sourceEvidence": [
+    {
+      "path": "Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/playmode-ko-day2-exploration-1280x800.png",
+      "sha256": "5e0b04eea13867b05ac89ec904e1c6a4bf7293175e235dbe356a06331edb4895"
+    },
+    {
+      "path": "Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/playmode-ko-day1-swimming-1280x800.png",
+      "sha256": "91ea4e5ae3101647a9a8e30f492396b898b8c3ce480f67b565f2dade51e5d469"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked.png",
+      "sha256": "d55b140ac2ca9d52a759ffb308fcb2e88f2448dbf78df3367a4a818e3b1361cc"
+    },
+    {
+      "path": "Docs/Art/Wave14/generate-wave14-coast-forest-review.ps1",
+      "sha256": "92ce7c315d074a214ecc88a64a074feef707b588940fb0568cfb523c72e809c5"
+    }
+  ]
+}
