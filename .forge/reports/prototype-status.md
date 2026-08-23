@@ -1,48 +1,50 @@
 # 김씨 생존기: 무인도 프로토타입 현황
 
-무인도에 조난된 평범한 김씨가 낮에는 황당하지만 쓸모 있는 생존 설비를 만들고 직접 배치하며, 해가 지기 전 2D 횡스크롤 섬을 수색해 결국 구조 신호를 완성하는 코믹 생존 게임.
+무인도에 조난된 평범한 김씨가 50일의 기한 동안 위험을 견디고 수집 지역을 골라 물자를 모으며, 다섯 가지 이상의 탈출 계획과 자신이 살아온 방식에 따라 정상적이거나 황당한 결말을 맞는 코믹 2D 거점 생존 게임.
 
 ## 버티컬 슬라이스
 
-플레이어가 한국어 또는 영어로 김씨를 직접 조작해 공간형 베이스캠프의 설비에 접근·상호작용하고, 제한적 자유 배치와 위·옆·지하 모듈 확장 중 하나 이상을 경험한 뒤 육상·수면 수색과 귀환을 반복해 20분 안에 구조 신호 완성 또는 생존 실패에 도달하도록 한다.
+실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다.
 
 ## 실행 단계
 
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | in_progress | Contextual prompt and module-expansion visual kits are review-only. No candidate is adopted, packaged, or runtime-connected pending explicit user selection. |
-| implementation | complete | Wave 13 four-lane results are integrated. EditMode, PlayMode, Windows Development build, hidden-player smoke, Addressables, and PowerShell 5.1 package checks pass. |
-| verification | in_progress | Automated product and infrastructure gates pass. Owner natural-play results, the external six-session cohort, and physical gamepad actuation remain outstanding; Steam release work remains out of scope. |
+| art | planned |  |
+| implementation | planned |  |
+| verification | planned |  |
 
 ## 다음 작업
 
-- **Wave 12 5일 기한 재기준선 적용 (v0.2 동결)** (implementation, critical) — task.wave3.implementation.balance-v0-2
-- **PC 이중 입력 검증** (qa, high) — task.qa.feature.dual-input
-- **한국어·영어와 확장 가능한 국제화 검증** (qa, high) — task.qa.feature.localization
+- **Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스** (design, critical) — task.design.wave15-escape-hazard-ending-matrix
+- **수집 자원·위험·날씨 아이콘 세트 제작** (art, critical) — task.art.icon.expedition-resource-risk-set
+- **수집 지역 선택 지도 UI 제작** (art, critical) — task.art.ui.expedition-map
+- **수집 지역 선택 지도 구현** (implementation, critical) — task.feature.feature.expedition-map
+- **50일 캠프·수색·정산 주기 구현** (implementation, critical) — task.feature.feature.phase-cycle
 
 ## 작업
 
 | ID | 레인 | 우선순위 | 상태 | 작업 |
 |---|---|---|---|---|
-| task.system.system.run-state | implementation | critical | done | 플레이 상태 관리 구현 |
-| task.system.system.phase-flow | implementation | critical | done | 캠프·수색·일몰 흐름 구현 |
+| task.system.system.run-state | implementation | critical | ready | 50일 run·행동 기록 상태 구현 |
+| task.system.system.phase-flow | implementation | critical | ready | 50일 캠프·지도·수색·정산 흐름 구현 |
 | task.system.system.inventory | implementation | critical | done | 자원·도구·가방 구현 |
 | task.system.system.crafting-tech | implementation | critical | done | 제작법과 연구 구현 |
 | task.system.system.camp-structures | implementation | critical | done | 캠프 설비 구현 |
-| task.system.system.island-search | implementation | critical | done | 섬 수색과 일광 구현 |
-| task.feature.feature.phase-cycle | implementation | critical | done | 캠프·수색·일몰 루프 구현 |
-| task.qa.feature.phase-cycle | qa | critical | done | 캠프·수색·일몰 루프 검증 |
+| task.system.system.island-search | implementation | critical | ready | 선택 지역 수색과 일광 구현 |
+| task.feature.feature.phase-cycle | implementation | critical | ready | 50일 캠프·수색·정산 주기 구현 |
+| task.qa.feature.phase-cycle | qa | critical | planned | 50일 캠프·수색·정산 주기 검증 |
 | task.feature.feature.inventory-choice | implementation | critical | done | 4칸 가방 선택 구현 |
 | task.qa.feature.inventory-choice | qa | critical | done | 4칸 가방 선택 검증 |
 | task.feature.feature.crafting-research | implementation | critical | done | 제작과 간단한 연구 구현 |
 | task.qa.feature.crafting-research | qa | critical | done | 제작과 간단한 연구 검증 |
 | task.feature.feature.camp-building | implementation | critical | done | 베이스캠프 건설과 배치 구현 |
 | task.qa.feature.camp-building | qa | critical | done | 베이스캠프 건설과 배치 검증 |
-| task.feature.feature.island-exploration | implementation | critical | done | 횡스크롤 섬 수색 구현 |
-| task.qa.feature.island-exploration | qa | critical | done | 횡스크롤 섬 수색 검증 |
+| task.feature.feature.island-exploration | implementation | critical | planned | 선택 지역 횡스크롤 수색 구현 |
+| task.qa.feature.island-exploration | qa | critical | planned | 선택 지역 횡스크롤 수색 검증 |
 | task.system.system.camp-placement | implementation | critical | done | 제한적 자유 배치 구현 |
-| task.wave3.implementation.balance-v0-2 | implementation | critical | ready | Wave 12 5일 기한 재기준선 적용 (v0.2 동결) |
+| task.wave3.implementation.balance-v0-2 | implementation | critical | done | Wave 12 5일 기한 재기준선 적용 (v0.2 동결) |
 | task.wave3.implementation.spatial-camp-use | implementation | critical | done | Wave 3 공간형 캠프 사용 정합화 |
 | task.wave3.implementation.world-label-readability | implementation | critical | done | Wave 3 P1 월드 라벨 가독성 수정 |
 | task.wave3.qa.integrated-three-day | qa | critical | blocked | Wave 12 5일 통합 플레이테스트 승인 |
@@ -53,18 +55,39 @@
 | task.qa.feature.camp-object-interaction | qa | critical | done | 공간형 설비 직접 상호작용 검증 |
 | task.design.wave9-spatial-camp-spec | design | critical | done | Wave 9 공간형 베이스캠프 상세 계약 |
 | task.qa.wave9-spatial-camp-contract-gate | qa | critical | done | Wave 9 공간형 캠프 레드 퍼스트 계약 게이트 |
+| task.system.system.survival | implementation | critical | ready | 생존 수치·상태 이상·회복 구현 |
+| task.feature.feature.survival-pressure | implementation | critical | planned | 지속 생존 압박과 회복 구현 |
+| task.qa.feature.survival-pressure | qa | critical | planned | 지속 생존 압박과 회복 검증 |
+| task.feature.feature.escape-outcome | implementation | critical | planned | 다중 탈출과 행동 기반 결말 구현 |
+| task.qa.feature.escape-outcome | qa | critical | planned | 다중 탈출과 행동 기반 결말 검증 |
+| task.design.wave12-five-day-rebaseline | design | critical | done | Wave 12 5일 수직 슬라이스 재기준선 |
+| task.design.wave13-owner-playtest-intake | design | critical | done | Wave 13 사용자 플레이테스트 접수·Forge 기준선 감사 |
+| task.design.wave14-natural-route-ledger | design | critical | done | Wave 14 5일 자연 플레이 경로·밸런스 장부 |
+| task.art.ui.expedition-map | art | critical | ready | 수집 지역 선택 지도 UI 제작 |
+| task.art.icon.expedition-resource-risk-set | art | critical | ready | 수집 자원·위험·날씨 아이콘 세트 제작 |
+| task.system.system.expedition-selection | implementation | critical | ready | 수집 지도와 지역 선택 구현 |
+| task.system.system.region-loot-rng | implementation | critical | ready | 지역 loot seed와 softlock 보호 구현 |
+| task.system.system.hazard-director | implementation | critical | ready | 위험 예고·발생·완화 디렉터 구현 |
+| task.system.system.escape-projects | implementation | critical | ready | 다섯 탈출 프로젝트 구현 |
+| task.system.system.ending-resolution | implementation | critical | ready | 행동 기반 엔딩 판정 구현 |
+| task.feature.feature.expedition-map | implementation | critical | ready | 수집 지역 선택 지도 구현 |
+| task.qa.feature.expedition-map | qa | critical | planned | 수집 지역 선택 지도 검증 |
+| task.feature.feature.resource-randomization | implementation | critical | planned | 시드형 지역 자원·핵심 부품 분배 구현 |
+| task.qa.feature.resource-randomization | qa | critical | planned | 시드형 지역 자원·핵심 부품 분배 검증 |
+| task.feature.feature.survival-hazards | implementation | critical | planned | 예고·대응 가능한 생존 위험 구현 |
+| task.qa.feature.survival-hazards | qa | critical | planned | 예고·대응 가능한 생존 위험 검증 |
+| task.design.wave15-fifty-day-campaign-rebaseline | design | critical | done | Wave 15 50일 캠페인·수집 지도·위험·다중 엔딩 재기준선 |
+| task.design.wave15-escape-hazard-ending-matrix | design | critical | ready | Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스 |
+| task.implementation.wave15-campaign-map-foundation | implementation | critical | ready | Wave 15 Day 50·수집 지도·시드형 지역 선택 기반 |
+| task.implementation.wave15-hazard-ending-foundation | implementation | critical | planned | Wave 15 위험·다중 탈출·행동 엔딩 기반 |
+| task.qa.wave15-campaign-map-redfirst | qa | critical | ready | Wave 15 Day 50·수집 지도·RNG red-first 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
 | task.art.object.camp-structures | art | high | done | 캠프 설비 분리 파츠 제작 |
-| task.system.system.survival | implementation | high | done | 허기·체력과 하루 정산 구현 |
 | task.system.system.comedy-feedback | implementation | high | done | 상황형 코믹 피드백 구현 |
 | task.system.system.input-actions | implementation | high | done | Unity 입력 액션 구현 |
 | task.system.system.responsive-ui | implementation | high | done | PC·휴대형 UI 가독성 구현 |
-| task.feature.feature.survival-pressure | implementation | high | done | 허기·체력 생존 정산 구현 |
-| task.qa.feature.survival-pressure | qa | high | done | 허기·체력 생존 정산 검증 |
-| task.feature.feature.escape-outcome | implementation | high | done | 구조 신호와 결말 구현 |
-| task.qa.feature.escape-outcome | qa | high | done | 구조 신호와 결말 검증 |
 | task.feature.feature.dual-input | implementation | high | done | PC 이중 입력 구현 |
 | task.qa.feature.dual-input | qa | high | ready | PC 이중 입력 검증 |
 | task.art.animation.mr-kim.swim | art | high | review | 김씨 수영 애니메이션 제작 |
@@ -73,7 +96,7 @@
 | task.qa.feature.swimming | qa | high | done | 해안 수영과 수상 수색 검증 |
 | task.system.system.localization | implementation | high | done | Unity 국제화와 현지화 구현 |
 | task.feature.feature.localization | implementation | high | done | 한국어·영어와 확장 가능한 국제화 구현 |
-| task.qa.feature.localization | qa | high | ready | 한국어·영어와 확장 가능한 국제화 검증 |
+| task.qa.feature.localization | qa | high | done | 한국어·영어와 확장 가능한 국제화 검증 |
 | task.wave3.implementation.third-locale | implementation | high | done | Wave 3 P2 제3 로케일·저장 독립성 구현 |
 | task.system.system.bag-capacity-upgrade | implementation | high | done | 가방 용량 성장 구현 |
 | task.feature.feature.inventory-capacity-upgrade | implementation | high | done | 가방 4→6칸 확장 구현 |
@@ -83,21 +106,37 @@
 | task.art.ui.camp-module-expansion | art | high | review | 방 모듈 증축 상태 UI 제작 |
 | task.feature.feature.camp-module-expansion | implementation | high | done | 위·옆·지하 방 모듈 증축 구현 |
 | task.qa.feature.camp-module-expansion | qa | high | done | 위·옆·지하 방 모듈 증축 검증 |
+| task.art.ui.escape-project-progress | art | high | ready | 다중 탈출 프로젝트 상태 UI 제작 |
+| task.art.ui.ending-comic | art | high | ready | 엔딩 코믹북 컷신 프레임 제작 |
+| task.art.effect.survival-hazards | art | high | ready | 생존 위험·완화 피드백 세트 제작 |
+| task.feature.feature.behavioral-endings | implementation | high | ready | 누적 행동 기반 엔딩 판정 구현 |
+| task.qa.feature.behavioral-endings | qa | high | planned | 누적 행동 기반 엔딩 판정 검증 |
+| task.qa.wave15-hazard-ending-redfirst | qa | high | planned | Wave 15 위험·탈출·엔딩 red-first 게이트 |
 | task.art.icon.resource-tool-set | art | medium | done | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | done | 코믹 피드백 효과 세트 제작 |
 | task.art.ui.bag-capacity-upgrade | art | medium | review | 가방 확장 UI 상태 세트 제작 |
-| task.design.wave12-five-day-rebaseline | design | critical | done | Wave 12 5일 수직 슬라이스 재기준선 |
-| task.design.wave13-owner-playtest-intake | design | critical | done | Wave 13 사용자 플레이테스트 접수·Forge 기준선 감사 |
+| task.art.ui.ending-gallery | art | medium | ready | 김씨의 생존 앨범 UI 제작 |
+| task.system.system.ending-gallery | implementation | medium | ready | 엔딩 해금과 갤러리 구현 |
+| task.feature.feature.ending-gallery | implementation | medium | planned | 김씨의 생존 앨범 구현 |
+| task.qa.feature.ending-gallery | qa | medium | planned | 김씨의 생존 앨범 검증 |
 | task.postslice.steam-release-readiness | implementation | low | blocked | 수직 슬라이스 이후 Steam 출하 준비 |
+| task.feature.feature.custom-run-settings | implementation | low | planned | 사용자 설정 생존 플레이 구현 |
+| task.qa.feature.custom-run-settings | qa | low | planned | 사용자 설정 생존 플레이 검증 |
 
 ## 채택 대기 또는 플레이스홀더 아트
 
 - background.coast-forest: review · 해변·숲 수색 구역
-- ui.survival-hud: review · 공간형 캠프 최소 생존 HUD
+- ui.survival-hud: review · 최소 생존 HUD
 - animation.mr-kim.swim: review · 김씨 수영 애니메이션
 - ui.bag-capacity-upgrade: review · 가방 확장 UI 상태 세트
-- background.modular-island-camp: review · Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 
-- ui.camp-module-expansion: review · 방 모듈 증축 기술·비교 보드
+- background.modular-island-camp: review · 측면 절개형 모듈 베이스캠프
+- ui.camp-module-expansion: review · 방 모듈 증축 상태 UI
+- ui.expedition-map: needed · 수집 지역 선택 지도 UI
+- icon.expedition-resource-risk-set: needed · 수집 자원·위험·날씨 아이콘 세트
+- ui.escape-project-progress: needed · 다중 탈출 프로젝트 상태 UI
+- ui.ending-comic: needed · 엔딩 코믹북 컷신 프레임
+- ui.ending-gallery: needed · 김씨의 생존 앨범 UI
+- effect.survival-hazards: needed · 생존 위험·완화 피드백 세트
 
 ## 검증 증거
 
@@ -170,6 +209,7 @@
 - task.wave3.implementation.balance-v0-2: Artifacts/ParallelQA/20260822T113642Z_e695c36/edit-checks.txt
 - task.wave3.implementation.balance-v0-2: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
 - task.wave3.implementation.balance-v0-2: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
+- task.wave3.implementation.balance-v0-2: Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave12-summary.txt; superseded as active campaign target by decision.wave15-default-fifty-day-deadline
 - task.wave3.implementation.spatial-camp-use: Artifacts/Verification/editmode-checks.txt
 - task.wave3.implementation.spatial-camp-use: Artifacts/Verification/playmode-checks.txt
 - task.wave3.implementation.spatial-camp-use: Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png
@@ -205,21 +245,9 @@
 - task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/windows-development-build.json
 - task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-edit-evidence.json
 - task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-play-evidence.json
-- task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
-- task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
-- task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
 - task.system.system.survival: Artifacts/Verification/editmode-checks.txt
 - task.system.system.survival: Artifacts/Verification/playmode-checks.txt
 - task.system.system.survival: Artifacts/Verification/windows-build.txt
-- task.system.system.comedy-feedback: Artifacts/Verification/editmode-checks.txt
-- task.system.system.comedy-feedback: Artifacts/Verification/playmode-checks.txt
-- task.system.system.comedy-feedback: Artifacts/Verification/windows-build.txt
-- task.system.system.input-actions: Artifacts/Verification/editmode-checks.txt
-- task.system.system.input-actions: Artifacts/Verification/playmode-checks.txt
-- task.system.system.input-actions: Artifacts/Verification/windows-build.txt
-- task.system.system.responsive-ui: Artifacts/Verification/editmode-checks.txt
-- task.system.system.responsive-ui: Artifacts/Verification/playmode-checks.txt
-- task.system.system.responsive-ui: Artifacts/Verification/windows-build.txt
 - task.feature.feature.survival-pressure: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.survival-pressure: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.survival-pressure: Artifacts/Verification/windows-build.txt
@@ -236,6 +264,35 @@
 - task.qa.feature.escape-outcome: Artifacts/Verification/kim-survival-exploration-1280x800.png
 - task.qa.feature.escape-outcome: Artifacts/Verification/kim-survival-playmode-1280x800.png
 - task.qa.feature.escape-outcome: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
+- task.design.wave12-five-day-rebaseline: Docs/Design/wave12-five-day-rebaseline.md
+- task.design.wave12-five-day-rebaseline: .forge/design/wave12-five-day-rebaseline.json
+- task.design.wave13-owner-playtest-intake: Docs/Design/Playtest/wave13-owner-playtest-intake.md
+- task.design.wave13-owner-playtest-intake: .forge/design/wave13-owner-playtest-intake.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-summary.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt
+- task.design.wave14-natural-route-ledger: Docs/Design/Playtest/wave14-natural-route-ledger.md
+- task.design.wave14-natural-route-ledger: .forge/design/wave14-natural-route-ledger.json
+- task.design.wave14-natural-route-ledger: Assets/_Project/Scripts/Runtime/GameSession.cs
+- task.design.wave14-natural-route-ledger: Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs
+- task.design.wave14-natural-route-ledger: Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs
+- task.design.wave14-natural-route-ledger: Assets/_Project/Scripts/Runtime/PrototypePlaytestEventLog.cs
+- task.design.wave14-natural-route-ledger: Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/wave11-full-regression.txt
+- task.design.wave14-natural-route-ledger: Artifacts/ParallelQA/20260823T123000Z_386a602_wave13_release/wave13-playtest-package.json
+- task.design.wave15-fifty-day-campaign-rebaseline: .forge/design/project.json; .forge/design/vertical-slice.json; .forge/project.json
+- task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
+- task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
+- task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
+- task.system.system.comedy-feedback: Artifacts/Verification/editmode-checks.txt
+- task.system.system.comedy-feedback: Artifacts/Verification/playmode-checks.txt
+- task.system.system.comedy-feedback: Artifacts/Verification/windows-build.txt
+- task.system.system.input-actions: Artifacts/Verification/editmode-checks.txt
+- task.system.system.input-actions: Artifacts/Verification/playmode-checks.txt
+- task.system.system.input-actions: Artifacts/Verification/windows-build.txt
+- task.system.system.responsive-ui: Artifacts/Verification/editmode-checks.txt
+- task.system.system.responsive-ui: Artifacts/Verification/playmode-checks.txt
+- task.system.system.responsive-ui: Artifacts/Verification/windows-build.txt
 - task.feature.feature.dual-input: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.dual-input: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.dual-input: Artifacts/Verification/windows-build.txt
@@ -264,6 +321,10 @@
 - task.qa.feature.localization: Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt
 - task.qa.feature.localization: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
 - task.qa.feature.localization: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt
+- task.qa.feature.localization: Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave3-visual-gate.txt
+- task.qa.feature.localization: Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave12-play-contracts.json
+- task.qa.feature.localization: Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave11-full-regression.txt
+- task.qa.feature.localization: Artifacts/Verification/wave14-qps-global-layout-runtime-final/editmode-checks.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt
@@ -285,14 +346,6 @@
 - task.qa.feature.camp-module-expansion: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.art.icon.resource-tool-set: Forge asset icon.resource-tool-set adopted via job_20260822141317_caf8e11d
 - task.art.effect.comedy-feedback: Forge asset effect.comedy-feedback adopted via job_20260822224357_275de712
-- task.design.wave12-five-day-rebaseline: Docs/Design/wave12-five-day-rebaseline.md
-- task.design.wave12-five-day-rebaseline: .forge/design/wave12-five-day-rebaseline.json
-- task.design.wave13-owner-playtest-intake: Docs/Design/Playtest/wave13-owner-playtest-intake.md
-- task.design.wave13-owner-playtest-intake: .forge/design/wave13-owner-playtest-intake.json
-- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-summary.json
-- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
-- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
-- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt
 - task.postslice.steam-release-readiness: Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt
 - task.postslice.steam-release-readiness: Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt
 
@@ -304,4 +357,4 @@
 
 ## 미결 질문
 
-- 없음
+- 사용자 설정 run에서 엔딩 갤러리와 향후 Steam 업적을 어느 범위까지 인정할지는 Steam 연동 단계에서 결정하며, 현재 50일 캠페인·지도·위험·엔딩 기반 구현을 막지 않는다.

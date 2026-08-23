@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T13:30:56.467Z",
+  "updatedAt": "2026-08-23T14:16:09.969Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -351,13 +351,13 @@
         "packagedAt": "2026-08-22T13:36:38.680Z"
       },
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-23T04:08:14.501Z"
+      "updatedAt": "2026-08-23T14:16:09.821Z"
     },
     {
       "id": "background.coast-forest",
       "name": "해변·숲 수색 구역",
       "assetType": "background",
-      "request": "One clean high-quality production candidate for a Unity 2D side-scroller coast-to-forest search background. Preserve the current 16:9 side-view composition: shallow turquoise swimmable water on the left, broad readable sand and low rock shelf in the center, and a shallow tropical forest entrance on the right. Apply the user-selected gameplay-band contrast treatment: gently subdue distant sky/forest detail and the extreme foreground while keeping the continuous walkable shore, shoreline swim transition, and object placement band slightly brighter and warmer. Remove the baked fallen log and tangled vines from the right forest path completely and reconstruct a natural empty passage with coherent sand, rock, roots, and foliage, so the existing independent vine-wood barrier can later be placed and cleared without a duplicate obstruction. Entire image is an opaque environment background only. No character, human silhouette, resource node, item icon, barrier object, fallen blocking trunk, UI, HUD, safe-zone box, label, text, number, frame, logo, or watermark. Keep the original warm comic tropical survival illustration style, thick readable shapes, side-view camera, and clear foreground/midground/background depth.",
+      "request": "Unity 2D 횡스크롤 플레이용 오리지널 무인도 구역. 해변에서 얕은 숲으로 이어지는 한 개 레벨이며 이동 지면, 오르기 지점, 막힌 숲길, 최소 8개 채집·수색 위치를 배치할 수 있는 레이어 구조를 가진다. 따뜻한 낮빛과 일몰 변화를 지원하고 충돌 경계, 캐릭터 실루엣과 상호작용 지점 가독성을 우선한다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -564,7 +564,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-23T13:30:56.467Z"
+      "updatedAt": "2026-08-23T14:16:09.833Z"
     },
     {
       "id": "character.mr-kim",
@@ -661,7 +661,7 @@
         "packagedAt": "2026-08-22T09:08:11.959Z"
       },
       "createdAt": "2026-08-22T07:58:18.376Z",
-      "updatedAt": "2026-08-23T04:08:14.520Z"
+      "updatedAt": "2026-08-23T14:16:09.843Z"
     },
     {
       "id": "object.camp-structures",
@@ -846,7 +846,7 @@
         "packagedAt": "2026-08-22T13:36:38.842Z"
       },
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-23T04:08:14.530Z"
+      "updatedAt": "2026-08-23T14:16:09.851Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -1153,13 +1153,13 @@
         "packagedAt": "2026-08-22T22:03:55.368Z"
       },
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-23T04:08:14.542Z"
+      "updatedAt": "2026-08-23T14:16:09.861Z"
     },
     {
       "id": "ui.survival-hud",
-      "name": "공간형 캠프 최소 생존 HUD",
+      "name": "최소 생존 HUD",
       "assetType": "ui_set",
-      "request": "Wave 9 review-only 최소 생존 HUD. 1280x800과 1920x1080에서 화면 가장자리에 날짜/일광, 허기/체력, 작은 4칸·6칸 가방 요약과 짧은 상황 알림만 남긴다. 캠프 제작·건설·연구 목록, 캠프 창고, 대형 가방 패널, 전역 대시보드와 카드 그리드를 포함하지 않는다. 화면 중앙과 방 내부의 김씨·설비·사다리·증축 슬롯이 계속 보이도록 최대 점유율을 제한한다. 한국어·영어·qps-long 본문은 래스터/SVG에 넣지 않고 TMP 안전영역, ko/en/es/ja/zh 폰트 폴백 슬롯, 18px 본문·20px 핵심 수치 최소값을 명세한다. 키보드/게임패드 상태는 입력 glyph 슬롯만 분리하고 사용자 승인 전 review, adopt/package/runtime 연결 금지.",
+      "request": "공간형 2D 캠프와 섬 수색을 가리지 않는 최소 HUD. 날짜·일광, 허기·체력, 작은 가방 요약과 상황성 알림만 지속 표시한다. 캠프 제작·건설·연구 목록과 대형 가방 패널은 상시 HUD에 포함하지 않는다. 1280×800과 1920×1080, 한국어·영어 및 향후 장문 로케일, 키보드·게임패드 포커스를 지원하며 본문은 엔진 텍스트로 둔다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -1353,7 +1353,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-23T04:38:52.170Z"
+      "updatedAt": "2026-08-23T14:16:09.869Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -1613,7 +1613,7 @@
         "packagedAt": "2026-08-22T22:56:15.525Z"
       },
       "createdAt": "2026-08-22T07:58:18.414Z",
-      "updatedAt": "2026-08-23T04:08:14.563Z"
+      "updatedAt": "2026-08-23T14:16:09.878Z"
     },
     {
       "id": "animation.mr-kim.swim",
@@ -1700,7 +1700,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-23T04:08:14.575Z"
+      "updatedAt": "2026-08-23T14:16:09.886Z"
     },
     {
       "id": "object.vine-wood-barrier",
@@ -2240,13 +2240,13 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T01:52:41.889Z",
-      "updatedAt": "2026-08-23T04:08:14.583Z"
+      "updatedAt": "2026-08-23T14:16:09.895Z"
     },
     {
       "id": "ui.camp-contextual-interaction",
-      "name": "플레이테스트 피드백 반영 review-only 리비전. 현재 런타임의 큰 중앙 [입력] 행동 안내가 길과 캐릭터를 가리는 문제를 해결한다. 내레이션 카드 바로 아래 중앙에 붙는 한 줄 compact bar/pill ",
+      "name": "캠프 근접 안내와 설비 전용 팝업",
       "assetType": "ui_set",
-      "request": "플레이테스트 피드백 반영 review-only 리비전. 현재 런타임의 큰 중앙 [입력] 행동 안내가 길과 캐릭터를 가리는 문제를 해결한다. 내레이션 카드 바로 아래 중앙에 붙는 한 줄 compact bar/pill 후보 3개를 만든다. 모든 후보는 무문자 투명 UI 조각이며 입력 glyph 슬롯과 행동명 TMP 안전영역을 분리하고, 키보드와 게임패드 glyph를 런타임 교체할 수 있어야 한다. 9-slice 또는 동등 구조로 ko/en 및 qps-long 50% 폭 증가를 견디고 1280x800에서 최소 44px 포커스/입력 영역을 보장한다. 현재 대형 안내와 개선안 3개의 1280x800 비교 보드, near/popup-open/far 상태 보드, 로케일 폭 보드를 남긴다. 기존 설비 전용 팝업은 보존한다. 사용자 승인 전 review/placeholder이며 adopt, package, runtime 연결 금지. 런타임 코드와 씬은 수정하지 않는다.",
+      "request": "승인된 공간형 베이스캠프 목업을 기준으로 한 근접 상호작용 마커, 키보드·게임패드 입력 안내, 작업대·모닥불·빗물받이·구조 신호대의 작고 상황적인 팝업 프레임 세트. 대상 설비와 주변 공간을 계속 볼 수 있어야 하며 화면 대부분을 덮는 전역 대시보드가 아니어야 한다. 한국어·영어 본문은 래스터에 넣지 않고 비용·잠금·가능·완료·포커스 상태를 분리한다.",
       "status": "engine_ready",
       "source": "forge-job",
       "tags": [
@@ -2747,13 +2747,13 @@
         "packagedAt": "2026-08-23T10:11:28.729Z"
       },
       "createdAt": "2026-08-23T04:07:47.284Z",
-      "updatedAt": "2026-08-23T10:11:28.730Z"
+      "updatedAt": "2026-08-23T14:16:09.903Z"
     },
     {
       "id": "background.modular-island-camp",
-      "name": "Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 ",
+      "name": "측면 절개형 모듈 베이스캠프",
       "assetType": "background",
-      "request": "Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 열린 절개형이며 표류목·대나무·밧줄·낡은 천·해안 돌로 급조했지만 구조가 명확하고, 내부 바닥의 중앙 65% 이상을 일반 설비 제한적 자유 배치용 빈 공간으로 둔다. 방 외곽·바닥·기둥·연결 슬롯·사다리/짧은 계단·지상/지하 배경·전경을 분리 가능한 레이어로 제공하고 bottom-center 피벗·접속 좌표·필수 이동 통로를 명세한다. 물리 설비·김씨·UI·텍스트·숫자·간판은 이미지에 포함하지 않는다. 승인 목업의 공간 원리만 참고하고 고유 화면·아트·구체 배치를 복제하지 않는다. 밝고 따뜻한 열대 낮빛, 굵고 깨끗한 손그림 외곽선, 코믹하지만 기능적인 김씨 생존기 톤. 사용자 승인 전 review이며 adopt/package/runtime 연결 금지.",
+      "request": "승인된 방향 목업을 기준으로 시작 방과 좌우·위·지하 연결 슬롯을 가진 오리지널 2D 측면 절개형 무인도 캠프 비주얼 키트. 방 외곽, 바닥, 기둥, 사다리·계단 연결부, 지상·지하 배경을 교체 가능한 레이어와 반복 가능한 모듈로 제공하고 내부 설비 제한적 자유 배치 여백을 확보한다. This War of Mine의 고유 화면·아트를 복제하지 않고 밝고 코믹한 김씨 생존기 톤으로 만든다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -3022,13 +3022,13 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.292Z",
-      "updatedAt": "2026-08-23T04:44:38.840Z"
+      "updatedAt": "2026-08-23T14:16:09.911Z"
     },
     {
       "id": "ui.camp-module-expansion",
-      "name": "방 모듈 증축 기술·비교 보드",
+      "name": "방 모듈 증축 상태 UI",
       "assetType": "ui_set",
-      "request": "Wave 9 공간형 캠프의 방 모듈 증축 기술·비교 보드 review-only 후속 작업. 기존 background.modular-island-camp job_20260823044425_d2c6dc6b와 ui.camp-module-expansion job_20260823042602_7193f8d8 산출물만 결정론적으로 재합성한다. 1280x800에서 시작 방과 위층·옆방·지하실 후보를 함께 보이고, 유효, 겹침, 통로 차단, 접속 불가, 자원 부족, 확정 6상태를 무문자·비색상 단독 형태 신호로 비교한다. 배경, 지하 깊이, 방 내부, 방 외곽, 바닥, 기둥, 연결 슬롯, 사다리/계단, 전경, 미리보기 ghost, 상태 outline, 비용 TMP 안전영역, 입력 glyph 슬롯의 레이어 이름·피벗·접속 좌표·9-slice·alpha mask 규칙을 Unity manifest로 남긴다. ko/en/qps-long 안전영역과 키보드/게임패드 런타임 glyph 교체 슬롯을 명세한다. 어떤 후보도 adopt, engine_ready, package, runtime-connect 하지 않는다. 새 생성 API와 ImageGen을 호출하지 않는다.",
+      "request": "위층·옆방·지하실 연결 슬롯, 선택된 모듈 유령, 유효·무효·자원 부족·접속 불가 상태, 비용과 확인·취소를 공간 위에 간결하게 보여주는 UI 세트. 캠프 전체를 덮는 관리 화면이 아니라 기존 공간과 김씨를 유지한 현장형 오버레이이며 1280×800, ko/en, 게임패드 포커스를 지원한다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -3284,7 +3284,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.303Z",
-      "updatedAt": "2026-08-23T08:06:52.058Z"
+      "updatedAt": "2026-08-23T14:16:09.919Z"
     },
     {
       "id": "ui.wave10-art-review-board",
@@ -3617,6 +3617,170 @@
       "engine": {},
       "createdAt": "2026-08-23T09:40:02.537Z",
       "updatedAt": "2026-08-23T12:11:45.381Z"
+    },
+    {
+      "id": "ui.expedition-map",
+      "name": "수집 지역 선택 지도 UI",
+      "assetType": "ui_set",
+      "request": "김씨가 베이스캠프의 지도 또는 출구 오브젝트와 상호작용했을 때만 열리는 1280×800 원정 계획 UI. 오리지널 손그림 열대 무인도 지도를 중심으로 해변·숲·얕은 바다 등 선택 노드를 배치하고, 선택 지역의 예상 자원 범주와 풍부함, 이동 시간, 현재 위험, 날씨, 필요 장비, 특별 발견 가능성, 잠김·미확인·선택·출발 가능 상태를 한 개의 상세 카드에 보여준다. 캠프 상시 대시보드가 아니며 확인·취소 후 현장으로 복귀한다. 특정 레퍼런스 게임의 정확한 배치·아이콘을 복제하지 않고 한국어·영어·qps-long 엔진 텍스트, 키보드·마우스와 게임패드 포커스, 색상 외 상태 문법을 지원한다. 지도 원화, 노드, 연결선, 카드 프레임, 포커스·잠금·위험 상태를 편집 가능한 분리 레이어로 제공하며 본문 텍스트는 래스터에 넣지 않는다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "expedition-map",
+        "location-select",
+        "resource-forecast",
+        "risk-forecast",
+        "1280x800",
+        "localization-ready",
+        "gamepad",
+        "editable"
+      ],
+      "dependencies": [
+        "icon.expedition-resource-risk-set",
+        "background.coast-forest",
+        "ui.survival-hud"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T14:15:54.679Z",
+      "updatedAt": "2026-08-23T14:16:09.929Z"
+    },
+    {
+      "id": "icon.expedition-resource-risk-set",
+      "name": "수집 자원·위험·날씨 아이콘 세트",
+      "assetType": "ui_set",
+      "request": "수집 지도와 HUD에서 사용하는 오리지널 아이콘 세트. 목재·돌·식량·표류물·전자부품·약품·천·연료 같은 자원 범주, 풍부·보통·희귀·미확인, 이동 시간, 폭풍·폭우·폭염·높은 파도, 부상·질병·야생동물·도난·침수, 필요 장비와 완화됨 상태를 16~48px에서 읽히는 굵은 실루엣과 형태 차이로 제공한다. 색상만으로 의미를 전달하지 않고 본문·숫자·문자를 래스터에 넣지 않는다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "icons",
+        "resources",
+        "hazards",
+        "weather",
+        "colorblind-safe",
+        "small-scale"
+      ],
+      "dependencies": [
+        "icon.resource-tool-set"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T14:15:54.688Z",
+      "updatedAt": "2026-08-23T14:16:09.936Z"
+    },
+    {
+      "id": "ui.escape-project-progress",
+      "name": "다중 탈출 프로젝트 상태 UI",
+      "assetType": "ui_set",
+      "request": "캠프의 각 탈출 설비와 상호작용할 때 뗏목·배, 연기 신호, 무전, 조명탄, 고지대 신호탑의 연구·재료·단계·완성 가능·위험·확인·취소를 해당 설비 주변 소형 팝업으로 보여주는 UI 세트. 전역 목록을 상시 덮지 않고 한국어·영어 엔진 텍스트와 게임패드 포커스를 지원한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "escape-routes",
+        "facility-popup",
+        "progress",
+        "localization-ready"
+      ],
+      "dependencies": [
+        "ui.camp-contextual-interaction",
+        "icon.expedition-resource-risk-set"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T14:15:54.697Z",
+      "updatedAt": "2026-08-23T14:16:09.945Z"
+    },
+    {
+      "id": "ui.ending-comic",
+      "name": "엔딩 코믹북 컷신 프레임",
+      "assetType": "ui_set",
+      "request": "정상·코믹·희귀·Day 50 잔류 엔딩을 3~5장으로 표현하는 오리지널 코믹북 컷신 프레임과 전환 세트. 김씨의 과장된 표정과 생존 결과를 담는 와이드·클로즈업·펀치라인 패널, 다음·이전·건너뛰기·신규 해금 상태를 포함한다. 말풍선과 제목·본문은 엔진 텍스트 영역으로 비우고 한국어·영어·장문 로케일과 1280×800을 지원한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "comic-cutscene",
+        "ending",
+        "panels",
+        "localization-ready",
+        "reusable"
+      ],
+      "dependencies": [
+        "character.mr-kim",
+        "effect.comedy-feedback"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T14:15:54.705Z",
+      "updatedAt": "2026-08-23T14:16:09.952Z"
+    },
+    {
+      "id": "ui.ending-gallery",
+      "name": "김씨의 생존 앨범 UI",
+      "assetType": "ui_set",
+      "request": "18개 이상 엔딩을 일반·코믹·희귀·Day 50로 탐색하고 해금된 컷신을 재생하며 미해금 결과는 실루엣과 비스포일러 힌트로 보여주는 앨범형 UI. 1280×800, 한국어·영어·qps-long, 키보드·마우스·게임패드 포커스를 지원하고 실제 Steam 로고·업적 UI는 사용하지 않는다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "ending-gallery",
+        "collection",
+        "silhouette",
+        "gamepad",
+        "localization-ready"
+      ],
+      "dependencies": [
+        "ui.ending-comic"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T14:15:54.716Z",
+      "updatedAt": "2026-08-23T14:16:09.962Z"
+    },
+    {
+      "id": "effect.survival-hazards",
+      "name": "생존 위험·완화 피드백 세트",
+      "assetType": "effect",
+      "request": "부상·질병·폭풍·폭우·높은 파도·야생동물·식량 도난·침수·설비 파손의 예고, 발생, 완화, 회복을 과도한 유혈 없이 읽히게 하는 Unity 2D 효과·오버레이·상태 마커 세트. 코믹한 김씨 반응을 허용하되 위험의 원인과 심각도를 색상 외 형태·움직임으로 구분한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "hazards",
+        "telegraph",
+        "mitigation",
+        "recovery",
+        "unity-2d"
+      ],
+      "dependencies": [
+        "effect.comedy-feedback",
+        "icon.expedition-resource-risk-set"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T14:15:54.723Z",
+      "updatedAt": "2026-08-23T14:16:09.969Z"
     }
   ]
 }

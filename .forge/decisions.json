@@ -161,7 +161,56 @@
       "rationale": "사용자가 기존 UI 방식이 의도와 다르다고 명확히 피드백했으며 새 승인 목업은 직접 이동과 상황형 팝업을 기준으로 한다.",
       "source": "user-feedback",
       "createdAt": "2026-08-23T04:07:47.172Z"
+    },
+    {
+      "id": "decision.wave15-default-fifty-day-deadline",
+      "summary": "기본 캠페인의 데드라인은 Day 50 종료이며 Day 5를 첫 구조 기회로 사용하지 않는다.",
+      "rationale": "사용자는 김씨가 50일 동안 살아온 행동 전체가 엔딩을 만들고 필요하면 그 이전에 탈출하는 구조를 명시적으로 선택했다.",
+      "source": "user-confirmed",
+      "createdAt": "2026-08-23T14:16:09.801Z"
+    },
+    {
+      "id": "decision.wave15-five-plus-escape-methods",
+      "summary": "정식 목표는 서로 다른 준비와 위험을 요구하는 탈출 방법 최소 5개이며 어느 날이든 완성하면 조기 탈출할 수 있다.",
+      "rationale": "한 가지 구조 신호 반복이 아니라 run마다 다른 장기 목표와 자원 경쟁을 제공한다.",
+      "source": "user-confirmed",
+      "createdAt": "2026-08-23T14:16:09.801Z"
+    },
+    {
+      "id": "decision.wave15-expedition-map-selection",
+      "summary": "수색 전 캠프 지도 오브젝트에서 지역을 선택하고 각 지역의 예상 자원 범주와 위험 정보를 확인한다.",
+      "rationale": "수색을 반복 행동이 아니라 오늘의 목표·위험·장비를 비교하는 전략적 선택으로 만든다.",
+      "source": "user-confirmed-and-art-ui-discussion",
+      "createdAt": "2026-08-23T14:16:09.801Z"
+    },
+    {
+      "id": "decision.wave15-seeded-random-with-protection",
+      "summary": "탈출 재료와 지역 보상은 seed형 랜덤성을 가지되 softlock 방지와 핵심 부품 보호를 적용한다.",
+      "rationale": "매 run의 경로를 바꾸면서도 장시간 플레이가 순수 운으로 무효화되는 것을 막는다.",
+      "source": "user-confirmed-with-reversible-safety-assumption",
+      "createdAt": "2026-08-23T14:16:09.801Z"
+    },
+    {
+      "id": "decision.wave15-telegraphed-survival-danger",
+      "summary": "배고픔·질병·부상·자연재해·야생동물·도난은 예고, 대응, 완화와 회복이 있는 핵심 생존 위험이다.",
+      "rationale": "위험이 50일의 계획을 흔들고 캠프 건설·제작·치료의 필요성을 만들어 같은 수색 반복을 방지한다.",
+      "source": "user-confirmed",
+      "createdAt": "2026-08-23T14:16:09.801Z"
+    },
+    {
+      "id": "decision.wave15-behavioral-comic-endings",
+      "summary": "엔딩은 탈출 또는 Day 50 결과, 누적 생활 방식과 특별 사건으로 결정하며 정상·병맛·희귀 결과를 3~5장 코믹북으로 표현한다.",
+      "rationale": "한 판의 선택을 서사적 보상으로 되돌리고 엔딩 수집과 향후 Steam 업적으로 반복 플레이를 유도한다.",
+      "source": "user-confirmed",
+      "createdAt": "2026-08-23T14:16:09.801Z"
+    },
+    {
+      "id": "decision.wave15-custom-run-after-standard",
+      "summary": "데드라인과 생존·위험·자원 규칙을 조절하는 사용자 설정 플레이는 표준 Day 50 캠페인 기반 이후 별도 profile로 구현한다.",
+      "rationale": "표준 밸런스와 QA 기준을 보존하면서 장기적으로 다양한 플레이 방식을 지원한다.",
+      "source": "user-confirmed",
+      "createdAt": "2026-08-23T14:16:09.801Z"
     }
   ],
-  "updatedAt": "2026-08-23T08:30:00.000Z"
+  "updatedAt": "2026-08-23T14:16:09.801Z"
 }

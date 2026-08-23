@@ -4,8 +4,8 @@
     {
       "id": "task.system.system.run-state",
       "lane": "implementation",
-      "title": "플레이 상태 관리 구현",
-      "description": "날짜, 단계, 창고, 가방, 허기·체력, 설비, 연구와 구조 신호 진척도를 화면 전환 동안 유지한다.",
+      "title": "50일 run·행동 기록 상태 구현",
+      "description": "날짜, seed, 선택 지역, 창고·가방, 생존 상태, 설비·연구, 탈출 프로젝트, 위험 상태, 행동 점수, 특별 사건과 ending ID를 화면 전환 동안 유지한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
@@ -14,11 +14,16 @@
         "feature.crafting-research",
         "feature.camp-building",
         "feature.survival-pressure",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.behavioral-endings"
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "새 게임 초기화와 화면 전환 후 상태 보존이 같은 실행 안에서 일관되게 동작한다."
+        "새 게임 초기화와 화면 전환 후 상태 보존이 같은 실행 안에서 일관되게 동작한다.",
+        "새 게임과 화면 전환 뒤 seed·지역·위험·탈출·행동 점수가 누락되거나 중복되지 않는다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -31,26 +36,27 @@
         "Artifacts/Verification/windows-build.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T08:24:41.805Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:41.805Z",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:21:08.946Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:41.805Z"
     },
     {
       "id": "task.system.system.phase-flow",
       "lane": "implementation",
-      "title": "캠프·수색·일몰 흐름 구현",
-      "description": "베이스캠프, 수색, 귀환 정산, 날짜 증가와 결말 단계를 제어한다.",
+      "title": "50일 캠프·지도·수색·정산 흐름 구현",
+      "description": "캠프, 지역 선택, 수색, 귀환, 하루 정산, 조기 탈출과 Day 50 엔딩의 우선순위를 제어한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.phase-cycle",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.expedition-map"
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "유효하지 않은 단계 전환이나 중복 정산 없이 5일 시나리오가 시작부터 결말까지 진행되고, Day 3·4 미탈출은 계속되며 Day 5 종료 미탈출만 기한 실패가 된다."
+        "중복 정산 없이 Day 50까지 진행하고 조기 탈출은 같은 프레임의 Day 50 실패보다 우선한다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -65,10 +71,10 @@
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "Wave 12 W12-D01과 전체 회귀가 FinalDay=5, Day 3·4 계속, Day 5 기한 실패와 즉시 구조 전이를 증명했다.",
-      "completedAt": "2026-08-23T13:20:00.000Z",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:21:09.021Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:41.917Z"
     },
     {
@@ -176,18 +182,21 @@
     {
       "id": "task.system.system.island-search",
       "lane": "implementation",
-      "title": "섬 수색과 일광 구현",
-      "description": "채집·수색 지점 보상, 도구 요구 조건, 체력 비용, 남은 일광, 자발·강제 귀환을 처리한다.",
+      "title": "선택 지역 수색과 일광 구현",
+      "description": "확정된 지역의 채집 지점, seed 보상, 도구 요구, 위험 노출, 체력·일광 비용과 자발·강제 귀환을 처리한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.island-exploration",
         "feature.inventory-choice",
-        "feature.crafting-research"
+        "feature.crafting-research",
+        "feature.resource-randomization",
+        "feature.survival-hazards"
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "수색 지점은 한 원정에서 정해진 횟수만 보상을 주고 일광 종료 시 규칙에 따라 강제 귀환한다."
+        "수색 지점은 한 원정에서 정해진 횟수만 보상을 주고 일광 종료 시 규칙에 따라 강제 귀환한다.",
+        "선택 지역과 다른 profile의 보상을 주지 않고 한 지점은 정의된 횟수만 보상한다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -200,29 +209,34 @@
         "Artifacts/Verification/windows-build.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.368Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.368Z",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:21:09.127Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:42.368Z"
     },
     {
       "id": "task.feature.feature.phase-cycle",
       "lane": "implementation",
-      "title": "캠프·수색·일몰 루프 구현",
-      "description": "베이스캠프 준비, 주간 수색, 귀환, 일몰 정산, 다음 날 시작을 하나의 끊기지 않는 흐름으로 연결한다.",
+      "title": "50일 캠프·수색·정산 주기 구현",
+      "description": "표준 run을 Day 1부터 Day 50까지 진행하며 캠프 준비, 지역 선택, 수색, 귀환과 일몰 정산을 반복하고 조기 탈출 또는 Day 50 엔딩으로 종료한다.",
       "priority": "critical",
-      "dependencies": [],
+      "dependencies": [
+        "task.feature.feature.camp-object-interaction"
+      ],
       "featureIds": [
         "feature.phase-cycle"
       ],
       "assetIds": [
-        "ui.survival-hud"
+        "ui.survival-hud",
+        "ui.expedition-map"
       ],
       "acceptanceCriteria": [
         "새 게임은 1일차 베이스캠프에서 시작하고 수색 귀환 및 정산 후 날짜가 1 증가한다.",
         "화면 전환 중 창고, 가방, 생존 상태, 설비와 탈출 진척도가 유지된다.",
-        "구조 신호 완성은 어느 날이든 즉시 성공하고 체력 0은 즉시 실패하며, Day 3·4 종료는 다음 날로 진행하고 Day 5 종료 미탈출만 기한 실패 결과로 이동한다."
+        "표준 run은 Day 1/50으로 시작한다.",
+        "Day 49까지 미탈출 정산은 다음 날로 진행하고 Day 50에서만 장기 생존 엔딩을 판정한다.",
+        "어떤 날이든 완성된 탈출 경로는 Day 50 판정보다 우선해 즉시 종료된다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -237,17 +251,17 @@
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "Wave 12 W12-D01과 전체 회귀가 5일 상태 보존·전이·결말 계약을 통과했다.",
-      "completedAt": "2026-08-23T13:20:00.000Z",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:21:09.305Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:42.913Z"
     },
     {
       "id": "task.qa.feature.phase-cycle",
       "lane": "qa",
-      "title": "캠프·수색·일몰 루프 검증",
-      "description": "캠프·수색·일몰 루프의 수용 조건을 실행 환경에서 검증한다.",
+      "title": "50일 캠프·수색·정산 주기 검증",
+      "description": "50일 캠프·수색·정산 주기의 수용 조건을 실행 환경에서 검증한다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.phase-cycle"
@@ -259,7 +273,9 @@
       "acceptanceCriteria": [
         "새 게임은 1일차 베이스캠프에서 시작하고 수색 귀환 및 정산 후 날짜가 1 증가한다.",
         "화면 전환 중 창고, 가방, 생존 상태, 설비와 탈출 진척도가 유지된다.",
-        "구조 신호 완성은 어느 날이든 즉시 성공하고 체력 0은 즉시 실패하며, Day 3·4 종료는 다음 날로 진행하고 Day 5 종료 미탈출만 기한 실패 결과로 이동한다."
+        "표준 run은 Day 1/50으로 시작한다.",
+        "Day 49까지 미탈출 정산은 다음 날로 진행하고 Day 50에서만 장기 생존 엔딩을 판정한다.",
+        "어떤 날이든 완성된 탈출 경로는 Day 50 판정보다 우선해 즉시 종료된다."
       ],
       "paths": [
         "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
@@ -273,10 +289,10 @@
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "Wave 12 최종 빌드에서 5일 전이와 조기 구조·Day 5 실패 회귀를 통과했다.",
-      "completedAt": "2026-08-23T13:20:00.000Z",
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:21:09.397Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.778Z"
     },
     {
@@ -520,13 +536,15 @@
     {
       "id": "task.feature.feature.island-exploration",
       "lane": "implementation",
-      "title": "횡스크롤 섬 수색 구현",
-      "description": "김씨를 직접 움직여 해변과 숲을 탐색하고, 채집 지점과 표류물을 수색하며 일몰 전에 귀환한다.",
+      "title": "선택 지역 횡스크롤 수색 구현",
+      "description": "수집 지도에서 고른 지역으로 출발해 해당 지역의 자원·위험·날씨 프로필이 적용된 2D 횡스크롤 공간을 수색하고 귀환한다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.phase-cycle",
         "task.feature.feature.inventory-choice",
-        "task.feature.feature.crafting-research"
+        "task.feature.feature.crafting-research",
+        "task.feature.feature.expedition-map",
+        "task.feature.feature.resource-randomization"
       ],
       "featureIds": [
         "feature.island-exploration"
@@ -536,13 +554,18 @@
         "character.mr-kim",
         "ui.survival-hud",
         "icon.resource-tool-set",
-        "effect.comedy-feedback"
+        "effect.comedy-feedback",
+        "ui.expedition-map",
+        "icon.expedition-resource-risk-set"
       ],
       "acceptanceCriteria": [
         "좌우 이동, 점프 또는 오르기, 채집, 수색과 귀환을 직접 조작할 수 있다.",
         "해변과 숲에 최소 8개의 채집·수색 지점이 있고 네 자원이 모두 등장한다.",
         "남은 일광과 체력이 계속 변하며 플레이어가 언제든 자발적으로 귀환할 수 있다.",
-        "일광이 끝나면 명확한 불이익과 함께 강제 귀환한다."
+        "일광이 끝나면 명확한 불이익과 함께 강제 귀환한다.",
+        "선택한 지역에 해당하는 자원·위험 프로필만 적용된다.",
+        "플레이어는 남은 일광·체력·상태를 보고 언제든 귀환할 수 있다.",
+        "지역 선택과 실제 수색 결과의 원인을 개발 로그에서 연결할 수 있다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -555,17 +578,17 @@
         "Artifacts/Verification/windows-build.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.353Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.353Z",
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:21:09.470Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.353Z"
     },
     {
       "id": "task.qa.feature.island-exploration",
       "lane": "qa",
-      "title": "횡스크롤 섬 수색 검증",
-      "description": "횡스크롤 섬 수색의 수용 조건을 실행 환경에서 검증한다.",
+      "title": "선택 지역 횡스크롤 수색 검증",
+      "description": "선택 지역 횡스크롤 수색의 수용 조건을 실행 환경에서 검증한다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.island-exploration"
@@ -578,7 +601,10 @@
         "좌우 이동, 점프 또는 오르기, 채집, 수색과 귀환을 직접 조작할 수 있다.",
         "해변과 숲에 최소 8개의 채집·수색 지점이 있고 네 자원이 모두 등장한다.",
         "남은 일광과 체력이 계속 변하며 플레이어가 언제든 자발적으로 귀환할 수 있다.",
-        "일광이 끝나면 명확한 불이익과 함께 강제 귀환한다."
+        "일광이 끝나면 명확한 불이익과 함께 강제 귀환한다.",
+        "선택한 지역에 해당하는 자원·위험 프로필만 적용된다.",
+        "플레이어는 남은 일광·체력·상태를 보고 언제든 귀환할 수 있다.",
+        "지역 선택과 실제 수색 결과의 원인을 개발 로그에서 연결할 수 있다."
       ],
       "paths": [
         "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
@@ -590,10 +616,10 @@
         "Artifacts/Verification/kim-survival-playmode-1280x800.png"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T08:24:44.230Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:44.230Z",
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:21:09.607Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.230Z"
     },
     {
@@ -664,13 +690,15 @@
         "Docs/Design/integrated-prototype-contract-audit.md",
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/edit-checks.txt",
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt",
+        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave12-summary.txt; superseded as active campaign target by decision.wave15-default-fifty-day-deadline"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "status": "done",
+      "updatedAt": "2026-08-23T14:17:12.252Z",
       "note": "5일 전이와 동결 계약 회귀는 PASS다. grant·warp 없는 fresh Day 4~5 자연 경로와 완전 자원 장부가 없어 ready를 유지한다.",
-      "createdAt": "2026-08-22T13:15:00.000Z"
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "completedAt": "2026-08-23T14:17:12.251Z"
     },
     {
       "id": "task.wave3.implementation.spatial-camp-use",
@@ -961,17 +989,19 @@
     {
       "id": "task.system.system.survival",
       "lane": "implementation",
-      "title": "허기·체력과 하루 정산 구현",
-      "description": "행동의 체력 비용, 식량 사용, 휴식, 일몰 정산, 캠프 설비 보너스와 실패 판정을 처리한다.",
-      "priority": "high",
+      "title": "생존 수치·상태 이상·회복 구현",
+      "description": "허기·체력·피로, 부상·질병 단계, 식량 사용, 휴식·치료와 일몰 정산을 한 번씩 적용한다.",
+      "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.survival-pressure",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.survival-hazards"
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "행동과 하루 정산이 허기·체력에 한 번씩 예측 가능하게 반영되고 0 도달 시 정확한 실패 원인이 기록된다."
+        "행동과 하루 정산이 허기·체력에 한 번씩 예측 가능하게 반영되고 0 도달 시 정확한 실패 원인이 기록된다.",
+        "상태 변화가 중복 적용되지 않고 원인·효과·회복 수단과 terminal 우선순위가 기록된다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -984,11 +1014,558 @@
         "Artifacts/Verification/windows-build.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T08:24:42.476Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.475Z",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:21:09.218Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:42.476Z"
+    },
+    {
+      "id": "task.feature.feature.survival-pressure",
+      "lane": "implementation",
+      "title": "지속 생존 압박과 회복 구현",
+      "description": "허기·체력·피로와 식량 상태를 매일 정산하고 먹기, 휴식, 치료, 저장과 캠프 설비로 회복·완화한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.camp-building",
+        "task.feature.feature.island-exploration"
+      ],
+      "featureIds": [
+        "feature.survival-pressure"
+      ],
+      "assetIds": [
+        "ui.survival-hud",
+        "icon.resource-tool-set",
+        "effect.comedy-feedback",
+        "icon.expedition-resource-risk-set",
+        "effect.survival-hazards"
+      ],
+      "acceptanceCriteria": [
+        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
+        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
+        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다.",
+        "생존 수치는 행동과 하루 정산에서 한 번만 변한다.",
+        "부족 상태는 원인, 현재 효과와 회복 수단을 함께 표시한다.",
+        "장기 압박이 즉시 사망만 만들지 않고 다음 날 계획을 바꾸는 회복 선택을 제공한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:21:09.692Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
+      "createdAt": "2026-08-22T08:24:43.457Z"
+    },
+    {
+      "id": "task.qa.feature.survival-pressure",
+      "lane": "qa",
+      "title": "지속 생존 압박과 회복 검증",
+      "description": "지속 생존 압박과 회복의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.survival-pressure"
+      ],
+      "featureIds": [
+        "feature.survival-pressure"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
+        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
+        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다.",
+        "생존 수치는 행동과 하루 정산에서 한 번만 변한다.",
+        "부족 상태는 원인, 현재 효과와 회복 수단을 함께 표시한다.",
+        "장기 압박이 즉시 사망만 만들지 않고 다음 날 계획을 바꾸는 회복 선택을 제공한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:21:09.781Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
+      "createdAt": "2026-08-22T08:24:44.342Z"
+    },
+    {
+      "id": "task.feature.feature.escape-outcome",
+      "lane": "implementation",
+      "title": "다중 탈출과 행동 기반 결말 구현",
+      "description": "다섯 가지 이상의 서로 다른 탈출 프로젝트와 Day 50 잔류 결과를 제공하고, 탈출 방법·누적 생활 방식·특별 사건으로 고유 ending ID를 판정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.camp-building",
+        "task.feature.feature.crafting-research",
+        "task.feature.feature.survival-pressure",
+        "task.feature.feature.resource-randomization",
+        "task.feature.feature.behavioral-endings"
+      ],
+      "featureIds": [
+        "feature.escape-outcome"
+      ],
+      "assetIds": [
+        "background.island-camp",
+        "object.camp-structures",
+        "ui.survival-hud",
+        "effect.comedy-feedback",
+        "ui.escape-project-progress",
+        "ui.ending-comic",
+        "ui.ending-gallery"
+      ],
+      "acceptanceCriteria": [
+        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
+        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
+        "뗏목·배, 연기, 무전, 조명탄, 고지대 신호의 안정 method ID와 서로 다른 요구 조건이 있다.",
+        "Day 50 이전에 완성한 경로는 즉시 해당 탈출 판정을 시작한다.",
+        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
+      ],
+      "blockedReason": "",
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:21:09.871Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
+      "createdAt": "2026-08-22T08:24:43.558Z"
+    },
+    {
+      "id": "task.qa.feature.escape-outcome",
+      "lane": "qa",
+      "title": "다중 탈출과 행동 기반 결말 검증",
+      "description": "다중 탈출과 행동 기반 결말의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.escape-outcome"
+      ],
+      "featureIds": [
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
+        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
+        "뗏목·배, 연기, 무전, 조명탄, 고지대 신호의 안정 method ID와 서로 다른 요구 조건이 있다.",
+        "Day 50 이전에 완성한 경로는 즉시 해당 탈출 판정을 시작한다.",
+        "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다."
+      ],
+      "paths": [
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
+      ],
+      "blockedReason": "",
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:21:09.962Z",
+      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
+      "completedAt": null,
+      "createdAt": "2026-08-22T08:24:44.452Z"
+    },
+    {
+      "id": "task.system.system.expedition-selection",
+      "lane": "implementation",
+      "title": "수집 지도와 지역 선택 구현",
+      "description": "오늘 이용 가능한 지역, 발견 상태, 자원 전망, 위험, 시간, 날씨, 필요 장비와 선택 확정·취소를 관리한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.expedition-map",
+        "feature.island-exploration",
+        "feature.dual-input",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "지역 확정 전 수색을 시작하지 않고 취소는 run 상태를 바꾸지 않는다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.system.system.region-loot-rng",
+      "lane": "implementation",
+      "title": "지역 loot seed와 softlock 보호 구현",
+      "description": "run seed, 지역 profile, 방문 횟수와 세계 상태로 자원·핵심 부품을 결정하고 보장·대체·장기 미발견 보호를 적용한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.resource-randomization",
+        "feature.expedition-map",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장과 핵심 부품 추적이 자동 검증된다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.system.system.hazard-director",
+      "lane": "implementation",
+      "title": "위험 예고·발생·완화 디렉터 구현",
+      "description": "지역·날씨·행동·캠프 상태와 일일 위험 예산으로 부상, 질병, 재해, 야생동물과 도난·파손을 예고하고 발생·완화·회복시킨다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.survival-hazards",
+        "feature.survival-pressure",
+        "feature.expedition-map"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "무예고 치명 결과를 만들지 않고 동시 위험 예산과 평온일 규칙을 지키며 동일 seed를 재현한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.system.system.escape-projects",
+      "lane": "implementation",
+      "title": "다섯 탈출 프로젝트 구현",
+      "description": "escape.raft, escape.smoke, escape.radio, escape.flare, escape.beacon의 연구·설비·재료·상태와 완성 판정을 독립적으로 관리한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.resource-randomization",
+        "feature.crafting-research"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소를 지원한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.system.system.ending-resolution",
+      "lane": "implementation",
+      "title": "행동 기반 엔딩 판정 구현",
+      "description": "terminal trigger, escape method 또는 Day 50 상태, 우세 행동 점수, 특별 사건과 우선순위로 하나의 ending ID와 근거를 결정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.behavioral-endings"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "같은 run snapshot은 같은 ending ID를 내고 tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.feature.feature.expedition-map",
+      "lane": "implementation",
+      "title": "수집 지역 선택 지도 구현",
+      "description": "캠프 지도 오브젝트에서 지역 노드를 비교하고 예상 자원, 위험, 이동 시간, 날씨, 필요 장비와 특별 발견 가능성을 본 뒤 오늘의 수집 지역을 확정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.camp-object-interaction",
+        "task.feature.feature.localization",
+        "task.feature.feature.dual-input"
+      ],
+      "featureIds": [
+        "feature.expedition-map"
+      ],
+      "assetIds": [
+        "ui.expedition-map",
+        "icon.expedition-resource-risk-set"
+      ],
+      "acceptanceCriteria": [
+        "지도 오브젝트 근접 상호작용 뒤에만 열리고 취소하면 캠프 직접 조작으로 돌아온다.",
+        "세 지역의 자원 범주·풍부함·위험·시간·날씨·장비 정보가 선택 전에 보인다.",
+        "미확인 정보와 잠긴 지역을 색상 외 아이콘·문구로 구분한다.",
+        "키보드·마우스와 게임패드가 같은 지역 포커스·확정·취소 상태를 사용한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.feature.expedition-map",
+      "lane": "qa",
+      "title": "수집 지역 선택 지도 검증",
+      "description": "수집 지역 선택 지도의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.expedition-map"
+      ],
+      "featureIds": [
+        "feature.expedition-map"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "지도 오브젝트 근접 상호작용 뒤에만 열리고 취소하면 캠프 직접 조작으로 돌아온다.",
+        "세 지역의 자원 범주·풍부함·위험·시간·날씨·장비 정보가 선택 전에 보인다.",
+        "미확인 정보와 잠긴 지역을 색상 외 아이콘·문구로 구분한다.",
+        "키보드·마우스와 게임패드가 같은 지역 포커스·확정·취소 상태를 사용한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.feature.feature.resource-randomization",
+      "lane": "implementation",
+      "title": "시드형 지역 자원·핵심 부품 분배 구현",
+      "description": "run seed와 지역별 loot profile로 일반 자원과 탈출 핵심 부품의 위치·풍부함을 변화시키면서 softlock 방지 보장을 적용한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.expedition-map",
+        "task.feature.feature.island-exploration"
+      ],
+      "featureIds": [
+        "feature.resource-randomization"
+      ],
+      "assetIds": [
+        "ui.expedition-map",
+        "icon.expedition-resource-risk-set"
+      ],
+      "acceptanceCriteria": [
+        "같은 seed와 행동은 같은 핵심 결과를 재현한다.",
+        "다른 seed는 정의된 범위 안에서 자원 전망과 발견 결과가 달라진다.",
+        "표준 run에서 최소 세 탈출 경로가 핵심 부품 부재로 막히지 않는다.",
+        "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.feature.resource-randomization",
+      "lane": "qa",
+      "title": "시드형 지역 자원·핵심 부품 분배 검증",
+      "description": "시드형 지역 자원·핵심 부품 분배의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.resource-randomization"
+      ],
+      "featureIds": [
+        "feature.resource-randomization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "같은 seed와 행동은 같은 핵심 결과를 재현한다.",
+        "다른 seed는 정의된 범위 안에서 자원 전망과 발견 결과가 달라진다.",
+        "표준 run에서 최소 세 탈출 경로가 핵심 부품 부재로 막히지 않는다.",
+        "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.feature.feature.survival-hazards",
+      "lane": "implementation",
+      "title": "예고·대응 가능한 생존 위험 구현",
+      "description": "질병, 부상, 자연재해, 야생동물, 식량 도난과 캠프 피해를 지역·날씨·행동에 연결하고 준비·회피·치료·보강으로 완화하게 한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.survival-pressure",
+        "task.feature.feature.expedition-map",
+        "task.feature.feature.camp-building"
+      ],
+      "featureIds": [
+        "feature.survival-hazards"
+      ],
+      "assetIds": [
+        "icon.expedition-resource-risk-set",
+        "effect.survival-hazards",
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "위험은 발생 전에 지도·날씨·환경 단서 중 하나로 예고된다.",
+        "각 위험은 최소 하나의 준비 또는 완화 수단과 최소 하나의 회복 수단을 가진다.",
+        "부상·질병은 미처치 악화와 치료 회복 상태를 구분한다.",
+        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.feature.survival-hazards",
+      "lane": "qa",
+      "title": "예고·대응 가능한 생존 위험 검증",
+      "description": "예고·대응 가능한 생존 위험의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.survival-hazards"
+      ],
+      "featureIds": [
+        "feature.survival-hazards"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "위험은 발생 전에 지도·날씨·환경 단서 중 하나로 예고된다.",
+        "각 위험은 최소 하나의 준비 또는 완화 수단과 최소 하나의 회복 수단을 가진다.",
+        "부상·질병은 미처치 악화와 치료 회복 상태를 구분한다.",
+        "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.implementation.wave15-campaign-map-foundation",
+      "lane": "implementation",
+      "title": "Wave 15 Day 50·수집 지도·시드형 지역 선택 기반",
+      "description": "표준 Day 50 달력, 캠프 지도 오브젝트, 해변·숲·얕은 바다 세 지역 선택, 지역 정보 카드, seed형 자원 profile과 개발 로그를 placeholder UI로 구현한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave15-fifty-day-campaign-rebaseline"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.island-exploration"
+      ],
+      "assetIds": [
+        "ui.expedition-map",
+        "icon.expedition-resource-risk-set"
+      ],
+      "acceptanceCriteria": [
+        "Day 1/50과 Day 50 terminal 우선순위가 자동 검증된다.",
+        "지도 오브젝트 근접→지도→지역 확정 또는 취소→수색 전이가 입력 장치와 locale에 무관하게 동작한다.",
+        "동일 seed 재현과 세 지역의 서로 다른 profile이 검증된다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:17:12.158Z"
+    },
+    {
+      "id": "task.implementation.wave15-hazard-ending-foundation",
+      "lane": "implementation",
+      "title": "Wave 15 위험·다중 탈출·행동 엔딩 기반",
+      "description": "대표 부상·날씨·캠프 도난 상태, 다섯 escape method 데이터와 연기·무전 대표 경로, 행동 통계와 4개 sample ending resolver를 구현한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.implementation.wave15-campaign-map-foundation",
+        "task.design.wave15-escape-hazard-ending-matrix"
+      ],
+      "featureIds": [
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings"
+      ],
+      "assetIds": [
+        "ui.escape-project-progress",
+        "ui.ending-comic",
+        "effect.survival-hazards"
+      ],
+      "acceptanceCriteria": [
+        "위험의 예고·발생·완화·회복과 원자적 자원 변화가 검증된다.",
+        "다섯 method ID와 두 플레이 가능 경로가 서로 다른 요구를 사용한다.",
+        "같은 snapshot은 같은 sample ending ID를 낸다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.wave15-campaign-map-redfirst",
+      "lane": "qa",
+      "title": "Wave 15 Day 50·수집 지도·RNG red-first 게이트",
+      "description": "현재 5일 단일 수색 기준선을 RED로 기록하고 Day 50, 지도 근접 전이, 세 지역 정보, seed 재현, softlock 보호와 기존 회귀를 독립 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave15-fifty-day-campaign-rebaseline"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "기준선 미구현을 EXPECTED_GAP으로 분리하고 PASS로 위장하지 않는다.",
+        "제품 수정 뒤 같은 게이트가 0 gap GREEN 조건을 가진다.",
+        "기존 qps-long 10/10, 캠프·가방·모듈·수영 회귀를 함께 잠근다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:17:12.158Z"
     },
     {
       "id": "task.system.system.comedy-feedback",
@@ -1087,158 +1664,6 @@
       "note": "",
       "completedAt": "2026-08-22T08:24:42.800Z",
       "createdAt": "2026-08-22T08:24:42.801Z"
-    },
-    {
-      "id": "task.feature.feature.survival-pressure",
-      "lane": "implementation",
-      "title": "허기·체력 생존 정산 구현",
-      "description": "수색 행동과 하루 종료에서 허기·체력을 변화시키고 식량, 휴식과 설비 효과를 다음 날에 반영한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.camp-building",
-        "task.feature.feature.island-exploration"
-      ],
-      "featureIds": [
-        "feature.survival-pressure"
-      ],
-      "assetIds": [
-        "ui.survival-hud",
-        "icon.resource-tool-set",
-        "effect.comedy-feedback"
-      ],
-      "acceptanceCriteria": [
-        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
-        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
-        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T08:24:43.457Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.456Z",
-      "createdAt": "2026-08-22T08:24:43.457Z"
-    },
-    {
-      "id": "task.qa.feature.survival-pressure",
-      "lane": "qa",
-      "title": "허기·체력 생존 정산 검증",
-      "description": "허기·체력 생존 정산의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.survival-pressure"
-      ],
-      "featureIds": [
-        "feature.survival-pressure"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "채집과 이동은 예측 가능한 규칙으로 체력을 소비하고 식량 사용이나 휴식으로 회복한다.",
-        "하루 종료 시 식량 부족 또는 미완성 캠프의 불이익이 한 번만 적용된다.",
-        "체력이 0이 되면 실패 원인과 함께 코믹하지만 이해 가능한 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-22T08:24:44.342Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:44.342Z",
-      "createdAt": "2026-08-22T08:24:44.342Z"
-    },
-    {
-      "id": "task.feature.feature.escape-outcome",
-      "lane": "implementation",
-      "title": "구조 신호와 결말 구현",
-      "description": "표류물과 제작품을 구조 신호대에 투자해 단계적으로 완성하고 Day 5 종료 전 구조를 요청한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.camp-building",
-        "task.feature.feature.crafting-research",
-        "task.feature.feature.survival-pressure"
-      ],
-      "featureIds": [
-        "feature.escape-outcome"
-      ],
-      "assetIds": [
-        "background.island-camp",
-        "object.camp-structures",
-        "ui.survival-hud",
-        "effect.comedy-feedback"
-      ],
-      "acceptanceCriteria": [
-        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
-        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
-        "완성 시 날짜와 무관하게 즉시 구조 성공하고, Day 3·4 미완성은 계속 진행되며 Day 5 종료 시 미완성이면 기한 실패 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "W12-D01이 구조 신호 즉시 성공과 Day 5 기한 실패를 상호 배타적으로 증명했다. 비용은 변경하지 않았다.",
-      "completedAt": "2026-08-23T13:20:00.000Z",
-      "createdAt": "2026-08-22T08:24:43.558Z"
-    },
-    {
-      "id": "task.qa.feature.escape-outcome",
-      "lane": "qa",
-      "title": "구조 신호와 결말 검증",
-      "description": "구조 신호와 결말의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.escape-outcome"
-      ],
-      "featureIds": [
-        "feature.escape-outcome"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
-        "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
-        "완성 시 날짜와 무관하게 즉시 구조 성공하고, Day 3·4 미완성은 계속 진행되며 Day 5 종료 시 미완성이면 기한 실패 결과가 표시된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "Wave 12 최종 빌드에서 어느 날이든 즉시 구조 성공, Day 3·4 계속, Day 5 기한 실패를 통과했다.",
-      "completedAt": "2026-08-23T13:20:00.000Z",
-      "createdAt": "2026-08-22T08:24:44.452Z"
     },
     {
       "id": "task.feature.feature.dual-input",
@@ -1770,6 +2195,166 @@
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
     {
+      "id": "task.feature.feature.behavioral-endings",
+      "lane": "implementation",
+      "title": "누적 행동 기반 엔딩 판정 구현",
+      "description": "수영, 농사, 사냥·덫, 기계공학, 건축, 수색, 위험 대응과 특별 사건을 run 전체에 누적해 탈출 방식 또는 Day 50 상태와 결합한 큐레이션 엔딩을 판정한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.phase-cycle",
+        "task.feature.feature.escape-outcome"
+      ],
+      "featureIds": [
+        "feature.behavioral-endings"
+      ],
+      "assetIds": [
+        "ui.ending-comic",
+        "ui.ending-gallery"
+      ],
+      "acceptanceCriteria": [
+        "행동 점수는 안정 category ID와 누적 규칙을 가진다.",
+        "우세 생활 방식은 최소 기준과 tie-breaker를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
+        "특별 사건 플래그가 필요한 희귀 엔딩은 행동 점수만으로 해금되지 않는다.",
+        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.feature.behavioral-endings",
+      "lane": "qa",
+      "title": "누적 행동 기반 엔딩 판정 검증",
+      "description": "누적 행동 기반 엔딩 판정의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.behavioral-endings"
+      ],
+      "featureIds": [
+        "feature.behavioral-endings"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "행동 점수는 안정 category ID와 누적 규칙을 가진다.",
+        "우세 생활 방식은 최소 기준과 tie-breaker를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
+        "특별 사건 플래그가 필요한 희귀 엔딩은 행동 점수만으로 해금되지 않는다.",
+        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.wave15-hazard-ending-redfirst",
+      "lane": "qa",
+      "title": "Wave 15 위험·탈출·엔딩 red-first 게이트",
+      "description": "위험 인과와 원자성, 다섯 탈출 ID, 조기 탈출·Day 50 우선순위, 행동 score·tie-breaker·sample ending과 개발 로그 개인정보 부재를 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix"
+      ],
+      "featureIds": [
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "예고 없는 즉사·중복 피해·중복 자원 차감이 없다.",
+        "escape와 ending ID가 안정적이고 같은 snapshot에서 결정론적이다.",
+        "Steam 연동과 물리 게임패드는 별도 미검증 게이트로 유지한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.system.system.ending-gallery",
+      "lane": "implementation",
+      "title": "엔딩 해금과 갤러리 구현",
+      "description": "안정 ending ID, 해금 여부, 힌트와 코믹북 패널 키를 관리하고 향후 Steam achievement mapping을 위한 외부 키를 분리한다.",
+      "priority": "medium",
+      "dependencies": [],
+      "featureIds": [
+        "feature.ending-gallery",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "게임 내 해금은 Steam 연결 없이 동작하며 외부 업적 키 부재가 플레이를 막지 않는다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T14:16:09.804Z",
+      "createdAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.feature.feature.ending-gallery",
+      "lane": "implementation",
+      "title": "김씨의 생존 앨범 구현",
+      "description": "발견한 엔딩의 코믹북 컷신을 다시 보고 미발견 엔딩은 실루엣과 비스포일러 힌트로 보여주는 게임 내 갤러리다.",
+      "priority": "medium",
+      "dependencies": [
+        "task.feature.feature.behavioral-endings",
+        "task.feature.feature.localization"
+      ],
+      "featureIds": [
+        "feature.ending-gallery"
+      ],
+      "assetIds": [
+        "ui.ending-comic",
+        "ui.ending-gallery"
+      ],
+      "acceptanceCriteria": [
+        "해금된 ending ID와 최초 해금 시점이 저장 가능한 데이터로 분리된다.",
+        "미해금 희귀 엔딩은 결말을 직접 노출하지 않는 힌트를 사용한다.",
+        "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.feature.ending-gallery",
+      "lane": "qa",
+      "title": "김씨의 생존 앨범 검증",
+      "description": "김씨의 생존 앨범의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "medium",
+      "dependencies": [
+        "task.feature.feature.ending-gallery"
+      ],
+      "featureIds": [
+        "feature.ending-gallery"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "해금된 ending ID와 최초 해금 시점이 저장 가능한 데이터로 분리된다.",
+        "미해금 희귀 엔딩은 결말을 직접 노출하지 않는 힌트를 사용한다.",
+        "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
       "id": "task.postslice.steam-release-readiness",
       "lane": "implementation",
       "title": "수직 슬라이스 이후 Steam 출하 준비",
@@ -1797,7 +2382,61 @@
       "status": "blocked",
       "updatedAt": "2026-08-22T13:15:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
+    },
+    {
+      "id": "task.feature.feature.custom-run-settings",
+      "lane": "implementation",
+      "title": "사용자 설정 생존 플레이 구현",
+      "description": "표준 캠페인 완성 뒤 데드라인, 자원 희귀도, 허기·체력 소모, 위험 빈도와 강도를 별도 run profile로 조절한다.",
+      "priority": "low",
+      "dependencies": [
+        "task.feature.feature.phase-cycle",
+        "task.feature.feature.resource-randomization",
+        "task.feature.feature.survival-hazards"
+      ],
+      "featureIds": [
+        "feature.custom-run-settings"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "표준 Day 50 profile과 custom profile이 저장·표시에서 구분된다.",
+        "custom 변경은 표준 밸런스 데이터 자체를 덮어쓰지 않는다.",
+        "업적 인정 정책은 Steam 연동 전까지 미결로 표시한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
+    },
+    {
+      "id": "task.qa.feature.custom-run-settings",
+      "lane": "qa",
+      "title": "사용자 설정 생존 플레이 검증",
+      "description": "사용자 설정 생존 플레이의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "low",
+      "dependencies": [
+        "task.feature.feature.custom-run-settings"
+      ],
+      "featureIds": [
+        "feature.custom-run-settings"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "표준 Day 50 profile과 custom profile이 저장·표시에서 구분된다.",
+        "custom 변경은 표준 밸런스 데이터 자체를 덮어쓰지 않는다.",
+        "업적 인정 정책은 Steam 연동 전까지 미결로 표시한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:16:09.804Z"
     }
   ],
-  "updatedAt": "2026-08-23T13:34:37.660Z"
+  "updatedAt": "2026-08-23T14:21:09.963Z"
 }

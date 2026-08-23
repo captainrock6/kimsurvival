@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260823141609_c6fced0f",
+  "createdAt": "2026-08-23T14:16:09.801Z",
+  "updatedAt": "2026-08-23T14:16:09.801Z",
+  "sourceRequest": "Wave 15 50일 캠페인 정본의 open question 형식을 안정 문자열로 교정",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-23T14:16:09.801Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:16:09.801Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:16:09.801Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:16:09.801Z"
+    }
+  }
+}
