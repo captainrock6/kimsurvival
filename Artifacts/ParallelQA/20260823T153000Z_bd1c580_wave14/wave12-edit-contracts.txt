@@ -1,0 +1,9 @@
+Wave 12 five-day/compact-a Edit contracts
+Run ID: 20260823T153000Z_bd1c580_wave14
+Baseline: bd1c580bb53bdd662877efd1600c97500057c3ee
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: PASS/PASS/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 3/0/0/0/0
+W12-D01.five_day_deadline | PASS | NONE | FinalDay=5; day3Playable=True; day4Playable=True; day5Deadline=True; earlyDay1Rescue=True; states=start=D1>D2/Camp/None>D3/Camp/None>D4/Camp/None>D5/Camp/None>D5/Result/Deadline
+W12-A01.compact_a_adopted_package | PASS | NONE | ledgerEngineReady=True; adoptedCompactA=True; fileGuid=True(070048b5b443d5d4a9c757c871873eb3); border=L70/R30/T12/B12:True; B/C runtime refs=False
+W12-A02.compact_a_static_runtime_reference | PASS | NONE | compactAReferenced=True; compactBReferenced=False; compactCReferenced=False

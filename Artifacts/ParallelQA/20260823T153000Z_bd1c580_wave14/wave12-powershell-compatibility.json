@@ -1,0 +1,15 @@
+{
+    "schemaVersion":  1,
+    "runId":  "20260823T153000Z_bd1c580_wave14",
+    "baselineCommit":  "bd1c580bb53bdd662877efd1600c97500057c3ee",
+    "observedUtc":  "2026-08-23T13:18:11.9839637Z",
+    "entryPoint":  "Invoke-Wave12FiveDayUiGate.ps1",
+    "mode":  "Full",
+    "psEdition":  "Desktop",
+    "psVersion":  "5.1.26100.9168",
+    "preflightExitCode":  0,
+    "preflightJsonUtf8NoBom":  true,
+    "preflightTextUtf8NoBom":  true,
+    "evidenceFormat":  "UTF-8 without BOM; existing Wave 5 JSON/TXT names and schemas preserved",
+    "overall":  "PASS"
+}
