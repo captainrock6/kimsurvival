@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 10 room-module independent RED to GREEN gate",
+  "runId": "20260823T100500Z_bcf31dd_integrated",
+  "baselineCommit": "bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c",
+  "unityVersionExpected": "6000.4.9f1",
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "startedUtc": "2026-08-23T09:33:45.0803179Z",
+  "completedUtc": "2026-08-23T09:34:37.3837269Z",
+  "executionPolicy": "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+  "evidencePolicy": "Fresh run ID only. The Wave 9 reflection RED is preserved separately and is not reused as this verdict.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave10ModuleGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "preflight",
+      "executeMethod": "Capture-Wave5Preflight.ps1",
+      "startedUtc": "2026-08-23T09:33:45.0803179Z",
+      "completedUtc": "2026-08-23T09:33:45.2604928Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\wave5-preflight.txt",
+      "command": "Capture-Wave5Preflight.ps1 -RunId '20260823T100500Z_bcf31dd_integrated' -BaselineCommit 'bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c'",
+      "output": "PREFLIGHT=PASS | CANONICAL_ADDRESSABLES_LINK=ABSENT | EVIDENCE=C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\wave5-preflight.json"
+    },
+    {
+      "name": "compile",
+      "executeMethod": "ParallelQA.ParallelQaRunner.RecordCompilePass",
+      "startedUtc": "2026-08-23T09:33:45.2773116Z",
+      "completedUtc": "2026-08-23T09:33:55.8180010Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-compile.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-compile.log\""
+    },
+    {
+      "name": "wave10-module-edit",
+      "executeMethod": "ParallelQA.Wave10ModuleGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T09:33:55.8214374Z",
+      "completedUtc": "2026-08-23T09:34:03.2650089Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-wave10-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave10ModuleGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-wave10-edit.log\""
+    },
+    {
+      "name": "wave10-module-play",
+      "executeMethod": "ParallelQA.Wave10ModuleGateRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T09:34:03.2678485Z",
+      "completedUtc": "2026-08-23T09:34:16.9272984Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-wave10-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave10ModuleGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-wave10-play.log\""
+    },
+    {
+      "name": "asset-release-contracts",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+      "startedUtc": "2026-08-23T09:34:16.9291663Z",
+      "completedUtc": "2026-08-23T09:34:20.4518672Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-asset-contracts.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-asset-contracts.log\""
+    },
+    {
+      "name": "windows-development-build",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+      "startedUtc": "2026-08-23T09:34:20.4529470Z",
+      "completedUtc": "2026-08-23T09:34:30.9784427Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-windows-build.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\unity-windows-build.log\""
+    },
+    {
+      "name": "windows-hidden-smoke",
+      "executeMethod": "Invoke-Wave5WindowsSmoke.ps1",
+      "startedUtc": "2026-08-23T09:34:30.9788686Z",
+      "completedUtc": "2026-08-23T09:34:37.3835707Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\windows-player.log",
+      "command": "Invoke-Wave5WindowsSmoke.ps1 -RunId '20260823T100500Z_bcf31dd_integrated' -BaselineCommit 'bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c' -MinimumSeconds 6",
+      "error": ""
+    }
+  ]
+}

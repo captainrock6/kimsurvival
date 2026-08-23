@@ -1,0 +1,19 @@
+Wave 10 room-module independent RED to GREEN gate
+Run ID: 20260823T100500Z_bcf31dd_integrated
+Baseline: bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c
+Overall/Product/Infrastructure: PASS/PASS/PASS
+Module gate: GREEN (8/8)
+Compile: PASS 0 errors
+Full approach-first regression: PASS
+KO/EN 1280 module captures: PASS
+Actual qps-long: PASS
+Korean normal-camp overflow: PASS
+Windows build: PASS, warnings=0
+Hidden smoke: PASS
+Addressables: PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)
+Expected product gaps: 0
+Unexpected product failures: 0
+Infrastructure failures: 0
+Evidence: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260823T100500Z_bcf31dd_integrated

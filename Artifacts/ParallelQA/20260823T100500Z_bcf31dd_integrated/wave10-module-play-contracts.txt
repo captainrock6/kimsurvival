@@ -1,0 +1,12 @@
+Wave 10 room-module Play contracts
+Run ID: 20260823T100500Z_bcf31dd_integrated
+Baseline: bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: PASS/PASS/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 5/0/0/0/1
+W10-L01.normal_camp_ko_overflow | PASS | NONE | visibleOverflow=0
+W10-L02.ko_en_module_meaning | PASS | NONE | keys=14 koShort='자원 부족 · 필요 나무 2, 돌 0, 표류물 1' enShort='Resources short · Need Wood 2, Stone 0, Salvage 1' keyboard/gamepad semantic parity=true
+W10-L03.actual_qps_long_locale | PASS | NONE | locale=qps-long keys=9 localized=True
+W10-P01.approach_first_full_regression | PASS | NONE | PASS · Wave 10 실제 qps-long 데이터 로케일, 제품 ko/en 순환·저장 분리, ko/en/qps 동일 근접 대상 latch와 [E]/[X] 의미, 1280x800 한국어 상단 HUD overflow=0 및 qps 안전 맞춤 확인. Wave 9 현장 계획 지점 위층/옆방/지하실 순회·원자 확정·명시적 이동과 기존 전역 대시보드/대형 가방 숨김, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프 회귀 확인
+W10-P02.ko_en_1280_module_captures | PASS | NONE | wave10-module-upper-ko-1280x800.png=1280x800 | wave10-module-side-en-1280x800.png=1280x800 | wave10-module-basement-qps-long-1280x800.png=1280x800 | wave10-module-interior-ko-1280x800.png=1280x800 | qps evidence=actual data locale
+W10-HW01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | no non-empty joystick name exposed to Unity batch Play Mode

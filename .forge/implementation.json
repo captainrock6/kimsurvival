@@ -796,7 +796,7 @@
       "id": "task.feature.feature.camp-object-interaction",
       "lane": "implementation",
       "title": "공간형 설비 직접 상호작용 구현",
-      "description": "김씨가 캠프 안을 직접 이동해 물리적 설비에 접근하고, 근접 안내와 상호작용 입력을 거쳐 해당 설비만의 소형 팝업으로 행동한다. 정상 캠프 화면에는 전역 행동 대시보드가 나타나지 않는다.",
+      "description": "김씨가 측면 절개형 캠프를 직접 이동해 1.25u 안의 안정 대상 하나를 선택하고, 근접 안내와 Interact를 거쳐 대상 설비만의 작은 팝업에서 원자적으로 행동한 뒤 같은 현장으로 돌아온다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.camp-building",
@@ -818,7 +818,13 @@
         "상호작용 입력 뒤에만 대상 설비의 행동·비용·상태만 담은 소형 팝업이 열린다.",
         "팝업 동안 일반 이동이 잠기고 확인 또는 취소 뒤 같은 공간의 직접 조작으로 돌아온다.",
         "정상 캠프 플레이에서 기존 전역 campActions 대시보드와 대형 가방 패널이 화면을 상시 덮지 않는다.",
-        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다."
+        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다.",
+        "FreeRoam→단일 후보→근접 안내→설비 팝업→검증→성공/실패/취소→같은 현장 복귀가 안정 상태 ID와 입력 소유권으로 구분된다.",
+        "팝업·배치·증축 중 김씨 이동과 월드 Interact가 잠기고 Cancel 뒤 위치·방향·게임 데이터가 보존된다.",
+        "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
+        "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
+        "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
@@ -831,7 +837,7 @@
       "updatedAt": "2026-08-23T04:50:04.738Z",
       "note": "",
       "completedAt": "2026-08-23T04:50:04.737Z",
-      "createdAt": "2026-08-23T04:50:04.738Z"
+      "createdAt": "2026-08-23T04:35:59.187Z"
     },
     {
       "id": "task.qa.feature.camp-object-interaction",
@@ -851,12 +857,19 @@
         "상호작용 입력 뒤에만 대상 설비의 행동·비용·상태만 담은 소형 팝업이 열린다.",
         "팝업 동안 일반 이동이 잠기고 확인 또는 취소 뒤 같은 공간의 직접 조작으로 돌아온다.",
         "정상 캠프 플레이에서 기존 전역 campActions 대시보드와 대형 가방 패널이 화면을 상시 덮지 않는다.",
-        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다."
+        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다.",
+        "FreeRoam→단일 후보→근접 안내→설비 팝업→검증→성공/실패/취소→같은 현장 복귀가 안정 상태 ID와 입력 소유권으로 구분된다.",
+        "팝업·배치·증축 중 김씨 이동과 월드 Interact가 잠기고 Cancel 뒤 위치·방향·게임 데이터가 보존된다.",
+        "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
+        "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
+        "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
+      "createdAt": "2026-08-23T04:35:59.187Z",
       "updatedAt": "2026-08-23T04:50:04.738Z"
     },
     {
@@ -1490,17 +1503,21 @@
         "Docs/Design/vertical-slice-localization.md",
         "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
         "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
-        "Assets/_Project/Scripts/Localization"
+        "Assets/_Project/Scripts/Localization",
+        "Assets/_Project/Scripts/Localization/Tables/Prototype Strings_qps-long.asset"
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt"
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
+        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-module-play-contracts.json"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T09:35:20.554Z",
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "note": "Actual non-shipping qps-long locale passes data-driven module and layout checks while the player locale cycle remains ko/en.",
+      "completedAt": "2026-08-23T09:35:20.554Z"
     },
     {
       "id": "task.system.system.bag-capacity-upgrade",
@@ -1679,12 +1696,18 @@
         "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
         "모듈 preview는 처음부터 허용하고 commit은 작업대 뒤에 열며, 세 후보 모두 Wave 9 v0.2 고정 비용 W2/D1을 원자적으로 한 번만 사용한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/Editor/ParallelQA/Wave10ModuleGateRunner.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
+      "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T08:14:57.366Z"
+      "updatedAt": "2026-08-23T09:35:21.718Z",
+      "note": "Independent upper/side/basement module gate is GREEN 8/8 on the integrated baseline.",
+      "completedAt": "2026-08-23T09:35:21.717Z"
     },
     {
       "id": "task.postslice.steam-release-readiness",
@@ -1716,5 +1739,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T08:14:57.366Z"
+  "updatedAt": "2026-08-23T09:35:21.718Z"
 }

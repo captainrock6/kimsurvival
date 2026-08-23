@@ -1779,17 +1779,21 @@
         "Docs/Design/vertical-slice-localization.md",
         "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
         "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
-        "Assets/_Project/Scripts/Localization"
+        "Assets/_Project/Scripts/Localization",
+        "Assets/_Project/Scripts/Localization/Tables/Prototype Strings_qps-long.asset"
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt"
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
+        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-module-play-contracts.json"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T09:35:20.554Z",
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "note": "Actual non-shipping qps-long locale passes data-driven module and layout checks while the player locale cycle remains ko/en.",
+      "completedAt": "2026-08-23T09:35:20.554Z"
     },
     {
       "id": "task.system.system.bag-capacity-upgrade",
@@ -2051,12 +2055,18 @@
         "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
         "모듈 preview는 처음부터 허용하고 commit은 작업대 뒤에 열며, 세 후보 모두 Wave 9 v0.2 고정 비용 W2/D1을 원자적으로 한 번만 사용한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/Editor/ParallelQA/Wave10ModuleGateRunner.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
+      "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T08:14:57.366Z"
+      "updatedAt": "2026-08-23T09:35:21.718Z",
+      "note": "Independent upper/side/basement module gate is GREEN 8/8 on the integrated baseline.",
+      "completedAt": "2026-08-23T09:35:21.717Z"
     },
     {
       "id": "task.art.icon.resource-tool-set",
@@ -2166,5 +2176,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T08:14:57.366Z"
+  "updatedAt": "2026-08-23T09:35:21.718Z"
 }

@@ -12,16 +12,16 @@
 |---|---|---|
 | design | complete |  |
 | art | in_progress | Contextual prompt and module-expansion visual kits are review-only. No candidate is adopted, packaged, or runtime-connected pending explicit user selection. |
-| implementation | in_progress | Compact contextual prompts and upper/side/basement spatial module expansion are integrated with locked workbench plus W2/D1 commit rules. Actual qps-long locale and ko 1280 header overflow remain implementation work. |
-| verification | in_progress | Infrastructure, compile, core regression, prompt layout, Windows development build, hidden smoke, and Addressables pass. Independent module reason contract, actual qps-long locale, ko header overflow, and physical gamepad remain open. |
+| implementation | complete | Spatial camp interaction, one-room module expansion, ko/en plus non-shipping qps-long, Korean 1280 HUD fit, and the complete survival loop are integrated. |
+| verification | in_progress | Automated product and infrastructure gates pass with no expected product gaps. User playtest and physical gamepad actuation remain outstanding; Steam release work remains out of scope. |
 
 ## 다음 작업
 
 - **Wave 3 밸런스 v0.2 적용** (implementation, critical) — task.wave3.implementation.balance-v0-2
 - **Wave 3 P1 월드 라벨 가독성 수정** (implementation, critical) — task.wave3.implementation.world-label-readability
 - **공간형 설비 직접 상호작용 검증** (qa, critical) — task.qa.feature.camp-object-interaction
-- **Wave 3 P2 제3 로케일·저장 독립성 구현** (implementation, high) — task.wave3.implementation.third-locale
-- **위·옆·지하 방 모듈 증축 검증** (qa, high) — task.qa.feature.camp-module-expansion
+- **PC 이중 입력 검증** (qa, high) — task.qa.feature.dual-input
+- **한국어·영어와 확장 가능한 국제화 검증** (qa, high) — task.qa.feature.localization
 
 ## 작업
 
@@ -76,7 +76,7 @@
 | task.system.system.localization | implementation | high | done | Unity 국제화와 현지화 구현 |
 | task.feature.feature.localization | implementation | high | done | 한국어·영어와 확장 가능한 국제화 구현 |
 | task.qa.feature.localization | qa | high | ready | 한국어·영어와 확장 가능한 국제화 검증 |
-| task.wave3.implementation.third-locale | implementation | high | ready | Wave 3 P2 제3 로케일·저장 독립성 구현 |
+| task.wave3.implementation.third-locale | implementation | high | done | Wave 3 P2 제3 로케일·저장 독립성 구현 |
 | task.system.system.bag-capacity-upgrade | implementation | high | done | 가방 용량 성장 구현 |
 | task.feature.feature.inventory-capacity-upgrade | implementation | high | done | 가방 4→6칸 확장 구현 |
 | task.qa.feature.inventory-capacity-upgrade | qa | high | done | 가방 4→6칸 확장 검증 |
@@ -84,7 +84,7 @@
 | task.art.background.modular-island-camp | art | high | review | 측면 절개형 모듈 베이스캠프 제작 |
 | task.art.ui.camp-module-expansion | art | high | review | 방 모듈 증축 상태 UI 제작 |
 | task.feature.feature.camp-module-expansion | implementation | high | done | 위·옆·지하 방 모듈 증축 구현 |
-| task.qa.feature.camp-module-expansion | qa | high | ready | 위·옆·지하 방 모듈 증축 검증 |
+| task.qa.feature.camp-module-expansion | qa | high | done | 위·옆·지하 방 모듈 증축 검증 |
 | task.art.icon.resource-tool-set | art | medium | done | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | done | 코믹 피드백 효과 세트 제작 |
 | task.art.ui.bag-capacity-upgrade | art | medium | review | 가방 확장 UI 상태 세트 제작 |
@@ -241,6 +241,7 @@
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt
+- task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-module-play-contracts.json
 - task.system.system.bag-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-edit-contracts.txt
 - task.system.system.bag-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-play-contracts.txt
 - task.feature.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt
@@ -251,6 +252,7 @@
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#6-w2d1-구매-포함-자연-3일-구조-장부
 - task.design.wave7-bag-capacity-balance: Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-edit-contracts.txt
 - task.feature.feature.camp-module-expansion: PASS: deterministic Edit checks, full Play Mode survival regression, 1280x800 KO/EN/qps-long module captures, Windows development build 0 errors/0 warnings, 8-second launch smoke.
+- task.qa.feature.camp-module-expansion: Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-summary.json
 - task.art.icon.resource-tool-set: Forge asset icon.resource-tool-set adopted via job_20260822141317_caf8e11d
 - task.art.effect.comedy-feedback: Forge asset effect.comedy-feedback adopted via job_20260822224357_275de712
 - task.postslice.steam-release-readiness: Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt

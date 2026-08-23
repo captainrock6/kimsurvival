@@ -1,0 +1,85 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 10 room-module Play contracts",
+    "runId": "20260823T100500Z_bcf31dd_integrated",
+    "baselineCommit": "bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T09:34:10.2393577Z",
+    "completedUtc": "2026-08-23T09:34:13.2404596Z",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 5,
+    "expectedFailed": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 1,
+    "checks": [
+        {
+            "id": "W10-L01.normal_camp_ko_overflow",
+            "matrix": "localization/layout",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "The normal Korean camp frame has zero visible TMP overflow at 1280x800",
+            "actual": "visibleOverflow=0",
+            "reproduction": "Open the fresh Korean normal camp at 1280x800 and inspect every active TMP object after ForceMeshUpdate.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W10-L02.ko_en_module_meaning",
+            "matrix": "localization/input prompts",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "KO and EN expose the same module names, geometry/economy reasons, W2/D1 cost, and keyboard/gamepad confirm/cancel semantics",
+            "actual": "keys=14 koShort='자원 부족 · 필요 나무 2, 돌 0, 표류물 1' enShort='Resources short · Need Wood 2, Stone 0, Salvage 1' keyboard/gamepad semantic parity=true",
+            "reproduction": "Format the same canonical module keys in ko and en, including all invalid reasons and both device prompt keys.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"
+        },
+        {
+            "id": "W10-L03.actual_qps_long_locale",
+            "matrix": "localization/layout",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "A real qps-long locale formats the module contract without fallback or missing keys",
+            "actual": "locale=qps-long keys=9 localized=True",
+            "reproduction": "Select the actual qps-long locale and format/capture the module preview; do not substitute a synthetic text override.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"
+        },
+        {
+            "id": "W10-P01.approach_first_full_regression",
+            "matrix": "full playable regression",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The approach-first loop completes module preview/commit/traversal/placement plus prompt, bag, signal, search, swim, return, and three-day rescue checks",
+            "actual": "PASS · Wave 10 실제 qps-long 데이터 로케일, 제품 ko/en 순환·저장 분리, ko/en/qps 동일 근접 대상 latch와 [E]/[X] 의미, 1280x800 한국어 상단 HUD overflow=0 및 qps 안전 맞춤 확인. Wave 9 현장 계획 지점 위층/옆방/지하실 순회·원자 확정·명시적 이동과 기존 전역 대시보드/대형 가방 숨김, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프 회귀 확인",
+            "reproduction": "Run KimSurvivalPrototype.RunAutomatedVerification through the Wave 10 Play gate.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W10-P02.ko_en_1280_module_captures",
+            "matrix": "localization/layout",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Fresh 1280x800 KO upper/interior, EN side, and actual qps-long module captures exist; older baselines may use an explicitly labelled synthetic fallback",
+            "actual": "wave10-module-upper-ko-1280x800.png=1280x800 | wave10-module-side-en-1280x800.png=1280x800 | wave10-module-basement-qps-long-1280x800.png=1280x800 | wave10-module-interior-ko-1280x800.png=1280x800 | qps evidence=actual data locale",
+            "reproduction": "Open each Wave 10 module PNG at 1:1 and compare the preview badge, status card, controls, connector, and world bounds.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/Editor/ParallelQA/Wave10ModuleGateRunner.cs"
+        },
+        {
+            "id": "W10-HW01.physical_gamepad",
+            "matrix": "input hardware",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "A human completes module preview, commit, connector traversal, and general-floor placement on a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows development build with a physical gamepad and record device name/VID/PID plus human actuation.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        }
+    ]
+}

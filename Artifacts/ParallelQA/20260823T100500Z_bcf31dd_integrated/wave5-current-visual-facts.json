@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T100500Z_bcf31dd_integrated",
+    "baselineCommit": "bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-23T09:34:20.0237453Z",
+    "source": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\wave3-visual-gate.txt",
+    "standardKoEnOverall": "FAIL",
+    "qpsLongOverall": "FAIL",
+    "overall": "FAIL",
+    "placement": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "explorationSwimming": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "qpsLong": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    }
+}

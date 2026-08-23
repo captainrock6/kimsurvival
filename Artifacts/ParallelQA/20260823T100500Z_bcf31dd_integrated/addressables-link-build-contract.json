@@ -1,0 +1,44 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T100500Z_bcf31dd_integrated",
+    "baselineCommit": "bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c",
+    "unityVersion": "6000.4.9f1",
+    "overall": "PASS",
+    "preflightToBeforeStable": true,
+    "beforeToAfterStable": true,
+    "temporaryCopyCleanupPassed": true,
+    "temporaryCopyCleanupEvidence": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T100500Z_bcf31dd_integrated\\addressables-generated-link-cleanup.json",
+    "preflight": {
+        "observedUtc": "2026-08-23T09:33:45.1898835Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    },
+    "beforeBuild": {
+        "observedUtc": "2026-08-23T09:34:23.4979891Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    },
+    "afterBuild": {
+        "observedUtc": "2026-08-23T09:34:27.9761929Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    }
+}

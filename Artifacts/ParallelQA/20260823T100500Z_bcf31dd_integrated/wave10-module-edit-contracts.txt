@@ -1,0 +1,12 @@
+Wave 10 room-module Edit contracts
+Run ID: 20260823T100500Z_bcf31dd_integrated
+Baseline: bcf31dd0c524b1dfebfd0bae6ccf0e4921d5da6c
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: PASS/PASS/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 6/0/0/0/0
+W10-M01.candidates_and_reasons | PASS | NONE | Upper=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked | Side=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked | Basement=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked
+W10-M02.locked_short_ready | PASS | NONE | beforeWorkbench=Locked afterWorkbenchW1D1=Short exactW2D1=Ready cost=W2/S0/F0/D1
+W10-M03.atomic_commit_and_limit | PASS | NONE | cancel=stable invalid=InvalidGeometry short=Short success=Succeeded before=W2/S0/F0/D1 after=W0/S0/F0/D0 duplicate=NotPreviewing second=PrototypeLimit
+W10-M04.reciprocal_connectors_and_room_return | PASS | NONE | pairs=slot.start.upper<->slot.upper.down:Ladder,slot.start.side<->slot.side.left:Door,slot.start.basement<->slot.basement.up:Ladder travel=room.start->room.upper.standard->room.start startStatePreserved=true
+W10-M05.general_floor_placement | PASS | NONE | generalFloor=Upper@-2.0,Side@-2.5,Basement@-4.0
+W10-M06.keyboard_synthetic_gamepad_parity | PASS | NONE | confirmCycle=1 cancelCycle=-1 sharedActions=true
