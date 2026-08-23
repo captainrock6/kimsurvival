@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T02:09:00.589Z",
+  "updatedAt": "2026-08-23T04:08:14.608Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -351,7 +351,7 @@
         "packagedAt": "2026-08-22T13:36:38.680Z"
       },
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-23T01:52:41.820Z"
+      "updatedAt": "2026-08-23T04:08:14.501Z"
     },
     {
       "id": "background.coast-forest",
@@ -441,7 +441,7 @@
         "packagedAt": "2026-08-22T09:56:23.030Z"
       },
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-23T01:52:41.832Z"
+      "updatedAt": "2026-08-23T04:08:14.508Z"
     },
     {
       "id": "character.mr-kim",
@@ -538,7 +538,7 @@
         "packagedAt": "2026-08-22T09:08:11.959Z"
       },
       "createdAt": "2026-08-22T07:58:18.376Z",
-      "updatedAt": "2026-08-23T01:52:41.839Z"
+      "updatedAt": "2026-08-23T04:08:14.520Z"
     },
     {
       "id": "object.camp-structures",
@@ -723,7 +723,7 @@
         "packagedAt": "2026-08-22T13:36:38.842Z"
       },
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-23T01:52:41.847Z"
+      "updatedAt": "2026-08-23T04:08:14.530Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -1030,13 +1030,13 @@
         "packagedAt": "2026-08-22T22:03:55.368Z"
       },
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-23T01:52:41.857Z"
+      "updatedAt": "2026-08-23T04:08:14.542Z"
     },
     {
       "id": "ui.survival-hud",
-      "name": "PC·Steam 다국어 프로토타입 UI",
+      "name": "최소 생존 HUD",
       "assetType": "ui_set",
-      "request": "Unity PC 프로토타입용 편집 가능한 다국어 UI 세트. 날짜와 일광, 허기와 체력, 4칸 가방, 캠프 창고, 제작·건설·배치·연구 비용, 구조 신호 진척도, 귀환, 결과 요약, 설정의 언어 선택과 게임패드 포커스 상태를 포함한다. 1920×1080과 1280×800에서 한글과 영어가 모두 읽히도록 고정 폭 본문을 피하고 텍스트 확장 여백, 줄바꿈, 최소 글자 크기와 포커스 영역을 정의한다. 모든 본문과 버튼 문구는 래스터에 굽지 않고 엔진 텍스트로 유지하며 로케일별 TextMeshPro 폰트와 입력 안내가 교체될 자리를 제공한다.",
+      "request": "공간형 2D 캠프와 섬 수색을 가리지 않는 최소 HUD. 날짜·일광, 허기·체력, 작은 가방 요약과 상황성 알림만 지속 표시한다. 캠프 제작·건설·연구 목록과 대형 가방 패널은 상시 HUD에 포함하지 않는다. 1280×800과 1920×1080, 한국어·영어 및 향후 장문 로케일, 키보드·게임패드 포커스를 지원하며 본문은 엔진 텍스트로 둔다.",
       "status": "needed",
       "source": "codex",
       "tags": [
@@ -1051,7 +1051,9 @@
         "tmp",
         "localization-ready",
         "korean",
-        "english"
+        "english",
+        "minimal-hud",
+        "spatial-camp"
       ],
       "dependencies": [
         "icon.resource-tool-set"
@@ -1063,7 +1065,7 @@
       "artifacts": [],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-23T01:52:41.865Z"
+      "updatedAt": "2026-08-23T04:08:14.552Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -1323,7 +1325,7 @@
         "packagedAt": "2026-08-22T22:56:15.525Z"
       },
       "createdAt": "2026-08-22T07:58:18.414Z",
-      "updatedAt": "2026-08-23T01:52:41.872Z"
+      "updatedAt": "2026-08-23T04:08:14.563Z"
     },
     {
       "id": "animation.mr-kim.swim",
@@ -1410,7 +1412,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-23T01:52:41.881Z"
+      "updatedAt": "2026-08-23T04:08:14.575Z"
     },
     {
       "id": "object.vine-wood-barrier",
@@ -1650,7 +1652,7 @@
       "id": "ui.bag-capacity-upgrade",
       "name": "가방 확장 UI 상태 세트",
       "assetType": "ui_set",
-      "request": "김씨의 채택된 급조 등가방 정체성을 유지하면서 낡은 천 조각과 좌우 옆주머니 두 개를 덧댄 코믹 생존 UI 후보를 제작한다. 4칸 기본, 2칸 잠금, 6칸 활성 상태를 색뿐 아니라 외곽 형태와 슬롯 개수로 즉시 구분하고, 작업대 가방 확장 아이콘 및 기본·게임패드 포커스·비활성 액션 상태를 분리한다. 오른쪽 세로형 HUD 폭 약 300px 기준으로 1280x800과 1920x1080에서 읽히며, 모든 한국어·영어 본문은 엔진 TMP 영역에만 배치하고 래스터에는 글자·숫자·로고를 넣지 않는다. 투명 배경, 굵고 읽기 쉬운 실루엣, 따뜻한 열대색, 편집 가능한 엔진 UI 파츠, 넉넉한 텍스트 안전 여백을 제공한다. 사용자 승인 전 review 후보이며 adopt/engine_ready/runtime 연결을 하지 않는다.",
+      "request": "김씨의 급조 등가방에 천 조각과 옆주머니 두 개를 덧댄 코믹한 2D 업그레이드 전후 UI 상태 세트. 4칸 기본, 잠긴 두 칸, 6칸 활성 상태와 작업대 업그레이드 아이콘을 1280×800 및 1920×1080 HUD에서 읽히게 제공한다. 한국어·영어 본문은 넣지 않고 엔진 텍스트 여백과 게임패드 포커스 상태를 지원하며 투명 배경과 편집 가능한 분리 파츠를 사용한다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -1950,7 +1952,82 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T01:52:41.889Z",
-      "updatedAt": "2026-08-23T02:09:00.589Z"
+      "updatedAt": "2026-08-23T04:08:14.583Z"
+    },
+    {
+      "id": "ui.camp-contextual-interaction",
+      "name": "캠프 근접 안내와 설비 전용 팝업",
+      "assetType": "ui_set",
+      "request": "승인된 공간형 베이스캠프 목업을 기준으로 한 근접 상호작용 마커, 키보드·게임패드 입력 안내, 작업대·모닥불·빗물받이·구조 신호대의 작고 상황적인 팝업 프레임 세트. 대상 설비와 주변 공간을 계속 볼 수 있어야 하며 화면 대부분을 덮는 전역 대시보드가 아니어야 한다. 한국어·영어 본문은 래스터에 넣지 않고 비용·잠금·가능·완료·포커스 상태를 분리한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "contextual-ui",
+        "proximity-prompt",
+        "object-popup",
+        "localization-ready"
+      ],
+      "dependencies": [
+        "ui.survival-hud",
+        "object.camp-structures"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T04:07:47.284Z",
+      "updatedAt": "2026-08-23T04:08:14.592Z"
+    },
+    {
+      "id": "background.modular-island-camp",
+      "name": "측면 절개형 모듈 베이스캠프",
+      "assetType": "background",
+      "request": "승인된 방향 목업을 기준으로 시작 방과 좌우·위·지하 연결 슬롯을 가진 오리지널 2D 측면 절개형 무인도 캠프 비주얼 키트. 방 외곽, 바닥, 기둥, 사다리·계단 연결부, 지상·지하 배경을 교체 가능한 레이어와 반복 가능한 모듈로 제공하고 내부 설비 제한적 자유 배치 여백을 확보한다. This War of Mine의 고유 화면·아트를 복제하지 않고 밝고 코믹한 김씨 생존기 톤으로 만든다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "cutaway",
+        "modular-room",
+        "upper-side-basement",
+        "2d-side-view"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T04:07:47.292Z",
+      "updatedAt": "2026-08-23T04:08:14.599Z"
+    },
+    {
+      "id": "ui.camp-module-expansion",
+      "name": "방 모듈 증축 상태 UI",
+      "assetType": "ui_set",
+      "request": "위층·옆방·지하실 연결 슬롯, 선택된 모듈 유령, 유효·무효·자원 부족·접속 불가 상태, 비용과 확인·취소를 공간 위에 간결하게 보여주는 UI 세트. 캠프 전체를 덮는 관리 화면이 아니라 기존 공간과 김씨를 유지한 현장형 오버레이이며 1280×800, ko/en, 게임패드 포커스를 지원한다.",
+      "status": "needed",
+      "source": "forge-director",
+      "tags": [
+        "module-expansion",
+        "placement-ghost",
+        "valid-invalid",
+        "localization-ready"
+      ],
+      "dependencies": [
+        "background.modular-island-camp",
+        "ui.survival-hud"
+      ],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-23T04:07:47.303Z",
+      "updatedAt": "2026-08-23T04:08:14.608Z"
     }
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260823040814_b487a41e",
+  "createdAt": "2026-08-23T04:08:14.485Z",
+  "updatedAt": "2026-08-23T04:08:14.485Z",
+  "sourceRequest": "Forge 12개 플레이어 행동 제한 안에서 건설·확장과 먹기·휴식을 결합해 탈출 행동을 보존한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-23T04:08:14.485Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T04:08:14.485Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T04:08:14.485Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T04:08:14.485Z"
+    }
+  }
+}

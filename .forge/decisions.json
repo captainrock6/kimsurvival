@@ -133,7 +133,35 @@
       "rationale": "Day 2에 W2/D1을 지불한 뒤 Day 3의 6칸 W6/D6 원정으로 두 신호 단계를 완성하고 W3/D3이 남는 자연 장부가 성립한다. 구조 자원과 경쟁하는 선택 비용은 유지하되 밧줄 데이터 모델은 건드리지 않는다.",
       "source": "user-and-codex",
       "createdAt": "2026-08-23T01:52:41.795Z"
+    },
+    {
+      "id": "decision.wave9-spatial-base-camp",
+      "summary": "베이스캠프는 김씨가 직접 이동해 물리적 설비에 접근·상호작용하는 측면 절개형 주 플레이 공간으로 재기준한다.",
+      "rationale": "사용자가 승인한 목업과 This War of Mine에서 참고한 공간적 상호작용 감각을 반영하되 고유 화면·아트는 복제하지 않는다.",
+      "source": "user-confirmed",
+      "createdAt": "2026-08-23T04:07:47.172Z"
+    },
+    {
+      "id": "decision.wave9-contextual-ui-not-dashboard",
+      "summary": "캠프 행동은 근접 안내 뒤 설비 전용 소형 팝업으로 제공하고 화면 대부분을 덮는 상시 전역 대시보드는 채택하지 않는다.",
+      "rationale": "캠프를 메뉴가 아니라 직접 살아가는 공간으로 느끼게 하고 설비의 위치와 이동 동선을 실제 플레이 결정으로 만든다.",
+      "source": "user-confirmed",
+      "createdAt": "2026-08-23T04:07:47.172Z"
+    },
+    {
+      "id": "decision.wave9-modular-expansion",
+      "summary": "공간 증축은 위·옆·지하 연결 슬롯에 규격 방 모듈을 붙이고 그 내부에 설비를 제한적으로 자유 배치하는 방식으로 검증한다.",
+      "rationale": "복층·옆 확장·지하 굴착의 시각적 성장을 살리면서 픽셀 건축과 구조 시뮬레이션으로 범위가 폭발하는 것을 막는다.",
+      "source": "user-confirmed-and-slice-scope",
+      "createdAt": "2026-08-23T04:07:47.172Z"
+    },
+    {
+      "id": "decision.wave8-dashboard-art-rejected",
+      "summary": "Wave 8의 대형 캠프 대시보드형 아트 후보는 새 공간형 베이스캠프 방향과 맞지 않아 런타임 리소스로 채택하지 않는다.",
+      "rationale": "사용자가 기존 UI 방식이 의도와 다르다고 명확히 피드백했으며 새 승인 목업은 직접 이동과 상황형 팝업을 기준으로 한다.",
+      "source": "user-feedback",
+      "createdAt": "2026-08-23T04:07:47.172Z"
     }
   ],
-  "updatedAt": "2026-08-23T02:08:06.197Z"
+  "updatedAt": "2026-08-23T04:08:14.485Z"
 }

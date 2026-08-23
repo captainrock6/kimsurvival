@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260823040747_8281d3f8",
+  "createdAt": "2026-08-23T04:07:47.172Z",
+  "updatedAt": "2026-08-23T04:07:47.172Z",
+  "sourceRequest": "승인된 공간형 베이스캠프 목업을 기준으로 직접 이동·설비별 근접 상호작용·최소 HUD·위/옆/지하 모듈 증축 방식으로 전면 재기준하고 다음 4개 작업을 준비한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-23T04:07:47.172Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T04:07:47.172Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T04:07:47.172Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T04:07:47.172Z"
+    }
+  }
+}
