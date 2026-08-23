@@ -880,11 +880,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 322381490143247
-    m_Localized: 'Cannot commit: no provisional cost configured'
+    m_Localized: 'Cannot commit: cost data is missing'
     m_Metadata:
       m_Items: []
   - m_Id: 322381490143248
-    m_Localized: Provisional unlock requirement is not met
+    m_Localized: Workbench required
     m_Metadata:
       m_Items: []
   - m_Id: 322381490143249
@@ -902,7 +902,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 322381490143252
-    m_Localized: "TBD_BALANCE provisional \xB7 Wood {0} + Stone {1} + Salvage {2}"
+    m_Localized: "Locked cost \xB7 Wood {0} + Stone {1} + Salvage {2}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
@@ -916,11 +916,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 322381490143255
-    m_Localized: No provisional cost is configured; nothing was committed.
+    m_Localized: Cost data is missing; nothing was committed.
     m_Metadata:
       m_Items: []
   - m_Id: 322381494337536
-    m_Localized: The provisional unlock requirement is not met.
+    m_Localized: Build the workbench before committing a room.
     m_Metadata:
       m_Items: []
   - m_Id: 322381494337537
