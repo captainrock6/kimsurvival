@@ -15,6 +15,7 @@ namespace KimSurvival
     {
         Valid,
         NoConnectionSlot,
+        SlotUnavailable,
         Overlap,
         TerrainBlocked,
         PathBlocked
@@ -251,6 +252,21 @@ namespace KimSurvival
         {
             return Definitions[(int)archetype];
         }
+
+        public static bool TryGetByStartSlotId(string startSlotId, out CampModuleDefinition definition)
+        {
+            for (int i = 0; i < Definitions.Length; i += 1)
+            {
+                if (string.Equals(Definitions[i].StartSlotId, startSlotId, StringComparison.Ordinal))
+                {
+                    definition = Definitions[i];
+                    return true;
+                }
+            }
+
+            definition = default(CampModuleDefinition);
+            return false;
+        }
     }
 
     public sealed class CampModuleValidationContext
@@ -259,6 +275,7 @@ namespace KimSurvival
         {
             OccupiedRoomBounds = new List<Rect> { PrototypeCampModuleCatalog.StartRoomBounds };
             HasMatchingConnectionSlot = true;
+            ConnectionSlotAvailable = true;
             TerrainAllowsCandidate = true;
             ConnectorClear = true;
             RequiredPathClear = true;
@@ -266,6 +283,7 @@ namespace KimSurvival
 
         public List<Rect> OccupiedRoomBounds { get; }
         public bool HasMatchingConnectionSlot { get; set; }
+        public bool ConnectionSlotAvailable { get; set; }
         public bool TerrainAllowsCandidate { get; set; }
         public bool ConnectorClear { get; set; }
         public bool RequiredPathClear { get; set; }
@@ -275,6 +293,7 @@ namespace KimSurvival
             CampModuleValidationContext clone = new CampModuleValidationContext
             {
                 HasMatchingConnectionSlot = HasMatchingConnectionSlot,
+                ConnectionSlotAvailable = ConnectionSlotAvailable,
                 TerrainAllowsCandidate = TerrainAllowsCandidate,
                 ConnectorClear = ConnectorClear,
                 RequiredPathClear = RequiredPathClear
@@ -307,6 +326,56 @@ namespace KimSurvival
         public bool CanCommit
         {
             get { return Geometry == CampModuleGeometryStatus.Valid && Economy == CampModuleEconomyStatus.Ready; }
+        }
+    }
+
+    public static class PrototypeCampModuleReasonKeys
+    {
+        public static string Geometry(CampModuleGeometryStatus status)
+        {
+            switch (status)
+            {
+                case CampModuleGeometryStatus.NoConnectionSlot:
+                    return "interaction.module.no_slot";
+                case CampModuleGeometryStatus.SlotUnavailable:
+                    return "interaction.module.slot_unavailable";
+                case CampModuleGeometryStatus.Overlap:
+                    return "interaction.module.overlap";
+                case CampModuleGeometryStatus.TerrainBlocked:
+                    return "interaction.module.terrain_blocked";
+                case CampModuleGeometryStatus.PathBlocked:
+                    return "interaction.module.path_blocked";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string Economy(CampModuleEconomyStatus status)
+        {
+            switch (status)
+            {
+                case CampModuleEconomyStatus.Locked:
+                    return "interaction.module.locked_workbench";
+                case CampModuleEconomyStatus.Short:
+                    return "interaction.module.missing";
+                case CampModuleEconomyStatus.PrototypeLimit:
+                    return "interaction.module.prototype_limit";
+                case CampModuleEconomyStatus.Ready:
+                    return "interaction.module.ready";
+                default:
+                    return "module.economy.costunset";
+            }
+        }
+
+        public static string Primary(CampModuleEvaluation evaluation)
+        {
+            if (evaluation.Economy == CampModuleEconomyStatus.PrototypeLimit)
+            {
+                return Economy(evaluation.Economy);
+            }
+
+            string geometry = Geometry(evaluation.Geometry);
+            return string.IsNullOrEmpty(geometry) ? Economy(evaluation.Economy) : geometry;
         }
     }
 
@@ -363,17 +432,27 @@ namespace KimSurvival
 
         public bool BeginPreview(CampModuleReturnSnapshot snapshot)
         {
+            return BeginPreview(snapshot, CampModuleArchetype.Upper);
+        }
+
+        public bool BeginPreview(CampModuleReturnSnapshot snapshot, CampModuleArchetype initialArchetype)
+        {
             if (IsPreviewActive || TransactionGuard == CampModuleTransactionGuard.Validating)
             {
                 return false;
             }
 
             returnSnapshot = snapshot;
-            selectedArchetype = CampModuleArchetype.Upper;
+            selectedArchetype = initialArchetype;
             seenCandidates[(int)selectedArchetype] = true;
             IsPreviewActive = true;
             TransactionGuard = CampModuleTransactionGuard.Idle;
             return true;
+        }
+
+        public bool ResumePreview(CampModuleReturnSnapshot snapshot)
+        {
+            return BeginPreview(snapshot, selectedArchetype);
         }
 
         public void Cycle(int direction)
@@ -491,6 +570,10 @@ namespace KimSurvival
                 string.IsNullOrWhiteSpace(definition.StartSlotId) || string.IsNullOrWhiteSpace(definition.ReciprocalSlotId))
             {
                 return CampModuleGeometryStatus.NoConnectionSlot;
+            }
+            if (!context.ConnectionSlotAvailable)
+            {
+                return CampModuleGeometryStatus.SlotUnavailable;
             }
 
             Rect candidate = definition.Bounds;

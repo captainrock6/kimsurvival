@@ -19,11 +19,16 @@ controls.camp.popup.keyboard_mouse	{0} · 방향키로 행동 선택 · Enter �
 controls.camp.popup.gamepad	{0} · 방향 패드로 행동 선택 · A 확인\nB 취소 · 이동 잠김 · Y 언어	{0} · D-pad select · A confirm\nB cancel · Movement locked · Y language	⟦{0} · D-pad séléct · A cóñfírm\nB cáñcél · Móvéméñt lóckéd · Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 camp.interaction.prompt.keyboard_mouse	[E] {0} 사용	[E] Use {0}	⟦[E] Úsé {0}áéí⟧
 camp.interaction.prompt.gamepad	[X] {0} 사용	[X] Use {0}	⟦[X] Úsé {0}áéí⟧
+input.glyph.interact.keyboard_mouse	[E]	[E]	[E]·
+input.glyph.interact.gamepad	[X]	[X]	[X]·
+interaction.structure.prompt	{0} {1} {2}	{0} {2} {1}	⟦{0} {2} {1} ·⟧
+interaction.action.preview	미리보기	Preview	⟦Prévíéwá⟧
 camp.popup.title	{0}	{0}	{0}¿
 camp.popup.detail.campfire	먹거나 오늘의 생존 준비를 하고, 설치 위치를 다시 잡는다.	Eat, prepare today's survival bonus, or move the installation.	⟦Éát, prépáré tódáy's súrvívál bóñús, ór móvé thé íñstállátíóñ.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.workbench	제작·연구·수리·가방 확장은 이 작업대에서만 한다.	Craft, research, repair, and upgrade the bag at this workbench.	⟦Cráft, réséárch, répáír, áñd úpgrádé thé bág át thís wórkbéñch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.rain	탁 트인 하늘 아래에서 빗물을 받아 오늘의 회복을 준비한다.	Collect rain under open sky to prepare today's recovery.	⟦Cólléct ráíñ úñdér ópéñ sky tó prépáré tódáy's récóvéry.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 camp.popup.detail.signal	전용 앵커의 구조 신호대에 단계별 자원을 투입한다.	Invest stage resources in the rescue signal at its dedicated anchor.	⟦Íñvést stágé résóúrcés íñ thé réscúé sígñál át íts dédícátéd áñchór.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+camp.popup.detail.module_slot	이 연결 슬롯에서 방 확장 후보를 미리 본다. 확정 비용은 나무 2와 표류물 1이다.	Preview room expansion from this connection slot. Commit cost is Wood 2 and Salvage 1.	⟦Prévíéw róóm éxpáñsíóñ fróm thís cóññéctíóñ slót. Cómmít cóst ís Wóód 2 áñd Sálvágé 1.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüáé⟧
 camp.popup.detail.generic	이 설비의 행동을 선택한다.	Choose an action owned by this facility.	⟦Chóósé áñ áctíóñ ówñéd by thís fácílíty.áéíóúüñ¿¡áéíóúü⟧
 controls.explore	{0} · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환 · F1/Y 언어	{0} · A/D or stick move · Auto-swim at shore · Space/A jump · E/X search · R/B return · F1/Y language	⟦{0} · A/D ór stíck móvé · Áútó-swím át shóré · Space/A júmp · E/X séárch · R/B rétúrñ · F1/Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 controls.explore.keyboard_mouse	{0} · A/D 이동 · 해안 자동 수영 · Space 점프 · E 수색 · R 귀환\n가방 교체 1–{1} · Esc 포기 · F1 언어	{0} · A/D move · Auto-swim · Space jump · E search · R return\nReplace bag 1–{1} · Esc discard · F1 language	⟦{0} · A/D móvé · Áútó-swím · Space júmp · E séárch · R rétúrñ\nRéplácé bág 1–{1} · Esc díscárd · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
@@ -177,10 +182,25 @@ structure.module_connector	{0} 출입 연결부	{0} entrance connector	⟦{0} é
 camp.popup.detail.storage	현장의 작은 계획 지점이다. 일반 설비를 옮기거나 방 모듈 후보를 미리 본다.	A small on-site planning point. Move general facilities or preview room-module candidates.	⟦A smáll óñ-síté pláññíñg póíñt. Móvé géñérál fácílítíés ór prévíéw róóm-módúlé cáñdídátés.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 button.module.preview	방 모듈 증축 미리보기	Preview room expansion	⟦Prévíéw róóm éxpáñsíóñáéíóúüñ⟧
 button.module.preview.complete	방 모듈 증축 완료	Room expansion complete	⟦Róóm éxpáñsíóñ cómplétéáéíóúüñ¿⟧
+ui.module.expand	방 확장 미리보기	Preview Room Expansion	⟦Prévíéw Róóm Éxpáñsíóñáéíóúü⟧
 module.name.upper	위층 방	Upper room	⟦Úppér róómáé⟧
 module.name.side	옆방	Side room	⟦Sídé róómáé⟧
 module.name.basement	지하실	Basement	⟦Báséméñtá⟧
 module.preview.summary	{0} · 증축 후보\n{1}\n{2}\n{3}	{0} · Expansion preview\n{1}\n{2}\n{3}	⟦{0} · Éxpáñsíóñ prévíéw\n{1}\n{2}\n{3}áéíóúüñ¿¡áéíóú⟧
+module.preview.narration	{0} 연결 슬롯을 살핀다. 확정 전까지 캠프 상태는 바뀌지 않는다.	Inspecting the {0} connection slot. Camp state stays unchanged until commit.	⟦Íñspéctíñg thé {0} cóññéctíóñ slót. Cámp státé stáys úñcháñgéd úñtíl cómmít.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
+ui.module.preview.cost	{0} · 나무 {1} · 표류물 {2}\n{3}	{0} · Wood {1} · Salvage {2}\n{3}	⟦{0} · Wóód {1} · Sálvágé {2}\n{3}áéíóúüñ¿¡⟧
+interaction.module.no_slot	연결 슬롯이 맞지 않는다.	No matching connection slot.	⟦Ñó mátchíñg cóññéctíóñ slót.áéíóúüñ¿¡á⟧
+interaction.module.slot_unavailable	이 연결 슬롯은 사용할 수 없다.	This connection slot is unavailable.	⟦Thís cóññéctíóñ slót ís úñáváíláblé.áéíóúüñ¿¡áéíó⟧
+interaction.module.overlap	다른 공간과 겹친다.	Overlaps another room.	⟦Óvérláps áñóthér róóm.áéíóúüñ¿¡⟧
+interaction.module.terrain_blocked	이 방향의 지형에는 붙일 수 없다.	The terrain blocks this room.	⟦Thé térráíñ blócks thís róóm.áéíóúüñ¿¡áé⟧
+interaction.module.path_blocked	출입구나 필수 통로를 막는다.	Blocks an entrance or required path.	⟦Blócks áñ éñtráñcé ór réqúíréd páth.áéíóúüñ¿¡áéíó⟧
+interaction.module.locked_workbench	작업대 필요	Workbench Required	⟦Wórkbéñch Réqúírédáéíóúü⟧
+interaction.module.missing	{0} 부족 · {1}	Missing for {0} · {1}	⟦Míssíñg fór {0} · {1}áéíóúüñ¿⟧
+interaction.module.missing.wood_salvage	{0} {1}, {2} {3}	{0} {1}, {2} {3}	⟦{0} {1}, {2} {3}áéíóú⟧
+interaction.module.missing.wood	{0} {1}	{0} {1}	⟦{0} {1}á⟧
+interaction.module.missing.salvage	{0} {1}	{0} {1}	⟦{0} {1}á⟧
+interaction.module.prototype_limit	첫 확장은 이미 완성했다.	The first expansion is already complete.	⟦Thé fírst éxpáñsíóñ ís álréády cómplété.áéíóúüñ¿¡áéíóú⟧
+interaction.module.ready	확정 가능	Ready to commit	⟦Réády tó cómmítáéíóú⟧
 module.geometry.valid	연결 슬롯·겹침·지형·필수 통로: 유효	Connection, overlap, terrain, required path: valid	⟦Cóññéctíóñ, óvérláp, térráíñ, réqúíréd páth: válídáéíóúüñ¿¡áéíóúüñ¿¡á⟧
 module.geometry.noconnectionslot	연결 슬롯 불일치	No matching connection slot	⟦Ñó mátchíñg cóññéctíóñ slótáéíóúüñ¿¡⟧
 module.geometry.overlap	기존 방과 겹침	Overlaps an existing room	⟦Óvérláps áñ éxístíñg róómáéíóúüñ¿¡⟧
@@ -213,3 +233,5 @@ world.module.planning	설비·증축 계획	Facilities · Expansion	⟦Fácílí
 world.module.room	{0} · placeholder 실내	{0} · Placeholder interior	⟦{0} · Plácéhóldér íñtéríóráéíóúüñ¿¡⟧
 world.module.preview.valid	◇ {0} · {2}\n{1}	◇ {0} · {2}\n{1}	⟦◇ {0} · {2}\n{1}áéíóú⟧
 world.module.preview.invalid	× {0} · {2}\n{1}	× {0} · {2}\n{1}	⟦× {0} · {2}\n{1}áéíóú⟧
+world.module.preview.slot.valid	◇ {0}	◇ {0}	⟦◇ {0}⟧
+world.module.preview.slot.invalid	× {0}	× {0}	⟦× {0}⟧

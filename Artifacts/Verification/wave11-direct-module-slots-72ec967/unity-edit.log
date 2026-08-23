@@ -1,0 +1,415 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.4/staging' branch; Version is '6000.4.9f1 (f7258d6eebbe) revision 16197005'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26200) Core' Language: 'ko' Physical Memory: 32627 MB
+[Licensing::IpcConnector] Channel LicenseClient-dev doesn't exist
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-08-23T10:01:49Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 21264)
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe
+-batchmode
+-nographics
+-quit
+-projectPath
+C:\Users\dev\.codex\worktrees\2266\신규 개발 본부
+-executeMethod
+KimSurvival.EditorTools.PrototypeProjectBuilder.RunEditChecks
+-logFile
+C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\unity-edit.log
+Successfully changed project path to: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부
+C:/Users/dev/.codex/worktrees/2266/신규 개발 본부
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Player connection [54672]  Target information:
+
+Player connection [54672]  * "[IP] 192.168.0.5 [Port] 55504 [Flags] 2 [Guid] 3777914750 [EditorId] 3777914750 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-H711UR9) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [54672]  * "[IP] 172.27.80.1 [Port] 55504 [Flags] 2 [Guid] 3777914750 [EditorId] 3777914750 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-H711UR9) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [54672] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [54672] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-61024" after 0.2 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-dev" at "2026-08-23T10:01:50.1703697Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 21264, path: "C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              868cb5ebc240497b8aa183b34f59cd45
+  Correlation Id:          17e4371c793f4cb38928a17025d51fb3
+  External correlation Id: 508388084783514624
+  Machine Id:              mSOBTnAarU5uXMmmUI7HDbfqLE8=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-dev" (connect: 0.37s, validation: 0.15s, handshake: 0.02s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-dev-notifications" at "2026-08-23T10:01:50.3464047Z"
+[Licensing::Module] Connected to LicensingClient (PId: 21264, launch time: 0.00, total connection time: 0.55s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 14569761163154-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.58s
+[Licensing::Module] Licensing is initialized (took 0.22s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.4.9f1 (f7258d6eebbe)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/dev/.codex/worktrees/2266/신규 개발 본부/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56024
+CodeReloadManager initialized
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+[Licensing::Client] Successfully resolved entitlement details
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+[Licensing::Client] Successfully resolved entitlement details
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.4.9f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Registered in 0.005190 seconds.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.316 seconds
+Domain Reload Profiling: 677ms
+	BeginReloadAssembly (110ms)
+		CreateAndSetChildDomain (15ms)
+	RebuildCommonClasses (29ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (51ms)
+	LoadAllAssembliesAndSetupDomain (161ms)
+		LoadAssemblies (94ms)
+		AnalyzeDomain (153ms)
+			TypeCache.Refresh (152ms)
+				TypeCache.ScanAssembly (141ms)
+	FinalizeReload (317ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (48ms)
+			BeforeProcessingInitializeOnLoad (66ms)
+			ProcessInitializeOnLoadAttributes (84ms)
+			ProcessInitializeOnLoadMethodAttributes (67ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 45 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.localization@1.5.12 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.localization@b0a588a05f2a)
+    com.unity.addressables@2.9.1 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.addressables@8460f1c9c927)
+    com.unity.nuget.newtonsoft-json@3.2.2 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64)
+    com.unity.profiling.core@1.0.3 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.profiling.core@8a49f7027d06)
+    com.unity.scriptablebuildpipeline@2.6.1 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.scriptablebuildpipeline@36e3b5898ee2)
+  Built-in packages:
+    com.unity.multiplayer.center@1.0.1 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.multiplayer.center@f01f4ba8d00a)
+    com.unity.ugui@2.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.ugui@1f2d1ab0d950)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.vr@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.vr)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.test-framework@1.6.0 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.test-framework@76560ee600cb)
+    com.unity.ext.nunit@2.0.5 (location: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Library\PackageCache\com.unity.ext.nunit@d8c07649098d)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Starting: C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/dev/.codex/worktrees/2266/신규 개발 본부
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 3s359ms
+[358/364    1s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp.dll (+2 others)
+[359/364    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
+[360/364    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
+[361/364    0s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+[362/364    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[363/364    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (3.33 seconds), 6 items updated, 364 evaluated
+AssetDatabase: script compilation time: 3.662792s
+Begin MonoManager ReloadAssembly
+Total cache size 95072613
+Total cache size after purge 95072613, took 00:00:00.0411679
+Assembly Assembly-CSharp-Editor-firstpass.dll at Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll not valid. Loading of assembly skipped.
+Assembly Assembly-CSharp-firstpass.dll at Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll not valid. Loading of assembly skipped.
+Assembly TestNewCustomAssembly.dll at Library/ScriptAssemblies/TestNewCustomAssembly.dll not valid. Loading of assembly skipped.
+Assembly Unity.Addressables.Editor.Tests.dll at Library/ScriptAssemblies/Unity.Addressables.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Addressables.Runtime.Tests.dll at Library/ScriptAssemblies/Unity.Addressables.Runtime.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Localization.DocCodeSamples.dll at Library/ScriptAssemblies/Unity.Localization.DocCodeSamples.dll not valid. Loading of assembly skipped.
+Assembly Unity.Multiplayer.Center.Editor.Tests.dll at Library/ScriptAssemblies/Unity.Multiplayer.Center.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Multiplayer.Center.Tests.dll at Library/ScriptAssemblies/Unity.Multiplayer.Center.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.ResourceManager.Tests.dll at Library/ScriptAssemblies/Unity.ResourceManager.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.ScriptableBuildPipeline.Editor.Tests.dll at Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.ScriptableBuildPipeline.Tests.dll at Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.ScriptableBuildPipelineTests.Runtime.Tests.dll at Library/ScriptAssemblies/Unity.ScriptableBuildPipelineTests.Runtime.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.TextMeshPro.Editor.Tests.dll at Library/ScriptAssemblies/Unity.TextMeshPro.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.TextMeshPro.Tests.dll at Library/ScriptAssemblies/Unity.TextMeshPro.Tests.dll not valid. Loading of assembly skipped.
+Assembly UnityEditor.UI.Common.Tests.dll at Library/ScriptAssemblies/UnityEditor.UI.Common.Tests.dll not valid. Loading of assembly skipped.
+Assembly UnityEditor.UI.EditorTests.dll at Library/ScriptAssemblies/UnityEditor.UI.EditorTests.dll not valid. Loading of assembly skipped.
+Assembly UnityEngine.UI.Tests.dll at Library/ScriptAssemblies/UnityEngine.UI.Tests.dll not valid. Loading of assembly skipped.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.391 seconds
+Domain Reload Profiling: 2358ms
+	BeginReloadAssembly (173ms)
+		DisableScriptedObjects (23ms)
+		CreateAndSetChildDomain (42ms)
+	RebuildCommonClasses (27ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (1562ms)
+	LoadAllAssembliesAndSetupDomain (195ms)
+		LoadAssemblies (201ms)
+		AnalyzeDomain (66ms)
+			TypeCache.Refresh (51ms)
+				TypeCache.ScanAssembly (42ms)
+			BuildScriptInfoCaches (12ms)
+	FinalizeReload (391ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (30ms)
+			BeforeProcessingInitializeOnLoad (98ms)
+			ProcessInitializeOnLoadAttributes (103ms)
+			ProcessInitializeOnLoadMethodAttributes (45ms)
+			AfterProcessingInitializeOnLoad (4ms)
+		AwakeInstancesAfterBackupRestoration (15ms)
+(Values over 0.050ms)
+Asset Pipeline Refresh (id=6a5c3344abe15a44d9e4b1b4e292ea91): Total: 6.263 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=535 ms
+		Asset DB Callback time: managed=65 ms, native=13 ms
+		Scripting: domain reloads=1, domain reload time=1969 ms, compile time=3664 ms, other=14 ms
+		Project Asset Count: scripts=527, non-scripts=1100
+		Asset File Changes: new=0, changed=2, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 12.891ms
+	ApplyChangesToAssetFolders: 0.489ms
+	Scan: 39.390ms
+	OnSourceAssetsModified: 0.704ms
+	CategorizeScriptCompilationAssets: 9.503ms
+	ProcessAssetsWithTransientArtifactChanges: 15.428ms
+	CategorizeAssets: 11.282ms
+	CompileScripts: 3664.142ms
+	ImportOutOfDateAssets: 394.858ms (392.892ms without children)
+		UnloadImportedAssets: 1.143ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.332ms
+		OnDemandSchedulerStart: 0.458ms
+	PostProcessAllAssets: 66.285ms
+		VCAutoAddAssetPostprocess 0.824ms
+		XRBuildSystem.XRAssetImported 0.093ms
+		MonoPostProcessAllAssets: 64.926ms
+			AssetPostprocessor.OnPostprocessAllAssets 28.378ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 9.909ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 5.421ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 4.454ms
+			AddressablesAssetPostProcessor.OnPostprocessAllAssets 2.274ms
+			AssetChangedListener.OnPostprocessAllAssets 1.312ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 0.945ms
+			SyncVS.PostprocessSyncProject 0.831ms
+			LocalizationAssetPostProcessor.OnPostprocessAllAssets 0.820ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 0.612ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.379ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.344ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.273ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.265ms
+			AssetPathToTypes.OnPostprocessAllAssets 0.217ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.188ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.164ms
+			AssetEvents.OnPostprocessAllAssets 0.162ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.125ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.121ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.088ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.087ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.079ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.053ms
+	PostAssetChangesProfiler: 0.763ms
+	UnloadStreamsBegin: 1.337ms
+	PersistCurrentRevisions: 0.083ms
+	GenerateScriptTypeHashes: 1.168ms
+	GenerateScriptTypeSerializationHashes: 1.997ms
+	Untracked: 2042.032ms
+
+Application.AssetDatabase Initial Refresh End
+Scanning for USB devices : 1.717ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-김씨 생존기: 무인도
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1927 unused Assets / (1.5 MB). Loaded Objects now: 2607.
+Memory consumption went from 113.2 MB to 111.7 MB.
+Total: 5.034300 ms (FindLiveObjects: 0.145600 ms CreateObjectMapping: 0.078000 ms MarkObjects: 4.167000 ms  DeleteObjects: 0.641700 ms)
+
+Start importing ProjectSettings/EditorBuildSettings.asset using Guid(0000000000000000b000000000000000) (LibraryAssetImporter) -> (Import Result ID: '27025b8c241693f039c9608f581ee84a') in 0.0046441 seconds [static dependencies only]. Details - ImportResultOutputID=d777934f36c664454d62eda103573334 DependenciesID=f2fb815c2e0e3a44cdfbae3bceb8ce2e StaticDependenciesID=8a23241a6202d48e61c8fc4797a982eb 
+Start importing Assets/_Project/Scripts/Localization/Tables/Prototype Strings.asset using Guid(2030e4d7d1b852a47a6694c24edd68fa) (NativeFormatImporter) -> (Import Result ID: '1c94ce67c0eb2986ebcfb1fd7b368c24') in 0.0011869 seconds [static dependencies only]. Details - ImportResultOutputID=8f714bf6d577cba748f4d8ca9524e184 DependenciesID=dad768ef867a88b0582d5c22a95dde10 StaticDependenciesID=c43ede241f7ea550c4422b6cbb3df8c7 
+Start importing Assets/_Project/Scripts/Localization/Tables/Prototype Strings_ko.asset using Guid(50ac78983dcf37b4cbca3f5e1081d75a) (NativeFormatImporter) -> (Import Result ID: 'd0274cf6095b25ca02d3ef5d30458df8') in 0.0012694 seconds [static dependencies only]. Details - ImportResultOutputID=ff516d26cd6acc9d9fd5e43b54ca9dcc DependenciesID=fb9598284e44cf0cd5f879254b0916fb StaticDependenciesID=56f6c1abcfc9998145a8e125c66e667f 
+Start importing Assets/_Project/Scripts/Localization/Locales/Korean (ko).asset using Guid(32a7527f01f2e1f439c0bf6984e10803) (NativeFormatImporter) -> (Import Result ID: '3469e86f070b2d0db5156a27e8895833') in 0.0011838 seconds [static dependencies only]. Details - ImportResultOutputID=54d360784f6ddb6fcf13681575fad57f DependenciesID=3fd2294db5dc82e17ce2a5ee0ad004b8 StaticDependenciesID=94613e3cc300bc26439d3afc07f77c90 
+Start importing Assets/_Project/Scripts/Localization/Locales/English (en).asset using Guid(236508575959d004b9b63bd87c164a4d) (NativeFormatImporter) -> (Import Result ID: 'ee574483cbb245657e35c27ab1605bb8') in 0.0012969 seconds [static dependencies only]. Details - ImportResultOutputID=9b2d1ce701e8623e6ed657c56201105c DependenciesID=4f7c8cbd4ee8314ef29ae6bda9cd2bbe StaticDependenciesID=1b14c9d473b28a21c43714bf457051d0 
+Start importing Assets/_Project/Scripts/Localization/Tables/Prototype Strings_en.asset using Guid(56c0c296c5594b14fad34bc18072b74c) (NativeFormatImporter) -> (Import Result ID: 'd02769743c6e9ed5b98937f67848da6a') in 0.0011001 seconds [static dependencies only]. Details - ImportResultOutputID=9e9375ec7cd0062ce2edbf7b6a94c8d8 DependenciesID=2e020f177843bc21cbbc77c011dc0987 StaticDependenciesID=85d0b339a68d8962f1f1619528d2aa71 
+Start importing Assets/_Project/Scripts/Localization/Tables/Prototype Strings Shared Data.asset using Guid(b7940e419db960640a46f666a136b29c) (NativeFormatImporter) -> (Import Result ID: '391599a6ac7176032f98c91bf76f20c8') in 0.0010197 seconds [static dependencies only]. Details - ImportResultOutputID=1ab9ebab4718977045d7e2f1c5a7f17b DependenciesID=502fa682019118a634884a931d5c0eea StaticDependenciesID=fd20b7e3a195e1d5a7ee50d3cf27fcc0 
+Start importing Assets/_Project/Scripts/Localization/PrototypeLocalizationSettings.asset using Guid(690a17c04ca11624db005121aa65558a) (NativeFormatImporter) -> (Import Result ID: 'f626ecbbc3b23ed18ec5d037dcee0ef2') in 0.0010851 seconds [static dependencies only]. Details - ImportResultOutputID=f3d8034497baf4563c36d9aed306ac95 DependenciesID=0a578440e5b2ae40fdbaed19a880d6b2 StaticDependenciesID=524a66e19dd9174d5245762042b2c534 
+Start importing Assets/_Project/Scripts/Localization/Resources/PrototypeLocaleFontProfile.asset using Guid(5b42876e15a99064c8f19eb322ec0a73) (NativeFormatImporter) -> (Import Result ID: '8a734bf57b6e222ad40e919dddd8dafc') in 0.0011713 seconds [static dependencies only]. Details - ImportResultOutputID=50c47e46a63422563db9ccfc036da1bd DependenciesID=199916b13cc42e34ae1247e9c7682743 StaticDependenciesID=0567edcf3ff35486c4c430538fd44d7b 
+Start importing Assets/_Project/Scripts/Localization/Locales/Pseudo Long (qps-long).asset using Guid(db7cb9a17063a8249b68e48985abbb1a) (NativeFormatImporter) -> (Import Result ID: '8321349c91e4ae5e0a89d2010a682735') in 0.0012391 seconds [static dependencies only]. Details - ImportResultOutputID=f74409401674bb20af0ac56647d813a7 DependenciesID=4ac19d6f623345e9a431317b4a8b3137 StaticDependenciesID=da201b045f26299d77b68317b9facb49 
+Start importing Assets/_Project/Scripts/Localization/Tables/Prototype Strings_qps-long.asset using Guid(8eeb9ed4d5121144081b64d13e11ac13) (NativeFormatImporter) -> (Import Result ID: '4b7c373e3329cc9b1c392d2b0b58bec1') in 0.0012677 seconds [static dependencies only]. Details - ImportResultOutputID=01edca830b003fd4f8e6627f577aca01 DependenciesID=ec7ab0faff0bcda73db843649bbe6ac4 StaticDependenciesID=fce65623d8f5ec071dc2345a7b790cfe 
+Asset Pipeline Refresh (id=35aecdd1278853e4ba1a5c61a60dd8ea): Total: 0.063 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=6dafc3088d9d9e244abad7b72f4ed046): Total: 0.006 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+[Kim Survival Localization] Synced player ko/en plus non-shipping qps-long String Tables, Korean fallback, and locale font profile.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+KimSurvival.EditorTools.PrototypeLocalizationAssetBuilder:SyncAssets () (at Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs:75)
+KimSurvival.EditorTools.PrototypeProjectBuilder:RunEditChecks () (at Assets/_Project/Scripts/Editor/PrototypeProjectBuilder.cs:98)
+
+(Filename: Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs Line: 75)
+
+[Kim Survival Localization] Missing localization data; Korean fallback requested: en:dev.fallback_probe
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+KimSurvival.PrototypeLocalization:ReportMissing (string) (at Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs:371)
+KimSurvival.PrototypeLocalization:Format (string,object[]) (at Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs:159)
+KimSurvival.EditorTools.PrototypeProjectBuilder:RunEditChecks () (at Assets/_Project/Scripts/Editor/PrototypeProjectBuilder.cs:329)
+
+(Filename: Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs Line: 371)
+
+[Kim Survival Localization] Missing localization data; Korean fallback requested: qps-long:dev.fallback_probe
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+KimSurvival.PrototypeLocalization:ReportMissing (string) (at Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs:371)
+KimSurvival.PrototypeLocalization:Format (string,object[]) (at Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs:159)
+KimSurvival.EditorTools.PrototypeProjectBuilder:RunEditChecks () (at Assets/_Project/Scripts/Editor/PrototypeProjectBuilder.cs:393)
+
+(Filename: Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs Line: 371)
+
+[Kim Survival] PASS · deterministic edit checks Started UTC: 2026-08-23T10:01:57.6708056Z Completed UTC: 2026-08-23T10:01:57.9083467Z Checks: Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit far/near latch and facing selection, exact target ID popup retention, ui.module.expand one-action ownership, approached-slot preview seed, upper-to-side-to-basement cycle, preview-to-same-popup-to-same-field Cancel snapshots, canonical interaction.module geometry/economy reasons and priority, locked W2/D1 no-spend and atomic one-module commit, secondary storage.planning entry, ko/en/qps-long String Tables with Smart String placeholders/digits/tags preserved, qps hidden from the persisted ko/en player cycle, keyboard/gamepad action-semantic invariance, qps font fallback mapping, explicit room enter/return, module general-floor placement and connector/path protection, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 signal/tool/barrier rules, adopted camp background/structure imports, swimming transitions and costs, crafting, rescue success, deadline failure 
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+KimSurvival.EditorTools.PrototypeProjectBuilder:RunEditChecks () (at Assets/_Project/Scripts/Editor/PrototypeProjectBuilder.cs:882)
+
+(Filename: Assets/_Project/Scripts/Editor/PrototypeProjectBuilder.cs Line: 882)
+
+Batchmode quit successfully invoked - shutting down!
+Curl error 42: Callback aborted
+Killing ADB server in 2.0468706 seconds.
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-dev-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-dev channel disconnected successfully.
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0

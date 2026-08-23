@@ -998,6 +998,105 @@ MonoBehaviour:
     m_Localized: One-module limit
     m_Metadata:
       m_Items: []
+  - m_Id: 349680558129152
+    m_Localized: '[E]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680604266496
+    m_Localized: '[X]'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680604266497
+    m_Localized: '{0} {2} {1}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680604266498
+    m_Localized: Preview
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680612655104
+    m_Localized: Preview room expansion from this connection slot. Commit cost is
+      Wood 2 and Salvage 1.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238016
+    m_Localized: Preview Room Expansion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238017
+    m_Localized: Inspecting the {0} connection slot. Camp state stays unchanged until
+      commit.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680625238018
+    m_Localized: "{0} \xB7 Wood {1} \xB7 Salvage {2}\n{3}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680625238019
+    m_Localized: No matching connection slot.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238020
+    m_Localized: This connection slot is unavailable.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238021
+    m_Localized: Overlaps another room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238022
+    m_Localized: The terrain blocks this room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238023
+    m_Localized: Blocks an entrance or required path.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238024
+    m_Localized: Workbench Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238025
+    m_Localized: "Missing for {0} \xB7 {1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680625238026
+    m_Localized: '{0} {1}, {2} {3}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680625238027
+    m_Localized: '{0} {1}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680625238028
+    m_Localized: '{0} {1}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680625238029
+    m_Localized: The first expansion is already complete.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238030
+    m_Localized: Ready to commit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680633626624
+    m_Localized: "\u25C7 {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 349680633626625
+    m_Localized: "\xD7 {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -1073,3 +1172,12 @@ MonoBehaviour:
         - id: 322381494337546
         - id: 322381494337547
         - id: 322381494337548
+        - id: 349680604266497
+        - id: 349680625238017
+        - id: 349680625238018
+        - id: 349680625238025
+        - id: 349680625238026
+        - id: 349680625238027
+        - id: 349680625238028
+        - id: 349680633626624
+        - id: 349680633626625

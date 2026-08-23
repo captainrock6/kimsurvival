@@ -34,8 +34,14 @@ namespace KimSurvival
         private const float ResourceLabelViewportPadding = 0.22f;
         private const float ResourceLabelSafeViewportRight = 0.74f;
         private const float MinimumSupportedAspect = 1.6f;
-        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.30f, 0.58f);
-        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.70f, 0.64f);
+        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.58f);
+        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.64f);
+        private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.56f);
+        private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.64f);
+        private static readonly Vector2 CampPopupDefaultAnchorMin = new Vector2(0.56f, 0.2f);
+        private static readonly Vector2 CampPopupDefaultAnchorMax = new Vector2(0.96f, 0.82f);
+        private static readonly Vector2 CampPopupModuleSlotAnchorMin = new Vector2(0.62f, 0.36f);
+        private static readonly Vector2 CampPopupModuleSlotAnchorMax = new Vector2(0.96f, 0.70f);
         private const float CampProximityPromptReferenceWidth = 1280f;
         private const float CampProximityPromptReferenceHeight = 800f;
         private const float StoragePlanningX = -3.5f;
@@ -113,6 +119,8 @@ namespace KimSurvival
         private GameObject campActions;
         private GameObject campInteractionPopup;
         private GameObject campProximityPrompt;
+        private GameObject campModuleReasonChip;
+        private TMP_Text campModuleReasonText;
         private GameObject bagPanel;
         private GameObject resultPanel;
         private TMP_Text resultTitleText;
@@ -138,6 +146,9 @@ namespace KimSurvival
         private GamePhase renderedPhase;
         private PrototypeLocalizedText campFeedback;
         private bool modulePreviewCycleLatched;
+        private PrototypeCampInteractionTargetKind modulePreviewReturnTargetKind;
+        private string modulePreviewReturnTargetId = string.Empty;
+        private bool modulePreviewCanResume;
 
         public GameSession Session
         {
@@ -329,7 +340,17 @@ namespace KimSurvival
             campProximityText.overflowMode = TextOverflowModes.Ellipsis;
             campProximityText.maxVisibleLines = 1;
 
-            campInteractionPopup = CreatePanel("설비 전용 소형 팝업", canvas.transform, new Vector2(0.56f, 0.2f), new Vector2(0.96f, 0.82f), Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.075f, 0.97f)).gameObject;
+            campModuleReasonChip = CreatePanel("방 증축 비용·사유 칩", canvas.transform, CampModuleReasonAnchorMin, CampModuleReasonAnchorMax, Vector2.zero, Vector2.zero, new Color(0.03f, 0.08f, 0.09f, 0.96f)).gameObject;
+            campModuleReasonText = CreateText("방 증축 비용·사유", campModuleReasonChip.transform, Vector2.zero, Vector2.one, new Vector2(16f, 4f), new Vector2(-16f, -4f), 22, TextAnchor.MiddleCenter, Color.white);
+            campModuleReasonText.fontStyle = FontStyles.Bold;
+            campModuleReasonText.enableAutoSizing = true;
+            campModuleReasonText.fontSizeMin = 18f;
+            campModuleReasonText.fontSizeMax = 22f;
+            campModuleReasonText.textWrappingMode = TextWrappingModes.Normal;
+            campModuleReasonText.overflowMode = TextOverflowModes.Overflow;
+            campModuleReasonText.maxVisibleLines = 2;
+
+            campInteractionPopup = CreatePanel("설비 전용 소형 팝업", canvas.transform, CampPopupDefaultAnchorMin, CampPopupDefaultAnchorMax, Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.075f, 0.97f)).gameObject;
             actionTitleText = CreateText("설비 팝업 제목", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -70f), new Vector2(-24f, -12f), 36, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
             campPopupDetailText = CreateText("설비 팝업 설명", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -154f), new Vector2(-24f, -76f), 28, TextAnchor.UpperLeft, new Color(0.9f, 0.96f, 0.91f));
 
@@ -341,7 +362,7 @@ namespace KimSurvival
             researchRopeButton = CreateCampPopupButton("밧줄 연구", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryResearch(TechKind.Rope); }); });
             craftRopeButton = CreateCampPopupButton("밧줄 제작", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryCraft(TechKind.Rope); }); });
             signalButton = CreateCampPopupButton("구조 신호 자원 투입", delegate { ExecuteConfirmedPopupAction(TryExecuteSignalAction); });
-            modulePreviewButton = CreateCampPopupButton("방 모듈 증축 미리보기", delegate { ExecuteConfirmedPopupTransition(BeginCampModulePreview); });
+            modulePreviewButton = CreateCampPopupButton("방 모듈 증축 미리보기", ExecuteConfirmedModulePreviewTransition);
             eatButton = CreateCampPopupButton("식량 먹기", delegate { ExecuteConfirmedPopupAction(session.UseFood); });
             prepareCampfireButton = CreateCampPopupButton("생존 준비", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.Campfire, "message.camp.use.campfire"); }); });
             collectRainButton = CreateCampPopupButton("빗물 받기", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain"); }); });
@@ -362,7 +383,7 @@ namespace KimSurvival
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
-            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campInteraction.Reset(); campModuleExpansion.Reset(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
+            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campInteraction.Reset(); campModuleExpansion.Reset(); ResetModulePreviewReturnRoute(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
         }
 
         private void HandlePhaseButton()
@@ -409,6 +430,7 @@ namespace KimSurvival
             campActions.SetActive(false);
             campInteractionPopup.SetActive(popup);
             campProximityPrompt.SetActive(camp && !placing && !modulePreview && !popup && campInteraction.HasProximityPrompt);
+            campModuleReasonChip.SetActive(modulePreview);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
             phaseButton.gameObject.SetActive(camp && !placing && !modulePreview && !popup);
             messagePanelImage.gameObject.SetActive(!popup && !result);
@@ -534,7 +556,11 @@ namespace KimSurvival
             SetButton(collectRainButton, localization.Format(campUse.IsDayBenefitPrepared(StructureKind.RainCollector) ? "button.rain.collect.done" : "button.rain.collect"), available && !campUse.IsDayBenefitPrepared(StructureKind.RainCollector));
             SetButton(repairButton, localization.Format("button.workbench.repair"), available);
             SetButton(cancelPopupButton, localization.Format("button.popup.cancel"), available);
-            SetButton(modulePreviewButton, localization.Format(campModuleExpansion.HasCommittedModule ? "button.module.preview.complete" : "button.module.preview"), available && !campModuleExpansion.HasCommittedModule);
+            bool directModuleSlot = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot;
+            SetButton(
+                modulePreviewButton,
+                localization.Format(directModuleSlot ? "ui.module.expand" : campModuleExpansion.HasCommittedModule ? "button.module.preview.complete" : "button.module.preview"),
+                available && (directModuleSlot || !campModuleExpansion.HasCommittedModule));
             string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "button.day.final" : "button.day.next") : "button.search.start";
             SetButton(phaseButton, localization.Format(phaseButtonKey), !campPlacement.IsActive && !campModuleExpansion.IsPreviewActive && !campInteraction.IsPopupOpen);
             UpdatePopupActionVisibility();
@@ -598,10 +624,10 @@ namespace KimSurvival
             campProximityPrompt.SetActive(camp && !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt);
             if (campInteraction.HasProximityPrompt)
             {
-                string targetName = FormatCampInteractionTarget(campInteraction.ActiveTargetKind);
-                campProximityText.text = localization.Format(
-                    PrototypeInputPromptKeys.CampProximity(playerInput.ActiveDevice),
-                    targetName);
+                campProximityText.text = FormatCampProximityPrompt(
+                    campInteraction.ActiveTargetKind,
+                    campInteraction.ActiveTargetId,
+                    playerInput.ActiveDevice);
             }
 
             if (!campInteraction.IsPopupOpen)
@@ -609,12 +635,31 @@ namespace KimSurvival
                 return;
             }
 
-            string openTargetName = FormatCampInteractionTarget(campInteraction.OpenPopupKind);
+            ConfigureCampPopupLayout(campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot);
+            string openTargetName = FormatCampInteractionTarget(campInteraction.OpenPopupKind, campInteraction.OpenPopupTargetId);
             actionTitleText.text = localization.Format("camp.popup.title", openTargetName);
             campPopupDetailText.text = localization.Format(CampPopupDetailKey(campInteraction.OpenPopupKind));
         }
 
-        private string FormatCampInteractionTarget(PrototypeCampInteractionTargetKind target)
+        private string FormatCampProximityPrompt(
+            PrototypeCampInteractionTargetKind target,
+            string targetId,
+            PrototypeInputDevice device)
+        {
+            string targetName = FormatCampInteractionTarget(target, targetId);
+            if (target != PrototypeCampInteractionTargetKind.ModuleExpansionSlot)
+            {
+                return localization.Format(PrototypeInputPromptKeys.CampProximity(device), targetName);
+            }
+
+            return localization.Format(
+                "interaction.structure.prompt",
+                localization.Format(PrototypeInputPromptKeys.InteractGlyph(device)),
+                targetName,
+                localization.Format("interaction.action.preview"));
+        }
+
+        private string FormatCampInteractionTarget(PrototypeCampInteractionTargetKind target, string targetId = "")
         {
             switch (target)
             {
@@ -628,6 +673,14 @@ namespace KimSurvival
                     return localization.Format("structure.rescue_signal");
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                     return localization.Format("structure.storage_planning");
+                case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
+                    if (PrototypeCampModuleCatalog.TryGetByStartSlotId(targetId, out CampModuleDefinition slotDefinition))
+                    {
+                        return localization.Format(
+                            "structure.module_connector",
+                            localization.Format(ModuleNameKey(slotDefinition.Archetype)));
+                    }
+                    return localization.Format("structure.module_connector", localization.Format("structure.generic"));
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
                     return localization.Format(
                         "structure.module_connector",
@@ -653,6 +706,8 @@ namespace KimSurvival
                     return "camp.popup.detail.signal";
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                     return "camp.popup.detail.storage";
+                case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
+                    return "camp.popup.detail.module_slot";
                 default:
                     return "camp.popup.detail.generic";
             }
@@ -702,6 +757,7 @@ namespace KimSurvival
                     return session.HasStructure(StructureKind.RainCollector);
                 case PrototypeCampInteractionTargetKind.RescueSignal:
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
+                case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return true;
                 default:
                     return false;
@@ -860,6 +916,10 @@ namespace KimSurvival
             }
 
             CreateStoragePlanningMarker(startRoom ? StoragePlanningX : ModulePlanningX);
+            if (startRoom)
+            {
+                CreateStartRoomModuleSlots();
+            }
 
             if (startRoom)
             {
@@ -967,6 +1027,46 @@ namespace KimSurvival
                 29f);
         }
 
+        private void CreateStartRoomModuleSlots()
+        {
+            IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
+            for (int i = 0; i < definitions.Count; i += 1)
+            {
+                CampModuleDefinition definition = definitions[i];
+                if (campModuleExpansion.HasCommittedModule && campModuleExpansion.CommittedArchetype == definition.Archetype)
+                {
+                    continue;
+                }
+
+                GameObject root = new GameObject("연결 슬롯 placeholder · " + definition.StartSlotId);
+                root.transform.SetParent(worldRoot, false);
+                root.transform.position = new Vector3(definition.StartConnectorDisplayX, PrototypeCampPlacement.FloorY + 0.44f, 0f);
+                Color outline = new Color(1f, 0.83f, 0.28f, 0.96f);
+                if (definition.Archetype == CampModuleArchetype.Side)
+                {
+                    CreateFootprintOutline(root.transform, new Vector2(0.72f, 1.26f), outline, null, Vector2.zero);
+                    CreateModuleSlotChevron(root.transform, new Vector2(0.62f, 0f), 0f, outline);
+                }
+                else
+                {
+                    CreateRect(root.transform, "연결 슬롯 hatch", Vector2.zero, new Vector2(1.12f, 0.18f), outline, 5);
+                    CreateModuleSlotChevron(
+                        root.transform,
+                        new Vector2(0f, definition.Archetype == CampModuleArchetype.Upper ? 0.52f : -0.5f),
+                        definition.Archetype == CampModuleArchetype.Upper ? 90f : -90f,
+                        outline);
+                }
+            }
+        }
+
+        private void CreateModuleSlotChevron(Transform parent, Vector2 position, float rotation, Color color)
+        {
+            GameObject first = CreateRect(parent, "연결 슬롯 chevron A", position + new Vector2(-0.14f, 0.12f), new Vector2(0.1f, 0.42f), color, 6);
+            GameObject second = CreateRect(parent, "연결 슬롯 chevron B", position + new Vector2(-0.14f, -0.12f), new Vector2(0.1f, 0.42f), color, 6);
+            first.transform.localRotation = Quaternion.Euler(0f, 0f, rotation - 45f);
+            second.transform.localRotation = Quaternion.Euler(0f, 0f, rotation + 45f);
+        }
+
         private void CreateCommittedModuleExterior()
         {
             CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
@@ -1064,10 +1164,8 @@ namespace KimSurvival
                 ? new Color(0.03f, 0.34f, 0.15f, 0.98f)
                 : new Color(0.5f, 0.05f, 0.04f, 0.98f);
             modulePreviewBadgeText.text = localization.Format(
-                valid ? "world.module.preview.valid" : "world.module.preview.invalid",
-                localization.Format(ModuleNameKey(evaluation.Definition.Archetype)),
-                localization.Format(ModuleGeometryKey(evaluation.Geometry)),
-                localization.Format(ModuleEconomyBadgeKey(evaluation.Economy)));
+                valid ? "world.module.preview.slot.valid" : "world.module.preview.slot.invalid",
+                localization.Format(ModuleNameKey(evaluation.Definition.Archetype)));
         }
 
         private void CreateModuleConnectorVisual(Transform parent, CampModuleConnectorKind kind, Vector2 position, bool valid)
@@ -1180,11 +1278,26 @@ namespace KimSurvival
             AddCampInteractionTarget(StructureKind.Workbench, PrototypeCampInteractionTargetKind.Workbench, startRoom);
             AddCampInteractionTarget(StructureKind.RainCollector, PrototypeCampInteractionTargetKind.RainCollector, startRoom);
             campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                "camp.storage-planning." + campUse.CurrentRoomId,
+                startRoom ? "storage.planning" : "storage.planning." + campUse.CurrentRoomId,
                 PrototypeCampInteractionTargetKind.StoragePlanning,
                 new Vector2(startRoom ? StoragePlanningX : ModulePlanningX, PrototypeCampPlacement.FloorY)));
             if (startRoom)
             {
+                IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
+                for (int i = 0; i < definitions.Count; i += 1)
+                {
+                    CampModuleDefinition definition = definitions[i];
+                    bool committedSlot = campModuleExpansion.HasCommittedModule &&
+                                         campModuleExpansion.CommittedArchetype == definition.Archetype;
+                    if (!committedSlot)
+                    {
+                        campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                            definition.StartSlotId,
+                            PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
+                            new Vector2(definition.StartConnectorDisplayX, PrototypeCampUse.PlayerFloorY)));
+                    }
+                }
+
                 campInteractionTargets.Add(new PrototypeCampInteractionTarget(
                     "camp.signal-anchor",
                     PrototypeCampInteractionTargetKind.RescueSignal,
@@ -1242,22 +1355,62 @@ namespace KimSurvival
             RefreshAll();
         }
 
-        private void BeginCampModulePreview()
+        private void ExecuteConfirmedModulePreviewTransition()
+        {
+            if (!campInteraction.TryConfirmAction())
+            {
+                return;
+            }
+
+            campFeedback = PrototypeLocalizedText.Empty;
+            if (!BeginCampModulePreview())
+            {
+                campInteraction.PrepareOpenPopupForReturn();
+            }
+            RefreshAll();
+        }
+
+        private bool BeginCampModulePreview()
         {
             if (campModuleExpansion.HasCommittedModule || campUse.CurrentRoomId != PrototypeCampModuleCatalog.StartRoomId)
             {
-                return;
+                if (campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.ModuleExpansionSlot)
+                {
+                    return false;
+                }
+            }
+
+            PrototypeCampInteractionTargetKind originKind = campInteraction.OpenPopupKind;
+            string originTargetId = campInteraction.OpenPopupTargetId;
+            CampModuleArchetype initialArchetype = CampModuleArchetype.Upper;
+            if (originKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot)
+            {
+                if (!PrototypeCampModuleCatalog.TryGetByStartSlotId(originTargetId, out CampModuleDefinition slotDefinition))
+                {
+                    return false;
+                }
+                initialArchetype = slotDefinition.Archetype;
             }
 
             CampModuleReturnSnapshot snapshot = new CampModuleReturnSnapshot(
                 campUse.PlayerPosition,
                 campUse.FacingDirection,
                 campUse.CurrentRoomId);
-            if (campModuleExpansion.BeginPreview(snapshot))
+            bool resume = modulePreviewCanResume &&
+                          modulePreviewReturnTargetKind == originKind &&
+                          string.Equals(modulePreviewReturnTargetId, originTargetId, StringComparison.Ordinal);
+            bool began = resume
+                ? campModuleExpansion.ResumePreview(snapshot)
+                : campModuleExpansion.BeginPreview(snapshot, initialArchetype);
+            if (began)
             {
+                modulePreviewReturnTargetKind = originKind;
+                modulePreviewReturnTargetId = originTargetId;
+                modulePreviewCanResume = false;
                 modulePreviewCycleLatched = false;
                 campFeedback = PrototypeLocalizedText.Empty;
             }
+            return began;
         }
 
         private void UpdateCampModulePreview()
@@ -1299,6 +1452,7 @@ namespace KimSurvival
 
             campUse.Restore(campModuleExpansion.ReturnSnapshot);
             campInteraction.Reset();
+            ResetModulePreviewReturnRoute();
             campFeedback = new PrototypeLocalizedText(
                 "module.message.committed",
                 localization.Format(ModuleNameKey(evaluation.Definition.Archetype)));
@@ -1306,19 +1460,30 @@ namespace KimSurvival
             return true;
         }
 
-        private void CancelCampModulePreview(bool reopenPlanningPopup)
+        private void CancelCampModulePreview(bool reopenOriginPopup)
         {
             CampModuleReturnSnapshot snapshot = campModuleExpansion.CancelPreview();
             campUse.Restore(snapshot);
-            campInteraction.Reset();
+            modulePreviewCanResume = true;
             campFeedback = new PrototypeLocalizedText("module.message.cancelled");
-            RefreshAll();
-            if (reopenPlanningPopup)
+            if (reopenOriginPopup && campInteraction.IsPopupOpen &&
+                campInteraction.OpenPopupKind == modulePreviewReturnTargetKind &&
+                string.Equals(campInteraction.OpenPopupTargetId, modulePreviewReturnTargetId, StringComparison.Ordinal))
             {
-                RefreshCampInteractionSelection();
-                campInteraction.TryOpenPopup();
-                RefreshAll();
+                campInteraction.PrepareOpenPopupForReturn();
             }
+            else if (!reopenOriginPopup)
+            {
+                campInteraction.ClosePopup();
+            }
+            RefreshAll();
+        }
+
+        private void ResetModulePreviewReturnRoute()
+        {
+            modulePreviewReturnTargetKind = PrototypeCampInteractionTargetKind.None;
+            modulePreviewReturnTargetId = string.Empty;
+            modulePreviewCanResume = false;
         }
 
         private void TraverseCommittedModule()
@@ -1344,18 +1509,8 @@ namespace KimSurvival
         {
             CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
             string moduleName = localization.Format(ModuleNameKey(evaluation.Definition.Archetype));
-            string geometry = localization.Format(ModuleGeometryKey(evaluation.Geometry));
-            string economy = localization.Format(
-                ModuleEconomyKey(evaluation.Economy),
-                evaluation.Cost.Wood,
-                evaluation.Cost.Stone,
-                evaluation.Cost.Salvage);
-            string cost = localization.Format(
-                "module.cost.provisional",
-                evaluation.Cost.Wood,
-                evaluation.Cost.Stone,
-                evaluation.Cost.Salvage);
-            messageText.text = localization.Format("module.preview.summary", moduleName, geometry, economy, cost);
+            string reason = FormatCampModulePrimaryReason(evaluation, moduleName);
+            messageText.text = localization.Format("module.preview.narration", moduleName);
             messageText.fontSize = 30f;
             messageText.enableAutoSizing = true;
             messageText.fontSizeMin = 24f;
@@ -1367,10 +1522,50 @@ namespace KimSurvival
             messagePanelImage.color = valid
                 ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
                 : new Color(0.38f, 0.08f, 0.06f, 0.96f);
+            campModuleReasonChip.GetComponent<Image>().color = valid
+                ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
+                : new Color(0.38f, 0.08f, 0.06f, 0.96f);
+            campModuleReasonText.text = localization.Format(
+                "ui.module.preview.cost",
+                moduleName,
+                evaluation.Cost.Wood,
+                evaluation.Cost.Salvage,
+                reason);
             controlsText.text = localization.Format(
                 PrototypeInputPromptKeys.CampModulePreview(device),
                 localization.DeviceName(device));
             UpdateCampModulePreviewGhost();
+        }
+
+        private string FormatCampModulePrimaryReason(CampModuleEvaluation evaluation, string moduleName)
+        {
+            string key = PrototypeCampModuleReasonKeys.Primary(evaluation);
+            if (evaluation.Geometry == CampModuleGeometryStatus.Valid &&
+                evaluation.Economy == CampModuleEconomyStatus.Short)
+            {
+                return localization.Format(key, moduleName, FormatCampModuleMissingResources(evaluation.Cost));
+            }
+            return localization.Format(key);
+        }
+
+        private string FormatCampModuleMissingResources(CampModuleResourceCost cost)
+        {
+            int wood = Mathf.Max(0, cost.Wood - session.GetStorage(ResourceKind.Wood));
+            int salvage = Mathf.Max(0, cost.Salvage - session.GetStorage(ResourceKind.Salvage));
+            if (wood > 0 && salvage > 0)
+            {
+                return localization.Format(
+                    "interaction.module.missing.wood_salvage",
+                    localization.Format("resource.wood"),
+                    wood,
+                    localization.Format("resource.salvage"),
+                    salvage);
+            }
+            if (wood > 0)
+            {
+                return localization.Format("interaction.module.missing.wood", localization.Format("resource.wood"), wood);
+            }
+            return localization.Format("interaction.module.missing.salvage", localization.Format("resource.salvage"), salvage);
         }
 
         private CampPlacementRoomZone GetCurrentPlacementZone()
@@ -1406,21 +1601,6 @@ namespace KimSurvival
                 default:
                     return "module.name.upper";
             }
-        }
-
-        private static string ModuleGeometryKey(CampModuleGeometryStatus status)
-        {
-            return "module.geometry." + status.ToString().ToLowerInvariant();
-        }
-
-        private static string ModuleEconomyKey(CampModuleEconomyStatus status)
-        {
-            return "module.economy." + status.ToString().ToLowerInvariant();
-        }
-
-        private static string ModuleEconomyBadgeKey(CampModuleEconomyStatus status)
-        {
-            return "module.economy_badge." + status.ToString().ToLowerInvariant();
         }
 
         private static string ModuleCommitMessageKey(CampModuleCommitStatus status)
@@ -1707,13 +1887,16 @@ namespace KimSurvival
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave10-proximity-prompt-qps-long-1280x800.png");
             string modulePreviewKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-upper-ko-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave11-module-upper-ko-1280x800.png");
             string modulePreviewEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-side-en-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave11-module-side-en-1280x800.png");
             string modulePreviewQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave10-module-basement-qps-long-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave11-module-basement-qps-long-1280x800.png");
+            string moduleSlotPopupKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave11-upper-slot-popup-ko-1280x800.png");
             string moduleInteriorKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-interior-ko-1280x800.png");
@@ -1722,6 +1905,7 @@ namespace KimSurvival
             campUse.Reset();
             campInteraction.Reset();
             campModuleExpansion.Reset();
+            ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -1740,7 +1924,7 @@ namespace KimSurvival
             Require(statusText.font != null && messageText.font != null, "로케일별 TMP 폰트 매핑 적용");
             RequireCampBackgroundAlignment();
             RequireCampStructureArt();
-            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            campUse.Warp(PrototypeCampUse.PlayerMinimumX);
             RefreshAll();
             Require(!campActions.activeSelf && !bagPanel.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf,
                 "정상 캠프 원거리에서 전역 대시보드·대형 가방·근접 안내·팝업 숨김");
@@ -1821,28 +2005,65 @@ namespace KimSurvival
                 RequireReadableCampProximityPrompt(false);
             }
 
+            campUse.Warp(GetCampModuleSlotPosition(CampModuleArchetype.Upper));
+            RefreshAll();
+            string directSlotTargetBeforeLocale = campInteraction.ActiveTargetId;
+            Require(directSlotTargetBeforeLocale == "slot.start.upper" && campProximityText.text.Contains("[E]") &&
+                    campProximityText.text.Contains(localization.Format("interaction.action.preview")),
+                "위층 연결 슬롯의 한국어 근접 안내는 canonical target과 localized preview action을 표시");
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            string directSlotGamepadPrompt = FormatCampProximityPrompt(
+                campInteraction.ActiveTargetKind,
+                campInteraction.ActiveTargetId,
+                PrototypeInputDevice.Gamepad);
+            Require(campInteraction.ActiveTargetId == directSlotTargetBeforeLocale && campProximityText.text.Contains("[E]") &&
+                    directSlotGamepadPrompt.Contains("[X]") && directSlotGamepadPrompt.Contains("Preview"),
+                "영어·게임패드 전환은 직접 슬롯 target과 preview action 의미를 보존");
+            Require(localization.SetQaLocale(), "직접 슬롯 prompt에서도 실제 qps-long 선택");
+            RefreshAll();
+            Require(campInteraction.ActiveTargetId == directSlotTargetBeforeLocale && campProximityText.text.Contains("[E]"),
+                "qps-long 전환은 직접 슬롯 target latch와 키보드 Interact 의미를 보존");
+            RequireReadableCampProximityPrompt(true);
+
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
-            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
+            OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Upper);
             Require(modulePreviewButton.gameObject.activeSelf && modulePreviewButton.interactable &&
-                    campfireButton.gameObject.activeSelf && workbenchButton.gameObject.activeSelf && rainButton.gameObject.activeSelf,
-                "현장 계획 지점 팝업은 증축과 시작 방 일반 설비 배치만 소유");
-            workbenchButton.onClick.Invoke();
-            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == PrototypeCampModuleCatalog.StartRoomId &&
-                    campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
-                    session.HasStructure(StructureKind.Workbench),
-                "방 확정 전에 시작 방 작업대를 직접 배치해 Wave 9 해금 조건 충족");
-            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
+                    cancelPopupButton.gameObject.activeSelf &&
+                    !campfireButton.gameObject.activeSelf && !workbenchButton.gameObject.activeSelf && !rainButton.gameObject.activeSelf &&
+                    modulePreviewButton.GetComponentInChildren<TMP_Text>().text == localization.Format("ui.module.expand") &&
+                    EventSystem.current.currentSelectedGameObject == modulePreviewButton.gameObject,
+                "위층 연결 슬롯의 소형 팝업은 ui.module.expand 한 행동과 root 취소만 소유");
+            RequireReadableCampPopup();
+            if (!string.IsNullOrWhiteSpace(moduleSlotPopupKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(moduleSlotPopupKoreanScreenshotPath, 1280, 800);
+            }
             CampModuleReturnSnapshot moduleReturn = new CampModuleReturnSnapshot(
                 campUse.PlayerPosition,
                 campUse.FacingDirection,
                 campUse.CurrentRoomId);
+            string moduleReturnTargetId = campInteraction.OpenPopupTargetId;
             int previewWoodBefore = session.GetStorage(ResourceKind.Wood);
             int previewStoneBefore = session.GetStorage(ResourceKind.Stone);
             int previewSalvageBefore = session.GetStorage(ResourceKind.Salvage);
             modulePreviewButton.onClick.Invoke();
             Require(campModuleExpansion.IsPreviewActive && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf &&
+                    campModuleReasonChip.activeSelf && campInteraction.OpenPopupTargetId == "slot.start.upper" &&
+                    campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper &&
                     modulePreviewGhost != null && modulePreviewOutlineRenderers.Count == 4,
-                "현장 상호작용 뒤 전역 대시보드 없이 위층 후보 placeholder 미리보기");
+                "위층 슬롯의 ui.module.expand Submit 뒤에만 같은 위층 후보 placeholder 미리보기");
+            CampModuleEvaluation lockedEvaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
+            Require(lockedEvaluation.Geometry == CampModuleGeometryStatus.Valid &&
+                    lockedEvaluation.Economy == CampModuleEconomyStatus.Locked &&
+                    campModuleReasonText.text.Contains(localization.Format("interaction.module.locked_workbench")) &&
+                    campModuleReasonText.text.Contains("나무 2") && campModuleReasonText.text.Contains("표류물 1"),
+                "작업대 전 preview는 geometry/economy를 분리하고 canonical 잠금 사유와 W2/D1을 함께 표시");
+            Require(!ConfirmCampModulePreview() && campModuleExpansion.IsPreviewActive &&
+                    campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper &&
+                    session.GetStorage(ResourceKind.Wood) == previewWoodBefore &&
+                    session.GetStorage(ResourceKind.Salvage) == previewSalvageBefore,
+                "잠긴 직접 슬롯 확정은 같은 후보에 남고 자원을 전혀 쓰지 않음");
             RequireReadableCampModulePreview(false);
             if (!string.IsNullOrWhiteSpace(modulePreviewKoreanScreenshotPath))
             {
@@ -1853,8 +2074,10 @@ namespace KimSurvival
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
             RefreshAll();
             Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Side &&
-                    messageText.text.Contains("Side room") && controlsText.text.Contains("cycle"),
-                "영어 전환 뒤 옆방 후보와 공통 입력 안내 즉시 갱신");
+                    messageText.text.Contains("Side room") && campModuleReasonText.text.Contains("Wood 2") &&
+                    campModuleReasonText.text.Contains("Salvage 1") && controlsText.text.Contains("cycle") &&
+                    campInteraction.OpenPopupTargetId == moduleReturnTargetId,
+                "영어 전환 뒤에도 접근 슬롯 target과 옆방 후보를 보존하고 공통 입력·W2/D1을 즉시 갱신");
             RequireReadableCampModulePreview(false);
             if (!string.IsNullOrWhiteSpace(modulePreviewEnglishScreenshotPath))
             {
@@ -1867,8 +2090,9 @@ namespace KimSurvival
                 "위층·옆방·지하실 세 후보를 같은 미리보기 상태에서 순회");
             Require(localization.SetQaLocale(), "증축 미리보기에서도 qps-long 데이터 로케일 선택");
             RefreshAll();
-            Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement && campModuleExpansion.HasSeenAllCandidates,
-                "qps-long 전환은 지하실 후보 선택 상태를 보존");
+            Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement && campModuleExpansion.HasSeenAllCandidates &&
+                    campInteraction.OpenPopupTargetId == moduleReturnTargetId && campModuleReasonText.text.Contains("2") && campModuleReasonText.text.Contains("1"),
+                "qps-long 전환은 슬롯 target·지하실 후보·비용 숫자와 action 의미를 보존");
             RequireReadableCampModulePreview(true);
             if (!string.IsNullOrWhiteSpace(modulePreviewQpsLongScreenshotPath))
             {
@@ -1878,28 +2102,78 @@ namespace KimSurvival
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             RefreshAll();
             CancelCampModulePreview(true);
-            Require(campUse.PlayerPosition == moduleReturn.Position && campUse.CurrentRoomId == moduleReturn.RoomId &&
-                    campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.StoragePlanning &&
+            Require(campUse.PlayerPosition == moduleReturn.Position &&
+                    Mathf.Approximately(campUse.FacingDirection, moduleReturn.FacingDirection) &&
+                    campUse.CurrentRoomId == moduleReturn.RoomId &&
+                    campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot &&
+                    campInteraction.OpenPopupTargetId == moduleReturnTargetId &&
+                    campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement &&
                     session.GetStorage(ResourceKind.Wood) == previewWoodBefore &&
                     session.GetStorage(ResourceKind.Stone) == previewStoneBefore &&
                     session.GetStorage(ResourceKind.Salvage) == previewSalvageBefore,
-                "미리보기 취소는 같은 현장 팝업으로 복귀하고 자원·방 상태를 바꾸지 않음");
+                "첫 Cancel은 후보·위치·방향·target과 자원을 보존해 같은 위층 슬롯 팝업으로 한 단계 복귀");
+            CancelCampPopup();
+            Require(!campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt &&
+                    campInteraction.ActiveTargetId == moduleReturnTargetId &&
+                    campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement &&
+                    campUse.PlayerPosition == moduleReturn.Position && Mathf.Approximately(campUse.FacingDirection, moduleReturn.FacingDirection),
+                "두 번째 root Cancel은 같은 후보 snapshot과 현장 target을 보존해 직접 이동으로 복귀");
 
-            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Side);
+            modulePreviewButton.onClick.Invoke();
+            Require(campModuleExpansion.IsPreviewActive && campModuleExpansion.SelectedArchetype == CampModuleArchetype.Side,
+                "옆방 슬롯의 첫 Submit은 접근한 옆방 후보에서 시작");
+            CancelCampModulePreview(true);
+            CancelCampPopup();
+            OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Basement);
+            modulePreviewButton.onClick.Invoke();
+            Require(campModuleExpansion.IsPreviewActive && campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement,
+                "지하실 슬롯의 첫 Submit은 접근한 지하실 후보에서 시작");
+            CancelCampModulePreview(true);
+            CancelCampPopup();
+
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
+            Require(modulePreviewButton.gameObject.activeSelf && modulePreviewButton.interactable &&
+                    campfireButton.gameObject.activeSelf && workbenchButton.gameObject.activeSelf && rainButton.gameObject.activeSelf,
+                "storage.planning 팝업은 기존 증축 preview를 보조 경로로 유지");
             modulePreviewButton.onClick.Invoke();
             Require(campModuleExpansion.IsPreviewActive && campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper,
-                "다시 연 미리보기는 결정적으로 위층 후보부터 시작");
+                "보조 storage.planning 진입은 기존처럼 위층 후보에서 시작");
+            CancelCampModulePreview(true);
+            workbenchButton.onClick.Invoke();
+            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == PrototypeCampModuleCatalog.StartRoomId &&
+                    campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
+                    session.HasStructure(StructureKind.Workbench),
+                "보조 현장 계획 지점에서 시작 방 작업대를 배치해 기존 해금 인과를 보존");
+
+            OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Upper);
+            modulePreviewButton.onClick.Invoke();
+            Require(campModuleExpansion.IsPreviewActive && campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper &&
+                    campModuleExpansion.Evaluate(session, campModuleValidation).Economy == CampModuleEconomyStatus.Ready,
+                "작업대 건설 후 같은 직접 슬롯으로 돌아오면 접근 후보가 READY가 됨");
+            int commitWoodBefore = session.GetStorage(ResourceKind.Wood);
+            int commitStoneBefore = session.GetStorage(ResourceKind.Stone);
+            int commitSalvageBefore = session.GetStorage(ResourceKind.Salvage);
             int activeSlotsBeforeModule = session.ActiveBagSlotCount;
             int signalBeforeModule = session.SignalStage;
             Require(ConfirmCampModulePreview() && campModuleExpansion.HasCommittedModule &&
-                    session.GetStorage(ResourceKind.Wood) == previewWoodBefore - 2 &&
-                    session.GetStorage(ResourceKind.Stone) == previewStoneBefore &&
-                    session.GetStorage(ResourceKind.Salvage) == previewSalvageBefore - 1,
+                    session.GetStorage(ResourceKind.Wood) == commitWoodBefore - 2 &&
+                    session.GetStorage(ResourceKind.Stone) == commitStoneBefore &&
+                    session.GetStorage(ResourceKind.Salvage) == commitSalvageBefore - 1,
                 "유효한 위층 방 확정은 Wave 9 v0.2 비용 W2/D1을 원자적으로 한 번만 사용");
             int woodAfterModule = session.GetStorage(ResourceKind.Wood);
             Require(!ConfirmCampModulePreview() && session.GetStorage(ResourceKind.Wood) == woodAfterModule &&
                     session.ActiveBagSlotCount == activeSlotsBeforeModule && session.SignalStage == signalBeforeModule,
                 "중복 확정은 자원을 다시 쓰지 않고 가방·신호 상태를 보존");
+
+            OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Side);
+            modulePreviewButton.onClick.Invoke();
+            Require(campModuleExpansion.Evaluate(session, campModuleValidation).Economy == CampModuleEconomyStatus.PrototypeLimit &&
+                    campModuleReasonText.text.Contains(localization.Format("interaction.module.prototype_limit")) &&
+                    !ConfirmCampModulePreview() && session.GetStorage(ResourceKind.Wood) == woodAfterModule,
+                "다른 연결 슬롯은 run당 하나 한도를 canonical 사유로 보여 주고 추가 자원을 쓰지 않음");
+            CancelCampModulePreview(true);
+            CancelCampPopup();
 
             campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ModuleConnector));
             RefreshAll();
@@ -1931,6 +2205,7 @@ namespace KimSurvival
             campUse.Reset();
             campInteraction.Reset();
             campModuleExpansion.Reset();
+            ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -2004,6 +2279,7 @@ namespace KimSurvival
             campUse.Reset();
             campInteraction.Reset();
             campModuleExpansion.Reset();
+            ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -2096,6 +2372,7 @@ namespace KimSurvival
             campUse.Reset();
             campInteraction.Reset();
             campModuleExpansion.Reset();
+            ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
             Require(session.ActiveBagSlotCount == GameSession.DefaultBagSlotCount && !session.HasPendingLoot && !session.IsBagSlotActive(4), "새 게임 초기화의 4칸·잠금·pending 정리");
             session.Grant(ResourceKind.Wood, 20);
@@ -2171,7 +2448,7 @@ namespace KimSurvival
             campPlacement.SetCandidateX(3.5f);
             Require(ConfirmCampPlacement(), "빗물받이 open-sky 바닥 스냅 배치 확정");
 
-            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            campUse.Warp(PrototypeCampUse.PlayerMinimumX);
             RefreshAll();
             int foodBeforeFarCampfireUse = session.GetStorage(ResourceKind.Food);
             UseNearestCampTarget();
@@ -2180,7 +2457,7 @@ namespace KimSurvival
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Campfire, eatButton);
             Require(session.GetStorage(ResourceKind.Food) == foodBeforeFarCampfireUse - 1, "모닥불 근접 식사 기능 성공");
 
-            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            campUse.Warp(PrototypeCampUse.PlayerMinimumX);
             RefreshAll();
             int woodBeforeFarWorkbenchUse = session.GetStorage(ResourceKind.Wood);
             UseNearestCampTarget();
@@ -2197,7 +2474,7 @@ namespace KimSurvival
             RequireInstalledStructureArt();
             Require(session.HasAxe && session.HasRope, "제작·연구 UI 경로");
 
-            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            campUse.Warp(PrototypeCampUse.PlayerMinimumX);
             UseNearestCampTarget();
             Require(!campInteraction.IsPopupOpen && !campInteraction.HasProximityPrompt &&
                     !campUse.IsDayBenefitPrepared(StructureKind.Campfire) &&
@@ -2296,7 +2573,7 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · Wave 10 실제 qps-long 데이터 로케일, 제품 ko/en 순환·저장 분리, ko/en/qps 동일 근접 대상 latch와 [E]/[X] 의미, 1280x800 한국어 상단 HUD overflow=0 및 qps 안전 맞춤 확인. Wave 9 현장 계획 지점 위층/옆방/지하실 순회·원자 확정·명시적 이동과 기존 전역 대시보드/대형 가방 숨김, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프 회귀 확인";
+            return "PASS · Wave 11 slot.start.upper/side/basement 직접 접근, 1.25u 단일 latch, 슬롯 전용 ui.module.expand 팝업, 접근 슬롯 초기 후보, upper→side→basement 순환, preview→동일 popup→동일 현장 Cancel, canonical interaction.module geometry/economy 사유, W2/D1 원자 확정과 run당 하나를 확인. ko/en/실제 qps-long 및 [E]/[X] action 의미, 1280x800 비용·사유 무잘림을 통과하고 storage.planning 보조 진입, 공간형 설비, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프를 회귀 확인";
         }
 
         private void RequireReadableBagUi()
@@ -2325,6 +2602,13 @@ namespace KimSurvival
                     campInteractionPopup.GetComponent<RectTransform>().anchorMax.x <= 1f &&
                     campInteractionPopup.GetComponent<RectTransform>().anchorMax.x - campInteractionPopup.GetComponent<RectTransform>().anchorMin.x <= 0.4f,
                 "설비 팝업은 안전 영역 안의 화면 40% 이하 소형 패널");
+            if (campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot)
+            {
+                RectTransform slotPopupRect = campInteractionPopup.GetComponent<RectTransform>();
+                Require(slotPopupRect.anchorMax.y - slotPopupRect.anchorMin.y <= 0.35f &&
+                        modulePreviewButton.gameObject.activeSelf && cancelPopupButton.gameObject.activeSelf,
+                    "연결 슬롯 팝업은 공간을 보존하는 화면 높이 35% 이하의 단일-action 패널");
+            }
             for (int i = 0; i < campPopupButtons.Count; i += 1)
             {
                 if (!campPopupButtons[i].gameObject.activeSelf)
@@ -2365,6 +2649,15 @@ namespace KimSurvival
             }
         }
 
+        private void ConfigureCampPopupLayout(bool moduleSlot)
+        {
+            RectTransform popupRect = campInteractionPopup.GetComponent<RectTransform>();
+            popupRect.anchorMin = moduleSlot ? CampPopupModuleSlotAnchorMin : CampPopupDefaultAnchorMin;
+            popupRect.anchorMax = moduleSlot ? CampPopupModuleSlotAnchorMax : CampPopupDefaultAnchorMax;
+            popupRect.offsetMin = Vector2.zero;
+            popupRect.offsetMax = Vector2.zero;
+        }
+
         private void RequireReadableTopHud(string localeCode)
         {
             statusText.ForceMeshUpdate(true, true);
@@ -2384,10 +2677,22 @@ namespace KimSurvival
                 "증축 미리보기 상태와 placeholder 표현 존재");
             messageText.ForceMeshUpdate(true, true);
             controlsText.ForceMeshUpdate(true, true);
+            campModuleReasonText.ForceMeshUpdate(true, true);
             modulePreviewBadgeText.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
-            Require(!campActions.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf && !bagPanel.activeSelf,
-                "증축 미리보기는 전역 대시보드·설비 팝업·근접 안내·가방을 되살리지 않음");
+            Require(!campActions.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf &&
+                    campModuleReasonChip.activeSelf && !bagPanel.activeSelf,
+                "증축 미리보기는 전역 대시보드·설비 팝업·근접 안내·가방을 숨기고 비용·사유 칩 하나만 표시");
+            RectTransform reasonRect = campModuleReasonChip.GetComponent<RectTransform>();
+            RectTransform messageRect = messagePanelImage.rectTransform;
+            float reasonWidth = (reasonRect.anchorMax.x - reasonRect.anchorMin.x) * CampProximityPromptReferenceWidth;
+            float reasonHeight = (reasonRect.anchorMax.y - reasonRect.anchorMin.y) * CampProximityPromptReferenceHeight;
+            float reasonGap = (messageRect.anchorMin.y - reasonRect.anchorMax.y) * CampProximityPromptReferenceHeight;
+            Require(reasonWidth <= 440.1f && reasonHeight <= 64.1f && reasonGap >= 7.9f &&
+                    campModuleReasonText.enableAutoSizing && campModuleReasonText.fontSizeMin >= 18f &&
+                    campModuleReasonText.maxVisibleLines == 2 && campModuleReasonText.overflowMode == TextOverflowModes.Overflow &&
+                    !campModuleReasonText.isTextOverflowing,
+                "1280x800 ko/en/qps-long 비용·사유 칩은 440x64·2줄·18px·무잘림 계약 사용");
             if (allowEllipsis)
             {
                 Require(messageText.enableAutoSizing && controlsText.enableAutoSizing &&
@@ -2430,6 +2735,25 @@ namespace KimSurvival
                 target + " 상호작용 뒤 전용 팝업 열림");
         }
 
+        private void OpenCampModuleSlotPopupForVerification(CampModuleArchetype archetype)
+        {
+            if (campInteraction.IsPopupOpen)
+            {
+                campInteraction.ClosePopup();
+            }
+
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(archetype);
+            campUse.Warp(GetCampModuleSlotPosition(archetype));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot &&
+                    campInteraction.ActiveTargetId == definition.StartSlotId && campInteraction.HasProximityPrompt,
+                definition.StartSlotId + " 직접 접근은 1.25 unit 안에서 단일 prompt를 표시");
+            UseNearestCampTarget();
+            Require(campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot &&
+                    campInteraction.OpenPopupTargetId == definition.StartSlotId && campInteraction.IsPopupOpen,
+                definition.StartSlotId + " Interact는 정확히 같은 슬롯의 소형 팝업을 연다");
+        }
+
         private void InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind target, Button button)
         {
             OpenCampPopupForVerification(target);
@@ -2452,6 +2776,8 @@ namespace KimSurvival
                     return new Vector2(
                         campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId ? StoragePlanningX : ModulePlanningX,
                         PrototypeCampPlacement.FloorY);
+                case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
+                    return GetCampModuleSlotPosition(CampModuleArchetype.Upper);
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
                     if (campModuleExpansion.HasCommittedModule)
                     {
@@ -2466,6 +2792,12 @@ namespace KimSurvival
                 default:
                     return campUse.PlayerPosition;
             }
+        }
+
+        private static Vector2 GetCampModuleSlotPosition(CampModuleArchetype archetype)
+        {
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(archetype);
+            return new Vector2(definition.StartConnectorDisplayX, PrototypeCampUse.PlayerFloorY);
         }
 
         private static void MoveUiSelection(MoveDirection direction)

@@ -12,6 +12,7 @@ namespace KimSurvival
         RainCollector,
         RescueSignal,
         StoragePlanning,
+        ModuleExpansionSlot,
         ModuleConnector
     }
 
@@ -75,6 +76,8 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                     return action == PrototypeCampInteractionAction.BuildOrRelocate ||
                            action == PrototypeCampInteractionAction.PreviewModule;
+                case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
+                    return action == PrototypeCampInteractionAction.PreviewModule;
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
                     return false;
                 case PrototypeCampInteractionTargetKind.Campfire:
@@ -108,6 +111,7 @@ namespace KimSurvival
         private const float ScoreEpsilon = 0.0001f;
 
         private PrototypeCampInteractionTarget activeTarget;
+        private PrototypeCampInteractionTarget openPopupTarget;
         private bool confirmationConsumed;
 
         public PrototypeCampInteractionTargetKind ActiveTargetKind
@@ -115,7 +119,20 @@ namespace KimSurvival
             get { return activeTarget.Kind; }
         }
 
-        public PrototypeCampInteractionTargetKind OpenPopupKind { get; private set; }
+        public string ActiveTargetId
+        {
+            get { return activeTarget.Id ?? string.Empty; }
+        }
+
+        public PrototypeCampInteractionTargetKind OpenPopupKind
+        {
+            get { return openPopupTarget.Kind; }
+        }
+
+        public string OpenPopupTargetId
+        {
+            get { return openPopupTarget.Id ?? string.Empty; }
+        }
 
         public bool HasProximityPrompt
         {
@@ -135,7 +152,7 @@ namespace KimSurvival
         public void Reset()
         {
             activeTarget = default(PrototypeCampInteractionTarget);
-            OpenPopupKind = PrototypeCampInteractionTargetKind.None;
+            openPopupTarget = default(PrototypeCampInteractionTarget);
             confirmationConsumed = false;
         }
 
@@ -194,7 +211,7 @@ namespace KimSurvival
                 return false;
             }
 
-            OpenPopupKind = ActiveTargetKind;
+            openPopupTarget = activeTarget;
             confirmationConsumed = false;
             return true;
         }
@@ -212,8 +229,19 @@ namespace KimSurvival
 
         public void ClosePopup()
         {
-            OpenPopupKind = PrototypeCampInteractionTargetKind.None;
+            openPopupTarget = default(PrototypeCampInteractionTarget);
             confirmationConsumed = false;
+        }
+
+        public bool PrepareOpenPopupForReturn()
+        {
+            if (!IsPopupOpen)
+            {
+                return false;
+            }
+
+            confirmationConsumed = false;
+            return true;
         }
     }
 }

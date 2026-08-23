@@ -1,0 +1,25 @@
+PASS
+PASS · Wave 11 slot.start.upper/side/basement 직접 접근, 1.25u 단일 latch, 슬롯 전용 ui.module.expand 팝업, 접근 슬롯 초기 후보, upper→side→basement 순환, preview→동일 popup→동일 현장 Cancel, canonical interaction.module geometry/economy 사유, W2/D1 원자 확정과 run당 하나를 확인. ko/en/실제 qps-long 및 [E]/[X] action 의미, 1280x800 비용·사유 무잘림을 통과하고 storage.planning 보조 진입, 공간형 설비, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프를 회귀 확인
+Bag locked Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-bag-locked-ko-1280x800.png
+Bag upgraded English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-bag-upgraded-en-1280x800.png
+Bag locked Korean 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-bag-locked-ko-1920x1080.png
+Bag upgraded English 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-bag-upgraded-en-1920x1080.png
+Wave 10 far camp Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave10-camp-far-ko-1280x800.png
+Wave 10 proximity prompt Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave10-proximity-prompt-ko-1280x800.png
+Wave 10 proximity prompt English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave10-proximity-prompt-en-1280x800.png
+Wave 10 proximity prompt qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave10-proximity-prompt-qps-long-1280x800.png
+Wave 9 workbench popup English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave9-workbench-popup-en-1280x800.png
+Wave 9 campfire popup Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave9-campfire-popup-ko-1280x800.png
+Wave 11 upper-slot popup Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave11-upper-slot-popup-ko-1280x800.png
+Wave 11 module upper Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave11-module-upper-ko-1280x800.png
+Wave 11 module side English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave11-module-side-en-1280x800.png
+Wave 11 module basement qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave11-module-basement-qps-long-1280x800.png
+Wave 9 module interior Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave9-module-interior-ko-1280x800.png
+Signal stage one missing/workbench Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
+Signal stage two missing/rope English screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
+Placement Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-placement-ko-invalid-1280x800.png
+Placement English/gamepad screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
+Swimming screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-swimming-en-1280x800.png
+Exploration screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave7-exploration-ko-1280x800.png
+Camp screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave11-direct-module-slots-72ec967\kim-survival-wave10-camp-en-1280x800.png
+Completed UTC: 2026-08-23T10:02:39.0863124Z

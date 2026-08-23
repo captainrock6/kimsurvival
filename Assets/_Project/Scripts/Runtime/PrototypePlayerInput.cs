@@ -59,6 +59,11 @@ namespace KimSurvival
             return device == PrototypeInputDevice.Gamepad ? "camp.interaction.prompt.gamepad" : "camp.interaction.prompt.keyboard_mouse";
         }
 
+        public static string InteractGlyph(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "input.glyph.interact.gamepad" : "input.glyph.interact.keyboard_mouse";
+        }
+
         public static string CampModulePreview(PrototypeInputDevice device)
         {
             return device == PrototypeInputDevice.Gamepad ? "controls.module_preview.gamepad" : "controls.module_preview.keyboard_mouse";

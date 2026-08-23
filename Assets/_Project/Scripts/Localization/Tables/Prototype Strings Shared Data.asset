@@ -879,6 +879,94 @@ MonoBehaviour:
     m_Key: module.economy_badge.prototypelimit
     m_Metadata:
       m_Items: []
+  - m_Id: 349680558129152
+    m_Key: input.glyph.interact.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680604266496
+    m_Key: input.glyph.interact.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680604266497
+    m_Key: interaction.structure.prompt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680604266498
+    m_Key: interaction.action.preview
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680612655104
+    m_Key: camp.popup.detail.module_slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238016
+    m_Key: ui.module.expand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238017
+    m_Key: module.preview.narration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238018
+    m_Key: ui.module.preview.cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238019
+    m_Key: interaction.module.no_slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238020
+    m_Key: interaction.module.slot_unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238021
+    m_Key: interaction.module.overlap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238022
+    m_Key: interaction.module.terrain_blocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238023
+    m_Key: interaction.module.path_blocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238024
+    m_Key: interaction.module.locked_workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238025
+    m_Key: interaction.module.missing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238026
+    m_Key: interaction.module.missing.wood_salvage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238027
+    m_Key: interaction.module.missing.wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238028
+    m_Key: interaction.module.missing.salvage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238029
+    m_Key: interaction.module.prototype_limit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680625238030
+    m_Key: interaction.module.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680633626624
+    m_Key: world.module.preview.slot.valid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 349680633626625
+    m_Key: world.module.preview.slot.invalid
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

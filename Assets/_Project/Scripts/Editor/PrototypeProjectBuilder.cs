@@ -297,6 +297,9 @@ namespace KimSurvival.EditorTools
             Assert(PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.KeyboardMouse) == "controls.module_preview.keyboard_mouse" &&
                    PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.Gamepad) == "controls.module_preview.gamepad",
                 "Module-preview prompts follow the active device without changing the state machine");
+            Assert(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.KeyboardMouse) == "input.glyph.interact.keyboard_mouse" &&
+                   PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad) == "input.glyph.interact.gamepad",
+                "Keyboard and gamepad interaction glyphs feed the same localized action pattern");
 
             bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
             string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
@@ -314,6 +317,14 @@ namespace KimSurvival.EditorTools
                        localization.Format("module.economy.short", 4, 2, 2).Contains("Wood 4") &&
                        localization.Format("world.module.preview.invalid", "Basement", "Path blocked", "Resources short").Contains("× Basement"),
                     "English module preview, invalid shape marker, and module cost arguments are localized");
+                Assert(localization.Format(
+                           "interaction.structure.prompt",
+                           localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad)),
+                           localization.Format("structure.module_connector", localization.Format("module.name.side")),
+                           localization.Format("interaction.action.preview")).Contains("[X] Preview Side room entrance connector") &&
+                       localization.Format("ui.module.expand") == "Preview Room Expansion" &&
+                       localization.Format("ui.module.preview.cost", "Side room", 2, 1, localization.Format("interaction.module.locked_workbench")).Contains("Wood 2 · Salvage 1"),
+                    "English direct module slot prompt, popup action, and W2/D1 reason chip use stable String Table keys");
                 Assert(localization.Format("world.barrier.axe.need").Contains("Stone Axe Required"), "English forest barrier names the stone axe requirement");
                 Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
@@ -324,6 +335,14 @@ namespace KimSurvival.EditorTools
                        localization.Format("module.cost.provisional", 2, 0, 1).Contains("나무 2") &&
                        localization.Format("world.module.preview.valid", "위층 방", "유효", "확정 가능").Contains("◇ 위층 방"),
                     "Korean module preview, valid shape marker, and locked Wave 9 cost are localized");
+                Assert(localization.Format(
+                           "interaction.structure.prompt",
+                           localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.KeyboardMouse)),
+                           localization.Format("structure.module_connector", localization.Format("module.name.basement")),
+                           localization.Format("interaction.action.preview")).Contains("[E] 지하실 출입 연결부 미리보기") &&
+                       localization.Format("interaction.module.no_slot").Contains("연결 슬롯") &&
+                       localization.Format("interaction.module.slot_unavailable").Contains("사용할 수 없다"),
+                    "Korean direct slot action and canonical connection reason keys resolve from data");
                 Assert(localization.Format("world.barrier.axe.need").Contains("돌도끼 필요"), "Korean forest barrier names the stone axe requirement");
                 Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
                 Assert(!PrototypeLocalization.IsPlayerSelectableLocale(PrototypeLocalization.QpsLongLocaleCode) &&
@@ -351,11 +370,23 @@ namespace KimSurvival.EditorTools
                 string qpsGamepadPrompt = localization.Format(
                     PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.Gamepad),
                     localization.Format("structure.campfire"));
+                string qpsDirectSlotPrompt = localization.Format(
+                    "interaction.structure.prompt",
+                    localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad)),
+                    localization.Format("structure.module_connector", localization.Format("module.name.basement")),
+                    localization.Format("interaction.action.preview"));
+                string qpsModuleReason = localization.Format(
+                    "ui.module.preview.cost",
+                    localization.Format("module.name.basement"),
+                    2,
+                    1,
+                    localization.Format("interaction.module.locked_workbench"));
                 Assert(qpsExpansion >= 1.35f && qpsExpansion <= 1.50f && qpsStress.StartsWith("⟦", StringComparison.Ordinal) && qpsStress.EndsWith("⟧", StringComparison.Ordinal),
                     "qps-long data expands a representative English string by 35-50 percent");
                 Assert(qpsKeyboardPrompt.Contains("[E]") && qpsGamepadPrompt.Contains("[X]") &&
+                       qpsDirectSlotPrompt.Contains("[X]") && qpsModuleReason.Contains("2") && qpsModuleReason.Contains("1") &&
                        localeInvariantInteraction.ActiveTargetKind == targetBeforeQaLocale,
-                    "ko/en/qps-long switching preserves the same proximity target and keyboard/gamepad action semantics");
+                    "ko/en/qps-long switching preserves the same proximity target, direct-slot action semantics, and W2/D1 tokens");
                 Assert(PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey) == hadPreferenceBeforeQaLocale &&
                        PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode) == preferenceBeforeQaLocale,
                     "QA locale selection does not overwrite the persisted ko/en preference");
@@ -436,6 +467,8 @@ namespace KimSurvival.EditorTools
                 "Equal-distance candidates resolve to the facility in Mr. Kim's facing direction");
             Assert(contextualInteraction.TryOpenPopup() && contextualInteraction.MovementLocked && !contextualInteraction.HasProximityPrompt,
                 "Interact opens one facility popup, hides the prompt, and locks movement");
+            Assert(contextualInteraction.OpenPopupTargetId == "right",
+                "The popup retains the exact latched target ID instead of only its facility kind");
             Assert(contextualInteraction.TryConfirmAction() && !contextualInteraction.TryConfirmAction(),
                 "A popup confirmation can be consumed exactly once");
             contextualInteraction.ClosePopup();
@@ -445,6 +478,27 @@ namespace KimSurvival.EditorTools
             contextualInteraction.UpdateSelection(Vector2.zero, -1f, contextualTargets);
             Assert(contextualInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.Campfire,
                 "Facing left selects the left candidate through the same deterministic state machine");
+            PrototypeCampInteraction directSlotInteraction = new PrototypeCampInteraction();
+            List<PrototypeCampInteractionTarget> directSlotTargets = new List<PrototypeCampInteractionTarget>
+            {
+                new PrototypeCampInteractionTarget("slot.start.upper", PrototypeCampInteractionTargetKind.ModuleExpansionSlot, new Vector2(-4f, PrototypeCampUse.PlayerFloorY)),
+                new PrototypeCampInteractionTarget("slot.start.side", PrototypeCampInteractionTargetKind.ModuleExpansionSlot, new Vector2(8.1f, PrototypeCampUse.PlayerFloorY)),
+                new PrototypeCampInteractionTarget("slot.start.basement", PrototypeCampInteractionTargetKind.ModuleExpansionSlot, new Vector2(1.5f, PrototypeCampUse.PlayerFloorY))
+            };
+            directSlotInteraction.UpdateSelection(new Vector2(8.1f + PrototypeCampUse.UseRange + 0.01f, PrototypeCampUse.PlayerFloorY), -1f, directSlotTargets);
+            Assert(!directSlotInteraction.HasProximityPrompt && !directSlotInteraction.IsPopupOpen,
+                "Direct module slots expose no prompt or popup beyond the shared 1.25-unit boundary");
+            directSlotInteraction.UpdateSelection(new Vector2(8.1f, PrototypeCampUse.PlayerFloorY), -1f, directSlotTargets);
+            Assert(directSlotInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot &&
+                   directSlotInteraction.ActiveTargetId == "slot.start.side" && directSlotInteraction.TryOpenPopup() &&
+                   directSlotInteraction.OpenPopupTargetId == "slot.start.side",
+                "A direct slot approach latches exactly one canonical target and opens only its popup");
+            Assert(directSlotInteraction.TryConfirmAction() && directSlotInteraction.PrepareOpenPopupForReturn() &&
+                   directSlotInteraction.TryConfirmAction() && directSlotInteraction.OpenPopupTargetId == "slot.start.side",
+                "Preview cancel can re-arm Submit while preserving the exact slot popup target");
+            directSlotInteraction.ClosePopup();
+            Assert(directSlotInteraction.HasProximityPrompt && directSlotInteraction.ActiveTargetId == "slot.start.side",
+                "Root popup Cancel returns to the same direct field target without moving the player");
             Assert(PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.Repair, true) &&
                    PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.UpgradeBag, true) &&
                    !PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.Eat, true) &&
@@ -452,8 +506,10 @@ namespace KimSurvival.EditorTools
                    PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.RainCollector, PrototypeCampInteractionAction.CollectRain, true) &&
                    PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.RescueSignal, PrototypeCampInteractionAction.UpgradeSignal, true) &&
                    PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.StoragePlanning, PrototypeCampInteractionAction.PreviewModule, true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.ModuleExpansionSlot, PrototypeCampInteractionAction.PreviewModule, true) &&
+                   !PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.ModuleExpansionSlot, PrototypeCampInteractionAction.BuildOrRelocate, true) &&
                    !PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.ModuleConnector, PrototypeCampInteractionAction.PreviewModule, true),
-                "Facility popup catalog keeps facilities, on-site expansion planning, and direct connectors separated");
+                "Facility popup catalog keeps facilities, direct expansion slots, secondary on-site planning, and traversal connectors separated");
 
             IReadOnlyList<CampModuleDefinition> moduleDefinitions = PrototypeCampModuleCatalog.All;
             Assert(moduleDefinitions.Count == 3 &&
@@ -462,6 +518,13 @@ namespace KimSurvival.EditorTools
             CampModuleDefinition upperDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Upper);
             CampModuleDefinition sideDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Side);
             CampModuleDefinition basementDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Basement);
+            Assert(PrototypeCampModuleCatalog.TryGetByStartSlotId("slot.start.upper", out CampModuleDefinition mappedUpper) &&
+                   mappedUpper.Archetype == CampModuleArchetype.Upper &&
+                   PrototypeCampModuleCatalog.TryGetByStartSlotId("slot.start.side", out CampModuleDefinition mappedSide) &&
+                   mappedSide.Archetype == CampModuleArchetype.Side &&
+                   PrototypeCampModuleCatalog.TryGetByStartSlotId("slot.start.basement", out CampModuleDefinition mappedBasement) &&
+                   mappedBasement.Archetype == CampModuleArchetype.Basement,
+                "Canonical start-room slot IDs map deterministically to their first preview candidates");
             Assert(upperDefinition.Bounds == new Rect(0f, 5f, 12f, 5f) && upperDefinition.ConnectorKind == CampModuleConnectorKind.Ladder &&
                    sideDefinition.Bounds == new Rect(18f, 0f, 12f, 5f) && sideDefinition.ConnectorKind == CampModuleConnectorKind.Door &&
                    basementDefinition.Bounds == new Rect(0f, -5f, 12f, 5f) && basementDefinition.ConnectorKind == CampModuleConnectorKind.Ladder,
@@ -478,6 +541,10 @@ namespace KimSurvival.EditorTools
             missingSlot.HasMatchingConnectionSlot = false;
             Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, missingSlot) == CampModuleGeometryStatus.NoConnectionSlot,
                 "Module preview distinguishes a missing reciprocal connection slot");
+            CampModuleValidationContext unavailableSlot = moduleGeometry.Clone();
+            unavailableSlot.ConnectionSlotAvailable = false;
+            Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, unavailableSlot) == CampModuleGeometryStatus.SlotUnavailable,
+                "Module preview distinguishes a defined but unavailable connection slot");
             CampModuleValidationContext overlap = moduleGeometry.Clone();
             overlap.OccupiedRoomBounds.Add(new Rect(1f, 6f, 2f, 2f));
             Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, overlap) == CampModuleGeometryStatus.Overlap,
@@ -490,6 +557,15 @@ namespace KimSurvival.EditorTools
             pathBlocked.RequiredPathClear = false;
             Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, pathBlocked) == CampModuleGeometryStatus.PathBlocked,
                 "Module preview distinguishes connector and required-path obstruction");
+            Assert(PrototypeCampModuleReasonKeys.Geometry(CampModuleGeometryStatus.NoConnectionSlot) == "interaction.module.no_slot" &&
+                   PrototypeCampModuleReasonKeys.Geometry(CampModuleGeometryStatus.SlotUnavailable) == "interaction.module.slot_unavailable" &&
+                   PrototypeCampModuleReasonKeys.Geometry(CampModuleGeometryStatus.Overlap) == "interaction.module.overlap" &&
+                   PrototypeCampModuleReasonKeys.Geometry(CampModuleGeometryStatus.TerrainBlocked) == "interaction.module.terrain_blocked" &&
+                   PrototypeCampModuleReasonKeys.Geometry(CampModuleGeometryStatus.PathBlocked) == "interaction.module.path_blocked" &&
+                   PrototypeCampModuleReasonKeys.Economy(CampModuleEconomyStatus.Locked) == "interaction.module.locked_workbench" &&
+                   PrototypeCampModuleReasonKeys.Economy(CampModuleEconomyStatus.Short) == "interaction.module.missing" &&
+                   PrototypeCampModuleReasonKeys.Economy(CampModuleEconomyStatus.PrototypeLimit) == "interaction.module.prototype_limit",
+                "Geometry and economy statuses remain separate and map only to canonical interaction.module reason keys");
 
             PrototypeCampModuleExpansionConfig moduleConfig = PrototypeCampModuleExpansionConfig.CreateVerticalSliceBalance();
             CampModuleResourceCost moduleCost = moduleConfig.GetCost(CampModuleArchetype.Upper);
@@ -497,6 +573,17 @@ namespace KimSurvival.EditorTools
                    moduleConfig.UnlockRequirement.RequiresWorkbench &&
                    moduleCost.Wood == 2 && moduleCost.Stone == 0 && moduleCost.Food == 0 && moduleCost.Salvage == 1,
                 "Wave 9 module economy uses the locked W2/D1 cost and workbench commit gate");
+            Assert(PrototypeCampModuleReasonKeys.Primary(new CampModuleEvaluation(
+                       upperDefinition,
+                       CampModuleGeometryStatus.Overlap,
+                       CampModuleEconomyStatus.PrototypeLimit,
+                       moduleCost)) == "interaction.module.prototype_limit" &&
+                   PrototypeCampModuleReasonKeys.Primary(new CampModuleEvaluation(
+                       upperDefinition,
+                       CampModuleGeometryStatus.Overlap,
+                       CampModuleEconomyStatus.Locked,
+                       moduleCost)) == "interaction.module.overlap",
+                "Prototype limit precedes geometry after one commit; otherwise exact geometry precedes economy without concatenation");
             GameSession moduleSession = new GameSession();
             PrototypeCampModuleExpansion moduleExpansion = new PrototypeCampModuleExpansion(moduleConfig);
             CampModuleReturnSnapshot planningSnapshot = new CampModuleReturnSnapshot(new Vector2(-3.5f, PrototypeCampPlacement.FloorY), 1f, PrototypeCampModuleCatalog.StartRoomId);
@@ -511,6 +598,20 @@ namespace KimSurvival.EditorTools
             CampModuleReturnSnapshot cancelledSnapshot = moduleExpansion.CancelPreview();
             Assert(cancelledSnapshot.Position == planningSnapshot.Position && !moduleExpansion.IsPreviewActive && !moduleExpansion.HasCommittedModule,
                 "Cancelled module preview returns to the same field position without state changes");
+            PrototypeCampModuleExpansion slotSeededExpansion = new PrototypeCampModuleExpansion(moduleConfig);
+            CampModuleReturnSnapshot sideSlotSnapshot = new CampModuleReturnSnapshot(new Vector2(8.1f, PrototypeCampUse.PlayerFloorY), -1f, PrototypeCampModuleCatalog.StartRoomId);
+            Assert(slotSeededExpansion.BeginPreview(sideSlotSnapshot, CampModuleArchetype.Side) &&
+                   slotSeededExpansion.SelectedArchetype == CampModuleArchetype.Side,
+                "Direct side-slot Submit seeds the first preview candidate from the approached slot");
+            slotSeededExpansion.Cycle(1);
+            Assert(slotSeededExpansion.SelectedArchetype == CampModuleArchetype.Basement,
+                "Candidate navigation preserves the canonical upper-to-side-to-basement ring from any seed");
+            slotSeededExpansion.CancelPreview();
+            Assert(slotSeededExpansion.SelectedArchetype == CampModuleArchetype.Basement &&
+                   slotSeededExpansion.ResumePreview(sideSlotSnapshot) &&
+                   slotSeededExpansion.SelectedArchetype == CampModuleArchetype.Basement,
+                "Preview-to-popup-to-preview preserves the selected candidate and return snapshot");
+            slotSeededExpansion.CancelPreview();
             moduleSession.Grant(ResourceKind.Wood, 8);
             moduleSession.Grant(ResourceKind.Stone, 4);
             moduleSession.Grant(ResourceKind.Salvage, 4);
@@ -776,7 +877,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 10 actual qps-long Locale/String Table registration across all canonical TSV keys, approximately 35-50 percent source expansion with Smart String placeholders/digits/tags preserved, qps hidden from the persisted ko/en player cycle, ko/en/qps proximity target and keyboard/gamepad action-semantic invariance, qps font fallback mapping, Wave 9 upper/side/basement canonical bounds and connectors, all three preview traversal, slot/overlap/terrain/path validation, separate geometry/economy feedback, locked W2/D1 cost with workbench commit gate, failed/cancelled/duplicate atomic no-spend and one-module commit limit, explicit room enter/return, module general-floor placement and connector/path protection, shared keyboard/gamepad preview snapshot, far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit far/near latch and facing selection, exact target ID popup retention, ui.module.expand one-action ownership, approached-slot preview seed, upper-to-side-to-basement cycle, preview-to-same-popup-to-same-field Cancel snapshots, canonical interaction.module geometry/economy reasons and priority, locked W2/D1 no-spend and atomic one-module commit, secondary storage.planning entry, ko/en/qps-long String Tables with Smart String placeholders/digits/tags preserved, qps hidden from the persisted ko/en player cycle, keyboard/gamepad action-semantic invariance, qps font fallback mapping, explicit room enter/return, module general-floor placement and connector/path protection, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 signal/tool/barrier rules, adopted camp background/structure imports, swimming transitions and costs, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -1003,9 +1104,10 @@ namespace KimSurvival.EditorTools
                 string campProximityQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-proximity-prompt-qps-long-1280x800.png"));
                 string campWorkbenchEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-workbench-popup-en-1280x800.png"));
                 string campCampfireKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-campfire-popup-ko-1280x800.png"));
-                string moduleUpperKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-upper-ko-1280x800.png"));
-                string moduleSideEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-side-en-1280x800.png"));
-                string moduleBasementQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-module-basement-qps-long-1280x800.png"));
+                string moduleSlotPopupKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave11-upper-slot-popup-ko-1280x800.png"));
+                string moduleUpperKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave11-module-upper-ko-1280x800.png"));
+                string moduleSideEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave11-module-side-en-1280x800.png"));
+                string moduleBasementQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave11-module-basement-qps-long-1280x800.png"));
                 string moduleInteriorKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-interior-ko-1280x800.png"));
                 string result = prototype.RunAutomatedVerification(
                     explorationScreenshot,
@@ -1036,9 +1138,10 @@ namespace KimSurvival.EditorTools
                     "\nWave 10 proximity prompt qps-long 1280x800: " + campProximityQpsLongScreenshot +
                     "\nWave 9 workbench popup English 1280x800: " + campWorkbenchEnglishScreenshot +
                     "\nWave 9 campfire popup Korean 1280x800: " + campCampfireKoreanScreenshot +
-                    "\nWave 9 module upper Korean 1280x800: " + moduleUpperKoreanScreenshot +
-                    "\nWave 9 module side English 1280x800: " + moduleSideEnglishScreenshot +
-                    "\nWave 10 module basement qps-long 1280x800: " + moduleBasementQpsLongScreenshot +
+                    "\nWave 11 upper-slot popup Korean 1280x800: " + moduleSlotPopupKoreanScreenshot +
+                    "\nWave 11 module upper Korean 1280x800: " + moduleUpperKoreanScreenshot +
+                    "\nWave 11 module side English 1280x800: " + moduleSideEnglishScreenshot +
+                    "\nWave 11 module basement qps-long 1280x800: " + moduleBasementQpsLongScreenshot +
                     "\nWave 9 module interior Korean 1280x800: " + moduleInteriorKoreanScreenshot +
                     "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot +
                     "\nSignal stage two missing/rope English screenshot: " + signalEnglishScreenshot +

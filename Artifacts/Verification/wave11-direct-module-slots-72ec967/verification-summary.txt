@@ -1,0 +1,25 @@
+PASS · Wave 11 direct module slots
+Base: 72ec967a9009635fbeccbc758563183a67a4b311
+Branch: codex/wave11-direct-module-slots
+Unity: 6000.4.9f1
+Compile: 0 errors, 0 C# warnings
+Edit checks: PASS
+Play Mode full survival loop: PASS
+Final Play completion UTC: 2026-08-23T10:02:39.0863124Z
+
+New 1280x800 captures:
+- kim-survival-wave11-upper-slot-popup-ko-1280x800.png
+- kim-survival-wave11-module-upper-ko-1280x800.png
+- kim-survival-wave11-module-side-en-1280x800.png
+- kim-survival-wave11-module-basement-qps-long-1280x800.png
+
+Verified contracts:
+- slot.start.upper / slot.start.side / slot.start.basement share the 1.25u proximity, latch, and facing selection.
+- Interact opens the exact slot popup; Submit(ui.module.expand) alone enters ModulePreview.
+- The approached slot seeds the first candidate and navigation keeps the upper -> side -> basement ring.
+- Cancel returns preview -> same slot popup -> same field while preserving target, candidate, room, position, and facing.
+- Canonical interaction.module geometry/economy reasons keep W2/D1 visible; failed and duplicate commits spend nothing.
+- storage.planning remains a secondary entry; one successful commit per run remains atomic.
+- ko/en/qps-long and keyboard/gamepad action semantics preserve target and candidate state.
+
+UNVERIFIED: physical gamepad actuation; automated gamepad action snapshots and prompt/focus parity pass.
