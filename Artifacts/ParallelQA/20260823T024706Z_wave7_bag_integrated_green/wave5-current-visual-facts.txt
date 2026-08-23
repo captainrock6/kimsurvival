@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260823T024706Z_wave7_bag_integrated_green
+Baseline: 32808aff5934306291e631f4eb35e59f12bb1c12
+Normal ko/en: PASS
+Placement: PLACEMENT_GATE: PASS · targets=24 · failures=0
+Exploration/swimming: EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+qps-long: PSEUDO_LONG_GATE: PASS · targets=10 · failures=0
+qps-long classification: PASS

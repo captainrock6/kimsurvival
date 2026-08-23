@@ -1,0 +1,16 @@
+Wave 7 bag layout metrics
+Run ID: 20260823T024706Z_wave7_bag_integrated_green
+Baseline: 32808aff5934306291e631f4eb35e59f12bb1c12
+Unity: 6000.4.9f1
+Implementation: MEASURED
+Baseline 4-slot: FAIL
+Upgraded 6-slot: FAIL
+Overall: FAIL
+Frames: 10 · Metrics: 80 · Failures: 6
+Thresholds: >=16 px median glyph, 4 px viewport margin, contrast >=4.5:1 (<24 px) or >=3:1, significant text overlap <15%, TMP overflow false.
+FAIL · baseline-4slot-ko-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨 · glyph=22.9 contrast=8.18 bounds=1030.6,384.8-1189.6,439.9 overlaps=
+FAIL · baseline-4slot-ko-1920x1080 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨 · glyph=28.2 contrast=8.18 bounds=1372.6,474.2-1568.6,542.1 overlaps=
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목 · glyph=16.6 contrast=14.00 bounds=917.8,394.4-1117.3,465.4 overlaps=[BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨=35.0%
+FAIL · upgraded-6slot-qps-long-1280x800 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨 · glyph=16.5 contrast=8.18 bounds=931.9,327.4-1103.8,423.3 overlaps=[BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목=35.0%
+FAIL · upgraded-6slot-qps-long-1920x1080 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목 · glyph=22.4 contrast=14.00 bounds=1335.0,532.5-1604.3,628.3 overlaps=[BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨=35.0%
+FAIL · upgraded-6slot-qps-long-1920x1080 · [BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 용량 확장/라벨 · glyph=22.3 contrast=8.18 bounds=1354.0,442.0-1586.1,571.4 overlaps=[BOOTSTRAP] 김씨 생존기: 무인도/Canvas · ui.survival-hud/가방 · icon.resource-tool-set/가방 제목=35.0%

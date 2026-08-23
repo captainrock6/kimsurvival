@@ -1,0 +1,24 @@
+Wave 3 1280x800 projected-text visual gate
+Run ID: 20260823T024706Z_wave7_bag_integrated_green
+Started UTC: 2026-08-23T02:48:11.0076003Z
+Completed UTC: 2026-08-23T02:48:12.5431518Z
+Unity: 6000.4.9f1
+Baseline commit: 32808aff5934306291e631f4eb35e59f12bb1c12
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -force-d3d11 -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260823T024706Z_wave7_bag_integrated_green\unity-legacy-full-play.log"
+Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample.
+Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.
+PLACEMENT_GATE: PASS · targets=24 · failures=0
+EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+PSEUDO_LONG_GATE: PASS · targets=10 · failures=0
+OVERALL: PASS
+PASS · ko placement valid · gated=6 · screenshot=playmode-ko-placement-valid-1280x800.png
+PASS · ko placement invalid · gated=6 · screenshot=playmode-ko-placement-invalid-1280x800.png
+PASS · en placement valid · gated=6 · screenshot=playmode-en-placement-valid-1280x800.png
+PASS · en placement invalid · gated=6 · screenshot=playmode-en-placement-invalid-1280x800.png
+PASS · qps-long placement valid · gated=10 · screenshot=playmode-qps-long-placement-1280x800.png
+PASS · ko day1 swimming · gated=2 · screenshot=playmode-ko-day1-swimming-1280x800.png
+PASS · ko day2 exploration · gated=3 · screenshot=playmode-ko-day2-exploration-1280x800.png
+NOT_APPLICABLE · ko rescue result · gated=0 · screenshot=playmode-ko-rescue-result-1280x800.png
+PASS · en day1 swimming · gated=2 · screenshot=playmode-en-day1-swimming-1280x800.png
+PASS · en day2 exploration · gated=3 · screenshot=playmode-en-day2-exploration-1280x800.png
+NOT_APPLICABLE · en rescue result · gated=0 · screenshot=playmode-en-rescue-result-1280x800.png

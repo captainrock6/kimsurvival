@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T024706Z_wave7_bag_integrated_green",
+  "baselineCommit": "32808aff5934306291e631f4eb35e59f12bb1c12",
+  "observedUtc": "2026-08-23T02:48:48.0151419Z",
+  "overall": "FAIL",
+  "productOverall": "FAIL",
+  "infrastructureOverall": "PASS",
+  "redFirst": "EXPECTED_RED_PRODUCT_GAP_REPRODUCED",
+  "compile": "PASS 0 errors",
+  "wave7Edit": "PASS",
+  "wave7Play": "FAIL",
+  "wave7Layout": "FAIL",
+  "existingRegressionOverall": "PASS",
+  "wave6Progression": "PASS",
+  "placement": "PASS 24/24",
+  "explorationSwimming": "PASS 10/10",
+  "qpsLong": "PASS 10/10",
+  "addressables": "load=PASS build=PASS postSmoke=PASS",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "physicalGamepad": "UNVERIFIED",
+  "physicalGamepadReason": "No physical-device human actuation was performed; synthetic/code-path automation cannot upgrade this status.",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "wave7Findings": [
+    {
+      "id": "W7-08a.baseline_4slot_layout",
+      "severity": "P2",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Current four-slot ko/en bag text is at least 16 px and remains in bounds without overflow or overlap at 1280x800 and 1920x1080",
+      "actual": "metrics=32 failures=2 · baseline-4slot-ko-1280x800:가방 확장 4→6 작업대 필요 glyph=22.9px bounds=True contrast=8.18 overflow=False overlap=True | baseline-4slot-ko-1920x1080:가방 확장 4→6 작업대 필요 glyph=28.2px bounds=True contrast=8.18 overflow=False overlap=True",
+      "reproduction": "Inspect the four fresh baseline-4slot PNGs and wave7-layout-metrics.json.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W7-08b.upgraded_bag_layout",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Pre/post upgrade bag UI passes ko/en/qps-long at 1280x800 and 1920x1080",
+      "actual": "relevantTexts=8 metrics=48 failures=4 upgradeButton=가방 용량 확장",
+      "reproduction": "Run Play contracts, inspect eight ko/en frames plus qps-long stress frames and wave7-layout-metrics.json.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+    }
+  ],
+  "regressionDefects": [],
+  "infrastructureFailures": [],
+  "evidenceRoot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T024706Z_wave7_bag_integrated_green",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave7BagCapacityRegression.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '32808aff5934306291e631f4eb35e59f12bb1c12'"
+}

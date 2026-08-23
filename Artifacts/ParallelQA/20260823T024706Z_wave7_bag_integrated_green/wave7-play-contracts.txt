@@ -1,0 +1,11 @@
+Wave 7 bag capacity Play contracts
+Run ID: 20260823T024706Z_wave7_bag_integrated_green
+Baseline: 32808aff5934306291e631f4eb35e59f12bb1c12
+Unity: 6000.4.9f1
+Product: FAIL
+Infrastructure: PASS
+Counts: PASS=1 FAIL=2 NOT_IMPLEMENTED=0 INFRA_FAIL=0 UNVERIFIED=1
+FAIL · PRODUCT_DEFECT · P2 · W7-08a.baseline_4slot_layout · metrics=32 failures=2 · baseline-4slot-ko-1280x800:가방 확장 4→6 작업대 필요 glyph=22.9px bounds=True contrast=8.18 overflow=False overlap=True | baseline-4slot-ko-1920x1080:가방 확장 4→6 작업대 필요 glyph=28.2px bounds=True contrast=8.18 overflow=False overlap=True
+FAIL · PRODUCT_DEFECT · P1 · W7-08b.upgraded_bag_layout · relevantTexts=8 metrics=48 failures=4 upgradeButton=가방 용량 확장
+PASS · NONE · P1 · W7-09.ui_synthetic_gamepad · bagButtons=6 pointerSlot5=True syntheticGamepadSlot6=True
+UNVERIFIED · HARDWARE_GAP · P1 · W7-HW.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode

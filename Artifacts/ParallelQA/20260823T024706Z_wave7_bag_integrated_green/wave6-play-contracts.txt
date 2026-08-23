@@ -1,0 +1,16 @@
+Wave 6 ko/en progression Play contracts
+Run ID: 20260823T024706Z_wave7_bag_integrated_green
+Baseline: 32808aff5934306291e631f4eb35e59f12bb1c12
+Unity: 6000.4.9f1
+Product: PASS
+Infrastructure: PASS
+Counts: PASS=8 FAIL=0 INFRA_FAIL=0 UNVERIFIED=1
+PASS · NONE · P1 · W6-08.ko.signal.semantic · upgraded=False · stage=1 · visible=2단계에는 밧줄이 필요하다. 현재 밧줄이 없다. | 신호2 · 밧줄:없음 나무:2/2 표류물:2/2
+PASS · NONE · P1 · W6-08.ko.signal.readability · 2단계에는 밧줄이 필요하다. 현재 밧줄이 없다. glyph=32.1px bounds=(x:221.82, y:570.29, width:836.36, height:32.71) contrast=18.5 overflow=False | 신호2 · 밧줄:없음 나무:2/2 표류물:2/2 glyph=18.9px bounds=(x:93.35, y:192.64, width:225.25, height:50.78) contrast=8.2 overflow=False
+PASS · NONE · P1 · W6-08.en.signal.semantic · upgraded=False · stage=1 · visible=Stage 2 requires rope. No rope is available. | Signal 2 Rope:None Wood:2/2 Salvage:2/2
+PASS · NONE · P1 · W6-08.en.signal.readability · Stage 2 requires rope. No rope is available. glyph=19.2px bounds=(x:252.04, y:568.74, width:774.23, height:32.59) contrast=18.5 overflow=False | Signal 2 Rope:None Wood:2/2 Salvage:2/2 glyph=18.8px bounds=(x:55.97, y:190.26, width:297.02, height:53.53) contrast=8.2 overflow=False
+PASS · NONE · P0 · W6-08.ko.barrier.semantic · visible=돌도끼 필요 덩굴·나무 장벽
+PASS · NONE · P1 · W6-08.ko.barrier.readability · 돌도끼 필요 덩굴·나무 장벽 glyph=20.8px bounds=(x:611.19, y:491.44, width:177.56, height:50.04) contrast=18.4 overflow=False
+PASS · NONE · P0 · W6-08.en.barrier.semantic · visible=Stone Axe Required Vine & Wood Barrier
+PASS · NONE · P1 · W6-08.en.barrier.readability · Stone Axe Required Vine & Wood Barrier glyph=20.1px bounds=(x:479.88, y:483.77, width:440.47, height:67.76) contrast=18.4 overflow=False
+UNVERIFIED · HARDWARE_GAP · P2 · W6-HW.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode
