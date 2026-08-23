@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 7,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "wave14-coast-forest-review-board.png",
+      "kind": "raster",
+      "width": 3840,
+      "height": 2300,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 52.31,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-wave14-coast-forest-review-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "option-a-current-balanced-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 60.59,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-option-a-current-balanced-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "option-b-gameplay-band-contrast-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 58.26,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-option-b-gameplay-band-contrast-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "option-c-shoreline-first-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 60.32,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-option-c-shoreline-first-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wave14-coast-forest-review-manifest.json",
+      "kind": "editable-source",
+      "bytes": 9815,
+      "issues": []
+    },
+    {
+      "fileName": "wave14-coast-forest-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 3543,
+      "issues": []
+    },
+    {
+      "fileName": "wave14-coast-forest-engine-handoff.txt",
+      "kind": "file",
+      "bytes": 1112,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T13:13:08.404Z",
+  "jobId": "job_20260823130453_32a9debf",
+  "assetType": "background"
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "validationId": "validation.wave14.background.coast-forest.review",
+  "assetId": "background.coast-forest",
+  "jobId": "job_20260823130453_32a9debf",
+  "status": "pass_with_follow_up",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "runtimeLoadAllowlistCount": 0,
+  "mechanicalChecks": {
+    "optionPreviewCount": 3,
+    "allOptionPreviewsAre1280x800": true,
+    "allOptionPreviewsAreOpaqueRgb": true,
+    "comparisonBoardSizePixels": [3840, 2300],
+    "comparisonBoardIsOpaqueRgb": true,
+    "existingForgeBackgroundSizePixels": [1672, 941],
+    "existingForgeBackgroundAspectRatio": 1.777896,
+    "existingForgeQualityScore": 100,
+    "existingForgeErrors": 0,
+    "existingForgeWarnings": 0,
+    "latestRuntimeEvidenceSizePixels": [1280, 800],
+    "newPaintedBitmapGenerated": false,
+    "externalGenerationApiCalled": false,
+    "runtimeLoadAllowlistIsEmpty": true,
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false
+  },
+  "visualReview": {
+    "performedOnce": true,
+    "result": "pass_with_follow_up",
+    "findings": [
+      "The raw Forge source clearly reads left shallow water, center beach and rock shelf, and right forest entrance in one side-view panorama.",
+      "Kim's orange/green proportion proxy and all four adopted resource silhouettes remain readable on the center sand lane at 1280x800.",
+      "The shoreline slope reads as the swim transition, with option C giving it the largest visual share.",
+      "The adopted blocked barrier loses silhouette contrast against the dense right forest in option A; option B is strongest after moving critical interaction art toward the clear gameplay band.",
+      "The current runtime captures use prototype geometry rather than the Forge background, so they validate state flow but not final art integration.",
+      "The source painting includes a fallen trunk and vines at the forest entrance. A selected production derivative must remove or isolate that baked obstruction before using the independent blocked/interactable/cleared barrier asset."
+    ],
+    "recommendationOnly": "background.coast-forest.gameplay-band-contrast",
+    "recommendationIsAdoption": false
+  },
+  "readabilityMatrix": {
+    "background.coast-forest.current-balanced": {
+      "beachForestWaterRoute": "pass",
+      "kim": "pass",
+      "resourceNodes": "pass",
+      "swimBoundary": "pass",
+      "vineWoodBarrier": "concern",
+      "depthSeparation": "pass"
+    },
+    "background.coast-forest.gameplay-band-contrast": {
+      "beachForestWaterRoute": "pass",
+      "kim": "pass",
+      "resourceNodes": "pass",
+      "swimBoundary": "pass",
+      "vineWoodBarrier": "pass_with_position_rule",
+      "depthSeparation": "pass_with_layer_contract"
+    },
+    "background.coast-forest.shoreline-first": {
+      "beachForestWaterRoute": "pass",
+      "kim": "pass",
+      "resourceNodes": "pass",
+      "swimBoundary": "strongest",
+      "vineWoodBarrier": "concern_near_ui_edge",
+      "depthSeparation": "pass"
+    }
+  },
+  "unresolvedBeforeRuntimeConnection": [
+    "Explicit user selection of exactly one candidateId.",
+    "Clean separation of the baked forest obstruction from the background.",
+    "A real in-engine 1280x800 capture using the selected background and independent barrier/resource sprites.",
+    "Confirmation that the right inventory rail either collapses or does not overlap the barrier interaction footprint."
+  ],
+  "wave11ConnectorCandidatesUnchanged": true,
+  "userDecisionRequired": true
+}
