@@ -136,23 +136,23 @@
     },
     {
       "id": "decision.wave9-spatial-base-camp",
-      "summary": "베이스캠프는 김씨가 직접 이동해 물리적 설비에 접근·상호작용하는 측면 절개형 주 플레이 공간으로 재기준한다.",
-      "rationale": "사용자가 승인한 목업과 This War of Mine에서 참고한 공간적 상호작용 감각을 반영하되 고유 화면·아트는 복제하지 않는다.",
-      "source": "user-confirmed",
+      "summary": "베이스캠프는 김씨가 직접 이동해 1.25u 안의 물리적 설비 하나에 접근하고 상황형 팝업으로 행동한 뒤 같은 현장으로 돌아오는 측면 절개형 주 플레이 공간이다.",
+      "rationale": "승인 목업의 직접 생활 공간 경험을 입력·포커스·거래 상태로 고정하고 원거리 메뉴 조작으로 되돌아가는 것을 막는다.",
+      "source": "user-confirmed-and-detailed-contract",
       "createdAt": "2026-08-23T04:07:47.172Z"
     },
     {
       "id": "decision.wave9-contextual-ui-not-dashboard",
-      "summary": "캠프 행동은 근접 안내 뒤 설비 전용 소형 팝업으로 제공하고 화면 대부분을 덮는 상시 전역 대시보드는 채택하지 않는다.",
-      "rationale": "캠프를 메뉴가 아니라 직접 살아가는 공간으로 느끼게 하고 설비의 위치와 이동 동선을 실제 플레이 결정으로 만든다.",
-      "source": "user-confirmed",
+      "summary": "캠프 UI는 최소 HUD, 대상 하나의 근접 안내와 설비 전용 소형 팝업만 사용하며 팝업 동안 이동·월드 입력을 잠그고 확인·취소 뒤 현장 상태를 복원한다.",
+      "rationale": "공간과 설비의 위치를 실제 플레이 결정으로 유지하면서 키보드·게임패드 포커스 누출과 이중 거래를 막는다.",
+      "source": "user-confirmed-and-detailed-contract",
       "createdAt": "2026-08-23T04:07:47.172Z"
     },
     {
       "id": "decision.wave9-modular-expansion",
-      "summary": "공간 증축은 위·옆·지하 연결 슬롯에 규격 방 모듈을 붙이고 그 내부에 설비를 제한적으로 자유 배치하는 방식으로 검증한다.",
-      "rationale": "복층·옆 확장·지하 굴착의 시각적 성장을 살리면서 픽셀 건축과 구조 시뮬레이션으로 범위가 폭발하는 것을 막는다.",
-      "source": "user-confirmed-and-slice-scope",
+      "summary": "첫 공간 증축은 start 18×5u에서 표준 12×5u upper (0,5), side (18,0), basement (0,-5)를 모두 미리보고 연결·겹침·지형·통로를 통과한 하나만 확정하며 비용은 TBD_BALANCE 데이터로 남긴다.",
+      "rationale": "픽셀 건축 없이 세 방향의 공간 성장과 경로 보존을 결정적으로 검증하고 근거 없는 비용이 기존 구조·가방 경제를 훼손하지 않게 한다.",
+      "source": "user-confirmed-and-detailed-contract",
       "createdAt": "2026-08-23T04:07:47.172Z"
     },
     {
@@ -163,5 +163,5 @@
       "createdAt": "2026-08-23T04:07:47.172Z"
     }
   ],
-  "updatedAt": "2026-08-23T04:08:14.485Z"
+  "updatedAt": "2026-08-23T04:35:59.185Z"
 }

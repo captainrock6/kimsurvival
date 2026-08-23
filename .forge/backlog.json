@@ -890,7 +890,7 @@
       "id": "task.feature.feature.camp-object-interaction",
       "lane": "implementation",
       "title": "공간형 설비 직접 상호작용 구현",
-      "description": "김씨가 캠프 안을 직접 이동해 물리적 설비에 접근하고, 근접 안내와 상호작용 입력을 거쳐 해당 설비만의 소형 팝업으로 행동한다. 정상 캠프 화면에는 전역 행동 대시보드가 나타나지 않는다.",
+      "description": "김씨가 측면 절개형 캠프를 직접 이동해 1.25u 안의 안정 대상 하나를 선택하고, 근접 안내와 Interact를 거쳐 대상 설비만의 작은 팝업에서 원자적으로 행동한 뒤 같은 현장으로 돌아온다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.camp-building",
@@ -912,13 +912,20 @@
         "상호작용 입력 뒤에만 대상 설비의 행동·비용·상태만 담은 소형 팝업이 열린다.",
         "팝업 동안 일반 이동이 잠기고 확인 또는 취소 뒤 같은 공간의 직접 조작으로 돌아온다.",
         "정상 캠프 플레이에서 기존 전역 campActions 대시보드와 대형 가방 패널이 화면을 상시 덮지 않는다.",
-        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다."
+        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다.",
+        "FreeRoam→단일 후보→근접 안내→설비 팝업→검증→성공/실패/취소→같은 현장 복귀가 안정 상태 ID와 입력 소유권으로 구분된다.",
+        "팝업·배치·증축 중 김씨 이동과 월드 Interact가 잠기고 Cancel 뒤 위치·방향·게임 데이터가 보존된다.",
+        "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
+        "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
+        "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T04:07:47.173Z"
+      "updatedAt": "2026-08-23T04:35:59.187Z",
+      "createdAt": "2026-08-23T04:35:59.187Z"
     },
     {
       "id": "task.qa.feature.camp-object-interaction",
@@ -938,18 +945,26 @@
         "상호작용 입력 뒤에만 대상 설비의 행동·비용·상태만 담은 소형 팝업이 열린다.",
         "팝업 동안 일반 이동이 잠기고 확인 또는 취소 뒤 같은 공간의 직접 조작으로 돌아온다.",
         "정상 캠프 플레이에서 기존 전역 campActions 대시보드와 대형 가방 패널이 화면을 상시 덮지 않는다.",
-        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다."
+        "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다.",
+        "FreeRoam→단일 후보→근접 안내→설비 팝업→검증→성공/실패/취소→같은 현장 복귀가 안정 상태 ID와 입력 소유권으로 구분된다.",
+        "팝업·배치·증축 중 김씨 이동과 월드 Interact가 잠기고 Cancel 뒤 위치·방향·게임 데이터가 보존된다.",
+        "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
+        "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
+        "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "createdAt": "2026-08-23T04:35:59.187Z",
+      "updatedAt": "2026-08-23T04:35:59.187Z"
     },
     {
       "id": "task.design.wave9-spatial-camp-spec",
       "lane": "design",
       "title": "Wave 9 공간형 베이스캠프 상세 계약",
-      "description": "승인된 목업과 재기준 패킷을 바탕으로 직접 이동·근접 상호작용·설비별 팝업·최소 HUD·위/옆/지하 모듈 증축의 상태, 연결 규칙, 자원 흐름과 플레이테스트 관찰 항목을 구현 가능한 한 개의 정본 계약으로 고정한다.",
+      "description": "승인 목업과 rebaseline을 바탕으로 직접 이동·단일 후보·상황형 팝업·행동 소유권·포커스 잠금·원자 거래·모듈 좌표와 Wave 8 변경 계약을 하나의 구현 가능한 정본으로 고정한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
@@ -962,16 +977,32 @@
         "ui.camp-module-expansion"
       ],
       "acceptanceCriteria": [
-        "캠프 정상 이동부터 설비 팝업 종료까지의 입력·포커스·자원 변경 상태표가 있다.",
-        "작업대·모닥불·빗물받이·구조 신호대의 행동 소유권과 표시 상태가 분리된다.",
-        "시작 방과 위·옆·지하 모듈의 슬롯, 접속부, 통로, 배치 구역 계약이 좌표와 함께 정의된다.",
-        "기존 Wave 8 외부 플레이테스트의 캠프 지표와 시각을 새 공간형 루프에 맞게 수정할 변경 목록이 있다."
+        "일반 이동부터 후보·안내·팝업·포커스/이동 잠금·거래·실패·취소·현장 복귀까지 상태표와 입력 소유권이 있다.",
+        "작업대·모닥불·빗물받이·저장/가방·구조 신호대별 action, 동결 비용, LOCKED/SHORT/READY/DONE 상태와 기존 연구·제작·가방 연결이 분리된다.",
+        "시작 방과 위·옆·지하 모듈의 좌표·크기·slot·문·사다리/계단·겹침·지형·통로 규칙이 예시 좌표와 함께 정의된다.",
+        "모듈 내부 general-floor, open-sky zone, storage와 signal anchor, keep-clear 및 무료 재배치 규칙이 정의된다.",
+        "첫 프로토타입은 세 후보를 모두 미리보고 하나를 확정하며 픽셀 건축·두 번째 확장·해체·환불은 제외한다.",
+        "모듈 unlock과 비용은 TBD_BALANCE 변수·검증 가설이며 새 경제 수치로 승인되지 않는다.",
+        "최소 HUD·상황형 팝업·ko/en/qps-long·향후 locale·키보드/게임패드 포커스 계약이 있다.",
+        "Wave 8의 3/6/10/12/14분과 20분 결말 지표를 유지하면서 대형 대시보드 전제를 제거한 이벤트·관찰·Q5 변경 계약이 있다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/wave9-spatial-base-camp-spec.md",
+        ".forge/packets/wave9-spatial-camp-detail.json",
+        "Docs/Design/References/approved-spatial-base-camp-concept.png",
+        ".forge/packets/wave9-spatial-base-camp-rebaseline.json"
+      ],
+      "evidence": [
+        "Docs/Design/wave9-spatial-base-camp-spec.md",
+        "Docs/Design/References/approved-spatial-base-camp-concept.png",
+        ".forge/packets/wave9-spatial-camp-detail.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T04:07:47.173Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T04:39:23.041Z",
+      "createdAt": "2026-08-23T04:35:59.187Z",
+      "note": "Wave 9 공간형 베이스캠프 상세 계약을 승인 목업과 rebaseline 기준으로 고정했다. 구현·QA 결과가 아니라 설계 증거만 연결했으며 모듈 비용과 잠금은 TBD_BALANCE로 유지한다.",
+      "completedAt": "2026-08-23T04:39:23.040Z"
     },
     {
       "id": "task.qa.wave9-spatial-camp-contract-gate",
@@ -1929,7 +1960,7 @@
       "id": "task.feature.feature.camp-module-expansion",
       "lane": "implementation",
       "title": "위·옆·지하 방 모듈 증축 구현",
-      "description": "시작 방의 연결 슬롯에 규격화된 방 모듈을 좌우·위·지하 방향으로 미리보기하고 비용과 접속·통로 규칙을 통과한 위치에 확정한다. 모듈 내부에서는 일반 설비의 제한적 자유 배치를 유지한다.",
+      "description": "시작 방의 고정 연결 슬롯에서 표준 방 모듈의 위층·옆방·지하실 후보를 현장 오버레이로 미리보고, 기하·연결·지형·통로와 데이터 비용을 통과한 후보 하나를 원자적으로 확정한다.",
       "priority": "high",
       "dependencies": [
         "task.feature.feature.camp-building",
@@ -1948,12 +1979,20 @@
         "연결 슬롯, 비용, 겹침과 출입 통로 규칙을 모두 통과한 모듈만 확정된다.",
         "확정된 모듈로 김씨가 이동할 수 있고 기존 설비와 자원 상태가 보존된다.",
         "새 모듈의 호환 구역에 일반 설비를 제한적으로 자유 배치할 수 있다.",
-        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다."
+        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다.",
+        "첫 프로토타입 좌표계에서 start 18×5u, upper (0,5), side (18,0), basement (0,-5)와 선언된 reciprocal slot이 일치한다.",
+        "위·옆·지하 후보를 모두 순회하고 유효·무효 원인을 본 뒤 하나만 확정하며 추가 확정은 PROTOTYPE_LIMIT로 거부한다.",
+        "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
+        "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
+        "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
+        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "createdAt": "2026-08-23T04:35:59.187Z",
+      "updatedAt": "2026-08-23T04:35:59.187Z"
     },
     {
       "id": "task.qa.feature.camp-module-expansion",
@@ -1973,12 +2012,20 @@
         "연결 슬롯, 비용, 겹침과 출입 통로 규칙을 모두 통과한 모듈만 확정된다.",
         "확정된 모듈로 김씨가 이동할 수 있고 기존 설비와 자원 상태가 보존된다.",
         "새 모듈의 호환 구역에 일반 설비를 제한적으로 자유 배치할 수 있다.",
-        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다."
+        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다.",
+        "첫 프로토타입 좌표계에서 start 18×5u, upper (0,5), side (18,0), basement (0,-5)와 선언된 reciprocal slot이 일치한다.",
+        "위·옆·지하 후보를 모두 순회하고 유효·무효 원인을 본 뒤 하나만 확정하며 추가 확정은 PROTOTYPE_LIMIT로 거부한다.",
+        "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
+        "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
+        "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
+        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "createdAt": "2026-08-23T04:35:59.187Z",
+      "updatedAt": "2026-08-23T04:35:59.187Z"
     },
     {
       "id": "task.art.icon.resource-tool-set",
@@ -2088,5 +2135,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T04:08:14.485Z"
+  "updatedAt": "2026-08-23T04:39:23.041Z"
 }
