@@ -1,0 +1,85 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 11 direct slot Edit contracts",
+    "runId": "20260823T131000Z_8eecfa2_integrated",
+    "baselineCommit": "8eecfa202edefe7a7ffaf67ecf5b44c01c545852",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T12:53:09.0906242Z",
+    "completedUtc": "2026-08-23T12:53:09.1165192Z",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 6,
+    "expectedFailed": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "checks": [
+        {
+            "id": "W11-E01.canonical_slot_catalog",
+            "matrix": "slot identity",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The start room exposes canonical upper, side, and basement slot IDs with distinct reciprocal connectors",
+            "actual": "slot.start.upper<->slot.upper.down, slot.start.side<->slot.side.left, slot.start.basement<->slot.basement.up",
+            "reproduction": "Enumerate PrototypeCampModuleCatalog.All and compare StartSlotId/ReciprocalSlotId.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"
+        },
+        {
+            "id": "W11-E02.direct_slot_runtime_surface",
+            "matrix": "direct discovery surface",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Runtime selection owns the three catalog StartSlotId values and the canonical ui.module.expand action key",
+            "actual": "catalogDrivenRegistration=True; canonicalActionKey=True; Play behavior remains authoritative",
+            "reproduction": "Inspect the camp target registration and canonical localization table, then run the Play slot approach matrix.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs; Assets/_Project/Scripts/Localization/**"
+        },
+        {
+            "id": "W11-E03.candidates_reasons_economy",
+            "matrix": "candidate/geometry/economy",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "All three candidates cycle and expose canonical geometry/economy reason IDs, workbench LOCKED, W2/D1 SHORT, and exact READY",
+            "actual": "cycle=Upper>Side>Basement; reasonIds=9; economy=LOCKED>SHORT(W1/D1)>READY(W2/D1)",
+            "reproduction": "Cycle Upper/Side/Basement, evaluate each geometry reason, then evaluate before/after workbench with normalized resources.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W11-E04.atomicity_and_one_room_limit",
+            "matrix": "transaction",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Cancel, failed, and duplicate submits spend nothing; success spends W2/D1 once; a second room is PROTOTYPE_LIMIT",
+            "actual": "cancel/invalid/short/duplicate/second neutral; success delta W-2/D-1 exactly once",
+            "reproduction": "Fingerprint storage before/after cancel, invalid, short, success, duplicate, and second-room submit.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W11-E05.keyboard_synthetic_gamepad",
+            "matrix": "input parity",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Keyboard/mouse and synthetic gamepad map to equivalent interact, cycle, confirm, and cancel semantics",
+            "actual": "interact=true; cycle=+1; confirm=true; cancel=true; device prompt keys remain distinct with equivalent meaning",
+            "reproduction": "Feed equivalent raw device states through PrototypePlayerActions and PrototypeCampModulePreviewActions.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"
+        },
+        {
+            "id": "W11-E06.ko_en_qps_direct_action",
+            "matrix": "localization",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "ui.module.expand and module names/reasons have non-fallback ko/en/qps-long values with the same canonical placeholders",
+            "actual": "required=13; missing=none; namedCanonicalPlaceholders={0},{1},{2}:True; qpsWrapped=True",
+            "reproduction": "Load the TSV/table rows for ui.module.expand and the module reason IDs in all three locales.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/**"
+        }
+    ]
+}

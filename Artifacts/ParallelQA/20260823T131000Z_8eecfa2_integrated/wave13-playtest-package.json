@@ -1,0 +1,42 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 13 playtest distribution kit result",
+    "runId":  "20260823T131000Z_8eecfa2_integrated",
+    "baselineCommit":  "8eecfa202edefe7a7ffaf67ecf5b44c01c545852",
+    "observedUtc":  "2026-08-23T12:55:26.9205713Z",
+    "overall":  "PASS",
+    "wave12Overall":  "PASS",
+    "wave12Product":  "PASS",
+    "wave12Infrastructure":  "PASS",
+    "compile":  "PASS 0 errors",
+    "windowsDevelopmentBuild":  "PASS",
+    "hiddenSmoke":  "PASS",
+    "addressables":  "PASS load/build/post-smoke",
+    "packageManifest":  "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T131000Z_8eecfa2_integrated\\wave13-playtest-package-manifest.json",
+    "packageManifestSha256":  "f4152a2e9ebd3ec5e9ef6c7f9308535b81328575981413adac9818e6e9d4c4c8",
+    "sha256Sums":  "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T131000Z_8eecfa2_integrated\\wave13-playtest-package-sha256s.txt",
+    "sha256SumsSha256":  "b3a601a2b3b02b3b5c6bd273258e9cc9400b8ba3922dabebdce035a904b03d7e",
+    "packageZip":  "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\W13\\20260823T131__integrated\\KimSurvivalIsland-Windows-x64-Development.zip",
+    "packageZipBytes":  69155251,
+    "packageZipSha256":  "11ac5242cfa37f9c9a1ef3e3d46a50e93b16754fb47132d11060c0679ebbaf76",
+    "zipEntryCount":  268,
+    "zipRequired":  {
+                        "executable":  true,
+                        "dataDirectory":  true,
+                        "unityPlayer":  true,
+                        "monoBleedingEdge":  true,
+                        "manifest":  true,
+                        "sha256Sums":  true,
+                        "quickStart":  true,
+                        "keyboardMouseChecklist":  true,
+                        "physicalGamepadChecklist":  true
+                    },
+    "zipMissing":  [
+
+                   ],
+    "physicalGamepad":  "UNVERIFIED",
+    "physicalGamepadReason":  "No physical device and human actuation evidence was supplied. Synthetic gamepad coverage is not physical-device proof.",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\New-Wave13PlaytestPackage.ps1\u0027 -RunId \u002720260823T131000Z_8eecfa2_integrated\u0027 -BaselineCommit \u00278eecfa202edefe7a7ffaf67ecf5b44c01c545852\u0027"
+}

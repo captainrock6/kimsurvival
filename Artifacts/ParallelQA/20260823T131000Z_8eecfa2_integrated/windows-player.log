@@ -1,0 +1,36 @@
+Mono path[0] = 'C:/Users/dev/Documents/ChatGPT/신규 개발 본부/work/ParallelQA/20260823T131000Z_8eecfa2_integrated/WindowsBuild/KimSurvivalIsland_Data/Managed'
+Mono config path = 'C:/Users/dev/Documents/ChatGPT/신규 개발 본부/work/ParallelQA/20260823T131000Z_8eecfa2_integrated/WindowsBuild/MonoBleedingEdge/etc'
+Starting managed debugger on port 56533
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=0.0.0.0:56533
+CodeReloadManager initialized
+Found 2 interfaces on host : 0) 192.168.0.5 1) 172.27.80.1
+Player connection [27128]  Target information:
+
+Player connection [27128]  * "[IP] 192.168.0.5 [Port] 55001 [Flags] 2 [Guid] 221027533 [EditorId] 3575773329 [Version] 1048832 [Id] WindowsPlayer(2,DESKTOP-H711UR9) [Debug] 1 [PackageName] WindowsPlayer [ProjectName] 김씨 생존기: 무인도" 
+
+Player connection [27128]  * "[IP] 172.27.80.1 [Port] 55001 [Flags] 2 [Guid] 221027533 [EditorId] 3575773329 [Version] 1048832 [Id] WindowsPlayer(2,DESKTOP-H711UR9) [Debug] 1 [PackageName] WindowsPlayer [ProjectName] 김씨 생존기: 무인도" 
+
+Player connection [27128] Started UDP target info broadcast (1) on [225.0.0.222:54997].
+
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.4.9f1 (f7258d6eebbe)
+[Subsystems] Discovering subsystems at path C:/Users/dev/Documents/ChatGPT/신규 개발 본부/work/ParallelQA/20260823T131000Z_8eecfa2_integrated/WindowsBuild/KimSurvivalIsland_Data/UnitySubsystems
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA GeForce RTX 3080
+[D3D12 Device Filter] Driver Version: 32.0.16.1074
+[D3D12 Device Filter] Feature Level: 12.2
+[D3D12 Device Filter] Graphics Memory: 10053 MB
+[D3D12 Device Filter] Processor Count: 20
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 3080 (ID=0x2216)
+    Vendor:          NVIDIA
+    VRAM:            10053 MB
+    App VRAM Budget: 9285 MB
+    Driver:          32.0.16.1074
+Begin MonoManager ReloadAssembly

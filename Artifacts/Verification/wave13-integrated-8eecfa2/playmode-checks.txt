@@ -1,0 +1,25 @@
+PASS
+PASS · Wave 13 개발 빌드 전용 JSONL의 실제 근접 target·popup·action·자원 계측 경계를 Play Mode에서 확인. Wave 12 Day 3·4 생존, Day 5 정산 실패, 조기 구조 즉시 성공과 채택 compact-a sliced 프레임을 확인. glyph 44x44/TMP 분리, locale은 행동만·합성 gamepad는 glyph만 갱신하고 ko/en/qps-long 1280x800 한 줄 무잘림을 통과했다. Wave 11 직접 연결 슬롯·팝업·preview Cancel, 제한적 자유 배치, 가방 4→6, 수색·수영·장벽·구조 신호 원자성을 회귀 확인
+Bag locked Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-bag-locked-ko-1280x800.png
+Bag upgraded English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-bag-upgraded-en-1280x800.png
+Bag locked Korean 1920x1080: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-bag-locked-ko-1920x1080.png
+Bag upgraded English 1920x1080: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-bag-upgraded-en-1920x1080.png
+Wave 12 far camp Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave12-camp-far-ko-1280x800.png
+Wave 12 facility near Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave12-facility-near-ko-1280x800.png
+Wave 12 facility near English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave12-facility-near-en-1280x800.png
+Wave 12 direct slot near qps-long 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave12-direct-slot-near-qps-long-1280x800.png
+Wave 9 workbench popup English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave9-workbench-popup-en-1280x800.png
+Wave 12 popup-open Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave12-popup-open-ko-1280x800.png
+Wave 11 upper-slot popup Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave11-upper-slot-popup-ko-1280x800.png
+Wave 11 module upper Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave11-module-upper-ko-1280x800.png
+Wave 11 module side English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave11-module-side-en-1280x800.png
+Wave 11 module basement qps-long 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave11-module-basement-qps-long-1280x800.png
+Wave 9 module interior Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave9-module-interior-ko-1280x800.png
+Signal stage one missing/workbench Korean screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
+Signal stage two missing/rope English screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
+Placement Korean screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-placement-ko-invalid-1280x800.png
+Placement English/gamepad screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
+Swimming screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-swimming-en-1280x800.png
+Exploration screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave7-exploration-ko-1280x800.png
+Camp screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\wave13-integrated-8eecfa2\kim-survival-wave12-camp-reset-ko-1280x800.png
+Completed UTC: 2026-08-23T12:52:05.1139614Z

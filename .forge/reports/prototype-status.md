@@ -12,14 +12,12 @@
 |---|---|---|
 | design | complete |  |
 | art | in_progress | Contextual prompt and module-expansion visual kits are review-only. No candidate is adopted, packaged, or runtime-connected pending explicit user selection. |
-| implementation | complete | Spatial camp interaction, one-room module expansion, ko/en plus non-shipping qps-long, Korean 1280 HUD fit, and the complete survival loop are integrated. |
-| verification | in_progress | Automated product and infrastructure gates pass with no expected product gaps. User playtest and physical gamepad actuation remain outstanding; Steam release work remains out of scope. |
+| implementation | complete | Wave 13 four-lane results are integrated. EditMode, PlayMode, Windows Development build, hidden-player smoke, Addressables, and PowerShell 5.1 package checks pass. |
+| verification | in_progress | Automated product and infrastructure gates pass. Owner natural-play results, the external six-session cohort, and physical gamepad actuation remain outstanding; Steam release work remains out of scope. |
 
 ## 다음 작업
 
-- **Wave 3 밸런스 v0.2 적용** (implementation, critical) — task.wave3.implementation.balance-v0-2
-- **Wave 3 P1 월드 라벨 가독성 수정** (implementation, critical) — task.wave3.implementation.world-label-readability
-- **공간형 설비 직접 상호작용 검증** (qa, critical) — task.qa.feature.camp-object-interaction
+- **Wave 12 5일 기한 재기준선 적용 (v0.2 동결)** (implementation, critical) — task.wave3.implementation.balance-v0-2
 - **PC 이중 입력 검증** (qa, high) — task.qa.feature.dual-input
 - **한국어·영어와 확장 가능한 국제화 검증** (qa, high) — task.qa.feature.localization
 
@@ -40,21 +38,21 @@
 | task.feature.feature.crafting-research | implementation | critical | done | 제작과 간단한 연구 구현 |
 | task.qa.feature.crafting-research | qa | critical | done | 제작과 간단한 연구 검증 |
 | task.feature.feature.camp-building | implementation | critical | done | 베이스캠프 건설과 배치 구현 |
-| task.qa.feature.camp-building | qa | critical | review | 베이스캠프 건설과 배치 검증 |
+| task.qa.feature.camp-building | qa | critical | done | 베이스캠프 건설과 배치 검증 |
 | task.feature.feature.island-exploration | implementation | critical | done | 횡스크롤 섬 수색 구현 |
 | task.qa.feature.island-exploration | qa | critical | done | 횡스크롤 섬 수색 검증 |
 | task.system.system.camp-placement | implementation | critical | done | 제한적 자유 배치 구현 |
-| task.wave3.implementation.balance-v0-2 | implementation | critical | ready | Wave 3 밸런스 v0.2 적용 |
+| task.wave3.implementation.balance-v0-2 | implementation | critical | ready | Wave 12 5일 기한 재기준선 적용 (v0.2 동결) |
 | task.wave3.implementation.spatial-camp-use | implementation | critical | done | Wave 3 공간형 캠프 사용 정합화 |
-| task.wave3.implementation.world-label-readability | implementation | critical | ready | Wave 3 P1 월드 라벨 가독성 수정 |
-| task.wave3.qa.integrated-three-day | qa | critical | blocked | Wave 3 3일 통합 플레이테스트 승인 |
+| task.wave3.implementation.world-label-readability | implementation | critical | done | Wave 3 P1 월드 라벨 가독성 수정 |
+| task.wave3.qa.integrated-three-day | qa | critical | blocked | Wave 12 5일 통합 플레이테스트 승인 |
 | task.design.wave8-external-playtest-package | design | critical | done | 첫 사용자 20분 플레이테스트 실행 패키지 |
 | task.art.ui.survival-hud | art | critical | review | 최소 생존 HUD 제작 |
-| task.art.ui.camp-contextual-interaction | art | critical | review | 캠프 근접 안내와 설비 전용 팝업 제작 |
+| task.art.ui.camp-contextual-interaction | art | critical | done | 캠프 근접 안내와 설비 전용 팝업 제작 |
 | task.feature.feature.camp-object-interaction | implementation | critical | done | 공간형 설비 직접 상호작용 구현 |
-| task.qa.feature.camp-object-interaction | qa | critical | ready | 공간형 설비 직접 상호작용 검증 |
+| task.qa.feature.camp-object-interaction | qa | critical | done | 공간형 설비 직접 상호작용 검증 |
 | task.design.wave9-spatial-camp-spec | design | critical | done | Wave 9 공간형 베이스캠프 상세 계약 |
-| task.qa.wave9-spatial-camp-contract-gate | qa | critical | review | Wave 9 공간형 캠프 레드 퍼스트 계약 게이트 |
+| task.qa.wave9-spatial-camp-contract-gate | qa | critical | done | Wave 9 공간형 캠프 레드 퍼스트 계약 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
@@ -79,7 +77,7 @@
 | task.wave3.implementation.third-locale | implementation | high | done | Wave 3 P2 제3 로케일·저장 독립성 구현 |
 | task.system.system.bag-capacity-upgrade | implementation | high | done | 가방 용량 성장 구현 |
 | task.feature.feature.inventory-capacity-upgrade | implementation | high | done | 가방 4→6칸 확장 구현 |
-| task.qa.feature.inventory-capacity-upgrade | qa | high | done | 가방 4→6칸 확장 검증 |
+| task.qa.feature.inventory-capacity-upgrade | qa | high | blocked | 가방 4→6칸 확장 검증 |
 | task.design.wave7-bag-capacity-balance | design | high | done | Wave 7 가방 확장 비용과 3일 경로 검증 |
 | task.art.background.modular-island-camp | art | high | review | 측면 절개형 모듈 베이스캠프 제작 |
 | task.art.ui.camp-module-expansion | art | high | review | 방 모듈 증축 상태 UI 제작 |
@@ -88,6 +86,8 @@
 | task.art.icon.resource-tool-set | art | medium | done | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | done | 코믹 피드백 효과 세트 제작 |
 | task.art.ui.bag-capacity-upgrade | art | medium | review | 가방 확장 UI 상태 세트 제작 |
+| task.design.wave12-five-day-rebaseline | design | critical | done | Wave 12 5일 수직 슬라이스 재기준선 |
+| task.design.wave13-owner-playtest-intake | design | critical | done | Wave 13 사용자 플레이테스트 접수·Forge 기준선 감사 |
 | task.postslice.steam-release-readiness | implementation | low | blocked | 수직 슬라이스 이후 Steam 출하 준비 |
 
 ## 채택 대기 또는 플레이스홀더 아트
@@ -96,7 +96,6 @@
 - ui.survival-hud: review · 공간형 캠프 최소 생존 HUD
 - animation.mr-kim.swim: review · 김씨 수영 애니메이션
 - ui.bag-capacity-upgrade: review · 가방 확장 UI 상태 세트
-- ui.camp-contextual-interaction: review · 플레이테스트 피드백 반영 review-only 리비전. 현재 런타임의 큰 중앙 [입력] 행동 안내가 길과 캐릭터를 가리는 문제를 해결한다. 내레이션 카드 바로 아래 중앙에 붙는 한 줄 compact bar/pill 
 - background.modular-island-camp: review · Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 
 - ui.camp-module-expansion: review · 방 모듈 증축 기술·비교 보드
 
@@ -108,6 +107,8 @@
 - task.system.system.phase-flow: Artifacts/Verification/editmode-checks.txt
 - task.system.system.phase-flow: Artifacts/Verification/playmode-checks.txt
 - task.system.system.phase-flow: Artifacts/Verification/windows-build.txt
+- task.system.system.phase-flow: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
+- task.system.system.phase-flow: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.system.system.inventory: Artifacts/Verification/editmode-checks.txt
 - task.system.system.inventory: Artifacts/Verification/playmode-checks.txt
 - task.system.system.inventory: Artifacts/Verification/windows-build.txt
@@ -123,10 +124,14 @@
 - task.feature.feature.phase-cycle: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.phase-cycle: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.phase-cycle: Artifacts/Verification/windows-build.txt
+- task.feature.feature.phase-cycle: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
+- task.feature.feature.phase-cycle: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.qa.feature.phase-cycle: Artifacts/Verification/editmode-checks.txt
 - task.qa.feature.phase-cycle: Artifacts/Verification/playmode-checks.txt
 - task.qa.feature.phase-cycle: Artifacts/Verification/kim-survival-exploration-1280x800.png
 - task.qa.feature.phase-cycle: Artifacts/Verification/kim-survival-playmode-1280x800.png
+- task.qa.feature.phase-cycle: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
+- task.qa.feature.phase-cycle: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.feature.feature.inventory-choice: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.inventory-choice: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.inventory-choice: Artifacts/Verification/windows-build.txt
@@ -149,6 +154,8 @@
 - task.qa.feature.camp-building: Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png
 - task.qa.feature.camp-building: Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png
 - task.qa.feature.camp-building: Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt
+- task.qa.feature.camp-building: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt
+- task.qa.feature.camp-building: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.feature.feature.island-exploration: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.island-exploration: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.island-exploration: Artifacts/Verification/windows-build.txt
@@ -161,6 +168,8 @@
 - task.system.system.camp-placement: Artifacts/Verification/kim-survival-playmode-1280x800.png
 - task.wave3.implementation.balance-v0-2: Docs/Design/integrated-prototype-contract-audit.md
 - task.wave3.implementation.balance-v0-2: Artifacts/ParallelQA/20260822T113642Z_e695c36/edit-checks.txt
+- task.wave3.implementation.balance-v0-2: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
+- task.wave3.implementation.balance-v0-2: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.wave3.implementation.spatial-camp-use: Artifacts/Verification/editmode-checks.txt
 - task.wave3.implementation.spatial-camp-use: Artifacts/Verification/playmode-checks.txt
 - task.wave3.implementation.spatial-camp-use: Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png
@@ -170,11 +179,21 @@
 - task.wave3.implementation.world-label-readability: Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt
 - task.wave3.implementation.world-label-readability: Artifacts/Verification/kim-survival-exploration-1280x800.png
 - task.wave3.implementation.world-label-readability: Artifacts/Verification/kim-survival-swimming-1280x800.png
+- task.wave3.implementation.world-label-readability: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt
 - task.wave3.qa.integrated-three-day: Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/run-summary.txt
 - task.wave3.qa.integrated-three-day: Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/playmode-full-loop.txt
 - task.wave3.qa.integrated-three-day: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt
+- task.wave3.qa.integrated-three-day: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-summary.json
+- task.wave3.qa.integrated-three-day: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
+- task.wave3.qa.integrated-three-day: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/windows-development-build.json
+- task.wave3.qa.integrated-three-day: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.design.wave8-external-playtest-package: Docs/Design/wave8-external-playtest-package.md
+- task.art.ui.camp-contextual-interaction: Forge asset ui.camp-contextual-interaction adopted via job_20260823073121_f5da3402
 - task.feature.feature.camp-object-interaction: Artifacts/ParallelQA/20260823T0443Z_d088cbd_wave9_contextual_camp/wave9-summary.md · deterministic Edit PASS; product Play full loop PASS; 1280x800 ko/en far/proximity/facility popups PASS; Windows x64 Development build 0 errors/0 warnings; hidden player smoke alive at 8s
+- task.feature.feature.camp-object-interaction: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
+- task.feature.feature.camp-object-interaction: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
+- task.qa.feature.camp-object-interaction: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
+- task.qa.feature.camp-object-interaction: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.design.wave9-spatial-camp-spec: Docs/Design/wave9-spatial-base-camp-spec.md
 - task.design.wave9-spatial-camp-spec: Docs/Design/References/approved-spatial-base-camp-concept.png
 - task.design.wave9-spatial-camp-spec: .forge/packets/wave9-spatial-camp-detail.json
@@ -184,6 +203,8 @@
 - task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/wave9-summary.json
 - task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/wave9-play-contracts.json
 - task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/windows-development-build.json
+- task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-edit-evidence.json
+- task.qa.wave9-spatial-camp-contract-gate: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-play-evidence.json
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
@@ -209,16 +230,19 @@
 - task.feature.feature.escape-outcome: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.escape-outcome: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.escape-outcome: Artifacts/Verification/windows-build.txt
+- task.feature.feature.escape-outcome: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
 - task.qa.feature.escape-outcome: Artifacts/Verification/editmode-checks.txt
 - task.qa.feature.escape-outcome: Artifacts/Verification/playmode-checks.txt
 - task.qa.feature.escape-outcome: Artifacts/Verification/kim-survival-exploration-1280x800.png
 - task.qa.feature.escape-outcome: Artifacts/Verification/kim-survival-playmode-1280x800.png
+- task.qa.feature.escape-outcome: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
 - task.feature.feature.dual-input: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.dual-input: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.dual-input: Artifacts/Verification/windows-build.txt
 - task.qa.feature.dual-input: Artifacts/ParallelQA/20260822T113642Z_e695c36/input-code-path-audit.txt
 - task.qa.feature.dual-input: Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt
 - task.qa.feature.dual-input: Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png
+- task.qa.feature.dual-input: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
 - task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json
 - task.system.system.swimming: Artifacts/Verification/editmode-checks.txt
 - task.system.system.swimming: Artifacts/Verification/kim-survival-swimming-1280x800.png
@@ -238,6 +262,8 @@
 - task.qa.feature.localization: Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt
 - task.qa.feature.localization: Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt
 - task.qa.feature.localization: Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt
+- task.qa.feature.localization: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
+- task.qa.feature.localization: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt
 - task.wave3.implementation.third-locale: Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt
@@ -248,19 +274,32 @@
 - task.feature.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-layout-metrics.txt
 - task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt
 - task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/windows-hidden-smoke.txt
+- task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#4-업그레이드-전-가방-선택-보존-검증
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#6-w2d1-구매-포함-자연-3일-구조-장부
 - task.design.wave7-bag-capacity-balance: Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-edit-contracts.txt
 - task.feature.feature.camp-module-expansion: PASS: deterministic Edit checks, full Play Mode survival regression, 1280x800 KO/EN/qps-long module captures, Windows development build 0 errors/0 warnings, 8-second launch smoke.
 - task.qa.feature.camp-module-expansion: Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-summary.json
+- task.qa.feature.camp-module-expansion: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-edit-evidence.json
+- task.qa.feature.camp-module-expansion: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-play-evidence.json
+- task.qa.feature.camp-module-expansion: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
 - task.art.icon.resource-tool-set: Forge asset icon.resource-tool-set adopted via job_20260822141317_caf8e11d
 - task.art.effect.comedy-feedback: Forge asset effect.comedy-feedback adopted via job_20260822224357_275de712
+- task.design.wave12-five-day-rebaseline: Docs/Design/wave12-five-day-rebaseline.md
+- task.design.wave12-five-day-rebaseline: .forge/design/wave12-five-day-rebaseline.json
+- task.design.wave13-owner-playtest-intake: Docs/Design/Playtest/wave13-owner-playtest-intake.md
+- task.design.wave13-owner-playtest-intake: .forge/design/wave13-owner-playtest-intake.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-summary.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json
+- task.design.wave13-owner-playtest-intake: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt
 - task.postslice.steam-release-readiness: Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt
 - task.postslice.steam-release-readiness: Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt
 
 ## 차단 요소
 
-- task.wave3.qa.integrated-three-day: 2a542be 기준 Wave 7 자동 게이트는 PASS지만 동일 Windows 빌드의 첫 사용자 6세션(ko 3, en 3)과 별도 물리 게임패드 ko/en 실기는 아직 실행되지 않았다.
+- task.wave3.qa.integrated-three-day: 자동 5일·compact A·Windows 빌드는 PASS다. grant·warp 없는 fresh 자연 경로, 첫 사용자 6세션(ko 3, en 3), 별도 물리 게임패드 ko/en 실기가 아직 없다.
+- task.qa.feature.inventory-capacity-upgrade: 4→6 기능과 원자성은 최종 회귀 PASS다. 구매 후 grant·warp 없는 자연 Day 4~5 구조 경로의 독립 증거가 아직 없다.
 - task.postslice.steam-release-readiness: 수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.
 
 ## 미결 질문

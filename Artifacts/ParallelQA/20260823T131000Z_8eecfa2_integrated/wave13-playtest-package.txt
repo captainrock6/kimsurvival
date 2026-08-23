@@ -1,0 +1,12 @@
+Wave 13 playtest distribution kit
+Run ID: 20260823T131000Z_8eecfa2_integrated
+Baseline: 8eecfa202edefe7a7ffaf67ecf5b44c01c545852
+Result: PASS
+Wave 12 product/infrastructure: PASS/PASS
+Compile/build/smoke: PASS 0 errors/PASS/PASS
+Required components: 4/4 PASS
+ZIP required entries: 9/9 PASS
+ZIP: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\W13\20260823T131__integrated\KimSurvivalIsland-Windows-x64-Development.zip
+ZIP SHA-256: 11ac5242cfa37f9c9a1ef3e3d46a50e93b16754fb47132d11060c0679ebbaf76
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260823040814_b487a41e",
   "createdAt": "2026-08-23T04:08:14.485Z",
-  "updatedAt": "2026-08-23T09:35:24.188Z",
+  "updatedAt": "2026-08-23T12:58:03.889Z",
   "sourceRequest": "Forge 12개 플레이어 행동 제한 안에서 건설·확장과 먹기·휴식을 결합해 탈출 행동을 보존한다.",
   "state": "in_progress",
   "stages": {
@@ -20,19 +20,20 @@
     },
     "implementation": {
       "status": "complete",
-      "note": "Spatial camp interaction, one-room module expansion, ko/en plus non-shipping qps-long, Korean 1280 HUD fit, and the complete survival loop are integrated.",
+      "note": "Wave 13 four-lane results are integrated. EditMode, PlayMode, Windows Development build, hidden-player smoke, Addressables, and PowerShell 5.1 package checks pass.",
       "evidence": [
-        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-summary.json"
+        "Artifacts/Verification/wave13-integrated-8eecfa2/playmode-checks.txt",
+        "Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/wave12-summary.txt"
       ],
-      "updatedAt": "2026-08-23T09:35:22.991Z"
+      "updatedAt": "2026-08-23T12:58:03.487Z"
     },
     "verification": {
       "status": "in_progress",
-      "note": "Automated product and infrastructure gates pass with no expected product gaps. User playtest and physical gamepad actuation remain outstanding; Steam release work remains out of scope.",
+      "note": "Automated product and infrastructure gates pass. Owner natural-play results, the external six-session cohort, and physical gamepad actuation remain outstanding; Steam release work remains out of scope.",
       "evidence": [
-        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/windows-hidden-smoke.json"
+        "Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/wave13-playtest-package.txt"
       ],
-      "updatedAt": "2026-08-23T09:35:24.188Z"
+      "updatedAt": "2026-08-23T12:58:03.889Z"
     }
   }
 }
