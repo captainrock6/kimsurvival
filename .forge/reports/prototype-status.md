@@ -17,24 +17,24 @@
 
 ## 다음 작업
 
-- **Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스** (design, critical) — task.design.wave15-escape-hazard-ending-matrix
-- **수집 자원·위험·날씨 아이콘 세트 제작** (art, critical) — task.art.icon.expedition-resource-risk-set
-- **수집 지역 선택 지도 UI 제작** (art, critical) — task.art.ui.expedition-map
 - **수집 지역 선택 지도 구현** (implementation, critical) — task.feature.feature.expedition-map
-- **50일 캠프·수색·정산 주기 구현** (implementation, critical) — task.feature.feature.phase-cycle
+- **Wave 15 위험·다중 탈출·행동 엔딩 기반** (implementation, critical) — task.implementation.wave15-hazard-ending-foundation
+- **행동 기반 엔딩 판정 구현** (implementation, critical) — task.system.system.ending-resolution
+- **다섯 탈출 프로젝트 구현** (implementation, critical) — task.system.system.escape-projects
+- **위험 예고·발생·완화 디렉터 구현** (implementation, critical) — task.system.system.hazard-director
 
 ## 작업
 
 | ID | 레인 | 우선순위 | 상태 | 작업 |
 |---|---|---|---|---|
 | task.system.system.run-state | implementation | critical | ready | 50일 run·행동 기록 상태 구현 |
-| task.system.system.phase-flow | implementation | critical | ready | 50일 캠프·지도·수색·정산 흐름 구현 |
+| task.system.system.phase-flow | implementation | critical | done | 50일 캠프·지도·수색·정산 흐름 구현 |
 | task.system.system.inventory | implementation | critical | done | 자원·도구·가방 구현 |
 | task.system.system.crafting-tech | implementation | critical | done | 제작법과 연구 구현 |
 | task.system.system.camp-structures | implementation | critical | done | 캠프 설비 구현 |
-| task.system.system.island-search | implementation | critical | ready | 선택 지역 수색과 일광 구현 |
-| task.feature.feature.phase-cycle | implementation | critical | ready | 50일 캠프·수색·정산 주기 구현 |
-| task.qa.feature.phase-cycle | qa | critical | planned | 50일 캠프·수색·정산 주기 검증 |
+| task.system.system.island-search | implementation | critical | done | 선택 지역 수색과 일광 구현 |
+| task.feature.feature.phase-cycle | implementation | critical | done | 50일 캠프·수색·정산 주기 구현 |
+| task.qa.feature.phase-cycle | qa | critical | ready | 50일 캠프·수색·정산 주기 검증 |
 | task.feature.feature.inventory-choice | implementation | critical | done | 4칸 가방 선택 구현 |
 | task.qa.feature.inventory-choice | qa | critical | done | 4칸 가방 선택 검증 |
 | task.feature.feature.crafting-research | implementation | critical | done | 제작과 간단한 연구 구현 |
@@ -63,9 +63,9 @@
 | task.design.wave12-five-day-rebaseline | design | critical | done | Wave 12 5일 수직 슬라이스 재기준선 |
 | task.design.wave13-owner-playtest-intake | design | critical | done | Wave 13 사용자 플레이테스트 접수·Forge 기준선 감사 |
 | task.design.wave14-natural-route-ledger | design | critical | done | Wave 14 5일 자연 플레이 경로·밸런스 장부 |
-| task.art.ui.expedition-map | art | critical | ready | 수집 지역 선택 지도 UI 제작 |
-| task.art.icon.expedition-resource-risk-set | art | critical | ready | 수집 자원·위험·날씨 아이콘 세트 제작 |
-| task.system.system.expedition-selection | implementation | critical | ready | 수집 지도와 지역 선택 구현 |
+| task.art.ui.expedition-map | art | critical | done | 수집 지역 선택 지도 UI 제작 |
+| task.art.icon.expedition-resource-risk-set | art | critical | review | 수집 자원·위험·날씨 아이콘 세트 제작 |
+| task.system.system.expedition-selection | implementation | critical | done | 수집 지도와 지역 선택 구현 |
 | task.system.system.region-loot-rng | implementation | critical | ready | 지역 loot seed와 softlock 보호 구현 |
 | task.system.system.hazard-director | implementation | critical | ready | 위험 예고·발생·완화 디렉터 구현 |
 | task.system.system.escape-projects | implementation | critical | ready | 다섯 탈출 프로젝트 구현 |
@@ -77,9 +77,9 @@
 | task.feature.feature.survival-hazards | implementation | critical | planned | 예고·대응 가능한 생존 위험 구현 |
 | task.qa.feature.survival-hazards | qa | critical | planned | 예고·대응 가능한 생존 위험 검증 |
 | task.design.wave15-fifty-day-campaign-rebaseline | design | critical | done | Wave 15 50일 캠페인·수집 지도·위험·다중 엔딩 재기준선 |
-| task.design.wave15-escape-hazard-ending-matrix | design | critical | ready | Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스 |
+| task.design.wave15-escape-hazard-ending-matrix | design | critical | done | Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스 |
 | task.implementation.wave15-campaign-map-foundation | implementation | critical | done | Wave 15 Day 50·수집 지도·시드형 지역 선택 기반 |
-| task.implementation.wave15-hazard-ending-foundation | implementation | critical | planned | Wave 15 위험·다중 탈출·행동 엔딩 기반 |
+| task.implementation.wave15-hazard-ending-foundation | implementation | critical | ready | Wave 15 위험·다중 탈출·행동 엔딩 기반 |
 | task.qa.wave15-campaign-map-redfirst | qa | critical | done | Wave 15 Day 50·수집 지도·RNG red-first 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
@@ -111,7 +111,7 @@
 | task.art.effect.survival-hazards | art | high | ready | 생존 위험·완화 피드백 세트 제작 |
 | task.feature.feature.behavioral-endings | implementation | high | ready | 누적 행동 기반 엔딩 판정 구현 |
 | task.qa.feature.behavioral-endings | qa | high | planned | 누적 행동 기반 엔딩 판정 검증 |
-| task.qa.wave15-hazard-ending-redfirst | qa | high | planned | Wave 15 위험·탈출·엔딩 red-first 게이트 |
+| task.qa.wave15-hazard-ending-redfirst | qa | high | ready | Wave 15 위험·탈출·엔딩 red-first 게이트 |
 | task.art.icon.resource-tool-set | art | medium | done | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | done | 코믹 피드백 효과 세트 제작 |
 | task.art.ui.bag-capacity-upgrade | art | medium | review | 가방 확장 UI 상태 세트 제작 |
@@ -131,8 +131,7 @@
 - ui.bag-capacity-upgrade: review · 가방 확장 UI 상태 세트
 - background.modular-island-camp: review · 측면 절개형 모듈 베이스캠프
 - ui.camp-module-expansion: review · 방 모듈 증축 상태 UI
-- ui.expedition-map: needed · 수집 지역 선택 지도 UI
-- icon.expedition-resource-risk-set: needed · 수집 자원·위험·날씨 아이콘 세트
+- icon.expedition-resource-risk-set: review · Wave 15 icon.expedition-resource-risk-set 로컬 품질 정리 child job. 부모 job_20260823144003_552c87b1의 24개 투명 아이콘 atlas와 형태 문법을 변
 - ui.escape-project-progress: needed · 다중 탈출 프로젝트 상태 UI
 - ui.ending-comic: needed · 엔딩 코믹북 컷신 프레임
 - ui.ending-gallery: needed · 김씨의 생존 앨범 UI
@@ -148,6 +147,8 @@
 - task.system.system.phase-flow: Artifacts/Verification/windows-build.txt
 - task.system.system.phase-flow: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
 - task.system.system.phase-flow: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
+- task.system.system.phase-flow: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt
+- task.system.system.phase-flow: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
 - task.system.system.inventory: Artifacts/Verification/editmode-checks.txt
 - task.system.system.inventory: Artifacts/Verification/playmode-checks.txt
 - task.system.system.inventory: Artifacts/Verification/windows-build.txt
@@ -160,11 +161,15 @@
 - task.system.system.island-search: Artifacts/Verification/editmode-checks.txt
 - task.system.system.island-search: Artifacts/Verification/playmode-checks.txt
 - task.system.system.island-search: Artifacts/Verification/windows-build.txt
+- task.system.system.island-search: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
+- task.system.system.island-search: Artifacts/Verification/wave15-playmode/playmode-checks.txt
 - task.feature.feature.phase-cycle: Artifacts/Verification/editmode-checks.txt
 - task.feature.feature.phase-cycle: Artifacts/Verification/playmode-checks.txt
 - task.feature.feature.phase-cycle: Artifacts/Verification/windows-build.txt
 - task.feature.feature.phase-cycle: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json
 - task.feature.feature.phase-cycle: Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt
+- task.feature.feature.phase-cycle: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt
+- task.feature.feature.phase-cycle: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
 - task.qa.feature.phase-cycle: Artifacts/Verification/editmode-checks.txt
 - task.qa.feature.phase-cycle: Artifacts/Verification/playmode-checks.txt
 - task.qa.feature.phase-cycle: Artifacts/Verification/kim-survival-exploration-1280x800.png
@@ -280,9 +285,19 @@
 - task.design.wave14-natural-route-ledger: Assets/_Project/Scripts/Runtime/PrototypePlaytestEventLog.cs
 - task.design.wave14-natural-route-ledger: Artifacts/ParallelQA/20260823T131000Z_8eecfa2_integrated/wave11-full-regression.txt
 - task.design.wave14-natural-route-ledger: Artifacts/ParallelQA/20260823T123000Z_386a602_wave13_release/wave13-playtest-package.json
+- task.art.ui.expedition-map: Forge asset ui.expedition-map adopted via job_20260823150636_e3b39abc
+- task.system.system.expedition-selection: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
 - task.design.wave15-fifty-day-campaign-rebaseline: .forge/design/project.json; .forge/design/vertical-slice.json; .forge/project.json
+- task.design.wave15-escape-hazard-ending-matrix: .forge/packets/wave15-fifty-day-campaign-rebaseline.json
+- task.design.wave15-escape-hazard-ending-matrix: Docs/Design/wave15-escape-hazard-ending-matrix.md
 - task.implementation.wave15-campaign-map-foundation: PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Artifacts/Verification/wave15-playmode/playmode-checks.txt; Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave14-qps-global-layout-gate.txt; Windows development build and 1280x800 hidden smoke PASS
+- task.implementation.wave15-campaign-map-foundation: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-summary.txt
+- task.implementation.wave15-campaign-map-foundation: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt
+- task.implementation.wave15-campaign-map-foundation: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
 - task.qa.wave15-campaign-map-redfirst: RED recorded: Artifacts/Verification/wave15-campaign-map-red/wave15-campaign-map-contracts.txt; GREEN PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Edit/Play regression, ko/en/qps-long 1280x800 captures, Windows x64 development build and hidden smoke PASS
+- task.qa.wave15-campaign-map-redfirst: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-summary.txt
+- task.qa.wave15-campaign-map-redfirst: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt
+- task.qa.wave15-campaign-map-redfirst: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
@@ -359,4 +374,4 @@
 
 ## 미결 질문
 
-- 사용자 설정 run에서 엔딩 갤러리와 향후 Steam 업적을 어느 범위까지 인정할지는 Steam 연동 단계에서 결정하며, 현재 50일 캠페인·지도·위험·엔딩 기반 구현을 막지 않는다.
+- 없음

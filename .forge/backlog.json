@@ -68,13 +68,15 @@
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/windows-build.txt",
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-23T15:55:25.413Z",
+      "note": "중복 정산 없이 Day 50 흐름과 같은 날 조기 구조 우선순위 PASS.",
+      "completedAt": "2026-08-23T15:55:25.412Z",
       "createdAt": "2026-08-22T08:24:41.917Z"
     },
     {
@@ -206,13 +208,15 @@
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt",
+        "Artifacts/Verification/wave15-playmode/playmode-checks.txt"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-23T15:55:25.605Z",
+      "note": "선택 지역만 실제 수색 노드·보상 profile에 반영되고 기존 일광·귀환 회귀 PASS.",
+      "completedAt": "2026-08-23T15:55:25.605Z",
       "createdAt": "2026-08-22T08:24:42.368Z"
     },
     {
@@ -248,13 +252,15 @@
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/windows-build.txt",
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-23T15:55:25.316Z",
+      "note": "Day 1/50, Day 49 계속, Day 50 terminal, 조기 탈출 우선순위를 통합 검증.",
+      "completedAt": "2026-08-23T15:55:25.315Z",
       "createdAt": "2026-08-22T08:24:42.913Z"
     },
     {
@@ -289,8 +295,8 @@
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
       ],
       "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
+      "status": "ready",
+      "updatedAt": "2026-08-23T15:55:25.316Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.778Z"
@@ -1501,11 +1507,14 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset ui.expedition-map adopted via job_20260823150636_e3b39abc"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T15:53:57.966Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "completedAt": "2026-08-23T15:53:57.966Z"
     },
     {
       "id": "task.art.icon.expedition-resource-risk-set",
@@ -1528,9 +1537,10 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "review",
+      "updatedAt": "2026-08-23T15:53:57.966Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "completedAt": null
     },
     {
       "id": "task.system.system.expedition-selection",
@@ -1550,11 +1560,15 @@
         "지역 확정 전 수색을 시작하지 않고 취소는 run 상태를 바꾸지 않는다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T15:55:25.503Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "지도 확정 전 출발 차단, 취소 시 상태·위치·방향 보존 PASS.",
+      "completedAt": "2026-08-23T15:55:25.503Z"
     },
     {
       "id": "task.system.system.region-loot-rng",
@@ -1932,14 +1946,17 @@
         "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs"
       ],
       "evidence": [
-        "PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Artifacts/Verification/wave15-playmode/playmode-checks.txt; Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave14-qps-global-layout-gate.txt; Windows development build and 1280x800 hidden smoke PASS"
+        "PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Artifacts/Verification/wave15-playmode/playmode-checks.txt; Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave14-qps-global-layout-gate.txt; Windows development build and 1280x800 hidden smoke PASS",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-summary.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt"
       ],
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T15:19:10.450Z",
-      "note": "",
-      "completedAt": "2026-08-23T15:19:10.449Z"
+      "updatedAt": "2026-08-23T15:55:25.108Z",
+      "note": "통합 master GREEN: Day 50·지도·세 지역·seed·softlock·ko/en/qps-long·Windows 회귀 PASS.",
+      "completedAt": "2026-08-23T15:55:25.108Z"
     },
     {
       "id": "task.implementation.wave15-hazard-ending-foundation",
@@ -1969,9 +1986,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
+      "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:52:07.112Z"
+      "updatedAt": "2026-08-23T15:53:57.966Z"
     },
     {
       "id": "task.qa.wave15-campaign-map-redfirst",
@@ -1999,14 +2016,17 @@
         "Assets/_Project/Scripts/Editor/Wave15CampaignMapGate.cs"
       ],
       "evidence": [
-        "RED recorded: Artifacts/Verification/wave15-campaign-map-red/wave15-campaign-map-contracts.txt; GREEN PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Edit/Play regression, ko/en/qps-long 1280x800 captures, Windows x64 development build and hidden smoke PASS"
+        "RED recorded: Artifacts/Verification/wave15-campaign-map-red/wave15-campaign-map-contracts.txt; GREEN PASS: Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt; Edit/Play regression, ko/en/qps-long 1280x800 captures, Windows x64 development build and hidden smoke PASS",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-summary.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-edit-contracts.txt",
+        "Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt"
       ],
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T15:19:11.523Z",
-      "note": "",
-      "completedAt": "2026-08-23T15:19:11.522Z"
+      "updatedAt": "2026-08-23T15:55:25.220Z",
+      "note": "독립 RED-first 게이트를 통합 master에서 EXPECTED_GAPS=0 GREEN으로 전환.",
+      "completedAt": "2026-08-23T15:55:25.219Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -3278,5 +3298,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-23T15:19:11.523Z"
+  "updatedAt": "2026-08-23T15:55:25.605Z"
 }
