@@ -39,8 +39,10 @@ namespace KimSurvival
         private const float PlacementZoneBadgeMaximumHeight = 1.8f;
         private const float SignalAnchorBadgeWidth = 5.2f;
         private const float SignalAnchorBadgeHeight = 1.85f;
+        private const float SignalAnchorBadgeQpsTextScale = 0.072f;
         private const float PlacementGhostBadgeMinimumWidth = 5.2f;
         private const float PlacementGhostBadgeHeight = 1.85f;
+        private const float PlacementGhostBadgeVerticalOffset = 1.28f;
         private const float ResourceLabelWidth = 4.35f;
         private const float ResourceLabelHeight = 1.55f;
         private const float ResourceLabelViewportPadding = 0.22f;
@@ -56,7 +58,7 @@ namespace KimSurvival
         private static readonly Vector2 CampPopupModuleSlotAnchorMax = new Vector2(0.96f, 0.70f);
         private const float CampProximityPromptReferenceWidth = 1280f;
         private const float CampProximityPromptReferenceHeight = 800f;
-        private const float StoragePlanningX = -3.5f;
+        private const float StoragePlanningX = -3.8f;
         private const float ModulePlanningX = 4f;
 
         [SerializeField] private GameObject playerVisualPrefab;
@@ -1021,7 +1023,19 @@ namespace KimSurvival
                 if (campPlacement.IsActive)
                 {
                     CreateFootprintOutline(worldRoot, new Vector2(2.25f, 0.35f), new Color(1f, 0.88f, 0.38f, 0.95f), null, signalAnchor);
-                    CreateWorldBadge("구조 신호대 전용 앵커 안내", localization.Format("world.signal_anchor", session.SignalStage), new Vector2(CampSignalLabelX, signalAnchor.y - 0.78f), new Vector2(SignalAnchorBadgeWidth, SignalAnchorBadgeHeight), new Color(0.16f, 0.17f, 0.18f, 0.96f), new Color(1f, 0.88f, 0.38f));
+                    bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
+                    CreateWorldBadge(
+                        worldRoot,
+                        "구조 신호대 전용 앵커 안내",
+                        localization.Format("world.signal_anchor", session.SignalStage),
+                        new Vector2(CampSignalLabelX, signalAnchor.y - 0.78f),
+                        new Vector2(SignalAnchorBadgeWidth, SignalAnchorBadgeHeight),
+                        new Color(0.16f, 0.17f, 0.18f, 0.96f),
+                        new Color(1f, 0.88f, 0.38f),
+                        out _,
+                        pseudoLong ? SignalAnchorBadgeQpsTextScale : 0.084f,
+                        pseudoLong ? 26f : 30f,
+                        pseudoLong ? 29f : 32f);
                 }
             }
 
@@ -3512,7 +3526,7 @@ namespace KimSurvival
                 placementGhost.transform,
                 "배치 판정",
                 string.Empty,
-                new Vector2(0f, visualTop + 0.58f),
+                new Vector2(0f, visualTop + PlacementGhostBadgeVerticalOffset),
                 new Vector2(Mathf.Max(PlacementGhostBadgeMinimumWidth, size.x + 0.7f), PlacementGhostBadgeHeight),
                 Color.black,
                 Color.white,
