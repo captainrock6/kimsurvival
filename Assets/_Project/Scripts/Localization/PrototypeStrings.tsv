@@ -186,8 +186,8 @@ module.geometry.noconnectionslot	연결 슬롯 불일치	No matching connection 
 module.geometry.overlap	기존 방과 겹침	Overlaps an existing room
 module.geometry.terrainblocked	지형이 후보 공간을 막음	Terrain blocks the candidate
 module.geometry.pathblocked	출입 연결부 또는 필수 이동 통로 차단	Entrance connector or required path is blocked
-module.economy.costunset	임시 비용도 설정되지 않아 확정 불가	Cannot commit: no provisional cost configured
-module.economy.locked	임시 해금 조건 미충족	Provisional unlock requirement is not met
+module.economy.costunset	비용 데이터가 없어 확정 불가	Cannot commit: cost data is missing
+module.economy.locked	작업대 필요	Workbench required
 module.economy.short	자원 부족 · 필요 나무 {0}, 돌 {1}, 표류물 {2}	Resources short · Need Wood {0}, Stone {1}, Salvage {2}
 module.economy.ready	확정 가능 · 필요 나무 {0}, 돌 {1}, 표류물 {2}	Ready · Need Wood {0}, Stone {1}, Salvage {2}
 module.economy.prototypelimit	수직 슬라이스 한도: 이미 방 모듈 1개 확정	Vertical-slice limit: one module already committed
@@ -196,11 +196,11 @@ module.economy_badge.locked	해금 조건 잠김	Unlock locked
 module.economy_badge.short	자원 부족	Resources short
 module.economy_badge.ready	자원 충분	Resources ready
 module.economy_badge.prototypelimit	1개 확정 한도	One-module limit
-module.cost.provisional	TBD_BALANCE 임시값 · 나무 {0} + 돌 {1} + 표류물 {2}	TBD_BALANCE provisional · Wood {0} + Stone {1} + Salvage {2}
+module.cost.provisional	확정 비용 · 나무 {0} + 돌 {1} + 표류물 {2}	Locked cost · Wood {0} + Stone {1} + Salvage {2}
 module.commit.notpreviewing	열린 증축 미리보기가 없다.	No expansion preview is open.
 module.commit.invalidgeometry	연결·겹침·지형·필수 통로 조건을 먼저 해결해야 한다.	Resolve connection, overlap, terrain, and required-path conditions first.
-module.commit.costunset	임시 비용 설정이 없어 확정하지 않았다.	No provisional cost is configured; nothing was committed.
-module.commit.locked	임시 해금 조건을 충족하지 못했다.	The provisional unlock requirement is not met.
+module.commit.costunset	비용 데이터가 없어 확정하지 않았다.	Cost data is missing; nothing was committed.
+module.commit.locked	작업대를 먼저 건설해야 방을 확정할 수 있다.	Build the workbench before committing a room.
 module.commit.short	증축 자원이 부족하다. 실패한 확정에는 자원을 쓰지 않았다.	Not enough expansion resources. A failed commit spent nothing.
 module.commit.prototypelimit	이번 수직 슬라이스에서는 방 모듈 하나만 확정할 수 있다.	Only one room module can be committed in this vertical slice.
 module.commit.duplicatesubmit	이미 처리 중인 확정 입력이다. 자원을 다시 쓰지 않았다.	That commit is already being processed. No resources were spent twice.

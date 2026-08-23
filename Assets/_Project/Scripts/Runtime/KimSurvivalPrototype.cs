@@ -77,7 +77,7 @@ namespace KimSurvival
         private readonly PrototypeCampPlacement campPlacement = new PrototypeCampPlacement();
         private readonly PrototypeCampUse campUse = new PrototypeCampUse();
         private readonly PrototypeCampInteraction campInteraction = new PrototypeCampInteraction();
-        private readonly PrototypeCampModuleExpansion campModuleExpansion = new PrototypeCampModuleExpansion(PrototypeCampModuleExpansionConfig.CreateTbdPrototypeFixture());
+        private readonly PrototypeCampModuleExpansion campModuleExpansion = new PrototypeCampModuleExpansion(PrototypeCampModuleExpansionConfig.CreateVerticalSliceBalance());
         private readonly CampModuleValidationContext campModuleValidation = new CampModuleValidationContext();
         private readonly List<SpriteRenderer> modulePreviewOutlineRenderers = new List<SpriteRenderer>();
 
@@ -1842,10 +1842,10 @@ namespace KimSurvival
             int activeSlotsBeforeModule = session.ActiveBagSlotCount;
             int signalBeforeModule = session.SignalStage;
             Require(ConfirmCampModulePreview() && campModuleExpansion.HasCommittedModule &&
-                    session.GetStorage(ResourceKind.Wood) == previewWoodBefore - 4 &&
-                    session.GetStorage(ResourceKind.Stone) == previewStoneBefore - 2 &&
-                    session.GetStorage(ResourceKind.Salvage) == previewSalvageBefore - 2,
-                "유효한 위층 방 확정은 TBD_BALANCE 임시 비용을 원자적으로 한 번만 사용");
+                    session.GetStorage(ResourceKind.Wood) == previewWoodBefore - 2 &&
+                    session.GetStorage(ResourceKind.Stone) == previewStoneBefore &&
+                    session.GetStorage(ResourceKind.Salvage) == previewSalvageBefore - 1,
+                "유효한 위층 방 확정은 Wave 9 v0.2 비용 W2/D1을 원자적으로 한 번만 사용");
             int woodAfterModule = session.GetStorage(ResourceKind.Wood);
             Require(!ConfirmCampModulePreview() && session.GetStorage(ResourceKind.Wood) == woodAfterModule &&
                     session.ActiveBagSlotCount == activeSlotsBeforeModule && session.SignalStage == signalBeforeModule,
@@ -2246,7 +2246,7 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · Wave 9 현장 계획 지점에서 위층/옆방/지하실 후보 순회, 형태+문구 유효성, TBD_BALANCE 설정형 임시 비용, 실패/취소/중복 무차감과 1회 원자 확정, 명시적 문/사다리 이동, 모듈 일반 설비 구역과 통로 보호, 1280x800 ko/en/qps-long placeholder 표현 확인. 기존 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 근접 안내·설비 전용 팝업, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 키보드/게임패드 회귀 확인";
+            return "PASS · Wave 9 현장 계획 지점에서 위층/옆방/지하실 후보 순회, 형태+문구 유효성, 작업대 해금과 고정 W2/D1 비용, 실패/취소/중복 무차감과 1회 원자 확정, 명시적 문/사다리 이동, 모듈 일반 설비 구역과 통로 보호, 1280x800 ko/en/qps-long placeholder 표현 확인. 기존 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 근접 안내·설비 전용 팝업, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 키보드/게임패드 회귀 확인";
         }
 
         private void RequireReadableBagUi()

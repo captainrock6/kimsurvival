@@ -1638,7 +1638,7 @@
         "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
         "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
         "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
-        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
+        "모듈 preview는 처음부터 허용하고 commit은 작업대 뒤에 열며, 세 후보 모두 Wave 9 v0.2 고정 비용 W2/D1을 원자적으로 한 번만 사용한다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"
@@ -1677,7 +1677,7 @@
         "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
         "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
         "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
-        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
+        "모듈 preview는 처음부터 허용하고 commit은 작업대 뒤에 열며, 세 후보 모두 Wave 9 v0.2 고정 비용 W2/D1을 원자적으로 한 번만 사용한다."
       ],
       "paths": [],
       "evidence": [],

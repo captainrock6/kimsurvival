@@ -99,7 +99,7 @@ namespace KimSurvival
 
     public sealed class PrototypeCampModuleExpansionConfig
     {
-        public const string BalanceStatus = "TBD_BALANCE";
+        public const string BalanceStatus = "WAVE9_V0_2";
         public const int MaxCommittedExpansion = 1;
 
         private readonly Dictionary<CampModuleArchetype, CampModuleResourceCost> costs;
@@ -126,18 +126,18 @@ namespace KimSurvival
                 : new CampModuleResourceCost(0, 0, 0, 0, false);
         }
 
-        public static PrototypeCampModuleExpansionConfig CreateTbdPrototypeFixture()
+        public static PrototypeCampModuleExpansionConfig CreateVerticalSliceBalance()
         {
-            CampModuleResourceCost temporaryCost = new CampModuleResourceCost(4, 2, 0, 2, true);
+            CampModuleResourceCost verticalSliceCost = new CampModuleResourceCost(2, 0, 0, 1, true);
             return new PrototypeCampModuleExpansionConfig(
-                new CampModuleUnlockRequirement(true, false, 1),
+                new CampModuleUnlockRequirement(true, true, 1),
                 new Dictionary<CampModuleArchetype, CampModuleResourceCost>
                 {
-                    { CampModuleArchetype.Upper, temporaryCost },
-                    { CampModuleArchetype.Side, temporaryCost },
-                    { CampModuleArchetype.Basement, temporaryCost }
+                    { CampModuleArchetype.Upper, verticalSliceCost },
+                    { CampModuleArchetype.Side, verticalSliceCost },
+                    { CampModuleArchetype.Basement, verticalSliceCost }
                 },
-                true);
+                false);
         }
     }
 

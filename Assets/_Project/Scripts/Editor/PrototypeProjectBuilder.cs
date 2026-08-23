@@ -313,7 +313,7 @@ namespace KimSurvival.EditorTools
                 Assert(localization.Format("controls.module_preview.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("Left stick cycle") &&
                        localization.Format("module.economy.short", 4, 2, 2).Contains("Wood 4") &&
                        localization.Format("world.module.preview.invalid", "Basement", "Path blocked", "Resources short").Contains("× Basement"),
-                    "English module preview, invalid shape marker, and provisional cost arguments are localized");
+                    "English module preview, invalid shape marker, and module cost arguments are localized");
                 Assert(localization.Format("world.barrier.axe.need").Contains("Stone Axe Required"), "English forest barrier names the stone axe requirement");
                 Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
@@ -321,9 +321,9 @@ namespace KimSurvival.EditorTools
                 Assert(localization.Format("controls.placement.keyboard_mouse", localization.DeviceName(PrototypeInputDevice.KeyboardMouse)).Contains("마우스로 위치 이동"), "Korean keyboard and mouse placement prompt is localized");
                 Assert(localization.Format("camp.interaction.prompt.keyboard_mouse", localization.Format("structure.campfire")).Contains("[E] 모닥불 사용"), "Korean keyboard proximity prompt is localized");
                 Assert(localization.Format("controls.module_preview.keyboard_mouse", localization.DeviceName(PrototypeInputDevice.KeyboardMouse)).Contains("후보 순환") &&
-                       localization.Format("module.cost.provisional", 4, 2, 2).Contains("TBD_BALANCE") &&
+                       localization.Format("module.cost.provisional", 2, 0, 1).Contains("나무 2") &&
                        localization.Format("world.module.preview.valid", "위층 방", "유효", "확정 가능").Contains("◇ 위층 방"),
-                    "Korean module preview, valid shape marker, and explicit provisional balance label are localized");
+                    "Korean module preview, valid shape marker, and locked Wave 9 cost are localized");
                 Assert(localization.Format("world.barrier.axe.need").Contains("돌도끼 필요"), "Korean forest barrier names the stone axe requirement");
                 Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
@@ -452,19 +452,20 @@ namespace KimSurvival.EditorTools
             Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, pathBlocked) == CampModuleGeometryStatus.PathBlocked,
                 "Module preview distinguishes connector and required-path obstruction");
 
-            PrototypeCampModuleExpansionConfig provisionalModuleConfig = PrototypeCampModuleExpansionConfig.CreateTbdPrototypeFixture();
-            CampModuleResourceCost provisionalCost = provisionalModuleConfig.GetCost(CampModuleArchetype.Upper);
-            Assert(provisionalModuleConfig.IsProvisional && PrototypeCampModuleExpansionConfig.BalanceStatus == "TBD_BALANCE" &&
-                   provisionalCost.Wood == 4 && provisionalCost.Stone == 2 && provisionalCost.Food == 0 && provisionalCost.Salvage == 2,
-                "Unapproved module economy stays isolated as an explicit TBD_BALANCE provisional fixture");
+            PrototypeCampModuleExpansionConfig moduleConfig = PrototypeCampModuleExpansionConfig.CreateVerticalSliceBalance();
+            CampModuleResourceCost moduleCost = moduleConfig.GetCost(CampModuleArchetype.Upper);
+            Assert(!moduleConfig.IsProvisional && PrototypeCampModuleExpansionConfig.BalanceStatus == "WAVE9_V0_2" &&
+                   moduleConfig.UnlockRequirement.RequiresWorkbench &&
+                   moduleCost.Wood == 2 && moduleCost.Stone == 0 && moduleCost.Food == 0 && moduleCost.Salvage == 1,
+                "Wave 9 module economy uses the locked W2/D1 cost and workbench commit gate");
             GameSession moduleSession = new GameSession();
-            PrototypeCampModuleExpansion moduleExpansion = new PrototypeCampModuleExpansion(provisionalModuleConfig);
+            PrototypeCampModuleExpansion moduleExpansion = new PrototypeCampModuleExpansion(moduleConfig);
             CampModuleReturnSnapshot planningSnapshot = new CampModuleReturnSnapshot(new Vector2(-3.5f, PrototypeCampPlacement.FloorY), 1f, PrototypeCampModuleCatalog.StartRoomId);
             Assert(moduleExpansion.BeginPreview(planningSnapshot), "Direct planning point opens the module preview");
             int emptyWood = moduleSession.GetStorage(ResourceKind.Wood);
-            Assert(moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.Short &&
+            Assert(moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.Locked &&
                    moduleSession.GetStorage(ResourceKind.Wood) == emptyWood && !moduleExpansion.HasCommittedModule,
-                "Insufficient module commit fails atomically without resources or room creation");
+                "Module preview stays available but commit is locked before the workbench without spending");
             moduleExpansion.Cycle(1);
             moduleExpansion.Cycle(1);
             Assert(moduleExpansion.HasSeenAllCandidates, "Starting room can cycle through upper, side, and basement candidates");
@@ -474,16 +475,17 @@ namespace KimSurvival.EditorTools
             moduleSession.Grant(ResourceKind.Wood, 8);
             moduleSession.Grant(ResourceKind.Stone, 4);
             moduleSession.Grant(ResourceKind.Salvage, 4);
+            Assert(moduleSession.TryBuild(StructureKind.Workbench), "Module commit scenario builds the required workbench");
             int moduleWoodBefore = moduleSession.GetStorage(ResourceKind.Wood);
             int moduleStoneBefore = moduleSession.GetStorage(ResourceKind.Stone);
             int moduleSalvageBefore = moduleSession.GetStorage(ResourceKind.Salvage);
             Assert(moduleExpansion.BeginPreview(planningSnapshot) && moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.Succeeded &&
                    moduleExpansion.HasCommittedModule && moduleExpansion.CommittedArchetype == CampModuleArchetype.Upper,
                 "One valid module commit creates exactly the selected module");
-            Assert(moduleSession.GetStorage(ResourceKind.Wood) == moduleWoodBefore - provisionalCost.Wood &&
-                   moduleSession.GetStorage(ResourceKind.Stone) == moduleStoneBefore - provisionalCost.Stone &&
-                   moduleSession.GetStorage(ResourceKind.Salvage) == moduleSalvageBefore - provisionalCost.Salvage,
-                "Successful module commit atomically spends the provisional cost exactly once");
+            Assert(moduleSession.GetStorage(ResourceKind.Wood) == moduleWoodBefore - moduleCost.Wood &&
+                   moduleSession.GetStorage(ResourceKind.Stone) == moduleStoneBefore - moduleCost.Stone &&
+                   moduleSession.GetStorage(ResourceKind.Salvage) == moduleSalvageBefore - moduleCost.Salvage,
+                "Successful module commit atomically spends the locked W2/D1 cost exactly once");
             int committedWood = moduleSession.GetStorage(ResourceKind.Wood);
             Assert(moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.NotPreviewing &&
                    moduleSession.GetStorage(ResourceKind.Wood) == committedWood,
@@ -735,7 +737,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 9 upper/side/basement canonical bounds and connectors, all three preview traversal, slot/overlap/terrain/path validation, separate geometry/economy feedback, explicit TBD_BALANCE provisional config, failed/cancelled/duplicate atomic no-spend and one-module commit limit, explicit room enter/return, module general-floor placement and connector/path protection, shared keyboard/gamepad preview snapshot, far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 9 upper/side/basement canonical bounds and connectors, all three preview traversal, slot/overlap/terrain/path validation, separate geometry/economy feedback, locked W2/D1 cost with workbench commit gate, failed/cancelled/duplicate atomic no-spend and one-module commit limit, explicit room enter/return, module general-floor placement and connector/path protection, shared keyboard/gamepad preview snapshot, far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }

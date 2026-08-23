@@ -990,7 +990,7 @@
         "시작 방과 위·옆·지하 모듈의 좌표·크기·slot·문·사다리/계단·겹침·지형·통로 규칙이 예시 좌표와 함께 정의된다.",
         "모듈 내부 general-floor, open-sky zone, storage와 signal anchor, keep-clear 및 무료 재배치 규칙이 정의된다.",
         "첫 프로토타입은 세 후보를 모두 미리보고 하나를 확정하며 픽셀 건축·두 번째 확장·해체·환불은 제외한다.",
-        "모듈 unlock과 비용은 TBD_BALANCE 변수·검증 가설이며 새 경제 수치로 승인되지 않는다.",
+        "모듈 preview는 처음부터 가능하고 commit은 작업대 뒤에 열리며 세 후보 비용은 Wave 9 v0.2의 W2/D1로 고정한다.",
         "최소 HUD·상황형 팝업·ko/en/qps-long·향후 locale·키보드/게임패드 포커스 계약이 있다.",
         "Wave 8의 3/6/10/12/14분과 20분 결말 지표를 유지하면서 대형 대시보드 전제를 제거한 이벤트·관찰·Q5 변경 계약이 있다."
       ],
@@ -1009,7 +1009,7 @@
       "status": "done",
       "updatedAt": "2026-08-23T04:39:23.041Z",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "note": "Wave 9 공간형 베이스캠프 상세 계약을 승인 목업과 rebaseline 기준으로 고정했다. 구현·QA 결과가 아니라 설계 증거만 연결했으며 모듈 비용과 잠금은 TBD_BALANCE로 유지한다.",
+      "note": "Wave 9 공간형 베이스캠프 상세 계약을 승인 목업과 rebaseline 기준으로 고정했고, 후속 밸런스 계약에서 preview 즉시 공개·작업대 commit·공통 W2/D1 비용을 확정했다.",
       "completedAt": "2026-08-23T04:39:23.040Z"
     },
     {
@@ -2010,7 +2010,7 @@
         "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
         "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
         "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
-        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
+        "모듈 preview는 처음부터 허용하고 commit은 작업대 뒤에 열며, 세 후보 모두 Wave 9 v0.2 고정 비용 W2/D1을 원자적으로 한 번만 사용한다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"
@@ -2049,7 +2049,7 @@
         "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
         "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
         "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
-        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
+        "모듈 preview는 처음부터 허용하고 commit은 작업대 뒤에 열며, 세 후보 모두 Wave 9 v0.2 고정 비용 W2/D1을 원자적으로 한 번만 사용한다."
       ],
       "paths": [],
       "evidence": [],

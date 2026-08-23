@@ -150,8 +150,8 @@
     },
     {
       "id": "decision.wave9-modular-expansion",
-      "summary": "첫 공간 증축은 start 18×5u에서 표준 12×5u upper (0,5), side (18,0), basement (0,-5)를 모두 미리보고 연결·겹침·지형·통로를 통과한 하나만 확정하며 비용은 TBD_BALANCE 데이터로 남긴다.",
-      "rationale": "픽셀 건축 없이 세 방향의 공간 성장과 경로 보존을 결정적으로 검증하고 근거 없는 비용이 기존 구조·가방 경제를 훼손하지 않게 한다.",
+      "summary": "첫 공간 증축은 start 18×5u에서 표준 12×5u upper (0,5), side (18,0), basement (0,-5)를 모두 미리보고, 작업대 건설 뒤 세 방향 공통 W2/D1로 하나만 확정한다.",
+      "rationale": "세 후보의 크기와 기능 범위가 같아 방향별 가격 차를 두지 않으며, 가방 확장과 같은 비용으로 성장 선택을 경쟁시키면서도 자연 Day 3 구조 경로를 보존한다.",
       "source": "user-confirmed-and-detailed-contract",
       "createdAt": "2026-08-23T04:07:47.172Z"
     },
@@ -163,5 +163,5 @@
       "createdAt": "2026-08-23T04:07:47.172Z"
     }
   ],
-  "updatedAt": "2026-08-23T04:35:59.185Z"
+  "updatedAt": "2026-08-23T08:30:00.000Z"
 }
