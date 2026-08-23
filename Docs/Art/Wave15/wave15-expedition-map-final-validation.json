@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "wave": 15,
+  "branch": "codex/wave15-expedition-map-review",
+  "baseCommit": "7796cf57568d0bad24595379e833e1dd9b4d8d3f",
+  "status": "review",
+  "selectedCandidate": null,
+  "recommendedCandidate": "ui.expedition-map.right-rail-a",
+  "runtimeConnected": false,
+  "packaged": false,
+  "paidExternalApiCalled": false,
+  "codexImageGenCalls": 1,
+  "jobs": {
+    "expeditionMap": {
+      "assetId": "ui.expedition-map",
+      "jobId": "job_20260823144023_146e6ff7",
+      "quality": {
+        "score": 100,
+        "grade": "pass",
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    "iconSet": {
+      "assetId": "icon.expedition-resource-risk-set",
+      "jobId": "job_20260823145302_c4c41491",
+      "parentJobId": "job_20260823144003_552c87b1",
+      "quality": {
+        "score": 100,
+        "grade": "pass",
+        "errors": 0,
+        "warnings": 0
+      },
+      "parentQualityHistory": {
+        "score": 62,
+        "grade": "fail",
+        "errors": 1,
+        "warnings": 1,
+        "resolution": "Preserved the 24-icon atlas and created a deterministic child job that changed only the QA readability board to add true-alpha gutter and higher-contrast row panels."
+      }
+    }
+  },
+  "manualVisualReview": {
+    "result": "pass-with-user-selection-required",
+    "checks": [
+      "Three distinct beach, forest and shallow-water nodes read at 1280x800.",
+      "Resource, risk, weather, equipment, travel-time and unknown icons use distinct silhouettes or patterns in addition to color.",
+      "Idle, selected, locked, danger-warning, equipment-short, departure-ready and unknown states are visually distinct.",
+      "Production candidates contain no localized body or button text; TMP and 44x44 glyph/focus slots remain empty.",
+      "The popup reads as a temporary camp-object interaction rather than a persistent dashboard.",
+      "The clean Wave 14 bitmap is not adopted, packaged or placed on a runtime allowlist."
+    ],
+    "concerns": [
+      "16px icons are compact category cues; detailed cards should prefer 24px or 32px.",
+      "Candidate B needs two-row reflow for qps-long.",
+      "Candidate C has the highest information density."
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823144023_146e6ff7/expedition-map-review-board.png",
+      "bytes": 2306376,
+      "sha256": "087a1e2ef0a6ebcc0b31899321d4304c5931d69b7a81a643b4b04329271e1d41"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823144023_146e6ff7/candidate-a-right-rail-1280x800.png",
+      "bytes": 1423073,
+      "sha256": "72d93b8ce27ef273fea4836f00249a22defc028a0bf680c5b9b256909fa7bc52"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823144023_146e6ff7/expedition-map-review-manifest.json",
+      "bytes": 4376,
+      "sha256": "37e94a217ae7697cbf95a6c8e4fe58cc01e86284659f7dfb9da1a485856a6a47"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823145302_c4c41491/expedition-icons-atlas.png",
+      "bytes": 64843,
+      "sha256": "fac6327f67f87500927dcb0cfad7d5e8ff7e27fd947ab04a31857920d87e3a21"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823145302_c4c41491/expedition-icons-readability-16-24-32-48.png",
+      "bytes": 51198,
+      "sha256": "2f941d3374f0953386612c3ef1abd457d667b1d20b9998babe036a0a0a677808"
+    }
+  ]
+}

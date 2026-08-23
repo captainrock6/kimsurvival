@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "grade": "fail",
+  "score": 62,
+  "summary": {
+    "files": 5,
+    "errors": 1,
+    "warnings": 1
+  },
+  "files": [
+    {
+      "fileName": "expedition-icons-atlas.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.9244,
+      "contrastStdDev": 32.24,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 71,
+        "top": 67,
+        "right": 76,
+        "bottom": 68
+      },
+      "previewFile": "qa-preview-expedition-icons-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-icons-atlas.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1536 1024",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-icons-readability-16-24-32-48.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 720,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 11.82,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-expedition-icons-readability-16-24-32-48.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        },
+        {
+          "code": "low-contrast",
+          "severity": "warning",
+          "message": "���� ��� ���� ���� ���� ȭ�鿡�� ���°� ����� �� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "expedition-icons-manifest.json",
+      "kind": "editable-source",
+      "bytes": 6110,
+      "issues": []
+    },
+    {
+      "fileName": "expedition-icons-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 1038,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T14:51:34.314Z",
+  "jobId": "job_20260823144003_552c87b1",
+  "assetType": "ui_set"
+}

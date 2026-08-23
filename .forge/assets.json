@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T14:16:09.969Z",
+  "updatedAt": "2026-08-23T14:53:26.569Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -3620,11 +3620,11 @@
     },
     {
       "id": "ui.expedition-map",
-      "name": "수집 지역 선택 지도 UI",
+      "name": "Wave 15 review-only 1280x800 상황형 수집 지역 선택 지도 UI. 캠프 지도 오브젝트와 상호작용하는 동안만 열리고 닫으면 캠프로 복귀한다. 밝고 따뜻한 열대색과 굵은 형태의 오리지널 손그림 무인",
       "assetType": "ui_set",
-      "request": "김씨가 베이스캠프의 지도 또는 출구 오브젝트와 상호작용했을 때만 열리는 1280×800 원정 계획 UI. 오리지널 손그림 열대 무인도 지도를 중심으로 해변·숲·얕은 바다 등 선택 노드를 배치하고, 선택 지역의 예상 자원 범주와 풍부함, 이동 시간, 현재 위험, 날씨, 필요 장비, 특별 발견 가능성, 잠김·미확인·선택·출발 가능 상태를 한 개의 상세 카드에 보여준다. 캠프 상시 대시보드가 아니며 확인·취소 후 현장으로 복귀한다. 특정 레퍼런스 게임의 정확한 배치·아이콘을 복제하지 않고 한국어·영어·qps-long 엔진 텍스트, 키보드·마우스와 게임패드 포커스, 색상 외 상태 문법을 지원한다. 지도 원화, 노드, 연결선, 카드 프레임, 포커스·잠금·위험 상태를 편집 가능한 분리 레이어로 제공하며 본문 텍스트는 래스터에 넣지 않는다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 15 review-only 1280x800 상황형 수집 지역 선택 지도 UI. 캠프 지도 오브젝트와 상호작용하는 동안만 열리고 닫으면 캠프로 복귀한다. 밝고 따뜻한 열대색과 굵은 형태의 오리지널 손그림 무인도 지도에 해변·숲·얕은 바다 세 노드, 선택 경로와 이동 시간 슬롯, 우측 또는 하단 상세 카드가 결합된다. 상세 카드는 예상 자원 종류와 상대 풍부함(풍부/보통/희귀/미확인), 현재 위험, 날씨, 필요 장비, 특별 발견 가능성을 정확한 수량 없이 보여준다. 기본·선택·잠김·위험 경고·장비 부족·출발 가능·미확인 상태를 색상뿐 아니라 실루엣·테두리 패턴·문양으로 구분한다. production raster에는 실제 ko/en/qps-long 본문이나 입력 문자를 넣지 않고 TMP safe rect, 44px keyboard/mouse/gamepad focus/glyph slots, 1280x800 safe area를 편집 가능한 SVG/manifest와 annotated QA variant로 제공한다. A 우측 상세 rail, B 하단 drawer, C compact 우측 card의 안정 후보를 한 원화에서 결정론적으로 구성하고 추천 후보를 지정하되 selectedCandidate=null, status=review로 유지한다. 기존 background.coast-forest.gameplay-band-contrast B는 팔레트·명암·굵은 형태 참고만 하며 job_20260823132501_b4a82bed를 채택·패키징·runtime 연결하지 않는다. 특정 게임 화면을 복제하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "expedition-map",
         "location-select",
@@ -3640,22 +3640,201 @@
         "background.coast-forest",
         "ui.survival-hud"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823144023_146e6ff7"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823144023_146e6ff7",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T14:40:23.253Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823144023_146e6ff7",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T14:51:50.632Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823144023_146e6ff7",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 76067,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 69100,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "island-map-art.png",
+          "contentType": "image/png",
+          "bytes": 3061054,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/island-map-art.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-map-components.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 2664,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-components.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "candidate-a-right-rail-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1423073,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-a-right-rail-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "candidate-b-bottom-drawer-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1530497,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-b-bottom-drawer-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "candidate-c-compact-right-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1574216,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-c-compact-right-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "candidate-a-localization-input-overlay-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1286478,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/candidate-a-localization-input-overlay-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-map-state-comparison-board.png",
+          "contentType": "image/png",
+          "bytes": 72330,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-state-comparison-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-map-input-focus-comparison.png",
+          "contentType": "image/png",
+          "bytes": 36502,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-input-focus-comparison.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-map-review-board.png",
+          "contentType": "image/png",
+          "bytes": 2306376,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-review-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expedition-map-review-manifest.json",
+          "contentType": "application/json",
+          "bytes": 4376,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-review-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expedition-map-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 2124,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/expedition-map-visual-qa.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 4250,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3419,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-island-map-art.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9341,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-island-map-art.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-candidate-a-right-rail-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9165,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-a-right-rail-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-candidate-b-bottom-drawer-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9504,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-b-bottom-drawer-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-candidate-c-compact-right-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9508,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-c-compact-right-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-candidate-a-localization-input-overlay-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8188,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-candidate-a-localization-input-overlay-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expedition-map-state-comparison-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7609,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-expedition-map-state-comparison-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expedition-map-input-focus-comparison.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5474,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-expedition-map-input-focus-comparison.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expedition-map-review-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 11770,
+          "url": "/outputs/jobs/job_20260823144023_146e6ff7/qa-preview-expedition-map-review-board.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T14:15:54.679Z",
-      "updatedAt": "2026-08-23T14:16:09.929Z"
+      "updatedAt": "2026-08-23T14:51:50.633Z"
     },
     {
       "id": "icon.expedition-resource-risk-set",
-      "name": "수집 자원·위험·날씨 아이콘 세트",
+      "name": "Wave 15 icon.expedition-resource-risk-set 로컬 품질 정리 child job. 부모 job_20260823144003_552c87b1의 24개 투명 아이콘 atlas와 형태 문법을 변",
       "assetType": "ui_set",
-      "request": "수집 지도와 HUD에서 사용하는 오리지널 아이콘 세트. 목재·돌·식량·표류물·전자부품·약품·천·연료 같은 자원 범주, 풍부·보통·희귀·미확인, 이동 시간, 폭풍·폭우·폭염·높은 파도, 부상·질병·야생동물·도난·침수, 필요 장비와 완화됨 상태를 16~48px에서 읽히는 굵은 실루엣과 형태 차이로 제공한다. 색상만으로 의미를 전달하지 않고 본문·숫자·문자를 래스터에 넣지 않는다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 15 icon.expedition-resource-risk-set 로컬 품질 정리 child job. 부모 job_20260823144003_552c87b1의 24개 투명 아이콘 atlas와 형태 문법을 변경하지 않는다. QA readability 보드만 true alpha 외곽 여백, 고대비 밝은 패널, 16/24/32/48 실제 크기 증거로 다시 작성해 missing-alpha와 low-contrast 기계 경고를 해소한다. editable SVG, atlas metadata, visual QA를 동기화하고 selectedCandidate=null, status=review, runtime allowlist empty를 유지한다. ImageGen이나 외부 API를 호출하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "icons",
         "resources",
@@ -3667,14 +3846,124 @@
       "dependencies": [
         "icon.resource-tool-set"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
-      "parentJobId": null,
-      "artifacts": [],
+      "jobIds": [
+        "job_20260823144003_552c87b1",
+        "job_20260823145302_c4c41491"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823144003_552c87b1",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T14:40:03.361Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823144003_552c87b1",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T14:51:34.371Z",
+          "qualityScore": 62
+        },
+        {
+          "jobId": "job_20260823145302_c4c41491",
+          "parentJobId": "job_20260823144003_552c87b1",
+          "status": "awaiting_import",
+          "at": "2026-08-23T14:53:02.846Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823145302_c4c41491",
+          "parentJobId": "job_20260823144003_552c87b1",
+          "status": "review",
+          "at": "2026-08-23T14:53:26.566Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823145302_c4c41491",
+      "parentJobId": "job_20260823144003_552c87b1",
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 75785,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 68817,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-icons-atlas.png",
+          "contentType": "image/png",
+          "bytes": 64843,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/expedition-icons-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-icons-atlas.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 6816,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/expedition-icons-atlas.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-icons-readability-16-24-32-48.png",
+          "contentType": "image/png",
+          "bytes": 51198,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/expedition-icons-readability-16-24-32-48.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expedition-icons-manifest.json",
+          "contentType": "application/json",
+          "bytes": 6110,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/expedition-icons-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expedition-icons-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 1038,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/expedition-icons-visual-qa.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 1571,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 2011,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expedition-icons-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5743,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/qa-preview-expedition-icons-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expedition-icons-readability-16-24-32-48.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6971,
+          "url": "/outputs/jobs/job_20260823145302_c4c41491/qa-preview-expedition-icons-readability-16-24-32-48.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T14:15:54.688Z",
-      "updatedAt": "2026-08-23T14:16:09.936Z"
+      "updatedAt": "2026-08-23T14:53:26.569Z"
     },
     {
       "id": "ui.escape-project-progress",

@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "assetId": "icon.expedition-resource-risk-set",
+  "jobId": "job_20260823145302_c4c41491",
+  "status": "review",
+  "selectedCandidate": null,
+  "atlas": {
+    "file": "expedition-icons-atlas.png",
+    "editable": "expedition-icons-atlas.svg",
+    "width": 1536,
+    "height": 1024,
+    "alpha": "true",
+    "grid": {
+      "columns": 6,
+      "rows": 4,
+      "cell": 256
+    },
+    "sprites": [
+      {
+        "id": "resource.wood",
+        "x": 0,
+        "y": 0.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "resource.stone",
+        "x": 256,
+        "y": 0.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "resource.food",
+        "x": 512,
+        "y": 0.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "resource.scrap",
+        "x": 768,
+        "y": 0.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "resource.electronics",
+        "x": 1024,
+        "y": 0.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "resource.medicine",
+        "x": 1280,
+        "y": 0.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "resource.cloth",
+        "x": 0,
+        "y": 256.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "resource.fuel",
+        "x": 256,
+        "y": 256.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "abundance.rich",
+        "x": 512,
+        "y": 256.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "abundance.normal",
+        "x": 768,
+        "y": 256.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "abundance.rare",
+        "x": 1024,
+        "y": 256.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "state.unknown",
+        "x": 1280,
+        "y": 256.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "travel.time",
+        "x": 0,
+        "y": 512.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "weather.storm",
+        "x": 256,
+        "y": 512.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "weather.rain",
+        "x": 512,
+        "y": 512.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "weather.heat",
+        "x": 768,
+        "y": 512.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "weather.high-wave",
+        "x": 1024,
+        "y": 512.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "risk.injury",
+        "x": 1280,
+        "y": 512.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "risk.illness",
+        "x": 0,
+        "y": 768.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "risk.wildlife",
+        "x": 256,
+        "y": 768.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "risk.theft",
+        "x": 512,
+        "y": 768.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "risk.flood",
+        "x": 768,
+        "y": 768.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "equipment.required",
+        "x": 1024,
+        "y": 768.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "state.mitigated",
+        "x": 1280,
+        "y": 768.0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    ]
+  },
+  "readability": {
+    "sizes": [
+      16,
+      24,
+      32,
+      48
+    ],
+    "board": "expedition-icons-readability-16-24-32-48.png"
+  },
+  "semantics": {
+    "abundance": "rich=three rising dots, normal=two level dots, rare=one dot, unknown=slashed silhouette",
+    "risk": "unique silhouette plus red only as redundant cue",
+    "mitigated": "shield plus check silhouette",
+    "equipment": "tool-case silhouette",
+    "weather": "unique cloud/sun/wave silhouette"
+  },
+  "unityImport": {
+    "filter": "Bilinear",
+    "textureType": "Sprite",
+    "maxSize": 2048,
+    "ppu": 100,
+    "compression": "None during review",
+    "spriteMode": "Multiple",
+    "alphaIsTransparency": true,
+    "sRGB": true
+  },
+  "runtime": {
+    "allowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false
+  }
+}

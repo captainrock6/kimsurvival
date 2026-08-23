@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 11,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "island-map-art.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 43.88,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-island-map-art.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-map-components.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1280 800",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-a-right-rail-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 67.16,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-a-right-rail-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-b-bottom-drawer-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 65.31,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-b-bottom-drawer-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-c-compact-right-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 65.76,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-c-compact-right-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-a-localization-input-overlay-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 48.99,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-a-localization-input-overlay-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-map-state-comparison-board.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 84.25,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-expedition-map-state-comparison-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-map-input-focus-comparison.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 720,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 76.76,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-expedition-map-input-focus-comparison.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-map-review-board.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1880,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 60.11,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-expedition-map-review-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-map-review-manifest.json",
+      "kind": "editable-source",
+      "bytes": 4376,
+      "issues": []
+    },
+    {
+      "fileName": "expedition-map-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 2124,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T14:51:50.544Z",
+  "jobId": "job_20260823144023_146e6ff7",
+  "assetType": "ui_set"
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.expedition-map",
+  "status": "review",
+  "selectedCandidate": null,
+  "checks": [
+    {
+      "candidates": 3,
+      "id": "canvas",
+      "expected": "1280x800",
+      "result": "pass"
+    },
+    {
+      "id": "contextual-only",
+      "evidence": "full modal popup with dimmed camp backdrop, not persistent HUD",
+      "result": "pass"
+    },
+    {
+      "id": "three-regions",
+      "value": [
+        "beach",
+        "forest",
+        "shallow-water"
+      ],
+      "result": "pass"
+    },
+    {
+      "id": "information-hierarchy",
+      "value": [
+        "resource category and relative abundance",
+        "travel time",
+        "current risk",
+        "weather",
+        "equipment",
+        "special discovery"
+      ],
+      "result": "pass"
+    },
+    {
+      "id": "hidden-outcomes",
+      "evidence": "no exact quantities and unknown silhouette slot",
+      "result": "pass"
+    },
+    {
+      "id": "seven-states",
+      "evidence": "state comparison board",
+      "result": "pass"
+    },
+    {
+      "id": "localization",
+      "value": [
+        "ko",
+        "en",
+        "qps-long"
+      ],
+      "result": "pass"
+    },
+    {
+      "id": "input",
+      "value": [
+        "keyboard-mouse",
+        "gamepad",
+        "44x44 focus"
+      ],
+      "evidence": "expedition-map-input-focus-comparison.png",
+      "result": "pass"
+    },
+    {
+      "id": "raster-text",
+      "value": "none in production candidates; QA-only labels are confined to review boards",
+      "result": "pass"
+    },
+    {
+      "id": "external-paid-api",
+      "value": "none",
+      "result": "pass"
+    },
+    {
+      "id": "runtime",
+      "value": "not connected",
+      "result": "pass"
+    }
+  ],
+  "manualReview": {
+    "recommended": "ui.expedition-map.right-rail-a",
+    "concerns": [
+      "A slightly reduces map width",
+      "B has qps-long vertical pressure",
+      "C is intentionally dense"
+    ],
+    "result": "pass-with-review"
+  },
+  "qualityGate": "pending Forge import"
+}
