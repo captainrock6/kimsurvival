@@ -73,6 +73,11 @@ namespace KimSurvival
             {
                 mappings.Add(new LocaleFontMapping("en", "Arial", 1.62f, "Malgun Gothic"));
             }
+
+            if (!Contains(PrototypeLocalization.QpsLongLocaleCode))
+            {
+                mappings.Add(new LocaleFontMapping(PrototypeLocalization.QpsLongLocaleCode, "Arial", 1.62f, "Malgun Gothic", "Segoe UI Symbol"));
+            }
         }
 
         private bool Contains(string localeCode)

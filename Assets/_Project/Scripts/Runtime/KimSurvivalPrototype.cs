@@ -282,8 +282,10 @@ namespace KimSurvival
             topLayout.childForceExpandWidth = true;
             topLayout.childForceExpandHeight = true;
             statusText = CreateText("날짜·상태", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleLeft, Color.white);
+            ConfigureTopHudText(statusText);
             ConfigureLayout(statusText.gameObject, 1f, 1f, 0f, 68f);
             resourceText = CreateText("보유 자원", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleRight, new Color(1f, 0.9f, 0.52f));
+            ConfigureTopHudText(resourceText);
             ConfigureLayout(resourceText.gameObject, 1f, 1f, 0f, 68f);
 
             RectTransform message = CreatePanel("김씨 독백 · 배치 상태 · " + AssetComedy, canvas.transform, new Vector2(0.18f, 0.65f), new Vector2(0.82f, 0.82f), Vector2.zero, Vector2.zero, new Color(0.07f, 0.08f, 0.07f, 0.88f));
@@ -300,6 +302,11 @@ namespace KimSurvival
             controlLayout.childForceExpandWidth = true;
             controlLayout.childForceExpandHeight = true;
             controlsText = CreateText("조작", controlPanel, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleCenter, Color.white);
+            controlsText.enableAutoSizing = true;
+            controlsText.fontSizeMin = 23f;
+            controlsText.fontSizeMax = 32f;
+            controlsText.overflowMode = TextOverflowModes.Ellipsis;
+            controlsText.maxVisibleLines = 3;
             ConfigureLayout(controlsText.gameObject, 4f, 1f, 760f, 0f);
             languageButton = CreateButton("언어 설정", controlPanel, Vector2.zero, Vector2.one, string.Empty, delegate { localization.CycleLocale(); });
             ConfigureLayout(languageButton.gameObject, 1.45f, 1f, 270f, 0f);
@@ -460,6 +467,10 @@ namespace KimSurvival
                 ? 48f
                 : activeMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 40f : 29f;
             messageText.fontStyle = FontStyles.Normal;
+            messageText.enableAutoSizing = false;
+            messageText.textWrappingMode = TextWrappingModes.Normal;
+            messageText.overflowMode = TextOverflowModes.Overflow;
+            messageText.maxVisibleLines = 0;
             messagePanelImage.color = new Color(0.07f, 0.08f, 0.07f, 0.88f);
 
             if (session.Phase == GamePhase.Camp)
@@ -1346,6 +1357,11 @@ namespace KimSurvival
                 evaluation.Cost.Salvage);
             messageText.text = localization.Format("module.preview.summary", moduleName, geometry, economy, cost);
             messageText.fontSize = 30f;
+            messageText.enableAutoSizing = true;
+            messageText.fontSizeMin = 24f;
+            messageText.fontSizeMax = 30f;
+            messageText.overflowMode = TextOverflowModes.Ellipsis;
+            messageText.maxVisibleLines = 5;
             messageText.fontStyle = FontStyles.Bold;
             bool valid = evaluation.CanCommit;
             messagePanelImage.color = valid
@@ -1685,10 +1701,10 @@ namespace KimSurvival
             string campProximityScreenshotFolder = Path.GetDirectoryName(campProximityKoreanScreenshotPath ?? string.Empty);
             string campProximityEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-proximity-prompt-en-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave10-proximity-prompt-en-1280x800.png");
             string campProximityQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-proximity-prompt-qps-long-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave10-proximity-prompt-qps-long-1280x800.png");
             string modulePreviewKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-upper-ko-1280x800.png");
@@ -1697,7 +1713,7 @@ namespace KimSurvival
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-side-en-1280x800.png");
             string modulePreviewQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-basement-qps-long-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave10-module-basement-qps-long-1280x800.png");
             string moduleInteriorKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-interior-ko-1280x800.png");
@@ -1728,6 +1744,7 @@ namespace KimSurvival
             RefreshAll();
             Require(!campActions.activeSelf && !bagPanel.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf,
                 "정상 캠프 원거리에서 전역 대시보드·대형 가방·근접 안내·팝업 숨김");
+            RequireReadableTopHud(PrototypeLocalization.KoreanLocaleCode);
             if (!string.IsNullOrWhiteSpace(campFarKoreanScreenshotPath))
             {
                 CaptureVerificationPng(campFarKoreanScreenshotPath, 1280, 800);
@@ -1737,6 +1754,7 @@ namespace KimSurvival
             RefreshAll();
             Require(campInteraction.HasProximityPrompt && campProximityPrompt.activeSelf && !campInteractionPopup.activeSelf,
                 "근접 시 대상 하나의 안내만 표시하고 팝업은 상호작용 전까지 숨김");
+            PrototypeCampInteractionTargetKind latchedPromptTarget = campInteraction.ActiveTargetKind;
             if (!string.IsNullOrWhiteSpace(campProximityKoreanScreenshotPath))
             {
                 RequireReadableCampProximityPrompt(false);
@@ -1745,6 +1763,9 @@ namespace KimSurvival
 
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
             RefreshAll();
+            Require(campInteraction.ActiveTargetKind == latchedPromptTarget &&
+                    PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.KeyboardMouse) == "camp.interaction.prompt.keyboard_mouse",
+                "영어 전환은 근접 대상 latch와 키보드·마우스 action 의미를 보존");
             RequireReadableCampProximityPrompt(false);
             if (!string.IsNullOrWhiteSpace(campProximityEnglishScreenshotPath))
             {
@@ -1757,12 +1778,30 @@ namespace KimSurvival
                 targetName);
             campProximityText.text = gamepadPrompt;
             RequireReadableCampProximityPrompt(false);
-            campProximityText.text = "[!! " + new string('W', 96) + " !!]";
+            Require(gamepadPrompt.Contains("[X]"), "영어 게임패드 근접 안내는 X action 의미를 보존");
+
+            bool hadLocalePreferenceBeforeQa = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
+            string localePreferenceBeforeQa = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
+            Require(localization.SetQaLocale() && localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode,
+                "비출시 qps-long 데이터 로케일을 QA 전용 경로로 선택");
+            RefreshAll();
+            string qpsGamepadPrompt = localization.Format(
+                PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.Gamepad),
+                FormatCampInteractionTarget(campInteraction.ActiveTargetKind));
+            Require(campInteraction.ActiveTargetKind == latchedPromptTarget && campProximityText.text.Contains("[E]") && qpsGamepadPrompt.Contains("[X]"),
+                "qps-long 전환은 같은 근접 대상과 키보드·게임패드 action 의미를 보존");
+            Require(PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey) == hadLocalePreferenceBeforeQa &&
+                    PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode) == localePreferenceBeforeQa,
+                "QA 로케일 전환은 제품 언어 선택값을 저장하지 않음");
+            RequireReadableTopHud(PrototypeLocalization.QpsLongLocaleCode);
             RequireReadableCampProximityPrompt(true);
             if (!string.IsNullOrWhiteSpace(campProximityQpsLongScreenshotPath))
             {
                 CaptureVerificationPng(campProximityQpsLongScreenshotPath, 1280, 800);
             }
+
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
 
             PrototypeCampInteractionTargetKind[] promptTargets =
             {
@@ -1826,13 +1865,18 @@ namespace KimSurvival
             RefreshAll();
             Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement && campModuleExpansion.HasSeenAllCandidates,
                 "위층·옆방·지하실 세 후보를 같은 미리보기 상태에서 순회");
-            modulePreviewBadgeText.text = "[× !! " + new string('W', 112) + " !!]";
+            Require(localization.SetQaLocale(), "증축 미리보기에서도 qps-long 데이터 로케일 선택");
+            RefreshAll();
+            Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement && campModuleExpansion.HasSeenAllCandidates,
+                "qps-long 전환은 지하실 후보 선택 상태를 보존");
             RequireReadableCampModulePreview(true);
             if (!string.IsNullOrWhiteSpace(modulePreviewQpsLongScreenshotPath))
             {
                 CaptureVerificationPng(modulePreviewQpsLongScreenshotPath, 1280, 800);
             }
 
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
             CancelCampModulePreview(true);
             Require(campUse.PlayerPosition == moduleReturn.Position && campUse.CurrentRoomId == moduleReturn.RoomId &&
                     campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.StoragePlanning &&
@@ -2252,7 +2296,7 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · Wave 9 현장 계획 지점에서 위층/옆방/지하실 후보 순회, 형태+문구 유효성, 작업대 해금과 고정 W2/D1 비용, 실패/취소/중복 무차감과 1회 원자 확정, 명시적 문/사다리 이동, 모듈 일반 설비 구역과 통로 보호, 1280x800 ko/en/qps-long placeholder 표현 확인. 기존 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 근접 안내·설비 전용 팝업, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 키보드/게임패드 회귀 확인";
+            return "PASS · Wave 10 실제 qps-long 데이터 로케일, 제품 ko/en 순환·저장 분리, ko/en/qps 동일 근접 대상 latch와 [E]/[X] 의미, 1280x800 한국어 상단 HUD overflow=0 및 qps 안전 맞춤 확인. Wave 9 현장 계획 지점 위층/옆방/지하실 순회·원자 확정·명시적 이동과 기존 전역 대시보드/대형 가방 숨김, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프 회귀 확인";
         }
 
         private void RequireReadableBagUi()
@@ -2321,6 +2365,19 @@ namespace KimSurvival
             }
         }
 
+        private void RequireReadableTopHud(string localeCode)
+        {
+            statusText.ForceMeshUpdate(true, true);
+            resourceText.ForceMeshUpdate(true, true);
+            Canvas.ForceUpdateCanvases();
+            Require(statusText.enableAutoSizing && resourceText.enableAutoSizing &&
+                    statusText.fontSizeMin >= 26f && resourceText.fontSizeMin >= 26f &&
+                    statusText.maxVisibleLines == 2 && resourceText.maxVisibleLines == 2,
+                localeCode + " 상단 HUD는 1280x800용 두 줄 자동 맞춤 계약 사용");
+            Require(!statusText.isTextOverflowing && !resourceText.isTextOverflowing,
+                localeCode + " 정상 캠프 상단 HUD TMP overflow=0");
+        }
+
         private void RequireReadableCampModulePreview(bool allowEllipsis)
         {
             Require(campModuleExpansion.IsPreviewActive && modulePreviewGhost != null && modulePreviewBadgeText != null,
@@ -2331,8 +2388,18 @@ namespace KimSurvival
             Canvas.ForceUpdateCanvases();
             Require(!campActions.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf && !bagPanel.activeSelf,
                 "증축 미리보기는 전역 대시보드·설비 팝업·근접 안내·가방을 되살리지 않음");
-            Require(messageText.fontSize >= 30f && !messageText.isTextOverflowing && !controlsText.isTextOverflowing,
-                "1280x800 ko/en 증축 상태·공통 입력 안내 잘림 없음");
+            if (allowEllipsis)
+            {
+                Require(messageText.enableAutoSizing && controlsText.enableAutoSizing &&
+                        messageText.fontSizeMin >= 24f && controlsText.fontSizeMin >= 23f &&
+                        messageText.overflowMode == TextOverflowModes.Ellipsis && controlsText.overflowMode == TextOverflowModes.Ellipsis,
+                    "1280x800 qps-long 증축 상태·입력 안내 자동 맞춤·말줄임 안전 영역 정책");
+            }
+            else
+            {
+                Require(messageText.fontSize >= 30f && !messageText.isTextOverflowing && !controlsText.isTextOverflowing,
+                    "1280x800 ko/en 증축 상태·공통 입력 안내 잘림 없음");
+            }
             Require(modulePreviewOutlineRenderers.Count == 4 && modulePreviewBadgeRenderer != null &&
                     modulePreviewBadgeText.enableAutoSizing && modulePreviewBadgeText.fontSizeMin >= 27f &&
                     modulePreviewBadgeText.maxVisibleLines == 3 && modulePreviewBadgeText.overflowMode == TextOverflowModes.Ellipsis,
@@ -3053,6 +3120,17 @@ namespace KimSurvival
             element.flexibleHeight = flexibleHeight;
             element.minWidth = minimumWidth;
             element.minHeight = minimumHeight;
+        }
+
+        private static void ConfigureTopHudText(TMP_Text text)
+        {
+            text.enableAutoSizing = true;
+            text.fontSizeMin = 26f;
+            text.fontSizeMax = 32f;
+            text.textWrappingMode = TextWrappingModes.NoWrap;
+            text.overflowMode = TextOverflowModes.Overflow;
+            text.maxVisibleLines = 2;
+            text.lineSpacing = -6f;
         }
 
         private TMP_Text CreateText(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, Vector2 offsetMin, Vector2 offsetMax, int fontSize, TextAnchor alignment, Color color)

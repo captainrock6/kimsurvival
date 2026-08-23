@@ -326,11 +326,50 @@ namespace KimSurvival.EditorTools
                     "Korean module preview, valid shape marker, and locked Wave 9 cost are localized");
                 Assert(localization.Format("world.barrier.axe.need").Contains("돌도끼 필요"), "Korean forest barrier names the stone axe requirement");
                 Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
+                Assert(!PrototypeLocalization.IsPlayerSelectableLocale(PrototypeLocalization.QpsLongLocaleCode) &&
+                       localization.ResolveStartupLocale(PrototypeLocalization.QpsLongLocaleCode) == PrototypeLocalization.KoreanLocaleCode,
+                    "qps-long is hidden from the player locale list and cannot restore as a saved product locale");
+
+                PrototypeCampInteraction localeInvariantInteraction = new PrototypeCampInteraction();
+                localeInvariantInteraction.UpdateSelection(
+                    Vector2.zero,
+                    1f,
+                    new[] { new PrototypeCampInteractionTarget("campfire", PrototypeCampInteractionTargetKind.Campfire, new Vector2(0.5f, 0f)) });
+                PrototypeCampInteractionTargetKind targetBeforeQaLocale = localeInvariantInteraction.ActiveTargetKind;
+                bool hadPreferenceBeforeQaLocale = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
+                string preferenceBeforeQaLocale = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
+                string englishStressSource = localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false)
+                    ? localization.Format("ui.camp.title")
+                    : string.Empty;
+                Assert(localization.SetQaLocale() && localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode,
+                    "Actual qps-long String Table is selectable only through the QA path");
+                string qpsStress = localization.Format("ui.camp.title");
+                float qpsExpansion = qpsStress.Length / (float)englishStressSource.Length;
+                string qpsKeyboardPrompt = localization.Format(
+                    PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.KeyboardMouse),
+                    localization.Format("structure.campfire"));
+                string qpsGamepadPrompt = localization.Format(
+                    PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.Gamepad),
+                    localization.Format("structure.campfire"));
+                Assert(qpsExpansion >= 1.35f && qpsExpansion <= 1.50f && qpsStress.StartsWith("⟦", StringComparison.Ordinal) && qpsStress.EndsWith("⟧", StringComparison.Ordinal),
+                    "qps-long data expands a representative English string by 35-50 percent");
+                Assert(qpsKeyboardPrompt.Contains("[E]") && qpsGamepadPrompt.Contains("[X]") &&
+                       localeInvariantInteraction.ActiveTargetKind == targetBeforeQaLocale,
+                    "ko/en/qps-long switching preserves the same proximity target and keyboard/gamepad action semantics");
+                Assert(PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey) == hadPreferenceBeforeQaLocale &&
+                       PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode) == preferenceBeforeQaLocale,
+                    "QA locale selection does not overwrite the persisted ko/en preference");
+                Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing qps-long translation falls back to Korean");
+                localization.CycleLocale(false);
+                Assert(localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode,
+                    "Player language action exits QA locale into the official ko/en cycle without exposing qps-long");
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
                 Assert(PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey) == PrototypeLocalization.EnglishLocaleCode, "Persisted locale is available to the next launch");
 
                 PrototypeLocaleFontProfile fontProfile = Resources.Load<PrototypeLocaleFontProfile>("PrototypeLocaleFontProfile");
-                Assert(fontProfile != null && fontProfile.Find("ko") != null && fontProfile.Find("en") != null, "Locale-specific TMP primary and fallback mappings are data assets");
+                Assert(fontProfile != null && fontProfile.Find("ko") != null && fontProfile.Find("en") != null &&
+                       fontProfile.Find(PrototypeLocalization.QpsLongLocaleCode) != null,
+                    "ko/en/qps-long TMP primary and fallback mappings are data assets");
                 Assert(fontProfile != null && Mathf.Approximately(fontProfile.Find("ko").WorldTextScale, 1f) && fontProfile.Find("en").WorldTextScale > 1f,
                     "Locale-specific world typography scale is data-driven");
             }
@@ -737,7 +776,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 9 upper/side/basement canonical bounds and connectors, all three preview traversal, slot/overlap/terrain/path validation, separate geometry/economy feedback, locked W2/D1 cost with workbench commit gate, failed/cancelled/duplicate atomic no-spend and one-module commit limit, explicit room enter/return, module general-floor placement and connector/path protection, shared keyboard/gamepad preview snapshot, far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 10 actual qps-long Locale/String Table registration across all canonical TSV keys, approximately 35-50 percent source expansion with Smart String placeholders/digits/tags preserved, qps hidden from the persisted ko/en player cycle, ko/en/qps proximity target and keyboard/gamepad action-semantic invariance, qps font fallback mapping, Wave 9 upper/side/basement canonical bounds and connectors, all three preview traversal, slot/overlap/terrain/path validation, separate geometry/economy feedback, locked W2/D1 cost with workbench commit gate, failed/cancelled/duplicate atomic no-spend and one-module commit limit, explicit room enter/return, module general-floor placement and connector/path protection, shared keyboard/gamepad preview snapshot, far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -958,15 +997,15 @@ namespace KimSurvival.EditorTools
                 string bagUpgradedEnglish1280Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1280x800.png"));
                 string bagLockedKorean1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-locked-ko-1920x1080.png"));
                 string bagUpgradedEnglish1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1920x1080.png"));
-                string campFarKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-camp-far-ko-1280x800.png"));
-                string campProximityKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-ko-1280x800.png"));
-                string campProximityEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-en-1280x800.png"));
-                string campProximityQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-qps-long-1280x800.png"));
+                string campFarKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-camp-far-ko-1280x800.png"));
+                string campProximityKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-proximity-prompt-ko-1280x800.png"));
+                string campProximityEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-proximity-prompt-en-1280x800.png"));
+                string campProximityQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-proximity-prompt-qps-long-1280x800.png"));
                 string campWorkbenchEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-workbench-popup-en-1280x800.png"));
                 string campCampfireKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-campfire-popup-ko-1280x800.png"));
                 string moduleUpperKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-upper-ko-1280x800.png"));
                 string moduleSideEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-side-en-1280x800.png"));
-                string moduleBasementQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-basement-qps-long-1280x800.png"));
+                string moduleBasementQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-module-basement-qps-long-1280x800.png"));
                 string moduleInteriorKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-interior-ko-1280x800.png"));
                 string result = prototype.RunAutomatedVerification(
                     explorationScreenshot,
@@ -983,7 +1022,7 @@ namespace KimSurvival.EditorTools
                     campProximityKoreanScreenshot,
                     campWorkbenchEnglishScreenshot,
                     campCampfireKoreanScreenshot);
-                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-camp-en-1280x800.png"));
+                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-camp-en-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
                 SessionState.SetString(MessageKey, result +
@@ -991,15 +1030,15 @@ namespace KimSurvival.EditorTools
                     "\nBag upgraded English 1280x800: " + bagUpgradedEnglish1280Screenshot +
                     "\nBag locked Korean 1920x1080: " + bagLockedKorean1920Screenshot +
                     "\nBag upgraded English 1920x1080: " + bagUpgradedEnglish1920Screenshot +
-                    "\nWave 9 far camp Korean 1280x800: " + campFarKoreanScreenshot +
-                    "\nWave 9 proximity prompt Korean 1280x800: " + campProximityKoreanScreenshot +
-                    "\nWave 9 proximity prompt English 1280x800: " + campProximityEnglishScreenshot +
-                    "\nWave 9 proximity prompt qps-long 1280x800: " + campProximityQpsLongScreenshot +
+                    "\nWave 10 far camp Korean 1280x800: " + campFarKoreanScreenshot +
+                    "\nWave 10 proximity prompt Korean 1280x800: " + campProximityKoreanScreenshot +
+                    "\nWave 10 proximity prompt English 1280x800: " + campProximityEnglishScreenshot +
+                    "\nWave 10 proximity prompt qps-long 1280x800: " + campProximityQpsLongScreenshot +
                     "\nWave 9 workbench popup English 1280x800: " + campWorkbenchEnglishScreenshot +
                     "\nWave 9 campfire popup Korean 1280x800: " + campCampfireKoreanScreenshot +
                     "\nWave 9 module upper Korean 1280x800: " + moduleUpperKoreanScreenshot +
                     "\nWave 9 module side English 1280x800: " + moduleSideEnglishScreenshot +
-                    "\nWave 9 module basement qps-long 1280x800: " + moduleBasementQpsLongScreenshot +
+                    "\nWave 10 module basement qps-long 1280x800: " + moduleBasementQpsLongScreenshot +
                     "\nWave 9 module interior Korean 1280x800: " + moduleInteriorKoreanScreenshot +
                     "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot +
                     "\nSignal stage two missing/rope English screenshot: " + signalEnglishScreenshot +

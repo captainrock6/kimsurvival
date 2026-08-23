@@ -1,0 +1,24 @@
+PASS
+PASS · Wave 10 실제 qps-long 데이터 로케일, 제품 ko/en 순환·저장 분리, ko/en/qps 동일 근접 대상 latch와 [E]/[X] 의미, 1280x800 한국어 상단 HUD overflow=0 및 qps 안전 맞춤 확인. Wave 9 현장 계획 지점 위층/옆방/지하실 순회·원자 확정·명시적 이동과 기존 전역 대시보드/대형 가방 숨김, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프 회귀 확인
+Bag locked Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-bag-locked-ko-1280x800.png
+Bag upgraded English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-bag-upgraded-en-1280x800.png
+Bag locked Korean 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-bag-locked-ko-1920x1080.png
+Bag upgraded English 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-bag-upgraded-en-1920x1080.png
+Wave 10 far camp Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave10-camp-far-ko-1280x800.png
+Wave 10 proximity prompt Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave10-proximity-prompt-ko-1280x800.png
+Wave 10 proximity prompt English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave10-proximity-prompt-en-1280x800.png
+Wave 10 proximity prompt qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave10-proximity-prompt-qps-long-1280x800.png
+Wave 9 workbench popup English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave9-workbench-popup-en-1280x800.png
+Wave 9 campfire popup Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave9-campfire-popup-ko-1280x800.png
+Wave 9 module upper Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave9-module-upper-ko-1280x800.png
+Wave 9 module side English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave9-module-side-en-1280x800.png
+Wave 10 module basement qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave10-module-basement-qps-long-1280x800.png
+Wave 9 module interior Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave9-module-interior-ko-1280x800.png
+Signal stage one missing/workbench Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
+Signal stage two missing/rope English screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
+Placement Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-placement-ko-invalid-1280x800.png
+Placement English/gamepad screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
+Swimming screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-swimming-en-1280x800.png
+Exploration screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave7-exploration-ko-1280x800.png
+Camp screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave10-localization-fit-097cd1c\kim-survival-wave10-camp-en-1280x800.png
+Completed UTC: 2026-08-23T09:07:37.0989985Z

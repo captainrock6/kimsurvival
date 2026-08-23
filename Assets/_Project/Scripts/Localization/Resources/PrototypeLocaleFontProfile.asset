@@ -27,3 +27,11 @@ MonoBehaviour:
     fallbackSystemFonts:
     - Malgun Gothic
     worldTextScale: 1.62
+  - localeCode: qps-long
+    primaryFont: {fileID: 0}
+    fallbackFonts: []
+    primarySystemFont: Arial
+    fallbackSystemFonts:
+    - Malgun Gothic
+    - Segoe UI Symbol
+    worldTextScale: 1.62

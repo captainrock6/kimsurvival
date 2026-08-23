@@ -35,6 +35,7 @@ namespace KimSurvival
         public const string TableName = "Prototype Strings";
         public const string KoreanLocaleCode = "ko";
         public const string EnglishLocaleCode = "en";
+        public const string QpsLongLocaleCode = "qps-long";
         public const string PreferenceKey = "kim_survival.locale";
 
         private readonly HashSet<string> reportedMissing = new HashSet<string>();
@@ -78,7 +79,7 @@ namespace KimSurvival
 
         public string ResolveStartupLocale(string savedCode)
         {
-            if (LocalizationSettings.AvailableLocales.GetLocale(savedCode) != null)
+            if (IsPlayerSelectableLocale(savedCode) && LocalizationSettings.AvailableLocales.GetLocale(savedCode) != null)
             {
                 return savedCode;
             }
@@ -88,7 +89,9 @@ namespace KimSurvival
 
         public bool SetLocale(string localeCode, bool persist = true)
         {
-            Locale locale = LocalizationSettings.AvailableLocales.GetLocale(localeCode);
+            Locale locale = IsPlayerSelectableLocale(localeCode)
+                ? LocalizationSettings.AvailableLocales.GetLocale(localeCode)
+                : null;
             if (locale == null)
             {
                 ReportMissing("locale:" + localeCode);
@@ -108,6 +111,30 @@ namespace KimSurvival
             }
 
             return true;
+        }
+
+        public bool SetQaLocale(string localeCode = QpsLongLocaleCode)
+        {
+            if (!string.Equals(localeCode, QpsLongLocaleCode, StringComparison.Ordinal))
+            {
+                return false;
+            }
+
+            Locale locale = LocalizationSettings.AvailableLocales.GetLocale(localeCode);
+            if (locale == null)
+            {
+                ReportMissing("qa-locale:" + localeCode);
+                return false;
+            }
+
+            LocalizationSettings.SelectedLocale = locale;
+            return true;
+        }
+
+        public static bool IsPlayerSelectableLocale(string localeCode)
+        {
+            return string.Equals(localeCode, KoreanLocaleCode, StringComparison.Ordinal) ||
+                   string.Equals(localeCode, EnglishLocaleCode, StringComparison.Ordinal);
         }
 
         public void CycleLocale(bool persist = true)

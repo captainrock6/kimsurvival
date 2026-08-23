@@ -63,6 +63,7 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 549692e62be913247aacee50631abc89, type: 2}
   - {fileID: 11400000, guid: 2fb6f09938c5f4c4aa6a59d0cce15259, type: 2}
+  - {fileID: 11400000, guid: e5b12214b390361419b75da42bddc859, type: 2}
   - {fileID: 11400000, guid: 9ed8fd5661379f448a5a219c5069459f, type: 2}
   - {fileID: 11400000, guid: 80649991b80d479488f466e8b033e2d7, type: 2}
   - {fileID: 11400000, guid: a2b58edd90e385d40a0e4284ff0a8eba, type: 2}
@@ -109,6 +110,7 @@ MonoBehaviour:
     - Locale-ko
     - Locale-en
     - Preload
+    - Locale-qps-long
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 93ede3ec006a1f544ab24e3aea48cb0f, type: 2}

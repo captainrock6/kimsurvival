@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEditor;
 using UnityEditor.Localization;
@@ -42,7 +44,9 @@ namespace KimSurvival.EditorTools
             LocalizationEditorSettings.ActiveLocalizationSettings = settings;
             Locale korean = EnsureLocale(PrototypeLocalization.KoreanLocaleCode, "Korean (ko)");
             Locale english = EnsureLocale(PrototypeLocalization.EnglishLocaleCode, "English (en)");
+            Locale qpsLong = EnsureLocale(PrototypeLocalization.QpsLongLocaleCode, "Pseudo Long (qps-long)");
             EnsureKoreanFallback(english, korean);
+            EnsureKoreanFallback(qpsLong, korean);
             LocalizationSettings.ProjectLocale = korean;
             LocalizationSettings.InitializeSynchronously = true;
 
@@ -52,11 +56,12 @@ namespace KimSurvival.EditorTools
                 collection = LocalizationEditorSettings.CreateStringTableCollection(
                     PrototypeLocalization.TableName,
                     TableFolder,
-                    new List<Locale> { korean, english });
+                    new List<Locale> { korean, english, qpsLong });
             }
 
             EnsureTable(collection, korean);
             EnsureTable(collection, english);
+            EnsureTable(collection, qpsLong);
             ImportSource(collection);
             EnsureTmpSettings();
             ConfigureFonts();
@@ -64,9 +69,10 @@ namespace KimSurvival.EditorTools
             EditorUtility.SetDirty(settings);
             EditorUtility.SetDirty(korean);
             EditorUtility.SetDirty(english);
+            EditorUtility.SetDirty(qpsLong);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log("[Kim Survival Localization] Synced ko/en String Tables, Korean fallback, and locale font profile.");
+            Debug.Log("[Kim Survival Localization] Synced player ko/en plus non-shipping qps-long String Tables, Korean fallback, and locale font profile.");
         }
 
         private static Locale EnsureLocale(string code, string displayName)
@@ -121,13 +127,15 @@ namespace KimSurvival.EditorTools
             }
 
             string[] lines = File.ReadAllLines(SourcePath);
-            if (lines.Length < 2 || lines[0] != "Key\tko\ten")
+            if (lines.Length < 2 || lines[0] != "Key\tko\ten\tqps-long")
             {
-                throw new InvalidDataException("PrototypeStrings.tsv must start with: Key<TAB>ko<TAB>en");
+                throw new InvalidDataException("PrototypeStrings.tsv must start with: Key<TAB>ko<TAB>en<TAB>qps-long");
             }
 
             StringTable korean = collection.GetTable(PrototypeLocalization.KoreanLocaleCode) as StringTable;
             StringTable english = collection.GetTable(PrototypeLocalization.EnglishLocaleCode) as StringTable;
+            StringTable qpsLong = collection.GetTable(PrototypeLocalization.QpsLongLocaleCode) as StringTable;
+            string combinedQpsLong = string.Empty;
             for (int i = 1; i < lines.Length; i += 1)
             {
                 if (string.IsNullOrWhiteSpace(lines[i]))
@@ -136,21 +144,72 @@ namespace KimSurvival.EditorTools
                 }
 
                 string[] columns = lines[i].Split(new[] { '\t' }, StringSplitOptions.None);
-                if (columns.Length != 3 || string.IsNullOrWhiteSpace(columns[0]))
+                if (columns.Length != 4 || string.IsNullOrWhiteSpace(columns[0]))
                 {
                     throw new InvalidDataException("Invalid localization source row " + (i + 1));
                 }
 
+                ValidateQpsLong(columns[0], columns[2], columns[3]);
+                combinedQpsLong += columns[3];
                 SetEntry(korean, columns[0], Decode(columns[1]));
                 SetEntry(english, columns[0], Decode(columns[2]));
+                SetEntry(qpsLong, columns[0], Decode(columns[3]));
+            }
+
+            const string requiredGlyphProbe = "áéíóúüñ¿¡";
+            if (requiredGlyphProbe.Any(glyph => combinedQpsLong.IndexOf(glyph) < 0))
+            {
+                throw new InvalidDataException("qps-long source must contain the full extended glyph probe: " + requiredGlyphProbe);
             }
 
             LocalizationEditorSettings.SetPreloadTableFlag(korean, true);
             LocalizationEditorSettings.SetPreloadTableFlag(english, true);
+            LocalizationEditorSettings.SetPreloadTableFlag(qpsLong, true);
             EditorUtility.SetDirty(collection);
             EditorUtility.SetDirty(collection.SharedData);
             EditorUtility.SetDirty(korean);
             EditorUtility.SetDirty(english);
+            EditorUtility.SetDirty(qpsLong);
+        }
+
+        private static void ValidateQpsLong(string key, string english, string qpsLong)
+        {
+            if (string.IsNullOrEmpty(english) && key == "dev.fallback_probe")
+            {
+                if (!string.IsNullOrEmpty(qpsLong))
+                {
+                    throw new InvalidDataException("qps-long fallback probe must remain empty: " + key);
+                }
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(english) || string.IsNullOrEmpty(qpsLong))
+            {
+                throw new InvalidDataException("qps-long requires an English source and pseudo value: " + key);
+            }
+
+            float ratio = qpsLong.Length / (float)english.Length;
+            if (ratio < 1.32f || ratio > 1.51f)
+            {
+                throw new InvalidDataException("qps-long must expand English by approximately 35-50%: " + key + " ratio=" + ratio.ToString("0.000"));
+            }
+
+            if (english.Length >= 4 && (!qpsLong.StartsWith("⟦", StringComparison.Ordinal) || !qpsLong.EndsWith("⟧", StringComparison.Ordinal)))
+            {
+                throw new InvalidDataException("qps-long values must use pseudo-locale wrappers: " + key);
+            }
+
+            string[] englishPlaceholders = Regex.Matches(english, @"\{[^{}]+\}").Cast<Match>().Select(match => match.Value).ToArray();
+            string[] qpsPlaceholders = Regex.Matches(qpsLong, @"\{[^{}]+\}").Cast<Match>().Select(match => match.Value).ToArray();
+            string[] englishDigits = Regex.Matches(english, @"\d+").Cast<Match>().Select(match => match.Value).ToArray();
+            string[] qpsDigits = Regex.Matches(qpsLong, @"\d+").Cast<Match>().Select(match => match.Value).ToArray();
+            string[] englishTags = Regex.Matches(english, @"<[^>]+>").Cast<Match>().Select(match => match.Value).ToArray();
+            string[] qpsTags = Regex.Matches(qpsLong, @"<[^>]+>").Cast<Match>().Select(match => match.Value).ToArray();
+            if (!englishPlaceholders.SequenceEqual(qpsPlaceholders) || !englishDigits.SequenceEqual(qpsDigits) || !englishTags.SequenceEqual(qpsTags))
+            {
+                throw new InvalidDataException("qps-long must preserve Smart String placeholders, digits, and rich-text tags: " + key);
+            }
         }
 
         private static void SetEntry(StringTable table, string key, string value)
