@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 10 room-module independent RED to GREEN gate",
+  "runId": "20260823T092100Z_73f4f36_wave10_green",
+  "baselineCommit": "73f4f3621a41272f5052360a519aa46f9d74e79c",
+  "observedUtc": "2026-08-23T09:08:35.1116938Z",
+  "overall": "RED",
+  "productOverall": "RED_EXPECTED_FAIL",
+  "infrastructureOverall": "PASS",
+  "moduleGate": "GREEN",
+  "moduleChecksPassed": 8,
+  "moduleChecksTotal": 8,
+  "compile": "PASS 0 errors",
+  "fullApproachFirstRegression": "PASS",
+  "koEn1280ModuleCaptures": "PASS",
+  "actualQpsLong": "EXPECTED_FAIL",
+  "koreanOverflow": "EXPECTED_FAIL",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "expectedProductGaps": [
+    {
+      "id": "W10-L01.normal_camp_ko_overflow",
+      "severity": "P1",
+      "actual": "visibleOverflow=2",
+      "reproduction": "Open the fresh Korean normal camp at 1280x800 and inspect every active TMP object after ForceMeshUpdate.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W10-L03.actual_qps_long_locale",
+      "severity": "P1",
+      "actual": "locale absent",
+      "reproduction": "Select the actual qps-long locale and format/capture the module preview; do not substitute a synthetic text override.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"
+    }
+  ],
+  "unexpectedProductFailures": [],
+  "infrastructureFailures": [],
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave10ModuleGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '73f4f3621a41272f5052360a519aa46f9d74e79c' -MinimumSmokeSeconds 6",
+  "evidenceRoot": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green"
+}

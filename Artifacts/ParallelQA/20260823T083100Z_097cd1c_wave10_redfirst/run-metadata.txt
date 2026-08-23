@@ -1,0 +1,12 @@
+Wave 9 run metadata
+Run ID: 20260823T083100Z_097cd1c_wave10_redfirst
+Baseline: 097cd1cbfa1f434c9836e8393c0b59f18e8d8e09
+Branch: codex/wave10-module-gate
+Unity: 6000.4.9f1
+Started/completed UTC: 2026-08-23T08:49:37.9732194Z / 2026-08-23T08:51:18.7292551Z
+OS: Microsoft Windows NT 10.0.26200.0
+Execution: sandbox_permissions=require_escalated; no -noUpm
+Evidence policy: fresh run only; prior PASS/FAIL files not reused as verdicts
+Physical gamepad: UNVERIFIED
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Exact rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '097cd1cbfa1f434c9836e8393c0b59f18e8d8e09'

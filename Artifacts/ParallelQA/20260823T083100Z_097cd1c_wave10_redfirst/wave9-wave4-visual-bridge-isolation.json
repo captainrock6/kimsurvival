@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T083100Z_097cd1c_wave10_redfirst",
+  "baselineCommit": "097cd1cbfa1f434c9836e8393c0b59f18e8d8e09",
+  "status": "ISOLATED_BY_DESIGN",
+  "classification": "STALE_EVIDENCE_ADAPTER",
+  "productRollbackSignal": false,
+  "assetCoreChecksPassed": 261,
+  "isolatedFailures": [
+    {
+      "id": "visual.current_baseline_identity",
+      "actual": "report missing"
+    },
+    {
+      "id": "visual.current_normal_ko_en_placement",
+      "actual": "MISSING"
+    },
+    {
+      "id": "visual.current_normal_ko_en_exploration_swimming",
+      "actual": "MISSING"
+    },
+    {
+      "id": "visual.current_qps_long",
+      "actual": "MISSING"
+    }
+  ],
+  "reason": "Wave4AssetReleaseGate requires wave5-current-visual-facts.json and the historical 671c4e9 baseline identity. Wave 9 deliberately generates fresh spatial-camp evidence under wave9-spatial-play-evidence.json instead of fabricating that legacy file.",
+  "replacementEvidence": [
+    "wave9-spatial-play-evidence.json",
+    "wave9-play-contracts.json",
+    "wave9-ko-normal-camp-1280x800.png",
+    "wave9-en-normal-camp-1280x800.png"
+  ]
+}

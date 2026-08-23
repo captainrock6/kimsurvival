@@ -1,0 +1,19 @@
+Wave 10 room-module independent RED to GREEN gate
+Run ID: 20260823T092100Z_73f4f36_wave10_green
+Baseline: 73f4f3621a41272f5052360a519aa46f9d74e79c
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Module gate: GREEN (8/8)
+Compile: PASS 0 errors
+Full approach-first regression: PASS
+KO/EN 1280 module captures: PASS
+Actual qps-long: EXPECTED_FAIL
+Korean normal-camp overflow: EXPECTED_FAIL
+Windows build: PASS, warnings=0
+Hidden smoke: PASS
+Addressables: PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)
+Expected product gaps: 2
+Unexpected product failures: 0
+Infrastructure failures: 0
+Evidence: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Artifacts\ParallelQA\20260823T092100Z_73f4f36_wave10_green

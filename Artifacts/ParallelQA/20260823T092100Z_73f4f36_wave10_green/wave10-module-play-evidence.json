@@ -1,0 +1,24 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T092100Z_73f4f36_wave10_green",
+    "baselineCommit": "73f4f3621a41272f5052360a519aa46f9d74e79c",
+    "unityVersion": "6000.4.9f1",
+    "candidatesAndReasons": "",
+    "economyTransitions": "",
+    "transactionAtomicity": "",
+    "connectorsAndTraversal": "",
+    "moduleGeneralFloorPlacement": "",
+    "keyboardSyntheticGamepadParity": "",
+    "localization": "keys=14 koShort='자원 부족 · 필요 나무 2, 돌 0, 표류물 1' enShort='Resources short · Need Wood 2, Stone 0, Salvage 1' keyboard/gamepad semantic parity=true",
+    "normalCampKoreanOverflow": "visibleOverflow=2",
+    "actualQpsLong": "locale absent",
+    "fullRegression": "PASS · Wave 9 현장 계획 지점에서 위층/옆방/지하실 후보 순회, 형태+문구 유효성, 작업대 해금과 고정 W2/D1 비용, 실패/취소/중복 무차감과 1회 원자 확정, 명시적 문/사다리 이동, 모듈 일반 설비 구역과 통로 보호, 1280x800 ko/en/qps-long placeholder 표현 확인. 기존 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 근접 안내·설비 전용 팝업, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 키보드/게임패드 회귀 확인",
+    "screenshots": [
+        "wave10-module-upper-ko-1280x800.png",
+        "wave10-module-side-en-1280x800.png",
+        "wave10-module-basement-synthetic-long-1280x800.png",
+        "wave10-module-interior-ko-1280x800.png"
+    ],
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}

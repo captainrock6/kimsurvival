@@ -1,0 +1,19 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T092100Z_73f4f36_wave10_green",
+    "baselineCommit": "73f4f3621a41272f5052360a519aa46f9d74e79c",
+    "unityVersion": "6000.4.9f1",
+    "candidatesAndReasons": "Upper=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked | Side=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked | Basement=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked",
+    "economyTransitions": "beforeWorkbench=Locked afterWorkbenchW1D1=Short exactW2D1=Ready cost=W2/S0/F0/D1",
+    "transactionAtomicity": "cancel=stable invalid=InvalidGeometry short=Short success=Succeeded before=W2/S0/F0/D1 after=W0/S0/F0/D0 duplicate=NotPreviewing second=PrototypeLimit",
+    "connectorsAndTraversal": "pairs=slot.start.upper<->slot.upper.down:Ladder,slot.start.side<->slot.side.left:Door,slot.start.basement<->slot.basement.up:Ladder travel=room.start->room.upper.standard->room.start startStatePreserved=true",
+    "moduleGeneralFloorPlacement": "generalFloor=Upper@-2.0,Side@-2.5,Basement@-4.0",
+    "keyboardSyntheticGamepadParity": "confirmCycle=1 cancelCycle=-1 sharedActions=true",
+    "localization": "",
+    "normalCampKoreanOverflow": "",
+    "actualQpsLong": "",
+    "fullRegression": "",
+    "screenshots": [],
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}

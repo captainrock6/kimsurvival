@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 10 room-module independent RED to GREEN gate",
+  "runId": "20260823T092100Z_73f4f36_wave10_green",
+  "baselineCommit": "73f4f3621a41272f5052360a519aa46f9d74e79c",
+  "unityVersionExpected": "6000.4.9f1",
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "startedUtc": "2026-08-23T09:07:45.3709693Z",
+  "completedUtc": "2026-08-23T09:08:35.0117984Z",
+  "executionPolicy": "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+  "evidencePolicy": "Fresh run ID only. The Wave 9 reflection RED is preserved separately and is not reused as this verdict.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave10ModuleGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '73f4f3621a41272f5052360a519aa46f9d74e79c' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "preflight",
+      "executeMethod": "Capture-Wave5Preflight.ps1",
+      "startedUtc": "2026-08-23T09:07:45.3709693Z",
+      "completedUtc": "2026-08-23T09:07:45.5454410Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\wave5-preflight.txt",
+      "command": "Capture-Wave5Preflight.ps1 -RunId '20260823T092100Z_73f4f36_wave10_green' -BaselineCommit '73f4f3621a41272f5052360a519aa46f9d74e79c'",
+      "output": "PREFLIGHT=PASS | CANONICAL_ADDRESSABLES_LINK=ABSENT | EVIDENCE=C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\wave5-preflight.json"
+    },
+    {
+      "name": "compile",
+      "executeMethod": "ParallelQA.ParallelQaRunner.RecordCompilePass",
+      "startedUtc": "2026-08-23T09:07:45.5617578Z",
+      "completedUtc": "2026-08-23T09:07:53.0348685Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-compile.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-compile.log\""
+    },
+    {
+      "name": "wave10-module-edit",
+      "executeMethod": "ParallelQA.Wave10ModuleGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T09:07:53.0405740Z",
+      "completedUtc": "2026-08-23T09:08:00.4950790Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-wave10-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave10ModuleGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-wave10-edit.log\""
+    },
+    {
+      "name": "wave10-module-play",
+      "executeMethod": "ParallelQA.Wave10ModuleGateRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T09:08:00.4971673Z",
+      "completedUtc": "2026-08-23T09:08:14.1827962Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-wave10-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave10ModuleGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-wave10-play.log\""
+    },
+    {
+      "name": "asset-release-contracts",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+      "startedUtc": "2026-08-23T09:08:14.1842271Z",
+      "completedUtc": "2026-08-23T09:08:17.6166285Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-asset-contracts.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-asset-contracts.log\""
+    },
+    {
+      "name": "windows-development-build",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+      "startedUtc": "2026-08-23T09:08:17.6177125Z",
+      "completedUtc": "2026-08-23T09:08:28.4909280Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-windows-build.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\unity-windows-build.log\""
+    },
+    {
+      "name": "windows-hidden-smoke",
+      "executeMethod": "Invoke-Wave5WindowsSmoke.ps1",
+      "startedUtc": "2026-08-23T09:08:28.4914896Z",
+      "completedUtc": "2026-08-23T09:08:35.0114174Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T092100Z_73f4f36_wave10_green\\windows-player.log",
+      "command": "Invoke-Wave5WindowsSmoke.ps1 -RunId '20260823T092100Z_73f4f36_wave10_green' -BaselineCommit '73f4f3621a41272f5052360a519aa46f9d74e79c' -MinimumSeconds 6",
+      "error": ""
+    }
+  ]
+}

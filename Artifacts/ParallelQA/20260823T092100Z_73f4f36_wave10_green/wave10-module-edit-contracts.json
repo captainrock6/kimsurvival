@@ -1,0 +1,85 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 10 room-module Edit contracts",
+    "runId": "20260823T092100Z_73f4f36_wave10_green",
+    "baselineCommit": "73f4f3621a41272f5052360a519aa46f9d74e79c",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T09:07:56.0907356Z",
+    "completedUtc": "2026-08-23T09:07:56.1104931Z",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 6,
+    "expectedFailed": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "checks": [
+        {
+            "id": "W10-M01.candidates_and_reasons",
+            "matrix": "module preview/validity",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Upper, side, and basement definitions each evaluate READY geometry and expose every invalid geometry reason deterministically",
+            "actual": "Upper=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked | Side=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked | Basement=Valid/NoConnectionSlot/Overlap/TerrainBlocked/PathBlocked",
+            "reproduction": "Cycle the three candidates, then independently remove the slot, add overlap, block terrain, and block the required route.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"
+        },
+        {
+            "id": "W10-M02.locked_short_ready",
+            "matrix": "unlock/economy",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Without a workbench the module is LOCKED; after the workbench W2/D1 shortage is SHORT and exact W2/D1 is READY",
+            "actual": "beforeWorkbench=Locked afterWorkbenchW1D1=Short exactW2D1=Ready cost=W2/S0/F0/D1",
+            "reproduction": "Evaluate a fresh upper-room preview before building the workbench, after normalizing below W2/D1, and after normalizing to exact W2/D1.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W10-M03.atomic_commit_and_limit",
+            "matrix": "transaction atomicity",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Cancel, invalid, short, and duplicate submits spend nothing; success spends W2/D1 once; a second room reports PROTOTYPE_LIMIT",
+            "actual": "cancel=stable invalid=InvalidGeometry short=Short success=Succeeded before=W2/S0/F0/D1 after=W0/S0/F0/D0 duplicate=NotPreviewing second=PrototypeLimit",
+            "reproduction": "Compare all resource counters around cancel, invalid geometry, SHORT, successful commit, duplicate submit, and a second preview.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W10-M04.reciprocal_connectors_and_room_return",
+            "matrix": "connectors/traversal",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Every candidate has distinct start/reciprocal connector IDs and Kim can enter the committed room and return to the preserved starting room",
+            "actual": "pairs=slot.start.upper<->slot.upper.down:Ladder,slot.start.side<->slot.side.left:Door,slot.start.basement<->slot.basement.up:Ladder travel=room.start->room.upper.standard->room.start startStatePreserved=true",
+            "reproduction": "Commit one module, approach its connector from both sides, and compare room identity plus the pre-expansion starting-room placement snapshot.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs; Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs"
+        },
+        {
+            "id": "W10-M05.general_floor_placement",
+            "matrix": "module placement",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A general facility can be placed on each candidate room's general-floor zone without entering its connector or required-route band",
+            "actual": "generalFloor=Upper@-2.0,Side@-2.5,Basement@-4.0",
+            "reproduction": "Create each module room zone and place a campfire on a valid snapped general-floor position.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W10-M06.keyboard_synthetic_gamepad_parity",
+            "matrix": "input",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Keyboard/mouse and synthetic gamepad inputs produce the same cycle, confirm, and cancel module-preview actions",
+            "actual": "confirmCycle=1 cancelCycle=-1 sharedActions=true",
+            "reproduction": "Feed equivalent keyboard/mouse and synthetic gamepad raw states through PrototypeCampModulePreviewActions.FromRaw.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"
+        }
+    ]
+}

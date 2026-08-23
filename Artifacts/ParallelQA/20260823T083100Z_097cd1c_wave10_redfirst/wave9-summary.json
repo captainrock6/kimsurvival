@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 9 spatial camp red-first QA contract gate",
+  "runId": "20260823T083100Z_097cd1c_wave10_redfirst",
+  "baselineCommit": "097cd1cbfa1f434c9836e8393c0b59f18e8d8e09",
+  "observedUtc": "2026-08-23T08:51:18.6539921Z",
+  "overall": "RED",
+  "productOverall": "RED_EXPECTED_FAIL",
+  "infrastructureOverall": "PASS",
+  "compile": "PASS 0 errors",
+  "spatialCampContract": "RED_EXPECTED_FAIL",
+  "normalCampDashboard": "PASS absent",
+  "largeBagPanel": "PASS absent/compact",
+  "farState": "PASS silent",
+  "nearPromptAndPopup": "PASS",
+  "modalAndReturn": "PASS",
+  "moduleExpansion": "EXPECTED_FAIL/RED",
+  "approachFirstCoreRegression": "PASS",
+  "wave7BagRegression": "ISOLATED_BY_DESIGN · old persistent bag/dashboard layout fixture",
+  "wave6ProgressionRegression": "ISOLATED_BY_DESIGN · old dashboard signal layout fixture",
+  "legacyDashboardHarness": "ISOLATED_BY_DESIGN · stale distant-button assumptions are not a product rollback signal",
+  "koEn1280Captures": "PASS fresh captures generated",
+  "assetReleaseCore": "PASS 261 checks",
+  "wave4VisualEvidenceAdapter": "ISOLATED_BY_DESIGN · historical Wave 5 filename/baseline coupling",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "physicalGamepad": "UNVERIFIED",
+  "physicalGamepadReason": "Synthetic/shared code paths were automated; no physical-device human actuation was captured.",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "expectedProductGaps": [
+    {
+      "id": "W9-M02.valid_invalid_reasons",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Every module candidate reports valid or a player-readable invalid reason",
+      "actual": "types=KimSurvival.CampModuleArchetype | KimSurvival.CampModuleCommitStatus | KimSurvival.CampModuleConnectorKind | KimSurvival.CampModuleDefinition | KimSurvival.CampModuleEconomyStatus | KimSurvival.CampModuleEvaluation | KimSurvival.CampModuleGeometryStatus | KimSurvival.CampModuleResourceCost | KimSurvival.CampModuleReturnSnapshot | KimSurvival.CampModuleTransactionGuard | KimSurvival.CampModuleUnlockRequirement | KimSurvival.CampModuleValidationContext | KimSurvival.PrototypeCampModuleCatalog | KimSurvival.PrototypeCampModuleExpansion | KimSurvival.PrototypeCampModuleExpansionConfig | KimSurvival.PrototypeCampModulePreviewActions | KimSurvival.PrototypeRawCampModulePreviewInput kinds=True validityReason=False connectionSlots=True cost=True overlap=True requiredRoute=True",
+      "reproduction": "Move each candidate through valid and invalid cells and capture the reason key.",
+      "recommendedFiles": "future Wave 9 camp module runtime and localization implementation"
+    },
+    {
+      "id": "W9-P08.ko_en_1280_readability",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Korean and English normal-camp headers have no rendered-text overlap or TMP overflow at 1280x800",
+      "actual": "koHeaderOverlap=False enHeaderOverlap=False koOverflow=2 enOverflow=0",
+      "reproduction": "Open both fresh normal-camp PNGs at 1:1; compare the status/resource header text and all visible panels.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "unexpectedProductFailures": [],
+  "infrastructureFailures": [],
+  "screenshots": [
+    "wave9-ko-normal-camp-1280x800.png",
+    "wave9-en-normal-camp-1280x800.png",
+    "wave9-ko-workbench-after-interact-1280x800.png",
+    "wave9-en-rain-after-interact-1280x800.png"
+  ],
+  "evidenceRoot": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T083100Z_097cd1c_wave10_redfirst",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '097cd1cbfa1f434c9836e8393c0b59f18e8d8e09'"
+}
