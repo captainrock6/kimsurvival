@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "validationId": "validation.wave13.ui.camp-connection-slot-affordance.review",
+  "assetId": "ui.camp-connection-slot-affordance",
+  "jobId": "job_20260823120036_3f045106",
+  "status": "pass",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "runtimeLoadAllowlistCount": 0,
+  "board": {
+    "fileName": "wave13-module-connector-review-board.png",
+    "sha256": "8320a05fc6597a3244e1cfe534398f872f132463cf93e67441e0561146dfb4bb",
+    "bytes": 6209304,
+    "width": 3840,
+    "height": 2800,
+    "mode": "RGBA",
+    "alphaExtrema": [0, 255],
+    "edgeAlphaMax": 0,
+    "edgeTransparent": true,
+    "directionRows": 3,
+    "stateColumns": 4,
+    "actualScreenPanels": 12
+  },
+  "stateCoverage": {
+    "directions": [
+      "slot.start.upper",
+      "slot.start.side",
+      "slot.start.basement"
+    ],
+    "states": [
+      "available",
+      "selected",
+      "cost-short",
+      "build-complete"
+    ],
+    "allTwelveCellsPresent": true,
+    "buildCompleteUsesExistingCleanCamp": true,
+    "newCandidateArtGenerated": false
+  },
+  "mechanicalChecks": {
+    "allNinePassingCaptureSourcesAre1280x800": true,
+    "threeCandidateAtlasesAre512x512Rgba": true,
+    "threeCandidateAtlasEdgeTouchPixels": 0,
+    "candidateStateCountEach": 12,
+    "stateMeaningIsNotColorOnly": true,
+    "runtimeLoadAllowlistIsEmpty": true,
+    "allCandidateAtlasesRuntimeRejected": true,
+    "reviewBoardRuntimeRejected": true,
+    "rasterLocalizedTextInRuntimeSprites": false,
+    "rasterInputGlyphInRuntimeSprites": false,
+    "reviewBoardContainsLocalizedPassingCaptureText": true,
+    "reviewBoardIsEvidenceNotRuntimeArt": true,
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false
+  },
+  "safeZoneChecks1280x800": {
+    "origin": "top-left",
+    "narrationBottom": 280,
+    "promptTop": 292,
+    "narrationToPromptGapPixels": 12,
+    "upperMarkerBottom": 290,
+    "artPromptTop": 294,
+    "upperMarkerToArtPromptGapPixels": 4,
+    "promptOverlapPlayerPixelsSquared": {
+      "slot.start.upper": 0,
+      "slot.start.side": 0,
+      "slot.start.basement": 0
+    },
+    "promptOverlapTargetPixelsSquared": {
+      "slot.start.upper": 0,
+      "slot.start.side": 0,
+      "slot.start.basement": 0
+    },
+    "promptOverlapWalkingBandPixelsSquared": 0,
+    "artMarkerOverlapKimEnvelopePixelsSquared": {
+      "slot.start.upper": 0,
+      "slot.start.side": 0,
+      "slot.start.basement": 0
+    },
+    "worldOverlayRule": "physical connector footprint only; no full-room tint or filled focus rectangle"
+  },
+  "localizationChecks": {
+    "koCapturePresent": true,
+    "enCapturePresent": true,
+    "qpsLongCapturePresent": true,
+    "finalPassingPromptOverflowCounts": [0, 0, 0],
+    "keyboardGamepadGlyphIsSeparate": true,
+    "tmpIsSeparate": true,
+    "meaningBearingEllipsis": false
+  },
+  "visualReview": {
+    "performedOnce": true,
+    "result": "pass",
+    "notes": [
+      "Top strip preserves all three stable candidate IDs and makes the lack of selection explicit.",
+      "The 3x4 matrix keeps actual 1280x800 capture context for approach, preview, and cost-short states.",
+      "Build-complete cells reuse the clean built-room composition and highlight only each permanent connector coordinate.",
+      "Cutline-bracket is the functional recommendation because it has the clearest low-occlusion non-color grammar; this is not adoption."
+    ]
+  },
+  "upstreamEvidence": {
+    "wave11ForgeQualityScore": 100,
+    "wave11ForgeErrors": 0,
+    "wave11ForgeWarnings": 0,
+    "finalIntegratedRunId": "20260823T125000Z_13ecded_release",
+    "finalDirectScreens": "6/6",
+    "finalWorldClear": "3/3",
+    "physicalGamepad": "UNVERIFIED"
+  },
+  "userDecisionRequired": true
+}

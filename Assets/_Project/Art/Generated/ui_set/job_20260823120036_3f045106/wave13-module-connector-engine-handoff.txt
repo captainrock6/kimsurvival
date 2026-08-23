@@ -1,0 +1,29 @@
+WAVE 13 MODULE CONNECTOR REVIEW-ONLY HANDOFF
+
+Asset: ui.camp-connection-slot-affordance
+Job: job_20260823120036_3f045106
+Parent: job_20260823094919_b97f9f61
+Status: review
+Selected candidate: none
+Runtime allowlist: empty
+
+Candidate IDs:
+- ui.camp-connection-slot-affordance.lashed-hardware
+- ui.camp-connection-slot-affordance.cutline-bracket
+- ui.camp-connection-slot-affordance.salvage-tab
+
+Functional recommendation only: cutline-bracket. It has the clearest non-color state grammar and lowest world-art occlusion. This is not adoption.
+
+1280x800 top-left safe zones:
+- narration 230.4,144,819.2,136
+- compact prompt 420,292,440,44; exact narration gap 12px
+- walking band 0,535.1,1280,81.8
+- art connectors upper 570,264,104,26; side 763,453,24,104; basement 391,496,104,26
+
+Atlas recommendation after explicit selection only:
+- 512x512 RGBA, 128x128 cells
+- columns idle, near-focus, preview-valid, invalid
+- rows upper, side, basement
+- center pivot, Bilinear, PPU 100, Sprite Multiple, alpha transparency on, mipmaps off, max 2048, Full Rect
+
+Runtime text and input glyphs remain separate TMP/sprite slots. Review-board screenshot text is evidence only. Until the user selects exactly one candidate ID, do not adopt, package, Addressable, Resources-load, or scene-connect any candidate or review board.
