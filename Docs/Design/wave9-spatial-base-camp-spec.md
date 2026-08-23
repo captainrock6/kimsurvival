@@ -1,7 +1,7 @@
 # Wave 9 공간형 베이스캠프 상세 계약
 
 > 상태: `DESIGN LOCKED / COMPACT PROMPT UX ADDENDUM / RUNTIME UNCHANGED IN THIS COMMIT`
-> 기준점: `origin/master f95b192d45f04e36f173ae274e29a3684cce7bf0`
+> 작업 기준점: `b4142df02f3745ea18a72888fdf3b029dbe78886` (`origin/master f95b192` 포함)
 > Forge stable IDs: `feature.camp-object-interaction`, `screen.camp`
 > 정본 입력: `Docs/Design/References/approved-spatial-base-camp-concept.png`, `.forge/packets/wave9-spatial-base-camp-rebaseline.json`
 > 화면 증거: 사용자 제공 1280×800 캡처 (`evidence-only`, 저장소 정본 아트·지시문 아님)
@@ -194,10 +194,10 @@
 |---|---|---|---|
 | 기하 | `GEOMETRY_VALID` | 실선 유령+연결부·통로 표시 | 경제 판정으로 이동 |
 | 기하 | `NO_CONNECTION_SLOT` | 끊긴 connector 아이콘+원인 문구 | 거부 |
+| 기하 | `SLOT_UNAVAILABLE` | 비활성·점유·불일치 slot 원인 문구 | 거부 |
 | 기하 | `OVERLAP` | 겹친 AABB 강조+원인 문구 | 거부 |
 | 기하 | `TERRAIN_BLOCKED` | 지형/수면/암반 원인 문구 | 거부 |
 | 기하 | `PATH_BLOCKED` | 막히는 출구·설비 접근 경로 표시 | 거부 |
-| 경제 | `COST_UNSET` | 개발/QA에서 비용 미승인 표시 | 인간 후보 빌드 Confirm 금지 |
 | 경제 | `LOCKED` | 전체 unlock 조건·비용 표시 | 정확한 잠금 피드백 |
 | 경제 | `SHORT` | 보유/필요와 부족 항목 표시 | 자원 변화 0 |
 | 경제 | `READY` | 비용·결과 표시 | 원자 차감+모듈 생성 1회 |
@@ -212,21 +212,20 @@
 5. 지상 규칙: upper/side는 지하 terrain mask에 들어가지 않음. 지하 규칙: basement AABB가 지하 허용 mask 안이고 수면·암반 mask와 겹치지 않음.
 6. connector footprint와 landing이 비어 있는지.
 7. `slot.start.exit.left`에서 모든 기존·후보 room과 필수 설비 interaction point로 이어지는 경로 graph가 유지되는지.
-8. `ModuleUnlockRequirement`와 `ModuleCostByArchetype` 데이터 존재·충족 여부.
+8. 작업대 보유와 선택 module의 `W2/D1` 데이터 존재·충족 여부.
 9. 모두 통과하면 snapshot 자원을 한 번 차감하고 room instance, connector, placement zone을 같은 transaction에서 생성한다.
 
 일부 자원 차감 뒤 생성 실패, room 생성 뒤 connector 누락, 후보 확정 뒤 김씨 warp는 허용하지 않는다. transaction이 실패하면 snapshot으로 전부 복원한다.
 
-### 7.2 미확정 비용 변수
+### 7.2 밸런스 v0.2 확정값
 
-| 변수 | 현재 상태 | 검증 가설 |
-|---|---|---|
-| `ModuleUnlockRequirement` | `TBD_BALANCE` | 작업대·날짜 같은 선행을 붙일지 외부 첫 사용자 발견성 뒤 결정 |
-| `ModuleCostByArchetype.upper` | `TBD_BALANCE` | 세 방향을 같은 비용으로 시작할지 동선 효용에 따라 달리할지 비교 |
-| `ModuleCostByArchetype.side` | `TBD_BALANCE` | 구조 신호·가방 투자와 동시에 구매 가능한지 자원 수지 재계산 필요 |
-| `ModuleCostByArchetype.basement` | `TBD_BALANCE` | 지하가 추가 효용을 갖기 전 비용 프리미엄을 가정하지 않음 |
+| module ID | preview | commit unlock | 비용 | run 제한 |
+|---|---|---|---|---|
+| `room.upper.standard` | 캠프에서 처음부터 | 작업대 | `W2/D1` | 세 후보 중 1개 |
+| `room.side.standard` | 캠프에서 처음부터 | 작업대 | `W2/D1` | 세 후보 중 1개 |
+| `room.basement.standard` | 캠프에서 처음부터 | 작업대 | `W2/D1` | 세 후보 중 1개 |
 
-정확한 자원 종류와 수량은 이 문서에서 승인하지 않는다. 구현·QA는 config 변수와 `CanAfford=true/false` fixture로 세 상태를 검증할 수 있지만, fixture 값을 자연 3일 경제 또는 인간 성공률 증거로 사용하지 않는다. 사용자 승인 비용이 입력되기 전 외부 20분 후보 빌드에서는 모듈 경제 게이트를 PASS로 판정하지 않는다.
+세 방은 같은 `12×5u` 표준 모듈이고 이번 슬라이스에서 생산·침대·회복·저장 보너스가 없으므로 방향별 가격 차를 두지 않는다. 비용은 가방 확장과 같은 `W2/D1`로 고정해 성장 선택과 경쟁시키되, 작업대·가방·모듈·신호를 모두 포함한 자연 Day 3 구조 경로는 유지한다. 전체 계산, transaction과 run state 정본은 `wave9-module-expansion-balance.md`와 `.forge/design/wave9-module-balance.json`이다.
 
 ## 8. 최소 HUD와 상황형 팝업 정보 구조
 
@@ -346,12 +345,18 @@ KO가 의미·정보 우선순위·코미디 톤의 기준 원문이다. EN은 �
 | `ui.module.name.upper` | 후보명 | 위층 | Upper Room | 방향 의미 유지 |
 | `ui.module.name.side` | 후보명 | 옆방 | Side Room | left/right 임의 추가 금지 |
 | `ui.module.name.basement` | 후보명 | 지하실 | Basement | 던전·깊은 지하 의미 금지 |
+| `ui.module.preview.cost` | 선택 후보 비용 | `{moduleName} · 나무 {wood} · 표류물 {salvage} · {state}` | `{moduleName} · {wood} Wood · {salvage} Salvage · {state}` | locale별 어순, 비용 숨김 금지 |
+| `interaction.module.locked_workbench` | 작업대 없음 | 작업대 필요 | Workbench Required | preview와 W2/D1은 계속 표시 |
+| `interaction.module.missing` | 비용 부족 | `{moduleName} 부족 · {missing}` | Missing for {moduleName} · {missing} | 정확한 부족 W→D 순서 |
+| `interaction.module.ready` | 확정 가능 | 설치 가능 | Ready to Build | geometry valid와 비용 충족 모두 필요 |
 | `interaction.module.valid` | 기하 유효 | 연결·통로 유효 | Connection and Path Valid | 비용 충족과 혼동 금지 |
 | `interaction.module.no_slot` | reciprocal 없음 | 연결 슬롯이 맞지 않는다. | No matching connection slot. | 기술 ID 노출 금지 |
+| `interaction.module.slot_unavailable` | 비활성·점유 slot | 이 연결 슬롯은 사용할 수 없다. | This connection slot is unavailable. | no-slot과 원인 구분 |
 | `interaction.module.overlap` | AABB 겹침 | 다른 공간과 겹친다. | Overlaps another room. | 색 외 텍스트 필수 |
 | `interaction.module.path_blocked` | 경로 차단 | 출입구나 필수 통로를 막는다. | Blocks an entrance or required path. | 원인 우선, 농담 없음 |
 | `interaction.module.terrain_blocked` | 지형 거부 | 이 방향의 지형에는 붙일 수 없다. | The terrain blocks this room. | 지상/지하 실제 상태 기반 |
-| `interaction.module.prototype_limit` | 1개 확정 뒤 | 첫 프로토타입 확장은 1개까지다. | This prototype supports one room expansion. | 캠페인 최대치로 번역 금지 |
+| `interaction.module.prototype_limit` | 1개 확정 뒤 | 첫 확장은 이미 완성했다. | The first expansion is already complete. | 캠페인 최대치로 번역 금지 |
+| `interaction.module.committed` | 확정 성공 | `{moduleName} 완성` | `{moduleName} Complete` | 환불·철거 action 암시 금지 |
 
 기존 `ui.camp.actions_title`과 `controls.camp`는 migration alias로 보존할 수 있지만 정상 공간형 캠프 경로에서는 호출하지 않는다. 기존 `structure.*`, `interaction.placement.*`, Wave 6 신호 키와 Wave 7 가방 키는 재사용한다.
 
@@ -403,7 +408,7 @@ KO가 의미·정보 우선순위·코미디 톤의 기준 원문이다. EN은 �
 | `CAMP_APPROACH` | 생성된 작업대/모닥불로 김씨가 직접 걸어가 안내를 띄우고 팝업을 열어 대상 action을 사용 | 기존 5/6·locale 2/3 유지 |
 | `S1` 신호 1단계 | 고정 signal anchor까지 직접 이동→팝업→stage 1 원자 성공 | 기존 17:00 유지 |
 
-신규 진단 timestamp `PROMPT_FIRST`, `POPUP_FIRST_OPEN`, `POPUP_FIRST_CANCEL`, `MODULE_UPPER_SEEN`, `MODULE_SIDE_SEEN`, `MODULE_BASEMENT_SEEN`, `MODULE_CONFIRM`을 추가하되 외부 실제 데이터 전 새 분 단위 합격선은 만들지 않는다. 모듈 비용이 미정인 후보에서는 module timestamp를 인간 밸런스 PASS로 사용하지 않는다.
+신규 진단 timestamp `PROMPT_FIRST`, `POPUP_FIRST_OPEN`, `POPUP_FIRST_CANCEL`, `MODULE_UPPER_SEEN`, `MODULE_SIDE_SEEN`, `MODULE_BASEMENT_SEEN`, `MODULE_CONFIRM`을 추가하되 외부 실제 데이터 전 새 분 단위 합격선은 만들지 않는다. 고정 비용 `W2/D1`의 자동 산술 PASS를 인간 발견성·밸런스 PASS로 사용하지 않는다.
 
 ### 11.2 관찰 코드 변경
 
@@ -418,7 +423,7 @@ KO가 의미·정보 우선순위·코미디 톤의 기준 원문이다. EN은 �
 | `CAMP_ANCHOR` | 신호를 일반 floor에 두려 한 시도와 전용 anchor 이해 |
 | `CAMP_MOVE` | 무료 재배치 뒤 room/좌표·자원·기능 보존 |
 | `MODULE_ALL_SEEN` | 위·옆·지하 세 후보를 모두 순회해 유효·무효 원인을 본 여부 |
-| `MODULE_CONFIRM` | 하나를 확정하고 connector로 실제 진입한 여부. 비용 승인 전에는 진단만 |
+| `MODULE_CONFIRM` | `W2/D1`로 하나를 확정하고 connector로 실제 진입한 여부. 자동 산술과 별개로 인간 발견성·선택 긴장을 진단 |
 
 Q5는 다음 의미로 교체한다.
 
@@ -443,7 +448,7 @@ Q5는 다음 의미로 교체한다.
 - start/upper/side/basement AABB와 slot 중심이 6절 좌표와 일치한다.
 - 위·옆·지하 후보가 모두 preview되고, `room.basement.right` 예시는 `NO_CONNECTION_SLOT`이다.
 - geometry valid/invalid와 cost ready/short가 별도 상태로 표시된다.
-- QA fixture의 충분/부족 비용으로 하나를 확정·하나를 거부하고 자원 원자성을 확인한다. fixture는 자연 경제 증거가 아니다.
+- `W2/D1` 충분/부족 상태로 하나를 확정·하나를 거부하고 자원 원자성을 확인한다. grant fixture는 자연 경제 증거가 아니다.
 - 확정 room에 connector와 general-floor zone이 함께 생성되고 섬 출구에서 room·설비까지 경로가 있다.
 - 일반 설비 2종을 서로 다른 유효 위치에 놓고 하나를 다른 확정 room으로 무료 재배치해도 자원·연구·기능이 보존된다.
 - 신호 anchor, storage anchor, room instance는 재배치·복제되지 않는다.
@@ -468,11 +473,11 @@ Q5는 다음 의미로 교체한다.
 | 기존 루프 회귀 | `Artifacts/Wave9/<run-id>/three-day-regression.txt` |
 | 실제 게임패드 | `Docs/QA/Results/wave9-physical-gamepad.md` 또는 명시적 `UNVERIFIED` |
 
-이 설계 작업의 완료 증거는 본 문서, 승인 reference와 Forge 상세 패킷이다. 사람이 하지 않은 플레이테스트, 구현 PASS, 모듈 비용과 구조 성공 분포를 만들어내지 않는다.
+이 설계 작업의 완료 증거는 본 문서, 승인 reference, Forge 상세 패킷과 계산 정본이다. 사람이 하지 않은 플레이테스트, 구현 PASS와 인간 구조 성공 분포를 만들어내지 않는다.
 
 ## 13. 남은 가정·위험과 조정 순서
 
-1. 모듈 비용·unlock은 미정이다. 기존 3일 경제와 가방/신호 선택을 다시 계산하고 사용자 승인 전 확정하지 않는다.
+1. 모듈 preview는 처음부터, commit은 작업대 뒤, 세 방향 비용은 모두 `W2/D1`로 잠갔다. 발견성 실패를 가격 문제로 오인하지 않고, 외부 증거 전 방향별 차등 비용을 만들지 않는다.
 2. start `18×5u`, standard `12×5u`는 첫 프로토타입 레이아웃 기준이다. 1280×800에서 보행·가독성 문제가 재현되면 module size가 아니라 camera framing과 동선부터 조정한다.
 3. general-floor가 두 설비와 접근 폭을 수용하지 못하면 zone 폭→connector 위치→마지막으로 room 크기 순으로 한 축만 조정한다.
 4. 후보 흔들림이 재현되면 latch 해제 조건과 switch margin을 UX 변수로 추가할 수 있으나 실제 증거 전 숫자를 만들지 않는다.

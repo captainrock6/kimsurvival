@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "contractId": "balance.wave9.module-expansion.v0.2",
+  "sourceCommit": "b4142df02f3745ea18a72888fdf3b029dbe78886",
+  "updatedAt": "2026-08-23T07:51:29.538Z",
+  "economyVersion": "v0.2",
+  "resourceAliases": {
+    "W": "Wood",
+    "S": "Stone",
+    "F": "Food",
+    "D": "Salvage"
+  },
+  "preview": {
+    "availableInPhase": "Camp",
+    "requiresWorkbench": false,
+    "candidateModuleIds": [
+      "room.upper.standard",
+      "room.side.standard",
+      "room.basement.standard"
+    ],
+    "showAllCandidates": true,
+    "showGeometryAndCostWhenLocked": true
+  },
+  "commitRules": {
+    "availableInPhase": "Camp",
+    "requiredResult": "None",
+    "requiresStructure": "Workbench",
+    "maxCommittedExpansionPerRun": 1,
+    "spendsEnergy": false,
+    "spendsDaylight": false,
+    "spendsHunger": false
+  },
+  "modules": [
+    {
+      "moduleId": "room.upper.standard",
+      "archetype": "upper",
+      "slotId": "slot.start.upper",
+      "placementZoneId": "module.general-floor.upper",
+      "widthUnits": 12,
+      "heightUnits": 5,
+      "cost": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      }
+    },
+    {
+      "moduleId": "room.side.standard",
+      "archetype": "side",
+      "slotId": "slot.start.side",
+      "placementZoneId": "module.general-floor.side",
+      "widthUnits": 12,
+      "heightUnits": 5,
+      "cost": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      }
+    },
+    {
+      "moduleId": "room.basement.standard",
+      "archetype": "basement",
+      "slotId": "slot.start.basement",
+      "placementZoneId": "module.general-floor.basement",
+      "widthUnits": 12,
+      "heightUnits": 5,
+      "cost": {
+        "Wood": 2,
+        "Stone": 0,
+        "Food": 0,
+        "Salvage": 1
+      }
+    }
+  ],
+  "statusPriority": [
+    "TERMINAL_OR_MODAL",
+    "PROTOTYPE_LIMIT",
+    "NO_CONNECTION_SLOT",
+    "SLOT_UNAVAILABLE",
+    "OVERLAP",
+    "TERRAIN_BLOCKED",
+    "PATH_BLOCKED",
+    "LOCKED",
+    "SHORT",
+    "READY"
+  ],
+  "statusContract": {
+    "LOCKED": "Workbench is not built; show the requirement and full cost, reject commit.",
+    "SHORT": "Workbench and geometry are valid but one or more resources are short; show owned, required, and exact missing amounts.",
+    "READY": "All geometry, route, unlock, cost, result, and run-limit checks pass.",
+    "PROTOTYPE_LIMIT": "A module is already committed in this run; reject every further commit.",
+    "SLOT_UNAVAILABLE": "The declared slot is missing, disabled, occupied, or no longer reciprocal; reject commit."
+  },
+  "transaction": {
+    "validationOrder": [
+      "result_and_modal",
+      "transaction_in_progress",
+      "prototype_limit",
+      "module_and_slot_id",
+      "reciprocal_slot_and_occupancy",
+      "overlap_and_terrain",
+      "connector_and_required_path",
+      "workbench_unlock",
+      "resource_cost"
+    ],
+    "snapshotFields": [
+      "storage.Wood",
+      "storage.Stone",
+      "storage.Food",
+      "storage.Salvage",
+      "committedModuleId",
+      "committedSlotId",
+      "committedDay",
+      "roomGraph"
+    ],
+    "commitEffects": [
+      "deduct Wood 2 and Salvage 1 exactly once",
+      "set committedModuleId, committedSlotId, and committedDay",
+      "add one room, one reciprocal connector, and one placement zone to roomGraph"
+    ],
+    "failureOrCancelEffects": "No resource, roomGraph, module, slot, day, bag, tool, structure, signal, hunger, energy, or daylight change.",
+    "duplicateSubmit": "Reject while transactionInProgress or when committedModuleId is non-null.",
+    "rollback": "If room, connector, zone, or route commit fails, restore the complete snapshot before returning a failure state."
+  },
+  "runState": {
+    "persistAcrossDayAndExpedition": [
+      "committedModuleId",
+      "committedSlotId",
+      "committedDay"
+    ],
+    "derivedFromCommittedModule": [
+      "occupiedModuleSlots",
+      "roomGraph",
+      "activeModulePlacementZone"
+    ],
+    "transientNotPersisted": [
+      "previewModuleId",
+      "previewValidity",
+      "transactionInProgress",
+      "moduleCostChipFocus"
+    ],
+    "newGameReset": {
+      "committedModuleId": null,
+      "committedSlotId": null,
+      "committedDay": 0
+    },
+    "diskSaveLoadInScope": false
+  },
+  "localization": {
+    "patternKey": "ui.module.preview.cost",
+    "patternTokens": [
+      "moduleName",
+      "wood",
+      "salvage",
+      "state"
+    ],
+    "footerTokens": [
+      "confirmInputGlyph",
+      "cancelInputGlyph"
+    ],
+    "stateKeys": {
+      "LOCKED": "interaction.module.locked_workbench",
+      "SHORT": "interaction.module.missing",
+      "READY": "interaction.module.ready",
+      "PROTOTYPE_LIMIT": "interaction.module.prototype_limit",
+      "SLOT_UNAVAILABLE": "interaction.module.slot_unavailable"
+    },
+    "koreanPattern": "{moduleName} · 나무 {wood} · 표류물 {salvage} · {state}",
+    "englishPattern": "{moduleName} · {wood} Wood · {salvage} Salvage · {state}",
+    "qpsLongExample": "⟦Ûppër Røøm · 2 Wøød · 1 Sålvågë · Rëådÿ — plëåşë çønfirm nøw⟧"
+  },
+  "layout": {
+    "referenceResolution": "1280x800",
+    "presentation": "candidate-local world preview plus one compact ModuleCostChip; never a global management dashboard",
+    "anchorX": 640,
+    "top": "max(294, NarrationBottom + 12)",
+    "maxWidthPixels": 440,
+    "maxHeightPixels": 64,
+    "maxLines": 2,
+    "minimumBodyFontPixels": 18,
+    "hideContextPromptWhileVisible": true
+  },
+  "outOfScope": [
+    "second_module_commit",
+    "demolition",
+    "refund",
+    "structural_stability_simulation",
+    "module_production_bonus",
+    "bed_or_rest_bonus",
+    "storage_capacity_bonus",
+    "disk_save_load"
+  ]
+}
