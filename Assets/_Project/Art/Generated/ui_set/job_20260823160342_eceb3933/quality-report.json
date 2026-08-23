@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 6,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "ending-comic-triptych-a-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 77.71,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-ending-comic-triptych-a-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "ending-comic-triptych-a.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1280 800",
+      "issues": []
+    },
+    {
+      "fileName": "ending-comic-review-board-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 78.29,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-ending-comic-review-board-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "ending-comic-manifest.json",
+      "kind": "editable-source",
+      "bytes": 2110,
+      "issues": []
+    },
+    {
+      "fileName": "ending-comic-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 580,
+      "issues": []
+    },
+    {
+      "fileName": "ending-comic-handoff.txt",
+      "kind": "file",
+      "bytes": 798,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T16:12:37.315Z",
+  "jobId": "job_20260823160342_eceb3933",
+  "assetType": "ui_set"
+}

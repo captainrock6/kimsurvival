@@ -1,0 +1,20 @@
+{
+  "candidateId": "ui.ending-comic.triptych-a",
+  "checks": {
+    "localizedRasterText": false,
+    "corePanels": 3,
+    "categoryShapeDistinct": true,
+    "actualSize": "1280x800",
+    "optionalModifierMax": 1,
+    "optionalScarMax": 1,
+    "focus": "44x44",
+    "qpsLongExpansion": 1.5,
+    "verdictEvidenceSeparated": true
+  },
+  "manualReview": [
+    "read setup-closeup-punchline sequence at 1280x800",
+    "verify verdict evidence is secondary but inspectable",
+    "verify normal/comic/rare/day50 frames differ without color"
+  ],
+  "status": "review"
+}

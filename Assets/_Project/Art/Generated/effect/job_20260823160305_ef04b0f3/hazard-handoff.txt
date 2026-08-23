@@ -1,0 +1,6 @@
+effect.survival-hazards.phase-silhouette-a / REVIEW ONLY
+Atlas: 1024x768, 4 columns x 3 rows, 256x256 cells, 30px internal visual padding, center pivot, PPU 100, true alpha.
+Rows: injury, disaster (rain/storm), food-theft. Columns: telegraph, occurrence, mitigation, recovery.
+Color-independent grammar: dashed warning, jagged impact, shield/chevron mitigation, round rising recovery.
+No localized raster body text. UI attachment uses TMP and a minimum 44x44 focus/glyph slot.
+selectedCandidate=null; runtime allowlist empty; adopt/package/runtime-connect prohibited until explicit user selection.

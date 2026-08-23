@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "wave": 16,
+  "status": "review",
+  "selectedCandidate": null,
+  "runtimeAllowlist": [],
+  "externalPaidApiCalled": false,
+  "assets": [
+    {
+      "assetId": "effect.survival-hazards",
+      "candidateId": "effect.survival-hazards.phase-silhouette-a",
+      "jobId": "job_20260823160305_ef04b0f3",
+      "quality": { "score": 100, "errors": 0, "warnings": 0 },
+      "primary": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/hazard-phase-atlas.png",
+      "reviewBoard": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/hazard-review-board-1920x1080.png",
+      "manifest": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/hazard-phase-manifest.json"
+    },
+    {
+      "assetId": "ui.escape-project-progress",
+      "candidateId": "ui.escape-project-progress.route-signature-a",
+      "jobId": "job_20260823160324_1de3b748",
+      "quality": { "score": 100, "errors": 0, "warnings": 0 },
+      "primary": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/escape-project-route-signature-a-1280x800.png",
+      "reviewBoard": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/escape-project-review-board-1920x1080.png",
+      "manifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/escape-project-manifest.json"
+    },
+    {
+      "assetId": "ui.ending-comic",
+      "candidateId": "ui.ending-comic.triptych-a",
+      "jobId": "job_20260823160342_eceb3933",
+      "quality": { "score": 100, "errors": 0, "warnings": 0 },
+      "primary": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/ending-comic-triptych-a-1280x800.png",
+      "reviewBoard": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/ending-comic-review-board-1920x1080.png",
+      "manifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/ending-comic-manifest.json"
+    }
+  ],
+  "adoptionGate": {
+    "decision": "review",
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "requiresExplicitStableCandidateId": true
+  }
+}

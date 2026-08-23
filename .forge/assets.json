@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T15:07:06.406Z",
+  "updatedAt": "2026-08-23T16:12:37.388Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -3946,11 +3946,11 @@
     },
     {
       "id": "ui.escape-project-progress",
-      "name": "다중 탈출 프로젝트 상태 UI",
+      "name": "Wave 16 review-only first candidate with stable candidate ID ui.escape-project-progress.route-signature-a. Create one ed",
       "assetType": "ui_set",
-      "request": "캠프의 각 탈출 설비와 상호작용할 때 뗏목·배, 연기 신호, 무전, 조명탄, 고지대 신호탑의 연구·재료·단계·완성 가능·위험·확인·취소를 해당 설비 주변 소형 팝업으로 보여주는 UI 세트. 전역 목록을 상시 덮지 않고 한국어·영어 엔진 텍스트와 게임패드 포커스를 지원한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 16 review-only first candidate with stable candidate ID ui.escape-project-progress.route-signature-a. Create one editable 1280x800 situational facility popup, not a persistent global dashboard. Show five visually distinct escape paths: smoke and radio as playable paths, raft/flare/beacon as data-only catalog paths. Do not make them cloned buttons. Smoke uses stacked fuel rings plus wind/rain window; radio uses circuit grid, frequency waveform and power chain; raft uses horizontal hull planks and sea-window arc; flare uses a single-shot chamber and timing wedge; beacon uses a tall segmented tower and structure/power checkpoints. The selected route detail shows progress stages, preparation conditions, risk/weather window, preview/cancel atomicity, and confirm focus. Use blank TMP safe rectangles only, no localized body text. Include ko/en/qps-long 150 percent expansion, minimum 18px, 44x44 focus and keyboard/gamepad glyph slots, color-independent outline/pattern/status marks. Match adopted expedition map A navy/teal/cream, warm orange accents and thick readable shapes. Deliver actual-size PNG, editable SVG, QA comparison board, manifest and handoff. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "escape-routes",
         "facility-popup",
@@ -3961,22 +3961,124 @@
         "ui.camp-contextual-interaction",
         "icon.expedition-resource-risk-set"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823160324_1de3b748"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823160324_1de3b748",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T16:03:25.010Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823160324_1de3b748",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T16:12:28.269Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823160324_1de3b748",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 70918,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 63601,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "escape-project-route-signature-a-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 56405,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/escape-project-route-signature-a-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "escape-project-route-signature-a.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 4652,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/escape-project-route-signature-a.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "escape-project-review-board-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 105635,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/escape-project-review-board-1920x1080.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "escape-project-manifest.json",
+          "contentType": "application/json",
+          "bytes": 2213,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/escape-project-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "escape-project-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 627,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/escape-project-visual-qa.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "escape-project-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 687,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/escape-project-handoff.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 1717,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 2178,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-escape-project-route-signature-a-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9150,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/qa-preview-escape-project-route-signature-a-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-escape-project-review-board-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7804,
+          "url": "/outputs/jobs/job_20260823160324_1de3b748/qa-preview-escape-project-review-board-1920x1080.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T14:15:54.697Z",
-      "updatedAt": "2026-08-23T14:16:09.945Z"
+      "updatedAt": "2026-08-23T16:12:28.271Z"
     },
     {
       "id": "ui.ending-comic",
-      "name": "엔딩 코믹북 컷신 프레임",
+      "name": "Wave 16 review-only first candidate with stable candidate ID ui.ending-comic.triptych-a. Create one editable 1280x800 th",
       "assetType": "ui_set",
-      "request": "정상·코믹·희귀·Day 50 잔류 엔딩을 3~5장으로 표현하는 오리지널 코믹북 컷신 프레임과 전환 세트. 김씨의 과장된 표정과 생존 결과를 담는 와이드·클로즈업·펀치라인 패널, 다음·이전·건너뛰기·신규 해금 상태를 포함한다. 말풍선과 제목·본문은 엔진 텍스트 영역으로 비우고 한국어·영어·장문 로케일과 1280×800을 지원한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 16 review-only first candidate with stable candidate ID ui.ending-comic.triptych-a. Create one editable 1280x800 three-panel placeholder comic ending frame: a wide setup panel, expressive close-up panel, and wide punchline/result panel, with optional insert slots for at most one dominant-behavior modifier and one event-scar modifier. Include short panel transition indicators and a separate verdict/evidence region showing terminal route, dominant behavior, special event and deterministic tie-break reason as blank TMP safe rectangles. Cover representative smoke normal, radio normal, Island FM comic, and Just Kim Day50 cases in the QA board without baking ko/en body text or official logo text. Use blank TMP title/summary/hint areas, ko/en/qps-long 150 percent expansion, minimum 18px, 44x44 focus and keyboard/gamepad glyph slots. Normal/comic/rare/day50 must differ by frame silhouette, corner marks and pattern, not color alone. Match adopted expedition map A navy/teal/cream, warm tropical orange and thick hand-cut comic shapes; preserve Mr. Kim proportions only as a reference and do not copy another game's layout. Deliver actual-size PNG, editable SVG, transition/category QA board, manifest and handoff. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "comic-cutscene",
         "ending",
@@ -3988,14 +4090,116 @@
         "character.mr-kim",
         "effect.comedy-feedback"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823160342_eceb3933"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823160342_eceb3933",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T16:03:42.316Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823160342_eceb3933",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T16:12:37.386Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823160342_eceb3933",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 70983,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 63643,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-comic-triptych-a-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 56790,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/ending-comic-triptych-a-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-comic-triptych-a.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 3566,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/ending-comic-triptych-a.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-comic-review-board-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 103289,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/ending-comic-review-board-1920x1080.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "ending-comic-manifest.json",
+          "contentType": "application/json",
+          "bytes": 2110,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/ending-comic-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "ending-comic-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 580,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/ending-comic-visual-qa.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "ending-comic-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 798,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/ending-comic-handoff.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 1680,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 2141,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ending-comic-triptych-a-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9013,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/qa-preview-ending-comic-triptych-a-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ending-comic-review-board-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7573,
+          "url": "/outputs/jobs/job_20260823160342_eceb3933/qa-preview-ending-comic-review-board-1920x1080.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T14:15:54.705Z",
-      "updatedAt": "2026-08-23T14:16:09.952Z"
+      "updatedAt": "2026-08-23T16:12:37.388Z"
     },
     {
       "id": "ui.ending-gallery",
@@ -4025,11 +4229,11 @@
     },
     {
       "id": "effect.survival-hazards",
-      "name": "생존 위험·완화 피드백 세트",
+      "name": "Wave 16 review-only first candidate with stable candidate ID effect.survival-hazards.phase-silhouette-a. Create one edit",
       "assetType": "effect",
-      "request": "부상·질병·폭풍·폭우·높은 파도·야생동물·식량 도난·침수·설비 파손의 예고, 발생, 완화, 회복을 과도한 유혈 없이 읽히게 하는 Unity 2D 효과·오버레이·상태 마커 세트. 코믹한 김씨 반응을 허용하되 위험의 원인과 심각도를 색상 외 형태·움직임으로 구분한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 16 review-only first candidate with stable candidate ID effect.survival-hazards.phase-silhouette-a. Create one editable Unity 2D source set for hazard.injury, hazard.disaster (heavy rain/storm), and hazard.food-theft. Each hazard must expose telegraph, occurrence, mitigation, and recovery as 12 isolated true-alpha cells. Distinguish phases with silhouette and pattern as well as color: dashed pulse/forecast for telegraph, jagged burst for occurrence, shield/chevron for mitigation, rounded rising leaf/sun for recovery. Comic, non-graphic, no blood, no embedded localized body text. Include transparent SVG/sprite-sheet source, 64/32px readability evidence, 1920x1080 QA board, metadata and handoff. Match adopted expedition map A navy/teal/cream with warm orange accents and existing comedy feedback line weight. ko/en/qps-long are engine text only; reserve 44px focus and keyboard/gamepad glyph slots only where state markers attach to UI. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "hazards",
         "telegraph",
@@ -4041,14 +4245,130 @@
         "effect.comedy-feedback",
         "icon.expedition-resource-risk-set"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823160305_ef04b0f3"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823160305_ef04b0f3",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T16:03:05.800Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823160305_ef04b0f3",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T16:12:14.744Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823160305_ef04b0f3",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 70178,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 62855,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "hazard-phase-atlas.png",
+          "contentType": "image/png",
+          "bytes": 82633,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/hazard-phase-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "hazard-phase-atlas.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 3459,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/hazard-phase-atlas.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "hazard-readability-32-64.png",
+          "contentType": "image/png",
+          "bytes": 51306,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/hazard-readability-32-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "hazard-review-board-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 166140,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/hazard-review-board-1920x1080.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "hazard-phase-manifest.json",
+          "contentType": "application/json",
+          "bytes": 1550,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/hazard-phase-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "hazard-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 536,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/hazard-visual-qa.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "hazard-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 597,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/hazard-handoff.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 2073,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 2299,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-hazard-phase-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9759,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/qa-preview-hazard-phase-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-hazard-readability-32-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6129,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/qa-preview-hazard-readability-32-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-hazard-review-board-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8587,
+          "url": "/outputs/jobs/job_20260823160305_ef04b0f3/qa-preview-hazard-review-board-1920x1080.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T14:15:54.723Z",
-      "updatedAt": "2026-08-23T14:16:09.969Z"
+      "updatedAt": "2026-08-23T16:12:14.745Z"
     }
   ]
 }

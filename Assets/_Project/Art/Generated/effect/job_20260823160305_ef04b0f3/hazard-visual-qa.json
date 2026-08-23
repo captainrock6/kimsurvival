@@ -1,0 +1,21 @@
+{
+  "candidateId": "effect.survival-hazards.phase-silhouette-a",
+  "actualSizes": [
+    64,
+    32
+  ],
+  "checks": {
+    "localizedRasterText": false,
+    "nonGraphic": true,
+    "trueAlpha": true,
+    "edgePadding": ">=30px per 256 cell",
+    "colorIndependent": true,
+    "phaseSequence": "telegraph>occurrence>mitigation>recovery"
+  },
+  "manualReview": [
+    "distinguish injury/storm/theft at 32px",
+    "confirm phase grammar without color",
+    "confirm comic tone is non-graphic"
+  ],
+  "status": "review"
+}
