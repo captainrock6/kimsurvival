@@ -533,8 +533,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972644
-    m_Localized: The rescue signal was not completed within 5 days. Prepare salvage
-      and rope earlier next time.
+    m_Localized: Day 50 ended without an escape. The campaign now resolves a long-term
+      survival outcome from this run.
     m_Metadata:
       m_Items: []
   - m_Id: 900972645
@@ -1101,6 +1101,168 @@ MonoBehaviour:
     m_Localized: Use
     m_Metadata:
       m_Items: []
+  - m_Id: 427966604754944
+    m_Localized: Expedition Map & Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966642503680
+    m_Localized: "\u25C7 Expedition Map & Exit"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966642503681
+    m_Localized: Compare today's regions, forecasts, and risks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697984
+    m_Localized: "{0} \xB7 Arrows/A\xB7D select region \xB7 Enter depart \xB7 Esc
+      cancel \xB7 F1 language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 427966646697985
+    m_Localized: "{0} \xB7 D-pad/stick select region \xB7 A depart \xB7 B cancel
+      \xB7 Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 427966646697986
+    m_Localized: "Expedition Map \xB7 DAY {0}/{1} Plan"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 427966646697987
+    m_Localized: "\u25C7 {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 427966646697988
+    m_Localized: "\u25C6 {0} \xB7 Selected"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 427966646697989
+    m_Localized: '{0}
+
+      {1}
+
+      Expected resources: {2}
+
+      Travel time:
+      about {3} min
+
+      Current risk: {4}
+
+      Weather: {5}
+
+      Required
+      gear: {6}
+
+      Special discovery: {7}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 427966646697990
+    m_Localized: Depart for {0}
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 427966646697991
+    m_Localized: Return to Camp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697992
+    m_Localized: Beach
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697993
+    m_Localized: A broad sandy coast where useful debris washes ashore.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697994
+    m_Localized: "Salvage abundant \xB7 Food common \xB7 Wood common"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697995
+    m_Localized: "Low \xB7 Wave-driven debris"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697996
+    m_Localized: "Clear \xB7 Sea breeze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697997
+    m_Localized: "None required \xB7 Spare bag space advised"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697998
+    m_Localized: '? Possible drift crate'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697999
+    m_Localized: Forest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698000
+    m_Localized: Dense trees and food sources, with narrow vine-choked paths.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698001
+    m_Localized: "Wood abundant \xB7 Food common \xB7 Stone scarce"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698002
+    m_Localized: "Medium \xB7 Vines and falling branches"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698003
+    m_Localized: "Humid \xB7 Light showers possible"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892288
+    m_Localized: Stone axe recommended
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892289
+    m_Localized: '? Old campsite traces'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892290
+    m_Localized: Shallows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892291
+    m_Localized: Reefs and shallow channels reached by swimming.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892292
+    m_Localized: "Salvage abundant \xB7 Food common \xB7 Stone scarce"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892293
+    m_Localized: "Medium \xB7 Currents and slick reefs"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892294
+    m_Localized: "Small waves \xB7 Good visibility"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892295
+    m_Localized: "Swimming stamina required \xB7 Rope advised"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892296
+    m_Localized: '? Possible sunken component'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892297
+    m_Localized: Choose today's region at the expedition map and exit first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892298
+    m_Localized: Departing for {0}. Exact yields remain unknown until the search.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -1185,3 +1347,11 @@ MonoBehaviour:
         - id: 349680625238028
         - id: 349680633626624
         - id: 349680633626625
+        - id: 427966646697984
+        - id: 427966646697985
+        - id: 427966646697986
+        - id: 427966646697987
+        - id: 427966646697988
+        - id: 427966646697989
+        - id: 427966646697990
+        - id: 427966650892298

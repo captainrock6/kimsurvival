@@ -12,6 +12,7 @@ namespace KimSurvival
         RainCollector,
         RescueSignal,
         StoragePlanning,
+        ExpeditionMap,
         ModuleExpansionSlot,
         ModuleConnector
     }
@@ -29,6 +30,7 @@ namespace KimSurvival
         UpgradeBag,
         CollectRain,
         UpgradeSignal,
+        OpenExpeditionMap,
         PreviewModule
     }
 
@@ -76,6 +78,8 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                     return action == PrototypeCampInteractionAction.BuildOrRelocate ||
                            action == PrototypeCampInteractionAction.PreviewModule;
+                case PrototypeCampInteractionTargetKind.ExpeditionMap:
+                    return action == PrototypeCampInteractionAction.OpenExpeditionMap;
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return action == PrototypeCampInteractionAction.PreviewModule;
                 case PrototypeCampInteractionTargetKind.ModuleConnector:

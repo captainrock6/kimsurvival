@@ -971,6 +971,142 @@ MonoBehaviour:
     m_Key: interaction.action.use
     m_Metadata:
       m_Items: []
+  - m_Id: 427966604754944
+    m_Key: camp.target.expedition_map
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966642503680
+    m_Key: world.expedition_map
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966642503681
+    m_Key: camp.popup.detail.expedition_map
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697984
+    m_Key: controls.expedition_map.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697985
+    m_Key: controls.expedition_map.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697986
+    m_Key: expedition.map.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697987
+    m_Key: expedition.map.node
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697988
+    m_Key: expedition.map.node.focused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697989
+    m_Key: expedition.map.detail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697990
+    m_Key: expedition.map.depart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697991
+    m_Key: expedition.map.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697992
+    m_Key: expedition.region.beach.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697993
+    m_Key: expedition.region.beach.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697994
+    m_Key: expedition.region.beach.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697995
+    m_Key: expedition.region.beach.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697996
+    m_Key: expedition.region.beach.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697997
+    m_Key: expedition.region.beach.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697998
+    m_Key: expedition.region.beach.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646697999
+    m_Key: expedition.region.forest.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698000
+    m_Key: expedition.region.forest.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698001
+    m_Key: expedition.region.forest.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698002
+    m_Key: expedition.region.forest.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966646698003
+    m_Key: expedition.region.forest.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892288
+    m_Key: expedition.region.forest.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892289
+    m_Key: expedition.region.forest.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892290
+    m_Key: expedition.region.shallows.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892291
+    m_Key: expedition.region.shallows.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892292
+    m_Key: expedition.region.shallows.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892293
+    m_Key: expedition.region.shallows.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892294
+    m_Key: expedition.region.shallows.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892295
+    m_Key: expedition.region.shallows.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892296
+    m_Key: expedition.region.shallows.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892297
+    m_Key: message.search.choose_region
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427966650892298
+    m_Key: message.search.begin_region
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

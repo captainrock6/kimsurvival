@@ -20,6 +20,7 @@ namespace KimSurvival
         private const string AssetIcons = "icon.resource-tool-set";
         private const string AssetComedy = "effect.comedy-feedback";
         private const string AssetCampContextPrompt = "ui.camp-contextual-interaction.compact-a";
+        private const string AssetExpeditionMap = "ui.expedition-map";
         private const string CampContextPromptSkinResource = "Wave12CompactPromptSkin";
 
         private const float CampBackgroundWorldWidth = 20f;
@@ -60,6 +61,7 @@ namespace KimSurvival
         private const float CampProximityPromptReferenceHeight = 800f;
         private const float StoragePlanningX = -3.8f;
         private const float ModulePlanningX = 4f;
+        private const float ExpeditionMapX = 5.25f;
 
         [SerializeField] private GameObject playerVisualPrefab;
         [SerializeField] private Sprite campBackgroundSprite;
@@ -79,6 +81,8 @@ namespace KimSurvival
             public int Amount;
             public float X;
             public bool Water;
+            public string ActionId;
+            public string ResultId;
             public GameObject Root;
             public Transform LabelRoot;
             public TMP_Text Label;
@@ -89,6 +93,7 @@ namespace KimSurvival
         private readonly List<NodeView> nodes = new List<NodeView>();
         private readonly List<Button> bagButtons = new List<Button>();
         private readonly List<Button> campPopupButtons = new List<Button>();
+        private readonly List<Button> expeditionRegionButtons = new List<Button>();
         private readonly List<PrototypeCampInteractionTarget> campInteractionTargets = new List<PrototypeCampInteractionTarget>();
         private readonly List<SpriteRenderer> placementGhostOutlineRenderers = new List<SpriteRenderer>();
         private readonly Dictionary<StructureKind, GameObject> structureViews = new Dictionary<StructureKind, GameObject>();
@@ -97,6 +102,7 @@ namespace KimSurvival
         private readonly PrototypeCampPlacement campPlacement = new PrototypeCampPlacement();
         private readonly PrototypeCampUse campUse = new PrototypeCampUse();
         private readonly PrototypeCampInteraction campInteraction = new PrototypeCampInteraction();
+        private readonly PrototypeExpeditionMapSelection expeditionMapSelection = new PrototypeExpeditionMapSelection();
         private readonly PrototypeCampModuleExpansion campModuleExpansion = new PrototypeCampModuleExpansion(PrototypeCampModuleExpansionConfig.CreateVerticalSliceBalance());
         private readonly CampModuleValidationContext campModuleValidation = new CampModuleValidationContext();
         private readonly List<SpriteRenderer> modulePreviewOutlineRenderers = new List<SpriteRenderer>();
@@ -132,9 +138,12 @@ namespace KimSurvival
         private TMP_Text campPopupDetailText;
         private TMP_Text campProximityGlyphText;
         private TMP_Text campProximityText;
+        private TMP_Text expeditionMapTitleText;
+        private TMP_Text expeditionMapDetailText;
         private GameObject campActions;
         private GameObject campInteractionPopup;
         private GameObject campProximityPrompt;
+        private GameObject expeditionMapPanel;
         private GameObject campModuleReasonChip;
         private TMP_Text campModuleReasonText;
         private GameObject bagPanel;
@@ -156,6 +165,8 @@ namespace KimSurvival
         private Button repairButton;
         private Button cancelPopupButton;
         private Button modulePreviewButton;
+        private Button expeditionMapConfirmButton;
+        private Button expeditionMapCancelButton;
         private Button phaseButton;
         private Button restartButton;
         private Button languageButton;
@@ -177,7 +188,7 @@ namespace KimSurvival
         private void Awake()
         {
             Application.targetFrameRate = 60;
-            session = new GameSession();
+            session = new GameSession(PrototypeExpeditionRegionCatalog.CreateRuntimeSeed());
             localization = new PrototypeLocalization();
             localization.LocaleChanged += HandleLocaleChanged;
             playtestLog = PrototypePlaytestEventRecorder.CreateDevelopment(
@@ -436,6 +447,101 @@ namespace KimSurvival
             bagUpgradeButton = CreateCampPopupButton("가방 용량 확장", delegate { ExecuteConfirmedPopupAction("bag.capacity_upgrade", session.TryUpgradeBagCapacity); });
             cancelPopupButton = CreateCampPopupButton("취소", CancelCampPopup);
 
+            expeditionMapPanel = CreatePanel(
+                "수집 지역 선택 지도 placeholder · " + AssetExpeditionMap,
+                canvas.transform,
+                new Vector2(0.08f, 0.14f),
+                new Vector2(0.92f, 0.80f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.025f, 0.07f, 0.08f, 0.985f)).gameObject;
+            expeditionMapTitleText = CreateText(
+                "수집 지도 제목",
+                expeditionMapPanel.transform,
+                new Vector2(0f, 1f),
+                new Vector2(1f, 1f),
+                new Vector2(30f, -78f),
+                new Vector2(-30f, -14f),
+                36,
+                TextAnchor.MiddleLeft,
+                new Color(1f, 0.88f, 0.42f));
+            expeditionMapTitleText.enableAutoSizing = true;
+            expeditionMapTitleText.fontSizeMin = 27f;
+            expeditionMapTitleText.fontSizeMax = 36f;
+            expeditionMapTitleText.textWrappingMode = TextWrappingModes.NoWrap;
+            expeditionMapTitleText.maxVisibleLines = 1;
+            expeditionMapTitleText.overflowMode = TextOverflowModes.Overflow;
+
+            IReadOnlyList<PrototypeExpeditionRegionProfile> expeditionProfiles = PrototypeExpeditionRegionCatalog.All;
+            for (int i = 0; i < expeditionProfiles.Count; i += 1)
+            {
+                PrototypeExpeditionRegionId capturedRegion = expeditionProfiles[i].Id;
+                float nodeTop = -112f - i * 96f;
+                Button regionButton = CreateButton(
+                    "수집 지역 노드 · " + expeditionProfiles[i].StableId,
+                    expeditionMapPanel.transform,
+                    new Vector2(0f, 1f),
+                    new Vector2(0f, 1f),
+                    string.Empty,
+                    delegate { FocusExpeditionRegion(capturedRegion); },
+                    new Vector2(28f, nodeTop - 80f),
+                    new Vector2(310f, nodeTop));
+                TMP_Text regionLabel = regionButton.GetComponentInChildren<TMP_Text>();
+                regionLabel.enableAutoSizing = true;
+                regionLabel.fontSizeMin = 20f;
+                regionLabel.fontSizeMax = 28f;
+                regionLabel.textWrappingMode = TextWrappingModes.Normal;
+                regionLabel.maxVisibleLines = 2;
+                regionLabel.overflowMode = TextOverflowModes.Overflow;
+                expeditionRegionButtons.Add(regionButton);
+            }
+
+            RectTransform expeditionDetailPanel = CreatePanel(
+                "선택 지역 상세 카드",
+                expeditionMapPanel.transform,
+                new Vector2(0.30f, 0.17f),
+                new Vector2(0.975f, 0.84f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.08f, 0.14f, 0.13f, 0.97f));
+            expeditionMapDetailText = CreateText(
+                "지역 상세 카드 텍스트",
+                expeditionDetailPanel,
+                Vector2.zero,
+                Vector2.one,
+                new Vector2(24f, 16f),
+                new Vector2(-24f, -16f),
+                26,
+                TextAnchor.UpperLeft,
+                Color.white);
+            expeditionMapDetailText.enableAutoSizing = true;
+            expeditionMapDetailText.fontSizeMin = 17f;
+            expeditionMapDetailText.fontSizeMax = 26f;
+            expeditionMapDetailText.textWrappingMode = TextWrappingModes.Normal;
+            expeditionMapDetailText.maxVisibleLines = 10;
+            expeditionMapDetailText.overflowMode = TextOverflowModes.Overflow;
+
+            expeditionMapConfirmButton = CreateButton(
+                "선택 지역으로 출발",
+                expeditionMapPanel.transform,
+                new Vector2(0.32f, 0f),
+                new Vector2(0.69f, 0f),
+                string.Empty,
+                ConfirmSelectedExpeditionRegion,
+                new Vector2(10f, 24f),
+                new Vector2(-10f, 104f));
+            expeditionMapCancelButton = CreateButton(
+                "수집 지도 취소",
+                expeditionMapPanel.transform,
+                new Vector2(0.71f, 0f),
+                new Vector2(0.97f, 0f),
+                string.Empty,
+                CancelCampPopup,
+                new Vector2(10f, 24f),
+                new Vector2(-10f, 104f));
+            ConfigureExpeditionMapButton(expeditionMapConfirmButton);
+            ConfigureExpeditionMapButton(expeditionMapCancelButton);
+
             bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 170f), new Vector2(-30f, 795f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
             bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -128f), new Vector2(-18f, -8f), 34, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
             for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
@@ -486,10 +592,11 @@ namespace KimSurvival
 
         private void RestartSession()
         {
-            session.Reset();
+            session.Reset(PrototypeExpeditionRegionCatalog.CreateRuntimeSeed());
             campPlacement.Reset();
             campUse.Reset();
             campInteraction.Reset();
+            expeditionMapSelection.Close();
             campModuleExpansion.Reset();
             ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
@@ -515,12 +622,14 @@ namespace KimSurvival
             bool placing = camp && campPlacement.IsActive;
             bool modulePreview = camp && campModuleExpansion.IsPreviewActive;
             bool popup = camp && !placing && !modulePreview && campInteraction.IsPopupOpen;
+            bool expeditionMapPopup = popup && campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap;
             campActions.SetActive(false);
-            campInteractionPopup.SetActive(popup);
+            campInteractionPopup.SetActive(popup && !expeditionMapPopup);
+            expeditionMapPanel.SetActive(expeditionMapPopup);
             campProximityPrompt.SetActive(camp && !placing && !modulePreview && !popup && campInteraction.HasProximityPrompt);
             campModuleReasonChip.SetActive(modulePreview);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
-            phaseButton.gameObject.SetActive(camp && !placing && !modulePreview && !popup);
+            phaseButton.gameObject.SetActive(camp && session.ExpeditionCompleted && !placing && !modulePreview && !popup);
             messagePanelImage.gameObject.SetActive(!popup && !result);
             resultPanel.SetActive(result);
             if (result)
@@ -533,7 +642,15 @@ namespace KimSurvival
             {
                 UpdateCampButtons();
                 RefreshCampInteractionUi();
-                EventSystem.current.SetSelectedGameObject(popup ? FirstVisiblePopupButton() : campPlacement.IsActive || modulePreview ? null : phaseButton.gameObject);
+                if (expeditionMapPopup)
+                {
+                    RefreshExpeditionMapUi();
+                    EventSystem.current.SetSelectedGameObject(expeditionRegionButtons[expeditionMapSelection.FocusedIndex].gameObject);
+                }
+                else
+                {
+                    EventSystem.current.SetSelectedGameObject(popup ? FirstVisiblePopupButton() : campPlacement.IsActive || modulePreview ? null : session.ExpeditionCompleted ? phaseButton.gameObject : null);
+                }
             }
             else if (session.HasPendingLoot && bagButtons.Count > 0)
             {
@@ -595,7 +712,11 @@ namespace KimSurvival
                 }
                 else if (campInteraction.IsPopupOpen)
                 {
-                    controlsText.text = localization.Format(PrototypeInputPromptKeys.CampPopup(playerInput.ActiveDevice), device);
+                    controlsText.text = localization.Format(
+                        campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap
+                            ? PrototypeInputPromptKeys.ExpeditionMap(playerInput.ActiveDevice)
+                            : PrototypeInputPromptKeys.CampPopup(playerInput.ActiveDevice),
+                        device);
                 }
                 else
                 {
@@ -708,7 +829,10 @@ namespace KimSurvival
             }
 
             bool camp = session.Phase == GamePhase.Camp && !campPlacement.IsActive && !campModuleExpansion.IsPreviewActive;
-            campInteractionPopup.SetActive(camp && campInteraction.IsPopupOpen);
+            bool expeditionMapPopup = camp && campInteraction.IsPopupOpen &&
+                                      campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap;
+            campInteractionPopup.SetActive(camp && campInteraction.IsPopupOpen && !expeditionMapPopup);
+            expeditionMapPanel.SetActive(expeditionMapPopup);
             campProximityPrompt.SetActive(camp && !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt);
             if (campInteraction.HasProximityPrompt)
             {
@@ -720,6 +844,12 @@ namespace KimSurvival
 
             if (!campInteraction.IsPopupOpen)
             {
+                return;
+            }
+
+            if (expeditionMapPopup)
+            {
+                RefreshExpeditionMapUi();
                 return;
             }
 
@@ -766,6 +896,8 @@ namespace KimSurvival
                     return localization.Format("structure.rescue_signal");
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                     return localization.Format("structure.storage_planning");
+                case PrototypeCampInteractionTargetKind.ExpeditionMap:
+                    return localization.Format("camp.target.expedition_map");
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     if (PrototypeCampModuleCatalog.TryGetByStartSlotId(targetId, out CampModuleDefinition slotDefinition))
                     {
@@ -801,6 +933,8 @@ namespace KimSurvival
                     return "camp.popup.detail.storage";
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return "camp.popup.detail.module_slot";
+                case PrototypeCampInteractionTargetKind.ExpeditionMap:
+                    return "camp.popup.detail.expedition_map";
                 default:
                     return "camp.popup.detail.generic";
             }
@@ -851,6 +985,7 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.RescueSignal:
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
+                case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return true;
                 default:
                     return false;
@@ -1014,6 +1149,10 @@ namespace KimSurvival
             if (startRoom)
             {
                 CreateStartRoomModuleSlots();
+                if (!campPlacement.IsActive && !campModuleExpansion.IsPreviewActive)
+                {
+                    CreateExpeditionMapMarker();
+                }
             }
 
             if (startRoom)
@@ -1133,6 +1272,29 @@ namespace KimSurvival
                 pseudoLong ? 0.068f : 0.084f,
                 pseudoLong ? 27f : 30f,
                 pseudoLong ? 29f : 32f);
+        }
+
+        private void CreateExpeditionMapMarker()
+        {
+            GameObject root = new GameObject("지도·출구 상호작용 오브젝트 placeholder · " + AssetExpeditionMap);
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = new Vector3(ExpeditionMapX, PrototypeCampPlacement.FloorY + 0.62f, 0f);
+            CreateRect(root.transform, "지도 게시판 기둥", new Vector2(0f, -0.32f), new Vector2(0.16f, 1.2f), new Color(0.28f, 0.18f, 0.1f, 0.98f), 3);
+            CreateRect(root.transform, "지도 게시판", new Vector2(0f, 0.35f), new Vector2(1.45f, 0.92f), new Color(0.9f, 0.78f, 0.46f, 0.98f), 4);
+            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), new Color(0.94f, 0.77f, 0.28f, 0.92f), null, new Vector2(0f, -0.62f));
+            bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
+            CreateWorldBadge(
+                root.transform,
+                "지도·출구 안내",
+                localization.Format("world.expedition_map"),
+                new Vector2(0f, 1.42f),
+                pseudoLong ? new Vector2(4.5f, 1.25f) : new Vector2(3.5f, 1.2f),
+                new Color(0.03f, 0.11f, 0.12f, 0.96f),
+                new Color(1f, 0.9f, 0.52f),
+                out _,
+                pseudoLong ? 0.068f : 0.084f,
+                pseudoLong ? 24f : 28f,
+                pseudoLong ? 28f : 31f);
         }
 
         private void CreateStartRoomModuleSlots()
@@ -1336,6 +1498,11 @@ namespace KimSurvival
 
             if (campInteraction.IsPopupOpen)
             {
+                if (campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap)
+                {
+                    ProcessExpeditionMapActions(playerInput.ReadExpeditionMapActions());
+                    return;
+                }
                 if (actions.CancelPressed)
                 {
                     CancelCampPopup();
@@ -1392,6 +1559,10 @@ namespace KimSurvival
                 new Vector2(startRoom ? StoragePlanningX : ModulePlanningX, PrototypeCampPlacement.FloorY)));
             if (startRoom)
             {
+                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                    "camp.expedition-map",
+                    PrototypeCampInteractionTargetKind.ExpeditionMap,
+                    new Vector2(ExpeditionMapX, PrototypeCampUse.PlayerFloorY)));
                 IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
                 for (int i = 0; i < definitions.Count; i += 1)
                 {
@@ -1470,6 +1641,11 @@ namespace KimSurvival
                 return false;
             }
 
+            if (campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap)
+            {
+                expeditionMapSelection.Open(session.SelectedRegionId);
+            }
+
             if (playtestLog != null)
             {
                 playtestLog.RecordPopupOpened(campInteraction.OpenPopupKind, campInteraction.OpenPopupTargetId);
@@ -1487,12 +1663,126 @@ namespace KimSurvival
 
             PrototypeCampInteractionTargetKind kind = campInteraction.OpenPopupKind;
             string targetId = campInteraction.OpenPopupTargetId;
+            if (kind == PrototypeCampInteractionTargetKind.ExpeditionMap)
+            {
+                expeditionMapSelection.Close();
+            }
             campInteraction.ClosePopup();
             if (playtestLog != null)
             {
                 playtestLog.RecordPopupClosed(kind, targetId, "cancelled");
             }
             RefreshAll();
+        }
+
+        private void ProcessExpeditionMapActions(PrototypeExpeditionMapActions actions)
+        {
+            if (!expeditionMapSelection.IsOpen)
+            {
+                return;
+            }
+
+            if (expeditionMapSelection.StepFocus(actions.CycleDirection))
+            {
+                RefreshExpeditionMapUi();
+                EventSystem.current.SetSelectedGameObject(expeditionRegionButtons[expeditionMapSelection.FocusedIndex].gameObject);
+            }
+
+            if (actions.CancelPressed)
+            {
+                CancelCampPopup();
+                return;
+            }
+
+            if (actions.ConfirmPressed)
+            {
+                ConfirmSelectedExpeditionRegion();
+            }
+        }
+
+        private void FocusExpeditionRegion(PrototypeExpeditionRegionId region)
+        {
+            if (!expeditionMapSelection.SetFocusedRegion(region))
+            {
+                return;
+            }
+
+            RefreshExpeditionMapUi();
+            EventSystem.current.SetSelectedGameObject(expeditionRegionButtons[(int)region].gameObject);
+        }
+
+        private void ConfirmSelectedExpeditionRegion()
+        {
+            if (!expeditionMapSelection.IsOpen ||
+                campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.ExpeditionMap ||
+                !campInteraction.TryConfirmAction())
+            {
+                return;
+            }
+
+            PrototypeExpeditionRegionId region = expeditionMapSelection.FocusedRegionId;
+            PrototypeExpeditionRegionProfile profile = PrototypeExpeditionRegionCatalog.Get(region);
+            PrototypeCampInteractionTargetKind kind = campInteraction.OpenPopupKind;
+            string targetId = campInteraction.OpenPopupTargetId;
+            bool began = playtestLog != null
+                ? playtestLog.TrackFacilityAction(
+                    kind,
+                    targetId,
+                    "expedition.begin." + profile.StableId,
+                    delegate { return session.BeginSearch(region); })
+                : session.BeginSearch(region);
+            if (!began)
+            {
+                campInteraction.PrepareOpenPopupForReturn();
+                RefreshAll();
+                return;
+            }
+
+            expeditionMapSelection.Close();
+            campInteraction.ClosePopup();
+            campUse.ClearDayBenefits();
+            campFeedback = PrototypeLocalizedText.Empty;
+            if (playtestLog != null)
+            {
+                playtestLog.RecordPopupClosed(kind, targetId, "expedition_started");
+            }
+            RefreshAll();
+        }
+
+        private void RefreshExpeditionMapUi()
+        {
+            if (!expeditionMapSelection.IsOpen || expeditionMapPanel == null)
+            {
+                return;
+            }
+
+            PrototypeExpeditionRegionProfile focused = PrototypeExpeditionRegionCatalog.Get(expeditionMapSelection.FocusedRegionId);
+            expeditionMapTitleText.text = localization.Format("expedition.map.title", session.Day, GameSession.FinalDay);
+            IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
+            for (int i = 0; i < profiles.Count; i += 1)
+            {
+                bool selected = i == expeditionMapSelection.FocusedIndex;
+                SetButton(
+                    expeditionRegionButtons[i],
+                    localization.Format(selected ? "expedition.map.node.focused" : "expedition.map.node", localization.Format(profiles[i].NameKey)),
+                    true);
+            }
+
+            expeditionMapDetailText.text = localization.Format(
+                "expedition.map.detail",
+                localization.Format(focused.NameKey),
+                localization.Format(focused.SummaryKey),
+                localization.Format(focused.ResourceForecastKey),
+                focused.TravelMinutes,
+                localization.Format(focused.RiskKey),
+                localization.Format(focused.WeatherKey),
+                localization.Format(focused.EquipmentKey),
+                localization.Format(focused.SpecialDiscoveryKey));
+            SetButton(
+                expeditionMapConfirmButton,
+                localization.Format("expedition.map.depart", localization.Format(focused.NameKey)),
+                true);
+            SetButton(expeditionMapCancelButton, localization.Format("expedition.map.cancel"), true);
         }
 
         private void ExecuteConfirmedModulePreviewTransition()
@@ -1926,16 +2216,14 @@ namespace KimSurvival
                 36f,
                 36f);
 
-            SpawnNode(-8.2f, ResourceKind.Salvage, 2, true);
-            SpawnNode(-5.8f, ResourceKind.Food, 2, true);
-            SpawnNode(-1.1f, ResourceKind.Wood, 2);
-            SpawnNode(1.5f, ResourceKind.Stone, 2);
-            SpawnNode(4.1f, ResourceKind.Food, 2);
-            SpawnNode(6.8f, ResourceKind.Salvage, 2);
-            SpawnNode(10.2f, ResourceKind.Wood, 2);
-            SpawnNode(12.8f, ResourceKind.Salvage, 2);
-            SpawnNode(15.2f, ResourceKind.Stone, 2);
-            SpawnNode(17.7f, ResourceKind.Salvage, 2);
+            float[] nodePositions = { -8.2f, -5.8f, -1.1f, 1.5f, 4.1f, 6.8f, 10.2f, 12.8f, 15.2f, 17.7f };
+            PrototypeExpeditionRegionProfile profile = PrototypeExpeditionRegionCatalog.Get(
+                session.SelectedRegionId ?? PrototypeExpeditionRegionId.Beach);
+            for (int i = 0; i < nodePositions.Length; i += 1)
+            {
+                PrototypeExpeditionNodeResult node = profile.ResolveNode(session.RunSeed, i);
+                SpawnNode(nodePositions[i], node.Resource, node.Amount, node.Water, node.ActionId, node.ResultId);
+            }
             CreateKim(new Vector2(playerTraversal.X, playerTraversal.Y));
             CreateSwimWake();
         }
@@ -2038,7 +2326,7 @@ namespace KimSurvival
                 return;
             }
 
-            GatherResult result = session.TryGather(nearest.Kind, nearest.Amount, nearest.Water);
+            GatherResult result = session.TryGather(nearest.Kind, nearest.Amount, nearest.Water, nearest.ActionId, nearest.ResultId);
             if (playtestLog != null)
             {
                 playtestLog.ObserveState("gather." + nearest.Kind.ToString().ToLowerInvariant());
@@ -2110,6 +2398,18 @@ namespace KimSurvival
             string moduleInteriorKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-interior-ko-1280x800.png");
+            string expeditionMapNearKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-near-ko-1280x800.png");
+            string expeditionMapKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-popup-ko-1280x800.png");
+            string expeditionMapEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-popup-en-1280x800.png");
+            string expeditionMapQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-popup-qps-long-1280x800.png");
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
@@ -2143,6 +2443,63 @@ namespace KimSurvival
             {
                 CaptureVerificationPng(campFarKoreanScreenshotPath, 1280, 800);
             }
+
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ExpeditionMap));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ExpeditionMap &&
+                    campInteraction.ActiveTargetId == "camp.expedition-map" && campProximityPrompt.activeSelf &&
+                    !expeditionMapPanel.activeSelf,
+                "지도·출구는 1.25 unit 안에서만 하나의 직접 상호작용 안내를 표시");
+            Vector2 mapReturnPosition = campUse.PlayerPosition;
+            float mapReturnFacing = campUse.FacingDirection;
+            if (!string.IsNullOrWhiteSpace(expeditionMapNearKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(expeditionMapNearKoreanScreenshotPath, 1280, 800);
+            }
+            UseNearestCampTarget();
+            Require(campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap &&
+                    expeditionMapSelection.IsOpen && expeditionMapPanel.activeSelf && !campProximityPrompt.activeSelf &&
+                    expeditionMapSelection.FocusedRegionId == PrototypeExpeditionRegionId.Beach,
+                "지도 Interact 뒤에만 해변을 첫 포커스로 하는 수집 지역 팝업 표시");
+            RequireReadableExpeditionMapUi(false);
+            if (!string.IsNullOrWhiteSpace(expeditionMapKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(expeditionMapKoreanScreenshotPath, 1280, 800);
+            }
+
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            Require(expeditionMapSelection.FocusedRegionId == PrototypeExpeditionRegionId.Beach &&
+                    campUse.PlayerPosition == mapReturnPosition && Mathf.Approximately(campUse.FacingDirection, mapReturnFacing) &&
+                    expeditionMapDetailText.text.Contains("Expected resources") &&
+                    !expeditionMapDetailText.text.Contains("loot."),
+                "영어 전환은 지도 포커스·위치·방향을 보존하고 정확한 획득 수량을 노출하지 않음");
+            RequireReadableExpeditionMapUi(false);
+            if (!string.IsNullOrWhiteSpace(expeditionMapEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(expeditionMapEnglishScreenshotPath, 1280, 800);
+            }
+
+            FocusExpeditionRegion(PrototypeExpeditionRegionId.Shallows);
+            Require(localization.SetQaLocale(), "지도 팝업의 실제 qps-long QA 로케일 선택");
+            RefreshAll();
+            Require(expeditionMapSelection.FocusedRegionId == PrototypeExpeditionRegionId.Shallows &&
+                    campInteraction.OpenPopupTargetId == "camp.expedition-map" &&
+                    campUse.PlayerPosition == mapReturnPosition && Mathf.Approximately(campUse.FacingDirection, mapReturnFacing),
+                "qps-long 전환도 동일 지도 대상·얕은 바다 포커스·위치·방향을 보존");
+            RequireReadableExpeditionMapUi(true);
+            if (!string.IsNullOrWhiteSpace(expeditionMapQpsLongScreenshotPath))
+            {
+                CaptureVerificationPng(expeditionMapQpsLongScreenshotPath, 1280, 800);
+            }
+            CancelCampPopup();
+            Require(!expeditionMapPanel.activeSelf && campProximityPrompt.activeSelf &&
+                    campInteraction.ActiveTargetId == "camp.expedition-map" &&
+                    campUse.PlayerPosition == mapReturnPosition && Mathf.Approximately(campUse.FacingDirection, mapReturnFacing) &&
+                    !session.SelectedRegionId.HasValue,
+                "지도 취소는 지역 선택 없이 같은 캠프 위치·방향·근접 대상에 복귀");
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
 
             campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.Campfire));
             RefreshAll();
@@ -2560,8 +2917,9 @@ namespace KimSurvival
             }
             CancelCampPopup();
 
-            phaseButton.onClick.Invoke();
-            Require(session.Phase == GamePhase.Exploring, "가방 6칸 UI 검증 수색 시작");
+            BeginExpeditionThroughMapForVerification(PrototypeExpeditionRegionId.Forest);
+            Require(session.Phase == GamePhase.Exploring && session.SelectedRegionId == PrototypeExpeditionRegionId.Forest,
+                "가방 6칸 UI 검증은 지도에서 선택한 숲 프로필로 수색 시작");
             Require(session.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
                     session.TryGather(ResourceKind.Stone, 2) == GatherResult.Added &&
                     session.TryGather(ResourceKind.Food, 2) == GatherResult.Added &&
@@ -2719,9 +3077,12 @@ namespace KimSurvival
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RainCollector, collectRainButton);
             Require(campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "빗물받이 근접 상호작용으로 하루 보너스 준비");
 
-            phaseButton.onClick.Invoke();
-            Require(session.Phase == GamePhase.Exploring, "수색 시작 UI 경로");
+            BeginExpeditionThroughMapForVerification(PrototypeExpeditionRegionId.Shallows);
+            Require(session.Phase == GamePhase.Exploring && session.SelectedRegionId == PrototypeExpeditionRegionId.Shallows,
+                "지도 근접 상호작용·얕은 바다 선택·출발 UI 경로");
             Require(nodes.Count >= 10, "10개 이상 채집 지점");
+            Require(nodes.TrueForAll(node => node.ActionId.StartsWith("region.shallows.node.", StringComparison.Ordinal)),
+                "선택한 얕은 바다 region profile만 실제 수색 노드에 반영");
             RequireExplorationBarrierArt();
             UpdateResourceLabelLayout();
             RequireReadableResourceLabels(PrototypeLocalization.KoreanLocaleCode);
@@ -2808,14 +3169,14 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            RequireFiveDayRuntimeContract();
+            RequireFiftyDayRuntimeContract();
             if (ownsVerificationLog)
             {
                 RequirePlaytestLogRuntimeIntegration(playtestLog.VerificationLines);
                 playtestLog.Dispose();
                 playtestLog = null;
             }
-            return "PASS · Wave 13 개발 빌드 전용 JSONL의 실제 근접 target·popup·action·자원 계측 경계를 Play Mode에서 확인. Wave 12 Day 3·4 생존, Day 5 정산 실패, 조기 구조 즉시 성공과 채택 compact-a sliced 프레임을 확인. glyph 44x44/TMP 분리, locale은 행동만·합성 gamepad는 glyph만 갱신하고 ko/en/qps-long 1280x800 한 줄 무잘림을 통과했다. Wave 11 직접 연결 슬롯·팝업·preview Cancel, 제한적 자유 배치, 가방 4→6, 수색·수영·장벽·구조 신호 원자성을 회귀 확인";
+            return "PASS · Wave 15 Day 1/50, Day 49 지속·Day 50 정산 terminal·조기 구조 우선, 직접 근접 지도·세 지역 선택·seed 결정성·세 탈출 경로 보호와 개발 로그 연결을 확인. ko/en/qps-long 1280x800 지도·compact-a·직접 연결 슬롯, 제한적 자유 배치, 가방 4→6, 수색·수영·장벽·구조 신호 원자성을 회귀 확인";
         }
 
         private static void RequirePlaytestLogRuntimeIntegration(IReadOnlyList<string> lines)
@@ -2823,6 +3184,7 @@ namespace KimSurvival
             HashSet<string> names = new HashSet<string>(StringComparer.Ordinal);
             bool sawTarget = false;
             bool sawActionContext = false;
+            bool sawCampaignLinkage = false;
             for (int index = 0; index < lines.Count; index += 1)
             {
                 PrototypePlaytestEventRecord record = JsonUtility.FromJson<PrototypePlaytestEventRecord>(lines[index]);
@@ -2835,6 +3197,11 @@ namespace KimSurvival
                 sawTarget |= !string.IsNullOrEmpty(record.target_id) && !string.IsNullOrEmpty(record.target_kind);
                 sawActionContext |= record.event_name == PrototypePlaytestEventNames.FacilityActionCompleted &&
                                     !string.IsNullOrEmpty(record.action);
+                sawCampaignLinkage |= record.event_name == PrototypePlaytestEventNames.ExpeditionResultResolved &&
+                                      record.run_seed > 0 &&
+                                      !string.IsNullOrEmpty(record.region_id) &&
+                                      !string.IsNullOrEmpty(record.profile_id) &&
+                                      !string.IsNullOrEmpty(record.result_id);
             }
 
             Require(names.Contains(PrototypePlaytestEventNames.FacilityProximityEntered) &&
@@ -2842,11 +3209,13 @@ namespace KimSurvival
                     names.Contains(PrototypePlaytestEventNames.FacilityPopupClosed) &&
                     names.Contains(PrototypePlaytestEventNames.FacilityActionCompleted) &&
                     names.Contains(PrototypePlaytestEventNames.ResourceChanged) &&
-                    sawTarget && sawActionContext,
-                "Wave 13 실제 Play Mode 설비 근접·팝업·행동·자원 JSONL 계측 연결");
+                    names.Contains(PrototypePlaytestEventNames.ExpeditionRegionSelected) &&
+                    names.Contains(PrototypePlaytestEventNames.ExpeditionStarted) &&
+                    sawTarget && sawActionContext && sawCampaignLinkage,
+                "Wave 15 실제 Play Mode 근접 지도·지역 선택·seed/profile/result JSONL 계측 연결");
         }
 
-        private void RequireFiveDayRuntimeContract()
+        private void RequireFiftyDayRuntimeContract()
         {
             GameSession earlyRescue = new GameSession();
             earlyRescue.Grant(ResourceKind.Wood, 20);
@@ -2855,7 +3224,7 @@ namespace KimSurvival
                     earlyRescue.TryResearch(TechKind.Rope) && earlyRescue.TryCraft(TechKind.Rope) &&
                     earlyRescue.TryUpgradeSignal() && earlyRescue.TryUpgradeSignal() &&
                     earlyRescue.Result == RunResult.Rescued && earlyRescue.Phase == GamePhase.Result && earlyRescue.Day == 1,
-                "Play Mode 조기 구조 신호 완성은 Day 5를 기다리지 않고 즉시 성공");
+                "Play Mode 조기 구조 신호 완성은 Day 50을 기다리지 않고 즉시 성공");
 
             session.Reset();
             campPlacement.Reset();
@@ -2864,24 +3233,28 @@ namespace KimSurvival
             campModuleExpansion.Reset();
             ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
+            session.Grant(ResourceKind.Food, GameSession.FinalDay);
             for (int day = 1; day < GameSession.FinalDay; day += 1)
             {
-                Require(session.BeginSearch() && session.ReturnToCamp(false) && session.EndDay(),
+                Require(session.BeginSearch(PrototypeExpeditionRegionId.Beach) && session.ReturnToCamp(false) &&
+                        session.UseFood() && session.EndDay(),
                     "Play Mode 미탈출 Day " + day + " 자연 정산");
                 Require(session.Result == RunResult.None && session.Day == day + 1,
                     "Play Mode Day " + day + " 종료는 조기 기한 실패 없이 다음 날 진행");
             }
 
-            Require(session.Day == 5 && session.Result == RunResult.None,
-                "Play Mode Day 3·4를 생존하고 Day 5가 실제 플레이 가능");
-            Require(session.BeginSearch() && session.ReturnToCamp(false) && session.EndDay() &&
-                    session.Result == RunResult.Deadline && session.Day == 5,
-                "Play Mode 미탈출 Day 5 종료에서만 기한 실패");
+            Require(session.Day == 50 && session.Result == RunResult.None,
+                "Play Mode Day 49 정산 뒤 Day 50이 실제 플레이 가능");
+            Require(session.BeginSearch(PrototypeExpeditionRegionId.Shallows) && session.ReturnToCamp(false) &&
+                    session.UseFood() && session.EndDay() &&
+                    session.Result == RunResult.Deadline && session.Day == 50,
+                "Play Mode 미탈출 Day 50 종료에서만 terminal resolution");
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             RefreshAll();
             Require(resultPanel.activeSelf && !campProximityPrompt.activeSelf && !campInteractionPopup.activeSelf &&
-                    resultDetailText.text.Contains("5일"),
-                "terminal 결과에서는 compact prompt·팝업을 숨기고 한국어 5일 실패 사유 표시");
+                    !expeditionMapPanel.activeSelf &&
+                    resultDetailText.text.Contains("50일"),
+                "terminal 결과에서는 compact prompt·팝업·지도를 숨기고 한국어 50일 결과 사유 표시");
 
             session.Reset();
             campPlacement.Reset();
@@ -3025,6 +3398,48 @@ namespace KimSurvival
                 localeCode + " 정상 캠프 상단 HUD TMP overflow=0");
         }
 
+        private void RequireReadableExpeditionMapUi(bool pseudoLong)
+        {
+            Require(expeditionMapSelection.IsOpen && expeditionMapPanel.activeSelf &&
+                    campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap &&
+                    !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf && !bagPanel.activeSelf,
+                "수집 지도는 직접 상호작용 팝업 하나만 표시하고 월드 근접 안내·가방을 숨김");
+            expeditionMapTitleText.ForceMeshUpdate(true, true);
+            expeditionMapDetailText.ForceMeshUpdate(true, true);
+            controlsText.ForceMeshUpdate(true, true);
+            for (int i = 0; i < expeditionRegionButtons.Count; i += 1)
+            {
+                expeditionRegionButtons[i].GetComponentInChildren<TMP_Text>().ForceMeshUpdate(true, true);
+            }
+            expeditionMapConfirmButton.GetComponentInChildren<TMP_Text>().ForceMeshUpdate(true, true);
+            expeditionMapCancelButton.GetComponentInChildren<TMP_Text>().ForceMeshUpdate(true, true);
+            Canvas.ForceUpdateCanvases();
+
+            RectTransform mapRect = expeditionMapPanel.GetComponent<RectTransform>();
+            Require(mapRect.anchorMin.x >= 0.08f && mapRect.anchorMax.x <= 0.92f &&
+                    mapRect.anchorMin.y >= 0.14f && mapRect.anchorMax.y <= 0.80f,
+                "1280x800 수집 지도 placeholder는 상단 HUD와 하단 조작 안내 사이 안전 영역 안에 있음");
+            Require(expeditionMapTitleText.enableAutoSizing && expeditionMapTitleText.fontSizeMin >= 27f &&
+                    expeditionMapTitleText.maxVisibleLines == 1 && !expeditionMapTitleText.isTextOverflowing,
+                "ko/en/qps-long 지도 제목은 Day 1/50을 한 줄로 표시");
+            Require(expeditionMapDetailText.enableAutoSizing && expeditionMapDetailText.fontSizeMin >= 17f &&
+                    expeditionMapDetailText.maxVisibleLines == 10 && !expeditionMapDetailText.isTextOverflowing,
+                "지역 상세 카드는 자원 범주·시간·위험·날씨·장비·특별 발견을 잘림 없이 표시");
+            Require(!controlsText.isTextOverflowing,
+                "수집 지도 공통 키보드·게임패드 조작 안내는 1280x800 하단 안전 영역에 맞음");
+            for (int i = 0; i < expeditionRegionButtons.Count; i += 1)
+            {
+                TMP_Text label = expeditionRegionButtons[i].GetComponentInChildren<TMP_Text>();
+                Require(label.enableAutoSizing && label.fontSizeMin >= 20f && label.maxVisibleLines == 2 && !label.isTextOverflowing,
+                    "수집 지역 노드 " + i + "는 두 줄 이내에서 이름과 포커스를 읽을 수 있음");
+            }
+            Require(!expeditionMapConfirmButton.GetComponentInChildren<TMP_Text>().isTextOverflowing &&
+                    !expeditionMapCancelButton.GetComponentInChildren<TMP_Text>().isTextOverflowing,
+                pseudoLong
+                    ? "qps-long 출발·취소는 자동 맞춤 두 줄 정책 안에서 잘림 없음"
+                    : "ko/en 출발·취소 버튼 잘림 없음");
+        }
+
         private void RequireReadableCampModulePreview(bool allowEllipsis)
         {
             Require(campModuleExpansion.IsPreviewActive && modulePreviewGhost != null && modulePreviewBadgeText != null,
@@ -3089,6 +3504,29 @@ namespace KimSurvival
                 target + " 상호작용 뒤 전용 팝업 열림");
         }
 
+        private void BeginExpeditionThroughMapForVerification(PrototypeExpeditionRegionId region)
+        {
+            if (campInteraction.IsPopupOpen)
+            {
+                CancelCampPopup();
+            }
+
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ExpeditionMap));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ExpeditionMap &&
+                    campInteraction.ActiveTargetId == "camp.expedition-map" && campInteraction.HasProximityPrompt,
+                "수색은 캠프 지도·출구에 직접 접근한 뒤에만 시작 가능");
+            UseNearestCampTarget();
+            Require(expeditionMapSelection.IsOpen && expeditionMapPanel.activeSelf,
+                "지도 Interact 뒤 지역 선택 팝업 열림");
+            FocusExpeditionRegion(region);
+            ConfirmSelectedExpeditionRegion();
+            Require(session.Phase == GamePhase.Exploring && session.SelectedRegionId == region &&
+                    session.ActiveRegionProfileId == PrototypeExpeditionRegionCatalog.Get(region).StableId &&
+                    !expeditionMapSelection.IsOpen && !expeditionMapPanel.activeSelf,
+                "지도 Submit은 포커스한 한 지역 프로필만 실제 수색에 적용");
+        }
+
         private void OpenCampModuleSlotPopupForVerification(CampModuleArchetype archetype)
         {
             if (campInteraction.IsPopupOpen)
@@ -3130,6 +3568,8 @@ namespace KimSurvival
                     return new Vector2(
                         campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId ? StoragePlanningX : ModulePlanningX,
                         PrototypeCampPlacement.FloorY);
+                case PrototypeCampInteractionTargetKind.ExpeditionMap:
+                    return new Vector2(ExpeditionMapX, PrototypeCampUse.PlayerFloorY);
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return GetCampModuleSlotPosition(CampModuleArchetype.Upper);
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
@@ -3358,7 +3798,13 @@ namespace KimSurvival
             Destroy(image);
         }
 
-        private void SpawnNode(float x, ResourceKind kind, int amount, bool water = false)
+        private void SpawnNode(
+            float x,
+            ResourceKind kind,
+            int amount,
+            bool water = false,
+            string actionId = "",
+            string resultId = "")
         {
             GameObject root = new GameObject((water ? "Water Search · " : "Gather · ") + kind);
             root.transform.SetParent(worldRoot, false);
@@ -3385,6 +3831,8 @@ namespace KimSurvival
                 Amount = amount,
                 X = x,
                 Water = water,
+                ActionId = actionId ?? string.Empty,
+                ResultId = resultId ?? string.Empty,
                 Root = root,
                 LabelRoot = label.transform.parent,
                 Label = label,
@@ -3934,6 +4382,17 @@ namespace KimSurvival
             label.overflowMode = TextOverflowModes.Overflow;
             campPopupButtons.Add(button);
             return button;
+        }
+
+        private static void ConfigureExpeditionMapButton(Button button)
+        {
+            TMP_Text label = button.GetComponentInChildren<TMP_Text>();
+            label.enableAutoSizing = true;
+            label.fontSizeMin = 19f;
+            label.fontSizeMax = 27f;
+            label.textWrappingMode = TextWrappingModes.Normal;
+            label.maxVisibleLines = 2;
+            label.overflowMode = TextOverflowModes.Overflow;
         }
 
         private Button CreateBagButton(Transform parent, int index, UnityEngine.Events.UnityAction callback)
