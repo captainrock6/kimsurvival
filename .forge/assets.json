@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T10:11:28.730Z",
+  "updatedAt": "2026-08-23T12:11:45.381Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -3360,9 +3360,9 @@
     },
     {
       "id": "ui.camp-connection-slot-affordance",
-      "name": "캠프 연결 슬롯 시각 affordance 후보",
+      "name": "공간 확장 연결부 리뷰 패키지",
       "assetType": "ui_set",
-      "request": "Wave 11 연결 슬롯 affordance review-only QA 포맷 교정. 부모 job_20260823094023_cdb015ec의 lashed-hardware, cutline-bracket, salvage-tab 세 안정 후보와 위/옆/지하 x idle/near-focus/preview-valid/invalid 36개 파츠, 실제 1280x800 목업, 좌표와 manifest를 픽셀 단위로 보존한다. 검토용 comparison board와 state matrix에 true-alpha 채널만 추가하여 Forge missing-alpha 오류를 해소한다. 외부 API와 ImageGen 호출 없음. 모든 후보 status review, selectedCandidate null, adopted=false, engineReady=false, packaged=false, runtimeConnected=false.",
+      "request": "기존 Wave 11 연결 슬롯 후보 lashed-hardware, cutline-bracket, salvage-tab과 최종 통과 1280x800 캡처를 재사용해 위층, 옆방, 지하실의 접근 가능, 선택, 비용 부족, 건설 완료를 한 장에서 비교하는 review-only 보드와 Unity 인계 규격을 준비한다. 실제 번역과 glyph는 래스터에 새로 굽지 않고 TMP/glyph 슬롯으로 분리하며 B/C 및 미선택 보드는 런타임 allowlist에서 제외한다. 새 이미지 생성 없이 로컬 결정론 합성만 사용한다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -3377,7 +3377,8 @@
       ],
       "jobIds": [
         "job_20260823094023_cdb015ec",
-        "job_20260823094919_b97f9f61"
+        "job_20260823094919_b97f9f61",
+        "job_20260823120036_3f045106"
       ],
       "versions": [
         {
@@ -3407,218 +3408,92 @@
           "status": "review",
           "at": "2026-08-23T09:50:12.197Z",
           "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823120036_3f045106",
+          "parentJobId": "job_20260823094919_b97f9f61",
+          "status": "awaiting_import",
+          "at": "2026-08-23T12:00:36.181Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823120036_3f045106",
+          "parentJobId": "job_20260823094919_b97f9f61",
+          "status": "review",
+          "at": "2026-08-23T12:11:45.379Z",
+          "qualityScore": 100
         }
       ],
-      "currentJobId": "job_20260823094919_b97f9f61",
-      "parentJobId": "job_20260823094023_cdb015ec",
+      "currentJobId": "job_20260823120036_3f045106",
+      "parentJobId": "job_20260823094919_b97f9f61",
       "artifacts": [
         {
           "kind": "codex-request",
           "fileName": "codex-request.json",
           "contentType": "application/json",
-          "bytes": 18657,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/codex-request.json"
+          "bytes": 47927,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/codex-request.json"
         },
         {
           "kind": "prompt",
           "fileName": "prompt.txt",
           "contentType": "text/plain",
-          "bytes": 15153,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/prompt.txt"
+          "bytes": 42290,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/prompt.txt"
         },
         {
           "kind": "image",
-          "fileName": "slot-affordance-lashed-hardware-atlas.png",
+          "fileName": "wave13-module-connector-review-board.png",
           "contentType": "image/png",
-          "bytes": 40400,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/slot-affordance-lashed-hardware-atlas.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "slot-affordance-lashed-hardware-editable.svg",
-          "contentType": "image/svg+xml",
-          "bytes": 4039,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/slot-affordance-lashed-hardware-editable.svg"
-        },
-        {
-          "kind": "image",
-          "fileName": "slot-affordance-cutline-bracket-atlas.png",
-          "contentType": "image/png",
-          "bytes": 46320,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/slot-affordance-cutline-bracket-atlas.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "slot-affordance-cutline-bracket-editable.svg",
-          "contentType": "image/svg+xml",
-          "bytes": 4651,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/slot-affordance-cutline-bracket-editable.svg"
-        },
-        {
-          "kind": "image",
-          "fileName": "slot-affordance-salvage-tab-atlas.png",
-          "contentType": "image/png",
-          "bytes": 42780,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/slot-affordance-salvage-tab-atlas.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "slot-affordance-salvage-tab-editable.svg",
-          "contentType": "image/svg+xml",
-          "bytes": 5487,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/slot-affordance-salvage-tab-editable.svg"
-        },
-        {
-          "kind": "image",
-          "fileName": "candidate-lashed-hardware-actual-1280x800.png",
-          "contentType": "image/png",
-          "bytes": 1065155,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/candidate-lashed-hardware-actual-1280x800.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "candidate-cutline-bracket-actual-1280x800.png",
-          "contentType": "image/png",
-          "bytes": 1070374,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/candidate-cutline-bracket-actual-1280x800.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "candidate-salvage-tab-actual-1280x800.png",
-          "contentType": "image/png",
-          "bytes": 1066082,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/candidate-salvage-tab-actual-1280x800.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "wave11-slot-affordance-comparison-board.png",
-          "contentType": "image/png",
-          "bytes": 1248614,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/wave11-slot-affordance-comparison-board.png"
-        },
-        {
-          "kind": "image",
-          "fileName": "wave11-slot-affordance-state-matrix.png",
-          "contentType": "image/png",
-          "bytes": 135278,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/wave11-slot-affordance-state-matrix.png"
+          "bytes": 6209304,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/wave13-module-connector-review-board.png"
         },
         {
           "kind": "editable-source",
-          "fileName": "slot-affordance-unity-manifest.json",
+          "fileName": "wave13-module-connector-review-manifest.json",
           "contentType": "application/json",
-          "bytes": 9334,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/slot-affordance-unity-manifest.json"
+          "bytes": 11025,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/wave13-module-connector-review-manifest.json"
         },
         {
           "kind": "editable-source",
-          "fileName": "wave11-slot-affordance-candidate-index.json",
+          "fileName": "wave13-module-connector-validation.json",
           "contentType": "application/json",
-          "bytes": 1653,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/wave11-slot-affordance-candidate-index.json"
+          "bytes": 3735,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/wave13-module-connector-validation.json"
         },
         {
-          "kind": "editable-source",
-          "fileName": "alpha-size-validation.json",
-          "contentType": "application/json",
-          "bytes": 2304,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/alpha-size-validation.json"
-        },
-        {
-          "kind": "editable-source",
-          "fileName": "manual-review.json",
-          "contentType": "application/json",
-          "bytes": 1079,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/manual-review.json"
-        },
-        {
-          "kind": "editable-source",
-          "fileName": "processing-report.json",
-          "contentType": "application/json",
-          "bytes": 549,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/processing-report.json"
-        },
-        {
-          "kind": "editable-source",
-          "fileName": "source-checksums.json",
-          "contentType": "application/json",
-          "bytes": 2036,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/source-checksums.json"
+          "kind": "file",
+          "fileName": "wave13-module-connector-engine-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 1311,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/wave13-module-connector-engine-handoff.txt"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.json",
           "contentType": "application/json",
-          "bytes": 5207,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/quality-report.json"
+          "bytes": 1157,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/quality-report.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.html",
           "contentType": "text/html",
-          "bytes": 4309,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/quality-report.html"
+          "bytes": 1832,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/quality-report.html"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-slot-affordance-lashed-hardware-atlas.jpg",
+          "fileName": "qa-preview-wave13-module-connector-review-board.jpg",
           "contentType": "image/jpeg",
-          "bytes": 6907,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-slot-affordance-lashed-hardware-atlas.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-slot-affordance-cutline-bracket-atlas.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 6589,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-slot-affordance-cutline-bracket-atlas.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-slot-affordance-salvage-tab-atlas.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 6702,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-slot-affordance-salvage-tab-atlas.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-candidate-lashed-hardware-actual-1280x800.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 9330,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-candidate-lashed-hardware-actual-1280x800.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-candidate-cutline-bracket-actual-1280x800.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 9365,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-candidate-cutline-bracket-actual-1280x800.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-candidate-salvage-tab-actual-1280x800.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 9375,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-candidate-salvage-tab-actual-1280x800.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-wave11-slot-affordance-comparison-board.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 5615,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-wave11-slot-affordance-comparison-board.jpg"
-        },
-        {
-          "kind": "quality-preview",
-          "fileName": "qa-preview-wave11-slot-affordance-state-matrix.jpg",
-          "contentType": "image/jpeg",
-          "bytes": 6987,
-          "url": "/outputs/jobs/job_20260823094919_b97f9f61/qa-preview-wave11-slot-affordance-state-matrix.jpg"
+          "bytes": 12055,
+          "url": "/outputs/jobs/job_20260823120036_3f045106/qa-preview-wave13-module-connector-review-board.jpg"
         }
       ],
       "engine": {},
       "createdAt": "2026-08-23T09:40:02.537Z",
-      "updatedAt": "2026-08-23T09:50:12.198Z"
+      "updatedAt": "2026-08-23T12:11:45.381Z"
     }
   ]
 }

@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "handoffId": "handoff.wave13.ui.camp-connection-slot-affordance.review",
+  "assetId": "ui.camp-connection-slot-affordance",
+  "jobId": "job_20260823120036_3f045106",
+  "parentJobId": "job_20260823094919_b97f9f61",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "adopted": false,
+  "engineReady": false,
+  "packaged": false,
+  "runtimeConnected": false,
+  "externalGenerationApiCalled": false,
+  "generationMethod": "local deterministic composition of existing project assets and passing 1280x800 captures",
+  "recommendation": {
+    "candidateId": "ui.camp-connection-slot-affordance.cutline-bracket",
+    "decision": "recommendation-only",
+    "selected": false,
+    "reason": "The dashed cutline, open corner brackets, and broken invalid pattern remain the clearest non-color state grammar while occupying the least world-art area.",
+    "tradeoff": "It reads more technical and less handmade than lashed-hardware. Preserve the current camp palette and add no extra decorative mass unless the user selects it."
+  },
+  "candidateReviewSet": [
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.lashed-hardware",
+      "status": "review",
+      "atlas": "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-lashed-hardware-atlas.png",
+      "sha256": "7e9831c392d7d6f3a5e574516bb78652c7cf326f29834b6e20ed3390e757d668"
+    },
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.cutline-bracket",
+      "status": "review",
+      "atlas": "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-cutline-bracket-atlas.png",
+      "sha256": "379858427c0fafded4e3cdf619382e6d888f562aa7615982f9ee97259f39f841"
+    },
+    {
+      "candidateId": "ui.camp-connection-slot-affordance.salvage-tab",
+      "status": "review",
+      "atlas": "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-salvage-tab-atlas.png",
+      "sha256": "9da9a3afeb12f46f766d6de95bda67d895ea8d969d55bf9542a8d45672f9b493"
+    }
+  ],
+  "reviewBoard": {
+    "fileName": "wave13-module-connector-review-board.png",
+    "projectPath": "Assets/_Project/Art/Generated/ui_set/job_20260823120036_3f045106/wave13-module-connector-review-board.png",
+    "sha256": "8320a05fc6597a3244e1cfe534398f872f132463cf93e67441e0561146dfb4bb",
+    "bytes": 6209304,
+    "sizePixels": [
+      3840,
+      2800
+    ],
+    "format": "RGBA PNG",
+    "runtimeLoad": false,
+    "containsLocalizedCaptureText": true,
+    "localizedTextScope": "passing screenshot evidence only; never a production sprite or runtime UI source"
+  },
+  "runtimeLoadAllowlist": [],
+  "runtimeRejectExact": [
+    "Assets/_Project/Art/Generated/ui_set/job_20260823120036_3f045106/wave13-module-connector-review-board.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-lashed-hardware-atlas.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-cutline-bracket-atlas.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-salvage-tab-atlas.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-lashed-hardware-editable.svg",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-cutline-bracket-editable.svg",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/slot-affordance-salvage-tab-editable.svg",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/candidate-lashed-hardware-actual-1280x800.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/candidate-cutline-bracket-actual-1280x800.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/candidate-salvage-tab-actual-1280x800.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/wave11-slot-affordance-comparison-board.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/wave11-slot-affordance-state-matrix.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/module-cost-belt-9slice.png",
+    "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/state-confirmed-1280x800.png"
+  ],
+  "selectionGate": {
+    "requiredUserValue": "exactly one candidateId from candidateReviewSet",
+    "untilSelected": "runtimeLoadAllowlist must remain empty",
+    "forbidden": [
+      "adopt",
+      "engine_ready",
+      "package",
+      "Addressables entry",
+      "Resources load",
+      "scene connection"
+    ]
+  },
+  "stateMapping": {
+    "available": {
+      "worldSpriteState": "near-focus",
+      "shapeRule": "expanded corner brackets or protruding tabs around the physical connector only",
+      "uiRule": "compact-a prompt is a separate UI layer"
+    },
+    "selected": {
+      "worldSpriteState": "preview-valid",
+      "shapeRule": "opened connector plus double direction marker",
+      "uiRule": "module ghost, state outline, and cost belt stay separate"
+    },
+    "cost-short": {
+      "worldSpriteState": "invalid",
+      "shapeRule": "closed connector with crossed brace and broken hazard rhythm",
+      "uiRule": "insufficient cost is TMP and resource glyph content inside the separate 9-slice belt"
+    },
+    "build-complete": {
+      "worldSpriteState": null,
+      "shapeRule": "instantiate committed room and permanent ladder, stair, hatch, or doorway connector; retire the slot preview marker",
+      "uiRule": "close preview and cost belt; any build-complete effect belongs to the separately adopted comedy-feedback asset"
+    }
+  },
+  "atlasContract": {
+    "sizePixels": [
+      512,
+      512
+    ],
+    "cellPixels": [
+      128,
+      128
+    ],
+    "paddingPixels": 12,
+    "pivotNormalized": [
+      0.5,
+      0.5
+    ],
+    "columns": [
+      "idle",
+      "near-focus",
+      "preview-valid",
+      "invalid"
+    ],
+    "rows": [
+      "upper",
+      "side",
+      "basement"
+    ],
+    "spriteRects": {
+      "upper.idle": [0, 0, 128, 128],
+      "upper.near-focus": [128, 0, 128, 128],
+      "upper.preview-valid": [256, 0, 128, 128],
+      "upper.invalid": [384, 0, 128, 128],
+      "side.idle": [0, 128, 128, 128],
+      "side.near-focus": [128, 128, 128, 128],
+      "side.preview-valid": [256, 128, 128, 128],
+      "side.invalid": [384, 128, 128, 128],
+      "basement.idle": [0, 256, 128, 128],
+      "basement.near-focus": [128, 256, 128, 128],
+      "basement.preview-valid": [256, 256, 128, 128],
+      "basement.invalid": [384, 256, 128, 128]
+    }
+  },
+  "connectionSlots1280x800": {
+    "origin": "top-left",
+    "slot.start.upper": {
+      "center": [621.875, 277.5],
+      "visibleBounds": [570, 264, 104, 26],
+      "direction": "up",
+      "pivotNormalized": [0.5, 0.5]
+    },
+    "slot.start.side": {
+      "center": [775.0, 505.0],
+      "visibleBounds": [763, 453, 24, 104],
+      "direction": "right",
+      "pivotNormalized": [0.5, 0.5]
+    },
+    "slot.start.basement": {
+      "center": [442.5, 508.75],
+      "visibleBounds": [391, 496, 104, 26],
+      "direction": "down",
+      "pivotNormalized": [0.5, 0.5]
+    }
+  },
+  "safeZones1280x800": {
+    "origin": "top-left",
+    "narrationRect": [230.4, 144, 819.2, 136],
+    "contextPromptRect": [420, 292, 440, 44],
+    "narrationToPromptGapPixels": 12,
+    "walkableBandRect": [0, 535.1, 1280, 81.8],
+    "players": {
+      "slot.start.upper": [309.3, 411.3, 85.4, 152.6],
+      "slot.start.side": [1169.8, 411.3, 85.4, 152.6],
+      "slot.start.basement": [700.4, 411.3, 85.4, 152.6]
+    },
+    "runtimeTargets": {
+      "slot.start.upper": [316.4, 503.1, 78.2, 103.1],
+      "slot.start.side": [1176.9, 503.1, 78.2, 103.1],
+      "slot.start.basement": [707.6, 503.1, 78.2, 103.1]
+    },
+    "artReviewKimEnvelope": [560, 380, 120, 200],
+    "artReviewPromptReservedRect": [420, 294, 440, 44],
+    "upperArtMarkerBottomMax": 290,
+    "minimumUpperMarkerToPromptGapPixels": 4,
+    "rule": "World overlays may replace only the physical connector footprint; never tint a room, player, facility, or walking band."
+  },
+  "layersBackToFront": [
+    "camp.room.shell",
+    "camp.slot.idle",
+    "camp.slot.focus",
+    "camp.slot.previewState",
+    "preview.ghost",
+    "preview.stateOutline",
+    "camp.connector.permanent",
+    "camp.facility",
+    "camp.player",
+    "camp.foreground",
+    "ui.contextPrompt.background",
+    "ui.contextPrompt.inputGlyphSlot",
+    "ui.contextPrompt.tmpActionSlot",
+    "ui.costBelt.background",
+    "ui.costBelt.resourceGlyph",
+    "ui.costBelt.tmpCost",
+    "ui.costBelt.tmpAction",
+    "ui.costBelt.inputGlyph"
+  ],
+  "localizationContract": {
+    "rasterLocalizedTextInRuntimeSprites": false,
+    "rasterInputGlyphInRuntimeSprites": false,
+    "contextPrompt": {
+      "component": "ui.camp-contextual-interaction.compact-a",
+      "tmpWidthsPixels": {
+        "ko": 300,
+        "en": 380,
+        "qps-long-max": 520
+      },
+      "inputGlyphFocusRectPixels": [44, 44],
+      "singleLine": true,
+      "ellipsis": false
+    },
+    "costBelt": {
+      "referenceOnlySprite": "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/module-cost-belt-9slice.png",
+      "nineSliceBorderPixels": {
+        "left": 28,
+        "right": 28,
+        "top": 24,
+        "bottom": 24
+      },
+      "reviewWidthsPixels": {
+        "ko": 430,
+        "en": 520,
+        "qps-long": 640
+      },
+      "minimumFontPixels": {
+        "body": 18,
+        "button": 20
+      },
+      "inputGlyphFocusRectPixels": [44, 44],
+      "wrapBeforeScale": true,
+      "ellipsis": false
+    }
+  },
+  "unityImportRecommendation": {
+    "candidateAtlases": {
+      "textureType": "Sprite (2D and UI)",
+      "spriteMode": "Multiple",
+      "filterMode": "Bilinear",
+      "pixelsPerUnit": 100,
+      "alphaIsTransparency": true,
+      "generateMipMaps": false,
+      "maxTextureSize": 2048,
+      "meshType": "Full Rect",
+      "compression": "Uncompressed during review; platform compression only after selection"
+    },
+    "reviewBoard": {
+      "runtimeLoad": false,
+      "addressable": false,
+      "resources": false,
+      "recommendedFolderRole": "EditorOnly review evidence"
+    }
+  },
+  "sourceEvidence": [
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823094919_b97f9f61/wave11-slot-affordance-comparison-board.png",
+      "sha256": "16b768020dda97a9fa6a1655e5f70c052fdb5db8db4f31f676157f0e7e742917"
+    },
+    {
+      "path": "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-play-evidence.json",
+      "sha256": "d2dcab7c75587e808e573b98df10c1aa3c80e03481fefab63023fb5c53d7d037"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823042510_f2a3ec9e/recomposed-spatial-camp.png",
+      "sha256": "eeab01292c8d1afd40cbbf7fa800106d3d5f7cfec51465be5a26c4a07774c92c"
+    },
+    {
+      "path": "Docs/Art/Wave13/generate-wave13-module-connector-board.ps1",
+      "sha256": "e2d21d91a9f4a4e6618ee7ea8d476a320f0d934e2f70f7e6c4b35a5013fa3f6d"
+    }
+  ]
+}

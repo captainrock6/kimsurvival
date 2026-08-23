@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 4,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "wave13-module-connector-review-board.png",
+      "kind": "raster",
+      "width": 3840,
+      "height": 2800,
+      "hasAlpha": true,
+      "transparentRatio": 0.0207,
+      "contrastStdDev": 54.13,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 1,
+        "top": 1,
+        "right": 1,
+        "bottom": 1
+      },
+      "previewFile": "qa-preview-wave13-module-connector-review-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wave13-module-connector-review-manifest.json",
+      "kind": "editable-source",
+      "bytes": 11025,
+      "issues": []
+    },
+    {
+      "fileName": "wave13-module-connector-validation.json",
+      "kind": "editable-source",
+      "bytes": 3735,
+      "issues": []
+    },
+    {
+      "fileName": "wave13-module-connector-engine-handoff.txt",
+      "kind": "file",
+      "bytes": 1311,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T12:11:45.319Z",
+  "jobId": "job_20260823120036_3f045106",
+  "assetType": "ui_set"
+}
