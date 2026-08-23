@@ -1,0 +1,4 @@
+PASS · deterministic edit checks
+Started UTC: 2026-08-23T16:29:53.9457749Z
+Completed UTC: 2026-08-23T16:29:54.2759629Z
+Checks: Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions

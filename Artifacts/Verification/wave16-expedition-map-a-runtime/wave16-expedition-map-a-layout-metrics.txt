@@ -1,0 +1,11 @@
+PASS · Wave 16 expedition map A layout metrics
+Resolution: 1280x800
+Panel bounds px: L32 R1248 B20 T780
+Safe margins px: L32 R32 B20 T20
+Panel aspect: 1.600
+TMP overflow count: 0
+Panel offscreen count: 0
+Rail section overlap count: 0
+Region node overlap count: 0
+Locales: ko PASS, en PASS, qps-long PASS
+Input paths: keyboard/mouse PASS, synthetic gamepad PASS

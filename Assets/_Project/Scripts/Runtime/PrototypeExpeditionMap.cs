@@ -342,9 +342,76 @@ namespace KimSurvival
         }
     }
 
+    public enum PrototypeExpeditionRegionVisualState
+    {
+        Default,
+        Selected,
+        Locked,
+        RiskWarning,
+        EquipmentMissing,
+        DepartureReady,
+        Unknown
+    }
+
+    public readonly struct PrototypeExpeditionRegionVisualPresentation
+    {
+        public PrototypeExpeditionRegionVisualPresentation(
+            PrototypeExpeditionRegionVisualState state,
+            string marker,
+            string pattern,
+            string localizationKey,
+            int borderWeight,
+            bool canDepart)
+        {
+            State = state;
+            Marker = marker ?? string.Empty;
+            Pattern = pattern ?? string.Empty;
+            LocalizationKey = localizationKey ?? string.Empty;
+            BorderWeight = Math.Max(1, borderWeight);
+            CanDepart = canDepart;
+        }
+
+        public PrototypeExpeditionRegionVisualState State { get; }
+        public string Marker { get; }
+        public string Pattern { get; }
+        public string LocalizationKey { get; }
+        public int BorderWeight { get; }
+        public bool CanDepart { get; }
+    }
+
+    public static class PrototypeExpeditionRegionVisualCatalog
+    {
+        public static PrototypeExpeditionRegionVisualPresentation Get(PrototypeExpeditionRegionVisualState state)
+        {
+            switch (state)
+            {
+                case PrototypeExpeditionRegionVisualState.Selected:
+                    return new PrototypeExpeditionRegionVisualPresentation(state, "◆", "double", "expedition.map.state.selected", 3, true);
+                case PrototypeExpeditionRegionVisualState.Locked:
+                    return new PrototypeExpeditionRegionVisualPresentation(state, "▦", "crosshatch", "expedition.map.state.locked", 2, false);
+                case PrototypeExpeditionRegionVisualState.RiskWarning:
+                    return new PrototypeExpeditionRegionVisualPresentation(state, "!", "warning-stripe", "expedition.map.state.risk", 3, true);
+                case PrototypeExpeditionRegionVisualState.EquipmentMissing:
+                    return new PrototypeExpeditionRegionVisualPresentation(state, "△", "diagonal-hatch", "expedition.map.state.equipment_missing", 2, false);
+                case PrototypeExpeditionRegionVisualState.DepartureReady:
+                    return new PrototypeExpeditionRegionVisualPresentation(state, "▶", "solid", "expedition.map.state.ready", 2, true);
+                case PrototypeExpeditionRegionVisualState.Unknown:
+                    return new PrototypeExpeditionRegionVisualPresentation(state, "?", "dashed", "expedition.map.state.unknown", 2, false);
+                default:
+                    return new PrototypeExpeditionRegionVisualPresentation(PrototypeExpeditionRegionVisualState.Default, "◇", "single", "expedition.map.state.default", 1, true);
+            }
+        }
+    }
+
     public sealed class PrototypeExpeditionMapSelection
     {
         private bool cycleLatched;
+        private readonly PrototypeExpeditionRegionVisualState[] regionStates =
+        {
+            PrototypeExpeditionRegionVisualState.DepartureReady,
+            PrototypeExpeditionRegionVisualState.DepartureReady,
+            PrototypeExpeditionRegionVisualState.DepartureReady
+        };
 
         public bool IsOpen { get; private set; }
         public int FocusedIndex { get; private set; }
@@ -375,6 +442,40 @@ namespace KimSurvival
             }
             FocusedIndex = (int)region;
             return true;
+        }
+
+        public PrototypeExpeditionRegionVisualState GetRegionState(PrototypeExpeditionRegionId region)
+        {
+            return regionStates[(int)region];
+        }
+
+        public PrototypeExpeditionRegionVisualState GetDisplayState(PrototypeExpeditionRegionId region)
+        {
+            return IsOpen && FocusedRegionId == region
+                ? PrototypeExpeditionRegionVisualState.Selected
+                : GetRegionState(region);
+        }
+
+        public bool SetRegionStateForVerification(PrototypeExpeditionRegionId region, PrototypeExpeditionRegionVisualState state)
+        {
+            if (!Enum.IsDefined(typeof(PrototypeExpeditionRegionId), region) ||
+                !Enum.IsDefined(typeof(PrototypeExpeditionRegionVisualState), state))
+            {
+                return false;
+            }
+
+            regionStates[(int)region] = state;
+            return true;
+        }
+
+        public bool CanDepartFocusedRegion()
+        {
+            if (!IsOpen)
+            {
+                return false;
+            }
+
+            return PrototypeExpeditionRegionVisualCatalog.Get(GetRegionState(FocusedRegionId)).CanDepart;
         }
 
         public bool StepFocus(int cycleDirection)

@@ -26,6 +26,8 @@ namespace KimSurvival.EditorTools
         public const string CompactPromptFramePath = "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png";
         public const string CompactPromptSkinPath = "Assets/_Project/Scripts/Localization/Resources/Wave12CompactPromptSkin.asset";
         public const string CompactPromptAssetId = "ui.camp-contextual-interaction.compact-a";
+        public const string ExpeditionMapLayoutPath = "Assets/_Project/Art/Generated/ui_set/job_20260823150636_e3b39abc/candidate-a-right-rail-1280x800.png";
+        public const string ExpeditionMapAssetId = "ui.expedition-map.right-rail-a";
         private const string DefaultVerificationFolder = "Artifacts/Verification";
 
         private static string VerificationFolder
@@ -60,6 +62,7 @@ namespace KimSurvival.EditorTools
                 LoadRequiredSprite(VineBarrierBlockedPath),
                 LoadRequiredSprite(VineBarrierInteractablePath),
                 LoadRequiredSprite(VineBarrierClearedPath));
+            prototype.ConfigureExpeditionMapArt(LoadRequiredSprite(ExpeditionMapLayoutPath));
             EditorSceneManager.SaveScene(scene, ScenePath);
 
             EditorBuildSettings.scenes = new[]
@@ -113,6 +116,7 @@ namespace KimSurvival.EditorTools
             AssertStructureSpriteImport(VineBarrierInteractablePath, new Vector2(0.5f, 0.078125f));
             AssertStructureSpriteImport(VineBarrierClearedPath, new Vector2(0.5f, 0.078125f));
             AssertCompactPromptImport();
+            AssertExpeditionMapImport();
             string sceneText = File.ReadAllText(ScenePath);
             Assert(sceneText.Contains(AssetDatabase.AssetPathToGUID(CampBackgroundPath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(CampGameplayGroundPath)) &&
@@ -124,6 +128,8 @@ namespace KimSurvival.EditorTools
             Assert(sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierBlockedPath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierInteractablePath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierClearedPath)), "Prototype scene serializes all three adopted vine barrier states");
+            Assert(sceneText.Contains(AssetDatabase.AssetPathToGUID(ExpeditionMapLayoutPath)),
+                "Prototype scene serializes the selected-only expedition map A layout");
 
             Assert(Type.GetType("KimSurvival.PrototypeCampInteraction, Assembly-CSharp") != null,
                 "Wave 9 contextual camp interaction state machine is present");
@@ -933,7 +939,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
+                "Checks: Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -1018,6 +1024,54 @@ namespace KimSurvival.EditorTools
             selection.StepFocus(0);
             Assert(selection.StepFocus(1) && selection.FocusedRegionId == PrototypeExpeditionRegionId.Shallows,
                 "Map focus cycles beach to forest to shallows after release");
+
+            Assert(selection.GetRegionState(PrototypeExpeditionRegionId.Beach) == PrototypeExpeditionRegionVisualState.DepartureReady &&
+                   selection.GetRegionState(PrototypeExpeditionRegionId.Forest) == PrototypeExpeditionRegionVisualState.DepartureReady &&
+                   selection.GetRegionState(PrototypeExpeditionRegionId.Shallows) == PrototypeExpeditionRegionVisualState.DepartureReady &&
+                   selection.CanDepartFocusedRegion(),
+                "All three starting regions use the playable departure-ready state");
+            PrototypeExpeditionRegionVisualState[] visualStates =
+            {
+                PrototypeExpeditionRegionVisualState.Default,
+                PrototypeExpeditionRegionVisualState.Selected,
+                PrototypeExpeditionRegionVisualState.Locked,
+                PrototypeExpeditionRegionVisualState.RiskWarning,
+                PrototypeExpeditionRegionVisualState.EquipmentMissing,
+                PrototypeExpeditionRegionVisualState.DepartureReady,
+                PrototypeExpeditionRegionVisualState.Unknown
+            };
+            HashSet<string> markers = new HashSet<string>(StringComparer.Ordinal);
+            HashSet<string> patterns = new HashSet<string>(StringComparer.Ordinal);
+            for (int stateIndex = 0; stateIndex < visualStates.Length; stateIndex += 1)
+            {
+                PrototypeExpeditionRegionVisualPresentation presentation =
+                    PrototypeExpeditionRegionVisualCatalog.Get(visualStates[stateIndex]);
+                Assert(presentation.State == visualStates[stateIndex] &&
+                       !string.IsNullOrWhiteSpace(presentation.Marker) &&
+                       !string.IsNullOrWhiteSpace(presentation.Pattern) &&
+                       presentation.LocalizationKey.StartsWith("expedition.map.state.", StringComparison.Ordinal) &&
+                       presentation.BorderWeight >= 1,
+                    "Each expedition state exposes a non-color marker, pattern, localized text and border contract: " + visualStates[stateIndex]);
+                markers.Add(presentation.Marker);
+                patterns.Add(presentation.Pattern);
+            }
+            Assert(markers.Count == visualStates.Length && patterns.Count == visualStates.Length,
+                "The seven expedition states have distinct visible marker and pattern identities");
+            Assert(selection.SetRegionStateForVerification(PrototypeExpeditionRegionId.Shallows, PrototypeExpeditionRegionVisualState.Locked) &&
+                   !selection.CanDepartFocusedRegion(),
+                "Locked verification transition blocks departure without changing focus");
+            Assert(selection.SetRegionStateForVerification(PrototypeExpeditionRegionId.Shallows, PrototypeExpeditionRegionVisualState.EquipmentMissing) &&
+                   !selection.CanDepartFocusedRegion(),
+                "Equipment-missing verification transition blocks departure");
+            Assert(selection.SetRegionStateForVerification(PrototypeExpeditionRegionId.Shallows, PrototypeExpeditionRegionVisualState.RiskWarning) &&
+                   selection.CanDepartFocusedRegion(),
+                "Risk-warning verification transition remains playable and inspectable");
+            Assert(selection.SetRegionStateForVerification(PrototypeExpeditionRegionId.Shallows, PrototypeExpeditionRegionVisualState.Unknown) &&
+                   !selection.CanDepartFocusedRegion(),
+                "Unknown verification transition blocks departure");
+            Assert(selection.SetRegionStateForVerification(PrototypeExpeditionRegionId.Shallows, PrototypeExpeditionRegionVisualState.DepartureReady) &&
+                   selection.CanDepartFocusedRegion(),
+                "Verification transition restores the starting region to departure-ready");
 
             GameSession selected = new GameSession(seed);
             PrototypeExpeditionRegionProfile forest = PrototypeExpeditionRegionCatalog.Get(PrototypeExpeditionRegionId.Forest);
@@ -1371,6 +1425,21 @@ namespace KimSurvival.EditorTools
                 "Adopted compact-a keeps center pivot and L70/R30/T12/B12 9-slice border");
             Assert(skin != null && skin.AssetId == CompactPromptAssetId && skin.Frame == sprite,
                 "Runtime Resources skin references only the adopted compact-a sprite");
+        }
+
+        private static void AssertExpeditionMapImport()
+        {
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(ExpeditionMapLayoutPath);
+            TextureImporter importer = AssetImporter.GetAtPath(ExpeditionMapLayoutPath) as TextureImporter;
+            Assert(sprite != null && importer != null && importer.textureType == TextureImporterType.Sprite &&
+                   importer.spriteImportMode == SpriteImportMode.Single && !importer.mipmapEnabled,
+                "Selected-only expedition map A imports as one mip-free Unity sprite");
+            importer.GetSourceTextureWidthAndHeight(out int sourceWidth, out int sourceHeight);
+            Assert(sourceWidth == 1280 && sourceHeight == 800 &&
+                   Mathf.Approximately(sprite.rect.width, 1280f) && Mathf.Approximately(sprite.rect.height, 800f),
+                "Selected expedition map A preserves its 1280x800 source and sprite canvas");
+            Assert(AssetDatabase.AssetPathToGUID(ExpeditionMapLayoutPath) == "ae09637f2b24aa14295b1f9a5b4fde1c",
+                "Selected expedition map A preserves the canonical Unity GUID");
         }
 
         private static void Assert(bool condition, string message)

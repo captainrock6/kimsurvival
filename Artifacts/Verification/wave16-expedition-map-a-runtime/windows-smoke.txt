@@ -1,0 +1,8 @@
+PASS · Windows x64 Development hidden smoke
+Resolution: 1280x800 windowed
+Minimum observed duration: 6 seconds
+Alive at minimum: True
+Responding at minimum: True
+Unity player: 6000.4.9f1
+Executable: Builds/Windows/KimSurvivalIsland.exe
+Player log: Artifacts/Verification/wave16-expedition-map-a-runtime/windows-player-final.log

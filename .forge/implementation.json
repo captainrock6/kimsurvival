@@ -1346,12 +1346,18 @@
         "미확인 정보와 잠긴 지역을 색상 외 아이콘·문구로 구분한다.",
         "키보드·마우스와 게임패드가 같은 지역 포커스·확정·취소 상태를 사용한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Wave16 selected-only right-rail A GUID contract PASS; Unity compile 0 error/0 warning; deterministic EditMode PASS; full PlayMode ko/en/qps-long 1280x800 PASS with overflow/offscreen/rail/node overlap all 0; Windows x64 Development build and 6-second hidden smoke PASS. Evidence: Artifacts/Verification/wave16-expedition-map-a-runtime/verification-summary.txt"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T16:32:52.262Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "",
+      "completedAt": "2026-08-23T16:32:52.262Z"
     },
     {
       "id": "task.qa.feature.expedition-map",
@@ -1375,9 +1381,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
+      "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:52:07.112Z"
+      "updatedAt": "2026-08-23T16:32:52.263Z"
     },
     {
       "id": "task.feature.feature.resource-randomization",
@@ -2483,5 +2489,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-23T15:55:25.605Z"
+  "updatedAt": "2026-08-23T16:32:52.263Z"
 }

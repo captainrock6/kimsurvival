@@ -270,3 +270,18 @@ expedition.region.shallows.equipment	수영 체력 필요 · 밧줄 권장	Swimm
 expedition.region.shallows.special	? 가라앉은 부품 가능성	? Possible sunken component	⟦? Póssíblé súñkéñ cómpóñéñtáéíóúüá⟧
 message.search.choose_region	지도·출구에서 오늘 갈 지역을 먼저 골라야 한다.	Choose today's region at the expedition map and exit first.	⟦Chóósé tódáy's régíóñ át thé éxpédítíóñ máp áñd éxít fírst.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
 message.search.begin_region	{0}(으)로 출발한다. 정확한 수확량은 현장에서 확인하자.	Departing for {0}. Exact yields remain unknown until the search.	⟦Dépártíñg fór {0}. Éxáct yíélds rémáíñ úñkñówñ úñtíl thé séárch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
+expedition.map.title_region	수집 지도 · DAY {0}/{1}\n{2}	Expedition Map · DAY {0}/{1}\n{2}	⟦Éxpédítíóñ Máp · DÁY {0}/{1}\n{2}áéíóúüñ¿¡⟧
+expedition.map.node.state	{0} {1}\n{2}	{0} {1}\n{2}	⟦{0} {1}\n{2}áéí⟧
+expedition.map.rail.resources	예상 자원\n{0}	Expected resources\n{0}	⟦Éxpéctéd résóúrcés\n{0}áéíóúüñ¿¡⟧
+expedition.map.rail.risk	! 현재 위험 · 약 {1}분\n{0}	! Current risk · about {1} min\n{0}	⟦! Cúrréñt rísk · ábóút {1} míñútés\n{0}áéíóúüñ¿¡⟧
+expedition.map.rail.weather	~ 날씨\n{0}	~ Weather\n{0}	⟦~ Wéáthér\n{0}áéíóú⟧
+expedition.map.rail.equipment	△ 필요 장비\n{0}	△ Required gear\n{0}	⟦△ Réqúíréd géár\n{0}áéíóúüñ¿⟧
+expedition.map.rail.special	? 특별 발견\n{0}	? Special discovery\n{0}	⟦? Spécíál díscóvéry\n{0}áéíóúüñ¿¡⟧
+expedition.map.cancel.short	닫기	Close	⟦Çlósé⟧
+expedition.map.state.default	지역 확인	Region known	⟦Régíóñ kñówñáéíó⟧
+expedition.map.state.selected	선택됨	Selected	⟦Séléctédá⟧
+expedition.map.state.locked	잠김	Locked	⟦Lóckéd⟧
+expedition.map.state.risk	위험 경고	Risk warning	⟦Rísk wárñíñgáé⟧
+expedition.map.state.equipment_missing	장비 부족	Gear missing	⟦Géár míssíñgáé⟧
+expedition.map.state.ready	출발 가능	Ready to depart	⟦Réády tó dépártáéíóú⟧
+expedition.map.state.unknown	미확인	Unknown	⟦Úñkñówñá⟧

@@ -1263,6 +1263,81 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 445243593048064
+    m_Localized: "Expedition Map \xB7 DAY {0}/{1}\n{2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 445243630796800
+    m_Localized: '{0} {1}
+
+      {2}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 445243630796801
+    m_Localized: 'Expected resources
+
+      {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 445243630796802
+    m_Localized: "! Current risk \xB7 about {1} min\n{0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 445243630796803
+    m_Localized: '~ Weather
+
+      {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 445243634991104
+    m_Localized: "\u25B3 Required gear\n{0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 445243634991105
+    m_Localized: '? Special discovery
+
+      {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 445243634991106
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991107
+    m_Localized: Region known
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991108
+    m_Localized: Selected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991109
+    m_Localized: Locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991110
+    m_Localized: Risk warning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991111
+    m_Localized: Gear missing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991112
+    m_Localized: Ready to depart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991113
+    m_Localized: Unknown
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -1355,3 +1430,10 @@ MonoBehaviour:
         - id: 427966646697989
         - id: 427966646697990
         - id: 427966650892298
+        - id: 445243593048064
+        - id: 445243630796800
+        - id: 445243630796801
+        - id: 445243630796802
+        - id: 445243630796803
+        - id: 445243634991104
+        - id: 445243634991105
