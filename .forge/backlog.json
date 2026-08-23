@@ -685,18 +685,22 @@
         "Docs/Design/wave3-implementation-acceptance.md",
         "Docs/Design/vertical-slice-balance.md",
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs"
+        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs"
       ],
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/kim-survival-placement-ko-invalid-1280x800.png",
-        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png"
+        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png",
+        "PASS: Unity 6000.4.9f1 compile 0 errors/0 warnings; deterministic Edit spatial contracts; full Play survival loop with 1.25-unit camp use and KO/EN; Wave 7 Edit 12/12 and Play 3/3 product checks; Windows x64 Development build 0 errors/0 warnings and 1280x800 player responsive smoke."
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T03:32:10.566Z",
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "note": "",
+      "completedAt": "2026-08-23T03:32:10.566Z"
     },
     {
       "id": "task.wave3.implementation.world-label-readability",
@@ -1803,5 +1807,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T03:05:27.604Z"
+  "updatedAt": "2026-08-23T03:32:10.567Z"
 }
