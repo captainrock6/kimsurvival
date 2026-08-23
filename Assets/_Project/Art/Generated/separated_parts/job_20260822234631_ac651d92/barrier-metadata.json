@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "assetId": "object.vine-wood-barrier",
+  "jobId": "job_20260822234631_ac651d92",
+  "status": "review",
+  "generatedAt": "2026-08-22T23:54:41.9448007Z",
+  "languageDependency": "none",
+  "canvas": {
+    "file": "barrier-states-atlas.png",
+    "width": 1536,
+    "height": 512,
+    "layout": "3x1-left-to-right",
+    "cellWidth": 512,
+    "cellHeight": 512,
+    "origin": "top-left",
+    "background": "transparent-alpha",
+    "commonBaselineYTopLeft": 472
+  },
+  "unity": {
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "pivot": [0.5, 0.078125],
+    "pivotSemantic": "bottom-center on the shared gameplay baseline",
+    "usage": "Three static state sprites; collision, state transition and interaction behavior are authored in engine after adoption."
+  },
+  "engineTextSafeAreaPerCellTopLeft": [64, 16, 384, 84],
+  "axeCueReuse": {
+    "assetId": "icon.resource-tool-set",
+    "file": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/axe.png",
+    "newIconGenerated": false,
+    "includedInProductionSprites": false,
+    "reviewBoardOverlayOnly": true,
+    "recommendedOverlaySizePixelsAt1280x800": [64, 80]
+  },
+  "states": [
+    {
+      "id": "blocked",
+      "file": "blocked.png",
+      "column": 0,
+      "row": 0,
+      "atlasRectTopLeft": [0, 0, 512, 512],
+      "semantic": "path-blocked-by-vines-and-slender-fallen-wood",
+      "suggestedColliderState": "blocking",
+      "centralPassageOpen": false
+    },
+    {
+      "id": "interactable",
+      "file": "interactable.png",
+      "column": 1,
+      "row": 0,
+      "atlasRectTopLeft": [512, 0, 512, 512],
+      "semantic": "axe-compatible-cut-point-exposed-without-raster-text",
+      "suggestedColliderState": "blocking",
+      "centralPassageOpen": false,
+      "cutPointTopLeftPixels": [256, 330],
+      "cutPointNormalizedBottomLeft": [0.5, 0.355469]
+    },
+    {
+      "id": "cleared",
+      "file": "cleared.png",
+      "column": 2,
+      "row": 0,
+      "atlasRectTopLeft": [1024, 0, 512, 512],
+      "semantic": "open-path-with-cut-vines-short-stumps-and-ground-debris",
+      "suggestedColliderState": "disabled-or-nonblocking",
+      "centralPassageOpen": true,
+      "suggestedCentralOpenWidthNormalized": 0.65
+    }
+  ]
+}

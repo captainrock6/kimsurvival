@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260822234631_ac651d92",
+  "reviewedAt": "2026-08-22T23:54:41.9448007Z",
+  "status": "review",
+  "adopted": false,
+  "verdict": "pass-as-review-candidate",
+  "checks": [
+    {"name":"required-state-semantics","result":"pass","note":"Blocked, axe-interactable and cleared meanings remain distinct in a left-to-right comparison."},
+    {"name":"side-view-function","result":"pass","note":"The first two states visibly span the path while the cleared state opens the center between short cut stumps."},
+    {"name":"textless-axe-cue","result":"pass","note":"The interactable state exposes a pale central binding and cut point without raster text; the adopted axe icon is shown only as a review overlay."},
+    {"name":"alpha-and-spacing","result":"pass","note":"All production sprites use true alpha, share a gameplay baseline, keep at least 32px transparent padding and do not touch a canvas edge."},
+    {"name":"1280x800-readability","result":"pass","note":"The review board preserves silhouettes at gameplay scale and leaves a clear upper text-safe region plus character and resource-node space."},
+    {"name":"style-continuity","result":"pass","note":"Warm comic tropical colors, chunky readable shapes and restrained surface detail align with the current camp and exploration art direction."},
+    {"name":"locale-independence","result":"pass","note":"No Korean, English, logo, number or other rasterized copy appears in production sprites."},
+    {"name":"axe-icon-reuse","result":"pass","note":"The adopted icon.resource-tool-set axe is reusable as an engine overlay; no duplicate icon was generated or packaged."}
+  ],
+  "concerns": [
+    "These are static review sprites; collision, hit timing, cut-point feedback and state transitions remain deferred until explicit adoption and runtime integration.",
+    "The coast-forest background used as palette context is itself still a review asset, so final in-scene contrast must be checked against the ultimately adopted exploration background.",
+    "Final world scale and collider width may need a single in-engine adjustment after placement beside Mr. Kim and live resource nodes."
+  ],
+  "adoptionRequired": true
+}

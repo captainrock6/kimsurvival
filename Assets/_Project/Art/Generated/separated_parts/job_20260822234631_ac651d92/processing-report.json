@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260822234631_ac651d92",
+  "provider": "codex-built-in-imagegen",
+  "externalPaidApiCalled": false,
+  "imageGenerationAttempts": 1,
+  "automaticGenerationRetries": 0,
+  "source": {
+    "fileName": "exec-2bbf9564-c36a-4544-b4cb-4d4668b69f6f.png",
+    "sha256": "1f7d11c94d32bc8cd19e356449f51e43066beb655668f1a548982f710d73b596",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "issue": "The generated preview contained an opaque light-neutral checker field instead of an alpha channel."
+  },
+  "deterministicProcessing": {
+    "method": "Edge-connected light-neutral background flood removal, per-state tiny-component cleanup, common-scale normalization to 512x512, shared baseline placement and review composites.",
+    "backgroundCandidate": "minimum RGB channel >= 226 and maximum channel spread <= 16",
+    "backgroundPixelsRemoved": 1250503,
+    "tinyComponentThresholdPixels": 24,
+    "tinyComponentPixelsRemoved": 48,
+    "commonScale": 0.88888889,
+    "commonBaselineYTopLeft": 472,
+    "clearedStateCorrection": "Tall side poles were shortened with existing source cap pixels so the cleared state reads as short stumps and a fully open passage.",
+    "contentRepainted": false,
+    "contentRegenerated": false
+  },
+  "referencePolicy": {
+    "environmentReference": "background.coast-forest review candidate used for palette and side-view context only",
+    "characterReference": "adopted character.mr-kim used for scale and line-weight context only",
+    "axeIcon": "adopted icon.resource-tool-set axe reused on the review board only; no duplicate icon was generated"
+  },
+  "outputs": [
+    "source-sheet-alpha.png",
+    "barrier-states-atlas.png",
+    "blocked.png",
+    "interactable.png",
+    "cleared.png",
+    "blocked-cleared-comparison.png",
+    "review-board-1280x800.png",
+    "visual-review.png"
+  ]
+}

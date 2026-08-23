@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260822234631_ac651d92",
+  "result": "pass",
+  "checks": {
+    "individualCanvas": "512x512",
+    "individualPixelFormat": "32bpp RGBA",
+    "minimumTransparentPadding": 32,
+    "edgeTouchCount": 0,
+    "sourceGrid": "3x1-left-to-right",
+    "atlasCanvas": "1536x512",
+    "comparisonCanvas": "1024x512",
+    "reviewBoardCanvas": "1280x800",
+    "commonBaselineYTopLeft": 472,
+    "trueAlpha": true
+  },
+  "sprites": [
+    {"id":"blocked","bounds":[35,100,442,372],"minimumTransparentPadding":35,"edgeTouch":false,"transparentRatio":0.575542},
+    {"id":"interactable","bounds":[40,113,432,359],"minimumTransparentPadding":40,"edgeTouch":false,"transparentRatio":0.599697},
+    {"id":"cleared","bounds":[32,342,448,130],"minimumTransparentPadding":32,"edgeTouch":false,"transparentRatio":0.892094}
+  ]
+}
