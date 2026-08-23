@@ -1,0 +1,22 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T004700Z_642a73c_wave6_integrated",
+    "baselineCommit": "642a73c4e2fe8c236fb40b6d07288b933b020fb0",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T00:45:34.0911428Z",
+    "completedUtc": "2026-08-23T00:45:43.9991795Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-windows-build.log\"",
+    "target": "StandaloneWindows64",
+    "options": "Development, AllowDebugging",
+    "result": "Succeeded",
+    "totalSizeBytes": 180372377,
+    "durationSeconds": 9.669549199999999,
+    "errors": 0,
+    "warnings": 0,
+    "warningInventory": [],
+    "executable": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\WindowsBuild\\KimSurvivalIsland.exe",
+    "executableExists": true,
+    "executableBytes": 667648,
+    "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "addressablesLinkContract": "PASS"
+}

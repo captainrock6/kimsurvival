@@ -1,5 +1,7 @@
 # Wave 6 진행·장벽 독립 회귀 계약 — 473c082
 
+> 통합 결과: `642a73c4e2fe8c236fb40b6d07288b933b020fb0`에서 제품·인프라·릴리스 회귀가 모두 PASS로 전환됐다. 최종 증거는 `Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/`에 있으며, 아래 본문은 QA 브랜치가 결함을 처음 검출한 red baseline 기록으로 보존한다. 물리 게임패드는 UNVERIFIED, Steamworks는 NOT_READY다.
+
 ## 전체 판정
 
 - **제품 계약: FAIL (red baseline)**

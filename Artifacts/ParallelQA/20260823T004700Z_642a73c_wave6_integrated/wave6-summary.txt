@@ -1,0 +1,18 @@
+Wave 6 progression regression summary
+Run ID: 20260823T004700Z_642a73c_wave6_integrated
+Baseline: 642a73c4e2fe8c236fb40b6d07288b933b020fb0
+Overall: PASS
+Product: PASS
+Infrastructure: PASS
+Release regression: PASS
+Compile: PASS
+Edit/Play product contracts: PASS/PASS
+Normal placement: PASS 24/24
+Exploration/swimming: PASS 10/10
+qps-long: PASS 10/10
+Addressables: load=PASS build=PASS postSmoke=PASS
+Windows build/smoke: PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Product defect count: 0
+Infrastructure failure count: 0

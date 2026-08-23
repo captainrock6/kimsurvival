@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260822140357_783e9e09",
   "createdAt": "2026-08-22T14:03:57.336Z",
-  "updatedAt": "2026-08-22T23:21:32.106Z",
+  "updatedAt": "2026-08-23T00:47:27.641Z",
   "sourceRequest": "Wave 4: 처음 보는 참가자 6명을 위한 20분 외부 플레이테스트 패킷, 수기 관찰, KO/EN 이해도, P0/P1/P2 환류와 별도 물리 게임패드 세션을 확정한다.",
   "state": "in_progress",
   "stages": {
@@ -24,11 +24,11 @@
     },
     "verification": {
       "status": "in_progress",
-      "note": "",
+      "note": "Wave 6 automated product, infrastructure, and release-regression gates pass on 642a73c. Physical gamepad remains UNVERIFIED and Steamworks remains NOT_READY.",
       "evidence": [
-        "Artifacts/ParallelQA/20260822T231356Z_e8d01c1_wave5_integrated/wave5-release-summary.txt"
+        "Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-summary.txt"
       ],
-      "updatedAt": "2026-08-22T23:21:32.106Z"
+      "updatedAt": "2026-08-23T00:47:27.641Z"
     }
   }
 }

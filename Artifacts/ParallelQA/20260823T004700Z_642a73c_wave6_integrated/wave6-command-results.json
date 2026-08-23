@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T004700Z_642a73c_wave6_integrated",
+  "baselineCommit": "642a73c4e2fe8c236fb40b6d07288b933b020fb0",
+  "unity": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "invokedUtc": "2026-08-23T00:45:54.0375370Z",
+  "executionPolicy": "Unity Editor/build and Windows Player must run outside the Codex sandbox; no -noUpm.",
+  "stages": [
+    {
+      "name": "compile",
+      "executeMethod": "ParallelQA.ParallelQaRunner.RecordCompilePass",
+      "startedUtc": "2026-08-23T00:44:44.3290862Z",
+      "completedUtc": "2026-08-23T00:44:51.8127891Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-compile.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-compile.log\""
+    },
+    {
+      "name": "wave6-edit-contracts",
+      "executeMethod": "ParallelQA.Wave6ProgressionRegressionRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T00:44:51.8163790Z",
+      "completedUtc": "2026-08-23T00:44:59.3051684Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-wave6-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-wave6-edit.log\""
+    },
+    {
+      "name": "wave6-play-contracts",
+      "executeMethod": "ParallelQA.Wave6ProgressionRegressionRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T00:44:59.3071601Z",
+      "completedUtc": "2026-08-23T00:45:09.8919699Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-wave6-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-wave6-play.log\""
+    },
+    {
+      "name": "legacy-full-play",
+      "executeMethod": "ParallelQA.ParallelQaRunner.RunPlayModeVerification",
+      "startedUtc": "2026-08-23T00:45:09.8938565Z",
+      "completedUtc": "2026-08-23T00:45:23.6118510Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-legacy-full-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-legacy-full-play.log\""
+    },
+    {
+      "name": "asset-release-contracts",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+      "startedUtc": "2026-08-23T00:45:23.6130619Z",
+      "completedUtc": "2026-08-23T00:45:31.0501529Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-asset-contracts.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-asset-contracts.log\""
+    },
+    {
+      "name": "windows-development-build",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+      "startedUtc": "2026-08-23T00:45:31.0512827Z",
+      "completedUtc": "2026-08-23T00:45:47.6087430Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-windows-build.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\unity-windows-build.log\""
+    },
+    {
+      "name": "windows-hidden-smoke",
+      "executeMethod": "Invoke-Wave5WindowsSmoke.ps1",
+      "startedUtc": "2026-08-23T00:45:47.6089495Z",
+      "completedUtc": "2026-08-23T00:45:54.0362774Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T004700Z_642a73c_wave6_integrated\\windows-player.log",
+      "command": "Invoke-Wave5WindowsSmoke.ps1 -RunId '20260823T004700Z_642a73c_wave6_integrated' -BaselineCommit '642a73c4e2fe8c236fb40b6d07288b933b020fb0' -MinimumSeconds 6",
+      "error": ""
+    }
+  ]
+}
