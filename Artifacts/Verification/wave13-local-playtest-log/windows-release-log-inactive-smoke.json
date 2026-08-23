@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS",
+  "build": "Builds/WindowsReleaseVerification/KimSurvivalIsland.exe",
+  "development": false,
+  "hiddenPlayerAliveAfterSeconds": 6,
+  "jsonlCountBefore": 1,
+  "jsonlCountAfter": 1,
+  "newJsonlCount": 0,
+  "playtestConsoleMarkerCount": 0,
+  "releaseLoggingInactive": true,
+  "playerLog": "work/wave13-release-player.log",
+  "verifiedUtc": "2026-08-23T12:13:08Z"
+}

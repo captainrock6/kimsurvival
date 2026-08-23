@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS",
+  "build": "Builds/Windows/KimSurvivalIsland.exe",
+  "development": true,
+  "hiddenPlayerAliveAfterSeconds": 8,
+  "createdJsonlCount": 1,
+  "jsonlLocation": "Application.persistentDataPath/PlaytestLogs",
+  "jsonlFile": "kim-survival-playtest-20260823T121205857Z-6f7fd01e.jsonl",
+  "jsonlBytesAtInspection": 4458,
+  "observedFirstEvents": [
+    "log.started",
+    "session.started",
+    "facility.proximity.entered"
+  ],
+  "observedLocale": "ko",
+  "observedInputDevice": "keyboard_mouse",
+  "beforeAfterFingerprintLength": 64,
+  "externalTransmission": false,
+  "playerLog": "work/wave13-player.log",
+  "verifiedUtc": "2026-08-23T12:12:13Z"
+}

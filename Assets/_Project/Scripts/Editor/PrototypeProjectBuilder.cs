@@ -899,13 +899,159 @@ namespace KimSurvival.EditorTools
                    earlyRescue.Result == RunResult.Rescued && earlyRescue.Day == 1,
                 "Completing the rescue signal before Day 5 succeeds immediately");
 
+            VerifyDevelopmentPlaytestLogContract();
+
             string report =
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 12 five-day deadline (Day 3/4 survive, Day 5 settlement fails, early signal rescues immediately), adopted compact-a 384x64 sliced frame and Resources reference, separated 44x44 glyph/action TMP, locale-only action refresh and device-only glyph refresh, ko/en/qps-long one-line fit; Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit latch, popup/preview Cancel, W2/D1 atomic one-module limit; storage planning, placement, bag 4-to-6, swimming, barrier, signal, crafting and early Day 3 rescue regressions\n";
+                "Checks: Wave 13 development-only local JSONL schema, stable event names, locale/input fields, before/after SHA-256 state fingerprints, resource/facility/craft/research/bag/swim/barrier/signal/day/result coverage and release no-op compile guard; Wave 12 five-day deadline (Day 3/4 survive, Day 5 settlement fails, early signal rescues immediately), adopted compact-a 384x64 sliced frame and Resources reference, separated 44x44 glyph/action TMP, locale-only action refresh and device-only glyph refresh, ko/en/qps-long one-line fit; Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit latch, popup/preview Cancel, W2/D1 atomic one-module limit; storage planning, placement, bag 4-to-6, swimming, barrier, signal, crafting and early Day 3 rescue regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
+        }
+
+        private static void VerifyDevelopmentPlaytestLogContract()
+        {
+            Assert(!PrototypePlaytestEventRecorder.ProductionEnabled,
+                "Editor and non-development compilation keep the production file logger disabled");
+            Assert(PrototypePlaytestEventRecorder.CreateDevelopment(
+                    new GameSession(),
+                    delegate { return PrototypeLocalization.KoreanLocaleCode; },
+                    delegate { return PrototypeInputDevice.KeyboardMouse; }) == null,
+                "Non-development runtime creates no production logger or local file sink");
+
+            string source = File.ReadAllText("Assets/_Project/Scripts/Runtime/PrototypePlaytestEventLog.cs");
+            Assert(source.Contains("#if DEVELOPMENT_BUILD && !UNITY_EDITOR") &&
+                   source.Contains("Application.persistentDataPath") &&
+                   !source.Contains("UnityWebRequest") && !source.Contains("HttpClient") && !source.Contains("WebSocket"),
+                "File I/O is development-player-only, persistentDataPath-local, and contains no network transport");
+
+            GameSession session = new GameSession();
+            string locale = PrototypeLocalization.KoreanLocaleCode;
+            PrototypeInputDevice device = PrototypeInputDevice.KeyboardMouse;
+            PrototypePlaytestEventRecorder recorder = PrototypePlaytestEventRecorder.CreateForVerification(
+                session,
+                delegate { return locale; },
+                delegate { return device; });
+            recorder.RecordSessionStarted();
+            recorder.ObserveFacilityTarget(PrototypeCampInteractionTargetKind.Campfire, "camp.Campfire", true);
+            recorder.RecordPopupOpened(PrototypeCampInteractionTargetKind.Campfire, "camp.Campfire");
+            recorder.RecordPopupClosed(PrototypeCampInteractionTargetKind.Campfire, "camp.Campfire", "cancelled");
+
+            session.Grant(ResourceKind.Wood, 20);
+            session.Grant(ResourceKind.Salvage, 20);
+            recorder.ObserveState("verification.grant");
+            Assert(session.BeginSearch(), "Playtest log verification begins an expedition");
+            recorder.ObserveState("verification.begin_search");
+            Assert(session.SetSwimming(true), "Playtest log verification enters swimming");
+            recorder.ObserveState("verification.swim_enter");
+            Assert(session.SetSwimming(false), "Playtest log verification returns to land");
+            recorder.ObserveState("verification.swim_exit");
+            recorder.RecordVineBarrierBlocked();
+            recorder.RecordVineBarrierCleared();
+            Assert(session.ReturnToCamp(false), "Playtest log verification returns to camp");
+            recorder.ObserveState("verification.return");
+            Assert(session.EndDay(), "Playtest log verification settles a survived day");
+            recorder.ObserveState("verification.end_day");
+
+            Assert(recorder.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    "camp.Workbench",
+                    "build.workbench",
+                    delegate { return session.TryBuild(StructureKind.Workbench); }),
+                "Playtest log verification builds a workbench through the tracked facility boundary");
+            Assert(recorder.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    "camp.Workbench",
+                    "research.rope",
+                    delegate { return session.TryResearch(TechKind.Rope); }) &&
+                   recorder.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    "camp.Workbench",
+                    "craft.rope",
+                    delegate { return session.TryCraft(TechKind.Rope); }),
+                "Playtest log verification tracks research and crafting");
+            Assert(recorder.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    "camp.Workbench",
+                    "bag.capacity_upgrade",
+                    session.TryUpgradeBagCapacity),
+                "Playtest log verification tracks the bag upgrade");
+            Assert(!recorder.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    "camp.Workbench",
+                    "bag.capacity_upgrade",
+                    session.TryUpgradeBagCapacity),
+                "Playtest log verification tracks a rejected repeated action without state mutation");
+
+            locale = PrototypeLocalization.EnglishLocaleCode;
+            device = PrototypeInputDevice.Gamepad;
+            Assert(recorder.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.RescueSignal,
+                    "camp.signal-anchor",
+                    "signal.upgrade",
+                    session.TryUpgradeSignal) &&
+                   recorder.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.RescueSignal,
+                    "camp.signal-anchor",
+                    "signal.upgrade",
+                    session.TryUpgradeSignal),
+                "Playtest log verification tracks both rescue signal stages and the immediate result");
+            recorder.ObserveFacilityTarget(PrototypeCampInteractionTargetKind.None, string.Empty, false);
+            recorder.Dispose();
+
+            HashSet<string> names = new HashSet<string>(StringComparer.Ordinal);
+            bool sawEnglishGamepad = false;
+            int expectedSequence = 1;
+            IReadOnlyList<string> lines = recorder.VerificationLines;
+            Assert(lines.Count > 20, "JSONL verification produces one compact record per event");
+            for (int index = 0; index < lines.Count; index += 1)
+            {
+                string line = lines[index];
+                Assert(!string.IsNullOrWhiteSpace(line) && !line.Contains("\n") && line[0] == '{' && line[line.Length - 1] == '}',
+                    "Each JSONL entry is exactly one JSON object line");
+                PrototypePlaytestEventRecord record = JsonUtility.FromJson<PrototypePlaytestEventRecord>(line);
+                Assert(record != null && record.sequence == expectedSequence++, "JSONL sequence is stable and monotonic");
+                Assert(record.state_before != null && record.state_after != null &&
+                       record.state_before.fingerprint.Length == 64 && record.state_after.fingerprint.Length == 64,
+                    "Every event includes before and after SHA-256 state fingerprints");
+                Assert(!line.Contains("persistentDataPath") && !line.Contains("user_name") && !line.Contains("joystick_name"),
+                    "Event payload contains no local path, user name, or hardware identifier field");
+                names.Add(record.event_name);
+                sawEnglishGamepad |= record.locale == PrototypeLocalization.EnglishLocaleCode && record.input_device == "gamepad";
+            }
+
+            string[] requiredNames =
+            {
+                PrototypePlaytestEventNames.LogStarted,
+                PrototypePlaytestEventNames.LogStopped,
+                PrototypePlaytestEventNames.SessionStarted,
+                PrototypePlaytestEventNames.DayChanged,
+                PrototypePlaytestEventNames.DaySurvived,
+                PrototypePlaytestEventNames.PhaseChanged,
+                PrototypePlaytestEventNames.ResourceChanged,
+                PrototypePlaytestEventNames.FacilityProximityEntered,
+                PrototypePlaytestEventNames.FacilityProximityExited,
+                PrototypePlaytestEventNames.FacilityPopupOpened,
+                PrototypePlaytestEventNames.FacilityPopupClosed,
+                PrototypePlaytestEventNames.FacilityActionCompleted,
+                PrototypePlaytestEventNames.FacilityActionRejected,
+                PrototypePlaytestEventNames.CraftingCompleted,
+                PrototypePlaytestEventNames.ResearchCompleted,
+                PrototypePlaytestEventNames.BagCapacityUpgraded,
+                PrototypePlaytestEventNames.SwimmingEntered,
+                PrototypePlaytestEventNames.SwimmingExited,
+                PrototypePlaytestEventNames.VineBarrierBlocked,
+                PrototypePlaytestEventNames.VineBarrierCleared,
+                PrototypePlaytestEventNames.SignalStageOneCompleted,
+                PrototypePlaytestEventNames.SignalStageTwoCompleted,
+                PrototypePlaytestEventNames.RunCompleted
+            };
+            for (int index = 0; index < requiredNames.Length; index += 1)
+            {
+                Assert(names.Contains(requiredNames[index]), "Required stable playtest event is covered: " + requiredNames[index]);
+            }
+            Assert(sawEnglishGamepad, "Locale and input device are independent fields on the same event");
         }
 
         [MenuItem("Kim Survival/Build Windows Prototype")]
@@ -945,6 +1091,45 @@ namespace KimSurvival.EditorTools
             }
 
             Debug.Log("[Kim Survival] Windows build succeeded: " + options.locationPathName);
+        }
+
+        public static void BuildWindowsReleaseLogVerification()
+        {
+            PrototypeLocalizationAssetBuilder.SyncAssets();
+            SyncCompactPromptSkin();
+            if (!File.Exists(ScenePath))
+            {
+                CreateProject();
+            }
+
+            Directory.CreateDirectory("Builds/WindowsReleaseVerification");
+            Directory.CreateDirectory(VerificationFolder);
+            BuildPlayerOptions options = new BuildPlayerOptions
+            {
+                scenes = new[] { ScenePath },
+                locationPathName = "Builds/WindowsReleaseVerification/KimSurvivalIsland.exe",
+                target = BuildTarget.StandaloneWindows64,
+                options = BuildOptions.None
+            };
+
+            BuildReport report = BuildPipeline.BuildPlayer(options);
+            BuildSummary summary = report.summary;
+            string text =
+                "Result: " + summary.result + "\n" +
+                "Output: " + options.locationPathName + "\n" +
+                "Development: false\n" +
+                "Size: " + summary.totalSize + " bytes\n" +
+                "Duration: " + summary.totalTime + "\n" +
+                "Errors: " + summary.totalErrors + "\n" +
+                "Warnings: " + summary.totalWarnings + "\n";
+            File.WriteAllText(Path.Combine(VerificationFolder, "windows-release-log-verification-build.txt"), text);
+
+            if (summary.result != BuildResult.Succeeded)
+            {
+                throw new InvalidOperationException("Windows release verification build failed. " + text);
+            }
+
+            Debug.Log("[Kim Survival] Windows release log verification build succeeded: " + options.locationPathName);
         }
 
         private static Sprite LoadRequiredSprite(string path)

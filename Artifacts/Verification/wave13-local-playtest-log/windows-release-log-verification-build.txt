@@ -1,0 +1,7 @@
+Result: Succeeded
+Output: Builds/WindowsReleaseVerification/KimSurvivalIsland.exe
+Development: false
+Size: 120767203 bytes
+Duration: 00:00:07.2000586
+Errors: 0
+Warnings: 0

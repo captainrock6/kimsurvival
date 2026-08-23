@@ -91,6 +91,7 @@ namespace KimSurvival
 
         private GameSession session;
         private PrototypeLocalization localization;
+        private PrototypePlaytestEventRecorder playtestLog;
         private Camera worldCamera;
         private Canvas canvas;
         private Sprite squareSprite;
@@ -152,6 +153,7 @@ namespace KimSurvival
         private PrototypeCampInteractionTargetKind modulePreviewReturnTargetKind;
         private string modulePreviewReturnTargetId = string.Empty;
         private bool modulePreviewCanResume;
+        private bool vineBarrierClearLogged;
         private PrototypeCampPromptSkin campPromptSkin;
         private Image campProximityFrameImage;
 
@@ -166,6 +168,14 @@ namespace KimSurvival
             session = new GameSession();
             localization = new PrototypeLocalization();
             localization.LocaleChanged += HandleLocaleChanged;
+            playtestLog = PrototypePlaytestEventRecorder.CreateDevelopment(
+                session,
+                delegate { return localization.CurrentLocaleCode; },
+                delegate { return playerInput.ActiveDevice; });
+            if (playtestLog != null)
+            {
+                playtestLog.RecordSessionStarted();
+            }
             campPromptSkin = Resources.Load<PrototypeCampPromptSkin>(CampContextPromptSkinResource);
             squareSprite = MakeSquareSprite();
             BuildCamera();
@@ -208,6 +218,11 @@ namespace KimSurvival
             {
                 RefreshHud();
             }
+
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState();
+            }
         }
 
         public void ConfigureCampBackgroundLayers(Sprite background, Sprite gameplayGround, Sprite foreground)
@@ -234,6 +249,12 @@ namespace KimSurvival
 
         private void OnDestroy()
         {
+            if (playtestLog != null)
+            {
+                playtestLog.Dispose();
+                playtestLog = null;
+            }
+
             if (localization != null)
             {
                 localization.LocaleChanged -= HandleLocaleChanged;
@@ -380,20 +401,20 @@ namespace KimSurvival
             actionTitleText = CreateText("설비 팝업 제목", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -70f), new Vector2(-24f, -12f), 36, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
             campPopupDetailText = CreateText("설비 팝업 설명", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -154f), new Vector2(-24f, -76f), 28, TextAnchor.UpperLeft, new Color(0.9f, 0.96f, 0.91f));
 
-            campfireButton = CreateCampPopupButton("모닥불 건설·재배치", delegate { ExecuteConfirmedPopupTransition(delegate { BeginCampPlacement(StructureKind.Campfire); }); });
-            workbenchButton = CreateCampPopupButton("작업대 건설·재배치", delegate { ExecuteConfirmedPopupTransition(delegate { BeginCampPlacement(StructureKind.Workbench); }); });
-            rainButton = CreateCampPopupButton("빗물받이 건설·재배치", delegate { ExecuteConfirmedPopupTransition(delegate { BeginCampPlacement(StructureKind.RainCollector); }); });
-            researchAxeButton = CreateCampPopupButton("돌도끼 연구", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryResearch(TechKind.StoneAxe); }); });
-            craftAxeButton = CreateCampPopupButton("돌도끼 제작", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryCraft(TechKind.StoneAxe); }); });
-            researchRopeButton = CreateCampPopupButton("밧줄 연구", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryResearch(TechKind.Rope); }); });
-            craftRopeButton = CreateCampPopupButton("밧줄 제작", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryCraft(TechKind.Rope); }); });
-            signalButton = CreateCampPopupButton("구조 신호 자원 투입", delegate { ExecuteConfirmedPopupAction(TryExecuteSignalAction); });
+            campfireButton = CreateCampPopupButton("모닥불 건설·재배치", delegate { ExecuteConfirmedPopupTransition("placement.campfire", delegate { BeginCampPlacement(StructureKind.Campfire); }); });
+            workbenchButton = CreateCampPopupButton("작업대 건설·재배치", delegate { ExecuteConfirmedPopupTransition("placement.workbench", delegate { BeginCampPlacement(StructureKind.Workbench); }); });
+            rainButton = CreateCampPopupButton("빗물받이 건설·재배치", delegate { ExecuteConfirmedPopupTransition("placement.rain_collector", delegate { BeginCampPlacement(StructureKind.RainCollector); }); });
+            researchAxeButton = CreateCampPopupButton("돌도끼 연구", delegate { ExecuteConfirmedPopupAction("research.stone_axe", delegate { return session.TryResearch(TechKind.StoneAxe); }); });
+            craftAxeButton = CreateCampPopupButton("돌도끼 제작", delegate { ExecuteConfirmedPopupAction("craft.stone_axe", delegate { return session.TryCraft(TechKind.StoneAxe); }); });
+            researchRopeButton = CreateCampPopupButton("밧줄 연구", delegate { ExecuteConfirmedPopupAction("research.rope", delegate { return session.TryResearch(TechKind.Rope); }); });
+            craftRopeButton = CreateCampPopupButton("밧줄 제작", delegate { ExecuteConfirmedPopupAction("craft.rope", delegate { return session.TryCraft(TechKind.Rope); }); });
+            signalButton = CreateCampPopupButton("구조 신호 자원 투입", delegate { ExecuteConfirmedPopupAction("signal.upgrade", TryExecuteSignalAction); });
             modulePreviewButton = CreateCampPopupButton("방 모듈 증축 미리보기", ExecuteConfirmedModulePreviewTransition);
-            eatButton = CreateCampPopupButton("식량 먹기", delegate { ExecuteConfirmedPopupAction(session.UseFood); });
-            prepareCampfireButton = CreateCampPopupButton("생존 준비", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.Campfire, "message.camp.use.campfire"); }); });
-            collectRainButton = CreateCampPopupButton("빗물 받기", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain"); }); });
-            repairButton = CreateCampPopupButton("수리", delegate { ExecuteConfirmedPopupAction(ExecuteRepairAction); });
-            bagUpgradeButton = CreateCampPopupButton("가방 용량 확장", delegate { ExecuteConfirmedPopupAction(session.TryUpgradeBagCapacity); });
+            eatButton = CreateCampPopupButton("식량 먹기", delegate { ExecuteConfirmedPopupAction("survival.eat", session.UseFood); });
+            prepareCampfireButton = CreateCampPopupButton("생존 준비", delegate { ExecuteConfirmedPopupAction("survival.prepare_campfire", delegate { return TryPrepareDayBenefit(StructureKind.Campfire, "message.camp.use.campfire"); }); });
+            collectRainButton = CreateCampPopupButton("빗물 받기", delegate { ExecuteConfirmedPopupAction("survival.collect_rain", delegate { return TryPrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain"); }); });
+            repairButton = CreateCampPopupButton("수리", delegate { ExecuteConfirmedPopupAction("workbench.repair", ExecuteRepairAction); });
+            bagUpgradeButton = CreateCampPopupButton("가방 용량 확장", delegate { ExecuteConfirmedPopupAction("bag.capacity_upgrade", session.TryUpgradeBagCapacity); });
             cancelPopupButton = CreateCampPopupButton("취소", CancelCampPopup);
 
             bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 170f), new Vector2(-30f, 795f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
@@ -409,7 +430,7 @@ namespace KimSurvival
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
-            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campInteraction.Reset(); campModuleExpansion.Reset(); ResetModulePreviewReturnRoute(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
+            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, RestartSession);
         }
 
         private void HandlePhaseButton()
@@ -436,6 +457,28 @@ namespace KimSurvival
                     campUse.ClearDayBenefits();
                     campFeedback = PrototypeLocalizedText.Empty;
                 }
+            }
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("phase_button");
+            }
+            RefreshAll();
+        }
+
+        private void RestartSession()
+        {
+            session.Reset();
+            campPlacement.Reset();
+            campUse.Reset();
+            campInteraction.Reset();
+            campModuleExpansion.Reset();
+            ResetModulePreviewReturnRoute();
+            campFeedback = PrototypeLocalizedText.Empty;
+            vineBarrierClearLogged = false;
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("session.restart");
+                playtestLog.RecordSessionStarted();
             }
             RefreshAll();
         }
@@ -1301,6 +1344,7 @@ namespace KimSurvival
             {
                 campInteractionTargets.Clear();
                 campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
+                ObserveCampInteractionTarget();
                 return;
             }
 
@@ -1345,6 +1389,18 @@ namespace KimSurvival
                     new Vector2(startRoom ? definition.StartConnectorDisplayX : definition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY)));
             }
             campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
+            ObserveCampInteractionTarget();
+        }
+
+        private void ObserveCampInteractionTarget()
+        {
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveFacilityTarget(
+                    campInteraction.ActiveTargetKind,
+                    campInteraction.ActiveTargetId,
+                    campInteraction.HasProximityPrompt);
+            }
         }
 
         private void AddCampInteractionTarget(StructureKind structure, PrototypeCampInteractionTargetKind target, bool startRoom)
@@ -1363,7 +1419,16 @@ namespace KimSurvival
         {
             if (campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleConnector)
             {
-                TraverseCommittedModule();
+                PrototypeCampInteractionTargetKind connectorKind = campInteraction.ActiveTargetKind;
+                string connectorId = campInteraction.ActiveTargetId;
+                if (playtestLog != null)
+                {
+                    playtestLog.TrackFacilityTransition(connectorKind, connectorId, "module.traverse", TraverseCommittedModule);
+                }
+                else
+                {
+                    TraverseCommittedModule();
+                }
                 return true;
             }
 
@@ -1372,6 +1437,10 @@ namespace KimSurvival
                 return false;
             }
 
+            if (playtestLog != null)
+            {
+                playtestLog.RecordPopupOpened(campInteraction.OpenPopupKind, campInteraction.OpenPopupTargetId);
+            }
             RefreshAll();
             return true;
         }
@@ -1383,7 +1452,13 @@ namespace KimSurvival
                 return;
             }
 
+            PrototypeCampInteractionTargetKind kind = campInteraction.OpenPopupKind;
+            string targetId = campInteraction.OpenPopupTargetId;
             campInteraction.ClosePopup();
+            if (playtestLog != null)
+            {
+                playtestLog.RecordPopupClosed(kind, targetId, "cancelled");
+            }
             RefreshAll();
         }
 
@@ -1395,7 +1470,12 @@ namespace KimSurvival
             }
 
             campFeedback = PrototypeLocalizedText.Empty;
-            if (!BeginCampModulePreview())
+            PrototypeCampInteractionTargetKind kind = campInteraction.OpenPopupKind;
+            string targetId = campInteraction.OpenPopupTargetId;
+            bool began = playtestLog != null
+                ? playtestLog.TrackFacilityAction(kind, targetId, "module.preview", BeginCampModulePreview)
+                : BeginCampModulePreview();
+            if (!began)
             {
                 campInteraction.PrepareOpenPopupForReturn();
             }
@@ -1488,6 +1568,10 @@ namespace KimSurvival
             campFeedback = new PrototypeLocalizedText(
                 "module.message.committed",
                 localization.Format(ModuleNameKey(evaluation.Definition.Archetype)));
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("module.commit." + evaluation.Definition.Archetype.ToString().ToLowerInvariant());
+            }
             RefreshAll();
             return true;
         }
@@ -1640,29 +1724,47 @@ namespace KimSurvival
             return "module.commit." + status.ToString().ToLowerInvariant();
         }
 
-        private void ExecuteConfirmedPopupTransition(Action transition)
+        private void ExecuteConfirmedPopupTransition(string actionName, Action transition)
         {
             if (!campInteraction.TryConfirmAction())
             {
                 return;
             }
 
+            PrototypeCampInteractionTargetKind kind = campInteraction.OpenPopupKind;
+            string targetId = campInteraction.OpenPopupTargetId;
             campInteraction.ClosePopup();
             campFeedback = PrototypeLocalizedText.Empty;
-            transition();
+            if (playtestLog != null)
+            {
+                playtestLog.TrackFacilityTransition(kind, targetId, actionName, transition);
+                playtestLog.RecordPopupClosed(kind, targetId, "action_completed");
+            }
+            else
+            {
+                transition();
+            }
             RefreshAll();
         }
 
-        private void ExecuteConfirmedPopupAction(Func<bool> action)
+        private void ExecuteConfirmedPopupAction(string actionName, Func<bool> action)
         {
             if (!campInteraction.TryConfirmAction())
             {
                 return;
             }
 
+            PrototypeCampInteractionTargetKind kind = campInteraction.OpenPopupKind;
+            string targetId = campInteraction.OpenPopupTargetId;
             campFeedback = PrototypeLocalizedText.Empty;
-            action();
+            bool succeeded = playtestLog != null
+                ? playtestLog.TrackFacilityAction(kind, targetId, actionName, action)
+                : action();
             campInteraction.ClosePopup();
+            if (playtestLog != null)
+            {
+                playtestLog.RecordPopupClosed(kind, targetId, succeeded ? "action_completed" : "action_rejected");
+            }
             RefreshAll();
         }
 
@@ -1748,6 +1850,10 @@ namespace KimSurvival
             }
 
             campFeedback = PrototypeLocalizedText.Empty;
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("placement.commit." + kind.ToString().ToLowerInvariant());
+            }
             RefreshAll();
             return true;
         }
@@ -1755,6 +1861,7 @@ namespace KimSurvival
         private void CreateSearchWorld()
         {
             playerTraversal.Reset();
+            vineBarrierClearLogged = false;
             worldCamera.transform.position = new Vector3(-3.8f, 0f, -10f);
             worldCamera.backgroundColor = new Color(0.35f, 0.74f, 0.9f);
             CreateRect("하늘 · " + AssetSearchBackground, new Vector2(4f, 1.5f), new Vector2(36f, 8.2f), new Color(0.35f, 0.74f, 0.9f), -20);
@@ -1824,6 +1931,22 @@ namespace KimSurvival
             if (traversalStep.ReachedBlockedPath)
             {
                 messageText.text = localization.Format("message.barrier.axe_blocked");
+                if (playtestLog != null)
+                {
+                    playtestLog.RecordVineBarrierBlocked();
+                }
+            }
+            if (session.HasAxe && !vineBarrierClearLogged && playerTraversal.X > 8.05f)
+            {
+                vineBarrierClearLogged = true;
+                if (playtestLog != null)
+                {
+                    playtestLog.RecordVineBarrierCleared();
+                }
+            }
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("exploration.traversal");
             }
 
             playerPresentation.Apply(traversalStep.Presentation);
@@ -1842,6 +1965,10 @@ namespace KimSurvival
             if (actions.ReturnPressed)
             {
                 session.ReturnToCamp(false);
+                if (playtestLog != null)
+                {
+                    playtestLog.ObserveState("expedition.return");
+                }
                 RefreshAll();
                 return;
             }
@@ -1879,6 +2006,10 @@ namespace KimSurvival
             }
 
             GatherResult result = session.TryGather(nearest.Kind, nearest.Amount, nearest.Water);
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("gather." + nearest.Kind.ToString().ToLowerInvariant());
+            }
             if (result != GatherResult.Rejected)
             {
                 nearest.Collected = true;
@@ -1910,6 +2041,16 @@ namespace KimSurvival
             string campWorkbenchEnglishScreenshotPath,
             string campCampfireKoreanScreenshotPath)
         {
+            bool ownsVerificationLog = playtestLog == null;
+            if (ownsVerificationLog)
+            {
+                playtestLog = PrototypePlaytestEventRecorder.CreateForVerification(
+                    session,
+                    delegate { return localization.CurrentLocaleCode; },
+                    delegate { return playerInput.ActiveDevice; });
+                playtestLog.RecordSessionStarted();
+            }
+
             string campProximityScreenshotFolder = Path.GetDirectoryName(campProximityKoreanScreenshotPath ?? string.Empty);
             string campProximityEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
@@ -2619,7 +2760,41 @@ namespace KimSurvival
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
             RequireFiveDayRuntimeContract();
-            return "PASS · Wave 12 Day 3·4 생존, Day 5 정산 실패, 조기 구조 즉시 성공과 채택 compact-a sliced 프레임을 확인. glyph 44x44/TMP 분리, locale은 행동만·합성 gamepad는 glyph만 갱신하고 ko/en/qps-long 1280x800 한 줄 무잘림을 통과했다. Wave 11 직접 연결 슬롯·팝업·preview Cancel, 제한적 자유 배치, 가방 4→6, 수색·수영·장벽·구조 신호 원자성을 회귀 확인";
+            if (ownsVerificationLog)
+            {
+                RequirePlaytestLogRuntimeIntegration(playtestLog.VerificationLines);
+                playtestLog.Dispose();
+                playtestLog = null;
+            }
+            return "PASS · Wave 13 개발 빌드 전용 JSONL의 실제 근접 target·popup·action·자원 계측 경계를 Play Mode에서 확인. Wave 12 Day 3·4 생존, Day 5 정산 실패, 조기 구조 즉시 성공과 채택 compact-a sliced 프레임을 확인. glyph 44x44/TMP 분리, locale은 행동만·합성 gamepad는 glyph만 갱신하고 ko/en/qps-long 1280x800 한 줄 무잘림을 통과했다. Wave 11 직접 연결 슬롯·팝업·preview Cancel, 제한적 자유 배치, 가방 4→6, 수색·수영·장벽·구조 신호 원자성을 회귀 확인";
+        }
+
+        private static void RequirePlaytestLogRuntimeIntegration(IReadOnlyList<string> lines)
+        {
+            HashSet<string> names = new HashSet<string>(StringComparer.Ordinal);
+            bool sawTarget = false;
+            bool sawActionContext = false;
+            for (int index = 0; index < lines.Count; index += 1)
+            {
+                PrototypePlaytestEventRecord record = JsonUtility.FromJson<PrototypePlaytestEventRecord>(lines[index]);
+                if (record == null)
+                {
+                    continue;
+                }
+
+                names.Add(record.event_name);
+                sawTarget |= !string.IsNullOrEmpty(record.target_id) && !string.IsNullOrEmpty(record.target_kind);
+                sawActionContext |= record.event_name == PrototypePlaytestEventNames.FacilityActionCompleted &&
+                                    !string.IsNullOrEmpty(record.action);
+            }
+
+            Require(names.Contains(PrototypePlaytestEventNames.FacilityProximityEntered) &&
+                    names.Contains(PrototypePlaytestEventNames.FacilityPopupOpened) &&
+                    names.Contains(PrototypePlaytestEventNames.FacilityPopupClosed) &&
+                    names.Contains(PrototypePlaytestEventNames.FacilityActionCompleted) &&
+                    names.Contains(PrototypePlaytestEventNames.ResourceChanged) &&
+                    sawTarget && sawActionContext,
+                "Wave 13 실제 Play Mode 설비 근접·팝업·행동·자원 JSONL 계측 연결");
         }
 
         private void RequireFiveDayRuntimeContract()
