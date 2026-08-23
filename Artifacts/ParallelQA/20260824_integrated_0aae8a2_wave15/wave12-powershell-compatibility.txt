@@ -1,0 +1,9 @@
+Wave 12 PowerShell compatibility preflight
+Run ID: 20260824_integrated_0aae8a2_wave15
+Baseline: 0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba
+PowerShell: Core 7.6.4
+Mode: Full
+Preflight exit: 0
+Preflight JSON UTF-8 no BOM: True
+Preflight TXT UTF-8 no BOM: True
+Result: PASS

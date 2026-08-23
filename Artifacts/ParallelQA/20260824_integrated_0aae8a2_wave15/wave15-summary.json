@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 15 50-day campaign and expedition-map RED-first gate",
+  "runId": "20260824_integrated_0aae8a2_wave15",
+  "baselineCommit": "0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba",
+  "startedUtc": "2026-08-23T15:51:31.7670585Z",
+  "completedUtc": "2026-08-23T15:53:21.9515639Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "compatibility": "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+  },
+  "executionPolicy": "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "currentGreenLocks": {
+    "qpsLong": "10/10 PASS",
+    "koEnPlacement": "PASS via fresh Wave14/Wave3",
+    "campPromptPlacementModuleBagSwim": "PASS (Wave 12 Day-5 assertion superseded by canonical Day 50)",
+    "compile": "PASS 0 errors",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS",
+    "addressables": "PASS load/build/post-smoke"
+  },
+  "expectedGapIds": [],
+  "expectedGaps": [],
+  "productFailures": [],
+  "infrastructureFailures": [],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "greenTransition": "On a post-implementation baseline, the same command must report infrastructure PASS, fresh Wave14 10/10 PASS, and zero Wave15 EXPECTED_GAP/FAIL checks.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba' -MinimumSmokeSeconds 5",
+  "stages": [
+    {
+      "name": "wave14-full-regression-prerequisite",
+      "startedUtc": "2026-08-23T15:51:31.7869994Z",
+      "completedUtc": "2026-08-23T15:53:00.3706942Z",
+      "exitCode": 0,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave14QpsGlobalLayoutGate.ps1\" -RunId 20260824_integrated_0aae8a2_wave15 -BaselineCommit 0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 5",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\wave15-wave14-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\wave15-wave14-stderr.log"
+    },
+    {
+      "name": "wave15-campaign-map-edit",
+      "startedUtc": "2026-08-23T15:53:00.3941306Z",
+      "completedUtc": "2026-08-23T15:53:08.0267837Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\unity-wave15-edit.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\wave15-edit-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\wave15-edit-stderr.log"
+    },
+    {
+      "name": "wave15-campaign-map-play",
+      "startedUtc": "2026-08-23T15:53:08.0319929Z",
+      "completedUtc": "2026-08-23T15:53:21.9036455Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\unity-wave15-play.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\wave15-play-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\wave15-play-stderr.log"
+    }
+  ],
+  "exitCode": 0
+}

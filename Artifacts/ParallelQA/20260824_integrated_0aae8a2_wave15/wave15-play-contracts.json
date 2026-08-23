@@ -1,0 +1,99 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 15 campaign/map RED-first Play contracts",
+    "runId": "20260824_integrated_0aae8a2_wave15",
+    "baselineCommit": "0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T15:53:15.2694947Z",
+    "completedUtc": "2026-08-23T15:53:16.5421331Z",
+    "overall": "GREEN",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 5,
+    "expectedGaps": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 2,
+    "greenCompletionCondition": "Infrastructure PASS, zero EXPECTED_GAP/FAIL, Day 50/map/three-region/RNG/privacy contracts PASS, and the fresh Wave 14 prerequisite remains 10/10 GREEN.",
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "W15-P01.map_proximity_state_machine",
+            "matrix": "map proximity",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "At >1.25m the map prompt is hidden; within 1.25m exactly one map prompt is active; Interact opens the map; Cancel restores the same player position and run snapshot",
+            "actual": "target=ExpeditionMap/camp.expedition-map at=(5.250,-2.180); farKind=RescueSignal; farHidden=True; nearSingle=True; opened=True; cards=activeTexts=7; regions=True; semantics=True; exactForecastAmounts=False; cancelRestored=True; fingerprint=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None",
+            "reproduction": "At the map target, test distance=1.26m, distance=1.00m, Interact, then Cancel while recording target/prompt/popup/player/session fingerprints.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+        },
+        {
+            "id": "W15-P02.region_card_player_semantics",
+            "matrix": "map card content",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The opened map exposes beach/forest/shallow-sea cards with category/abundance/time/risk/weather/gear/special/unknown semantics and no exact reward amount",
+            "actual": "target=ExpeditionMap/camp.expedition-map at=(5.250,-2.180); farKind=RescueSignal; farHidden=True; nearSingle=True; opened=True; cards=activeTexts=7; regions=True; semantics=True; exactForecastAmounts=False; cancelRestored=True; fingerprint=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None",
+            "reproduction": "Open the map in ko/en/qps-long and inspect active node/card TMP text plus stable semantic IDs.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W15-P03.keyboard_gamepad_focus_parity",
+            "matrix": "dual input",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Keyboard/mouse and synthetic gamepad select the same region/action target and change only glyph/focus presentation",
+            "actual": "keyboard=[E]; gamepad=[X]; target=ExpeditionMap/camp.expedition-map->ExpeditionMap/camp.expedition-map; focus=expeditionMapSelection=PrototypeExpeditionMapSelection{FocusedIndex=0;FocusedRegionId=Beach;IsOpen=False}->expeditionMapSelection=PrototypeExpeditionMapSelection{FocusedIndex=0;FocusedRegionId=Beach;IsOpen=False}; progress=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None",
+            "reproduction": "Latch one region, switch KeyboardMouse to synthetic Gamepad, and compare target, selected region, action, and session fingerprints.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs"
+        },
+        {
+            "id": "W15-P04.ko_en_qps_1280_layout",
+            "matrix": "1280x800 map layout",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Fresh ko/en/qps-long far/near/popup captures are exact 1280x800 with TMP overflow=0, no offscreen text, and no material text overlap",
+            "actual": "captures=9/9; overflow=0; offscreen=0; textOverlap=0",
+            "reproduction": "Open every wave15-*-1280x800.png at 1:1 and compare the recorded overflow/offscreen/overlap counts.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W15-I03.fresh_capture_evidence",
+            "matrix": "evidence production",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The current run emits at least one exact 1280x800 PNG per locale even while the product contract is RED",
+            "actual": "captures=wave15-ko-map-far-1280x800.png,wave15-ko-map-near-1280x800.png,wave15-ko-map-popup-1280x800.png,wave15-en-map-far-1280x800.png,wave15-en-map-near-1280x800.png,wave15-en-map-popup-1280x800.png,wave15-qps-long-map-far-1280x800.png,wave15-qps-long-map-near-1280x800.png,wave15-qps-long-map-popup-1280x800.png",
+            "reproduction": "Inspect PNG headers and RunId ownership in the fresh evidence folder.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Wave15CampaignMapRedFirstRunner.cs"
+        },
+        {
+            "id": "W15-HW01.physical_gamepad",
+            "matrix": "input hardware",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "A human completes map approach, region focus, confirm, and cancel using a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows development player with an actual gamepad and record human actuation evidence.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        },
+        {
+            "id": "W15-S01.steam_release",
+            "matrix": "external release",
+            "status": "UNVERIFIED",
+            "classification": "EXTERNAL_RELEASE_GAP",
+            "severity": "P0",
+            "expected": "Steamworks App ID, Depot, Input, Cloud, Achievements, permissions, and store evidence are configured and approved",
+            "actual": "Steam integration and release evidence remain outside this task; readiness is NOT_READY.",
+            "reproduction": "Complete the separately authorized Steam release checklist.",
+            "recommendedFiles": "external Steamworks account and release evidence"
+        }
+    ]
+}

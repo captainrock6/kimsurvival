@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "runId": "20260824_integrated_0aae8a2_wave15",
+  "baselineCommit": "0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba",
+  "command": "    & (Join-Path $PSScriptRoot 'Invoke-Wave5WindowsSmoke.ps1') -RunId $RunId -BaselineCommit $BaselineCommit -MinimumSeconds $MinimumSmokeSeconds\r\n",
+  "startedUtc": "2026-08-23T15:52:46.8782829Z",
+  "completedUtc": "2026-08-23T15:52:52.2201150Z",
+  "minimumSeconds": 5,
+  "observedSeconds": 5.342,
+  "executable": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824_integrated_0aae8a2_wave15\\WindowsBuild\\KimSurvivalIsland.exe",
+  "executableExists": true,
+  "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "processId": 26176,
+  "windowStyle": "Hidden",
+  "resolution": "1280x800 windowed",
+  "aliveAtMinimum": true,
+  "respondingAtMinimum": true,
+  "earlyExit": false,
+  "exitCode": null,
+  "launchError": "",
+  "result": "PASS"
+}

@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260824_integrated_0aae8a2_wave15
+Started UTC: 2026-08-23T15:51:40.3536693Z
+Completed UTC: 2026-08-23T15:51:40.3741844Z
+Unity: 6000.4.9f1
+Baseline commit: 0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260824_integrated_0aae8a2_wave15\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260824_integrated_0aae8a2_wave15\unity-compile.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

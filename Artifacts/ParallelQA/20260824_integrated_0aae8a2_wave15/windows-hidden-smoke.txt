@@ -1,0 +1,12 @@
+Wave 5 Windows hidden smoke
+Run ID: 20260824_integrated_0aae8a2_wave15
+Baseline: 0aae8a22f92ab3d4f1ad78736dd95a2c0f2e9eba
+Command:     & (Join-Path $PSScriptRoot 'Invoke-Wave5WindowsSmoke.ps1') -RunId $RunId -BaselineCommit $BaselineCommit -MinimumSeconds $MinimumSmokeSeconds
+
+Result: PASS
+Resolution: 1280x800 windowed
+Required seconds: 5
+Observed seconds: 5.342
+Alive at minimum: True
+Responding at minimum: True
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d
