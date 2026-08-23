@@ -10,7 +10,9 @@ namespace KimSurvival
         Campfire,
         Workbench,
         RainCollector,
-        RescueSignal
+        RescueSignal,
+        StoragePlanning,
+        ModuleConnector
     }
 
     public enum PrototypeCampInteractionAction
@@ -25,7 +27,8 @@ namespace KimSurvival
         Repair,
         UpgradeBag,
         CollectRain,
-        UpgradeSignal
+        UpgradeSignal,
+        PreviewModule
     }
 
     public interface IPrototypeCampInteractionTarget
@@ -69,6 +72,11 @@ namespace KimSurvival
 
             switch (target)
             {
+                case PrototypeCampInteractionTargetKind.StoragePlanning:
+                    return action == PrototypeCampInteractionAction.BuildOrRelocate ||
+                           action == PrototypeCampInteractionAction.PreviewModule;
+                case PrototypeCampInteractionTargetKind.ModuleConnector:
+                    return false;
                 case PrototypeCampInteractionTargetKind.Campfire:
                     return action == PrototypeCampInteractionAction.BuildOrRelocate ||
                            action == PrototypeCampInteractionAction.Eat ||

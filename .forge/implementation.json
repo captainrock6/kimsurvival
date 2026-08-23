@@ -1613,7 +1613,7 @@
       "id": "task.feature.feature.camp-module-expansion",
       "lane": "implementation",
       "title": "위·옆·지하 방 모듈 증축 구현",
-      "description": "시작 방의 연결 슬롯에 규격화된 방 모듈을 좌우·위·지하 방향으로 미리보기하고 비용과 접속·통로 규칙을 통과한 위치에 확정한다. 모듈 내부에서는 일반 설비의 제한적 자유 배치를 유지한다.",
+      "description": "시작 방의 고정 연결 슬롯에서 표준 방 모듈의 위층·옆방·지하실 후보를 현장 오버레이로 미리보고, 기하·연결·지형·통로와 데이터 비용을 통과한 후보 하나를 원자적으로 확정한다.",
       "priority": "high",
       "dependencies": [
         "task.feature.feature.camp-building",
@@ -1632,13 +1632,26 @@
         "연결 슬롯, 비용, 겹침과 출입 통로 규칙을 모두 통과한 모듈만 확정된다.",
         "확정된 모듈로 김씨가 이동할 수 있고 기존 설비와 자원 상태가 보존된다.",
         "새 모듈의 호환 구역에 일반 설비를 제한적으로 자유 배치할 수 있다.",
-        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다."
+        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다.",
+        "첫 프로토타입 좌표계에서 start 18×5u, upper (0,5), side (18,0), basement (0,-5)와 선언된 reciprocal slot이 일치한다.",
+        "위·옆·지하 후보를 모두 순회하고 유효·무효 원인을 본 뒤 하나만 확정하며 추가 확정은 PROTOTYPE_LIMIT로 거부한다.",
+        "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
+        "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
+        "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
+        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"
+      ],
+      "evidence": [
+        "PASS: deterministic Edit checks, full Play Mode survival regression, 1280x800 KO/EN/qps-long module captures, Windows development build 0 errors/0 warnings, 8-second launch smoke."
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T04:50:04.738Z"
+      "status": "done",
+      "createdAt": "2026-08-23T04:35:59.187Z",
+      "updatedAt": "2026-08-23T08:14:57.365Z",
+      "note": "",
+      "completedAt": "2026-08-23T08:14:57.365Z"
     },
     {
       "id": "task.qa.feature.camp-module-expansion",
@@ -1658,12 +1671,20 @@
         "연결 슬롯, 비용, 겹침과 출입 통로 규칙을 모두 통과한 모듈만 확정된다.",
         "확정된 모듈로 김씨가 이동할 수 있고 기존 설비와 자원 상태가 보존된다.",
         "새 모듈의 호환 구역에 일반 설비를 제한적으로 자유 배치할 수 있다.",
-        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다."
+        "1280×800에서 확장 미리보기와 기존 공간을 함께 읽을 수 있다.",
+        "첫 프로토타입 좌표계에서 start 18×5u, upper (0,5), side (18,0), basement (0,-5)와 선언된 reciprocal slot이 일치한다.",
+        "위·옆·지하 후보를 모두 순회하고 유효·무효 원인을 본 뒤 하나만 확정하며 추가 확정은 PROTOTYPE_LIMIT로 거부한다.",
+        "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
+        "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
+        "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
+        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "ready",
+      "createdAt": "2026-08-23T04:35:59.187Z",
+      "updatedAt": "2026-08-23T08:14:57.366Z"
     },
     {
       "id": "task.postslice.steam-release-readiness",
@@ -1695,5 +1716,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T04:50:04.738Z"
+  "updatedAt": "2026-08-23T08:14:57.366Z"
 }

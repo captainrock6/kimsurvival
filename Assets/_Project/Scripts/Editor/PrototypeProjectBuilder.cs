@@ -278,6 +278,26 @@ namespace KimSurvival.EditorTools
                    PrototypeInputPromptKeys.CampPopup(PrototypeInputDevice.Gamepad) == "controls.camp.popup.gamepad",
                 "Keyboard/mouse and gamepad converge on the same contextual prompt and popup state machine");
 
+            PrototypeCampModulePreviewActions keyboardModuleActions = PrototypeCampModulePreviewActions.FromRaw(new PrototypeRawCampModulePreviewInput
+            {
+                KeyboardNext = true,
+                KeyboardConfirm = true,
+                KeyboardCancel = true
+            });
+            PrototypeCampModulePreviewActions gamepadModuleActions = PrototypeCampModulePreviewActions.FromRaw(new PrototypeRawCampModulePreviewInput
+            {
+                HorizontalAxis = 1f,
+                GamepadConfirm = true,
+                GamepadCancel = true
+            });
+            Assert(keyboardModuleActions.CycleDirection == gamepadModuleActions.CycleDirection &&
+                   keyboardModuleActions.ConfirmPressed && gamepadModuleActions.ConfirmPressed &&
+                   keyboardModuleActions.CancelPressed && gamepadModuleActions.CancelPressed,
+                "Keyboard/mouse and gamepad converge on one module-preview action snapshot");
+            Assert(PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.KeyboardMouse) == "controls.module_preview.keyboard_mouse" &&
+                   PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.Gamepad) == "controls.module_preview.gamepad",
+                "Module-preview prompts follow the active device without changing the state machine");
+
             bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
             string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
             PrototypeLocalization localization = new PrototypeLocalization();
@@ -290,12 +310,20 @@ namespace KimSurvival.EditorTools
                 Assert(localization.Format("controls.placement.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("left stick"), "English gamepad placement prompt is localized");
                 Assert(localization.Format("camp.interaction.prompt.gamepad", localization.Format("structure.workbench")).Contains("[X] Use Workbench"), "English gamepad proximity prompt is localized");
                 Assert(localization.Format("camp.popup.detail.workbench").Contains("Craft, research, repair"), "English workbench popup owns the intended actions");
+                Assert(localization.Format("controls.module_preview.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("Left stick cycle") &&
+                       localization.Format("module.economy.short", 4, 2, 2).Contains("Wood 4") &&
+                       localization.Format("world.module.preview.invalid", "Basement", "Path blocked", "Resources short").Contains("× Basement"),
+                    "English module preview, invalid shape marker, and provisional cost arguments are localized");
                 Assert(localization.Format("world.barrier.axe.need").Contains("Stone Axe Required"), "English forest barrier names the stone axe requirement");
                 Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "베이스캠프 · 제작 / 건설 / 연구", "Korean source string restores immediately");
                 Assert(localization.Format("controls.placement.keyboard_mouse", localization.DeviceName(PrototypeInputDevice.KeyboardMouse)).Contains("마우스로 위치 이동"), "Korean keyboard and mouse placement prompt is localized");
                 Assert(localization.Format("camp.interaction.prompt.keyboard_mouse", localization.Format("structure.campfire")).Contains("[E] 모닥불 사용"), "Korean keyboard proximity prompt is localized");
+                Assert(localization.Format("controls.module_preview.keyboard_mouse", localization.DeviceName(PrototypeInputDevice.KeyboardMouse)).Contains("후보 순환") &&
+                       localization.Format("module.cost.provisional", 4, 2, 2).Contains("TBD_BALANCE") &&
+                       localization.Format("world.module.preview.valid", "위층 방", "유효", "확정 가능").Contains("◇ 위층 방"),
+                    "Korean module preview, valid shape marker, and explicit provisional balance label are localized");
                 Assert(localization.Format("world.barrier.axe.need").Contains("돌도끼 필요"), "Korean forest barrier names the stone axe requirement");
                 Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
@@ -383,8 +411,98 @@ namespace KimSurvival.EditorTools
                    !PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.Eat, true) &&
                    PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Campfire, PrototypeCampInteractionAction.Eat, true) &&
                    PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.RainCollector, PrototypeCampInteractionAction.CollectRain, true) &&
-                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.RescueSignal, PrototypeCampInteractionAction.UpgradeSignal, true),
-                "Facility popup catalog keeps workbench, campfire, rain, and signal actions separated");
+                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.RescueSignal, PrototypeCampInteractionAction.UpgradeSignal, true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.StoragePlanning, PrototypeCampInteractionAction.PreviewModule, true) &&
+                   !PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.ModuleConnector, PrototypeCampInteractionAction.PreviewModule, true),
+                "Facility popup catalog keeps facilities, on-site expansion planning, and direct connectors separated");
+
+            IReadOnlyList<CampModuleDefinition> moduleDefinitions = PrototypeCampModuleCatalog.All;
+            Assert(moduleDefinitions.Count == 3 &&
+                   PrototypeCampModuleCatalog.StartRoomBounds == new Rect(0f, 0f, 18f, 5f),
+                "Spatial camp catalog keeps the canonical starting room and three module candidates");
+            CampModuleDefinition upperDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Upper);
+            CampModuleDefinition sideDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Side);
+            CampModuleDefinition basementDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Basement);
+            Assert(upperDefinition.Bounds == new Rect(0f, 5f, 12f, 5f) && upperDefinition.ConnectorKind == CampModuleConnectorKind.Ladder &&
+                   sideDefinition.Bounds == new Rect(18f, 0f, 12f, 5f) && sideDefinition.ConnectorKind == CampModuleConnectorKind.Door &&
+                   basementDefinition.Bounds == new Rect(0f, -5f, 12f, 5f) && basementDefinition.ConnectorKind == CampModuleConnectorKind.Ladder,
+                "Upper, side, and basement logical coordinates and connector kinds match the Wave 9 spatial specification");
+            Assert(Mathf.Approximately(upperDefinition.GeneralFloorMinimumX, 3f) && Mathf.Approximately(upperDefinition.GeneralFloorMaximumX, 11f) &&
+                   Mathf.Approximately(sideDefinition.GeneralFloorMinimumX, 2f) && Mathf.Approximately(sideDefinition.GeneralFloorMaximumX, 11f) &&
+                   Mathf.Approximately(basementDefinition.GeneralFloorMinimumX, 1f) && Mathf.Approximately(basementDefinition.GeneralFloorMaximumX, 7.75f),
+                "Each module exposes its canonical limited-free-placement general floor zone");
+
+            CampModuleValidationContext moduleGeometry = new CampModuleValidationContext();
+            Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, moduleGeometry) == CampModuleGeometryStatus.Valid,
+                "A touching upper connection is valid and is not treated as positive-area overlap");
+            CampModuleValidationContext missingSlot = moduleGeometry.Clone();
+            missingSlot.HasMatchingConnectionSlot = false;
+            Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, missingSlot) == CampModuleGeometryStatus.NoConnectionSlot,
+                "Module preview distinguishes a missing reciprocal connection slot");
+            CampModuleValidationContext overlap = moduleGeometry.Clone();
+            overlap.OccupiedRoomBounds.Add(new Rect(1f, 6f, 2f, 2f));
+            Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, overlap) == CampModuleGeometryStatus.Overlap,
+                "Module preview distinguishes positive-area room overlap");
+            CampModuleValidationContext terrainBlocked = moduleGeometry.Clone();
+            terrainBlocked.TerrainAllowsCandidate = false;
+            Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, terrainBlocked) == CampModuleGeometryStatus.TerrainBlocked,
+                "Module preview distinguishes terrain obstruction");
+            CampModuleValidationContext pathBlocked = moduleGeometry.Clone();
+            pathBlocked.RequiredPathClear = false;
+            Assert(PrototypeCampModuleExpansion.EvaluateGeometry(upperDefinition, pathBlocked) == CampModuleGeometryStatus.PathBlocked,
+                "Module preview distinguishes connector and required-path obstruction");
+
+            PrototypeCampModuleExpansionConfig provisionalModuleConfig = PrototypeCampModuleExpansionConfig.CreateTbdPrototypeFixture();
+            CampModuleResourceCost provisionalCost = provisionalModuleConfig.GetCost(CampModuleArchetype.Upper);
+            Assert(provisionalModuleConfig.IsProvisional && PrototypeCampModuleExpansionConfig.BalanceStatus == "TBD_BALANCE" &&
+                   provisionalCost.Wood == 4 && provisionalCost.Stone == 2 && provisionalCost.Food == 0 && provisionalCost.Salvage == 2,
+                "Unapproved module economy stays isolated as an explicit TBD_BALANCE provisional fixture");
+            GameSession moduleSession = new GameSession();
+            PrototypeCampModuleExpansion moduleExpansion = new PrototypeCampModuleExpansion(provisionalModuleConfig);
+            CampModuleReturnSnapshot planningSnapshot = new CampModuleReturnSnapshot(new Vector2(-3.5f, PrototypeCampPlacement.FloorY), 1f, PrototypeCampModuleCatalog.StartRoomId);
+            Assert(moduleExpansion.BeginPreview(planningSnapshot), "Direct planning point opens the module preview");
+            int emptyWood = moduleSession.GetStorage(ResourceKind.Wood);
+            Assert(moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.Short &&
+                   moduleSession.GetStorage(ResourceKind.Wood) == emptyWood && !moduleExpansion.HasCommittedModule,
+                "Insufficient module commit fails atomically without resources or room creation");
+            moduleExpansion.Cycle(1);
+            moduleExpansion.Cycle(1);
+            Assert(moduleExpansion.HasSeenAllCandidates, "Starting room can cycle through upper, side, and basement candidates");
+            CampModuleReturnSnapshot cancelledSnapshot = moduleExpansion.CancelPreview();
+            Assert(cancelledSnapshot.Position == planningSnapshot.Position && !moduleExpansion.IsPreviewActive && !moduleExpansion.HasCommittedModule,
+                "Cancelled module preview returns to the same field position without state changes");
+            moduleSession.Grant(ResourceKind.Wood, 8);
+            moduleSession.Grant(ResourceKind.Stone, 4);
+            moduleSession.Grant(ResourceKind.Salvage, 4);
+            int moduleWoodBefore = moduleSession.GetStorage(ResourceKind.Wood);
+            int moduleStoneBefore = moduleSession.GetStorage(ResourceKind.Stone);
+            int moduleSalvageBefore = moduleSession.GetStorage(ResourceKind.Salvage);
+            Assert(moduleExpansion.BeginPreview(planningSnapshot) && moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.Succeeded &&
+                   moduleExpansion.HasCommittedModule && moduleExpansion.CommittedArchetype == CampModuleArchetype.Upper,
+                "One valid module commit creates exactly the selected module");
+            Assert(moduleSession.GetStorage(ResourceKind.Wood) == moduleWoodBefore - provisionalCost.Wood &&
+                   moduleSession.GetStorage(ResourceKind.Stone) == moduleStoneBefore - provisionalCost.Stone &&
+                   moduleSession.GetStorage(ResourceKind.Salvage) == moduleSalvageBefore - provisionalCost.Salvage,
+                "Successful module commit atomically spends the provisional cost exactly once");
+            int committedWood = moduleSession.GetStorage(ResourceKind.Wood);
+            Assert(moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.NotPreviewing &&
+                   moduleSession.GetStorage(ResourceKind.Wood) == committedWood,
+                "Duplicate confirmation after success cannot spend resources twice");
+            Assert(moduleExpansion.BeginPreview(planningSnapshot) &&
+                   moduleExpansion.Evaluate(moduleSession, moduleGeometry).Economy == CampModuleEconomyStatus.PrototypeLimit &&
+                   moduleExpansion.TryCommit(moduleSession, moduleGeometry) == CampModuleCommitStatus.PrototypeLimit &&
+                   moduleSession.GetStorage(ResourceKind.Wood) == committedWood,
+                "Vertical slice previews after completion but rejects a second committed module without spending");
+            moduleExpansion.CancelPreview();
+
+            PrototypeCampUse moduleTravel = new PrototypeCampUse();
+            moduleTravel.Warp(planningSnapshot.Position);
+            moduleTravel.EnterRoom(upperDefinition.RoomId, upperDefinition.ModuleConnectorDisplayX);
+            Assert(moduleTravel.CurrentRoomId == upperDefinition.RoomId && Mathf.Approximately(moduleTravel.PlayerPosition.x, upperDefinition.ModuleConnectorDisplayX),
+                "Explicit ladder path enters the committed upper room at its landing");
+            moduleTravel.Restore(planningSnapshot);
+            Assert(moduleTravel.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId && moduleTravel.PlayerPosition == planningSnapshot.Position,
+                "Explicit connector return restores the starting room field position");
 
             GameSession placementSession = new GameSession();
             PrototypeCampPlacement placement = new PrototypeCampPlacement();
@@ -437,6 +555,40 @@ namespace KimSurvival.EditorTools
                 "Rain collector rejects camp.general-ground without spending resources");
             placement.SetCandidateX(3.5f);
             Assert(placement.CurrentValidity == CampPlacementValidity.Valid, "Rain collector accepts camp.open-sky-ground");
+            placement.Cancel();
+
+            CampPlacementRoomZone upperPlacementZone = new CampPlacementRoomZone(
+                upperDefinition.RoomId,
+                upperDefinition.GeneralFloorDisplayMinimumX,
+                upperDefinition.GeneralFloorDisplayMaximumX,
+                false,
+                0f,
+                0f,
+                upperDefinition.ModuleConnectorDisplayX - 0.8f,
+                upperDefinition.ModuleConnectorDisplayX + 0.8f,
+                upperDefinition.ModuleConnectorDisplayX - 1.1f,
+                upperDefinition.ModuleConnectorDisplayX + 1.1f);
+            int moduleMoveWoodBefore = placementSession.GetStorage(ResourceKind.Wood);
+            int moduleMoveStoneBefore = placementSession.GetStorage(ResourceKind.Stone);
+            int moduleMoveSalvageBefore = placementSession.GetStorage(ResourceKind.Salvage);
+            placement.Begin(StructureKind.Workbench, true, upperPlacementZone);
+            placement.SetCandidateX(upperDefinition.ModuleConnectorDisplayX);
+            Assert(placement.CurrentValidity == CampPlacementValidity.OutsideCampBounds ||
+                   placement.CurrentValidity == CampPlacementValidity.BlocksEntrance ||
+                   placement.CurrentValidity == CampPlacementValidity.BlocksRequiredPath,
+                "Committed module general zone excludes and protects its explicit connector and required landing path");
+            placement.SetCandidateX(2.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.Valid && placement.Commit() &&
+                   placement.GetInstalledRoomId(StructureKind.Workbench) == upperDefinition.RoomId,
+                "Workbench can be freely relocated into the committed module general-floor zone");
+            Assert(placementSession.GetStorage(ResourceKind.Wood) == moduleMoveWoodBefore &&
+                   placementSession.GetStorage(ResourceKind.Stone) == moduleMoveStoneBefore &&
+                   placementSession.GetStorage(ResourceKind.Salvage) == moduleMoveSalvageBefore,
+                "Cross-room facility relocation spends no resources");
+            placement.Begin(StructureKind.RainCollector, false, upperPlacementZone);
+            placement.SetCandidateX(2.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.WrongZone,
+                "Module interior rejects the open-sky-only rain collector");
             placement.Cancel();
 
             placementSession.Grant(ResourceKind.Wood, 2);
@@ -583,7 +735,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 9 far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, shared keyboard/gamepad proximity and popup actions, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation and required path, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 9 upper/side/basement canonical bounds and connectors, all three preview traversal, slot/overlap/terrain/path validation, separate geometry/economy feedback, explicit TBD_BALANCE provisional config, failed/cancelled/duplicate atomic no-spend and one-module commit limit, explicit room enter/return, module general-floor placement and connector/path protection, shared keyboard/gamepad preview snapshot, far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -810,6 +962,10 @@ namespace KimSurvival.EditorTools
                 string campProximityQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-qps-long-1280x800.png"));
                 string campWorkbenchEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-workbench-popup-en-1280x800.png"));
                 string campCampfireKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-campfire-popup-ko-1280x800.png"));
+                string moduleUpperKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-upper-ko-1280x800.png"));
+                string moduleSideEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-side-en-1280x800.png"));
+                string moduleBasementQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-basement-qps-long-1280x800.png"));
+                string moduleInteriorKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-module-interior-ko-1280x800.png"));
                 string result = prototype.RunAutomatedVerification(
                     explorationScreenshot,
                     swimmingScreenshot,
@@ -839,6 +995,10 @@ namespace KimSurvival.EditorTools
                     "\nWave 9 proximity prompt qps-long 1280x800: " + campProximityQpsLongScreenshot +
                     "\nWave 9 workbench popup English 1280x800: " + campWorkbenchEnglishScreenshot +
                     "\nWave 9 campfire popup Korean 1280x800: " + campCampfireKoreanScreenshot +
+                    "\nWave 9 module upper Korean 1280x800: " + moduleUpperKoreanScreenshot +
+                    "\nWave 9 module side English 1280x800: " + moduleSideEnglishScreenshot +
+                    "\nWave 9 module basement qps-long 1280x800: " + moduleBasementQpsLongScreenshot +
+                    "\nWave 9 module interior Korean 1280x800: " + moduleInteriorKoreanScreenshot +
                     "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot +
                     "\nSignal stage two missing/rope English screenshot: " + signalEnglishScreenshot +
                     "\nPlacement Korean screenshot: " + placementKoreanScreenshot +

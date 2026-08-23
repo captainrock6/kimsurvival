@@ -170,3 +170,46 @@ result.detail.rescued	급조 안테나가 기적처럼 작동했다. 김씨는 �
 result.detail.exhausted	체력을 모두 소진했다. 다음에는 먹고 쉬고, 해 지기 전에 돌아오자.	All energy is gone. Next time, eat, rest, and return before sunset.
 result.detail.deadline	3일 안에 구조 신호를 완성하지 못했다. 필요한 표류물과 밧줄을 더 일찍 준비해야 한다.	The rescue signal was not completed within 3 days. Prepare salvage and rope earlier next time.
 dev.fallback_probe	한국어 폴백 확인	
+controls.module_preview.keyboard_mouse	{0} · A/D 또는 ←/→ 후보 순환 · Enter/클릭 확정 · Esc/우클릭 취소	{0} · A/D or ←/→ cycle · Enter/click confirm · Esc/right-click cancel
+controls.module_preview.gamepad	{0} · 왼쪽 스틱 후보 순환 · A 확정 · B 취소	{0} · Left stick cycle · A confirm · B cancel
+structure.storage_planning	창고·증축 계획 지점	Storage & expansion planning point
+structure.module_connector	{0} 출입 연결부	{0} entrance connector
+camp.popup.detail.storage	현장의 작은 계획 지점이다. 일반 설비를 옮기거나 방 모듈 후보를 미리 본다.	A small on-site planning point. Move general facilities or preview room-module candidates.
+button.module.preview	방 모듈 증축 미리보기	Preview room expansion
+button.module.preview.complete	방 모듈 증축 완료	Room expansion complete
+module.name.upper	위층 방	Upper room
+module.name.side	옆방	Side room
+module.name.basement	지하실	Basement
+module.preview.summary	{0} · 증축 후보\n{1}\n{2}\n{3}	{0} · Expansion preview\n{1}\n{2}\n{3}
+module.geometry.valid	연결 슬롯·겹침·지형·필수 통로: 유효	Connection, overlap, terrain, required path: valid
+module.geometry.noconnectionslot	연결 슬롯 불일치	No matching connection slot
+module.geometry.overlap	기존 방과 겹침	Overlaps an existing room
+module.geometry.terrainblocked	지형이 후보 공간을 막음	Terrain blocks the candidate
+module.geometry.pathblocked	출입 연결부 또는 필수 이동 통로 차단	Entrance connector or required path is blocked
+module.economy.costunset	임시 비용도 설정되지 않아 확정 불가	Cannot commit: no provisional cost configured
+module.economy.locked	임시 해금 조건 미충족	Provisional unlock requirement is not met
+module.economy.short	자원 부족 · 필요 나무 {0}, 돌 {1}, 표류물 {2}	Resources short · Need Wood {0}, Stone {1}, Salvage {2}
+module.economy.ready	확정 가능 · 필요 나무 {0}, 돌 {1}, 표류물 {2}	Ready · Need Wood {0}, Stone {1}, Salvage {2}
+module.economy.prototypelimit	수직 슬라이스 한도: 이미 방 모듈 1개 확정	Vertical-slice limit: one module already committed
+module.economy_badge.costunset	비용 미설정	Cost unset
+module.economy_badge.locked	해금 조건 잠김	Unlock locked
+module.economy_badge.short	자원 부족	Resources short
+module.economy_badge.ready	자원 충분	Resources ready
+module.economy_badge.prototypelimit	1개 확정 한도	One-module limit
+module.cost.provisional	TBD_BALANCE 임시값 · 나무 {0} + 돌 {1} + 표류물 {2}	TBD_BALANCE provisional · Wood {0} + Stone {1} + Salvage {2}
+module.commit.notpreviewing	열린 증축 미리보기가 없다.	No expansion preview is open.
+module.commit.invalidgeometry	연결·겹침·지형·필수 통로 조건을 먼저 해결해야 한다.	Resolve connection, overlap, terrain, and required-path conditions first.
+module.commit.costunset	임시 비용 설정이 없어 확정하지 않았다.	No provisional cost is configured; nothing was committed.
+module.commit.locked	임시 해금 조건을 충족하지 못했다.	The provisional unlock requirement is not met.
+module.commit.short	증축 자원이 부족하다. 실패한 확정에는 자원을 쓰지 않았다.	Not enough expansion resources. A failed commit spent nothing.
+module.commit.prototypelimit	이번 수직 슬라이스에서는 방 모듈 하나만 확정할 수 있다.	Only one room module can be committed in this vertical slice.
+module.commit.duplicatesubmit	이미 처리 중인 확정 입력이다. 자원을 다시 쓰지 않았다.	That commit is already being processed. No resources were spent twice.
+module.commit.succeeded	방 모듈 증축이 완료됐다.	Room expansion complete.
+module.message.cancelled	증축 미리보기를 취소했다. 캠프 상태는 그대로다.	Expansion preview cancelled. Camp state is unchanged.
+module.message.committed	{0} 증축 완료. 자원은 한 번만 사용했다.	{0} committed. Resources were spent exactly once.
+module.message.entered	{0}(으)로 연결 통로를 따라 이동했다.	Entered the {0} through its connector.
+module.message.returned	{0}에서 시작 방으로 돌아왔다.	Returned from the {0} to the starting room.
+world.module.planning	설비·증축 계획	Facilities · Expansion
+world.module.room	{0} · placeholder 실내	{0} · Placeholder interior
+world.module.preview.valid	◇ {0} · {2}\n{1}	◇ {0} · {2}\n{1}
+world.module.preview.invalid	× {0} · {2}\n{1}	× {0} · {2}\n{1}

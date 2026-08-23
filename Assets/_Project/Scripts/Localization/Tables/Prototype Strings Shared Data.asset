@@ -707,6 +707,178 @@ MonoBehaviour:
     m_Key: message.workbench.repair.ready
     m_Metadata:
       m_Items: []
+  - m_Id: 322381439811584
+    m_Key: controls.module_preview.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143232
+    m_Key: controls.module_preview.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143233
+    m_Key: structure.storage_planning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143234
+    m_Key: structure.module_connector
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143235
+    m_Key: camp.popup.detail.storage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143236
+    m_Key: button.module.preview
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143237
+    m_Key: button.module.preview.complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143238
+    m_Key: module.name.upper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143239
+    m_Key: module.name.side
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143240
+    m_Key: module.name.basement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143241
+    m_Key: module.preview.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143242
+    m_Key: module.geometry.valid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143243
+    m_Key: module.geometry.noconnectionslot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143244
+    m_Key: module.geometry.overlap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143245
+    m_Key: module.geometry.terrainblocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143246
+    m_Key: module.geometry.pathblocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143247
+    m_Key: module.economy.costunset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143248
+    m_Key: module.economy.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143249
+    m_Key: module.economy.short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143250
+    m_Key: module.economy.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143251
+    m_Key: module.economy.prototypelimit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143252
+    m_Key: module.cost.provisional
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143253
+    m_Key: module.commit.notpreviewing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143254
+    m_Key: module.commit.invalidgeometry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143255
+    m_Key: module.commit.costunset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337536
+    m_Key: module.commit.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337537
+    m_Key: module.commit.short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337538
+    m_Key: module.commit.prototypelimit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337539
+    m_Key: module.commit.duplicatesubmit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337540
+    m_Key: module.commit.succeeded
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337541
+    m_Key: module.message.cancelled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337542
+    m_Key: module.message.committed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337543
+    m_Key: module.message.entered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337544
+    m_Key: module.message.returned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337545
+    m_Key: world.module.planning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337546
+    m_Key: world.module.room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337547
+    m_Key: world.module.preview.valid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337548
+    m_Key: world.module.preview.invalid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293361192960
+    m_Key: module.economy_badge.costunset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524608
+    m_Key: module.economy_badge.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524609
+    m_Key: module.economy_badge.short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524610
+    m_Key: module.economy_badge.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524611
+    m_Key: module.economy_badge.prototypelimit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

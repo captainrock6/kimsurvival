@@ -59,6 +59,11 @@ namespace KimSurvival
             return device == PrototypeInputDevice.Gamepad ? "camp.interaction.prompt.gamepad" : "camp.interaction.prompt.keyboard_mouse";
         }
 
+        public static string CampModulePreview(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.module_preview.gamepad" : "controls.module_preview.keyboard_mouse";
+        }
+
         public static string Explore(PrototypeInputDevice device)
         {
             return device == PrototypeInputDevice.Gamepad ? "controls.explore.gamepad" : "controls.explore.keyboard_mouse";
@@ -163,6 +168,51 @@ namespace KimSurvival
                 raw.UsePointer,
                 raw.PointerWorldX,
                 Mathf.Clamp(raw.HorizontalAxis, -1f, 1f),
+                raw.MouseConfirm || raw.KeyboardConfirm || raw.GamepadConfirm,
+                raw.MouseCancel || raw.KeyboardCancel || raw.GamepadCancel);
+        }
+    }
+
+    public struct PrototypeRawCampModulePreviewInput
+    {
+        public float HorizontalAxis;
+        public bool KeyboardPrevious;
+        public bool KeyboardNext;
+        public bool MouseConfirm;
+        public bool KeyboardConfirm;
+        public bool GamepadConfirm;
+        public bool MouseCancel;
+        public bool KeyboardCancel;
+        public bool GamepadCancel;
+    }
+
+    public readonly struct PrototypeCampModulePreviewActions
+    {
+        public PrototypeCampModulePreviewActions(int cycleDirection, bool confirmPressed, bool cancelPressed)
+        {
+            CycleDirection = cycleDirection;
+            ConfirmPressed = confirmPressed;
+            CancelPressed = cancelPressed;
+        }
+
+        public int CycleDirection { get; }
+        public bool ConfirmPressed { get; }
+        public bool CancelPressed { get; }
+
+        public static PrototypeCampModulePreviewActions FromRaw(PrototypeRawCampModulePreviewInput raw)
+        {
+            float horizontal = raw.HorizontalAxis;
+            if (raw.KeyboardPrevious)
+            {
+                horizontal = -1f;
+            }
+            else if (raw.KeyboardNext)
+            {
+                horizontal = 1f;
+            }
+
+            return new PrototypeCampModulePreviewActions(
+                horizontal < -0.5f ? -1 : horizontal > 0.5f ? 1 : 0,
                 raw.MouseConfirm || raw.KeyboardConfirm || raw.GamepadConfirm,
                 raw.MouseCancel || raw.KeyboardCancel || raw.GamepadCancel);
         }
@@ -283,6 +333,22 @@ namespace KimSurvival
                 GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
             };
             return PrototypeCampPlacementActions.FromRaw(raw);
+        }
+
+        public PrototypeCampModulePreviewActions ReadCampModulePreviewActions()
+        {
+            return PrototypeCampModulePreviewActions.FromRaw(new PrototypeRawCampModulePreviewInput
+            {
+                HorizontalAxis = Input.GetAxisRaw("Horizontal"),
+                KeyboardPrevious = Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A),
+                KeyboardNext = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D),
+                MouseConfirm = Input.GetMouseButtonDown(0),
+                KeyboardConfirm = Input.GetKeyDown(KeyCode.Return),
+                GamepadConfirm = Input.GetKeyDown(KeyCode.JoystickButton0),
+                MouseCancel = Input.GetMouseButtonDown(1),
+                KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
+                GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
+            });
         }
 
         public PrototypeSystemActions ReadSystemActions()

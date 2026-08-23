@@ -1,0 +1,24 @@
+PASS
+PASS · Wave 9 현장 계획 지점에서 위층/옆방/지하실 후보 순회, 형태+문구 유효성, TBD_BALANCE 설정형 임시 비용, 실패/취소/중복 무차감과 1회 원자 확정, 명시적 문/사다리 이동, 모듈 일반 설비 구역과 통로 보호, 1280x800 ko/en/qps-long placeholder 표현 확인. 기존 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 근접 안내·설비 전용 팝업, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 키보드/게임패드 회귀 확인
+Bag locked Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-bag-locked-ko-1280x800.png
+Bag upgraded English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-bag-upgraded-en-1280x800.png
+Bag locked Korean 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-bag-locked-ko-1920x1080.png
+Bag upgraded English 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-bag-upgraded-en-1920x1080.png
+Wave 9 far camp Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-camp-far-ko-1280x800.png
+Wave 9 proximity prompt Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-proximity-prompt-ko-1280x800.png
+Wave 9 proximity prompt English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-proximity-prompt-en-1280x800.png
+Wave 9 proximity prompt qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-proximity-prompt-qps-long-1280x800.png
+Wave 9 workbench popup English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-workbench-popup-en-1280x800.png
+Wave 9 campfire popup Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-campfire-popup-ko-1280x800.png
+Wave 9 module upper Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-module-upper-ko-1280x800.png
+Wave 9 module side English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-module-side-en-1280x800.png
+Wave 9 module basement qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-module-basement-qps-long-1280x800.png
+Wave 9 module interior Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave9-module-interior-ko-1280x800.png
+Signal stage one missing/workbench Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
+Signal stage two missing/rope English screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
+Placement Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-placement-ko-invalid-1280x800.png
+Placement English/gamepad screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
+Swimming screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-swimming-en-1280x800.png
+Exploration screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-exploration-ko-1280x800.png
+Camp screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave9-module-expansion-3b92812\kim-survival-wave7-camp-en-1280x800.png
+Completed UTC: 2026-08-23T08:12:41.5163889Z

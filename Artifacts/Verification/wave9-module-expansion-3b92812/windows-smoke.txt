@@ -1,0 +1,5 @@
+PASS · Windows development player launch smoke
+Executable: Builds/Windows/KimSurvivalIsland.exe
+Resolution arguments: 1280x800 windowed
+Observed: process remained alive for 8 seconds after startup
+Cleanup: test process 10764 was intentionally terminated after observation

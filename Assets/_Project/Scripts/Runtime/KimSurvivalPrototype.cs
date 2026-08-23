@@ -38,6 +38,8 @@ namespace KimSurvival
         private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.70f, 0.64f);
         private const float CampProximityPromptReferenceWidth = 1280f;
         private const float CampProximityPromptReferenceHeight = 800f;
+        private const float StoragePlanningX = -3.5f;
+        private const float ModulePlanningX = 4f;
 
         [SerializeField] private GameObject playerVisualPrefab;
         [SerializeField] private Sprite campBackgroundSprite;
@@ -75,6 +77,9 @@ namespace KimSurvival
         private readonly PrototypeCampPlacement campPlacement = new PrototypeCampPlacement();
         private readonly PrototypeCampUse campUse = new PrototypeCampUse();
         private readonly PrototypeCampInteraction campInteraction = new PrototypeCampInteraction();
+        private readonly PrototypeCampModuleExpansion campModuleExpansion = new PrototypeCampModuleExpansion(PrototypeCampModuleExpansionConfig.CreateTbdPrototypeFixture());
+        private readonly CampModuleValidationContext campModuleValidation = new CampModuleValidationContext();
+        private readonly List<SpriteRenderer> modulePreviewOutlineRenderers = new List<SpriteRenderer>();
 
         private GameSession session;
         private PrototypeLocalization localization;
@@ -90,6 +95,9 @@ namespace KimSurvival
         private Transform playerRoot;
         private PrototypePlayerPresentation playerPresentation;
         private GameObject placementGhost;
+        private GameObject modulePreviewGhost;
+        private SpriteRenderer modulePreviewBadgeRenderer;
+        private TMP_Text modulePreviewBadgeText;
         private SpriteRenderer placementGhostRenderer;
         private SpriteRenderer placementGhostBadgeRenderer;
         private TMP_Text placementGhostLabel;
@@ -123,11 +131,13 @@ namespace KimSurvival
         private Button collectRainButton;
         private Button repairButton;
         private Button cancelPopupButton;
+        private Button modulePreviewButton;
         private Button phaseButton;
         private Button restartButton;
         private Button languageButton;
         private GamePhase renderedPhase;
         private PrototypeLocalizedText campFeedback;
+        private bool modulePreviewCycleLatched;
 
         public GameSession Session
         {
@@ -163,6 +173,10 @@ namespace KimSurvival
             else if (session.Phase == GamePhase.Camp && campPlacement.IsActive)
             {
                 UpdateCampPlacement();
+            }
+            else if (session.Phase == GamePhase.Camp && campModuleExpansion.IsPreviewActive)
+            {
+                UpdateCampModulePreview();
             }
             else if (session.Phase == GamePhase.Camp)
             {
@@ -320,6 +334,7 @@ namespace KimSurvival
             researchRopeButton = CreateCampPopupButton("밧줄 연구", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryResearch(TechKind.Rope); }); });
             craftRopeButton = CreateCampPopupButton("밧줄 제작", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryCraft(TechKind.Rope); }); });
             signalButton = CreateCampPopupButton("구조 신호 자원 투입", delegate { ExecuteConfirmedPopupAction(TryExecuteSignalAction); });
+            modulePreviewButton = CreateCampPopupButton("방 모듈 증축 미리보기", delegate { ExecuteConfirmedPopupTransition(BeginCampModulePreview); });
             eatButton = CreateCampPopupButton("식량 먹기", delegate { ExecuteConfirmedPopupAction(session.UseFood); });
             prepareCampfireButton = CreateCampPopupButton("생존 준비", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.Campfire, "message.camp.use.campfire"); }); });
             collectRainButton = CreateCampPopupButton("빗물 받기", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain"); }); });
@@ -340,7 +355,7 @@ namespace KimSurvival
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
-            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campInteraction.Reset(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
+            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campInteraction.Reset(); campModuleExpansion.Reset(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
         }
 
         private void HandlePhaseButton()
@@ -382,12 +397,13 @@ namespace KimSurvival
             bool camp = session.Phase == GamePhase.Camp;
             bool result = session.Phase == GamePhase.Result;
             bool placing = camp && campPlacement.IsActive;
-            bool popup = camp && !placing && campInteraction.IsPopupOpen;
+            bool modulePreview = camp && campModuleExpansion.IsPreviewActive;
+            bool popup = camp && !placing && !modulePreview && campInteraction.IsPopupOpen;
             campActions.SetActive(false);
             campInteractionPopup.SetActive(popup);
-            campProximityPrompt.SetActive(camp && !placing && !popup && campInteraction.HasProximityPrompt);
+            campProximityPrompt.SetActive(camp && !placing && !modulePreview && !popup && campInteraction.HasProximityPrompt);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
-            phaseButton.gameObject.SetActive(camp && !placing && !popup);
+            phaseButton.gameObject.SetActive(camp && !placing && !modulePreview && !popup);
             messagePanelImage.gameObject.SetActive(!popup && !result);
             resultPanel.SetActive(result);
             if (result)
@@ -400,7 +416,7 @@ namespace KimSurvival
             {
                 UpdateCampButtons();
                 RefreshCampInteractionUi();
-                EventSystem.current.SetSelectedGameObject(popup ? FirstVisiblePopupButton() : campPlacement.IsActive ? null : phaseButton.gameObject);
+                EventSystem.current.SetSelectedGameObject(popup ? FirstVisiblePopupButton() : campPlacement.IsActive || modulePreview ? null : phaseButton.gameObject);
             }
             else if (session.HasPendingLoot && bagButtons.Count > 0)
             {
@@ -451,6 +467,10 @@ namespace KimSurvival
                 if (campPlacement.IsActive)
                 {
                     ApplyPlacementGuidance(playerInput.ActiveDevice);
+                }
+                else if (campModuleExpansion.IsPreviewActive)
+                {
+                    ApplyCampModulePreviewGuidance(playerInput.ActiveDevice);
                 }
                 else if (campInteraction.IsPopupOpen)
                 {
@@ -503,8 +523,9 @@ namespace KimSurvival
             SetButton(collectRainButton, localization.Format(campUse.IsDayBenefitPrepared(StructureKind.RainCollector) ? "button.rain.collect.done" : "button.rain.collect"), available && !campUse.IsDayBenefitPrepared(StructureKind.RainCollector));
             SetButton(repairButton, localization.Format("button.workbench.repair"), available);
             SetButton(cancelPopupButton, localization.Format("button.popup.cancel"), available);
+            SetButton(modulePreviewButton, localization.Format(campModuleExpansion.HasCommittedModule ? "button.module.preview.complete" : "button.module.preview"), available && !campModuleExpansion.HasCommittedModule);
             string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "button.day.final" : "button.day.next") : "button.search.start";
-            SetButton(phaseButton, localization.Format(phaseButtonKey), !campPlacement.IsActive && !campInteraction.IsPopupOpen);
+            SetButton(phaseButton, localization.Format(phaseButtonKey), !campPlacement.IsActive && !campModuleExpansion.IsPreviewActive && !campInteraction.IsPopupOpen);
             UpdatePopupActionVisibility();
         }
 
@@ -561,7 +582,7 @@ namespace KimSurvival
                 return;
             }
 
-            bool camp = session.Phase == GamePhase.Camp && !campPlacement.IsActive;
+            bool camp = session.Phase == GamePhase.Camp && !campPlacement.IsActive && !campModuleExpansion.IsPreviewActive;
             campInteractionPopup.SetActive(camp && campInteraction.IsPopupOpen);
             campProximityPrompt.SetActive(camp && !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt);
             if (campInteraction.HasProximityPrompt)
@@ -594,6 +615,14 @@ namespace KimSurvival
                     return localization.Format("structure.rain_collector");
                 case PrototypeCampInteractionTargetKind.RescueSignal:
                     return localization.Format("structure.rescue_signal");
+                case PrototypeCampInteractionTargetKind.StoragePlanning:
+                    return localization.Format("structure.storage_planning");
+                case PrototypeCampInteractionTargetKind.ModuleConnector:
+                    return localization.Format(
+                        "structure.module_connector",
+                        campModuleExpansion.HasCommittedModule
+                            ? localization.Format(ModuleNameKey(campModuleExpansion.CommittedArchetype))
+                            : localization.Format("structure.generic"));
                 default:
                     return localization.Format("structure.generic");
             }
@@ -611,6 +640,8 @@ namespace KimSurvival
                     return "camp.popup.detail.rain";
                 case PrototypeCampInteractionTargetKind.RescueSignal:
                     return "camp.popup.detail.signal";
+                case PrototypeCampInteractionTargetKind.StoragePlanning:
+                    return "camp.popup.detail.storage";
                 default:
                     return "camp.popup.detail.generic";
             }
@@ -625,11 +656,13 @@ namespace KimSurvival
 
             PrototypeCampInteractionTargetKind target = campInteraction.OpenPopupKind;
             bool built = IsPopupTargetBuilt(target);
-            SetPopupActionVisible(campfireButton, target == PrototypeCampInteractionTargetKind.Campfire &&
+            bool planning = target == PrototypeCampInteractionTargetKind.StoragePlanning;
+            SetPopupActionVisible(campfireButton, (target == PrototypeCampInteractionTargetKind.Campfire || planning) &&
                 PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
-            SetPopupActionVisible(workbenchButton, target == PrototypeCampInteractionTargetKind.Workbench &&
+            SetPopupActionVisible(workbenchButton, (target == PrototypeCampInteractionTargetKind.Workbench || planning) &&
                 PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
-            SetPopupActionVisible(rainButton, target == PrototypeCampInteractionTargetKind.RainCollector &&
+            SetPopupActionVisible(rainButton, (target == PrototypeCampInteractionTargetKind.RainCollector || planning) &&
+                campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId &&
                 PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
             SetPopupActionVisible(eatButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.Eat, built));
             SetPopupActionVisible(prepareCampfireButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PrepareSurvival, built));
@@ -641,6 +674,7 @@ namespace KimSurvival
             SetPopupActionVisible(bagUpgradeButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.UpgradeBag, built));
             SetPopupActionVisible(collectRainButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.CollectRain, built));
             SetPopupActionVisible(signalButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.UpgradeSignal, true));
+            SetPopupActionVisible(modulePreviewButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PreviewModule, true));
             SetPopupActionVisible(cancelPopupButton, target != PrototypeCampInteractionTargetKind.None);
             LayoutVisiblePopupButtons();
         }
@@ -656,6 +690,7 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.RainCollector:
                     return session.HasStructure(StructureKind.RainCollector);
                 case PrototypeCampInteractionTargetKind.RescueSignal:
+                case PrototypeCampInteractionTargetKind.StoragePlanning:
                     return true;
                 default:
                     return false;
@@ -744,11 +779,15 @@ namespace KimSurvival
             placementGhostRenderer = null;
             placementGhostBadgeRenderer = null;
             placementGhostLabel = null;
+            modulePreviewGhost = null;
+            modulePreviewBadgeRenderer = null;
+            modulePreviewBadgeText = null;
             campBackgroundRenderer = null;
             campGameplayGroundRenderer = null;
             campForegroundRenderer = null;
             rescueSignalRenderer = null;
             placementGhostOutlineRenderers.Clear();
+            modulePreviewOutlineRenderers.Clear();
 
             if (session.Phase == GamePhase.Exploring)
             {
@@ -765,11 +804,22 @@ namespace KimSurvival
             worldCamera.transform.position = new Vector3(0f, 0f, -10f);
             worldCamera.backgroundColor = new Color(0.36f, 0.77f, 0.9f);
             CreateCampBackground();
+            bool startRoom = campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId;
+            if (!startRoom)
+            {
+                CreateCommittedModuleInterior();
+            }
+            else if (campModuleExpansion.HasCommittedModule)
+            {
+                CreateCommittedModuleExterior();
+            }
+
             if (campPlacement.IsActive)
             {
                 bool openSky = PrototypeCampPlacement.GetRequiredZone(campPlacement.SelectedKind) == CampPlacementZone.OpenSkyGround;
-                float zoneMinimumX = openSky ? PrototypeCampPlacement.OpenSkyMinimumX : PrototypeCampPlacement.BuildMinimumX;
-                float zoneMaximumX = openSky ? PrototypeCampPlacement.OpenSkyMaximumX : PrototypeCampPlacement.BuildMaximumX;
+                CampPlacementRoomZone activeZone = campPlacement.ActiveRoomZone;
+                float zoneMinimumX = openSky ? activeZone.OpenSkyMinimumX : activeZone.BuildMinimumX;
+                float zoneMaximumX = openSky ? activeZone.OpenSkyMaximumX : activeZone.BuildMaximumX;
                 float buildWidth = zoneMaximumX - zoneMinimumX;
                 float buildCenter = (zoneMinimumX + zoneMaximumX) * 0.5f;
                 Color zoneColor = openSky ? new Color(0.2f, 0.7f, 0.92f, 0.82f) : new Color(0.16f, 0.72f, 0.38f, 0.78f);
@@ -783,25 +833,41 @@ namespace KimSurvival
                     new Vector2(openSky ? 4.1f : 4.8f, 1.65f),
                     openSky ? new Color(0.03f, 0.25f, 0.38f, 0.96f) : new Color(0.04f, 0.25f, 0.13f, 0.96f),
                     Color.white);
-                CreateReservedCampStrip("world.entrance", PrototypeCampPlacement.EntranceMinimumX, PrototypeCampPlacement.EntranceMaximumX, new Color(0.95f, 0.38f, 0.18f, 0.72f));
-                CreateReservedCampStrip("world.required_path", PrototypeCampPlacement.RequiredPathMinimumX, PrototypeCampPlacement.RequiredPathMaximumX, new Color(1f, 0.72f, 0.16f, 0.72f));
+                CreateReservedCampStrip("world.entrance", activeZone.EntranceMinimumX, activeZone.EntranceMaximumX, new Color(0.95f, 0.38f, 0.18f, 0.72f));
+                CreateReservedCampStrip("world.required_path", activeZone.RequiredPathMinimumX, activeZone.RequiredPathMaximumX, new Color(1f, 0.72f, 0.16f, 0.72f));
             }
             CreateKim(campUse.PlayerPosition);
 
             CreatePlacedStructure(StructureKind.Campfire, new Color(1f, 0.43f, 0.14f));
             CreatePlacedStructure(StructureKind.Workbench, new Color(0.48f, 0.26f, 0.12f));
             CreatePlacedStructure(StructureKind.RainCollector, new Color(0.27f, 0.7f, 0.86f));
-            CreateCampBlueprint(StructureKind.Campfire, new Color(1f, 0.43f, 0.14f, 0.28f));
-            CreateCampBlueprint(StructureKind.Workbench, new Color(0.48f, 0.26f, 0.12f, 0.28f));
-            CreateCampBlueprint(StructureKind.RainCollector, new Color(0.27f, 0.7f, 0.86f, 0.28f));
+            if (startRoom)
+            {
+                CreateCampBlueprint(StructureKind.Campfire, new Color(1f, 0.43f, 0.14f, 0.28f));
+                CreateCampBlueprint(StructureKind.Workbench, new Color(0.48f, 0.26f, 0.12f, 0.28f));
+                CreateCampBlueprint(StructureKind.RainCollector, new Color(0.27f, 0.7f, 0.86f, 0.28f));
+            }
 
-            Vector2 signalAnchor = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
-            CreateRescueSignal(signalAnchor);
+            CreateStoragePlanningMarker(startRoom ? StoragePlanningX : ModulePlanningX);
+
+            if (startRoom)
+            {
+                Vector2 signalAnchor = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
+                CreateRescueSignal(signalAnchor);
+                if (campPlacement.IsActive)
+                {
+                    CreateFootprintOutline(worldRoot, new Vector2(2.25f, 0.35f), new Color(1f, 0.88f, 0.38f, 0.95f), null, signalAnchor);
+                    CreateWorldBadge("구조 신호대 전용 앵커 안내", localization.Format("world.signal_anchor", session.SignalStage), new Vector2(CampSignalLabelX, signalAnchor.y - 0.78f), new Vector2(3.8f, 1.55f), new Color(0.16f, 0.17f, 0.18f, 0.96f), new Color(1f, 0.88f, 0.38f));
+                }
+            }
+
             if (campPlacement.IsActive)
             {
-                CreateFootprintOutline(worldRoot, new Vector2(2.25f, 0.35f), new Color(1f, 0.88f, 0.38f, 0.95f), null, signalAnchor);
-                CreateWorldBadge("구조 신호대 전용 앵커 안내", localization.Format("world.signal_anchor", session.SignalStage), new Vector2(CampSignalLabelX, signalAnchor.y - 0.78f), new Vector2(3.8f, 1.55f), new Color(0.16f, 0.17f, 0.18f, 0.96f), new Color(1f, 0.88f, 0.38f));
                 CreatePlacementGhost();
+            }
+            if (campModuleExpansion.IsPreviewActive)
+            {
+                CreateCampModulePreviewGhost();
             }
         }
 
@@ -858,14 +924,184 @@ namespace KimSurvival
                 return;
             }
 
-            if (relocating && !RequireStructureUse(kind))
+            bool relocatingWithinCurrentRoom = relocating && campPlacement.IsInstalledInRoom(kind, campUse.CurrentRoomId);
+            if (relocatingWithinCurrentRoom && !RequireStructureUse(kind))
             {
                 return;
             }
 
             campFeedback = PrototypeLocalizedText.Empty;
-            campPlacement.Begin(kind, relocating);
+            campPlacement.Begin(kind, relocating, GetCurrentPlacementZone());
             RefreshAll();
+        }
+
+        private void CreateStoragePlanningMarker(float x)
+        {
+            GameObject root = new GameObject("현장형 창고·증축 계획 지점 placeholder");
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.42f, 0f);
+            CreateRect(root.transform, "placeholder crate", Vector2.zero, new Vector2(0.82f, 0.72f), new Color(0.32f, 0.22f, 0.12f, 0.96f), 3);
+            CreateFootprintOutline(root.transform, new Vector2(1.05f, 0.28f), new Color(1f, 0.82f, 0.35f, 0.92f), null, new Vector2(0f, -0.34f));
+            CreateWorldBadge(
+                root.transform,
+                "증축 계획 지점 안내",
+                localization.Format("world.module.planning"),
+                new Vector2(0f, 1.08f),
+                new Vector2(3.35f, 1.1f),
+                new Color(0.1f, 0.12f, 0.13f, 0.95f),
+                new Color(1f, 0.87f, 0.4f),
+                out _,
+                0.068f,
+                27f,
+                29f);
+        }
+
+        private void CreateCommittedModuleExterior()
+        {
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+            Vector2 center = GetModulePreviewCenter(definition.Archetype);
+            GameObject root = new GameObject("확정 방 모듈 exterior placeholder · " + definition.RoomId);
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = center;
+            CreateRect(root.transform, "모듈 반투명 면", Vector2.zero, new Vector2(5.8f, 2.35f), new Color(0.18f, 0.31f, 0.25f, 0.72f), -2);
+            CreateFootprintOutline(root.transform, new Vector2(5.8f, 2.35f), new Color(0.82f, 0.94f, 0.78f, 0.95f), null);
+            CreateModuleConnectorVisual(root.transform, definition.ConnectorKind, Vector2.zero, true);
+        }
+
+        private void CreateCommittedModuleInterior()
+        {
+            if (!campModuleExpansion.HasCommittedModule || campUse.CurrentRoomId != campModuleExpansion.CommittedRoomId)
+            {
+                return;
+            }
+
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+            GameObject root = new GameObject("확정 방 모듈 interior placeholder · " + definition.RoomId);
+            root.transform.SetParent(worldRoot, false);
+            CreateRect(root.transform, "실내 placeholder 배경", new Vector2(0f, 0.25f), new Vector2(12f, 6.2f), new Color(0.18f, 0.23f, 0.2f, 0.94f), -18);
+            CreateRect(root.transform, "실내 바닥", new Vector2(0f, PrototypeCampPlacement.FloorY + 0.08f), new Vector2(12f, 0.18f), new Color(0.65f, 0.49f, 0.28f, 0.95f), -4);
+            CreateRect(root.transform, "일반 설비 호환 구역", new Vector2(
+                (definition.GeneralFloorDisplayMinimumX + definition.GeneralFloorDisplayMaximumX) * 0.5f,
+                PrototypeCampPlacement.FloorY + 0.17f), new Vector2(
+                definition.GeneralFloorDisplayMaximumX - definition.GeneralFloorDisplayMinimumX,
+                0.34f), new Color(0.18f, 0.74f, 0.38f, 0.82f), -3);
+            CreateWorldBadge(
+                "확정 모듈 이름",
+                localization.Format("world.module.room", localization.Format(ModuleNameKey(definition.Archetype))),
+                new Vector2(0f, 2.75f),
+                new Vector2(5.6f, 1.2f),
+                new Color(0.05f, 0.12f, 0.1f, 0.96f),
+                Color.white);
+            CreateModuleConnectorVisual(root.transform, definition.ConnectorKind, new Vector2(definition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY + 0.9f), true);
+        }
+
+        private void CreateCampModulePreviewGhost()
+        {
+            CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
+            Vector2 center = GetModulePreviewCenter(evaluation.Definition.Archetype);
+            modulePreviewGhost = new GameObject("증축 후보 ghost placeholder · " + evaluation.Definition.RoomId);
+            modulePreviewGhost.transform.SetParent(worldRoot, false);
+            modulePreviewGhost.transform.position = center;
+            SpriteRenderer fill = CreateRect(
+                modulePreviewGhost.transform,
+                "증축 후보 면",
+                Vector2.zero,
+                new Vector2(5.8f, 2.35f),
+                evaluation.CanCommit ? new Color(0.12f, 0.72f, 0.36f, 0.38f) : new Color(0.78f, 0.16f, 0.12f, 0.42f),
+                5).GetComponent<SpriteRenderer>();
+            if (fill == null)
+            {
+                throw new InvalidOperationException("증축 후보 placeholder renderer 생성 실패");
+            }
+            CreateFootprintOutline(modulePreviewGhost.transform, new Vector2(5.8f, 2.35f), Color.white, modulePreviewOutlineRenderers);
+            CreateModuleConnectorVisual(modulePreviewGhost.transform, evaluation.Definition.ConnectorKind, Vector2.zero, evaluation.Geometry == CampModuleGeometryStatus.Valid);
+            CreateModuleValidityGlyph(modulePreviewGhost.transform, evaluation.CanCommit);
+            modulePreviewBadgeText = CreateWorldBadge(
+                modulePreviewGhost.transform,
+                "증축 후보 상태",
+                string.Empty,
+                new Vector2(0f, 1.85f),
+                new Vector2(5.65f, 1.25f),
+                Color.black,
+                Color.white,
+                out modulePreviewBadgeRenderer,
+                0.068f,
+                27f,
+                30f);
+            modulePreviewBadgeText.textWrappingMode = TextWrappingModes.Normal;
+            modulePreviewBadgeText.overflowMode = TextOverflowModes.Ellipsis;
+            modulePreviewBadgeText.maxVisibleLines = 3;
+            UpdateCampModulePreviewGhost();
+        }
+
+        private void UpdateCampModulePreviewGhost()
+        {
+            if (modulePreviewGhost == null || !campModuleExpansion.IsPreviewActive)
+            {
+                return;
+            }
+
+            CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
+            bool valid = evaluation.CanCommit;
+            modulePreviewGhost.transform.position = GetModulePreviewCenter(evaluation.Definition.Archetype);
+            Color outline = valid ? new Color(0.72f, 1f, 0.66f, 1f) : new Color(1f, 0.78f, 0.68f, 1f);
+            for (int i = 0; i < modulePreviewOutlineRenderers.Count; i += 1)
+            {
+                modulePreviewOutlineRenderers[i].color = outline;
+            }
+            modulePreviewBadgeRenderer.color = valid
+                ? new Color(0.03f, 0.34f, 0.15f, 0.98f)
+                : new Color(0.5f, 0.05f, 0.04f, 0.98f);
+            modulePreviewBadgeText.text = localization.Format(
+                valid ? "world.module.preview.valid" : "world.module.preview.invalid",
+                localization.Format(ModuleNameKey(evaluation.Definition.Archetype)),
+                localization.Format(ModuleGeometryKey(evaluation.Geometry)),
+                localization.Format(ModuleEconomyBadgeKey(evaluation.Economy)));
+        }
+
+        private void CreateModuleConnectorVisual(Transform parent, CampModuleConnectorKind kind, Vector2 position, bool valid)
+        {
+            Color color = valid ? new Color(1f, 0.84f, 0.28f, 0.98f) : new Color(1f, 0.32f, 0.2f, 0.98f);
+            if (kind == CampModuleConnectorKind.Door)
+            {
+                CreateFootprintOutline(parent, new Vector2(0.9f, 1.55f), color, null, position);
+                return;
+            }
+
+            for (int rung = -1; rung <= 1; rung += 1)
+            {
+                CreateRect(parent, "사다리 발판", position + new Vector2(0f, rung * 0.38f), new Vector2(0.86f, 0.1f), color, 10);
+            }
+            CreateRect(parent, "사다리 왼쪽", position + new Vector2(-0.42f, 0f), new Vector2(0.1f, 1.25f), color, 10);
+            CreateRect(parent, "사다리 오른쪽", position + new Vector2(0.42f, 0f), new Vector2(0.1f, 1.25f), color, 10);
+        }
+
+        private void CreateModuleValidityGlyph(Transform parent, bool valid)
+        {
+            Color color = valid ? new Color(0.65f, 1f, 0.72f, 1f) : new Color(1f, 0.78f, 0.68f, 1f);
+            if (valid)
+            {
+                CreateCircle(parent, "유효 마름모", new Vector2(2.35f, 0.72f), 0.48f, color, 12);
+                return;
+            }
+
+            GameObject first = CreateRect(parent, "무효 X A", new Vector2(2.35f, 0.72f), new Vector2(0.12f, 0.85f), color, 12);
+            first.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+            GameObject second = CreateRect(parent, "무효 X B", new Vector2(2.35f, 0.72f), new Vector2(0.12f, 0.85f), color, 12);
+            second.transform.localRotation = Quaternion.Euler(0f, 0f, -45f);
+        }
+
+        private static Vector2 GetModulePreviewCenter(CampModuleArchetype archetype)
+        {
+            switch (archetype)
+            {
+                case CampModuleArchetype.Side:
+                    return new Vector2(3.2f, -0.65f);
+                case CampModuleArchetype.Basement:
+                    return new Vector2(0.7f, -2.05f);
+                default:
+                    return new Vector2(-1.1f, 0.8f);
+            }
         }
 
         private void UpdateCampUse()
@@ -876,6 +1112,11 @@ namespace KimSurvival
 
         private void ProcessCampActions(PrototypePlayerActions actions, float deltaTime)
         {
+            if (campModuleExpansion.IsPreviewActive)
+            {
+                return;
+            }
+
             if (campInteraction.IsPopupOpen)
             {
                 if (actions.CancelPressed)
@@ -915,7 +1156,7 @@ namespace KimSurvival
 
         private void RefreshCampInteractionSelection()
         {
-            if (session == null || session.Phase != GamePhase.Camp || campPlacement.IsActive)
+            if (session == null || session.Phase != GamePhase.Camp || campPlacement.IsActive || campModuleExpansion.IsPreviewActive)
             {
                 campInteractionTargets.Clear();
                 campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
@@ -923,24 +1164,53 @@ namespace KimSurvival
             }
 
             campInteractionTargets.Clear();
-            AddCampInteractionTarget(StructureKind.Campfire, PrototypeCampInteractionTargetKind.Campfire);
-            AddCampInteractionTarget(StructureKind.Workbench, PrototypeCampInteractionTargetKind.Workbench);
-            AddCampInteractionTarget(StructureKind.RainCollector, PrototypeCampInteractionTargetKind.RainCollector);
+            bool startRoom = campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId;
+            AddCampInteractionTarget(StructureKind.Campfire, PrototypeCampInteractionTargetKind.Campfire, startRoom);
+            AddCampInteractionTarget(StructureKind.Workbench, PrototypeCampInteractionTargetKind.Workbench, startRoom);
+            AddCampInteractionTarget(StructureKind.RainCollector, PrototypeCampInteractionTargetKind.RainCollector, startRoom);
             campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                "camp.signal-anchor",
-                PrototypeCampInteractionTargetKind.RescueSignal,
-                GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)));
+                "camp.storage-planning." + campUse.CurrentRoomId,
+                PrototypeCampInteractionTargetKind.StoragePlanning,
+                new Vector2(startRoom ? StoragePlanningX : ModulePlanningX, PrototypeCampPlacement.FloorY)));
+            if (startRoom)
+            {
+                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                    "camp.signal-anchor",
+                    PrototypeCampInteractionTargetKind.RescueSignal,
+                    GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)));
+            }
+            if (campModuleExpansion.HasCommittedModule &&
+                (startRoom || campUse.CurrentRoomId == campModuleExpansion.CommittedRoomId))
+            {
+                CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                    "camp.module-connector." + definition.RoomId,
+                    PrototypeCampInteractionTargetKind.ModuleConnector,
+                    new Vector2(startRoom ? definition.StartConnectorDisplayX : definition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY)));
+            }
             campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
         }
 
-        private void AddCampInteractionTarget(StructureKind structure, PrototypeCampInteractionTargetKind target)
+        private void AddCampInteractionTarget(StructureKind structure, PrototypeCampInteractionTargetKind target, bool startRoom)
         {
+            if ((!session.HasStructure(structure) && !startRoom) ||
+                (session.HasStructure(structure) && !campPlacement.IsInstalledInRoom(structure, campUse.CurrentRoomId)))
+            {
+                return;
+            }
+
             Vector2 position = campPlacement.GetInstalledPosition(structure);
             campInteractionTargets.Add(new PrototypeCampInteractionTarget("camp." + structure, target, position));
         }
 
         private bool TryOpenCampPopup()
         {
+            if (campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleConnector)
+            {
+                TraverseCommittedModule();
+                return true;
+            }
+
             if (!campInteraction.TryOpenPopup())
             {
                 return false;
@@ -959,6 +1229,187 @@ namespace KimSurvival
 
             campInteraction.ClosePopup();
             RefreshAll();
+        }
+
+        private void BeginCampModulePreview()
+        {
+            if (campModuleExpansion.HasCommittedModule || campUse.CurrentRoomId != PrototypeCampModuleCatalog.StartRoomId)
+            {
+                return;
+            }
+
+            CampModuleReturnSnapshot snapshot = new CampModuleReturnSnapshot(
+                campUse.PlayerPosition,
+                campUse.FacingDirection,
+                campUse.CurrentRoomId);
+            if (campModuleExpansion.BeginPreview(snapshot))
+            {
+                modulePreviewCycleLatched = false;
+                campFeedback = PrototypeLocalizedText.Empty;
+            }
+        }
+
+        private void UpdateCampModulePreview()
+        {
+            PrototypeCampModulePreviewActions actions = playerInput.ReadCampModulePreviewActions();
+            if (actions.CycleDirection == 0)
+            {
+                modulePreviewCycleLatched = false;
+            }
+            else if (!modulePreviewCycleLatched)
+            {
+                campModuleExpansion.Cycle(actions.CycleDirection);
+                modulePreviewCycleLatched = true;
+                RefreshAll();
+            }
+
+            if (actions.CancelPressed)
+            {
+                CancelCampModulePreview(true);
+                return;
+            }
+
+            if (actions.ConfirmPressed)
+            {
+                ConfirmCampModulePreview();
+            }
+        }
+
+        private bool ConfirmCampModulePreview()
+        {
+            CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
+            CampModuleCommitStatus status = campModuleExpansion.TryCommit(session, campModuleValidation);
+            if (status != CampModuleCommitStatus.Succeeded)
+            {
+                campFeedback = new PrototypeLocalizedText(ModuleCommitMessageKey(status));
+                RefreshAll();
+                return false;
+            }
+
+            campUse.Restore(campModuleExpansion.ReturnSnapshot);
+            campInteraction.Reset();
+            campFeedback = new PrototypeLocalizedText(
+                "module.message.committed",
+                localization.Format(ModuleNameKey(evaluation.Definition.Archetype)));
+            RefreshAll();
+            return true;
+        }
+
+        private void CancelCampModulePreview(bool reopenPlanningPopup)
+        {
+            CampModuleReturnSnapshot snapshot = campModuleExpansion.CancelPreview();
+            campUse.Restore(snapshot);
+            campInteraction.Reset();
+            campFeedback = new PrototypeLocalizedText("module.message.cancelled");
+            RefreshAll();
+            if (reopenPlanningPopup)
+            {
+                RefreshCampInteractionSelection();
+                campInteraction.TryOpenPopup();
+                RefreshAll();
+            }
+        }
+
+        private void TraverseCommittedModule()
+        {
+            if (!campModuleExpansion.HasCommittedModule)
+            {
+                return;
+            }
+
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+            bool leavingStart = campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId;
+            campInteraction.Reset();
+            campUse.EnterRoom(
+                leavingStart ? definition.RoomId : PrototypeCampModuleCatalog.StartRoomId,
+                (leavingStart ? definition.ModuleConnectorDisplayX : definition.StartConnectorDisplayX) + (leavingStart ? 0.85f : -0.85f));
+            campFeedback = new PrototypeLocalizedText(
+                leavingStart ? "module.message.entered" : "module.message.returned",
+                localization.Format(ModuleNameKey(definition.Archetype)));
+            RefreshAll();
+        }
+
+        private void ApplyCampModulePreviewGuidance(PrototypeInputDevice device)
+        {
+            CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
+            string moduleName = localization.Format(ModuleNameKey(evaluation.Definition.Archetype));
+            string geometry = localization.Format(ModuleGeometryKey(evaluation.Geometry));
+            string economy = localization.Format(
+                ModuleEconomyKey(evaluation.Economy),
+                evaluation.Cost.Wood,
+                evaluation.Cost.Stone,
+                evaluation.Cost.Salvage);
+            string cost = localization.Format(
+                "module.cost.provisional",
+                evaluation.Cost.Wood,
+                evaluation.Cost.Stone,
+                evaluation.Cost.Salvage);
+            messageText.text = localization.Format("module.preview.summary", moduleName, geometry, economy, cost);
+            messageText.fontSize = 30f;
+            messageText.fontStyle = FontStyles.Bold;
+            bool valid = evaluation.CanCommit;
+            messagePanelImage.color = valid
+                ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
+                : new Color(0.38f, 0.08f, 0.06f, 0.96f);
+            controlsText.text = localization.Format(
+                PrototypeInputPromptKeys.CampModulePreview(device),
+                localization.DeviceName(device));
+            UpdateCampModulePreviewGhost();
+        }
+
+        private CampPlacementRoomZone GetCurrentPlacementZone()
+        {
+            if (campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId || !campModuleExpansion.HasCommittedModule)
+            {
+                return CampPlacementRoomZone.StartRoom;
+            }
+
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+            float connectorX = definition.ModuleConnectorDisplayX;
+            return new CampPlacementRoomZone(
+                definition.RoomId,
+                definition.GeneralFloorDisplayMinimumX,
+                definition.GeneralFloorDisplayMaximumX,
+                false,
+                0f,
+                0f,
+                connectorX - 0.8f,
+                connectorX + 0.8f,
+                connectorX - 1.1f,
+                connectorX + 1.1f);
+        }
+
+        private static string ModuleNameKey(CampModuleArchetype archetype)
+        {
+            switch (archetype)
+            {
+                case CampModuleArchetype.Side:
+                    return "module.name.side";
+                case CampModuleArchetype.Basement:
+                    return "module.name.basement";
+                default:
+                    return "module.name.upper";
+            }
+        }
+
+        private static string ModuleGeometryKey(CampModuleGeometryStatus status)
+        {
+            return "module.geometry." + status.ToString().ToLowerInvariant();
+        }
+
+        private static string ModuleEconomyKey(CampModuleEconomyStatus status)
+        {
+            return "module.economy." + status.ToString().ToLowerInvariant();
+        }
+
+        private static string ModuleEconomyBadgeKey(CampModuleEconomyStatus status)
+        {
+            return "module.economy_badge." + status.ToString().ToLowerInvariant();
+        }
+
+        private static string ModuleCommitMessageKey(CampModuleCommitStatus status)
+        {
+            return "module.commit." + status.ToString().ToLowerInvariant();
         }
 
         private void ExecuteConfirmedPopupTransition(Action transition)
@@ -1238,10 +1689,23 @@ namespace KimSurvival
             string campProximityQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-proximity-prompt-qps-long-1280x800.png");
+            string modulePreviewKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-upper-ko-1280x800.png");
+            string modulePreviewEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-side-en-1280x800.png");
+            string modulePreviewQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-basement-qps-long-1280x800.png");
+            string moduleInteriorKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-interior-ko-1280x800.png");
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
             campInteraction.Reset();
+            campModuleExpansion.Reset();
             campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -1305,7 +1769,8 @@ namespace KimSurvival
                 PrototypeCampInteractionTargetKind.Campfire,
                 PrototypeCampInteractionTargetKind.Workbench,
                 PrototypeCampInteractionTargetKind.RainCollector,
-                PrototypeCampInteractionTargetKind.RescueSignal
+                PrototypeCampInteractionTargetKind.RescueSignal,
+                PrototypeCampInteractionTargetKind.StoragePlanning
             };
             for (int promptIndex = 0; promptIndex < promptTargets.Length; promptIndex += 1)
             {
@@ -1318,6 +1783,112 @@ namespace KimSurvival
             }
 
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
+            Require(modulePreviewButton.gameObject.activeSelf && modulePreviewButton.interactable &&
+                    campfireButton.gameObject.activeSelf && workbenchButton.gameObject.activeSelf && rainButton.gameObject.activeSelf,
+                "현장 계획 지점 팝업은 증축과 시작 방 일반 설비 배치만 소유");
+            CampModuleReturnSnapshot moduleReturn = new CampModuleReturnSnapshot(
+                campUse.PlayerPosition,
+                campUse.FacingDirection,
+                campUse.CurrentRoomId);
+            int previewWoodBefore = session.GetStorage(ResourceKind.Wood);
+            int previewStoneBefore = session.GetStorage(ResourceKind.Stone);
+            int previewSalvageBefore = session.GetStorage(ResourceKind.Salvage);
+            modulePreviewButton.onClick.Invoke();
+            Require(campModuleExpansion.IsPreviewActive && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf &&
+                    modulePreviewGhost != null && modulePreviewOutlineRenderers.Count == 4,
+                "현장 상호작용 뒤 전역 대시보드 없이 위층 후보 placeholder 미리보기");
+            RequireReadableCampModulePreview(false);
+            if (!string.IsNullOrWhiteSpace(modulePreviewKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(modulePreviewKoreanScreenshotPath, 1280, 800);
+            }
+
+            campModuleExpansion.Cycle(1);
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Side &&
+                    messageText.text.Contains("Side room") && controlsText.text.Contains("cycle"),
+                "영어 전환 뒤 옆방 후보와 공통 입력 안내 즉시 갱신");
+            RequireReadableCampModulePreview(false);
+            if (!string.IsNullOrWhiteSpace(modulePreviewEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(modulePreviewEnglishScreenshotPath, 1280, 800);
+            }
+
+            campModuleExpansion.Cycle(1);
+            RefreshAll();
+            Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement && campModuleExpansion.HasSeenAllCandidates,
+                "위층·옆방·지하실 세 후보를 같은 미리보기 상태에서 순회");
+            modulePreviewBadgeText.text = "[× !! " + new string('W', 112) + " !!]";
+            RequireReadableCampModulePreview(true);
+            if (!string.IsNullOrWhiteSpace(modulePreviewQpsLongScreenshotPath))
+            {
+                CaptureVerificationPng(modulePreviewQpsLongScreenshotPath, 1280, 800);
+            }
+
+            CancelCampModulePreview(true);
+            Require(campUse.PlayerPosition == moduleReturn.Position && campUse.CurrentRoomId == moduleReturn.RoomId &&
+                    campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.StoragePlanning &&
+                    session.GetStorage(ResourceKind.Wood) == previewWoodBefore &&
+                    session.GetStorage(ResourceKind.Stone) == previewStoneBefore &&
+                    session.GetStorage(ResourceKind.Salvage) == previewSalvageBefore,
+                "미리보기 취소는 같은 현장 팝업으로 복귀하고 자원·방 상태를 바꾸지 않음");
+
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            modulePreviewButton.onClick.Invoke();
+            Require(campModuleExpansion.IsPreviewActive && campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper,
+                "다시 연 미리보기는 결정적으로 위층 후보부터 시작");
+            int activeSlotsBeforeModule = session.ActiveBagSlotCount;
+            int signalBeforeModule = session.SignalStage;
+            Require(ConfirmCampModulePreview() && campModuleExpansion.HasCommittedModule &&
+                    session.GetStorage(ResourceKind.Wood) == previewWoodBefore - 4 &&
+                    session.GetStorage(ResourceKind.Stone) == previewStoneBefore - 2 &&
+                    session.GetStorage(ResourceKind.Salvage) == previewSalvageBefore - 2,
+                "유효한 위층 방 확정은 TBD_BALANCE 임시 비용을 원자적으로 한 번만 사용");
+            int woodAfterModule = session.GetStorage(ResourceKind.Wood);
+            Require(!ConfirmCampModulePreview() && session.GetStorage(ResourceKind.Wood) == woodAfterModule &&
+                    session.ActiveBagSlotCount == activeSlotsBeforeModule && session.SignalStage == signalBeforeModule,
+                "중복 확정은 자원을 다시 쓰지 않고 가방·신호 상태를 보존");
+
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ModuleConnector));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleConnector && campInteraction.HasProximityPrompt,
+                "확정된 위층 방의 명시적 사다리 연결부에 근접 안내 표시");
+            UseNearestCampTarget();
+            Require(campUse.CurrentRoomId == campModuleExpansion.CommittedRoomId && !campInteraction.IsPopupOpen,
+                "연결부 직접 상호작용으로만 확정 모듈 실내 이동");
+            if (!string.IsNullOrWhiteSpace(moduleInteriorKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(moduleInteriorKoreanScreenshotPath, 1280, 800);
+            }
+
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
+            workbenchButton.onClick.Invoke();
+            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == campModuleExpansion.CommittedRoomId &&
+                    campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
+                    campPlacement.IsInstalledInRoom(StructureKind.Workbench, campModuleExpansion.CommittedRoomId),
+                "모듈 내부 일반 구역에서 작업대 제한적 자유 배치");
+            CampModuleDefinition committedDefinition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+            campUse.Warp(new Vector2(committedDefinition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY));
+            RefreshAll();
+            UseNearestCampTarget();
+            Require(campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId,
+                "명시적 사다리 경로로 모듈에서 시작 방 복귀");
+
+            session.Reset();
+            campPlacement.Reset();
+            campUse.Reset();
+            campInteraction.Reset();
+            campModuleExpansion.Reset();
+            campFeedback = PrototypeLocalizedText.Empty;
+            session.Grant(ResourceKind.Wood, 20);
+            session.Grant(ResourceKind.Stone, 10);
+            session.Grant(ResourceKind.Food, 5);
+            session.Grant(ResourceKind.Salvage, 20);
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
+
             campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.Campfire));
             RefreshAll();
 
@@ -1382,6 +1953,7 @@ namespace KimSurvival
             campPlacement.Reset();
             campUse.Reset();
             campInteraction.Reset();
+            campModuleExpansion.Reset();
             campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -1473,6 +2045,7 @@ namespace KimSurvival
             campPlacement.Reset();
             campUse.Reset();
             campInteraction.Reset();
+            campModuleExpansion.Reset();
             campFeedback = PrototypeLocalizedText.Empty;
             Require(session.ActiveBagSlotCount == GameSession.DefaultBagSlotCount && !session.HasPendingLoot && !session.IsBagSlotActive(4), "새 게임 초기화의 4칸·잠금·pending 정리");
             session.Grant(ResourceKind.Wood, 20);
@@ -1673,7 +2246,7 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · Wave 9 정상 캠프 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 1행 ko/en/qps-long 근거리 안내·상호작용 후 설비 전용 소형 팝업, 거리+바라보기 대상 선택·모달 이동 잠금·같은 위치 취소 복귀·확인 1회 원자성, 작업대/모닥불/빗물받이/신호대 행동 소유권, 1.25 unit 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 1280x800 ko/en 키보드/게임패드 회귀 확인";
+            return "PASS · Wave 9 현장 계획 지점에서 위층/옆방/지하실 후보 순회, 형태+문구 유효성, TBD_BALANCE 설정형 임시 비용, 실패/취소/중복 무차감과 1회 원자 확정, 명시적 문/사다리 이동, 모듈 일반 설비 구역과 통로 보호, 1280x800 ko/en/qps-long placeholder 표현 확인. 기존 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 근접 안내·설비 전용 팝업, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 키보드/게임패드 회귀 확인";
         }
 
         private void RequireReadableBagUi()
@@ -1742,6 +2315,32 @@ namespace KimSurvival
             }
         }
 
+        private void RequireReadableCampModulePreview(bool allowEllipsis)
+        {
+            Require(campModuleExpansion.IsPreviewActive && modulePreviewGhost != null && modulePreviewBadgeText != null,
+                "증축 미리보기 상태와 placeholder 표현 존재");
+            messageText.ForceMeshUpdate(true, true);
+            controlsText.ForceMeshUpdate(true, true);
+            modulePreviewBadgeText.ForceMeshUpdate(true, true);
+            Canvas.ForceUpdateCanvases();
+            Require(!campActions.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf && !bagPanel.activeSelf,
+                "증축 미리보기는 전역 대시보드·설비 팝업·근접 안내·가방을 되살리지 않음");
+            Require(messageText.fontSize >= 30f && !messageText.isTextOverflowing && !controlsText.isTextOverflowing,
+                "1280x800 ko/en 증축 상태·공통 입력 안내 잘림 없음");
+            Require(modulePreviewOutlineRenderers.Count == 4 && modulePreviewBadgeRenderer != null &&
+                    modulePreviewBadgeText.enableAutoSizing && modulePreviewBadgeText.fontSizeMin >= 27f &&
+                    modulePreviewBadgeText.maxVisibleLines == 3 && modulePreviewBadgeText.overflowMode == TextOverflowModes.Ellipsis,
+                "증축 후보는 고정 윤곽·3행 최대 배지·말줄임 안전 영역 정책 사용");
+            Vector3 viewport = worldCamera.WorldToViewportPoint(modulePreviewGhost.transform.position);
+            Require(viewport.x >= 0.2f && viewport.x <= 0.82f && viewport.y >= 0.22f && viewport.y <= 0.75f,
+                "증축 후보 중심은 상단 HUD·하단 안내를 피한 월드 안전 영역 안에 있음");
+            if (!allowEllipsis)
+            {
+                Require(!modulePreviewBadgeText.isTextOverflowing,
+                    "1280x800 ko/en 증축 월드 배지 잘림 없음");
+            }
+        }
+
         private void OpenCampPopupForVerification(PrototypeCampInteractionTargetKind target)
         {
             if (campInteraction.IsPopupOpen)
@@ -1776,6 +2375,21 @@ namespace KimSurvival
                     return campPlacement.GetInstalledPosition(StructureKind.RainCollector);
                 case PrototypeCampInteractionTargetKind.RescueSignal:
                     return GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
+                case PrototypeCampInteractionTargetKind.StoragePlanning:
+                    return new Vector2(
+                        campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId ? StoragePlanningX : ModulePlanningX,
+                        PrototypeCampPlacement.FloorY);
+                case PrototypeCampInteractionTargetKind.ModuleConnector:
+                    if (campModuleExpansion.HasCommittedModule)
+                    {
+                        CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+                        return new Vector2(
+                            campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId
+                                ? definition.StartConnectorDisplayX
+                                : definition.ModuleConnectorDisplayX,
+                            PrototypeCampPlacement.FloorY);
+                    }
+                    return campUse.PlayerPosition;
                 default:
                     return campUse.PlayerPosition;
             }
@@ -2057,6 +2671,10 @@ namespace KimSurvival
             }
 
             campPlacement.EnsureInstalled(kind);
+            if (!campPlacement.IsInstalledInRoom(kind, campUse.CurrentRoomId))
+            {
+                return;
+            }
             Vector2 size = PrototypeCampPlacement.GetStructureSize(kind);
             Vector2 position = campPlacement.GetInstalledPosition(kind);
             GameObject structure = new GameObject(kind + " · " + AssetStructures);
@@ -2068,7 +2686,7 @@ namespace KimSurvival
 
         private void CreateCampBlueprint(StructureKind kind, Color color)
         {
-            if (session.HasStructure(kind))
+            if (session.HasStructure(kind) || campUse.CurrentRoomId != PrototypeCampModuleCatalog.StartRoomId)
             {
                 return;
             }

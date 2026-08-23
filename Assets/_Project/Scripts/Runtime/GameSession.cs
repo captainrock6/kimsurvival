@@ -203,6 +203,24 @@ namespace KimSurvival
             storage[(int)kind] = Math.Max(0, storage[(int)kind] + amount);
         }
 
+        public bool CanAffordResources(int wood, int stone, int food, int salvage)
+        {
+            return wood >= 0 && stone >= 0 && food >= 0 && salvage >= 0 &&
+                   CanAfford(wood, stone, food, salvage);
+        }
+
+        public bool TrySpendResources(int wood, int stone, int food, int salvage)
+        {
+            if (Phase != GamePhase.Camp || Result != RunResult.None ||
+                !CanAffordResources(wood, stone, food, salvage))
+            {
+                return false;
+            }
+
+            Spend(wood, stone, food, salvage);
+            return true;
+        }
+
         public bool CanBuild(StructureKind kind)
         {
             if (Phase != GamePhase.Camp || HasStructure(kind))

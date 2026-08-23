@@ -809,6 +809,195 @@ MonoBehaviour:
     m_Localized: Repair inspection complete. Nothing needs fixing right now.
     m_Metadata:
       m_Items: []
+  - m_Id: 322381439811584
+    m_Localized: "{0} \xB7 A/D or \u2190/\u2192 cycle \xB7 Enter/click confirm \xB7
+      Esc/right-click cancel"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381490143232
+    m_Localized: "{0} \xB7 Left stick cycle \xB7 A confirm \xB7 B cancel"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381490143233
+    m_Localized: Storage & expansion planning point
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143234
+    m_Localized: '{0} entrance connector'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381490143235
+    m_Localized: A small on-site planning point. Move general facilities or preview
+      room-module candidates.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143236
+    m_Localized: Preview room expansion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143237
+    m_Localized: Room expansion complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143238
+    m_Localized: Upper room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143239
+    m_Localized: Side room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143240
+    m_Localized: Basement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143241
+    m_Localized: "{0} \xB7 Expansion preview\n{1}\n{2}\n{3}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381490143242
+    m_Localized: 'Connection, overlap, terrain, required path: valid'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143243
+    m_Localized: No matching connection slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143244
+    m_Localized: Overlaps an existing room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143245
+    m_Localized: Terrain blocks the candidate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143246
+    m_Localized: Entrance connector or required path is blocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143247
+    m_Localized: 'Cannot commit: no provisional cost configured'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143248
+    m_Localized: Provisional unlock requirement is not met
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143249
+    m_Localized: "Resources short \xB7 Need Wood {0}, Stone {1}, Salvage {2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381490143250
+    m_Localized: "Ready \xB7 Need Wood {0}, Stone {1}, Salvage {2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381490143251
+    m_Localized: 'Vertical-slice limit: one module already committed'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143252
+    m_Localized: "TBD_BALANCE provisional \xB7 Wood {0} + Stone {1} + Salvage {2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381490143253
+    m_Localized: No expansion preview is open.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143254
+    m_Localized: Resolve connection, overlap, terrain, and required-path conditions
+      first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381490143255
+    m_Localized: No provisional cost is configured; nothing was committed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337536
+    m_Localized: The provisional unlock requirement is not met.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337537
+    m_Localized: Not enough expansion resources. A failed commit spent nothing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337538
+    m_Localized: Only one room module can be committed in this vertical slice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337539
+    m_Localized: That commit is already being processed. No resources were spent
+      twice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337540
+    m_Localized: Room expansion complete.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337541
+    m_Localized: Expansion preview cancelled. Camp state is unchanged.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337542
+    m_Localized: '{0} committed. Resources were spent exactly once.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381494337543
+    m_Localized: Entered the {0} through its connector.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381494337544
+    m_Localized: Returned from the {0} to the starting room.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381494337545
+    m_Localized: "Facilities \xB7 Expansion"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 322381494337546
+    m_Localized: "{0} \xB7 Placeholder interior"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381494337547
+    m_Localized: "\u25C7 {0} \xB7 {2}\n{1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 322381494337548
+    m_Localized: "\xD7 {0} \xB7 {2}\n{1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 323293361192960
+    m_Localized: Cost unset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524608
+    m_Localized: Unlock locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524609
+    m_Localized: Resources short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524610
+    m_Localized: Resources ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 323293411524611
+    m_Localized: One-module limit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -871,3 +1060,16 @@ MonoBehaviour:
         - id: 270049511456769
         - id: 270049511456770
         - id: 270049511456771
+        - id: 322381439811584
+        - id: 322381490143232
+        - id: 322381490143234
+        - id: 322381490143241
+        - id: 322381490143249
+        - id: 322381490143250
+        - id: 322381490143252
+        - id: 322381494337542
+        - id: 322381494337543
+        - id: 322381494337544
+        - id: 322381494337546
+        - id: 322381494337547
+        - id: 322381494337548

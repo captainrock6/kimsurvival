@@ -22,11 +22,13 @@ namespace KimSurvival
 
         public Vector2 PlayerPosition { get; private set; }
         public float FacingDirection { get; private set; }
+        public string CurrentRoomId { get; private set; }
 
         public void Reset()
         {
             PlayerPosition = new Vector2(PlayerStartX, PlayerFloorY);
             FacingDirection = 1f;
+            CurrentRoomId = PrototypeCampModuleCatalog.StartRoomId;
             ClearDayBenefits();
         }
 
@@ -41,7 +43,7 @@ namespace KimSurvival
                 PlayerPosition.x + actions.Horizontal * MovementSpeed * Mathf.Max(0f, deltaTime),
                 PlayerMinimumX,
                 PlayerMaximumX);
-            PlayerPosition = new Vector2(x, PlayerFloorY);
+            PlayerPosition = new Vector2(x, PlayerPosition.y);
         }
 
         public void Warp(float worldX)
@@ -52,6 +54,23 @@ namespace KimSurvival
         public void Warp(Vector2 position)
         {
             PlayerPosition = new Vector2(Mathf.Clamp(position.x, PlayerMinimumX, PlayerMaximumX), position.y);
+        }
+
+        public void EnterRoom(string roomId, float landingX)
+        {
+            CurrentRoomId = string.IsNullOrWhiteSpace(roomId) ? PrototypeCampModuleCatalog.StartRoomId : roomId;
+            PlayerPosition = new Vector2(Mathf.Clamp(landingX, PlayerMinimumX, PlayerMaximumX), PlayerFloorY);
+        }
+
+        public void Restore(CampModuleReturnSnapshot snapshot)
+        {
+            CurrentRoomId = string.IsNullOrWhiteSpace(snapshot.RoomId)
+                ? PrototypeCampModuleCatalog.StartRoomId
+                : snapshot.RoomId;
+            FacingDirection = snapshot.FacingDirection < 0f ? -1f : 1f;
+            PlayerPosition = new Vector2(
+                Mathf.Clamp(snapshot.Position.x, PlayerMinimumX, PlayerMaximumX),
+                snapshot.Position.y);
         }
 
         public bool IsWithinUseRange(Vector2 targetPosition)
