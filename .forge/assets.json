@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T04:44:38.840Z",
+  "updatedAt": "2026-08-23T04:49:08.929Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -1037,7 +1037,7 @@
       "name": "공간형 캠프 최소 생존 HUD",
       "assetType": "ui_set",
       "request": "Wave 9 review-only 최소 생존 HUD. 1280x800과 1920x1080에서 화면 가장자리에 날짜/일광, 허기/체력, 작은 4칸·6칸 가방 요약과 짧은 상황 알림만 남긴다. 캠프 제작·건설·연구 목록, 캠프 창고, 대형 가방 패널, 전역 대시보드와 카드 그리드를 포함하지 않는다. 화면 중앙과 방 내부의 김씨·설비·사다리·증축 슬롯이 계속 보이도록 최대 점유율을 제한한다. 한국어·영어·qps-long 본문은 래스터/SVG에 넣지 않고 TMP 안전영역, ko/en/es/ja/zh 폰트 폴백 슬롯, 18px 본문·20px 핵심 수치 최소값을 명세한다. 키보드/게임패드 상태는 입력 glyph 슬롯만 분리하고 사용자 승인 전 review, adopt/package/runtime 연결 금지.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "unity",
@@ -1074,6 +1074,13 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-23T04:38:52.168Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823042528_d9e2a4ac",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T04:48:58.682Z",
           "qualityScore": 100
         }
       ],
@@ -1228,9 +1235,14 @@
           "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/qa-preview-minimal-hud-comparison-board.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823042528_d9e2a4ac",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823042528_d9e2a4ac\\forge-import.json",
+        "packagedAt": "2026-08-23T04:49:08.495Z"
+      },
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-23T04:38:52.170Z"
+      "updatedAt": "2026-08-23T04:49:08.496Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -2124,7 +2136,7 @@
       "name": "캠프 근접 안내와 설비 전용 팝업",
       "assetType": "ui_set",
       "request": "Wave 9 review-only 현장형 상호작용 UI. 원거리에는 완전히 숨고 근거리에서 대상 설비 하나 위에만 나타나는 무문자 근접 마커, 키보드 키캡 슬롯과 게임패드 버튼 glyph 슬롯, 그리고 작업대·모닥불·빗물받이·구조 신호대 각각의 작은 전용 팝업 프레임을 만든다. 팝업은 대상 설비 옆에 붙고 최대 화면 28% 폭·34% 높이만 차지하며 공간과 김씨를 계속 보여준다. 각 팝업은 해당 설비 행동만 가지며 비용 토큰, 잠금, 가능, 완료, 기본/포커스/비활성 상태를 형태로 구분한다. 한글·영문은 TMP 안전영역만 두고 qps-long 50% 팽창, 본문 18px·버튼20px, 44px 이상 게임패드 포커스 영역을 명세한다. 사용자 승인 전 review, adopt/package/runtime 연결 금지.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "contextual-ui",
@@ -2152,6 +2164,13 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-23T04:38:53.104Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823042544_299229fa",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T04:48:58.914Z",
           "qualityScore": 100
         }
       ],
@@ -2390,16 +2409,21 @@
           "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-proximity-prompt-keyboard.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823042544_299229fa",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823042544_299229fa\\forge-import.json",
+        "packagedAt": "2026-08-23T04:49:08.715Z"
+      },
       "createdAt": "2026-08-23T04:07:47.284Z",
-      "updatedAt": "2026-08-23T04:38:53.106Z"
+      "updatedAt": "2026-08-23T04:49:08.716Z"
     },
     {
       "id": "background.modular-island-camp",
       "name": "Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 ",
       "assetType": "background",
       "request": "Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 열린 절개형이며 표류목·대나무·밧줄·낡은 천·해안 돌로 급조했지만 구조가 명확하고, 내부 바닥의 중앙 65% 이상을 일반 설비 제한적 자유 배치용 빈 공간으로 둔다. 방 외곽·바닥·기둥·연결 슬롯·사다리/짧은 계단·지상/지하 배경·전경을 분리 가능한 레이어로 제공하고 bottom-center 피벗·접속 좌표·필수 이동 통로를 명세한다. 물리 설비·김씨·UI·텍스트·숫자·간판은 이미지에 포함하지 않는다. 승인 목업의 공간 원리만 참고하고 고유 화면·아트·구체 배치를 복제하지 않는다. 밝고 따뜻한 열대 낮빛, 굵고 깨끗한 손그림 외곽선, 코믹하지만 기능적인 김씨 생존기 톤. 사용자 승인 전 review이며 adopt/package/runtime 연결 금지.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "cutaway",
@@ -2469,6 +2493,13 @@
           "parentJobId": "job_20260823042510_f2a3ec9e",
           "status": "review",
           "at": "2026-08-23T04:44:38.839Z",
+          "qualityScore": 28
+        },
+        {
+          "jobId": "job_20260823044425_d2c6dc6b",
+          "parentJobId": "job_20260823042510_f2a3ec9e",
+          "status": "adopted",
+          "at": "2026-08-23T04:48:58.477Z",
           "qualityScore": 28
         }
       ],
@@ -2665,16 +2696,21 @@
           "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-wave9-spatial-camp-comparison-board.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260823044425_d2c6dc6b",
+        "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260823044425_d2c6dc6b\\forge-import.json",
+        "packagedAt": "2026-08-23T04:49:08.313Z"
+      },
       "createdAt": "2026-08-23T04:07:47.292Z",
-      "updatedAt": "2026-08-23T04:44:38.840Z"
+      "updatedAt": "2026-08-23T04:49:08.314Z"
     },
     {
       "id": "ui.camp-module-expansion",
       "name": "방 모듈 증축 현장형 상태 UI",
       "assetType": "ui_set",
       "request": "Wave 9 review-only 방 증축 현장형 오버레이. 시작 방의 위·오른쪽·지하 연결 슬롯과 선택된 방 모듈 유령을 공간 위에 직접 표시한다. 상태는 기본 슬롯, 선택/게임패드 포커스, 유효, 무효-겹침, 무효-출입 통로, 무효-접속 불가, 자원 부족, 확정 완료이며 색뿐 아니라 모서리 형태·굵은 윤곽·체크/봉제 X·절단된 커넥터로 구분한다. 비용 토큰과 확인·취소는 선택 모듈 가까운 작은 도구띠에만 배치하고 전체 화면 관리창이나 카드 그리드를 만들지 않는다. 1280x800에서 기존 캠프·김씨·설비가 보이며 ko/en/qps-long 본문은 TMP 안전영역만 제공한다. 사용자 승인 전 review, adopt/package/runtime 연결 금지.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "module-expansion",
@@ -2702,6 +2738,13 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-23T04:38:54.032Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823042602_7193f8d8",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T04:48:59.157Z",
           "qualityScore": 100
         }
       ],
@@ -2954,9 +2997,14 @@
           "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-valid.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823042602_7193f8d8",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823042602_7193f8d8\\forge-import.json",
+        "packagedAt": "2026-08-23T04:49:08.927Z"
+      },
       "createdAt": "2026-08-23T04:07:47.303Z",
-      "updatedAt": "2026-08-23T04:38:54.033Z"
+      "updatedAt": "2026-08-23T04:49:08.929Z"
     }
   ]
 }

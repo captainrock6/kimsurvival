@@ -2,7 +2,7 @@
   "id": "job_20260823042544_299229fa",
   "status": "succeeded",
   "createdAt": "2026-08-23T04:25:44.519Z",
-  "updatedAt": "2026-08-23T04:38:53.017Z",
+  "updatedAt": "2026-08-23T04:48:58.824Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.camp-contextual-interaction",
@@ -397,7 +397,26 @@
       "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-proximity-prompt-keyboard.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 Wave 9 근접 상호작용·설비 전용 팝업 UI를 명시적으로 채택했다. 대상 하나의 근접 안내, 키보드·게임패드 glyph 슬롯, 작업대·모닥불·빗물받이·구조 신호대의 작은 현장형 팝업을 유지한다.",
+    "selectedArtifacts": [
+      "actual-size-context-near-1280x800.png",
+      "actual-size-context-popup-1280x800.png",
+      "context-localization-expansion-board.png",
+      "contextual-comparison-board.png",
+      "contextual-ui-atlas.png",
+      "contextual-ui.svg",
+      "popup-campfire.png",
+      "popup-rain-collector.png",
+      "popup-rescue_signal.png",
+      "popup-workbench.png",
+      "proximity-prompt-gamepad.png",
+      "proximity-prompt-keyboard.png"
+    ],
+    "updatedAt": "2026-08-23T04:48:58.816Z"
+  },
   "events": [
     {
       "at": "2026-08-23T04:25:44.519Z",
@@ -433,6 +452,11 @@
       "at": "2026-08-23T04:38:53.017Z",
       "level": "info",
       "message": "Codex/로컬 결과 31개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-23T04:48:58.824Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

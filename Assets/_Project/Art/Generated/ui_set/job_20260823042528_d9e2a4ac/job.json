@@ -2,7 +2,7 @@
   "id": "job_20260823042528_d9e2a4ac",
   "status": "succeeded",
   "createdAt": "2026-08-23T04:25:28.190Z",
-  "updatedAt": "2026-08-23T04:38:52.114Z",
+  "updatedAt": "2026-08-23T04:48:58.625Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.survival-hud",
@@ -309,7 +309,20 @@
       "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/qa-preview-minimal-hud-comparison-board.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 Wave 9 최소 생존 HUD를 명시적으로 채택했다. 대형 전역 대시보드 없이 날짜·일광·허기·체력·작은 가방만 가장자리에 두고 공간을 보존하는 방향을 유지한다.",
+    "selectedArtifacts": [
+      "actual-size-minimal-hud-1280x800.png",
+      "actual-size-minimal-hud-1920x1080.png",
+      "hud-localization-expansion-board.png",
+      "minimal-hud-atlas.png",
+      "minimal-hud-comparison-board.png",
+      "minimal-hud.svg"
+    ],
+    "updatedAt": "2026-08-23T04:48:58.618Z"
+  },
   "events": [
     {
       "at": "2026-08-23T04:25:28.190Z",
@@ -345,6 +358,11 @@
       "at": "2026-08-23T04:38:52.114Z",
       "level": "info",
       "message": "Codex/로컬 결과 19개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-23T04:48:58.625Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

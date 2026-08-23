@@ -2,7 +2,7 @@
   "id": "job_20260823044425_d2c6dc6b",
   "status": "succeeded",
   "createdAt": "2026-08-23T04:44:25.970Z",
-  "updatedAt": "2026-08-23T04:44:38.802Z",
+  "updatedAt": "2026-08-23T04:48:58.398Z",
   "input": {
     "assetType": "background",
     "assetId": "background.modular-island-camp",
@@ -337,7 +337,23 @@
       "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-wave9-spatial-camp-comparison-board.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 Wave 9 공간형 캠프 배경을 명시적으로 채택했다. 시작 방·위층·옆방·지하실의 측면 절개 구도, 넓은 제한적 자유 배치 여백, 급조 목재·대나무·밧줄 톤, 분리 레이어·피벗·접속 슬롯을 유지한다.",
+    "selectedArtifacts": [
+      "foreground-alpha.png",
+      "layer-recomposition-board.png",
+      "module-parts-atlas.png",
+      "module-shell-source-alpha.png",
+      "module-shells-alpha.png",
+      "room-interiors-alpha.png",
+      "surface-backdrop-layer-alpha.png",
+      "underground-depth-alpha.png",
+      "wave9-spatial-camp-comparison-board.png"
+    ],
+    "updatedAt": "2026-08-23T04:48:58.389Z"
+  },
   "events": [
     {
       "at": "2026-08-23T04:44:25.970Z",
@@ -373,6 +389,11 @@
       "at": "2026-08-23T04:44:38.802Z",
       "level": "info",
       "message": "Codex/로컬 결과 25개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-23T04:48:58.398Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

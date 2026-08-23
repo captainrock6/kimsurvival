@@ -1,1 +1,35 @@
-{"schemaVersion":1,"assetId":"ui.camp-contextual-interaction","jobId":"job_20260823042544_299229fa","status":"review","sourceFiles":["contextual-ui.svg"],"primaryPreview":"actual-size-context-popup-1280x800.png","unityCandidate":{"textureType":"Sprite","spriteMode":"Multiple","pixelsPerUnit":100,"filterMode":"Bilinear","compression":"HighQuality","maxSize":4096,"mipmaps":false,"alphaIsTransparency":true,"pivot":[0.5,0.5]},"runtimeWiringDeferred":true,"packagingDeferredUntilAdoption":true,"adoptionRequired":true,"engineReady":false}
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-23T04:49:08.712Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "ui.camp-contextual-interaction",
+  "jobId": "job_20260823042544_299229fa",
+  "assetType": "ui_set",
+  "sourceFiles": [
+    "actual-size-context-near-1280x800.png",
+    "actual-size-context-popup-1280x800.png",
+    "context-localization-expansion-board.png",
+    "contextual-comparison-board.png",
+    "contextual-ui-atlas.png",
+    "contextual-ui.svg",
+    "popup-campfire.png",
+    "popup-rain-collector.png",
+    "popup-rescue_signal.png",
+    "popup-workbench.png",
+    "proximity-prompt-gamepad.png",
+    "proximity-prompt-keyboard.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "maxSize": 1920,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": true
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

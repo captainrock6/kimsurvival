@@ -2,7 +2,7 @@
   "id": "job_20260823042602_7193f8d8",
   "status": "succeeded",
   "createdAt": "2026-08-23T04:26:02.421Z",
-  "updatedAt": "2026-08-23T04:38:53.967Z",
+  "updatedAt": "2026-08-23T04:48:59.062Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.camp-module-expansion",
@@ -411,7 +411,27 @@
       "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-valid.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 Wave 9 캠프 모듈 증축 UI를 명시적으로 채택했다. 위·옆·지하 유령, 유효·무효·포커스·자원 부족 상태의 형태 기반 구분과 작은 현장 도구띠를 유지한다.",
+    "selectedArtifacts": [
+      "actual-size-expansion-1280x800.png",
+      "expansion-comparison-board.png",
+      "expansion-localization-board.png",
+      "expansion-state-atlas.png",
+      "expansion-ui.svg",
+      "ghost-complete.png",
+      "ghost-default.png",
+      "ghost-disconnected.png",
+      "ghost-focus.png",
+      "ghost-insufficient.png",
+      "ghost-invalid-overlap.png",
+      "ghost-invalid-path.png",
+      "ghost-valid.png"
+    ],
+    "updatedAt": "2026-08-23T04:48:59.050Z"
+  },
   "events": [
     {
       "at": "2026-08-23T04:26:02.421Z",
@@ -447,6 +467,11 @@
       "at": "2026-08-23T04:38:53.967Z",
       "level": "info",
       "message": "Codex/로컬 결과 33개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-23T04:48:59.062Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

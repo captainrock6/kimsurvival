@@ -1,1 +1,32 @@
-{"schemaVersion":1,"assetId":"background.modular-island-camp","jobId":"job_20260823044425_d2c6dc6b","parentJobId":"job_20260823042510_f2a3ec9e","status":"review","reviewOnly":true,"adopted":false,"engineReady":false,"runtimeConnected":false,"unity":{"textureType":"Sprite (2D and UI)","spriteMode":"Multiple","alphaIsTransparency":true,"mipmaps":false,"filterMode":"Bilinear","pixelsPerUnit":100,"pivot":[0.5,0.5]}}
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-23T04:49:08.310Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "background.modular-island-camp",
+  "jobId": "job_20260823044425_d2c6dc6b",
+  "assetType": "background",
+  "sourceFiles": [
+    "foreground-alpha.png",
+    "layer-recomposition-board.png",
+    "module-parts-atlas.png",
+    "module-shell-source-alpha.png",
+    "module-shells-alpha.png",
+    "room-interiors-alpha.png",
+    "surface-backdrop-layer-alpha.png",
+    "underground-depth-alpha.png",
+    "wave9-spatial-camp-comparison-board.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "CompressedHQ",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": false
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

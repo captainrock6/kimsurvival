@@ -1,1 +1,36 @@
-{"schemaVersion":1,"assetId":"ui.camp-module-expansion","jobId":"job_20260823042602_7193f8d8","status":"review","sourceFiles":["expansion-ui.svg"],"primaryPreview":"actual-size-expansion-1280x800.png","unityCandidate":{"textureType":"Sprite","spriteMode":"Multiple","pixelsPerUnit":100,"filterMode":"Bilinear","compression":"HighQuality","maxSize":4096,"mipmaps":false,"alphaIsTransparency":true,"pivot":[0.5,0.5]},"runtimeWiringDeferred":true,"packagingDeferredUntilAdoption":true,"adoptionRequired":true,"engineReady":false}
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-23T04:49:08.925Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "ui.camp-module-expansion",
+  "jobId": "job_20260823042602_7193f8d8",
+  "assetType": "ui_set",
+  "sourceFiles": [
+    "actual-size-expansion-1280x800.png",
+    "expansion-comparison-board.png",
+    "expansion-localization-board.png",
+    "expansion-state-atlas.png",
+    "expansion-ui.svg",
+    "ghost-complete.png",
+    "ghost-default.png",
+    "ghost-disconnected.png",
+    "ghost-focus.png",
+    "ghost-insufficient.png",
+    "ghost-invalid-overlap.png",
+    "ghost-invalid-path.png",
+    "ghost-valid.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "maxSize": 1920,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": true
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}
