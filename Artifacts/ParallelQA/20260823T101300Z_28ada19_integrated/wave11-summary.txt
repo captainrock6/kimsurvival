@@ -1,0 +1,17 @@
+Wave 11 direct connection-slot RED-first gate
+Run ID: 20260823T101300Z_28ada19_integrated
+Baseline: 28ada19655e352cebcc96d32bfef2be1b41f1a75
+Overall/Product/Infrastructure: FAIL/RED_EXPECTED_FAIL/FAIL
+Direct slot gate: RED_EXPECTED_FAIL (3/4)
+storage.planning auxiliary: PASS_NOT_SUBSTITUTE
+Full survival regression: PASS
+Compile: PASS 0 errors
+Windows build: PASS, warnings=0
+Hidden smoke: PASS
+Addressables: PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)
+Expected product gaps: 1
+Unexpected product failures: 0
+Infrastructure failures: 1
+Evidence: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260823T101300Z_28ada19_integrated

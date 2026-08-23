@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 11 direct connection-slot RED-first gate",
+  "runId": "20260823T101300Z_28ada19_integrated",
+  "baselineCommit": "28ada19655e352cebcc96d32bfef2be1b41f1a75",
+  "observedUtc": "2026-08-23T10:15:06.1087039Z",
+  "overall": "FAIL",
+  "productOverall": "RED_EXPECTED_FAIL",
+  "infrastructureOverall": "FAIL",
+  "directSlotGate": "RED_EXPECTED_FAIL",
+  "directChecksPassed": 3,
+  "directChecksTotal": 4,
+  "storagePlanningAuxiliary": "PASS_NOT_SUBSTITUTE",
+  "fullSurvivalRegression": "PASS",
+  "compile": "PASS 0 errors",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "expectedProductGaps": [
+    {
+      "id": "W11-P02.direct_slot_1280_layout",
+      "severity": "P1",
+      "actual": "directScreens=6/6; clear=0/3; captures are attempts when direct targets are absent and do not claim direct PASS",
+      "reproduction": "Open the six direct-slot PNGs at 1:1 and compare prompt/popup bounds with the player, slot, and lower walking band.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "unexpectedProductFailures": [],
+  "infrastructureFailures": [
+    "asset/release core contracts did not complete"
+  ],
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave11SlotDiscoveryGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '28ada19655e352cebcc96d32bfef2be1b41f1a75' -MinimumSmokeSeconds 6",
+  "evidenceRoot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T101300Z_28ada19_integrated"
+}

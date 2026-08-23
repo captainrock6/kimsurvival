@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 2,
+  "runId": "20260823T101300Z_28ada19_integrated",
+  "baselineCommit": "28ada19655e352cebcc96d32bfef2be1b41f1a75",
+  "overall": "PASS",
+  "ownership": "ADDRESSABLES_GENERATED_TEMPORARY",
+  "canonicalDurableState": "ABSENT",
+  "preflight": {
+    "observedUtc": "2026-08-23T10:13:56.937579Z",
+    "linkExists": false,
+    "linkBytes": 0,
+    "linkSha256": "",
+    "metaExists": false,
+    "metaBytes": 0,
+    "metaSha256": "",
+    "metaGuid": "",
+    "assetDatabaseGuid": ""
+  },
+  "postSmoke": {
+    "observedUtc": "2026-08-23T10:15:05.9873290Z",
+    "linkExists": false,
+    "linkBytes": 0,
+    "linkSha256": "",
+    "metaExists": false,
+    "metaBytes": 0,
+    "metaSha256": "",
+    "metaGuid": "",
+    "assetDatabaseGuid": ""
+  }
+}

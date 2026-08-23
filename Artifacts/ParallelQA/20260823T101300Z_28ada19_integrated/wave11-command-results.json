@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 11 direct connection-slot RED-first gate",
+  "runId": "20260823T101300Z_28ada19_integrated",
+  "baselineCommit": "28ada19655e352cebcc96d32bfef2be1b41f1a75",
+  "unityVersionExpected": "6000.4.9f1",
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "startedUtc": "2026-08-23T10:13:56.8359809Z",
+  "completedUtc": "2026-08-23T10:15:06.0519628Z",
+  "executionPolicy": "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+  "evidencePolicy": "Fresh run ID only. storage.planning is an auxiliary regression and cannot satisfy direct slot discovery.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave11SlotDiscoveryGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '28ada19655e352cebcc96d32bfef2be1b41f1a75' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "preflight",
+      "executeMethod": "Capture-Wave5Preflight.ps1",
+      "startedUtc": "2026-08-23T10:13:56.8359809Z",
+      "completedUtc": "2026-08-23T10:13:57.0031104Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T101300Z_28ada19_integrated\\wave5-preflight.txt",
+      "command": "Capture-Wave5Preflight.ps1 -RunId '20260823T101300Z_28ada19_integrated' -BaselineCommit '28ada19655e352cebcc96d32bfef2be1b41f1a75'",
+      "output": "PREFLIGHT=PASS | CANONICAL_ADDRESSABLES_LINK=ABSENT | EVIDENCE=C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T101300Z_28ada19_integrated\\wave5-preflight.json"
+    },
+    {
+      "name": "compile",
+      "executeMethod": "ParallelQA.ParallelQaRunner.RecordCompilePass",
+      "startedUtc": "2026-08-23T10:13:57.0185840Z",
+      "completedUtc": "2026-08-23T10:14:13.6440273Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-compile.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-compile.log\""
+    },
+    {
+      "name": "wave11-slot-edit",
+      "executeMethod": "ParallelQA.Wave11SlotDiscoveryGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T10:14:13.6474164Z",
+      "completedUtc": "2026-08-23T10:14:21.1198732Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-wave11-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave11SlotDiscoveryGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-wave11-edit.log\""
+    },
+    {
+      "name": "wave11-slot-play",
+      "executeMethod": "ParallelQA.Wave11SlotDiscoveryGateRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T10:14:21.1221472Z",
+      "completedUtc": "2026-08-23T10:14:34.7148286Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-wave11-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave11SlotDiscoveryGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-wave11-play.log\""
+    },
+    {
+      "name": "asset-release-contracts",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+      "startedUtc": "2026-08-23T10:14:34.7166811Z",
+      "completedUtc": "2026-08-23T10:14:39.1474013Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-asset-contracts.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-asset-contracts.log\""
+    },
+    {
+      "name": "windows-development-build",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+      "startedUtc": "2026-08-23T10:14:39.1497478Z",
+      "completedUtc": "2026-08-23T10:14:59.3827299Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-windows-build.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T101300Z_28ada19_integrated\\unity-windows-build.log\""
+    },
+    {
+      "name": "windows-hidden-smoke",
+      "executeMethod": "Invoke-Wave5WindowsSmoke.ps1",
+      "startedUtc": "2026-08-23T10:14:59.3835458Z",
+      "completedUtc": "2026-08-23T10:15:06.0517127Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T101300Z_28ada19_integrated\\windows-player.log",
+      "command": "Invoke-Wave5WindowsSmoke.ps1 -RunId '20260823T101300Z_28ada19_integrated' -BaselineCommit '28ada19655e352cebcc96d32bfef2be1b41f1a75' -MinimumSeconds 6",
+      "error": ""
+    }
+  ]
+}
