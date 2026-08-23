@@ -1,0 +1,19 @@
+Wave 7 bag capacity Edit contracts
+Run ID: 20260823T044000Z_d088cbd_wave9_spatial_camp_red
+Baseline: d088cbdf021765a811ed88af9b22b58db49b917c
+Unity: 6000.4.9f1
+Product: PASS
+Infrastructure: PASS
+Counts: PASS=12 FAIL=0 NOT_IMPLEMENTED=0 INFRA_FAIL=0 UNVERIFIED=0
+PASS · NONE · P0 · W7-01.new_game.base_capacity · active=4 legacyStaticSlots=6 stackLimit=2 · capacity=Field:<ActiveBagSlotCount>k__BackingField upgrade=Method:TryUpgradeBagCapacity begin=<missing> cancel=<missing>
+PASS · NONE · P0 · W7-02.no_workbench.no_spend · upgraded=False before=wood=2 salvage=1 capacity=4 after=wood=2 salvage=1 capacity=4 message=message.bag_upgrade.workbench
+PASS · NONE · P0 · W7-03a.insufficient.no_spend · upgraded=False before=wood=0 salvage=0 capacity=4 after=wood=0 salvage=0 capacity=4 message=message.bag_upgrade.materials
+PASS · NONE · P0 · W7-03b.cancel.no_spend · atomicUpgrade=True stagedBegin=False stagedCancel=False · capacity=Field:<ActiveBagSlotCount>k__BackingField upgrade=Method:TryUpgradeBagCapacity begin=<missing> cancel=<missing>
+PASS · NONE · P0 · W7-04.exact_once.to_six · upgraded=True before=wood=2 salvage=1 capacity=4 after=wood=0 salvage=0 capacity=6 message=message.bag_upgrade.success
+PASS · NONE · P0 · W7-05.repeat.no_spend · secondUpgrade=False before=wood=2 salvage=1 capacity=6 after=wood=2 salvage=1 capacity=6 message=message.bag_upgrade.complete
+PASS · NONE · P0 · W7-06.persistence_and_reset · day=2 capacityAfterDay=6 capacityAfterReset=4
+PASS · NONE · P0 · W7-07a.locked_slots · overflow=PendingSwap pending=True replaceIndex4=False replaceIndex5=False
+PASS · NONE · P0 · W7-07b.extended_slot_operations · slot5=Foodx2->Woodx1 slot6=Salvagex2 replaced=True discarded=True returnDelta=5/4/2 cleared=True
+PASS · NONE · P1 · W7-08.localization_semantics · keys=message.bag_upgrade.workbench|message.bag_upgrade.materials|message.bag_upgrade.success|message.bag_upgrade.complete parity=True qpsPlaceholder=True semantic=True ko=가방을 확장하려면 먼저 작업대가 필요하다. | 나무와 표류물이 부족하다. 현재 나무 0/2, 표류물 0/1. | 가방 확장 완료. 이제 여섯 칸을 채울 걱정이 생겼다. | 가방은 이미 6칸으로 확장했다. 두 번 꿰맨다고 더 늘지는 않는다. en=A workbench is required before upgrading the bag. | Wood and salvage are short. Current: Wood 0/2, Salvage 0/1. | Bag upgrade complete. Mr. Kim now has six slots to worry about filling. | The bag already has 6 slots. Stitching it twice will not make it larger.
+PASS · NONE · P1 · W7-09.synthetic_dual_input · capacity=6 keyboardSlot=5 gamepadSlot=5 interact=True/True cancel=True/True
+PASS · NONE · P0 · W7-11.natural_three_day_upgrade_rescue · sourceGrantWarpFree=True day=3 capacity=6 signal=2 result=Rescued phase=Result

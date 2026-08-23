@@ -1,0 +1,18 @@
+Wave 9 spatial camp Play contracts
+Run ID: 20260823T044500Z_d088cbd_wave9_spatial_camp_red
+Baseline: d088cbdf021765a811ed88af9b22b58db49b917c
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 4/7/0/0/1
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-P01.normal_camp_world_first · campActionsActive=True largeBagActive=True bagPixelArea=265625
+PASS · NONE · P0 · W9-P02.far_state_is_silent · farPromptCount=0 farPopupCount=0 prompts=<none> popups=<none>
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9-P08.ko_en_1280_readability · koHeaderOverlap=False enHeaderOverlap=False koOverflow=2 enOverflow=0
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-P03.single_near_target_prompt · Campfire=0:<none> | Workbench=0:<none> | RainCollector=0:<none> | RescueSignal=0:<none>
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-P04.popup_only_after_interact · Campfire=0:<none> | Workbench=0:<none> | RainCollector=0:<none> | RescueSignal=0:<none>
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-P05.modal_movement_lock · discoverableActiveMovementLock=False
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-P06.confirm_cancel_return · activePopup=<none> confirmAndCancelButtons=False
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-P07.per_target_action_ownership · correctTargetPopups=False globalDashboardActive=True
+PASS · NONE · P0 · W9-I05.far_action_resource_atomicity · farStable=Wood=24,Stone=19,Food=10,Salvage=26 nearResearched=True
+PASS · NONE · P0 · W9-I06.capture_and_layout_infrastructure · screenshots=4 activeTMP=24 overflow=0 outOfBounds=7 minPx=18.1
+UNVERIFIED · HARDWARE_GAP · P1 · W9-HW01.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode
+PASS · NONE · P0 · W9-I04.approach_first_full_regression · PASS · 공간형 캠프 이동·1.25 unit 설비/신호 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6 원자적 확장·잠긴 슬롯·5/6 획득/중첩/교체/포기/귀환·키보드/마우스/게임패드 포커스·1280x800/1920x1080 ko/en UI, ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 배치·수영·장벽·제작·연구·가방·귀환·정산 회귀 확인
