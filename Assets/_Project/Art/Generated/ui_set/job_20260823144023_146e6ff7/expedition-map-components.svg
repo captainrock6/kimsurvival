@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <pattern id="invalidHatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="12" stroke="#17353B" stroke-width="4"/></pattern>
+  </defs>
+  <g id="popup-frame" data-nine-slice="32,32,28,28"><rect x="36" y="38" width="1208" height="724" rx="26" fill="#17353B" stroke="#4DB7BF" stroke-width="5"/></g>
+  <g id="map-art-slot"><rect x="68" y="86" width="742" height="628" fill="none" stroke="#F3BE4D" stroke-width="4"/></g>
+  <g id="detail-card" data-nine-slice="24,24,20,20"><rect x="834" y="86" width="376" height="628" rx="18" fill="#EFE0B5" stroke="#17353B" stroke-width="4"/></g>
+  <g id="tmp-safe-rects" fill="none" stroke="#168C84" stroke-width="2" stroke-dasharray="8 6">
+    <rect id="tmp-region-title" x="858" y="108" width="328" height="58"/>
+    <rect id="tmp-resource-forecast" x="916" y="190" width="270" height="96"/>
+    <rect id="tmp-risk" x="916" y="302" width="270" height="60"/>
+    <rect id="tmp-weather" x="916" y="378" width="270" height="60"/>
+    <rect id="tmp-equipment" x="916" y="454" width="270" height="60"/>
+    <rect id="tmp-special-discovery" x="916" y="530" width="270" height="68"/>
+    <rect id="tmp-action" x="858" y="636" width="262" height="44"/>
+  </g>
+  <g id="glyph-slot"><rect x="1142" y="636" width="44" height="44" rx="10" fill="none" stroke="#F3BE4D" stroke-width="3"/></g>
+  <g id="node-idle"><circle cx="180" cy="220" r="35" fill="#F4E0AE" stroke="#17353B" stroke-width="6"/></g>
+  <g id="node-selected"><circle cx="280" cy="220" r="43" fill="none" stroke="#17353B" stroke-width="3"/><circle cx="280" cy="220" r="35" fill="#E8682A" stroke="#F3BE4D" stroke-width="6"/></g>
+  <g id="node-locked"><circle cx="380" cy="220" r="35" fill="#6B7772" stroke="#17353B" stroke-width="6" stroke-dasharray="10 8"/><circle cx="380" cy="220" r="27" fill="url(#invalidHatch)"/></g>
+  <g id="node-danger"><circle cx="480" cy="220" r="35" fill="#C9483A" stroke="#F4E0AE" stroke-width="6"/></g>
+  <g id="node-equipment-short"><circle cx="580" cy="220" r="35" fill="#F3BE4D" stroke="#17353B" stroke-width="6"/><path d="M552 248 L608 192" stroke="#17353B" stroke-width="7"/></g>
+  <g id="node-ready"><circle cx="680" cy="220" r="35" fill="#168C84" stroke="#F4E0AE" stroke-width="6"/><path d="M662 220 L676 234 L701 205" stroke="#F4E0AE" stroke-width="7" fill="none"/></g>
+  <g id="node-unknown"><circle cx="780" cy="220" r="35" fill="#50635F" stroke="#F4E0AE" stroke-width="6" stroke-dasharray="10 8"/><path d="M758 242 L802 198" stroke="#F4E0AE" stroke-width="7"/></g>
+</svg>

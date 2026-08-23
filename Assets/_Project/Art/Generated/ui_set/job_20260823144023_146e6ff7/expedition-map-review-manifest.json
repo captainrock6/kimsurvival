@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.expedition-map",
+  "jobId": "job_20260823144023_146e6ff7",
+  "status": "review",
+  "selectedCandidate": null,
+  "recommendedCandidate": "ui.expedition-map.right-rail-a",
+  "candidates": [
+    {
+      "concern": "map width is smaller than B",
+      "id": "ui.expedition-map.right-rail-a",
+      "strength": "best hierarchy, controller scan path and qps-long vertical reflow",
+      "file": "candidate-a-right-rail-1280x800.png",
+      "detailPlacement": "right"
+    },
+    {
+      "concern": "long locale rows become vertically tight",
+      "id": "ui.expedition-map.bottom-drawer-b",
+      "strength": "widest island map and short pointer travel",
+      "file": "candidate-b-bottom-drawer-1280x800.png",
+      "detailPlacement": "bottom"
+    },
+    {
+      "concern": "highest localization density and weakest first-read hierarchy",
+      "id": "ui.expedition-map.compact-right-c",
+      "strength": "largest map among right-card layouts",
+      "file": "candidate-c-compact-right-1280x800.png",
+      "detailPlacement": "right-compact"
+    }
+  ],
+  "sourceArt": {
+    "exactBitmapAdopted": false,
+    "adoptionScope": "palette, contrast and broad shape only",
+    "generation": "single Codex ImageGen call",
+    "referenceDirection": "background.coast-forest.gameplay-band-contrast",
+    "file": "island-map-art.png"
+  },
+  "states": [
+    "idle",
+    "selected",
+    "locked",
+    "danger-warning",
+    "equipment-short",
+    "departure-ready",
+    "unknown"
+  ],
+  "nodes": [
+    {
+      "shape": "circle",
+      "labelSlot": "TMP",
+      "id": "region.beach",
+      "resourceForecast": "category-only"
+    },
+    {
+      "shape": "circle+selection-notches",
+      "labelSlot": "TMP",
+      "id": "region.forest",
+      "resourceForecast": "category-only"
+    },
+    {
+      "shape": "circle+dashed-unknown",
+      "labelSlot": "TMP",
+      "id": "region.shallow-water",
+      "resourceForecast": "category-only"
+    }
+  ],
+  "localization": {
+    "safeRectOverlay": "candidate-a-localization-input-overlay-1280x800.png",
+    "overflow": "wrap then vertical reflow, never shrink below 18px at 1280x800",
+    "focusEvidence": "expedition-map-input-focus-comparison.png",
+    "glyphSlot": {
+      "devices": [
+        "keyboard-mouse",
+        "gamepad"
+      ],
+      "width": 44,
+      "height": 44
+    },
+    "productionRasterText": "none",
+    "locales": [
+      "ko",
+      "en",
+      "qps-long"
+    ],
+    "qpsLongExpansion": 1.5
+  },
+  "safeArea": {
+    "minimumFocus": {
+      "height": 44,
+      "width": 44
+    },
+    "canvas": {
+      "height": 800,
+      "width": 1280
+    },
+    "content": {
+      "right": 70,
+      "bottom": 74,
+      "top": 76,
+      "left": 68
+    },
+    "outer": {
+      "right": 36,
+      "bottom": 38,
+      "top": 38,
+      "left": 36
+    }
+  },
+  "slices": {
+    "actionButton": {
+      "right": 18,
+      "bottom": 14,
+      "top": 14,
+      "left": 18
+    },
+    "detailCard": {
+      "right": 24,
+      "bottom": 20,
+      "top": 20,
+      "left": 24
+    },
+    "popupFrame": {
+      "right": 32,
+      "bottom": 28,
+      "top": 28,
+      "left": 32
+    }
+  },
+  "layers": [
+    "backdrop-dimmer",
+    "popup-frame",
+    "map-art",
+    "route-lines",
+    "region-nodes",
+    "node-state-overlays",
+    "detail-card",
+    "forecast-icons",
+    "tmp-safe-rects",
+    "glyph-slots",
+    "focus-outline"
+  ],
+  "dependencyAllowlist": [
+    "icon.expedition-resource-risk-set",
+    "icon.resource-tool-set",
+    "background.coast-forest.gameplay-band-contrast"
+  ],
+  "dependencyRejectlist": [
+    "job_20260823132501_b4a82bed/coast-forest-clean-selected-b.png",
+    "review-board rasters",
+    "QA annotation overlays"
+  ],
+  "unityImport": {
+    "mapArt": {
+      "alphaIsTransparency": false,
+      "filter": "Bilinear",
+      "spriteMode": "Single",
+      "sRGB": true,
+      "textureType": "Sprite",
+      "compression": "None during review",
+      "maxSize": 2048
+    },
+    "components": {
+      "ppu": 100,
+      "renderMode": "Unity UI / 9-slice",
+      "source": "expedition-map-components.svg"
+    }
+  },
+  "runtime": {
+    "allowlist": [],
+    "runtimeConnectAllowed": false,
+    "packageAllowed": false
+  }
+}

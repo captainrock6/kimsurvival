@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "assetId": "icon.expedition-resource-risk-set",
+  "status": "review",
+  "selectedCandidate": null,
+  "checks": [
+    {
+      "id": "true-alpha",
+      "evidence": "transparent 32-bit atlas",
+      "result": "pass"
+    },
+    {
+      "id": "icon-count",
+      "value": 24,
+      "result": "pass"
+    },
+    {
+      "sizes": [
+        16,
+        24,
+        32,
+        48
+      ],
+      "id": "actual-size",
+      "result": "pass"
+    },
+    {
+      "id": "non-color-state",
+      "evidence": "dots, hatching, silhouette and shield grammar",
+      "result": "pass"
+    },
+    {
+      "id": "raster-text",
+      "value": "none in production atlas",
+      "result": "pass"
+    },
+    {
+      "id": "external-api",
+      "value": "none",
+      "result": "pass"
+    }
+  ],
+  "manualReview": {
+    "result": "pass-with-review",
+    "note": "16px is intended as a compact cue; detailed region cards should prefer 24-32px."
+  },
+  "qualityGate": "pending Forge import"
+}
