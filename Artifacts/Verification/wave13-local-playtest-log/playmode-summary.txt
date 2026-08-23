@@ -1,0 +1,5 @@
+PASS
+Completed UTC: 2026-08-23T12:10:32.8012785Z
+Unity: 6000.4.9f1
+Checks: Wave 13 actual camp proximity target, popup open/close, completed/rejected facility action, resource delta, locale/input fields, and before/after fingerprints were emitted through the Play Mode runtime integration.
+Regression: Wave 12 five-day deadline and Compact A prompt; Wave 11 direct module slots and cancel return; placement, bag 4-to-6, exploration, swimming, axe barrier, signal atomicity, crafting, research, and survival loop all PASS.
