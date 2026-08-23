@@ -700,7 +700,7 @@ namespace ParallelQA
             TMP_Text[] texts = mapRoot.GetComponentsInChildren<TMP_Text>(false)
                 .Where(text => text != null && text.gameObject.activeInHierarchy).ToArray();
             string combined = string.Join(" | ", texts.Select(text => text.text));
-            bool regions = ContainsAny(combined, "해변", "Beach") && ContainsAny(combined, "숲", "Forest") && ContainsAny(combined, "얇은 바다", "Shallow");
+            bool regions = ContainsAny(combined, "해변", "Beach") && ContainsAny(combined, "숲", "Forest") && ContainsAny(combined, "얕은 바다", "얇은 바다", "Shallow");
             string[] groups = { "자원|resource", "풍부|abundan|rich", "시간|time|travel", "위험|risk|hazard", "날씨|weather", "장비|gear|equipment", "특별|special|discovery", @"미확인|unknown|\?" };
             bool semantics = groups.All(group => Regex.IsMatch(combined, group, RegexOptions.IgnoreCase));
             bool exactAmounts = Regex.IsMatch(combined, @"(?:wood|stone|food|salvage|나무|돌|식량|표류물)\s*[x×:]?\s*\d+", RegexOptions.IgnoreCase);
