@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 12,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "candidate-a-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1716,
+      "contrastStdDev": 53.8,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-candidate-a-actual-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-b-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1738,
+      "contrastStdDev": 55.27,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-candidate-b-actual-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "candidate-c-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1688,
+      "contrastStdDev": 53.63,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-candidate-c-actual-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "module-preview-common-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2196,
+      "contrastStdDev": 51.01,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-module-preview-common-actual-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wave10-final-selection-board.png",
+      "kind": "raster",
+      "width": 1944,
+      "height": 1700,
+      "hasAlpha": true,
+      "transparentRatio": 0.6759,
+      "contrastStdDev": 40.43,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      },
+      "previewFile": "qa-preview-wave10-final-selection-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wave10-locale-footprint-board.png",
+      "kind": "raster",
+      "width": 1944,
+      "height": 900,
+      "hasAlpha": true,
+      "transparentRatio": 0.8647,
+      "contrastStdDev": 27.26,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      },
+      "previewFile": "qa-preview-wave10-locale-footprint-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "wave10-candidate-index.json",
+      "kind": "editable-source",
+      "bytes": 4747,
+      "issues": []
+    },
+    {
+      "fileName": "wave10-review-manifest.json",
+      "kind": "editable-source",
+      "bytes": 2195,
+      "issues": []
+    },
+    {
+      "fileName": "wave10-source-checksums.json",
+      "kind": "editable-source",
+      "bytes": 3118,
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 1317,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 1056,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 1391,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T08:58:21.472Z",
+  "jobId": "job_20260823085134_0094a8e6",
+  "assetType": "ui_set"
+}

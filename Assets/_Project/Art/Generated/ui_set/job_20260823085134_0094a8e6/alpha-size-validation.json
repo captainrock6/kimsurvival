@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "status": "pass",
+  "errors": [],
+  "files": [
+    {
+      "file": "candidate-a-actual-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "candidate-b-actual-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "candidate-c-actual-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "module-preview-common-actual-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "wave10-final-selection-board.png",
+      "width": 1944,
+      "height": 1700,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "wave10-locale-footprint-board.png",
+      "width": 1944,
+      "height": 900,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    }
+  ]
+}

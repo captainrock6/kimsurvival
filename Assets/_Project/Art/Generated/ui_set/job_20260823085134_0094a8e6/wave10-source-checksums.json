@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823085134_0094a8e6",
+  "imageGenerationCalls": 0,
+  "paidExternalApiCalls": 0,
+  "sources": [
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png",
+      "sha256": "32bcadf5ec7117eb5d0e2602c8ba8a8dd2e83a56a117e0a6368311831f901d43"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-b.png",
+      "sha256": "75e7ba93c31914e10009a2c497865ab73822129856f3b251868d1d01aa38bdcc"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-c.png",
+      "sha256": "91a87a80b4bcf1a248f1a45af239d670ec3d7881f5ba657e6928058ada60d31d"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/actual-size-compact-a-1280x800.png",
+      "sha256": "8e5771c8a232fb9c530f96c65e2b8ae4ad459a03417901364cfdb462694092cb"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/actual-size-compact-b-1280x800.png",
+      "sha256": "68259601f4680bfd8770c1d8f7c8c6ea7c0b8b35cec3453e4992e40f76242d39"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/actual-size-compact-c-1280x800.png",
+      "sha256": "beb516c7bde4342ed0ca0f759e498303b84c35d44b39a163f2f92ab2af4b4e05"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-interaction-9slice.json",
+      "sha256": "b1312c0d8def4b40de05f796f69e417c9dae71e11674905c90e54c89836793b6"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-interaction-localization.json",
+      "sha256": "e8e6e558f8c65961e3566b0653b4397380754cd94ae5f61e8746d14358057d59"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/camp-layer-pivot-slice-manifest.json",
+      "sha256": "1a3b222d1c2de56abe7a0e1d9716528f5b717da2fbf0f11472f756d0393f2c02"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/module-shells-alpha.png",
+      "sha256": "7d5998fcee573d1662f300b3c0fd91159405b6e70b644439c5027cb56e4e6049"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/state-valid-1280x800.png",
+      "sha256": "8fde5d0121567a4909e360c4c522ed812a5eb8a9d23c80119207203980b15b32"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/module-cost-belt-9slice.png",
+      "sha256": "33a8415cd0cd3b265550d1477df577a705f1848c81b97acff2f858304a090753"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/module-expansion-unity-manifest.json",
+      "sha256": "ffa585e594be6665c540b7f04bf56d69a2e7c997b71768a69522ed095a2f706b"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/module-expansion-localization-layout.json",
+      "sha256": "c516a937be59ce5fafa856c42077272998e03da58c38ee735a556e58db7a1f31"
+    }
+  ]
+}

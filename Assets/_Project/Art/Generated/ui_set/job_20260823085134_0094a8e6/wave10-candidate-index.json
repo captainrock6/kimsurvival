@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.wave10-art-review-board",
+  "jobId": "job_20260823085134_0094a8e6",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "decisionScope": "Choose exactly one contextual prompt candidate; the camp background and module expansion kit are common review context, not A/B/C alternatives.",
+  "candidates": [
+    {
+      "label": "A",
+      "candidateId": "ui.camp-contextual-interaction.compact-a",
+      "status": "review",
+      "sourceArtifact": "compact-a.png",
+      "actualScreenArtifact": "candidate-a-actual-1280x800.png",
+      "promptCanvasPixels": [
+        384,
+        64
+      ],
+      "promptVisibleRectPixels": [
+        8,
+        8,
+        368,
+        48
+      ],
+      "promptScreenPercent": 1.725,
+      "promptQpsLongScreenPercent": 3.25,
+      "tmpActionSafePixels": [
+        268,
+        30
+      ],
+      "inputFocusPixels": [
+        44,
+        44
+      ],
+      "roomShellsVisible": true,
+      "ladderVisible": true,
+      "walkableRouteVisible": true,
+      "prosKo": [
+        "기존 남색·청록·크림 HUD와 가장 자연스럽게 맞는다.",
+        "사각 입력 슬롯과 44×44 포커스 영역이 명확하다."
+      ],
+      "consKo": [
+        "C안보다 화면 점유율이 크다.",
+        "B안보다 급조한 수제 질감은 얌전하다."
+      ]
+    },
+    {
+      "label": "B",
+      "candidateId": "ui.camp-contextual-interaction.compact-b",
+      "status": "review",
+      "sourceArtifact": "compact-b.png",
+      "actualScreenArtifact": "candidate-b-actual-1280x800.png",
+      "promptCanvasPixels": [
+        432,
+        66
+      ],
+      "promptVisibleRectPixels": [
+        8,
+        8,
+        416,
+        50
+      ],
+      "promptScreenPercent": 2.031,
+      "promptQpsLongScreenPercent": 3.352,
+      "tmpActionSafePixels": [
+        314,
+        30
+      ],
+      "inputFocusPixels": [
+        46,
+        44
+      ],
+      "roomShellsVisible": true,
+      "ladderVisible": true,
+      "walkableRouteVisible": true,
+      "prosKo": [
+        "밧줄·황색 테두리가 가장 급조한 코믹 생존 분위기다.",
+        "기본 상태의 행동명 TMP 폭이 세 안 중 가장 넓다."
+      ],
+      "consKo": [
+        "세 안 중 화면 점유율이 가장 크다.",
+        "밝은 황색 면이 내레이션 카드와 경쟁할 수 있다."
+      ]
+    },
+    {
+      "label": "C",
+      "candidateId": "ui.camp-contextual-interaction.compact-c",
+      "status": "review",
+      "sourceArtifact": "compact-c.png",
+      "actualScreenArtifact": "candidate-c-actual-1280x800.png",
+      "promptCanvasPixels": [
+        352,
+        62
+      ],
+      "promptVisibleRectPixels": [
+        8,
+        8,
+        336,
+        46
+      ],
+      "promptScreenPercent": 1.509,
+      "promptQpsLongScreenPercent": 3.148,
+      "tmpActionSafePixels": [
+        245,
+        28
+      ],
+      "inputFocusPixels": [
+        46,
+        44
+      ],
+      "roomShellsVisible": true,
+      "ladderVisible": true,
+      "walkableRouteVisible": true,
+      "prosKo": [
+        "세 안 중 점유율이 가장 작아 방과 캐릭터가 가장 잘 보인다.",
+        "원형 입력 캡이 빠르게 눈에 들어온다."
+      ],
+      "consKo": [
+        "원형 캡이 기존 사각 HUD 조작부와 덜 일관적이다.",
+        "기본 행동명 TMP 안전 폭이 세 안 중 가장 좁다."
+      ]
+    }
+  ],
+  "sharedContext": {
+    "background": {
+      "assetId": "background.modular-island-camp",
+      "jobId": "job_20260823044425_d2c6dc6b",
+      "status": "review"
+    },
+    "moduleExpansion": {
+      "assetId": "ui.camp-module-expansion",
+      "jobId": "job_20260823080005_174af5ec",
+      "status": "review"
+    },
+    "modulePreviewArtifact": "module-preview-common-actual-1280x800.png",
+    "costBeltBaseSafeRectPixels": [
+      468,
+      82
+    ],
+    "costBeltBaseScreenPercent": 3.748,
+    "costBeltLocaleWidths": {
+      "KO": [
+        430,
+        82
+      ],
+      "EN": [
+        520,
+        82
+      ],
+      "QPS": [
+        640,
+        96
+      ]
+    },
+    "costBeltQpsLongScreenPercent": 6.0,
+    "promptAndCostBeltSameFrame": false
+  },
+  "localization": {
+    "promptWidthsPixels": {
+      "KO": 300,
+      "EN": 380,
+      "QPS": 520
+    },
+    "rasterLocalizedText": false,
+    "tmpRequired": true,
+    "glyphSlotRuntimeSwapped": true
+  },
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false,
+    "explicitCandidateIdRequired": true
+  }
+}

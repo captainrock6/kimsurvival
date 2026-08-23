@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.wave10-art-review-board",
+  "jobId": "job_20260823085134_0094a8e6",
+  "status": "review",
+  "method": "deterministic local Pillow composition from existing review artifacts",
+  "imageGenerationCalls": 0,
+  "paidExternalApiCalls": 0,
+  "regenerationAttempts": 0,
+  "localBuildAttempts": 3,
+  "localBuildFailures": 1,
+  "localVisualCorrections": 1,
+  "localBuildFailureNote": "First local composition stopped before board rendering because the configured Windows bold-font filename did not exist; the installed Segoe UI Bold path was corrected. No source art or API generation was involved.",
+  "localVisualCorrectionNote": "The first visual review found a missing-font check glyph in the technical visibility legend; it was replaced with deterministic vector strokes without changing any candidate art.",
+  "sourceAssetsModified": false,
+  "selectedCandidate": null,
+  "adopted": false,
+  "engineReady": false,
+  "packaged": false,
+  "runtimeConnected": false,
+  "userApprovalRequired": true
+}

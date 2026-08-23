@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T08:06:52.058Z",
+  "updatedAt": "2026-08-23T08:58:21.546Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -3143,6 +3143,201 @@
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.303Z",
       "updatedAt": "2026-08-23T08:06:52.058Z"
+    },
+    {
+      "id": "ui.wave10-art-review-board",
+      "name": "Wave 10 아트 사용자 선택 보드",
+      "assetType": "ui_set",
+      "request": "엄격한 review-only Wave 10 사용자 선택 보드. 기존 ui.camp-contextual-interaction job_20260823073121_f5da3402의 compact-a, compact-b, compact-c를 동일한 background.modular-island-camp job_20260823044425_d2c6dc6b 및 ui.camp-module-expansion job_20260823080005_174af5ec 문맥에서 비교한다. A/B/C 각각의 1280x800 실제 크기 프롬프트 화면을 보존하고, 방 외곽·사다리·계단·이동 통로의 가시성, ko/en/qps-long 프롬프트 안전 폭, 공통 증축 비용 belt의 ko/en/qps-long 점유 폭을 한눈에 보여주는 간결한 최종 보드와 안정 후보 ID 인덱스를 만든다. 래스터에는 A/B/C, locale code, 안정 기술 ID 같은 검토 라벨만 허용하며 실제 번역 본문·버튼 문구를 굽지 않는다. 새 그림 생성이나 기존 후보 수정 없이 로컬 결정론적 합성만 사용한다. 이 작업은 채택 승인이 아니며 모든 관련 자산과 새 보드는 review 상태, selectedCandidate null, adopted false, engineReady false, packaged false, runtimeConnected false로 유지한다.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "wave10",
+        "review-only",
+        "candidate-index",
+        "approval-pending"
+      ],
+      "dependencies": [],
+      "jobIds": [
+        "job_20260823085134_0094a8e6"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823085134_0094a8e6",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T08:51:34.167Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823085134_0094a8e6",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T08:58:21.544Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823085134_0094a8e6",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 18621,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 14559,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "candidate-a-actual-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1029695,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/candidate-a-actual-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "candidate-b-actual-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1021986,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/candidate-b-actual-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "candidate-c-actual-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1034379,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/candidate-c-actual-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "module-preview-common-actual-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1218389,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/module-preview-common-actual-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "wave10-final-selection-board.png",
+          "contentType": "image/png",
+          "bytes": 1086939,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/wave10-final-selection-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "wave10-locale-footprint-board.png",
+          "contentType": "image/png",
+          "bytes": 99173,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/wave10-locale-footprint-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "wave10-candidate-index.json",
+          "contentType": "application/json",
+          "bytes": 4747,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/wave10-candidate-index.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "wave10-review-manifest.json",
+          "contentType": "application/json",
+          "bytes": 2195,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/wave10-review-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "wave10-source-checksums.json",
+          "contentType": "application/json",
+          "bytes": 3118,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/wave10-source-checksums.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 1317,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/alpha-size-validation.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 1056,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/processing-report.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 1391,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/manual-review.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 3717,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3277,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-candidate-a-actual-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9218,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/qa-preview-candidate-a-actual-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-candidate-b-actual-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9172,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/qa-preview-candidate-b-actual-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-candidate-c-actual-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9211,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/qa-preview-candidate-c-actual-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-module-preview-common-actual-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9203,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/qa-preview-module-preview-common-actual-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-wave10-final-selection-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 11732,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/qa-preview-wave10-final-selection-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-wave10-locale-footprint-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6204,
+          "url": "/outputs/jobs/job_20260823085134_0094a8e6/qa-preview-wave10-locale-footprint-board.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-23T08:51:34.169Z",
+      "updatedAt": "2026-08-23T08:58:21.546Z"
     }
   ]
 }

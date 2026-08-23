@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.wave10-art-review-board",
+  "jobId": "job_20260823085134_0094a8e6",
+  "status": "pass",
+  "reviewOnly": true,
+  "reviewPasses": 2,
+  "reviewedArtifacts": [
+    "wave10-final-selection-board.png",
+    "wave10-locale-footprint-board.png",
+    "candidate-a-actual-1280x800.png",
+    "module-preview-common-actual-1280x800.png"
+  ],
+  "initialReviewIssue": "The technical visibility legend used a font-dependent check glyph that rendered as an empty box.",
+  "correction": "Replaced only the technical legend check glyph with deterministic vector strokes; candidate art and layout were unchanged.",
+  "finalChecks": {
+    "candidateLabelsABCUnambiguous": true,
+    "stableCandidateIdsVisible": true,
+    "actual1280x800ScreensPreserved": true,
+    "roomShellsReadable": true,
+    "ladderAndStairsReadable": true,
+    "walkableRouteReadable": true,
+    "promptFootprintCompared": true,
+    "costBeltFootprintCompared": true,
+    "koEnQpsLongSafeWidthsVisible": true,
+    "localizedRasterBodyTextAbsent": true,
+    "runtimeGlyphSlotsRemainBlank": true,
+    "promptAndExpansionStatesMarkedSeparate": true
+  },
+  "selection": {
+    "selectedCandidate": null,
+    "explicitCandidateIdRequired": true
+  },
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false,
+    "userApprovalRequired": true
+  }
+}

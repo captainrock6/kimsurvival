@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.wave10-art-review-board",
+  "jobId": "job_20260823085134_0094a8e6",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "outputs": {
+    "selectionBoard": "wave10-final-selection-board.png",
+    "localeBoard": "wave10-locale-footprint-board.png",
+    "candidateIndex": "wave10-candidate-index.json",
+    "actualScreens": [
+      "candidate-a-actual-1280x800.png",
+      "candidate-b-actual-1280x800.png",
+      "candidate-c-actual-1280x800.png"
+    ],
+    "commonModulePreview": "module-preview-common-actual-1280x800.png"
+  },
+  "sourceAssets": [
+    {
+      "assetId": "ui.camp-contextual-interaction",
+      "jobId": "job_20260823073121_f5da3402",
+      "status": "review"
+    },
+    {
+      "assetId": "background.modular-island-camp",
+      "jobId": "job_20260823044425_d2c6dc6b",
+      "status": "review"
+    },
+    {
+      "assetId": "ui.camp-module-expansion",
+      "jobId": "job_20260823080005_174af5ec",
+      "status": "review"
+    }
+  ],
+  "canvas": {
+    "actualScreens": [
+      1280,
+      800
+    ],
+    "selectionBoard": [
+      1944,
+      1700
+    ],
+    "localeBoard": [
+      1944,
+      900
+    ],
+    "origin": "top-left"
+  },
+  "visibilityReview": {
+    "rooms": [
+      "upper",
+      "start",
+      "side",
+      "basement"
+    ],
+    "ladderRect1280x800": [
+      206,
+      400,
+      300,
+      606
+    ],
+    "walkableBaselineY1280x800": 508.75,
+    "allCandidatesPass": true
+  },
+  "textPolicy": {
+    "localizedRasterText": false,
+    "allowedRasterLabels": [
+      "A",
+      "B",
+      "C",
+      "stable candidate IDs",
+      "KO",
+      "EN",
+      "QPS",
+      "technical measurements"
+    ],
+    "runtimeText": "TextMeshPro locale tables"
+  },
+  "workflow": {
+    "imageGenerationCalls": 0,
+    "paidExternalApiCalls": 0,
+    "regenerationAttempts": 0,
+    "method": "deterministic local Pillow composition from existing review artifacts"
+  },
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false,
+    "userApprovalRequired": true
+  }
+}
