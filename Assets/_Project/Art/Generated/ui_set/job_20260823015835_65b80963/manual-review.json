@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.bag-capacity-upgrade",
+  "jobId": "job_20260823015835_65b80963",
+  "reviewedAt": "2026-08-23T02:10:00+09:00",
+  "reviewStatus": "pass_with_minor_note",
+  "reviewState": "review",
+  "inspectedAtOriginalSize": [
+    "source-art-alpha.png",
+    "bag-base.png",
+    "bag-upgraded.png",
+    "bag-upgrade-icon.png",
+    "comparison-board.png",
+    "actual-size-1280x800.png",
+    "actual-size-1920x1080.png"
+  ],
+  "checks": [
+    {
+      "name": "adopted backpack identity",
+      "result": "pass",
+      "evidence": "cream worn canvas, tan rope harness, navy bedroll, green repair patch, and thick comic outline remain recognizable"
+    },
+    {
+      "name": "shape-distinct capacity",
+      "result": "pass",
+      "evidence": "4-slot panel is 119 px shorter; locked state adds two crossed pouch flaps; upgraded state replaces them with two open active rows and a wider two-pocket backpack silhouette"
+    },
+    {
+      "name": "interaction states",
+      "result": "pass",
+      "evidence": "focus adds a thick rope border and pointer; disabled adds crossed stitching and reduced value in addition to color changes"
+    },
+    {
+      "name": "localization safety",
+      "result": "pass",
+      "evidence": "no letters or numbers are rasterized; header, slot, and two-line action TMP safe rectangles are documented"
+    },
+    {
+      "name": "actual-size readability",
+      "result": "pass",
+      "evidence": "the 300x400 candidate fits the existing right HUD column at 1280x800 without clipping and scales cleanly at 1920x1080; the workbench-upgrade pictogram remains legible at approximately 50-64 px"
+    },
+    {
+      "name": "alpha and padding",
+      "result": "pass",
+      "evidence": "all production and review PNGs use RGBA, no alpha bounds touch a canvas edge, and the generated checkerboard was removed locally without regeneration"
+    }
+  ],
+  "minorNote": "At extreme zoom, a few subpixel light antialias samples remain around the generated rope silhouette. They do not read as a halo in the 1280x800 or 1920x1080 actual-size boards, but should be rechecked against the final adopted HUD material before runtime wiring.",
+  "copyrightReview": "original composition; references used only for the project's adopted identity, palette, and silhouette language",
+  "userAdoptionRequired": true,
+  "adopted": false,
+  "engineReady": false,
+  "runtimeConnected": false
+}

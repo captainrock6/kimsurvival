@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.bag-capacity-upgrade",
+  "jobId": "job_20260823015835_65b80963",
+  "assetType": "ui_set",
+  "status": "review",
+  "reviewOnly": true,
+  "adopted": false,
+  "engineReady": false,
+  "runtimeConnected": false,
+  "artDirection": {
+    "identityAnchor": "character.mr-kim adopted improvised cream canvas backpack with tan rope and navy bedroll",
+    "upgradeRead": "faded hand-sewn patches plus exactly two side pockets",
+    "tone": "warm comic tropical survival; crooked but functional",
+    "localizedRasterText": false
+  },
+  "productionParts": {
+    "decorativeRaster": [
+      "bag-base.png",
+      "bag-upgraded.png",
+      "bag-upgrade-icon.png"
+    ],
+    "capacityStates": [
+      "capacity-4.png",
+      "capacity-4-locked.png",
+      "capacity-6.png"
+    ],
+    "actionStates": [
+      "upgrade-card-default.png",
+      "upgrade-card-focus.png",
+      "upgrade-card-disabled.png"
+    ],
+    "editableSource": "editable-ui.svg"
+  },
+  "capacityPanel": {
+    "sourceCanvas": [384, 512],
+    "recommendedDisplayWidth1280x800": 300,
+    "recommendedDisplayHeight1280x800": 400,
+    "recommendedRightMargin1280x800": 20,
+    "headerTmpSafeRect": [124, 34, 216, 62],
+    "activeSlotTmpSafeRect": [102, 116, 226, 37],
+    "slotIconRect": [56, 116, 36, 37],
+    "rowStep": 59,
+    "minimumRuntimeTextPixelsAt1280x800": 18,
+    "focusTargetMinimumPixels": [280, 44],
+    "layoutRule": "First four rows retain the same geometry. Slots five and six extend the panel downward as wider side-pocket rows; the locked version uses crossed stitched flaps and must not be selectable."
+  },
+  "upgradeAction": {
+    "sourceCanvas": [384, 128],
+    "recommendedDisplaySize1280x800": [252, 84],
+    "iconRect": [28, 26, 76, 76],
+    "tmpSafeRect": [118, 28, 226, 72],
+    "minimumRuntimeTextPixelsAt1280x800": 16,
+    "wrapLines": 2,
+    "focusCue": "8 px amber rope border plus left pointer; not color-only",
+    "disabledCue": "desaturated card plus crossed stitched icon panel; not color-only"
+  },
+  "localization": {
+    "baseLocale": "ko",
+    "supportedLocale": "en",
+    "futureLocales": ["es", "ja", "zh"],
+    "textRendering": "Unity TextMeshPro only",
+    "fontSlots": ["TMP_KO", "TMP_LATIN", "TMP_CJK_FALLBACK"],
+    "overflow": "wrap within safe rect; never uniformly scale the full panel; preserve minimum font sizes",
+    "rasterizedLettersOrNumbers": false
+  },
+  "unityImportCandidate": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "HighQuality",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceBorderSuggested": [18, 18, 18, 18],
+    "pivot": [0.5, 0.5],
+    "packagingDeferredUntilAdoption": true
+  },
+  "reviewEvidence": [
+    "comparison-board.png",
+    "actual-size-1280x800.png",
+    "actual-size-1920x1080.png",
+    "alpha-size-validation.json",
+    "shape-distinction-validation.json",
+    "manual-review.json"
+  ]
+}

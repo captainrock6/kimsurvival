@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-23T02:10:00+09:00",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "ui.bag-capacity-upgrade",
+  "jobId": "job_20260823015835_65b80963",
+  "assetType": "ui_set",
+  "status": "review",
+  "sourceFiles": [
+    "bag-base.png",
+    "bag-upgraded.png",
+    "bag-upgrade-icon.png",
+    "capacity-4.png",
+    "capacity-4-locked.png",
+    "capacity-6.png",
+    "upgrade-card-default.png",
+    "upgrade-card-focus.png",
+    "upgrade-card-disabled.png",
+    "editable-ui.svg"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "HighQuality",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": true,
+    "nineSliceBorder": [18, 18, 18, 18],
+    "pivot": [0.5, 0.5]
+  },
+  "stateFiles": [
+    "capacity-4.png",
+    "capacity-4-locked.png",
+    "capacity-6.png",
+    "upgrade-card-default.png",
+    "upgrade-card-focus.png",
+    "upgrade-card-disabled.png"
+  ],
+  "localizationTextSource": "Unity TextMeshPro only; safe rectangles are in ui-metadata.json",
+  "runtimeWiringDeferred": true,
+  "packagingDeferredUntilAdoption": true,
+  "adoptionRequired": true
+}

@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 20,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "source-art-alpha.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.7625,
+      "contrastStdDev": 50.28,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 69,
+        "top": 279,
+        "right": 79,
+        "bottom": 225
+      },
+      "previewFile": "qa-preview-source-art-alpha.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "bag-base.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.5723,
+      "contrastStdDev": 69.64,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 79,
+        "top": 41,
+        "right": 80,
+        "bottom": 41
+      },
+      "previewFile": "qa-preview-bag-base.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "bag-upgraded.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.5047,
+      "contrastStdDev": 66.79,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 40,
+        "top": 41,
+        "right": 41,
+        "bottom": 41
+      },
+      "previewFile": "qa-preview-bag-upgraded.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "bag-upgrade-icon.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.7113,
+      "contrastStdDev": 43.44,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 86,
+        "top": 46,
+        "right": 86,
+        "bottom": 46
+      },
+      "previewFile": "qa-preview-bag-upgrade-icon.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "capacity-4.png",
+      "kind": "raster",
+      "width": 384,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.5792,
+      "contrastStdDev": 71.55,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 14,
+        "top": 14,
+        "right": 14,
+        "bottom": 143
+      },
+      "previewFile": "qa-preview-capacity-4.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "capacity-4-locked.png",
+      "kind": "raster",
+      "width": 384,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.3851,
+      "contrastStdDev": 66.04,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 14,
+        "top": 14,
+        "right": 14,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-capacity-4-locked.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "capacity-6.png",
+      "kind": "raster",
+      "width": 384,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.3821,
+      "contrastStdDev": 66.48,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 14,
+        "top": 14,
+        "right": 14,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-capacity-6.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "upgrade-card-default.png",
+      "kind": "raster",
+      "width": 384,
+      "height": 128,
+      "hasAlpha": true,
+      "transparentRatio": 0.8961,
+      "contrastStdDev": 45.54,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 15,
+        "top": 13,
+        "right": 15,
+        "bottom": 13
+      },
+      "previewFile": "qa-preview-upgrade-card-default.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "upgrade-card-focus.png",
+      "kind": "raster",
+      "width": 384,
+      "height": 128,
+      "hasAlpha": true,
+      "transparentRatio": 0.8318,
+      "contrastStdDev": 63.98,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 4,
+        "top": 12,
+        "right": 14,
+        "bottom": 12
+      },
+      "previewFile": "qa-preview-upgrade-card-focus.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "upgrade-card-disabled.png",
+      "kind": "raster",
+      "width": 384,
+      "height": 128,
+      "hasAlpha": true,
+      "transparentRatio": 0.9279,
+      "contrastStdDev": 38.49,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 15,
+        "top": 13,
+        "right": 15,
+        "bottom": 13
+      },
+      "previewFile": "qa-preview-upgrade-card-disabled.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.9257,
+      "contrastStdDev": 33.84,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 17
+      },
+      "previewFile": "qa-preview-actual-size-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.9176,
+      "contrastStdDev": 33.68,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 21,
+        "right": 24,
+        "bottom": 22
+      },
+      "previewFile": "qa-preview-actual-size-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "comparison-board.png",
+      "kind": "raster",
+      "width": 1600,
+      "height": 900,
+      "hasAlpha": true,
+      "transparentRatio": 0.7971,
+      "contrastStdDev": 55.16,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 103,
+        "top": 58,
+        "right": 143,
+        "bottom": 58
+      },
+      "previewFile": "qa-preview-comparison-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "editable-ui.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1536 1024",
+      "issues": []
+    },
+    {
+      "fileName": "ui-metadata.json",
+      "kind": "editable-source",
+      "bytes": 3000,
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 2325,
+      "issues": []
+    },
+    {
+      "fileName": "shape-distinction-validation.json",
+      "kind": "editable-source",
+      "bytes": 584,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 2425,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 622,
+      "issues": []
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 1254,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T02:09:00.497Z",
+  "jobId": "job_20260823015835_65b80963",
+  "assetType": "ui_set"
+}

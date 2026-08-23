@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823015835_65b80963",
+  "checks": {
+    "baseActiveSlotCount": 4,
+    "lockedExtensionSlotCount": 2,
+    "upgradedActiveSlotCount": 6,
+    "baseBagHasSidePockets": false,
+    "upgradedBagSidePocketCount": 2,
+    "upgradedToBaseBagWidthRatio": 1.221,
+    "lockedPanelAddedSilhouetteHeightPixels": 119,
+    "activePanelAddedSilhouetteHeightPixels": 119,
+    "colorIndependentDistinction": true,
+    "distinctionMechanisms": ["slot count", "panel height", "closed stitched pouch flap", "two protruding side pockets"]
+  },
+  "result": "pass"
+}

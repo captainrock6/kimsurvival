@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T01:52:41.889Z",
+  "updatedAt": "2026-08-23T02:09:00.589Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -1650,9 +1650,9 @@
       "id": "ui.bag-capacity-upgrade",
       "name": "가방 확장 UI 상태 세트",
       "assetType": "ui_set",
-      "request": "김씨의 급조 등가방에 천 조각과 옆주머니 두 개를 덧댄 코믹한 2D 업그레이드 전후 UI 상태 세트. 4칸 기본, 잠긴 두 칸, 6칸 활성 상태와 작업대 업그레이드 아이콘을 1280×800 및 1920×1080 HUD에서 읽히게 제공한다. 한국어·영어 본문은 넣지 않고 엔진 텍스트 여백과 게임패드 포커스 상태를 지원하며 투명 배경과 편집 가능한 분리 파츠를 사용한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "김씨의 채택된 급조 등가방 정체성을 유지하면서 낡은 천 조각과 좌우 옆주머니 두 개를 덧댄 코믹 생존 UI 후보를 제작한다. 4칸 기본, 2칸 잠금, 6칸 활성 상태를 색뿐 아니라 외곽 형태와 슬롯 개수로 즉시 구분하고, 작업대 가방 확장 아이콘 및 기본·게임패드 포커스·비활성 액션 상태를 분리한다. 오른쪽 세로형 HUD 폭 약 300px 기준으로 1280x800과 1920x1080에서 읽히며, 모든 한국어·영어 본문은 엔진 TMP 영역에만 배치하고 래스터에는 글자·숫자·로고를 넣지 않는다. 투명 배경, 굵고 읽기 쉬운 실루엣, 따뜻한 열대색, 편집 가능한 엔진 UI 파츠, 넉넉한 텍스트 안전 여백을 제공한다. 사용자 승인 전 review 후보이며 adopt/engine_ready/runtime 연결을 하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "ui",
@@ -1666,14 +1666,291 @@
         "ui.survival-hud",
         "character.mr-kim"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823015835_65b80963"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823015835_65b80963",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T01:58:35.084Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823015835_65b80963",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T02:09:00.588Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823015835_65b80963",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 23711,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 19649,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "source-art-alpha.png",
+          "contentType": "image/png",
+          "bytes": 1239994,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/source-art-alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "bag-base.png",
+          "contentType": "image/png",
+          "bytes": 357905,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/bag-base.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "bag-upgraded.png",
+          "contentType": "image/png",
+          "bytes": 412362,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/bag-upgraded.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "bag-upgrade-icon.png",
+          "contentType": "image/png",
+          "bytes": 250031,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/bag-upgrade-icon.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "capacity-4.png",
+          "contentType": "image/png",
+          "bytes": 23503,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/capacity-4.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "capacity-4-locked.png",
+          "contentType": "image/png",
+          "bytes": 29081,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/capacity-4-locked.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "capacity-6.png",
+          "contentType": "image/png",
+          "bytes": 27875,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/capacity-6.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "upgrade-card-default.png",
+          "contentType": "image/png",
+          "bytes": 9538,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/upgrade-card-default.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "upgrade-card-focus.png",
+          "contentType": "image/png",
+          "bytes": 10445,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/upgrade-card-focus.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "upgrade-card-disabled.png",
+          "contentType": "image/png",
+          "bytes": 7850,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/upgrade-card-disabled.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 70350,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/actual-size-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 108609,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/actual-size-1920x1080.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "comparison-board.png",
+          "contentType": "image/png",
+          "bytes": 135086,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/comparison-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "editable-ui.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 5217,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/editable-ui.svg"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "ui-metadata.json",
+          "contentType": "application/json",
+          "bytes": 3000,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/ui-metadata.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 2325,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/alpha-size-validation.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "shape-distinction-validation.json",
+          "contentType": "application/json",
+          "bytes": 584,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/shape-distinction-validation.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 2425,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/manual-review.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 622,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/processing-report.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 1254,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/forge-import.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 6624,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 4599,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-source-art-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5981,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-source-art-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-bag-base.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9711,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-bag-base.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-bag-upgraded.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 11393,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-bag-upgraded.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-bag-upgrade-icon.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8167,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-bag-upgrade-icon.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-capacity-4.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6912,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-capacity-4.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-capacity-4-locked.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8659,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-capacity-4-locked.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-capacity-6.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8634,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-capacity-6.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-upgrade-card-default.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4265,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-upgrade-card-default.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-upgrade-card-focus.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4658,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-upgrade-card-focus.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-upgrade-card-disabled.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3577,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-upgrade-card-disabled.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4411,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-actual-size-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4232,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-actual-size-1920x1080.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-comparison-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6051,
+          "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-comparison-board.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T01:52:41.889Z",
-      "updatedAt": "2026-08-23T01:52:41.889Z"
+      "updatedAt": "2026-08-23T02:09:00.589Z"
     }
   ]
 }

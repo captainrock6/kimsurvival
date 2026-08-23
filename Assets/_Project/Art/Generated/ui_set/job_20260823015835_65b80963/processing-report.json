@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823015835_65b80963",
+  "input": "C:\\Users\\dev\\.codex\\worktrees\\11bb\\신규 개발 본부\\Assets\\_Project\\Art\\Generated\\_staging\\job_20260823015835_65b80963\\source-generated.png",
+  "generationCount": 1,
+  "externalPaidApiCalled": false,
+  "deterministicOperations": ["neutral checkerboard to alpha", "fixed three-cell extraction", "shared-height bag normalization", "vector-like panel rasterization", "actual-size layout composition"],
+  "localizedRasterText": false,
+  "reviewOnly": true,
+  "adopted": false,
+  "engineReady": false,
+  "runtimeConnected": false
+}
