@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T04:08:14.608Z",
+  "updatedAt": "2026-08-23T04:44:38.840Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -1034,11 +1034,11 @@
     },
     {
       "id": "ui.survival-hud",
-      "name": "최소 생존 HUD",
+      "name": "공간형 캠프 최소 생존 HUD",
       "assetType": "ui_set",
-      "request": "공간형 2D 캠프와 섬 수색을 가리지 않는 최소 HUD. 날짜·일광, 허기·체력, 작은 가방 요약과 상황성 알림만 지속 표시한다. 캠프 제작·건설·연구 목록과 대형 가방 패널은 상시 HUD에 포함하지 않는다. 1280×800과 1920×1080, 한국어·영어 및 향후 장문 로케일, 키보드·게임패드 포커스를 지원하며 본문은 엔진 텍스트로 둔다.",
-      "status": "needed",
-      "source": "codex",
+      "request": "Wave 9 review-only 최소 생존 HUD. 1280x800과 1920x1080에서 화면 가장자리에 날짜/일광, 허기/체력, 작은 4칸·6칸 가방 요약과 짧은 상황 알림만 남긴다. 캠프 제작·건설·연구 목록, 캠프 창고, 대형 가방 패널, 전역 대시보드와 카드 그리드를 포함하지 않는다. 화면 중앙과 방 내부의 김씨·설비·사다리·증축 슬롯이 계속 보이도록 최대 점유율을 제한한다. 한국어·영어·qps-long 본문은 래스터/SVG에 넣지 않고 TMP 안전영역, ko/en/es/ja/zh 폰트 폴백 슬롯, 18px 본문·20px 핵심 수치 최소값을 명세한다. 키보드/게임패드 상태는 입력 glyph 슬롯만 분리하고 사용자 승인 전 review, adopt/package/runtime 연결 금지.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "ui",
@@ -1058,14 +1058,179 @@
       "dependencies": [
         "icon.resource-tool-set"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823042528_d9e2a4ac"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823042528_d9e2a4ac",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T04:25:28.259Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823042528_d9e2a4ac",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T04:38:52.168Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823042528_d9e2a4ac",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 63640,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 58183,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-minimal-hud-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1559669,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/actual-size-minimal-hud-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-minimal-hud-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 3064548,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/actual-size-minimal-hud-1920x1080.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 623,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/alpha-size-validation.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 518,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/forge-import.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "hud-localization-expansion-board.png",
+          "contentType": "image/png",
+          "bytes": 30466,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/hud-localization-expansion-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "hud-localization-spec.json",
+          "contentType": "application/json",
+          "bytes": 659,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/hud-localization-spec.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 486,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/manual-review.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "minimal-hud-atlas.png",
+          "contentType": "image/png",
+          "bytes": 18578,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/minimal-hud-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "minimal-hud-comparison-board.png",
+          "contentType": "image/png",
+          "bytes": 1638234,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/minimal-hud-comparison-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "minimal-hud-metadata.json",
+          "contentType": "application/json",
+          "bytes": 636,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/minimal-hud-metadata.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "minimal-hud.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 972,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/minimal-hud.svg"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 313,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/processing-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 3393,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3149,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-minimal-hud-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9238,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/qa-preview-actual-size-minimal-hud-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-minimal-hud-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8399,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/qa-preview-actual-size-minimal-hud-1920x1080.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-hud-localization-expansion-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5317,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/qa-preview-hud-localization-expansion-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-minimal-hud-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4592,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/qa-preview-minimal-hud-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-minimal-hud-comparison-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6608,
+          "url": "/outputs/jobs/job_20260823042528_d9e2a4ac/qa-preview-minimal-hud-comparison-board.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-23T04:08:14.552Z"
+      "updatedAt": "2026-08-23T04:38:52.170Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -1958,9 +2123,9 @@
       "id": "ui.camp-contextual-interaction",
       "name": "캠프 근접 안내와 설비 전용 팝업",
       "assetType": "ui_set",
-      "request": "승인된 공간형 베이스캠프 목업을 기준으로 한 근접 상호작용 마커, 키보드·게임패드 입력 안내, 작업대·모닥불·빗물받이·구조 신호대의 작고 상황적인 팝업 프레임 세트. 대상 설비와 주변 공간을 계속 볼 수 있어야 하며 화면 대부분을 덮는 전역 대시보드가 아니어야 한다. 한국어·영어 본문은 래스터에 넣지 않고 비용·잠금·가능·완료·포커스 상태를 분리한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 9 review-only 현장형 상호작용 UI. 원거리에는 완전히 숨고 근거리에서 대상 설비 하나 위에만 나타나는 무문자 근접 마커, 키보드 키캡 슬롯과 게임패드 버튼 glyph 슬롯, 그리고 작업대·모닥불·빗물받이·구조 신호대 각각의 작은 전용 팝업 프레임을 만든다. 팝업은 대상 설비 옆에 붙고 최대 화면 28% 폭·34% 높이만 차지하며 공간과 김씨를 계속 보여준다. 각 팝업은 해당 설비 행동만 가지며 비용 토큰, 잠금, 가능, 완료, 기본/포커스/비활성 상태를 형태로 구분한다. 한글·영문은 TMP 안전영역만 두고 qps-long 50% 팽창, 본문 18px·버튼20px, 44px 이상 게임패드 포커스 영역을 명세한다. 사용자 승인 전 review, adopt/package/runtime 연결 금지.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "contextual-ui",
         "proximity-prompt",
@@ -1971,22 +2136,271 @@
         "ui.survival-hud",
         "object.camp-structures"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823042544_299229fa"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823042544_299229fa",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T04:25:44.606Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823042544_299229fa",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T04:38:53.104Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823042544_299229fa",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 63778,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 58229,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-context-near-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1547757,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/actual-size-context-near-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-context-popup-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1376468,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/actual-size-context-popup-1280x800.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 1226,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/alpha-size-validation.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "context-localization-expansion-board.png",
+          "contentType": "image/png",
+          "bytes": 81426,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/context-localization-expansion-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "context-localization-spec.json",
+          "contentType": "application/json",
+          "bytes": 670,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/context-localization-spec.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "contextual-comparison-board.png",
+          "contentType": "image/png",
+          "bytes": 1038925,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/contextual-comparison-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "contextual-ui-atlas.png",
+          "contentType": "image/png",
+          "bytes": 142946,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/contextual-ui-atlas.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "contextual-ui-metadata.json",
+          "contentType": "application/json",
+          "bytes": 614,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/contextual-ui-metadata.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "contextual-ui.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 998,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/contextual-ui.svg"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 537,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/forge-import.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 501,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/manual-review.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "popup-campfire.png",
+          "contentType": "image/png",
+          "bytes": 19710,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/popup-campfire.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "popup-rain-collector.png",
+          "contentType": "image/png",
+          "bytes": 19027,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/popup-rain-collector.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "popup-rescue_signal.png",
+          "contentType": "image/png",
+          "bytes": 18340,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/popup-rescue_signal.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "popup-workbench.png",
+          "contentType": "image/png",
+          "bytes": 25407,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/popup-workbench.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 345,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/processing-report.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "proximity-prompt-gamepad.png",
+          "contentType": "image/png",
+          "bytes": 3980,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/proximity-prompt-gamepad.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "proximity-prompt-keyboard.png",
+          "contentType": "image/png",
+          "bytes": 3697,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/proximity-prompt-keyboard.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 5970,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 4400,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-context-near-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9295,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-actual-size-context-near-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-context-popup-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9278,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-actual-size-context-popup-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-context-localization-expansion-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5359,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-context-localization-expansion-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-contextual-comparison-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6924,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-contextual-comparison-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-contextual-ui-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5715,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-contextual-ui-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-popup-campfire.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6004,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-popup-campfire.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-popup-rain-collector.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5949,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-popup-rain-collector.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-popup-rescue_signal.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5952,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-popup-rescue_signal.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-popup-workbench.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7481,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-popup-workbench.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-proximity-prompt-gamepad.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3908,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-proximity-prompt-gamepad.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-proximity-prompt-keyboard.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3866,
+          "url": "/outputs/jobs/job_20260823042544_299229fa/qa-preview-proximity-prompt-keyboard.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.284Z",
-      "updatedAt": "2026-08-23T04:08:14.592Z"
+      "updatedAt": "2026-08-23T04:38:53.106Z"
     },
     {
       "id": "background.modular-island-camp",
-      "name": "측면 절개형 모듈 베이스캠프",
+      "name": "Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 ",
       "assetType": "background",
-      "request": "승인된 방향 목업을 기준으로 시작 방과 좌우·위·지하 연결 슬롯을 가진 오리지널 2D 측면 절개형 무인도 캠프 비주얼 키트. 방 외곽, 바닥, 기둥, 사다리·계단 연결부, 지상·지하 배경을 교체 가능한 레이어와 반복 가능한 모듈로 제공하고 내부 설비 제한적 자유 배치 여백을 확보한다. This War of Mine의 고유 화면·아트를 복제하지 않고 밝고 코믹한 김씨 생존기 톤으로 만든다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 열린 절개형이며 표류목·대나무·밧줄·낡은 천·해안 돌로 급조했지만 구조가 명확하고, 내부 바닥의 중앙 65% 이상을 일반 설비 제한적 자유 배치용 빈 공간으로 둔다. 방 외곽·바닥·기둥·연결 슬롯·사다리/짧은 계단·지상/지하 배경·전경을 분리 가능한 레이어로 제공하고 bottom-center 피벗·접속 좌표·필수 이동 통로를 명세한다. 물리 설비·김씨·UI·텍스트·숫자·간판은 이미지에 포함하지 않는다. 승인 목업의 공간 원리만 참고하고 고유 화면·아트·구체 배치를 복제하지 않는다. 밝고 따뜻한 열대 낮빛, 굵고 깨끗한 손그림 외곽선, 코믹하지만 기능적인 김씨 생존기 톤. 사용자 승인 전 review이며 adopt/package/runtime 연결 금지.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "cutaway",
         "modular-room",
@@ -1994,22 +2408,274 @@
         "2d-side-view"
       ],
       "dependencies": [],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
-      "parentJobId": null,
-      "artifacts": [],
+      "jobIds": [
+        "job_20260823042510_f2a3ec9e",
+        "job_20260823044044_ec89f587",
+        "job_20260823044306_443a9c24",
+        "job_20260823044425_d2c6dc6b"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823042510_f2a3ec9e",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T04:25:10.859Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823042510_f2a3ec9e",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T04:38:51.429Z",
+          "qualityScore": 32
+        },
+        {
+          "jobId": "job_20260823044044_ec89f587",
+          "parentJobId": "job_20260823042510_f2a3ec9e",
+          "status": "awaiting_import",
+          "at": "2026-08-23T04:40:44.592Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823044044_ec89f587",
+          "parentJobId": "job_20260823042510_f2a3ec9e",
+          "status": "review",
+          "at": "2026-08-23T04:42:14.381Z",
+          "qualityScore": 20
+        },
+        {
+          "jobId": "job_20260823044306_443a9c24",
+          "parentJobId": "job_20260823044044_ec89f587",
+          "status": "awaiting_import",
+          "at": "2026-08-23T04:43:06.508Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823044306_443a9c24",
+          "parentJobId": "job_20260823044044_ec89f587",
+          "status": "review",
+          "at": "2026-08-23T04:43:46.519Z",
+          "qualityScore": 28
+        },
+        {
+          "jobId": "job_20260823044425_d2c6dc6b",
+          "parentJobId": "job_20260823042510_f2a3ec9e",
+          "status": "awaiting_import",
+          "at": "2026-08-23T04:44:26.036Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823044425_d2c6dc6b",
+          "parentJobId": "job_20260823042510_f2a3ec9e",
+          "status": "review",
+          "at": "2026-08-23T04:44:38.839Z",
+          "qualityScore": 28
+        }
+      ],
+      "currentJobId": "job_20260823044425_d2c6dc6b",
+      "parentJobId": "job_20260823042510_f2a3ec9e",
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 63438,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 58270,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/prompt.txt"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 239,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/alpha-size-validation.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "camp-layer-pivot-slice-manifest.json",
+          "contentType": "application/json",
+          "bytes": 1320,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/camp-layer-pivot-slice-manifest.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "foreground-alpha.png",
+          "contentType": "image/png",
+          "bytes": 49310,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/foreground-alpha.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 415,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/forge-import.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "layer-recomposition-board.png",
+          "contentType": "image/png",
+          "bytes": 1745464,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/layer-recomposition-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 523,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/manual-review.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "module-parts-atlas.png",
+          "contentType": "image/png",
+          "bytes": 3700207,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/module-parts-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "module-shell-source-alpha.png",
+          "contentType": "image/png",
+          "bytes": 2363798,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/module-shell-source-alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "module-shells-alpha.png",
+          "contentType": "image/png",
+          "bytes": 2175306,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/module-shells-alpha.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 373,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/processing-report.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "room-interiors-alpha.png",
+          "contentType": "image/png",
+          "bytes": 32047,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/room-interiors-alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "surface-backdrop-layer-alpha.png",
+          "contentType": "image/png",
+          "bytes": 1781422,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/surface-backdrop-layer-alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "underground-depth-alpha.png",
+          "contentType": "image/png",
+          "bytes": 12766,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/underground-depth-alpha.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "wave9-spatial-camp-comparison-board.png",
+          "contentType": "image/png",
+          "bytes": 2715864,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/wave9-spatial-camp-comparison-board.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 6930,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 4825,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-foreground-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 2539,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-foreground-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-layer-recomposition-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6865,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-layer-recomposition-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-module-parts-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8048,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-module-parts-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-module-shell-source-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5875,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-module-shell-source-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-module-shells-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5331,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-module-shells-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-room-interiors-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3665,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-room-interiors-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-surface-backdrop-layer-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7463,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-surface-backdrop-layer-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-underground-depth-alpha.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 2634,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-underground-depth-alpha.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-wave9-spatial-camp-comparison-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8508,
+          "url": "/outputs/jobs/job_20260823044425_d2c6dc6b/qa-preview-wave9-spatial-camp-comparison-board.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.292Z",
-      "updatedAt": "2026-08-23T04:08:14.599Z"
+      "updatedAt": "2026-08-23T04:44:38.840Z"
     },
     {
       "id": "ui.camp-module-expansion",
-      "name": "방 모듈 증축 상태 UI",
+      "name": "방 모듈 증축 현장형 상태 UI",
       "assetType": "ui_set",
-      "request": "위층·옆방·지하실 연결 슬롯, 선택된 모듈 유령, 유효·무효·자원 부족·접속 불가 상태, 비용과 확인·취소를 공간 위에 간결하게 보여주는 UI 세트. 캠프 전체를 덮는 관리 화면이 아니라 기존 공간과 김씨를 유지한 현장형 오버레이이며 1280×800, ko/en, 게임패드 포커스를 지원한다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 9 review-only 방 증축 현장형 오버레이. 시작 방의 위·오른쪽·지하 연결 슬롯과 선택된 방 모듈 유령을 공간 위에 직접 표시한다. 상태는 기본 슬롯, 선택/게임패드 포커스, 유효, 무효-겹침, 무효-출입 통로, 무효-접속 불가, 자원 부족, 확정 완료이며 색뿐 아니라 모서리 형태·굵은 윤곽·체크/봉제 X·절단된 커넥터로 구분한다. 비용 토큰과 확인·취소는 선택 모듈 가까운 작은 도구띠에만 배치하고 전체 화면 관리창이나 카드 그리드를 만들지 않는다. 1280x800에서 기존 캠프·김씨·설비가 보이며 ko/en/qps-long 본문은 TMP 안전영역만 제공한다. 사용자 승인 전 review, adopt/package/runtime 연결 금지.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "module-expansion",
         "placement-ghost",
@@ -2020,14 +2686,277 @@
         "background.modular-island-camp",
         "ui.survival-hud"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823042602_7193f8d8"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823042602_7193f8d8",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T04:26:02.491Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823042602_7193f8d8",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T04:38:54.032Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823042602_7193f8d8",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 63762,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 58213,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-expansion-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 1186843,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/actual-size-expansion-1280x800.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 1268,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/alpha-size-validation.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "expansion-comparison-board.png",
+          "contentType": "image/png",
+          "bytes": 150029,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/expansion-comparison-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "expansion-localization-board.png",
+          "contentType": "image/png",
+          "bytes": 66883,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/expansion-localization-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expansion-localization-spec.json",
+          "contentType": "application/json",
+          "bytes": 670,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/expansion-localization-spec.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "expansion-state-atlas.png",
+          "contentType": "image/png",
+          "bytes": 126819,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/expansion-state-atlas.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expansion-ui-metadata.json",
+          "contentType": "application/json",
+          "bytes": 635,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/expansion-ui-metadata.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "expansion-ui.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 1132,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/expansion-ui.svg"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 526,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/forge-import.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-complete.png",
+          "contentType": "image/png",
+          "bytes": 7287,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-complete.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-default.png",
+          "contentType": "image/png",
+          "bytes": 8651,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-default.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-disconnected.png",
+          "contentType": "image/png",
+          "bytes": 12644,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-disconnected.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-focus.png",
+          "contentType": "image/png",
+          "bytes": 12941,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-focus.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-insufficient.png",
+          "contentType": "image/png",
+          "bytes": 11786,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-insufficient.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-invalid-overlap.png",
+          "contentType": "image/png",
+          "bytes": 11786,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-invalid-overlap.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-invalid-path.png",
+          "contentType": "image/png",
+          "bytes": 11786,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-invalid-path.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ghost-valid.png",
+          "contentType": "image/png",
+          "bytes": 9782,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/ghost-valid.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 495,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/manual-review.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 341,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/processing-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 6285,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 4491,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-expansion-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9060,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-actual-size-expansion-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expansion-comparison-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5862,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-expansion-comparison-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expansion-localization-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5220,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-expansion-localization-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expansion-state-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7176,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-expansion-state-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-complete.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3587,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-complete.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-default.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5023,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-default.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-disconnected.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5245,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-disconnected.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-focus.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6012,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-focus.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-insufficient.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5233,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-insufficient.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-invalid-overlap.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5233,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-invalid-overlap.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-invalid-path.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5233,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-invalid-path.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ghost-valid.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4680,
+          "url": "/outputs/jobs/job_20260823042602_7193f8d8/qa-preview-ghost-valid.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.303Z",
-      "updatedAt": "2026-08-23T04:08:14.608Z"
+      "updatedAt": "2026-08-23T04:38:54.033Z"
     }
   ]
 }

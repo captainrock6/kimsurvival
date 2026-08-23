@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "grade": "review",
+  "score": 20,
+  "summary": {
+    "files": 14,
+    "errors": 0,
+    "warnings": 10
+  },
+  "files": [
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 239,
+      "issues": []
+    },
+    {
+      "fileName": "camp-layer-pivot-slice-manifest.json",
+      "kind": "editable-source",
+      "bytes": 1320,
+      "issues": []
+    },
+    {
+      "fileName": "foreground-alpha.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 1280,
+      "hasAlpha": true,
+      "transparentRatio": 0.9878,
+      "contrastStdDev": 10.68,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 1019,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-foreground-alpha.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        },
+        {
+          "code": "low-contrast",
+          "severity": "warning",
+          "message": "���� ��� ���� ���� ���� ȭ�鿡�� ���°� ����� �� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 415,
+      "issues": []
+    },
+    {
+      "fileName": "layer-recomposition-board.png",
+      "kind": "raster",
+      "width": 2400,
+      "height": 1350,
+      "hasAlpha": true,
+      "transparentRatio": 0.1833,
+      "contrastStdDev": 44.89,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-layer-recomposition-board.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 523,
+      "issues": []
+    },
+    {
+      "fileName": "module-parts-atlas.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": true,
+      "transparentRatio": 0.7365,
+      "contrastStdDev": 39.98,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 32,
+        "top": 46,
+        "right": 107,
+        "bottom": 607
+      },
+      "previewFile": "qa-preview-module-parts-atlas.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "module-shell-source-alpha.png",
+      "kind": "raster",
+      "width": 1586,
+      "height": 992,
+      "hasAlpha": true,
+      "transparentRatio": 0.6915,
+      "contrastStdDev": 83.49,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 96,
+        "top": 37,
+        "right": 93,
+        "bottom": 46
+      },
+      "previewFile": "qa-preview-module-shell-source-alpha.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "module-shells-alpha.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 1280,
+      "hasAlpha": true,
+      "transparentRatio": 0.7515,
+      "contrastStdDev": 39.45,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 207,
+        "top": 99,
+        "right": 212,
+        "bottom": 121
+      },
+      "previewFile": "qa-preview-module-shells-alpha.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 357,
+      "issues": []
+    },
+    {
+      "fileName": "room-interiors-alpha.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 1280,
+      "hasAlpha": true,
+      "transparentRatio": 0.9999,
+      "contrastStdDev": 42.67,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 270,
+        "top": 178,
+        "right": 268,
+        "bottom": 169
+      },
+      "previewFile": "qa-preview-room-interiors-alpha.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "surface-backdrop-layer-alpha.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 1280,
+      "hasAlpha": true,
+      "transparentRatio": 0.31,
+      "contrastStdDev": 71.84,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-surface-backdrop-layer-alpha.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "underground-depth-alpha.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 1280,
+      "hasAlpha": true,
+      "transparentRatio": 1,
+      "contrastStdDev": 23.95,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 798,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-underground-depth-alpha.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "wave9-spatial-camp-comparison-board.png",
+      "kind": "raster",
+      "width": 2400,
+      "height": 1350,
+      "hasAlpha": true,
+      "transparentRatio": 0.1833,
+      "contrastStdDev": 46.97,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-wave9-spatial-camp-comparison-board.jpg",
+      "issues": [
+        {
+          "code": "unexpected-alpha",
+          "severity": "warning",
+          "message": "������ ��� ��û�� ���� ������ ���ԵǾ� �ֽ��ϴ�."
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-23T04:42:14.289Z",
+  "jobId": "job_20260823044044_ec89f587",
+  "assetType": "background"
+}

@@ -1,0 +1,8 @@
+{
+  "schemaVersion":1,"assetId":"background.modular-island-camp","jobId":"job_20260823044044_ec89f587","status":"review","reviewOnly":true,"canvas":[2048,1280],"origin":"top-left","ppu":100,
+  "layers": [{"order":0,"file":"surface-backdrop-layer-alpha.png","pivot":[0.5,0.5]},{"order":1,"file":"underground-depth-alpha.png","pivot":[0.5,0.5]},{"order":2,"file":"room-interiors-alpha.png","pivot":[0.5,0.5]},{"order":3,"file":"module-shells-alpha.png","pivot":[0.5,0.5]},{"order":4,"file":"foreground-alpha.png","pivot":[0.5,0.5]}],
+  "moduleSourceRects": {"upper":[210,25,790,360],"start":[65,330,970,390],"side":[1000,330,505,390],"basement":[100,620,870,355],"ladder":[330,640,150,330],"stairs":[930,555,190,175]},
+  "modulePivots": {"upper":[0.5,1.0],"start":[0.5,1.0],"side":[0.0,1.0],"basement":[0.5,0.0],"ladder":[0.5,0.0],"stairs":[0.0,1.0]},
+  "connectionSlotsCanvas": {"upper":[995,444],"side":[1240,808],"basement":[708,814]},"walkableBaselineY":814,"generalPlacementZones":[[292,720,780,86],[1260,710,500,92],[334,1048,700,76]],"requiredPathClearancePixels":96,
+  "source": {"imageGenCalls":0,"parentImageGenJob":"job_20260823042510_f2a3ec9e","rawHadBakedCheckerboard":true,"alphaRecovery":"deterministic neutral-bright removal; no regeneration"},"adopted":false,"engineReady":false,"runtimeConnected":false
+}
