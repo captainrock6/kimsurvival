@@ -1,0 +1,737 @@
+{
+  "schemaVersion": 1,
+  "id": "design.wave13-owner-playtest-intake",
+  "title": "Wave 13 owner playtest intake and Forge baseline audit",
+  "status": "ready_for_human_run",
+  "baseline": {
+    "masterCommit": "386a602f110ebfe2c404685f98f9cacf1b42c1d2",
+    "implementationCommit": "13ecded05f48a3a4b6b802502d6016e983f9bac2",
+    "evidenceRoot": "Artifacts/ParallelQA/20260823T125000Z_13ecded_release",
+    "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "calendarDays": 5,
+    "balanceMutationAllowed": false
+  },
+  "sessionContract": {
+    "maximumMinutes": 20,
+    "freshGame": true,
+    "hintsAllowed": false,
+    "debugGrantAllowed": false,
+    "coordinateWarpAllowed": false,
+    "personalDataAllowed": false,
+    "humanResultStatus": "UNRUN",
+    "defaultLocale": "ko",
+    "supportedHumanCheckLocale": "en",
+    "qaOnlyLocale": "qps-long",
+    "physicalGamepadSeparateFromAutomation": true
+  },
+  "responseTypes": {
+    "timestamp": "MM:SS from first controllable frame or UNREACHED",
+    "rating": "integer 1..5 or blank",
+    "enum": "store stable enum value, never localized display text",
+    "freeText": "anonymous observation only",
+    "resourceSnapshot": "wood/stone/food/driftwood; prefix estimated values with ~"
+  },
+  "fields": [
+    {
+      "key": "intake.setup.session_id",
+      "ko": "익명 세션 ID",
+      "en": "Anonymous session ID",
+      "responseType": "freeText",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Link pages without personal information.",
+      "translationNote": "Never request a name, email, account, or device identifier."
+    },
+    {
+      "key": "intake.setup.locale",
+      "ko": "플레이 언어",
+      "en": "Play locale",
+      "responseType": "enum:ko|en",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Keep KO and EN observations separable.",
+      "translationNote": "qps-long is QA-only and is not a human playtest language."
+    },
+    {
+      "key": "intake.setup.input",
+      "ko": "입력 장치",
+      "en": "Input device",
+      "responseType": "enum:keyboard_mouse|physical_gamepad",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Prevent synthetic and physical input evidence from being combined.",
+      "translationNote": "Store enum; localize label only."
+    },
+    {
+      "key": "intake.setup.build_commit",
+      "ko": "빌드 커밋",
+      "en": "Build commit",
+      "responseType": "freeText",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Make the session reproducible.",
+      "translationNote": "Record the hash as data; do not localize it."
+    },
+    {
+      "key": "intake.setup.executable_sha256",
+      "ko": "실행 파일 SHA-256",
+      "en": "Executable SHA-256",
+      "responseType": "freeText",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Identify the exact Windows executable.",
+      "translationNote": "Record the hash as data; do not localize it."
+    },
+    {
+      "key": "intake.setup.resolution",
+      "ko": "화면 해상도",
+      "en": "Screen resolution",
+      "responseType": "widthPx×heightPx",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Keep readability observations tied to display conditions.",
+      "translationNote": "Keep numeric values language-independent."
+    },
+    {
+      "key": "intake.setup.started_at",
+      "ko": "세션 시작 시각",
+      "en": "Session start time",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Anchor elapsed-time calculations.",
+      "translationNote": "Use the session clock, not personal calendar data."
+    },
+    {
+      "key": "intake.setup.ended_at",
+      "ko": "세션 종료 시각",
+      "en": "Session end time",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Verify the 20-minute ceiling.",
+      "translationNote": "Use the session clock."
+    },
+    {
+      "key": "intake.setup.hint_count",
+      "ko": "진행자 힌트 횟수",
+      "en": "Facilitator hint count",
+      "responseType": "integer+freeText",
+      "required": true,
+      "context": "facilitator setup",
+      "intent": "Expose protocol contamination instead of hiding it.",
+      "translationNote": "Expected value is zero; record exact wording if nonzero."
+    },
+    {
+      "key": "intake.event.first_move",
+      "ko": "첫 이동",
+      "en": "First movement",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Anchor the session timeline.",
+      "translationNote": "Do not infer understanding from movement alone."
+    },
+    {
+      "key": "intake.event.first_gather",
+      "ko": "첫 채집 성공",
+      "en": "First successful gather",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Measure natural discovery of resource gathering.",
+      "translationNote": "Successful means inventory changed."
+    },
+    {
+      "key": "intake.event.first_facility_prompt",
+      "ko": "첫 설비 근접 안내",
+      "en": "First contextual facility prompt",
+      "responseType": "timestamp+facilityId",
+      "required": true,
+      "context": "live observation",
+      "intent": "Measure compact A discovery without asking whether it was clear.",
+      "translationNote": "Facility name may follow locale grammar; store facilityId separately."
+    },
+    {
+      "key": "intake.event.first_facility_popup",
+      "ko": "첫 설비 팝업 열기",
+      "en": "First facility popup opened",
+      "responseType": "timestamp+facilityId",
+      "required": true,
+      "context": "live observation",
+      "intent": "Confirm prompt-to-input-to-popup behavior.",
+      "translationNote": "Do not call this a global menu."
+    },
+    {
+      "key": "intake.event.first_craft",
+      "ko": "첫 제작 성공",
+      "en": "First successful craft",
+      "responseType": "timestamp+recipeId",
+      "required": true,
+      "context": "live observation",
+      "intent": "Record actual progression, not merely popup exposure.",
+      "translationNote": "Store recipeId separately from display name."
+    },
+    {
+      "key": "intake.event.first_research",
+      "ko": "첫 연구 성공",
+      "en": "First successful research",
+      "responseType": "timestamp+researchId",
+      "required": true,
+      "context": "live observation",
+      "intent": "Separate research from crafting discovery.",
+      "translationNote": "UNREACHED is valid."
+    },
+    {
+      "key": "intake.event.first_swim_enter",
+      "ko": "첫 물 진입",
+      "en": "First water entry",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Measure natural swimming discovery.",
+      "translationNote": "Record the first committed swim state, not shoreline contact."
+    },
+    {
+      "key": "intake.event.first_land_return",
+      "ko": "수영 후 첫 육지 복귀",
+      "en": "First return to land after swimming",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Capture a complete risk-and-return loop.",
+      "translationNote": "UNREACHED is valid."
+    },
+    {
+      "key": "intake.event.vine_seen",
+      "ko": "덩굴/나무 장벽 첫 발견",
+      "en": "First vine/wood barrier discovery",
+      "responseType": "timestamp+freeText",
+      "required": true,
+      "context": "live observation",
+      "intent": "Record the first attempted response before interpretation.",
+      "translationNote": "Do not reveal the stone-axe solution in the participant-facing label."
+    },
+    {
+      "key": "intake.event.vine_opened",
+      "ko": "장벽 제거",
+      "en": "Barrier cleared",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Record successful stone-axe gating behavior.",
+      "translationNote": "The facilitator may know the contract but must not hint it."
+    },
+    {
+      "key": "intake.event.bag_seen",
+      "ko": "가방 확장 선택 첫 확인",
+      "en": "First bag-upgrade option seen",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Separate discovery from purchase.",
+      "translationNote": "Do not imply that purchase is optimal."
+    },
+    {
+      "key": "intake.event.bag_bought",
+      "ko": "가방 4→6 확정",
+      "en": "Bag upgrade from 4 to 6 committed",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Record the optional investment decision.",
+      "translationNote": "UNREACHED is valid; do not call it required."
+    },
+    {
+      "key": "intake.event.room_preview",
+      "ko": "방 후보 미리보기",
+      "en": "First room-module preview",
+      "responseType": "timestamp+moduleId",
+      "required": true,
+      "context": "live observation",
+      "intent": "Measure direct connection-slot discovery and preview.",
+      "translationNote": "moduleId is upper|side|basement and is language-independent."
+    },
+    {
+      "key": "intake.event.room_commit",
+      "ko": "방 하나 확정",
+      "en": "One room module committed",
+      "responseType": "timestamp+moduleId",
+      "required": true,
+      "context": "live observation",
+      "intent": "Record optional commitment separately from preview.",
+      "translationNote": "UNREACHED is valid."
+    },
+    {
+      "key": "intake.event.signal_stage_1",
+      "ko": "구조 신호 1단계 완료",
+      "en": "Rescue signal stage 1 completed",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "Measure rescue progression.",
+      "translationNote": "Use stage number as data, not a translated string fragment."
+    },
+    {
+      "key": "intake.event.signal_stage_2",
+      "ko": "구조 신호 2단계 완료",
+      "en": "Rescue signal stage 2 completed",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "live observation",
+      "intent": "This must coincide with immediate escape success.",
+      "translationNote": "Use stage number as data, not a translated string fragment."
+    },
+    {
+      "key": "intake.event.outcome",
+      "ko": "탈출 또는 실패",
+      "en": "Escape or failure outcome",
+      "responseType": "timestamp+outcomeEnum",
+      "required": true,
+      "context": "live observation",
+      "intent": "Close the timeline with the displayed result.",
+      "translationNote": "Store outcome enum and displayed localized text separately."
+    },
+    {
+      "key": "intake.day.snapshot",
+      "ko": "날짜별 생존·자원·진척 장부",
+      "en": "Daily survival, resource, and progress ledger",
+      "responseType": "dayRecord[1..5]",
+      "required": true,
+      "context": "live observation",
+      "intent": "Capture day reached, expedition, hunger, energy, resources, bag, room, signal, and observed detour cause.",
+      "translationNote": "Keep numeric data language-independent; resource order is wood/stone/food/driftwood."
+    },
+    {
+      "key": "intake.observe.gathering",
+      "ko": "채집 대상으로 판단한 근거와 첫 실패 뒤 행동",
+      "en": "Evidence used to identify a gatherable target and the action after the first failure",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Separate discovery from resource shortage.",
+      "translationNote": "Record behavior; do not ask whether gathering was obvious."
+    },
+    {
+      "key": "intake.observe.swimming",
+      "ko": "물 진입 전후 위험 예상 근거와 복귀 행동",
+      "en": "Risk expectation and return behavior before and after entering water",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Capture perceived and actual swimming pressure.",
+      "translationNote": "Do not describe the intended risk before the session."
+    },
+    {
+      "key": "intake.observe.vine_barrier",
+      "ko": "장벽 앞 첫 시도와 다음 선택",
+      "en": "First attempt at the barrier and the next choice",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Measure barrier and tool discovery from behavior.",
+      "translationNote": "Do not include the stone-axe answer in the participant-facing label."
+    },
+    {
+      "key": "intake.observe.direct_facility",
+      "ko": "월드 설비 접근→안내→입력→팝업 행동",
+      "en": "World-facility approach, prompt, input, and popup behavior",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Verify the spatial facility loop without a global-menu assumption.",
+      "translationNote": "Keep arrows or reorder the full sentence naturally; never concatenate fragments."
+    },
+    {
+      "key": "intake.observe.craft_research",
+      "ko": "제작·연구 중 먼저 고른 것과 화면 근거",
+      "en": "First choice between crafting and research and the on-screen evidence used",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Capture prioritization without stating a correct order.",
+      "translationNote": "Do not imply that either action must come first."
+    },
+    {
+      "key": "intake.observe.bag_tradeoff",
+      "ko": "가방 확장과 함께 포기하거나 미룬 선택",
+      "en": "Choice deferred or abandoned when considering the bag upgrade",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Measure investment tension from observed action.",
+      "translationNote": "UNREACHED or no tradeoff observed is valid."
+    },
+    {
+      "key": "intake.observe.room_tradeoff",
+      "ko": "방 미리보기·확정 때 비교한 후보와 미룬 선택",
+      "en": "Room candidates compared and choice deferred during preview or commitment",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Capture optional room-investment tension.",
+      "translationNote": "Do not imply that a room must be committed."
+    },
+    {
+      "key": "intake.observe.signal_requirements",
+      "ko": "구조 신호 1·2단계 부족 상태 뒤 행동",
+      "en": "Behavior after a missing-requirement state at rescue signal stage 1 or 2",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Separate requirement feedback from raw scarcity.",
+      "translationNote": "Keep stage as structured data where possible."
+    },
+    {
+      "key": "intake.observe.compact_a_discovery",
+      "ko": "compact A를 처음 본 대상·시각과 실제 입력",
+      "en": "Object, time, and actual input at first compact A exposure",
+      "responseType": "timestamp+facilityId+behavior",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Use behavior as discovery evidence.",
+      "translationNote": "Do not expose the internal name compact A to the participant."
+    },
+    {
+      "key": "intake.observe.compact_a_readability",
+      "ko": "안내가 가린 대상, 잘린 글자, 반복 행동",
+      "en": "Occluded object, clipped text, or repeated action",
+      "responseType": "freeText",
+      "required": true,
+      "context": "observer-only",
+      "intent": "Record concrete readability failures without a leading clarity question.",
+      "translationNote": "Keep examples out of the participant-facing prompt."
+    },
+    {
+      "key": "intake.question.goal",
+      "ko": "플레이하는 동안 무엇을 가장 먼저 하려고 했나요? 그렇게 생각한 화면이나 사건은 무엇이었나요?",
+      "en": "What did you try to do first while playing? What on screen or in the game led you to that?",
+      "responseType": "freeText",
+      "required": true,
+      "context": "post-session interview",
+      "intent": "Elicit the player's perceived goal without naming the intended loop.",
+      "translationNote": "Do not add example goals."
+    },
+    {
+      "key": "intake.question.pressure",
+      "ko": "허기와 체력 때문에 원래 하려던 일을 바꾼 순간이 있었나요? 있었다면 무엇을 바꿨나요?",
+      "en": "Did hunger or energy make you change what you planned to do? If so, what did you change?",
+      "responseType": "freeText",
+      "required": true,
+      "context": "post-session interview",
+      "intent": "Separate felt survival pressure from resource scarcity.",
+      "translationNote": "Use the runtime's established EN terms for hunger and energy."
+    },
+    {
+      "key": "intake.question.tools_world",
+      "ko": "돌도끼, 밧줄, 장벽, 물은 각각 어떤 의미라고 생각했나요?",
+      "en": "What did you think the stone axe, rope, barrier, and water each meant?",
+      "responseType": "freeText",
+      "required": true,
+      "context": "post-session interview",
+      "intent": "Test the player's mental model without stating correct functions.",
+      "translationNote": "Do not append the intended answers."
+    },
+    {
+      "key": "intake.question.investment",
+      "ko": "가방, 방, 구조 신호 중 무엇에 먼저 자원을 썼거나 쓰지 않았나요? 그 이유는 무엇인가요?",
+      "en": "Which of the bag, room, or rescue signal did you spend resources on first, or defer? Why?",
+      "responseType": "freeText",
+      "required": true,
+      "context": "post-session interview",
+      "intent": "Reveal optional-investment tension without a preferred answer.",
+      "translationNote": "Reorder nouns naturally; do not imply all three must be purchased."
+    },
+    {
+      "key": "intake.question.outcome",
+      "ko": "마지막 결과가 왜 발생했다고 생각하나요? 다음 한 번에 가장 먼저 다르게 할 일은 무엇인가요?",
+      "en": "Why do you think the final result happened? What would you do differently first on another run?",
+      "responseType": "freeText",
+      "required": true,
+      "context": "post-session interview",
+      "intent": "Compare player attribution with game and observer evidence.",
+      "translationNote": "Do not name possible failure causes in the question."
+    },
+    {
+      "key": "intake.outcome.type",
+      "ko": "최종 결과",
+      "en": "Final outcome",
+      "responseType": "enum:escaped|deadline|exhausted|starved|stopped|other",
+      "required": true,
+      "context": "result classification",
+      "intent": "Keep result aggregation language-independent.",
+      "translationNote": "Localize display labels but store the enum."
+    },
+    {
+      "key": "intake.outcome.day",
+      "ko": "결과 날짜",
+      "en": "Outcome day",
+      "responseType": "integer:1..5|not_applicable",
+      "required": true,
+      "context": "result classification",
+      "intent": "Tie the outcome to the five-day calendar.",
+      "translationNote": "Store the integer or not_applicable enum; localize the label only."
+    },
+    {
+      "key": "intake.outcome.time",
+      "ko": "결과 도달 시각",
+      "en": "Outcome time",
+      "responseType": "timestamp",
+      "required": true,
+      "context": "result classification",
+      "intent": "Measure time to conclusion without inferring success quality.",
+      "translationNote": "Use elapsed MM:SS from the first controllable frame."
+    },
+    {
+      "key": "intake.outcome.game_reason",
+      "ko": "게임이 표시한 결과 이유",
+      "en": "Reason communicated by the game",
+      "responseType": "freeText",
+      "required": true,
+      "context": "result classification",
+      "intent": "Keep game communication separate from interpretation.",
+      "translationNote": "Summarize the displayed text; do not overwrite it with the observer's diagnosis."
+    },
+    {
+      "key": "intake.outcome.player_reason",
+      "ko": "사용자가 말한 결과 이유",
+      "en": "Reason stated by the player",
+      "responseType": "freeText",
+      "required": true,
+      "context": "result classification",
+      "intent": "Preserve the player's own attribution.",
+      "translationNote": "Do not correct the answer in this field."
+    },
+    {
+      "key": "intake.outcome.observer_reason",
+      "ko": "행동 기록으로 확인된 직접 원인",
+      "en": "Direct cause supported by the behavior record",
+      "responseType": "freeText",
+      "required": true,
+      "context": "result classification",
+      "intent": "Document evidence-backed diagnosis and label inference.",
+      "translationNote": "Prefix unsupported interpretation with INFERENCE/추정."
+    }
+  ],
+  "ratings": [
+    {
+      "key": "intake.rating.fun",
+      "ko": "재미",
+      "en": "Fun"
+    },
+    {
+      "key": "intake.rating.confusion",
+      "ko": "혼란",
+      "en": "Confusion"
+    },
+    {
+      "key": "intake.rating.blocked",
+      "ko": "막힘",
+      "en": "Feeling blocked"
+    },
+    {
+      "key": "intake.rating.repetition",
+      "ko": "반복 피로",
+      "en": "Repetition fatigue"
+    },
+    {
+      "key": "intake.rating.comedy",
+      "ko": "기억에 남는 코믹 순간",
+      "en": "Memorable comedy"
+    },
+    {
+      "key": "intake.rating.prompt_readability",
+      "ko": "상호작용 안내 읽기 쉬움",
+      "en": "Interaction prompt readability"
+    }
+  ],
+  "ratingScale": {
+    "minimum": 1,
+    "maximum": 5,
+    "ko": "1=매우 낮음, 5=매우 높음",
+    "en": "1=very low, 5=very high",
+    "administerAfterSessionOnly": true
+  },
+  "localizationRules": {
+    "stableKeyPattern": "^intake\\.(setup|event|day|observe|question|rating|outcome)\\.[a-z0-9_]+$",
+    "sourceLocale": "ko",
+    "firstSupportedLocale": "en",
+    "futureLocales": [
+      "ja",
+      "zh-Hans",
+      "zh-Hant",
+      "es"
+    ],
+    "sentenceConcatenationAllowed": false,
+    "reorderableTokens": [
+      "{day}",
+      "{time}",
+      "{resource}",
+      "{facility}",
+      "{inputGlyph}"
+    ],
+    "officialEnglishTitle": "TBD",
+    "steamStoreName": "TBD"
+  },
+  "forgeAudit": {
+    "completedByEvidence": [
+      {
+        "taskId": "task.system.system.phase-flow",
+        "from": "ready",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
+        ]
+      },
+      {
+        "taskId": "task.feature.feature.phase-cycle",
+        "from": "ready",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        ]
+      },
+      {
+        "taskId": "task.qa.feature.phase-cycle",
+        "from": "blocked",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        ]
+      },
+      {
+        "taskId": "task.feature.feature.escape-outcome",
+        "from": "ready",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
+        ]
+      },
+      {
+        "taskId": "task.qa.feature.escape-outcome",
+        "from": "blocked",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
+        ]
+      },
+      {
+        "taskId": "task.feature.feature.camp-object-interaction",
+        "from": "ready",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json"
+        ]
+      },
+      {
+        "taskId": "task.qa.feature.camp-object-interaction",
+        "from": "blocked",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json",
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        ]
+      },
+      {
+        "taskId": "task.qa.feature.camp-building",
+        "from": "review",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt",
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        ]
+      },
+      {
+        "taskId": "task.qa.wave9-spatial-camp-contract-gate",
+        "from": "review",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-edit-evidence.json",
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-play-evidence.json"
+        ]
+      },
+      {
+        "taskId": "task.qa.feature.camp-module-expansion",
+        "from": "blocked",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-edit-evidence.json",
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-slot-play-evidence.json",
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        ]
+      },
+      {
+        "taskId": "task.wave3.implementation.world-label-readability",
+        "from": "ready",
+        "to": "done",
+        "evidence": [
+          "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt"
+        ]
+      }
+    ],
+    "gaps": [
+      {
+        "id": "gap.wave13.owner-five-day-run",
+        "status": "UNRUN",
+        "reason": "No human result is fabricated; this packet is the blank intake form."
+      },
+      {
+        "id": "gap.wave13.external-first-user-cohort",
+        "status": "BLOCKED",
+        "reason": "KO 3 and EN 3 first-user sessions have not been run."
+      },
+      {
+        "id": "gap.wave13.physical-gamepad",
+        "status": "UNVERIFIED",
+        "reason": "Final Wave 12 evidence used synthetic gamepad input only."
+      },
+      {
+        "id": "gap.wave13.qps-long-global-layout",
+        "status": "FAIL",
+        "reason": "Compact A 12/12 passes, but the broader qps-long visual gate fails 6 of 10 cases."
+      },
+      {
+        "id": "gap.wave13.natural-balance-ledger",
+        "status": "MISSING_EVIDENCE",
+        "reason": "No fresh no-grant/no-warp Day 4-5 natural route with a complete frozen-value ledger."
+      },
+      {
+        "id": "gap.wave13.bag-natural-route",
+        "status": "MISSING_EVIDENCE",
+        "reason": "Bag 4-to-6 regression passes, but purchase followed by a natural rescue route is not independently evidenced."
+      },
+      {
+        "id": "gap.wave13.art-review",
+        "status": "REVIEW",
+        "reason": "Runtime PASS does not adopt unselected art candidates."
+      },
+      {
+        "id": "gap.wave13.steam-readiness",
+        "status": "NOT_READY",
+        "reason": "Steam App ID, store name, official English title, and distribution checks remain TBD."
+      }
+    ]
+  },
+  "changeGate": {
+    "singleOwnerSessionCanChangeBalance": false,
+    "frozenUntilFeedback": [
+      "calendar",
+      "resourceCosts",
+      "resourceYields",
+      "hungerDrain",
+      "energyCosts",
+      "daylightCosts",
+      "featureScope"
+    ],
+    "requiredBeforeBalanceDecision": [
+      "reproducible natural-play evidence of the same bottleneck or the existing six-session external threshold",
+      "current value and observed behavior",
+      "one-variable hypothesis and expected effect"
+    ]
+  },
+  "documents": [
+    "Docs/Design/Playtest/wave13-owner-playtest-intake.md"
+  ]
+}
