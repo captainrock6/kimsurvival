@@ -1,0 +1,18 @@
+Deterministic Edit Check
+Run ID: 20260823T031500Z_wave7_bag_release_gate
+Started UTC: 2026-08-23T03:02:09.4801584Z
+Completed UTC: 2026-08-23T03:02:09.6561676Z
+Unity: 6000.4.9f1
+Baseline commit: 8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunEditChecks -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260823T031500Z_wave7_bag_release_gate\unity-legacy-edit.log"
+PASS · Natural three-day resource route can rescue without Grant cheats
+PASS · Bag overflow creates an explicit replace-or-discard choice
+PASS · Swimming entry, extra cost, water gather, and land exit work
+PASS · Exhaustion and day-three deadline both reach explained results
+PASS · Limited free placement enforces bounds, overlap, entrance, path, cancel, one-time cost, and free relocation
+PASS · Keyboard/mouse and gamepad raw inputs converge on shared player, placement, and language actions
+PASS · Korean default, immediate ko/en switching, Smart Strings, missing-key fallback/logging, and preference storage work
+PASS · ko/en table parity, Smart entries, font mappings, and required glyph prerequisites are present
+PASS · Rescue signal remains on a dedicated anchor outside general facility placement
+Overall: PASS

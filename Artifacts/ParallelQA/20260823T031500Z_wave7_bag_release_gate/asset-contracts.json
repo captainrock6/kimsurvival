@@ -1,0 +1,2704 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T031500Z_wave7_bag_release_gate",
+    "baselineCommit": "8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T03:02:30.5736172Z",
+    "completedUtc": "2026-08-23T03:02:30.7216327Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T031500Z_wave7_bag_release_gate\\unity-asset-contracts.log\"",
+    "overall": "PASS",
+    "passed": 265,
+    "failed": 0,
+    "unverified": 1,
+    "physicalGamepad": "UNVERIFIED",
+    "joystickNames": [],
+    "checks": [
+        {
+            "id": "addressables.preflight_stability",
+            "category": "addressables",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Addressables-owned temporary link.xml is absent and its empty SHA/GUID state is unchanged after Editor load",
+            "actual": "expected exists=False/False link= meta= guid= | actual exists=False/False link= meta= guid= assetDatabaseGuid=",
+            "path": "Assets/AddressableAssetsData/link.xml"
+        },
+        {
+            "id": "visual.wave3_threshold_source_unchanged",
+            "category": "baseline-preservation",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Wave3VisualGate.cs SHA-256 unchanged from preflight",
+            "actual": "unchanged",
+            "path": "Assets/Editor/ParallelQA/Wave3VisualGate.cs"
+        },
+        {
+            "id": "visual.current_baseline_identity",
+            "category": "current-integrated-visual",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "fresh visual gate evidence identifies the current 671c4e9 baseline",
+            "actual": "Baseline commit: 8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d",
+            "path": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T031500Z_wave7_bag_release_gate\\wave3-visual-gate.txt"
+        },
+        {
+            "id": "visual.current_normal_ko_en_placement",
+            "category": "current-integrated-visual",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "normal ko/en placement 24/24 PASS",
+            "actual": "PLACEMENT_GATE: PASS · targets=24 · failures=0",
+            "path": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T031500Z_wave7_bag_release_gate\\wave3-visual-gate.txt"
+        },
+        {
+            "id": "visual.current_normal_ko_en_exploration_swimming",
+            "category": "current-integrated-visual",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "normal ko/en exploration/swimming 10/10 PASS",
+            "actual": "EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0",
+            "path": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T031500Z_wave7_bag_release_gate\\wave3-visual-gate.txt"
+        },
+        {
+            "id": "visual.current_qps_long",
+            "category": "current-integrated-visual",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "qps-long 10/10 PASS is required for future-locale release readiness",
+            "actual": "PSEUDO_LONG_GATE: PASS · targets=10 · failures=0",
+            "path": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T031500Z_wave7_bag_release_gate\\wave3-visual-gate.txt"
+        },
+        {
+            "id": "ledger.parse",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "parseable .forge/assets.json with assets",
+            "actual": "assets=15",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.engine_ready_count",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "at least one engine_ready asset",
+            "actual": "count=6",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.background.island-camp.current_job",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "non-empty currentJobId",
+            "actual": "job_20260822130341_c082e4b6",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.background.island-camp.package_job_match",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine.packagePath directory name equals currentJobId",
+            "actual": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.background.island-camp.package_exists",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine-ready package directory exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6"
+        },
+        {
+            "id": "ledger.background.island-camp.manifest_path",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine manifest resides in current package",
+            "actual": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/forge-import.json",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.background.island-camp.manifest_identity",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest assetId/jobId/assetType match ledger",
+            "actual": "background.island-camp | job_20260822130341_c082e4b6 | background",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/forge-import.json"
+        },
+        {
+            "id": "ledger.background.island-camp.quality_report",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality-report.json grade=pass, errors=0, identity matches",
+            "actual": "pass | errors=0",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/quality-report.json"
+        },
+        {
+            "id": "ledger.background.island-camp.source_png_count",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest declares one or more required PNG sourceFiles",
+            "actual": "background_opaque.png | gameplay_ground_alpha.png | foreground_alpha.png",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/forge-import.json"
+        },
+        {
+            "id": "ledger.background.island-camp.source.background_opaque_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "ledger.background.island-camp.source_guid.background_opaque_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "b0a9f2317fcc4864e8b0d76852d1b082",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png.meta"
+        },
+        {
+            "id": "ledger.background.island-camp.source.gameplay_ground_alpha_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "ledger.background.island-camp.source_guid.gameplay_ground_alpha_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "1e97c8820776aa6448a2e0097482f013",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png.meta"
+        },
+        {
+            "id": "ledger.background.island-camp.source.foreground_alpha_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "ledger.background.island-camp.source_guid.foreground_alpha_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "d5540c73696c4464a9257c1ef6e9c275",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png.meta"
+        },
+        {
+            "id": "ledger.background.island-camp.required.background_opaque_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/forge-import.json"
+        },
+        {
+            "id": "ledger.background.island-camp.required.gameplay_ground_alpha_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/forge-import.json"
+        },
+        {
+            "id": "ledger.background.island-camp.required.foreground_alpha_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/forge-import.json"
+        },
+        {
+            "id": "ledger.background.island-camp.ledger_image_bytes.background_opaque_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=1531071 actual=1531071",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "ledger.background.island-camp.ledger_image_bytes.gameplay_ground_alpha_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=762300 actual=762300",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "ledger.background.island-camp.ledger_image_bytes.foreground_alpha_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=580953 actual=580953",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "ledger.background.island-camp.ledger_image_bytes.recomposed-verification_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=2680827 actual=2680827",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/recomposed-verification.png"
+        },
+        {
+            "id": "ledger.character.mr-kim.current_job",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "non-empty currentJobId",
+            "actual": "job_20260822085926_374033c5",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.character.mr-kim.package_job_match",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine.packagePath directory name equals currentJobId",
+            "actual": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.character.mr-kim.package_exists",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine-ready package directory exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5"
+        },
+        {
+            "id": "ledger.character.mr-kim.manifest_path",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine manifest resides in current package",
+            "actual": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/forge-import.json",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.character.mr-kim.manifest_identity",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest assetId/jobId/assetType match ledger",
+            "actual": "character.mr-kim | job_20260822085926_374033c5 | sprite_animation",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/forge-import.json"
+        },
+        {
+            "id": "ledger.character.mr-kim.quality_report",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality-report.json grade=pass, errors=0, identity matches",
+            "actual": "pass | errors=0",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/quality-report.json"
+        },
+        {
+            "id": "ledger.character.mr-kim.source_png_count",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest declares one or more required PNG sourceFiles",
+            "actual": "exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/forge-import.json"
+        },
+        {
+            "id": "ledger.character.mr-kim.source.exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png"
+        },
+        {
+            "id": "ledger.character.mr-kim.source_guid.exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "cd48411681ba6264c9093f8b1cb1759a",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png.meta"
+        },
+        {
+            "id": "ledger.character.mr-kim.ledger_image_bytes.exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=2331950 actual=2331950",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.current_job",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "non-empty currentJobId",
+            "actual": "job_20260822130400_6d786a69",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.package_job_match",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine.packagePath directory name equals currentJobId",
+            "actual": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.package_exists",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine-ready package directory exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69"
+        },
+        {
+            "id": "ledger.object.camp-structures.manifest_path",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine manifest resides in current package",
+            "actual": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.manifest_identity",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest assetId/jobId/assetType match ledger",
+            "actual": "object.camp-structures | job_20260822130400_6d786a69 | separated_parts",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.quality_report",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality-report.json grade=pass, errors=0, identity matches",
+            "actual": "pass | errors=0",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/quality-report.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.source_png_count",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest declares one or more required PNG sourceFiles",
+            "actual": "camp_structures_atlas_alpha.png | campfire.png | workbench.png | rain_collector.png | rescue_signal.png",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.source.camp_structures_atlas_alpha_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.source_guid.camp_structures_atlas_alpha_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "126fe326e17eba941a6a29e1c0ef866e",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png.meta"
+        },
+        {
+            "id": "ledger.object.camp-structures.source.campfire_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.source_guid.campfire_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "aefba80bf6c588847ba3b66d017616cc",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png.meta"
+        },
+        {
+            "id": "ledger.object.camp-structures.source.workbench_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.source_guid.workbench_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "f1920158f3a3ba14f8999ead8f869e30",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png.meta"
+        },
+        {
+            "id": "ledger.object.camp-structures.source.rain_collector_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.source_guid.rain_collector_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "0af1d92982f80ce4a89462c076305386",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png.meta"
+        },
+        {
+            "id": "ledger.object.camp-structures.source.rescue_signal_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.source_guid.rescue_signal_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "00ff5be74a04dbe48a49fe2e1a673eec",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png.meta"
+        },
+        {
+            "id": "ledger.object.camp-structures.required.camp_structures_atlas_alpha_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.required.campfire_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.required.workbench_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.required.rain_collector_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.required.rescue_signal_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required adopted PNG is declared by manifest",
+            "actual": "declared",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/forge-import.json"
+        },
+        {
+            "id": "ledger.object.camp-structures.ledger_image_bytes.camp_structures_atlas_alpha_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=1056540 actual=1056540",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.ledger_image_bytes.campfire_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=110170 actual=110170",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.ledger_image_bytes.workbench_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=189419 actual=189419",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.ledger_image_bytes.rain_collector_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=367395 actual=367395",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "ledger.object.camp-structures.ledger_image_bytes.rescue_signal_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=352865 actual=352865",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.current_job",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "non-empty currentJobId",
+            "actual": "job_20260822141317_caf8e11d",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.package_job_match",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine.packagePath directory name equals currentJobId",
+            "actual": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.package_exists",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine-ready package directory exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.manifest_path",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine manifest resides in current package",
+            "actual": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/forge-import.json",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.manifest_identity",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest assetId/jobId/assetType match ledger",
+            "actual": "icon.resource-tool-set | job_20260822141317_caf8e11d | logo_icon",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/forge-import.json"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.quality_report",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality-report.json grade=pass, errors=0, identity matches",
+            "actual": "pass | errors=0",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/quality-report.json"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_png_count",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest declares one or more required PNG sourceFiles",
+            "actual": "sprite-sheet.png | wood.png | stone.png | food.png | scrap.png | axe.png | rope.png | campfire.png | rain_collector.png | workbench.png | rescue_signal.png | readability-24-32-64.png | visual-review.png",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/forge-import.json"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.sprite-sheet_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/sprite-sheet.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.sprite-sheet_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "370857a0237770a418778efe2b6d7453",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/sprite-sheet.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.wood_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.wood_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "5ba05e4e569ab6745bff72d0b9ba9151",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.stone_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.stone_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "c881b7198e647ad40b32c63ce18e27a2",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.food_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.food_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "59695c50812722b458c210b4cfb02c12",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.scrap_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.scrap_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "cb8829a17d9cc9049aa16fbf4393097a",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.axe_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/axe.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.axe_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "b0aec4087d8a9784fb0406a12015a078",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/axe.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.rope_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rope.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.rope_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "c2cd74afa47990048af6518f841ca536",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rope.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.campfire_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/campfire.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.campfire_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "6a6a763a699ff8444b6653bffcc4d2e9",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/campfire.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.rain_collector_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rain_collector.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.rain_collector_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "9ccc9634237d47843baf28cf1cd0b8f0",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rain_collector.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.workbench_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/workbench.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.workbench_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "f57b45dadb83b7440801c7255149761b",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/workbench.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.rescue_signal_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rescue_signal.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.rescue_signal_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "cbdc92ed48674f74f9d9322c4c5298e3",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rescue_signal.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.readability-24-32-64_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/readability-24-32-64.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.readability-24-32-64_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "6d9a6ff185915fd46888c89aaaf29605",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/readability-24-32-64.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source.visual-review_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/visual-review.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.source_guid.visual-review_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "21928c1d302bb9c49a80572110d8bbe2",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/visual-review.png.meta"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.sprite-sheet_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=695191 actual=695191",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/sprite-sheet.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.wood_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=77771 actual=77771",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.stone_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=67161 actual=67161",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.food_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=72040 actual=72040",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.scrap_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=81986 actual=81986",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.axe_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=50856 actual=50856",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/axe.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.rope_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=83799 actual=83799",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rope.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.campfire_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=68557 actual=68557",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/campfire.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.rain_collector_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=60997 actual=60997",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rain_collector.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.workbench_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=62826 actual=62826",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/workbench.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.rescue_signal_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=53221 actual=53221",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rescue_signal.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.readability-24-32-64_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=76836 actual=76836",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/readability-24-32-64.png"
+        },
+        {
+            "id": "ledger.icon.resource-tool-set.ledger_image_bytes.visual-review_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=532364 actual=532364",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/visual-review.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.current_job",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "non-empty currentJobId",
+            "actual": "job_20260822224357_275de712",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.package_job_match",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine.packagePath directory name equals currentJobId",
+            "actual": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.package_exists",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine-ready package directory exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.manifest_path",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine manifest resides in current package",
+            "actual": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/forge-import.json",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.manifest_identity",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest assetId/jobId/assetType match ledger",
+            "actual": "effect.comedy-feedback | job_20260822224357_275de712 | effect",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/forge-import.json"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.quality_report",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality-report.json grade=pass, errors=0, identity matches",
+            "actual": "pass | errors=0",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/quality-report.json"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_png_count",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest declares one or more required PNG sourceFiles",
+            "actual": "source-sheet-alpha.png | sprite-sheet.png | collect_success.png | bag_full_swap.png | placement_invalid.png | hunger_exhaustion.png | craft_build_complete.png | rescue_success.png | readability-24-32-64.png | visual-review.png",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/forge-import.json"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.source-sheet-alpha_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/source-sheet-alpha.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.source-sheet-alpha_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "60e1f9607aef4e54e964d17a96bc0163",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/source-sheet-alpha.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.sprite-sheet_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/sprite-sheet.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.sprite-sheet_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "8113a5b3528b8624f9ee465ddbfff7c6",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/sprite-sheet.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.collect_success_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/collect_success.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.collect_success_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "d5cb833b97aacd940b151e1a562b66de",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/collect_success.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.bag_full_swap_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/bag_full_swap.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.bag_full_swap_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "50a502d889ca69d4db2e8da15d190c47",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/bag_full_swap.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.placement_invalid_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/placement_invalid.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.placement_invalid_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "ce6d57f011151fd429d7e4928c8c6a82",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/placement_invalid.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.hunger_exhaustion_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/hunger_exhaustion.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.hunger_exhaustion_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "fdc6e73e58616f546ae2bbc089858e98",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/hunger_exhaustion.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.craft_build_complete_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/craft_build_complete.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.craft_build_complete_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "264d991381118af4a98a740b7ee465f9",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/craft_build_complete.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.rescue_success_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/rescue_success.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.rescue_success_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "46b13002d83395c4d95583618f92d6a0",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/rescue_success.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.readability-24-32-64_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/readability-24-32-64.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.readability-24-32-64_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "2531eb1fcd5d0b3448f4e70c1c1b5f45",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/readability-24-32-64.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source.visual-review_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/visual-review.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.source_guid.visual-review_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "aa2ee88d639b7674497fbde6c762e7de",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/visual-review.png.meta"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.source-sheet-alpha_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=823561 actual=823561",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/source-sheet-alpha.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.sprite-sheet_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=313768 actual=313768",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/sprite-sheet.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.collect_success_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=37559 actual=37559",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/collect_success.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.bag_full_swap_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=69765 actual=69765",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/bag_full_swap.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.placement_invalid_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=65592 actual=65592",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/placement_invalid.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.hunger_exhaustion_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=43876 actual=43876",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/hunger_exhaustion.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.craft_build_complete_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=42211 actual=42211",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/craft_build_complete.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.rescue_success_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=50120 actual=50120",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/rescue_success.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.readability-24-32-64_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=51075 actual=51075",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/readability-24-32-64.png"
+        },
+        {
+            "id": "ledger.effect.comedy-feedback.ledger_image_bytes.visual-review_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=313768 actual=313768",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/visual-review.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.current_job",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "non-empty currentJobId",
+            "actual": "job_20260822234631_ac651d92",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.package_job_match",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine.packagePath directory name equals currentJobId",
+            "actual": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.package_exists",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine-ready package directory exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.manifest_path",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "engine manifest resides in current package",
+            "actual": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/forge-import.json",
+            "path": ".forge/assets.json"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.manifest_identity",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest assetId/jobId/assetType match ledger",
+            "actual": "object.vine-wood-barrier | job_20260822234631_ac651d92 | separated_parts",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/forge-import.json"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.quality_report",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality-report.json grade=pass, errors=0, identity matches",
+            "actual": "pass | errors=0",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/quality-report.json"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.source_png_count",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "manifest declares one or more required PNG sourceFiles",
+            "actual": "blocked.png | interactable.png | cleared.png",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/forge-import.json"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.source.blocked_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.source_guid.blocked_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "6c4e2ecdfdf7bf54294b1daeb304bcef",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked.png.meta"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.source.interactable_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/interactable.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.source_guid.interactable_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "f91a7a81fecc6c042a6aa5c0b561d6e0",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/interactable.png.meta"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.source.cleared_png",
+            "category": "forge-package",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/cleared.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.source_guid.cleared_png",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "required PNG has a Unity GUID",
+            "actual": "e82d06cb4d931a94393ae1931b367daf",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/cleared.png.meta"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.source-sheet-alpha_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=1031129 actual=1031129",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/source-sheet-alpha.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.barrier-states-atlas_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=789540 actual=789540",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/barrier-states-atlas.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.blocked_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=354693 actual=354693",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.interactable_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=335081 actual=335081",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/interactable.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.cleared_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=96771 actual=96771",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/cleared.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.blocked-cleared-comparison_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=454913 actual=454913",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked-cleared-comparison.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.review-board-1280x800_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=413123 actual=413123",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/review-board-1280x800.png"
+        },
+        {
+            "id": "ledger.object.vine-wood-barrier.ledger_image_bytes.visual-review_png",
+            "category": "forge-ledger",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "binary image bytes match .forge/assets.json",
+            "actual": "ledger=413123 actual=413123",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/visual-review.png"
+        },
+        {
+            "id": "import.background.layer_manifest",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "layer manifest identity and canvas are valid",
+            "actual": "background.island-camp | job_20260822130341_c082e4b6 | 1672x941",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/island-camp-layer-manifest.json"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.background_opaque_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.pivot.background_opaque_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "center pivot (0.5,0.5)",
+            "actual": "(0.5,0.5)",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.pivot_consistency.background_opaque_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "all background layers share one pivot",
+            "actual": "(0.5,0.5)",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.canvas.background_opaque_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report PNG dimensions match layer canvas",
+            "actual": "1672x941",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.gameplay_ground_alpha_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.pivot.gameplay_ground_alpha_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "center pivot (0.5,0.5)",
+            "actual": "(0.5,0.5)",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.pivot_consistency.gameplay_ground_alpha_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "all background layers share one pivot",
+            "actual": "(0.5,0.5)",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.canvas.gameplay_ground_alpha_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report PNG dimensions match layer canvas",
+            "actual": "1672x941",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.island-camp.foreground_alpha_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.pivot.foreground_alpha_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "center pivot (0.5,0.5)",
+            "actual": "(0.5,0.5)",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.pivot_consistency.foreground_alpha_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "all background layers share one pivot",
+            "actual": "(0.5,0.5)",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.canvas.foreground_alpha_png",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report PNG dimensions match layer canvas",
+            "actual": "1672x941",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png"
+        },
+        {
+            "id": "import.background.layer_sources",
+            "category": "background-layers",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "layer manifest and forge-import sourceFiles match",
+            "actual": "matched",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/island-camp-layer-manifest.json"
+        },
+        {
+            "id": "import.structures.metadata",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "structure metadata identity with at least four parts",
+            "actual": "object.camp-structures | job_20260822130400_6d786a69 | parts=4",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp-structures-metadata.json"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "False",
+            "actual": "False",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.camp_structures_atlas_alpha_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.structures.alpha.camp_structures_atlas_alpha_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report and Unity source confirm alpha; alphaIsTransparency=true",
+            "actual": "qualityAlpha=True sourceAlpha=True alphaIsTransparency=True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.structures.pivot.camp_structures_atlas_alpha_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "TextureImporter pivot matches camp-structures-metadata bottom-center policy",
+            "actual": "expected=(0.5,0.5) actual=(0.5,0.5)",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "False",
+            "actual": "False",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.campfire_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.structures.alpha.campfire_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report and Unity source confirm alpha; alphaIsTransparency=true",
+            "actual": "qualityAlpha=True sourceAlpha=True alphaIsTransparency=True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.structures.pivot.campfire_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "TextureImporter pivot matches camp-structures-metadata bottom-center policy",
+            "actual": "expected=(0.5,0.07494) actual=(0.5,0.07494)",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "False",
+            "actual": "False",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.workbench_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.structures.alpha.workbench_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report and Unity source confirm alpha; alphaIsTransparency=true",
+            "actual": "qualityAlpha=True sourceAlpha=True alphaIsTransparency=True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.structures.pivot.workbench_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "TextureImporter pivot matches camp-structures-metadata bottom-center policy",
+            "actual": "expected=(0.5,0.09846) actual=(0.5,0.09846)",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "False",
+            "actual": "False",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rain_collector_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.structures.alpha.rain_collector_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report and Unity source confirm alpha; alphaIsTransparency=true",
+            "actual": "qualityAlpha=True sourceAlpha=True alphaIsTransparency=True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.structures.pivot.rain_collector_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "TextureImporter pivot matches camp-structures-metadata bottom-center policy",
+            "actual": "expected=(0.5,0.05112) actual=(0.5,0.05112)",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.exists",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporter exists",
+            "actual": "present",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.sprite_type",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "TextureImporterType.Sprite",
+            "actual": "Sprite",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.sprite_mode",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "Single",
+            "actual": "Single",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.ppu",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "100",
+            "actual": "100",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.filter",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "Bilinear",
+            "actual": "Bilinear",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.mipmaps",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "False",
+            "actual": "False",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.alpha_policy",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "True",
+            "actual": "True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.compression",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "CompressedHQ",
+            "actual": "CompressedHQ",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.object.camp-structures.rescue_signal_png.max_size",
+            "category": "unity-import",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "1536",
+            "actual": "1536",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.structures.alpha.rescue_signal_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P0",
+            "expected": "quality report and Unity source confirm alpha; alphaIsTransparency=true",
+            "actual": "qualityAlpha=True sourceAlpha=True alphaIsTransparency=True",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "import.structures.pivot.rescue_signal_png",
+            "category": "structure-sprites",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "TextureImporter pivot matches camp-structures-metadata bottom-center policy",
+            "actual": "expected=(0.5,0.0401) actual=(0.5,0.0401)",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png"
+        },
+        {
+            "id": "build_reachability.background.island-camp",
+            "category": "windows-build-input",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "at least one currentJobId source is referenced by an enabled build scene or Addressables",
+            "actual": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png | Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png | Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6"
+        },
+        {
+            "id": "build_reachability.object.camp-structures",
+            "category": "windows-build-input",
+            "status": "PASS",
+            "severity": "P1",
+            "expected": "at least one currentJobId source is referenced by an enabled build scene or Addressables",
+            "actual": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png | Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png | Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png | Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69"
+        },
+        {
+            "id": "input.physical_gamepad",
+            "category": "input-hardware",
+            "status": "UNVERIFIED",
+            "severity": "P2",
+            "expected": "human physical-gamepad actuation required for PASS",
+            "actual": "no non-empty joystick name exposed to Unity batch mode",
+            "path": ""
+        }
+    ],
+    "files": [
+        {
+            "assetId": "background.island-camp",
+            "jobId": "job_20260822130341_c082e4b6",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/background_opaque.png",
+            "bytes": 1531071,
+            "sha256": "3f05642f1e657cafc61becd764b09c9df18cc20294065de4ade3354967541547",
+            "guid": "b0a9f2317fcc4864e8b0d76852d1b082"
+        },
+        {
+            "assetId": "background.island-camp",
+            "jobId": "job_20260822130341_c082e4b6",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/foreground_alpha.png",
+            "bytes": 580953,
+            "sha256": "e6e757a6ede84b73622a59a94425ce1d8eaaabf7fc0107804315ca5250ed0b1f",
+            "guid": "d5540c73696c4464a9257c1ef6e9c275"
+        },
+        {
+            "assetId": "background.island-camp",
+            "jobId": "job_20260822130341_c082e4b6",
+            "path": "Assets/_Project/Art/Generated/background/job_20260822130341_c082e4b6/gameplay_ground_alpha.png",
+            "bytes": 762300,
+            "sha256": "11055abaa27b778883a23d4095907b0f2ce822ac670cac3a8aeff7bec54437af",
+            "guid": "1e97c8820776aa6448a2e0097482f013"
+        },
+        {
+            "assetId": "character.mr-kim",
+            "jobId": "job_20260822085926_374033c5",
+            "path": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+            "bytes": 2331950,
+            "sha256": "a53631b4f9a8bd11b1a631d878b5911546a680046b0409581b7e93b02812ed4a",
+            "guid": "cd48411681ba6264c9093f8b1cb1759a"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/bag_full_swap.png",
+            "bytes": 69765,
+            "sha256": "930c8fe24946c23425de254286132c8b340ff2604e37e713b9f4ef6429dee1b0",
+            "guid": "50a502d889ca69d4db2e8da15d190c47"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/collect_success.png",
+            "bytes": 37559,
+            "sha256": "a53fd18e317eb53c22652f171b8271e88d60ccbad28d4c4ef3f1a50815ace2f4",
+            "guid": "d5cb833b97aacd940b151e1a562b66de"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/craft_build_complete.png",
+            "bytes": 42211,
+            "sha256": "8e7b41dfe6c7eef51751a38fc320881544c7ae7f334f2b1776057176d58e6fee",
+            "guid": "264d991381118af4a98a740b7ee465f9"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/hunger_exhaustion.png",
+            "bytes": 43876,
+            "sha256": "d732074010b26bb9bfb2c4b75af7b56f88405f59a81db85075ffc18a040a499f",
+            "guid": "fdc6e73e58616f546ae2bbc089858e98"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/placement_invalid.png",
+            "bytes": 65592,
+            "sha256": "18707f8a6d8180d647087b701b84a1e20b7f09aebc7c40343e93269bf0a0385d",
+            "guid": "ce6d57f011151fd429d7e4928c8c6a82"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/readability-24-32-64.png",
+            "bytes": 51075,
+            "sha256": "52808d6ab4f258339d9f8c24189973909988ca6121a82b9a5b8f6f6dd71507c5",
+            "guid": "2531eb1fcd5d0b3448f4e70c1c1b5f45"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/rescue_success.png",
+            "bytes": 50120,
+            "sha256": "8ae89a3c40eaaeb4d56b0d47346ed2e52a7e5c9e46afa76808c2ff8ceda2c33c",
+            "guid": "46b13002d83395c4d95583618f92d6a0"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/source-sheet-alpha.png",
+            "bytes": 823561,
+            "sha256": "2291a5b34848a35b9fda7116c4e27a80d73af01b8c4504fe3372c6ec70bff277",
+            "guid": "60e1f9607aef4e54e964d17a96bc0163"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/sprite-sheet.png",
+            "bytes": 313768,
+            "sha256": "ab6c0d39beb33d8ff8563c88ce45179ffc533f5527f6dbd100bb9fb67ff0a81c",
+            "guid": "8113a5b3528b8624f9ee465ddbfff7c6"
+        },
+        {
+            "assetId": "effect.comedy-feedback",
+            "jobId": "job_20260822224357_275de712",
+            "path": "Assets/_Project/Art/Generated/effect/job_20260822224357_275de712/visual-review.png",
+            "bytes": 313768,
+            "sha256": "ab6c0d39beb33d8ff8563c88ce45179ffc533f5527f6dbd100bb9fb67ff0a81c",
+            "guid": "aa2ee88d639b7674497fbde6c762e7de"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/axe.png",
+            "bytes": 50856,
+            "sha256": "59765be5392864d33facd06df86f7c9c10b62a234b5d4cf7f99574032e559a66",
+            "guid": "b0aec4087d8a9784fb0406a12015a078"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/campfire.png",
+            "bytes": 68557,
+            "sha256": "d343b0e4384d7b563197ee9a2fef202842e5507e366fab126c8ad36fc6d47ac5",
+            "guid": "6a6a763a699ff8444b6653bffcc4d2e9"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png",
+            "bytes": 72040,
+            "sha256": "feabf30adef5dd4f9a7e7911d18fab89081e8ecfae41f0d41aa824689140c0c7",
+            "guid": "59695c50812722b458c210b4cfb02c12"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rain_collector.png",
+            "bytes": 60997,
+            "sha256": "3c66350e1faec1acb9861586d701bfa9571b051165a0866c91221e5c52a79c4c",
+            "guid": "9ccc9634237d47843baf28cf1cd0b8f0"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/readability-24-32-64.png",
+            "bytes": 76836,
+            "sha256": "5a352234e6857140cb25561d7bc4e0aeafbeb825a2ed8d1a556a06198a574db5",
+            "guid": "6d9a6ff185915fd46888c89aaaf29605"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rescue_signal.png",
+            "bytes": 53221,
+            "sha256": "5991928497b2c6eb57a4cc94c38827bd3f7eea975c2e149e3132bf9f1137c2dc",
+            "guid": "cbdc92ed48674f74f9d9322c4c5298e3"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/rope.png",
+            "bytes": 83799,
+            "sha256": "db9bedaccb82a891f15b6630ddaeaf6acac401ab846b1ce26cef49e39a5b3ef2",
+            "guid": "c2cd74afa47990048af6518f841ca536"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png",
+            "bytes": 81986,
+            "sha256": "92b876d811f33e154127116633a8151a081d36367e30463056d1043546e73012",
+            "guid": "cb8829a17d9cc9049aa16fbf4393097a"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/sprite-sheet.png",
+            "bytes": 695191,
+            "sha256": "bfeea9ef505e247bb9b8f4ca920b43c770a370c61cf9d368ad59a226ffe86545",
+            "guid": "370857a0237770a418778efe2b6d7453"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png",
+            "bytes": 67161,
+            "sha256": "40c668a6018ee304e456bbd62a3e997aabd5f865ceb1e7a649a60a9262e8f818",
+            "guid": "c881b7198e647ad40b32c63ce18e27a2"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/visual-review.png",
+            "bytes": 532364,
+            "sha256": "6e2564ba9c3c1a533cb941f89a138050d9b2511f57c7d1acbf7e6827eb4c359f",
+            "guid": "21928c1d302bb9c49a80572110d8bbe2"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png",
+            "bytes": 77771,
+            "sha256": "a98e27c7b0986a551f8b618a808be75915c0f11bef6a0b94b0cb61fdd251c8c5",
+            "guid": "5ba05e4e569ab6745bff72d0b9ba9151"
+        },
+        {
+            "assetId": "icon.resource-tool-set",
+            "jobId": "job_20260822141317_caf8e11d",
+            "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/workbench.png",
+            "bytes": 62826,
+            "sha256": "ff58853377a539f9ce25e350d3ee73e8d1dab1b7ca5f8b65d220ada36b41018c",
+            "guid": "f57b45dadb83b7440801c7255149761b"
+        },
+        {
+            "assetId": "object.camp-structures",
+            "jobId": "job_20260822130400_6d786a69",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/camp_structures_atlas_alpha.png",
+            "bytes": 1056540,
+            "sha256": "9850b5f81e897403b260ee8ef5da7b435d34e4f5e375ccccd3861f7287e9b51f",
+            "guid": "126fe326e17eba941a6a29e1c0ef866e"
+        },
+        {
+            "assetId": "object.camp-structures",
+            "jobId": "job_20260822130400_6d786a69",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png",
+            "bytes": 110170,
+            "sha256": "ca23578cfd7ace88f829e11c4aad3adf7b806ffe7d27384aa0b7d18bfe7f3d60",
+            "guid": "aefba80bf6c588847ba3b66d017616cc"
+        },
+        {
+            "assetId": "object.camp-structures",
+            "jobId": "job_20260822130400_6d786a69",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png",
+            "bytes": 367395,
+            "sha256": "4db6868f9291137b6cb2207fc9f2b122a56ceb8342da8849841257af1f14f558",
+            "guid": "0af1d92982f80ce4a89462c076305386"
+        },
+        {
+            "assetId": "object.camp-structures",
+            "jobId": "job_20260822130400_6d786a69",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png",
+            "bytes": 352865,
+            "sha256": "f295d36171afecd855038a35c72e1b5af866e8cf0022c06fed450d74218c356f",
+            "guid": "00ff5be74a04dbe48a49fe2e1a673eec"
+        },
+        {
+            "assetId": "object.camp-structures",
+            "jobId": "job_20260822130400_6d786a69",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png",
+            "bytes": 189419,
+            "sha256": "7f4201ab0b297150bdf1172375b4773269a6d552a6a91eba068fb346d44d0949",
+            "guid": "f1920158f3a3ba14f8999ead8f869e30"
+        },
+        {
+            "assetId": "object.vine-wood-barrier",
+            "jobId": "job_20260822234631_ac651d92",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked.png",
+            "bytes": 354693,
+            "sha256": "d55b140ac2ca9d52a759ffb308fcb2e88f2448dbf78df3367a4a818e3b1361cc",
+            "guid": "6c4e2ecdfdf7bf54294b1daeb304bcef"
+        },
+        {
+            "assetId": "object.vine-wood-barrier",
+            "jobId": "job_20260822234631_ac651d92",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/cleared.png",
+            "bytes": 96771,
+            "sha256": "e758d4fe14c4b3cacc770ceadad876a48a1005c39ef6ec960a62df735d50c417",
+            "guid": "e82d06cb4d931a94393ae1931b367daf"
+        },
+        {
+            "assetId": "object.vine-wood-barrier",
+            "jobId": "job_20260822234631_ac651d92",
+            "path": "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/interactable.png",
+            "bytes": 335081,
+            "sha256": "ee8f2097f72ba24ab7743469af73098b34b406f3aa21b90ab545cde9425ca83c",
+            "guid": "f91a7a81fecc6c042a6aa5c0b561d6e0"
+        }
+    ],
+    "addressablesAtContract": {
+        "observedUtc": "2026-08-23T03:02:30.5766329Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    }
+}

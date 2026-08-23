@@ -1,0 +1,151 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T031500Z_wave7_bag_release_gate",
+    "baselineCommit": "8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T03:01:33.3650817Z",
+    "completedUtc": "2026-08-23T03:01:33.4566537Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave7BagCapacityRegressionRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T031500Z_wave7_bag_release_gate\\unity-wave7-edit.log\"",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 12,
+    "failed": 0,
+    "notImplemented": 0,
+    "unverified": 0,
+    "infrastructureFailed": 0,
+    "checks": [
+        {
+            "id": "W7-01.new_game.base_capacity",
+            "matrixItem": "1",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A new game starts with 4 active slots and stack limit 2",
+            "actual": "active=4 legacyStaticSlots=6 stackLimit=2 · capacity=Field:<ActiveBagSlotCount>k__BackingField upgrade=Method:TryUpgradeBagCapacity begin=<missing> cancel=<missing>",
+            "reproduction": "Create GameSession and inspect active capacity and stack limit.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-02.no_workbench.no_spend",
+            "matrixItem": "2",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Exact upgrade resources without a built workbench reject the upgrade and spend nothing",
+            "actual": "upgraded=False before=wood=2 salvage=1 capacity=4 after=wood=2 salvage=1 capacity=4 message=message.bag_upgrade.workbench",
+            "reproduction": "Create a camp session with wood 2/salvage 1 and no workbench, invoke the reflected upgrade action once.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W7-03a.insufficient.no_spend",
+            "matrixItem": "3",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A built workbench with insufficient resources rejects the upgrade and spends nothing",
+            "actual": "upgraded=False before=wood=0 salvage=0 capacity=4 after=wood=0 salvage=0 capacity=4 message=message.bag_upgrade.materials",
+            "reproduction": "Build the workbench, leave wood 0/salvage 0, invoke upgrade, compare resources and capacity.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-03b.cancel.no_spend",
+            "matrixItem": "3",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "An atomic one-step upgrade has no cancellable pre-spend state",
+            "actual": "atomicUpgrade=True stagedBegin=False stagedCancel=False · capacity=Field:<ActiveBagSlotCount>k__BackingField upgrade=Method:TryUpgradeBagCapacity begin=<missing> cancel=<missing>",
+            "reproduction": "Invoke the one-step upgrade only after all conditions pass; no intermediate state exists to cancel.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-04.exact_once.to_six",
+            "matrixItem": "4",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Workbench + wood 2 + salvage 1 spends exactly once and activates exactly 6 slots",
+            "actual": "upgraded=True before=wood=2 salvage=1 capacity=4 after=wood=0 salvage=0 capacity=6 message=message.bag_upgrade.success",
+            "reproduction": "Build workbench, provide exact cost, invoke upgrade once, compare resources and capacity.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-05.repeat.no_spend",
+            "matrixItem": "5",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A second upgrade attempt is rejected without spending or changing six-slot state",
+            "actual": "secondUpgrade=False before=wood=2 salvage=1 capacity=6 after=wood=2 salvage=1 capacity=6 message=message.bag_upgrade.complete",
+            "reproduction": "Complete one upgrade, add another exact cost, invoke upgrade again and compare snapshot.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-06.persistence_and_reset",
+            "matrixItem": "6",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Six slots survive a day transition while Reset/new game restores four slots",
+            "actual": "day=2 capacityAfterDay=6 capacityAfterReset=4",
+            "reproduction": "Upgrade, complete an expedition/day transition, inspect capacity, then Reset and inspect again.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-07a.locked_slots",
+            "matrixItem": "7",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Slots 5 and 6 cannot receive or replace loot before upgrade",
+            "actual": "overflow=PendingSwap pending=True replaceIndex4=False replaceIndex5=False",
+            "reproduction": "Fill four base slots, create pending loot, attempt replacement at indexes 4 and 5.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-07b.extended_slot_operations",
+            "matrixItem": "7",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Upgraded slots 5 and 6 support acquire, stack, replace, discard, and return transfer",
+            "actual": "slot5=Foodx2->Woodx1 slot6=Salvagex2 replaced=True discarded=True returnDelta=5/4/2 cleared=True",
+            "reproduction": "Upgrade, fill six slots deterministically, exercise pending replacement/discard, and return to camp.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W7-08.localization_semantics",
+            "matrixItem": "8",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Behavior-discovered upgrade keys have equivalent ko/en meaning and deterministic qps-long placeholder preservation",
+            "actual": "keys=message.bag_upgrade.workbench|message.bag_upgrade.materials|message.bag_upgrade.success|message.bag_upgrade.complete parity=True qpsPlaceholder=True semantic=True ko=가방을 확장하려면 먼저 작업대가 필요하다. | 나무와 표류물이 부족하다. 현재 나무 0/2, 표류물 0/1. | 가방 확장 완료. 이제 여섯 칸을 채울 걱정이 생겼다. | 가방은 이미 6칸으로 확장했다. 두 번 꿰맨다고 더 늘지는 않는다. en=A workbench is required before upgrading the bag. | Wood and salvage are short. Current: Wood 0/2, Salvage 0/1. | Bag upgrade complete. Mr. Kim now has six slots to worry about filling. | The bag already has 6 slots. Stitching it twice will not make it larger.",
+            "reproduction": "Trigger missing-workbench, insufficient, success, and repeat outcomes; format their keys in ko/en and pseudo-expand en.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"
+        },
+        {
+            "id": "W7-09.synthetic_dual_input",
+            "matrixItem": "9",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Keyboard/mouse and synthetic gamepad actions can address all six slots with equivalent confirm/cancel semantics",
+            "actual": "capacity=6 keyboardSlot=5 gamepadSlot=5 interact=True/True cancel=True/True",
+            "reproduction": "Create shared action snapshots for keyboard and synthetic gamepad with slot index 5 and compare them.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W7-11.natural_three_day_upgrade_rescue",
+            "matrixItem": "11",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A grant/coordinate-warp-free natural Day 1-3 route buys the upgrade and reaches rescue",
+            "actual": "sourceGrantWarpFree=True day=3 capacity=6 signal=2 result=Rescued phase=Result",
+            "reproduction": "Run the deterministic model route and source-audit this method for Grant/Warp calls.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        }
+    ]
+}

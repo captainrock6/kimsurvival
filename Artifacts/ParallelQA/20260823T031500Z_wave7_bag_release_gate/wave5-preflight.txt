@@ -1,0 +1,20 @@
+Wave 5 Addressables ownership preflight
+Run ID: 20260823T031500Z_wave7_bag_release_gate
+Captured UTC: 2026-08-23T03:01:22.7839402Z
+Command: $preflightOutput = @(& (Join-Path $PSScriptRoot 'Capture-Wave5Preflight.ps1') -RunId $RunId -BaselineCommit $BaselineCommit 2>&1)
+
+Branch: master
+Baseline: 8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d
+Observed HEAD: 8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d
+Ownership: PASS
+Canonical durable state: ABSENT
+Tracked temporary paths: 
+Ignored temporary paths: Assets/AddressableAssetsData/link.xml | Assets/AddressableAssetsData/link.xml.meta
+Link exists: False
+Link SHA-256: 
+Meta exists: False
+Meta SHA-256: 
+Meta GUID: 
+Installed processor: Library/PackageCache/com.unity.addressables@8460f1c9c927/Editor/Build/AddressablesPlayerBuildProcessor.cs
+Installed processor SHA-256: df3a38aa47d486c764e44750a59b526ab5012f739650aeacb4c23bdaf9ef3075
+Wave3VisualGate source SHA-256: a31f3b222068003149fb453e687cac78cb151df8b7e76ef16e5baef938faba6d

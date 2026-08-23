@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260823T031500Z_wave7_bag_release_gate
+Baseline: 8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d
+Normal ko/en: PASS
+Placement: PLACEMENT_GATE: PASS · targets=24 · failures=0
+Exploration/swimming: EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+qps-long: PSEUDO_LONG_GATE: PASS · targets=10 · failures=0
+qps-long classification: PASS

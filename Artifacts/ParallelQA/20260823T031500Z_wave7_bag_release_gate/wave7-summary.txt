@@ -1,0 +1,21 @@
+Wave 7 bag capacity regression summary
+Run ID: 20260823T031500Z_wave7_bag_release_gate
+Baseline: 8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d
+Overall: PASS
+Red-first: GREEN_AFTER_IMPLEMENTATION
+Product/Infrastructure: PASS/PASS
+Compile: PASS 0 errors
+Wave 7 Edit/Play/Layout: PASS/PASS/PASS
+Existing regressions: PASS
+Wave 6 progression: PASS
+Placement: PASS 24/24
+Exploration/swimming: PASS 10/10
+qps-long: PASS 10/10
+Addressables: load=PASS build=PASS postSmoke=PASS
+Windows build/smoke: PASS/PASS · warnings=0
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY · READY claim=false
+Wave 7 finding count: 0
+Regression defect count: 0
+Infrastructure failure count: 0
+Exact rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave7BagCapacityRegression.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '8f16dad26ce0058a38aaa576aecf1fe0b0eb0d3d'
