@@ -141,7 +141,35 @@
         "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822234631_ac651d92\\cleared.png"
       ],
       "updatedAt": "2026-08-23T00:16:28.593Z"
+    },
+    {
+      "jobId": "job_20260823015835_65b80963",
+      "assetId": "ui.bag-capacity-upgrade",
+      "assetType": "ui_set",
+      "request": "김씨의 채택된 급조 등가방 정체성을 유지하면서 낡은 천 조각과 좌우 옆주머니 두 개를 덧댄 코믹 생존 UI 후보를 제작한다. 4칸 기본, 2칸 잠금, 6칸 활성 상태를 색뿐 아니라 외곽 형태와 슬롯 개수로 즉시 구분하고, 작업대 가방 확장 아이콘 및 기본·게임패드 포커스·비활성 액션 상태를 분리한다. 오른쪽 세로형 HUD 폭 약 300px 기준으로 1280x800과 1920x1080에서 읽히며, 모든 한국어·영어 본문은 엔진 TMP 영역에만 배치하고 래스터에는 글자·숫자·로고를 넣지 않는다. 투명 배경, 굵고 읽기 쉬운 실루엣, 따뜻한 열대색, 편집 가능한 엔진 UI 파츠, 넉넉한 텍스트 안전 여백을 제공한다. 사용자 승인 전 review 후보이며 adopt/engine_ready/runtime 연결을 하지 않는다.",
+      "decision": "adopted",
+      "tags": [
+        "wave7-bag-upgrade-approved"
+      ],
+      "note": "사용자가 Wave 7 가방 확장 UI 후보를 명시적으로 채택했다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\source-art-alpha.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\bag-base.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\bag-upgraded.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\bag-upgrade-icon.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\capacity-4.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\capacity-4-locked.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\capacity-6.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\upgrade-card-default.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\upgrade-card-focus.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\upgrade-card-disabled.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\actual-size-1280x800.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\actual-size-1920x1080.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\comparison-board.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\editable-ui.svg"
+      ],
+      "updatedAt": "2026-08-23T02:28:21.763Z"
     }
   ],
-  "updatedAt": "2026-08-23T00:16:28.766Z"
+  "updatedAt": "2026-08-23T02:28:21.846Z"
 }

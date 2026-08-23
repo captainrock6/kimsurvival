@@ -3,10 +3,10 @@
   "assetId": "ui.bag-capacity-upgrade",
   "jobId": "job_20260823015835_65b80963",
   "assetType": "ui_set",
-  "status": "review",
-  "reviewOnly": true,
-  "adopted": false,
-  "engineReady": false,
+  "status": "engine_ready",
+  "reviewOnly": false,
+  "adopted": true,
+  "engineReady": true,
   "runtimeConnected": false,
   "artDirection": {
     "identityAnchor": "character.mr-kim adopted improvised cream canvas backpack with tan rope and navy bedroll",
@@ -75,7 +75,8 @@
     "alphaIsTransparency": true,
     "nineSliceBorderSuggested": [18, 18, 18, 18],
     "pivot": [0.5, 0.5],
-    "packagingDeferredUntilAdoption": true
+    "packagingDeferredUntilAdoption": false,
+    "packagedAt": "2026-08-23T02:28:31.998Z"
   },
   "reviewEvidence": [
     "comparison-board.png",

@@ -2,7 +2,7 @@
   "id": "job_20260823015835_65b80963",
   "status": "succeeded",
   "createdAt": "2026-08-23T01:58:35.013Z",
-  "updatedAt": "2026-08-23T02:09:00.522Z",
+  "updatedAt": "2026-08-23T02:28:21.773Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.bag-capacity-upgrade",
@@ -407,7 +407,30 @@
       "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-comparison-board.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "wave7-bag-upgrade-approved"
+    ],
+    "note": "사용자가 Wave 7 가방 확장 UI 후보를 명시적으로 채택했다.",
+    "selectedArtifacts": [
+      "source-art-alpha.png",
+      "bag-base.png",
+      "bag-upgraded.png",
+      "bag-upgrade-icon.png",
+      "capacity-4.png",
+      "capacity-4-locked.png",
+      "capacity-6.png",
+      "upgrade-card-default.png",
+      "upgrade-card-focus.png",
+      "upgrade-card-disabled.png",
+      "actual-size-1280x800.png",
+      "actual-size-1920x1080.png",
+      "comparison-board.png",
+      "editable-ui.svg"
+    ],
+    "updatedAt": "2026-08-23T02:28:21.763Z"
+  },
   "events": [
     {
       "at": "2026-08-23T01:58:35.013Z",
@@ -443,6 +466,11 @@
       "at": "2026-08-23T02:09:00.522Z",
       "level": "info",
       "message": "Codex/로컬 결과 35개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-23T02:28:21.773Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave7-bag-upgrade-approved"
     }
   ],
   "error": null,

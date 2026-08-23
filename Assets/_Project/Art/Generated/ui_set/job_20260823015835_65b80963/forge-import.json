@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T02:10:00+09:00",
+  "generatedAt": "2026-08-23T02:28:31.997Z",
   "projectId": "김씨 생존기: 무인도",
   "assetId": "ui.bag-capacity-upgrade",
   "jobId": "job_20260823015835_65b80963",
   "assetType": "ui_set",
-  "status": "review",
+  "status": "engine_ready",
   "sourceFiles": [
     "bag-base.png",
     "bag-upgraded.png",
@@ -31,6 +31,7 @@
     "nineSliceBorder": [18, 18, 18, 18],
     "pivot": [0.5, 0.5]
   },
+  "sliceGrid": null,
   "stateFiles": [
     "capacity-4.png",
     "capacity-4-locked.png",
@@ -41,6 +42,5 @@
   ],
   "localizationTextSource": "Unity TextMeshPro only; safe rectangles are in ui-metadata.json",
   "runtimeWiringDeferred": true,
-  "packagingDeferredUntilAdoption": true,
-  "adoptionRequired": true
+  "adoptionRequired": false
 }

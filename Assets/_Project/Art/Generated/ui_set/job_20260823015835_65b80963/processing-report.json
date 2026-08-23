@@ -6,8 +6,8 @@
   "externalPaidApiCalled": false,
   "deterministicOperations": ["neutral checkerboard to alpha", "fixed three-cell extraction", "shared-height bag normalization", "vector-like panel rasterization", "actual-size layout composition"],
   "localizedRasterText": false,
-  "reviewOnly": true,
-  "adopted": false,
-  "engineReady": false,
+  "reviewOnly": false,
+  "adopted": true,
+  "engineReady": true,
   "runtimeConnected": false
 }

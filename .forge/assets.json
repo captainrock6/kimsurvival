@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T02:09:00.589Z",
+  "updatedAt": "2026-08-23T02:28:31.999Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -1651,7 +1651,7 @@
       "name": "가방 확장 UI 상태 세트",
       "assetType": "ui_set",
       "request": "김씨의 채택된 급조 등가방 정체성을 유지하면서 낡은 천 조각과 좌우 옆주머니 두 개를 덧댄 코믹 생존 UI 후보를 제작한다. 4칸 기본, 2칸 잠금, 6칸 활성 상태를 색뿐 아니라 외곽 형태와 슬롯 개수로 즉시 구분하고, 작업대 가방 확장 아이콘 및 기본·게임패드 포커스·비활성 액션 상태를 분리한다. 오른쪽 세로형 HUD 폭 약 300px 기준으로 1280x800과 1920x1080에서 읽히며, 모든 한국어·영어 본문은 엔진 TMP 영역에만 배치하고 래스터에는 글자·숫자·로고를 넣지 않는다. 투명 배경, 굵고 읽기 쉬운 실루엣, 따뜻한 열대색, 편집 가능한 엔진 UI 파츠, 넉넉한 텍스트 안전 여백을 제공한다. 사용자 승인 전 review 후보이며 adopt/engine_ready/runtime 연결을 하지 않는다.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "unity",
@@ -1682,6 +1682,13 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-23T02:09:00.588Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823015835_65b80963",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T02:28:21.828Z",
           "qualityScore": 100
         }
       ],
@@ -1948,9 +1955,14 @@
           "url": "/outputs/jobs/job_20260823015835_65b80963/qa-preview-comparison-board.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823015835_65b80963\\forge-import.json",
+        "packagedAt": "2026-08-23T02:28:31.998Z"
+      },
       "createdAt": "2026-08-23T01:52:41.889Z",
-      "updatedAt": "2026-08-23T02:09:00.589Z"
+      "updatedAt": "2026-08-23T02:28:31.999Z"
     }
   ]
 }

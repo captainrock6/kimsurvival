@@ -4,7 +4,8 @@
   "jobId": "job_20260823015835_65b80963",
   "reviewedAt": "2026-08-23T02:10:00+09:00",
   "reviewStatus": "pass_with_minor_note",
-  "reviewState": "review",
+  "reviewState": "engine_ready",
+  "adoptedAt": "2026-08-23T02:28:21.763Z",
   "inspectedAtOriginalSize": [
     "source-art-alpha.png",
     "bag-base.png",
@@ -48,8 +49,8 @@
   ],
   "minorNote": "At extreme zoom, a few subpixel light antialias samples remain around the generated rope silhouette. They do not read as a halo in the 1280x800 or 1920x1080 actual-size boards, but should be rechecked against the final adopted HUD material before runtime wiring.",
   "copyrightReview": "original composition; references used only for the project's adopted identity, palette, and silhouette language",
-  "userAdoptionRequired": true,
-  "adopted": false,
-  "engineReady": false,
+  "userAdoptionRequired": false,
+  "adopted": true,
+  "engineReady": true,
   "runtimeConnected": false
 }
