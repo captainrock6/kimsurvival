@@ -1,0 +1,24 @@
+Play Mode 1280x800 text metrics
+Run ID: 20260823T021600Z_19f050a_wave7
+Started UTC: 2026-08-23T02:16:52.0378930Z
+Completed UTC: 2026-08-23T02:16:53.5149640Z
+Unity: 6000.4.9f1
+Baseline commit: 19f050a69759e5715d1f8a2eaa72fade72164b4b
+Project: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -force-d3d11 -projectPath "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunPlayModeVerification -logFile "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\ParallelQA\20260823T021600Z_19f050a_wave7\unity-legacy-full-play.log"
+METRIC-WARN · ko placement valid · active TMP=10 · minimum rendered text bounds=25.4px · TMP overflow=2 · small world text(<12px)=0 · screenshot=playmode-ko-placement-valid-1280x800.png
+  overflow candidates: 날짜·상태=DAY 1/3 · 캠프 준비/허기 70 | 체력 100 | 보유 자원=나무 12   돌 11   식량 0   표류물 10/신호대 0/2   도끼 없음   밧줄 없음
+METRIC-WARN · ko placement invalid · active TMP=10 · minimum rendered text bounds=25.4px · TMP overflow=2 · small world text(<12px)=0 · screenshot=playmode-ko-placement-invalid-1280x800.png
+  overflow candidates: 날짜·상태=DAY 1/3 · 캠프 준비/허기 70 | 체력 100 | 보유 자원=나무 12   돌 11   식량 0   표류물 10/신호대 0/2   도끼 없음   밧줄 없음
+PASS · en placement valid · active TMP=10 · minimum rendered text bounds=25.1px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-placement-valid-1280x800.png
+PASS · en placement invalid · active TMP=10 · minimum rendered text bounds=25.1px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-placement-invalid-1280x800.png
+PASS · qps-long placement valid · active TMP=10 · minimum rendered text bounds=51.0px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-qps-long-placement-1280x800.png
+METRIC-WARN · ko day1 swimming · active TMP=16 · minimum rendered text bounds=26.2px · TMP overflow=3 · small world text(<12px)=0 · screenshot=playmode-ko-day1-swimming-1280x800.png
+  overflow candidates: 날짜·상태=DAY 1/3 · 얕은 연안 수영/허기 70 | 체력 94 | 일광 100 | 보유 자원=나무 2   돌 1   식량 0   표류물 0/신호대 0/2   도끼 없음   밧줄 없음 | 가방 제목=수색 가방 4/6/한 묶음 최대 2개
+METRIC-WARN · ko day2 exploration · active TMP=17 · minimum rendered text bounds=26.2px · TMP overflow=3 · small world text(<12px)=0 · screenshot=playmode-ko-day2-exploration-1280x800.png
+  overflow candidates: 날짜·상태=DAY 2/3 · 섬 수색/허기 35 | 체력 66 | 일광 100 | 보유 자원=나무 0   돌 1   식량 0   표류물 0/신호대 0/2   도끼 보유   밧줄 보유 | 가방 제목=수색 가방 4/6/한 묶음 최대 2개
+METRIC-WARN · ko rescue result · active TMP=8 · minimum rendered text bounds=21.5px · TMP overflow=2 · small world text(<12px)=0 · screenshot=playmode-ko-rescue-result-1280x800.png
+  overflow candidates: 날짜·상태=DAY 3/3 · 결과/허기 0 | 체력 27 | 보유 자원=나무 0   돌 1   식량 0   표류물 1/신호대 2/2   도끼 보유   밧줄 보유
+PASS · en day1 swimming · active TMP=16 · minimum rendered text bounds=22.0px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-day1-swimming-1280x800.png
+PASS · en day2 exploration · active TMP=17 · minimum rendered text bounds=22.0px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-day2-exploration-1280x800.png
+PASS · en rescue result · active TMP=8 · minimum rendered text bounds=18.1px · TMP overflow=0 · small world text(<12px)=0 · screenshot=playmode-en-rescue-result-1280x800.png
