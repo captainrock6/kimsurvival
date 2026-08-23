@@ -48,6 +48,11 @@ namespace KimSurvival
         {
             return device == PrototypeInputDevice.Gamepad ? "controls.placement.gamepad" : "controls.placement.keyboard_mouse";
         }
+
+        public static string Explore(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.explore.gamepad" : "controls.explore.keyboard_mouse";
+        }
     }
 
     public struct PrototypeRawInput
@@ -200,18 +205,29 @@ namespace KimSurvival
             string[] joystickNames = Input.GetJoystickNames();
             bool gamepadAxis = joystickNames.Length > 0 && !keyboardDirection &&
                                (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.2f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.2f);
-            bool keyboard = keyboardDirection || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Space) ||
-                            Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) ||
+            bool bagNumber = false;
+            for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
+            {
+                if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i)))
+                {
+                    bagNumber = true;
+                    break;
+                }
+            }
+
+            bool keyboard = keyboardDirection || bagNumber || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Space) ||
+                             Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) ||
                             Mathf.Abs(Input.GetAxisRaw("Mouse X")) > 0.01f || Mathf.Abs(Input.GetAxisRaw("Mouse Y")) > 0.01f;
             deviceTracker.Update(new PrototypeInputActivity(keyboard, gamepad || gamepadAxis));
         }
 
-        public PrototypePlayerActions ReadActions(bool choosingLoot)
+        public PrototypePlayerActions ReadActions(bool choosingLoot, int activeBagSlotCount)
         {
             int bagSlotIndex = -1;
             if (choosingLoot)
             {
-                for (int i = 0; i < GameSession.BagSlotCount; i += 1)
+                int selectableSlotCount = Mathf.Clamp(activeBagSlotCount, 0, GameSession.MaximumBagSlotCount);
+                for (int i = 0; i < selectableSlotCount; i += 1)
                 {
                     if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i)))
                     {

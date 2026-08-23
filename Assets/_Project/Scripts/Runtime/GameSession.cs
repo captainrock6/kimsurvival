@@ -57,6 +57,17 @@ namespace KimSurvival
         MissingSalvage = 1 << 5
     }
 
+    [Flags]
+    public enum BagCapacityUpgradeBlockers
+    {
+        None = 0,
+        NotAtCamp = 1 << 0,
+        MissingWorkbench = 1 << 1,
+        Complete = 1 << 2,
+        MissingWood = 1 << 3,
+        MissingSalvage = 1 << 4
+    }
+
     [Serializable]
     public struct BagStack
     {
@@ -77,8 +88,12 @@ namespace KimSurvival
 
     public sealed class GameSession
     {
-        public const int BagSlotCount = 4;
+        public const int DefaultBagSlotCount = 4;
+        public const int MaximumBagSlotCount = 6;
+        public const int BagSlotCount = MaximumBagSlotCount;
         public const int StackLimit = 2;
+        public const int BagUpgradeWoodCost = 2;
+        public const int BagUpgradeSalvageCost = 1;
         public const int FinalDay = 3;
 
         private readonly int[] storage = new int[4];
@@ -96,6 +111,7 @@ namespace KimSurvival
         public bool ExpeditionCompleted { get; private set; }
         public bool IsSwimming { get; private set; }
         public int SignalStage { get; private set; }
+        public int ActiveBagSlotCount { get; private set; }
         public PrototypeLocalizedText LastMessage { get; private set; }
         public ResourceKind? PendingKind { get; private set; }
         public int PendingAmount { get; private set; }
@@ -141,6 +157,7 @@ namespace KimSurvival
             ExpeditionCompleted = false;
             IsSwimming = false;
             SignalStage = 0;
+            ActiveBagSlotCount = DefaultBagSlotCount;
             PendingKind = null;
             PendingAmount = 0;
             LastMessage = Text("message.reset");
@@ -153,7 +170,17 @@ namespace KimSurvival
 
         public BagStack GetBagSlot(int index)
         {
-            return index >= 0 && index < bag.Length ? bag[index] : default(BagStack);
+            return IsBagSlotActive(index) ? bag[index] : default(BagStack);
+        }
+
+        public bool IsBagSlotActive(int index)
+        {
+            return index >= 0 && index < ActiveBagSlotCount;
+        }
+
+        public bool HasBagCapacityUpgrade
+        {
+            get { return ActiveBagSlotCount >= MaximumBagSlotCount; }
         }
 
         public bool HasStructure(StructureKind kind)
@@ -221,6 +248,82 @@ namespace KimSurvival
             }
 
             structures[(int)kind] = true;
+            return true;
+        }
+
+        public bool CanUpgradeBagCapacity()
+        {
+            return GetBagCapacityUpgradeBlockers() == BagCapacityUpgradeBlockers.None;
+        }
+
+        public BagCapacityUpgradeBlockers GetBagCapacityUpgradeBlockers()
+        {
+            BagCapacityUpgradeBlockers blockers = BagCapacityUpgradeBlockers.None;
+            if (Phase != GamePhase.Camp)
+            {
+                blockers |= BagCapacityUpgradeBlockers.NotAtCamp;
+            }
+
+            if (!HasStructure(StructureKind.Workbench))
+            {
+                blockers |= BagCapacityUpgradeBlockers.MissingWorkbench;
+            }
+
+            if (HasBagCapacityUpgrade)
+            {
+                blockers |= BagCapacityUpgradeBlockers.Complete;
+            }
+
+            if (storage[(int)ResourceKind.Wood] < BagUpgradeWoodCost)
+            {
+                blockers |= BagCapacityUpgradeBlockers.MissingWood;
+            }
+
+            if (storage[(int)ResourceKind.Salvage] < BagUpgradeSalvageCost)
+            {
+                blockers |= BagCapacityUpgradeBlockers.MissingSalvage;
+            }
+
+            return blockers;
+        }
+
+        public bool TryUpgradeBagCapacity()
+        {
+            BagCapacityUpgradeBlockers blockers = GetBagCapacityUpgradeBlockers();
+            if (blockers != BagCapacityUpgradeBlockers.None)
+            {
+                if ((blockers & BagCapacityUpgradeBlockers.Complete) != 0)
+                {
+                    LastMessage = Text("message.bag_upgrade.complete");
+                }
+                else if ((blockers & BagCapacityUpgradeBlockers.NotAtCamp) != 0)
+                {
+                    LastMessage = Text("message.bag_upgrade.camp");
+                }
+                else if ((blockers & BagCapacityUpgradeBlockers.MissingWorkbench) != 0)
+                {
+                    LastMessage = Text("message.bag_upgrade.workbench");
+                }
+                else if ((blockers & BagCapacityUpgradeBlockers.MissingWood) != 0 &&
+                         (blockers & BagCapacityUpgradeBlockers.MissingSalvage) != 0)
+                {
+                    LastMessage = Text("message.bag_upgrade.materials", storage[(int)ResourceKind.Wood], storage[(int)ResourceKind.Salvage]);
+                }
+                else if ((blockers & BagCapacityUpgradeBlockers.MissingWood) != 0)
+                {
+                    LastMessage = Text("message.bag_upgrade.wood", storage[(int)ResourceKind.Wood]);
+                }
+                else
+                {
+                    LastMessage = Text("message.bag_upgrade.salvage", storage[(int)ResourceKind.Salvage]);
+                }
+
+                return false;
+            }
+
+            Spend(BagUpgradeWoodCost, 0, 0, BagUpgradeSalvageCost);
+            ActiveBagSlotCount = MaximumBagSlotCount;
+            LastMessage = Text("message.bag_upgrade.success");
             return true;
         }
 
@@ -485,7 +588,7 @@ namespace KimSurvival
 
         public bool ReplaceBagSlot(int index)
         {
-            if (!HasPendingLoot || index < 0 || index >= bag.Length)
+            if (!HasPendingLoot || !IsBagSlotActive(index))
             {
                 return false;
             }
@@ -518,7 +621,7 @@ namespace KimSurvival
             }
 
             DiscardPendingLoot();
-            for (int i = 0; i < bag.Length; i += 1)
+            for (int i = 0; i < ActiveBagSlotCount; i += 1)
             {
                 if (!bag[i].IsEmpty)
                 {
@@ -641,7 +744,7 @@ namespace KimSurvival
         private int AddToBag(ResourceKind kind, int amount)
         {
             int remaining = amount;
-            for (int i = 0; i < bag.Length && remaining > 0; i += 1)
+            for (int i = 0; i < ActiveBagSlotCount && remaining > 0; i += 1)
             {
                 if (!bag[i].IsEmpty && bag[i].Kind == kind && bag[i].Amount < StackLimit)
                 {
@@ -651,7 +754,7 @@ namespace KimSurvival
                 }
             }
 
-            for (int i = 0; i < bag.Length && remaining > 0; i += 1)
+            for (int i = 0; i < ActiveBagSlotCount && remaining > 0; i += 1)
             {
                 if (bag[i].IsEmpty)
                 {

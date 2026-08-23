@@ -119,6 +119,10 @@ namespace KimSurvival.EditorTools
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierClearedPath)), "Prototype scene serializes all three adopted vine barrier states");
 
             GameSession inventory = new GameSession();
+            Assert(GameSession.DefaultBagSlotCount == 4 && GameSession.MaximumBagSlotCount == 6 && GameSession.StackLimit == 2,
+                "Bag contract keeps four default slots, six physical slots, and two items per stack");
+            Assert(inventory.ActiveBagSlotCount == 4 && !inventory.IsBagSlotActive(4) && !inventory.IsBagSlotActive(5),
+                "New games expose four slots and keep physical slots five and six locked");
             Assert(inventory.BeginSearch(), "Inventory scenario begins search");
             Assert(inventory.TryGather(ResourceKind.Wood, 2) == GatherResult.Added, "Wood fills slot");
             Assert(inventory.TryGather(ResourceKind.Stone, 2) == GatherResult.Added, "Stone fills slot");
@@ -126,9 +130,80 @@ namespace KimSurvival.EditorTools
             Assert(inventory.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added, "Salvage fills slot");
             Assert(inventory.TryGather(ResourceKind.Wood, 1) == GatherResult.PendingSwap, "Full bag creates a real swap choice");
             Assert(inventory.HasPendingLoot, "Pending loot is recorded");
+            Assert(!inventory.ReplaceBagSlot(4) && inventory.HasPendingLoot, "Locked slot five cannot receive pending loot before the upgrade");
             Assert(inventory.ReplaceBagSlot(1), "Player can replace a selected slot");
             Assert(inventory.ReturnToCamp(false), "Bag transfers on return");
             Assert(inventory.GetStorage(ResourceKind.Wood) >= 3, "Returned wood reaches storage");
+
+            GameSession bagUpgrade = new GameSession();
+            bagUpgrade.Grant(ResourceKind.Wood, 4);
+            bagUpgrade.Grant(ResourceKind.Salvage, 2);
+            int preWorkbenchWood = bagUpgrade.GetStorage(ResourceKind.Wood);
+            int preWorkbenchSalvage = bagUpgrade.GetStorage(ResourceKind.Salvage);
+            Assert(!bagUpgrade.TryUpgradeBagCapacity() && bagUpgrade.LastMessage.Key == "message.bag_upgrade.workbench",
+                "Bag upgrade clearly rejects a missing workbench");
+            Assert(bagUpgrade.GetStorage(ResourceKind.Wood) == preWorkbenchWood && bagUpgrade.GetStorage(ResourceKind.Salvage) == preWorkbenchSalvage,
+                "Missing-workbench failure spends no resources");
+            Assert(bagUpgrade.TryBuild(StructureKind.Workbench), "Bag upgrade scenario builds the required workbench");
+            int preUpgradeWood = bagUpgrade.GetStorage(ResourceKind.Wood);
+            int preUpgradeSalvage = bagUpgrade.GetStorage(ResourceKind.Salvage);
+            Assert(bagUpgrade.CanUpgradeBagCapacity() && bagUpgrade.CanUpgradeBagCapacity(), "Repeated upgrade previews remain side-effect free");
+            Assert(bagUpgrade.GetStorage(ResourceKind.Wood) == preUpgradeWood && bagUpgrade.GetStorage(ResourceKind.Salvage) == preUpgradeSalvage,
+                "Preview and cancellation path spend no resources");
+            Assert(bagUpgrade.TryUpgradeBagCapacity() && bagUpgrade.ActiveBagSlotCount == 6,
+                "Workbench upgrades the bag from four to six slots once");
+            Assert(bagUpgrade.GetStorage(ResourceKind.Wood) == preUpgradeWood - GameSession.BagUpgradeWoodCost &&
+                   bagUpgrade.GetStorage(ResourceKind.Salvage) == preUpgradeSalvage - GameSession.BagUpgradeSalvageCost,
+                "Successful bag upgrade atomically spends exactly wood two and salvage one");
+            int postUpgradeWood = bagUpgrade.GetStorage(ResourceKind.Wood);
+            int postUpgradeSalvage = bagUpgrade.GetStorage(ResourceKind.Salvage);
+            Assert(!bagUpgrade.TryUpgradeBagCapacity() && bagUpgrade.LastMessage.Key == "message.bag_upgrade.complete",
+                "Repeated bag upgrade input is rejected as complete");
+            Assert(bagUpgrade.GetStorage(ResourceKind.Wood) == postUpgradeWood && bagUpgrade.GetStorage(ResourceKind.Salvage) == postUpgradeSalvage,
+                "Repeated upgrade input spends no resources");
+
+            Assert(bagUpgrade.BeginSearch(), "Six-slot inventory scenario begins search");
+            Assert(bagUpgrade.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                   bagUpgrade.TryGather(ResourceKind.Stone, 2) == GatherResult.Added &&
+                   bagUpgrade.TryGather(ResourceKind.Food, 2) == GatherResult.Added &&
+                   bagUpgrade.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added &&
+                   bagUpgrade.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                   bagUpgrade.TryGather(ResourceKind.Stone, 1) == GatherResult.Added &&
+                   bagUpgrade.TryGather(ResourceKind.Stone, 1) == GatherResult.Added,
+                "Upgraded search acquires and stacks resources through slots five and six");
+            Assert(bagUpgrade.GetBagSlot(4).Kind == ResourceKind.Wood && bagUpgrade.GetBagSlot(4).Amount == 2 &&
+                   bagUpgrade.GetBagSlot(5).Kind == ResourceKind.Stone && bagUpgrade.GetBagSlot(5).Amount == 2,
+                "Physical slots five and six participate in acquisition and stacking");
+            Assert(bagUpgrade.TryGather(ResourceKind.Food, 1) == GatherResult.PendingSwap && bagUpgrade.ReplaceBagSlot(5),
+                "Pending loot can replace slot six");
+            Assert(bagUpgrade.TryGather(ResourceKind.Stone, 1) == GatherResult.PendingSwap && bagUpgrade.ReplaceBagSlot(4),
+                "Pending loot can replace slot five");
+            Assert(bagUpgrade.TryGather(ResourceKind.Salvage, 1) == GatherResult.PendingSwap, "Full six-slot bag still creates a pending choice");
+            bagUpgrade.DiscardPendingLoot();
+            Assert(!bagUpgrade.HasPendingLoot, "Six-slot pending loot can be explicitly discarded");
+            int storageBeforeSixSlotReturn = bagUpgrade.GetStorage(ResourceKind.Food);
+            Assert(bagUpgrade.ReturnToCamp(false) && bagUpgrade.GetStorage(ResourceKind.Food) > storageBeforeSixSlotReturn,
+                "All active slots, including slot six, transfer on return");
+            Assert(bagUpgrade.EndDay() && bagUpgrade.ActiveBagSlotCount == 6, "Bag capacity persists across day settlement");
+            bagUpgrade.Reset();
+            Assert(bagUpgrade.ActiveBagSlotCount == 4 && !bagUpgrade.HasBagCapacityUpgrade && !bagUpgrade.HasPendingLoot &&
+                   !bagUpgrade.IsBagSlotActive(4) && bagUpgrade.GetBagSlot(4).IsEmpty,
+                "New-game reset restores four slots and clears locked physical storage and pending loot");
+
+            GameSession bagShortage = new GameSession();
+            bagShortage.Grant(ResourceKind.Salvage, 1);
+            Assert(bagShortage.TryBuild(StructureKind.Workbench), "Bag shortage scenario builds the workbench with exact materials");
+            int shortageWood = bagShortage.GetStorage(ResourceKind.Wood);
+            int shortageSalvage = bagShortage.GetStorage(ResourceKind.Salvage);
+            Assert(!bagShortage.TryUpgradeBagCapacity() && bagShortage.LastMessage.Key == "message.bag_upgrade.materials",
+                "Bag upgrade distinguishes combined material shortages");
+            Assert(bagShortage.GetStorage(ResourceKind.Wood) == shortageWood && bagShortage.GetStorage(ResourceKind.Salvage) == shortageSalvage,
+                "Material failure spends nothing");
+            bagShortage.Grant(ResourceKind.Wood, 2);
+            Assert(!bagShortage.TryUpgradeBagCapacity() && bagShortage.LastMessage.Key == "message.bag_upgrade.salvage",
+                "Bag upgrade distinguishes a salvage shortage");
+            Assert(bagShortage.GetStorage(ResourceKind.Wood) == 2 && bagShortage.GetStorage(ResourceKind.Salvage) == 0,
+                "Single-material failure remains atomic");
 
             GameSession balance = new GameSession();
             Assert(balance.GetStorage(ResourceKind.Food) == 0 && Mathf.Approximately(balance.Hunger, 70f), "Balance v0.2 starts with food 0 and hunger 70");
@@ -177,6 +252,8 @@ namespace KimSurvival.EditorTools
             Assert(keyboardActions.ReturnPressed && gamepadActions.ReturnPressed, "Keyboard and gamepad share the return action");
             Assert(keyboardActions.CancelPressed && gamepadActions.CancelPressed, "Keyboard and gamepad share the cancel action");
             Assert(keyboardActions.BagSlotIndex == 2, "Keyboard loot slot maps into the shared action snapshot");
+            PrototypePlayerActions sixthSlotActions = PrototypePlayerActions.FromRaw(new PrototypeRawInput { BagSlotIndex = 5 });
+            Assert(sixthSlotActions.BagSlotIndex == 5, "Slot six maps into the same keyboard/gamepad action snapshot");
 
             PrototypeSystemActions keyboardSystemActions = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { KeyboardLanguage = true });
             PrototypeSystemActions gamepadSystemActions = PrototypeSystemActions.FromRaw(new PrototypeRawSystemInput { GamepadLanguage = true });
@@ -189,6 +266,8 @@ namespace KimSurvival.EditorTools
             Assert(deviceTracker.ActiveDevice == PrototypeInputDevice.KeyboardMouse, "Keyboard or mouse activity restores the active input prompt");
             Assert(PrototypeInputPromptKeys.Placement(PrototypeInputDevice.KeyboardMouse) == "controls.placement.keyboard_mouse" &&
                    PrototypeInputPromptKeys.Placement(PrototypeInputDevice.Gamepad) == "controls.placement.gamepad", "Placement prompt selection follows the active device");
+            Assert(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.KeyboardMouse) == "controls.explore.keyboard_mouse" &&
+                   PrototypeInputPromptKeys.Explore(PrototypeInputDevice.Gamepad) == "controls.explore.gamepad", "Exploration and six-slot replacement prompts follow the active device");
 
             bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
             string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
@@ -357,6 +436,40 @@ namespace KimSurvival.EditorTools
             Assert(progression.TryUpgradeSignal(), "Signal stage two builds");
             Assert(progression.Result == RunResult.Rescued, "Signal completion wins the run");
 
+            GameSession naturalBagRoute = new GameSession();
+            Assert(naturalBagRoute.BeginSearch(), "Natural bag route starts day one");
+            Assert(naturalBagRoute.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                   naturalBagRoute.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                   naturalBagRoute.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added &&
+                   naturalBagRoute.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added,
+                "Natural bag route gathers day-one workbench and rope materials without grants");
+            Assert(naturalBagRoute.ReturnToCamp(false) && naturalBagRoute.TryBuild(StructureKind.Workbench),
+                "Natural bag route returns and builds the workbench on day one");
+            Assert(naturalBagRoute.TryResearch(TechKind.Rope) && naturalBagRoute.TryCraft(TechKind.Rope),
+                "Natural bag route researches and crafts rope on day one");
+            Assert(naturalBagRoute.EndDay() && naturalBagRoute.Day == 2 && naturalBagRoute.ActiveBagSlotCount == 4,
+                "Natural bag route keeps four slots into day two before upgrade");
+
+            Assert(naturalBagRoute.BeginSearch(), "Natural bag route starts day two");
+            Assert(naturalBagRoute.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                   naturalBagRoute.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                   naturalBagRoute.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added &&
+                   naturalBagRoute.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added,
+                "Natural bag route gathers day-two capacity and signal materials");
+            Assert(naturalBagRoute.ReturnToCamp(false) && naturalBagRoute.TryUpgradeBagCapacity() && naturalBagRoute.ActiveBagSlotCount == 6,
+                "Natural bag route purchases the exact one-time four-to-six upgrade on day two");
+            Assert(naturalBagRoute.TryUpgradeSignal() && naturalBagRoute.SignalStage == 1,
+                "Natural bag route completes signal stage one after the bag upgrade");
+            Assert(naturalBagRoute.EndDay() && naturalBagRoute.Day == 3 && naturalBagRoute.ActiveBagSlotCount == 6,
+                "Natural bag route persists six slots into day three");
+
+            Assert(naturalBagRoute.BeginSearch(), "Natural bag route starts day three");
+            Assert(naturalBagRoute.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                   naturalBagRoute.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added,
+                "Natural bag route gathers final signal materials on day three");
+            Assert(naturalBagRoute.ReturnToCamp(false) && naturalBagRoute.TryUpgradeSignal() && naturalBagRoute.Result == RunResult.Rescued,
+                "Natural three-day route reaches rescue with the upgraded bag and no debug grants");
+
             GameSession deadline = new GameSession();
             for (int day = 1; day <= GameSession.FinalDay; day += 1)
             {
@@ -370,7 +483,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, layer/source metadata, structure pivots, serialized scene references, inventory overflow/swap, shared keyboard/gamepad actions including language, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, layer/source metadata, structure pivots, serialized scene references, inventory overflow/swap, shared keyboard/gamepad actions including language and slot six, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -567,17 +680,42 @@ namespace KimSurvival.EditorTools
 
             try
             {
-                string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-exploration-ko-1280x800.png"));
-                string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-swimming-en-1280x800.png"));
-                string placementKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-placement-ko-invalid-1280x800.png"));
-                string placementEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-placement-en-valid-gamepad-1280x800.png"));
-                string signalKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-signal-stage1-missing-ko-1280x800.png"));
-                string signalEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-signal-stage2-missing-en-1280x800.png"));
-                string result = prototype.RunAutomatedVerification(explorationScreenshot, swimmingScreenshot, placementKoreanScreenshot, placementEnglishScreenshot, signalKoreanScreenshot, signalEnglishScreenshot);
-                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-camp-en-1280x800.png"));
+                string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-exploration-ko-1280x800.png"));
+                string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-swimming-en-1280x800.png"));
+                string placementKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-placement-ko-invalid-1280x800.png"));
+                string placementEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-placement-en-valid-gamepad-1280x800.png"));
+                string signalKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-signal-stage1-missing-ko-1280x800.png"));
+                string signalEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-signal-stage2-missing-en-1280x800.png"));
+                string bagLockedKorean1280Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-locked-ko-1280x800.png"));
+                string bagUpgradedEnglish1280Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1280x800.png"));
+                string bagLockedKorean1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-locked-ko-1920x1080.png"));
+                string bagUpgradedEnglish1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1920x1080.png"));
+                string result = prototype.RunAutomatedVerification(
+                    explorationScreenshot,
+                    swimmingScreenshot,
+                    placementKoreanScreenshot,
+                    placementEnglishScreenshot,
+                    signalKoreanScreenshot,
+                    signalEnglishScreenshot,
+                    bagLockedKorean1280Screenshot,
+                    bagUpgradedEnglish1280Screenshot,
+                    bagLockedKorean1920Screenshot,
+                    bagUpgradedEnglish1920Screenshot);
+                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-camp-en-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
-                SessionState.SetString(MessageKey, result + "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot + "\nSignal stage two missing/rope English screenshot: " + signalEnglishScreenshot + "\nPlacement Korean screenshot: " + placementKoreanScreenshot + "\nPlacement English/gamepad screenshot: " + placementEnglishScreenshot + "\nSwimming screenshot: " + swimmingScreenshot + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);
+                SessionState.SetString(MessageKey, result +
+                    "\nBag locked Korean 1280x800: " + bagLockedKorean1280Screenshot +
+                    "\nBag upgraded English 1280x800: " + bagUpgradedEnglish1280Screenshot +
+                    "\nBag locked Korean 1920x1080: " + bagLockedKorean1920Screenshot +
+                    "\nBag upgraded English 1920x1080: " + bagUpgradedEnglish1920Screenshot +
+                    "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot +
+                    "\nSignal stage two missing/rope English screenshot: " + signalEnglishScreenshot +
+                    "\nPlacement Korean screenshot: " + placementKoreanScreenshot +
+                    "\nPlacement English/gamepad screenshot: " + placementEnglishScreenshot +
+                    "\nSwimming screenshot: " + swimmingScreenshot +
+                    "\nExploration screenshot: " + explorationScreenshot +
+                    "\nCamp screenshot: " + screenshot);
             }
             catch (Exception exception)
             {

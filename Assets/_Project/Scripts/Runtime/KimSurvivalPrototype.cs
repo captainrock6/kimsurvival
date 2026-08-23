@@ -105,6 +105,7 @@ namespace KimSurvival
         private Button researchRopeButton;
         private Button craftRopeButton;
         private Button signalButton;
+        private Button bagUpgradeButton;
         private Button eatButton;
         private Button phaseButton;
         private Button restartButton;
@@ -285,11 +286,14 @@ namespace KimSurvival
             phaseButton = CreateActionButton(campActions.transform, 9, string.Empty, HandlePhaseButton);
 
             bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 130f), new Vector2(-30f, 715f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
-            bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -72f), new Vector2(-18f, -12f), 32, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
-            for (int i = 0; i < GameSession.BagSlotCount; i += 1)
+            bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -76f), new Vector2(-18f, -8f), 28, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
+            bagUpgradeButton = CreateButton("가방 용량 확장", bagPanel.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), string.Empty, delegate { session.TryUpgradeBagCapacity(); RefreshAll(); }, new Vector2(22f, -172f), new Vector2(403f, -82f));
+            bagUpgradeButton.GetComponentInChildren<TMP_Text>().fontSize = 28f;
+            for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
             {
                 int capturedIndex = i;
                 Button slot = CreateBagButton(bagPanel.transform, i, delegate { session.ReplaceBagSlot(capturedIndex); RefreshAll(); });
+                slot.GetComponentInChildren<TMP_Text>().fontSize = 28f;
                 bagButtons.Add(slot);
             }
 
@@ -330,6 +334,7 @@ namespace KimSurvival
             bool placing = camp && campPlacement.IsActive;
             campActions.SetActive(camp && !placing);
             bagPanel.SetActive(!result && !placing);
+            bagUpgradeButton.gameObject.SetActive(camp && !placing);
             resultPanel.SetActive(result);
             if (result)
             {
@@ -377,7 +382,9 @@ namespace KimSurvival
                 localization.Format(session.HasRope ? "value.yes" : "value.no"));
             messageText.text = localization.Format(session.LastMessage);
             string device = localization.DeviceName(playerInput.ActiveDevice);
-            messageText.fontSize = session.LastMessage.Key.StartsWith("message.signal", StringComparison.Ordinal) ? 48f : 29f;
+            messageText.fontSize = session.LastMessage.Key.StartsWith("message.signal", StringComparison.Ordinal)
+                ? 48f
+                : session.LastMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 40f : 29f;
             messageText.fontStyle = FontStyles.Normal;
             messagePanelImage.color = new Color(0.07f, 0.08f, 0.07f, 0.88f);
 
@@ -391,12 +398,12 @@ namespace KimSurvival
                 {
                     controlsText.text = localization.Format(PrototypeInputPromptKeys.Camp(playerInput.ActiveDevice), device);
                 }
-                bagTitleText.text = localization.Format("bag.camp");
+                bagTitleText.text = localization.Format("bag.camp", session.ActiveBagSlotCount, GameSession.MaximumBagSlotCount);
             }
             else if (session.Phase == GamePhase.Exploring)
             {
-                controlsText.text = localization.Format("controls.explore", device);
-                bagTitleText.text = localization.Format(session.HasPendingLoot ? "bag.pending" : "bag.exploring");
+                controlsText.text = localization.Format(PrototypeInputPromptKeys.Explore(playerInput.ActiveDevice), device, session.ActiveBagSlotCount);
+                bagTitleText.text = localization.Format(session.HasPendingLoot ? "bag.pending" : "bag.exploring", session.ActiveBagSlotCount, GameSession.MaximumBagSlotCount);
             }
 
             RefreshBagButtons();
@@ -427,9 +434,37 @@ namespace KimSurvival
             SetButton(craftRopeButton, localization.Format(session.HasRope ? "button.craft.rope.done" : "button.craft.rope"), available && session.CanCraft(TechKind.Rope));
             SetButton(signalButton, FormatSignalButton(), available && session.SignalStage < 2);
             signalButton.GetComponentInChildren<TMP_Text>().fontSize = localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? 31f : 36f;
+            UpdateBagUpgradeButton(available);
             SetButton(eatButton, localization.Format("button.eat", session.GetStorage(ResourceKind.Food)), available && session.GetStorage(ResourceKind.Food) > 0 && session.Hunger < 100f);
             string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "button.day.final" : "button.day.next") : "button.search.start";
             SetButton(phaseButton, localization.Format(phaseButtonKey), available);
+        }
+
+        private void UpdateBagUpgradeButton(bool available)
+        {
+            if (session.HasBagCapacityUpgrade)
+            {
+                SetButton(bagUpgradeButton, localization.Format("button.bag_upgrade.complete", GameSession.MaximumBagSlotCount), false);
+                return;
+            }
+
+            if (!session.HasStructure(StructureKind.Workbench))
+            {
+                SetButton(bagUpgradeButton, localization.Format("button.bag_upgrade.locked", GameSession.DefaultBagSlotCount, GameSession.MaximumBagSlotCount), false);
+                return;
+            }
+
+            SetButton(
+                bagUpgradeButton,
+                localization.Format(
+                    "button.bag_upgrade.available",
+                    GameSession.DefaultBagSlotCount,
+                    GameSession.MaximumBagSlotCount,
+                    Mathf.Min(GameSession.BagUpgradeWoodCost, session.GetStorage(ResourceKind.Wood)),
+                    GameSession.BagUpgradeWoodCost,
+                    Mathf.Min(GameSession.BagUpgradeSalvageCost, session.GetStorage(ResourceKind.Salvage)),
+                    GameSession.BagUpgradeSalvageCost),
+                available);
         }
 
         private string FormatSignalButton()
@@ -455,14 +490,19 @@ namespace KimSurvival
         {
             for (int i = 0; i < bagButtons.Count; i += 1)
             {
+                bool active = session.IsBagSlotActive(i);
                 BagStack stack = session.GetBagSlot(i);
                 TMP_Text label = bagButtons[i].GetComponentInChildren<TMP_Text>();
-                label.text = stack.IsEmpty
+                label.text = !active
+                    ? localization.Format("bag.slot.locked", i + 1)
+                    : stack.IsEmpty
                     ? localization.Format("bag.slot.empty", i + 1)
                     : localization.Format("bag.slot.stack", i + 1, stack.Kind, stack.Amount);
-                bagButtons[i].interactable = session.Phase == GamePhase.Exploring && session.HasPendingLoot;
+                bagButtons[i].interactable = active && session.Phase == GamePhase.Exploring && session.HasPendingLoot;
                 Image image = bagButtons[i].GetComponent<Image>();
-                image.color = stack.IsEmpty ? new Color(0.18f, 0.22f, 0.22f, 0.95f) : ResourceColor(stack.Kind, 0.95f);
+                image.color = !active
+                    ? new Color(0.08f, 0.1f, 0.1f, 0.95f)
+                    : stack.IsEmpty ? new Color(0.18f, 0.22f, 0.22f, 0.95f) : ResourceColor(stack.Kind, 0.95f);
             }
         }
 
@@ -684,7 +724,7 @@ namespace KimSurvival
 
         private void UpdateExploration()
         {
-            PrototypePlayerActions actions = playerInput.ReadActions(session.HasPendingLoot);
+            PrototypePlayerActions actions = playerInput.ReadActions(session.HasPendingLoot, session.ActiveBagSlotCount);
             if (session.HasPendingLoot)
             {
                 if (actions.BagSlotIndex >= 0)
@@ -782,7 +822,11 @@ namespace KimSurvival
             string placementKoreanScreenshotPath,
             string placementEnglishScreenshotPath,
             string signalKoreanScreenshotPath,
-            string signalEnglishScreenshotPath)
+            string signalEnglishScreenshotPath,
+            string bagLockedKorean1280ScreenshotPath,
+            string bagUpgradedEnglish1280ScreenshotPath,
+            string bagLockedKorean1920ScreenshotPath,
+            string bagUpgradedEnglish1920ScreenshotPath)
         {
             session.Reset();
             campPlacement.Reset();
@@ -805,7 +849,7 @@ namespace KimSurvival
             RequireCampStructureArt();
 
             TMP_Text signalLabel = signalButton.GetComponentInChildren<TMP_Text>();
-            Require(signalButton.interactable && signalLabel.text.Contains("작업대 없음"), "재료가 부족해도 선택 가능한 1단계 작업대 요구 표시");
+            Require(signalButton.interactable && signalLabel.text.Contains("작업대") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 1단계 작업대 요구 표시");
             signalButton.onClick.Invoke();
             Require(session.SignalStage == 0 && session.LastMessage.Key == "message.signal.workbench" && messageText.text.Contains("작업대가 없다"), "1단계 작업대 없음 실패 피드백");
             RequireReadableSignalFeedback();
@@ -818,11 +862,11 @@ namespace KimSurvival
             RefreshAll();
             signalButton.onClick.Invoke();
             Require(session.SignalStage == 1 && !session.HasRope, "밧줄 없이 가능한 구조 신호대 1단계 UI 경로");
-            Require(signalButton.interactable && signalLabel.text.Contains("밧줄 없음"), "재료가 부족해도 선택 가능한 2단계 밧줄 요구 표시");
+            Require(signalButton.interactable && signalLabel.text.Contains("밧줄") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 2단계 밧줄 요구 표시");
             signalButton.onClick.Invoke();
             Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.rope", "밧줄 없는 구조 신호대 2단계의 명확한 거절");
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
-            Require(signalLabel.text.Contains("Rope None") && messageText.text.Contains("No rope"), "영어 2단계 요구조건과 부족 사유 즉시 전환");
+            Require(signalLabel.text.Contains("Rope") && signalLabel.text.Contains("None") && messageText.text.Contains("No rope"), "영어 2단계 요구조건과 부족 사유 즉시 전환");
             RequireReadableSignalFeedback();
             if (!string.IsNullOrWhiteSpace(signalEnglishScreenshotPath))
             {
@@ -839,6 +883,83 @@ namespace KimSurvival
 
             session.Reset();
             campPlacement.Reset();
+            session.Grant(ResourceKind.Wood, 20);
+            session.Grant(ResourceKind.Stone, 10);
+            session.Grant(ResourceKind.Food, 5);
+            session.Grant(ResourceKind.Salvage, 20);
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
+
+            TMP_Text bagUpgradeLabel = bagUpgradeButton.GetComponentInChildren<TMP_Text>();
+            Require(session.ActiveBagSlotCount == GameSession.DefaultBagSlotCount && bagButtons.Count == GameSession.MaximumBagSlotCount, "새 게임 4칸·물리 최대 6칸 UI");
+            Require(!session.IsBagSlotActive(4) && !session.IsBagSlotActive(5) &&
+                    bagButtons[4].GetComponentInChildren<TMP_Text>().text.Contains("잠김") &&
+                    bagButtons[5].GetComponentInChildren<TMP_Text>().text.Contains("잠김"), "업그레이드 전 5·6번 슬롯 잠금 표시");
+            Require(!bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("작업대 필요"), "작업대 없는 가방 확장 잠금 표시");
+            RequireReadableBagUi();
+            if (!string.IsNullOrWhiteSpace(bagLockedKorean1280ScreenshotPath))
+            {
+                CaptureVerificationPng(bagLockedKorean1280ScreenshotPath, 1280, 800);
+            }
+            if (!string.IsNullOrWhiteSpace(bagLockedKorean1920ScreenshotPath))
+            {
+                CaptureVerificationPng(bagLockedKorean1920ScreenshotPath, 1920, 1080);
+            }
+
+            Require(session.TryBuild(StructureKind.Workbench), "가방 확장 UI 검증용 작업대 건설");
+            RefreshAll();
+            int woodBeforeBagUpgrade = session.GetStorage(ResourceKind.Wood);
+            int salvageBeforeBagUpgrade = session.GetStorage(ResourceKind.Salvage);
+            Require(bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("4→6") && bagUpgradeLabel.text.Contains("나무 2/2") && bagUpgradeLabel.text.Contains("표류물 1/1"), "가방 확장 비용과 4→6 표시");
+            bagUpgradeButton.onClick.Invoke();
+            Require(session.ActiveBagSlotCount == GameSession.MaximumBagSlotCount &&
+                    session.GetStorage(ResourceKind.Wood) == woodBeforeBagUpgrade - GameSession.BagUpgradeWoodCost &&
+                    session.GetStorage(ResourceKind.Salvage) == salvageBeforeBagUpgrade - GameSession.BagUpgradeSalvageCost, "가방 확장 UI의 원자적 1회 비용과 6칸 활성화");
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            Require(!bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("Complete") && bagTitleText.text.Contains("Bag 6/6"), "영어 가방 확장 완료·6칸 표시");
+            RequireReadableBagUi();
+            if (!string.IsNullOrWhiteSpace(bagUpgradedEnglish1280ScreenshotPath))
+            {
+                CaptureVerificationPng(bagUpgradedEnglish1280ScreenshotPath, 1280, 800);
+            }
+            if (!string.IsNullOrWhiteSpace(bagUpgradedEnglish1920ScreenshotPath))
+            {
+                CaptureVerificationPng(bagUpgradedEnglish1920ScreenshotPath, 1920, 1080);
+            }
+
+            phaseButton.onClick.Invoke();
+            Require(session.Phase == GamePhase.Exploring, "가방 6칸 UI 검증 수색 시작");
+            Require(session.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                    session.TryGather(ResourceKind.Stone, 2) == GatherResult.Added &&
+                    session.TryGather(ResourceKind.Food, 2) == GatherResult.Added &&
+                    session.TryGather(ResourceKind.Salvage, 2) == GatherResult.Added &&
+                    session.TryGather(ResourceKind.Wood, 2) == GatherResult.Added &&
+                    session.TryGather(ResourceKind.Stone, 1) == GatherResult.Added &&
+                    session.TryGather(ResourceKind.Stone, 1) == GatherResult.Added, "5·6번 슬롯 획득과 6번 슬롯 중첩");
+            Require(session.GetBagSlot(4).Kind == ResourceKind.Wood && session.GetBagSlot(4).Amount == 2 &&
+                    session.GetBagSlot(5).Kind == ResourceKind.Stone && session.GetBagSlot(5).Amount == 2, "5·6번 슬롯 데이터 경로");
+            Require(session.TryGather(ResourceKind.Food, 1) == GatherResult.PendingSwap, "6칸 가득 참 이후 pending swap");
+            RefreshAll();
+            Require(EventSystem.current.currentSelectedGameObject == bagButtons[0].gameObject && bagButtons[4].interactable && bagButtons[5].interactable, "6칸 교체 창의 활성 슬롯 포커스");
+            MoveUiSelection(MoveDirection.Down);
+            MoveUiSelection(MoveDirection.Down);
+            MoveUiSelection(MoveDirection.Right);
+            Require(EventSystem.current.currentSelectedGameObject == bagButtons[5].gameObject, "게임패드 방향 입력으로 6번 슬롯 도달");
+            SubmitUiSelection();
+            Require(!session.HasPendingLoot && session.GetBagSlot(5).Kind == ResourceKind.Food, "게임패드 Submit으로 6번 슬롯 교체");
+            Require(session.TryGather(ResourceKind.Stone, 1) == GatherResult.PendingSwap, "5번 슬롯 마우스 교체 준비");
+            RefreshAll();
+            bagButtons[4].onClick.Invoke();
+            Require(!session.HasPendingLoot && session.GetBagSlot(4).Kind == ResourceKind.Stone, "마우스로 5번 슬롯 교체");
+            Require(session.TryGather(ResourceKind.Salvage, 1) == GatherResult.PendingSwap, "6칸 pending 포기 준비");
+            session.DiscardPendingLoot();
+            Require(!session.HasPendingLoot, "6칸 pending 자원 포기");
+            Require(session.ReturnToCamp(false) && session.ActiveBagSlotCount == GameSession.MaximumBagSlotCount, "5·6번 슬롯 귀환 이전과 용량 지속");
+            Require(session.EndDay() && session.ActiveBagSlotCount == GameSession.MaximumBagSlotCount, "날짜 전환 뒤 6칸 지속");
+
+            session.Reset();
+            campPlacement.Reset();
+            Require(session.ActiveBagSlotCount == GameSession.DefaultBagSlotCount && !session.HasPendingLoot && !session.IsBagSlotActive(4), "새 게임 초기화의 4칸·잠금·pending 정리");
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
             session.Grant(ResourceKind.Food, 5);
@@ -928,10 +1049,12 @@ namespace KimSurvival
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
             Require(session.Phase == GamePhase.Exploring && nodes.Count >= 10, "수색 중 영어 즉시 전환");
             RequireReadableResourceLabels(PrototypeLocalization.EnglishLocaleCode);
-            string keyboardExplorePrompt = localization.Format("controls.explore", localization.DeviceName(PrototypeInputDevice.KeyboardMouse));
-            string gamepadExplorePrompt = localization.Format("controls.explore", localization.DeviceName(PrototypeInputDevice.Gamepad));
+            string keyboardExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.KeyboardMouse), localization.DeviceName(PrototypeInputDevice.KeyboardMouse), session.ActiveBagSlotCount);
+            string gamepadExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.Gamepad), localization.DeviceName(PrototypeInputDevice.Gamepad), session.ActiveBagSlotCount);
             Require(keyboardExplorePrompt.Contains(localization.DeviceName(PrototypeInputDevice.KeyboardMouse)) &&
-                    gamepadExplorePrompt.Contains(localization.DeviceName(PrototypeInputDevice.Gamepad)), "수색 키보드·게임패드 장치 안내");
+                    keyboardExplorePrompt.Contains("1–4") &&
+                    gamepadExplorePrompt.Contains(localization.DeviceName(PrototypeInputDevice.Gamepad)) &&
+                    gamepadExplorePrompt.Contains("D-pad+A"), "수색 키보드·게임패드 가방 조작 안내");
             NodeView waterNode = nodes.Find(node => node.Water);
             Require(waterNode != null && nodes.FindAll(node => node.Water).Count >= 2, "얕은 연안 수색 지점 2개");
             playerTraversal.Warp(PrototypePlayerTraversal.CoastlineX + 0.05f, PrototypePlayerTraversal.LandY, false);
@@ -1000,7 +1123,39 @@ namespace KimSurvival
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 1280x800 배치 상태 카드·가장자리/수중 자원 배지·장치별 안내·비가림 패널, UI 자유 배치·아트 고스트·경계/겹침/출입구/통로·무료 재배치, 제작·연구, 10개 수색 지점, 해안 입수·수영 점프 금지·수영 비용·연안 채집·육지 복귀, 월드 이동·4종 채집, 가방·귀환·정산 확인";
+            return "PASS · 가방 4→6 원자적 확장·잠긴 슬롯·5/6 획득/중첩/교체/포기/귀환·키보드/마우스/게임패드 포커스·1280x800/1920x1080 ko/en UI, ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 배치·수영·장벽·제작·연구·가방·귀환·정산 회귀 확인";
+        }
+
+        private void RequireReadableBagUi()
+        {
+            bagTitleText.ForceMeshUpdate(true, true);
+            bagUpgradeButton.GetComponentInChildren<TMP_Text>().ForceMeshUpdate(true, true);
+            for (int i = 0; i < bagButtons.Count; i += 1)
+            {
+                bagButtons[i].GetComponentInChildren<TMP_Text>().ForceMeshUpdate(true, true);
+            }
+            Canvas.ForceUpdateCanvases();
+            Require(!bagTitleText.isTextOverflowing, "가방 용량 문구 잘림 없음");
+            Require(!bagUpgradeButton.GetComponentInChildren<TMP_Text>().isTextOverflowing, "가방 업그레이드 문구 잘림 없음");
+            Require(bagButtons.TrueForAll(button => !button.GetComponentInChildren<TMP_Text>().isTextOverflowing), "2열 4/6칸 가방 라벨 잘림 없음");
+        }
+
+        private static void MoveUiSelection(MoveDirection direction)
+        {
+            GameObject selected = EventSystem.current.currentSelectedGameObject;
+            AxisEventData eventData = new AxisEventData(EventSystem.current)
+            {
+                moveDir = direction,
+                moveVector = direction == MoveDirection.Down
+                    ? Vector2.down
+                    : direction == MoveDirection.Right ? Vector2.right : Vector2.zero
+            };
+            ExecuteEvents.Execute(selected, eventData, ExecuteEvents.moveHandler);
+        }
+
+        private static void SubmitUiSelection()
+        {
+            ExecuteEvents.Execute(EventSystem.current.currentSelectedGameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
         }
 
         private void RequireReadableSignalFeedback()
@@ -1659,8 +1814,12 @@ namespace KimSurvival
 
         private Button CreateBagButton(Transform parent, int index, UnityEngine.Events.UnityAction callback)
         {
-            float top = -100f - index * 105f;
-            return CreateButton("가방 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), localization.Format("bag.slot.empty", index + 1), callback, new Vector2(22f, top - 84f), new Vector2(403f, top));
+            int column = index % 2;
+            int row = index / 2;
+            float left = 22f + column * 196f;
+            float right = left + 185f;
+            float top = -184f - row * 105f;
+            return CreateButton("가방 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), localization.Format("bag.slot.empty", index + 1), callback, new Vector2(left, top - 88f), new Vector2(right, top));
         }
 
         private Button CreateButton(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, string label, UnityEngine.Events.UnityAction callback)

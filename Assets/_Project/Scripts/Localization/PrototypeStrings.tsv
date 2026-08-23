@@ -16,11 +16,14 @@ controls.placement.gamepad	{0} · 왼쪽 스틱으로 위치 이동\nA 확정 ·
 controls.camp.keyboard_mouse	{0} · 클릭 또는 방향키+Enter로 행동 선택 · 완공 설비는 무료 재배치 · F1 언어	{0} · Click or arrows+Enter to select · Built facilities move free · F1 language
 controls.camp.gamepad	{0} · 방향 패드/왼쪽 스틱으로 선택 · A 실행 · 완공 설비는 무료 재배치 · Y 언어	{0} · D-pad/left stick select · A action · Built facilities move free · Y language
 controls.explore	{0} · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환 · F1/Y 언어	{0} · A/D or stick move · Auto-swim at shore · Space/A jump · E/X search · R/B return · F1/Y language
-bag.camp	캠프 창고\n(수색 중에는 4칸 가방)	Camp Storage\n(4-slot bag while exploring)
-bag.pending	가방이 꽉 찼습니다\n버릴 슬롯을 선택	Bag Full\nChoose a slot to discard
-bag.exploring	수색 가방 4칸\n한 묶음 최대 2개	4-Slot Expedition Bag\nMaximum 2 per stack
+controls.explore.keyboard_mouse	{0} · A/D 이동 · 해안 자동 수영 · Space 점프 · E 수색 · R 귀환\n가방 교체 1–{1} · Esc 포기 · F1 언어	{0} · A/D move · Auto-swim · Space jump · E search · R return\nReplace bag 1–{1} · Esc discard · F1 language
+controls.explore.gamepad	{0} · 스틱 이동 · 해안 자동 수영 · A 점프 · X 수색 · B 귀환\n교체 창 방향키+A ({1}칸) · B 포기 · Y 언어	{0} · Stick move · Auto-swim · A jump · X search · B return\nReplace: D-pad+A ({1} slots) · B discard · Y language
+bag.camp	캠프 창고 · 가방 {0}/{1}	Camp Storage · Bag {0}/{1}
+bag.pending	가방 {0}/{1} 가득 참\n교체할 칸 선택 · 취소 시 포기	Bag {0}/{1} Full\nChoose a slot · Cancel to discard
+bag.exploring	수색 가방 {0}/{1}\n한 묶음 최대 2개	Expedition Bag {0}/{1}\nMaximum 2 per stack
 bag.slot.empty	{0}. 빈칸	{0}. Empty
 bag.slot.stack	{0}. {1} ×{2}	{0}. {1} ×{2}
+bag.slot.locked	{0}. 잠김	{0}. Locked
 button.campfire.relocate	↔ 모닥불 무료 재배치	↔ Move Campfire Free
 button.campfire.build	모닥불 건설  나무2·돌1	Build Campfire  Wood 2 · Stone 1
 button.workbench.relocate	↔ 작업대 무료 재배치	↔ Move Workbench Free
@@ -39,6 +42,9 @@ button.signal.done	[완료] 구조 신호 발신	[Done] Rescue Signal Sent
 button.signal.progress	구조 신호대 {0}/2  나무2·표류물2	Rescue Signal {0}/2  Wood 2 · Salvage 2
 button.signal.stage1	신호1 · 작업대:{0}\n나무:{1}/2 표류물:{2}/2	Signal 1 Workbench:{0}\nWood:{1}/2 Salvage:{2}/2
 button.signal.stage2	신호2 · 밧줄:{0}\n나무:{1}/2 표류물:{2}/2	Signal 2 Rope:{0}\nWood:{1}/2 Salvage:{2}/2
+button.bag_upgrade.locked	가방 확장 {0}→{1}\n작업대 필요	Bag Upgrade {0}→{1}\nWorkbench Required
+button.bag_upgrade.available	가방 확장 {0}→{1}\n나무 {2}/{3} · 표류물 {4}/{5}	Bag Upgrade {0}→{1}\nWood {2}/{3} · Salvage {4}/{5}
+button.bag_upgrade.complete	가방 확장 완료 · {0}칸	Bag Upgrade Complete · {0} Slots
 button.eat	식량 먹기  보유 {0}	Eat Food  Owned {0}
 button.day.final	마지막 날 정산	Settle Final Day
 button.day.next	다음 날로	Next Day
@@ -116,6 +122,13 @@ message.gather.land	{0}을(를) 챙겼다.	Collected {0}.
 message.bag.empty_fill	빈칸에 물건을 넣었다.	Placed the item in an empty slot.
 message.bag.replace	{0}을(를) 두고 새 물건을 챙겼다.	Left {0} behind and took the new item.
 message.bag.discard	{0}은(는) 아쉽지만 두고 간다.	Regrettably, {0} stays behind.
+message.bag_upgrade.camp	가방 확장은 베이스캠프에서만 할 수 있다.	The bag can only be upgraded at base camp.
+message.bag_upgrade.workbench	가방을 확장하려면 먼저 작업대가 필요하다.	A workbench is required before upgrading the bag.
+message.bag_upgrade.materials	나무와 표류물이 부족하다. 현재 나무 {0}/2, 표류물 {1}/1.	Wood and salvage are short. Current: Wood {0}/2, Salvage {1}/1.
+message.bag_upgrade.wood	가방 확장용 나무가 부족하다. 현재 {0}/2.	Not enough wood for the bag upgrade. Current: {0}/2.
+message.bag_upgrade.salvage	가방 확장용 표류물이 부족하다. 현재 {0}/1.	Not enough salvage for the bag upgrade. Current: {0}/1.
+message.bag_upgrade.success	가방 확장 완료. 이제 여섯 칸을 채울 걱정이 생겼다.	Bag upgrade complete. Mr. Kim now has six slots to worry about filling.
+message.bag_upgrade.complete	가방은 이미 6칸으로 확장했다. 두 번 꿰맨다고 더 늘지는 않는다.	The bag already has 6 slots. Stitching it twice will not make it larger.
 message.return.forced	해가 져서 뛰어 돌아왔다. 게 한 마리가 끝까지 응원했다. 아마도.	He ran back after sunset. A crab cheered the whole way. Probably.
 message.return.safe	무사 귀환. 가방은 무겁고 김씨의 표정은 가볍지 않다.	Safe return. The bag is heavy, and Mr. Kim's expression is not light.
 message.endday.search	수색을 마쳐야 오늘을 정산할 수 있다.	Finish the expedition before settling the day.
