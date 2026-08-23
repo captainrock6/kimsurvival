@@ -1,0 +1,726 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에 조난된 평범한 김씨가 50일의 기한 동안 위험을 견디고 수집 지역을 골라 물자를 모으며, 다섯 가지 이상의 탈출 계획과 자신이 살아온 방식에 따라 정상적이거나 황당한 결말을 맞는 코믹 2D 거점 생존 게임.",
+    "campaignPacingContract": {
+      "schemaVersion": 1,
+      "contractId": "campaign.wave16.fifty-day-pacing.v1",
+      "sourceBaseline": "635725b3e2679a7d6d4f66c09b137575bac374c8",
+      "dependsOn": "campaign.wave15.escape-hazard-ending-matrix.v1",
+      "humanDocument": "Docs/Design/wave16-fifty-day-pacing.md",
+      "balanceStatus": "SAMPLE_ONLY_NOT_FINAL_FIFTY_DAY_BALANCE",
+      "fixedInvariants": {
+        "defaultDeadlineDay": 50,
+        "earlyEscapeBeforeDeadline": true,
+        "expeditionSelectionRequiresCampMapInteraction": true,
+        "catalogCounts": {
+          "escapeMethods": 5,
+          "regions": 6,
+          "hazards": 7,
+          "endings": 19
+        },
+        "escapeMethodIds": [
+          "escape.raft",
+          "escape.smoke",
+          "escape.radio",
+          "escape.flare",
+          "escape.beacon"
+        ],
+        "regionIds": [
+          "region.coast.beach",
+          "region.forest.grove",
+          "region.sea.shallows",
+          "region.ridge.highland",
+          "region.cove.wreck",
+          "region.ruins.relay"
+        ],
+        "hazardIds": [
+          "hazard.hunger",
+          "hazard.disease",
+          "hazard.injury",
+          "hazard.disaster",
+          "hazard.wildlife",
+          "hazard.food-theft",
+          "hazard.camp-damage"
+        ],
+        "endingIdSource": "project.campaignContentContract.endings",
+        "rule": "This pacing overlay cannot rename, remove or add catalog entities and cannot hard-lock an otherwise complete early escape by day band."
+      },
+      "dayBands": [
+        {
+          "id": "pacing.band.onboarding",
+          "startDay": 1,
+          "endDay": 10,
+          "purpose": "Learn forecast comparison and one complete camp-map-expedition-return-settlement loop across the three starting regions.",
+          "availableRegionIds": [
+            "region.coast.beach",
+            "region.forest.grove",
+            "region.sea.shallows"
+          ],
+          "sampleNewHazardBudget": 2,
+          "sampleMaximumNewMajor": 0,
+          "pacingSignals": [
+            "The first three map refreshes cannot present an identical combined forecast across all three candidates.",
+            "All five escape projects may be previewed; date cannot disable a fulfilled project.",
+            "First return, first hazard telegraph and first project preview are logged separately without requiring them as a quest order."
+          ]
+        },
+        {
+          "id": "pacing.band.expansion",
+          "startDay": 11,
+          "endDay": 20,
+          "purpose": "Use discoveries, equipment and research to unlock a first expansion region and compare familiar versus long travel.",
+          "availableRegionRule": "Expansion regions appear as previewable locked nodes and unlock as soon as a primary or alternative rule resolves, even before Day 11.",
+          "sampleNewHazardBudget": 3,
+          "sampleMaximumNewMajor": 1,
+          "pacingSignals": [
+            "Every expansion lock exposes one prioritized reason and its alternate route.",
+            "A first successful equipped return may change long travel to medium for that region.",
+            "At least one escape project exposes both primary and alternative key-part sources."
+          ]
+        },
+        {
+          "id": "pacing.band.compound-choice",
+          "startDay": 21,
+          "endDay": 35,
+          "purpose": "Trade survival, camp protection and multiple escape projects while all six regions are conditionally discoverable.",
+          "availableRegionRule": "All six region profiles have reachable unlock graphs; player choice may leave some locked.",
+          "sampleNewHazardBudget": 4,
+          "sampleMaximumNewMajor": 1,
+          "pacingSignals": [
+            "At least two rational map choices remain through resource forecast, hazard or travel differences.",
+            "Project pivot preserves completed stages and protected parts.",
+            "Completing any method resolves early escape immediately."
+          ]
+        },
+        {
+          "id": "pacing.band.finish-pressure",
+          "startDay": 36,
+          "endDay": 49,
+          "purpose": "Finish, repair or pivot with explicit remaining-day pressure and recoverable hazards.",
+          "sampleNewHazardBudget": 4,
+          "sampleMaximumNewMajor": 1,
+          "pacingSignals": [
+            "One eligible region may raise a missing non-key milestone material forecast by one category.",
+            "Key parts continue to use eligible-search pity rather than a deadline gift.",
+            "Day 49 settlement continues unless escape has completed."
+          ]
+        },
+        {
+          "id": "pacing.band.resolution",
+          "startDay": 50,
+          "endDay": 50,
+          "purpose": "Resolve an escape completed that day or one deterministic Day 50 settlement ending.",
+          "sampleNewHazardBudget": 0,
+          "sampleMaximumNewMajor": 0,
+          "pacingSignals": [
+            "No new surprise theft or camp-damage major is armed.",
+            "Previously telegraphed consequences may resolve before the terminal snapshot.",
+            "escape_complete outranks day50_settlement and Day 51 is unreachable."
+          ]
+        }
+      ],
+      "regionPacing": {
+        "unlockIsDayHardGate": false,
+        "startingRegions": [
+          {
+            "id": "region.coast.beach",
+            "unlock": {
+              "primary": "available_on_new_run",
+              "alternative": null
+            },
+            "baseTravelTimeBand": "short",
+            "familiarTravelTimeBand": "short",
+            "familiarityCondition": "none",
+            "abundanceChange": "Use Wave 15 baseline; apply at most one seeded category forecast modifier per day."
+          },
+          {
+            "id": "region.forest.grove",
+            "unlock": {
+              "primary": "available_on_new_run",
+              "alternative": null
+            },
+            "baseTravelTimeBand": "short",
+            "familiarTravelTimeBand": "short",
+            "familiarityCondition": "none",
+            "abundanceChange": "Use Wave 15 baseline; an active smoke or beacon project may raise one listed non-key material category by one forecast tier."
+          },
+          {
+            "id": "region.sea.shallows",
+            "unlock": {
+              "primary": "available_on_new_run",
+              "alternative": "preview_locked_equipment until equipment.swim-ready"
+            },
+            "baseTravelTimeBand": "medium",
+            "familiarTravelTimeBand": "short",
+            "familiarityCondition": "two successful returns while equipment.swim-ready",
+            "abundanceChange": "Use Wave 15 baseline; active raft, radio, flare or beacon project may raise one listed non-key material category by one forecast tier."
+          }
+        ],
+        "expansionRegions": [
+          {
+            "id": "region.ridge.highland",
+            "recommendedBandId": "pacing.band.expansion",
+            "primaryUnlock": {
+              "requirements": [
+                "two successful region.forest.grove returns",
+                "discovery.old-trap-line",
+                "tool.rope"
+              ]
+            },
+            "alternativeUnlock": {
+              "requirements": [
+                "one successful region.coast.beach return",
+                "one successful region.forest.grove return",
+                "research.ropework",
+                "equipment.weatherproof-kit"
+              ]
+            },
+            "baseTravelTimeBand": "long",
+            "familiarTravelTimeBand": "medium",
+            "familiarityCondition": "first successful return with required equipment",
+            "abundanceChange": "Unknown while locked; Wave 15 baseline on unlock; active smoke or beacon non-key milestone may raise one listed category by one tier."
+          },
+          {
+            "id": "region.cove.wreck",
+            "recommendedBandId": "pacing.band.expansion",
+            "primaryUnlock": {
+              "requirements": [
+                "two successful region.sea.shallows returns",
+                "discovery.wreck-chart",
+                "equipment.swim-ready",
+                "tool.rope"
+              ]
+            },
+            "alternativeUnlock": {
+              "requirements": [
+                "three completed region.sea.shallows eligible searches while discovery.wreck-chart is missing"
+              ],
+              "result": "reveal cove location hint without granting loot"
+            },
+            "baseTravelTimeBand": "long",
+            "familiarTravelTimeBand": "medium",
+            "familiarityCondition": "first successful return with required equipment",
+            "abundanceChange": "Unknown while locked; Wave 15 baseline on unlock; active raft, radio or flare non-key milestone may raise one listed category by one tier."
+          },
+          {
+            "id": "region.ruins.relay",
+            "recommendedBandId": "pacing.band.compound-choice",
+            "primaryUnlock": {
+              "requirements": [
+                "one successful region.ridge.highland return",
+                "discovery.weather-log",
+                "tool.rope",
+                "equipment.insulation-kit"
+              ]
+            },
+            "alternativeUnlock": {
+              "requirements": [
+                "one successful region.cove.wreck return",
+                "discovery.radio-chassis",
+                "research.electronics",
+                "equipment.insulation-kit"
+              ]
+            },
+            "baseTravelTimeBand": "long",
+            "familiarTravelTimeBand": "medium",
+            "familiarityCondition": "first successful return with required equipment",
+            "abundanceChange": "Unknown while locked; Wave 15 baseline on unlock; active radio or beacon non-key milestone may raise one listed category by one tier."
+          }
+        ],
+        "forecastModifiersByBand": [
+          {
+            "bandId": "pacing.band.onboarding",
+            "rule": "Wave 15 baseline plus at most one weather-driven category shift of one tier."
+          },
+          {
+            "bandId": "pacing.band.expansion",
+            "rule": "Baseline plus at most one active-project non-key category shift of one tier."
+          },
+          {
+            "bandId": "pacing.band.compound-choice",
+            "rule": "Active-project non-key category may rise one tier and one off-project common category may fall one tier; clamp scarce to abundant."
+          },
+          {
+            "bandId": "pacing.band.finish-pressure",
+            "rule": "One eligible region containing the active project's missing non-key milestone category may rise one tier; never use this rule to grant a key part."
+          },
+          {
+            "bandId": "pacing.band.resolution",
+            "rule": "Preserve the preceding forecast and pity snapshot; create no new long-term bonus."
+          }
+        ],
+        "atomicity": "Preview changes nothing. Confirm writes one regionUnlockId or routeFamiliarity transition. Retry, locale change and input-device change cannot duplicate state, score or reward."
+      },
+      "hazardCadence": {
+        "status": "SAMPLE_ONLY",
+        "severityWeights": {
+          "minor": 1,
+          "moderate": 2,
+          "major": 3
+        },
+        "sampleMaximumNewMajor": 1,
+        "sampleMaximumConcurrentActive": 2,
+        "calmDay": {
+          "rollingWindowDays": 5,
+          "minimumCount": 1,
+          "maximumRandomNewHazardWeight": 1,
+          "continuesDeterministicHungerAndExistingRecovery": true
+        },
+        "recoveryWindow": {
+          "afterMajorResolvedDays": 1,
+          "reservedBudget": 2,
+          "forbidSameFamilyNewMajor": true,
+          "unusedRecoveryBudgetCannotArmAnotherMajor": true
+        },
+        "telegraphRule": "Before selection or settlement, show hazard family, severity category, affected target and at least one mitigation or avoidance route.",
+        "campLossStages": [
+          {
+            "state": "telegraphed",
+            "effect": "show tracks, tampering or weather warning; no loss"
+          },
+          {
+            "state": "armed",
+            "effect": "allow reinforcement, relocation, trap or repair response; cancel changes nothing"
+          },
+          {
+            "state": "resolved",
+            "effect": "one unprotected food batch or one facility working-to-damaged transition under one hazardInstanceId"
+          },
+          {
+            "state": "recovering",
+            "effect": "expose deterministic recovery or repair path; protect key parts and completed escape stages"
+          },
+          {
+            "state": "recovered",
+            "effect": "idempotent completion; retry applies no additional change"
+          }
+        ],
+        "fairnessRules": [
+          "Critical hunger reserves one active slot and is not a random roll.",
+          "One raid cannot charge food theft and camp damage as independent losses.",
+          "The first unmitigated theft or damage cannot skip telegraph state.",
+          "Day 50 cannot arm a new surprise theft or camp-damage major."
+        ]
+      },
+      "keyPartSoftlockProtection": {
+        "status": "SAMPLE_ONLY",
+        "primaryAlternativeSource": "project.campaignContentContract.keyPartProtection.parts",
+        "samplePity": {
+          "hintAfterEligibleSearches": 3,
+          "guaranteeNextEligibleSearchAfter": 5
+        },
+        "eligibleSearchRule": "Count only a completed search in a listed primary or alternative region while the part remains missing; failed, cancelled and unrelated searches do not count.",
+        "duplicateRule": "A duplicate cannot replace a missing different part and cannot reset that missing part's counter.",
+        "guaranteeRule": "After five misses, place the part before optional loot in the next eligible result; never exceed inventory atomically or silently delete existing loot.",
+        "auditPoints": [
+          "seed_generation",
+          "expansion_region_unlock",
+          "day_35_settlement",
+          "day_49_settlement"
+        ],
+        "minimumCompletableEscapeMethodsPerSeed": 3,
+        "repairRule": "If an audit fails, reroll only unowned key-part placement and log the reason; do not rewrite general resources, player actions or owned protected parts."
+      },
+      "smokeSlice": {
+        "status": "SAMPLE_ONLY_IMPLEMENTATION_FIXTURE",
+        "durationMinutesPerRoute": 30,
+        "fixtureRule": "Select a deterministic seed and pacing profile at new-run creation. Do not use mid-run grants or warps; execute camp movement, map interaction, expedition, return, hazard and project actions through their real interfaces.",
+        "playableRoutes": [
+          {
+            "id": "smoke.route.smoke",
+            "escapeMethodId": "escape.smoke",
+            "beats": [
+              { "minuteStart": 0, "minuteEnd": 4, "expected": "camp movement, map interaction and forest forecast comparison" },
+              { "minuteStart": 4, "minuteEnd": 10, "expected": "forest expedition, return settlement and catalyst primary counter" },
+              { "minuteStart": 10, "minuteEnd": 16, "expected": "ridge primary or alternative unlock clue and exact lock reason" },
+              { "minuteStart": 16, "minuteEnd": 22, "expected": "ridge or forest search and atomic smoke facility milestone" },
+              { "minuteStart": 22, "minuteEnd": 27, "expected": "disaster or camp-damage telegraph, mitigation and recovery" },
+              { "minuteStart": 27, "minuteEnd": 30, "expected": "escape.smoke completion and deterministic sample ending" }
+            ]
+          },
+          {
+            "id": "smoke.route.radio",
+            "escapeMethodId": "escape.radio",
+            "beats": [
+              { "minuteStart": 0, "minuteEnd": 4, "expected": "camp movement, map interaction and shallows forecast comparison" },
+              { "minuteStart": 4, "minuteEnd": 10, "expected": "shallows expedition, return settlement and wreck-chart or transceiver alternative counter" },
+              { "minuteStart": 10, "minuteEnd": 16, "expected": "cove or relay unlock clue and exact lock reason" },
+              { "minuteStart": 16, "minuteEnd": 22, "expected": "cove or relay search and atomic radio facility milestone" },
+              { "minuteStart": 22, "minuteEnd": 27, "expected": "food-theft or injury telegraph, mitigation and recovery" },
+              { "minuteStart": 27, "minuteEnd": 30, "expected": "escape.radio completion and deterministic sample ending" }
+            ]
+          }
+        ],
+        "dataOnlyRoutes": [
+          {
+            "escapeMethodId": "escape.raft",
+            "validationPoints": [
+              "catalog references load",
+              "primary and alternative unlock graph reachable",
+              "day20 and day35 hull-weather-supply snapshot fields remain independent",
+              "success or delay/drift result preserves unrelated completed stages"
+            ],
+            "cannotClaim": "PLAYABLE_PASS"
+          },
+          {
+            "escapeMethodId": "escape.flare",
+            "validationPoints": [
+              "catalog references load",
+              "cartridge and witness-window graph reachable without a day hard gate",
+              "day20 and day35 cartridge and witness states remain independent",
+              "success, misfire or no-witness consumes one declared transaction"
+            ],
+            "cannotClaim": "PLAYABLE_PASS"
+          },
+          {
+            "escapeMethodId": "escape.beacon",
+            "validationPoints": [
+              "catalog references load",
+              "relay primary and alternative unlock plus pity graph reachable",
+              "day35 and day49 structure-generator-signal-head stages persist",
+              "lightning trip changes powered state without erasing completed structure or key part"
+            ],
+            "cannotClaim": "PLAYABLE_PASS"
+          }
+        ]
+      },
+      "behaviorIdentity": {
+        "status": "SAMPLE_ONLY",
+        "statIds": [
+          "stat.swimming",
+          "stat.farming",
+          "stat.hunting-trapping",
+          "stat.mechanics",
+          "stat.building",
+          "stat.search",
+          "stat.hazard-response"
+        ],
+        "sampleActionPointRange": { "min": 1, "max": 2 },
+        "samplePerStatDailyCap": 4,
+        "sampleCandidateMinimum": 12,
+        "sampleInitialLead": 4,
+        "sampleSwitchLead": 6,
+        "snapshotDays": [10, 20, 35, 49, 50],
+        "meaningfulTransactionOnly": true,
+        "nonScoringActions": [
+          "input repetition",
+          "raw movement time",
+          "preview",
+          "cancel",
+          "final escape completion button"
+        ],
+        "hysteresisRule": "An established identity changes only when a challenger leads by six; one maximum two-point action cannot reverse the run lifestyle.",
+        "tieBreaker": [
+          "keep established identity",
+          "earliest candidate-established day",
+          "stat ID ASCII ascending"
+        ]
+      },
+      "expectedPlayProfiles": [
+        {
+          "id": "play-profile.beginner-survivor",
+          "nameKo": "초보 생존형",
+          "expectedCurve": "Prioritize starting regions, food and camp protection through about Day 15; delay dangerous expansion and favor smoke or raft.",
+          "sampleEscapeWindow": "Day 36-49 or Day 50 settlement",
+          "observe": [
+            "first expansion unlock day",
+            "critical hunger days",
+            "calm-day use",
+            "project preview-to-commit interval",
+            "lock-reason comprehension"
+          ]
+        },
+        {
+          "id": "play-profile.explorer",
+          "nameKo": "탐험형",
+          "expectedCurve": "Open several regions, compare discoveries and alternatives, and pivot among raft, flare and smoke.",
+          "sampleEscapeWindow": "Day 25-40",
+          "observe": [
+            "unique regions visited",
+            "same-region streak",
+            "pity hint and guarantee",
+            "travel time share",
+            "project pivots"
+          ]
+        },
+        {
+          "id": "play-profile.technical",
+          "nameKo": "기술형",
+          "expectedCurve": "Invest in wreck, relay, mechanics and building milestones for radio or beacon.",
+          "sampleEscapeWindow": "Day 30-45",
+          "observe": [
+            "relay unlock route",
+            "radio or beacon milestone interval",
+            "repair and hazard-response actions",
+            "identity challenger lead",
+            "resource versus discovery blockers"
+          ]
+        }
+      ],
+      "telemetry": {
+        "privacy": "run-local stable IDs and outcome codes only; no name, account, IP or free text",
+        "eventIds": [
+          "pacing.band.entered",
+          "region.previewed",
+          "region.unlocked",
+          "expedition.selected",
+          "expedition.returned",
+          "resource.forecast.shown",
+          "hazard.telegraphed",
+          "hazard.resolved",
+          "hazard.recovered",
+          "calm-day.applied",
+          "key-part.pity-hint",
+          "key-part.pity-guaranteed",
+          "escape.project-previewed",
+          "escape.project-progressed",
+          "escape.completed",
+          "behavior.identity-updated",
+          "ending.resolved"
+        ],
+        "commonFields": [
+          "runSeed",
+          "day",
+          "stableEntityId",
+          "resultCode",
+          "pacingBandId"
+        ]
+      },
+      "playtestQuestionsKo": [
+        "직전 5일 동안 선택이 달라진 가장 큰 이유는 무엇이었나요?",
+        "지역 잠금·자원 부족·장비 부족·위험 회피 중 현재 막힘을 구분할 수 있었나요?",
+        "위험은 언제 알았고 어떤 대응이 가능하다고 이해했나요?",
+        "탈출 계획을 유지하거나 바꾼 이유와 대체 부품 출처를 설명할 수 있나요?",
+        "엔딩의 생활 방식이 실제 플레이와 맞았나요?"
+      ],
+      "tuningGovernance": {
+        "oneAxisPerValidationBuild": true,
+        "axisIds": [
+          "REGION_ACCESS",
+          "TRAVEL_TIME",
+          "RESOURCE_FORECAST",
+          "HAZARD_PRESSURE",
+          "RECOVERY_WINDOW",
+          "ESCAPE_PREPARATION",
+          "IDENTITY_THRESHOLD"
+        ],
+        "comparisonRule": "Before and after a change, rerun the same seed, route fixture and ending snapshot and separate technical, comprehension, discovery and balance failures.",
+        "notFinalized": [
+          "resource costs",
+          "resource drop quantities",
+          "survival drain",
+          "weather and hazard frequency",
+          "escape preparation days",
+          "pity thresholds",
+          "behavior and ending thresholds",
+          "custom run settings",
+          "final ending art and audio",
+          "Steamworks achievements"
+        ],
+        "notTunableByThisContract": [
+          "Day 50 default deadline",
+          "early escape",
+          "five escape method IDs",
+          "six region IDs",
+          "seven hazard IDs",
+          "nineteen ending IDs",
+          "atomic transaction rules",
+          "ending priority and tie-breaker order"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Band boundaries are Day 1, 11, 21, 36 and 50; only Day 50 is the deadline terminal and fulfilled early escape is never date locked.",
+        "Three starting regions are previewable on Day 1 and three expansion regions each expose a primary path, alternative path, exact lock reason and travel familiarity transition.",
+        "The same seed, day and world state produce the same forecast, hazard arm, pity and unlock result.",
+        "Daily hazard budget, calm day, recovery reservation and staged theft/damage preserve protected key parts and completed escape stages atomically.",
+        "Smoke and radio each execute a separate 30-minute fixture through real interfaces; raft, flare and beacon remain explicitly data-only.",
+        "Seed generation, expansion unlock, Day 35 and Day 49 audits each retain at least three completable escape graphs.",
+        "Behavior snapshots use seven Wave 15 stats and hysteresis so one maximum-value final action cannot replace an established identity.",
+        "KO and EN preserve the same cause, lock, hazard and result meaning; qps-long is layout QA only.",
+        "Completed Forge task states and adopted asset states are not regressed, and unrun long-user-playtest, physical-gamepad and final-balance claims remain unverified."
+      ]
+    }
+  },
+  "verticalSlice": {
+    "goal": "실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다.",
+    "pacingSmokeContract": {
+      "contractId": "vertical-slice.wave16.pacing-smoke.v1",
+      "status": "SAMPLE_ONLY_IMPLEMENTATION_AND_QA_ACCEPTANCE",
+      "source": "project.campaignPacingContract",
+      "representativePlayableRoutes": [
+        "smoke.route.smoke",
+        "smoke.route.radio"
+      ],
+      "dataOnlyRoutes": [
+        "escape.raft",
+        "escape.flare",
+        "escape.beacon"
+      ],
+      "requiredChecks": [
+        "day band boundaries and no early-escape hard gate",
+        "six-region primary and alternative unlock graph",
+        "forecast variation without exact-drop finalization",
+        "hazard budget, calm day, recovery and camp-loss atomicity",
+        "key-part eligible-search pity 3/5 and minimum-three-route audit",
+        "seven-stat identity snapshots and hysteresis",
+        "privacy-safe telemetry and KO/EN semantic parity"
+      ],
+      "cannotClaimFromSmoke": [
+        "final fifty-day balance",
+        "natural full fifty-day user completion",
+        "physical gamepad pass",
+        "raft, flare or beacon playable pass",
+        "Steamworks readiness"
+      ]
+    }
+  },
+  "features": [],
+  "screens": [],
+  "systems": [],
+  "artAssets": [],
+  "tasks": [
+    {
+      "id": "task.design.wave16-fifty-day-pacing",
+      "lane": "design",
+      "title": "Wave 16 50일 SAMPLE_ONLY 페이싱 계약",
+      "description": "Wave 15 카탈로그와 Day 50·조기 탈출 결정을 유지한 채 날짜 밴드, 지역 해금·풍부함·이동, 위험 예산·회복, 핵심 부품 보호, 대표 30분 smoke와 행동 엔딩 히스테리시스를 구현 가능한 데이터 계약으로 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "Day 1–10, 11–20, 21–35, 36–49, Day 50 밴드가 안정 ID와 정량 SAMPLE 규칙을 가진다.",
+        "6개 지역의 primary·alternative 해금, 이동 친숙화와 범주형 풍부함 변화가 기존 ID로 연결된다.",
+        "연기·무전 30분 실행표와 raft·flare·beacon data-only 검증 지점이 분리된다.",
+        "위험 공정성, pity 3/5, 최소 3경로, 행동 히스테리시스와 한 축 조정 규칙이 자동 검증 가능한 필드로 존재한다."
+      ],
+      "paths": [
+        ".forge/packets/wave16-fifty-day-pacing.json",
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
+      "evidence": [
+        ".forge/packets/wave16-fifty-day-pacing.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.implementation.wave15-hazard-ending-foundation",
+      "lane": "implementation",
+      "title": "Wave 15 위험·다중 탈출·행동 엔딩 기반",
+      "description": "대표 부상·날씨·캠프 도난 상태, 다섯 escape method 데이터와 연기·무전 대표 경로, 행동 통계와 4개 sample ending resolver를 구현하며 Wave 16 SAMPLE_ONLY 페이싱 오버레이를 소비한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.implementation.wave15-campaign-map-foundation",
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing"
+      ],
+      "featureIds": [
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.expedition-map",
+        "feature.resource-randomization"
+      ],
+      "assetIds": [
+        "ui.escape-project-progress",
+        "ui.ending-comic",
+        "effect.survival-hazards"
+      ],
+      "acceptanceCriteria": [
+        "Wave 16 band 경계·지역 해금·전망·위험·pity·identity 필드를 데이터로 읽고 fulfilled 조기 탈출을 날짜로 막지 않는다.",
+        "연기와 무전 각각 30분 fixture가 실제 상호작용 경로로 실행되고 중간 grant·warp를 사용하지 않는다.",
+        "위험 예고→resolve→recovery, 도난/파손, project progress와 key-part 보호가 idempotent transaction을 사용한다.",
+        "telemetry는 run seed·day·stable ID·결과 코드만 기록하고 개인 식별 정보나 자유 입력을 저장하지 않는다."
+      ],
+      "paths": [
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
+      "evidence": [],
+      "status": "ready"
+    },
+    {
+      "id": "task.qa.wave15-hazard-ending-redfirst",
+      "lane": "qa",
+      "title": "Wave 15 위험·탈출·엔딩 red-first 게이트",
+      "description": "위험 인과와 원자성, 다섯 탈출 ID, 조기 탈출·Day 50 우선순위, 행동 score·tie-breaker·sample ending과 Wave 16 SAMPLE_ONLY 페이싱·softlock·개발 로그 개인정보 부재를 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing"
+      ],
+      "featureIds": [
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.expedition-map",
+        "feature.resource-randomization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "Day 1/11/21/36/50 경계, Day 49 계속, Day 50 terminal과 조기 탈출 우선순위를 fixture로 검증한다.",
+        "6개 지역 primary·alternative 해금과 같은 seed의 전망·pity·위험 재현성을 검증한다.",
+        "rolling 5일 평온일, major 다음 회복 예약, 도난/파손 단일 차감과 Day 50 surprise major 금지를 검증한다.",
+        "seed 생성·확장 해금·Day 35·49마다 최소 3개 탈출 경로가 완성 가능하고 pity 3 hint/5 guarantee가 정확하다.",
+        "연기·무전은 별도 30분 playable fixture, raft·flare·beacon은 data-only로 보고해 증거 수준을 섞지 않는다.",
+        "마지막 2점 행동 하나가 established identity를 바꾸지 않고 같은 terminal snapshot은 같은 ending ID를 낸다.",
+        "Steam 연동, 물리 게임패드, 실제 장기 사용자 run과 최종 밸런스는 별도 미검증으로 유지한다."
+      ],
+      "paths": [
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
+      "evidence": [],
+      "status": "ready"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.wave16-pacing-bands-are-soft-envelopes",
+      "summary": "Day 1–10, 11–20, 21–35, 36–49, Day 50를 SAMPLE_ONLY 페이싱 밴드로 사용하되 확장 지역과 조기 탈출의 하드 날짜 잠금으로 사용하지 않는다.",
+      "rationale": "50일의 선택 변화는 제공되는 전망·위험·진척 기회에서 만들어야 하며 숙련자의 조기 해법을 막아서는 안 된다.",
+      "source": "wave16-design-contract"
+    },
+    {
+      "id": "decision.wave16-region-alternatives-and-familiar-travel",
+      "summary": "시작 3지역은 Day 1부터 preview하고 확장 3지역은 primary·alternative 해금과 장비 잠금 사유를 제공하며 첫 성공 귀환 뒤 long→medium 친숙화가 가능하다.",
+      "rationale": "지역 확장이 동일 수색 반복을 줄이면서도 RNG 발견 하나가 진행을 막지 않게 한다.",
+      "source": "wave16-design-contract"
+    },
+    {
+      "id": "decision.wave16-hazard-calm-recovery-fairness",
+      "summary": "위험은 밴드별 SAMPLE budget, rolling 5일 평온일, major 다음 recovery 2 예약과 도난·파손 5단계 원자 처리 안에서만 압력을 높인다.",
+      "rationale": "50일 압박이 예고 없는 연쇄 손실이 아니라 대비·완화·회복 선택으로 읽혀야 한다.",
+      "source": "wave16-design-contract"
+    },
+    {
+      "id": "decision.wave16-two-playable-three-data-only",
+      "summary": "연기·무전은 각각 독립 30분 playable fixture로, 뗏목·조명탄·고지대 신호는 catalog·해금·snapshot·원자성 data-only 게이트로 검증한다.",
+      "rationale": "대표 두 경로의 실행 깊이와 나머지 세 경로의 데이터 무결성을 분리해 범위를 통제하고 허위 playable PASS를 막는다.",
+      "source": "wave16-design-contract"
+    },
+    {
+      "id": "decision.wave16-sample-only-one-axis-tuning",
+      "summary": "지역 해금, 이동 시간, 자원 전망, 위험 압력, 회복 창, 탈출 준비, identity 임계값 중 한 검증 빌드에서 한 축만 바꾸며 모든 숫자는 사용자 증거 전 SAMPLE_ONLY로 유지한다.",
+      "rationale": "50일 페이싱 병목의 원인을 구분하고 smoke 표본을 정식 자원·소모 밸런스로 오인하지 않기 위함이다.",
+      "source": "wave16-design-contract"
+    }
+  ],
+  "openQuestions": []
+}
