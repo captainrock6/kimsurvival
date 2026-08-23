@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T13:13:08.453Z",
+  "updatedAt": "2026-08-23T13:30:56.467Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -357,7 +357,7 @@
       "id": "background.coast-forest",
       "name": "해변·숲 수색 구역",
       "assetType": "background",
-      "request": "Wave 14 review-only comparison package for the existing 2D side-scroller coast-forest background. Reuse the current Forge candidate and local runtime evidence; do not generate a new painted background. Audit a single 1280x800 view for readable beach-to-forest-to-shallow-water search flow, Mr. Kim and resource node silhouette contrast, shoreline swim transition, vine-wood barrier contrast, foreground/midground/background separation, and text-free production art. Produce one comparison board with stable option IDs, a visual QA report, and an engine handoff manifest. All options remain review-only; selectedCandidate is null; runtime load allowlist is empty.",
+      "request": "One clean high-quality production candidate for a Unity 2D side-scroller coast-to-forest search background. Preserve the current 16:9 side-view composition: shallow turquoise swimmable water on the left, broad readable sand and low rock shelf in the center, and a shallow tropical forest entrance on the right. Apply the user-selected gameplay-band contrast treatment: gently subdue distant sky/forest detail and the extreme foreground while keeping the continuous walkable shore, shoreline swim transition, and object placement band slightly brighter and warmer. Remove the baked fallen log and tangled vines from the right forest path completely and reconstruct a natural empty passage with coherent sand, rock, roots, and foliage, so the existing independent vine-wood barrier can later be placed and cleared without a duplicate obstruction. Entire image is an opaque environment background only. No character, human silhouette, resource node, item icon, barrier object, fallen blocking trunk, UI, HUD, safe-zone box, label, text, number, frame, logo, or watermark. Keep the original warm comic tropical survival illustration style, thick readable shapes, side-view camera, and clear foreground/midground/background depth.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -371,7 +371,8 @@
       "dependencies": [],
       "jobIds": [
         "job_20260822095339_18288994",
-        "job_20260823130453_32a9debf"
+        "job_20260823130453_32a9debf",
+        "job_20260823132501_b4a82bed"
       ],
       "versions": [
         {
@@ -401,120 +402,169 @@
           "status": "review",
           "at": "2026-08-23T13:13:08.452Z",
           "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823130453_32a9debf",
+          "parentJobId": "job_20260822095339_18288994",
+          "status": "adopted",
+          "at": "2026-08-23T13:24:04.956Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823132501_b4a82bed",
+          "parentJobId": "job_20260823130453_32a9debf",
+          "status": "awaiting_import",
+          "at": "2026-08-23T13:25:01.833Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823132501_b4a82bed",
+          "parentJobId": "job_20260823130453_32a9debf",
+          "status": "review",
+          "at": "2026-08-23T13:30:56.466Z",
+          "qualityScore": 100
         }
       ],
-      "currentJobId": "job_20260823130453_32a9debf",
-      "parentJobId": "job_20260822095339_18288994",
+      "currentJobId": "job_20260823132501_b4a82bed",
+      "parentJobId": "job_20260823130453_32a9debf",
       "artifacts": [
         {
           "kind": "codex-request",
           "fileName": "codex-request.json",
           "contentType": "application/json",
-          "bytes": 57622,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/codex-request.json"
+          "bytes": 26616,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/codex-request.json"
         },
         {
           "kind": "prompt",
           "fileName": "prompt.txt",
           "contentType": "text/plain",
-          "bytes": 52319,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/prompt.txt"
+          "bytes": 21637,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/prompt.txt"
         },
         {
           "kind": "image",
-          "fileName": "wave14-coast-forest-review-board.png",
+          "fileName": "coast-forest-clean-selected-b.png",
           "contentType": "image/png",
-          "bytes": 8347291,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/wave14-coast-forest-review-board.png"
+          "bytes": 2611152,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/coast-forest-clean-selected-b.png"
         },
         {
           "kind": "image",
-          "fileName": "option-a-current-balanced-1280x800.png",
+          "fileName": "gameplay-band-mask.png",
           "contentType": "image/png",
-          "bytes": 2003540,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/option-a-current-balanced-1280x800.png"
+          "bytes": 5977,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/gameplay-band-mask.png"
         },
         {
           "kind": "image",
-          "fileName": "option-b-gameplay-band-contrast-1280x800.png",
+          "fileName": "depth-subdue-mask.png",
           "contentType": "image/png",
-          "bytes": 1876071,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/option-b-gameplay-band-contrast-1280x800.png"
+          "bytes": 13083,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/depth-subdue-mask.png"
         },
         {
           "kind": "image",
-          "fileName": "option-c-shoreline-first-1280x800.png",
+          "fileName": "selected-b-blocked-review-1280x800.png",
           "contentType": "image/png",
-          "bytes": 2046433,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/option-c-shoreline-first-1280x800.png"
+          "bytes": 2021035,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/selected-b-blocked-review-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "selected-b-cleared-review-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 2015962,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/selected-b-cleared-review-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "selected-b-production-review-board.png",
+          "contentType": "image/png",
+          "bytes": 13273280,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/selected-b-production-review-board.png"
         },
         {
           "kind": "editable-source",
-          "fileName": "wave14-coast-forest-review-manifest.json",
+          "fileName": "selected-b-production-manifest.json",
           "contentType": "application/json",
-          "bytes": 9815,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/wave14-coast-forest-review-manifest.json"
+          "bytes": 7866,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/selected-b-production-manifest.json"
         },
         {
           "kind": "editable-source",
-          "fileName": "wave14-coast-forest-visual-qa.json",
+          "fileName": "selected-b-production-visual-qa.json",
           "contentType": "application/json",
-          "bytes": 3543,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/wave14-coast-forest-visual-qa.json"
+          "bytes": 2624,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/selected-b-production-visual-qa.json"
         },
         {
           "kind": "file",
-          "fileName": "wave14-coast-forest-engine-handoff.txt",
+          "fileName": "selected-b-production-handoff.txt",
           "contentType": "text/plain",
-          "bytes": 1112,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/wave14-coast-forest-engine-handoff.txt"
+          "bytes": 1058,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/selected-b-production-handoff.txt"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.json",
           "contentType": "application/json",
-          "bytes": 2492,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/quality-report.json"
+          "bytes": 3302,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/quality-report.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.html",
           "contentType": "text/html",
-          "bytes": 2526,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/quality-report.html"
+          "bytes": 2905,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/quality-report.html"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-wave14-coast-forest-review-board.jpg",
+          "fileName": "qa-preview-coast-forest-clean-selected-b.jpg",
           "contentType": "image/jpeg",
-          "bytes": 9613,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/qa-preview-wave14-coast-forest-review-board.jpg"
+          "bytes": 9324,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/qa-preview-coast-forest-clean-selected-b.jpg"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-option-a-current-balanced-1280x800.jpg",
+          "fileName": "qa-preview-gameplay-band-mask.jpg",
           "contentType": "image/jpeg",
-          "bytes": 9647,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/qa-preview-option-a-current-balanced-1280x800.jpg"
+          "bytes": 3842,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/qa-preview-gameplay-band-mask.jpg"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-option-b-gameplay-band-contrast-1280x800.jpg",
+          "fileName": "qa-preview-depth-subdue-mask.jpg",
           "contentType": "image/jpeg",
-          "bytes": 9279,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/qa-preview-option-b-gameplay-band-contrast-1280x800.jpg"
+          "bytes": 4696,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/qa-preview-depth-subdue-mask.jpg"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-option-c-shoreline-first-1280x800.jpg",
+          "fileName": "qa-preview-selected-b-blocked-review-1280x800.jpg",
           "contentType": "image/jpeg",
-          "bytes": 9826,
-          "url": "/outputs/jobs/job_20260823130453_32a9debf/qa-preview-option-c-shoreline-first-1280x800.jpg"
+          "bytes": 9380,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/qa-preview-selected-b-blocked-review-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-selected-b-cleared-review-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9305,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/qa-preview-selected-b-cleared-review-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-selected-b-production-review-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 10916,
+          "url": "/outputs/jobs/job_20260823132501_b4a82bed/qa-preview-selected-b-production-review-board.jpg"
         }
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-23T13:13:08.453Z"
+      "updatedAt": "2026-08-23T13:30:56.467Z"
     },
     {
       "id": "character.mr-kim",

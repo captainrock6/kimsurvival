@@ -2,7 +2,7 @@
   "id": "job_20260823130453_32a9debf",
   "status": "succeeded",
   "createdAt": "2026-08-23T13:04:53.409Z",
-  "updatedAt": "2026-08-23T13:13:08.427Z",
+  "updatedAt": "2026-08-23T13:24:04.902Z",
   "input": {
     "assetType": "background",
     "assetId": "background.coast-forest",
@@ -277,7 +277,17 @@
       "url": "/outputs/jobs/job_20260823130453_32a9debf/qa-preview-option-c-shoreline-first-1280x800.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "wave14-gameplay-band-contrast-approved"
+    ],
+    "note": "사용자가 안정 후보 background.coast-forest.gameplay-band-contrast를 명시적으로 채택했다. A current-balanced와 C shoreline-first는 미선택이며, review board와 localized capture evidence는 런타임 자산이 아니다. 다음 단계는 기존 원화 구도를 보존하면서 baked fallen trunk/vines를 제거 또는 분리하고, gameplay-band contrast를 독립 레이어로 구현한 깨끗한 production candidate를 만드는 것이다.",
+    "selectedArtifacts": [
+      "option-b-gameplay-band-contrast-1280x800.png"
+    ],
+    "updatedAt": "2026-08-23T13:24:04.892Z"
+  },
   "events": [
     {
       "at": "2026-08-23T13:04:53.409Z",
@@ -313,6 +323,11 @@
       "at": "2026-08-23T13:13:08.427Z",
       "level": "info",
       "message": "Codex/로컬 결과 13개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-23T13:24:04.902Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave14-gameplay-band-contrast-approved"
     }
   ],
   "error": null,

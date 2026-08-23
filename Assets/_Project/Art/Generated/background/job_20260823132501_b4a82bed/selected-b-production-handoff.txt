@@ -1,0 +1,24 @@
+WAVE14 SELECTED-B PRODUCTION DERIVATIVE
+asset=background.coast-forest
+selectedDirection=background.coast-forest.gameplay-band-contrast
+selectionJob=job_20260823130453_32a9debf
+productionJob=job_20260823132501_b4a82bed
+status=review
+exactBitmapApproved=false
+runtimeLoadAllowlist=[]
+adopted=false
+engineReady=false
+packaged=false
+runtimeConnected=false
+generation=built-in Codex ImageGen edit
+externalGenerationApiCalled=false
+paidExternalApiCalled=false
+attemptCount=1
+retryCount=0
+background=coast-forest-clean-selected-b.png|1672x941|sha256:f8067b7c073a75cd4d196248df1e1eab7dc2844d265f2aff90bef85aefa8945b
+gameplayMask=gameplay-band-mask.png|1672x941|R
+depthMask=depth-subdue-mask.png|1672x941|R
+pivot=bottom-center(0.5,0.0)
+import.background=SpriteSingle,PPU100,Bilinear,Clamp,sRGB,mipmapsOff,max2048,reviewUncompressed
+import.masks=Default,R,sRGBOff,AlphaNone,Bilinear,Clamp,mipmapsOff,max2048,Uncompressed
+remaining=exact bitmap approval; selected-only Forge package; real Unity 1280x800 blocked/cleared capture; optional full parallax layer extraction

@@ -157,7 +157,22 @@
         "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823073121_f5da3402\\actual-size-compact-a-1280x800.png"
       ],
       "updatedAt": "2026-08-23T10:11:13.465Z"
+    },
+    {
+      "jobId": "job_20260823130453_32a9debf",
+      "assetId": "background.coast-forest",
+      "assetType": "background",
+      "request": "Wave 14 review-only comparison package for the existing 2D side-scroller coast-forest background. Reuse the current Forge candidate and local runtime evidence; do not generate a new painted background. Audit a single 1280x800 view for readable beach-to-forest-to-shallow-water search flow, Mr. Kim and resource node silhouette contrast, shoreline swim transition, vine-wood barrier contrast, foreground/midground/background separation, and text-free production art. Produce one comparison board with stable option IDs, a visual QA report, and an engine handoff manifest. All options remain review-only; selectedCandidate is null; runtime load allowlist is empty.",
+      "decision": "adopted",
+      "tags": [
+        "wave14-gameplay-band-contrast-approved"
+      ],
+      "note": "사용자가 안정 후보 background.coast-forest.gameplay-band-contrast를 명시적으로 채택했다. A current-balanced와 C shoreline-first는 미선택이며, review board와 localized capture evidence는 런타임 자산이 아니다. 다음 단계는 기존 원화 구도를 보존하면서 baked fallen trunk/vines를 제거 또는 분리하고, gameplay-band contrast를 독립 레이어로 구현한 깨끗한 production candidate를 만드는 것이다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\background\\job_20260823130453_32a9debf\\option-b-gameplay-band-contrast-1280x800.png"
+      ],
+      "updatedAt": "2026-08-23T13:24:04.892Z"
     }
   ],
-  "updatedAt": "2026-08-23T10:11:13.591Z"
+  "updatedAt": "2026-08-23T13:24:04.986Z"
 }

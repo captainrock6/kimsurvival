@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "validationId": "validation.wave14.background.coast-forest.selected-b-production-review",
+  "assetId": "background.coast-forest",
+  "jobId": "job_20260823132501_b4a82bed",
+  "status": "pass_with_exact_art_approval_required",
+  "reviewOnly": true,
+  "selectedDirection": "background.coast-forest.gameplay-band-contrast",
+  "exactBitmapApproved": false,
+  "runtimeLoadAllowlistCount": 0,
+  "mechanicalChecks": {
+    "cleanBackgroundSizePixels": [1672, 941],
+    "cleanBackgroundIsOpaqueRgb": true,
+    "cleanBackgroundAspectRatio": 1.777896,
+    "gradingMaskCount": 2,
+    "gradingMasksMatchCanvas": true,
+    "gradingMasksAreOpaqueRgb": true,
+    "blockedReviewSizePixels": [1280, 800],
+    "clearedReviewSizePixels": [1280, 800],
+    "reviewBoardSizePixels": [3840, 2550],
+    "builtInImageGenAttemptCount": 1,
+    "imageGenRetryCount": 0,
+    "externalGenerationApiCalled": false,
+    "paidExternalApiCalled": false,
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false
+  },
+  "visualReview": {
+    "performedOnce": true,
+    "result": "pass_with_exact_art_approval_required",
+    "findings": [
+      "The baked fallen trunk and hanging vines are absent, leaving a coherent open forest path.",
+      "The coast, beach, rock shelf, and right forest route remain readable in one 16:9 side-view composition.",
+      "The selected gameplay-band contrast remains subtle: the sand and shore are readable without a flat full-screen tint.",
+      "The existing blocked barrier reads against the cleaned path and fits left of the observed right inventory rail.",
+      "The cleared barrier state leaves a visibly open route; no baked obstruction remains behind it.",
+      "ImageGen reconstructed portions of the right path and vegetation, so the exact bitmap must be user-approved even though the direction was already selected."
+    ],
+    "textOrUiBakedIntoProductionBackground": false,
+    "characterOrResourceNodeBakedIntoProductionBackground": false,
+    "bakedGameplayBarrierPresent": false,
+    "blockedClearedDifferenceIsReadable": true,
+    "kimBarrierOverlapPixelsSquared": 0,
+    "barrierInventoryRailOverlapPixelsSquared": 0
+  },
+  "remainingBeforePackaging": [
+    "Explicit approval of the exact clean production bitmap.",
+    "Forge adoption and package of only the approved clean background plus required masks.",
+    "A real Unity 1280x800 capture with independent barrier states and current HUD.",
+    "Optional full painterly layer extraction if parallax is required; current geometry is flattened."
+  ],
+  "userDecisionRequired": true
+}

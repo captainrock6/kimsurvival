@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 9,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "coast-forest-clean-selected-b.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 56.53,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-coast-forest-clean-selected-b.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "gameplay-band-mask.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 107.65,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-gameplay-band-mask.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "depth-subdue-mask.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 101.93,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-depth-subdue-mask.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "selected-b-blocked-review-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 58.05,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-selected-b-blocked-review-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "selected-b-cleared-review-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 58.67,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-selected-b-cleared-review-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "selected-b-production-review-board.png",
+      "kind": "raster",
+      "width": 3840,
+      "height": 2550,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 55.51,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-selected-b-production-review-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "selected-b-production-manifest.json",
+      "kind": "editable-source",
+      "bytes": 7866,
+      "issues": []
+    },
+    {
+      "fileName": "selected-b-production-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 2624,
+      "issues": []
+    },
+    {
+      "fileName": "selected-b-production-handoff.txt",
+      "kind": "file",
+      "bytes": 1058,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T13:30:56.387Z",
+  "jobId": "job_20260823132501_b4a82bed",
+  "assetType": "background"
+}
