@@ -7,9 +7,17 @@ namespace KimSurvival
     {
         Valid,
         OutsideCampBounds,
+        WrongZone,
         OverlapsStructure,
         BlocksEntrance,
         BlocksRequiredPath
+    }
+
+    public enum CampPlacementZone
+    {
+        GeneralGround,
+        OpenSkyGround,
+        SignalAnchor
     }
 
     public sealed class PrototypeCampPlacement
@@ -17,6 +25,8 @@ namespace KimSurvival
         public const float GridSize = 0.5f;
         public const float BuildMinimumX = -3.6f;
         public const float BuildMaximumX = 4.7f;
+        public const float OpenSkyMinimumX = 2.6f;
+        public const float OpenSkyMaximumX = 4.7f;
         public const float FloorY = -2.8f;
         public const float EntranceMinimumX = -3.6f;
         public const float EntranceMaximumX = -2.6f;
@@ -73,6 +83,8 @@ namespace KimSurvival
                         return new PrototypeLocalizedText(IsRelocating ? "placement.valid.relocate" : "placement.valid.build", selectedKind);
                     case CampPlacementValidity.OutsideCampBounds:
                         return new PrototypeLocalizedText("placement.outside");
+                    case CampPlacementValidity.WrongZone:
+                        return new PrototypeLocalizedText("placement.wrong_zone", selectedKind);
                     case CampPlacementValidity.OverlapsStructure:
                         return new PrototypeLocalizedText("placement.overlap");
                     case CampPlacementValidity.BlocksEntrance:
@@ -184,6 +196,12 @@ namespace KimSurvival
                 return CampPlacementValidity.OutsideCampBounds;
             }
 
+            if (GetRequiredZone(kind) == CampPlacementZone.OpenSkyGround &&
+                (left < OpenSkyMinimumX || right > OpenSkyMaximumX))
+            {
+                return CampPlacementValidity.WrongZone;
+            }
+
             if (Intersects(left, right, EntranceMinimumX, EntranceMaximumX))
             {
                 return CampPlacementValidity.BlocksEntrance;
@@ -209,6 +227,26 @@ namespace KimSurvival
             }
 
             return CampPlacementValidity.Valid;
+        }
+
+        public static CampPlacementZone GetRequiredZone(StructureKind kind)
+        {
+            return kind == StructureKind.RainCollector
+                ? CampPlacementZone.OpenSkyGround
+                : CampPlacementZone.GeneralGround;
+        }
+
+        public static string GetZoneId(CampPlacementZone zone)
+        {
+            switch (zone)
+            {
+                case CampPlacementZone.OpenSkyGround:
+                    return "camp.open-sky-ground";
+                case CampPlacementZone.SignalAnchor:
+                    return "camp.signal-anchor";
+                default:
+                    return "camp.general-ground";
+            }
         }
 
         public static Vector2 GetStructureSize(StructureKind kind)

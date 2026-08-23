@@ -332,6 +332,17 @@ namespace KimSurvival.EditorTools
             Assert(mousePlacementActions.ConfirmPressed && gamepadPlacementActions.ConfirmPressed, "Mouse and gamepad share placement confirm");
             Assert(mousePlacementActions.CancelPressed && gamepadPlacementActions.CancelPressed, "Mouse and gamepad share placement cancel");
 
+            PrototypeCampUse keyboardCampUse = new PrototypeCampUse();
+            PrototypeCampUse gamepadCampUse = new PrototypeCampUse();
+            keyboardCampUse.Step(PrototypePlayerActions.FromRaw(new PrototypeRawInput { KeyboardRight = true }), 0.5f);
+            gamepadCampUse.Step(PrototypePlayerActions.FromRaw(new PrototypeRawInput { HorizontalAxis = 1f }), 0.5f);
+            Assert(Mathf.Approximately(keyboardCampUse.PlayerPosition.x, gamepadCampUse.PlayerPosition.x),
+                "Keyboard and gamepad movement converge on the same camp action snapshot");
+            Vector2 exactUseBoundary = keyboardCampUse.PlayerPosition + Vector2.right * PrototypeCampUse.UseRange;
+            Assert(keyboardCampUse.IsWithinUseRange(exactUseBoundary), "Camp facilities are usable at the exact 1.25-unit boundary");
+            Assert(!keyboardCampUse.IsWithinUseRange(exactUseBoundary + Vector2.right * 0.01f),
+                "Camp facilities reject use beyond the 1.25-unit boundary");
+
             GameSession placementSession = new GameSession();
             PrototypeCampPlacement placement = new PrototypeCampPlacement();
             placement.Begin(StructureKind.Campfire, false);
@@ -343,6 +354,10 @@ namespace KimSurvival.EditorTools
             Assert(placement.CurrentValidity == CampPlacementValidity.BlocksEntrance, "Camp entrance rejects placement");
             placement.SetCandidateX(0f);
             Assert(placement.CurrentValidity == CampPlacementValidity.BlocksRequiredPath, "Required travel path rejects placement");
+            Assert(PrototypeCampPlacement.GetRequiredZone(StructureKind.Campfire) == CampPlacementZone.GeneralGround &&
+                   PrototypeCampPlacement.GetRequiredZone(StructureKind.Workbench) == CampPlacementZone.GeneralGround &&
+                   PrototypeCampPlacement.GetRequiredZone(StructureKind.RainCollector) == CampPlacementZone.OpenSkyGround,
+                "Campfire and workbench use camp.general-ground while the rain collector uses camp.open-sky-ground");
             placement.SetCandidateX(-1.5f);
             Assert(placement.CurrentValidity == CampPlacementValidity.Valid, "Campfire has a valid snapped location");
             Assert(placementSession.TryBuild(StructureKind.Campfire) && placement.Commit(), "Campfire placement spends build cost once");
@@ -363,6 +378,48 @@ namespace KimSurvival.EditorTools
             Assert(placementSession.GetStorage(ResourceKind.Wood) == woodBeforeMove &&
                    placementSession.GetStorage(ResourceKind.Stone) == stoneBeforeMove &&
                    placementSession.GetStorage(ResourceKind.Salvage) == salvageBeforeMove, "Repositioning consumes no resources");
+            placement.Begin(StructureKind.Workbench, true);
+            placement.SetCandidateX(0f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.BlocksRequiredPath, "Relocation still preserves the required walking path");
+            placement.Cancel();
+            Assert(Mathf.Approximately(placement.GetInstalledPosition(StructureKind.Workbench).x, 3.5f),
+                "Cancelled relocation restores the installed workbench position");
+            placement.Begin(StructureKind.Workbench, true);
+            placement.SetCandidateX(1.5f);
+            Assert(placement.Commit(), "Workbench can return to its original general-ground position for later facilities");
+
+            placement.Begin(StructureKind.RainCollector, false);
+            placement.SetCandidateX(1.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.WrongZone,
+                "Rain collector rejects camp.general-ground without spending resources");
+            placement.SetCandidateX(3.5f);
+            Assert(placement.CurrentValidity == CampPlacementValidity.Valid, "Rain collector accepts camp.open-sky-ground");
+            placement.Cancel();
+
+            placementSession.Grant(ResourceKind.Wood, 2);
+            placementSession.Grant(ResourceKind.Stone, 1);
+            placementSession.Grant(ResourceKind.Salvage, 3);
+            Assert(placementSession.TryResearch(TechKind.StoneAxe) && placementSession.TryUpgradeSignal(),
+                "Relocation preservation probe establishes research and signal progress");
+            keyboardCampUse.Warp(placement.GetInstalledPosition(StructureKind.Campfire));
+            Assert(keyboardCampUse.TryPrepareDayBenefit(StructureKind.Campfire, placement.GetInstalledPosition(StructureKind.Campfire)),
+                "Campfire day benefit activates only through an in-range camp use");
+            bool preparedBeforeRelocation = keyboardCampUse.IsDayBenefitPrepared(StructureKind.Campfire);
+            int signalBeforeRelocation = placementSession.SignalStage;
+            bool axeResearchBeforeRelocation = placementSession.HasResearched(TechKind.StoneAxe);
+            placement.Begin(StructureKind.Workbench, true);
+            placement.SetCandidateX(3.5f);
+            Assert(placement.Commit(), "Workbench free relocation commits after progression is established");
+            Assert(keyboardCampUse.IsDayBenefitPrepared(StructureKind.Campfire) == preparedBeforeRelocation &&
+                   placementSession.SignalStage == signalBeforeRelocation &&
+                   placementSession.HasResearched(TechKind.StoneAxe) == axeResearchBeforeRelocation,
+                "Committed free relocation preserves research, signal, and current-day benefit state");
+
+            GameSession unpreparedRest = CreateSpatialRestProbe();
+            GameSession preparedRest = CreateSpatialRestProbe();
+            Assert(unpreparedRest.EndDay(false, false) && preparedRest.EndDay(true, true) &&
+                   preparedRest.Energy > unpreparedRest.Energy,
+                "Campfire and rain-collector settlement benefits require explicit in-range preparation");
 
             GameSession shoreline = new GameSession();
             Assert(shoreline.BeginSearch(), "Traversal scenario begins search");
@@ -483,7 +540,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, layer/source metadata, structure pivots, serialized scene references, inventory overflow/swap, shared keyboard/gamepad actions including language and slot six, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, shared keyboard/gamepad camp movement snapshot, proximity-gated workbench/campfire/rain/signal functions, relocation resource/research/signal/day-benefit preservation and required path, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, layer/source metadata, structure pivots, serialized scene references, inventory overflow/swap, shared keyboard/gamepad actions including language and slot six, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -534,6 +591,20 @@ namespace KimSurvival.EditorTools
                 throw new InvalidOperationException("Adopted camp structure could not be loaded: " + path);
             }
             return sprite;
+        }
+
+        private static GameSession CreateSpatialRestProbe()
+        {
+            GameSession probe = new GameSession();
+            probe.Grant(ResourceKind.Wood, 2);
+            probe.Grant(ResourceKind.Stone, 1);
+            probe.Grant(ResourceKind.Salvage, 1);
+            Assert(probe.TryBuild(StructureKind.Campfire) && probe.TryBuild(StructureKind.RainCollector),
+                "Spatial rest probe builds both day-benefit facilities");
+            Assert(probe.BeginSearch() && probe.SetSwimming(true), "Spatial rest probe begins a deterministic high-cost expedition");
+            probe.TickSearch(60f, true);
+            Assert(probe.ReturnToCamp(false), "Spatial rest probe returns to camp for settlement");
+            return probe;
         }
 
         private static void AssertCampBackgroundLayerImport(string path, string layerName)

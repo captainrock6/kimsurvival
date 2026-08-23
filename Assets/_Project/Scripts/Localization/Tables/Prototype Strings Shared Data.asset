@@ -599,6 +599,42 @@ MonoBehaviour:
     m_Key: message.bag_upgrade.complete
     m_Metadata:
       m_Items: []
+  - m_Id: 250514246975488
+    m_Key: world.general_ground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918528
+    m_Key: world.open_sky_ground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918529
+    m_Key: placement.wrong_zone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918530
+    m_Key: message.camp.use.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918531
+    m_Key: message.camp.use.too_far
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918532
+    m_Key: message.camp.use.signal_too_far
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918533
+    m_Key: message.camp.use.workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918534
+    m_Key: message.camp.use.campfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918535
+    m_Key: message.camp.use.rain
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

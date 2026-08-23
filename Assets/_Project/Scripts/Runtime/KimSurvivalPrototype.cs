@@ -60,6 +60,15 @@ namespace KimSurvival
             public bool Collected;
         }
 
+        private enum CampUseTarget
+        {
+            None,
+            Campfire,
+            Workbench,
+            RainCollector,
+            RescueSignal
+        }
+
         private readonly List<NodeView> nodes = new List<NodeView>();
         private readonly List<Button> bagButtons = new List<Button>();
         private readonly List<SpriteRenderer> placementGhostOutlineRenderers = new List<SpriteRenderer>();
@@ -67,6 +76,7 @@ namespace KimSurvival
         private readonly LegacyPrototypePlayerInput playerInput = new LegacyPrototypePlayerInput();
         private readonly PrototypePlayerTraversal playerTraversal = new PrototypePlayerTraversal();
         private readonly PrototypeCampPlacement campPlacement = new PrototypeCampPlacement();
+        private readonly PrototypeCampUse campUse = new PrototypeCampUse();
 
         private GameSession session;
         private PrototypeLocalization localization;
@@ -111,6 +121,7 @@ namespace KimSurvival
         private Button restartButton;
         private Button languageButton;
         private GamePhase renderedPhase;
+        private PrototypeLocalizedText campFeedback;
 
         public GameSession Session
         {
@@ -146,6 +157,10 @@ namespace KimSurvival
             else if (session.Phase == GamePhase.Camp && campPlacement.IsActive)
             {
                 UpdateCampPlacement();
+            }
+            else if (session.Phase == GamePhase.Camp)
+            {
+                UpdateCampUse();
             }
 
             if (renderedPhase != session.Phase)
@@ -276,18 +291,18 @@ namespace KimSurvival
             campfireButton = CreateActionButton(campActions.transform, 0, string.Empty, delegate { BeginCampPlacement(StructureKind.Campfire); });
             workbenchButton = CreateActionButton(campActions.transform, 1, string.Empty, delegate { BeginCampPlacement(StructureKind.Workbench); });
             rainButton = CreateActionButton(campActions.transform, 2, string.Empty, delegate { BeginCampPlacement(StructureKind.RainCollector); });
-            researchAxeButton = CreateActionButton(campActions.transform, 3, string.Empty, delegate { session.TryResearch(TechKind.StoneAxe); RefreshAll(); });
-            craftAxeButton = CreateActionButton(campActions.transform, 4, string.Empty, delegate { session.TryCraft(TechKind.StoneAxe); RefreshAll(); });
-            researchRopeButton = CreateActionButton(campActions.transform, 5, string.Empty, delegate { session.TryResearch(TechKind.Rope); RefreshAll(); });
-            craftRopeButton = CreateActionButton(campActions.transform, 6, string.Empty, delegate { session.TryCraft(TechKind.Rope); RefreshAll(); });
-            signalButton = CreateActionButton(campActions.transform, 7, string.Empty, delegate { session.TryUpgradeSignal(); RefreshAll(); });
+            researchAxeButton = CreateActionButton(campActions.transform, 3, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryResearch(TechKind.StoneAxe); }); });
+            craftAxeButton = CreateActionButton(campActions.transform, 4, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryCraft(TechKind.StoneAxe); }); });
+            researchRopeButton = CreateActionButton(campActions.transform, 5, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryResearch(TechKind.Rope); }); });
+            craftRopeButton = CreateActionButton(campActions.transform, 6, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryCraft(TechKind.Rope); }); });
+            signalButton = CreateActionButton(campActions.transform, 7, string.Empty, ExecuteSignalAction);
             signalButton.GetComponentInChildren<TMP_Text>().fontSize = 36f;
-            eatButton = CreateActionButton(campActions.transform, 8, string.Empty, delegate { session.UseFood(); RefreshAll(); });
+            eatButton = CreateActionButton(campActions.transform, 8, string.Empty, ExecuteEatAction);
             phaseButton = CreateActionButton(campActions.transform, 9, string.Empty, HandlePhaseButton);
 
             bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 170f), new Vector2(-30f, 795f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
             bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -128f), new Vector2(-18f, -8f), 34, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
-            bagUpgradeButton = CreateButton("가방 용량 확장", bagPanel.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), string.Empty, delegate { session.TryUpgradeBagCapacity(); RefreshAll(); }, new Vector2(22f, -290f), new Vector2(403f, -138f));
+            bagUpgradeButton = CreateButton("가방 용량 확장", bagPanel.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), string.Empty, delegate { ExecuteWorkbenchAction(session.TryUpgradeBagCapacity); }, new Vector2(22f, -290f), new Vector2(403f, -138f));
             bagUpgradeButton.GetComponentInChildren<TMP_Text>().fontSize = 34f;
             for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
             {
@@ -300,7 +315,7 @@ namespace KimSurvival
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
-            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); RefreshAll(); });
+            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
         }
 
         private void HandlePhaseButton()
@@ -312,11 +327,21 @@ namespace KimSurvival
 
             if (session.ExpeditionCompleted)
             {
-                session.EndDay();
+                if (session.EndDay(
+                    campUse.IsDayBenefitPrepared(StructureKind.Campfire),
+                    campUse.IsDayBenefitPrepared(StructureKind.RainCollector)))
+                {
+                    campUse.ClearDayBenefits();
+                    campFeedback = PrototypeLocalizedText.Empty;
+                }
             }
             else
             {
-                session.BeginSearch();
+                if (session.BeginSearch())
+                {
+                    campUse.ClearDayBenefits();
+                    campFeedback = PrototypeLocalizedText.Empty;
+                }
             }
             RefreshAll();
         }
@@ -380,11 +405,14 @@ namespace KimSurvival
                 session.SignalStage,
                 localization.Format(session.HasAxe ? "value.yes" : "value.no"),
                 localization.Format(session.HasRope ? "value.yes" : "value.no"));
-            messageText.text = localization.Format(session.LastMessage);
+            PrototypeLocalizedText activeMessage = session.Phase == GamePhase.Camp && !campFeedback.IsEmpty
+                ? campFeedback
+                : session.LastMessage;
+            messageText.text = localization.Format(activeMessage);
             string device = localization.DeviceName(playerInput.ActiveDevice);
-            messageText.fontSize = session.LastMessage.Key.StartsWith("message.signal", StringComparison.Ordinal)
+            messageText.fontSize = activeMessage.Key.StartsWith("message.signal", StringComparison.Ordinal)
                 ? 48f
-                : session.LastMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 40f : 29f;
+                : activeMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 40f : 29f;
             messageText.fontStyle = FontStyles.Normal;
             messagePanelImage.color = new Color(0.07f, 0.08f, 0.07f, 0.88f);
 
@@ -548,16 +576,26 @@ namespace KimSurvival
             CreateCampBackground();
             if (campPlacement.IsActive)
             {
-                float buildWidth = PrototypeCampPlacement.BuildMaximumX - PrototypeCampPlacement.BuildMinimumX;
-                float buildCenter = (PrototypeCampPlacement.BuildMinimumX + PrototypeCampPlacement.BuildMaximumX) * 0.5f;
-                CreateRect("호환 건설 구역", new Vector2(buildCenter, PrototypeCampPlacement.FloorY + 0.08f), new Vector2(buildWidth, 0.16f), new Color(0.16f, 0.72f, 0.38f, 0.78f), -5);
-                CreateRect("건설 구역 왼쪽 경계", new Vector2(PrototypeCampPlacement.BuildMinimumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), new Color(0.75f, 1f, 0.72f, 0.92f), -3);
-                CreateRect("건설 구역 오른쪽 경계", new Vector2(PrototypeCampPlacement.BuildMaximumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), new Color(0.75f, 1f, 0.72f, 0.92f), -3);
-                CreateWorldBadge("호환 건설 구역 안내", localization.Format("world.build_zone"), new Vector2(2.5f, -3.15f), new Vector2(4.8f, 1.65f), new Color(0.04f, 0.25f, 0.13f, 0.96f), Color.white);
+                bool openSky = PrototypeCampPlacement.GetRequiredZone(campPlacement.SelectedKind) == CampPlacementZone.OpenSkyGround;
+                float zoneMinimumX = openSky ? PrototypeCampPlacement.OpenSkyMinimumX : PrototypeCampPlacement.BuildMinimumX;
+                float zoneMaximumX = openSky ? PrototypeCampPlacement.OpenSkyMaximumX : PrototypeCampPlacement.BuildMaximumX;
+                float buildWidth = zoneMaximumX - zoneMinimumX;
+                float buildCenter = (zoneMinimumX + zoneMaximumX) * 0.5f;
+                Color zoneColor = openSky ? new Color(0.2f, 0.7f, 0.92f, 0.82f) : new Color(0.16f, 0.72f, 0.38f, 0.78f);
+                CreateRect(openSky ? "camp.open-sky-ground" : "camp.general-ground", new Vector2(buildCenter, PrototypeCampPlacement.FloorY + 0.08f), new Vector2(buildWidth, 0.16f), zoneColor, -5);
+                CreateRect("건설 구역 왼쪽 경계", new Vector2(zoneMinimumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), zoneColor, -3);
+                CreateRect("건설 구역 오른쪽 경계", new Vector2(zoneMaximumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), zoneColor, -3);
+                CreateWorldBadge(
+                    "호환 건설 구역 안내",
+                    localization.Format(openSky ? "world.open_sky_ground" : "world.general_ground"),
+                    new Vector2(openSky ? 3.65f : 2.5f, -3.15f),
+                    new Vector2(openSky ? 4.1f : 4.8f, 1.65f),
+                    openSky ? new Color(0.03f, 0.25f, 0.38f, 0.96f) : new Color(0.04f, 0.25f, 0.13f, 0.96f),
+                    Color.white);
                 CreateReservedCampStrip("world.entrance", PrototypeCampPlacement.EntranceMinimumX, PrototypeCampPlacement.EntranceMaximumX, new Color(0.95f, 0.38f, 0.18f, 0.72f));
                 CreateReservedCampStrip("world.required_path", PrototypeCampPlacement.RequiredPathMinimumX, PrototypeCampPlacement.RequiredPathMaximumX, new Color(1f, 0.72f, 0.16f, 0.72f));
             }
-            CreateKim(new Vector2(-5f, -2.18f));
+            CreateKim(campUse.PlayerPosition);
 
             CreatePlacedStructure(StructureKind.Campfire, new Color(1f, 0.43f, 0.14f));
             CreatePlacedStructure(StructureKind.Workbench, new Color(0.48f, 0.26f, 0.12f));
@@ -626,8 +664,156 @@ namespace KimSurvival
                 return;
             }
 
+            if (relocating && !RequireStructureUse(kind))
+            {
+                return;
+            }
+
+            campFeedback = PrototypeLocalizedText.Empty;
             campPlacement.Begin(kind, relocating);
             RefreshAll();
+        }
+
+        private void UpdateCampUse()
+        {
+            PrototypePlayerActions actions = playerInput.ReadActions(false, session.ActiveBagSlotCount);
+            campUse.Step(actions, Time.deltaTime);
+            if (playerRoot != null)
+            {
+                PrototypePlayerPresentationState presentation = new PrototypePlayerPresentationState(
+                    campUse.PlayerPosition.x,
+                    campUse.PlayerPosition.y,
+                    actions.Horizontal < -0.01f ? -1f : 1f,
+                    Mathf.Abs(actions.Horizontal),
+                    false,
+                    true);
+                playerPresentation.Apply(presentation);
+            }
+
+            if (actions.InteractPressed)
+            {
+                UseNearestCampTarget();
+            }
+        }
+
+        private void UseNearestCampTarget()
+        {
+            CampUseTarget nearest = CampUseTarget.None;
+            float nearestDistance = float.MaxValue;
+            ConsiderCampUseTarget(StructureKind.Campfire, CampUseTarget.Campfire, ref nearest, ref nearestDistance);
+            ConsiderCampUseTarget(StructureKind.Workbench, CampUseTarget.Workbench, ref nearest, ref nearestDistance);
+            ConsiderCampUseTarget(StructureKind.RainCollector, CampUseTarget.RainCollector, ref nearest, ref nearestDistance);
+
+            Vector2 signalPosition = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
+            float signalDistance = Vector2.Distance(campUse.PlayerPosition, signalPosition);
+            if (signalDistance <= PrototypeCampUse.UseRange && signalDistance < nearestDistance)
+            {
+                nearest = CampUseTarget.RescueSignal;
+            }
+
+            switch (nearest)
+            {
+                case CampUseTarget.Campfire:
+                    PrepareDayBenefit(StructureKind.Campfire, "message.camp.use.campfire");
+                    break;
+                case CampUseTarget.Workbench:
+                    campFeedback = new PrototypeLocalizedText("message.camp.use.workbench");
+                    RefreshHud();
+                    break;
+                case CampUseTarget.RainCollector:
+                    PrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain");
+                    break;
+                case CampUseTarget.RescueSignal:
+                    ExecuteSignalAction();
+                    break;
+                default:
+                    campFeedback = new PrototypeLocalizedText("message.camp.use.none", PrototypeCampUse.UseRange);
+                    RefreshHud();
+                    break;
+            }
+        }
+
+        private void ConsiderCampUseTarget(StructureKind kind, CampUseTarget candidate, ref CampUseTarget nearest, ref float nearestDistance)
+        {
+            if (!session.HasStructure(kind))
+            {
+                return;
+            }
+
+            campPlacement.EnsureInstalled(kind);
+            float distance = Vector2.Distance(campUse.PlayerPosition, campPlacement.GetInstalledPosition(kind));
+            if (distance <= PrototypeCampUse.UseRange && distance < nearestDistance)
+            {
+                nearest = candidate;
+                nearestDistance = distance;
+            }
+        }
+
+        private void PrepareDayBenefit(StructureKind kind, string successMessageKey)
+        {
+            campPlacement.EnsureInstalled(kind);
+            if (campUse.TryPrepareDayBenefit(kind, campPlacement.GetInstalledPosition(kind)))
+            {
+                campFeedback = new PrototypeLocalizedText(successMessageKey);
+            }
+            RefreshHud();
+        }
+
+        private void ExecuteWorkbenchAction(Func<bool> action)
+        {
+            if (!RequireStructureUse(StructureKind.Workbench))
+            {
+                return;
+            }
+
+            campFeedback = PrototypeLocalizedText.Empty;
+            action();
+            RefreshAll();
+        }
+
+        private void ExecuteSignalAction()
+        {
+            Vector2 signalPosition = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
+            if (!campUse.IsWithinUseRange(signalPosition))
+            {
+                campFeedback = new PrototypeLocalizedText("message.camp.use.signal_too_far", PrototypeCampUse.UseRange);
+                RefreshHud();
+                return;
+            }
+
+            campFeedback = PrototypeLocalizedText.Empty;
+            session.TryUpgradeSignal();
+            RefreshAll();
+        }
+
+        private void ExecuteEatAction()
+        {
+            if (session.HasStructure(StructureKind.Campfire) && !RequireStructureUse(StructureKind.Campfire))
+            {
+                return;
+            }
+
+            campFeedback = PrototypeLocalizedText.Empty;
+            session.UseFood();
+            RefreshAll();
+        }
+
+        private bool RequireStructureUse(StructureKind kind)
+        {
+            if (!session.HasStructure(kind))
+            {
+                return false;
+            }
+
+            campPlacement.EnsureInstalled(kind);
+            if (campUse.IsWithinUseRange(campPlacement.GetInstalledPosition(kind)))
+            {
+                return true;
+            }
+
+            campFeedback = new PrototypeLocalizedText("message.camp.use.too_far", kind, PrototypeCampUse.UseRange);
+            RefreshHud();
+            return false;
         }
 
         private void UpdateCampPlacement()
@@ -639,6 +825,7 @@ namespace KimSurvival
             if (actions.CancelPressed)
             {
                 campPlacement.Cancel();
+                campFeedback = PrototypeLocalizedText.Empty;
                 RefreshAll();
                 return;
             }
@@ -670,6 +857,7 @@ namespace KimSurvival
                 throw new InvalidOperationException("유효한 캠프 배치를 확정하지 못했습니다.");
             }
 
+            campFeedback = PrototypeLocalizedText.Empty;
             RefreshAll();
             return true;
         }
@@ -830,6 +1018,8 @@ namespace KimSurvival
         {
             session.Reset();
             campPlacement.Reset();
+            campUse.Reset();
+            campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
             session.Grant(ResourceKind.Food, 5);
@@ -847,6 +1037,7 @@ namespace KimSurvival
             Require(statusText.font != null && messageText.font != null, "로케일별 TMP 폰트 매핑 적용");
             RequireCampBackgroundAlignment();
             RequireCampStructureArt();
+            campUse.Warp(GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY));
 
             TMP_Text signalLabel = signalButton.GetComponentInChildren<TMP_Text>();
             Require(signalButton.interactable && signalLabel.text.Contains("작업대") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 1단계 작업대 요구 표시");
@@ -883,6 +1074,8 @@ namespace KimSurvival
 
             session.Reset();
             campPlacement.Reset();
+            campUse.Reset();
+            campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
             session.Grant(ResourceKind.Food, 5);
@@ -908,6 +1101,8 @@ namespace KimSurvival
 
             Require(session.TryBuild(StructureKind.Workbench), "가방 확장 UI 검증용 작업대 건설");
             RefreshAll();
+            campPlacement.EnsureInstalled(StructureKind.Workbench);
+            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
             int woodBeforeBagUpgrade = session.GetStorage(ResourceKind.Wood);
             int salvageBeforeBagUpgrade = session.GetStorage(ResourceKind.Salvage);
             Require(bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("4→6") && bagUpgradeLabel.text.Contains("나무 2/2") && bagUpgradeLabel.text.Contains("표류물 1/1"), "가방 확장 비용과 4→6 표시");
@@ -959,6 +1154,8 @@ namespace KimSurvival
 
             session.Reset();
             campPlacement.Reset();
+            campUse.Reset();
+            campFeedback = PrototypeLocalizedText.Empty;
             Require(session.ActiveBagSlotCount == GameSession.DefaultBagSlotCount && !session.HasPendingLoot && !session.IsBagSlotActive(4), "새 게임 초기화의 4칸·잠금·pending 정리");
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -1012,6 +1209,7 @@ namespace KimSurvival
             int woodBeforeRelocation = session.GetStorage(ResourceKind.Wood);
             int stoneBeforeRelocation = session.GetStorage(ResourceKind.Stone);
             int salvageBeforeRelocation = session.GetStorage(ResourceKind.Salvage);
+            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
             workbenchButton.onClick.Invoke();
             Require(campPlacement.IsRelocating, "건설된 작업대 재배치 진입");
             campPlacement.SetCandidateX(3.5f);
@@ -1021,10 +1219,33 @@ namespace KimSurvival
                     session.GetStorage(ResourceKind.Stone) == stoneBeforeRelocation &&
                     session.GetStorage(ResourceKind.Salvage) == salvageBeforeRelocation, "재배치 추가 자원 비용 없음");
 
-            rainButton.onClick.Invoke();
-            Require(campPlacement.CurrentValidity == CampPlacementValidity.OverlapsStructure && !ConfirmCampPlacement(), "설비 겹침 배치 거부");
+            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
+            workbenchButton.onClick.Invoke();
             campPlacement.SetCandidateX(1.5f);
-            Require(ConfirmCampPlacement(), "빗물받이 스냅 배치 확정");
+            Require(ConfirmCampPlacement(), "작업대를 일반 설비 구역으로 무료 복귀");
+
+            rainButton.onClick.Invoke();
+            campPlacement.SetCandidateX(1.5f);
+            Require(campPlacement.CurrentValidity == CampPlacementValidity.WrongZone && !ConfirmCampPlacement(), "빗물받이 일반 바닥 배치 거부");
+            campPlacement.SetCandidateX(3.5f);
+            Require(ConfirmCampPlacement(), "빗물받이 open-sky 바닥 스냅 배치 확정");
+
+            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            int foodBeforeFarCampfireUse = session.GetStorage(ResourceKind.Food);
+            eatButton.onClick.Invoke();
+            Require(session.GetStorage(ResourceKind.Food) == foodBeforeFarCampfireUse &&
+                    campFeedback.Key == "message.camp.use.too_far", "모닥불 1.25 unit 밖 식사 기능 거절과 식량 무차감");
+            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Campfire));
+            eatButton.onClick.Invoke();
+            Require(session.GetStorage(ResourceKind.Food) == foodBeforeFarCampfireUse - 1, "모닥불 근접 식사 기능 성공");
+
+            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            int woodBeforeFarWorkbenchUse = session.GetStorage(ResourceKind.Wood);
+            researchAxeButton.onClick.Invoke();
+            Require(!session.HasResearched(TechKind.StoneAxe) &&
+                    session.GetStorage(ResourceKind.Wood) == woodBeforeFarWorkbenchUse &&
+                    campFeedback.Key == "message.camp.use.too_far", "작업대 1.25 unit 밖 연구 거절과 자원 무차감");
+            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
             researchAxeButton.onClick.Invoke();
             craftAxeButton.onClick.Invoke();
             researchRopeButton.onClick.Invoke();
@@ -1034,6 +1255,18 @@ namespace KimSurvival
             Require(session.HasStructure(StructureKind.RainCollector), "빗물받이 UI 건설");
             RequireInstalledStructureArt();
             Require(session.HasAxe && session.HasRope, "제작·연구 UI 경로");
+
+            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            UseNearestCampTarget();
+            Require(campFeedback.Key == "message.camp.use.none" &&
+                    !campUse.IsDayBenefitPrepared(StructureKind.Campfire) &&
+                    !campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "설비 1.25 unit 밖 공통 상호작용 거절");
+            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Campfire));
+            UseNearestCampTarget();
+            Require(campUse.IsDayBenefitPrepared(StructureKind.Campfire), "모닥불 근접 상호작용으로 하루 보너스 준비");
+            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.RainCollector));
+            UseNearestCampTarget();
+            Require(campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "빗물받이 근접 상호작용으로 하루 보너스 준비");
 
             phaseButton.onClick.Invoke();
             Require(session.Phase == GamePhase.Exploring, "수색 시작 UI 경로");
@@ -1119,11 +1352,12 @@ namespace KimSurvival
             RefreshAll();
             phaseButton.onClick.Invoke();
             Require(session.Day == 2, "하루 정산 UI 경로");
+            campUse.Warp(GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY));
             signalButton.onClick.Invoke();
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · 가방 4→6 원자적 확장·잠긴 슬롯·5/6 획득/중첩/교체/포기/귀환·키보드/마우스/게임패드 포커스·1280x800/1920x1080 ko/en UI, ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 배치·수영·장벽·제작·연구·가방·귀환·정산 회귀 확인";
+            return "PASS · 공간형 캠프 이동·1.25 unit 설비/신호 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6 원자적 확장·잠긴 슬롯·5/6 획득/중첩/교체/포기/귀환·키보드/마우스/게임패드 포커스·1280x800/1920x1080 ko/en UI, ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 배치·수영·장벽·제작·연구·가방·귀환·정산 회귀 확인";
         }
 
         private void RequireReadableBagUi()
