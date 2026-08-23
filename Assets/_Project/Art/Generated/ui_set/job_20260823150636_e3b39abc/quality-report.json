@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 5,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "candidate-a-right-rail-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 67.16,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-candidate-a-right-rail-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "island-map-art.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 43.88,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-island-map-art.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-map-components.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1280 800",
+      "issues": []
+    },
+    {
+      "fileName": "wave15-expedition-map-a-selected-only-manifest.json",
+      "kind": "editable-source",
+      "bytes": 2714,
+      "issues": []
+    },
+    {
+      "fileName": "wave15-expedition-map-a-selected-only-handoff.txt",
+      "kind": "file",
+      "bytes": 1168,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T15:06:55.683Z",
+  "jobId": "job_20260823150636_e3b39abc",
+  "assetType": "ui_set"
+}

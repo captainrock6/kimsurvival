@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.expedition-map",
+  "selectedCandidateId": "ui.expedition-map.right-rail-a",
+  "selectionStatus": "adopted",
+  "selectionSource": "explicit-user-message",
+  "parentReviewJobId": "job_20260823144023_146e6ff7",
+  "selectedOnlyJobId": "job_20260823150359_f60296bb",
+  "runtimeConnected": false,
+  "canvas": {
+    "width": 1280,
+    "height": 800
+  },
+  "runtimeSourceAllowlist": [
+    {
+      "file": "candidate-a-right-rail-1280x800.png",
+      "role": "selected-layout-reference",
+      "sha256": "72d93b8ce27ef273fea4836f00249a22defc028a0bf680c5b9b256909fa7bc52",
+      "bytes": 1423073
+    },
+    {
+      "file": "island-map-art.png",
+      "role": "common-editable-map-art",
+      "sha256": "65902111c56e4b65bc9df9243bf2162b8079718a353efc9993ccc4e39d6eb4b8",
+      "bytes": 3061054
+    },
+    {
+      "file": "expedition-map-components.svg",
+      "role": "common-editable-ui-components",
+      "sha256": "ac678559e1329ff7992e6a00bf4d8977b69b5560578b6ddce06591d74b72190f",
+      "bytes": 2664
+    }
+  ],
+  "runtimeRejectList": [
+    "candidate-a-localization-input-overlay-1280x800.png",
+    "candidate-b-bottom-drawer-1280x800.png",
+    "candidate-c-compact-right-1280x800.png",
+    "expedition-map-input-focus-comparison.png",
+    "expedition-map-review-board.png",
+    "expedition-map-state-comparison-board.png",
+    "qa-preview-*.jpg",
+    "quality-report.*",
+    "icon.expedition-resource-risk-set/**"
+  ],
+  "unity": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "sRGB": true,
+    "alphaIsTransparency": false,
+    "filterMode": "Bilinear",
+    "maxSize": 2048,
+    "compression": "None",
+    "pixelsPerUnit": 100,
+    "renderMode": "Unity UI / 9-slice",
+    "slices": {
+      "popupFrame": { "left": 32, "right": 32, "top": 28, "bottom": 28 },
+      "detailCard": { "left": 24, "right": 24, "top": 20, "bottom": 20 },
+      "actionButton": { "left": 18, "right": 18, "top": 14, "bottom": 14 }
+    }
+  },
+  "safeArea": {
+    "outer": { "left": 36, "right": 36, "top": 38, "bottom": 38 },
+    "content": { "left": 68, "right": 70, "top": 76, "bottom": 74 },
+    "minimumFocus": { "width": 44, "height": 44 }
+  },
+  "localization": {
+    "rasterizedProductionText": false,
+    "tmpLocales": ["ko", "en", "qps-long"],
+    "qpsLongExpansion": 1.5,
+    "minimumTextSizePxAt1280x800": 18,
+    "overflow": "wrap-then-vertical-reflow",
+    "glyphSlot": {
+      "width": 44,
+      "height": 44,
+      "devices": ["keyboard-mouse", "gamepad"]
+    }
+  },
+  "nonSelection": {
+    "candidates": [
+      "ui.expedition-map.bottom-drawer-b",
+      "ui.expedition-map.compact-right-c"
+    ],
+    "independentReviewAsset": "icon.expedition-resource-risk-set"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-23T15:07:06.403Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "ui.expedition-map",
+  "jobId": "job_20260823150636_e3b39abc",
+  "assetType": "ui_set",
+  "sourceFiles": [
+    "candidate-a-right-rail-1280x800.png",
+    "island-map-art.png",
+    "expedition-map-components.svg"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "None",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": false,
+    "nineSliceHint": true
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}
