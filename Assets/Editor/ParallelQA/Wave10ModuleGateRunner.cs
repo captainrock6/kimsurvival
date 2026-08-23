@@ -672,7 +672,7 @@ namespace ParallelQA
                         : localization.Format(key);
                 values.Add(value);
             }
-            bool passed = values.All(IsLocalized);
+            bool passed = values.All(IsPseudoLocalized);
             detail = "locale=qps-long keys=" + values.Count + " localized=" + passed;
             return passed;
         }
@@ -746,13 +746,16 @@ namespace ParallelQA
                     UnityEngine.Object.DestroyImmediate(texture);
                 }
             }
-            return string.Join(" | ", rows) + " | synthetic-long is not an actual qps-long locale claim";
+            bool usedSyntheticFallback = screenshots.Any(fileName => fileName.Contains("synthetic-long"));
+            return string.Join(" | ", rows) + (usedSyntheticFallback
+                ? " | qps evidence=synthetic fallback (not an actual locale claim)"
+                : " | qps evidence=actual data locale");
         }
 
         private static int CountVisibleOverflowingText()
         {
             int count = 0;
-            TMP_Text[] texts = UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            TMP_Text[] texts = UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude);
             foreach (TMP_Text text in texts)
             {
                 if (text == null || !text.gameObject.activeInHierarchy)
@@ -846,6 +849,13 @@ namespace ParallelQA
         private static bool IsLocalized(string value)
         {
             return !string.IsNullOrWhiteSpace(value) && !value.StartsWith("⟦", StringComparison.Ordinal);
+        }
+
+        private static bool IsPseudoLocalized(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value) &&
+                   value.StartsWith("⟦", StringComparison.Ordinal) &&
+                   value.EndsWith("⟧", StringComparison.Ordinal);
         }
 
         private static T GetField<T>(object target, string name)
