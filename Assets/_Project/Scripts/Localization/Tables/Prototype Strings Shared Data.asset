@@ -547,6 +547,58 @@ MonoBehaviour:
     m_Key: message.barrier.axe_blocked
     m_Metadata:
       m_Items: []
+  - m_Id: 231960655151104
+    m_Key: controls.explore.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960692899840
+    m_Key: controls.explore.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960692899841
+    m_Key: bag.slot.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960692899842
+    m_Key: button.bag_upgrade.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960692899843
+    m_Key: button.bag_upgrade.available
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960692899844
+    m_Key: button.bag_upgrade.complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288448
+    m_Key: message.bag_upgrade.camp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288449
+    m_Key: message.bag_upgrade.workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288450
+    m_Key: message.bag_upgrade.materials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288451
+    m_Key: message.bag_upgrade.wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288452
+    m_Key: message.bag_upgrade.salvage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288453
+    m_Key: message.bag_upgrade.success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288454
+    m_Key: message.bag_upgrade.complete
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

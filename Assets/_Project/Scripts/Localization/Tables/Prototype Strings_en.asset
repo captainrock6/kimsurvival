@@ -92,23 +92,22 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 896778245
-    m_Localized: 'Camp Storage
-
-      (4-slot bag while exploring)'
+    m_Localized: "Camp Storage \xB7 Bag {0}/{1}"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219867
   - m_Id: 900972544
-    m_Localized: 'Bag Full
-
-      Choose a slot to discard'
+    m_Localized: "Bag {0}/{1} Full\nChoose a slot \xB7 Cancel to discard"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219867
   - m_Id: 900972545
-    m_Localized: '4-Slot Expedition Bag
+    m_Localized: 'Expedition Bag {0}/{1}
 
       Maximum 2 per stack'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219867
   - m_Id: 900972546
     m_Localized: '{0}. Empty'
     m_Metadata:
@@ -622,6 +621,70 @@ MonoBehaviour:
     m_Localized: Vines and wood block the path. Clear the barrier with a stone axe.
     m_Metadata:
       m_Items: []
+  - m_Id: 231960655151104
+    m_Localized: "{0} \xB7 A/D move \xB7 Auto-swim \xB7 Space jump \xB7 E search
+      \xB7 R return\nReplace bag 1\u2013{1} \xB7 Esc discard \xB7 F1 language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960692899840
+    m_Localized: "{0} \xB7 Stick move \xB7 Auto-swim \xB7 A jump \xB7 X search \xB7
+      B return\nReplace: D-pad+A ({1} slots) \xB7 B discard \xB7 Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960692899841
+    m_Localized: '{0}. Locked'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960692899842
+    m_Localized: "Bag Upgrade {0}\u2192{1}\nWorkbench Required"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960692899843
+    m_Localized: "Bag Upgrade {0}\u2192{1}\nWood {2}/{3} \xB7 Salvage {4}/{5}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960692899844
+    m_Localized: "Bag Upgrade Complete \xB7 {0} Slots"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960701288448
+    m_Localized: The bag can only be upgraded at base camp.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288449
+    m_Localized: A workbench is required before upgrading the bag.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288450
+    m_Localized: 'Wood and salvage are short. Current: Wood {0}/2, Salvage {1}/1.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960701288451
+    m_Localized: 'Not enough wood for the bag upgrade. Current: {0}/2.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960701288452
+    m_Localized: 'Not enough salvage for the bag upgrade. Current: {0}/1.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 231960701288453
+    m_Localized: Bag upgrade complete. Mr. Kim now has six slots to worry about filling.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288454
+    m_Localized: The bag already has 6 slots. Stitching it twice will not make it
+      larger.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -663,3 +726,15 @@ MonoBehaviour:
         - id: 900972614
         - id: 197482096345092
         - id: 197482096345093
+        - id: 231960655151104
+        - id: 231960692899840
+        - id: 896778245
+        - id: 900972544
+        - id: 900972545
+        - id: 231960692899841
+        - id: 231960692899842
+        - id: 231960692899843
+        - id: 231960692899844
+        - id: 231960701288450
+        - id: 231960701288451
+        - id: 231960701288452

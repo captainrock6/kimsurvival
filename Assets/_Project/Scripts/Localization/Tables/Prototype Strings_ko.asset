@@ -95,20 +95,22 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219866
   - m_Id: 896778245
-    m_Localized: "\uCEA0\uD504 \uCC3D\uACE0\n(\uC218\uC0C9 \uC911\uC5D0\uB294 4\uCE78
-      \uAC00\uBC29)"
+    m_Localized: "\uCEA0\uD504 \uCC3D\uACE0 \xB7 \uAC00\uBC29 {0}/{1}"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219866
   - m_Id: 900972544
-    m_Localized: "\uAC00\uBC29\uC774 \uAF49 \uCC3C\uC2B5\uB2C8\uB2E4\n\uBC84\uB9B4
-      \uC2AC\uB86F\uC744 \uC120\uD0DD"
+    m_Localized: "\uAC00\uBC29 {0}/{1} \uAC00\uB4DD \uCC38\n\uAD50\uCCB4\uD560 \uCE78
+      \uC120\uD0DD \xB7 \uCDE8\uC18C \uC2DC \uD3EC\uAE30"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219866
   - m_Id: 900972545
-    m_Localized: "\uC218\uC0C9 \uAC00\uBC29 4\uCE78\n\uD55C \uBB36\uC74C \uCD5C\uB300
+    m_Localized: "\uC218\uC0C9 \uAC00\uBC29 {0}/{1}\n\uD55C \uBB36\uC74C \uCD5C\uB300
       2\uAC1C"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219866
   - m_Id: 900972546
     m_Localized: "{0}. \uBE48\uCE78"
     m_Metadata:
@@ -653,6 +655,79 @@ MonoBehaviour:
       \uB3CC\uB3C4\uB07C\uB85C \uC7A5\uBCBD\uC744 \uC81C\uAC70\uD574\uC57C \uD55C\uB2E4."
     m_Metadata:
       m_Items: []
+  - m_Id: 231960655151104
+    m_Localized: "{0} \xB7 A/D \uC774\uB3D9 \xB7 \uD574\uC548 \uC790\uB3D9 \uC218\uC601
+      \xB7 Space \uC810\uD504 \xB7 E \uC218\uC0C9 \xB7 R \uADC0\uD658\n\uAC00\uBC29
+      \uAD50\uCCB4 1\u2013{1} \xB7 Esc \uD3EC\uAE30 \xB7 F1 \uC5B8\uC5B4"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960692899840
+    m_Localized: "{0} \xB7 \uC2A4\uD2F1 \uC774\uB3D9 \xB7 \uD574\uC548 \uC790\uB3D9
+      \uC218\uC601 \xB7 A \uC810\uD504 \xB7 X \uC218\uC0C9 \xB7 B \uADC0\uD658\n\uAD50\uCCB4
+      \uCC3D \uBC29\uD5A5\uD0A4+A ({1}\uCE78) \xB7 B \uD3EC\uAE30 \xB7 Y \uC5B8\uC5B4"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960692899841
+    m_Localized: "{0}. \uC7A0\uAE40"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960692899842
+    m_Localized: "\uAC00\uBC29 \uD655\uC7A5 {0}\u2192{1}\n\uC791\uC5C5\uB300 \uD544\uC694"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960692899843
+    m_Localized: "\uAC00\uBC29 \uD655\uC7A5 {0}\u2192{1}\n\uB098\uBB34 {2}/{3} \xB7
+      \uD45C\uB958\uBB3C {4}/{5}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960692899844
+    m_Localized: "\uAC00\uBC29 \uD655\uC7A5 \uC644\uB8CC \xB7 {0}\uCE78"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960701288448
+    m_Localized: "\uAC00\uBC29 \uD655\uC7A5\uC740 \uBCA0\uC774\uC2A4\uCEA0\uD504\uC5D0\uC11C\uB9CC
+      \uD560 \uC218 \uC788\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288449
+    m_Localized: "\uAC00\uBC29\uC744 \uD655\uC7A5\uD558\uB824\uBA74 \uBA3C\uC800
+      \uC791\uC5C5\uB300\uAC00 \uD544\uC694\uD558\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288450
+    m_Localized: "\uB098\uBB34\uC640 \uD45C\uB958\uBB3C\uC774 \uBD80\uC871\uD558\uB2E4.
+      \uD604\uC7AC \uB098\uBB34 {0}/2, \uD45C\uB958\uBB3C {1}/1."
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960701288451
+    m_Localized: "\uAC00\uBC29 \uD655\uC7A5\uC6A9 \uB098\uBB34\uAC00 \uBD80\uC871\uD558\uB2E4.
+      \uD604\uC7AC {0}/2."
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960701288452
+    m_Localized: "\uAC00\uBC29 \uD655\uC7A5\uC6A9 \uD45C\uB958\uBB3C\uC774 \uBD80\uC871\uD558\uB2E4.
+      \uD604\uC7AC {0}/1."
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 231960701288453
+    m_Localized: "\uAC00\uBC29 \uD655\uC7A5 \uC644\uB8CC. \uC774\uC81C \uC5EC\uC12F
+      \uCE78\uC744 \uCC44\uC6B8 \uAC71\uC815\uC774 \uC0DD\uACBC\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 231960701288454
+    m_Localized: "\uAC00\uBC29\uC740 \uC774\uBBF8 6\uCE78\uC73C\uB85C \uD655\uC7A5\uD588\uB2E4.
+      \uB450 \uBC88 \uAFF0\uB9E8\uB2E4\uACE0 \uB354 \uB298\uC9C0\uB294 \uC54A\uB294\uB2E4."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -694,3 +769,15 @@ MonoBehaviour:
         - id: 900972614
         - id: 197482096345092
         - id: 197482096345093
+        - id: 231960655151104
+        - id: 231960692899840
+        - id: 896778245
+        - id: 900972544
+        - id: 900972545
+        - id: 231960692899841
+        - id: 231960692899842
+        - id: 231960692899843
+        - id: 231960692899844
+        - id: 231960701288450
+        - id: 231960701288451
+        - id: 231960701288452
