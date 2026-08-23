@@ -39,6 +39,7 @@
       "Unity로 제작하며 첫 목표 플랫폼은 Windows PC와 Steam이다.",
       "첫 검증은 2D 횡스크롤 측면 절개형 베이스캠프로 진행한다.",
       "캠프의 핵심 행동은 김씨의 직접 이동, 근접 안내, 상호작용 입력, 설비별 팝업 순서를 반드시 거친다.",
+      "근접 안내는 1280×800 중앙 상단 내레이션 카드 아래의 220..440×40..44px 한 줄 상황형 prompt 하나로 제한하며 플레이어·이동 경로·설비 위의 대형 월드 카드는 사용하지 않는다.",
       "화면 대부분을 상시 덮는 전역 캠프 관리 대시보드는 사용하지 않고, 지속 HUD는 날짜·일광·허기·체력·가방 요약으로 최소화한다.",
       "일반 설비는 방 모듈 내부의 호환 바닥과 작은 격자에서 제한적 자유 배치·재배치를 지원한다.",
       "구조 신호대, 사다리 연결부, 빗물받이처럼 기능상 위치가 필요한 특수 설비는 전용 앵커나 구역 규칙을 사용할 수 있다.",
@@ -56,12 +57,13 @@
       "김씨는 초능력이나 전문 생존 기술이 없는 평범한 성인이며 관찰력과 생활 잔기술로 문제를 해결한다.",
       "설비 전용 팝업이 열린 동안 일반 이동은 잠기고 확인 또는 취소 후 현장 플레이로 복귀한다.",
       "근접 후보가 겹치면 가장 가까우며 바라보는 방향에 있는 설비 하나만 활성 대상으로 선택한다.",
+      "locale 또는 keyboard/gamepad 전환은 근접 target latch를 바꾸지 않고 interaction.structure.prompt의 locale pattern과 현재 Interact glyph만 원자적으로 다시 표시한다.",
       "모듈 사이 이동은 출입구와 사다리 또는 계단 같은 명시적 연결부를 사용한다.",
       "첫 수직 슬라이스는 한국어와 영어로 핵심 루프 전체를 플레이할 수 있게 한다.",
       "번역이 누락된 키는 한국어를 표시하고 개발 빌드에서 누락 사실을 기록한다.",
       "설치 후 재배치는 별도 자원 소모 없이 배치 모드에서 지원한다."
     ],
-    "updatedAt": "2026-08-23T04:35:59.186Z"
+    "updatedAt": "2026-08-23T07:30:57.570Z"
   },
   "features": [
     {
@@ -345,7 +347,7 @@
     {
       "id": "feature.camp-object-interaction",
       "name": "공간형 설비 직접 상호작용",
-      "description": "김씨가 측면 절개형 캠프를 직접 이동해 1.25u 안의 안정 대상 하나를 선택하고, 근접 안내와 Interact를 거쳐 대상 설비만의 작은 팝업에서 원자적으로 행동한 뒤 같은 현장으로 돌아온다.",
+      "description": "김씨가 측면 절개형 캠프를 직접 이동해 1.25u 안의 안정 대상 하나를 선택하고, 내레이션 카드 아래 중앙 상단의 소형 한 줄 prompt와 Interact를 거쳐 대상 설비만의 작은 팝업에서 원자적으로 행동한 뒤 같은 현장으로 돌아온다.",
       "priority": "critical",
       "status": "planned",
       "dependencies": [
@@ -374,10 +376,14 @@
         "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
         "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
         "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
-        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다.",
+        "1280×800에서 prompt는 top-center x=640, PromptTop=max(294, NarrationBottom+12), 220..440×40..44px 한 줄 범위에 있고 플레이어·활성 설비·48px 보행 corridor·TopHUD·BottomHelp와 겹치지 않는다.",
+        "far에서는 prompt 0개, near에서는 latch 대상 prompt 정확히 1개, popup/preview/system modal에서는 0개이며 close/cancel 뒤 같은 적격 대상 prompt가 복원된다.",
+        "interaction.structure.prompt는 locale별 {inputGlyph}/{objectName}/{action} 순서를 소유하고 locale 변경과 keyboard/gamepad 전환이 target이나 게임 상태를 바꾸지 않는다.",
+        "모닥불·작업대·빗물받이·구조 신호대의 ko/en은 18px에서 말줄임표 없이 읽히고 qps-long은 glyph와 action을 보존한 채 440×44px 밖으로 clip·wrap·확장되지 않는다."
       ],
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T04:35:59.187Z"
+      "updatedAt": "2026-08-23T07:30:57.570Z"
     },
     {
       "id": "feature.camp-module-expansion",
@@ -469,7 +475,7 @@
         "연결 슬롯 선택",
         "위층·옆방·지하실 미리보기와 증축 확정",
         "김씨 직접 이동과 대상 접근",
-        "근접 대상 하나의 안내와 Interact",
+        "내레이션 카드 아래 중앙 상단의 근접 대상 한 줄 안내와 Interact",
         "대상 전용 팝업 탐색·확인·취소",
         "일반 설비 배치·무료 재배치",
         "위층·옆방·지하실 후보 순회와 하나의 증축 확정"
@@ -500,10 +506,14 @@
         "FacilityPlacement",
         "ModulePreview",
         "FieldReturn",
-        "Terminal"
+        "Terminal",
+        "ContextPromptFar",
+        "ContextPromptNear",
+        "ContextPromptSuppressed",
+        "ContextPromptRelayout"
       ],
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-23T04:35:59.187Z"
+      "updatedAt": "2026-08-23T07:30:57.570Z"
     },
     {
       "id": "screen.island",
@@ -1178,5 +1188,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-23T04:35:59.185Z"
+  "updatedAt": "2026-08-23T07:30:57.570Z"
 }

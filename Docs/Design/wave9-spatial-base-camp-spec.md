@@ -1,9 +1,10 @@
 # Wave 9 공간형 베이스캠프 상세 계약
 
-> 상태: `DESIGN LOCKED / IMPLEMENTATION NOT STARTED`
-> 기준점: `origin/master d088cbdf021765a811ed88af9b22b58db49b917c`
-> Forge 작업: `task.design.wave9-spatial-camp-spec`
+> 상태: `DESIGN LOCKED / COMPACT PROMPT UX ADDENDUM / RUNTIME UNCHANGED IN THIS COMMIT`
+> 기준점: `origin/master f95b192d45f04e36f173ae274e29a3684cce7bf0`
+> Forge stable IDs: `feature.camp-object-interaction`, `screen.camp`
 > 정본 입력: `Docs/Design/References/approved-spatial-base-camp-concept.png`, `.forge/packets/wave9-spatial-base-camp-rebaseline.json`
+> 화면 증거: 사용자 제공 1280×800 캡처 (`evidence-only`, 저장소 정본 아트·지시문 아님)
 > 공식 영문 게임 제목: `TBD`
 
 이 문서는 승인된 방향 목업과 Wave 9 rebaseline을 구현자가 추가 해석 없이 상태 기계와 배치 데이터로 옮길 수 있게 만든 canonical addendum다. 기존 자원 경제·생존 수치·연구·가방·구조 신호 계약은 `vertical-slice-balance.md`, `wave6-progression-clarity.md`, `wave7-bag-capacity-upgrade.md`를 상속한다. 이 문서와 충돌하는 기존의 상시 대형 캠프 대시보드·원거리 버튼 사용 전제는 폐기한다.
@@ -232,14 +233,98 @@
 | 계층 | 항상/상황 | 포함 정보 | 금지 |
 |---|---|---|---|
 | 지속 HUD | 항상 | Day·일광, H/E, 활성 가방 `4/6`과 compact 슬롯 요약 | 창고 전체, 제작·연구·건설 목록, 상시 대형 가방 패널 |
-| 근접 안내 | 대상 1개가 1.25u 안 | 대상명, 상태 한 단어, `{interact}` glyph | 비용 전체 목록, 다른 설비 버튼 |
+| 근접 안내 | 대상 1개가 1.25u 안 | 내레이션 카드 아래 중앙 상단의 소형 한 줄 안내: `{inputGlyph}`, `{objectName}`, `{action}` | 월드 부착형 대형 카드, 비용·상태 목록, 다른 설비 버튼 |
 | 설비 팝업 header | Interact 뒤 | 설비명, 건설/단계/가방 상태 | 캠프 전체 제목·다른 설비 탭 |
 | action row | 대상 소유 action | action명, `LOCKED/SHORT/READY/DONE`, 비용·핵심 조건 | 색만으로 상태 구분, 조건 숨김 |
 | inline feedback | Submit 실패·성공 | 정확한 부족·무효·완료 원인 | toast 하나로 나머지 부족 항목 숨김 |
 | footer | 팝업/preview | 현재 장치의 Navigate/Submit/Cancel glyph | `E`, `A/B/X/Y` 하드코딩 |
 | 현장 overlay | 배치·증축 중 | 선택 대상 유령, 구역·slot·경로, 기하/비용 상태 | 캠프를 가리는 전역 관리 화면 |
 
-1280×800 기준 팝업은 최대 `420×360px`, 화면 높이 45% 이내를 1차 레이아웃 기준으로 사용한다. 이는 경제 밸런스가 아닌 가독성 수용값이다. 대상과 김씨를 동시에 가리면 좌우 반대편으로 anchor를 바꾼다. 본문 18px, action·핵심 수치 20px 미만으로 축소하지 않고 qps-long은 action 영역만 스크롤하며 header·현재 포커스·footer를 유지한다.
+1280×800 기준 설비 팝업은 최대 `420×360px`, 화면 높이 45% 이내를 1차 레이아웃 기준으로 사용한다. 이는 경제 밸런스가 아닌 가독성 수용값이다. 대상과 김씨를 동시에 가리면 좌우 반대편으로 anchor를 바꾼다. 본문 18px, action·핵심 수치 20px 미만으로 축소하지 않고 qps-long은 action 영역만 스크롤하며 header·현재 포커스·footer를 유지한다. 근접 안내는 아래의 별도 고정 계약을 사용하며 설비 팝업 크기나 월드 anchor 규칙을 공유하지 않는다.
+
+### 8.1 근접 안내 재기준 결정
+
+사용자 제공 1280×800 화면 증거에서는 `[E] 모닥불 사용` 카드가 플레이어와 지상 이동 경로 위를 넓게 덮었다. 이미지는 문제 재현 증거일 뿐 레이아웃·문구 지시문이나 아트 정본이 아니다.
+
+정본 방향은 **월드 중앙의 대상 부착형 대형 카드가 아니라, 내레이션 카드 바로 아래 중앙 상단의 소형 상황별 안내 하나**다. 안내가 화면 상단에 있어도 표시 대상은 오직 김씨가 직접 1.25u 안으로 걸어간 설비이므로 원거리 전역 메뉴가 아니다. 안내 선택이나 포인터 클릭으로 다른 설비를 원격 실행할 수 없다.
+
+이는 This War of Mine에서 참고한 “인물이 공간을 걸어 설비를 직접 사용한다”는 방향을 강화하되, 해당 작품의 고유 UI·레이아웃·문구를 복제하는 계약은 아니다.
+
+### 8.2 화면 계층과 1280×800 배치 수치
+
+좌표는 1280×800 Canvas의 좌상단을 `(0,0)`, 우하단을 `(1280,800)`으로 한다. 다른 해상도는 이 해상도를 CanvasScaler reference로 사용하되 아래 비율 상한을 보존한다.
+
+| 계층 ID | draw order | 표시 규칙 |
+|---|---:|---|
+| `World` | 0 | 김씨, 설비, 지형, 이동 경로. 근접 안내를 이 계층이나 대상 머리 위에 붙이지 않음 |
+| `BottomHelp` | 10 | 현재 장치 공통 도움말. 근접 안내 때문에 위로 밀거나 두 줄을 추가하지 않음 |
+| `TopHUD` | 20 | Day·H/E·자원·가방 요약 |
+| `NarrationCard` | 30 | 중앙 상단 김씨 독백·상황 문구 |
+| `ContextPrompt` | 31 | `NarrationCard` 아래의 근접 대상 1개 안내. 클릭 가능한 전역 설비 선택기가 아님 |
+| `FacilityPopup/Preview` | 40 | 설비 팝업·배치·증축. 열려 있는 동안 `ContextPrompt` 숨김 |
+| `Terminal/SystemModal` | 50 | 성공·실패·설정·일시정지. 하위 캠프 안내 전부 숨김 |
+
+| 항목 | 1280×800 계약 | 확장 규칙 |
+|---|---|---|
+| 중앙 anchor | `x=640`, top-center | 화면 너비 50% 고정 |
+| 내레이션 기본 영역 | `y=146..282` | 카드 bottom은 동시 표시 시 `282px` 이하 |
+| 내레이션 간격 | `12px` 이상 | `PromptTop = max(294, NarrationBottom + 12)` |
+| 안내 top/bottom | 기본 `y=294..334`, 절대 최대 bottom `338` | 내레이션이 없거나 짧아도 top `294`를 유지해 수직 점프 방지 |
+| 폭 | 내용 기반 `220..440px` | 최대 화면 폭 `34.375%`, 좌우 내부 padding 각 `16px` |
+| 높이 | 권장 `40px`, 최대 `44px` | 두 줄 확장·세로 스크롤 금지 |
+| token 간격 | glyph 뒤 `8px`, 나머지는 locale format의 공백 | 번역문을 세 개의 고정 순서 칸으로 분할하지 않음 |
+| 월드 임계선 | `WorldCriticalBandTop=350px` | 안내 최대 bottom과 플레이어·주요 동선 사이 `12px` 이상 확보 |
+| safe margin | 화면 좌우·상단 `24px` | prompt rect가 safe area 밖으로 나가면 실패 |
+
+`ContextPrompt`는 김씨나 설비의 screen position을 따라가지 않는다. 상층 방을 비출 때도 카메라 framing이 김씨, 활성 설비의 interaction bounds와 주 이동 통로를 `ContextPrompt` 아래 또는 좌우로 보존해야 한다. 이 조건을 맞추기 위해 안내를 다시 월드 중앙으로 내리거나 크기를 키우지 않는다.
+
+### 8.3 글자 크기와 긴 문자열 처리
+
+| 요소 | 크기·스타일 | 절대 하한 |
+|---|---|---:|
+| 내레이션 본문 | 현재 계층 유지, 기준 `20px` | `20px` |
+| `{inputGlyph}` | inline glyph `20..22px`, 정사각 slot 최대 `24px` | `20px` |
+| `{objectName}` | `18px`, medium | `18px` |
+| `{action}` | `18px`, semibold | `18px` |
+| 한 줄 line box | `22px` 이하 | 축소로 해결하지 않음 |
+
+안내는 항상 한 줄이며 word wrap을 끈다. 레이아웃은 locale별 완성 문자열을 먼저 18px로 측정한 뒤 다음 순서만 사용한다.
+
+1. 전체 `{objectName}`과 `{action}`으로 `440px` 안에 배치한다.
+2. 넘치면 해당 locale이 제공한 의미 동일 `objectName.short` 또는 `action.short`를 사용한다. 다른 언어의 단어를 재사용하지 않는다.
+3. 그래도 넘치면 `{inputGlyph}`과 `{action}`은 온전히 보존하고 `{objectName}`만 끝 말줄임표로 줄인다. 최소 6개 grapheme cluster를 보존한다.
+4. 높이를 늘리거나 18px 아래로 축소하거나 두 줄로 만들거나 패널을 `440×44px`보다 키우지 않는다.
+
+실제 지원 locale인 ko/en에서 모닥불·작업대·빗물받이·구조 신호대는 말줄임표 0건이어야 한다. `qps-long`은 overflow 경로를 강제로 검증할 수 있지만 glyph·action 누락, clipping, 두 줄, panel 확장, 월드 가림은 허용하지 않는다. 향후 locale이 말줄임표 없이는 의미를 유지하지 못하면 그 locale의 짧은 설비명·행동 번역을 추가하기 전 지원 완료로 판정하지 않는다.
+
+### 8.4 표시 우선순위와 상태 전이
+
+| prompt 상태 | 진입 조건 | 표시·입력 | 다음 상태·보존 계약 |
+|---|---|---|---|
+| `prompt.far` | 적격 후보 0개 | 숨김, Interact로 전역 메뉴를 열지 않음 | 후보 생성→`prompt.near` |
+| `prompt.near` | latch 대상 1개가 1.25u 안 | 중앙 상단 안내 정확히 1개, 이동·Interact 허용 | Interact→`prompt.popup-open`; 범위 이탈→`prompt.far` |
+| `prompt.popup-open` | 대상 팝업·배치·증축·system modal 활성 | 숨김, popup/preview가 입력 소유 | close/cancel 뒤 동일 대상 적격→`prompt.return`; 아니면 `prompt.far` |
+| `prompt.return` | popup close/cancel·일반 action 완료 | 같은 `InteractionTargetId`와 최신 문자열로 한 개 복원 | 다음 프레임 `prompt.near`; 위치·방향·자원 불변 |
+| `prompt.locale-change` | near 상태에서 locale 전환 | 같은 target을 유지하고 locale pattern·폭을 원자 재측정 | 한 프레임 안에 `prompt.near`; 팝업 자동 열림·대상 재선택 금지 |
+| `prompt.device-change` | keyboard↔gamepad 또는 binding 변경 | 같은 target·문장 의미를 유지하고 `{inputGlyph}`만 현재 binding으로 교체 | 한 프레임 안에 `prompt.near`; 깜빡임·중복 prompt 금지 |
+
+표시 우선순위는 `Terminal/SystemModal > FacilityPopup/Preview > ContextPrompt`다. `NarrationCard`는 prompt를 숨기지 않고 바로 위 slot을 소유한다. `TopHUD`와 `BottomHelp`는 계속 보이되 prompt와 rect가 겹치지 않는다. 대상 action의 성공·실패 feedback은 팝업 안에서 처리하며 별도의 대형 근접 카드를 다시 만들지 않는다.
+
+다중 근접 설비 선택은 §3.1을 그대로 사용한다. 즉 현재 적격 latch 유지 → 바라보는 반평면 → 거리 제곱 → 안정 `InteractionTargetId` 오름차순이다. 새 switch margin은 추가하지 않으며, 모닥불·작업대가 동시에 가까워도 prompt는 선택된 한 대상만 표시한다.
+
+### 8.5 겹침 및 일반화 수용 기준
+
+| 검증 대상 | PASS | FAIL |
+|---|---|---|
+| 내레이션 | 두 rect 간 수직 간격 `≥12px` | 접촉·겹침 또는 prompt가 내레이션 위로 이동 |
+| TopHUD·BottomHelp | prompt와 screen-space 교차 면적 `0px²` | HUD/도움말을 덮거나 밀어냄 |
+| 김씨·활성 설비 | prompt 확장 rect(사방 `12px`)와 각 bounds 교차 `0px²` | 얼굴·몸·상호작용 지점·설비 기능부 가림 |
+| 주 이동 경로 | 두께 `48px`의 현재 room 보행 corridor와 교차 `0px²` | 안내가 걷는 길 한가운데 배치됨 |
+| 크기 | `220..440 × 40..44px`, 1줄 | 기존 화면처럼 큰 중앙 카드, 2줄, 자동 높이 증가 |
+| 대상 수 | near에서 prompt `1`, far/popup에서 `0` | 다중 설비 안내, 숨은 prompt의 raycast/input 점유 |
+| 네 설비 | 모닥불·작업대·빗물받이·구조 신호대가 같은 pattern·상태 머신 사용 | 설비별 하드코딩 panel 위치·입력 문자·문장 조립 |
+
+1280×800 ko/en 각 네 설비와 qps-long 최장 설비명, keyboard/gamepad glyph를 캡처해 위 AABB·크기·한 줄 조건을 판정한다. 공간 충돌이 재현되면 우선순위는 `카메라 framing → 내레이션 높이/상단 예약 → locale short variant`이며, 월드 대형 카드 복원이나 전역 설비 메뉴 추가는 해결책이 아니다.
 
 ## 9. KO/EN과 향후 로케일 문자열 계약
 
@@ -248,7 +333,9 @@ KO가 의미·정보 우선순위·코미디 톤의 기준 원문이다. EN은 �
 | 안정 키 | 상황 | KO 기준 | EN 의도 | 길이·메타 |
 |---|---|---|---|---|
 | `controls.camp.spatial` | 자유 이동 | `{move} 이동 · {interact} 상호작용 · {bag} 가방` | `{move} Move · {interact} Interact · {bag} Bag` | glyph placeholder, 최대 2줄 |
-| `interaction.structure.prompt` | 대상 근접 | `{structure} · {interact} 사용` | `{structure} · {interact} Use` | KO≤24, EN≤38, 대상 1개 |
+| `interaction.structure.prompt` | 대상 근접 pattern | `{inputGlyph} {objectName} {action}` | `{inputGlyph} {action} {objectName}` | locale별 어순 소유, 한 줄, 대상 1개 |
+| `interaction.action.use` | prompt 행동 token | 사용 | Use | 설비명과 런타임 문자열 결합 금지; pattern placeholder로 주입 |
+| `interaction.action.use.short` | 440px overflow 전용 | 사용 | Use | base와 의미 동일, 없으면 base fallback |
 | `ui.structure.popup.title` | 팝업 header | `{structure} · {state}` | `{structure} · {state}` | KO≤22, EN≤34 |
 | `ui.action.state.locked` | 잠금 | 잠김 · {requirement} | Locked · {requirement} | 선행 조건 숨김 금지 |
 | `ui.action.state.short` | 비용 부족 | 부족 · {missing} | Missing · {missing} | 부족 항목 전부, 최대 3줄 |
@@ -267,6 +354,28 @@ KO가 의미·정보 우선순위·코미디 톤의 기준 원문이다. EN은 �
 | `interaction.module.prototype_limit` | 1개 확정 뒤 | 첫 프로토타입 확장은 1개까지다. | This prototype supports one room expansion. | 캠페인 최대치로 번역 금지 |
 
 기존 `ui.camp.actions_title`과 `controls.camp`는 migration alias로 보존할 수 있지만 정상 공간형 캠프 경로에서는 호출하지 않는다. 기존 `structure.*`, `interaction.placement.*`, Wave 6 신호 키와 Wave 7 가방 키는 재사용한다.
+
+#### 9.1 prompt token과 locale 표
+
+`interaction.structure.prompt`는 locale마다 완성 format을 소유한다. 런타임은 `{inputGlyph}`, `{objectName}`, `{action}` 세 의미 token을 제공하지만 `objectName + action`처럼 고정 순서로 이어 붙이지 않는다.
+
+`objectName.short`는 선택 키 `structure.<id>.name.short`, `action.short`는 `interaction.action.use.short`를 뜻한다. short 키가 없으면 base token을 사용하고, short 번역은 대상·행동 의미를 바꾸거나 정보 우선순위를 뒤집을 수 없다.
+
+| token | 공급원 | ko 예 | en 예 | qps-long 예 |
+|---|---|---|---|---|
+| `{inputGlyph}` | 현재 `Interact` binding의 inline glyph | `[E]` | `[E]` | `[E]` 또는 실제 gamepad glyph |
+| `{objectName}` | 기존 `structure.*.name` | 모닥불 | Campfire | Çåmpfïrë |
+| `{action}` | `interaction.action.use` | 사용 | Use | Ûşë |
+| pattern | `interaction.structure.prompt` | `{inputGlyph} {objectName} {action}` | `{inputGlyph} {action} {objectName}` | `⟦{inputGlyph} {action} {objectName} — plëåşë nøw⟧` |
+
+| 설비 key | ko 결과 | en 결과 | qps-long 최장 검증 예 |
+|---|---|---|---|
+| `structure.campfire.name` | `[E] 모닥불 사용` | `[E] Use Campfire` | `⟦[E] Ûşë Çåmpfïrë — plëåşë nøw⟧` |
+| `structure.workbench.name` | `[E] 작업대 사용` | `[E] Use Workbench` | `⟦[E] Ûşë Wørkbënçh — plëåşë nøw⟧` |
+| `structure.rain_collector.name` | `[E] 빗물받이 사용` | `[E] Use Rain Collector` | `⟦[E] Ûşë Måkëshïft Råïnwåtër Çøllëçtør — plëåşë nøw⟧` |
+| `structure.signal_tower.name` | `[E] 구조 신호대 사용` | `[E] Use Rescue Signal` | `⟦[E] Ûşë Tåll Rësçûë Sïgnål Plåtførm — plëåşë nøw⟧` |
+
+표의 `[E]`는 keyboard 예시일 뿐 문자열에 굽지 않는다. 게임패드 전환 시 같은 `{inputGlyph}` 자리에 현재 `Interact` action glyph를 넣는다. qps-long의 장식 괄호와 확장 문구는 레이아웃 시험용이며 실제 지원 언어의 의미나 코미디 문안을 추가한 것으로 취급하지 않는다.
 
 향후 `es`, `ja`, `zh-Hans`, `zh-Hant`와 `qps-long`은 같은 key, context, intent, placeholder, 최대 줄 수, 직역 금지 메타데이터를 사용한다. action 가능 여부, 비용, 포커스와 저장 데이터는 문자열 비교로 판정하지 않는다. locale 전환 뒤에도 같은 팝업·action·module slot ID와 ReturnSnapshot이 유지되어야 한다.
 
