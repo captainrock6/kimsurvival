@@ -1044,18 +1044,19 @@ namespace KimSurvival
             root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.42f, 0f);
             CreateRect(root.transform, "placeholder crate", Vector2.zero, new Vector2(0.82f, 0.72f), new Color(0.32f, 0.22f, 0.12f, 0.96f), 3);
             CreateFootprintOutline(root.transform, new Vector2(1.05f, 0.28f), new Color(1f, 0.82f, 0.35f, 0.92f), null, new Vector2(0f, -0.34f));
+            bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
             CreateWorldBadge(
                 root.transform,
                 "증축 계획 지점 안내",
                 localization.Format("world.module.planning"),
                 new Vector2(0f, 1.08f),
-                new Vector2(3.7f, 1.35f),
+                pseudoLong ? new Vector2(3.35f, 1.1f) : new Vector2(3.7f, 1.35f),
                 new Color(0.1f, 0.12f, 0.13f, 0.95f),
                 new Color(1f, 0.87f, 0.4f),
                 out _,
-                0.084f,
-                30f,
-                32f);
+                pseudoLong ? 0.068f : 0.084f,
+                pseudoLong ? 27f : 30f,
+                pseudoLong ? 29f : 32f);
         }
 
         private void CreateStartRoomModuleSlots()
@@ -3107,7 +3108,7 @@ namespace KimSurvival
                 water ? new Color(0.02f, 0.16f, 0.28f, 0.96f) : new Color(0.12f, 0.1f, 0.06f, 0.96f),
                 Color.white,
                 out labelBackground,
-                0.095f,
+                localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? 0.095f : 0.085f,
                 36f,
                 36f);
             nodes.Add(new NodeView
