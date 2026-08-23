@@ -1,0 +1,13 @@
+EXPECTED_RED
+Wave: 15 campaign map foundation
+Unity: 6000.4.9f1
+Contracts: Day 50, proximity map target, three region profiles, shared input snapshot, seed/selection state, localization keys
+Failure count: 8
+EXPECTED_GAP: standard_deadline_day_50
+EXPECTED_GAP: camp_map_interaction_target
+EXPECTED_GAP: three_region_profile_catalog
+EXPECTED_GAP: shared_map_action_snapshot
+EXPECTED_GAP: run_seed_state
+EXPECTED_GAP: selected_region_state
+EXPECTED_GAP: localized_map_target
+EXPECTED_GAP: localized_three_region_names

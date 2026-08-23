@@ -1,0 +1,51 @@
+PASS · Wave 15 campaign map foundation
+Baseline: 7796cf57568d0bad24595379e833e1dd9b4d8d3f
+Branch: codex/wave15-campaign-map-foundation
+Unity: 6000.4.9f1
+
+RED-first
+- EXPECTED_RED recorded with 8 gaps before implementation:
+  Artifacts/Verification/wave15-campaign-map-red/wave15-campaign-map-contracts.txt
+- GREEN rerun: 0 gaps:
+  Artifacts/Verification/wave15-campaign-map/wave15-campaign-map-contracts.txt
+
+Product contracts
+- Day 1/50 start; Day 49 settlement continues; Day 50 settlement resolves terminal; early rescue wins immediately.
+- Direct 1.25-unit expedition-map interaction; far hidden; cancel restores the same camp position, facing, and latched target.
+- Beach, forest, and shallows expose localized forecast cards without exact loot quantities.
+- The selected region alone drives exploration nodes.
+- Same seed/region/action resolves the same core result; every seed manifest reserves three distinct reachable escape-route cores.
+- Keyboard/mouse and synthetic gamepad input converge on one map action snapshot.
+- Development JSONL records run_seed, region_id, profile_id, and result_id without network transmission or personal-data fields.
+
+Verification
+- Unity compile: PASS, compiler errors 0, compiler warnings 0.
+  Artifacts/ParallelQA/manual/compile-result.txt
+- EditMode deterministic suite: PASS.
+  Artifacts/Verification/editmode-checks.txt
+- Full PlayMode survival/map/regression suite: PASS.
+  Artifacts/Verification/wave15-playmode/playmode-checks.txt
+- Wave 11 spatial direct-slot regression: PASS/PASS/PASS.
+  Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave11-slot-play-contracts.txt
+- Wave 12 compact-a and locale/device regression: PASS/PASS/PASS.
+  Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave12-play-contracts.txt
+- 1280x800 ko/en placement 24/24; exploration/swimming 10/10; qps-long 10/10: PASS.
+  Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave3-visual-gate.txt
+  Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/wave14-qps-global-layout-gate.txt
+- Windows x64 Development build: Succeeded, 0 errors, 0 warnings.
+  Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/windows-development-build.txt
+- Hidden 1280x800 smoke: PASS, alive/responding after 6.329 seconds.
+  Artifacts/ParallelQA/20260824T001300Z_7796cf5_wave15/windows-hidden-smoke.txt
+- Development player created a local JSONL file under Application.persistentDataPath/PlaytestLogs.
+  Artifacts/Verification/wave15-campaign-map/development-jsonl-smoke.txt
+
+1280x800 map captures
+- Artifacts/Verification/wave15-playmode/kim-survival-wave15-map-near-ko-1280x800.png
+- Artifacts/Verification/wave15-playmode/kim-survival-wave15-map-popup-ko-1280x800.png
+- Artifacts/Verification/wave15-playmode/kim-survival-wave15-map-popup-en-1280x800.png
+- Artifacts/Verification/wave15-playmode/kim-survival-wave15-map-popup-qps-long-1280x800.png
+
+UNVERIFIED / out of scope
+- Physical gamepad human actuation: UNVERIFIED. Synthetic shared-action checks pass.
+- Steamworks integration and release readiness: NOT_READY and outside Wave 15 scope.
+- Final expedition-map art, new hazards, and ending content were not implemented; the map remains an explicit placeholder replacement point.
