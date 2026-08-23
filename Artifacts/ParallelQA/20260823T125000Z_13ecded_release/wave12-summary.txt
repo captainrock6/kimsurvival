@@ -1,0 +1,16 @@
+Wave 12 five-day compact-a RED-first gate
+Run ID: 20260823T125000Z_13ecded_release
+Baseline: 13ecded05f48a3a4b6b802502d6016e983f9bac2
+Overall/Product/Infrastructure: PASS/PASS/PASS
+Fresh Wave3 visual: PASS
+Wave11 walking path: PASS 3/3 actual screen rects
+Compile: PASS 0 errors
+Windows build: PASS, warnings=0
+Hidden smoke: PASS
+Addressables: PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)
+Expected product gaps: 0 []
+Unexpected product failures: 0
+Infrastructure failures: 0
+Evidence: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260823T125000Z_13ecded_release
