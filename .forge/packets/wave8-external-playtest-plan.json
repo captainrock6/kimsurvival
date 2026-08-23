@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "tasks": [
+    {
+      "id": "task.design.wave8-external-playtest-package",
+      "lane": "design",
+      "title": "첫 사용자 20분 플레이테스트 실행 패키지",
+      "description": "origin/master 2a542be 기준의 현재 3일 수직 슬라이스를 처음 보는 ko 3명과 en 3명에게 동일 Windows 빌드로 정확히 20분씩, 구체적 해결 힌트 없이 실행할 수 있는 익명 수기 패키지를 고정한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.inventory-choice",
+        "feature.inventory-capacity-upgrade",
+        "feature.crafting-research",
+        "feature.camp-building",
+        "feature.swimming",
+        "feature.escape-outcome",
+        "feature.localization"
+      ],
+      "acceptanceCriteria": [
+        "동일 Windows 빌드, 첫 사용자 ko 3명·en 3명, 참가자별 정확히 20분, 구체적 해결 힌트 금지가 한 문서의 고정 실행 조건으로 명시된다.",
+        "첫 채집 3분, 첫 귀환 6분, 첫 제작/연구 10분, 첫 유효 설치 12분, 물 왕복 14분, 결말과 구조 성공 분포를 기록하는 참가자별 기록지와 6인 집계표가 제공된다.",
+        "가방 4→6과 구조 신호 투자 경쟁, 돌도끼 장벽과 나무 +1, 밧줄 역할, 수영 E/L 위험, 직접 접근·사용하는 공간형 캠프가 관찰 항목과 사후 5문항에 포함된다.",
+        "개인 식별 정보·음성·영상·게임 내 텔레메트리 없이 익명 수기만 사용하며, 유효 6세션 결과 전에는 밸런스 수치를 변경하지 않는다.",
+        "참가자 섭외·외부 메시지·가상 결과를 만들지 않고 공식 영문 제목과 Steam 미결 항목을 TBD로 유지한다.",
+        "유효 6세션 뒤 STOP_P0, HOLD_INCOMPLETE, UX_FIRST_P1, KEEP_V0.2, OPEN_ONE_AXIS_REVIEW 순서로 판정하고 수치 검토는 한 축만 연다."
+      ]
+    }
+  ]
+}
