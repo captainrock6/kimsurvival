@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.camp-module-expansion",
+  "jobId": "job_20260823080005_174af5ec",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedCandidate": null,
+  "parents": [
+    {
+      "assetId": "background.modular-island-camp",
+      "jobId": "job_20260823044425_d2c6dc6b",
+      "status": "review"
+    },
+    {
+      "assetId": "ui.camp-module-expansion",
+      "jobId": "job_20260823042602_7193f8d8",
+      "status": "review"
+    }
+  ],
+  "canvas": {
+    "width": 1280,
+    "height": 800,
+    "origin": "top-left",
+    "pixelsPerUnit": 100,
+    "walkableBaselineY": 508.75
+  },
+  "layersBackToFront": [
+    "camp.background.surface",
+    "camp.background.underground",
+    "camp.room.interiors",
+    "camp.room.start.shell",
+    "camp.room.upper.shell",
+    "camp.room.side.shell",
+    "camp.room.basement.shell",
+    "camp.connector.ladder",
+    "camp.connector.stairs",
+    "preview.ghost",
+    "preview.stateOutline",
+    "camp.foreground",
+    "ui.costBelt.background",
+    "ui.costBelt.resourceGlyph",
+    "ui.costBelt.tmpCost",
+    "ui.costBelt.tmpAction",
+    "ui.costBelt.inputGlyph"
+  ],
+  "rooms": {
+    "upper": {
+      "sourceRect": [
+        210,
+        25,
+        790,
+        360
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "connection": [
+        995,
+        444
+      ],
+      "screenRect1280x800": [
+        131,
+        16,
+        625,
+        241
+      ],
+      "connection1280x800": [
+        621.875,
+        277.5
+      ]
+    },
+    "start": {
+      "sourceRect": [
+        65,
+        330,
+        970,
+        390
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "screenRect1280x800": [
+        41,
+        206,
+        647,
+        450
+      ]
+    },
+    "side": {
+      "sourceRect": [
+        1000,
+        330,
+        505,
+        390
+      ],
+      "pivot": [
+        0.0,
+        1.0
+      ],
+      "connection": [
+        1240,
+        808
+      ],
+      "screenRect1280x800": [
+        625,
+        206,
+        941,
+        450
+      ],
+      "connection1280x800": [
+        775.0,
+        505.0
+      ]
+    },
+    "basement": {
+      "sourceRect": [
+        100,
+        620,
+        870,
+        355
+      ],
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "connection": [
+        708,
+        814
+      ],
+      "screenRect1280x800": [
+        62,
+        388,
+        606,
+        609
+      ],
+      "connection1280x800": [
+        442.5,
+        508.75
+      ]
+    },
+    "ladder": {
+      "sourceRect": [
+        330,
+        640,
+        150,
+        330
+      ],
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "screenRect1280x800": [
+        206,
+        400,
+        300,
+        606
+      ]
+    },
+    "stairs": {
+      "sourceRect": [
+        930,
+        555,
+        190,
+        175
+      ],
+      "pivot": [
+        0.0,
+        1.0
+      ],
+      "screenRect1280x800": [
+        581,
+        347,
+        700,
+        456
+      ]
+    }
+  },
+  "connectionRules": {
+    "snapRadiusPixels": 20,
+    "clearancePixels": 60,
+    "validRequires": [
+      "matching-connection-slot",
+      "clear-room-bounds",
+      "walkable-route-preserved",
+      "resources-sufficient"
+    ],
+    "disconnectedWhen": "candidate connection is outside snapRadiusPixels",
+    "pathBlockedWhen": "candidate or connector mask intersects the walkable-route mask",
+    "overlapWhen": "candidate occupancy mask intersects an existing room occupancy mask"
+  },
+  "stateOutlines": {
+    "valid": {
+      "shape": "solid + check",
+      "notColorOnly": true
+    },
+    "overlap": {
+      "shape": "dashed + stitched X",
+      "notColorOnly": true
+    },
+    "path-blocked": {
+      "shape": "dashed + barrier rails",
+      "notColorOnly": true
+    },
+    "disconnected": {
+      "shape": "dashed + broken connector",
+      "notColorOnly": true
+    },
+    "insufficient": {
+      "shape": "solid + crossed resource pair",
+      "notColorOnly": true
+    },
+    "confirmed": {
+      "shape": "solid + double check",
+      "notColorOnly": true
+    }
+  },
+  "nineSlice": {
+    "sprite": "module-cost-belt-9slice.png",
+    "canvas": [
+      576,
+      96
+    ],
+    "borderPixels": {
+      "left": 28,
+      "right": 28,
+      "top": 24,
+      "bottom": 24
+    },
+    "minSizePixels": [
+      360,
+      82
+    ],
+    "maxReviewedSizePixels": [
+      640,
+      96
+    ],
+    "stretchAxis": "horizontal",
+    "cornersFixed": true
+  },
+  "masks": {
+    "roomOccupancy": "alpha threshold >= 0.50, dilate by 12px",
+    "walkableRoute": "scene-provided gameplay route mask; never inferred from tint",
+    "ghost": "preview.ghost alpha multiplied by state color; no destructive source edit",
+    "stateOutline": "separate overlay layer; do not bake into room shell",
+    "costBelt": "RectMask2D clips runtime TMP and glyph sprites inside the 9-slice inner rect"
+  },
+  "tmpSafeAreas1280x800": {
+    "costA": [
+      856,
+      724,
+      51,
+      32
+    ],
+    "costB": [
+      968,
+      724,
+      51,
+      32
+    ],
+    "action": [
+      1036,
+      718,
+      164,
+      46
+    ],
+    "qpsLongExpansion": [
+      786,
+      702,
+      468,
+      82
+    ],
+    "wrapping": "wrap before scale; no meaning-bearing ellipsis",
+    "minimumFontPixels": {
+      "body": 18,
+      "button": 20
+    }
+  },
+  "inputGlyphSlot1280x800": {
+    "rect": [
+      1196,
+      718,
+      44,
+      44
+    ],
+    "sources": [
+      "keyboard-mouse-sprite-asset",
+      "gamepad-sprite-asset"
+    ],
+    "rasterText": false
+  },
+  "locales": {
+    "default": "ko",
+    "supported": [
+      "ko",
+      "en"
+    ],
+    "review": [
+      "qps-long"
+    ],
+    "future": [
+      "es",
+      "ja",
+      "zh"
+    ],
+    "rasterText": false
+  },
+  "unityImport": {
+    "textureType": "Sprite (2D and UI)",
+    "spriteMode": "Multiple",
+    "filterMode": "Bilinear",
+    "pixelsPerUnit": 100,
+    "alphaIsTransparency": true,
+    "generateMipMaps": false,
+    "maxTextureSize": 4096
+  },
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false,
+    "userApprovalRequired": true
+  }
+}

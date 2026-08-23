@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="256" viewBox="0 0 1024 256">
+  <g id="candidate-a" transform="translate(32 40)">
+    <rect width="368" height="48" rx="24" fill="#1f3844" stroke="#0d1f28" stroke-width="3"/>
+    <rect x="4" y="4" width="56" height="40" rx="20" fill="#3fbec0"/>
+    <rect id="glyph-slot-a" x="8" y="4" width="40" height="40" rx="10" fill="#ffe5a3" stroke="#0d1f28" stroke-width="2"/>
+    <rect id="tmp-action-a" x="70" y="9" width="268" height="30" rx="9" fill="#687f7e" fill-opacity=".38"/>
+    <circle cx="347" cy="24" r="5" fill="#f6b843"/>
+  </g>
+  <g id="candidate-b" transform="translate(544 40)">
+    <rect width="416" height="50" rx="13" fill="#2b4852" stroke="#0d1f28" stroke-width="4"/>
+    <rect x="7" y="7" width="402" height="36" rx="8" fill="none" stroke="#f6b843" stroke-width="2.5"/>
+    <path d="M13 25 L22 7 H50 L59 25 L50 43 H22 Z" fill="#358485" stroke="#0d1f28" stroke-width="2"/>
+    <rect id="glyph-slot-b" x="22" y="8" width="28" height="34" rx="7" fill="#ffe5a3" stroke="#0d1f28" stroke-width="2"/>
+    <rect id="tmp-action-b" x="74" y="10" width="314" height="30" rx="9" fill="#ffe5a3" fill-opacity=".3"/>
+  </g>
+  <g id="candidate-c" transform="translate(32 160)">
+    <rect x="19" width="317" height="46" rx="23" fill="#192f3a" stroke="#0d1f28" stroke-width="3"/>
+    <circle cx="23" cy="23" r="23" fill="#f6b843" stroke="#0d1f28" stroke-width="3"/>
+    <circle id="glyph-slot-c" cx="23" cy="23" r="17" fill="#3fbec0"/>
+    <rect id="tmp-action-c" x="62" y="9" width="245" height="28" rx="9" fill="#687f7e" fill-opacity=".34"/>
+    <circle cx="319" cy="23" r="4" fill="#ffe5a3"/>
+  </g>
+</svg>

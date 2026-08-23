@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "status": "review",
+  "rasterText": false,
+  "layouts": {
+    "ko": {
+      "reviewWidthPixels": 430,
+      "expansionBudget": 1.0
+    },
+    "en": {
+      "reviewWidthPixels": 520,
+      "expansionBudget": 1.25
+    },
+    "qps-long": {
+      "reviewWidthPixels": 640,
+      "expansionBudget": 1.5
+    }
+  },
+  "fontSlots": {
+    "primary": "TMP locale font asset",
+    "fallback": "TMP locale fallback chain",
+    "inputGlyph": "keyboard/gamepad sprite asset"
+  },
+  "glyphChecks": {
+    "ko": "가방 확장 비용 확인",
+    "en": "Room expansion cost check",
+    "qps-long": "accented pseudo-locale + 50% expansion"
+  },
+  "rules": [
+    "no rasterized body or button copy",
+    "wrap before scaling",
+    "preserve 44x44 input focus target",
+    "swap keyboard/gamepad glyphs at runtime"
+  ]
+}

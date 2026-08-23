@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823073121_f5da3402",
+  "workflow": "Forge prepare -> deterministic local editable SVG and Pillow PNG composition -> one Forge import quality pass",
+  "externalPaidApiCalled": false,
+  "imageGenerationCalled": false,
+  "sourceEvidenceUsedOnlyForComparison": true,
+  "parentFacilityPopupsPreserved": true,
+  "adopted": false,
+  "packaged": false,
+  "runtimeConnected": false,
+  "status": "review"
+}

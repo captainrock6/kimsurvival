@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 17,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "actual-size-compact-a-1280x800-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1305,
+      "contrastStdDev": 53.8,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-actual-size-compact-a-1280x800-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-compact-b-1280x800-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1327,
+      "contrastStdDev": 55.27,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-actual-size-compact-b-1280x800-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-compact-c-1280x800-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1277,
+      "contrastStdDev": 53.63,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-actual-size-compact-c-1280x800-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation-2.json",
+      "kind": "editable-source",
+      "bytes": 1907,
+      "issues": []
+    },
+    {
+      "fileName": "compact-a-2.png",
+      "kind": "raster",
+      "width": 384,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.8193,
+      "contrastStdDev": 70.44,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 5,
+        "bottom": 3
+      },
+      "previewFile": "qa-preview-compact-a-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "compact-b-2.png",
+      "kind": "raster",
+      "width": 432,
+      "height": 66,
+      "hasAlpha": true,
+      "transparentRatio": 0.749,
+      "contrastStdDev": 99.08,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 5,
+        "bottom": 2
+      },
+      "previewFile": "qa-preview-compact-b-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "compact-c-2.png",
+      "kind": "raster",
+      "width": 352,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.8468,
+      "contrastStdDev": 61.67,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 6,
+        "bottom": 5
+      },
+      "previewFile": "qa-preview-compact-c-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "compact-interaction-9slice-2.json",
+      "kind": "editable-source",
+      "bytes": 3167,
+      "issues": []
+    },
+    {
+      "fileName": "compact-interaction-atlas-2.png",
+      "kind": "raster",
+      "width": 1024,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.9474,
+      "contrastStdDev": 59.03,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 32,
+        "top": 40,
+        "right": 61,
+        "bottom": 45
+      },
+      "previewFile": "qa-preview-compact-interaction-atlas-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "compact-interaction-editable-2.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1024 256",
+      "issues": []
+    },
+    {
+      "fileName": "compact-interaction-locale-width-board-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.0577,
+      "contrastStdDev": 20.83,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-compact-interaction-locale-width-board-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "compact-interaction-localization-2.json",
+      "kind": "editable-source",
+      "bytes": 966,
+      "issues": []
+    },
+    {
+      "fileName": "compact-interaction-state-board-2.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 480,
+      "hasAlpha": true,
+      "transparentRatio": 0.0516,
+      "contrastStdDev": 49.47,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      },
+      "previewFile": "qa-preview-compact-interaction-state-board-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "current-vs-compact-comparison-board-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.0514,
+      "contrastStdDev": 56.43,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      },
+      "previewFile": "qa-preview-current-vs-compact-comparison-board-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "manual-review-2.json",
+      "kind": "editable-source",
+      "bytes": 2063,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report-2.json",
+      "kind": "editable-source",
+      "bytes": 757,
+      "issues": []
+    },
+    {
+      "fileName": "quality-report-initial.json",
+      "kind": "editable-source",
+      "bytes": 6108,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T07:43:26.915Z",
+  "jobId": "job_20260823073121_f5da3402",
+  "assetType": "ui_set"
+}

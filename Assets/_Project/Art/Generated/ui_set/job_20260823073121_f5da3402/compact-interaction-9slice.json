@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.camp-contextual-interaction",
+  "jobId": "job_20260823073121_f5da3402",
+  "status": "review",
+  "runtimeConnected": false,
+  "components": [
+    {
+      "id": "compact-a",
+      "file": "compact-a.png",
+      "canvas": {
+        "width": 384,
+        "height": 64
+      },
+      "visibleRect": {
+        "x": 8,
+        "y": 8,
+        "width": 368,
+        "height": 48
+      },
+      "sliceBorder": {
+        "left": 70,
+        "right": 30,
+        "top": 12,
+        "bottom": 12
+      },
+      "glyphSlot": {
+        "x": 16,
+        "y": 12,
+        "width": 40,
+        "height": 40,
+        "focusRect": {
+          "x": 12,
+          "y": 10,
+          "width": 44,
+          "height": 44
+        }
+      },
+      "tmpActionSafeRect": {
+        "x": 78,
+        "y": 17,
+        "width": 268,
+        "height": 30
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "id": "compact-b",
+      "file": "compact-b.png",
+      "canvas": {
+        "width": 432,
+        "height": 66
+      },
+      "visibleRect": {
+        "x": 8,
+        "y": 8,
+        "width": 416,
+        "height": 50
+      },
+      "sliceBorder": {
+        "left": 74,
+        "right": 28,
+        "top": 12,
+        "bottom": 12
+      },
+      "glyphSlot": {
+        "x": 30,
+        "y": 16,
+        "width": 28,
+        "height": 34,
+        "focusRect": {
+          "x": 21,
+          "y": 11,
+          "width": 46,
+          "height": 44
+        }
+      },
+      "tmpActionSafeRect": {
+        "x": 82,
+        "y": 18,
+        "width": 314,
+        "height": 30
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "id": "compact-c",
+      "file": "compact-c.png",
+      "canvas": {
+        "width": 352,
+        "height": 62
+      },
+      "visibleRect": {
+        "x": 8,
+        "y": 8,
+        "width": 336,
+        "height": 46
+      },
+      "sliceBorder": {
+        "left": 62,
+        "right": 29,
+        "top": 12,
+        "bottom": 12
+      },
+      "glyphSlot": {
+        "x": 14,
+        "y": 14,
+        "width": 34,
+        "height": 34,
+        "focusRect": {
+          "x": 8,
+          "y": 9,
+          "width": 46,
+          "height": 44
+        }
+      },
+      "tmpActionSafeRect": {
+        "x": 70,
+        "y": 17,
+        "width": 245,
+        "height": 28
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ],
+  "placement": {
+    "anchor": "top-center",
+    "narrationRect1280": {
+      "x": 226,
+      "y": 145,
+      "width": 824,
+      "height": 136
+    },
+    "promptVisibleTop": 293,
+    "gapBelowNarrationPx": 12,
+    "centerX": 640,
+    "worldSpacePrompt": false
+  },
+  "implementation": {
+    "layout": "fixed glyph cap + horizontally stretchable TMP action center + fixed end cap",
+    "recommended": "compact-a",
+    "inputGlyphSource": "runtime Input System glyph sprite, never baked",
+    "actionTextSource": "TMP localization key + placeholders"
+  }
+}

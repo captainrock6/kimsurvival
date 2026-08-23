@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823080005_174af5ec",
+  "imageGenerationCalls": 0,
+  "paidExternalApiCalls": 0,
+  "sources": [
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/camp-layer-pivot-slice-manifest.json",
+      "sha256": "1a3b222d1c2de56abe7a0e1d9716528f5b717da2fbf0f11472f756d0393f2c02"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/foreground-alpha.png",
+      "sha256": "7aa02c4f23c9eafedf347f7fee1453aa2f39f47a3d63c655d5c34aa67338ed8d"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/module-shells-alpha.png",
+      "sha256": "7d5998fcee573d1662f300b3c0fd91159405b6e70b644439c5027cb56e4e6049"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/room-interiors-alpha.png",
+      "sha256": "99e8c73babd5c768aeecea9b044b9c5f962cb97991c54ef53c9173ef52cd3034"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/surface-backdrop-layer-alpha.png",
+      "sha256": "5fba1df9df7966c313151136087d64b041ca913a8d5bad56eb4fadcff3943a8c"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823044425_d2c6dc6b/underground-depth-alpha.png",
+      "sha256": "2dae498a1cb07f527d769d0509d7ad089136ee1db7d82fbc96c61979fc29aebb"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/expansion-localization-spec.json",
+      "sha256": "daecdb28be5d94cb35e0d2df3a12a396ad9951204c8283f8057ba51dda11ab74"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/expansion-ui-metadata.json",
+      "sha256": "bc319f9d39a7849747110d3eef13951daa92336bc2a7db888dab57db2377b98b"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/ghost-complete.png",
+      "sha256": "efe38a3a73a12fee03972ff058d6622d58bd5690e051ba5158bfe0ade82cf7db"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/ghost-default.png",
+      "sha256": "e0a994acc3018334eebfe590e6be42721e16e171779f29eccdc80dde6c345c06"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/ghost-disconnected.png",
+      "sha256": "f58eb5f29ac4d79b3ac0966d6177f3e2f7da311aac7ae182c32fcfdd7e454219"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/ghost-insufficient.png",
+      "sha256": "5e06b7940b7dde8a3c01a214fa47568b39f286fff68ff4a39fab39d65b383a3e"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/ghost-invalid-overlap.png",
+      "sha256": "5e06b7940b7dde8a3c01a214fa47568b39f286fff68ff4a39fab39d65b383a3e"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/ghost-invalid-path.png",
+      "sha256": "5e06b7940b7dde8a3c01a214fa47568b39f286fff68ff4a39fab39d65b383a3e"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823042602_7193f8d8/ghost-valid.png",
+      "sha256": "f11ac031be85d792a44b581aa9c8e34ee570badbebf30ec49fedf3855ec91525"
+    }
+  ]
+}

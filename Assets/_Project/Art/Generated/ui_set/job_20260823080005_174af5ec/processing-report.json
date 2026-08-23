@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.camp-module-expansion",
+  "jobId": "job_20260823080005_174af5ec",
+  "status": "review",
+  "method": "deterministic local Pillow recomposition of two existing review jobs",
+  "imageGenerationCalls": 0,
+  "paidExternalApiCalls": 0,
+  "regenerationAttempts": 0,
+  "sourceAssetsModified": false,
+  "adopted": false,
+  "engineReady": false,
+  "packaged": false,
+  "runtimeConnected": false,
+  "userApprovalRequired": true
+}

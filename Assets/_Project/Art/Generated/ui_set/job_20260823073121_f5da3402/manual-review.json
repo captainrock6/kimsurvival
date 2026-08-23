@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823073121_f5da3402",
+  "assetId": "ui.camp-contextual-interaction",
+  "reviewPasses": 1,
+  "status": "review",
+  "reviewedArtifacts": [
+    "current-vs-compact-comparison-board.png",
+    "compact-interaction-state-board.png",
+    "compact-interaction-locale-width-board.png",
+    "compact-interaction-atlas.png"
+  ],
+  "findings": {
+    "placement": "All three candidates sit 12px below the narration card and remain above the playable character and traversal path.",
+    "occlusion": "Visible prompt footprint is reduced by 56-67% from the captured current prompt.",
+    "hierarchy": "The narration card remains primary; the compact prompt reads as a subordinate one-line action cue.",
+    "localization": "The center slice supports 300px ko, 380px en and 520px qps-long profiles without moving the top-center anchor.",
+    "input": "Keyboard and gamepad use the same blank runtime glyph slot; no E/A/B glyph is baked.",
+    "states": "Far hides the prompt, near shows one compact prompt, and popup-open hides it while preserving the existing facility popup.",
+    "bakedText": "No localized body or button text was added to any new candidate fragment. The legacy text appears only inside the supplied current-state evidence quadrant."
+  },
+  "candidateAssessment": [
+    {
+      "id": "compact-a",
+      "recommendation": "preferred",
+      "note": "Best match to the adopted dark-navy, teal and warm-cream HUD material language; clear 44px input focus area."
+    },
+    {
+      "id": "compact-b",
+      "recommendation": "alternate",
+      "note": "Most handmade and comic, but the mustard rope inset is visually louder and may compete with narration."
+    },
+    {
+      "id": "compact-c",
+      "recommendation": "alternate",
+      "note": "Smallest footprint and strongest world visibility; circular input cap is more decorative than the existing rectangular HUD controls."
+    }
+  ],
+  "blockingIssues": [],
+  "adopted": false,
+  "packaged": false,
+  "runtimeConnected": false,
+  "requiresUserApproval": true
+}

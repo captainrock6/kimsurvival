@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.camp-module-expansion",
+  "jobId": "job_20260823080005_174af5ec",
+  "reviewedAt": "2026-08-23T08:09:00+09:00",
+  "reviewPasses": 1,
+  "status": "pass-with-review-notes",
+  "reviewOnly": true,
+  "imagesReviewed": [
+    "module-expansion-technical-comparison-board.png",
+    "state-valid-1280x800.png",
+    "module-expansion-localization-safe-board.png",
+    "module-cost-belt-9slice.png"
+  ],
+  "checks": {
+    "startUpperSideBasementReadable": true,
+    "sixStatesShapeDistinct": true,
+    "worldAndRouteRemainReadable": true,
+    "costAndActionAreasContainNoRasterText": true,
+    "keyboardGamepadGlyphSlotSeparated": true,
+    "koEnQpsLongExpansionShown": true,
+    "sourceArtDirectionPreserved": true
+  },
+  "notes": [
+    "The six placement outcomes use non-color-only markers and outlines.",
+    "The technical board preserves the original side-cutaway module coordinates and walkable baseline.",
+    "The cost belt remains a blank review fragment; runtime TMP and input glyph sprites are intentionally absent.",
+    "Final connector snap tolerance and route masks require user approval and runtime-side implementation outside this art-only task."
+  ],
+  "gates": {
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false,
+    "userApprovalRequired": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823073121_f5da3402",
+  "workflow": "Forge prepare -> deterministic local editable SVG and Pillow PNG composition -> initial Forge quality pass -> deterministic QA-canvas alpha/size cleanup -> final Forge quality pass",
+  "initialQuality": {
+    "score": 32,
+    "errors": 2,
+    "warnings": 1,
+    "cause": "Two fully opaque review boards triggered UI-set missing-alpha; compact-c canvas height was 62px. Core prompt fragments otherwise passed."
+  },
+  "externalPaidApiCalled": false,
+  "imageGenerationCalled": false,
+  "sourceEvidenceUsedOnlyForComparison": true,
+  "parentFacilityPopupsPreserved": true,
+  "adopted": false,
+  "packaged": false,
+  "runtimeConnected": false,
+  "status": "review"
+}

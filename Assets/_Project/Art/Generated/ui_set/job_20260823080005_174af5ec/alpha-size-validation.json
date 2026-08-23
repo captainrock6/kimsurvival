@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "status": "pass",
+  "errors": [],
+  "files": [
+    {
+      "file": "state-valid-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "state-overlap-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "state-path-blocked-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "state-disconnected-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "state-insufficient-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "state-confirmed-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "module-expansion-technical-comparison-board.png",
+      "width": 1944,
+      "height": 1232,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "module-expansion-localization-safe-board.png",
+      "width": 1280,
+      "height": 800,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    },
+    {
+      "file": "module-cost-belt-9slice.png",
+      "width": 576,
+      "height": 96,
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "trueAlpha": true
+    }
+  ]
+}

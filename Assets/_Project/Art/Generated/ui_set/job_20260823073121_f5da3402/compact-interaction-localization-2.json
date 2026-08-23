@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.camp-contextual-interaction",
+  "status": "review",
+  "textBakedIntoFragments": false,
+  "sourceLocale": "ko",
+  "supportedNow": [
+    "ko",
+    "en"
+  ],
+  "futureLocales": [
+    "es",
+    "ja",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "keyPattern": "interaction.use_structure",
+  "placeholders": [
+    "input",
+    "structure"
+  ],
+  "widthProfiles": {
+    "ko": 300,
+    "en": 380,
+    "qps-long": 520
+  },
+  "growthRule": "stretch center slice before wrap; this prompt remains one line; use locale-authored concise verb phrase if 520px is exceeded",
+  "font": {
+    "minPx": 20,
+    "alignment": "center-left",
+    "ellipsis": false,
+    "tmpFontAssetSlot": true,
+    "fallbackSlot": true
+  },
+  "input": {
+    "keyboardGlyphSlot": true,
+    "gamepadGlyphSlot": true,
+    "deviceSwapDoesNotChangeState": true
+  },
+  "longLocaleEvidence": "compact-interaction-locale-width-board.png"
+}

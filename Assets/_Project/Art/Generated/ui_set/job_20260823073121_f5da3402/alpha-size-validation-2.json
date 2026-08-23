@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823073121_f5da3402",
+  "checks": {
+    "candidateCount": {
+      "expected": 3,
+      "actual": 3,
+      "pass": true
+    },
+    "actualSizeScreens": {
+      "expected": "1280x800",
+      "actual": "1280x800 x3",
+      "pass": true
+    },
+    "fragmentFormat": {
+      "expected": "32-bit PNG true alpha",
+      "actual": "RGBA with transparent perimeter; compact-c canvas normalized to 64px height",
+      "pass": true
+    },
+    "edgeContact": {
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "reviewBoardAlpha": {
+      "expected": "transparent outer review margin",
+      "actual": "8px transparent perimeter on comparison and state boards",
+      "pass": true
+    },
+    "bakedLocalizedText": {
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "glyphSlots": {
+      "keyboard": true,
+      "gamepad": true,
+      "bakedGlyph": false,
+      "pass": true
+    },
+    "focusTarget": {
+      "minimumPx": 44,
+      "actualPx": "44-46",
+      "pass": true
+    },
+    "narrationGap": {
+      "minimumPx": 8,
+      "actualPx": 12,
+      "pass": true
+    },
+    "playerWorldOverlap": {
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "nineSlice": {
+      "fixedGlyphCap": true,
+      "stretchCenter": true,
+      "fixedEndCap": true,
+      "pass": true
+    }
+  },
+  "occlusion": {
+    "currentEvidenceRectPx": [
+      539,
+      88
+    ],
+    "currentScreenAreaPercent": 4.63,
+    "candidateAVisibleRectPx": [
+      368,
+      48
+    ],
+    "candidateAScreenAreaPercent": 1.73,
+    "candidateBVisibleRectPx": [
+      416,
+      50
+    ],
+    "candidateBScreenAreaPercent": 2.03,
+    "candidateCVisibleRectPx": [
+      336,
+      46
+    ],
+    "candidateCScreenAreaPercent": 1.51,
+    "reductionRangePercent": "56-67"
+  }
+}

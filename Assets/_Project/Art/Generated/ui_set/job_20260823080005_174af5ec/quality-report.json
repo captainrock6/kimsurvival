@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 16,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "state-valid-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2196,
+      "contrastStdDev": 51.01,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-state-valid-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "state-overlap-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2201,
+      "contrastStdDev": 49.86,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-state-overlap-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "state-path-blocked-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2186,
+      "contrastStdDev": 50.45,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-state-path-blocked-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "state-disconnected-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2201,
+      "contrastStdDev": 50.8,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-state-disconnected-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "state-insufficient-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2181,
+      "contrastStdDev": 50.25,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-state-insufficient-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "state-confirmed-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2183,
+      "contrastStdDev": 50.33,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-state-confirmed-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "module-expansion-technical-comparison-board.png",
+      "kind": "raster",
+      "width": 1944,
+      "height": 1232,
+      "hasAlpha": true,
+      "transparentRatio": 0.5024,
+      "contrastStdDev": 50.78,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 10,
+        "right": 7,
+        "bottom": 39
+      },
+      "previewFile": "qa-preview-module-expansion-technical-comparison-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "module-expansion-localization-safe-board.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.8858,
+      "contrastStdDev": 25.64,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 12,
+        "top": 12,
+        "right": 11,
+        "bottom": 11
+      },
+      "previewFile": "qa-preview-module-expansion-localization-safe-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "module-cost-belt-9slice.png",
+      "kind": "raster",
+      "width": 576,
+      "height": 96,
+      "hasAlpha": true,
+      "transparentRatio": 0.9342,
+      "contrastStdDev": 50.32,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 4,
+        "top": 7,
+        "right": 3,
+        "bottom": 6
+      },
+      "previewFile": "qa-preview-module-cost-belt-9slice.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "module-cost-belt-editable.svg",
+      "kind": "svg",
+      "viewBox": "0 0 576 96",
+      "issues": []
+    },
+    {
+      "fileName": "module-expansion-unity-manifest.json",
+      "kind": "editable-source",
+      "bytes": 6444,
+      "issues": []
+    },
+    {
+      "fileName": "module-expansion-localization-layout.json",
+      "kind": "editable-source",
+      "bytes": 862,
+      "issues": []
+    },
+    {
+      "fileName": "module-expansion-source-checksums.json",
+      "kind": "editable-source",
+      "bytes": 3282,
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 1921,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 476,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 1353,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T08:06:51.998Z",
+  "jobId": "job_20260823080005_174af5ec",
+  "assetType": "ui_set"
+}
