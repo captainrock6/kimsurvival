@@ -1,0 +1,117 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260822T235713Z_473c082_wave6_progression_verified",
+    "baselineCommit": "473c0824096d02589c46dce92cb1d2264dfb23a4",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-22T23:57:32.0913350Z",
+    "completedUtc": "2026-08-22T23:57:32.6459158Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260822T235713Z_473c082_wave6_progression_verified\\unity-wave6-play.log\"",
+    "overall": "FAIL",
+    "productOverall": "FAIL",
+    "infrastructureOverall": "PASS",
+    "passed": 2,
+    "failed": 6,
+    "unverified": 1,
+    "infrastructureFailed": 0,
+    "checks": [
+        {
+            "id": "W6-08.ko.signal.semantic",
+            "matrixItem": "8",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Stage-2 signal feedback visibly communicates rope plus wood 2/salvage 2 in ko",
+            "actual": "upgraded=False · stage=1 · visible=마지막 안테나를 세우려면 밧줄이 필요하다. | 구조 신호대 1/2  나무2·표류물2",
+            "reproduction": "Capture the stage-2 no-rope fixture in ko and inspect the signal button plus feedback card.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-08.ko.signal.readability",
+            "matrixItem": "8",
+            "status": "FAIL",
+            "classification": "PRODUCT_DEFECT",
+            "severity": "P1",
+            "expected": "Stage-2 signal requirements are readable at 1280x800 in ko",
+            "actual": "마지막 안테나를 세우려면 밧줄이 필요하다. glyph=19.8px bounds=(x:402.75, y:577.30, width:476.19, height:19.76) contrast=18.5 overflow=False | 구조 신호대 1/2  나무2·표류물2 glyph=14.0px bounds=(x:223.13, y:200.73, width:263.30, height:35.75) contrast=8.2 overflow=False",
+            "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W6-08.en.signal.semantic",
+            "matrixItem": "8",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Stage-2 signal feedback visibly communicates rope plus wood 2/salvage 2 in en",
+            "actual": "upgraded=False · stage=1 · visible=The final antenna needs rope. | Rescue Signal 1/2  Wood 2 · Salvage 2",
+            "reproduction": "Capture the stage-2 no-rope fixture in en and inspect the signal button plus feedback card.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-08.en.signal.readability",
+            "matrixItem": "8",
+            "status": "FAIL",
+            "classification": "PRODUCT_DEFECT",
+            "severity": "P1",
+            "expected": "Stage-2 signal requirements are readable at 1280x800 in en",
+            "actual": "The final antenna needs rope. glyph=11.6px bounds=(x:477.78, y:576.60, width:322.89, height:19.45) contrast=18.5 overflow=False | Rescue Signal 1/2  Wood 2 · Salvage 2 glyph=12.0px bounds=(x:232.77, y:200.03, width:243.26, height:34.20) contrast=8.2 overflow=False",
+            "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W6-08.ko.barrier.semantic",
+            "matrixItem": "8",
+            "status": "FAIL",
+            "classification": "PRODUCT_DEFECT",
+            "severity": "P0",
+            "expected": "The vine/wood barrier visibly requires a stone axe, not rope, in ko",
+            "actual": "visible=밧줄 필요",
+            "reproduction": "Begin search without tools, frame the barrier at 1280x800, and read its world label.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-08.ko.barrier.readability",
+            "matrixItem": "8",
+            "status": "FAIL",
+            "classification": "PRODUCT_DEFECT",
+            "severity": "P1",
+            "expected": "Barrier requirement is readable at 1280x800 in ko",
+            "actual": "",
+            "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W6-08.en.barrier.semantic",
+            "matrixItem": "8",
+            "status": "FAIL",
+            "classification": "PRODUCT_DEFECT",
+            "severity": "P0",
+            "expected": "The vine/wood barrier visibly requires a stone axe, not rope, in en",
+            "actual": "visible=Rope Required",
+            "reproduction": "Begin search without tools, frame the barrier at 1280x800, and read its world label.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-08.en.barrier.readability",
+            "matrixItem": "8",
+            "status": "FAIL",
+            "classification": "PRODUCT_DEFECT",
+            "severity": "P1",
+            "expected": "Barrier requirement is readable at 1280x800 in en",
+            "actual": "",
+            "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W6-HW.physical_gamepad",
+            "matrixItem": "10",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P2",
+            "expected": "Human actuation on a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows build with a physical controller and actuate movement, interaction, language, and progression controls.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        }
+    ]
+}
