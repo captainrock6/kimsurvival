@@ -1596,13 +1596,13 @@
         "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
         "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
         "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 3일 경로에서도 구조 성공이 가능하다."
+        "가방 확장을 선택한 자연스러운 3일 경로가 grant·좌표 warp 없이 Day 3 구조와 최종 W3/S1/F1/D3에 도달한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.796Z"
+      "updatedAt": "2026-08-23T02:08:06.198Z"
     },
     {
       "id": "task.qa.feature.inventory-capacity-upgrade",
@@ -1622,18 +1622,19 @@
         "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
         "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
         "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 3일 경로에서도 구조 성공이 가능하다."
+        "가방 확장을 선택한 자연스러운 3일 경로가 grant·좌표 warp 없이 Day 3 구조와 최종 W3/S1/F1/D3에 도달한다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "updatedAt": "2026-08-23T02:08:06.198Z"
     },
     {
       "id": "task.design.wave7-bag-capacity-balance",
       "lane": "design",
       "title": "Wave 7 가방 확장 비용과 3일 경로 검증",
-      "description": "4→6칸, 중첩 2, 작업대 1회 업그레이드 계약을 유지하면서 나무 2·표류물 1 비용이 기존 가방 선택과 3일 구조 경로에 미치는 영향을 표와 재현 가능한 자연 플레이 순서로 검증한다.",
+      "description": "4→6칸, 중첩 2, 작업대 1회 업그레이드 계약을 유지하면서 나무 2·표류물 1 비용이 기존 가방 선택과 3일 구조 경로에 미치는 영향을 정본 문서의 용량 효용 표, KO/EN 상태 계약과 재현 가능한 자연 플레이 장부로 검증한다.",
       "priority": "high",
       "dependencies": [],
       "featureIds": [
@@ -1643,13 +1644,27 @@
       "acceptanceCriteria": [
         "업그레이드 전 가방 교체 선택이 남고 업그레이드의 두 추가 슬롯 효용이 측정된다.",
         "업그레이드를 구매하고도 3일 안에 구조 신호를 완성하는 자연 플레이 경로가 제시된다.",
-        "비용 변경이 필요하면 재현 증거와 단일 대체 수치를 제안하고 Unity·QA 작업에 통합 전에 알린다."
+        "비용 변경이 필요하면 재현 증거와 단일 대체 수치를 제안하고 Unity·QA 작업에 통합 전에 알린다.",
+        "Wave 3·6 첫 원정에서 4칸·8개 만석 뒤 5번째 노드가 교체/포기 대기를 만들어 업그레이드 전 선택이 남는다.",
+        "두 추가 슬롯의 효용을 최대 운반 +4, 기본 노드 +2와 도끼 W3 적재 사례로 측정한다.",
+        "W2/D1을 Day 2에 구매한 자연 경로가 grant·좌표 warp 없이 Day 3 신호 2/2와 최종 W3/S1/F1/D3에 도달한다.",
+        "작업대 잠금·비용 부족·구매 가능·완료 상태의 KO/EN 문구와 원자 거래 조건을 구현·QA가 재현할 수 있다.",
+        "재현 가능한 자원 부족 증거가 없으므로 비용을 W2/D1로 동결하고 대체 비용을 제안하지 않는다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/wave7-bag-capacity-upgrade.md",
+        ".forge/packets/wave7-bag-capacity-upgrade.json"
+      ],
+      "evidence": [
+        "Docs/Design/wave7-bag-capacity-upgrade.md#4-업그레이드-전-가방-선택-보존-검증",
+        "Docs/Design/wave7-bag-capacity-upgrade.md#6-w2d1-구매-포함-자연-3일-구조-장부",
+        "Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-edit-contracts.txt"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T01:52:41.796Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T02:08:29.752Z",
+      "note": "Wave 3·6 첫 원정 4칸 만석 선택을 보존하고, W2/D1 구매 후 Day 3 구조·최종 W3/S1/F1/D3 계산을 검증해 비용을 동결했다. Wave 7 런타임 검증은 구현 후 수행한다.",
+      "completedAt": "2026-08-23T02:08:29.751Z"
     },
     {
       "id": "task.art.icon.resource-tool-set",
@@ -1758,5 +1773,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T01:52:41.795Z"
+  "updatedAt": "2026-08-23T02:08:29.752Z"
 }
