@@ -119,7 +119,21 @@
       "rationale": "표본의 루프 이해도와 장치 호환성 변수를 섞지 않고 즉시 중단 결함, 핵심 루프 차단, 비차단 마찰을 일관되게 처리하기 위해서다.",
       "source": "user-and-codex",
       "createdAt": "2026-08-22T14:03:57.336Z"
+    },
+    {
+      "id": "decision.wave7-bag-capacity-upgrade",
+      "summary": "가방은 기본 4칸에서 작업대의 1회 선택 업그레이드로 6칸이 되며 칸당 중첩 한도는 2로 유지한다.",
+      "rationale": "기존의 가방 선택 압박을 보존하면서 다음 원정 효율에 투자하는 명확한 성장 선택을 만든다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-23T01:52:41.795Z"
+    },
+    {
+      "id": "decision.wave7-bag-upgrade-cost",
+      "summary": "가방 확장 비용은 나무 2와 표류물 1이며 밧줄은 요구하지 않는다.",
+      "rationale": "구조 신호 자원과 경쟁시키되, 영구 도구이자 구조 신호 2단계 조건인 밧줄의 현재 데이터 모델을 깨지 않는다.",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-23T01:52:41.795Z"
     }
   ],
-  "updatedAt": "2026-08-22T14:03:57.336Z"
+  "updatedAt": "2026-08-23T01:52:41.795Z"
 }

@@ -1553,6 +1553,105 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
     {
+      "id": "task.system.system.bag-capacity-upgrade",
+      "lane": "implementation",
+      "title": "가방 용량 성장 구현",
+      "description": "현재 활성 가방 칸 수, 작업대 조건, 1회 비용 지불, 날짜 간 지속과 새 게임 초기화를 처리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "가방의 물리 배열과 현재 활성 용량을 분리해 잠긴 슬롯이 업그레이드 전에 획득·선택·교체 대상이 되지 않는다.",
+        "업그레이드 성공은 원자적으로 비용을 한 번 차감하고 활성 용량을 6으로 바꾸며 날짜 전환 후에도 유지한다.",
+        "새 게임 초기화는 활성 용량, 잠금 상태와 대기 중 교체 선택을 기본 4칸 상태로 되돌린다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T01:52:41.796Z"
+    },
+    {
+      "id": "task.feature.feature.inventory-capacity-upgrade",
+      "lane": "implementation",
+      "title": "가방 4→6칸 확장 구현",
+      "description": "작업대에서 자원을 투자해 한 게임에 한 번 가방을 4칸에서 6칸으로 확장하고, 구조 신호 투자와 다음 수색 효율 사이의 선택을 만든다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.inventory-choice",
+        "task.feature.feature.crafting-research"
+      ],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [
+        "ui.survival-hud",
+        "ui.bag-capacity-upgrade"
+      ],
+      "acceptanceCriteria": [
+        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
+        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
+        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
+        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
+        "가방 확장을 선택한 자연스러운 3일 경로에서도 구조 성공이 가능하다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T01:52:41.796Z"
+    },
+    {
+      "id": "task.qa.feature.inventory-capacity-upgrade",
+      "lane": "qa",
+      "title": "가방 4→6칸 확장 검증",
+      "description": "가방 4→6칸 확장의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.inventory-capacity-upgrade"
+      ],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
+        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
+        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
+        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
+        "가방 확장을 선택한 자연스러운 3일 경로에서도 구조 성공이 가능하다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.design.wave7-bag-capacity-balance",
+      "lane": "design",
+      "title": "Wave 7 가방 확장 비용과 3일 경로 검증",
+      "description": "4→6칸, 중첩 2, 작업대 1회 업그레이드 계약을 유지하면서 나무 2·표류물 1 비용이 기존 가방 선택과 3일 구조 경로에 미치는 영향을 표와 재현 가능한 자연 플레이 순서로 검증한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "업그레이드 전 가방 교체 선택이 남고 업그레이드의 두 추가 슬롯 효용이 측정된다.",
+        "업그레이드를 구매하고도 3일 안에 구조 신호를 완성하는 자연 플레이 경로가 제시된다.",
+        "비용 변경이 필요하면 재현 증거와 단일 대체 수치를 제안하고 Unity·QA 작업에 통합 전에 알린다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T01:52:41.796Z"
+    },
+    {
       "id": "task.art.icon.resource-tool-set",
       "lane": "art",
       "title": "자원·도구 아이콘 세트 제작",
@@ -1608,6 +1707,28 @@
       "completedAt": "2026-08-22T23:12:23.665Z"
     },
     {
+      "id": "task.art.ui.bag-capacity-upgrade",
+      "lane": "art",
+      "title": "가방 확장 UI 상태 세트 제작",
+      "description": "김씨의 급조 등가방에 천 조각과 옆주머니 두 개를 덧댄 코믹한 2D 업그레이드 전후 UI 상태 세트. 4칸 기본, 잠긴 두 칸, 6칸 활성 상태와 작업대 업그레이드 아이콘을 1280×800 및 1920×1080 HUD에서 읽히게 제공한다. 한국어·영어 본문은 넣지 않고 엔진 텍스트 여백과 게임패드 포커스 상태를 지원하며 투명 배경과 편집 가능한 분리 파츠를 사용한다.",
+      "priority": "medium",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [
+        "ui.bag-capacity-upgrade"
+      ],
+      "acceptanceCriteria": [
+        "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-23T01:52:41.796Z"
+    },
+    {
       "id": "task.postslice.steam-release-readiness",
       "lane": "implementation",
       "title": "수직 슬라이스 이후 Steam 출하 준비",
@@ -1637,5 +1758,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-22T23:12:23.665Z"
+  "updatedAt": "2026-08-23T01:52:41.795Z"
 }

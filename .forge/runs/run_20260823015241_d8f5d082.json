@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260823015241_d8f5d082",
+  "createdAt": "2026-08-23T01:52:41.795Z",
+  "updatedAt": "2026-08-23T01:52:41.795Z",
+  "sourceRequest": "가방 용량 업그레이드를 포함해 네 작업에 다음 Wave를 배정한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-23T01:52:41.795Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T01:52:41.795Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T01:52:41.795Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T01:52:41.795Z"
+    }
+  }
+}
