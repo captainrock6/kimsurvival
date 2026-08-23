@@ -125,7 +125,23 @@
         "Assets\\_Project\\Art\\Generated\\effect\\job_20260822224357_275de712\\rescue_success.png"
       ],
       "updatedAt": "2026-08-22T22:55:59.114Z"
+    },
+    {
+      "jobId": "job_20260822234631_ac651d92",
+      "assetId": "object.vine-wood-barrier",
+      "assetType": "separated_parts",
+      "request": "Wave 6 Unity 2D 횡스크롤 섬 수색용 object.vine-wood-barrier의 단일 고품질 3상태 소스 시트. 1536x1024 투명 RGBA 캔버스를 세 개의 동일한 세로 셀로 나누고 왼쪽부터 blocked, interactable, cleared를 정확히 배치한다. 모든 상태는 카메라와 평행한 완전 측면 시점, 동일한 오브젝트 비율, 동일한 바닥 접점과 bottom-center 원점, 셀 상단 약 20퍼센트의 완전 투명 엔진 텍스트 안전 여백, 셀 사방 충분한 투명 여백을 가진다. blocked는 2D 통로를 실제로 막는 높이로 두세 개의 가느다란 쓰러진 열대 나무와 교차 가지가 얽히고 두꺼운 덩굴과 넓은 잎이 그 사이를 묶은 장벽이다. 단단하지만 과도하게 거대한 성벽이 아니며 김씨 한 명의 통로를 막는 폭과 가슴에서 머리 정도 높이의 명확한 실루엣이다. interactable은 blocked와 같은 전체 실루엣과 앵커를 유지하되 중앙 하단의 손이 닿는 높이에 덩굴이 팽팽하게 모인 절단 묶음, 밝은 황갈색 노출 목질, 두세 개의 작은 V자 도끼 흠집이 명확히 보이고 주변 잎이 살짝 비켜 절단 지점이 읽힌다. 실제 도끼, 도끼 아이콘, 빛나는 UI 마커는 그리지 않는다. cleared는 같은 좌우 뿌리와 바닥 앵커를 유지하면서 중앙 폭 약 65퍼센트가 캐릭터 통로로 완전히 열리고, 양옆에는 짧은 잘린 덩굴과 낮은 그루터기, 바닥에는 잎과 짧은 가지 잔해만 남아 전체 높이가 blocked의 약 30퍼센트 이하로 내려간 상태다. 따뜻한 열대 낮빛, 올리브·야자 녹색과 황갈색 목재, 굵고 깨끗한 어두운 외곽선, 손맛 나는 코믹하지만 기능적인 오리지널 2D 생존 게임 일러스트. 1280x800에서 캐릭터와 자원 노드를 가리지 않고 blocked/cleared 차이가 즉시 읽혀야 한다. 기존 coast-forest 후보는 팔레트와 수색 환경 맥락만, 채택된 김씨는 상대 크기와 선 굵기만 참조한다. 캐릭터, 사람, 도구, 도끼, 자원 아이콘, 수집 노드, 배경 풍경, 바닥면, UI, 글자, 숫자, 말풍선, 프레임, 패널, 라벨, 로고, 워터마크, 체크무늬, 초록색 직사각형 임시 벽, 셀 구분선을 포함하지 않는다. 각 상태는 인접 셀로 침범하거나 캔버스 가장자리에 닿지 않아야 한다.",
+      "decision": "adopted",
+      "tags": [],
+      "note": "사용자가 Wave 6 object.vine-wood-barrier의 blocked, interactable, cleared 3상태 후보 전체를 명시적으로 채택함.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822234631_ac651d92\\barrier-states-atlas.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822234631_ac651d92\\blocked.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822234631_ac651d92\\interactable.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822234631_ac651d92\\cleared.png"
+      ],
+      "updatedAt": "2026-08-23T00:16:28.593Z"
     }
   ],
-  "updatedAt": "2026-08-22T22:55:59.295Z"
+  "updatedAt": "2026-08-23T00:16:28.766Z"
 }
