@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "handoffId": "handoff.wave14.background.coast-forest.selected-b-production-review",
+  "assetId": "background.coast-forest",
+  "jobId": "job_20260823132501_b4a82bed",
+  "parentJobId": "job_20260823130453_32a9debf",
+  "status": "review",
+  "reviewOnly": true,
+  "selectedDirection": {
+    "candidateId": "background.coast-forest.gameplay-band-contrast",
+    "selectionStatus": "adopted",
+    "selectedFromJobId": "job_20260823130453_32a9debf",
+    "selectedArtifact": "option-b-gameplay-band-contrast-1280x800.png",
+    "userDecisionRecordedAt": "2026-08-23T13:24:04.892Z"
+  },
+  "productionCandidate": {
+    "exactBitmapApproved": false,
+    "adopted": false,
+    "engineReady": false,
+    "packaged": false,
+    "runtimeConnected": false,
+    "fileName": "coast-forest-clean-selected-b.png",
+    "projectPath": "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/coast-forest-clean-selected-b.png",
+    "sha256": "f8067b7c073a75cd4d196248df1e1eab7dc2844d265f2aff90bef85aefa8945b",
+    "bytes": 2611152,
+    "sizePixels": [1672, 941],
+    "format": "RGB PNG",
+    "hasAlpha": false,
+    "pivotNormalized": [0.5, 0.0],
+    "changesFromOriginal": [
+      "Removed the baked fallen trunk and hanging vines from the right forest entrance.",
+      "Reconstructed an open sandy forest passage for the independent barrier states.",
+      "Applied the selected subtle gameplay-band contrast while preserving the coast-beach-rock-forest route."
+    ],
+    "preserved": [
+      "left shallow turquoise water and shoreline slope",
+      "broad center sand lane and low rock shelf",
+      "right shallow tropical forest entrance",
+      "warm comic 2D survival illustration tone",
+      "foreground/midground/background readability"
+    ],
+    "reviewConcern": "ImageGen reconstructed some right-side vegetation and path detail. The selected direction is adopted, but this exact edited bitmap has not yet been approved."
+  },
+  "generation": {
+    "mode": "built-in Codex ImageGen edit",
+    "externalGenerationApiCalled": false,
+    "paidExternalApiCalled": false,
+    "attemptCount": 1,
+    "retryCount": 0,
+    "editTarget": "Assets/_Project/Art/Generated/background/job_20260822095339_18288994/exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png",
+    "readabilityReference": "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-b-gameplay-band-contrast-1280x800.png"
+  },
+  "gradingMasks": [
+    {
+      "id": "coastForest.mask.gameplayBand",
+      "fileName": "gameplay-band-mask.png",
+      "projectPath": "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/gameplay-band-mask.png",
+      "sha256": "8c3d73a85a9f3d9cd97aedbc0c0c9ae7a7355edc66737fd1f2b7ea00cd01e4ea",
+      "sizePixels": [1672, 941],
+      "channel": "R",
+      "meaning": "0 excludes grading; 1 marks the playable/readability band",
+      "runtimeDefault": "disabled until authorized"
+    },
+    {
+      "id": "coastForest.mask.depthSubdue",
+      "fileName": "depth-subdue-mask.png",
+      "projectPath": "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/depth-subdue-mask.png",
+      "sha256": "a5a023c2f8027671a601d8ccd091cedfefdfe7e85add2b9e07169d4c5e4c0ee0",
+      "sizePixels": [1672, 941],
+      "channel": "R",
+      "meaning": "1 permits optional distance/foreground subduing; 0 protects the gameplay lane",
+      "runtimeDefault": "disabled until authorized"
+    }
+  ],
+  "reviewEvidence": {
+    "board": {
+      "fileName": "selected-b-production-review-board.png",
+      "projectPath": "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/selected-b-production-review-board.png",
+      "sha256": "1d642bc9dbd68b2a53cc25e719c865b805a2d08c259ea2d586e8e238e2761a35",
+      "bytes": 13273280,
+      "sizePixels": [3840, 2550],
+      "runtimeLoad": false
+    },
+    "blocked1280x800": {
+      "fileName": "selected-b-blocked-review-1280x800.png",
+      "sha256": "72f78615525862ce3a0a4e9f494cb892094cb6cf41625401ff3f86be01318872",
+      "runtimeLoad": false
+    },
+    "cleared1280x800": {
+      "fileName": "selected-b-cleared-review-1280x800.png",
+      "sha256": "d63a4293ece8624530950960f51276824171dd2d738a0cc9c93627ff10dcf0af",
+      "runtimeLoad": false
+    },
+    "containsReviewTextAndProxy": true,
+    "rule": "Review board/composites are EditorOnly evidence and never production sprites."
+  },
+  "runtimeLoadAllowlist": [],
+  "runtimeRejectExact": [
+    "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/coast-forest-clean-selected-b.png",
+    "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/gameplay-band-mask.png",
+    "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/depth-subdue-mask.png",
+    "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/selected-b-blocked-review-1280x800.png",
+    "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/selected-b-cleared-review-1280x800.png",
+    "Assets/_Project/Art/Generated/background/job_20260823132501_b4a82bed/selected-b-production-review-board.png"
+  ],
+  "exactArtApprovalGate": {
+    "requiredUserValue": "approve job_20260823132501_b4a82bed or coast-forest-clean-selected-b.png explicitly",
+    "untilApproved": "runtimeLoadAllowlist remains empty",
+    "forbidden": [
+      "feedback adopted for this child job",
+      "engine_ready",
+      "package",
+      "Addressables entry",
+      "Resources load",
+      "scene connection"
+    ]
+  },
+  "safeZones1280x800": {
+    "origin": "top-left",
+    "topHudRect": [16, 14, 1247, 119],
+    "narrationRect": [230, 144, 819, 136],
+    "contextPromptRect": [420, 292, 440, 44],
+    "rightInventoryRailObservedRect": [961, 241, 297, 440],
+    "bottomHelpRect": [16, 685, 1247, 101],
+    "kimReviewEnvelope": [603, 479, 83, 146],
+    "barrierReviewBounds": [735, 415, 205, 205],
+    "barrierRight": 940,
+    "barrierOverlapsObservedInventoryRail": false,
+    "kimBarrierGapPixels": 49
+  },
+  "unityImportRecommendation": {
+    "background": {
+      "textureType": "Sprite (2D and UI)",
+      "spriteMode": "Single",
+      "pivotNormalized": [0.5, 0.0],
+      "pixelsPerUnit": 100,
+      "filterMode": "Bilinear",
+      "wrapMode": "Clamp",
+      "sRGB": true,
+      "alphaIsTransparency": false,
+      "generateMipMaps": false,
+      "maxTextureSize": 2048,
+      "compression": "Uncompressed during review"
+    },
+    "masks": {
+      "textureType": "Default",
+      "filterMode": "Bilinear",
+      "wrapMode": "Clamp",
+      "sRGB": false,
+      "alphaSource": "None",
+      "generateMipMaps": false,
+      "maxTextureSize": 2048,
+      "compression": "Uncompressed",
+      "sampleChannel": "R"
+    }
+  },
+  "layerSeparation": {
+    "status": "partial",
+    "available": [
+      "opaque clean background",
+      "gameplay-band grading mask",
+      "depth-subdue grading mask",
+      "independent adopted barrier states"
+    ],
+    "notYetSeparated": [
+      "far sky/sea",
+      "forest midground",
+      "playable ground geometry",
+      "foreground foliage pixels"
+    ],
+    "note": "The masks support independent engine grading, but the painted geometry remains a single opaque production candidate."
+  },
+  "sourceEvidence": [
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260822095339_18288994/exec-d8f22840-a9a6-42bd-8b43-6f4f7dff569f.png",
+      "sha256": "717f810175bdde47700e139827d97e62d8ff7a278d59005be805fdd0992b1e06"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/background/job_20260823130453_32a9debf/option-b-gameplay-band-contrast-1280x800.png",
+      "sha256": "791b92c2fe589f3737dec21f582dc060abc3e07261705c5706797ba4beeba9b2"
+    },
+    {
+      "path": "Docs/Art/Wave14/SelectedB/generate-selected-b-production-review.ps1",
+      "sha256": "733b3befd16bb63591699b85be557edff230a3737a0611b717055c56b6daca2b"
+    }
+  ]
+}
