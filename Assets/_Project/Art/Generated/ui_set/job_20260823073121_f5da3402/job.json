@@ -2,7 +2,7 @@
   "id": "job_20260823073121_f5da3402",
   "status": "succeeded",
   "createdAt": "2026-08-23T07:31:21.923Z",
-  "updatedAt": "2026-08-23T07:55:37.457Z",
+  "updatedAt": "2026-08-23T10:11:13.473Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.camp-contextual-interaction",
@@ -586,7 +586,18 @@
       "url": "/outputs/jobs/job_20260823073121_f5da3402/qa-preview-current-vs-compact-comparison-board-2.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "compact-a-approved"
+    ],
+    "note": "사용자가 Wave 10 선택 보드의 A안, 안정 후보 ui.camp-contextual-interaction.compact-a를 명시적으로 채택했다. 다크 네이비·틸·크림 톤, 분리된 입력 glyph 슬롯과 TMP 행동명 영역, 내레이션 카드 바로 아래의 작은 한 줄 프롬프트를 유지한다. B와 C는 미선택이며, 이번 결정은 A의 패키징과 런타임 적용을 다음 구현 작업에서 진행하도록 승인한다.",
+    "selectedArtifacts": [
+      "compact-a.png",
+      "actual-size-compact-a-1280x800.png"
+    ],
+    "updatedAt": "2026-08-23T10:11:13.465Z"
+  },
   "events": [
     {
       "at": "2026-08-23T07:31:21.923Z",
@@ -639,29 +650,39 @@
       "message": "Codex/로컬 결과 29개를 가져왔습니다."
     },
     {
-      "at": "2026-08-23T07:55:37.457Z",
-      "level": "warning",
-      "message": "승인 게이트 교정: 사용자 채택 결정은 없으며 A/B/C 모두 review-only 후보로 복구했습니다. adopt/package/runtime-connect 금지, 사용자 선택 대기."
+      "at": "2026-08-23T07:49:19.638Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
+    },
+    {
+      "at": "2026-08-23T07:49:43.973Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
+    },
+    {
+      "at": "2026-08-23T08:17:00.151Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
+    },
+    {
+      "at": "2026-08-23T09:17:19.120Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · compact-a-approved"
+    },
+    {
+      "at": "2026-08-23T10:10:58.044Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · compact-a-approved"
+    },
+    {
+      "at": "2026-08-23T10:11:13.473Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · compact-a-approved"
     }
   ],
   "error": null,
   "result": {
     "mode": "codex-subscription",
-    "reviewGate": {
-      "status": "review",
-      "approvalPending": true,
-      "selectedCandidate": null,
-      "candidates": [
-        "A",
-        "B",
-        "C"
-      ],
-      "adopted": false,
-      "packaged": false,
-      "runtimeConnected": false,
-      "correctionReason": "사용자가 어떤 후보도 명시적으로 채택하지 않았으므로 잘못 기록된 A안 채택을 제거했다. 이 교정은 사용자의 아트 선택을 대신하지 않는다.",
-      "correctedAt": "2026-08-23T07:55:37.457Z"
-    },
     "awaitingImport": false,
     "delivery": {
       "mode": "codex-subscription",

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T09:50:12.198Z",
+  "updatedAt": "2026-08-23T10:11:28.730Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -2124,7 +2124,7 @@
       "name": "플레이테스트 피드백 반영 review-only 리비전. 현재 런타임의 큰 중앙 [입력] 행동 안내가 길과 캐릭터를 가리는 문제를 해결한다. 내레이션 카드 바로 아래 중앙에 붙는 한 줄 compact bar/pill ",
       "assetType": "ui_set",
       "request": "플레이테스트 피드백 반영 review-only 리비전. 현재 런타임의 큰 중앙 [입력] 행동 안내가 길과 캐릭터를 가리는 문제를 해결한다. 내레이션 카드 바로 아래 중앙에 붙는 한 줄 compact bar/pill 후보 3개를 만든다. 모든 후보는 무문자 투명 UI 조각이며 입력 glyph 슬롯과 행동명 TMP 안전영역을 분리하고, 키보드와 게임패드 glyph를 런타임 교체할 수 있어야 한다. 9-slice 또는 동등 구조로 ko/en 및 qps-long 50% 폭 증가를 견디고 1280x800에서 최소 44px 포커스/입력 영역을 보장한다. 현재 대형 안내와 개선안 3개의 1280x800 비교 보드, near/popup-open/far 상태 보드, 로케일 폭 보드를 남긴다. 기존 설비 전용 팝업은 보존한다. 사용자 승인 전 review/placeholder이며 adopt, package, runtime 연결 금지. 런타임 코드와 씬은 수정하지 않는다.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "contextual-ui",
@@ -2184,6 +2184,20 @@
           "at": "2026-08-23T07:55:37.457Z",
           "qualityScore": 100,
           "correctionReason": "승인 게이트 교정: 사용자는 A/B/C 중 어떤 후보도 명시적으로 채택하지 않았다. 세 후보 모두 review-only이며 사용자 선택을 기다린다."
+        },
+        {
+          "jobId": "job_20260823073121_f5da3402",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T10:10:58.132Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823073121_f5da3402",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-23T10:11:13.583Z",
+          "qualityScore": 100
         }
       ],
       "currentJobId": "job_20260823073121_f5da3402",
@@ -2603,9 +2617,14 @@
           "url": "/outputs/jobs/job_20260823073121_f5da3402/qa-preview-current-vs-compact-comparison-board-2.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823073121_f5da3402",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823073121_f5da3402\\forge-import.json",
+        "packagedAt": "2026-08-23T10:11:28.729Z"
+      },
       "createdAt": "2026-08-23T04:07:47.284Z",
-      "updatedAt": "2026-08-23T07:55:37.457Z"
+      "updatedAt": "2026-08-23T10:11:28.730Z"
     },
     {
       "id": "background.modular-island-camp",
