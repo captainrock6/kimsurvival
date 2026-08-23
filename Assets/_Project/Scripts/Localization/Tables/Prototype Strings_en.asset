@@ -649,7 +649,7 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 231960692899844
-    m_Localized: "Bag Upgrade Complete \xB7 {0} Slots"
+    m_Localized: "[Done] Bag \xB7 {0} Slots"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867

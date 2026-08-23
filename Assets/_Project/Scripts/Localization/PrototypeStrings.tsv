@@ -44,7 +44,7 @@ button.signal.stage1	신호1 · 작업대:{0}\n나무:{1}/2 표류물:{2}/2	Sign
 button.signal.stage2	신호2 · 밧줄:{0}\n나무:{1}/2 표류물:{2}/2	Signal 2 Rope:{0}\nWood:{1}/2 Salvage:{2}/2
 button.bag_upgrade.locked	가방 확장 {0}→{1}\n작업대 필요	Bag Upgrade {0}→{1}\nWorkbench Required
 button.bag_upgrade.available	가방 확장 {0}→{1}\n나무 {2}/{3} · 표류물 {4}/{5}	Bag Upgrade {0}→{1}\nWood {2}/{3} · Salvage {4}/{5}
-button.bag_upgrade.complete	가방 확장 완료 · {0}칸	Bag Upgrade Complete · {0} Slots
+button.bag_upgrade.complete	[완료] 가방 {0}칸	[Done] Bag · {0} Slots
 button.eat	식량 먹기  보유 {0}	Eat Food  Owned {0}
 button.day.final	마지막 날 정산	Settle Final Day
 button.day.next	다음 날로	Next Day

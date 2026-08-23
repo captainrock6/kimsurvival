@@ -285,9 +285,9 @@ namespace KimSurvival
             eatButton = CreateActionButton(campActions.transform, 8, string.Empty, delegate { session.UseFood(); RefreshAll(); });
             phaseButton = CreateActionButton(campActions.transform, 9, string.Empty, HandlePhaseButton);
 
-            bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 130f), new Vector2(-30f, 715f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
-            bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -88f), new Vector2(-18f, -8f), 34, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
-            bagUpgradeButton = CreateButton("가방 용량 확장", bagPanel.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), string.Empty, delegate { session.TryUpgradeBagCapacity(); RefreshAll(); }, new Vector2(22f, -210f), new Vector2(403f, -98f));
+            bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 170f), new Vector2(-30f, 795f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
+            bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -128f), new Vector2(-18f, -8f), 34, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
+            bagUpgradeButton = CreateButton("가방 용량 확장", bagPanel.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), string.Empty, delegate { session.TryUpgradeBagCapacity(); RefreshAll(); }, new Vector2(22f, -290f), new Vector2(403f, -138f));
             bagUpgradeButton.GetComponentInChildren<TMP_Text>().fontSize = 34f;
             for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
             {
@@ -916,7 +916,7 @@ namespace KimSurvival
                     session.GetStorage(ResourceKind.Wood) == woodBeforeBagUpgrade - GameSession.BagUpgradeWoodCost &&
                     session.GetStorage(ResourceKind.Salvage) == salvageBeforeBagUpgrade - GameSession.BagUpgradeSalvageCost, "가방 확장 UI의 원자적 1회 비용과 6칸 활성화");
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
-            Require(!bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("Complete") && bagTitleText.text.Contains("Bag 6/6"), "영어 가방 확장 완료·6칸 표시");
+            Require(!bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("Done") && bagTitleText.text.Contains("Bag 6/6"), "영어 가방 확장 완료·6칸 표시");
             RequireReadableBagUi();
             if (!string.IsNullOrWhiteSpace(bagUpgradedEnglish1280ScreenshotPath))
             {
@@ -1818,7 +1818,7 @@ namespace KimSurvival
             int row = index / 2;
             float left = 22f + column * 196f;
             float right = left + 185f;
-            float top = -222f - row * 105f;
+            float top = -302f - row * 105f;
             return CreateButton("가방 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), localization.Format("bag.slot.empty", index + 1), callback, new Vector2(left, top - 88f), new Vector2(right, top));
         }
 
