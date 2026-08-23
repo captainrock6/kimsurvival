@@ -553,14 +553,14 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 14658219261953
-    m_Localized: "{0} \xB7 Click or arrows+Enter to select \xB7 Built facilities
-      move free \xB7 F1 language"
+    m_Localized: "{0} \xB7 A/D move \xB7 E use nearby facility (1.25m)\nClick or
+      arrows+Enter action \xB7 Built facilities move free \xB7 F1 language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 14658219261954
-    m_Localized: "{0} \xB7 D-pad/left stick select \xB7 A action \xB7 Built facilities
-      move free \xB7 Y language"
+    m_Localized: "{0} \xB7 Left stick move \xB7 X use nearby facility (1.25m)\nD-pad+A
+      action \xB7 Built facilities move free \xB7 Y language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
@@ -685,6 +685,51 @@ MonoBehaviour:
       larger.
     m_Metadata:
       m_Items: []
+  - m_Id: 250514246975488
+    m_Localized: 'General Facility Ground
+
+      0.5m Floor Snap'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918528
+    m_Localized: 'Rain Collector Only
+
+      Open-Sky Ground'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918529
+    m_Localized: '{0} must stay on its compatible ground zone.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 250514288918530
+    m_Localized: No usable facility is within {0}m. Mr. Kim needs to move closer.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 250514288918531
+    m_Localized: Use or relocation of {0} requires being within {1}m.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 250514288918532
+    m_Localized: Rescue-signal resources can only be invested within {0}m of the
+      signal.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 250514288918533
+    m_Localized: Workbench in range. Choose a research or crafting action while nearby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918534
+    m_Localized: Campfire rest prepared. Its bonus will apply at today's settlement.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250514288918535
+    m_Localized: Rainwater collected. Its bonus will apply at today's settlement.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -738,3 +783,7 @@ MonoBehaviour:
         - id: 231960701288450
         - id: 231960701288451
         - id: 231960701288452
+        - id: 250514288918529
+        - id: 250514288918530
+        - id: 250514288918531
+        - id: 250514288918532

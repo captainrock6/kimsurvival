@@ -648,6 +648,11 @@ namespace KimSurvival
 
         public bool EndDay()
         {
+            return EndDay(true, true);
+        }
+
+        public bool EndDay(bool campfirePrepared, bool rainCollectorPrepared)
+        {
             if (Phase != GamePhase.Camp || !ExpeditionCompleted || Result != RunResult.None)
             {
                 LastMessage = Text("message.endday.search");
@@ -660,8 +665,8 @@ namespace KimSurvival
                 Energy = Math.Max(0f, Energy - 35f);
             }
 
-            float rest = HasStructure(StructureKind.Campfire) ? 38f : 20f;
-            if (HasStructure(StructureKind.RainCollector))
+            float rest = campfirePrepared && HasStructure(StructureKind.Campfire) ? 38f : 20f;
+            if (rainCollectorPrepared && HasStructure(StructureKind.RainCollector))
             {
                 rest += 10f;
             }
