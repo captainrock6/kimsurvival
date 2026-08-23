@@ -391,7 +391,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972611
-    m_Localized: Stone axe complete. Trees now have twice the reason to complain.
+    m_Localized: Stone axe complete. Each wood haul now brings one extra piece.
     m_Metadata:
       m_Items: []
   - m_Id: 900972612
@@ -581,12 +581,16 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 197482050207744
-    m_Localized: "Signal Stage 1 \xB7 Workbench {0}\nWood {1}/2 \xB7 Salvage {2}/2"
+    m_Localized: 'Signal 1 Workbench:{0}
+
+      Wood:{1}/2 Salvage:{2}/2'
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 197482096345088
-    m_Localized: "Signal Stage 2 \xB7 Rope {0}\nWood {1}/2 \xB7 Salvage {2}/2"
+    m_Localized: 'Signal 2 Rope:{0}
+
+      Wood:{1}/2 Salvage:{2}/2'
     m_Metadata:
       m_Items:
       - rid: 828367071277219867

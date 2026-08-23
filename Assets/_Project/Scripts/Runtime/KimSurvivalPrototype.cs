@@ -280,6 +280,7 @@ namespace KimSurvival
             researchRopeButton = CreateActionButton(campActions.transform, 5, string.Empty, delegate { session.TryResearch(TechKind.Rope); RefreshAll(); });
             craftRopeButton = CreateActionButton(campActions.transform, 6, string.Empty, delegate { session.TryCraft(TechKind.Rope); RefreshAll(); });
             signalButton = CreateActionButton(campActions.transform, 7, string.Empty, delegate { session.TryUpgradeSignal(); RefreshAll(); });
+            signalButton.GetComponentInChildren<TMP_Text>().fontSize = 36f;
             eatButton = CreateActionButton(campActions.transform, 8, string.Empty, delegate { session.UseFood(); RefreshAll(); });
             phaseButton = CreateActionButton(campActions.transform, 9, string.Empty, HandlePhaseButton);
 
@@ -376,7 +377,7 @@ namespace KimSurvival
                 localization.Format(session.HasRope ? "value.yes" : "value.no"));
             messageText.text = localization.Format(session.LastMessage);
             string device = localization.DeviceName(playerInput.ActiveDevice);
-            messageText.fontSize = 29f;
+            messageText.fontSize = session.LastMessage.Key.StartsWith("message.signal", StringComparison.Ordinal) ? 48f : 29f;
             messageText.fontStyle = FontStyles.Normal;
             messagePanelImage.color = new Color(0.07f, 0.08f, 0.07f, 0.88f);
 
@@ -425,6 +426,7 @@ namespace KimSurvival
             SetButton(researchRopeButton, localization.Format(session.HasResearched(TechKind.Rope) ? "button.research.rope.done" : "button.research.rope"), available && session.CanResearch(TechKind.Rope));
             SetButton(craftRopeButton, localization.Format(session.HasRope ? "button.craft.rope.done" : "button.craft.rope"), available && session.CanCraft(TechKind.Rope));
             SetButton(signalButton, FormatSignalButton(), available && session.SignalStage < 2);
+            signalButton.GetComponentInChildren<TMP_Text>().fontSize = localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? 31f : 36f;
             SetButton(eatButton, localization.Format("button.eat", session.GetStorage(ResourceKind.Food)), available && session.GetStorage(ResourceKind.Food) > 0 && session.Hunger < 100f);
             string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "button.day.final" : "button.day.next") : "button.search.start";
             SetButton(phaseButton, localization.Format(phaseButtonKey), available);
@@ -652,8 +654,19 @@ namespace KimSurvival
             CreateRect("귀환 깃발", new Vector2(-2.15f, -0.35f), new Vector2(1.1f, 0.65f), new Color(1f, 0.48f, 0.16f), 3);
             CreateWorldLabel(returnFlag.transform, localization.Format("world.return"), new Vector3(0.6f, 1.7f, -0.1f), 45, Color.black);
 
-            GameObject barrier = CreateVineBarrier();
-            CreateWorldLabel(barrier.transform, localization.Format(session.HasAxe ? "world.barrier.axe.pass" : "world.barrier.axe.need"), new Vector3(0f, 4.1f, -0.1f), 38, Color.black);
+            CreateVineBarrier();
+            CreateWorldBadge(
+                worldRoot,
+                "숲길 장벽 안내",
+                localization.Format(session.HasAxe ? "world.barrier.axe.pass" : "world.barrier.axe.need"),
+                new Vector2(8.7f, 1.65f),
+                new Vector2(5.8f, 1.55f),
+                new Color(0.03f, 0.09f, 0.07f, 0.97f),
+                Color.white,
+                out _,
+                0.085f,
+                36f,
+                36f);
 
             SpawnNode(-8.2f, ResourceKind.Salvage, 2, true);
             SpawnNode(-5.8f, ResourceKind.Food, 2, true);
@@ -1624,6 +1637,19 @@ namespace KimSurvival
 
         private Button CreateActionButton(Transform parent, int index, string label, UnityEngine.Events.UnityAction callback)
         {
+            if (index == 7)
+            {
+                return CreateButton("행동 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), label, callback, new Vector2(20f, -452f), new Vector2(710f, -354f));
+            }
+
+            if (index >= 6)
+            {
+                int compactColumn = index == 6 ? 0 : index - 7;
+                float compactLeft = 20f + compactColumn * 230f;
+                float compactRight = compactColumn == 2 ? 710f : compactLeft + 215f;
+                return CreateButton("행동 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), label, callback, new Vector2(compactLeft, -538f), new Vector2(compactRight, -458f));
+            }
+
             int column = index % 2;
             int row = index / 2;
             float left = 20f + column * 355f;

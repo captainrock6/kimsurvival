@@ -583,27 +583,31 @@ namespace ParallelQA
             string enProgress;
             string koMaterials;
             string enMaterials;
+            string koWorkbench;
+            string enWorkbench;
             string koRope;
             string enRope;
             using (PrototypeLocalization localization = new PrototypeLocalization())
             {
                 localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
                 koProgress = localization.Format("button.signal.progress", 1);
-                koMaterials = localization.Format("message.signal.materials");
+                koMaterials = localization.Format("message.signal.materials", 0, 0);
+                koWorkbench = localization.Format("message.signal.workbench");
                 koRope = localization.Format("message.signal.rope");
                 localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
                 enProgress = localization.Format("button.signal.progress", 1);
-                enMaterials = localization.Format("message.signal.materials");
+                enMaterials = localization.Format("message.signal.materials", 0, 0);
+                enWorkbench = localization.Format("message.signal.workbench");
                 enRope = localization.Format("message.signal.rope");
             }
 
             bool passed = ContainsAll(koProgress + koMaterials, "나무", "표류물", "2") &&
                           ContainsAllIgnoreCase(enProgress + enMaterials, "wood", "salvage", "2") &&
-                          ContainsAny(koMaterials, "작업대") && ContainsAnyIgnoreCase(enMaterials, "workbench") &&
+                          ContainsAny(koWorkbench, "작업대") && ContainsAnyIgnoreCase(enWorkbench, "workbench") &&
                           ContainsAny(koRope, "밧줄") && ContainsAnyIgnoreCase(enRope, "rope");
             return Observation.Product(passed,
-                "ko=" + Normalize(koProgress + " | " + koMaterials + " | " + koRope) +
-                " en=" + Normalize(enProgress + " | " + enMaterials + " | " + enRope));
+                "ko=" + Normalize(koProgress + " | " + koWorkbench + " | " + koMaterials + " | " + koRope) +
+                " en=" + Normalize(enProgress + " | " + enWorkbench + " | " + enMaterials + " | " + enRope));
         }
 
         private static Observation VerifyBalanceProfile()

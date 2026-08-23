@@ -397,8 +397,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972611
-    m_Localized: "\uB3CC\uB3C4\uB07C \uC644\uC131. \uB098\uBB34\uAC00 \uB450 \uBC30\uB85C
-      \uC5B5\uC6B8\uD574\uC9C4\uB2E4."
+    m_Localized: "\uB3CC\uB3C4\uB07C \uC644\uC131. \uC774\uC81C \uB098\uBB34\uB97C
+      \uD55C \uD1A0\uB9C9 \uB354 \uCC59\uAE34\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 900972612
@@ -615,14 +615,12 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219866
   - m_Id: 197482050207744
-    m_Localized: "\uC2E0\uD638 1\uB2E8\uACC4 \xB7 \uC791\uC5C5\uB300 {0}\n\uB098\uBB34
-      {1}/2 \xB7 \uD45C\uB958\uBB3C {2}/2"
+    m_Localized: "\uC2E0\uD6381 \xB7 \uC791\uC5C5\uB300:{0}\n\uB098\uBB34:{1}/2 \uD45C\uB958\uBB3C:{2}/2"
     m_Metadata:
       m_Items:
       - rid: 828367071277219866
   - m_Id: 197482096345088
-    m_Localized: "\uC2E0\uD638 2\uB2E8\uACC4 \xB7 \uBC27\uC904 {0}\n\uB098\uBB34
-      {1}/2 \xB7 \uD45C\uB958\uBB3C {2}/2"
+    m_Localized: "\uC2E0\uD6382 \xB7 \uBC27\uC904:{0}\n\uB098\uBB34:{1}/2 \uD45C\uB958\uBB3C:{2}/2"
     m_Metadata:
       m_Items:
       - rid: 828367071277219866

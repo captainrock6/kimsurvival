@@ -37,8 +37,8 @@ button.craft.rope.done	[완료] 밧줄 보유	[Done] Rope Owned
 button.craft.rope	밧줄 제작  나무1·표류물1	Craft Rope  Wood 1 · Salvage 1
 button.signal.done	[완료] 구조 신호 발신	[Done] Rescue Signal Sent
 button.signal.progress	구조 신호대 {0}/2  나무2·표류물2	Rescue Signal {0}/2  Wood 2 · Salvage 2
-button.signal.stage1	신호 1단계 · 작업대 {0}\n나무 {1}/2 · 표류물 {2}/2	Signal Stage 1 · Workbench {0}\nWood {1}/2 · Salvage {2}/2
-button.signal.stage2	신호 2단계 · 밧줄 {0}\n나무 {1}/2 · 표류물 {2}/2	Signal Stage 2 · Rope {0}\nWood {1}/2 · Salvage {2}/2
+button.signal.stage1	신호1 · 작업대:{0}\n나무:{1}/2 표류물:{2}/2	Signal 1 Workbench:{0}\nWood:{1}/2 Salvage:{2}/2
+button.signal.stage2	신호2 · 밧줄:{0}\n나무:{1}/2 표류물:{2}/2	Signal 2 Rope:{0}\nWood:{1}/2 Salvage:{2}/2
 button.eat	식량 먹기  보유 {0}	Eat Food  Owned {0}
 button.day.final	마지막 날 정산	Settle Final Day
 button.day.next	다음 날로	Next Day
@@ -91,7 +91,7 @@ message.research.unavailable	연구 재료가 부족하거나 이미 알아낸 �
 message.research.axe	연구 완료: 돌과 나무를 묶으면 제법 도끼처럼 보인다.	Research complete: tie stone to wood and it looks surprisingly axe-like.
 message.research.rope	연구 완료: 줄은 묶는 법보다 안 풀리게 하는 법이 중요했다.	Research complete: tying rope matters less than keeping it tied.
 message.craft.unavailable	제작법이나 재료를 다시 확인해야 한다.	Check the recipe and materials again.
-message.craft.axe	돌도끼 완성. 나무가 두 배로 억울해진다.	Stone axe complete. Trees now have twice the reason to complain.
+message.craft.axe	돌도끼 완성. 이제 나무를 한 토막 더 챙긴다.	Stone axe complete. Each wood haul now brings one extra piece.
 message.craft.rope	밧줄 완성. 구조 신호대의 마지막 안테나를 세울 준비가 됐다.	Rope complete. The final rescue-signal antenna is ready to be raised.
 message.signal.workbench	1단계에는 작업대가 필요하다. 현재 작업대가 없다.	Stage 1 requires a workbench. No workbench is available.
 message.signal.rope	2단계에는 밧줄이 필요하다. 현재 밧줄이 없다.	Stage 2 requires rope. No rope is available.
