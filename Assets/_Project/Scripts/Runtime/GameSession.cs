@@ -45,6 +45,18 @@ namespace KimSurvival
         PendingSwap
     }
 
+    [Flags]
+    public enum SignalUpgradeBlockers
+    {
+        None = 0,
+        NotAtCamp = 1 << 0,
+        Complete = 1 << 1,
+        MissingWorkbench = 1 << 2,
+        MissingRope = 1 << 3,
+        MissingWood = 1 << 4,
+        MissingSalvage = 1 << 5
+    }
+
     [Serializable]
     public struct BagStack
     {
@@ -118,10 +130,10 @@ namespace KimSurvival
 
             storage[(int)ResourceKind.Wood] = 2;
             storage[(int)ResourceKind.Stone] = 1;
-            storage[(int)ResourceKind.Food] = 1;
+            storage[(int)ResourceKind.Food] = 0;
 
             Day = 1;
-            Hunger = 75f;
+            Hunger = 70f;
             Energy = 100f;
             Daylight = 100f;
             Phase = GamePhase.Camp;
@@ -276,24 +288,76 @@ namespace KimSurvival
 
         public bool CanUpgradeSignal()
         {
-            if (Phase != GamePhase.Camp || SignalStage >= 2 || !HasStructure(StructureKind.Workbench))
+            return GetSignalUpgradeBlockers() == SignalUpgradeBlockers.None;
+        }
+
+        public SignalUpgradeBlockers GetSignalUpgradeBlockers()
+        {
+            SignalUpgradeBlockers blockers = SignalUpgradeBlockers.None;
+            if (Phase != GamePhase.Camp)
             {
-                return false;
+                blockers |= SignalUpgradeBlockers.NotAtCamp;
             }
 
-            if (SignalStage == 0)
+            if (SignalStage >= 2)
             {
-                return CanAfford(2, 0, 0, 2);
+                blockers |= SignalUpgradeBlockers.Complete;
             }
 
-            return HasRope && CanAfford(2, 0, 0, 2);
+            if (SignalStage == 0 && !HasStructure(StructureKind.Workbench))
+            {
+                blockers |= SignalUpgradeBlockers.MissingWorkbench;
+            }
+            else if (SignalStage == 1 && !HasRope)
+            {
+                blockers |= SignalUpgradeBlockers.MissingRope;
+            }
+
+            if (storage[(int)ResourceKind.Wood] < 2)
+            {
+                blockers |= SignalUpgradeBlockers.MissingWood;
+            }
+
+            if (storage[(int)ResourceKind.Salvage] < 2)
+            {
+                blockers |= SignalUpgradeBlockers.MissingSalvage;
+            }
+
+            return blockers;
         }
 
         public bool TryUpgradeSignal()
         {
-            if (!CanUpgradeSignal())
+            SignalUpgradeBlockers blockers = GetSignalUpgradeBlockers();
+            if (blockers != SignalUpgradeBlockers.None)
             {
-                LastMessage = Text(SignalStage == 1 && !HasRope ? "message.signal.rope" : "message.signal.materials");
+                if ((blockers & (SignalUpgradeBlockers.NotAtCamp | SignalUpgradeBlockers.Complete)) != 0)
+                {
+                    return false;
+                }
+
+                if ((blockers & SignalUpgradeBlockers.MissingWorkbench) != 0)
+                {
+                    LastMessage = Text("message.signal.workbench");
+                }
+                else if ((blockers & SignalUpgradeBlockers.MissingRope) != 0)
+                {
+                    LastMessage = Text("message.signal.rope");
+                }
+                else if ((blockers & SignalUpgradeBlockers.MissingWood) != 0 &&
+                         (blockers & SignalUpgradeBlockers.MissingSalvage) != 0)
+                {
+                    LastMessage = Text("message.signal.materials", storage[(int)ResourceKind.Wood], storage[(int)ResourceKind.Salvage]);
+                }
+                else if ((blockers & SignalUpgradeBlockers.MissingWood) != 0)
+                {
+                    LastMessage = Text("message.signal.wood", storage[(int)ResourceKind.Wood]);
+                }
+                else
+                {
+                    LastMessage = Text("message.signal.salvage", storage[(int)ResourceKind.Salvage]);
+                }
+
                 return false;
             }
 
@@ -487,7 +551,7 @@ namespace KimSurvival
                 return false;
             }
 
-            Hunger = Math.Max(0f, Hunger - 25f);
+            Hunger = Math.Max(0f, Hunger - 35f);
             if (Hunger <= 0f)
             {
                 Energy = Math.Max(0f, Energy - 35f);

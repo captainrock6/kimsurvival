@@ -37,6 +37,8 @@ button.craft.rope.done	[완료] 밧줄 보유	[Done] Rope Owned
 button.craft.rope	밧줄 제작  나무1·표류물1	Craft Rope  Wood 1 · Salvage 1
 button.signal.done	[완료] 구조 신호 발신	[Done] Rescue Signal Sent
 button.signal.progress	구조 신호대 {0}/2  나무2·표류물2	Rescue Signal {0}/2  Wood 2 · Salvage 2
+button.signal.stage1	신호 1단계 · 작업대 {0}\n나무 {1}/2 · 표류물 {2}/2	Signal Stage 1 · Workbench {0}\nWood {1}/2 · Salvage {2}/2
+button.signal.stage2	신호 2단계 · 밧줄 {0}\n나무 {1}/2 · 표류물 {2}/2	Signal Stage 2 · Rope {0}\nWood {1}/2 · Salvage {2}/2
 button.eat	식량 먹기  보유 {0}	Eat Food  Owned {0}
 button.day.final	마지막 날 정산	Settle Final Day
 button.day.next	다음 날로	Next Day
@@ -60,6 +62,8 @@ world.signal_anchor	전용 앵커 · 신호대 {0}/2	Dedicated Anchor · Signal 
 world.return	CAMP	CAMP
 world.rope.pass	밧줄로 통과	Cross with Rope
 world.rope.need	밧줄 필요	Rope Required
+world.barrier.axe.pass	돌도끼로 장벽 제거	Clear Barrier with Stone Axe
+world.barrier.axe.need	돌도끼 필요\n덩굴·나무 장벽	Stone Axe Required\nVine & Wood Barrier
 world.resource.land	{0} ×{1}	{0} ×{1}
 world.resource.water	헤엄쳐 수색\n{0} ×{1}	Swim to Search\n{0} ×{1}
 world.structure.relocate	{0}\n↔ 무료 재배치	{0}\n↔ Move Free
@@ -88,9 +92,12 @@ message.research.axe	연구 완료: 돌과 나무를 묶으면 제법 도끼처�
 message.research.rope	연구 완료: 줄은 묶는 법보다 안 풀리게 하는 법이 중요했다.	Research complete: tying rope matters less than keeping it tied.
 message.craft.unavailable	제작법이나 재료를 다시 확인해야 한다.	Check the recipe and materials again.
 message.craft.axe	돌도끼 완성. 나무가 두 배로 억울해진다.	Stone axe complete. Trees now have twice the reason to complain.
-message.craft.rope	밧줄 완성. 이제 숲 안쪽도 김씨 관할이다.	Rope complete. The inner forest is now under Mr. Kim's jurisdiction.
-message.signal.rope	마지막 안테나를 세우려면 밧줄이 필요하다.	The final antenna needs rope.
-message.signal.materials	작업대와 나무 2, 표류물 2가 필요하다.	A workbench, 2 wood, and 2 salvage are required.
+message.craft.rope	밧줄 완성. 구조 신호대의 마지막 안테나를 세울 준비가 됐다.	Rope complete. The final rescue-signal antenna is ready to be raised.
+message.signal.workbench	1단계에는 작업대가 필요하다. 현재 작업대가 없다.	Stage 1 requires a workbench. No workbench is available.
+message.signal.rope	2단계에는 밧줄이 필요하다. 현재 밧줄이 없다.	Stage 2 requires rope. No rope is available.
+message.signal.materials	나무와 표류물이 부족하다. 현재 나무 {0}/2, 표류물 {1}/2.	Wood and salvage are short. Current: Wood {0}/2, Salvage {1}/2.
+message.signal.wood	나무가 부족하다. 현재 {0}/2.	Not enough wood. Current: {0}/2.
+message.signal.salvage	표류물이 부족하다. 현재 {0}/2.	Not enough salvage. Current: {0}/2.
 message.signal.stage1	구조 신호대 골격 완성. 멀리서 보면 꽤 그럴듯하다.	Signal frame complete. From far away it looks almost convincing.
 message.signal.stage2	구조 신호 발신! 김씨의 엉성함이 마침내 주파수를 탔다.	Rescue signal sent! Mr. Kim's improvisation has finally found a frequency.
 message.food.none	먹을 것이 없다. 코코넛 그림이라도 그려 볼까.	Nothing to eat. Perhaps drawing a coconut would help.
@@ -114,6 +121,7 @@ message.return.safe	무사 귀환. 가방은 무겁고 김씨의 표정은 가�
 message.endday.search	수색을 마쳐야 오늘을 정산할 수 있다.	Finish the expedition before settling the day.
 message.day.start	{0}일차 아침. 김씨는 아직도 섬이고, 섬도 아직 김씨다.	Morning of day {0}. Mr. Kim is still on the island, and the island still has Mr. Kim.
 message.rope.blocked	숲이 너무 빽빽하다. 밧줄을 만들면 넘어갈 방법이 생길 것 같다.	The forest is too dense. A rope might provide a way through.
+message.barrier.axe_blocked	덩굴과 나무가 길을 막는다. 돌도끼로 장벽을 제거해야 한다.	Vines and wood block the path. Clear the barrier with a stone axe.
 message.nothing_near	손을 뻗어 봤지만 잡히는 건 공기뿐이다.	He reaches out and catches only air.
 result.title.rescued	구조 성공!	Rescue Successful!
 result.title.exhausted	김씨, 잠시 누움	Mr. Kim Needs a Lie-Down

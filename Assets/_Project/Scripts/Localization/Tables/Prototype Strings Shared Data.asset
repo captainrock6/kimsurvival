@@ -515,6 +515,38 @@ MonoBehaviour:
     m_Key: placement.summary
     m_Metadata:
       m_Items: []
+  - m_Id: 197482050207744
+    m_Key: button.signal.stage1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345088
+    m_Key: button.signal.stage2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345089
+    m_Key: world.barrier.axe.pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345090
+    m_Key: world.barrier.axe.need
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345091
+    m_Key: message.signal.workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345092
+    m_Key: message.signal.wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482096345093
+    m_Key: message.signal.salvage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 197482100539392
+    m_Key: message.barrier.axe_blocked
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -116,6 +116,13 @@ namespace KimSurvival.EditorTools
             Assert(inventory.ReturnToCamp(false), "Bag transfers on return");
             Assert(inventory.GetStorage(ResourceKind.Wood) >= 3, "Returned wood reaches storage");
 
+            GameSession balance = new GameSession();
+            Assert(balance.GetStorage(ResourceKind.Food) == 0 && Mathf.Approximately(balance.Hunger, 70f), "Balance v0.2 starts with food 0 and hunger 70");
+            Assert(balance.BeginSearch() && balance.ReturnToCamp(false) && balance.EndDay(), "Balance v0.2 first day settles");
+            Assert(Mathf.Approximately(balance.Hunger, 35f), "Balance v0.2 settlement drains 35 hunger");
+            Assert(balance.BeginSearch() && balance.ReturnToCamp(false) && balance.EndDay(), "Balance v0.2 second day settles");
+            Assert(Mathf.Approximately(balance.Hunger, 0f), "Balance v0.2 hunger reaches zero after two uneaten settlements");
+
             GameSession landTravel = new GameSession();
             Assert(landTravel.BeginSearch(), "Land travel scenario begins search");
             landTravel.TickSearch(10f, true);
@@ -177,12 +184,14 @@ namespace KimSurvival.EditorTools
             {
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false), "English locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English String Table is active immediately");
-                Assert(localization.Format("hud.status.camp", 1, 3, "Camp", 75, 100).Contains("Hunger 75"), "Smart String arguments format in English");
+                Assert(localization.Format("hud.status.camp", 1, 3, "Camp", 70, 100).Contains("Hunger 70"), "Smart String arguments format in English");
                 Assert(localization.Format("controls.placement.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("left stick"), "English gamepad placement prompt is localized");
+                Assert(localization.Format("world.barrier.axe.need").Contains("Stone Axe Required"), "English forest barrier names the stone axe requirement");
                 Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "베이스캠프 · 제작 / 건설 / 연구", "Korean source string restores immediately");
                 Assert(localization.Format("controls.placement.keyboard_mouse", localization.DeviceName(PrototypeInputDevice.KeyboardMouse)).Contains("마우스로 위치 이동"), "Korean keyboard and mouse placement prompt is localized");
+                Assert(localization.Format("world.barrier.axe.need").Contains("돌도끼 필요"), "Korean forest barrier names the stone axe requirement");
                 Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
                 Assert(PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey) == PrototypeLocalization.EnglishLocaleCode, "Persisted locale is available to the next launch");
@@ -275,6 +284,48 @@ namespace KimSurvival.EditorTools
             Assert(!shoreline.IsSwimming && !returnedToShore.Presentation.IsSwimming, "Crossing back over the coastline exits swimming");
             Assert(Mathf.Approximately(traversal.Y, PrototypePlayerTraversal.LandY), "Shore return restores land height");
 
+            GameSession ropeOnlyTraversalSession = new GameSession();
+            ropeOnlyTraversalSession.Grant(ResourceKind.Wood, 10);
+            ropeOnlyTraversalSession.Grant(ResourceKind.Salvage, 10);
+            Assert(ropeOnlyTraversalSession.TryBuild(StructureKind.Workbench), "Rope-only barrier scenario builds workbench");
+            Assert(ropeOnlyTraversalSession.TryResearch(TechKind.Rope) && ropeOnlyTraversalSession.TryCraft(TechKind.Rope), "Rope-only barrier scenario crafts rope");
+            Assert(ropeOnlyTraversalSession.HasRope && !ropeOnlyTraversalSession.HasAxe && ropeOnlyTraversalSession.BeginSearch(), "Rope-only barrier scenario starts without axe");
+            PrototypePlayerTraversal ropeOnlyTraversal = new PrototypePlayerTraversal();
+            ropeOnlyTraversal.Reset(7.7f, PrototypePlayerTraversal.LandY);
+            PrototypeTraversalStep ropeBlocked = ropeOnlyTraversal.Step(new PrototypePlayerActions(1f, false, false, false, false, -1), 0.2f, 0f, ropeOnlyTraversalSession);
+            Assert(ropeBlocked.ReachedBlockedPath && ropeOnlyTraversal.X <= 8f, "Rope alone cannot cross the vine and wood barrier");
+
+            GameSession axeOnlyTraversalSession = new GameSession();
+            axeOnlyTraversalSession.Grant(ResourceKind.Wood, 10);
+            axeOnlyTraversalSession.Grant(ResourceKind.Stone, 10);
+            axeOnlyTraversalSession.Grant(ResourceKind.Salvage, 10);
+            Assert(axeOnlyTraversalSession.TryBuild(StructureKind.Workbench), "Axe-only barrier scenario builds workbench");
+            Assert(axeOnlyTraversalSession.TryResearch(TechKind.StoneAxe) && axeOnlyTraversalSession.TryCraft(TechKind.StoneAxe), "Axe-only barrier scenario crafts stone axe");
+            Assert(axeOnlyTraversalSession.HasAxe && !axeOnlyTraversalSession.HasRope && axeOnlyTraversalSession.BeginSearch(), "Axe-only barrier scenario starts without rope");
+            PrototypePlayerTraversal axeOnlyTraversal = new PrototypePlayerTraversal();
+            axeOnlyTraversal.Reset(7.7f, PrototypePlayerTraversal.LandY);
+            PrototypeTraversalStep axePasses = axeOnlyTraversal.Step(new PrototypePlayerActions(1f, false, false, false, false, -1), 0.2f, 0f, axeOnlyTraversalSession);
+            Assert(!axePasses.ReachedBlockedPath && axeOnlyTraversal.X > 8f, "Stone axe alone crosses the vine and wood barrier");
+            Assert(axeOnlyTraversalSession.TryGather(ResourceKind.Wood, 1) == GatherResult.Added && axeOnlyTraversalSession.GetBagSlot(0).Amount == 2, "Stone axe keeps the wood gathering plus-one bonus");
+
+            GameSession signalFeedback = new GameSession();
+            signalFeedback.Grant(ResourceKind.Wood, 10);
+            signalFeedback.Grant(ResourceKind.Salvage, 10);
+            Assert((signalFeedback.GetSignalUpgradeBlockers() & SignalUpgradeBlockers.MissingWorkbench) != 0 && !signalFeedback.TryUpgradeSignal() && signalFeedback.LastMessage.Key == "message.signal.workbench", "Signal stage one reports a missing workbench");
+            Assert(signalFeedback.TryBuild(StructureKind.Workbench), "Signal feedback scenario builds workbench");
+            Assert(!signalFeedback.HasRope && signalFeedback.TryUpgradeSignal() && signalFeedback.SignalStage == 1, "Signal stage one succeeds without rope");
+            Assert((signalFeedback.GetSignalUpgradeBlockers() & SignalUpgradeBlockers.MissingRope) != 0 && !signalFeedback.TryUpgradeSignal() && signalFeedback.LastMessage.Key == "message.signal.rope", "Signal stage two clearly rejects missing rope");
+            Assert(signalFeedback.TryResearch(TechKind.Rope) && signalFeedback.TryCraft(TechKind.Rope), "Signal feedback scenario crafts rope");
+            Assert(signalFeedback.TryUpgradeSignal() && signalFeedback.Result == RunResult.Rescued, "Signal stage two succeeds with rope and materials");
+
+            GameSession signalWoodShortage = new GameSession();
+            signalWoodShortage.Grant(ResourceKind.Salvage, 3);
+            Assert(signalWoodShortage.TryBuild(StructureKind.Workbench) && !signalWoodShortage.TryUpgradeSignal() && signalWoodShortage.LastMessage.Key == "message.signal.wood", "Signal feedback distinguishes a wood shortage");
+            GameSession signalSalvageShortage = new GameSession();
+            signalSalvageShortage.Grant(ResourceKind.Wood, 2);
+            signalSalvageShortage.Grant(ResourceKind.Salvage, 1);
+            Assert(signalSalvageShortage.TryBuild(StructureKind.Workbench) && !signalSalvageShortage.TryUpgradeSignal() && signalSalvageShortage.LastMessage.Key == "message.signal.salvage", "Signal feedback distinguishes a salvage shortage");
+
             GameSession progression = new GameSession();
             progression.Grant(ResourceKind.Wood, 20);
             progression.Grant(ResourceKind.Stone, 10);
@@ -305,7 +356,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: adopted 1672x941 three-layer camp background and four camp structure sprite imports, layer/source metadata, structure pivots, serialized scene references, inventory overflow/swap, shared keyboard/gamepad actions including language, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, layer/source metadata, structure pivots, serialized scene references, inventory overflow/swap, shared keyboard/gamepad actions including language, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -502,15 +553,17 @@ namespace KimSurvival.EditorTools
 
             try
             {
-                string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave5-exploration-ko-1280x800.png"));
-                string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave5-swimming-en-1280x800.png"));
-                string placementKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave5-placement-ko-invalid-1280x800.png"));
-                string placementEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave5-placement-en-valid-gamepad-1280x800.png"));
-                string result = prototype.RunAutomatedVerification(explorationScreenshot, swimmingScreenshot, placementKoreanScreenshot, placementEnglishScreenshot);
-                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave5-camp-en-1280x800.png"));
+                string explorationScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-exploration-ko-1280x800.png"));
+                string swimmingScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-swimming-en-1280x800.png"));
+                string placementKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-placement-ko-invalid-1280x800.png"));
+                string placementEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-placement-en-valid-gamepad-1280x800.png"));
+                string signalKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-signal-stage1-missing-ko-1280x800.png"));
+                string signalEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-signal-stage2-missing-en-1280x800.png"));
+                string result = prototype.RunAutomatedVerification(explorationScreenshot, swimmingScreenshot, placementKoreanScreenshot, placementEnglishScreenshot, signalKoreanScreenshot, signalEnglishScreenshot);
+                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave6-camp-en-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
-                SessionState.SetString(MessageKey, result + "\nPlacement Korean screenshot: " + placementKoreanScreenshot + "\nPlacement English/gamepad screenshot: " + placementEnglishScreenshot + "\nSwimming screenshot: " + swimmingScreenshot + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);
+                SessionState.SetString(MessageKey, result + "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot + "\nSignal stage two missing/rope English screenshot: " + signalEnglishScreenshot + "\nPlacement Korean screenshot: " + placementKoreanScreenshot + "\nPlacement English/gamepad screenshot: " + placementEnglishScreenshot + "\nSwimming screenshot: " + swimmingScreenshot + "\nExploration screenshot: " + explorationScreenshot + "\nCamp screenshot: " + screenshot);
             }
             catch (Exception exception)
             {
