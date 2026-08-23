@@ -1,12 +1,12 @@
 # Wave 11 사용자 플레이테스트 관찰·판단 프레임
 
 > 상태: `READY TO USE / HUMAN RESULTS UNRUN`
-> 통합 기준: `origin/master 72ec967a9009635fbeccbc758563183a67a4b311`
+> 5일 설계 기준: `origin/master 86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91`, `balance.wave12.five-day-rebaseline.v1`
 > 기계 정본: `.forge/design/wave11-playtest-triage.json`
 > 상속: Wave 8 20분 외부 테스트, Wave 9 밸런스, Wave 10 모듈 온보딩 계약
 > 공식 영문 게임 제목: `TBD`
 
-이 문서는 사용자가 제공된 Windows 빌드를 직접 한 번 플레이하며 짧게 기록하는 양식이다. 한 번의 owner selftest는 버그와 감각 가설을 찾는 진단 표본이지 첫 사용자 발견성 합격이나 밸런스 변경 근거가 아니다. 사람이 하지 않은 결과는 빈칸과 `UNRUN`으로 남긴다.
+이 문서는 사용자가 제공된 5일 Windows 빌드를 직접 한 번 플레이하며 짧게 기록하는 양식이다. 한 번의 owner selftest는 버그와 감각 가설을 찾는 진단 표본이지 첫 사용자 발견성 합격이나 밸런스 변경 근거가 아니다. 사람이 하지 않은 결과는 빈칸과 `UNRUN`으로 남긴다. HUD가 `DAY n/5`가 아니거나 Day 3·4에 기한 실패하면 5일 밸런스 세션으로 세지 않는다.
 
 ## 1. 실행 전 2분 빌드 카드
 
@@ -21,6 +21,7 @@
 | 실제 게임패드 모델 | 해당 시 `________________` |
 | 해상도·창 모드 | `1280×800 / ________________` |
 | 초기 상태 | 새 게임, Day 1, 가방 4칸 확인 `Y/N` |
+| 5일 capability | HUD `DAY 1/5` `Y/N`; Day 3·4 비종료 사전 검증 `Y/N` |
 | 개발 지름길 | grant·warp·console·공략 미사용 `Y/N` |
 
 - 한국어가 의미와 코미디 톤의 기본이다. 첫 owner session은 `ko`를 권장한다.
@@ -94,6 +95,22 @@
 | `MODULE_PREVIEW` | | | 실제 entry path, 본 후보 |
 | `MODULE_COMMIT_ATTEMPT` | | | 후보, `SUCCESS / reason ID`, W2/D1 전후 |
 | `END` | | | `RESCUED / EXHAUSTED / DEADLINE / TIMEOUT / PLAYER_STOP / CRASH / SOFTLOCK` |
+
+### 일자별 5일 장부
+
+도달한 Day만 채운다. Day 1~2는 기반·도구, Day 3은 성장 선택, Day 4~5는 신호·탈출을 보는 권장 곡선일 뿐 플레이 지시가 아니다.
+
+| Day | 원정 시작/귀환 | 창고 W/S/F/D 전→후 | 귀환 가방 | E/H/L 귀환→정산 | 신호 전→후 | 가방 | 방 | 식량 | 원인 |
+|---:|---|---|---|---|---|---|---|---|---|
+| 1 | | | | | | 4 | 없음 | | |
+| 2 | | | | | | | | | |
+| 3 | | | | | | | | | |
+| 4 | | | | | | | | | |
+| 5 | | | | | | | | | |
+
+- Day 3·4 미완성 정산은 다음 날로 진행해야 한다. 이때 `DEADLINE`이면 `TECHNICAL`이며 세션은 `HOLD_CALENDAR_CAPABILITY`다.
+- Day 5 정산 미완성만 `DEADLINE`이고, 신호 2단계는 어느 Day든 즉시 `RESCUED`다.
+- 실제 결말 Day와 신호·가방·방 상태를 반드시 함께 적는다.
 
 추가 관찰:
 
@@ -180,12 +197,13 @@
 |---|---|---|
 | `STOP_P0` | P0 1회 | 제공 build 사용 중단. 재현 보존 후 수정·새 build |
 | `HOLD_BUILD_CAPABILITY` | direct-slot path가 EXE에 없음 | 사람 90초 direct gate는 N/A. 실제 경로 계속 기록, 별도 P1 build-gap 후보. 수치 변경 없음 |
+| `HOLD_CALENDAR_CAPABILITY` | HUD가 `/5`가 아니거나 Day 3·4 deadline, Day 5 비종료, 즉시 구조 우선순위 실패 | 5일 밸런스 표본 제외. 날짜·결말 구현을 고친 새 build에서 재실행 |
 | `GO_COLLECT_MORE` | owner session 1회 완료, P0 없음 | 진단 표본 1개로 보존. 현행 수치·기능 유지 |
 | `GO_FIX_P1` | P1 최소 증거 충족 | 가장 작은 UX/입력/계약 축 수정 후 affected human run 재실행 |
 | `GO_QUEUE_P2` | 같은 P2 사람 3회 | P0/P1 뒤 backlog 후보. 즉시 루프 변경 없음 |
 | `GO_ONE_AXIS_BALANCE_REVIEW` | 기존 Wave 8 방식의 유효 6세션 `ko3/en3`, 발견성·이해도 합격, 같은 RESOURCE 원인 2회 이상 | 하나의 수치 변경안만 사용자 검토에 올림. 자동 변경 금지 |
 
-한 owner session의 종료가 구조 성공이어도 “너무 쉽다”, 실패여도 “너무 어렵다”로 결론내리지 않는다. 현재 session이 줄 수 있는 즉시 결정은 P0 stop, 재현 가능한 P1 후보, 또는 `GO_COLLECT_MORE`뿐이다.
+한 owner session의 종료가 구조 성공이어도 “너무 쉽다”, 실패여도 “너무 어렵다”로 결론내리지 않는다. 현재 session이 줄 수 있는 즉시 결정은 P0 stop, 날짜·진입 capability hold, 재현 가능한 P1 후보, 또는 `GO_COLLECT_MORE`뿐이다. 비용 검토는 ko3/en3 유효 6세션과 같은 `RESOURCE` 원인 2회 뒤 한 축만 연다.
 
 ## 8. 결과 요약 — 실행 전 빈칸 유지
 

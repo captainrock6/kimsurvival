@@ -1,8 +1,9 @@
 {
   "schemaVersion": 1,
   "contractId": "playtest.wave11.user-session-triage.v1",
-  "sourceCommit": "72ec967a9009635fbeccbc758563183a67a4b311",
-  "updatedAt": "2026-08-23T09:41:36.163Z",
+  "sourceCommit": "86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91",
+  "activeRebaseline": "balance.wave12.five-day-rebaseline.v1",
+  "updatedAt": "2026-08-23T10:33:36.795Z",
   "inherits": [
     "ux.wave10.module-onboarding.v1",
     "balance.wave9.module-expansion.v0.2",
@@ -52,6 +53,21 @@
     },
     "humanRecordingRule": "Preflight the actual EXE. If direct-slot preview is absent, mark DIRECT_SLOT_NOT_AVAILABLE_IN_BUILD and do not score its 90-second miss as player confusion; still record the actual entry path and time."
   },
+  "calendarCapability": {
+    "requiredFinalDay": 5,
+    "requiredHudDenominator": 5,
+    "day3Deadline": false,
+    "day4Deadline": false,
+    "day5IncompleteDeadline": true,
+    "signalCompleteImmediateSuccessAnyDay": true,
+    "invalidForBalanceWhen": [
+      "HUD denominator is not 5",
+      "Day 3 or Day 4 settlement produces Deadline",
+      "Day 5 incomplete settlement does not produce Deadline",
+      "signal stage 2 does not produce immediate Rescued"
+    ],
+    "invalidDecision": "HOLD_CALENDAR_CAPABILITY"
+  },
   "session": {
     "maximumPlaySeconds": 1200,
     "clockAnchor": "new_game_world_control_enabled",
@@ -59,6 +75,7 @@
     "setup": [
       "Record build commit, Windows EXE SHA-256, executable name, resolution, window mode, locale, evidence type, and input device before play.",
       "Start a new game without grant, warp, debug console, solution notes, or developer overlay.",
+      "Confirm DAY 1/5 before recording a five-day balance session; otherwise record only a build-capability defect.",
       "Use Korean for the primary owner session; run English as a separate session when checking language.",
       "Use keyboard/mouse or one physical gamepad for the entire session."
     ],
@@ -140,6 +157,18 @@
       "id": "END",
       "definition": "RESCUED, EXHAUSTED, DEADLINE, TIMEOUT, PLAYER_STOP, CRASH, or SOFTLOCK."
     }
+  ],
+  "dailyLedgerFields": [
+    "day",
+    "expeditionStartAndReturnSeconds",
+    "storageW_S_F_DBeforeAndAfter",
+    "bagSlotsAndContentsAtReturn",
+    "energyHungerDaylightAtReturnAndSettlement",
+    "signalStageBeforeAndAfter",
+    "bagCapacityAndUpgradeDecision",
+    "committedModuleIdOrNone",
+    "foodUsed",
+    "delayOrFailureCause"
   ],
   "moduleDiscovery90Seconds": {
     "requiredFields": [
@@ -292,6 +321,11 @@
         "id": "HOLD_BUILD_CAPABILITY",
         "condition": "Direct-slot entry is absent or not evaluable in the actual EXE.",
         "decision": "Mark the 90-second direct-slot gate N/A for the player, record the actual path, and file a separate build-gap candidate without changing balance."
+      },
+      {
+        "id": "HOLD_CALENDAR_CAPABILITY",
+        "condition": "The actual EXE does not implement the five-day HUD and result-order contract.",
+        "decision": "Exclude the run from five-day balance evidence, preserve the capability reproduction, and rerun on a corrected build without changing balance."
       },
       {
         "id": "GO_COLLECT_MORE",

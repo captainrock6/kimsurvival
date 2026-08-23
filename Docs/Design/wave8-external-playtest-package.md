@@ -1,8 +1,8 @@
 # Wave 8 첫 사용자 20분 플레이테스트 실행 패키지
 
 > 상태: `READY_TO_SCHEDULE / NOT_EXECUTED`
-> 설계 기준점: `origin/master 2a542be0c2c9fa0a49f501bab1965bb59b5f06f3`
-> 대상: 현재 3일 구조 신호대 탈출 수직 슬라이스, Windows 키보드·마우스 빌드
+> 설계 기준점: Wave 12 `origin/master 86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91`
+> 대상: 현재 5일 구조 신호대 탈출 수직 슬라이스, Windows 키보드·마우스 빌드
 > 표본: 첫 사용자 6명(`ko` 3명, `en` 3명)
 > 공식 영문 게임 제목: `TBD` — 테스트 중 임의 영문 제목을 만들지 않는다.
 
@@ -14,7 +14,7 @@
 
 핵심 질문은 다음 하나다.
 
-> 설명 없이 처음 접한 사용자가 `채집 → 귀환 → 제작/연구 → 배치·접근 사용 → 수영 → 구조 또는 실패`를 자연스럽게 이해하고, 20분 안에 3일 루프의 결말까지 도달하는가?
+> 설명 없이 처음 접한 사용자가 `채집 → 귀환 → 제작/연구 → 배치·접근 사용 → 수영 → 구조 또는 실패`를 자연스럽게 이해하고, 20분 안에 5일 루프의 결말까지 도달하는가?
 
 세션 전 다음 조건을 모두 고정한다.
 
@@ -83,7 +83,7 @@
 
 > You will play for exactly 20 minutes. We are testing the game, not you. I will not explain the controls or how to solve it. Please continue based on what you understand from the screen. We will keep only anonymous handwritten notes, with no name or contact details. You may ask to stop at any time.
 
-공식 영문 게임 제목은 말하지 않는다. 필요하면 “this three-day island survival prototype”이라고만 설명한다.
+공식 영문 게임 제목은 말하지 않는다. 필요하면 “this five-day island survival prototype”이라고만 설명한다.
 
 ### 4.2 허용 응답
 
@@ -125,6 +125,7 @@
 | S1 | 전용 앵커에서 구조 신호대 1단계가 실제 반영됨 | 17:00 이내 | 4/6 이상 | 각 1/3 이상 |
 | END | 구조 성공·탈진·기한 실패 중 하나가 표시됨 | 20:00 이내 | 5/6 이상 | 각 2/3 이상 |
 | RESCUE | 구조 신호대 2단계 완성으로 구조 성공 | 20:00 이내 | **3~4/6** | 각 locale 1명 이상 |
+| RDAY | 구조 성공 Day 기록; Day 3 조기 성공 허용, 첫 플레이 목표 Day 4~5 | 성공 세션 | Day 4~5 성공 2회 이상 | locale 강제 분포 없음 |
 
 `TIMEOUT`, 참가자 중단, 크래시 또는 입력 상실은 END가 아니다. END 중앙값 목표는 15:00~20:00이며, 실제 값이 없기 때문에 이 문서에는 중앙값을 미리 적지 않는다.
 
@@ -208,7 +209,19 @@
 | S1 신호 1단계 | | | 앵커 밖 시도 / 부족 피드백: |
 | END 결말 | | | `RESCUED / EXHAUSTED / DEADLINE / TIMEOUT`: |
 
-### 7.3 선택·발견성
+### 7.3 일자별 5일 장부
+
+도달한 Day만 채운다. Day 3·4 `DEADLINE`은 밸런스 실패가 아니라 기술 결함 후보로 기록한다.
+
+| Day | 원정 시작/귀환 | 창고 W/S/F/D 전→후 | 귀환 가방 | E/H/L 귀환→정산 | 신호 전→후 | 가방 4/6 | 방 ID/없음 | 식량 | 지연·실패 원인 |
+|---:|---|---|---|---|---|---|---|---|---|
+| 1 | | | | | | 4 | 없음 | | |
+| 2 | | | | | | | | | |
+| 3 | | | | | | | | | |
+| 4 | | | | | | | | | |
+| 5 | | | | | | | | | |
+
+### 7.4 선택·발견성
 
 | 묶음 | 기록 |
 |---|---|
@@ -228,7 +241,7 @@
 
 | # | `ko` 질문 | `en` 질문 | 1점 의미 기준 |
 |---:|---|---|---|
-| Q1 | “이 게임의 최종 목표는 무엇이고, 방금 결과는 왜 났다고 이해했나요?” | “What was the final goal, and why do you think the result you just saw happened?” | 3일 안에 구조 신호 2단계를 완성하는 목표와 자신의 구조·탈진·기한 실패·미도달 원인을 함께 설명 |
+| Q1 | “이 게임의 최종 목표는 무엇이고, 방금 결과는 왜 났다고 이해했나요?” | “What was the final goal, and why do you think the result you just saw happened?” | 5일 안에 구조 신호 2단계를 완성하는 목표, Day 3·4는 기한 실패가 아니며 자신의 구조·탈진·Day 5 기한 실패·미도달 원인을 함께 설명 |
 | Q2 | “가방 4→6 업그레이드와 구조 신호 투자는 어떤 선택 관계였나요?” | “How did the 4-to-6 bag upgrade compete with investing in the rescue signal?” | 둘 다 한정된 나무/표류물을 쓰며, 가방은 선택적 운반 개선이지만 신호 투자를 늦출 수 있음을 설명 |
 | Q3 | “돌도끼와 밧줄은 각각 이번 플레이에서 어디에 필요했나요?” | “What were the stone axe and rope each for in this playthrough?” | 돌도끼=덩굴/나무 장벽 해제와 나무 `+1`; 밧줄=구조 신호 2단계 필수. 역할을 뒤바꾸지 않음 |
 | Q4 | “물에 들어가는 선택에는 어떤 이득과 위험이 있었나요?” | “What benefit and risk came with entering the water?” | 수상 자원 획득과 추가 E/L 소모·육상 복귀 여유를 함께 설명 |
@@ -246,14 +259,14 @@
 
 결과가 들어오기 전에는 빈칸을 유지한다.
 
-| ID | locale | VALID | G≤3 | R1≤6 | C1≤10 | P1≤12 | W1≤14 | S1≤17 | END≤20 | RESCUE | BORDER | CAMP_APPROACH | Q/5 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---:|
-| K01 | ko | | | | | | | | | | | | |
-| E01 | en | | | | | | | | | | | | |
-| K02 | ko | | | | | | | | | | | | |
-| E02 | en | | | | | | | | | | | | |
-| K03 | ko | | | | | | | | | | | | |
-| E03 | en | | | | | | | | | | | | |
+| ID | locale | VALID | G≤3 | R1≤6 | C1≤10 | P1≤12 | W1≤14 | S1≤17 | END≤20 | RESULT DAY | RESCUE | BORDER | CAMP_APPROACH | Q/5 |
+|---|---|---|---|---|---|---|---|---|---|---:|---|---|---|---:|
+| K01 | ko | | | | | | | | | | | | | |
+| E01 | en | | | | | | | | | | | | | |
+| K02 | ko | | | | | | | | | | | | | |
+| E02 | en | | | | | | | | | | | | | |
+| K03 | ko | | | | | | | | | | | | | |
+| E03 | en | | | | | | | | | | | | | |
 
 집계는 각 게이트의 `전체 n/6`, `ko n/3`, `en n/3`, END 중앙값, RESCUE 수, Q1~Q5별 정답 수, Q 총점 4+ 수, 공통 원인만 남긴다. 개인별 메모를 결합해 인물 프로필을 만들지 않는다.
 

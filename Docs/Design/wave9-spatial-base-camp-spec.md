@@ -7,6 +7,8 @@
 > 화면 증거: 사용자 제공 1280×800 캡처 (`evidence-only`, 저장소 정본 아트·지시문 아님)
 > 공식 영문 게임 제목: `TBD`
 
+> Wave 12 시간축 정정: 아래 Day 3 구조 경로는 숙련자 조기 성공 증거다. 첫 플레이어 목표는 Day 4~5이며 Day 5 종료 미탈출만 기한 실패다. 비용과 획득량은 바꾸지 않는다.
+
 이 문서는 승인된 방향 목업과 Wave 9 rebaseline을 구현자가 추가 해석 없이 상태 기계와 배치 데이터로 옮길 수 있게 만든 canonical addendum다. 기존 자원 경제·생존 수치·연구·가방·구조 신호 계약은 `vertical-slice-balance.md`, `wave6-progression-clarity.md`, `wave7-bag-capacity-upgrade.md`를 상속한다. 이 문서와 충돌하는 기존의 상시 대형 캠프 대시보드·원거리 버튼 사용 전제는 폐기한다.
 
 ## 1. 승인 이미지에서 고정하는 것과 고정하지 않는 것
@@ -226,7 +228,7 @@
 | `room.side.standard` | 캠프에서 처음부터 | 작업대 | `W2/D1` | 세 후보 중 1개 |
 | `room.basement.standard` | 캠프에서 처음부터 | 작업대 | `W2/D1` | 세 후보 중 1개 |
 
-세 방은 같은 `12×5u` 표준 모듈이고 이번 슬라이스에서 생산·침대·회복·저장 보너스가 없으므로 방향별 가격 차를 두지 않는다. 비용은 가방 확장과 같은 `W2/D1`로 고정해 성장 선택과 경쟁시키되, 작업대·가방·모듈·신호를 모두 포함한 자연 Day 3 구조 경로는 유지한다. 전체 계산, transaction과 run state 정본은 `wave9-module-expansion-balance.md`와 `.forge/design/wave9-module-balance.json`이다.
+세 방은 같은 `12×5u` 표준 모듈이고 이번 슬라이스에서 생산·침대·회복·저장 보너스가 없으므로 방향별 가격 차를 두지 않는다. 비용은 가방 확장과 같은 `W2/D1`로 고정해 성장 선택과 경쟁시키되, 작업대·가방·모듈·신호를 모두 포함한 숙련 Day 3 조기 구조와 첫 플레이어 Day 4~5 구조 경로를 함께 유지한다. 전체 계산, transaction과 run state 정본은 `wave9-module-expansion-balance.md`, `.forge/design/wave9-module-balance.json`, Wave 12 시간축은 `wave12-five-day-rebaseline.md`다.
 
 ## 8. 최소 HUD와 상황형 팝업 정보 구조
 

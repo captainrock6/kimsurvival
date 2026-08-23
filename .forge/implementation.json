@@ -50,7 +50,7 @@
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "유효하지 않은 단계 전환이나 중복 정산 없이 3일 시나리오가 시작부터 결말까지 진행된다."
+        "유효하지 않은 단계 전환이나 중복 정산 없이 5일 시나리오가 시작부터 결말까지 진행되고, Day 3·4 미탈출은 계속되며 Day 5 종료 미탈출만 기한 실패가 된다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -63,10 +63,10 @@
         "Artifacts/Verification/windows-build.txt"
       ],
       "blockedReason": "",
-      "status": "done",
+      "status": "ready",
       "updatedAt": "2026-08-22T08:24:41.917Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:41.917Z",
+      "note": "기존 3일제 완료 증거는 역사적 기준이다. Wave 12 날짜 전환 구현과 새 통합 검증이 필요하다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:41.917Z"
     },
     {
@@ -220,7 +220,7 @@
       "acceptanceCriteria": [
         "새 게임은 1일차 베이스캠프에서 시작하고 수색 귀환 및 정산 후 날짜가 1 증가한다.",
         "화면 전환 중 창고, 가방, 생존 상태, 설비와 탈출 진척도가 유지된다.",
-        "구조 신호 완성, 체력 0 또는 3일차 종료 시 결과 화면으로 이동한다."
+        "구조 신호 완성은 어느 날이든 즉시 성공하고 체력 0은 즉시 실패하며, Day 3·4 종료는 다음 날로 진행하고 Day 5 종료 미탈출만 기한 실패 결과로 이동한다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -233,10 +233,10 @@
         "Artifacts/Verification/windows-build.txt"
       ],
       "blockedReason": "",
-      "status": "done",
+      "status": "ready",
       "updatedAt": "2026-08-22T08:24:42.913Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.913Z",
+      "note": "기존 3일제 완료 증거는 역사적 기준이다. Wave 12 FinalDay=5 구현이 필요하다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:42.913Z"
     },
     {
@@ -255,7 +255,7 @@
       "acceptanceCriteria": [
         "새 게임은 1일차 베이스캠프에서 시작하고 수색 귀환 및 정산 후 날짜가 1 증가한다.",
         "화면 전환 중 창고, 가방, 생존 상태, 설비와 탈출 진척도가 유지된다.",
-        "구조 신호 완성, 체력 0 또는 3일차 종료 시 결과 화면으로 이동한다."
+        "구조 신호 완성은 어느 날이든 즉시 성공하고 체력 0은 즉시 실패하며, Day 3·4 종료는 다음 날로 진행하고 Day 5 종료 미탈출만 기한 실패 결과로 이동한다."
       ],
       "paths": [
         "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
@@ -266,11 +266,11 @@
         "Artifacts/Verification/kim-survival-exploration-1280x800.png",
         "Artifacts/Verification/kim-survival-playmode-1280x800.png"
       ],
-      "blockedReason": "",
-      "status": "done",
+      "blockedReason": "Wave 12의 5일제 런타임 빌드가 아직 없다.",
+      "status": "blocked",
       "updatedAt": "2026-08-22T08:24:43.778Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.777Z",
+      "note": "기존 3일제 자동화·QA 결과는 5일제 PASS로 재사용하지 않는다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.778Z"
     },
     {
@@ -624,8 +624,8 @@
     {
       "id": "task.wave3.implementation.balance-v0-2",
       "lane": "implementation",
-      "title": "Wave 3 밸런스 v0.2 적용",
-      "description": "시작 F0·H70·하루 허기 -35를 적용하고 동결된 가방·노드·연구·신호·이동 비용으로 2회 숙련 성공, 3일 본선 성공과 탈진·기한 실패를 모두 유지한다.",
+      "title": "Wave 12 5일 기한 재기준선 적용 (v0.2 동결)",
+      "description": "이미 적용된 시작 F0·H70·하루 허기 -35와 모든 가방·노드·비용·이동·회복값을 동결하고 FinalDay와 deadline 문구만 5일로 바꾼다.",
       "priority": "critical",
       "dependencies": [
         "task.system.system.survival",
@@ -641,10 +641,13 @@
       "assetIds": [],
       "acceptanceCriteria": [
         "새 게임은 W2/S1/F0/D0, E100/H70/L100에서 시작하고 하루 정산은 허기 35를 소모한다.",
-        "grant와 좌표 warp 없이 Day 1~3 본선 경로, 2회 숙련 구조, 욕심 수영 탈진과 Day 3 기한 실패가 각각 재현된다.",
-        "가방 4×2, 총 10노드, 연구·제작·신호와 육상·수영 비용은 Wave 3 동결 수치와 일치한다."
+        "Day 3·4 정산은 Result=None으로 다음 날 진행하고 Day 5 미완성 정산만 Deadline이며 신호 2단계는 어느 Day든 즉시 Rescued다.",
+        "grant와 좌표 warp 없이 Day 3~4 숙련 구조, Day 4~5 첫 플레이 목표 구조, 욕심 수영 탈진과 Day 5 기한 실패가 각각 재현된다.",
+        "가방 4×2→6×2, 총 10노드, 모든 연구·제작·건설·신호 비용과 육상·수영·허기·회복값은 Wave 12 동결 snapshot과 일치한다."
       ],
       "paths": [
+        "Docs/Design/wave12-five-day-rebaseline.md",
+        ".forge/design/wave12-five-day-rebaseline.json",
         "Docs/Design/wave3-implementation-acceptance.md",
         "Docs/Design/vertical-slice-balance.md",
         "Assets/_Project/Scripts/Runtime/GameSession.cs"
@@ -655,7 +658,8 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
+      "updatedAt": "2026-08-23T10:33:36.795Z",
+      "note": "Stable task ID is preserved for dependencies. Prior 3-day evidence is historical and does not satisfy the Wave 12 five-day acceptance.",
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
     {
@@ -741,8 +745,8 @@
     {
       "id": "task.wave3.qa.integrated-three-day",
       "lane": "qa",
-      "title": "Wave 3 3일 통합 플레이테스트 승인",
-      "description": "2a542be 기능 기준선과 Wave 8 첫 사용자 실행 패키지로 자동 회귀, 처음 보는 참가자 6명의 20분 수기 관찰, KO/EN 이해도와 별도 물리 게임패드 실기를 함께 판정한다.",
+      "title": "Wave 12 5일 통합 플레이테스트 승인",
+      "description": "86b6db8 설계 기준에서 5일 날짜·결말과 compact-a를 새 빌드로 검증하고, 처음 보는 참가자 6명의 20분 수기 관찰, KO/EN 이해도와 별도 물리 게임패드 실기를 함께 판정한다.",
       "priority": "critical",
       "dependencies": [
         "task.wave3.implementation.balance-v0-2",
@@ -764,16 +768,20 @@
       ],
       "assetIds": [],
       "acceptanceCriteria": [
-        "grant·좌표 warp 없이 3일 본선 3회, 2일 숙련 2회, 탈진·강제 귀환·기한 실패 각 1회를 새 실행에서 재현한다.",
+        "grant·좌표 warp 없이 Day 3~4 숙련 구조, Day 4~5 첫 플레이 목표 구조, 탈진·강제 귀환·Day 5 기한 실패를 새 5일 실행에서 재현하고 Day 3·4 Deadline은 0건이다.",
         "신규 플레이어 6명 중 5명 이상 20분 내 결말, 성공 3~4명을 확인하고 가방 4칸 만석·교체/포기와 4→6 업그레이드 대 신호 투자 순서를 기록한다.",
-        "2a542be에 포함된 Wave 7 통합 자동 증거와 Wave 8 익명 수기 집계가 서로 다른 실행 근거로 보존되고, 자동 PASS를 인간 20분 PASS로 대체하지 않는다.",
+        "성공 세션 중 최소 2개는 Day 4~5이며 Day 3 조기 성공은 허용하고, 일자별 W/S/F/D·E/H/L·신호·가방·방·원인을 기록한다.",
+        "기존 3일 자동 증거와 새 5일 자동·인간 수기 집계가 서로 다른 실행 근거로 보존되고, 과거 자동 PASS를 5일 또는 인간 20분 PASS로 대체하지 않는다.",
         "동일 빌드에서 첫 경험 참가자 6명(KO 3명, EN 3명)이 튜토리얼 없이 정확히 20분 플레이하며 이름·연락처·음성·영상·게임 내 텔레메트리 없이 익명 수기 시트만 남긴다.",
         "첫 채집 3분, 첫 귀환 6분, 첫 제작/연구 10분, 첫 유효 설치 12분, 물 왕복 14분을 각각 5/6명 이상과 locale별 2/3명 이상이 구체적 힌트 없이 달성한다.",
         "5/6명 이상이 20분 안에 성공·실패 결말에 도달하고 구조 성공은 3~4/6명이며, 5문항 이해도는 5/6명 이상과 locale별 2/3명 이상이 4점 이상이다.",
         "방향·정답을 주는 H2/H3 개입은 전면 금지하며, 구체적 해결 힌트가 제공된 세션은 오염으로 무효 처리하고 같은 locale의 새 첫 사용자로 대체한다.",
-        "외부 결과는 공통 원인으로 묶어 P0/P1/P2에 환류하며, 물리 게임패드 ko/en 2회 실기는 6인 표본과 별도 판정한다."
+        "외부 결과는 공통 원인으로 묶어 P0/P1/P2에 환류하며, 물리 게임패드 ko/en 2회 실기는 6인 표본과 별도 판정한다.",
+        "compact-a는 1280×800 ko/en/qps-long에서 한 줄·분리 glyph/TMP·locale 폭·보호 영역 overlap 0을 통과하고 연결 슬롯 표식 세 후보는 미선택 review-only로 남는다."
       ],
       "paths": [
+        "Docs/Design/wave12-five-day-rebaseline.md",
+        "Docs/Design/Playtest/wave11-user-playtest-triage.md",
         "Docs/Design/wave3-implementation-acceptance.md",
         "Docs/QA/ko-en-localization-test-plan.md",
         "Docs/QA/base-camp-limited-placement-test-plan.md",
@@ -785,11 +793,11 @@
         "Artifacts/ParallelQA/20260822T1345Z_ec79cf3_integrated/playmode-full-loop.txt",
         "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt"
       ],
-      "blockedReason": "2a542be 기준 Wave 7 자동 게이트는 PASS지만 동일 Windows 빌드의 첫 사용자 6세션(ko 3, en 3)과 별도 물리 게임패드 ko/en 실기는 아직 실행되지 않았다.",
+      "blockedReason": "FinalDay=5와 compact-a가 적용된 새 Windows 빌드, 신규 5일 자동 증거, 첫 사용자 6세션(ko 3, en 3)과 별도 물리 게임패드 ko/en 실기가 아직 없다.",
       "status": "blocked",
-      "updatedAt": "2026-08-23T03:18:54.458Z",
+      "updatedAt": "2026-08-23T10:33:36.795Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
-      "note": "Wave 8 익명 수기 실행 패키지를 canonical 실행 경로로 연결했다. 외부 결과는 없으며 자동 PASS를 인간 20분 PASS로 대체하지 않는다.",
+      "note": "Stable legacy ID is preserved. Wave 12 5일 패키지가 canonical 실행 경로이며 외부 결과는 UNRUN, 과거 3일 자동 PASS는 역사적 증거다.",
       "completedAt": null
     },
     {
@@ -824,19 +832,24 @@
         "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
         "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
         "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
-        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다.",
+        "screen.camp의 최종 근접 안내는 ui.camp-contextual-interaction.compact-a이며 384×64 원본, locale 폭 300/380/520, 분리 glyph/TMP와 한 줄 계약을 사용한다.",
+        "1280×800에서 내레이션 아래 12px, TopHUD·BottomHelp·김씨·활성 설비·48px 보행로 overlap 0이며 연결 슬롯 표식 후보는 미선택 review-only다."
       ],
       "paths": [
+        "Docs/Design/wave12-five-day-rebaseline.md",
+        ".forge/design/wave12-five-day-rebaseline.json",
+        "Assets/_Project/Art/Generated/ui_set/job_20260823085134_0094a8e6/wave10-candidate-index.json",
         "Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260823T0443Z_d088cbd_wave9_contextual_camp/wave9-summary.md · deterministic Edit PASS; product Play full loop PASS; 1280x800 ko/en far/proximity/facility popups PASS; Windows x64 Development build 0 errors/0 warnings; hidden player smoke alive at 8s"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-23T04:50:04.738Z",
-      "note": "",
-      "completedAt": "2026-08-23T04:50:04.737Z",
+      "status": "ready",
+      "updatedAt": "2026-08-23T10:33:36.795Z",
+      "note": "기존 공간형 상호작용 증거는 보존한다. 사용자가 compact-a를 최종 채택했으므로 실제 9-slice·분리 glyph/TMP 연결과 새 레이아웃 검증이 남았다.",
+      "completedAt": null,
       "createdAt": "2026-08-23T04:35:59.187Z"
     },
     {
@@ -863,14 +876,19 @@
         "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
         "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
         "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
-        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다.",
+        "compact-a가 1280×800 ko/en/qps-long에서 한 줄, 분리 glyph/TMP, locale 폭과 보호 영역 overlap 0을 통과한다.",
+        "Wave 11 연결 슬롯 표식 세 후보는 selectedCandidate=null, review-only이며 이번 근접 안내 채택으로 암묵 연결되지 않는다."
       ],
-      "paths": [],
+      "paths": [
+        "Docs/Design/wave12-five-day-rebaseline.md",
+        ".forge/design/wave12-five-day-rebaseline.json"
+      ],
       "evidence": [],
-      "blockedReason": "",
-      "status": "ready",
+      "blockedReason": "compact-a가 적용된 새 런타임 빌드가 아직 없다.",
+      "status": "blocked",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T04:50:04.738Z"
+      "updatedAt": "2026-08-23T10:33:36.795Z"
     },
     {
       "id": "task.qa.wave9-spatial-camp-contract-gate",
@@ -1122,7 +1140,7 @@
       "id": "task.feature.feature.escape-outcome",
       "lane": "implementation",
       "title": "구조 신호와 결말 구현",
-      "description": "표류물과 제작품을 구조 신호대에 투자해 단계적으로 완성하고 3일 내 구조를 요청한다.",
+      "description": "표류물과 제작품을 구조 신호대에 투자해 단계적으로 완성하고 Day 5 종료 전 구조를 요청한다.",
       "priority": "high",
       "dependencies": [
         "task.feature.feature.camp-building",
@@ -1141,7 +1159,7 @@
       "acceptanceCriteria": [
         "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
         "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
-        "완성 시 구조 성공, 3일차 종료 시 미완성이면 기한 실패 결과가 표시된다."
+        "완성 시 날짜와 무관하게 즉시 구조 성공하고, Day 3·4 미완성은 계속 진행되며 Day 5 종료 시 미완성이면 기한 실패 결과가 표시된다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -1154,10 +1172,10 @@
         "Artifacts/Verification/windows-build.txt"
       ],
       "blockedReason": "",
-      "status": "done",
+      "status": "ready",
       "updatedAt": "2026-08-22T08:24:43.558Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.558Z",
+      "note": "신호 비용과 요구조건은 동결한다. 날짜 판정만 Wave 12 계약으로 변경한다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.558Z"
     },
     {
@@ -1176,7 +1194,7 @@
       "acceptanceCriteria": [
         "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
         "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
-        "완성 시 구조 성공, 3일차 종료 시 미완성이면 기한 실패 결과가 표시된다."
+        "완성 시 날짜와 무관하게 즉시 구조 성공하고, Day 3·4 미완성은 계속 진행되며 Day 5 종료 시 미완성이면 기한 실패 결과가 표시된다."
       ],
       "paths": [
         "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
@@ -1187,11 +1205,11 @@
         "Artifacts/Verification/kim-survival-exploration-1280x800.png",
         "Artifacts/Verification/kim-survival-playmode-1280x800.png"
       ],
-      "blockedReason": "",
-      "status": "done",
+      "blockedReason": "Wave 12의 5일제 구조·기한 판정 빌드가 아직 없다.",
+      "status": "blocked",
       "updatedAt": "2026-08-22T08:24:44.452Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:44.451Z",
+      "note": "기존 3일제 성공·실패 증거는 역사적 기준으로만 유지한다.",
+      "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.452Z"
     },
     {
@@ -1572,7 +1590,7 @@
         "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
         "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
         "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 3일 경로가 grant·좌표 warp 없이 Day 3 구조와 최종 W3/S1/F1/D3에 도달한다."
+        "가방 확장을 선택한 자연스러운 5일 경로가 grant·좌표 warp 없이 Day 4~5 구조에 도달하며, 숙련자의 기존 Day 3 조기 구조 가능성도 보존된다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
@@ -1586,7 +1604,7 @@
       "blockedReason": "",
       "status": "done",
       "updatedAt": "2026-08-23T03:05:27.511Z",
-      "note": "자연 3일 구조 경로, 5·6번 슬롯, 키보드/합성 게임패드와 다국어 레이아웃 자동 게이트 통과.",
+      "note": "가방 기능 자체는 완료 상태를 유지한다. 기존 자연 3일 구조 경로는 조기 성공 증거이며 Wave 12 통합 경로는 새 QA 대상이다.",
       "completedAt": "2026-08-23T03:05:27.510Z",
       "createdAt": "2026-08-23T03:05:27.511Z"
     },
@@ -1608,7 +1626,7 @@
         "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
         "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
         "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 3일 경로가 grant·좌표 warp 없이 Day 3 구조와 최종 W3/S1/F1/D3에 도달한다."
+        "가방 확장을 선택한 자연스러운 5일 경로가 grant·좌표 warp 없이 Day 4~5 구조에 도달하며, 숙련자의 기존 Day 3 조기 구조 가능성도 보존된다."
       ],
       "paths": [
         "Assets/Editor/ParallelQA/Invoke-Wave7BagCapacityRegression.ps1",
@@ -1619,11 +1637,11 @@
         "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
         "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/windows-hidden-smoke.txt"
       ],
-      "blockedReason": "",
-      "status": "done",
+      "blockedReason": "Wave 12 5일제 통합 빌드의 자연 Day 4~5 경로가 아직 검증되지 않았다.",
+      "status": "blocked",
       "updatedAt": "2026-08-23T03:05:27.603Z",
-      "note": "PRODUCT/INFRASTRUCTURE/기존 회귀 PASS. 물리 게임패드는 별도 실기 게이트로 계속 UNVERIFIED.",
-      "completedAt": "2026-08-23T03:05:27.603Z",
+      "note": "기존 기능 회귀 PASS는 보존한다. 물리 게임패드는 별도 실기 게이트로 계속 UNVERIFIED.",
+      "completedAt": null,
       "createdAt": "2026-08-23T03:05:27.603Z"
     },
     {
@@ -1667,7 +1685,7 @@
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
       "updatedAt": "2026-08-23T08:14:57.365Z",
-      "note": "",
+      "note": "모듈 기능 자체는 완료 상태를 유지한다. Day 3 증축+구조 원장은 숙련자 조기 성공 증거이고, 첫 플레이어 Day 4~5 경로는 새 통합 QA 대상이다.",
       "completedAt": "2026-08-23T08:14:57.365Z"
     },
     {
@@ -1702,12 +1720,12 @@
       "evidence": [
         "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-summary.json"
       ],
-      "blockedReason": "",
-      "status": "done",
+      "blockedReason": "Wave 12 5일제 통합 빌드에서 모듈 선택과 Day 4~5 구조의 양립을 아직 재검증하지 않았다.",
+      "status": "blocked",
       "createdAt": "2026-08-23T04:35:59.187Z",
       "updatedAt": "2026-08-23T09:35:21.718Z",
-      "note": "Independent upper/side/basement module gate is GREEN 8/8 on the integrated baseline.",
-      "completedAt": "2026-08-23T09:35:21.717Z"
+      "note": "기존 upper/side/basement 8/8 증거는 보존하되 5일제 통합 PASS로 간주하지 않는다.",
+      "completedAt": null
     },
     {
       "id": "task.postslice.steam-release-readiness",
@@ -1739,5 +1757,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T09:35:21.718Z"
+  "updatedAt": "2026-08-23T10:33:36.795Z"
 }

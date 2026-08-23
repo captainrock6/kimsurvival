@@ -1,5 +1,7 @@
 # Wave 7 가방 용량 업그레이드 기획·밸런스 정본
 
+> Wave 12 시간축 정정: 4→6칸, 중첩 2, `W2/D1`과 아래 자원 산술은 동결한다. Day 3 구조는 숙련 조기 성공 증거로 남고 활성 첫 플레이 목표는 Day 4~5, 기한 실패는 Day 5 종료다. 최신 달력 계약은 `Docs/Design/wave12-five-day-rebaseline.md`가 우선한다.
+
 - 기준선: `origin/master` `19f050a69759e5715d1f8a2eaa72fade72164b4b`
 - Forge 작업: `task.design.wave7-bag-capacity-balance`
 - 판정: **비용 유지 — W2 + D1**

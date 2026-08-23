@@ -8,7 +8,7 @@
 - 후속 언어: 스페인어 `es`, 일본어 `ja`, 중국어 간체 `zh-Hans`, 중국어 번체 `zh-Hant`
 - 공식 영문 게임 제목: **미정(TBD)**. 별도 사용자 결정 전 번역·음역·스토어 표기를 확정하지 않는다.
 
-이 문서는 현재 3일 수직 슬라이스에서 플레이어에게 보이는 문자열의 기획 정본이다. 한국어가 의미, 정보 우선순위, 김씨의 코미디 톤을 판정하는 기준 원문이며 영어는 한국어를 직역하지 않고 같은 상황·행동 유도·웃음의 기능을 재현한다. 통합 프로토타입의 118개 Unity String Table과의 차이, migration alias, 전체 canonical 색인은 `integrated-prototype-contract-audit.md`를 따른다.
+이 문서는 현재 5일 수직 슬라이스에서 플레이어에게 보이는 문자열의 기획 정본이다. 한국어가 의미, 정보 우선순위, 김씨의 코미디 톤을 판정하는 기준 원문이며 영어는 한국어를 직역하지 않고 같은 상황·행동 유도·웃음의 기능을 재현한다. 통합 프로토타입의 118개 Unity String Table과의 차이, migration alias, 전체 canonical 색인은 `integrated-prototype-contract-audit.md`를 따른다. Wave 12에서 문자열 키는 유지하고 Day 3·4 비종료와 Day 5 기한 의미만 바꾼다.
 
 ## 1. 안정적인 문자열 키 체계
 
@@ -140,7 +140,7 @@
 | `ui.action.eat_with_count` | 식사 버튼 | 식량 먹기  보유 {count} | Eat Food  {count} left | 22/28 | 정수 `{count}` |
 | `ui.action.expedition_start` | 출발 | 섬 수색 출발 | Start Island Search | 16/24 | - |
 | `ui.action.next_day` | 일과 종료 | 다음 날로 | End Day | 12/16 | 영어는 행동 결과를 명확히 함 |
-| `ui.action.final_day_settle` | 3일차 정산 | 마지막 날 정산 | Finish Final Day | 16/22 | - |
+| `ui.action.final_day_settle` | 5일차 정산 | 마지막 날 정산 | Finish Final Day | 16/22 | Day 5에서만 사용 |
 | `interaction.placement.place` | 신규 배치 | 배치 | Place | 6/10 | - |
 | `interaction.placement.move` | 일반 설비 재배치 | 재배치 | Move | 8/10 | 비용 없음은 별도 안내 |
 | `interaction.placement.move_free` | 재배치 안내 | 재배치 비용 없음 | Move for Free | 14/18 | - |
@@ -174,7 +174,7 @@
 |---|---|---|---|---:|---|
 | `result.rescued.title` | 구조 성공 | 구조 성공! | Rescued! | 12/16 | outcome |
 | `result.exhausted.title` | 체력 0 | 김씨, 잠시 누움 | Mr. Kim Takes Five | 14/24 | “lies down” 직역 금지; 가벼운 탈진 코미디 |
-| `result.deadline.title` | 3일 기한 | 구조 신호 미완성 | Signal Incomplete | 16/24 | 원인 명시 |
+| `result.deadline.title` | 5일 기한 | 구조 신호 미완성 | Signal Incomplete | 16/24 | Day 5 원인 명시 |
 
 결과 상세 문안과 번역 메타데이터는 아래 5.40~5.42의 단일 레코드를 사용한다.
 
@@ -220,12 +220,12 @@
 | 34 | `message.return.forced` | 일몰 강제 귀환 | 페널티+게 농담 | 해가 져서 뛰어 돌아왔다. 게 한 마리가 끝까지 응원했다. 아마도. | Sunset sent him sprinting home. A crab cheered the whole way. Probably. | 50/98 | crab을 적·동료 시스템으로 해석 금지 |
 | 35 | `message.return.safe` | 자발 귀환 | 안전+무거운 가방/표정 대비 | 무사 귀환. 가방은 무겁고 김씨의 표정은 가볍지 않다. | Back safe. Heavy bag, heavier expression. | 44/70 | light/heavy 말장난을 자연스러운 대비로 재창작 |
 | 36 | `message.day.search_required` | 원정 전 일과 종료 | 선행 행동 안내 | 수색을 마쳐야 오늘을 정산할 수 있다. | Finish today's search before ending the day. | 32/64 | settlement 같은 경제 용어 직역 금지 |
-| 37 | `message.day.start` | 2·3일차 아침 | 반복 생존+섬과 김씨 역전 | {day}일차 아침. 김씨는 아직도 섬이고, 섬도 아직 김씨다. | Day {day}. Mr. Kim is still on the island. The island is still on Mr. Kim. | 48/100 | 두 문장의 반전 구조 유지 |
+| 37 | `message.day.start` | 2~5일차 아침 | 반복 생존+섬과 김씨 역전 | {day}일차 아침. 김씨는 아직도 섬이고, 섬도 아직 김씨다. | Day {day}. Mr. Kim is still on the island. The island is still on Mr. Kim. | 48/100 | 두 문장의 반전 구조 유지 |
 | 38 | `message.explore.rope_barrier` | 밧줄 없는 숲 장벽 | 해금 방법 암시 | 숲이 너무 빽빽하다. 밧줄을 만들면 넘어갈 방법이 생길 것 같다. | The forest's too dense. With rope, there might be a way over. | 52/92 | 전투·벌목 해법 추가 금지 |
 | 39 | `message.gather.no_target` | 수색 범위에 노드 없음 | 실패 원인+공기 농담 | 손을 뻗어 봤지만 잡히는 건 공기뿐이다. | He reaches out and grabs a generous handful of air. | 36/78 | air item을 얻은 것처럼 시스템 의미 변경 금지 |
 | 40 | `result.rescued.detail` | 구조 성공 설명 | 기적 같은 성공+사진 우선 | 급조 안테나가 기적처럼 작동했다. 김씨는 구조대보다 먼저 사진부터 찍었다. | The improvised antenna somehow works. Mr. Kim takes a photo before the rescuers can. | 64/120 | SNS·카메라 기능을 암시하지 않음 |
 | 41 | `result.exhausted.detail` | 체력 0 실패 설명 | 원인과 다음 행동 | 체력을 모두 소진했다. 다음에는 먹고 쉬고, 해 지기 전에 돌아오자. | He's completely spent. Next time: eat, rest, and get home before dark. | 64/110 | 실패 원인과 세 조언을 삭제하지 않음 |
-| 42 | `result.deadline.detail` | 3일 기한 실패 설명 | 원인과 표류물·밧줄 우선순위 | 3일 안에 구조 신호를 완성하지 못했다. 필요한 표류물과 밧줄을 더 일찍 준비해야 한다. | The signal isn't ready by Day 3. Start gathering salvage—and make the rope—earlier. | 72/130 | Day 3, salvage, rope의 의미를 모두 유지 |
+| 42 | `result.deadline.detail` | 5일 기한 실패 설명 | 원인과 표류물·밧줄 우선순위 | 5일 안에 구조 신호를 완성하지 못했다. 필요한 표류물과 밧줄을 더 일찍 준비해야 한다. | The signal isn't ready by Day 5. Start gathering salvage—and make the rope—earlier. | 72/130 | Day 5, salvage, rope의 의미를 모두 유지 |
 
 ## 6. 후속 언어 확장 규칙
 

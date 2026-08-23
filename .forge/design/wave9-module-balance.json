@@ -125,6 +125,7 @@
     "rollback": "If room, connector, zone, or route commit fails, restore the complete snapshot before returning a failure state."
   },
   "runState": {
+    "validCommittedDay": "1..5",
     "persistAcrossDayAndExpedition": [
       "committedModuleId",
       "committedSlotId",

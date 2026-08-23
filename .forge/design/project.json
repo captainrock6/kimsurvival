@@ -39,7 +39,8 @@
       "Unity로 제작하며 첫 목표 플랫폼은 Windows PC와 Steam이다.",
       "첫 검증은 2D 횡스크롤 측면 절개형 베이스캠프로 진행한다.",
       "캠프의 핵심 행동은 김씨의 직접 이동, 근접 안내, 상호작용 입력, 설비별 팝업 순서를 반드시 거친다.",
-      "근접 안내는 1280×800 중앙 상단 내레이션 카드 아래의 220..440×40..44px 한 줄 상황형 prompt 하나로 제한하며 플레이어·이동 경로·설비 위의 대형 월드 카드는 사용하지 않는다.",
+      "근접 안내는 ui.camp-contextual-interaction.compact-a로 고정하고 1280×800 중앙 상단 내레이션 카드 아래의 locale별 300/380/520×64px 이내 한 줄 prompt 하나로 제한하며 플레이어·이동 경로·설비 위의 대형 월드 카드는 사용하지 않는다.",
+      "탈출 기한은 Day 5 종료이며 Day 3·4 정산은 결말을 내지 않고, 구조 신호 2단계 완성은 어느 날이든 즉시 성공한다.",
       "화면 대부분을 상시 덮는 전역 캠프 관리 대시보드는 사용하지 않고, 지속 HUD는 날짜·일광·허기·체력·가방 요약으로 최소화한다.",
       "일반 설비는 방 모듈 내부의 호환 바닥과 작은 격자에서 제한적 자유 배치·재배치를 지원한다.",
       "구조 신호대, 사다리 연결부, 빗물받이처럼 기능상 위치가 필요한 특수 설비는 전용 앵커나 구역 규칙을 사용할 수 있다.",
@@ -57,7 +58,10 @@
       "김씨는 초능력이나 전문 생존 기술이 없는 평범한 성인이며 관찰력과 생활 잔기술로 문제를 해결한다.",
       "설비 전용 팝업이 열린 동안 일반 이동은 잠기고 확인 또는 취소 후 현장 플레이로 복귀한다.",
       "근접 후보가 겹치면 가장 가까우며 바라보는 방향에 있는 설비 하나만 활성 대상으로 선택한다.",
-      "locale 또는 keyboard/gamepad 전환은 근접 target latch를 바꾸지 않고 interaction.structure.prompt의 locale pattern과 현재 Interact glyph만 원자적으로 다시 표시한다.",
+      "locale 또는 keyboard/gamepad 전환은 근접 target latch를 바꾸지 않고 interaction.structure.prompt의 locale pattern과 compact-a의 분리 TMP·현재 Interact glyph만 원자적으로 다시 표시한다.",
+      "Day 1~2 생존 기반·도구, Day 3 성장 선택, Day 4~5 구조 완성은 권장 관찰 곡선이지 날짜별 강제 해금이나 행동 순서가 아니다.",
+      "첫 5일 재기준선은 밸런스 v0.2의 모든 비용·획득량·가방·허기·체력·일광·회복값을 동결한다.",
+      "ui.camp-contextual-interaction.compact-a만 근접 안내로 채택하며 Wave 11 연결 슬롯 affordance 세 후보는 미선택 review-only다.",
       "위층·옆방·지하실은 모두 12×5u 표준 공간이며 추가 기능 보너스가 없으므로 처음부터 preview하고 작업대 뒤 동일한 W2/D1로 run당 하나만 확정한다.",
       "새 게임 시작 D0에서는 작업대를 90초 안에 자연 건설할 수 없으므로 Wave 10 첫 발견은 연결 슬롯 직접 접근→세 후보 preview→작업대 잠금·W2/D1 이해까지이며 실제 commit은 자연 원정 뒤 같은 슬롯에서 한다.",
       "모듈 사이 이동은 출입구와 사다리 또는 계단 같은 명시적 연결부를 사용한다.",
@@ -65,7 +69,7 @@
       "번역이 누락된 키는 한국어를 표시하고 개발 빌드에서 누락 사실을 기록한다.",
       "설치 후 재배치는 별도 자원 소모 없이 배치 모드에서 지원한다."
     ],
-    "updatedAt": "2026-08-23T08:53:04.313Z"
+    "updatedAt": "2026-08-23T10:33:36.795Z"
   },
   "features": [
     {
@@ -86,7 +90,7 @@
       "acceptanceCriteria": [
         "새 게임은 1일차 베이스캠프에서 시작하고 수색 귀환 및 정산 후 날짜가 1 증가한다.",
         "화면 전환 중 창고, 가방, 생존 상태, 설비와 탈출 진척도가 유지된다.",
-        "구조 신호 완성, 체력 0 또는 3일차 종료 시 결과 화면으로 이동한다."
+        "구조 신호 완성은 어느 날이든 즉시 결과 화면으로 이동하고, 체력 0은 즉시 탈진, Day 5 정산 시 미완성은 기한 실패로 이동한다."
       ]
     },
     {
@@ -224,7 +228,7 @@
     {
       "id": "feature.escape-outcome",
       "name": "구조 신호와 결말",
-      "description": "표류물과 제작품을 구조 신호대에 투자해 단계적으로 완성하고 3일 내 구조를 요청한다.",
+      "description": "표류물과 제작품을 구조 신호대에 투자해 단계적으로 완성하고 Day 5 정산 전 구조를 요청한다.",
       "priority": "high",
       "status": "planned",
       "dependencies": [
@@ -245,7 +249,7 @@
       "acceptanceCriteria": [
         "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
         "자원을 투자하면 구조 신호대의 외형과 작동 상태가 단계적으로 바뀐다.",
-        "완성 시 구조 성공, 3일차 종료 시 미완성이면 기한 실패 결과가 표시된다."
+        "완성 시 날짜와 무관하게 즉시 구조 성공하고, Day 3·4 정산은 다음 날로 진행하며 Day 5 종료 시 미완성이면 기한 실패 결과가 표시된다."
       ]
     },
     {
@@ -343,7 +347,7 @@
         "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
         "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
         "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 3일 경로가 grant·좌표 warp 없이 Day 3 구조와 최종 W3/S1/F1/D3에 도달한다."
+        "가방 확장을 선택한 자연 경로가 grant·좌표 warp 없이 방·신호 투자와 경쟁하면서 Day 4~5 구조에 도달하고 Day 5 기한 실패 가능성도 남긴다."
       ]
     },
     {
@@ -379,10 +383,11 @@
         "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
         "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
         "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다.",
-        "1280×800에서 prompt는 top-center x=640, PromptTop=max(294, NarrationBottom+12), 220..440×40..44px 한 줄 범위에 있고 플레이어·활성 설비·48px 보행 corridor·TopHUD·BottomHelp와 겹치지 않는다.",
+        "screen.camp의 최종 prompt 디자인은 ui.camp-contextual-interaction.compact-a이며 384×64px 원본, 368×48px visible frame, 44×44px glyph focus와 base TMP safe 268×30px를 사용한다.",
+        "1280×800에서 prompt는 top-center x=640, NarrationBottom+12 아래, ko/en/qps-long 300/380/520×64px 이내 한 줄 범위에 있고 플레이어·활성 설비·48px 보행 corridor·TopHUD·BottomHelp와 겹치지 않는다.",
         "far에서는 prompt 0개, near에서는 latch 대상 prompt 정확히 1개, popup/preview/system modal에서는 0개이며 close/cancel 뒤 같은 적격 대상 prompt가 복원된다.",
         "interaction.structure.prompt는 locale별 {inputGlyph}/{objectName}/{action} 순서를 소유하고 locale 변경과 keyboard/gamepad 전환이 target이나 게임 상태를 바꾸지 않는다.",
-        "모닥불·작업대·빗물받이·구조 신호대의 ko/en은 18px에서 말줄임표 없이 읽히고 qps-long은 glyph와 action을 보존한 채 440×44px 밖으로 clip·wrap·확장되지 않는다."
+        "모닥불·작업대·빗물받이·구조 신호대의 ko/en은 20px 이상에서 말줄임표 없이 읽히고 qps-long은 glyph와 action을 보존한 채 520×64px 밖으로 clip·wrap·확장되지 않는다."
       ],
       "createdAt": "2026-08-23T04:35:59.187Z",
       "updatedAt": "2026-08-23T07:30:57.570Z"
@@ -418,7 +423,7 @@
         "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
         "세 후보는 작업대 전에도 geometry와 공통 W2/D1을 preview하고, 실제 commit은 작업대 뒤 READY에서만 가능하다.",
         "room.upper.standard, room.side.standard, room.basement.standard 중 하나만 확정되고 W2/D1이 정확히 한 번 차감되며 두 번째 확정·취소·실패·중복 Submit은 모든 run 상태를 보존한다.",
-        "가방 4칸 숙련 경로와 4→6칸 평균 경로가 각각 방 하나를 확정하고 grant·warp 없이 Day 3 구조에 도달하며, 늦은 이중 성장 투자의 Deadline과 과수색 Exhausted 실패가 모두 남는다.",
+        "가방 4칸 숙련 경로는 Day 3~4, 4→6칸 첫 플레이 목표 경로는 방 하나를 확정하고 grant·warp 없이 Day 4~5 구조에 도달하며, 과수색 Exhausted와 Day 5 Deadline이 모두 남는다.",
         "첫 사용자는 전역 메뉴 없이 연결 슬롯에 직접 접근해 50초 안에 preview를 열고 75초 안에 위·옆·지하 세 후보를 본 뒤 90초 안에 작업대 잠금과 W2/D1을 이해할 수 있다.",
         "연결 없음·겹침·지형·필수 통로의 geometry와 작업대 잠금·자원 부족·1회 확정의 economy reason ID가 분리되며 Confirm은 가장 우선인 정확한 canonical 사유 하나를 표시하고 실패 상태를 바꾸지 않는다.",
         "keyboard와 gamepad는 far→near→popup→preview→confirm/cancel→field-return에서 같은 target·candidate·reason·자원 결과를 내고 binding glyph만 다르다."
@@ -482,7 +487,7 @@
         "연결 슬롯 선택",
         "위층·옆방·지하실 미리보기와 증축 확정",
         "김씨 직접 이동과 대상 접근",
-        "내레이션 카드 아래 중앙 상단의 근접 대상 한 줄 안내와 Interact",
+        "내레이션 카드 아래 중앙 상단의 compact-a 한 줄 안내와 분리 Interact glyph/TMP",
         "대상 전용 팝업 탐색·확인·취소",
         "일반 설비 배치·무료 재배치",
         "위층·옆방·지하실 후보 순회와 하나의 증축 확정"
@@ -518,6 +523,7 @@
         "ContextPromptNear",
         "ContextPromptSuppressed",
         "ContextPromptRelayout",
+        "ContextPromptCompactA",
         "ModuleLocked",
         "ModuleShort",
         "ModuleReady",
@@ -603,7 +609,7 @@
       "entryPoints": [
         "구조 신호 완성",
         "체력 0",
-        "3일차 기한 만료"
+        "Day 5 기한 만료"
       ],
       "actions": [
         "다시 시작",
@@ -676,7 +682,7 @@
         "system.run-state"
       ],
       "acceptanceCriteria": [
-        "유효하지 않은 단계 전환이나 중복 정산 없이 3일 시나리오가 시작부터 결말까지 진행된다."
+        "유효하지 않은 단계 전환이나 중복 정산 없이 5일 시나리오가 진행되고 Day 3·4 미완성은 계속, Day 5 미완성만 기한 실패한다."
       ]
     },
     {
@@ -1203,5 +1209,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-23T08:53:04.313Z"
+  "updatedAt": "2026-08-23T10:33:36.795Z"
 }
