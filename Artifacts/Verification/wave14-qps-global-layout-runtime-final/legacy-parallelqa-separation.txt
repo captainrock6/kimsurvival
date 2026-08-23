@@ -1,0 +1,25 @@
+Wave 14 legacy ParallelQaRunner Edit separation
+
+Classification: STALE_QA_ASSERTIONS_OUTSIDE_CURRENT_WAVE12_WAVE13_PRODUCT_GATE
+Gate source modified: no
+Product code bypassed: no
+
+Current required evidence
+- Wave 11 Edit/Play: PASS/PASS
+- Wave 12 Edit/Play: PASS/PASS
+- Wave 13 JSONL contract inside standard Edit and full Play regression: PASS
+- Wave 3 current visual gate: placement 24/24, exploration/swimming 10/10, qps-long 10/10 PASS
+- Windows x64 Development build and hidden smoke: PASS
+
+Additional legacy command
+"C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RunEditChecks -logFile "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\work\wave14-parallel-edit-final.log"
+
+The legacy command returned FAIL for two source-text assertions that predate the integrated product:
+1. It requires the TSV header to equal Key/ko/en. The current data-driven non-shipping QA locale intentionally uses Key/ko/en/qps-long.
+2. It searches for the old exact anonymous delegate text for signal upgrading. The current contextual signal popup/action path is behaviorally covered by the passing Wave 11 full Play regression.
+
+Independent reports emitted by that command remain valid:
+- hardcoded-player-strings.txt: PASS, no unapproved literal reaches audited player-facing text sinks.
+- input-code-path-audit.txt: PASS, keyboard/mouse and gamepad actions converge on the shared runtime paths.
+
+The raw legacy FAIL report is preserved in the final evidence folder. This separation note does not reclassify or hide it; it records why it is not a Wave 14 product regression and why the QA source was left unchanged.

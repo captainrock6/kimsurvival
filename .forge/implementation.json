@@ -1510,7 +1510,8 @@
       "paths": [
         "Docs/Design/wave3-implementation-acceptance.md",
         "Docs/Design/vertical-slice-localization.md",
-        "Docs/QA/ko-en-localization-test-plan.md"
+        "Docs/QA/ko-en-localization-test-plan.md",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
@@ -1518,12 +1519,18 @@
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt",
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt",
+        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave3-visual-gate.txt",
+        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave12-play-contracts.json",
+        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave11-full-regression.txt",
+        "Artifacts/Verification/wave14-qps-global-layout-runtime-final/editmode-checks.txt"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "compact A ko/en/qps-long 12/12는 PASS지만 전체 qps-long 시각 게이트는 10개 중 6개 FAIL이고 저장 언어 비의존성 완전 증거도 부족해 ready를 유지한다."
+      "status": "done",
+      "updatedAt": "2026-08-23T13:34:37.660Z",
+      "note": "Wave 14 제품 레이아웃 수정으로 1280x800 ko/en 배치 24/24, 수색·수영 10/10, 실제 qps-long 10/10을 PASS했다. locale/device 전환의 target·진행 지문 불변과 Wave 13 로그 포함 표준 Edit/Play 회귀를 재검증했다. 물리 게임패드 실기는 별도 dual-input QA 항목에 UNVERIFIED로 유지한다.",
+      "completedAt": "2026-08-23T13:34:37.659Z",
+      "createdAt": "2026-08-23T13:34:37.660Z"
     },
     {
       "id": "task.wave3.implementation.third-locale",
@@ -1792,5 +1799,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T13:20:00.000Z"
+  "updatedAt": "2026-08-23T13:34:37.660Z"
 }
