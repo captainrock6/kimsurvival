@@ -31,6 +31,16 @@ namespace KimSurvival
         private const float CampSignalAnchorNormalizedX = 0.86f;
         private const float CampSignalAnchorNormalizedY = (CampCanvasHeightPixels - CampSignalAnchorTopPixels) / CampCanvasHeightPixels;
         private const float CampSignalLabelX = 5.1f;
+        private const float PlacementZoneBadgeY = -0.25f;
+        private const float PlacementZoneBadgeLeftX = 1.25f;
+        private const float PlacementZoneBadgeMinimumWidth = 4.8f;
+        private const float PlacementZoneBadgeMaximumWidth = 6.8f;
+        private const float PlacementZoneBadgeMinimumHeight = 1.65f;
+        private const float PlacementZoneBadgeMaximumHeight = 1.8f;
+        private const float SignalAnchorBadgeWidth = 5.2f;
+        private const float SignalAnchorBadgeHeight = 1.85f;
+        private const float PlacementGhostBadgeMinimumWidth = 5.2f;
+        private const float PlacementGhostBadgeHeight = 1.85f;
         private const float ResourceLabelWidth = 4.35f;
         private const float ResourceLabelHeight = 1.55f;
         private const float ResourceLabelViewportPadding = 0.22f;
@@ -312,7 +322,7 @@ namespace KimSurvival
 
             RectTransform top = CreatePanel("상태 HUD", canvas.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -190f), new Vector2(-24f, -20f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
             VerticalLayoutGroup topLayout = top.gameObject.AddComponent<VerticalLayoutGroup>();
-            topLayout.padding = new RectOffset(160, 160, 8, 8);
+            topLayout.padding = new RectOffset(160, 160, 0, 0);
             topLayout.spacing = 0f;
             topLayout.childAlignment = TextAnchor.MiddleCenter;
             topLayout.childControlWidth = true;
@@ -330,7 +340,7 @@ namespace KimSurvival
             messagePanelImage = message.GetComponent<Image>();
             messageText = CreateText("김씨 독백 또는 배치 상태", message, Vector2.zero, Vector2.one, new Vector2(26f, 10f), new Vector2(-26f, -10f), 29, TextAnchor.MiddleCenter, Color.white);
 
-            RectTransform controlPanel = CreatePanel("조작 안내", canvas.transform, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 20f), new Vector2(-24f, 165f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
+            RectTransform controlPanel = CreatePanel("조작 안내", canvas.transform, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 20f), new Vector2(-32f, 165f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
             HorizontalLayoutGroup controlLayout = controlPanel.gameObject.AddComponent<HorizontalLayoutGroup>();
             controlLayout.padding = new RectOffset(110, 110, 8, 8);
             controlLayout.spacing = 16f;
@@ -347,8 +357,15 @@ namespace KimSurvival
             controlsText.maxVisibleLines = 3;
             ConfigureLayout(controlsText.gameObject, 4f, 1f, 760f, 0f);
             languageButton = CreateButton("언어 설정", controlPanel, Vector2.zero, Vector2.one, string.Empty, delegate { localization.CycleLocale(); });
-            ConfigureLayout(languageButton.gameObject, 1.45f, 1f, 270f, 0f);
-            languageButton.GetComponentInChildren<TMP_Text>().fontSize = 32f;
+            ConfigureLayout(languageButton.gameObject, 1.45f, 1f, 320f, 0f);
+            TMP_Text languageLabel = languageButton.GetComponentInChildren<TMP_Text>();
+            languageLabel.fontSize = 32f;
+            languageLabel.enableAutoSizing = true;
+            languageLabel.fontSizeMin = 30f;
+            languageLabel.fontSizeMax = 32f;
+            languageLabel.textWrappingMode = TextWrappingModes.NoWrap;
+            languageLabel.overflowMode = TextOverflowModes.Overflow;
+            languageLabel.maxVisibleLines = 1;
             phaseButton = CreateButton("수색·정산", controlPanel, Vector2.zero, Vector2.one, string.Empty, HandlePhaseButton);
             ConfigureLayout(phaseButton.gameObject, 1.65f, 1f, 310f, 0f);
             phaseButton.GetComponentInChildren<TMP_Text>().fontSize = 30f;
@@ -967,12 +984,14 @@ namespace KimSurvival
                 CreateRect(openSky ? "camp.open-sky-ground" : "camp.general-ground", new Vector2(buildCenter, PrototypeCampPlacement.FloorY + 0.08f), new Vector2(buildWidth, 0.16f), zoneColor, -5);
                 CreateRect("건설 구역 왼쪽 경계", new Vector2(zoneMinimumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), zoneColor, -3);
                 CreateRect("건설 구역 오른쪽 경계", new Vector2(zoneMaximumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), zoneColor, -3);
+                string zoneBadgeText = localization.Format(openSky ? "world.open_sky_ground" : "world.general_ground");
+                Vector2 zoneBadgeSize = GetPlacementZoneBadgeSize(zoneBadgeText);
                 CreateWorldBadge(
                     "호환 건설 구역 안내",
-                    localization.Format(openSky ? "world.open_sky_ground" : "world.general_ground"),
-                    new Vector2(openSky ? 3.65f : 2.5f, -3.15f),
-                    new Vector2(openSky ? 4.1f : 4.8f, 1.65f),
-                    openSky ? new Color(0.03f, 0.25f, 0.38f, 0.96f) : new Color(0.04f, 0.25f, 0.13f, 0.96f),
+                    zoneBadgeText,
+                    new Vector2(PlacementZoneBadgeLeftX + zoneBadgeSize.x * 0.5f, PlacementZoneBadgeY),
+                    zoneBadgeSize,
+                    openSky ? new Color(0.03f, 0.25f, 0.38f, 0.88f) : new Color(0.04f, 0.25f, 0.13f, 0.88f),
                     Color.white);
                 CreateReservedCampStrip("world.entrance", activeZone.EntranceMinimumX, activeZone.EntranceMaximumX, new Color(0.95f, 0.38f, 0.18f, 0.72f));
                 CreateReservedCampStrip("world.required_path", activeZone.RequiredPathMinimumX, activeZone.RequiredPathMaximumX, new Color(1f, 0.72f, 0.16f, 0.72f));
@@ -1002,7 +1021,7 @@ namespace KimSurvival
                 if (campPlacement.IsActive)
                 {
                     CreateFootprintOutline(worldRoot, new Vector2(2.25f, 0.35f), new Color(1f, 0.88f, 0.38f, 0.95f), null, signalAnchor);
-                    CreateWorldBadge("구조 신호대 전용 앵커 안내", localization.Format("world.signal_anchor", session.SignalStage), new Vector2(CampSignalLabelX, signalAnchor.y - 0.78f), new Vector2(3.8f, 1.55f), new Color(0.16f, 0.17f, 0.18f, 0.96f), new Color(1f, 0.88f, 0.38f));
+                    CreateWorldBadge("구조 신호대 전용 앵커 안내", localization.Format("world.signal_anchor", session.SignalStage), new Vector2(CampSignalLabelX, signalAnchor.y - 0.78f), new Vector2(SignalAnchorBadgeWidth, SignalAnchorBadgeHeight), new Color(0.16f, 0.17f, 0.18f, 0.96f), new Color(1f, 0.88f, 0.38f));
                 }
             }
 
@@ -2052,6 +2071,10 @@ namespace KimSurvival
             }
 
             string campProximityScreenshotFolder = Path.GetDirectoryName(campProximityKoreanScreenshotPath ?? string.Empty);
+            string placementScreenshotFolder = Path.GetDirectoryName(placementKoreanScreenshotPath ?? string.Empty);
+            string placementQpsLongScreenshotPath = string.IsNullOrWhiteSpace(placementScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(placementScreenshotFolder, "kim-survival-wave14-placement-qps-long-1280x800.png");
             string campProximityEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave12-facility-near-en-1280x800.png");
@@ -2602,7 +2625,19 @@ namespace KimSurvival
                 CaptureVerificationPng(placementEnglishScreenshotPath, 1280, 800);
             }
 
+            Require(localization.SetQaLocale(), "배치 화면의 실제 qps-long QA 로케일 선택");
+            RefreshAll();
+            campPlacement.SetCandidateX(-1.5f);
+            UpdatePlacementGhost();
+            ApplyPlacementGuidance(PrototypeInputDevice.KeyboardMouse);
+            RequireQpsGlobalPlacementLayout();
+            if (!string.IsNullOrWhiteSpace(placementQpsLongScreenshotPath))
+            {
+                CaptureVerificationPng(placementQpsLongScreenshotPath, 1280, 800);
+            }
+
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
             campPlacement.SetCandidateX(-1.5f);
             UpdatePlacementGhost();
             Require(campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement(), "모닥불 스냅 배치 확정");
@@ -3144,6 +3179,50 @@ namespace KimSurvival
             Require(placementGhostLabel.fontSizeMin >= 30f && placementGhostBadgeRenderer != null && placementGhostOutlineRenderers.Count == 4, "배치 유령 아트·16px 상태 배지·발자국 표현");
         }
 
+        private void RequireQpsGlobalPlacementLayout()
+        {
+            TMP_Text languageLabel = languageButton.GetComponentInChildren<TMP_Text>();
+            Transform zoneBadge = worldRoot.Find("호환 건설 구역 안내");
+            Transform signalBadge = worldRoot.Find("구조 신호대 전용 앵커 안내");
+            TMP_Text zoneLabel = zoneBadge != null ? zoneBadge.GetComponentInChildren<TMP_Text>() : null;
+            TMP_Text signalLabel = signalBadge != null ? signalBadge.GetComponentInChildren<TMP_Text>() : null;
+
+            statusText.ForceMeshUpdate(true, true);
+            resourceText.ForceMeshUpdate(true, true);
+            languageLabel.ForceMeshUpdate(true, true);
+            placementGhostLabel.ForceMeshUpdate(true, true);
+            if (zoneLabel != null)
+            {
+                zoneLabel.ForceMeshUpdate(true, true);
+            }
+            if (signalLabel != null)
+            {
+                signalLabel.ForceMeshUpdate(true, true);
+            }
+            Canvas.ForceUpdateCanvases();
+
+            Require(statusText.fontSizeMin >= 28f && resourceText.fontSizeMin >= 28f &&
+                    !statusText.isTextOverflowing && !resourceText.isTextOverflowing,
+                "qps-long 최소 HUD는 1280x800 글자 높이·2행·무잘림 계약 사용");
+            Require(languageLabel.enableAutoSizing && languageLabel.fontSizeMin >= 30f &&
+                    languageLabel.maxVisibleLines == 1 && !languageLabel.isTextOverflowing,
+                "qps-long 언어 전환은 우측 안전 여백 안의 1줄 자동 맞춤 사용");
+            Require(zoneBadge != null && zoneLabel != null && signalBadge != null && signalLabel != null &&
+                    zoneBadge.localPosition.y >= PlacementZoneBadgeY - 0.01f &&
+                    zoneBadge.localPosition.x >= PlacementZoneBadgeLeftX + PlacementZoneBadgeMaximumWidth * 0.5f - 0.01f,
+                "qps-long 건설 구역 배지는 플레이어·필수 보행선 위의 전역 안전 위치 사용");
+            Require(!placementGhostLabel.isTextOverflowing && !zoneLabel.isTextOverflowing && !signalLabel.isTextOverflowing,
+                "qps-long 배치 판정·건설 구역·신호 앵커 월드 배지 overflow=0");
+
+            MeshRenderer ghostRenderer = placementGhostLabel.GetComponent<MeshRenderer>();
+            MeshRenderer zoneRenderer = zoneLabel.GetComponent<MeshRenderer>();
+            MeshRenderer signalRenderer = signalLabel.GetComponent<MeshRenderer>();
+            Require(ghostRenderer != null && zoneRenderer != null && signalRenderer != null &&
+                    !ghostRenderer.bounds.Intersects(zoneRenderer.bounds) &&
+                    !zoneRenderer.bounds.Intersects(signalRenderer.bounds),
+                "qps-long 배치 판정·건설 구역·신호 앵커 텍스트 중첩=0");
+        }
+
         private void RequireCampBackgroundAlignment()
         {
             Require(campBackgroundSprite != null && campGameplayGroundSprite != null && campForegroundSprite != null &&
@@ -3434,7 +3513,7 @@ namespace KimSurvival
                 "배치 판정",
                 string.Empty,
                 new Vector2(0f, visualTop + 0.58f),
-                new Vector2(Mathf.Max(4.35f, size.x + 0.7f), 1.65f),
+                new Vector2(Mathf.Max(PlacementGhostBadgeMinimumWidth, size.x + 0.7f), PlacementGhostBadgeHeight),
                 Color.black,
                 Color.white,
                 out placementGhostBadgeRenderer);
@@ -3668,6 +3747,25 @@ namespace KimSurvival
             }
         }
 
+        private static Vector2 GetPlacementZoneBadgeSize(string value)
+        {
+            string normalized = (value ?? string.Empty).Replace("\\n", "\n");
+            string[] lines = normalized.Split('\n');
+            int longestLine = 0;
+            for (int i = 0; i < lines.Length; i += 1)
+            {
+                longestLine = Mathf.Max(longestLine, lines[i].Length);
+            }
+
+            float width = Mathf.Clamp(
+                PlacementZoneBadgeMinimumWidth + Mathf.Max(0, longestLine - 23) * 0.25f,
+                PlacementZoneBadgeMinimumWidth,
+                PlacementZoneBadgeMaximumWidth);
+            float expansion = Mathf.InverseLerp(PlacementZoneBadgeMinimumWidth, PlacementZoneBadgeMaximumWidth, width);
+            float height = Mathf.Lerp(PlacementZoneBadgeMinimumHeight, PlacementZoneBadgeMaximumHeight, expansion);
+            return new Vector2(width, height);
+        }
+
         private TMP_Text CreateWorldBadge(string name, string value, Vector2 position, Vector2 size, Color background, Color foreground)
         {
             SpriteRenderer unused;
@@ -3762,7 +3860,7 @@ namespace KimSurvival
         private static void ConfigureTopHudText(TMP_Text text)
         {
             text.enableAutoSizing = true;
-            text.fontSizeMin = 26f;
+            text.fontSizeMin = 30f;
             text.fontSizeMax = 32f;
             text.textWrappingMode = TextWrappingModes.NoWrap;
             text.overflowMode = TextOverflowModes.Overflow;

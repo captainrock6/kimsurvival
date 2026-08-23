@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "runId": "20260823T141000Z_bd1c580_wave14_final",
+  "baselineCommit": "bd1c580bb53bdd662877efd1600c97500057c3ee",
+  "command": "    & (Join-Path $PSScriptRoot 'Invoke-Wave5WindowsSmoke.ps1') -RunId $RunId -BaselineCommit $BaselineCommit -MinimumSeconds $MinimumSmokeSeconds\r\n",
+  "startedUtc": "2026-08-23T13:32:15.8325130Z",
+  "completedUtc": "2026-08-23T13:32:22.1867132Z",
+  "minimumSeconds": 6,
+  "observedSeconds": 6.354,
+  "executable": "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260823T141000Z_bd1c580_wave14_final\\WindowsBuild\\KimSurvivalIsland.exe",
+  "executableExists": true,
+  "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "processId": 27240,
+  "windowStyle": "Hidden",
+  "resolution": "1280x800 windowed",
+  "aliveAtMinimum": true,
+  "respondingAtMinimum": true,
+  "earlyExit": false,
+  "exitCode": null,
+  "launchError": "",
+  "result": "PASS"
+}
