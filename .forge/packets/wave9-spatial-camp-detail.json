@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "features": [
+    {
+      "id": "feature.camp-object-interaction",
+      "name": "공간형 설비 직접 상호작용",
+      "description": "김씨가 측면 절개형 캠프를 직접 이동해 1.25u 안의 안정 대상 하나를 선택하고, 근접 안내와 Interact를 거쳐 대상 설비만의 작은 팝업에서 원자적으로 행동한 뒤 같은 현장으로 돌아온다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.camp-building",
+        "feature.crafting-research",
+        "feature.dual-input",
+        "feature.localization"
+      ],
+      "screenIds": [
+        "screen.camp"
+      ],
+      "assetIds": [
+        "ui.survival-hud",
+        "ui.camp-contextual-interaction",
+        "object.camp-structures",
+        "character.mr-kim"
+      ],
+      "acceptanceCriteria": [
+        "FreeRoam→단일 후보→근접 안내→설비 팝업→검증→성공/실패/취소→같은 현장 복귀가 안정 상태 ID와 입력 소유권으로 구분된다.",
+        "팝업·배치·증축 중 김씨 이동과 월드 Interact가 잠기고 Cancel 뒤 위치·방향·게임 데이터가 보존된다.",
+        "작업대·모닥불·빗물받이·저장/가방·구조 신호대가 상세 계약 밖의 action을 소유하지 않는다.",
+        "LOCKED와 SHORT도 선택 가능하며 전체 선행·비용·부족 피드백 뒤 자원 변화가 0이고 READY만 한 번 commit된다.",
+        "정상 캠프에는 상시 전역 action 대시보드가 없고 최소 HUD, 대상 하나의 prompt와 작은 대상 팝업만 나타난다.",
+        "ko/en/qps-long과 키보드·마우스/게임패드가 같은 대상·action·포커스·결과 상태를 사용한다."
+      ]
+    },
+    {
+      "id": "feature.camp-module-expansion",
+      "name": "위·옆·지하 방 모듈 증축",
+      "description": "시작 방의 고정 연결 슬롯에서 표준 방 모듈의 위층·옆방·지하실 후보를 현장 오버레이로 미리보고, 기하·연결·지형·통로와 데이터 비용을 통과한 후보 하나를 원자적으로 확정한다.",
+      "priority": "high",
+      "status": "planned",
+      "dependencies": [
+        "feature.camp-building",
+        "feature.camp-object-interaction"
+      ],
+      "screenIds": [
+        "screen.camp"
+      ],
+      "assetIds": [
+        "background.modular-island-camp",
+        "ui.camp-module-expansion",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "첫 프로토타입 좌표계에서 start 18×5u, upper (0,5), side (18,0), basement (0,-5)와 선언된 reciprocal slot이 일치한다.",
+        "위·옆·지하 후보를 모두 순회하고 유효·무효 원인을 본 뒤 하나만 확정하며 추가 확정은 PROTOTYPE_LIMIT로 거부한다.",
+        "기하 유효성과 LOCKED·SHORT·READY 경제 상태를 분리하고 실패·취소·중복 입력에서 자원과 room graph가 변하지 않는다.",
+        "확정 room은 connector와 general-floor zone을 함께 만들고 섬 출구에서 모든 필수 설비까지 경로를 보존한다.",
+        "일반 설비는 확정 room의 호환 구역으로 무료 재배치할 수 있지만 storage·signal anchor·room instance는 이동하거나 복제되지 않는다.",
+        "모듈 unlock과 비용은 TBD_BALANCE 데이터 변수로 남고 QA fixture를 자연 3일 경제 증거로 사용하지 않는다."
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "id": "screen.camp",
+      "name": "공간형 직접 조작 베이스캠프",
+      "purpose": "김씨가 측면 절개형 캠프 안을 직접 걸어 설비별 상황형 팝업을 사용하고, 기존 공간을 보존한 위·옆·지하 모듈 미리보기로 생활 공간을 확장하는 주 플레이 화면.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.camp-object-interaction",
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "background.modular-island-camp",
+        "ui.camp-contextual-interaction",
+        "ui.camp-module-expansion"
+      ],
+      "entryPoints": [
+        "새 게임의 베이스캠프",
+        "섬 수색에서 귀환",
+        "설비 팝업·배치·증축 완료 또는 취소 뒤 현장 복귀"
+      ],
+      "actions": [
+        "김씨 직접 이동과 대상 접근",
+        "근접 대상 하나의 안내와 Interact",
+        "대상 전용 팝업 탐색·확인·취소",
+        "일반 설비 배치·무료 재배치",
+        "위층·옆방·지하실 후보 순회와 하나의 증축 확정"
+      ],
+      "states": [
+        "FreeRoam",
+        "ProximityTarget",
+        "ObjectPopup",
+        "ActionValidation",
+        "FacilityPlacement",
+        "ModulePreview",
+        "FieldReturn",
+        "Terminal"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task.design.wave9-spatial-camp-spec",
+      "lane": "design",
+      "title": "Wave 9 공간형 베이스캠프 상세 계약",
+      "description": "승인 목업과 rebaseline을 바탕으로 직접 이동·단일 후보·상황형 팝업·행동 소유권·포커스 잠금·원자 거래·모듈 좌표와 Wave 8 변경 계약을 하나의 구현 가능한 정본으로 고정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-object-interaction",
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "ui.camp-contextual-interaction",
+        "background.modular-island-camp",
+        "ui.camp-module-expansion"
+      ],
+      "acceptanceCriteria": [
+        "일반 이동부터 후보·안내·팝업·포커스/이동 잠금·거래·실패·취소·현장 복귀까지 상태표와 입력 소유권이 있다.",
+        "작업대·모닥불·빗물받이·저장/가방·구조 신호대별 action, 동결 비용, LOCKED/SHORT/READY/DONE 상태와 기존 연구·제작·가방 연결이 분리된다.",
+        "시작 방과 위·옆·지하 모듈의 좌표·크기·slot·문·사다리/계단·겹침·지형·통로 규칙이 예시 좌표와 함께 정의된다.",
+        "모듈 내부 general-floor, open-sky zone, storage와 signal anchor, keep-clear 및 무료 재배치 규칙이 정의된다.",
+        "첫 프로토타입은 세 후보를 모두 미리보고 하나를 확정하며 픽셀 건축·두 번째 확장·해체·환불은 제외한다.",
+        "모듈 unlock과 비용은 TBD_BALANCE 변수·검증 가설이며 새 경제 수치로 승인되지 않는다.",
+        "최소 HUD·상황형 팝업·ko/en/qps-long·향후 locale·키보드/게임패드 포커스 계약이 있다.",
+        "Wave 8의 3/6/10/12/14분과 20분 결말 지표를 유지하면서 대형 대시보드 전제를 제거한 이벤트·관찰·Q5 변경 계약이 있다."
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.wave9-spatial-base-camp",
+      "summary": "베이스캠프는 김씨가 직접 이동해 1.25u 안의 물리적 설비 하나에 접근하고 상황형 팝업으로 행동한 뒤 같은 현장으로 돌아오는 측면 절개형 주 플레이 공간이다.",
+      "rationale": "승인 목업의 직접 생활 공간 경험을 입력·포커스·거래 상태로 고정하고 원거리 메뉴 조작으로 되돌아가는 것을 막는다.",
+      "source": "user-confirmed-and-detailed-contract"
+    },
+    {
+      "id": "decision.wave9-contextual-ui-not-dashboard",
+      "summary": "캠프 UI는 최소 HUD, 대상 하나의 근접 안내와 설비 전용 소형 팝업만 사용하며 팝업 동안 이동·월드 입력을 잠그고 확인·취소 뒤 현장 상태를 복원한다.",
+      "rationale": "공간과 설비의 위치를 실제 플레이 결정으로 유지하면서 키보드·게임패드 포커스 누출과 이중 거래를 막는다.",
+      "source": "user-confirmed-and-detailed-contract"
+    },
+    {
+      "id": "decision.wave9-modular-expansion",
+      "summary": "첫 공간 증축은 start 18×5u에서 표준 12×5u upper (0,5), side (18,0), basement (0,-5)를 모두 미리보고 연결·겹침·지형·통로를 통과한 하나만 확정하며 비용은 TBD_BALANCE 데이터로 남긴다.",
+      "rationale": "픽셀 건축 없이 세 방향의 공간 성장과 경로 보존을 결정적으로 검증하고 근거 없는 비용이 기존 구조·가방 경제를 훼손하지 않게 한다.",
+      "source": "user-confirmed-and-detailed-contract"
+    }
+  ],
+  "openQuestions": []
+}
