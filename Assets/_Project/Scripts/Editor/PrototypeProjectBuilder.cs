@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using KimSurvival;
 using UnityEditor;
@@ -117,6 +118,9 @@ namespace KimSurvival.EditorTools
             Assert(sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierBlockedPath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierInteractablePath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierClearedPath)), "Prototype scene serializes all three adopted vine barrier states");
+
+            Assert(Type.GetType("KimSurvival.PrototypeCampInteraction, Assembly-CSharp") != null,
+                "Wave 9 contextual camp interaction state machine is present");
 
             GameSession inventory = new GameSession();
             Assert(GameSession.DefaultBagSlotCount == 4 && GameSession.MaximumBagSlotCount == 6 && GameSession.StackLimit == 2,
@@ -268,6 +272,11 @@ namespace KimSurvival.EditorTools
                    PrototypeInputPromptKeys.Placement(PrototypeInputDevice.Gamepad) == "controls.placement.gamepad", "Placement prompt selection follows the active device");
             Assert(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.KeyboardMouse) == "controls.explore.keyboard_mouse" &&
                    PrototypeInputPromptKeys.Explore(PrototypeInputDevice.Gamepad) == "controls.explore.gamepad", "Exploration and six-slot replacement prompts follow the active device");
+            Assert(PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.KeyboardMouse) == "camp.interaction.prompt.keyboard_mouse" &&
+                   PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.Gamepad) == "camp.interaction.prompt.gamepad" &&
+                   PrototypeInputPromptKeys.CampPopup(PrototypeInputDevice.KeyboardMouse) == "controls.camp.popup.keyboard_mouse" &&
+                   PrototypeInputPromptKeys.CampPopup(PrototypeInputDevice.Gamepad) == "controls.camp.popup.gamepad",
+                "Keyboard/mouse and gamepad converge on the same contextual prompt and popup state machine");
 
             bool hadLocalePreference = PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey);
             string originalLocalePreference = PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode);
@@ -279,11 +288,14 @@ namespace KimSurvival.EditorTools
                 Assert(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English String Table is active immediately");
                 Assert(localization.Format("hud.status.camp", 1, 3, "Camp", 70, 100).Contains("Hunger 70"), "Smart String arguments format in English");
                 Assert(localization.Format("controls.placement.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("left stick"), "English gamepad placement prompt is localized");
+                Assert(localization.Format("camp.interaction.prompt.gamepad", localization.Format("structure.workbench")).Contains("[X] Use Workbench"), "English gamepad proximity prompt is localized");
+                Assert(localization.Format("camp.popup.detail.workbench").Contains("Craft, research, repair"), "English workbench popup owns the intended actions");
                 Assert(localization.Format("world.barrier.axe.need").Contains("Stone Axe Required"), "English forest barrier names the stone axe requirement");
                 Assert(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "Missing English translation falls back to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false), "Korean locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "베이스캠프 · 제작 / 건설 / 연구", "Korean source string restores immediately");
                 Assert(localization.Format("controls.placement.keyboard_mouse", localization.DeviceName(PrototypeInputDevice.KeyboardMouse)).Contains("마우스로 위치 이동"), "Korean keyboard and mouse placement prompt is localized");
+                Assert(localization.Format("camp.interaction.prompt.keyboard_mouse", localization.Format("structure.campfire")).Contains("[E] 모닥불 사용"), "Korean keyboard proximity prompt is localized");
                 Assert(localization.Format("world.barrier.axe.need").Contains("돌도끼 필요"), "Korean forest barrier names the stone axe requirement");
                 Assert(localization.ResolveStartupLocale("es") == PrototypeLocalization.KoreanLocaleCode, "Unsupported saved locale resolves to Korean");
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode), "Locale preference can be persisted");
@@ -342,6 +354,37 @@ namespace KimSurvival.EditorTools
             Assert(keyboardCampUse.IsWithinUseRange(exactUseBoundary), "Camp facilities are usable at the exact 1.25-unit boundary");
             Assert(!keyboardCampUse.IsWithinUseRange(exactUseBoundary + Vector2.right * 0.01f),
                 "Camp facilities reject use beyond the 1.25-unit boundary");
+
+            PrototypeCampInteraction contextualInteraction = new PrototypeCampInteraction();
+            List<PrototypeCampInteractionTarget> contextualTargets = new List<PrototypeCampInteractionTarget>
+            {
+                new PrototypeCampInteractionTarget("left", PrototypeCampInteractionTargetKind.Campfire, new Vector2(-0.75f, 0f)),
+                new PrototypeCampInteractionTarget("right", PrototypeCampInteractionTargetKind.Workbench, new Vector2(0.75f, 0f))
+            };
+            contextualInteraction.UpdateSelection(new Vector2(3f, 0f), 1f, contextualTargets);
+            Assert(!contextualInteraction.HasProximityPrompt && !contextualInteraction.IsPopupOpen,
+                "Contextual camp interaction hides prompt and popup outside 1.25 units");
+            contextualInteraction.UpdateSelection(Vector2.zero, 1f, contextualTargets);
+            Assert(contextualInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.Workbench && contextualInteraction.HasProximityPrompt,
+                "Equal-distance candidates resolve to the facility in Mr. Kim's facing direction");
+            Assert(contextualInteraction.TryOpenPopup() && contextualInteraction.MovementLocked && !contextualInteraction.HasProximityPrompt,
+                "Interact opens one facility popup, hides the prompt, and locks movement");
+            Assert(contextualInteraction.TryConfirmAction() && !contextualInteraction.TryConfirmAction(),
+                "A popup confirmation can be consumed exactly once");
+            contextualInteraction.ClosePopup();
+            Assert(!contextualInteraction.MovementLocked && contextualInteraction.HasProximityPrompt,
+                "Cancel or completion closes the popup and restores direct field interaction");
+            contextualInteraction.Reset();
+            contextualInteraction.UpdateSelection(Vector2.zero, -1f, contextualTargets);
+            Assert(contextualInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.Campfire,
+                "Facing left selects the left candidate through the same deterministic state machine");
+            Assert(PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.Repair, true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.UpgradeBag, true) &&
+                   !PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.Eat, true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Campfire, PrototypeCampInteractionAction.Eat, true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.RainCollector, PrototypeCampInteractionAction.CollectRain, true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.RescueSignal, PrototypeCampInteractionAction.UpgradeSignal, true),
+                "Facility popup catalog keeps workbench, campfire, rain, and signal actions separated");
 
             GameSession placementSession = new GameSession();
             PrototypeCampPlacement placement = new PrototypeCampPlacement();
@@ -540,7 +583,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, shared keyboard/gamepad camp movement snapshot, proximity-gated workbench/campfire/rain/signal functions, relocation resource/research/signal/day-benefit preservation and required path, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, layer/source metadata, structure pivots, serialized scene references, inventory overflow/swap, shared keyboard/gamepad actions including language and slot six, deterministic active-device prompt switching, ko/en Unity String Tables and placement prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement input/state, grid snap, camp bounds, entrance/path protection, structure overlap, free repositioning, shore transitions, swimming jump suppression, swimming costs, water gathering, camp structures, research, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 9 far/near contextual target selection, distance plus facing tie-break and target hysteresis, popup-only movement lock, one-shot confirmation, cancel return, facility action ownership, shared keyboard/gamepad proximity and popup actions, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, exact 1.25-unit use boundary, relocation resource/research/signal/day-benefit preservation and required path, Wave 7 four-to-six bag contract, locked slots, exact atomic upgrade cost and failures, slots five/six acquisition/stack/pending replace/discard/return/reset, persistence and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 food/hunger/settlement, signal stage-one workbench and stage-two rope/material blockers with selectable feedback, axe-only forest barrier and wood plus-one, adopted 1672x941 three-layer camp background and four camp structure sprite imports, ko/en Unity String Tables and contextual prompts, Smart Strings, Korean fallback logging, locale persistence, TMP locale font mappings, limited free placement, shore transitions, swimming jump suppression, swimming costs, crafting, rescue success, deadline failure\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -761,6 +804,10 @@ namespace KimSurvival.EditorTools
                 string bagUpgradedEnglish1280Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1280x800.png"));
                 string bagLockedKorean1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-locked-ko-1920x1080.png"));
                 string bagUpgradedEnglish1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1920x1080.png"));
+                string campFarKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-camp-far-ko-1280x800.png"));
+                string campProximityKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-proximity-prompt-ko-1280x800.png"));
+                string campWorkbenchEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-workbench-popup-en-1280x800.png"));
+                string campCampfireKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-campfire-popup-ko-1280x800.png"));
                 string result = prototype.RunAutomatedVerification(
                     explorationScreenshot,
                     swimmingScreenshot,
@@ -771,7 +818,11 @@ namespace KimSurvival.EditorTools
                     bagLockedKorean1280Screenshot,
                     bagUpgradedEnglish1280Screenshot,
                     bagLockedKorean1920Screenshot,
-                    bagUpgradedEnglish1920Screenshot);
+                    bagUpgradedEnglish1920Screenshot,
+                    campFarKoreanScreenshot,
+                    campProximityKoreanScreenshot,
+                    campWorkbenchEnglishScreenshot,
+                    campCampfireKoreanScreenshot);
                 string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-camp-en-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
@@ -780,6 +831,10 @@ namespace KimSurvival.EditorTools
                     "\nBag upgraded English 1280x800: " + bagUpgradedEnglish1280Screenshot +
                     "\nBag locked Korean 1920x1080: " + bagLockedKorean1920Screenshot +
                     "\nBag upgraded English 1920x1080: " + bagUpgradedEnglish1920Screenshot +
+                    "\nWave 9 far camp Korean 1280x800: " + campFarKoreanScreenshot +
+                    "\nWave 9 proximity prompt Korean 1280x800: " + campProximityKoreanScreenshot +
+                    "\nWave 9 workbench popup English 1280x800: " + campWorkbenchEnglishScreenshot +
+                    "\nWave 9 campfire popup Korean 1280x800: " + campCampfireKoreanScreenshot +
                     "\nSignal stage one missing/workbench Korean screenshot: " + signalKoreanScreenshot +
                     "\nSignal stage two missing/rope English screenshot: " + signalEnglishScreenshot +
                     "\nPlacement Korean screenshot: " + placementKoreanScreenshot +

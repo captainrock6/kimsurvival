@@ -21,15 +21,22 @@ namespace KimSurvival
         }
 
         public Vector2 PlayerPosition { get; private set; }
+        public float FacingDirection { get; private set; }
 
         public void Reset()
         {
             PlayerPosition = new Vector2(PlayerStartX, PlayerFloorY);
+            FacingDirection = 1f;
             ClearDayBenefits();
         }
 
         public void Step(PrototypePlayerActions actions, float deltaTime)
         {
+            if (Mathf.Abs(actions.Horizontal) > 0.01f)
+            {
+                FacingDirection = actions.Horizontal < 0f ? -1f : 1f;
+            }
+
             float x = Mathf.Clamp(
                 PlayerPosition.x + actions.Horizontal * MovementSpeed * Mathf.Max(0f, deltaTime),
                 PlayerMinimumX,

@@ -60,23 +60,17 @@ namespace KimSurvival
             public bool Collected;
         }
 
-        private enum CampUseTarget
-        {
-            None,
-            Campfire,
-            Workbench,
-            RainCollector,
-            RescueSignal
-        }
-
         private readonly List<NodeView> nodes = new List<NodeView>();
         private readonly List<Button> bagButtons = new List<Button>();
+        private readonly List<Button> campPopupButtons = new List<Button>();
+        private readonly List<PrototypeCampInteractionTarget> campInteractionTargets = new List<PrototypeCampInteractionTarget>();
         private readonly List<SpriteRenderer> placementGhostOutlineRenderers = new List<SpriteRenderer>();
         private readonly Dictionary<StructureKind, GameObject> structureViews = new Dictionary<StructureKind, GameObject>();
         private readonly LegacyPrototypePlayerInput playerInput = new LegacyPrototypePlayerInput();
         private readonly PrototypePlayerTraversal playerTraversal = new PrototypePlayerTraversal();
         private readonly PrototypeCampPlacement campPlacement = new PrototypeCampPlacement();
         private readonly PrototypeCampUse campUse = new PrototypeCampUse();
+        private readonly PrototypeCampInteraction campInteraction = new PrototypeCampInteraction();
 
         private GameSession session;
         private PrototypeLocalization localization;
@@ -102,7 +96,11 @@ namespace KimSurvival
         private TMP_Text controlsText;
         private TMP_Text bagTitleText;
         private TMP_Text actionTitleText;
+        private TMP_Text campPopupDetailText;
+        private TMP_Text campProximityText;
         private GameObject campActions;
+        private GameObject campInteractionPopup;
+        private GameObject campProximityPrompt;
         private GameObject bagPanel;
         private GameObject resultPanel;
         private TMP_Text resultTitleText;
@@ -117,6 +115,10 @@ namespace KimSurvival
         private Button signalButton;
         private Button bagUpgradeButton;
         private Button eatButton;
+        private Button prepareCampfireButton;
+        private Button collectRainButton;
+        private Button repairButton;
+        private Button cancelPopupButton;
         private Button phaseButton;
         private Button restartButton;
         private Button languageButton;
@@ -284,26 +286,39 @@ namespace KimSurvival
             languageButton = CreateButton("언어 설정", controlPanel, Vector2.zero, Vector2.one, string.Empty, delegate { localization.CycleLocale(); });
             ConfigureLayout(languageButton.gameObject, 1.45f, 1f, 270f, 0f);
             languageButton.GetComponentInChildren<TMP_Text>().fontSize = 32f;
+            phaseButton = CreateButton("수색·정산", controlPanel, Vector2.zero, Vector2.one, string.Empty, HandlePhaseButton);
+            ConfigureLayout(phaseButton.gameObject, 1.65f, 1f, 310f, 0f);
+            phaseButton.GetComponentInChildren<TMP_Text>().fontSize = 30f;
 
-            campActions = CreatePanel("캠프 행동", canvas.transform, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(30f, 130f), new Vector2(765f, 715f), new Color(0.06f, 0.12f, 0.11f, 0.91f)).gameObject;
-            actionTitleText = CreateText("캠프 행동 제목", campActions.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -64f), new Vector2(-18f, -12f), 32, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
+            campActions = new GameObject("Legacy campActions dashboard · disabled");
+            campActions.transform.SetParent(canvas.transform, false);
+            campActions.SetActive(false);
 
-            campfireButton = CreateActionButton(campActions.transform, 0, string.Empty, delegate { BeginCampPlacement(StructureKind.Campfire); });
-            workbenchButton = CreateActionButton(campActions.transform, 1, string.Empty, delegate { BeginCampPlacement(StructureKind.Workbench); });
-            rainButton = CreateActionButton(campActions.transform, 2, string.Empty, delegate { BeginCampPlacement(StructureKind.RainCollector); });
-            researchAxeButton = CreateActionButton(campActions.transform, 3, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryResearch(TechKind.StoneAxe); }); });
-            craftAxeButton = CreateActionButton(campActions.transform, 4, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryCraft(TechKind.StoneAxe); }); });
-            researchRopeButton = CreateActionButton(campActions.transform, 5, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryResearch(TechKind.Rope); }); });
-            craftRopeButton = CreateActionButton(campActions.transform, 6, string.Empty, delegate { ExecuteWorkbenchAction(delegate { return session.TryCraft(TechKind.Rope); }); });
-            signalButton = CreateActionButton(campActions.transform, 7, string.Empty, ExecuteSignalAction);
-            signalButton.GetComponentInChildren<TMP_Text>().fontSize = 36f;
-            eatButton = CreateActionButton(campActions.transform, 8, string.Empty, ExecuteEatAction);
-            phaseButton = CreateActionButton(campActions.transform, 9, string.Empty, HandlePhaseButton);
+            campProximityPrompt = CreatePanel("설비 근접 안내", canvas.transform, new Vector2(0.29f, 0.25f), new Vector2(0.71f, 0.36f), Vector2.zero, Vector2.zero, new Color(0.03f, 0.08f, 0.09f, 0.96f)).gameObject;
+            campProximityText = CreateText("설비 근접 안내 문구", campProximityPrompt.transform, Vector2.zero, Vector2.one, new Vector2(22f, 8f), new Vector2(-22f, -8f), 34, TextAnchor.MiddleCenter, Color.white);
+            campProximityText.fontStyle = FontStyles.Bold;
+
+            campInteractionPopup = CreatePanel("설비 전용 소형 팝업", canvas.transform, new Vector2(0.56f, 0.2f), new Vector2(0.96f, 0.82f), Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.075f, 0.97f)).gameObject;
+            actionTitleText = CreateText("설비 팝업 제목", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -70f), new Vector2(-24f, -12f), 36, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
+            campPopupDetailText = CreateText("설비 팝업 설명", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -154f), new Vector2(-24f, -76f), 28, TextAnchor.UpperLeft, new Color(0.9f, 0.96f, 0.91f));
+
+            campfireButton = CreateCampPopupButton("모닥불 건설·재배치", delegate { ExecuteConfirmedPopupTransition(delegate { BeginCampPlacement(StructureKind.Campfire); }); });
+            workbenchButton = CreateCampPopupButton("작업대 건설·재배치", delegate { ExecuteConfirmedPopupTransition(delegate { BeginCampPlacement(StructureKind.Workbench); }); });
+            rainButton = CreateCampPopupButton("빗물받이 건설·재배치", delegate { ExecuteConfirmedPopupTransition(delegate { BeginCampPlacement(StructureKind.RainCollector); }); });
+            researchAxeButton = CreateCampPopupButton("돌도끼 연구", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryResearch(TechKind.StoneAxe); }); });
+            craftAxeButton = CreateCampPopupButton("돌도끼 제작", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryCraft(TechKind.StoneAxe); }); });
+            researchRopeButton = CreateCampPopupButton("밧줄 연구", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryResearch(TechKind.Rope); }); });
+            craftRopeButton = CreateCampPopupButton("밧줄 제작", delegate { ExecuteConfirmedPopupAction(delegate { return session.TryCraft(TechKind.Rope); }); });
+            signalButton = CreateCampPopupButton("구조 신호 자원 투입", delegate { ExecuteConfirmedPopupAction(TryExecuteSignalAction); });
+            eatButton = CreateCampPopupButton("식량 먹기", delegate { ExecuteConfirmedPopupAction(session.UseFood); });
+            prepareCampfireButton = CreateCampPopupButton("생존 준비", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.Campfire, "message.camp.use.campfire"); }); });
+            collectRainButton = CreateCampPopupButton("빗물 받기", delegate { ExecuteConfirmedPopupAction(delegate { return TryPrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain"); }); });
+            repairButton = CreateCampPopupButton("수리", delegate { ExecuteConfirmedPopupAction(ExecuteRepairAction); });
+            bagUpgradeButton = CreateCampPopupButton("가방 용량 확장", delegate { ExecuteConfirmedPopupAction(session.TryUpgradeBagCapacity); });
+            cancelPopupButton = CreateCampPopupButton("취소", CancelCampPopup);
 
             bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 170f), new Vector2(-30f, 795f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
             bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -128f), new Vector2(-18f, -8f), 34, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
-            bagUpgradeButton = CreateButton("가방 용량 확장", bagPanel.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), string.Empty, delegate { ExecuteWorkbenchAction(session.TryUpgradeBagCapacity); }, new Vector2(22f, -290f), new Vector2(403f, -138f));
-            bagUpgradeButton.GetComponentInChildren<TMP_Text>().fontSize = 34f;
             for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
             {
                 int capturedIndex = i;
@@ -315,7 +330,7 @@ namespace KimSurvival
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
-            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
+            restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, delegate { session.Reset(); campPlacement.Reset(); campUse.Reset(); campInteraction.Reset(); campFeedback = PrototypeLocalizedText.Empty; RefreshAll(); });
         }
 
         private void HandlePhaseButton()
@@ -350,16 +365,20 @@ namespace KimSurvival
         {
             renderedPhase = session.Phase;
             RebuildWorld();
-            actionTitleText.text = localization.Format("ui.camp.title");
+            RefreshCampInteractionSelection();
             SetButton(restartButton, localization.Format("ui.restart"), true);
             string languageKey = localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? "ui.language.switch.ko" : "ui.language.switch.en";
             SetButton(languageButton, localization.Format(languageKey), true);
             bool camp = session.Phase == GamePhase.Camp;
             bool result = session.Phase == GamePhase.Result;
             bool placing = camp && campPlacement.IsActive;
-            campActions.SetActive(camp && !placing);
-            bagPanel.SetActive(!result && !placing);
-            bagUpgradeButton.gameObject.SetActive(camp && !placing);
+            bool popup = camp && !placing && campInteraction.IsPopupOpen;
+            campActions.SetActive(false);
+            campInteractionPopup.SetActive(popup);
+            campProximityPrompt.SetActive(camp && !placing && campInteraction.HasProximityPrompt);
+            bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
+            phaseButton.gameObject.SetActive(camp && !placing && !popup);
+            messagePanelImage.gameObject.SetActive(!popup && !result);
             resultPanel.SetActive(result);
             if (result)
             {
@@ -370,7 +389,8 @@ namespace KimSurvival
             else if (camp)
             {
                 UpdateCampButtons();
-                EventSystem.current.SetSelectedGameObject(campPlacement.IsActive ? null : phaseButton.gameObject);
+                RefreshCampInteractionUi();
+                EventSystem.current.SetSelectedGameObject(popup ? FirstVisiblePopupButton() : campPlacement.IsActive ? null : phaseButton.gameObject);
             }
             else if (session.HasPendingLoot && bagButtons.Count > 0)
             {
@@ -422,11 +442,16 @@ namespace KimSurvival
                 {
                     ApplyPlacementGuidance(playerInput.ActiveDevice);
                 }
+                else if (campInteraction.IsPopupOpen)
+                {
+                    controlsText.text = localization.Format(PrototypeInputPromptKeys.CampPopup(playerInput.ActiveDevice), device);
+                }
                 else
                 {
                     controlsText.text = localization.Format(PrototypeInputPromptKeys.Camp(playerInput.ActiveDevice), device);
                 }
                 bagTitleText.text = localization.Format("bag.camp", session.ActiveBagSlotCount, GameSession.MaximumBagSlotCount);
+                RefreshCampInteractionUi();
             }
             else if (session.Phase == GamePhase.Exploring)
             {
@@ -452,7 +477,7 @@ namespace KimSurvival
 
         private void UpdateCampButtons()
         {
-            bool available = !campPlacement.IsActive;
+            bool available = campInteraction.IsPopupOpen && !campPlacement.IsActive;
             SetButton(campfireButton, localization.Format(session.HasStructure(StructureKind.Campfire) ? "button.campfire.relocate" : "button.campfire.build"), available && (session.HasStructure(StructureKind.Campfire) || session.CanBuild(StructureKind.Campfire)));
             SetButton(workbenchButton, localization.Format(session.HasStructure(StructureKind.Workbench) ? "button.workbench.relocate" : "button.workbench.build"), available && (session.HasStructure(StructureKind.Workbench) || session.CanBuild(StructureKind.Workbench)));
             SetButton(rainButton, localization.Format(session.HasStructure(StructureKind.RainCollector) ? "button.rain.relocate" : "button.rain.build"), available && (session.HasStructure(StructureKind.RainCollector) || session.CanBuild(StructureKind.RainCollector)));
@@ -463,9 +488,14 @@ namespace KimSurvival
             SetButton(signalButton, FormatSignalButton(), available && session.SignalStage < 2);
             signalButton.GetComponentInChildren<TMP_Text>().fontSize = localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? 31f : 36f;
             UpdateBagUpgradeButton(available);
-            SetButton(eatButton, localization.Format("button.eat", session.GetStorage(ResourceKind.Food)), available && session.GetStorage(ResourceKind.Food) > 0 && session.Hunger < 100f);
+            SetButton(eatButton, localization.Format("button.eat", session.GetStorage(ResourceKind.Food)), available);
+            SetButton(prepareCampfireButton, localization.Format(campUse.IsDayBenefitPrepared(StructureKind.Campfire) ? "button.campfire.prepare.done" : "button.campfire.prepare"), available && !campUse.IsDayBenefitPrepared(StructureKind.Campfire));
+            SetButton(collectRainButton, localization.Format(campUse.IsDayBenefitPrepared(StructureKind.RainCollector) ? "button.rain.collect.done" : "button.rain.collect"), available && !campUse.IsDayBenefitPrepared(StructureKind.RainCollector));
+            SetButton(repairButton, localization.Format("button.workbench.repair"), available);
+            SetButton(cancelPopupButton, localization.Format("button.popup.cancel"), available);
             string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "button.day.final" : "button.day.next") : "button.search.start";
-            SetButton(phaseButton, localization.Format(phaseButtonKey), available);
+            SetButton(phaseButton, localization.Format(phaseButtonKey), !campPlacement.IsActive && !campInteraction.IsPopupOpen);
+            UpdatePopupActionVisibility();
         }
 
         private void UpdateBagUpgradeButton(bool available)
@@ -512,6 +542,157 @@ namespace KimSurvival
                 requirementState,
                 Mathf.Min(2, session.GetStorage(ResourceKind.Wood)),
                 Mathf.Min(2, session.GetStorage(ResourceKind.Salvage)));
+        }
+
+        private void RefreshCampInteractionUi()
+        {
+            if (campInteractionPopup == null || campProximityPrompt == null || session == null)
+            {
+                return;
+            }
+
+            bool camp = session.Phase == GamePhase.Camp && !campPlacement.IsActive;
+            campInteractionPopup.SetActive(camp && campInteraction.IsPopupOpen);
+            campProximityPrompt.SetActive(camp && campInteraction.HasProximityPrompt);
+            if (campInteraction.HasProximityPrompt)
+            {
+                string targetName = FormatCampInteractionTarget(campInteraction.ActiveTargetKind);
+                campProximityText.text = localization.Format(
+                    PrototypeInputPromptKeys.CampProximity(playerInput.ActiveDevice),
+                    targetName);
+            }
+
+            if (!campInteraction.IsPopupOpen)
+            {
+                return;
+            }
+
+            string openTargetName = FormatCampInteractionTarget(campInteraction.OpenPopupKind);
+            actionTitleText.text = localization.Format("camp.popup.title", openTargetName);
+            campPopupDetailText.text = localization.Format(CampPopupDetailKey(campInteraction.OpenPopupKind));
+        }
+
+        private string FormatCampInteractionTarget(PrototypeCampInteractionTargetKind target)
+        {
+            switch (target)
+            {
+                case PrototypeCampInteractionTargetKind.Campfire:
+                    return localization.Format("structure.campfire");
+                case PrototypeCampInteractionTargetKind.Workbench:
+                    return localization.Format("structure.workbench");
+                case PrototypeCampInteractionTargetKind.RainCollector:
+                    return localization.Format("structure.rain_collector");
+                case PrototypeCampInteractionTargetKind.RescueSignal:
+                    return localization.Format("structure.rescue_signal");
+                default:
+                    return localization.Format("structure.generic");
+            }
+        }
+
+        private static string CampPopupDetailKey(PrototypeCampInteractionTargetKind target)
+        {
+            switch (target)
+            {
+                case PrototypeCampInteractionTargetKind.Campfire:
+                    return "camp.popup.detail.campfire";
+                case PrototypeCampInteractionTargetKind.Workbench:
+                    return "camp.popup.detail.workbench";
+                case PrototypeCampInteractionTargetKind.RainCollector:
+                    return "camp.popup.detail.rain";
+                case PrototypeCampInteractionTargetKind.RescueSignal:
+                    return "camp.popup.detail.signal";
+                default:
+                    return "camp.popup.detail.generic";
+            }
+        }
+
+        private void UpdatePopupActionVisibility()
+        {
+            for (int i = 0; i < campPopupButtons.Count; i += 1)
+            {
+                campPopupButtons[i].gameObject.SetActive(false);
+            }
+
+            PrototypeCampInteractionTargetKind target = campInteraction.OpenPopupKind;
+            bool built = IsPopupTargetBuilt(target);
+            SetPopupActionVisible(campfireButton, target == PrototypeCampInteractionTargetKind.Campfire &&
+                PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
+            SetPopupActionVisible(workbenchButton, target == PrototypeCampInteractionTargetKind.Workbench &&
+                PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
+            SetPopupActionVisible(rainButton, target == PrototypeCampInteractionTargetKind.RainCollector &&
+                PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
+            SetPopupActionVisible(eatButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.Eat, built));
+            SetPopupActionVisible(prepareCampfireButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PrepareSurvival, built));
+            SetPopupActionVisible(researchAxeButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ResearchStoneAxe, built));
+            SetPopupActionVisible(craftAxeButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.CraftStoneAxe, built));
+            SetPopupActionVisible(researchRopeButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ResearchRope, built));
+            SetPopupActionVisible(craftRopeButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.CraftRope, built));
+            SetPopupActionVisible(repairButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.Repair, built));
+            SetPopupActionVisible(bagUpgradeButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.UpgradeBag, built));
+            SetPopupActionVisible(collectRainButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.CollectRain, built));
+            SetPopupActionVisible(signalButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.UpgradeSignal, true));
+            SetPopupActionVisible(cancelPopupButton, target != PrototypeCampInteractionTargetKind.None);
+            LayoutVisiblePopupButtons();
+        }
+
+        private bool IsPopupTargetBuilt(PrototypeCampInteractionTargetKind target)
+        {
+            switch (target)
+            {
+                case PrototypeCampInteractionTargetKind.Campfire:
+                    return session.HasStructure(StructureKind.Campfire);
+                case PrototypeCampInteractionTargetKind.Workbench:
+                    return session.HasStructure(StructureKind.Workbench);
+                case PrototypeCampInteractionTargetKind.RainCollector:
+                    return session.HasStructure(StructureKind.RainCollector);
+                case PrototypeCampInteractionTargetKind.RescueSignal:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        private static void SetPopupActionVisible(Button button, bool visible)
+        {
+            if (button != null)
+            {
+                button.gameObject.SetActive(visible);
+            }
+        }
+
+        private void LayoutVisiblePopupButtons()
+        {
+            int visibleIndex = 0;
+            for (int i = 0; i < campPopupButtons.Count; i += 1)
+            {
+                Button button = campPopupButtons[i];
+                if (!button.gameObject.activeSelf)
+                {
+                    continue;
+                }
+
+                int column = visibleIndex % 2;
+                int row = visibleIndex / 2;
+                RectTransform rect = button.GetComponent<RectTransform>();
+                rect.anchorMin = new Vector2(column * 0.5f, 1f);
+                rect.anchorMax = new Vector2((column + 1) * 0.5f, 1f);
+                float top = -174f - row * 92f;
+                rect.offsetMin = new Vector2(column == 0 ? 24f : 8f, top - 78f);
+                rect.offsetMax = new Vector2(column == 0 ? -8f : -24f, top);
+                visibleIndex += 1;
+            }
+        }
+
+        private GameObject FirstVisiblePopupButton()
+        {
+            for (int i = 0; i < campPopupButtons.Count; i += 1)
+            {
+                if (campPopupButtons[i].gameObject.activeInHierarchy && campPopupButtons[i].interactable)
+                {
+                    return campPopupButtons[i].gameObject;
+                }
+            }
+            return cancelPopupButton == null ? null : cancelPopupButton.gameObject;
         }
 
         private void RefreshBagButtons()
@@ -600,6 +781,9 @@ namespace KimSurvival
             CreatePlacedStructure(StructureKind.Campfire, new Color(1f, 0.43f, 0.14f));
             CreatePlacedStructure(StructureKind.Workbench, new Color(0.48f, 0.26f, 0.12f));
             CreatePlacedStructure(StructureKind.RainCollector, new Color(0.27f, 0.7f, 0.86f));
+            CreateCampBlueprint(StructureKind.Campfire, new Color(1f, 0.43f, 0.14f, 0.28f));
+            CreateCampBlueprint(StructureKind.Workbench, new Color(0.48f, 0.26f, 0.12f, 0.28f));
+            CreateCampBlueprint(StructureKind.RainCollector, new Color(0.27f, 0.7f, 0.86f, 0.28f));
 
             Vector2 signalAnchor = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
             CreateRescueSignal(signalAnchor);
@@ -677,125 +861,142 @@ namespace KimSurvival
         private void UpdateCampUse()
         {
             PrototypePlayerActions actions = playerInput.ReadActions(false, session.ActiveBagSlotCount);
-            campUse.Step(actions, Time.deltaTime);
+            ProcessCampActions(actions, Time.deltaTime);
+        }
+
+        private void ProcessCampActions(PrototypePlayerActions actions, float deltaTime)
+        {
+            if (campInteraction.IsPopupOpen)
+            {
+                if (actions.CancelPressed)
+                {
+                    CancelCampPopup();
+                }
+                return;
+            }
+
+            campUse.Step(actions, deltaTime);
             if (playerRoot != null)
             {
                 PrototypePlayerPresentationState presentation = new PrototypePlayerPresentationState(
                     campUse.PlayerPosition.x,
                     campUse.PlayerPosition.y,
-                    actions.Horizontal < -0.01f ? -1f : 1f,
+                    campUse.FacingDirection,
                     Mathf.Abs(actions.Horizontal),
                     false,
                     true);
                 playerPresentation.Apply(presentation);
             }
 
+            RefreshCampInteractionSelection();
+            RefreshCampInteractionUi();
+
             if (actions.InteractPressed)
             {
-                UseNearestCampTarget();
+                TryOpenCampPopup();
             }
         }
 
         private void UseNearestCampTarget()
         {
-            CampUseTarget nearest = CampUseTarget.None;
-            float nearestDistance = float.MaxValue;
-            ConsiderCampUseTarget(StructureKind.Campfire, CampUseTarget.Campfire, ref nearest, ref nearestDistance);
-            ConsiderCampUseTarget(StructureKind.Workbench, CampUseTarget.Workbench, ref nearest, ref nearestDistance);
-            ConsiderCampUseTarget(StructureKind.RainCollector, CampUseTarget.RainCollector, ref nearest, ref nearestDistance);
-
-            Vector2 signalPosition = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
-            float signalDistance = Vector2.Distance(campUse.PlayerPosition, signalPosition);
-            if (signalDistance <= PrototypeCampUse.UseRange && signalDistance < nearestDistance)
-            {
-                nearest = CampUseTarget.RescueSignal;
-            }
-
-            switch (nearest)
-            {
-                case CampUseTarget.Campfire:
-                    PrepareDayBenefit(StructureKind.Campfire, "message.camp.use.campfire");
-                    break;
-                case CampUseTarget.Workbench:
-                    campFeedback = new PrototypeLocalizedText("message.camp.use.workbench");
-                    RefreshHud();
-                    break;
-                case CampUseTarget.RainCollector:
-                    PrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain");
-                    break;
-                case CampUseTarget.RescueSignal:
-                    ExecuteSignalAction();
-                    break;
-                default:
-                    campFeedback = new PrototypeLocalizedText("message.camp.use.none", PrototypeCampUse.UseRange);
-                    RefreshHud();
-                    break;
-            }
+            RefreshCampInteractionSelection();
+            TryOpenCampPopup();
         }
 
-        private void ConsiderCampUseTarget(StructureKind kind, CampUseTarget candidate, ref CampUseTarget nearest, ref float nearestDistance)
+        private void RefreshCampInteractionSelection()
         {
-            if (!session.HasStructure(kind))
+            if (session == null || session.Phase != GamePhase.Camp || campPlacement.IsActive)
+            {
+                campInteractionTargets.Clear();
+                campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
+                return;
+            }
+
+            campInteractionTargets.Clear();
+            AddCampInteractionTarget(StructureKind.Campfire, PrototypeCampInteractionTargetKind.Campfire);
+            AddCampInteractionTarget(StructureKind.Workbench, PrototypeCampInteractionTargetKind.Workbench);
+            AddCampInteractionTarget(StructureKind.RainCollector, PrototypeCampInteractionTargetKind.RainCollector);
+            campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                "camp.signal-anchor",
+                PrototypeCampInteractionTargetKind.RescueSignal,
+                GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)));
+            campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
+        }
+
+        private void AddCampInteractionTarget(StructureKind structure, PrototypeCampInteractionTargetKind target)
+        {
+            Vector2 position = campPlacement.GetInstalledPosition(structure);
+            campInteractionTargets.Add(new PrototypeCampInteractionTarget("camp." + structure, target, position));
+        }
+
+        private bool TryOpenCampPopup()
+        {
+            if (!campInteraction.TryOpenPopup())
+            {
+                return false;
+            }
+
+            RefreshAll();
+            return true;
+        }
+
+        private void CancelCampPopup()
+        {
+            if (!campInteraction.IsPopupOpen)
             {
                 return;
             }
 
-            campPlacement.EnsureInstalled(kind);
-            float distance = Vector2.Distance(campUse.PlayerPosition, campPlacement.GetInstalledPosition(kind));
-            if (distance <= PrototypeCampUse.UseRange && distance < nearestDistance)
-            {
-                nearest = candidate;
-                nearestDistance = distance;
-            }
+            campInteraction.ClosePopup();
+            RefreshAll();
         }
 
-        private void PrepareDayBenefit(StructureKind kind, string successMessageKey)
+        private void ExecuteConfirmedPopupTransition(Action transition)
         {
-            campPlacement.EnsureInstalled(kind);
-            if (campUse.TryPrepareDayBenefit(kind, campPlacement.GetInstalledPosition(kind)))
+            if (!campInteraction.TryConfirmAction())
             {
-                campFeedback = new PrototypeLocalizedText(successMessageKey);
+                return;
             }
-            RefreshHud();
+
+            campInteraction.ClosePopup();
+            campFeedback = PrototypeLocalizedText.Empty;
+            transition();
+            RefreshAll();
         }
 
-        private void ExecuteWorkbenchAction(Func<bool> action)
+        private void ExecuteConfirmedPopupAction(Func<bool> action)
         {
-            if (!RequireStructureUse(StructureKind.Workbench))
+            if (!campInteraction.TryConfirmAction())
             {
                 return;
             }
 
             campFeedback = PrototypeLocalizedText.Empty;
             action();
+            campInteraction.ClosePopup();
             RefreshAll();
         }
 
-        private void ExecuteSignalAction()
+        private bool TryExecuteSignalAction()
         {
-            Vector2 signalPosition = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
-            if (!campUse.IsWithinUseRange(signalPosition))
-            {
-                campFeedback = new PrototypeLocalizedText("message.camp.use.signal_too_far", PrototypeCampUse.UseRange);
-                RefreshHud();
-                return;
-            }
-
-            campFeedback = PrototypeLocalizedText.Empty;
-            session.TryUpgradeSignal();
-            RefreshAll();
+            return session.TryUpgradeSignal();
         }
 
-        private void ExecuteEatAction()
+        private bool TryPrepareDayBenefit(StructureKind kind, string successMessageKey)
         {
-            if (session.HasStructure(StructureKind.Campfire) && !RequireStructureUse(StructureKind.Campfire))
+            campPlacement.EnsureInstalled(kind);
+            bool prepared = campUse.TryPrepareDayBenefit(kind, campPlacement.GetInstalledPosition(kind));
+            if (prepared)
             {
-                return;
+                campFeedback = new PrototypeLocalizedText(successMessageKey);
             }
+            return prepared;
+        }
 
-            campFeedback = PrototypeLocalizedText.Empty;
-            session.UseFood();
-            RefreshAll();
+        private bool ExecuteRepairAction()
+        {
+            campFeedback = new PrototypeLocalizedText("message.workbench.repair.ready");
+            return true;
         }
 
         private bool RequireStructureUse(StructureKind kind)
@@ -1014,11 +1215,16 @@ namespace KimSurvival
             string bagLockedKorean1280ScreenshotPath,
             string bagUpgradedEnglish1280ScreenshotPath,
             string bagLockedKorean1920ScreenshotPath,
-            string bagUpgradedEnglish1920ScreenshotPath)
+            string bagUpgradedEnglish1920ScreenshotPath,
+            string campFarKoreanScreenshotPath,
+            string campProximityKoreanScreenshotPath,
+            string campWorkbenchEnglishScreenshotPath,
+            string campCampfireKoreanScreenshotPath)
         {
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
+            campInteraction.Reset();
             campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -1029,45 +1235,86 @@ namespace KimSurvival
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             languageButton.onClick.Invoke();
             Require(localization.CurrentLocaleCode == PrototypeLocalization.EnglishLocaleCode &&
-                    actionTitleText.text == "Base Camp · Craft / Build / Research", "언어 버튼의 즉시 영어 전환");
+                    languageButton.GetComponentInChildren<TMP_Text>().text == localization.Format("ui.language.switch.en"), "언어 버튼의 즉시 영어 전환");
             Require(localization.Format("dev.fallback_probe") == "한국어 폴백 확인", "영어 누락 번역의 한국어 폴백");
             languageButton.onClick.Invoke();
             Require(localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode &&
-                    actionTitleText.text == "베이스캠프 · 제작 / 건설 / 연구", "언어 버튼의 즉시 한국어 전환");
+                    languageButton.GetComponentInChildren<TMP_Text>().text == localization.Format("ui.language.switch.ko"), "언어 버튼의 즉시 한국어 전환");
             Require(statusText.font != null && messageText.font != null, "로케일별 TMP 폰트 매핑 적용");
             RequireCampBackgroundAlignment();
             RequireCampStructureArt();
-            campUse.Warp(GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY));
+            campUse.Warp(PrototypeCampUse.PlayerStartX);
+            RefreshAll();
+            Require(!campActions.activeSelf && !bagPanel.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf,
+                "정상 캠프 원거리에서 전역 대시보드·대형 가방·근접 안내·팝업 숨김");
+            if (!string.IsNullOrWhiteSpace(campFarKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(campFarKoreanScreenshotPath, 1280, 800);
+            }
 
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.Campfire));
+            RefreshAll();
+            Require(campInteraction.HasProximityPrompt && campProximityPrompt.activeSelf && !campInteractionPopup.activeSelf,
+                "근접 시 대상 하나의 안내만 표시하고 팝업은 상호작용 전까지 숨김");
+            if (!string.IsNullOrWhiteSpace(campProximityKoreanScreenshotPath))
+            {
+                campProximityText.ForceMeshUpdate(true, true);
+                Require(!campProximityText.isTextOverflowing, "1280x800 한국어 근접 안내 잘림 없음");
+                CaptureVerificationPng(campProximityKoreanScreenshotPath, 1280, 800);
+            }
+
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Campfire);
+            Require(campfireButton.gameObject.activeSelf && cancelPopupButton.gameObject.activeSelf &&
+                    !workbenchButton.gameObject.activeSelf && !signalButton.gameObject.activeSelf,
+                "미설치 모닥불 팝업은 해당 설비의 건설 행동만 소유");
+            Vector2 popupLockedPosition = campUse.PlayerPosition;
+            ProcessCampActions(new PrototypePlayerActions(1f, false, false, false, false, -1), 0.5f);
+            Require(campUse.PlayerPosition == popupLockedPosition, "설비 팝업 동안 일반 이동 잠금");
+            if (!string.IsNullOrWhiteSpace(campCampfireKoreanScreenshotPath))
+            {
+                RequireReadableCampPopup();
+                CaptureVerificationPng(campCampfireKoreanScreenshotPath, 1280, 800);
+            }
+            CancelCampPopup();
+            Require(campUse.PlayerPosition == popupLockedPosition && campInteraction.HasProximityPrompt && !campInteraction.IsPopupOpen,
+                "팝업 취소 뒤 같은 위치의 직접 조작과 근접 안내 복귀");
+
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
             TMP_Text signalLabel = signalButton.GetComponentInChildren<TMP_Text>();
             Require(signalButton.interactable && signalLabel.text.Contains("작업대") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 1단계 작업대 요구 표시");
             signalButton.onClick.Invoke();
             Require(session.SignalStage == 0 && session.LastMessage.Key == "message.signal.workbench" && messageText.text.Contains("작업대가 없다"), "1단계 작업대 없음 실패 피드백");
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
             RequireReadableSignalFeedback();
             if (!string.IsNullOrWhiteSpace(signalKoreanScreenshotPath))
             {
                 CaptureVerificationPng(signalKoreanScreenshotPath, 1280, 800);
             }
+            CancelCampPopup();
 
             Require(session.TryBuild(StructureKind.Workbench), "신호대 단계 검증용 작업대 건설");
             RefreshAll();
-            signalButton.onClick.Invoke();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RescueSignal, signalButton);
             Require(session.SignalStage == 1 && !session.HasRope, "밧줄 없이 가능한 구조 신호대 1단계 UI 경로");
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
             Require(signalButton.interactable && signalLabel.text.Contains("밧줄") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 2단계 밧줄 요구 표시");
             signalButton.onClick.Invoke();
             Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.rope", "밧줄 없는 구조 신호대 2단계의 명확한 거절");
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
             Require(signalLabel.text.Contains("Rope") && signalLabel.text.Contains("None") && messageText.text.Contains("No rope"), "영어 2단계 요구조건과 부족 사유 즉시 전환");
             RequireReadableSignalFeedback();
             if (!string.IsNullOrWhiteSpace(signalEnglishScreenshotPath))
             {
                 CaptureVerificationPng(signalEnglishScreenshotPath, 1280, 800);
             }
+            CancelCampPopup();
 
             Require(session.TryResearch(TechKind.Rope) && session.TryCraft(TechKind.Rope), "재료 부족 UI 검증용 밧줄 제작");
             session.Grant(ResourceKind.Wood, -999);
             session.Grant(ResourceKind.Salvage, -999);
             RefreshAll();
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
             Require(signalButton.interactable, "나무·표류물 부족 상태에서도 구조 신호대 행동 선택 가능");
             signalButton.onClick.Invoke();
             Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.materials" && messageText.text.Contains("Wood and salvage are short"), "나무·표류물 동시 부족 UI 피드백");
@@ -1075,6 +1322,7 @@ namespace KimSurvival
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
+            campInteraction.Reset();
             campFeedback = PrototypeLocalizedText.Empty;
             session.Grant(ResourceKind.Wood, 20);
             session.Grant(ResourceKind.Stone, 10);
@@ -1082,6 +1330,7 @@ namespace KimSurvival
             session.Grant(ResourceKind.Salvage, 20);
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             RefreshAll();
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Workbench);
 
             TMP_Text bagUpgradeLabel = bagUpgradeButton.GetComponentInChildren<TMP_Text>();
             Require(session.ActiveBagSlotCount == GameSession.DefaultBagSlotCount && bagButtons.Count == GameSession.MaximumBagSlotCount, "새 게임 4칸·물리 최대 6칸 UI");
@@ -1098,11 +1347,13 @@ namespace KimSurvival
             {
                 CaptureVerificationPng(bagLockedKorean1920ScreenshotPath, 1920, 1080);
             }
+            CancelCampPopup();
 
             Require(session.TryBuild(StructureKind.Workbench), "가방 확장 UI 검증용 작업대 건설");
             RefreshAll();
             campPlacement.EnsureInstalled(StructureKind.Workbench);
             campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Workbench);
             int woodBeforeBagUpgrade = session.GetStorage(ResourceKind.Wood);
             int salvageBeforeBagUpgrade = session.GetStorage(ResourceKind.Salvage);
             Require(bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("4→6") && bagUpgradeLabel.text.Contains("나무 2/2") && bagUpgradeLabel.text.Contains("표류물 1/1"), "가방 확장 비용과 4→6 표시");
@@ -1111,8 +1362,14 @@ namespace KimSurvival
                     session.GetStorage(ResourceKind.Wood) == woodBeforeBagUpgrade - GameSession.BagUpgradeWoodCost &&
                     session.GetStorage(ResourceKind.Salvage) == salvageBeforeBagUpgrade - GameSession.BagUpgradeSalvageCost, "가방 확장 UI의 원자적 1회 비용과 6칸 활성화");
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Workbench);
             Require(!bagUpgradeButton.interactable && bagUpgradeLabel.text.Contains("Done") && bagTitleText.text.Contains("Bag 6/6"), "영어 가방 확장 완료·6칸 표시");
             RequireReadableBagUi();
+            RequireReadableCampPopup();
+            if (!string.IsNullOrWhiteSpace(campWorkbenchEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(campWorkbenchEnglishScreenshotPath, 1280, 800);
+            }
             if (!string.IsNullOrWhiteSpace(bagUpgradedEnglish1280ScreenshotPath))
             {
                 CaptureVerificationPng(bagUpgradedEnglish1280ScreenshotPath, 1280, 800);
@@ -1121,6 +1378,7 @@ namespace KimSurvival
             {
                 CaptureVerificationPng(bagUpgradedEnglish1920ScreenshotPath, 1920, 1080);
             }
+            CancelCampPopup();
 
             phaseButton.onClick.Invoke();
             Require(session.Phase == GamePhase.Exploring, "가방 6칸 UI 검증 수색 시작");
@@ -1155,6 +1413,7 @@ namespace KimSurvival
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
+            campInteraction.Reset();
             campFeedback = PrototypeLocalizedText.Empty;
             Require(session.ActiveBagSlotCount == GameSession.DefaultBagSlotCount && !session.HasPendingLoot && !session.IsBagSlotActive(4), "새 게임 초기화의 4칸·잠금·pending 정리");
             session.Grant(ResourceKind.Wood, 20);
@@ -1164,7 +1423,7 @@ namespace KimSurvival
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             RefreshAll();
 
-            campfireButton.onClick.Invoke();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Campfire, campfireButton);
             Require(campPlacement.IsActive && placementGhost != null, "모닥불 배치 유령 UI");
             Require(placementGhostLabel != null && placementGhostLabel.font != null, "월드 배치 유령의 TMP 폰트 매핑");
             Require(!campActions.activeSelf && !bagPanel.activeSelf, "배치 중 관리 패널을 숨겨 월드 시야 확보");
@@ -1203,14 +1462,14 @@ namespace KimSurvival
             UpdatePlacementGhost();
             Require(campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement(), "모닥불 스냅 배치 확정");
 
-            workbenchButton.onClick.Invoke();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, workbenchButton);
             campPlacement.SetCandidateX(1.5f);
             Require(ConfirmCampPlacement(), "작업대 스냅 배치 확정");
             int woodBeforeRelocation = session.GetStorage(ResourceKind.Wood);
             int stoneBeforeRelocation = session.GetStorage(ResourceKind.Stone);
             int salvageBeforeRelocation = session.GetStorage(ResourceKind.Salvage);
             campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
-            workbenchButton.onClick.Invoke();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, workbenchButton);
             Require(campPlacement.IsRelocating, "건설된 작업대 재배치 진입");
             campPlacement.SetCandidateX(3.5f);
             Require(ConfirmCampPlacement(), "작업대 무료 재배치 확정");
@@ -1220,36 +1479,36 @@ namespace KimSurvival
                     session.GetStorage(ResourceKind.Salvage) == salvageBeforeRelocation, "재배치 추가 자원 비용 없음");
 
             campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
-            workbenchButton.onClick.Invoke();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, workbenchButton);
             campPlacement.SetCandidateX(1.5f);
             Require(ConfirmCampPlacement(), "작업대를 일반 설비 구역으로 무료 복귀");
 
-            rainButton.onClick.Invoke();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RainCollector, rainButton);
             campPlacement.SetCandidateX(1.5f);
             Require(campPlacement.CurrentValidity == CampPlacementValidity.WrongZone && !ConfirmCampPlacement(), "빗물받이 일반 바닥 배치 거부");
             campPlacement.SetCandidateX(3.5f);
             Require(ConfirmCampPlacement(), "빗물받이 open-sky 바닥 스냅 배치 확정");
 
             campUse.Warp(PrototypeCampUse.PlayerStartX);
+            RefreshAll();
             int foodBeforeFarCampfireUse = session.GetStorage(ResourceKind.Food);
-            eatButton.onClick.Invoke();
+            UseNearestCampTarget();
             Require(session.GetStorage(ResourceKind.Food) == foodBeforeFarCampfireUse &&
-                    campFeedback.Key == "message.camp.use.too_far", "모닥불 1.25 unit 밖 식사 기능 거절과 식량 무차감");
-            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Campfire));
-            eatButton.onClick.Invoke();
+                    !campInteraction.IsPopupOpen && !campInteraction.HasProximityPrompt, "모닥불 1.25 unit 밖 안내·팝업 숨김과 식량 무차감");
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Campfire, eatButton);
             Require(session.GetStorage(ResourceKind.Food) == foodBeforeFarCampfireUse - 1, "모닥불 근접 식사 기능 성공");
 
             campUse.Warp(PrototypeCampUse.PlayerStartX);
+            RefreshAll();
             int woodBeforeFarWorkbenchUse = session.GetStorage(ResourceKind.Wood);
-            researchAxeButton.onClick.Invoke();
+            UseNearestCampTarget();
             Require(!session.HasResearched(TechKind.StoneAxe) &&
                     session.GetStorage(ResourceKind.Wood) == woodBeforeFarWorkbenchUse &&
-                    campFeedback.Key == "message.camp.use.too_far", "작업대 1.25 unit 밖 연구 거절과 자원 무차감");
-            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Workbench));
-            researchAxeButton.onClick.Invoke();
-            craftAxeButton.onClick.Invoke();
-            researchRopeButton.onClick.Invoke();
-            craftRopeButton.onClick.Invoke();
+                    !campInteraction.IsPopupOpen && !campInteraction.HasProximityPrompt, "작업대 1.25 unit 밖 안내·팝업 숨김과 자원 무차감");
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, researchAxeButton);
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, craftAxeButton);
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, researchRopeButton);
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, craftRopeButton);
             Require(session.HasStructure(StructureKind.Campfire), "모닥불 UI 건설");
             Require(session.HasStructure(StructureKind.Workbench), "작업대 UI 건설");
             Require(session.HasStructure(StructureKind.RainCollector), "빗물받이 UI 건설");
@@ -1258,14 +1517,12 @@ namespace KimSurvival
 
             campUse.Warp(PrototypeCampUse.PlayerStartX);
             UseNearestCampTarget();
-            Require(campFeedback.Key == "message.camp.use.none" &&
+            Require(!campInteraction.IsPopupOpen && !campInteraction.HasProximityPrompt &&
                     !campUse.IsDayBenefitPrepared(StructureKind.Campfire) &&
-                    !campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "설비 1.25 unit 밖 공통 상호작용 거절");
-            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.Campfire));
-            UseNearestCampTarget();
+                    !campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "설비 1.25 unit 밖 공통 상호작용 안내·팝업 숨김");
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Campfire, prepareCampfireButton);
             Require(campUse.IsDayBenefitPrepared(StructureKind.Campfire), "모닥불 근접 상호작용으로 하루 보너스 준비");
-            campUse.Warp(campPlacement.GetInstalledPosition(StructureKind.RainCollector));
-            UseNearestCampTarget();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RainCollector, collectRainButton);
             Require(campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "빗물받이 근접 상호작용으로 하루 보너스 준비");
 
             phaseButton.onClick.Invoke();
@@ -1353,11 +1610,11 @@ namespace KimSurvival
             phaseButton.onClick.Invoke();
             Require(session.Day == 2, "하루 정산 UI 경로");
             campUse.Warp(GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY));
-            signalButton.onClick.Invoke();
+            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RescueSignal, signalButton);
             Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
-            return "PASS · 공간형 캠프 이동·1.25 unit 설비/신호 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6 원자적 확장·잠긴 슬롯·5/6 획득/중첩/교체/포기/귀환·키보드/마우스/게임패드 포커스·1280x800/1920x1080 ko/en UI, ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 배치·수영·장벽·제작·연구·가방·귀환·정산 회귀 확인";
+            return "PASS · Wave 9 정상 캠프 전역 대시보드/대형 가방 숨김, 원거리 무안내·근거리 단일 안내·상호작용 후 설비 전용 소형 팝업, 거리+바라보기 대상 선택·모달 이동 잠금·같은 위치 취소 복귀·확인 1회 원자성, 작업대/모닥불/빗물받이/신호대 행동 소유권, 1.25 unit 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 1280x800 ko/en 키보드/게임패드 회귀 확인";
         }
 
         private void RequireReadableBagUi()
@@ -1372,6 +1629,71 @@ namespace KimSurvival
             Require(!bagTitleText.isTextOverflowing, "가방 용량 문구 잘림 없음");
             Require(!bagUpgradeButton.GetComponentInChildren<TMP_Text>().isTextOverflowing, "가방 업그레이드 문구 잘림 없음");
             Require(bagButtons.TrueForAll(button => !button.GetComponentInChildren<TMP_Text>().isTextOverflowing), "2열 4/6칸 가방 라벨 잘림 없음");
+        }
+
+        private void RequireReadableCampPopup()
+        {
+            actionTitleText.ForceMeshUpdate(true, true);
+            campPopupDetailText.ForceMeshUpdate(true, true);
+            campProximityText.ForceMeshUpdate(true, true);
+            Canvas.ForceUpdateCanvases();
+            Require(campInteractionPopup.activeSelf && !actionTitleText.isTextOverflowing && !campPopupDetailText.isTextOverflowing,
+                "1280x800 설비 전용 팝업 제목·설명 잘림 없음");
+            Require(campInteractionPopup.GetComponent<RectTransform>().anchorMin.x >= 0f &&
+                    campInteractionPopup.GetComponent<RectTransform>().anchorMax.x <= 1f &&
+                    campInteractionPopup.GetComponent<RectTransform>().anchorMax.x - campInteractionPopup.GetComponent<RectTransform>().anchorMin.x <= 0.4f,
+                "설비 팝업은 안전 영역 안의 화면 40% 이하 소형 패널");
+            for (int i = 0; i < campPopupButtons.Count; i += 1)
+            {
+                if (!campPopupButtons[i].gameObject.activeSelf)
+                {
+                    continue;
+                }
+
+                TMP_Text label = campPopupButtons[i].GetComponentInChildren<TMP_Text>();
+                label.ForceMeshUpdate(true, true);
+                Require(label.fontSizeMin >= 26f && !label.isTextOverflowing,
+                    "1280x800 설비 팝업 행동 라벨 최소 크기·잘림 없음: " + campPopupButtons[i].name);
+            }
+        }
+
+        private void OpenCampPopupForVerification(PrototypeCampInteractionTargetKind target)
+        {
+            if (campInteraction.IsPopupOpen)
+            {
+                campInteraction.ClosePopup();
+            }
+
+            campUse.Warp(GetCampInteractionTargetPosition(target));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == target && campInteraction.HasProximityPrompt,
+                target + " 근접 시 단일 안내 표시");
+            UseNearestCampTarget();
+            Require(campInteraction.OpenPopupKind == target && campInteraction.IsPopupOpen,
+                target + " 상호작용 뒤 전용 팝업 열림");
+        }
+
+        private void InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind target, Button button)
+        {
+            OpenCampPopupForVerification(target);
+            button.onClick.Invoke();
+        }
+
+        private Vector2 GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind target)
+        {
+            switch (target)
+            {
+                case PrototypeCampInteractionTargetKind.Campfire:
+                    return campPlacement.GetInstalledPosition(StructureKind.Campfire);
+                case PrototypeCampInteractionTargetKind.Workbench:
+                    return campPlacement.GetInstalledPosition(StructureKind.Workbench);
+                case PrototypeCampInteractionTargetKind.RainCollector:
+                    return campPlacement.GetInstalledPosition(StructureKind.RainCollector);
+                case PrototypeCampInteractionTargetKind.RescueSignal:
+                    return GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
+                default:
+                    return campUse.PlayerPosition;
+            }
         }
 
         private static void MoveUiSelection(MoveDirection direction)
@@ -1657,6 +1979,25 @@ namespace KimSurvival
             structure.transform.position = position;
             CreateStructureVisual(structure.transform, kind, GetStructureSprite(kind), size, color, 3, out _);
             structureViews[kind] = structure;
+        }
+
+        private void CreateCampBlueprint(StructureKind kind, Color color)
+        {
+            if (session.HasStructure(kind))
+            {
+                return;
+            }
+
+            Vector2 size = PrototypeCampPlacement.GetStructureSize(kind);
+            Vector2 position = campPlacement.GetInstalledPosition(kind);
+            GameObject root = new GameObject("미설치 설비 현장 표식 · " + kind);
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = position;
+            CreateFootprintOutline(root.transform, size, color, null);
+            GameObject first = CreateRect(root.transform, "임시 공구 표식 A", Vector2.zero, new Vector2(0.12f, Mathf.Min(0.7f, size.y)), color, 5);
+            first.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+            GameObject second = CreateRect(root.transform, "임시 공구 표식 B", Vector2.zero, new Vector2(0.12f, Mathf.Min(0.7f, size.y)), color, 5);
+            second.transform.localRotation = Quaternion.Euler(0f, 0f, -45f);
         }
 
         private void CreatePlacementGhost()
@@ -2044,6 +2385,19 @@ namespace KimSurvival
             float left = 20f + column * 355f;
             float top = -82f - row * 94f;
             return CreateButton("행동 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), label, callback, new Vector2(left, top - 80f), new Vector2(left + 335f, top));
+        }
+
+        private Button CreateCampPopupButton(string name, UnityEngine.Events.UnityAction callback)
+        {
+            Button button = CreateButton(name, campInteractionPopup.transform, Vector2.zero, Vector2.zero, string.Empty, callback);
+            TMP_Text label = button.GetComponentInChildren<TMP_Text>();
+            label.enableAutoSizing = true;
+            label.fontSizeMin = 26f;
+            label.fontSizeMax = 28f;
+            label.textWrappingMode = TextWrappingModes.Normal;
+            label.overflowMode = TextOverflowModes.Overflow;
+            campPopupButtons.Add(button);
+            return button;
         }
 
         private Button CreateBagButton(Transform parent, int index, UnityEngine.Events.UnityAction callback)

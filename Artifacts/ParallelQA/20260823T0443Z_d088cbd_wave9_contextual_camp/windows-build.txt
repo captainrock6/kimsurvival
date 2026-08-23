@@ -1,0 +1,6 @@
+Result: Succeeded
+Output: Builds/Windows/KimSurvivalIsland.exe
+Size: 180408105 bytes
+Duration: 00:00:10.2812908
+Errors: 0
+Warnings: 0

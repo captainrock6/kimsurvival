@@ -730,6 +730,85 @@ MonoBehaviour:
     m_Localized: Rainwater collected. Its bonus will apply at today's settlement.
     m_Metadata:
       m_Items: []
+  - m_Id: 270049469513728
+    m_Localized: "{0} \xB7 Arrow keys select \xB7 Enter confirm\nEsc cancel \xB7
+      Movement locked \xB7 F1 language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 270049511456768
+    m_Localized: "{0} \xB7 D-pad select \xB7 A confirm\nB cancel \xB7 Movement locked
+      \xB7 Y language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 270049511456769
+    m_Localized: '[E] Use {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 270049511456770
+    m_Localized: '[X] Use {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 270049511456771
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 270049511456772
+    m_Localized: Eat, prepare today's survival bonus, or move the installation.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456773
+    m_Localized: Craft, research, repair, and upgrade the bag at this workbench.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456774
+    m_Localized: Collect rain under open sky to prepare today's recovery.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456775
+    m_Localized: Invest stage resources in the rescue signal at its dedicated anchor.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456776
+    m_Localized: Choose an action owned by this facility.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456777
+    m_Localized: Prepare Today's Survival
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456778
+    m_Localized: '[Done] Survival Prepared'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456779
+    m_Localized: Collect Today's Rain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456780
+    m_Localized: '[Done] Rain Collected'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456781
+    m_Localized: Inspect & Repair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456782
+    m_Localized: "Close \xB7 Return to Camp"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049511456783
+    m_Localized: Rescue Signal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 270049515651072
+    m_Localized: Repair inspection complete. Nothing needs fixing right now.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -787,3 +866,8 @@ MonoBehaviour:
         - id: 250514288918530
         - id: 250514288918531
         - id: 250514288918532
+        - id: 270049469513728
+        - id: 270049511456768
+        - id: 270049511456769
+        - id: 270049511456770
+        - id: 270049511456771

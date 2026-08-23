@@ -15,6 +15,16 @@ controls.placement.keyboard_mouse	{0} · 마우스로 위치 이동\n클릭/Ente
 controls.placement.gamepad	{0} · 왼쪽 스틱으로 위치 이동\nA 확정 · B 취소\nY 언어	{0} · Move with left stick\nA confirm · B cancel\nY language
 controls.camp.keyboard_mouse	{0} · A/D 이동 · E 가까운 설비 사용(1.25m)\n클릭 또는 방향키+Enter 행동 · 완공 설비 무료 재배치 · F1 언어	{0} · A/D move · E use nearby facility (1.25m)\nClick or arrows+Enter action · Built facilities move free · F1 language
 controls.camp.gamepad	{0} · 왼쪽 스틱 이동 · X 가까운 설비 사용(1.25m)\n방향 패드+A 행동 · 완공 설비 무료 재배치 · Y 언어	{0} · Left stick move · X use nearby facility (1.25m)\nD-pad+A action · Built facilities move free · Y language
+controls.camp.popup.keyboard_mouse	{0} · 방향키로 행동 선택 · Enter 확인\nEsc 취소 · 이동 잠김 · F1 언어	{0} · Arrow keys select · Enter confirm\nEsc cancel · Movement locked · F1 language
+controls.camp.popup.gamepad	{0} · 방향 패드로 행동 선택 · A 확인\nB 취소 · 이동 잠김 · Y 언어	{0} · D-pad select · A confirm\nB cancel · Movement locked · Y language
+camp.interaction.prompt.keyboard_mouse	[E] {0} 사용	[E] Use {0}
+camp.interaction.prompt.gamepad	[X] {0} 사용	[X] Use {0}
+camp.popup.title	{0}	{0}
+camp.popup.detail.campfire	먹거나 오늘의 생존 준비를 하고, 설치 위치를 다시 잡는다.	Eat, prepare today's survival bonus, or move the installation.
+camp.popup.detail.workbench	제작·연구·수리·가방 확장은 이 작업대에서만 한다.	Craft, research, repair, and upgrade the bag at this workbench.
+camp.popup.detail.rain	탁 트인 하늘 아래에서 빗물을 받아 오늘의 회복을 준비한다.	Collect rain under open sky to prepare today's recovery.
+camp.popup.detail.signal	전용 앵커의 구조 신호대에 단계별 자원을 투입한다.	Invest stage resources in the rescue signal at its dedicated anchor.
+camp.popup.detail.generic	이 설비의 행동을 선택한다.	Choose an action owned by this facility.
 controls.explore	{0} · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환 · F1/Y 언어	{0} · A/D or stick move · Auto-swim at shore · Space/A jump · E/X search · R/B return · F1/Y language
 controls.explore.keyboard_mouse	{0} · A/D 이동 · 해안 자동 수영 · Space 점프 · E 수색 · R 귀환\n가방 교체 1–{1} · Esc 포기 · F1 언어	{0} · A/D move · Auto-swim · Space jump · E search · R return\nReplace bag 1–{1} · Esc discard · F1 language
 controls.explore.gamepad	{0} · 스틱 이동 · 해안 자동 수영 · A 점프 · X 수색 · B 귀환\n교체 창 방향키+A ({1}칸) · B 포기 · Y 언어	{0} · Stick move · Auto-swim · A jump · X search · B return\nReplace: D-pad+A ({1} slots) · B discard · Y language
@@ -46,6 +56,12 @@ button.bag_upgrade.locked	가방 확장 {0}→{1}\n작업대 필요	Bag Upgrade 
 button.bag_upgrade.available	가방 확장 {0}→{1}\n나무 {2}/{3} · 표류물 {4}/{5}	Bag Upgrade {0}→{1}\nWood {2}/{3} · Salvage {4}/{5}
 button.bag_upgrade.complete	[완료] 가방 {0}칸	[Done] Bag · {0} Slots
 button.eat	식량 먹기  보유 {0}	Eat Food  Owned {0}
+button.campfire.prepare	오늘 생존 준비	Prepare Today's Survival
+button.campfire.prepare.done	[완료] 오늘 생존 준비	[Done] Survival Prepared
+button.rain.collect	오늘 빗물 받기	Collect Today's Rain
+button.rain.collect.done	[완료] 오늘 빗물 받음	[Done] Rain Collected
+button.workbench.repair	설비 수리 점검	Inspect & Repair
+button.popup.cancel	닫기 · 현장 복귀	Close · Return to Camp
 button.day.final	마지막 날 정산	Settle Final Day
 button.day.next	다음 날로	Next Day
 button.search.start	섬 수색 출발	Start Expedition
@@ -60,6 +76,7 @@ resource.salvage	표류물	Salvage
 structure.campfire	모닥불	Campfire
 structure.workbench	작업대	Workbench
 structure.rain_collector	빗물받이	Rain Collector
+structure.rescue_signal	구조 신호대	Rescue Signal
 structure.generic	설비	Facility
 world.build_zone	일반 설비\n0.5m 바닥 스냅	General Facilities\n0.5m Floor Snap
 world.general_ground	일반 설비 구역\n0.5m 바닥 스냅	General Facility Ground\n0.5m Floor Snap
@@ -115,6 +132,7 @@ message.camp.use.signal_too_far	구조 신호 자원 투입은 신호대 {0}m �
 message.camp.use.workbench	작업대 사용 가능. 가까이 선 채 연구·제작 행동을 고르자.	Workbench in range. Choose a research or crafting action while nearby.
 message.camp.use.campfire	모닥불 휴식 준비 완료. 오늘 정산에 모닥불 보너스가 적용된다.	Campfire rest prepared. Its bonus will apply at today's settlement.
 message.camp.use.rain	빗물을 받아 두었다. 오늘 정산에 빗물받이 보너스가 적용된다.	Rainwater collected. Its bonus will apply at today's settlement.
+message.workbench.repair.ready	수리 점검 완료. 지금 손볼 설비는 없다.	Repair inspection complete. Nothing needs fixing right now.
 message.food.none	먹을 것이 없다. 코코넛 그림이라도 그려 볼까.	Nothing to eat. Perhaps drawing a coconut would help.
 message.food.full	지금은 배가 충분히 부르다.	He is full enough for now.
 message.food.eaten	식사 완료. 메뉴 이름은 '그냥 익힌 것'이다.	Meal complete. The dish is called 'Something Cooked.'

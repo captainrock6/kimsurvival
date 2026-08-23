@@ -1,0 +1,1 @@
+Product=FAIL · Infrastructure=PASS · PhysicalGamepad=UNVERIFIED · Evidence=C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\ParallelQA\20260823T0443Z_d088cbd_wave9_contextual_camp\wave7-play-contracts.json
