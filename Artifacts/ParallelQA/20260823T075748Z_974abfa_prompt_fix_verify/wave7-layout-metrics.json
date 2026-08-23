@@ -1,0 +1,14 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T075748Z_974abfa_prompt_fix_verify",
+    "baselineCommit": "974abfa4fa1b7d9e0722da56e393b3c8ba67d658",
+    "unityVersion": "6000.4.9f1",
+    "implementationState": "MEASURED",
+    "baselineOverall": "FAIL",
+    "upgradedOverall": "FAIL",
+    "overall": "FAIL",
+    "frames": 0,
+    "metrics": 0,
+    "failures": 0,
+    "measurements": []
+}

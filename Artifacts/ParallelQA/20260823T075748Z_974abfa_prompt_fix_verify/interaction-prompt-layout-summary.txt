@@ -1,0 +1,14 @@
+Wave 9 compact interaction prompt red-first QA gate
+Run ID / Baseline: 20260823T075748Z_974abfa_prompt_fix_verify / 974abfa4fa1b7d9e0722da56e393b3c8ba67d658
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Far-near-popup-cancel: PASS 4/4
+1280x800 prompt layout: PASS
+KO prompt: x=384.000061035156 y=464 w=511.999816894531 h=48 gap=8 playerOverlap=False pathOverlap=False
+EN prompt: x=384.000061035156 y=464 w=511.999816894531 h=48 gap=8 playerOverlap=False pathOverlap=False
+Actual qps-long: NOT_IMPLEMENTED · synthetic 142% stress capture only
+Synthetic input / physical gamepad: PASS keyboard/gamepad same action+target meaning / UNVERIFIED
+Compile/core/Wave7/Wave6: PASS 0 errors / PASS / ISOLATED_BY_DESIGN · old persistent bag/dashboard layout fixture / ISOLATED_BY_DESIGN · old dashboard signal layout fixture
+Windows build/smoke/addressables: PASS / PASS / PASS load/build/post-smoke
+Expected prompt gaps / unexpected regressions / infrastructure failures: 2 / 0 / 0
+Physical gamepad: UNVERIFIED
+Exact rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave9InteractionPromptLayoutGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '974abfa4fa1b7d9e0722da56e393b3c8ba67d658' -MinimumSmokeSeconds 6

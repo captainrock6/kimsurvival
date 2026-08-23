@@ -1,0 +1,12 @@
+Wave 9 run metadata
+Run ID: 20260823T075748Z_974abfa_prompt_fix_verify
+Baseline: 974abfa4fa1b7d9e0722da56e393b3c8ba67d658
+Branch: codex/isolated-verify-prompt-3b92812-20260823
+Unity: 6000.4.9f1
+Started/completed UTC: 2026-08-23T07:57:59.6496334Z / 2026-08-23T07:59:58.5700692Z
+OS: Microsoft Windows NT 10.0.26200.0
+Execution: sandbox_permissions=require_escalated; no -noUpm
+Evidence policy: fresh run only; prior PASS/FAIL files not reused as verdicts
+Physical gamepad: UNVERIFIED
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Exact rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '974abfa4fa1b7d9e0722da56e393b3c8ba67d658'

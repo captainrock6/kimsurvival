@@ -1,0 +1,1 @@
+Product=RED_EXPECTED_FAIL Infrastructure=PASS PhysicalGamepad=UNVERIFIED Evidence=C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation\Artifacts\ParallelQA\20260823T075748Z_974abfa_prompt_fix_verify\prompt-layout-evidence.json

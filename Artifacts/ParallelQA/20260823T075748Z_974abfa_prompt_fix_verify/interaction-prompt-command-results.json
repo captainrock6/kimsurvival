@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T075748Z_974abfa_prompt_fix_verify",
+  "baselineCommit": "974abfa4fa1b7d9e0722da56e393b3c8ba67d658",
+  "startedUtc": "2026-08-23T07:57:59.1629714Z",
+  "completedUtc": "2026-08-23T08:00:16.8690966Z",
+  "unityVersion": "6000.4.9f1",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave9InteractionPromptLayoutGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '974abfa4fa1b7d9e0722da56e393b3c8ba67d658' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "wave9-full-regression-gate",
+      "executeMethod": "Invoke-Wave9SpatialCampContractGate.ps1",
+      "startedUtc": "2026-08-23T07:57:59.1793258Z",
+      "completedUtc": "2026-08-23T07:59:58.5991123Z",
+      "exitCode": 2,
+      "stdout": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\wave9-base-gate.stdout.log",
+      "stderr": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\wave9-base-gate.stderr.log",
+      "command": "powershell -File Invoke-Wave9SpatialCampContractGate.ps1 -RunId '20260823T075748Z_974abfa_prompt_fix_verify' -BaselineCommit '974abfa4fa1b7d9e0722da56e393b3c8ba67d658' -MinimumSmokeSeconds 6"
+    },
+    {
+      "name": "prompt-layout-edit-contracts",
+      "executeMethod": "ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T07:59:58.6164203Z",
+      "completedUtc": "2026-08-23T08:00:06.1572643Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-prompt-layout-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunEditContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-prompt-layout-edit.log"
+    },
+    {
+      "name": "prompt-layout-play-contracts",
+      "executeMethod": "ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T08:00:06.1605388Z",
+      "completedUtc": "2026-08-23T08:00:16.7463206Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-prompt-layout-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunPlayContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-prompt-layout-play.log"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+Wave 5 Windows x64 Development Build
+Run ID: 20260823T075748Z_974abfa_prompt_fix_verify
+Baseline: 974abfa4fa1b7d9e0722da56e393b3c8ba67d658
+Unity: 6000.4.9f1
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation\work\ParallelQA\20260823T075748Z_974abfa_prompt_fix_verify\unity-windows-build.log
+Result: Succeeded
+Errors: 0
+Warnings: 0
+Addressables link contract: PASS
+Preflight -> before build stable: True
+Before -> after build stable: True
+Generated temporary copy cleanup: True
+Generated temporary copy evidence: C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation\Artifacts\ParallelQA\20260823T075748Z_974abfa_prompt_fix_verify\addressables-generated-link-cleanup.json
+Executable: C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation\work\ParallelQA\20260823T075748Z_974abfa_prompt_fix_verify\WindowsBuild\KimSurvivalIsland.exe
+Executable exists: True
+Executable bytes: 667648
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d

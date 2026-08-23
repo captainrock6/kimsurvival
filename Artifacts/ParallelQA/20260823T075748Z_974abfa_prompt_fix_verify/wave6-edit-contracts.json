@@ -1,0 +1,183 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T075748Z_974abfa_prompt_fix_verify",
+    "baselineCommit": "974abfa4fa1b7d9e0722da56e393b3c8ba67d658",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T07:58:52.7773349Z",
+    "completedUtc": "2026-08-23T07:58:52.8674160Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunEditContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave6-edit.log",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 15,
+    "failed": 0,
+    "unverified": 0,
+    "infrastructureFailed": 0,
+    "checks": [
+        {
+            "id": "W6-01.signal.stage1",
+            "matrixItem": "1",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Workbench + wood 2 + salvage 2, without rope, upgrades signal stage 0 -> 1 exactly once",
+            "actual": "upgraded=True stage=1 rope=False wood=0 salvage=0 result=None message=message.signal.stage1",
+            "reproduction": "Create an exact stage-0 fixture, call GameSession.TryUpgradeSignal once, and inspect stage/resources/result.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W6-02.signal.stage2.requires_rope",
+            "matrixItem": "2",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Stage 1 + wood 2 + salvage 2 without rope rejects stage 2 and reports rope required without spending",
+            "actual": "upgraded=False stage=1 rope=False wood=2 salvage=2 message=message.signal.rope",
+            "reproduction": "Create stage 1, add exact materials without rope, call TryUpgradeSignal, inspect LastMessage and resources.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-03.signal.stage2.rescue",
+            "matrixItem": "3",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Rope + wood 2 + salvage 2 at stage 1 completes stage 2 and reaches Rescued",
+            "actual": "before wood/salvage=2/2 upgraded=True stage=2 rope=True result=Rescued phase=Result",
+            "reproduction": "Create stage 1, research/craft rope while leaving exact final materials, then call TryUpgradeSignal.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W6-04a.signal.shortage.workbench",
+            "matrixItem": "4",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Missing workbench feedback identifies the workbench requirement in ko and en",
+            "actual": "shortage=workbench upgraded=False messageKey=message.signal.workbench ko=1단계에는 작업대가 필요하다. 현재 작업대가 없다. en=Stage 1 requires a workbench. No workbench is available.",
+            "reproduction": "Attempt stage 1 with wood 2/salvage 2 and no workbench; localize LastMessage to ko/en.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-04b.signal.shortage.wood",
+            "matrixItem": "4",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Missing wood feedback identifies wood in ko and en",
+            "actual": "shortage=wood upgraded=False messageKey=message.signal.wood ko=나무가 부족하다. 현재 0/2. en=Not enough wood. Current: 0/2.",
+            "reproduction": "Attempt stage 1 with workbench/salvage 2 and wood 0; localize LastMessage to ko/en.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-04c.signal.shortage.salvage",
+            "matrixItem": "4",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Missing salvage feedback identifies salvage in ko and en",
+            "actual": "shortage=salvage upgraded=False messageKey=message.signal.salvage ko=표류물이 부족하다. 현재 0/2. en=Not enough salvage. Current: 0/2.",
+            "reproduction": "Attempt stage 1 with workbench/wood 2 and salvage 0; localize LastMessage to ko/en.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-05.barrier.rope_only_blocked",
+            "matrixItem": "5",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Rope without a stone axe cannot move beyond the vine/wood barrier",
+            "actual": "rope=True axe=False x=8.00 blockedNotice=True",
+            "reproduction": "Craft rope only, begin search, step right from x=7.7, and inspect the traversal clamp/blocked notice.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W6-06.barrier.axe_only_passes",
+            "matrixItem": "6",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A stone axe without rope can move beyond the vine/wood barrier",
+            "actual": "rope=False axe=True x=11.90 blockedNotice=False",
+            "reproduction": "Craft stone axe only, begin search, step right from x=7.7, and inspect traversal x/blocked notice.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W6-07a.axe.gather.plus_one",
+            "matrixItem": "7",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Stone axe changes a base wood gather by exactly +1, not a multiplier",
+            "actual": "baseAmount=1 plain=1 axe=2 delta=1 messages=message.gather.land/message.gather.axe",
+            "reproduction": "Compare bag wood after baseAmount=1 with no tool and stone axe only.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W6-07b.axe.copy.no_double_claim",
+            "matrixItem": "7",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Player-facing ko/en stone-axe copy contains no 2x, twice, double, 2배, or 두 배 claim",
+            "actual": "no multiplicative claim in 10 localized axe strings",
+            "reproduction": "Format the axe research/craft/gather strings in ko/en and scan deterministic forbidden multiplier terms.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-08a.signal.ko_en_semantics",
+            "matrixItem": "8",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "ko/en signal progression exposes the same workbench, wood 2, salvage 2, and final-rope meaning",
+            "actual": "ko=구조 신호대 1/2  나무2·표류물2 | 1단계에는 작업대가 필요하다. 현재 작업대가 없다. | 나무와 표류물이 부족하다. 현재 나무 0/2, 표류물 0/2. | 2단계에는 밧줄이 필요하다. 현재 밧줄이 없다. en=Rescue Signal 1/2  Wood 2 · Salvage 2 | Stage 1 requires a workbench. No workbench is available. | Wood and salvage are short. Current: Wood 0/2, Salvage 0/2. | Stage 2 requires rope. No rope is available.",
+            "reproduction": "Format stage progress, material feedback, and rope feedback in both locales and compare required concepts.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W6-09a.balance.f0_h70_day35",
+            "matrixItem": "9",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Reset starts Food 0 / Hunger 70 and one settlement drains Hunger by exactly 35",
+            "actual": "food=0 hungerStart=70.0 dayDrain=35.0 hungerAfter=35.0",
+            "reproduction": "Reset GameSession, observe food/hunger, complete an empty expedition, and compare pre/post EndDay hunger.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W6-09b.natural.rescue_no_grant_warp",
+            "matrixItem": "9",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Day 1-3 natural resource route reaches rescue with no Grant or Warp call",
+            "actual": "sourceGrantWarpFree=True day=3 result=Rescued phase=Result",
+            "reproduction": "Run the deterministic three-day model route and source-audit this route method for Grant/Warp calls.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W6-09c.natural.exhaustion",
+            "matrixItem": "9",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Natural search energy depletion reaches Exhausted",
+            "actual": "result=Exhausted phase=Result energy=0.0",
+            "reproduction": "Begin a swimming search and advance moving search time until energy reaches zero.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W6-09d.natural.deadline",
+            "matrixItem": "9",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Three completed days without signal reach Deadline",
+            "actual": "day=3 result=Deadline phase=Result",
+            "reproduction": "Complete search/return/settlement without signal for each of the three days.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+        }
+    ]
+}

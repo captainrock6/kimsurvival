@@ -1,0 +1,152 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 9 spatial camp Play contracts",
+    "runId": "20260823T075748Z_974abfa_prompt_fix_verify",
+    "baselineCommit": "974abfa4fa1b7d9e0722da56e393b3c8ba67d658",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T07:58:22.0639242Z",
+    "completedUtc": "2026-08-23T07:58:24.3323797Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave9SpatialCampContractGateRunner.RunPlayContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave9-play.log",
+    "productOverall": "RED_EXPECTED_FAIL",
+    "infrastructureOverall": "PASS",
+    "overall": "RED",
+    "passed": 10,
+    "expectedFailed": 1,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 1,
+    "checks": [
+        {
+            "id": "W9-P01.normal_camp_world_first",
+            "matrix": "camp/base-state",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Normal camp is world-first with neither the global campActions dashboard nor a large persistent bag panel",
+            "actual": "campActionsActive=False largeBagActive=False bagPixelArea=0",
+            "reproduction": "Launch the scene, remain at the far-left camp start, and inspect the first 1280x800 frame.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9-P02.far_state_is_silent",
+            "matrix": "far",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Outside use range there is no contextual target prompt and no facility popup",
+            "actual": "farPromptCount=0 farPopupCount=0 prompts=<none> popups=<none>",
+            "reproduction": "Keep the player at PlayerStartX and enumerate active contextual prompt/popup roots.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9-P08.ko_en_1280_readability",
+            "matrix": "ko/en 1280x800",
+            "status": "EXPECTED_FAIL",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "Korean and English normal-camp headers have no rendered-text overlap or TMP overflow at 1280x800",
+            "actual": "koHeaderOverlap=False enHeaderOverlap=False koOverflow=2 enOverflow=0",
+            "reproduction": "Open both fresh normal-camp PNGs at 1:1; compare the status/resource header text and all visible panels.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9-P03.single_near_target_prompt",
+            "matrix": "near",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Each approached facility exposes exactly one contextual prompt for the nearest target",
+            "actual": "Campfire=1:CampProximityPrompt=[E] Use Campfire | Workbench=1:CampProximityPrompt=[E] Use Workbench | RainCollector=1:CampProximityPrompt=[E] Use Rain Collector | RescueSignal=1:CampProximityPrompt=[E] Use Rescue Signal",
+            "reproduction": "Approach each facility separately without interacting and count contextual prompt roots.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9-P04.popup_only_after_interact",
+            "matrix": "interact",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Interact opens exactly one popup whose identity matches the approached facility",
+            "actual": "Campfire=1:Campfire | Workbench=1:Workbench | RainCollector=1:RainCollector | RescueSignal=1:RescueSignal",
+            "reproduction": "Approach each facility, record the pre-interact prompt, invoke shared Interact, and enumerate popup roots.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9-P05.modal_movement_lock",
+            "matrix": "modal",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "An open facility popup locks camp movement until a modal decision is made",
+            "actual": "discoverableActiveMovementLock=True",
+            "reproduction": "Open a facility popup, hold left/right input, and compare player position before and after multiple frames.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"
+        },
+        {
+            "id": "W9-P06.confirm_cancel_return",
+            "matrix": "modal",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The facility popup exposes confirm and cancel paths that return to the same nearby world target",
+            "actual": "popupOpened=True cancelReturn=True confirmReturn=True",
+            "reproduction": "Open the same facility twice; cancel once and confirm once, checking focus and player position after each.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9-P07.per_target_action_ownership",
+            "matrix": "facility ownership",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Workbench/campfire/rain/signal actions are reachable only through their matching approached-target popup",
+            "actual": "correctTargetPopups=True globalDashboardActive=False",
+            "reproduction": "Compare each popup action inventory and verify no equivalent global remote action remains visible.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9-I05.far_action_resource_atomicity",
+            "matrix": "resource atomicity",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A remote workbench action is rejected without resource spend; a nearby action uses the existing atomic session action",
+            "actual": "farStable=Wood=26,Stone=19,Food=10,Salvage=28 nearResearched=True",
+            "reproduction": "Move outside 1.25 units, submit research, compare resources, then approach the workbench and retry.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/GameSession.cs"
+        },
+        {
+            "id": "W9-I06.capture_and_layout_infrastructure",
+            "matrix": "ko/en 1280x800",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Fresh ko/en 1280x800 captures and machine-readable TMP bounds are generated",
+            "actual": "screenshots=4 activeTMP=14 overflow=0 outOfBounds=1 minPx=22.0",
+            "reproduction": "Run the Wave 9 Play contract and inspect the four fresh PNG files plus wave9-spatial-play-evidence.json.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Wave9SpatialCampContractGateRunner.cs"
+        },
+        {
+            "id": "W9-HW01.physical_gamepad",
+            "matrix": "input",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "A human completes approach, prompt, popup, confirm/cancel, and module placement on a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows development build with a physical gamepad and record device name/VID/PID plus human actuation.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        },
+        {
+            "id": "W9-I04.approach_first_full_regression",
+            "matrix": "legacy regressions",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The current approach-first automated verification completes placement, bag, rescue, search, swimming, and land return",
+            "actual": "PASS · Wave 9 정상 캠프 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 1행 ko/en/qps-long 근거리 안내·상호작용 후 설비 전용 소형 팝업, 거리+바라보기 대상 선택·모달 이동 잠금·같은 위치 취소 복귀·확인 1회 원자성, 작업대/모닥불/빗물받이/신호대 행동 소유권, 1.25 unit 근접 사용·general/open-sky/anchor 구역·무료 재배치 상태 보존, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 1280x800 ko/en 키보드/게임패드 회귀 확인",
+            "reproduction": "Run KimSurvivalPrototype.RunAutomatedVerification through the Wave 9 Play gate; do not press distant legacy dashboard buttons.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/Editor/ParallelQA/Wave9SpatialCampContractGateRunner.cs"
+        }
+    ]
+}

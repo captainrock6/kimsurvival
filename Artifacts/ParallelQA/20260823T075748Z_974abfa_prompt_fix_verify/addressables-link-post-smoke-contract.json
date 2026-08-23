@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 2,
+  "runId": "20260823T075748Z_974abfa_prompt_fix_verify",
+  "baselineCommit": "974abfa4fa1b7d9e0722da56e393b3c8ba67d658",
+  "overall": "PASS",
+  "ownership": "ADDRESSABLES_GENERATED_TEMPORARY",
+  "canonicalDurableState": "ABSENT",
+  "preflight": {
+    "observedUtc": "2026-08-23T07:57:59.7737605Z",
+    "linkExists": false,
+    "linkBytes": 0,
+    "linkSha256": "",
+    "metaExists": false,
+    "metaBytes": 0,
+    "metaSha256": "",
+    "metaGuid": "",
+    "assetDatabaseGuid": ""
+  },
+  "postSmoke": {
+    "observedUtc": "2026-08-23T07:59:58.4165663Z",
+    "linkExists": false,
+    "linkBytes": 0,
+    "linkSha256": "",
+    "metaExists": false,
+    "metaBytes": 0,
+    "metaSha256": "",
+    "metaGuid": "",
+    "assetDatabaseGuid": ""
+  }
+}

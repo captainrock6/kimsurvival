@@ -1,0 +1,22 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T075748Z_974abfa_prompt_fix_verify",
+    "baselineCommit": "974abfa4fa1b7d9e0722da56e393b3c8ba67d658",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T07:59:14.4982200Z",
+    "completedUtc": "2026-08-23T07:59:47.9028294Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-windows-build.log",
+    "target": "StandaloneWindows64",
+    "options": "Development, AllowDebugging",
+    "result": "Succeeded",
+    "totalSizeBytes": 180411816,
+    "durationSeconds": 33.2117702,
+    "errors": 0,
+    "warnings": 0,
+    "warningInventory": [],
+    "executable": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\WindowsBuild\\KimSurvivalIsland.exe",
+    "executableExists": true,
+    "executableBytes": 667648,
+    "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "addressablesLinkContract": "PASS"
+}

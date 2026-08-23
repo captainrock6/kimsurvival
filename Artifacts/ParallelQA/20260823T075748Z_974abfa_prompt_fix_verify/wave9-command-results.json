@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 9 spatial camp red-first QA contract gate",
+  "runId": "20260823T075748Z_974abfa_prompt_fix_verify",
+  "baselineCommit": "974abfa4fa1b7d9e0722da56e393b3c8ba67d658",
+  "unityVersionExpected": "6000.4.9f1",
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "startedUtc": "2026-08-23T07:57:59.6496334Z",
+  "completedUtc": "2026-08-23T07:59:58.4681331Z",
+  "executionPolicy": "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+  "evidencePolicy": "Fresh run ID only. Prior Wave evidence was audited for test design and was not reused as a verdict.",
+  "legacyPolicy": "Old distant global-dashboard checks are isolated, not counted as product regression and not a reason to restore the dashboard.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '974abfa4fa1b7d9e0722da56e393b3c8ba67d658'",
+  "stages": [
+    {
+      "name": "preflight",
+      "executeMethod": "Capture-Wave5Preflight.ps1",
+      "startedUtc": "2026-08-23T07:57:59.6496334Z",
+      "completedUtc": "2026-08-23T07:57:59.8367892Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\Artifacts\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\wave5-preflight.txt",
+      "command": "Capture-Wave5Preflight.ps1 -RunId '20260823T075748Z_974abfa_prompt_fix_verify' -BaselineCommit '974abfa4fa1b7d9e0722da56e393b3c8ba67d658'",
+      "output": "PREFLIGHT=PASS | CANONICAL_ADDRESSABLES_LINK=ABSENT | EVIDENCE=C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\Artifacts\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\wave5-preflight.json"
+    },
+    {
+      "name": "compile",
+      "executeMethod": "ParallelQA.ParallelQaRunner.RecordCompilePass",
+      "startedUtc": "2026-08-23T07:57:59.8531135Z",
+      "completedUtc": "2026-08-23T07:58:07.3747650Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-compile.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-compile.log"
+    },
+    {
+      "name": "wave9-edit-contracts",
+      "executeMethod": "ParallelQA.Wave9SpatialCampContractGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T07:58:07.3815677Z",
+      "completedUtc": "2026-08-23T07:58:14.8584873Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave9-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave9SpatialCampContractGateRunner.RunEditContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave9-edit.log"
+    },
+    {
+      "name": "wave9-play-contracts",
+      "executeMethod": "ParallelQA.Wave9SpatialCampContractGateRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T07:58:14.8595249Z",
+      "completedUtc": "2026-08-23T07:58:28.5313530Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave9-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave9SpatialCampContractGateRunner.RunPlayContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave9-play.log"
+    },
+    {
+      "name": "wave7-edit-regression",
+      "executeMethod": "ParallelQA.Wave7BagCapacityRegressionRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T07:58:28.5326266Z",
+      "completedUtc": "2026-08-23T07:58:35.9914770Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave7-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave7BagCapacityRegressionRunner.RunEditContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave7-edit.log"
+    },
+    {
+      "name": "wave7-play-regression",
+      "executeMethod": "ParallelQA.Wave7BagCapacityRegressionRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T07:58:35.9925670Z",
+      "completedUtc": "2026-08-23T07:58:49.7082206Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave7-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave7BagCapacityRegressionRunner.RunPlayContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave7-play.log"
+    },
+    {
+      "name": "wave6-edit-regression",
+      "executeMethod": "ParallelQA.Wave6ProgressionRegressionRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T07:58:49.7090083Z",
+      "completedUtc": "2026-08-23T07:58:57.1580947Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave6-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunEditContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave6-edit.log"
+    },
+    {
+      "name": "wave6-play-regression",
+      "executeMethod": "ParallelQA.Wave6ProgressionRegressionRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T07:58:57.1590648Z",
+      "completedUtc": "2026-08-23T07:59:07.8141295Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave6-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunPlayContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-wave6-play.log"
+    },
+    {
+      "name": "asset-release-contracts",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+      "startedUtc": "2026-08-23T07:59:07.8151969Z",
+      "completedUtc": "2026-08-23T07:59:11.3626846Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-asset-contracts.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-asset-contracts.log"
+    },
+    {
+      "name": "windows-development-build",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+      "startedUtc": "2026-08-23T07:59:11.3635816Z",
+      "completedUtc": "2026-08-23T07:59:52.0528906Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-windows-build.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\work\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\unity-windows-build.log"
+    },
+    {
+      "name": "windows-hidden-smoke",
+      "executeMethod": "Invoke-Wave5WindowsSmoke.ps1",
+      "startedUtc": "2026-08-23T07:59:52.0530222Z",
+      "completedUtc": "2026-08-23T07:59:58.4595862Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\wave9-prompt-3b92812-validation\\Artifacts\\ParallelQA\\20260823T075748Z_974abfa_prompt_fix_verify\\windows-player.log",
+      "command": "Invoke-Wave5WindowsSmoke.ps1 -RunId '20260823T075748Z_974abfa_prompt_fix_verify' -BaselineCommit '974abfa4fa1b7d9e0722da56e393b3c8ba67d658' -MinimumSeconds 6",
+      "error": ""
+    }
+  ]
+}

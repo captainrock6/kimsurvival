@@ -1,0 +1,16 @@
+Wave 9 interaction prompt Play contracts
+Run ID: 20260823T075748Z_974abfa_prompt_fix_verify
+Baseline: 974abfa4fa1b7d9e0722da56e393b3c8ba67d658
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 8/1/0/0/1
+PASS · NONE · P0 · W9P-P01.far_silent · farPromptCount=0 farPopupCount=0
+PASS · NONE · P0 · W9P-P02.four_single_near_prompts · Campfire far=0 near=1 kind=Campfire | Workbench far=0 near=1 kind=Workbench | RainCollector far=0 near=1 kind=RainCollector | RescueSignal far=0 near=1 kind=RescueSignal
+PASS · NONE · P0 · W9P-P03.popup_hides_prompt · Campfire prompt=0 popup=1 | Workbench prompt=0 popup=1 | RainCollector prompt=0 popup=1 | RescueSignal prompt=0 popup=1
+PASS · NONE · P0 · W9P-P04.cancel_restores_same_target · Campfire restored=1 kind=Campfire | Workbench restored=1 kind=Workbench | RainCollector restored=1 kind=RainCollector | RescueSignal restored=1 kind=RescueSignal
+PASS · NONE · P1 · W9P-P05.compact_below_narration · ko/KeyboardMouse prompt=x=384.0 y=464.0 w=512.0 h=48.0 gap=8.0 sizePass=True adjacent=True | en/Gamepad prompt=x=384.0 y=464.0 w=512.0 h=48.0 gap=8.0 sizePass=True adjacent=True | qps-long/KeyboardMouse prompt=x=384.0 y=464.0 w=512.0 h=48.0 gap=8.0 sizePass=True adjacent=True
+PASS · NONE · P1 · W9P-P06.world_and_hud_clearance · ko/KeyboardMouse hud=False help=False player=False facility=False path=False | en/Gamepad hud=False help=False player=False facility=False path=False | qps-long/KeyboardMouse hud=False help=False player=False facility=False path=False
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9P-P07.locale_text_fit · actualQps=False layouts=ko:overflow=False,inside=True | en:overflow=False,inside=True | qps-long:overflow=False,inside=True
+PASS · NONE · P0 · W9P-P08.locale_device_semantics · ko=Campfire|Campfire|[E]|[E] 모닥불 사용 enKeyboard=Campfire|Campfire|[E]|[E] Use Campfire enGamepad=Campfire|Campfire|[X]|[X] Use Campfire
+UNVERIFIED · HARDWARE_GAP · P1 · W9P-HW01.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode
+PASS · NONE · P0 · W9P-I01.fresh_captures_and_metrics · captures=3 metrics=3

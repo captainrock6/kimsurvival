@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260823T075748Z_974abfa_prompt_fix_verify
+Started UTC: 2026-08-23T07:58:03.0190281Z
+Completed UTC: 2026-08-23T07:58:03.0414733Z
+Unity: 6000.4.9f1
+Baseline commit: 974abfa4fa1b7d9e0722da56e393b3c8ba67d658
+Project: C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation\work\ParallelQA\20260823T075748Z_974abfa_prompt_fix_verify\unity-compile.log
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\.codex\worktrees\aa6f\wave9-prompt-3b92812-validation\work\ParallelQA\20260823T075748Z_974abfa_prompt_fix_verify\unity-compile.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.
