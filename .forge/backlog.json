@@ -914,11 +914,18 @@
         "정상 캠프 플레이에서 기존 전역 campActions 대시보드와 대형 가방 패널이 화면을 상시 덮지 않는다.",
         "ko/en과 키보드·마우스/게임패드에서 같은 대상 선택과 행동 결과를 낸다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T0443Z_d088cbd_wave9_contextual_camp/wave9-summary.md · deterministic Edit PASS; product Play full loop PASS; 1280x800 ko/en far/proximity/facility popups PASS; Windows x64 Development build 0 errors/0 warnings; hidden player smoke alive at 8s"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T04:07:47.173Z"
+      "status": "done",
+      "updatedAt": "2026-08-23T04:50:04.738Z",
+      "note": "",
+      "completedAt": "2026-08-23T04:50:04.737Z",
+      "createdAt": "2026-08-23T04:50:04.738Z"
     },
     {
       "id": "task.qa.feature.camp-object-interaction",
@@ -943,7 +950,8 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "ready",
+      "updatedAt": "2026-08-23T04:50:04.738Z"
     },
     {
       "id": "task.design.wave9-spatial-camp-spec",
@@ -1953,7 +1961,8 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "ready",
+      "updatedAt": "2026-08-23T04:50:04.738Z"
     },
     {
       "id": "task.qa.feature.camp-module-expansion",
@@ -2088,5 +2097,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T04:08:14.485Z"
+  "updatedAt": "2026-08-23T04:50:04.738Z"
 }
