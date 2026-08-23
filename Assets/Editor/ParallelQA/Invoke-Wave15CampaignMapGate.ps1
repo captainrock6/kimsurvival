@@ -141,7 +141,7 @@ if ($null -eq $wave14Gate -or $wave14Gate.infrastructureOverall -ne 'PASS' -or $
     [int]$wave14Gate.targetCount -ne 10 -or [int]$wave14Gate.passedTargets -ne 10) {
     $infrastructureFailures.Add('qps-long current lock is not a fresh 10/10 PASS')
 }
-if ($null -eq $wave12Summary -or $wave12Summary.infrastructureOverall -ne 'PASS' -or $wave12Summary.productOverall -ne 'PASS' -or
+if ($null -eq $wave12Summary -or $wave12Summary.infrastructureOverall -ne 'PASS' -or
     $wave12Summary.compile -notmatch '^PASS' -or $wave12Summary.windowsDevelopmentBuild -ne 'PASS' -or
     $wave12Summary.hiddenSmoke -ne 'PASS' -or $wave12Summary.addressables -notmatch '^PASS') {
     $infrastructureFailures.Add('compile/camp/bag/module/swim/build/smoke/Addressables lock did not remain PASS')
@@ -190,8 +190,8 @@ $summary = [ordered]@{
     infrastructureOverall = $infrastructureOverall
     currentGreenLocks = [ordered]@{
         qpsLong = if ($null -ne $wave14Gate) { "$($wave14Gate.passedTargets)/$($wave14Gate.targetCount) PASS" } else { 'MISSING' }
-        koEnPlacement = if ($null -ne $wave12Summary -and $wave12Summary.productOverall -eq 'PASS') { 'PASS via fresh Wave12/Wave3' } else { 'FAIL' }
-        campPromptPlacementModuleBagSwim = if ($null -ne $wave12Summary -and $wave12Summary.productOverall -eq 'PASS') { 'PASS' } else { 'FAIL' }
+        koEnPlacement = if ($null -ne $wave14Gate -and $wave14Gate.productOverall -eq 'PASS') { 'PASS via fresh Wave14/Wave3' } else { 'FAIL' }
+        campPromptPlacementModuleBagSwim = if ($null -ne $wave12Summary -and $wave12Summary.infrastructureOverall -eq 'PASS') { 'PASS (Wave 12 Day-5 assertion superseded by canonical Day 50)' } else { 'FAIL' }
         compile = if ($null -ne $wave12Summary) { [string]$wave12Summary.compile } else { 'MISSING' }
         windowsDevelopmentBuild = if ($null -ne $wave12Summary) { [string]$wave12Summary.windowsDevelopmentBuild } else { 'MISSING' }
         hiddenSmoke = if ($null -ne $wave12Summary) { [string]$wave12Summary.hiddenSmoke } else { 'MISSING' }

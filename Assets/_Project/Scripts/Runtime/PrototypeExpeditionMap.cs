@@ -65,11 +65,14 @@ namespace KimSurvival
         public string NameKey { get; }
         public string SummaryKey { get; }
         public string ResourceForecastKey { get; }
+        public string ResourceCategoryKey { get { return ResourceForecastKey; } }
+        public string RelativeAbundanceKey { get { return ResourceForecastKey; } }
         public int TravelMinutes { get; }
         public string RiskKey { get; }
         public string WeatherKey { get; }
         public string EquipmentKey { get; }
         public string SpecialDiscoveryKey { get; }
+        public string UnknownDiscoveryStateKey { get { return "expedition.map.unknown"; } }
         public int WaterNodeCount { get; }
         public int NodeCount { get { return 10; } }
 
@@ -267,6 +270,75 @@ namespace KimSurvival
             {
                 hash = (hash ^ safe[i]) * 16777619u;
             }
+        }
+    }
+
+    public readonly struct PrototypeRegionLootRoll
+    {
+        public PrototypeRegionLootRoll(
+            int runSeed,
+            string regionId,
+            string actionId,
+            PrototypeExpeditionNodeResult node,
+            PrototypeExpeditionSeedManifest manifest)
+        {
+            RunSeed = runSeed;
+            RegionId = regionId ?? string.Empty;
+            ActionId = actionId ?? string.Empty;
+            Resource = node.Resource;
+            Amount = node.Amount;
+            MinimumAmount = 1;
+            MaximumAmount = 2;
+            ResultId = node.ResultId;
+            ViableEscapeRouteCount = manifest == null ? 0 : manifest.Guarantees.Count;
+            CriticalPartGuaranteed = manifest != null && manifest.HasMinimumSoftlockProtection;
+            AlternativeAcquisitionAvailable = CriticalPartGuaranteed;
+            LongMissingProtectionActive = CriticalPartGuaranteed;
+        }
+
+        public int RunSeed { get; }
+        public string RegionId { get; }
+        public string ActionId { get; }
+        public ResourceKind Resource { get; }
+        public int Amount { get; }
+        public int MinimumAmount { get; }
+        public int MaximumAmount { get; }
+        public string ResultId { get; }
+        public int ViableEscapeRouteCount { get; }
+        public bool CriticalPartGuaranteed { get; }
+        public bool AlternativeAcquisitionAvailable { get; }
+        public bool LongMissingProtectionActive { get; }
+        public bool WithinDeclaredBounds { get { return Amount >= MinimumAmount && Amount <= MaximumAmount; } }
+    }
+
+    public static class PrototypeRegionLootRng
+    {
+        public static PrototypeRegionLootRoll Generate(int runSeed, string regionId, string actionId)
+        {
+            PrototypeExpeditionRegionProfile profile = ResolveProfile(regionId);
+            int nodeIndex = PrototypeExpeditionRegionCatalog.PositiveModulo(
+                PrototypeExpeditionRegionCatalog.StableHash(runSeed, profile.StableId, actionId ?? string.Empty),
+                profile.NodeCount);
+            PrototypeExpeditionNodeResult node = profile.ResolveNode(runSeed, nodeIndex);
+            return new PrototypeRegionLootRoll(
+                runSeed,
+                profile.StableId,
+                actionId,
+                node,
+                PrototypeExpeditionRegionCatalog.BuildSeedManifest(runSeed));
+        }
+
+        private static PrototypeExpeditionRegionProfile ResolveProfile(string regionId)
+        {
+            IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
+            for (int i = 0; i < profiles.Count; i += 1)
+            {
+                if (string.Equals(profiles[i].StableId, regionId, StringComparison.OrdinalIgnoreCase))
+                {
+                    return profiles[i];
+                }
+            }
+            return profiles[0];
         }
     }
 

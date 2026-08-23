@@ -944,7 +944,11 @@ namespace ParallelQA
 
         private static GameObject FindActiveMapRoot(object prototype)
         {
-            foreach (FieldInfo field in prototype.GetType().GetFields(InstanceFlags).Where(field => Regex.IsMatch(field.Name, "expedition.*map|map.*popup|region.*select", RegexOptions.IgnoreCase)))
+            IEnumerable<FieldInfo> fields = prototype.GetType().GetFields(InstanceFlags)
+                .Where(field => Regex.IsMatch(field.Name, "expedition.*map|map.*popup|region.*select", RegexOptions.IgnoreCase))
+                .OrderByDescending(field => field.FieldType == typeof(GameObject))
+                .ThenByDescending(field => Regex.IsMatch(field.Name, "panel|popup|root", RegexOptions.IgnoreCase));
+            foreach (FieldInfo field in fields)
             {
                 object value = field.GetValue(prototype);
                 GameObject gameObject = value as GameObject;
@@ -1001,6 +1005,25 @@ namespace ParallelQA
         private static Rect WorldScreenRect(RectTransform transform)
         {
             Canvas canvas = transform.GetComponentInParent<Canvas>();
+            RectTransform canvasTransform = canvas == null ? null : canvas.transform as RectTransform;
+            if (canvasTransform != null)
+            {
+                Vector3[] canvasCorners = new Vector3[4];
+                Vector3[] textCorners = new Vector3[4];
+                canvasTransform.GetWorldCorners(canvasCorners);
+                transform.GetWorldCorners(textCorners);
+                float canvasLeft = canvasCorners.Min(corner => corner.x);
+                float canvasRight = canvasCorners.Max(corner => corner.x);
+                float canvasBottom = canvasCorners.Min(corner => corner.y);
+                float canvasTop = canvasCorners.Max(corner => corner.y);
+                float canvasWidth = Mathf.Max(0.0001f, canvasRight - canvasLeft);
+                float canvasHeight = Mathf.Max(0.0001f, canvasTop - canvasBottom);
+                return Rect.MinMaxRect(
+                    (textCorners.Min(corner => corner.x) - canvasLeft) * 1280f / canvasWidth,
+                    (textCorners.Min(corner => corner.y) - canvasBottom) * 800f / canvasHeight,
+                    (textCorners.Max(corner => corner.x) - canvasLeft) * 1280f / canvasWidth,
+                    (textCorners.Max(corner => corner.y) - canvasBottom) * 800f / canvasHeight);
+            }
             Camera eventCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
             Vector3[] corners = new Vector3[4];
             transform.GetWorldCorners(corners);
