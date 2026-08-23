@@ -2,7 +2,7 @@
   "id": "job_20260822234631_ac651d92",
   "status": "succeeded",
   "createdAt": "2026-08-22T23:46:31.941Z",
-  "updatedAt": "2026-08-23T00:03:11.452Z",
+  "updatedAt": "2026-08-23T00:16:36.502Z",
   "input": {
     "assetType": "separated_parts",
     "assetId": "object.vine-wood-barrier",
@@ -227,7 +227,7 @@
       "kind": "editable-source",
       "fileName": "forge-import.json",
       "contentType": "application/json",
-      "bytes": 1026,
+      "bytes": 1007,
       "url": "/outputs/jobs/job_20260822234631_ac651d92/forge-import.json"
     },
     {
@@ -301,7 +301,18 @@
       "url": "/outputs/jobs/job_20260822234631_ac651d92/qa-preview-visual-review.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 Wave 6 object.vine-wood-barrier의 blocked, interactable, cleared 3상태 후보 전체를 명시적으로 채택함.",
+    "selectedArtifacts": [
+      "barrier-states-atlas.png",
+      "blocked.png",
+      "interactable.png",
+      "cleared.png"
+    ],
+    "updatedAt": "2026-08-23T00:16:28.593Z"
+  },
   "events": [
     {
       "at": "2026-08-22T23:46:31.941Z",
@@ -342,6 +353,16 @@
       "at": "2026-08-23T00:03:11.452Z",
       "level": "info",
       "message": "최종 Unity 포장 메타데이터를 동기화하고 중복 임포트 사본을 정리했습니다. ImageGen은 재시도하지 않았습니다."
+    },
+    {
+      "at": "2026-08-23T00:16:28.601Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
+    },
+    {
+      "at": "2026-08-23T00:16:36.501Z",
+      "level": "info",
+      "message": "채택된 3상태 장벽의 Unity 임포트 계약을 동기화했습니다. 런타임 및 씬 연결은 수행하지 않았습니다."
     }
   ],
   "error": null,
