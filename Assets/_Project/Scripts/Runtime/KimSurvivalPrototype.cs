@@ -1787,6 +1787,12 @@ namespace KimSurvival
             Require(modulePreviewButton.gameObject.activeSelf && modulePreviewButton.interactable &&
                     campfireButton.gameObject.activeSelf && workbenchButton.gameObject.activeSelf && rainButton.gameObject.activeSelf,
                 "현장 계획 지점 팝업은 증축과 시작 방 일반 설비 배치만 소유");
+            workbenchButton.onClick.Invoke();
+            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == PrototypeCampModuleCatalog.StartRoomId &&
+                    campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
+                    session.HasStructure(StructureKind.Workbench),
+                "방 확정 전에 시작 방 작업대를 직접 배치해 Wave 9 해금 조건 충족");
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
             CampModuleReturnSnapshot moduleReturn = new CampModuleReturnSnapshot(
                 campUse.PlayerPosition,
                 campUse.FacingDirection,
