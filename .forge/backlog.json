@@ -1025,11 +1025,22 @@
         "위층·옆방·지하실 후보의 유효·무효 및 통로 보존 계약을 판정한다.",
         "1280×800 ko/en 캡처와 기존 생존·수색·가방·수영·구조 회귀 결과를 함께 남긴다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/Editor/ParallelQA/Wave9SpatialCampContractGateRunner.cs",
+        "Assets/Editor/ParallelQA/Invoke-Wave9SpatialCampContractGate.ps1",
+        "Docs/QA/wave9-spatial-camp-contract-gate-d088cbd.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T044500Z_d088cbd_wave9_spatial_camp_red/wave9-summary.json",
+        "Artifacts/ParallelQA/20260823T044500Z_d088cbd_wave9_spatial_camp_red/wave9-play-contracts.json",
+        "Artifacts/ParallelQA/20260823T044500Z_d088cbd_wave9_spatial_camp_red/wave9-command-results.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T04:07:47.173Z"
+      "status": "review",
+      "updatedAt": "2026-08-23T04:48:19.864Z",
+      "note": "d088cbd independent red-first gate complete: overall RED, PRODUCT RED_EXPECTED_FAIL (16 expected gaps), INFRASTRUCTURE PASS; compile 0 errors, approach-first survival/search/swim/bag/rescue regressions PASS, Windows Development build/smoke and Addressables PASS; physical gamepad UNVERIFIED, Steam NOT_READY.",
+      "completedAt": null,
+      "createdAt": "2026-08-23T04:48:19.864Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -2135,5 +2146,5 @@
       "createdAt": "2026-08-22T13:15:00.000Z"
     }
   ],
-  "updatedAt": "2026-08-23T04:39:23.041Z"
+  "updatedAt": "2026-08-23T04:48:19.865Z"
 }

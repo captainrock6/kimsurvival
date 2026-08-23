@@ -1,0 +1,18 @@
+Wave 9 spatial camp Edit contracts
+Run ID: 20260823T044000Z_d088cbd_wave9_spatial_camp_red
+Baseline: d088cbdf021765a811ed88af9b22b58db49b917c
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 3/9/0/0/0
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-E01.no_global_camp_dashboard · legacyCampActionsSourcePresent=True
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9-E02.no_large_persistent_bag_panel · legacyLargeBagRectPresent=True bagPanelConstruction=True
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-E03.context_prompt_and_facility_popup_api · promptMembers=<none> popupMembers=<none>
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-E04.target_action_ownership · discoverableFacilityPopupOwnership=False targets=campfire,workbench,rain,signal
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-E05.modal_lock_and_return_api · movementLockMember=False confirmCancelMethod=False
+PASS · NONE · P0 · W9-I01.proximity_model · useRange=1.25 sharedPosition=(-1.50, -2.18)
+PASS · NONE · P0 · W9-I02.resource_atomicity_primitives · beforeSuccess=Wood=20,Stone=20,Food=0,Salvage=20 afterSuccess=Wood=18,Stone=20,Food=0,Salvage=19 duplicateStable=true
+PASS · NONE · P1 · W9-I03.keyboard_gamepad_code_paths · keyboard=KeyCode.E gamepad=JoystickButton2 shared=InteractPressed
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9-M01.upper_side_basement_candidates · types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9-M02.valid_invalid_reasons · types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9-M03.connection_slots_and_cost · types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-M04.overlap_and_required_route · types=<none> kinds=False validityReason=False connectionSlots=False cost=False overlap=False requiredRoute=False

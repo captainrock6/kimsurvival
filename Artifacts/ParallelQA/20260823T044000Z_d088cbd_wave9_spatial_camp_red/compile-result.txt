@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260823T044000Z_d088cbd_wave9_spatial_camp_red
+Started UTC: 2026-08-23T04:35:57.0015134Z
+Completed UTC: 2026-08-23T04:35:57.0276141Z
+Unity: 6000.4.9f1
+Baseline commit: d088cbdf021765a811ed88af9b22b58db49b917c
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260823T044000Z_d088cbd_wave9_spatial_camp_red\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260823T044000Z_d088cbd_wave9_spatial_camp_red\unity-compile.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

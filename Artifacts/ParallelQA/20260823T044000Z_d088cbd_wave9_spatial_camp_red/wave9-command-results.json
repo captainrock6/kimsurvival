@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 9 spatial camp red-first QA contract gate",
+  "runId": "20260823T044000Z_d088cbd_wave9_spatial_camp_red",
+  "baselineCommit": "d088cbdf021765a811ed88af9b22b58db49b917c",
+  "unityVersionExpected": "6000.4.9f1",
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "startedUtc": "2026-08-23T04:35:53.3129354Z",
+  "completedUtc": "2026-08-23T04:37:34.0080054Z",
+  "executionPolicy": "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+  "evidencePolicy": "Fresh run ID only. Prior Wave evidence was audited for test design and was not reused as a verdict.",
+  "legacyPolicy": "Old distant global-dashboard checks are isolated, not counted as product regression and not a reason to restore the dashboard.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'd088cbdf021765a811ed88af9b22b58db49b917c'",
+  "stages": [
+    {
+      "name": "preflight",
+      "executeMethod": "Capture-Wave5Preflight.ps1",
+      "startedUtc": "2026-08-23T04:35:53.3129354Z",
+      "completedUtc": "2026-08-23T04:35:53.5221728Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\wave5-preflight.txt",
+      "command": "Capture-Wave5Preflight.ps1 -RunId '20260823T044000Z_d088cbd_wave9_spatial_camp_red' -BaselineCommit 'd088cbdf021765a811ed88af9b22b58db49b917c'",
+      "output": "PREFLIGHT=PASS | CANONICAL_ADDRESSABLES_LINK=ABSENT | EVIDENCE=C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\wave5-preflight.json"
+    },
+    {
+      "name": "compile",
+      "executeMethod": "ParallelQA.ParallelQaRunner.RecordCompilePass",
+      "startedUtc": "2026-08-23T04:35:53.5454568Z",
+      "completedUtc": "2026-08-23T04:36:01.1202252Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-compile.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-compile.log\""
+    },
+    {
+      "name": "wave9-edit-contracts",
+      "executeMethod": "ParallelQA.Wave9SpatialCampContractGateRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T04:36:01.1234055Z",
+      "completedUtc": "2026-08-23T04:36:08.5695803Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave9-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave9SpatialCampContractGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave9-edit.log\""
+    },
+    {
+      "name": "wave9-play-contracts",
+      "executeMethod": "ParallelQA.Wave9SpatialCampContractGateRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T04:36:08.5716794Z",
+      "completedUtc": "2026-08-23T04:36:22.2073466Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave9-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave9SpatialCampContractGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave9-play.log\""
+    },
+    {
+      "name": "wave7-edit-regression",
+      "executeMethod": "ParallelQA.Wave7BagCapacityRegressionRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T04:36:22.2101912Z",
+      "completedUtc": "2026-08-23T04:36:29.6633264Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave7-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave7BagCapacityRegressionRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave7-edit.log\""
+    },
+    {
+      "name": "wave7-play-regression",
+      "executeMethod": "ParallelQA.Wave7BagCapacityRegressionRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T04:36:29.6643187Z",
+      "completedUtc": "2026-08-23T04:36:40.2615519Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave7-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave7BagCapacityRegressionRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave7-play.log\""
+    },
+    {
+      "name": "wave6-edit-regression",
+      "executeMethod": "ParallelQA.Wave6ProgressionRegressionRunner.RunEditContracts",
+      "startedUtc": "2026-08-23T04:36:40.2627988Z",
+      "completedUtc": "2026-08-23T04:36:47.7165193Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave6-edit.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave6-edit.log\""
+    },
+    {
+      "name": "wave6-play-regression",
+      "executeMethod": "ParallelQA.Wave6ProgressionRegressionRunner.RunPlayContracts",
+      "startedUtc": "2026-08-23T04:36:47.7174826Z",
+      "completedUtc": "2026-08-23T04:36:58.2909551Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave6-play.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave6ProgressionRegressionRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-wave6-play.log\""
+    },
+    {
+      "name": "asset-release-contracts",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+      "startedUtc": "2026-08-23T04:36:58.2918919Z",
+      "completedUtc": "2026-08-23T04:37:01.7285078Z",
+      "exitCode": 1,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-asset-contracts.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-asset-contracts.log\""
+    },
+    {
+      "name": "windows-development-build",
+      "executeMethod": "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+      "startedUtc": "2026-08-23T04:37:01.7292657Z",
+      "completedUtc": "2026-08-23T04:37:27.3775573Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-windows-build.log",
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\unity-windows-build.log\""
+    },
+    {
+      "name": "windows-hidden-smoke",
+      "executeMethod": "Invoke-Wave5WindowsSmoke.ps1",
+      "startedUtc": "2026-08-23T04:37:27.3778288Z",
+      "completedUtc": "2026-08-23T04:37:33.9920628Z",
+      "exitCode": 0,
+      "log": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\windows-player.log",
+      "command": "Invoke-Wave5WindowsSmoke.ps1 -RunId '20260823T044000Z_d088cbd_wave9_spatial_camp_red' -BaselineCommit 'd088cbdf021765a811ed88af9b22b58db49b917c' -MinimumSeconds 6",
+      "error": ""
+    }
+  ]
+}

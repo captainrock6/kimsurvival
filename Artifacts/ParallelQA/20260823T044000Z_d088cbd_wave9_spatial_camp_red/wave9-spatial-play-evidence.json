@@ -1,0 +1,64 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T044000Z_d088cbd_wave9_spatial_camp_red",
+    "baselineCommit": "d088cbdf021765a811ed88af9b22b58db49b917c",
+    "unityVersion": "6000.4.9f1",
+    "globalCampActionsActive": true,
+    "largeBagPanelActive": false,
+    "farPromptCount": 0,
+    "farPopupCount": 0,
+    "targets": [
+        {
+            "target": "Campfire",
+            "x": -1.5,
+            "y": -2.3499999046325685,
+            "nearPromptCount": 0,
+            "nearPrompts": [],
+            "popupCountAfterInteract": 0,
+            "popupNamesAfterInteract": [],
+            "feedbackKey": "message.camp.use.campfire"
+        },
+        {
+            "target": "Workbench",
+            "x": 1.5,
+            "y": -2.1999998092651369,
+            "nearPromptCount": 0,
+            "nearPrompts": [],
+            "popupCountAfterInteract": 0,
+            "popupNamesAfterInteract": [],
+            "feedbackKey": "message.camp.use.workbench"
+        },
+        {
+            "target": "RainCollector",
+            "x": 3.5,
+            "y": -1.9499999284744263,
+            "nearPromptCount": 0,
+            "nearPrompts": [],
+            "popupCountAfterInteract": 0,
+            "popupNamesAfterInteract": [],
+            "feedbackKey": "message.camp.use.rain"
+        },
+        {
+            "target": "RescueSignal",
+            "x": 7.200000286102295,
+            "y": -1.3055793046951295,
+            "nearPromptCount": 0,
+            "nearPrompts": [],
+            "popupCountAfterInteract": 0,
+            "popupNamesAfterInteract": [],
+            "feedbackKey": ""
+        }
+    ],
+    "screenshots": [
+        "wave9-ko-normal-camp-1280x800.png",
+        "wave9-en-normal-camp-1280x800.png",
+        "wave9-ko-workbench-after-interact-1280x800.png",
+        "wave9-en-rain-after-interact-1280x800.png"
+    ],
+    "activeTmpCount": 24,
+    "overflowingTmpCount": 0,
+    "outOfBoundsTmpCount": 7,
+    "minimumRenderedTextPixels": 18.056827545166017,
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}

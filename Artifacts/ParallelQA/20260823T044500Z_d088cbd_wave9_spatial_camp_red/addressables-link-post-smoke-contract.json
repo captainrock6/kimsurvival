@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 2,
+  "runId": "20260823T044500Z_d088cbd_wave9_spatial_camp_red",
+  "baselineCommit": "d088cbdf021765a811ed88af9b22b58db49b917c",
+  "overall": "PASS",
+  "ownership": "ADDRESSABLES_GENERATED_TEMPORARY",
+  "canonicalDurableState": "ABSENT",
+  "preflight": {
+    "observedUtc": "2026-08-23T04:43:29.5497245Z",
+    "linkExists": false,
+    "linkBytes": 0,
+    "linkSha256": "",
+    "metaExists": false,
+    "metaBytes": 0,
+    "metaSha256": "",
+    "metaGuid": "",
+    "assetDatabaseGuid": ""
+  },
+  "postSmoke": {
+    "observedUtc": "2026-08-23T04:45:05.1893210Z",
+    "linkExists": false,
+    "linkBytes": 0,
+    "linkSha256": "",
+    "metaExists": false,
+    "metaBytes": 0,
+    "metaSha256": "",
+    "metaGuid": "",
+    "assetDatabaseGuid": ""
+  }
+}

@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T044500Z_d088cbd_wave9_spatial_camp_red",
+    "baselineCommit": "d088cbdf021765a811ed88af9b22b58db49b917c",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-23T04:44:47.8540217Z",
+    "source": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T044500Z_d088cbd_wave9_spatial_camp_red\\wave3-visual-gate.txt",
+    "standardKoEnOverall": "FAIL",
+    "qpsLongOverall": "FAIL",
+    "overall": "FAIL",
+    "placement": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "explorationSwimming": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "qpsLong": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    }
+}

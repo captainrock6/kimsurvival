@@ -1,0 +1,44 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T044000Z_d088cbd_wave9_spatial_camp_red",
+    "baselineCommit": "d088cbdf021765a811ed88af9b22b58db49b917c",
+    "unityVersion": "6000.4.9f1",
+    "overall": "PASS",
+    "preflightToBeforeStable": true,
+    "beforeToAfterStable": true,
+    "temporaryCopyCleanupPassed": true,
+    "temporaryCopyCleanupEvidence": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T044000Z_d088cbd_wave9_spatial_camp_red\\addressables-generated-link-cleanup.json",
+    "preflight": {
+        "observedUtc": "2026-08-23T04:35:53.4206789Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    },
+    "beforeBuild": {
+        "observedUtc": "2026-08-23T04:37:04.6665295Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    },
+    "afterBuild": {
+        "observedUtc": "2026-08-23T04:37:23.7391437Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    }
+}
