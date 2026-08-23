@@ -1,0 +1,13 @@
+Wave 12 five-day/compact-a Play contracts
+Run ID: 20260823T153000Z_bd1c580_wave14
+Baseline: bd1c580bb53bdd662877efd1600c97500057c3ee
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: PASS/PASS/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 6/0/0/0/1
+W12-P01.compact_a_frame_and_glyph_split | PASS | NONE | spritePath=Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png; guid=070048b5b443d5d4a9c757c871873eb3; imageType=Sliced; border=(70.00, 12.00, 30.00, 12.00); separateGlyph=True; actionExcludesGlyph=True
+W12-P02.device_locale_target_independence | PASS | NONE | target=slot.start.upper; progress=D1/W2/S1/F0/D0/signal0/bag4/Camp/None; syntheticGamepadOnly=True; enOnly=True; qpsOnly=True
+W12-P03.compact_a_locale_capture_layout | PASS | NONE | captures=12/12; png1280x800=True; wave11WorldClear=True; ko{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True} | en{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True} | qps-long{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True}
+W12-I01.fresh_wave11_canvas_layout | PASS | NONE | walkingPathClear=3/3; promptRects=3/3; failureReasonsNone=3/3; source=wave11-slot-play-evidence.json
+W12-I02.fresh_wave3_visual_report | PASS | NONE | generated=true; runId/baseline matched; visualOverall=FAIL_REVIEW_REPORT; frames=9; report=wave3-visual-gate.txt
+W12-P04.current_normal_wave3_visual | PASS | NONE | placement=PLACEMENT_GATE: PASS · targets=24 · failures=0; exploration=EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0; source=wave3-visual-gate.txt
+W12-HW01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | no non-empty joystick name exposed to Unity batch Play Mode

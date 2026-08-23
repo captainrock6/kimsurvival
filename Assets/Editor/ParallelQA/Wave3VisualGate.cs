@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using KimSurvival;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +44,12 @@ namespace ParallelQA
             public float ContrastRatio;
             public string BackgroundSource;
             public bool IsWorldText;
+            public int LineCount;
+            public bool HasPlayerRegion;
+            public Rect PlayerRegion;
+            public Rect WalkingPathRegion;
+            public float PlayerOcclusionRatio;
+            public float WalkingPathOcclusionRatio;
             public bool Overflow;
             public bool BoundsPass;
             public bool HeightPass;
@@ -107,9 +115,18 @@ namespace ParallelQA
                 throw new ArgumentNullException(nameof(camera));
             }
 
-            Texture2D screenshot = LoadScreenshot(screenshotPath);
+            RenderTexture previousTarget = camera.targetTexture;
+            RenderTexture analysisTarget = RenderTexture.GetTemporary(Width, Height, 24, RenderTextureFormat.ARGB32);
+            Texture2D screenshot = null;
             try
             {
+                camera.targetTexture = analysisTarget;
+                Canvas.ForceUpdateCanvases();
+                for (int i = 0; i < texts.Length; i += 1)
+                {
+                    if (texts[i] != null) texts[i].ForceMeshUpdate(true, true);
+                }
+                screenshot = LoadScreenshot(screenshotPath);
                 FrameResult frame = new FrameResult
                 {
                     Scenario = scenario,
@@ -127,11 +144,15 @@ namespace ParallelQA
 
                 EvaluateTextOverlaps(frame.Metrics);
                 EvaluateUiOcclusion(frame.Metrics, camera);
+                MeasureProtectedWorldRegions(frame.Metrics, camera);
                 return frame;
             }
             finally
             {
-                UnityEngine.Object.DestroyImmediate(screenshot);
+                if (screenshot != null) UnityEngine.Object.DestroyImmediate(screenshot);
+                camera.targetTexture = previousTarget;
+                Canvas.ForceUpdateCanvases();
+                RenderTexture.ReleaseTemporary(analysisTarget);
             }
         }
 
@@ -195,7 +216,7 @@ namespace ParallelQA
             report.AppendLine("Unity: " + unityVersion);
             report.AppendLine("Baseline commit: " + baselineCommit);
             report.AppendLine("Command: " + command);
-            report.AppendLine("Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample.");
+            report.AppendLine("Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample. Line count plus actual player-renderer and full-width camp walking-band Rect overlap are serialized for Wave 14 without changing the legacy Wave 3 pass/fail thresholds.");
             report.AppendLine("Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.");
             report.AppendLine("PLACEMENT_GATE: " + Status(placementPass, placement) + " · targets=" + placement.Count + " · failures=" + placement.Count(metric => !metric.Passed));
             report.AppendLine("EXPLORATION_SWIMMING_GATE: " + Status(explorationPass, exploration) + " · targets=" + exploration.Count + " · failures=" + exploration.Count(metric => !metric.Passed));
@@ -218,7 +239,7 @@ namespace ParallelQA
             File.WriteAllText(Path.Combine(evidenceFolder, "wave3-visual-gate.txt"), report.ToString(), new UTF8Encoding(false));
 
             StringBuilder table = new StringBuilder();
-            table.AppendLine("scenario\tscreenshot\tcategory\tstatus\tglyph_median_px\tblock_height_px\tleft_px\tbottom_px\tright_px\ttop_px\tcontrast_ratio\tbackground\toverflow\ttext_overlaps\tui_occlusions\tfailures\thierarchy\ttext");
+            table.AppendLine("scenario\tscreenshot\tcategory\tstatus\tglyph_median_px\tblock_height_px\tleft_px\tbottom_px\tright_px\ttop_px\tcontrast_ratio\tbackground\toverflow\ttext_overlaps\tui_occlusions\tline_count\tplayer_screen_rect\twalking_path_screen_rect\tplayer_occlusion_ratio\twalking_path_occlusion_ratio\tfailures\thierarchy\ttext");
             foreach (TextMetric metric in metrics.OrderBy(metric => metric.Scenario).ThenBy(metric => metric.Category).ThenBy(metric => metric.Hierarchy))
             {
                 table.AppendLine(string.Join("\t", new[]
@@ -238,6 +259,11 @@ namespace ParallelQA
                     metric.Overflow ? "1" : "0",
                     Tsv(string.Join(" | ", metric.Overlaps)),
                     Tsv(string.Join(" | ", metric.Occlusions)),
+                    metric.LineCount.ToString(CultureInfo.InvariantCulture),
+                    metric.HasPlayerRegion ? FormatRect(metric.PlayerRegion) : "UNAVAILABLE",
+                    FormatRect(metric.WalkingPathRegion),
+                    metric.HasPlayerRegion ? Ratio(metric.PlayerOcclusionRatio) : "-1.0000",
+                    Ratio(metric.WalkingPathOcclusionRatio),
                     metric.FailureSummary,
                     Tsv(metric.Hierarchy),
                     Tsv(Normalize(metric.Value))
@@ -312,6 +338,7 @@ namespace ParallelQA
                 ContrastRatio = contrast,
                 BackgroundSource = backgroundSource,
                 IsWorldText = text is TextMeshPro,
+                LineCount = Mathf.Max(1, text.textInfo.lineCount),
                 Overflow = text.isTextOverflowing,
                 BoundsPass = bounds.xMin >= ScreenMarginPixels && bounds.yMin >= ScreenMarginPixels && bounds.xMax <= Width - ScreenMarginPixels && bounds.yMax <= Height - ScreenMarginPixels,
                 HeightPass = minimumHeight <= 0f || medianGlyph >= minimumHeight,
@@ -392,6 +419,73 @@ namespace ParallelQA
                     metric.OcclusionPass = false;
                 }
             }
+        }
+
+        private static void MeasureProtectedWorldRegions(List<TextMetric> metrics, Camera camera)
+        {
+            KimSurvivalPrototype prototype = UnityEngine.Object.FindAnyObjectByType<KimSurvivalPrototype>();
+            FieldInfo playerRootField = prototype == null ? null : typeof(KimSurvivalPrototype).GetField(
+                "playerRoot", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            Transform playerRoot = playerRootField == null ? null : playerRootField.GetValue(prototype) as Transform;
+            Renderer[] playerRenderers = playerRoot == null
+                ? Array.Empty<Renderer>()
+                : playerRoot.GetComponentsInChildren<Renderer>(false).Where(renderer => renderer != null && renderer.enabled).ToArray();
+            bool hasPlayer = playerRenderers.Length > 0;
+            Rect playerRect = new Rect();
+            if (hasPlayer)
+            {
+                Bounds bounds = playerRenderers[0].bounds;
+                for (int i = 1; i < playerRenderers.Length; i += 1)
+                {
+                    bounds.Encapsulate(playerRenderers[i].bounds);
+                }
+                playerRect = ProjectWorldRect(camera,
+                    new Rect(bounds.min.x, bounds.min.y, bounds.size.x, bounds.size.y));
+            }
+
+            float halfWidth = camera.orthographicSize * camera.aspect;
+            Rect walkingWorld = new Rect(
+                camera.transform.position.x - halfWidth,
+                PrototypeCampPlacement.FloorY - 0.25f,
+                halfWidth * 2f,
+                1.15f);
+            Rect walkingRect = ProjectWorldRect(camera, walkingWorld);
+
+            foreach (TextMetric metric in metrics)
+            {
+                metric.HasPlayerRegion = hasPlayer;
+                metric.PlayerRegion = playerRect;
+                metric.WalkingPathRegion = walkingRect;
+                metric.PlayerOcclusionRatio = hasPlayer ? IntersectionRatio(metric.Bounds, playerRect, playerRect) : -1f;
+                metric.WalkingPathOcclusionRatio = IntersectionRatio(metric.Bounds, walkingRect, walkingRect);
+            }
+        }
+
+        private static Rect ProjectWorldRect(Camera camera, Rect worldRect)
+        {
+            Vector2[] points =
+            {
+                Project(camera, new Vector3(worldRect.xMin, worldRect.yMin, 0f)),
+                Project(camera, new Vector3(worldRect.xMin, worldRect.yMax, 0f)),
+                Project(camera, new Vector3(worldRect.xMax, worldRect.yMin, 0f)),
+                Project(camera, new Vector3(worldRect.xMax, worldRect.yMax, 0f))
+            };
+            return Rect.MinMaxRect(
+                points.Min(point => point.x),
+                points.Min(point => point.y),
+                points.Max(point => point.x),
+                points.Max(point => point.y));
+        }
+
+        private static float IntersectionRatio(Rect subject, Rect protectedRegion, Rect denominatorRegion)
+        {
+            Rect intersection = Intersect(subject, protectedRegion);
+            if (intersection.width <= 0f || intersection.height <= 0f)
+            {
+                return 0f;
+            }
+            return intersection.width * intersection.height /
+                   Mathf.Max(1f, denominatorRegion.width * denominatorRegion.height);
         }
 
         private static Texture2D LoadScreenshot(string path)
@@ -578,9 +672,19 @@ namespace ParallelQA
             return "[" + F(bounds.xMin) + "," + F(bounds.yMin) + " -> " + F(bounds.xMax) + "," + F(bounds.yMax) + "]";
         }
 
+        private static string FormatRect(Rect rect)
+        {
+            return "x=" + F(rect.x) + ",y=" + F(rect.y) + ",w=" + F(rect.width) + ",h=" + F(rect.height);
+        }
+
         private static string F(float value)
         {
             return value.ToString("0.0", CultureInfo.InvariantCulture);
+        }
+
+        private static string Ratio(float value)
+        {
+            return value.ToString("0.0000", CultureInfo.InvariantCulture);
         }
 
         private static string Normalize(string value)

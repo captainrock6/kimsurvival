@@ -1,0 +1,52 @@
+{
+    "schemaVersion":  2,
+    "runId":  "20260823T153000Z_bd1c580_wave14",
+    "capturedUtc":  "2026-08-23T13:18:11.8751566Z",
+    "command":  "$preflightOutput = @(\u0026 (Join-Path $PSScriptRoot \u0027Capture-Wave5Preflight.ps1\u0027) -RunId $RunId -BaselineCommit $BaselineCommit 2\u003e\u00261)\n",
+    "baselineCommit":  "bd1c580bb53bdd662877efd1600c97500057c3ee",
+    "observedHead":  "bd1c580bb53bdd662877efd1600c97500057c3ee",
+    "branch":  "codex/wave14-qps-global-layout-gate",
+    "ownershipOverall":  "PASS",
+    "ownership":  {
+                      "policy":  "ADDRESSABLES_GENERATED_TEMPORARY",
+                      "canonicalDurableState":  "ABSENT",
+                      "trackedPaths":  [
+
+                                       ],
+                      "ignoredPaths":  [
+                                           "Assets/AddressableAssetsData/link.xml",
+                                           "Assets/AddressableAssetsData/link.xml.meta"
+                                       ],
+                      "ignoreFile":  "Assets/AddressableAssetsData/.gitignore",
+                      "ignoreFileSha256":  "504dfe86ad81d45c082f46d5ba8c21c13a19c5c44eb202147518fc8cccda64c0"
+                  },
+    "addressables":  {
+                         "observedUtc":  "2026-08-23T13:18:11.8565103Z",
+                         "linkExists":  false,
+                         "linkBytes":  0,
+                         "linkSha256":  "",
+                         "metaExists":  false,
+                         "metaBytes":  0,
+                         "metaSha256":  "",
+                         "metaGuid":  "",
+                         "assetDatabaseGuid":  ""
+                     },
+    "officialPackageImplementation":  {
+                                          "path":  "Library/PackageCache/com.unity.addressables@8460f1c9c927/Editor/Build/AddressablesPlayerBuildProcessor.cs",
+                                          "sha256":  "df3a38aa47d486c764e44750a59b526ab5012f739650aeacb4c23bdaf9ef3075",
+                                          "initializeOnLoadMethod":  "CleanTemporaryPlayerBuildData -\u003e RemovePlayerBuildLinkXML",
+                                          "playerBuildMethod":  "PrepareForPlayerbuild copies Library AddressablesLink/link.xml to AddressableAssetSettings.ConfigFolder"
+                                      },
+    "addressableSettings":  {
+                                "path":  "Assets/AddressableAssetsData/AddressableAssetSettings.asset",
+                                "sha256":  "76f96fcd1a4371ba3f4a0ad1409eb2e54460332cbd8e3f25477eb083675e03ee"
+                            },
+    "visualGate":  {
+                       "sourcePath":  "Assets/Editor/ParallelQA/Wave3VisualGate.cs",
+                       "sourceSha256":  "69046b3ca1ecb871e97c2c30a9bfbd22848e8d3c008f0453a9dfb4f39dfd79e1",
+                       "reportPath":  "",
+                       "reportSha256":  "",
+                       "overall":  "PENDING_FRESH_RUN",
+                       "thresholds":  "source hash captured before fresh 671c4e9 Play Mode run"
+                   }
+}

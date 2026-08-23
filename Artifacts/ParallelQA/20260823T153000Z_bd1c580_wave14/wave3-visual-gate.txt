@@ -1,0 +1,27 @@
+Wave 3 1280x800 projected-text visual gate
+Run ID: 20260823T153000Z_bd1c580_wave14
+Started UTC: 2026-08-23T13:19:10.9402718Z
+Completed UTC: 2026-08-23T13:19:12.0509791Z
+Unity: 6000.4.9f1
+Baseline commit: bd1c580bb53bdd662877efd1600c97500057c3ee
+Command: C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe -batchmode -force-d3d11 -projectPath C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부 -executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts -logFile C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260823T153000Z_bd1c580_wave14\unity-wave12-play.log
+Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample. Line count plus actual player-renderer and full-width camp walking-band Rect overlap are serialized for Wave 14 without changing the legacy Wave 3 pass/fail thresholds.
+Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.
+PLACEMENT_GATE: PASS · targets=24 · failures=0
+EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+PSEUDO_LONG_GATE: FAIL · targets=10 · failures=5
+OVERALL: FAIL
+PASS · ko placement valid · gated=6 · screenshot=playmode-ko-placement-valid-1280x800.png
+PASS · ko placement invalid · gated=6 · screenshot=playmode-ko-placement-invalid-1280x800.png
+PASS · en placement valid · gated=6 · screenshot=playmode-en-placement-valid-1280x800.png
+PASS · en placement invalid · gated=6 · screenshot=playmode-en-placement-invalid-1280x800.png
+FAIL · qps-long placement valid · gated=10 · screenshot=playmode-qps-long-placement-valid-1280x800.png
+PASS · ko day1 swimming · gated=2 · screenshot=playmode-ko-day1-swimming-1280x800.png
+PASS · ko day2 exploration · gated=3 · screenshot=playmode-ko-day2-exploration-1280x800.png
+PASS · en day1 swimming · gated=2 · screenshot=playmode-en-day1-swimming-1280x800.png
+PASS · en day2 exploration · gated=3 · screenshot=playmode-en-day2-exploration-1280x800.png
+  FAIL · pseudo-long · qps-long placement valid · ⟦DÁY 1/5 · ⟦Cámp prépárátíóñáéíóú⟧/Húñgér 70 | Éñérgy 100áéíóúüñ¿¡áéíóúüñ⟧ · glyph=15.6px · block=50.0px · bounds=[130.7,726.8 -> 521.1,776.8] · contrast=18.1:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · ⟦Dédícátéd Áñchór · Sígñál 0/2áéíóúüñ¿¡áé⟧ · glyph=22.0px · block=100.7px · bounds=[880.3,196.7 -> 1123.4,297.4] · contrast=10.9:1 · failures=overflow,text-overlap
+  FAIL · pseudo-long · qps-long placement valid · ⟦⟦Cámpfíréá⟧/Válíd Plácéméñtáéíóúü⟧ · glyph=22.0px · block=99.5px · bounds=[400.5,333.2 -> 665.6,432.7] · contrast=8.8:1 · failures=overflow
+  FAIL · pseudo-long · qps-long placement valid · ⟦Géñérál Fácílíty Gróúñd/0.5m Flóór Sñápáéíóúüñ¿¡áéíóúü⟧ · glyph=22.0px · block=166.3px · bounds=[655.4,89.1 -> 979.4,255.4] · contrast=11.9:1 · failures=overflow,text-overlap
+  FAIL · pseudo-long · qps-long placement valid · ⟦Wóód 12   Stóñé 11   Fóód 0   Sálvágé 10/Sígñál 0/2   Áxé ⟦Ñóñé⟧   Rópé ⟦Ñóñé⟧áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧ · glyph=15.6px · block=46.6px · bounds=[457.0,672.7 -> 1150.0,719.3] · contrast=14.5:1 · failures=height
