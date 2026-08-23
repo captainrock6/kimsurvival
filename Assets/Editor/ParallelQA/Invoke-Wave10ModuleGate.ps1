@@ -99,6 +99,11 @@ $smokeStarted = [DateTime]::UtcNow
 $smokeExit = 0
 $smokeError = ''
 try {
+    # The preceding asset contract stage intentionally returns 1 when only the
+    # isolated historical visual.current_* adapter is missing. Clear that stale
+    # native exit code before invoking the PowerShell smoke script, which reports
+    # its verdict through windows-hidden-smoke.json.
+    $global:LASTEXITCODE = 0
     & (Join-Path $PSScriptRoot 'Invoke-Wave5WindowsSmoke.ps1') -RunId $RunId -BaselineCommit $BaselineCommit -MinimumSeconds $MinimumSmokeSeconds
     $smokeExit = $LASTEXITCODE
 } catch {

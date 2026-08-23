@@ -331,7 +331,7 @@ namespace ParallelQA
                     "W10-P02.ko_en_1280_module_captures",
                     "localization/layout",
                     "P0",
-                    "Fresh 1280x800 KO upper/interior and EN side module captures exist; the synthetic long capture is labelled non-locale evidence",
+                    "Fresh 1280x800 KO upper/interior, EN side, and actual qps-long module captures exist; older baselines may use an explicitly labelled synthetic fallback",
                     () => VerifyScreenshotDimensions(moduleScreenshots),
                     "Open each Wave 10 module PNG at 1:1 and compare the preview badge, status card, controls, connector, and world bounds.",
                     "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/Editor/ParallelQA/Wave10ModuleGateRunner.cs");
@@ -656,7 +656,7 @@ namespace ParallelQA
                 "module.economy.short", "module.economy.ready", "module.economy.prototypelimit",
                 "controls.module_preview.keyboard_mouse", "controls.module_preview.gamepad"
             };
-            if (!localization.SetLocale(QpsLongLocaleCode, false) || localization.CurrentLocaleCode != QpsLongLocaleCode)
+            if (!localization.SetQaLocale(QpsLongLocaleCode) || localization.CurrentLocaleCode != QpsLongLocaleCode)
             {
                 detail = "qps-long selection failed or fell back to " + localization.CurrentLocaleCode;
                 return false;
@@ -702,11 +702,18 @@ namespace ParallelQA
 
         private static string[] CopyAndVerifyModuleScreenshots()
         {
+            string actualQpsSource = "kim-survival-wave10-module-basement-qps-long-1280x800.png";
+            string syntheticQpsSource = "kim-survival-wave9-module-basement-qps-long-1280x800.png";
+            bool hasActualQps = File.Exists(Path.Combine(EvidenceFolder, actualQpsSource));
+            string qpsSource = hasActualQps ? actualQpsSource : syntheticQpsSource;
+            string qpsDestination = hasActualQps
+                ? "wave10-module-basement-qps-long-1280x800.png"
+                : "wave10-module-basement-synthetic-long-1280x800.png";
             Dictionary<string, string> copies = new Dictionary<string, string>
             {
                 { "kim-survival-wave9-module-upper-ko-1280x800.png", "wave10-module-upper-ko-1280x800.png" },
                 { "kim-survival-wave9-module-side-en-1280x800.png", "wave10-module-side-en-1280x800.png" },
-                { "kim-survival-wave9-module-basement-qps-long-1280x800.png", "wave10-module-basement-synthetic-long-1280x800.png" },
+                { qpsSource, qpsDestination },
                 { "kim-survival-wave9-module-interior-ko-1280x800.png", "wave10-module-interior-ko-1280x800.png" }
             };
             foreach (KeyValuePair<string, string> copy in copies)
