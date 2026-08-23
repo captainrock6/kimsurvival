@@ -6,7 +6,9 @@
   "designDocuments": [
     ".forge/design/concept.md"
   ],
-  "referenceImages": [],
+  "referenceImages": [
+    "Docs/Design/References/approved-spatial-base-camp-concept.png"
+  ],
   "styleProfile": ".forge/style-profile.json",
   "feedbackMemory": ".forge/feedback.json",
   "assetRegistry": ".forge/assets.json",
