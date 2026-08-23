@@ -1,0 +1,14 @@
+Wave 16 hazard, multi-escape, and behavioral-ending RED-first gate
+Run ID: 20260824T015000Z_635725b_wave16_red_final
+Baseline: 635725b3e2679a7d6d4f66c09b137575bac374c8
+PowerShell: Core 7.6.4
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+Wave 15 prerequisite: GREEN
+Expected product gaps: 17 [W16-H01.hazard_phase_catalog, W16-H02.daily_stack_budget, W16-H03.atomic_idempotent_resolution, W16-E01.five_escape_catalog, W16-E02.escape_axis_separation, W16-E03.smoke_radio_playable, W16-E04.raft_flare_beacon_data, W16-O01.snapshot_and_private_log, W16-N01.ending_catalog_19, W16-N02.deterministic_single_ending, W16-N03.terminal_priority, W16-L01.ko_en_qps_contract, W16-P01.live_hazard_lifecycle, W16-P02.live_escape_paths, W16-P03.three_panel_comic, W16-P04.ko_en_qps_1280, W16-P05.keyboard_gamepad_state_parity]
+Unexpected product failures: 0
+Infrastructure failures: 0
+Compile/Build/Smoke/Addressables: PASS 0 errors/PASS/PASS/PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Exit code: 2 (0 GREEN, 2 RED_EXPECTED_GAP, 1 unexpected/infrastructure failure)
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave16HazardEndingGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '635725b3e2679a7d6d4f66c09b137575bac374c8' -MinimumSmokeSeconds 6

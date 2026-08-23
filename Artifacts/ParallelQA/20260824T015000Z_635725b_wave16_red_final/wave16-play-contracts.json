@@ -1,0 +1,110 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 16 hazard/escape/ending RED-first Play contracts",
+    "runId": "20260824T015000Z_635725b_wave16_red_final",
+    "baselineCommit": "635725b3e2679a7d6d4f66c09b137575bac374c8",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T16:25:43.2152178Z",
+    "completedUtc": "2026-08-23T16:25:43.7403570Z",
+    "overall": "RED",
+    "productOverall": "RED_EXPECTED_GAP",
+    "infrastructureOverall": "PASS",
+    "passed": 1,
+    "expectedGaps": 5,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 2,
+    "greenCompletionCondition": "Fresh Wave 15 prerequisite GREEN, infrastructure PASS, and zero Wave 16 EXPECTED_GAP/FAIL checks on an implementation baseline.",
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "W16-P01.live_hazard_lifecycle",
+            "matrix": "actual play hazard",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Live play exposes warning, occurrence, mitigation, and recovery for the three sample hazards without duplicate state/resource application",
+            "actual": "no live hazard/escape/ending stable-ID surface",
+            "reproduction": "Use the deterministic play fixture to advance each sample hazard through all four phases and retry the same event ID.",
+            "recommendedFiles": "runtime hazard director/UI selected by the implementation owner"
+        },
+        {
+            "id": "W16-P02.live_escape_paths",
+            "matrix": "actual play escape",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Live smoke and radio projects progress independently and can complete an early escape before Day 50",
+            "actual": "no live hazard/escape/ending stable-ID surface",
+            "reproduction": "Use the public play fixture to complete smoke and radio on separate snapshots and record terminal state.",
+            "recommendedFiles": "runtime escape project/UI selected by the implementation owner"
+        },
+        {
+            "id": "W16-P03.three_panel_comic",
+            "matrix": "ending presentation",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "A resolved sample ending opens exactly one localized placeholder comic sequence with three active core panels",
+            "actual": "panels=0; no live hazard/escape/ending stable-ID surface",
+            "reproduction": "Resolve a sample ending, inspect the active presentation root, and count visible core panels.",
+            "recommendedFiles": "runtime ending presentation selected by the implementation owner"
+        },
+        {
+            "id": "W16-P04.ko_en_qps_1280",
+            "matrix": "ending layout",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "Fresh ko/en/qps-long 1280x800 captures exist with a three-panel ending and zero TMP overflow/offscreen/overlap",
+            "actual": "captures=3/3; panels=0; locales=ko->ko,en->en,qps-long->qps-long; overflow=0; offscreen=0; overlap=0",
+            "reproduction": "Open all wave16-*-ending-state-1280x800.png at 1:1 and compare the recorded TMP rectangles.",
+            "recommendedFiles": "runtime ending presentation and localization tables selected by the implementation owner"
+        },
+        {
+            "id": "W16-P05.keyboard_gamepad_state_parity",
+            "matrix": "dual input",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "Keyboard and synthetic gamepad change glyph/focus only and preserve locale, hazard, project, score, terminal, and ending state",
+            "actual": "before=D1/Camp/None/seed801923345/region/no live hazard/escape/ending stable-ID surface; gamepad=D1/Camp/None/seed801923345/region/no live hazard/escape/ending stable-ID surface; keyboard=D1/Camp/None/seed801923345/region/no live hazard/escape/ending stable-ID surface",
+            "reproduction": "Capture the semantic live-state fingerprint, switch KeyboardMouse to synthetic Gamepad, and compare the fingerprint.",
+            "recommendedFiles": "runtime input and ending UI selected by the implementation owner"
+        },
+        {
+            "id": "W16-I04.fresh_capture_evidence",
+            "matrix": "evidence production",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The current run emits exact 1280x800 PNG evidence for ko/en/qps-long even when the product contract is RED",
+            "actual": "captures=wave16-ko-ending-state-1280x800.png,wave16-en-ending-state-1280x800.png,wave16-qps-long-ending-state-1280x800.png",
+            "reproduction": "Inspect PNG dimensions and RunId ownership in the fresh evidence directory.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Wave16HazardEndingRedFirstRunner.cs"
+        },
+        {
+            "id": "W16-HW01.physical_gamepad",
+            "matrix": "input hardware",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "A human completes hazard response, escape project, and ending navigation using a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows development player with a physical controller and record human actuation evidence.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        },
+        {
+            "id": "W16-S01.steam_release",
+            "matrix": "external release",
+            "status": "UNVERIFIED",
+            "classification": "EXTERNAL_RELEASE_GAP",
+            "severity": "P0",
+            "expected": "Steamworks App ID, Depot, Input, Cloud, Achievements, permissions, and store evidence are configured and approved",
+            "actual": "Steam integration remains outside this task; readiness is NOT_READY.",
+            "reproduction": "Complete the separately authorized Steam release checklist.",
+            "recommendedFiles": "external Steamworks account and release evidence"
+        }
+    ]
+}
