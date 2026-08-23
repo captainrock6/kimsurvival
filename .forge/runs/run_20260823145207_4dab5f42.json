@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260823145207_4dab5f42",
+  "createdAt": "2026-08-23T14:52:07.110Z",
+  "updatedAt": "2026-08-23T14:52:07.110Z",
+  "sourceRequest": "Wave 15 escape hazard ending matrix detail contract; design only, sample values not final balance, no runtime or art adoption changes.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-23T14:52:07.110Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:52:07.110Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:52:07.110Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T14:52:07.110Z"
+    }
+  }
+}
