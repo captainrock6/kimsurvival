@@ -1,0 +1,18 @@
+Wave 9 spatial camp Play contracts
+Run ID: 20260823T084500Z_bfb06ab_integrated
+Baseline: bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 10/1/0/0/1
+PASS · NONE · P0 · W9-P01.normal_camp_world_first · campActionsActive=False largeBagActive=False bagPixelArea=0
+PASS · NONE · P0 · W9-P02.far_state_is_silent · farPromptCount=0 farPopupCount=0 prompts=<none> popups=<none>
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P1 · W9-P08.ko_en_1280_readability · koHeaderOverlap=False enHeaderOverlap=False koOverflow=2 enOverflow=0
+PASS · NONE · P0 · W9-P03.single_near_target_prompt · Campfire=1:CampProximityPrompt=[E] Use Campfire | Workbench=1:CampProximityPrompt=[E] Use Workbench | RainCollector=1:CampProximityPrompt=[E] Use Rain Collector | RescueSignal=1:CampProximityPrompt=[E] Use Rescue Signal
+PASS · NONE · P0 · W9-P04.popup_only_after_interact · Campfire=1:Campfire | Workbench=1:Workbench | RainCollector=1:RainCollector | RescueSignal=1:RescueSignal
+PASS · NONE · P0 · W9-P05.modal_movement_lock · discoverableActiveMovementLock=True
+PASS · NONE · P0 · W9-P06.confirm_cancel_return · popupOpened=True cancelReturn=True confirmReturn=True
+PASS · NONE · P0 · W9-P07.per_target_action_ownership · correctTargetPopups=True globalDashboardActive=False
+PASS · NONE · P0 · W9-I05.far_action_resource_atomicity · farStable=Wood=26,Stone=19,Food=10,Salvage=28 nearResearched=True
+PASS · NONE · P0 · W9-I06.capture_and_layout_infrastructure · screenshots=4 activeTMP=15 overflow=0 outOfBounds=2 minPx=22.0
+UNVERIFIED · HARDWARE_GAP · P1 · W9-HW01.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode
+PASS · NONE · P0 · W9-I04.approach_first_full_regression · PASS · Wave 9 현장 계획 지점에서 위층/옆방/지하실 후보 순회, 형태+문구 유효성, 작업대 해금과 고정 W2/D1 비용, 실패/취소/중복 무차감과 1회 원자 확정, 명시적 문/사다리 이동, 모듈 일반 설비 구역과 통로 보호, 1280x800 ko/en/qps-long placeholder 표현 확인. 기존 전역 대시보드/대형 가방 숨김, 원거리 무안내·내레이션 아래 소형 근접 안내·설비 전용 팝업, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프와 키보드/게임패드 회귀 확인

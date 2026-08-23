@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 9 compact interaction prompt red-first QA gate",
+  "runId": "20260823T084500Z_bfb06ab_integrated",
+  "baselineCommit": "bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8",
+  "branch": "master",
+  "unityVersion": "6000.4.9f1",
+  "startedUtc": "2026-08-23T08:41:10.2086105Z",
+  "completedUtc": "2026-08-23T08:43:06.1665360Z",
+  "executionPolicy": "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+  "evidencePolicy": "Fresh run ID only. Existing Artifacts/Verification and prior ParallelQA evidence were not reused as verdicts or overwritten.",
+  "overall": "RED",
+  "productOverall": "RED_EXPECTED_FAIL",
+  "infrastructureOverall": "PASS",
+  "farNearPopupCancel": "PASS 4/4",
+  "promptLayout1280": "PASS",
+  "koMetrics": {
+    "locale": "ko",
+    "device": "KeyboardMouse",
+    "actualLocale": true,
+    "syntheticStress": false,
+    "target": "Campfire",
+    "promptText": "[E] 모닥불 사용",
+    "screenshot": "prompt-near-campfire-ko-keyboard-1280x800.png",
+    "promptRect": {
+      "x": 384.00006103515625,
+      "y": 464.0,
+      "width": 511.99981689453125,
+      "height": 48.0
+    },
+    "narrationRect": {
+      "x": 230.4000701904297,
+      "y": 520.0,
+      "width": 819.2000122070312,
+      "height": 136.0
+    },
+    "topHudRect": {
+      "x": 18.47525405883789,
+      "y": 678.1149291992188,
+      "width": 1243.049560546875,
+      "height": 109.0550537109375
+    },
+    "bottomHelpRect": {
+      "x": 18.47525405883789,
+      "y": 12.830007553100586,
+      "width": 1243.049560546875,
+      "height": 93.01752471923828
+    },
+    "playerRect": {
+      "x": 456.5333251953125,
+      "y": 224.0,
+      "width": 102.53167724609375,
+      "height": 152.64309692382812
+    },
+    "traversalPathRect": {
+      "x": 0.0,
+      "y": 210.977783203125,
+      "width": 1280.0,
+      "height": 88.0
+    },
+    "facilityRects": [
+      {
+        "x": 437.33331298828125,
+        "y": 189.17669677734375,
+        "width": 149.3333740234375,
+        "height": 156.28756713867188
+      },
+      {
+        "x": 672.0,
+        "y": 189.94891357421875,
+        "width": 192.0,
+        "height": 111.11111450195312
+      },
+      {
+        "x": 855.4666748046875,
+        "y": 190.9616241455078,
+        "width": 166.4000244140625,
+        "height": 194.19541931152344
+      },
+      {
+        "x": 1158.4000244140625,
+        "y": 295.0834045410156,
+        "width": 192.0001220703125,
+        "height": 301.1321105957031
+      }
+    ],
+    "narrationGap": 8.0,
+    "belowNarration": true,
+    "adjacentToNarration": true,
+    "withinSizeCap": true,
+    "insideScreen": true,
+    "tmpOverflow": false,
+    "overlapsTopHud": false,
+    "overlapsBottomHelp": false,
+    "overlapsPlayer": false,
+    "overlapsFacility": false,
+    "overlapsTraversalPath": false
+  },
+  "enMetrics": {
+    "locale": "en",
+    "device": "Gamepad",
+    "actualLocale": true,
+    "syntheticStress": false,
+    "target": "Campfire",
+    "promptText": "[X] Use Campfire",
+    "screenshot": "prompt-near-campfire-en-gamepad-1280x800.png",
+    "promptRect": {
+      "x": 384.00006103515625,
+      "y": 464.0,
+      "width": 511.99981689453125,
+      "height": 48.0
+    },
+    "narrationRect": {
+      "x": 230.4000701904297,
+      "y": 520.0,
+      "width": 819.2000122070312,
+      "height": 136.0
+    },
+    "topHudRect": {
+      "x": 18.47525405883789,
+      "y": 678.1149291992188,
+      "width": 1243.049560546875,
+      "height": 109.0550537109375
+    },
+    "bottomHelpRect": {
+      "x": 18.47525405883789,
+      "y": 12.830007553100586,
+      "width": 1243.049560546875,
+      "height": 93.01752471923828
+    },
+    "playerRect": {
+      "x": 456.5333251953125,
+      "y": 224.0,
+      "width": 102.53167724609375,
+      "height": 152.64309692382812
+    },
+    "traversalPathRect": {
+      "x": 0.0,
+      "y": 210.977783203125,
+      "width": 1280.0,
+      "height": 88.0
+    },
+    "facilityRects": [
+      {
+        "x": 437.33331298828125,
+        "y": 189.17669677734375,
+        "width": 149.3333740234375,
+        "height": 156.28756713867188
+      },
+      {
+        "x": 672.0,
+        "y": 189.94891357421875,
+        "width": 192.0,
+        "height": 111.11111450195312
+      },
+      {
+        "x": 855.4666748046875,
+        "y": 190.9616241455078,
+        "width": 166.4000244140625,
+        "height": 194.19541931152344
+      },
+      {
+        "x": 1158.4000244140625,
+        "y": 295.0834045410156,
+        "width": 192.0001220703125,
+        "height": 301.1321105957031
+      }
+    ],
+    "narrationGap": 8.0,
+    "belowNarration": true,
+    "adjacentToNarration": true,
+    "withinSizeCap": true,
+    "insideScreen": true,
+    "tmpOverflow": false,
+    "overlapsTopHud": false,
+    "overlapsBottomHelp": false,
+    "overlapsPlayer": false,
+    "overlapsFacility": false,
+    "overlapsTraversalPath": false
+  },
+  "qpsLongMetrics": {
+    "locale": "qps-long",
+    "device": "KeyboardMouse",
+    "actualLocale": false,
+    "syntheticStress": true,
+    "target": "Campfire",
+    "promptText": "[[[Eá] Uésíeó Cúamüpfñire]]",
+    "screenshot": "prompt-near-campfire-qps-long-1280x800.png",
+    "promptRect": {
+      "x": 384.00006103515625,
+      "y": 464.0,
+      "width": 511.99981689453125,
+      "height": 48.0
+    },
+    "narrationRect": {
+      "x": 230.4000701904297,
+      "y": 520.0,
+      "width": 819.2000122070312,
+      "height": 136.0
+    },
+    "topHudRect": {
+      "x": 18.47525405883789,
+      "y": 678.1149291992188,
+      "width": 1243.049560546875,
+      "height": 109.0550537109375
+    },
+    "bottomHelpRect": {
+      "x": 18.47525405883789,
+      "y": 12.830007553100586,
+      "width": 1243.049560546875,
+      "height": 93.01752471923828
+    },
+    "playerRect": {
+      "x": 456.5333251953125,
+      "y": 224.0,
+      "width": 102.53167724609375,
+      "height": 152.64309692382812
+    },
+    "traversalPathRect": {
+      "x": 0.0,
+      "y": 210.977783203125,
+      "width": 1280.0,
+      "height": 88.0
+    },
+    "facilityRects": [
+      {
+        "x": 437.33331298828125,
+        "y": 189.17669677734375,
+        "width": 149.3333740234375,
+        "height": 156.28756713867188
+      },
+      {
+        "x": 672.0,
+        "y": 189.94891357421875,
+        "width": 192.0,
+        "height": 111.11111450195312
+      },
+      {
+        "x": 855.4666748046875,
+        "y": 190.9616241455078,
+        "width": 166.4000244140625,
+        "height": 194.19541931152344
+      },
+      {
+        "x": 1158.4000244140625,
+        "y": 295.0834045410156,
+        "width": 192.0001220703125,
+        "height": 301.1321105957031
+      }
+    ],
+    "narrationGap": 8.0,
+    "belowNarration": true,
+    "adjacentToNarration": true,
+    "withinSizeCap": true,
+    "insideScreen": true,
+    "tmpOverflow": false,
+    "overlapsTopHud": false,
+    "overlapsBottomHelp": false,
+    "overlapsPlayer": false,
+    "overlapsFacility": false,
+    "overlapsTraversalPath": false
+  },
+  "actualQpsLong": "NOT_IMPLEMENTED · synthetic 142% stress capture only",
+  "syntheticInput": "PASS keyboard/gamepad same action+target meaning",
+  "physicalGamepad": "UNVERIFIED",
+  "physicalGamepadReason": "No human physical-device actuation evidence was captured; synthetic/shared code-path checks are reported separately.",
+  "compile": "PASS 0 errors",
+  "approachFirstCoreRegression": "PASS",
+  "wave7BagRegression": "ISOLATED_BY_DESIGN · old persistent bag/dashboard layout fixture",
+  "wave6ProgressionRegression": "ISOLATED_BY_DESIGN · old dashboard signal layout fixture",
+  "windowsDevelopmentBuild": "PASS",
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "retainedBaselineProductGaps": [
+    {
+      "id": "W9-M02.valid_invalid_reasons",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Every module candidate reports valid or a player-readable invalid reason",
+      "actual": "types=KimSurvival.CampModuleArchetype | KimSurvival.CampModuleCommitStatus | KimSurvival.CampModuleConnectorKind | KimSurvival.CampModuleDefinition | KimSurvival.CampModuleEconomyStatus | KimSurvival.CampModuleEvaluation | KimSurvival.CampModuleGeometryStatus | KimSurvival.CampModuleResourceCost | KimSurvival.CampModuleReturnSnapshot | KimSurvival.CampModuleTransactionGuard | KimSurvival.CampModuleUnlockRequirement | KimSurvival.CampModuleValidationContext | KimSurvival.PrototypeCampModuleCatalog | KimSurvival.PrototypeCampModuleExpansion | KimSurvival.PrototypeCampModuleExpansionConfig | KimSurvival.PrototypeCampModulePreviewActions | KimSurvival.PrototypeRawCampModulePreviewInput kinds=True validityReason=False connectionSlots=True cost=True overlap=True requiredRoute=True",
+      "reproduction": "Move each candidate through valid and invalid cells and capture the reason key.",
+      "recommendedFiles": "future Wave 9 camp module runtime and localization implementation"
+    },
+    {
+      "id": "W9-P08.ko_en_1280_readability",
+      "severity": "P1",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "expected": "Korean and English normal-camp headers have no rendered-text overlap or TMP overflow at 1280x800",
+      "actual": "koHeaderOverlap=False enHeaderOverlap=False koOverflow=2 enOverflow=0",
+      "reproduction": "Open both fresh normal-camp PNGs at 1:1; compare the status/resource header text and all visible panels.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "expectedPromptGaps": [
+    {
+      "id": "W9P-E04.actual_qps_long_locale",
+      "matrix": "qps-long",
+      "status": "EXPECTED_FAIL",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "severity": "P1",
+      "expected": "A non-shipping qps-long locale exists as data and can render the prompt without runtime branching",
+      "actual": "qps-long column absent; synthetic stress cannot substitute for an actual locale",
+      "reproduction": "Inspect the localization source header and AvailableLocales, then select qps-long in the Play gate.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/**; future locale configuration"
+    },
+    {
+      "id": "W9P-P07.locale_text_fit",
+      "matrix": "ko/en/qps-long",
+      "status": "EXPECTED_FAIL",
+      "classification": "PRODUCT_EXPECTED_GAP",
+      "severity": "P1",
+      "expected": "KO, EN, and actual qps-long prompts remain inside screen with no TMP overflow or clipping",
+      "actual": "actualQps=False layouts=ko:overflow=False,inside=True | en:overflow=False,inside=True | qps-long:overflow=False,inside=True",
+      "reproduction": "Select ko, en, then qps-long on the same near-target state; inspect TMP overflow and screen bounds.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/**; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "unexpectedRegressions": [],
+  "infrastructureFailures": [],
+  "evidenceRoot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T084500Z_bfb06ab_integrated",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave9InteractionPromptLayoutGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8' -MinimumSmokeSeconds 6",
+  "remotePush": false
+}

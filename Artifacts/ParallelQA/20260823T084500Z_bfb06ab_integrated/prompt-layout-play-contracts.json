@@ -1,0 +1,130 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 9 interaction prompt Play contracts",
+    "runId": "20260823T084500Z_bfb06ab_integrated",
+    "baselineCommit": "bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T08:43:02.2472680Z",
+    "completedUtc": "2026-08-23T08:43:02.8116396Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T084500Z_bfb06ab_integrated\\unity-prompt-layout-play.log\"",
+    "productOverall": "RED_EXPECTED_FAIL",
+    "infrastructureOverall": "PASS",
+    "overall": "RED",
+    "passed": 8,
+    "expectedFailed": 1,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 1,
+    "checks": [
+        {
+            "id": "W9P-P01.far_silent",
+            "matrix": "far",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Outside use range there are zero proximity prompts and zero facility popups",
+            "actual": "farPromptCount=0 farPopupCount=0",
+            "reproduction": "Reset the camp, warp to PlayerStartX, refresh, and enumerate active prompt/popup roots.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+        },
+        {
+            "id": "W9P-P02.four_single_near_prompts",
+            "matrix": "near",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Campfire, workbench, rain collector, and rescue signal each expose exactly one same-target prompt only when near",
+            "actual": "Campfire far=0 near=1 kind=Campfire | Workbench far=0 near=1 kind=Workbench | RainCollector far=0 near=1 kind=RainCollector | RescueSignal far=0 near=1 kind=RescueSignal",
+            "reproduction": "Approach each facility separately and count active prompt roots before interacting.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9P-P03.popup_hides_prompt",
+            "matrix": "popup-open",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Opening a facility popup hides the proximity prompt and exposes one matching popup",
+            "actual": "Campfire prompt=0 popup=1 | Workbench prompt=0 popup=1 | RainCollector prompt=0 popup=1 | RescueSignal prompt=0 popup=1",
+            "reproduction": "From each near state invoke shared Interact and enumerate prompt/popup roots.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9P-P04.cancel_restores_same_target",
+            "matrix": "cancel/close",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Cancel/close restores exactly one prompt for the same nearby target",
+            "actual": "Campfire restored=1 kind=Campfire | Workbench restored=1 kind=Workbench | RainCollector restored=1 kind=RainCollector | RescueSignal restored=1 kind=RescueSignal",
+            "reproduction": "Open each target popup, cancel it, and compare the restored stable target kind.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+        },
+        {
+            "id": "W9P-P05.compact_below_narration",
+            "matrix": "1280x800 layout",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Prompt is directly below the narration card with an 8-32px gap, width <=512px, and height <=50px",
+            "actual": "ko/KeyboardMouse prompt=x=384.0 y=464.0 w=512.0 h=48.0 gap=8.0 sizePass=True adjacent=True | en/Gamepad prompt=x=384.0 y=464.0 w=512.0 h=48.0 gap=8.0 sizePass=True adjacent=True | qps-long/KeyboardMouse prompt=x=384.0 y=464.0 w=512.0 h=48.0 gap=8.0 sizePass=True adjacent=True",
+            "reproduction": "Open each 1280x800 prompt capture at 1:1 and compare prompt/narration pixel rectangles in prompt-layout-evidence.json.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs (BuildUi prompt anchors/font size)"
+        },
+        {
+            "id": "W9P-P06.world_and_hud_clearance",
+            "matrix": "1280x800 occlusion",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Prompt overlaps neither upper HUD, lower help, player, facilities, nor the required traversal band",
+            "actual": "ko/KeyboardMouse hud=False help=False player=False facility=False path=False | en/Gamepad hud=False help=False player=False facility=False path=False | qps-long/KeyboardMouse hud=False help=False player=False facility=False path=False",
+            "reproduction": "Compare prompt Rect with UI and camera-projected world bounds in prompt-layout-evidence.json.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs (BuildUi prompt layout)"
+        },
+        {
+            "id": "W9P-P07.locale_text_fit",
+            "matrix": "ko/en/qps-long",
+            "status": "EXPECTED_FAIL",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "KO, EN, and actual qps-long prompts remain inside screen with no TMP overflow or clipping",
+            "actual": "actualQps=False layouts=ko:overflow=False,inside=True | en:overflow=False,inside=True | qps-long:overflow=False,inside=True",
+            "reproduction": "Select ko, en, then qps-long on the same near-target state; inspect TMP overflow and screen bounds.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/**; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W9P-P08.locale_device_semantics",
+            "matrix": "locale/device",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Locale/device changes alter glyph/text only while preserving the Campfire target and Interact action",
+            "actual": "ko=Campfire|Campfire|[E]|[E] 모닥불 사용 enKeyboard=Campfire|Campfire|[E]|[E] Use Campfire enGamepad=Campfire|Campfire|[X]|[X] Use Campfire",
+            "reproduction": "Keep the same campfire snapshot, switch locale/device, and compare stable target kind plus action marker.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Localization/**"
+        },
+        {
+            "id": "W9P-HW01.physical_gamepad",
+            "matrix": "hardware input",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "A person approaches all four targets and opens/closes their prompts with a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows development build with a physical gamepad and record device/actuation evidence.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        },
+        {
+            "id": "W9P-I01.fresh_captures_and_metrics",
+            "matrix": "evidence",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Fresh 1280x800 KO/EN/qps stress captures and machine-readable pixel metrics are generated",
+            "actual": "captures=3 metrics=3",
+            "reproduction": "Run the Play contract with a fresh run ID and inspect the evidence directory.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Wave9InteractionPromptLayoutGateRunner.cs"
+        }
+    ]
+}

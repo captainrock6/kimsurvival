@@ -1,0 +1,75 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 9 interaction prompt Edit contracts",
+    "runId": "20260823T084500Z_bfb06ab_integrated",
+    "baselineCommit": "bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T08:42:50.5660645Z",
+    "completedUtc": "2026-08-23T08:42:50.5749189Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave9InteractionPromptLayoutGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260823T084500Z_bfb06ab_integrated\\unity-prompt-layout-edit.log\"",
+    "productOverall": "RED_EXPECTED_FAIL",
+    "infrastructureOverall": "PASS",
+    "overall": "RED",
+    "passed": 4,
+    "expectedFailed": 1,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "checks": [
+        {
+            "id": "W9P-E01.prompt_state_surface",
+            "matrix": "far/near/popup/close",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The runtime exposes prompt, popup, and close/restore states without locale text as identity",
+            "actual": "HasProximityPrompt/IsPopupOpen/ClosePopup discoverable=True",
+            "reproduction": "Reflect PrototypeCampInteraction and inspect target identity before and after ClosePopup.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+        },
+        {
+            "id": "W9P-E02.shared_input_action",
+            "matrix": "keyboard/gamepad",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Keyboard E and gamepad X converge on the same InteractPressed action",
+            "actual": "keyboard=E gamepad=X shared=InteractPressed",
+            "reproduction": "Source-audit PrototypePlayerInput and construct equivalent raw keyboard/gamepad actions.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"
+        },
+        {
+            "id": "W9P-E03.localized_prompt_keys",
+            "matrix": "ko/en/input",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Stable keyboard and gamepad prompt keys preserve one target placeholder in Korean and English",
+            "actual": "keyboardRow=camp.interaction.prompt.keyboard_mouse ↹ [E] {0} 사용 ↹ [E] Use {0} gamepadRow=camp.interaction.prompt.gamepad ↹ [X] {0} 사용 ↹ [X] Use {0}",
+            "reproduction": "Inspect the two camp.interaction.prompt rows and compare locale placeholder sets.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"
+        },
+        {
+            "id": "W9P-E04.actual_qps_long_locale",
+            "matrix": "qps-long",
+            "status": "EXPECTED_FAIL",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "A non-shipping qps-long locale exists as data and can render the prompt without runtime branching",
+            "actual": "qps-long column absent; synthetic stress cannot substitute for an actual locale",
+            "reproduction": "Inspect the localization source header and AvailableLocales, then select qps-long in the Play gate.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/**; future locale configuration"
+        },
+        {
+            "id": "W9P-E05.red_first_discriminator",
+            "matrix": "gate",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The gate contains an independent discriminator for the reported large lower-world prompt",
+            "actual": "baseline source signature changed; Play measurements decide PASS/FAIL",
+            "reproduction": "Run the Play contract at 1280x800 and inspect prompt-layout-evidence.json.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Wave9InteractionPromptLayoutGateRunner.cs"
+        }
+    ]
+}

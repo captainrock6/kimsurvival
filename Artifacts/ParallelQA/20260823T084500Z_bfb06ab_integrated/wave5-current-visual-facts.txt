@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260823T084500Z_bfb06ab_integrated
+Baseline: bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8
+Normal ko/en: FAIL
+Placement: MISSING
+Exploration/swimming: MISSING
+qps-long: MISSING
+qps-long classification: FAIL · retained as Unity system-work input

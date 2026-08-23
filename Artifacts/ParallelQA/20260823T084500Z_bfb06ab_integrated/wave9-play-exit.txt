@@ -1,0 +1,1 @@
+Product=RED_EXPECTED_FAIL · Infrastructure=PASS · PhysicalGamepad=UNVERIFIED · Evidence=C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260823T084500Z_bfb06ab_integrated\wave9-play-contracts.json

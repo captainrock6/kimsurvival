@@ -11,17 +11,17 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | in_progress | Wave 9 spatial camp HUD, contextual popup, modular background, and expansion candidates remain review-only; no adoption or runtime connection. |
-| implementation | in_progress | Contextual camp interaction integrated and verified; upper/side/basement module expansion remains unimplemented. |
-| verification | in_progress | Infrastructure PASS and playtest build prepared; module contracts and ko 1280x800 TMP overflow remain open, physical gamepad unverified. |
+| art | in_progress | Contextual prompt and module-expansion visual kits are review-only. No candidate is adopted, packaged, or runtime-connected pending explicit user selection. |
+| implementation | in_progress | Compact contextual prompts and upper/side/basement spatial module expansion are integrated with locked workbench plus W2/D1 commit rules. Actual qps-long locale and ko 1280 header overflow remain implementation work. |
+| verification | in_progress | Infrastructure, compile, core regression, prompt layout, Windows development build, hidden smoke, and Addressables pass. Independent module reason contract, actual qps-long locale, ko header overflow, and physical gamepad remain open. |
 
 ## 다음 작업
 
 - **Wave 3 밸런스 v0.2 적용** (implementation, critical) — task.wave3.implementation.balance-v0-2
 - **Wave 3 P1 월드 라벨 가독성 수정** (implementation, critical) — task.wave3.implementation.world-label-readability
 - **공간형 설비 직접 상호작용 검증** (qa, critical) — task.qa.feature.camp-object-interaction
-- **위·옆·지하 방 모듈 증축 구현** (implementation, high) — task.feature.feature.camp-module-expansion
 - **Wave 3 P2 제3 로케일·저장 독립성 구현** (implementation, high) — task.wave3.implementation.third-locale
+- **위·옆·지하 방 모듈 증축 검증** (qa, high) — task.qa.feature.camp-module-expansion
 
 ## 작업
 
@@ -83,8 +83,8 @@
 | task.design.wave7-bag-capacity-balance | design | high | done | Wave 7 가방 확장 비용과 3일 경로 검증 |
 | task.art.background.modular-island-camp | art | high | review | 측면 절개형 모듈 베이스캠프 제작 |
 | task.art.ui.camp-module-expansion | art | high | review | 방 모듈 증축 상태 UI 제작 |
-| task.feature.feature.camp-module-expansion | implementation | high | ready | 위·옆·지하 방 모듈 증축 구현 |
-| task.qa.feature.camp-module-expansion | qa | high | planned | 위·옆·지하 방 모듈 증축 검증 |
+| task.feature.feature.camp-module-expansion | implementation | high | done | 위·옆·지하 방 모듈 증축 구현 |
+| task.qa.feature.camp-module-expansion | qa | high | ready | 위·옆·지하 방 모듈 증축 검증 |
 | task.art.icon.resource-tool-set | art | medium | done | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | done | 코믹 피드백 효과 세트 제작 |
 | task.art.ui.bag-capacity-upgrade | art | medium | review | 가방 확장 UI 상태 세트 제작 |
@@ -96,9 +96,9 @@
 - ui.survival-hud: review · 공간형 캠프 최소 생존 HUD
 - animation.mr-kim.swim: review · 김씨 수영 애니메이션
 - ui.bag-capacity-upgrade: review · 가방 확장 UI 상태 세트
-- ui.camp-contextual-interaction: review · 캠프 근접 안내와 설비 전용 팝업
+- ui.camp-contextual-interaction: review · 플레이테스트 피드백 반영 review-only 리비전. 현재 런타임의 큰 중앙 [입력] 행동 안내가 길과 캐릭터를 가리는 문제를 해결한다. 내레이션 카드 바로 아래 중앙에 붙는 한 줄 compact bar/pill 
 - background.modular-island-camp: review · Wave 9 review-only 오리지널 측면 절개형 모듈 캠프 키트. 정면 측면 직교 카메라에서 중앙 시작 방, 바로 위 위층, 오른쪽 옆방, 아래 지하실이 동일 규격과 바닥선으로 읽혀야 한다. 각 방은 앞벽이 
-- ui.camp-module-expansion: review · 방 모듈 증축 현장형 상태 UI
+- ui.camp-module-expansion: review · 방 모듈 증축 기술·비교 보드
 
 ## 검증 증거
 
@@ -250,6 +250,7 @@
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#4-업그레이드-전-가방-선택-보존-검증
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#6-w2d1-구매-포함-자연-3일-구조-장부
 - task.design.wave7-bag-capacity-balance: Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-edit-contracts.txt
+- task.feature.feature.camp-module-expansion: PASS: deterministic Edit checks, full Play Mode survival regression, 1280x800 KO/EN/qps-long module captures, Windows development build 0 errors/0 warnings, 8-second launch smoke.
 - task.art.icon.resource-tool-set: Forge asset icon.resource-tool-set adopted via job_20260822141317_caf8e11d
 - task.art.effect.comedy-feedback: Forge asset effect.comedy-feedback adopted via job_20260822224357_275de712
 - task.postslice.steam-release-readiness: Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt

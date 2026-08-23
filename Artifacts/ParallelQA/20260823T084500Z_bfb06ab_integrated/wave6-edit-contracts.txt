@@ -1,0 +1,22 @@
+Wave 6 progression Edit contracts
+Run ID: 20260823T084500Z_bfb06ab_integrated
+Baseline: bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8
+Unity: 6000.4.9f1
+Product: PASS
+Infrastructure: PASS
+Counts: PASS=15 FAIL=0 INFRA_FAIL=0 UNVERIFIED=0
+PASS · NONE · P0 · W6-01.signal.stage1 · upgraded=True stage=1 rope=False wood=0 salvage=0 result=None message=message.signal.stage1
+PASS · NONE · P0 · W6-02.signal.stage2.requires_rope · upgraded=False stage=1 rope=False wood=2 salvage=2 message=message.signal.rope
+PASS · NONE · P0 · W6-03.signal.stage2.rescue · before wood/salvage=2/2 upgraded=True stage=2 rope=True result=Rescued phase=Result
+PASS · NONE · P1 · W6-04a.signal.shortage.workbench · shortage=workbench upgraded=False messageKey=message.signal.workbench ko=1단계에는 작업대가 필요하다. 현재 작업대가 없다. en=Stage 1 requires a workbench. No workbench is available.
+PASS · NONE · P1 · W6-04b.signal.shortage.wood · shortage=wood upgraded=False messageKey=message.signal.wood ko=나무가 부족하다. 현재 0/2. en=Not enough wood. Current: 0/2.
+PASS · NONE · P1 · W6-04c.signal.shortage.salvage · shortage=salvage upgraded=False messageKey=message.signal.salvage ko=표류물이 부족하다. 현재 0/2. en=Not enough salvage. Current: 0/2.
+PASS · NONE · P0 · W6-05.barrier.rope_only_blocked · rope=True axe=False x=8.00 blockedNotice=True
+PASS · NONE · P0 · W6-06.barrier.axe_only_passes · rope=False axe=True x=11.90 blockedNotice=False
+PASS · NONE · P0 · W6-07a.axe.gather.plus_one · baseAmount=1 plain=1 axe=2 delta=1 messages=message.gather.land/message.gather.axe
+PASS · NONE · P1 · W6-07b.axe.copy.no_double_claim · no multiplicative claim in 10 localized axe strings
+PASS · NONE · P1 · W6-08a.signal.ko_en_semantics · ko=구조 신호대 1/2  나무2·표류물2 | 1단계에는 작업대가 필요하다. 현재 작업대가 없다. | 나무와 표류물이 부족하다. 현재 나무 0/2, 표류물 0/2. | 2단계에는 밧줄이 필요하다. 현재 밧줄이 없다. en=Rescue Signal 1/2  Wood 2 · Salvage 2 | Stage 1 requires a workbench. No workbench is available. | Wood and salvage are short. Current: Wood 0/2, Salvage 0/2. | Stage 2 requires rope. No rope is available.
+PASS · NONE · P0 · W6-09a.balance.f0_h70_day35 · food=0 hungerStart=70.0 dayDrain=35.0 hungerAfter=35.0
+PASS · NONE · P0 · W6-09b.natural.rescue_no_grant_warp · sourceGrantWarpFree=True day=3 result=Rescued phase=Result
+PASS · NONE · P0 · W6-09c.natural.exhaustion · result=Exhausted phase=Result energy=0.0
+PASS · NONE · P0 · W6-09d.natural.deadline · day=3 result=Deadline phase=Result

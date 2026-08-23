@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260823040814_b487a41e",
   "createdAt": "2026-08-23T04:08:14.485Z",
-  "updatedAt": "2026-08-23T05:25:56.325Z",
+  "updatedAt": "2026-08-23T08:44:44.471Z",
   "sourceRequest": "Forge 12개 플레이어 행동 제한 안에서 건설·확장과 먹기·휴식을 결합해 탈출 행동을 보존한다.",
   "state": "in_progress",
   "stages": {
@@ -12,27 +12,27 @@
     },
     "art": {
       "status": "in_progress",
-      "note": "Wave 9 spatial camp HUD, contextual popup, modular background, and expansion candidates remain review-only; no adoption or runtime connection.",
+      "note": "Contextual prompt and module-expansion visual kits are review-only. No candidate is adopted, packaged, or runtime-connected pending explicit user selection.",
       "evidence": [
-        "Assets/_Project/Art/Generated/ui_set/job_20260823042544_299229fa/contextual-comparison-board.png"
+        "Assets/_Project/Art/Generated/ui_set/job_20260823080005_174af5ec/module-expansion-technical-comparison-board.png"
       ],
-      "updatedAt": "2026-08-23T05:25:56.169Z"
+      "updatedAt": "2026-08-23T08:44:42.257Z"
     },
     "implementation": {
       "status": "in_progress",
-      "note": "Contextual camp interaction integrated and verified; upper/side/basement module expansion remains unimplemented.",
+      "note": "Compact contextual prompts and upper/side/basement spatial module expansion are integrated with locked workbench plus W2/D1 commit rules. Actual qps-long locale and ko 1280 header overflow remain implementation work.",
       "evidence": [
-        "Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/wave9-play-contracts.json"
+        "Artifacts/ParallelQA/20260823T084500Z_bfb06ab_integrated/prompt-layout-play-contracts.json"
       ],
-      "updatedAt": "2026-08-23T05:25:56.248Z"
+      "updatedAt": "2026-08-23T08:44:43.337Z"
     },
     "verification": {
       "status": "in_progress",
-      "note": "Infrastructure PASS and playtest build prepared; module contracts and ko 1280x800 TMP overflow remain open, physical gamepad unverified.",
+      "note": "Infrastructure, compile, core regression, prompt layout, Windows development build, hidden smoke, and Addressables pass. Independent module reason contract, actual qps-long locale, ko header overflow, and physical gamepad remain open.",
       "evidence": [
-        "Docs/QA/wave9-spatial-camp-playtest-integration-246b1b8.md"
+        "Artifacts/ParallelQA/20260823T084500Z_bfb06ab_integrated/interaction-prompt-layout-summary.json"
       ],
-      "updatedAt": "2026-08-23T05:25:56.325Z"
+      "updatedAt": "2026-08-23T08:44:44.471Z"
     }
   }
 }

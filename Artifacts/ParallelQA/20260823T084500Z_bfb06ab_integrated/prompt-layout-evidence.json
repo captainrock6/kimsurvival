@@ -1,0 +1,308 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T084500Z_bfb06ab_integrated",
+    "baselineCommit": "bfb06ab7c9374676ae7a40fd4f4637ad52c61cc8",
+    "unityVersion": "6000.4.9f1",
+    "width": 1280,
+    "height": 800,
+    "maximumPromptWidth": 512.0,
+    "maximumPromptHeight": 50.0,
+    "minimumNarrationGap": 8.0,
+    "maximumNarrationGap": 32.0,
+    "targets": [
+        {
+            "target": "Campfire",
+            "farPromptCount": 0,
+            "nearPromptCount": 1,
+            "popupOpenPromptCount": 0,
+            "popupCount": 1,
+            "restoredPromptCount": 1,
+            "nearTargetKind": "Campfire",
+            "restoredTargetKind": "Campfire",
+            "promptText": "[E] 모닥불 사용"
+        },
+        {
+            "target": "Workbench",
+            "farPromptCount": 0,
+            "nearPromptCount": 1,
+            "popupOpenPromptCount": 0,
+            "popupCount": 1,
+            "restoredPromptCount": 1,
+            "nearTargetKind": "Workbench",
+            "restoredTargetKind": "Workbench",
+            "promptText": "[E] 작업대 사용"
+        },
+        {
+            "target": "RainCollector",
+            "farPromptCount": 0,
+            "nearPromptCount": 1,
+            "popupOpenPromptCount": 0,
+            "popupCount": 1,
+            "restoredPromptCount": 1,
+            "nearTargetKind": "RainCollector",
+            "restoredTargetKind": "RainCollector",
+            "promptText": "[E] 빗물받이 사용"
+        },
+        {
+            "target": "RescueSignal",
+            "farPromptCount": 0,
+            "nearPromptCount": 1,
+            "popupOpenPromptCount": 0,
+            "popupCount": 1,
+            "restoredPromptCount": 1,
+            "nearTargetKind": "RescueSignal",
+            "restoredTargetKind": "RescueSignal",
+            "promptText": "[E] 구조 신호대 사용"
+        }
+    ],
+    "layouts": [
+        {
+            "locale": "ko",
+            "device": "KeyboardMouse",
+            "actualLocale": true,
+            "syntheticStress": false,
+            "target": "Campfire",
+            "promptText": "[E] 모닥불 사용",
+            "screenshot": "prompt-near-campfire-ko-keyboard-1280x800.png",
+            "promptRect": {
+                "x": 384.00006103515627,
+                "y": 464.0,
+                "width": 511.99981689453127,
+                "height": 48.0
+            },
+            "narrationRect": {
+                "x": 230.4000701904297,
+                "y": 520.0,
+                "width": 819.2000122070313,
+                "height": 136.0
+            },
+            "topHudRect": {
+                "x": 18.47525405883789,
+                "y": 678.1149291992188,
+                "width": 1243.049560546875,
+                "height": 109.0550537109375
+            },
+            "bottomHelpRect": {
+                "x": 18.47525405883789,
+                "y": 12.830007553100586,
+                "width": 1243.049560546875,
+                "height": 93.01752471923828
+            },
+            "playerRect": {
+                "x": 456.5333251953125,
+                "y": 224.0,
+                "width": 102.53167724609375,
+                "height": 152.64309692382813
+            },
+            "traversalPathRect": {
+                "x": 0.0,
+                "y": 210.977783203125,
+                "width": 1280.0,
+                "height": 88.0
+            },
+            "facilityRects": [
+                {
+                    "x": 437.33331298828127,
+                    "y": 189.17669677734376,
+                    "width": 149.3333740234375,
+                    "height": 156.28756713867188
+                },
+                {
+                    "x": 672.0,
+                    "y": 189.94891357421876,
+                    "width": 192.0,
+                    "height": 111.11111450195313
+                },
+                {
+                    "x": 855.4666748046875,
+                    "y": 190.9616241455078,
+                    "width": 166.4000244140625,
+                    "height": 194.19541931152345
+                },
+                {
+                    "x": 1158.4000244140625,
+                    "y": 295.0834045410156,
+                    "width": 192.0001220703125,
+                    "height": 301.1321105957031
+                }
+            ],
+            "narrationGap": 8.0,
+            "belowNarration": true,
+            "adjacentToNarration": true,
+            "withinSizeCap": true,
+            "insideScreen": true,
+            "tmpOverflow": false,
+            "overlapsTopHud": false,
+            "overlapsBottomHelp": false,
+            "overlapsPlayer": false,
+            "overlapsFacility": false,
+            "overlapsTraversalPath": false
+        },
+        {
+            "locale": "en",
+            "device": "Gamepad",
+            "actualLocale": true,
+            "syntheticStress": false,
+            "target": "Campfire",
+            "promptText": "[X] Use Campfire",
+            "screenshot": "prompt-near-campfire-en-gamepad-1280x800.png",
+            "promptRect": {
+                "x": 384.00006103515627,
+                "y": 464.0,
+                "width": 511.99981689453127,
+                "height": 48.0
+            },
+            "narrationRect": {
+                "x": 230.4000701904297,
+                "y": 520.0,
+                "width": 819.2000122070313,
+                "height": 136.0
+            },
+            "topHudRect": {
+                "x": 18.47525405883789,
+                "y": 678.1149291992188,
+                "width": 1243.049560546875,
+                "height": 109.0550537109375
+            },
+            "bottomHelpRect": {
+                "x": 18.47525405883789,
+                "y": 12.830007553100586,
+                "width": 1243.049560546875,
+                "height": 93.01752471923828
+            },
+            "playerRect": {
+                "x": 456.5333251953125,
+                "y": 224.0,
+                "width": 102.53167724609375,
+                "height": 152.64309692382813
+            },
+            "traversalPathRect": {
+                "x": 0.0,
+                "y": 210.977783203125,
+                "width": 1280.0,
+                "height": 88.0
+            },
+            "facilityRects": [
+                {
+                    "x": 437.33331298828127,
+                    "y": 189.17669677734376,
+                    "width": 149.3333740234375,
+                    "height": 156.28756713867188
+                },
+                {
+                    "x": 672.0,
+                    "y": 189.94891357421876,
+                    "width": 192.0,
+                    "height": 111.11111450195313
+                },
+                {
+                    "x": 855.4666748046875,
+                    "y": 190.9616241455078,
+                    "width": 166.4000244140625,
+                    "height": 194.19541931152345
+                },
+                {
+                    "x": 1158.4000244140625,
+                    "y": 295.0834045410156,
+                    "width": 192.0001220703125,
+                    "height": 301.1321105957031
+                }
+            ],
+            "narrationGap": 8.0,
+            "belowNarration": true,
+            "adjacentToNarration": true,
+            "withinSizeCap": true,
+            "insideScreen": true,
+            "tmpOverflow": false,
+            "overlapsTopHud": false,
+            "overlapsBottomHelp": false,
+            "overlapsPlayer": false,
+            "overlapsFacility": false,
+            "overlapsTraversalPath": false
+        },
+        {
+            "locale": "qps-long",
+            "device": "KeyboardMouse",
+            "actualLocale": false,
+            "syntheticStress": true,
+            "target": "Campfire",
+            "promptText": "[[[Eá] Uésíeó Cúamüpfñire]]",
+            "screenshot": "prompt-near-campfire-qps-long-1280x800.png",
+            "promptRect": {
+                "x": 384.00006103515627,
+                "y": 464.0,
+                "width": 511.99981689453127,
+                "height": 48.0
+            },
+            "narrationRect": {
+                "x": 230.4000701904297,
+                "y": 520.0,
+                "width": 819.2000122070313,
+                "height": 136.0
+            },
+            "topHudRect": {
+                "x": 18.47525405883789,
+                "y": 678.1149291992188,
+                "width": 1243.049560546875,
+                "height": 109.0550537109375
+            },
+            "bottomHelpRect": {
+                "x": 18.47525405883789,
+                "y": 12.830007553100586,
+                "width": 1243.049560546875,
+                "height": 93.01752471923828
+            },
+            "playerRect": {
+                "x": 456.5333251953125,
+                "y": 224.0,
+                "width": 102.53167724609375,
+                "height": 152.64309692382813
+            },
+            "traversalPathRect": {
+                "x": 0.0,
+                "y": 210.977783203125,
+                "width": 1280.0,
+                "height": 88.0
+            },
+            "facilityRects": [
+                {
+                    "x": 437.33331298828127,
+                    "y": 189.17669677734376,
+                    "width": 149.3333740234375,
+                    "height": 156.28756713867188
+                },
+                {
+                    "x": 672.0,
+                    "y": 189.94891357421876,
+                    "width": 192.0,
+                    "height": 111.11111450195313
+                },
+                {
+                    "x": 855.4666748046875,
+                    "y": 190.9616241455078,
+                    "width": 166.4000244140625,
+                    "height": 194.19541931152345
+                },
+                {
+                    "x": 1158.4000244140625,
+                    "y": 295.0834045410156,
+                    "width": 192.0001220703125,
+                    "height": 301.1321105957031
+                }
+            ],
+            "narrationGap": 8.0,
+            "belowNarration": true,
+            "adjacentToNarration": true,
+            "withinSizeCap": true,
+            "insideScreen": true,
+            "tmpOverflow": false,
+            "overlapsTopHud": false,
+            "overlapsBottomHelp": false,
+            "overlapsPlayer": false,
+            "overlapsFacility": false,
+            "overlapsTraversalPath": false
+        }
+    ],
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}
