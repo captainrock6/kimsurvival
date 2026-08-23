@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "contractId": "ux.wave10.module-onboarding.v1",
+  "sourceCommit": "097cd1cbfa1f434c9836e8393c0b59f18e8d8e09",
+  "updatedAt": "2026-08-23T08:53:04.313Z",
+  "inherits": [
+    "balance.wave9.module-expansion.v0.2",
+    "feature.camp-object-interaction",
+    "feature.camp-module-expansion",
+    "screen.camp"
+  ],
+  "fixedRules": {
+    "previewAvailableBeforeWorkbench": true,
+    "commitRequiresStructure": "Workbench",
+    "cost": {
+      "Wood": 2,
+      "Stone": 0,
+      "Food": 0,
+      "Salvage": 1
+    },
+    "maxCommittedExpansionPerRun": 1,
+    "candidateModuleIds": [
+      "room.upper.standard",
+      "room.side.standard",
+      "room.basement.standard"
+    ],
+    "connectionTargetIds": [
+      "slot.start.upper",
+      "slot.start.side",
+      "slot.start.basement"
+    ],
+    "candidateCycleOrder": [
+      "room.upper.standard",
+      "room.side.standard",
+      "room.basement.standard"
+    ],
+    "spendsEnergyDaylightOrHunger": false
+  },
+  "onboarding": {
+    "clockAnchor": "new_run_world_control_enabled",
+    "durationSeconds": 90,
+    "primaryEntry": "directly approach and interact with any start-room connection target",
+    "secondaryEntry": "storage.planning may retain its existing contextual preview action but does not satisfy the Wave 10 discovery gate",
+    "workbenchCausality": "The first locked confirm teaches the Workbench requirement; after a naturally built Workbench, the player returns to a connection target to commit.",
+    "prohibitions": [
+      "global_camp_menu",
+      "remote_module_commit",
+      "tutorial_card",
+      "forced_camera_or_player_warp",
+      "granted_workbench_or_resources",
+      "solution_hint"
+    ],
+    "milestones": [
+      {
+        "id": "MODULE_SLOT_NEAR",
+        "deadlineSeconds": 30,
+        "definition": "A connection target becomes the single latched nearby target and its compact prompt is visible."
+      },
+      {
+        "id": "MODULE_SLOT_POPUP",
+        "deadlineSeconds": 40,
+        "definition": "Interact opens the contextual connection popup with one focused preview action."
+      },
+      {
+        "id": "MODULE_PREVIEW_OPEN",
+        "deadlineSeconds": 50,
+        "definition": "Submit opens ModulePreview on the candidate corresponding to the approached connection target."
+      },
+      {
+        "id": "MODULE_ALL_SEEN",
+        "deadlineSeconds": 75,
+        "definition": "Navigate has shown upper, side, and basement names, ghosts, connectors, and the common W2/D1 cost at least once each."
+      },
+      {
+        "id": "MODULE_GATE_UNDERSTOOD",
+        "deadlineSeconds": 90,
+        "definition": "A locked confirm shows Workbench Required while preserving W2/D1, or the participant correctly identifies that gate without a hint."
+      },
+      {
+        "id": "MODULE_FIELD_RETURN",
+        "deadlineSeconds": 90,
+        "definition": "If Cancel is attempted, preview returns one level to the same connection popup and root Cancel returns to the same field target and snapshot."
+      }
+    ]
+  },
+  "interaction": {
+    "nearRadiusUnits": 1.25,
+    "promptPatternKey": "interaction.structure.prompt",
+    "promptObjectNameKey": "structure.module_connector",
+    "promptActionKey": "interaction.action.preview",
+    "popupActionKey": "ui.module.expand",
+    "candidateFromEntrySlot": true,
+    "states": [
+      {
+        "id": "prompt.far",
+        "focusOwner": "World",
+        "movementAllowed": true,
+        "visiblePromptCount": 0
+      },
+      {
+        "id": "prompt.near",
+        "focusOwner": "World",
+        "movementAllowed": true,
+        "visiblePromptCount": 1
+      },
+      {
+        "id": "popup.active",
+        "focusOwner": "Popup",
+        "movementAllowed": false,
+        "visiblePromptCount": 0
+      },
+      {
+        "id": "module.preview",
+        "focusOwner": "ModulePreview",
+        "movementAllowed": false,
+        "visiblePromptCount": 0
+      },
+      {
+        "id": "module.confirming",
+        "focusOwner": "System",
+        "movementAllowed": false,
+        "visiblePromptCount": 0
+      },
+      {
+        "id": "field.return",
+        "focusOwner": "World",
+        "movementAllowed": true,
+        "visiblePromptCount": 0
+      }
+    ],
+    "transitions": [
+      "prompt.far + eligible target within 1.25u -> prompt.near",
+      "prompt.near + Interact -> popup.active",
+      "popup.active + Submit(ui.module.expand) -> module.preview",
+      "module.preview + Navigate -> module.preview on the next stable candidate",
+      "module.preview + Submit -> module.confirming",
+      "module.confirming + any failure reason -> module.preview with the same candidate and zero state change",
+      "module.confirming + READY -> field.return after one atomic commit",
+      "module.preview + Cancel -> popup.active with ui.module.expand focused",
+      "popup.active + root Cancel -> field.return",
+      "field.return + same target eligible -> prompt.near; otherwise -> prompt.far"
+    ],
+    "inputSemantics": {
+      "Move": "World movement only",
+      "Interact": "Open the single latched target popup only",
+      "Navigate": "Move popup focus or cycle the stable candidate order",
+      "Submit": "Open preview or validate the selected candidate",
+      "Cancel": "Return exactly one level: preview to popup, popup root to field",
+      "deviceRule": "Keyboard and gamepad use the same action IDs and state transitions; only glyphs and physical bindings differ.",
+      "localeOrDeviceChange": "Keep target, candidate, reason ID, popup focus, and ReturnSnapshot; re-render text and glyphs only."
+    }
+  },
+  "failureTaxonomy": {
+    "axes": [
+      "geometry",
+      "economy"
+    ],
+    "primaryDisplayPriority": [
+      "economy.prototype_limit",
+      "geometry.connection",
+      "geometry.overlap",
+      "geometry.terrain",
+      "geometry.required_path",
+      "economy.workbench_locked",
+      "economy.resource_short"
+    ],
+    "reasonFamilies": [
+      {
+        "reasonId": "geometry.connection",
+        "axis": "geometry",
+        "runtimeStatuses": [
+          "NO_CONNECTION_SLOT",
+          "SLOT_UNAVAILABLE"
+        ],
+        "localizationVariants": {
+          "NO_CONNECTION_SLOT": "interaction.module.no_slot",
+          "SLOT_UNAVAILABLE": "interaction.module.slot_unavailable"
+        },
+        "currentRuntimeAliases": [
+          "module.geometry.noconnectionslot"
+        ],
+        "confirmEffect": "reject_no_change"
+      },
+      {
+        "reasonId": "geometry.overlap",
+        "axis": "geometry",
+        "runtimeStatuses": [
+          "OVERLAP"
+        ],
+        "localizationKey": "interaction.module.overlap",
+        "currentRuntimeAliases": [
+          "module.geometry.overlap"
+        ],
+        "confirmEffect": "reject_no_change"
+      },
+      {
+        "reasonId": "geometry.terrain",
+        "axis": "geometry",
+        "runtimeStatuses": [
+          "TERRAIN_BLOCKED"
+        ],
+        "localizationKey": "interaction.module.terrain_blocked",
+        "currentRuntimeAliases": [
+          "module.geometry.terrainblocked"
+        ],
+        "confirmEffect": "reject_no_change"
+      },
+      {
+        "reasonId": "geometry.required_path",
+        "axis": "geometry",
+        "runtimeStatuses": [
+          "PATH_BLOCKED"
+        ],
+        "localizationKey": "interaction.module.path_blocked",
+        "currentRuntimeAliases": [
+          "module.geometry.pathblocked"
+        ],
+        "confirmEffect": "reject_no_change"
+      },
+      {
+        "reasonId": "economy.workbench_locked",
+        "axis": "economy",
+        "runtimeStatuses": [
+          "LOCKED"
+        ],
+        "localizationKey": "interaction.module.locked_workbench",
+        "currentRuntimeAliases": [
+          "module.economy.locked"
+        ],
+        "confirmEffect": "reject_no_change_and_show_full_cost"
+      },
+      {
+        "reasonId": "economy.resource_short",
+        "axis": "economy",
+        "runtimeStatuses": [
+          "SHORT"
+        ],
+        "localizationKey": "interaction.module.missing",
+        "currentRuntimeAliases": [
+          "module.economy.short"
+        ],
+        "tokens": [
+          "moduleName",
+          "missing"
+        ],
+        "confirmEffect": "reject_no_change_and_show_exact_missing"
+      },
+      {
+        "reasonId": "economy.prototype_limit",
+        "axis": "economy",
+        "runtimeStatuses": [
+          "PROTOTYPE_LIMIT"
+        ],
+        "localizationKey": "interaction.module.prototype_limit",
+        "currentRuntimeAliases": [
+          "module.economy.prototypelimit"
+        ],
+        "confirmEffect": "reject_no_change"
+      }
+    ],
+    "nonFailureState": {
+      "reasonId": "ready",
+      "localizationKey": "interaction.module.ready"
+    },
+    "technicalGuardsNotPlayerReasons": [
+      "TERMINAL_OR_MODAL",
+      "NOT_PREVIEWING",
+      "DUPLICATE_SUBMIT",
+      "COST_UNSET",
+      "TRANSACTION_FAILURE"
+    ],
+    "displayRule": "Always compute geometry and economy separately. Show PROTOTYPE_LIMIT first after one successful commit; otherwise show the exact geometry reason when geometry is invalid, then the economy reason. Keep the selected module and full W2/D1 cost visible in every player-facing failure state.",
+    "migrationRule": "interaction.module.* keys are canonical. Current module.geometry.* and module.economy.* table keys may remain temporary aliases, but one state renders one localized message and logic never compares localized text."
+  },
+  "layout1280x800": {
+    "contextPrompt": {
+      "anchorX": 640,
+      "top": "max(294, NarrationBottom + 12)",
+      "widthPixels": {
+        "min": 220,
+        "max": 440
+      },
+      "heightPixels": {
+        "min": 40,
+        "max": 44
+      },
+      "maxLines": 1
+    },
+    "moduleCostReasonChip": {
+      "anchorX": 640,
+      "top": "max(294, NarrationBottom + 12)",
+      "maxWidthPixels": 440,
+      "maxHeightPixels": 64,
+      "maxLines": 2,
+      "minimumBodyFontPixels": 18,
+      "contextPromptHiddenWhileVisible": true
+    },
+    "quantitativeAcceptance": [
+      "far/popup/preview has 0 context prompts; near has exactly 1; preview has exactly 1 cost/reason chip",
+      "NarrationCard gap is at least 12px and overlap with TopHUD or BottomHelp is 0 square pixels",
+      "expanded 12px bounds of the chip overlap Kim, the selected connector hotspot, and the required 48px walking corridor by 0 square pixels",
+      "the selected connector hotspot is fully on screen and at least 75 percent of the selected candidate ghost bounds is visible",
+      "ko, en, and qps-long have 0 clipping, tofu, hidden resource types, hidden counts, or ellipsis that removes the primary reason",
+      "a changed reason, locale, or glyph is visible on the next rendered frame without changing target, candidate, or state snapshot",
+      "a stationary three-second near target changes latch 0 times"
+    ]
+  },
+  "playtest": {
+    "sampleSize": 5,
+    "sessionDurationSeconds": 90,
+    "firstTimeParticipants": true,
+    "hintsAllowed": false,
+    "collection": "anonymous handwritten observation only; no telemetry, recording, or personal identifiers",
+    "sessionMatrix": [
+      {
+        "sessionId": "W10-01",
+        "locale": "ko",
+        "device": "keyboard_mouse"
+      },
+      {
+        "sessionId": "W10-02",
+        "locale": "en",
+        "device": "keyboard_mouse"
+      },
+      {
+        "sessionId": "W10-03",
+        "locale": "ko",
+        "device": "physical_gamepad"
+      },
+      {
+        "sessionId": "W10-04",
+        "locale": "en",
+        "device": "physical_gamepad"
+      },
+      {
+        "sessionId": "W10-05",
+        "locale": "ko",
+        "device": "keyboard_mouse"
+      }
+    ],
+    "cohortPass": [
+      "MODULE_PREVIEW_OPEN by 50 seconds in at least 4 of 5 sessions, including at least one per locale and one per device",
+      "MODULE_ALL_SEEN by 75 seconds in at least 4 of 5 sessions, including at least one per locale and one per device",
+      "MODULE_GATE_UNDERSTOOD by 90 seconds in at least 4 of 5 sessions",
+      "post-session answers identify all three directions, Workbench requirement, and W2/D1 in at least 4 of 5 sessions",
+      "no session can open or commit a module from a far/global menu",
+      "all five sessions have zero crash, input lock, state-changing Cancel, duplicated prompt, or hidden primary reason"
+    ],
+    "stopConditions": [
+      "privacy_or_recording_violation",
+      "hint_contamination_in_two_sessions",
+      "mixed_build_or_resolution",
+      "crash_or_input_lock_repeated_in_two_sessions",
+      "global_or_remote_module_commit_available_in_any_session"
+    ]
+  },
+  "openQuestions": [
+    "Which of the three existing connection targets is visually reached first under the final 1280x800 camera framing; the contract accepts any and does not adopt new art.",
+    "Physical gamepad glyph readability and focus parity remain UNVERIFIED until W10-03 and W10-04 are actually run.",
+    "The actual qps-long locale remains UNVERIFIED; the contract defines its layout gate but does not add a String Table in this design-only work."
+  ],
+  "outOfScope": [
+    "new_resources_or_costs",
+    "changed_W2_D1_balance",
+    "second_module_commit",
+    "global_camp_management_menu",
+    "remote_module_commit",
+    "tutorial_or_solution_hint",
+    "art_adoption",
+    "runtime_or_localization_table_changes",
+    "telemetry",
+    "participant_recruitment"
+  ]
+}

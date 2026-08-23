@@ -1,7 +1,7 @@
 # Wave 9 공간형 베이스캠프 상세 계약
 
-> 상태: `DESIGN LOCKED / COMPACT PROMPT UX ADDENDUM / RUNTIME UNCHANGED IN THIS COMMIT`
-> 작업 기준점: `b4142df02f3745ea18a72888fdf3b029dbe78886` (`origin/master f95b192` 포함)
+> 상태: `DESIGN LOCKED / COMPACT PROMPT UX / WAVE10 ONBOARDING ADDENDUM`
+> 현재 통합 기준: `origin/master 097cd1cbfa1f434c9836e8393c0b59f18e8d8e09`
 > Forge stable IDs: `feature.camp-object-interaction`, `screen.camp`
 > 정본 입력: `Docs/Design/References/approved-spatial-base-camp-concept.png`, `.forge/packets/wave9-spatial-base-camp-rebaseline.json`
 > 화면 증거: 사용자 제공 1280×800 캡처 (`evidence-only`, 저장소 정본 아트·지시문 아님)
@@ -55,7 +55,7 @@
 | `action.failed` | 조건·비용 불충족 | 정확한 부족·잠금·무효 원인을 inline 표시 | 시도 action에 포커스 복원 | 자원 변화 0, 다음 Submit 때 재계산, Back 가능 |
 | `action.succeeded` | 원자 거래 완료 | 성공 피드백 1회와 최신 상태 | 완료 action에 포커스 | 일반 거래→`popup.active`; 배치 완료→`field.return`; 신호 2→`Terminal` |
 | `placement.preview` | 신규 건설 또는 재배치 선택 | 김씨·공간을 보존한 유령, 유효 원인, 비용, 확인·취소 | 이동 잠금, `Placement` | 유효 Confirm→원자 건설/이동→`field.return`; Cancel→진입 원점 |
-| `module.preview` | 저장/설계 action에서 증축 선택 | 위·옆·지하 슬롯과 선택 유령, 기하·비용 상태 | 이동 잠금, `ModulePreview` | 유효 Confirm→모듈 1개 확정→`field.return`; Cancel→root popup |
+| `module.preview` | 연결 슬롯 또는 기존 저장/설계 보조 action에서 증축 선택 | 위·옆·지하 슬롯과 선택 유령, 기하·비용 상태 | 이동 잠금, `ModulePreview` | 유효 Confirm→모듈 1개 확정→`field.return`; Cancel→진입 popup |
 | `field.return` | 완료·취소·팝업 root Back | 팝업/오버레이 제거, 최소 HUD 복원 | `World`, 이동 잠금 해제 | 같은 대상이 여전히 범위 안이면 `camp.target`, 아니면 `camp.free` |
 | `camp.terminal` | 구조 성공·탈진·기한 실패 | 결과 화면만 활성 | `System` | 캠프 팝업·배치로 복귀 불가 |
 
@@ -84,11 +84,12 @@
 
 ## 4. 설비별 행동 소유권
 
-상시 전역 캠프 버튼은 없다. 미건설 일반 설비의 후보 선택과 증축 계획은 시작 방의 고정 `storage.planning` 상호작용점이 맡아 bootstrap 문제를 해결한다. 이 계획점은 새 유료 설비가 아니라 기존 창고/가방 표현의 현장 인터페이스다.
+상시 전역 캠프 버튼은 없다. 미건설 일반 설비 후보는 시작 방의 고정 `storage.planning` 상호작용점이 맡고, 증축 preview의 첫 발견은 세 연결 슬롯 직접 접근이 맡는다. `storage.planning`의 기존 증축 action은 보조 진입으로 남길 수 있다. 이 대상들은 새 유료 설비가 아니라 기존 창고/가방과 공간 connector의 현장 인터페이스다.
 
 | 대상 | 배치 분류 | 소유 action | 소유하지 않는 action |
 |---|---|---|---|
-| `storage.planning` 저장/가방 | 시작 방 고정, 비용 없음, 재배치 불가 | 창고·가방 상세 보기, 식량 사용, 미건설 설비 후보 선택, 방 모듈 미리보기 진입 | 제작, 연구, 가방 확장 구매, 신호 투자 |
+| `storage.planning` 저장/가방 | 시작 방 고정, 비용 없음, 재배치 불가 | 창고·가방 상세 보기, 식량 사용, 미건설 설비 후보 선택, 방 모듈 미리보기 보조 진입 | 제작, 연구, 가방 확장 구매, 신호 투자 |
+| `slot.start.upper/side/basement` 연결 슬롯 | 시작 방 고정, 비용 없음, 재배치 불가 | 해당 방향부터 방 모듈 미리보기 진입, W2/D1 commit 검사 | 작업대 건설, 제작·연구, 원거리 확정 |
 | 작업대 | `module.general-floor`, 제한적 자유 배치·무비용 재배치 | 돌도끼/밧줄 연구, 연구한 도구 제작, 가방 4→6 1회 확장 | 식량·휴식, 신호 투자, 방 증축 비용 확정 |
 | 모닥불 | `module.general-floor`, 제한적 자유 배치·무비용 재배치 | 완성·회복 효과 확인, 무료 재배치, 공간 사용 피드백 | 제작·연구, 가방 확장, 별도 신규 E/H/L 거래 |
 | 빗물받이 | `camp.open-sky-ground`, 같은 구역 내 무료 재배치 | 유효 open-sky 상태·하루 +10 효과 확인, 무료 재배치 | 실내 배치, 클릭 때마다 물/회복 생성 |
@@ -335,6 +336,8 @@ KO가 의미·정보 우선순위·코미디 톤의 기준 원문이다. EN은 �
 | `interaction.structure.prompt` | 대상 근접 pattern | `{inputGlyph} {objectName} {action}` | `{inputGlyph} {action} {objectName}` | locale별 어순 소유, 한 줄, 대상 1개 |
 | `interaction.action.use` | prompt 행동 token | 사용 | Use | 설비명과 런타임 문자열 결합 금지; pattern placeholder로 주입 |
 | `interaction.action.use.short` | 440px overflow 전용 | 사용 | Use | base와 의미 동일, 없으면 base fallback |
+| `interaction.action.preview` | 연결 슬롯 prompt 행동 | 미리보기 | Preview | 사용·확정 완료로 번역 금지 |
+| `structure.module_connector` | 연결 슬롯 대상명 | `{moduleName} 출입 연결부` | `{moduleName} Entrance Connector` | stable moduleName token 사용 |
 | `ui.structure.popup.title` | 팝업 header | `{structure} · {state}` | `{structure} · {state}` | KO≤22, EN≤34 |
 | `ui.action.state.locked` | 잠금 | 잠김 · {requirement} | Locked · {requirement} | 선행 조건 숨김 금지 |
 | `ui.action.state.short` | 비용 부족 | 부족 · {missing} | Missing · {missing} | 부족 항목 전부, 최대 3줄 |
@@ -483,3 +486,7 @@ Q5는 다음 의미로 교체한다.
 4. 후보 흔들림이 재현되면 latch 해제 조건과 switch margin을 UX 변수로 추가할 수 있으나 실제 증거 전 숫자를 만들지 않는다.
 5. 빗물받이는 경제상 열세 선택일 가능성이 남아 있지만 공간형 전환을 이유로 비용 `W2/S1/D1`이나 +10을 바꾸지 않는다.
 6. 공식 영문 제목, Steam App ID, 실제 es/ja/zh 번역, 장기 캠페인 방 수와 저장/로드는 계속 `TBD/OUT_OF_SCOPE`다.
+
+## 14. Wave 10 발견성 addendum 우선순위
+
+첫 90초의 연결 슬롯 직접 진입, exact reason taxonomy, keyboard/gamepad 전이, 1280×800 계측과 5세션 게이트는 `Docs/Design/wave10-module-onboarding.md`와 `.forge/design/wave10-module-onboarding.json`이 정본이다. 이 addendum는 저장/설계점을 보조 진입으로 남기되 90초 발견 PASS로 계산하지 않는다. Wave 9의 세 후보, 작업대 commit gate, 공통 W2/D1, run당 하나, 좌표·거래·생존 수지는 바꾸지 않는다.
