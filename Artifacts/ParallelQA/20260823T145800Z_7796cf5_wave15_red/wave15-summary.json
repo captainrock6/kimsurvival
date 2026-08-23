@@ -1,0 +1,176 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 15 50-day campaign and expedition-map RED-first gate",
+    "runId":  "20260823T145800Z_7796cf5_wave15_red",
+    "baselineCommit":  "7796cf57568d0bad24595379e833e1dd9b4d8d3f",
+    "startedUtc":  "2026-08-23T14:57:44.5152978Z",
+    "completedUtc":  "2026-08-23T14:59:35.4244715Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "RED",
+    "productOverall":  "RED_EXPECTED_GAP",
+    "infrastructureOverall":  "PASS",
+    "currentGreenLocks":  {
+                              "qpsLong":  "10/10 PASS",
+                              "koEnPlacement":  "PASS via fresh Wave12/Wave3",
+                              "campPromptPlacementModuleBagSwim":  "PASS",
+                              "compile":  "PASS 0 errors",
+                              "windowsDevelopmentBuild":  "PASS",
+                              "hiddenSmoke":  "PASS",
+                              "addressables":  "PASS load/build/post-smoke"
+                          },
+    "expectedGapIds":  [
+                           "W15-D01.day_1_of_50",
+                           "W15-D02.day49_continues",
+                           "W15-D03.day50_terminal",
+                           "W15-M01.three_region_forecast_catalog",
+                           "W15-R01.same_seed_reproducible",
+                           "W15-R02.different_seed_bounded_variation",
+                           "W15-R03.softlock_protection",
+                           "W15-L01.ko_en_qps_map_keys",
+                           "W15-O01.seed_region_privacy_log",
+                           "W15-P01.map_proximity_state_machine",
+                           "W15-P02.region_card_player_semantics",
+                           "W15-P03.keyboard_gamepad_focus_parity",
+                           "W15-P04.ko_en_qps_1280_layout"
+                       ],
+    "expectedGaps":  [
+                         {
+                             "id":  "W15-D01.day_1_of_50",
+                             "severity":  "P0",
+                             "actual":  "D1/5/Camp/None",
+                             "reproduction":  "Instantiate GameSession and inspect Day plus FinalDay without grants or warp.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/GameSession.cs"
+                         },
+                         {
+                             "id":  "W15-D02.day49_continues",
+                             "severity":  "P0",
+                             "actual":  "settled=True; D49/Result/Deadline",
+                             "reproduction":  "Set a clean session to Day 49 camp-returned state and call EndDay once.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/PrototypeCampaignFlow.cs"
+                         },
+                         {
+                             "id":  "W15-D03.day50_terminal",
+                             "severity":  "P0",
+                             "actual":  "settled=True; D50/Result/Deadline",
+                             "reproduction":  "Set a clean session to Day 50 camp-returned state and call EndDay once.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/PrototypeCampaignFlow.cs"
+                         },
+                         {
+                             "id":  "W15-M01.three_region_forecast_catalog",
+                             "severity":  "P0",
+                             "actual":  "catalogEntries=0; regions=; failures=beach:missing,forest:missing,shallow-sea:missing",
+                             "reproduction":  "Reflect the runtime expedition/region catalog and inspect every public forecast member.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypeExpeditionRegionCatalog.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs"
+                         },
+                         {
+                             "id":  "W15-R01.same_seed_reproducible",
+                             "severity":  "P0",
+                             "actual":  "runtime seeded region-loot generator not discovered; same=False; different=False; routes\u003e=3=False",
+                             "reproduction":  "Invoke the runtime region-loot generator twice with seed=41017, region.beach, action.search.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypeRegionLootRng.cs"
+                         },
+                         {
+                             "id":  "W15-R02.different_seed_bounded_variation",
+                             "severity":  "P0",
+                             "actual":  "runtime seeded region-loot generator not discovered; same=False; different=False; routes\u003e=3=False",
+                             "reproduction":  "Compare seeds 41017, 41018, and 51017 for the same region/action and validate declared bounds.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypeRegionLootRng.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionRegionCatalog.cs"
+                         },
+                         {
+                             "id":  "W15-R03.softlock_protection",
+                             "severity":  "P0",
+                             "actual":  "runtime seeded region-loot generator not discovered; same=False; different=False; routes\u003e=3=False",
+                             "reproduction":  "Evaluate the runtime softlock summary across its deterministic QA seed matrix and require viableEscapeRouteCount\u003e=3.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypeRegionLootRng.cs; Assets/_Project/Scripts/Runtime/PrototypeEscapeProjects.cs"
+                         },
+                         {
+                             "id":  "W15-L01.ko_en_qps_map_keys",
+                             "severity":  "P1",
+                             "actual":  "rows=238; mapRows=0; qpsExpanded=0; failures=beach:keys-missing,forest:keys-missing,shallow:keys-missing,map-card-key-count=0",
+                             "reproduction":  "Parse PrototypeStrings.tsv and group map/region forecast keys across all three locale columns.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Localization/Tables/**"
+                         },
+                         {
+                             "id":  "W15-O01.seed_region_privacy_log",
+                             "severity":  "P1",
+                             "actual":  "seedField=False; regionField=False; prohibitedPiiField=False",
+                             "reproduction":  "Inspect the runtime playtest event schema and a verification JSONL record for seed/region/action fields and PII absence.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypePlaytestEventLog.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs"
+                         },
+                         {
+                             "id":  "W15-P01.map_proximity_state_machine",
+                             "severity":  "P0",
+                             "actual":  "PrototypeCampInteractionTargetKind has no expedition-map member; values=None,Campfire,Workbench,RainCollector,RescueSignal,StoragePlanning,ModuleExpansionSlot,ModuleConnector",
+                             "reproduction":  "At the map target, test distance=1.26m, distance=1.00m, Interact, then Cancel while recording target/prompt/popup/player/session fingerprints.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+                         },
+                         {
+                             "id":  "W15-P02.region_card_player_semantics",
+                             "severity":  "P0",
+                             "actual":  "PrototypeCampInteractionTargetKind has no expedition-map member; values=None,Campfire,Workbench,RainCollector,RescueSignal,StoragePlanning,ModuleExpansionSlot,ModuleConnector",
+                             "reproduction":  "Open the map in ko/en/qps-long and inspect active node/card TMP text plus stable semantic IDs.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+                         },
+                         {
+                             "id":  "W15-P03.keyboard_gamepad_focus_parity",
+                             "severity":  "P1",
+                             "actual":  "map focus target absent; existing prompt input regression remains in Wave 12 prerequisite",
+                             "reproduction":  "Latch one region, switch KeyboardMouse to synthetic Gamepad, and compare target, selected region, action, and session fingerprints.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs"
+                         },
+                         {
+                             "id":  "W15-P04.ko_en_qps_1280_layout",
+                             "severity":  "P1",
+                             "actual":  "map absent; baseline camp captures only; map layout is RED_EXPECTED_GAP",
+                             "reproduction":  "Open every wave15-*-1280x800.png at 1:1 and compare the recorded overflow/offscreen/overlap counts.",
+                             "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+                         }
+                     ],
+    "productFailures":  [
+
+                        ],
+    "infrastructureFailures":  [
+
+                               ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "greenTransition":  "On a post-implementation baseline, the same command must report infrastructure PASS, fresh Wave14 10/10 PASS, and zero Wave15 EXPECTED_GAP/FAIL checks.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u00277796cf57568d0bad24595379e833e1dd9b4d8d3f\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave14-full-regression-prerequisite",
+                       "startedUtc":  "2026-08-23T14:57:44.5299700Z",
+                       "completedUtc":  "2026-08-23T14:59:16.2240478Z",
+                       "exitCode":  0,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave14QpsGlobalLayoutGate.ps1\" -RunId 20260823T145800Z_7796cf5_wave15_red -BaselineCommit 7796cf57568d0bad24595379e833e1dd9b4d8d3f -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\wave15-wave14-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\wave15-wave14-stderr.log"
+                   },
+                   {
+                       "name":  "wave15-campaign-map-edit",
+                       "startedUtc":  "2026-08-23T14:59:16.2287720Z",
+                       "completedUtc":  "2026-08-23T14:59:24.2757319Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\unity-wave15-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\wave15-edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\wave15-edit-stderr.log"
+                   },
+                   {
+                       "name":  "wave15-campaign-map-play",
+                       "startedUtc":  "2026-08-23T14:59:24.2757319Z",
+                       "completedUtc":  "2026-08-23T14:59:35.3581180Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\unity-wave15-play.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\wave15-play-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red\\wave15-play-stderr.log"
+                   }
+               ],
+    "exitCode":  2
+}

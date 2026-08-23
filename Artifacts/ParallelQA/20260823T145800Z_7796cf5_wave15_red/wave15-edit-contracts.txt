@@ -1,0 +1,18 @@
+Wave 15 campaign/map RED-first Edit contracts
+Run ID: 20260823T145800Z_7796cf5_wave15_red
+Baseline: 7796cf57568d0bad24595379e833e1dd9b4d8d3f
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED: 3/9/0/0/0
+W15-I01.exact_baseline | PASS | NONE | baseline=7796cf57568d0bad24595379e833e1dd9b4d8d3f
+W15-I02.canonical_sources | PASS | NONE | files=4; tokens=Day 50,feature.expedition-map,system.region-loot-rng,task.qa.wave15-campaign-map-redfirst,softlock
+W15-D01.day_1_of_50 | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | D1/5/Camp/None
+W15-D02.day49_continues | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | settled=True; D49/Result/Deadline
+W15-D03.day50_terminal | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | settled=True; D50/Result/Deadline
+W15-D04.early_escape_priority | PASS | NONE | FinalDay=5; workbench=True; rope=True/True; signal=True/True; result=Rescued; phase=Result
+W15-M01.three_region_forecast_catalog | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | catalogEntries=0; regions=; failures=beach:missing,forest:missing,shallow-sea:missing
+W15-R01.same_seed_reproducible | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | runtime seeded region-loot generator not discovered; same=False; different=False; routes>=3=False
+W15-R02.different_seed_bounded_variation | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | runtime seeded region-loot generator not discovered; same=False; different=False; routes>=3=False
+W15-R03.softlock_protection | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | runtime seeded region-loot generator not discovered; same=False; different=False; routes>=3=False
+W15-L01.ko_en_qps_map_keys | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | rows=238; mapRows=0; qpsExpanded=0; failures=beach:keys-missing,forest:keys-missing,shallow:keys-missing,map-card-key-count=0
+W15-O01.seed_region_privacy_log | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | seedField=False; regionField=False; prohibitedPiiField=False

@@ -1,0 +1,36 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 12 five-day compact-a RED-first gate",
+    "runId":  "20260823T145800Z_7796cf5_wave15_red",
+    "baselineCommit":  "7796cf57568d0bad24595379e833e1dd9b4d8d3f",
+    "observedUtc":  "2026-08-23T14:59:06.5121456Z",
+    "overall":  "PASS",
+    "productOverall":  "PASS",
+    "infrastructureOverall":  "PASS",
+    "freshWave3Visual":  "PASS",
+    "wave11WalkingPath":  "PASS 3/3 actual screen rects",
+    "expectedProductGapIds":  [
+
+                              ],
+    "expectedProductGaps":  [
+
+                            ],
+    "unexpectedProductFailures":  [
+
+                                  ],
+    "compile":  "PASS 0 errors",
+    "windowsDevelopmentBuild":  "PASS",
+    "windowsBuildWarnings":  0,
+    "hiddenSmoke":  "PASS",
+    "addressables":  "PASS load/build/post-smoke",
+    "physicalGamepad":  "UNVERIFIED",
+    "powershellCompatibility":  "PASS",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "infrastructureFailures":  [
+
+                               ],
+    "greenTransition":  "FinalDay=5; compact-a stable reference is connected as sliced UI with exact borders; glyph and TMP action are separate; all twelve locale/state captures satisfy geometry and overflow=0.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u00277796cf57568d0bad24595379e833e1dd9b4d8d3f\u0027 -MinimumSmokeSeconds 6",
+    "evidenceRoot":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T145800Z_7796cf5_wave15_red"
+}

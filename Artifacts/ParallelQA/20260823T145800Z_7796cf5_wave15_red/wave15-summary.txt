@@ -1,0 +1,14 @@
+Wave 15 50-day campaign and expedition-map RED-first gate
+Run ID: 20260823T145800Z_7796cf5_wave15_red
+Baseline: 7796cf57568d0bad24595379e833e1dd9b4d8d3f
+PowerShell: Desktop 5.1.26100.9168
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+Expected product gaps: 13 [W15-D01.day_1_of_50, W15-D02.day49_continues, W15-D03.day50_terminal, W15-M01.three_region_forecast_catalog, W15-R01.same_seed_reproducible, W15-R02.different_seed_bounded_variation, W15-R03.softlock_protection, W15-L01.ko_en_qps_map_keys, W15-O01.seed_region_privacy_log, W15-P01.map_proximity_state_machine, W15-P02.region_card_player_semantics, W15-P03.keyboard_gamepad_focus_parity, W15-P04.ko_en_qps_1280_layout]
+Unexpected product failures: 0
+Infrastructure failures: 0
+qps-long lock: 10/10 PASS
+Compile/Build/Smoke/Addressables: PASS 0 errors/PASS/PASS/PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Exit code: 2 (0 GREEN, 2 RED_EXPECTED_GAP, 1 unexpected/infrastructure failure)
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave15CampaignMapGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '7796cf57568d0bad24595379e833e1dd9b4d8d3f' -MinimumSmokeSeconds 6
