@@ -141,7 +141,23 @@
         "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260822234631_ac651d92\\cleared.png"
       ],
       "updatedAt": "2026-08-23T00:16:28.593Z"
+    },
+    {
+      "jobId": "job_20260823073121_f5da3402",
+      "assetId": "ui.camp-contextual-interaction",
+      "assetType": "ui_set",
+      "request": "플레이테스트 피드백 반영 review-only 리비전. 현재 런타임의 큰 중앙 [입력] 행동 안내가 길과 캐릭터를 가리는 문제를 해결한다. 내레이션 카드 바로 아래 중앙에 붙는 한 줄 compact bar/pill 후보 3개를 만든다. 모든 후보는 무문자 투명 UI 조각이며 입력 glyph 슬롯과 행동명 TMP 안전영역을 분리하고, 키보드와 게임패드 glyph를 런타임 교체할 수 있어야 한다. 9-slice 또는 동등 구조로 ko/en 및 qps-long 50% 폭 증가를 견디고 1280x800에서 최소 44px 포커스/입력 영역을 보장한다. 현재 대형 안내와 개선안 3개의 1280x800 비교 보드, near/popup-open/far 상태 보드, 로케일 폭 보드를 남긴다. 기존 설비 전용 팝업은 보존한다. 사용자 승인 전 review/placeholder이며 adopt, package, runtime 연결 금지. 런타임 코드와 씬은 수정하지 않는다.",
+      "decision": "adopted",
+      "tags": [
+        "compact-a-approved"
+      ],
+      "note": "사용자가 Wave 10 선택 보드의 A안, 안정 후보 ui.camp-contextual-interaction.compact-a를 명시적으로 채택했다. 다크 네이비·틸·크림 톤, 분리된 입력 glyph 슬롯과 TMP 행동명 영역, 내레이션 카드 바로 아래의 작은 한 줄 프롬프트를 유지한다. B와 C는 미선택이며, 이번 결정은 A의 패키징과 런타임 적용을 다음 구현 작업에서 진행하도록 승인한다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823073121_f5da3402\\compact-a.png",
+        "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823073121_f5da3402\\actual-size-compact-a-1280x800.png"
+      ],
+      "updatedAt": "2026-08-23T10:11:13.465Z"
     }
   ],
-  "updatedAt": "2026-08-23T07:55:37.457Z"
+  "updatedAt": "2026-08-23T10:11:13.591Z"
 }
