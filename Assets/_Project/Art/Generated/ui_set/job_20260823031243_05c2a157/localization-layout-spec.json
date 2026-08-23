@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.survival-hud",
+  "textRendering": "Unity TextMeshPro only",
+  "rasterizedText": false,
+  "baseLocale": "ko",
+  "supportedLocales": ["ko","en"],
+  "futureLocaleSlots": ["es","ja","zh-Hans","zh-Hant"],
+  "pseudoLocale": {"id":"qps-long","expansionPercent":[35,50],"shipping":false},
+  "tmpFontSlots": {
+    "ko": ["TMP_KO_PRIMARY","TMP_KO_FALLBACK","TMP_SYMBOLS"],
+    "en": ["TMP_LATIN_PRIMARY","TMP_LATIN_EXTENDED","TMP_SYMBOLS"],
+    "es": ["TMP_LATIN_PRIMARY","TMP_LATIN_EXTENDED","TMP_SYMBOLS"],
+    "ja": ["TMP_JA_PRIMARY","TMP_CJK_FALLBACK","TMP_SYMBOLS"],
+    "zh-Hans": ["TMP_ZH_HANS_PRIMARY","TMP_CJK_FALLBACK","TMP_SYMBOLS"],
+    "zh-Hant": ["TMP_ZH_HANT_PRIMARY","TMP_CJK_FALLBACK","TMP_SYMBOLS"]
+  },
+  "glyphProbes": ["Español","日本語","简体中文","繁體中文"],
+  "minimumPixelsAt1280x800": {"body":18,"button":20,"criticalValue":20,"worldLabel":20},
+  "wrapRules": {"monologueMaxLines":2,"resultDetailMaxLines":3,"ellipsisMayHideMeaning":false,"uniformScaleDown":false},
+  "logicalSafeRects1280x800": {
+    "dayPhase": [126,45,105,48],
+    "message": [347,143,586,38],
+    "campActionTitle": [54,240,260,38],
+    "campActionRows": [56,292,407,368],
+    "bagHeaderAndRows": [956,242,262,420],
+    "placementPrompt": [418,686,350,56],
+    "resultTitle": [558,252,486,55],
+    "resultDetail": [558,326,448,104],
+    "languageTitle": [456,158,488,46],
+    "languageRows": [374,235,592,396],
+    "controls": [390,738,500,42]
+  },
+  "longLocaleRules": [
+    "Increase row height and wrap before reducing font size.",
+    "Camp actions may grow vertically; the center playfield remains open.",
+    "Result detail may use three lines; buttons never shrink below 20 px.",
+    "Device glyphs are separate sprites and action names remain localized TMP tokens."
+  ]
+}

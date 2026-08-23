@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "validatedAt": "2026-08-23T03:20:00+09:00",
+  "checks": {"trueAlpha": true, "edgeTouch": false, "expectedDimensions": true},
+  "files": [
+    {"file":"actual-size-camp-1280x800.png","size":[1280,800],"alphaBounds":[16,16,1263,783],"edgePixels":0,"alphaCoveragePercent":93.56},
+    {"file":"actual-size-camp-1920x1080.png","size":[1920,1080],"alphaBounds":[16,16,1903,1063],"edgePixels":0,"alphaCoveragePercent":95.4},
+    {"file":"actual-size-explore-1920x1080.png","size":[1920,1080],"alphaBounds":[16,16,1903,1063],"edgePixels":0,"alphaCoveragePercent":95.4},
+    {"file":"actual-size-language-1280x800.png","size":[1280,800],"alphaBounds":[16,16,1263,783],"edgePixels":0,"alphaCoveragePercent":93.58},
+    {"file":"actual-size-placement-1280x800.png","size":[1280,800],"alphaBounds":[16,16,1263,783],"edgePixels":0,"alphaCoveragePercent":93.56},
+    {"file":"actual-size-placement-1920x1080.png","size":[1920,1080],"alphaBounds":[16,16,1903,1063],"edgePixels":0,"alphaCoveragePercent":95.4},
+    {"file":"actual-size-result-1280x800.png","size":[1280,800],"alphaBounds":[16,16,1263,783],"edgePixels":0,"alphaCoveragePercent":93.58},
+    {"file":"comparison-board.png","size":[2400,1350],"alphaBounds":[24,24,2375,1325],"edgePixels":0,"alphaCoveragePercent":94.5},
+    {"file":"focus-state-board.png","size":[1600,900],"alphaBounds":[24,24,1575,875],"edgePixels":0,"alphaCoveragePercent":91.78},
+    {"file":"hud-components-atlas.png","size":[2048,2048],"alphaBounds":[36,46,1804,1406],"edgePixels":0,"alphaCoveragePercent":45.02},
+    {"file":"localization-expansion-board.png","size":[1920,1080],"alphaBounds":[24,24,1895,1055],"edgePixels":0,"alphaCoveragePercent":93.14}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823031243_05c2a157",
+  "workflow": "Codex local deterministic vector/raster composition",
+  "imageGenUsed": false,
+  "paidExternalApiCalls": 0,
+  "imageGenerationAttempts": 0,
+  "localRenderPasses": 2,
+  "layoutCorrections": ["one deterministic bottom-anchor spacing correction after the first actual-size visual check"],
+  "inputs": ["icon.resource-tool-set adopted job","ui.bag-capacity-upgrade review job","current 1280x800 HUD screenshot layout evidence"],
+  "transformations": ["original SVG UI primitives","9-slice atlas rasterization","accepted icon compositing","review-only bag state compositing","responsive preview rendering"],
+  "localeTextBaked": false,
+  "runtimeFilesChanged": false,
+  "packageCreated": false,
+  "adoptionDeferred": true
+}

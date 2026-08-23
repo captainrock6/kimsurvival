@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 18,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "hud-components.svg",
+      "kind": "svg",
+      "viewBox": "0 0 2048 2048",
+      "issues": []
+    },
+    {
+      "fileName": "hud-components-atlas.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": true,
+      "transparentRatio": 0.8572,
+      "contrastStdDev": 81.81,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 36,
+        "top": 46,
+        "right": 243,
+        "bottom": 641
+      },
+      "previewFile": "qa-preview-hud-components-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-camp-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2783,
+      "contrastStdDev": 65.98,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-camp-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-placement-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.3895,
+      "contrastStdDev": 58.04,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-placement-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-result-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.244,
+      "contrastStdDev": 67.09,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-result-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-language-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.2537,
+      "contrastStdDev": 62.35,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-language-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-camp-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.3057,
+      "contrastStdDev": 63.46,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-camp-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-placement-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.4243,
+      "contrastStdDev": 53.87,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-placement-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-explore-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.4009,
+      "contrastStdDev": 58.16,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-explore-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "comparison-board.png",
+      "kind": "raster",
+      "width": 2400,
+      "height": 1350,
+      "hasAlpha": true,
+      "transparentRatio": 0.2072,
+      "contrastStdDev": 59.79,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-comparison-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "localization-expansion-board.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.1966,
+      "contrastStdDev": 78.55,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-localization-expansion-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "focus-state-board.png",
+      "kind": "raster",
+      "width": 1600,
+      "height": 900,
+      "hasAlpha": true,
+      "transparentRatio": 0.4529,
+      "contrastStdDev": 76.66,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-focus-state-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "hud-ui-metadata.json",
+      "kind": "editable-source",
+      "bytes": 3059,
+      "issues": []
+    },
+    {
+      "fileName": "localization-layout-spec.json",
+      "kind": "editable-source",
+      "bytes": 1820,
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 1709,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 1219,
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 799,
+      "issues": []
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 962,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T03:22:13.409Z",
+  "jobId": "job_20260823031243_05c2a157",
+  "assetType": "ui_set"
+}

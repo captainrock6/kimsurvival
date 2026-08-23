@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.survival-hud",
+  "jobId": "job_20260823031243_05c2a157",
+  "assetType": "ui_set",
+  "status": "review",
+  "reviewOnly": true,
+  "adopted": false,
+  "engineReady": false,
+  "runtimeConnected": false,
+  "generatedAt": "2026-08-23T03:20:00+09:00",
+  "designSystem": {
+    "visualLanguage": "warm sand canvas, rope seams, weathered dark navy, hand-inked edges, tropical teal/coral/amber accents",
+    "layoutPrinciple": "anchored peripheral islands preserve the center playfield; no full-width opaque black wall",
+    "focusCue": "amber 7 px outline plus left physical notch; not color-only",
+    "disabledCue": "muted fill plus stitched X; not color-only",
+    "rasterizedLettersOrNumbers": false,
+    "officialEnglishTitleIncluded": false
+  },
+  "screenStates": ["camp","explore","placement","result","language"],
+  "hudCoverage": ["day-phase","daylight","hunger","stamina","camp-storage","inventory-4","inventory-6","craft-cost","build-cost","placement-cost","research-cost","signal-progress","return","result","language-selector","gamepad-focus"],
+  "dependencies": {
+    "icon.resource-tool-set": {"status":"engine_ready","usage":"reused without duplication"},
+    "ui.bag-capacity-upgrade": {"status":"review","usage":"review-only 4/6-state dependency; not adopted or packaged by this job"}
+  },
+  "responsive": {
+    "reference": [1920,1080],
+    "minimum": [1280,800],
+    "anchors": {"status":"top-left","resources":"top-right","message":"top-center","camp-actions":"left","bag":"right","controls":"bottom-center"},
+    "safeFramePixels": {"1280x800": 30, "1920x1080": 40},
+    "openPlayfieldMinimumPercent": 44
+  },
+  "atlas": {
+    "file": "hud-components-atlas.png",
+    "canvas": [2048,2048],
+    "slices": [
+      {"id":"panel.dark","rect":[48,48,560,260],"border":[18,18,18,18]},
+      {"id":"panel.light","rect":[656,48,560,260],"border":[18,18,18,18]},
+      {"id":"action.default","rect":[48,360,520,112],"border":[14,14,14,14]},
+      {"id":"action.focus","rect":[48,508,520,112],"border":[14,14,14,14]},
+      {"id":"action.disabled","rect":[48,656,520,112],"border":[14,14,14,14]},
+      {"id":"gauge.hunger","rect":[656,360,520,72],"border":[18,18,18,18]},
+      {"id":"gauge.stamina","rect":[656,468,520,72],"border":[18,18,18,18]},
+      {"id":"gauge.daylight","rect":[656,576,520,72],"border":[18,18,18,18]},
+      {"id":"slot.default","rect":[656,700,152,152],"border":[20,20,20,20]},
+      {"id":"slot.focus","rect":[844,700,152,152],"border":[20,20,20,20]},
+      {"id":"slot.locked","rect":[1032,700,152,152],"border":[20,20,20,20]},
+      {"id":"panel.message","rect":[48,900,1168,500],"border":[18,18,18,18]},
+      {"id":"panel.language","rect":[1280,210,520,650],"border":[18,18,18,18]},
+      {"id":"panel.result","rect":[1280,920,520,388],"border":[18,18,18,18]}
+    ]
+  },
+  "editableSource": "hud-components.svg",
+  "previewEvidence": ["comparison-board.png","localization-expansion-board.png","focus-state-board.png","actual-size-camp-1280x800.png","actual-size-camp-1920x1080.png"]
+}

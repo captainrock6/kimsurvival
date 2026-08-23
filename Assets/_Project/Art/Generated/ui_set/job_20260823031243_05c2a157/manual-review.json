@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.survival-hud",
+  "jobId": "job_20260823031243_05c2a157",
+  "reviewedAt": "2026-08-23T03:20:00+09:00",
+  "reviewPasses": 1,
+  "manualVisualReview": "pass",
+  "checks": {
+    "cohesiveDesignSystem": "pass",
+    "1280x800ReadabilityZones": "pass",
+    "1920x1080ReadabilityZones": "pass",
+    "centerPlayfieldPreserved": "pass",
+    "noBakedLocaleText": "pass-by-construction",
+    "longLocaleExpansion": "pass-layout-contract",
+    "focusNotColorOnly": "pass-outline-plus-notch",
+    "disabledNotColorOnly": "pass-muted-plus-stitched-x",
+    "bag4And6ShapeDistinction": "pass-review-dependency",
+    "acceptedIconsReused": "pass",
+    "officialEnglishTitleOmitted": "pass"
+  },
+  "concerns": [
+    "Actual ko/en/qps-long rendered copy still requires a later runtime layout integration pass.",
+    "The review-only ui.bag-capacity-upgrade dependency must be adopted separately before production packaging.",
+    "This candidate is not connected to Runtime, scenes, Addressables, or localization tables."
+  ],
+  "recommendation": "Approve the visual hierarchy and responsive safe-area contract before adoption and runtime implementation.",
+  "adopted": false,
+  "status": "review"
+}

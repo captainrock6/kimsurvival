@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T02:09:00.589Z",
+  "updatedAt": "2026-08-23T03:22:13.484Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -1034,11 +1034,11 @@
     },
     {
       "id": "ui.survival-hud",
-      "name": "PC·Steam 다국어 프로토타입 UI",
+      "name": "PC·Steam 다국어 생존 HUD 리뷰 후보",
       "assetType": "ui_set",
-      "request": "Unity PC 프로토타입용 편집 가능한 다국어 UI 세트. 날짜와 일광, 허기와 체력, 4칸 가방, 캠프 창고, 제작·건설·배치·연구 비용, 구조 신호 진척도, 귀환, 결과 요약, 설정의 언어 선택과 게임패드 포커스 상태를 포함한다. 1920×1080과 1280×800에서 한글과 영어가 모두 읽히도록 고정 폭 본문을 피하고 텍스트 확장 여백, 줄바꿈, 최소 글자 크기와 포커스 영역을 정의한다. 모든 본문과 버튼 문구는 래스터에 굽지 않고 엔진 텍스트로 유지하며 로케일별 TextMeshPro 폰트와 입력 안내가 교체될 자리를 제공한다.",
-      "status": "needed",
-      "source": "codex",
+      "request": "Unity PC·Steam용 편집 가능한 무문자 다국어 생존 HUD 리뷰 후보. 1280x800과 1920x1080에서 날짜·일광, 허기·체력, 캠프 창고, 4칸/6칸 가방, 제작·건설·배치·연구 비용, 구조 신호 진척, 귀환·결과, 언어 선택, 게임패드 포커스를 하나의 따뜻한 열대 코믹 생존 디자인 시스템으로 정리한다. 한국어·영어·향후 스페인어·일본어·중국어 본문과 버튼 문구, 숫자, 로고는 래스터와 SVG에 넣지 않고 TMP 안전영역과 글리프/폰트 슬롯만 정의한다. 기존 채택 아이콘을 재사용하고 ui.bag-capacity-upgrade는 review 의존성으로만 참조한다. 로컬 결정론적 SVG/PNG 제작, 실제 크기 프리뷰, 비교 보드, 현지화 팽창·포커스·알파·크기 검증과 Unity import spec을 제공하되 사용자 승인 전 review 상태이며 adopt, engine_ready, package, runtime 연결을 하지 않는다.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "unity",
         "ui",
@@ -1056,14 +1056,263 @@
       "dependencies": [
         "icon.resource-tool-set"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260823031243_05c2a157"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260823031243_05c2a157",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-23T03:12:43.317Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260823031243_05c2a157",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-23T03:22:13.482Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260823031243_05c2a157",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 62452,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 57716,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "hud-components.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 3134,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/hud-components.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "hud-components-atlas.png",
+          "contentType": "image/png",
+          "bytes": 203999,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/hud-components-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-camp-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 130331,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/actual-size-camp-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-placement-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 99557,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/actual-size-placement-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-result-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 109279,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/actual-size-result-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-language-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 77007,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/actual-size-language-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-camp-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 234525,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/actual-size-camp-1920x1080.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-placement-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 169202,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/actual-size-placement-1920x1080.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "actual-size-explore-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 161609,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/actual-size-explore-1920x1080.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "comparison-board.png",
+          "contentType": "image/png",
+          "bytes": 657830,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/comparison-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "localization-expansion-board.png",
+          "contentType": "image/png",
+          "bytes": 71363,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/localization-expansion-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "focus-state-board.png",
+          "contentType": "image/png",
+          "bytes": 69940,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/focus-state-board.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "hud-ui-metadata.json",
+          "contentType": "application/json",
+          "bytes": 3059,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/hud-ui-metadata.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "localization-layout-spec.json",
+          "contentType": "application/json",
+          "bytes": 1820,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/localization-layout-spec.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "alpha-size-validation.json",
+          "contentType": "application/json",
+          "bytes": 1709,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/alpha-size-validation.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "manual-review.json",
+          "contentType": "application/json",
+          "bytes": 1219,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/manual-review.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "processing-report.json",
+          "contentType": "application/json",
+          "bytes": 799,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/processing-report.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "forge-import.json",
+          "contentType": "application/json",
+          "bytes": 962,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/forge-import.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 6007,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 4427,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-hud-components-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8139,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-hud-components-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-camp-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8984,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-actual-size-camp-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-placement-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8135,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-actual-size-placement-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-result-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7415,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-actual-size-result-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-language-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7998,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-actual-size-language-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-camp-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8299,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-actual-size-camp-1920x1080.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-placement-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7508,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-actual-size-placement-1920x1080.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-actual-size-explore-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7500,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-actual-size-explore-1920x1080.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-comparison-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8589,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-comparison-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-localization-expansion-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7398,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-localization-expansion-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-focus-state-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6933,
+          "url": "/outputs/jobs/job_20260823031243_05c2a157/qa-preview-focus-state-board.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-23T01:52:41.865Z"
+      "updatedAt": "2026-08-23T03:22:13.484Z"
     },
     {
       "id": "effect.comedy-feedback",

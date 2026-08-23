@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-23T03:20:00+09:00",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "ui.survival-hud",
+  "jobId": "job_20260823031243_05c2a157",
+  "assetType": "ui_set",
+  "status": "review",
+  "sourceFiles": ["hud-components.svg","hud-components-atlas.png","hud-ui-metadata.json","localization-layout-spec.json"],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "HighQuality",
+    "maxSize": 4096,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "meshType": "FullRect",
+    "pivot": [0.5,0.5],
+    "nineSliceBordersFrom": "hud-ui-metadata.json#/atlas/slices"
+  },
+  "text": {"renderer":"TextMeshPro","safeRectsFrom":"localization-layout-spec.json","localizedRasterText":false},
+  "runtimeWiringDeferred": true,
+  "packagingDeferredUntilAdoption": true,
+  "adoptionRequired": true,
+  "engineReady": false
+}
