@@ -49,6 +49,16 @@ namespace KimSurvival
             return device == PrototypeInputDevice.Gamepad ? "controls.placement.gamepad" : "controls.placement.keyboard_mouse";
         }
 
+        public static string CampPopup(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.camp.popup.gamepad" : "controls.camp.popup.keyboard_mouse";
+        }
+
+        public static string CampProximity(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "camp.interaction.prompt.gamepad" : "camp.interaction.prompt.keyboard_mouse";
+        }
+
         public static string Explore(PrototypeInputDevice device)
         {
             return device == PrototypeInputDevice.Gamepad ? "controls.explore.gamepad" : "controls.explore.keyboard_mouse";
