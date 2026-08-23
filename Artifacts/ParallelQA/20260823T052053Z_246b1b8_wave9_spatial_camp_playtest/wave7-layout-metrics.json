@@ -1,0 +1,14 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T052053Z_246b1b8_wave9_spatial_camp_playtest",
+    "baselineCommit": "246b1b881e145f74addd0c7a594ac48eb6d5ffff",
+    "unityVersion": "6000.4.9f1",
+    "implementationState": "MEASURED",
+    "baselineOverall": "FAIL",
+    "upgradedOverall": "FAIL",
+    "overall": "FAIL",
+    "frames": 0,
+    "metrics": 0,
+    "failures": 0,
+    "measurements": []
+}

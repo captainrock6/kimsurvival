@@ -1,0 +1,82 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T052053Z_246b1b8_wave9_spatial_camp_playtest",
+    "baselineCommit": "246b1b881e145f74addd0c7a594ac48eb6d5ffff",
+    "unityVersion": "6000.4.9f1",
+    "globalCampActionsActive": false,
+    "largeBagPanelActive": false,
+    "farPromptCount": 0,
+    "farPopupCount": 0,
+    "targets": [
+        {
+            "target": "Campfire",
+            "x": -1.5,
+            "y": -2.3499999046325685,
+            "nearPromptCount": 1,
+            "nearPrompts": [
+                "CampProximityPrompt=[E] Use Campfire"
+            ],
+            "popupCountAfterInteract": 1,
+            "popupNamesAfterInteract": [
+                "Campfire"
+            ],
+            "feedbackKey": ""
+        },
+        {
+            "target": "Workbench",
+            "x": 1.5,
+            "y": -2.1999998092651369,
+            "nearPromptCount": 1,
+            "nearPrompts": [
+                "CampProximityPrompt=[E] Use Workbench"
+            ],
+            "popupCountAfterInteract": 1,
+            "popupNamesAfterInteract": [
+                "Workbench"
+            ],
+            "feedbackKey": ""
+        },
+        {
+            "target": "RainCollector",
+            "x": 3.5,
+            "y": -1.9499999284744263,
+            "nearPromptCount": 1,
+            "nearPrompts": [
+                "CampProximityPrompt=[E] Use Rain Collector"
+            ],
+            "popupCountAfterInteract": 1,
+            "popupNamesAfterInteract": [
+                "RainCollector"
+            ],
+            "feedbackKey": ""
+        },
+        {
+            "target": "RescueSignal",
+            "x": 7.200000286102295,
+            "y": -1.3055793046951295,
+            "nearPromptCount": 1,
+            "nearPrompts": [
+                "CampProximityPrompt=[E] Use Rescue Signal"
+            ],
+            "popupCountAfterInteract": 1,
+            "popupNamesAfterInteract": [
+                "RescueSignal"
+            ],
+            "feedbackKey": ""
+        }
+    ],
+    "screenshots": [
+        "wave9-ko-normal-camp-1280x800.png",
+        "wave9-en-normal-camp-1280x800.png",
+        "wave9-ko-workbench-after-interact-1280x800.png",
+        "wave9-en-rain-after-interact-1280x800.png"
+    ],
+    "activeTmpCount": 14,
+    "overflowingTmpCount": 0,
+    "outOfBoundsTmpCount": 1,
+    "minimumRenderedTextPixels": 21.982221603393556,
+    "koreanHeaderTextOverlap": false,
+    "englishHeaderTextOverlap": false,
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}

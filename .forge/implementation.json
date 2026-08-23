@@ -883,17 +883,21 @@
       "paths": [
         "Assets/Editor/ParallelQA/Wave9SpatialCampContractGateRunner.cs",
         "Assets/Editor/ParallelQA/Invoke-Wave9SpatialCampContractGate.ps1",
-        "Docs/QA/wave9-spatial-camp-contract-gate-d088cbd.md"
+        "Docs/QA/wave9-spatial-camp-contract-gate-d088cbd.md",
+        "Docs/QA/wave9-spatial-camp-playtest-integration-246b1b8.md"
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260823T044500Z_d088cbd_wave9_spatial_camp_red/wave9-summary.json",
         "Artifacts/ParallelQA/20260823T044500Z_d088cbd_wave9_spatial_camp_red/wave9-play-contracts.json",
-        "Artifacts/ParallelQA/20260823T044500Z_d088cbd_wave9_spatial_camp_red/wave9-command-results.json"
+        "Artifacts/ParallelQA/20260823T044500Z_d088cbd_wave9_spatial_camp_red/wave9-command-results.json",
+        "Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/wave9-summary.json",
+        "Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/wave9-play-contracts.json",
+        "Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/windows-development-build.json"
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-23T04:48:19.864Z",
-      "note": "d088cbd independent red-first gate complete: overall RED, PRODUCT RED_EXPECTED_FAIL (16 expected gaps), INFRASTRUCTURE PASS; compile 0 errors, approach-first survival/search/swim/bag/rescue regressions PASS, Windows Development build/smoke and Addressables PASS; physical gamepad UNVERIFIED, Steam NOT_READY.",
+      "updatedAt": "2026-08-23T05:22:28.039Z",
+      "note": "246b1b8 integrated playtest gate complete: infrastructure PASS; contextual far/near/popup/modal/return and approach-first survival/search/swim/bag/rescue loop PASS; Windows Development build 0 warnings, smoke and Addressables PASS. Product remains RED_EXPECTED_FAIL only for four unimplemented module-expansion contracts and one ko 1280x800 TMP-overflow follow-up; physical gamepad UNVERIFIED, Steam NOT_READY.",
       "completedAt": null,
       "createdAt": "2026-08-23T04:48:19.864Z"
     },

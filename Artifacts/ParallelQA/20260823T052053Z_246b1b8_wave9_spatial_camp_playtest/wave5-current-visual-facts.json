@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T052053Z_246b1b8_wave9_spatial_camp_playtest",
+    "baselineCommit": "246b1b881e145f74addd0c7a594ac48eb6d5ffff",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-23T05:22:07.5579795Z",
+    "source": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T052053Z_246b1b8_wave9_spatial_camp_playtest\\wave3-visual-gate.txt",
+    "standardKoEnOverall": "FAIL",
+    "qpsLongOverall": "FAIL",
+    "overall": "FAIL",
+    "placement": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "explorationSwimming": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "qpsLong": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    }
+}

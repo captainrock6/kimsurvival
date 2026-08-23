@@ -1,0 +1,15 @@
+Wave 5 release evidence summary
+Run ID: 20260823T052053Z_246b1b8_wave9_spatial_camp_playtest
+Baseline: 246b1b881e145f74addd0c7a594ac48eb6d5ffff
+QA/build infrastructure gate: PASS
+Release overall: FAIL
+Unity compile: PASS
+Addressables load/build/post-smoke: PASS/PASS/PASS
+Generated temporary cleanup: PASS
+Windows Development build: Succeeded
+Hidden smoke: PASS
+Normal ko/en visual gate: FAIL
+qps-long visual gate: FAIL
+Background reachability: PASS
+Steam readiness: NOT_READY
+Physical gamepad: UNVERIFIED

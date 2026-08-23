@@ -2,25 +2,37 @@
   "schemaVersion": 1,
   "id": "run_20260823040814_b487a41e",
   "createdAt": "2026-08-23T04:08:14.485Z",
-  "updatedAt": "2026-08-23T04:08:14.485Z",
+  "updatedAt": "2026-08-23T05:25:56.325Z",
   "sourceRequest": "Forge 12개 플레이어 행동 제한 안에서 건설·확장과 먹기·휴식을 결합해 탈출 행동을 보존한다.",
-  "state": "design_ready",
+  "state": "in_progress",
   "stages": {
     "design": {
       "status": "complete",
       "updatedAt": "2026-08-23T04:08:14.485Z"
     },
     "art": {
-      "status": "planned",
-      "updatedAt": "2026-08-23T04:08:14.485Z"
+      "status": "in_progress",
+      "note": "Wave 9 spatial camp HUD, contextual popup, modular background, and expansion candidates remain review-only; no adoption or runtime connection.",
+      "evidence": [
+        "Assets/_Project/Art/Generated/ui_set/job_20260823042544_299229fa/contextual-comparison-board.png"
+      ],
+      "updatedAt": "2026-08-23T05:25:56.169Z"
     },
     "implementation": {
-      "status": "planned",
-      "updatedAt": "2026-08-23T04:08:14.485Z"
+      "status": "in_progress",
+      "note": "Contextual camp interaction integrated and verified; upper/side/basement module expansion remains unimplemented.",
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T052053Z_246b1b8_wave9_spatial_camp_playtest/wave9-play-contracts.json"
+      ],
+      "updatedAt": "2026-08-23T05:25:56.248Z"
     },
     "verification": {
-      "status": "planned",
-      "updatedAt": "2026-08-23T04:08:14.485Z"
+      "status": "in_progress",
+      "note": "Infrastructure PASS and playtest build prepared; module contracts and ko 1280x800 TMP overflow remain open, physical gamepad unverified.",
+      "evidence": [
+        "Docs/QA/wave9-spatial-camp-playtest-integration-246b1b8.md"
+      ],
+      "updatedAt": "2026-08-23T05:25:56.325Z"
     }
   }
 }

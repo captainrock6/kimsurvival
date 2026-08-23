@@ -1,0 +1,12 @@
+Wave 9 run metadata
+Run ID: 20260823T052053Z_246b1b8_wave9_spatial_camp_playtest
+Baseline: 246b1b881e145f74addd0c7a594ac48eb6d5ffff
+Branch: master
+Unity: 6000.4.9f1
+Started/completed UTC: 2026-08-23T05:20:53.6999316Z / 2026-08-23T05:22:25.3560366Z
+OS: Microsoft Windows NT 10.0.26200.0
+Execution: sandbox_permissions=require_escalated; no -noUpm
+Evidence policy: fresh run only; prior PASS/FAIL files not reused as verdicts
+Physical gamepad: UNVERIFIED
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Exact rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave9SpatialCampContractGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '246b1b881e145f74addd0c7a594ac48eb6d5ffff'

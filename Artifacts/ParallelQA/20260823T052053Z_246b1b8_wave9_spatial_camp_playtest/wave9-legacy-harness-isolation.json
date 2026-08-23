@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260823T052053Z_246b1b8_wave9_spatial_camp_playtest",
+  "baselineCommit": "246b1b881e145f74addd0c7a594ac48eb6d5ffff",
+  "status": "ISOLATED_BY_DESIGN",
+  "classification": "STALE_TEST_ASSUMPTION",
+  "productRollbackSignal": false,
+  "reason": "The legacy Edit assertion searches for the pre-proximity signal delegate, and the legacy natural Play loop submits workbench/signal dashboard buttons without first approaching their spatial targets.",
+  "oldSignalDelegateAssertionPresent": true,
+  "distantSignalSubmitPresent": true,
+  "replacement": "Wave9SpatialCampContractGateRunner uses the current approach-first RunAutomatedVerification plus independent near/interact/popup contracts.",
+  "exactLegacyReproduction": "ParallelQA.ParallelQaRunner.RunEditChecks / RunPlayModeVerification (informational only; not a Wave 9 product rollback gate)"
+}

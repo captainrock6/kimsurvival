@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260823T052053Z_246b1b8_wave9_spatial_camp_playtest
+Started UTC: 2026-08-23T05:21:01.1701445Z
+Completed UTC: 2026-08-23T05:21:01.1962756Z
+Unity: 6000.4.9f1
+Baseline commit: 246b1b881e145f74addd0c7a594ac48eb6d5ffff
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260823T052053Z_246b1b8_wave9_spatial_camp_playtest\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260823T052053Z_246b1b8_wave9_spatial_camp_playtest\unity-compile.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

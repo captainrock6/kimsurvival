@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260823T052053Z_246b1b8_wave9_spatial_camp_playtest
+Baseline: 246b1b881e145f74addd0c7a594ac48eb6d5ffff
+Normal ko/en: FAIL
+Placement: MISSING
+Exploration/swimming: MISSING
+qps-long: MISSING
+qps-long classification: FAIL · retained as Unity system-work input
