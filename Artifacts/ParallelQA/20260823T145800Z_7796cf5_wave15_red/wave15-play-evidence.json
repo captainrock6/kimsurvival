@@ -1,0 +1,16 @@
+{
+    "runId": "20260823T145800Z_7796cf5_wave15_red",
+    "baselineCommit": "7796cf57568d0bad24595379e833e1dd9b4d8d3f",
+    "targetDiscovery": "no expedition-map proximity target",
+    "stateTransition": "PrototypeCampInteractionTargetKind has no expedition-map member; values=None,Campfire,Workbench,RainCollector,RescueSignal,StoragePlanning,ModuleExpansionSlot,ModuleConnector",
+    "regionCards": "region forecast card semantics unavailable",
+    "inputParity": "map focus target absent; existing prompt input regression remains in Wave 12 prerequisite",
+    "layout": "map absent; baseline camp captures only; map layout is RED_EXPECTED_GAP",
+    "progressFingerprint": "D1/W2/S1/F0/D0/signal0/bag4/Camp/None",
+    "screenshots": [
+        "wave15-ko-camp-map-absent-1280x800.png",
+        "wave15-en-camp-map-absent-1280x800.png",
+        "wave15-qps-long-camp-map-absent-1280x800.png"
+    ],
+    "joystickNames": []
+}

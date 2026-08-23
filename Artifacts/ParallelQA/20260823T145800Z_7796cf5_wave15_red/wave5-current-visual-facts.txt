@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260823T145800Z_7796cf5_wave15_red
+Baseline: 7796cf57568d0bad24595379e833e1dd9b4d8d3f
+Normal ko/en: PASS
+Placement: PLACEMENT_GATE: PASS · targets=24 · failures=0
+Exploration/swimming: EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+qps-long: PSEUDO_LONG_GATE: PASS · targets=10 · failures=0
+qps-long classification: PASS

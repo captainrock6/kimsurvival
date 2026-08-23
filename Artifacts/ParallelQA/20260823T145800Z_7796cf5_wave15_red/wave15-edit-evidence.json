@@ -1,0 +1,13 @@
+{
+    "runId": "20260823T145800Z_7796cf5_wave15_red",
+    "baselineCommit": "7796cf57568d0bad24595379e833e1dd9b4d8d3f",
+    "observedFinalDay": 5,
+    "dayOne": "D1/5/Camp/None",
+    "day49": "settled=True; D49/Result/Deadline",
+    "day50": "settled=True; D50/Result/Deadline",
+    "earlyEscape": "FinalDay=5; workbench=True; rope=True/True; signal=True/True; result=Rescued; phase=Result",
+    "catalog": "catalogEntries=0; regions=; failures=beach:missing,forest:missing,shallow-sea:missing",
+    "rng": "runtime seeded region-loot generator not discovered; same=False; different=False; routes>=3=False",
+    "localization": "rows=238; mapRows=0; qpsExpanded=0; failures=beach:keys-missing,forest:keys-missing,shallow:keys-missing,map-card-key-count=0",
+    "logging": "seedField=False; regionField=False; prohibitedPiiField=False"
+}
