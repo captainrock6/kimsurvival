@@ -1,0 +1,12 @@
+PASS · Windows Development player local JSONL smoke
+Run ID: 20260824T001300Z_7796cf5_wave15
+Build: Windows x64 Development
+Storage root: Application.persistentDataPath/PlaytestLogs
+Observed file: kim-survival-playtest-20260823T151544868Z-b7dc8662.jsonl
+Observed bytes: 5136
+Observed records after hidden 6.329-second smoke: 3
+Stable event sequence: log.started, session.started, facility.proximity.entered
+Independent fields observed: locale=ko, input_device=keyboard_mouse, run_seed=1700355855
+Personal-data fields: none
+Network transmission: none; recorder writes only to the local persistent-data directory
+Region/profile/result linkage is covered by the deterministic EditMode and full PlayMode recorders because the hidden smoke does not synthesize player input.

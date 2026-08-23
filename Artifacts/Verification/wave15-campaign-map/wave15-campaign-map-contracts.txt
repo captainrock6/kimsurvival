@@ -1,0 +1,5 @@
+PASS
+Wave: 15 campaign map foundation
+Unity: 6000.4.9f1
+Contracts: Day 49 continues, Day 50 terminal, early rescue priority, proximity map, three region profiles, deterministic seed/action, three-route softlock protection, shared input, localization
+Failure count: 0

@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: manual
+Started UTC: 2026-08-23T15:04:43.9810341Z
+Completed UTC: 2026-08-23T15:04:44.0010676Z
+Unity: 6000.4.9f1
+Baseline commit: unknown
+Project: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile Artifacts/Verification/wave15-compile4.log
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: Artifacts/Verification/wave15-compile4.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.
