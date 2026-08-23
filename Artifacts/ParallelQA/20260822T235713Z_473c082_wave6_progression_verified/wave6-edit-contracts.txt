@@ -1,0 +1,22 @@
+Wave 6 progression Edit contracts
+Run ID: 20260822T235713Z_473c082_wave6_progression_verified
+Baseline: 473c0824096d02589c46dce92cb1d2264dfb23a4
+Unity: 6000.4.9f1
+Product: FAIL
+Infrastructure: PASS
+Counts: PASS=11 FAIL=4 INFRA_FAIL=0 UNVERIFIED=0
+PASS · NONE · P0 · W6-01.signal.stage1 · upgraded=True stage=1 rope=False wood=0 salvage=0 result=None message=message.signal.stage1
+PASS · NONE · P0 · W6-02.signal.stage2.requires_rope · upgraded=False stage=1 rope=False wood=2 salvage=2 message=message.signal.rope
+PASS · NONE · P0 · W6-03.signal.stage2.rescue · before wood/salvage=2/2 upgraded=True stage=2 rope=True result=Rescued phase=Result
+PASS · NONE · P1 · W6-04a.signal.shortage.workbench · shortage=workbench upgraded=False messageKey=message.signal.materials ko=작업대와 나무 2, 표류물 2가 필요하다. en=A workbench, 2 wood, and 2 salvage are required.
+PASS · NONE · P1 · W6-04b.signal.shortage.wood · shortage=wood upgraded=False messageKey=message.signal.materials ko=작업대와 나무 2, 표류물 2가 필요하다. en=A workbench, 2 wood, and 2 salvage are required.
+PASS · NONE · P1 · W6-04c.signal.shortage.salvage · shortage=salvage upgraded=False messageKey=message.signal.materials ko=작업대와 나무 2, 표류물 2가 필요하다. en=A workbench, 2 wood, and 2 salvage are required.
+FAIL · PRODUCT_DEFECT · P0 · W6-05.barrier.rope_only_blocked · rope=True axe=False x=11.90 blockedNotice=False
+FAIL · PRODUCT_DEFECT · P0 · W6-06.barrier.axe_only_passes · rope=False axe=True x=8.00 blockedNotice=True
+PASS · NONE · P0 · W6-07a.axe.gather.plus_one · baseAmount=1 plain=1 axe=2 delta=1 messages=message.gather.land/message.gather.axe
+FAIL · PRODUCT_DEFECT · P1 · W6-07b.axe.copy.no_double_claim · forbidden=ko:message.craft.axe=돌도끼 완성. 나무가 두 배로 억울해진다. | en:message.craft.axe=Stone axe complete. Trees now have twice the reason to complain.
+PASS · NONE · P1 · W6-08a.signal.ko_en_semantics · ko=구조 신호대 1/2  나무2·표류물2 | 작업대와 나무 2, 표류물 2가 필요하다. | 마지막 안테나를 세우려면 밧줄이 필요하다. en=Rescue Signal 1/2  Wood 2 · Salvage 2 | A workbench, 2 wood, and 2 salvage are required. | The final antenna needs rope.
+FAIL · PRODUCT_DEFECT · P0 · W6-09a.balance.f0_h70_day35 · food=1 hungerStart=75.0 dayDrain=25.0 hungerAfter=50.0
+PASS · NONE · P0 · W6-09b.natural.rescue_no_grant_warp · sourceGrantWarpFree=True day=3 result=Rescued phase=Result
+PASS · NONE · P0 · W6-09c.natural.exhaustion · result=Exhausted phase=Result energy=0.0
+PASS · NONE · P0 · W6-09d.natural.deadline · day=3 result=Deadline phase=Result

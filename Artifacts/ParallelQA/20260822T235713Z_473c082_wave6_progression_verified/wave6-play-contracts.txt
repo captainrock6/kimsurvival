@@ -1,0 +1,16 @@
+Wave 6 ko/en progression Play contracts
+Run ID: 20260822T235713Z_473c082_wave6_progression_verified
+Baseline: 473c0824096d02589c46dce92cb1d2264dfb23a4
+Unity: 6000.4.9f1
+Product: FAIL
+Infrastructure: PASS
+Counts: PASS=2 FAIL=6 INFRA_FAIL=0 UNVERIFIED=1
+PASS · NONE · P1 · W6-08.ko.signal.semantic · upgraded=False · stage=1 · visible=마지막 안테나를 세우려면 밧줄이 필요하다. | 구조 신호대 1/2  나무2·표류물2
+FAIL · PRODUCT_DEFECT · P1 · W6-08.ko.signal.readability · 마지막 안테나를 세우려면 밧줄이 필요하다. glyph=19.8px bounds=(x:402.75, y:577.30, width:476.19, height:19.76) contrast=18.5 overflow=False | 구조 신호대 1/2  나무2·표류물2 glyph=14.0px bounds=(x:223.13, y:200.73, width:263.30, height:35.75) contrast=8.2 overflow=False
+PASS · NONE · P1 · W6-08.en.signal.semantic · upgraded=False · stage=1 · visible=The final antenna needs rope. | Rescue Signal 1/2  Wood 2 · Salvage 2
+FAIL · PRODUCT_DEFECT · P1 · W6-08.en.signal.readability · The final antenna needs rope. glyph=11.6px bounds=(x:477.78, y:576.60, width:322.89, height:19.45) contrast=18.5 overflow=False | Rescue Signal 1/2  Wood 2 · Salvage 2 glyph=12.0px bounds=(x:232.77, y:200.03, width:243.26, height:34.20) contrast=8.2 overflow=False
+FAIL · PRODUCT_DEFECT · P0 · W6-08.ko.barrier.semantic · visible=밧줄 필요
+FAIL · PRODUCT_DEFECT · P1 · W6-08.ko.barrier.readability · 
+FAIL · PRODUCT_DEFECT · P0 · W6-08.en.barrier.semantic · visible=Rope Required
+FAIL · PRODUCT_DEFECT · P1 · W6-08.en.barrier.readability · 
+UNVERIFIED · HARDWARE_GAP · P2 · W6-HW.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode

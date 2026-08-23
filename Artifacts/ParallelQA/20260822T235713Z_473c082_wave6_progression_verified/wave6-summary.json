@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260822T235713Z_473c082_wave6_progression_verified",
+  "baselineCommit": "473c0824096d02589c46dce92cb1d2264dfb23a4",
+  "observedUtc": "2026-08-22T23:58:19.1712006Z",
+  "overall": "FAIL",
+  "productOverall": "FAIL",
+  "infrastructureOverall": "PASS",
+  "releaseRegressionOverall": "PASS",
+  "compile": "PASS",
+  "editContracts": "FAIL",
+  "playContracts": "FAIL",
+  "normalPlacement": "PASS 24/24",
+  "explorationSwimming": "PASS 10/10",
+  "qpsLong": "PASS 10/10",
+  "addressables": "load=PASS build=PASS postSmoke=PASS",
+  "windowsBuild": "PASS",
+  "hiddenSmoke": "PASS",
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "productDefects": [
+    {
+      "id": "W6-05.barrier.rope_only_blocked",
+      "severity": "P0",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Rope without a stone axe cannot move beyond the vine/wood barrier",
+      "actual": "rope=True axe=False x=11.90 blockedNotice=False",
+      "reproduction": "Craft rope only, begin search, step right from x=7.7, and inspect the traversal clamp/blocked notice.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W6-06.barrier.axe_only_passes",
+      "severity": "P0",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "A stone axe without rope can move beyond the vine/wood barrier",
+      "actual": "rope=False axe=True x=8.00 blockedNotice=True",
+      "reproduction": "Craft stone axe only, begin search, step right from x=7.7, and inspect traversal x/blocked notice.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W6-07b.axe.copy.no_double_claim",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Player-facing ko/en stone-axe copy contains no 2x, twice, double, 2배, or 두 배 claim",
+      "actual": "forbidden=ko:message.craft.axe=돌도끼 완성. 나무가 두 배로 억울해진다. | en:message.craft.axe=Stone axe complete. Trees now have twice the reason to complain.",
+      "reproduction": "Format the axe research/craft/gather strings in ko/en and scan deterministic forbidden multiplier terms.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+    },
+    {
+      "id": "W6-09a.balance.f0_h70_day35",
+      "severity": "P0",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Reset starts Food 0 / Hunger 70 and one settlement drains Hunger by exactly 35",
+      "actual": "food=1 hungerStart=75.0 dayDrain=25.0 hungerAfter=50.0",
+      "reproduction": "Reset GameSession, observe food/hunger, complete an empty expedition, and compare pre/post EndDay hunger.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs"
+    },
+    {
+      "id": "W6-08.ko.signal.readability",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Stage-2 signal requirements are readable at 1280x800 in ko",
+      "actual": "마지막 안테나를 세우려면 밧줄이 필요하다. glyph=19.8px bounds=(x:402.75, y:577.30, width:476.19, height:19.76) contrast=18.5 overflow=False | 구조 신호대 1/2  나무2·표류물2 glyph=14.0px bounds=(x:223.13, y:200.73, width:263.30, height:35.75) contrast=8.2 overflow=False",
+      "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W6-08.en.signal.readability",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Stage-2 signal requirements are readable at 1280x800 in en",
+      "actual": "The final antenna needs rope. glyph=11.6px bounds=(x:477.78, y:576.60, width:322.89, height:19.45) contrast=18.5 overflow=False | Rescue Signal 1/2  Wood 2 · Salvage 2 glyph=12.0px bounds=(x:232.77, y:200.03, width:243.26, height:34.20) contrast=8.2 overflow=False",
+      "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W6-08.ko.barrier.semantic",
+      "severity": "P0",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "The vine/wood barrier visibly requires a stone axe, not rope, in ko",
+      "actual": "visible=밧줄 필요",
+      "reproduction": "Begin search without tools, frame the barrier at 1280x800, and read its world label.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+    },
+    {
+      "id": "W6-08.ko.barrier.readability",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Barrier requirement is readable at 1280x800 in ko",
+      "actual": "",
+      "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W6-08.en.barrier.semantic",
+      "severity": "P0",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "The vine/wood barrier visibly requires a stone axe, not rope, in en",
+      "actual": "visible=Rope Required",
+      "reproduction": "Begin search without tools, frame the barrier at 1280x800, and read its world label.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+    },
+    {
+      "id": "W6-08.en.barrier.readability",
+      "severity": "P1",
+      "classification": "PRODUCT_DEFECT",
+      "expected": "Barrier requirement is readable at 1280x800 in en",
+      "actual": "",
+      "reproduction": "Open the corresponding exact 1280x800 screenshot and compare the recorded projected TMP bounds.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "infrastructureFailures": [],
+  "evidenceRoot": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260822T235713Z_473c082_wave6_progression_verified"
+}

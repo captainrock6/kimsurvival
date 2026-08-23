@@ -1,0 +1,18 @@
+Wave 6 progression regression summary
+Run ID: 20260822T235713Z_473c082_wave6_progression_verified
+Baseline: 473c0824096d02589c46dce92cb1d2264dfb23a4
+Overall: FAIL
+Product: FAIL
+Infrastructure: PASS
+Release regression: PASS
+Compile: PASS
+Edit/Play product contracts: FAIL/FAIL
+Normal placement: PASS 24/24
+Exploration/swimming: PASS 10/10
+qps-long: PASS 10/10
+Addressables: load=PASS build=PASS postSmoke=PASS
+Windows build/smoke: PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Product defect count: 10
+Infrastructure failure count: 0

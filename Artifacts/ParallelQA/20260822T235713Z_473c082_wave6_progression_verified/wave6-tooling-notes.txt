@@ -1,0 +1,11 @@
+Wave 6 tooling notes
+Run ID: 20260822T235713Z_473c082_wave6_progression_verified
+Baseline: 473c0824096d02589c46dce92cb1d2264dfb23a4
+
+- All Unity Editor, build, and Windows Player commands ran outside the Codex sandbox.
+- No -noUpm, license/cache deletion, or binary replacement was used.
+- Unity script compilation completed with errors 0 / warnings 0.
+- The Wave 6 Play and legacy full-Play Editor logs each recorded one UnityEditor.Search.SearchDatabase ArgumentOutOfRangeException after the contract evidence had been written during Editor shutdown.
+- This is the previously observed Editor Search-index startup/shutdown noise. It did not appear in windows-player.log and did not prevent either Play runner from producing its results.
+- Classification: P3 TEST_TOOLING_NOISE, not a product defect and not a release-regression failure.
+- Raw local logs: work/ParallelQA/20260822T235713Z_473c082_wave6_progression_verified/unity-wave6-play.log and unity-legacy-full-play.log.
