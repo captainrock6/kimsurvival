@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 11 direct connection-slot RED-first gate",
+  "runId": "20260823T140000Z_72ec967_wave11_redfirst",
+  "baselineCommit": "72ec967a9009635fbeccbc758563183a67a4b311",
+  "observedUtc": "2026-08-23T09:53:13.8024604Z",
+  "overall": "RED",
+  "productOverall": "RED_EXPECTED_FAIL",
+  "infrastructureOverall": "PASS",
+  "directSlotGate": "RED_EXPECTED_FAIL",
+  "directChecksPassed": 0,
+  "directChecksTotal": 4,
+  "storagePlanningAuxiliary": "PASS_NOT_SUBSTITUTE",
+  "fullSurvivalRegression": "PASS",
+  "compile": "PASS 0 errors",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "expectedProductGaps": [
+    {
+      "id": "W11-E02.direct_slot_runtime_surface",
+      "severity": "P0",
+      "actual": "catalogDrivenRegistration=False; canonicalActionKey=False; Play behavior remains authoritative",
+      "reproduction": "Inspect the camp target registration and canonical localization table, then run the Play slot approach matrix.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs; Assets/_Project/Scripts/Localization/**"
+    },
+    {
+      "id": "W11-E06.ko_en_qps_direct_action",
+      "severity": "P1",
+      "actual": "required=13; missing=ui.module.expand; namedCanonicalPlaceholders={0},{1},{2}:True; qpsWrapped=True",
+      "reproduction": "Load the TSV/table rows for ui.module.expand and the module reason IDs in all three locales.",
+      "recommendedFiles": "Assets/_Project/Scripts/Localization/**"
+    },
+    {
+      "id": "W11-P01.direct_slot_discovery_popup_and_cancel",
+      "severity": "P0",
+      "actual": "farZero=True; registered=0/3; near=0/3; popup/action/first/cancel=0/3; slot.start.upper{canonical catalog slot exists, but no independent proximity target was registered} | slot.start.side{canonical catalog slot exists, but no independent proximity target was registered} | slot.start.basement{canonical catalog slot exists, but no independent proximity target was registered}",
+      "reproduction": "At room.start, move far away, then approach slot.start.upper/side/basement individually; open, preview, and cancel each.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"
+    },
+    {
+      "id": "W11-P02.direct_slot_1280_layout",
+      "severity": "P1",
+      "actual": "directScreens=3/6; clear=0/3; captures are attempts when direct targets are absent and do not claim direct PASS",
+      "reproduction": "Open the six direct-slot PNGs at 1:1 and compare prompt/popup bounds with the player, slot, and lower walking band.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "unexpectedProductFailures": [],
+  "infrastructureFailures": [],
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave11SlotDiscoveryGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '72ec967a9009635fbeccbc758563183a67a4b311' -MinimumSmokeSeconds 6",
+  "evidenceRoot": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T140000Z_72ec967_wave11_redfirst"
+}

@@ -1,0 +1,12 @@
+Wave 11 direct slot Edit contracts
+Run ID: 20260823T140000Z_72ec967_wave11_redfirst
+Baseline: 72ec967a9009635fbeccbc758563183a67a4b311
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 4/2/0/0/0
+W11-E01.canonical_slot_catalog | PASS | NONE | slot.start.upper<->slot.upper.down, slot.start.side<->slot.side.left, slot.start.basement<->slot.basement.up
+W11-E02.direct_slot_runtime_surface | EXPECTED_FAIL | PRODUCT_EXPECTED_GAP | catalogDrivenRegistration=False; canonicalActionKey=False; Play behavior remains authoritative
+W11-E03.candidates_reasons_economy | PASS | NONE | cycle=Upper>Side>Basement; reasonIds=9; economy=LOCKED>SHORT(W1/D1)>READY(W2/D1)
+W11-E04.atomicity_and_one_room_limit | PASS | NONE | cancel/invalid/short/duplicate/second neutral; success delta W-2/D-1 exactly once
+W11-E05.keyboard_synthetic_gamepad | PASS | NONE | interact=true; cycle=+1; confirm=true; cancel=true; device prompt keys remain distinct with equivalent meaning
+W11-E06.ko_en_qps_direct_action | EXPECTED_FAIL | PRODUCT_EXPECTED_GAP | required=13; missing=ui.module.expand; namedCanonicalPlaceholders={0},{1},{2}:True; qpsWrapped=True

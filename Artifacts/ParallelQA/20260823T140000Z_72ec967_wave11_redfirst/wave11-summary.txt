@@ -1,0 +1,17 @@
+Wave 11 direct connection-slot RED-first gate
+Run ID: 20260823T140000Z_72ec967_wave11_redfirst
+Baseline: 72ec967a9009635fbeccbc758563183a67a4b311
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Direct slot gate: RED_EXPECTED_FAIL (0/4)
+storage.planning auxiliary: PASS_NOT_SUBSTITUTE
+Full survival regression: PASS
+Compile: PASS 0 errors
+Windows build: PASS, warnings=0
+Hidden smoke: PASS
+Addressables: PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)
+Expected product gaps: 4
+Unexpected product failures: 0
+Infrastructure failures: 0
+Evidence: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Artifacts\ParallelQA\20260823T140000Z_72ec967_wave11_redfirst

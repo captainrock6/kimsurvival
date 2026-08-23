@@ -1,0 +1,11 @@
+Wave 11 direct slot Play contracts
+Run ID: 20260823T140000Z_72ec967_wave11_redfirst
+Baseline: 72ec967a9009635fbeccbc758563183a67a4b311
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 2/2/0/0/1
+W11-P01.direct_slot_discovery_popup_and_cancel | EXPECTED_FAIL | PRODUCT_EXPECTED_GAP | farZero=True; registered=0/3; near=0/3; popup/action/first/cancel=0/3; slot.start.upper{canonical catalog slot exists, but no independent proximity target was registered} | slot.start.side{canonical catalog slot exists, but no independent proximity target was registered} | slot.start.basement{canonical catalog slot exists, but no independent proximity target was registered}
+W11-P02.direct_slot_1280_layout | EXPECTED_FAIL | PRODUCT_EXPECTED_GAP | directScreens=3/6; clear=0/3; captures are attempts when direct targets are absent and do not claim direct PASS
+W11-P03.storage_planning_auxiliary_regression | PASS | NONE | PASS · storage.planning retained; three candidates cycled; cancel restored; explicitly excluded from direct-slot numerator
+W11-P04.full_survival_regression | PASS | NONE | PASS · Wave 10 실제 qps-long 데이터 로케일, 제품 ko/en 순환·저장 분리, ko/en/qps 동일 근접 대상 latch와 [E]/[X] 의미, 1280x800 한국어 상단 HUD overflow=0 및 qps 안전 맞춤 확인. Wave 9 현장 계획 지점 위층/옆방/지하실 순회·원자 확정·명시적 이동과 기존 전역 대시보드/대형 가방 숨김, 공간형 설비 사용, 제한적 자유 배치, 가방 4→6·수색·수영·장벽·제작·연구·귀환·정산·3일 구조 루프 회귀 확인
+W11-HW01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | no non-empty joystick name exposed to Unity batch Play Mode

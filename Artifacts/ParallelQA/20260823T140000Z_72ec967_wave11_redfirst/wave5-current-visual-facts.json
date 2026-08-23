@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T140000Z_72ec967_wave11_redfirst",
+    "baselineCommit": "72ec967a9009635fbeccbc758563183a67a4b311",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-23T09:52:56.4172199Z",
+    "source": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260823T140000Z_72ec967_wave11_redfirst\\wave3-visual-gate.txt",
+    "standardKoEnOverall": "FAIL",
+    "qpsLongOverall": "FAIL",
+    "overall": "FAIL",
+    "placement": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "explorationSwimming": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "qpsLong": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    }
+}

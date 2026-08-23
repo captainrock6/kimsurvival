@@ -1,0 +1,19 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260823T140000Z_72ec967_wave11_redfirst",
+    "baselineCommit": "72ec967a9009635fbeccbc758563183a67a4b311",
+    "unityVersion": "6000.4.9f1",
+    "directActionKey": "ui.module.expand",
+    "directDiscovery": "",
+    "auxiliaryStoragePlanning": "",
+    "candidatesReasonsEconomy": "cycle=Upper>Side>Basement; reasonIds=9; economy=LOCKED>SHORT(W1/D1)>READY(W2/D1)",
+    "transactionAtomicity": "cancel/invalid/short/duplicate/second neutral; success delta W-2/D-1 exactly once",
+    "keyboardSyntheticGamepad": "interact=true; cycle=+1; confirm=true; cancel=true; device prompt keys remain distinct with equivalent meaning",
+    "localization": "required=13; missing=ui.module.expand; namedCanonicalPlaceholders={0},{1},{2}:True; qpsWrapped=True",
+    "fullRegression": "",
+    "layout": "",
+    "slots": [],
+    "screenshots": [],
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}
