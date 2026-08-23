@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "jobId": "job_20260823015835_65b80963",
+  "source": "Codex ImageGen built-in, one generation only",
+  "sourceHadAlpha": false,
+  "checkerboardRemoval": "deterministic neutral-bright pixel extraction; no regeneration",
+  "allOutputsHaveAlpha": true,
+  "edgeTouchCount": 0,
+  "files": [
+    { "file": "source-art-alpha.png", "width": 1536, "height": 1024, "transparentRatio": 0.7412, "alphaBounds": [69, 279, 1388, 520], "edgeTouch": false },
+    { "file": "bag-base.png", "width": 512, "height": 512, "transparentRatio": 0.5526, "alphaBounds": [79, 41, 353, 430], "edgeTouch": false },
+    { "file": "bag-upgraded.png", "width": 512, "height": 512, "transparentRatio": 0.4860, "alphaBounds": [40, 41, 431, 430], "edgeTouch": false },
+    { "file": "bag-upgrade-icon.png", "width": 512, "height": 512, "transparentRatio": 0.6863, "alphaBounds": [86, 46, 340, 420], "edgeTouch": false },
+    { "file": "capacity-4.png", "width": 384, "height": 512, "transparentRatio": 0.3617, "alphaBounds": [14, 14, 356, 355], "edgeTouch": false },
+    { "file": "capacity-4-locked.png", "width": 384, "height": 512, "transparentRatio": 0.1462, "alphaBounds": [14, 14, 356, 474], "edgeTouch": false },
+    { "file": "capacity-6.png", "width": 384, "height": 512, "transparentRatio": 0.1462, "alphaBounds": [14, 14, 356, 474], "edgeTouch": false },
+    { "file": "upgrade-card-default.png", "width": 384, "height": 128, "transparentRatio": 0.2730, "alphaBounds": [15, 13, 354, 102], "edgeTouch": false },
+    { "file": "upgrade-card-focus.png", "width": 384, "height": 128, "transparentRatio": 0.2519, "alphaBounds": [4, 12, 366, 104], "edgeTouch": false },
+    { "file": "upgrade-card-disabled.png", "width": 384, "height": 128, "transparentRatio": 0.2730, "alphaBounds": [15, 13, 354, 102], "edgeTouch": false },
+    { "file": "actual-size-1280x800.png", "width": 1280, "height": 800, "transparentRatio": 0.3294, "alphaBounds": [16, 16, 1248, 767], "edgeTouch": false },
+    { "file": "actual-size-1920x1080.png", "width": 1920, "height": 1080, "transparentRatio": 0.3167, "alphaBounds": [24, 21, 1872, 1037], "edgeTouch": false },
+    { "file": "comparison-board.png", "width": 1600, "height": 900, "transparentRatio": 0.6469, "alphaBounds": [103, 58, 1354, 784], "edgeTouch": false }
+  ]
+}

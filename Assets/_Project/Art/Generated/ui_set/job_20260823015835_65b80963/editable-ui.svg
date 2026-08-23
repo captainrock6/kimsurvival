@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024">
+  <defs>
+    <g id="slot-active">
+      <rect x="0" y="0" width="300" height="53" rx="12" fill="#8b683e" stroke="#2b1d14" stroke-width="5"/>
+      <rect x="10" y="8" width="280" height="37" rx="8" fill="#182325"/>
+      <path d="M18 48H282" fill="none" stroke="#ffd35c" stroke-width="2" stroke-dasharray="4 6"/>
+    </g>
+    <g id="slot-extension-olive">
+      <rect x="0" y="0" width="316" height="53" rx="17" fill="#607441" stroke="#2b1d14" stroke-width="5"/>
+      <rect x="10" y="8" width="296" height="37" rx="8" fill="#182325"/>
+      <path d="M18 48H298" fill="none" stroke="#ffd35c" stroke-width="2" stroke-dasharray="4 6"/>
+    </g>
+    <g id="slot-extension-rust">
+      <rect x="0" y="0" width="316" height="53" rx="17" fill="#be5222" stroke="#2b1d14" stroke-width="5"/>
+      <rect x="10" y="8" width="296" height="37" rx="8" fill="#182325"/>
+      <path d="M18 48H298" fill="none" stroke="#ffd35c" stroke-width="2" stroke-dasharray="4 6"/>
+    </g>
+    <g id="slot-locked-olive">
+      <rect x="0" y="0" width="316" height="53" rx="18" fill="#495738" stroke="#2b1d14" stroke-width="5"/>
+      <path d="M8 8H308L288 45H28Z" fill="#493827"/>
+      <path d="M12 10L304 43M304 10L12 43" fill="none" stroke="#de9d30" stroke-width="3"/>
+    </g>
+    <g id="slot-locked-rust">
+      <rect x="0" y="0" width="316" height="53" rx="18" fill="#7d4527" stroke="#2b1d14" stroke-width="5"/>
+      <path d="M8 8H308L288 45H28Z" fill="#493827"/>
+      <path d="M12 10L304 43M304 10L12 43" fill="none" stroke="#de9d30" stroke-width="3"/>
+    </g>
+    <g id="panel-shell-short">
+      <rect x="0" y="0" width="348" height="347" rx="28" fill="#d3bc89" stroke="#2b1d14" stroke-width="7"/>
+      <path d="M12 35C88 7 260 7 336 35" fill="none" stroke="#de9d30" stroke-width="7"/>
+      <path d="M40 330H308" fill="none" stroke="#3d2b1e" stroke-width="3" stroke-dasharray="5 7"/>
+    </g>
+    <g id="panel-shell-tall">
+      <rect x="0" y="0" width="348" height="466" rx="28" fill="#d3bc89" stroke="#2b1d14" stroke-width="7"/>
+      <path d="M12 35C88 7 260 7 336 35" fill="none" stroke="#de9d30" stroke-width="7"/>
+      <path d="M40 448H308" fill="none" stroke="#3d2b1e" stroke-width="3" stroke-dasharray="5 7"/>
+    </g>
+    <g id="action-default">
+      <rect x="0" y="0" width="348" height="96" rx="18" fill="#5b3d22" stroke="#de9d30" stroke-width="5"/>
+      <path d="M102 82H322" fill="none" stroke="#ffd35c" stroke-width="2" stroke-dasharray="4 7"/>
+    </g>
+    <g id="action-focus">
+      <path d="M0 48L18 34V62Z" fill="#ffd35c"/>
+      <rect x="18" y="0" width="348" height="96" rx="18" fill="#5b3d22" stroke="#ffd35c" stroke-width="8"/>
+      <path d="M120 82H340" fill="none" stroke="#ffd35c" stroke-width="2" stroke-dasharray="4 7"/>
+    </g>
+    <g id="action-disabled">
+      <rect x="0" y="0" width="348" height="96" rx="18" fill="#4b4943" stroke="#7d7868" stroke-width="5"/>
+      <path d="M12 12L82 84M82 12L12 84" fill="none" stroke="#beb493" stroke-width="4" stroke-dasharray="4 5"/>
+      <path d="M102 82H322" fill="none" stroke="#a69d82" stroke-width="2" stroke-dasharray="4 7"/>
+    </g>
+  </defs>
+
+  <g id="capacity-4" transform="translate(54 34)">
+    <use href="#panel-shell-short"/>
+    <rect id="capacity-4-header-tmp-safe" x="106" y="16" width="216" height="62" fill="none"/>
+    <use href="#slot-active" x="24" y="90"/>
+    <use href="#slot-active" x="24" y="149"/>
+    <use href="#slot-active" x="24" y="208"/>
+    <use href="#slot-active" x="24" y="267"/>
+  </g>
+
+  <g id="capacity-4-locked" transform="translate(594 34)">
+    <use href="#panel-shell-tall"/>
+    <rect id="capacity-4-locked-header-tmp-safe" x="106" y="16" width="216" height="62" fill="none"/>
+    <use href="#slot-active" x="24" y="90"/>
+    <use href="#slot-active" x="24" y="149"/>
+    <use href="#slot-active" x="24" y="208"/>
+    <use href="#slot-active" x="24" y="267"/>
+    <use href="#slot-locked-olive" x="12" y="326"/>
+    <use href="#slot-locked-rust" x="20" y="385"/>
+  </g>
+
+  <g id="capacity-6" transform="translate(1134 34)">
+    <use href="#panel-shell-tall"/>
+    <rect id="capacity-6-header-tmp-safe" x="106" y="16" width="216" height="62" fill="none"/>
+    <use href="#slot-active" x="24" y="90"/>
+    <use href="#slot-active" x="24" y="149"/>
+    <use href="#slot-active" x="24" y="208"/>
+    <use href="#slot-active" x="24" y="267"/>
+    <use href="#slot-extension-olive" x="12" y="326"/>
+    <use href="#slot-extension-rust" x="20" y="385"/>
+  </g>
+
+  <g id="upgrade-action-default" transform="translate(54 650)">
+    <use href="#action-default"/>
+    <rect id="upgrade-action-default-tmp-safe" x="100" y="12" width="226" height="72" fill="none"/>
+  </g>
+  <g id="upgrade-action-focus" transform="translate(570 650)">
+    <use href="#action-focus"/>
+    <rect id="upgrade-action-focus-tmp-safe" x="118" y="12" width="226" height="72" fill="none"/>
+  </g>
+  <g id="upgrade-action-disabled" transform="translate(1110 650)">
+    <use href="#action-disabled"/>
+    <rect id="upgrade-action-disabled-tmp-safe" x="100" y="12" width="226" height="72" fill="none"/>
+  </g>
+</svg>
