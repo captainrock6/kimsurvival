@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 12,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "actual-size-minimal-hud-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.0766,
+      "contrastStdDev": 55.31,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-minimal-hud-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-minimal-hud-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.0565,
+      "contrastStdDev": 53.82,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-minimal-hud-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 623,
+      "issues": []
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 518,
+      "issues": []
+    },
+    {
+      "fileName": "hud-localization-expansion-board.png",
+      "kind": "raster",
+      "width": 1600,
+      "height": 900,
+      "hasAlpha": true,
+      "transparentRatio": 0.8078,
+      "contrastStdDev": 27.55,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-hud-localization-expansion-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "hud-localization-spec.json",
+      "kind": "editable-source",
+      "bytes": 659,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 486,
+      "issues": []
+    },
+    {
+      "fileName": "minimal-hud-atlas.png",
+      "kind": "raster",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.9578,
+      "contrastStdDev": 36.73,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 30,
+        "top": 30,
+        "right": 68,
+        "bottom": 608
+      },
+      "previewFile": "qa-preview-minimal-hud-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "minimal-hud-comparison-board.png",
+      "kind": "raster",
+      "width": 2000,
+      "height": 1200,
+      "hasAlpha": true,
+      "transparentRatio": 0.3595,
+      "contrastStdDev": 42.23,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-minimal-hud-comparison-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "minimal-hud-metadata.json",
+      "kind": "editable-source",
+      "bytes": 636,
+      "issues": []
+    },
+    {
+      "fileName": "minimal-hud.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1024 1024",
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 313,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T04:38:52.089Z",
+  "jobId": "job_20260823042528_d9e2a4ac",
+  "assetType": "ui_set"
+}

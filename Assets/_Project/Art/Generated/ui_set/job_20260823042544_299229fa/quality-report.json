@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 18,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "actual-size-context-near-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.0766,
+      "contrastStdDev": 55.5,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-context-near-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "actual-size-context-popup-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.0766,
+      "contrastStdDev": 57.97,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-actual-size-context-popup-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "alpha-size-validation.json",
+      "kind": "editable-source",
+      "bytes": 1226,
+      "issues": []
+    },
+    {
+      "fileName": "context-localization-expansion-board.png",
+      "kind": "raster",
+      "width": 1600,
+      "height": 900,
+      "hasAlpha": true,
+      "transparentRatio": 0.4336,
+      "contrastStdDev": 60.74,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-context-localization-expansion-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "context-localization-spec.json",
+      "kind": "editable-source",
+      "bytes": 670,
+      "issues": []
+    },
+    {
+      "fileName": "contextual-comparison-board.png",
+      "kind": "raster",
+      "width": 2400,
+      "height": 1350,
+      "hasAlpha": true,
+      "transparentRatio": 0.1833,
+      "contrastStdDev": 41.65,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-contextual-comparison-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "contextual-ui-atlas.png",
+      "kind": "raster",
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": true,
+      "transparentRatio": 0.869,
+      "contrastStdDev": 57.09,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 34,
+        "top": 46,
+        "right": 94,
+        "bottom": 846
+      },
+      "previewFile": "qa-preview-contextual-ui-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "contextual-ui-metadata.json",
+      "kind": "editable-source",
+      "bytes": 614,
+      "issues": []
+    },
+    {
+      "fileName": "contextual-ui.svg",
+      "kind": "svg",
+      "viewBox": "0 0 2048 2048",
+      "issues": []
+    },
+    {
+      "fileName": "forge-import.json",
+      "kind": "editable-source",
+      "bytes": 537,
+      "issues": []
+    },
+    {
+      "fileName": "manual-review.json",
+      "kind": "editable-source",
+      "bytes": 501,
+      "issues": []
+    },
+    {
+      "fileName": "popup-campfire.png",
+      "kind": "raster",
+      "width": 520,
+      "height": 430,
+      "hasAlpha": true,
+      "transparentRatio": 0.7841,
+      "contrastStdDev": 62.56,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 26,
+        "top": 28,
+        "right": 36,
+        "bottom": 43
+      },
+      "previewFile": "qa-preview-popup-campfire.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "popup-rain-collector.png",
+      "kind": "raster",
+      "width": 520,
+      "height": 430,
+      "hasAlpha": true,
+      "transparentRatio": 0.7849,
+      "contrastStdDev": 62.44,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 26,
+        "top": 28,
+        "right": 36,
+        "bottom": 43
+      },
+      "previewFile": "qa-preview-popup-rain-collector.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "popup-rescue_signal.png",
+      "kind": "raster",
+      "width": 520,
+      "height": 430,
+      "hasAlpha": true,
+      "transparentRatio": 0.7856,
+      "contrastStdDev": 62.61,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 26,
+        "top": 28,
+        "right": 36,
+        "bottom": 43
+      },
+      "previewFile": "qa-preview-popup-rescue_signal.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "popup-workbench.png",
+      "kind": "raster",
+      "width": 520,
+      "height": 430,
+      "hasAlpha": true,
+      "transparentRatio": 0.6021,
+      "contrastStdDev": 85,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 26,
+        "top": 28,
+        "right": 36,
+        "bottom": 43
+      },
+      "previewFile": "qa-preview-popup-workbench.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "processing-report.json",
+      "kind": "editable-source",
+      "bytes": 345,
+      "issues": []
+    },
+    {
+      "fileName": "proximity-prompt-gamepad.png",
+      "kind": "raster",
+      "width": 320,
+      "height": 120,
+      "hasAlpha": true,
+      "transparentRatio": 0.893,
+      "contrastStdDev": 53.97,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 32,
+        "top": 16,
+        "right": 30,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-proximity-prompt-gamepad.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "proximity-prompt-keyboard.png",
+      "kind": "raster",
+      "width": 320,
+      "height": 120,
+      "hasAlpha": true,
+      "transparentRatio": 0.893,
+      "contrastStdDev": 60.83,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 32,
+        "top": 16,
+        "right": 30,
+        "bottom": 24
+      },
+      "previewFile": "qa-preview-proximity-prompt-keyboard.jpg",
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T04:38:52.978Z",
+  "jobId": "job_20260823042544_299229fa",
+  "assetType": "ui_set"
+}
