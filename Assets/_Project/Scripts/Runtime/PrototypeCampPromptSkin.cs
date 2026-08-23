@@ -4,6 +4,8 @@ namespace KimSurvival
 {
     public sealed class PrototypeCampPromptSkin : ScriptableObject
     {
+        public const string AdoptedFrameAssetPath = "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png";
+
         [SerializeField] private string assetId = string.Empty;
         [SerializeField] private Sprite frame;
 

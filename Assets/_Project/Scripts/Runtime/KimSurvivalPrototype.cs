@@ -36,8 +36,8 @@ namespace KimSurvival
         private const float ResourceLabelViewportPadding = 0.22f;
         private const float ResourceLabelSafeViewportRight = 0.74f;
         private const float MinimumSupportedAspect = 1.6f;
-        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.56f);
-        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.64f);
+        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.58f);
+        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.635f);
         private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.56f);
         private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.64f);
         private static readonly Vector2 CampPopupDefaultAnchorMin = new Vector2(0.56f, 0.2f);
@@ -346,7 +346,7 @@ namespace KimSurvival
             }
             campProximityFrameImage.raycastTarget = false;
 
-            campProximityGlyphText = CreateText("설비 근접 입력 glyph", campProximityPrompt.transform, Vector2.zero, new Vector2(0f, 1f), new Vector2(12f, 10f), new Vector2(56f, -10f), 22, TextAnchor.MiddleCenter, new Color(0.025f, 0.11f, 0.15f));
+            campProximityGlyphText = CreateText("설비 근접 입력 glyph", campProximityPrompt.transform, Vector2.zero, new Vector2(0f, 1f), new Vector2(12f, 0f), new Vector2(56f, 0f), 22, TextAnchor.MiddleCenter, new Color(0.025f, 0.11f, 0.15f));
             campProximityGlyphText.fontStyle = FontStyles.Bold;
             campProximityGlyphText.enableAutoSizing = true;
             campProximityGlyphText.fontSizeMin = 18f;
@@ -356,7 +356,7 @@ namespace KimSurvival
             campProximityGlyphText.maxVisibleLines = 1;
             campProximityGlyphText.raycastTarget = false;
 
-            campProximityText = CreateText("설비 근접 행동·대상 문구", campProximityPrompt.transform, Vector2.zero, Vector2.one, new Vector2(78f, 12f), new Vector2(-38f, -12f), 23, TextAnchor.MiddleCenter, Color.white);
+            campProximityText = CreateText("설비 근접 행동·대상 문구", campProximityPrompt.transform, Vector2.zero, Vector2.one, new Vector2(78f, 4f), new Vector2(-38f, -4f), 23, TextAnchor.MiddleCenter, Color.white);
             campProximityText.fontStyle = FontStyles.Bold;
             campProximityText.enableAutoSizing = true;
             campProximityText.fontSizeMin = 15f;
@@ -1049,13 +1049,13 @@ namespace KimSurvival
                 "증축 계획 지점 안내",
                 localization.Format("world.module.planning"),
                 new Vector2(0f, 1.08f),
-                new Vector2(3.35f, 1.1f),
+                new Vector2(3.7f, 1.35f),
                 new Color(0.1f, 0.12f, 0.13f, 0.95f),
                 new Color(1f, 0.87f, 0.4f),
                 out _,
-                0.068f,
-                27f,
-                29f);
+                0.084f,
+                30f,
+                32f);
         }
 
         private void CreateStartRoomModuleSlots()
@@ -2768,6 +2768,23 @@ namespace KimSurvival
             popupRect.anchorMax = moduleSlot ? CampPopupModuleSlotAnchorMax : CampPopupDefaultAnchorMax;
             popupRect.offsetMin = Vector2.zero;
             popupRect.offsetMax = Vector2.zero;
+
+            bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
+            actionTitleText.enableAutoSizing = true;
+            actionTitleText.fontSizeMin = pseudoLong ? 14f : 26f;
+            actionTitleText.fontSizeMax = 36f;
+            actionTitleText.maxVisibleLines = pseudoLong ? 3 : 2;
+            campPopupDetailText.enableAutoSizing = true;
+            campPopupDetailText.fontSizeMin = pseudoLong ? 12f : 20f;
+            campPopupDetailText.fontSizeMax = 28f;
+            campPopupDetailText.maxVisibleLines = pseudoLong ? 5 : 3;
+            for (int i = 0; i < campPopupButtons.Count; i += 1)
+            {
+                TMP_Text label = campPopupButtons[i].GetComponentInChildren<TMP_Text>();
+                label.fontSizeMin = pseudoLong ? 12f : 26f;
+                label.fontSizeMax = pseudoLong ? 24f : 28f;
+                label.maxVisibleLines = pseudoLong ? 3 : 2;
+            }
         }
 
         private void RequireReadableTopHud(string localeCode)
@@ -3090,7 +3107,7 @@ namespace KimSurvival
                 water ? new Color(0.02f, 0.16f, 0.28f, 0.96f) : new Color(0.12f, 0.1f, 0.06f, 0.96f),
                 Color.white,
                 out labelBackground,
-                0.085f,
+                0.095f,
                 36f,
                 36f);
             nodes.Add(new NodeView
