@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &218303683
+--- !u!1 &1390758421
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,8 +127,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 218303685}
-  - component: {fileID: 218303684}
+  - component: {fileID: 1390758423}
+  - component: {fileID: 1390758422}
   m_Layer: 0
   m_Name: "[BOOTSTRAP] \uAE40\uC528 \uC0DD\uC874\uAE30: \uBB34\uC778\uB3C4"
   m_TagString: Untagged
@@ -136,13 +136,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &218303684
+--- !u!114 &1390758422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218303683}
+  m_GameObject: {fileID: 1390758421}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c9d89b69c3da0c4bbe0c775043bf9e6, type: 3}
@@ -156,13 +156,16 @@ MonoBehaviour:
   workbenchSprite: {fileID: 21300000, guid: f1920158f3a3ba14f8999ead8f869e30, type: 3}
   rainCollectorSprite: {fileID: 21300000, guid: 0af1d92982f80ce4a89462c076305386, type: 3}
   rescueSignalSprite: {fileID: 21300000, guid: 00ff5be74a04dbe48a49fe2e1a673eec, type: 3}
---- !u!4 &218303685
+  vineBarrierBlockedSprite: {fileID: 21300000, guid: 6c4e2ecdfdf7bf54294b1daeb304bcef, type: 3}
+  vineBarrierInteractableSprite: {fileID: 21300000, guid: f91a7a81fecc6c042a6aa5c0b561d6e0, type: 3}
+  vineBarrierClearedSprite: {fileID: 21300000, guid: e82d06cb4d931a94393ae1931b367daf, type: 3}
+--- !u!4 &1390758423
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218303683}
+  m_GameObject: {fileID: 1390758421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -175,4 +178,4 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 218303685}
+  - {fileID: 1390758423}

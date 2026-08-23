@@ -19,6 +19,9 @@ namespace KimSurvival.EditorTools
         public const string WorkbenchPath = "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png";
         public const string RainCollectorPath = "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png";
         public const string RescueSignalPath = "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png";
+        public const string VineBarrierBlockedPath = "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked.png";
+        public const string VineBarrierInteractablePath = "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/interactable.png";
+        public const string VineBarrierClearedPath = "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/cleared.png";
         private const string DefaultVerificationFolder = "Artifacts/Verification";
 
         private static string VerificationFolder
@@ -48,6 +51,10 @@ namespace KimSurvival.EditorTools
                 LoadRequiredSprite(WorkbenchPath),
                 LoadRequiredSprite(RainCollectorPath),
                 LoadRequiredSprite(RescueSignalPath));
+            prototype.ConfigureExplorationArt(
+                LoadRequiredSprite(VineBarrierBlockedPath),
+                LoadRequiredSprite(VineBarrierInteractablePath),
+                LoadRequiredSprite(VineBarrierClearedPath));
             EditorSceneManager.SaveScene(scene, ScenePath);
 
             EditorBuildSettings.scenes = new[]
@@ -77,6 +84,7 @@ namespace KimSurvival.EditorTools
                 "Layer order: background_opaque -> gameplay_ground_alpha -> foreground_alpha\n" +
                 "Canvas contract: 1672x941, walkable baseline top Y=721, signal anchor top Y=596\n" +
                 "Adopted camp structures: job_20260822130400_6d786a69\n" +
+                "Adopted vine barrier states: job_20260822234631_ac651d92\n" +
                 "Remaining placeholder asset IDs stay wired in KimSurvivalPrototype.cs\n");
             Debug.Log("[Kim Survival] Prototype scene created: " + ScenePath);
         }
@@ -95,6 +103,9 @@ namespace KimSurvival.EditorTools
             AssertStructureSpriteImport(WorkbenchPath, new Vector2(0.5f, 0.09846f));
             AssertStructureSpriteImport(RainCollectorPath, new Vector2(0.5f, 0.05112f));
             AssertStructureSpriteImport(RescueSignalPath, new Vector2(0.5f, 0.0401f));
+            AssertStructureSpriteImport(VineBarrierBlockedPath, new Vector2(0.5f, 0.078125f));
+            AssertStructureSpriteImport(VineBarrierInteractablePath, new Vector2(0.5f, 0.078125f));
+            AssertStructureSpriteImport(VineBarrierClearedPath, new Vector2(0.5f, 0.078125f));
             string sceneText = File.ReadAllText(ScenePath);
             Assert(sceneText.Contains(AssetDatabase.AssetPathToGUID(CampBackgroundPath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(CampGameplayGroundPath)) &&
@@ -103,6 +114,9 @@ namespace KimSurvival.EditorTools
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(WorkbenchPath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(RainCollectorPath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(RescueSignalPath)), "Prototype scene serializes all four adopted camp structure sprites");
+            Assert(sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierBlockedPath)) &&
+                   sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierInteractablePath)) &&
+                   sceneText.Contains(AssetDatabase.AssetPathToGUID(VineBarrierClearedPath)), "Prototype scene serializes all three adopted vine barrier states");
 
             GameSession inventory = new GameSession();
             Assert(inventory.BeginSearch(), "Inventory scenario begins search");

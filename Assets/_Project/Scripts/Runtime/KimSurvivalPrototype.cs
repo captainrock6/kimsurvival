@@ -15,6 +15,7 @@ namespace KimSurvival
         private const string AssetKim = "character.mr-kim";
         private const string AssetSwim = "animation.mr-kim.swim";
         private const string AssetStructures = "object.camp-structures";
+        private const string AssetVineBarrier = "object.vine-wood-barrier";
         private const string AssetHud = "ui.survival-hud";
         private const string AssetIcons = "icon.resource-tool-set";
         private const string AssetComedy = "effect.comedy-feedback";
@@ -42,6 +43,9 @@ namespace KimSurvival
         [SerializeField] private Sprite workbenchSprite;
         [SerializeField] private Sprite rainCollectorSprite;
         [SerializeField] private Sprite rescueSignalSprite;
+        [SerializeField] private Sprite vineBarrierBlockedSprite;
+        [SerializeField] private Sprite vineBarrierInteractableSprite;
+        [SerializeField] private Sprite vineBarrierClearedSprite;
 
         private sealed class NodeView
         {
@@ -74,6 +78,7 @@ namespace KimSurvival
         private SpriteRenderer campGameplayGroundRenderer;
         private SpriteRenderer campForegroundRenderer;
         private SpriteRenderer rescueSignalRenderer;
+        private SpriteRenderer vineBarrierRenderer;
         private Transform playerRoot;
         private PrototypePlayerPresentation playerPresentation;
         private GameObject placementGhost;
@@ -165,6 +170,13 @@ namespace KimSurvival
             workbenchSprite = workbench;
             rainCollectorSprite = rainCollector;
             rescueSignalSprite = rescueSignal;
+        }
+
+        public void ConfigureExplorationArt(Sprite vineBarrierBlocked, Sprite vineBarrierInteractable, Sprite vineBarrierCleared)
+        {
+            vineBarrierBlockedSprite = vineBarrierBlocked;
+            vineBarrierInteractableSprite = vineBarrierInteractable;
+            vineBarrierClearedSprite = vineBarrierCleared;
         }
 
         private void OnDestroy()
@@ -640,9 +652,8 @@ namespace KimSurvival
             CreateRect("귀환 깃발", new Vector2(-2.15f, -0.35f), new Vector2(1.1f, 0.65f), new Color(1f, 0.48f, 0.16f), 3);
             CreateWorldLabel(returnFlag.transform, localization.Format("world.return"), new Vector3(0.6f, 1.7f, -0.1f), 45, Color.black);
 
-            Color barrierColor = session.HasAxe ? new Color(0.25f, 0.7f, 0.3f, 0.35f) : new Color(0.2f, 0.42f, 0.17f, 0.95f);
-            GameObject barrier = CreateRect("돌도끼 필요 덩굴·나무 장벽", new Vector2(8.7f, -0.75f), new Vector2(1.25f, 5f), barrierColor, 1);
-            CreateWorldLabel(barrier.transform, localization.Format(session.HasAxe ? "world.barrier.axe.pass" : "world.barrier.axe.need"), new Vector3(0f, 2.9f, -0.1f), 38, Color.black);
+            GameObject barrier = CreateVineBarrier();
+            CreateWorldLabel(barrier.transform, localization.Format(session.HasAxe ? "world.barrier.axe.pass" : "world.barrier.axe.need"), new Vector3(0f, 4.1f, -0.1f), 38, Color.black);
 
             SpawnNode(-8.2f, ResourceKind.Salvage, 2, true);
             SpawnNode(-5.8f, ResourceKind.Food, 2, true);
@@ -893,6 +904,7 @@ namespace KimSurvival
             phaseButton.onClick.Invoke();
             Require(session.Phase == GamePhase.Exploring, "수색 시작 UI 경로");
             Require(nodes.Count >= 10, "10개 이상 채집 지점");
+            RequireExplorationBarrierArt();
             UpdateResourceLabelLayout();
             RequireReadableResourceLabels(PrototypeLocalization.KoreanLocaleCode);
             if (!string.IsNullOrWhiteSpace(explorationScreenshotPath))
@@ -1027,6 +1039,13 @@ namespace KimSurvival
         {
             Require(campfireSprite != null && workbenchSprite != null && rainCollectorSprite != null && rescueSignalSprite != null, "채택 구조물 패키지 4종 직렬화");
             Require(rescueSignalRenderer != null && rescueSignalRenderer.sprite == rescueSignalSprite, "고정 앵커 구조 신호대 아트 연결");
+            Require(vineBarrierBlockedSprite != null && vineBarrierInteractableSprite != null && vineBarrierClearedSprite != null, "채택 덩굴·나무 장벽 3상태 직렬화");
+        }
+
+        private void RequireExplorationBarrierArt()
+        {
+            Sprite expected = session.HasAxe ? vineBarrierClearedSprite : vineBarrierBlockedSprite;
+            Require(vineBarrierRenderer != null && vineBarrierRenderer.sprite == expected, "돌도끼 보유 상태에 맞는 채택 장벽 아트 연결");
         }
 
         private void RequireInstalledStructureArt()
@@ -1302,6 +1321,32 @@ namespace KimSurvival
                 default:
                     return null;
             }
+        }
+
+        private GameObject CreateVineBarrier()
+        {
+            GameObject root = new GameObject("덩굴·나무 장벽 · " + AssetVineBarrier);
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = new Vector3(8.7f, -2.35f, 0f);
+
+            Sprite sprite = session.HasAxe ? vineBarrierClearedSprite : vineBarrierBlockedSprite;
+            if (sprite == null || sprite.bounds.size.x <= 0f)
+            {
+                Color fallbackColor = session.HasAxe ? new Color(0.25f, 0.7f, 0.3f, 0.35f) : new Color(0.2f, 0.42f, 0.17f, 0.95f);
+                GameObject fallback = CreateRect(root.transform, "장벽 아트 누락", new Vector2(0f, 1.6f), new Vector2(1.25f, 5f), fallbackColor, 1);
+                vineBarrierRenderer = fallback.GetComponent<SpriteRenderer>();
+                return root;
+            }
+
+            GameObject visual = new GameObject(session.HasAxe ? "제거된 장벽 아트" : "막힌 장벽 아트");
+            visual.transform.SetParent(root.transform, false);
+            float scale = 4.1f / sprite.bounds.size.x;
+            visual.transform.localScale = new Vector3(scale, scale, 1f);
+            vineBarrierRenderer = visual.AddComponent<SpriteRenderer>();
+            vineBarrierRenderer.sprite = sprite;
+            vineBarrierRenderer.color = Color.white;
+            vineBarrierRenderer.sortingOrder = 1;
+            return root;
         }
 
         private SpriteRenderer CreateStructureVisual(
