@@ -19,10 +19,11 @@ controls.camp.popup.keyboard_mouse	{0} · 방향키로 행동 선택 · Enter �
 controls.camp.popup.gamepad	{0} · 방향 패드로 행동 선택 · A 확인\nB 취소 · 이동 잠김 · Y 언어	{0} · D-pad select · A confirm\nB cancel · Movement locked · Y language	⟦{0} · D-pad séléct · A cóñfírm\nB cáñcél · Móvéméñt lóckéd · Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 camp.interaction.prompt.keyboard_mouse	[E] {0} 사용	[E] Use {0}	⟦[E] Úsé {0}áéí⟧
 camp.interaction.prompt.gamepad	[X] {0} 사용	[X] Use {0}	⟦[X] Úsé {0}áéí⟧
-input.glyph.interact.keyboard_mouse	[E]	[E]	[E]·
-input.glyph.interact.gamepad	[X]	[X]	[X]·
+input.glyph.interact.keyboard_mouse	[E]	[E]	[E]
+input.glyph.interact.gamepad	[X]	[X]	[X]
 interaction.structure.prompt	{0} {1} {2}	{0} {2} {1}	⟦{0} {2} {1} ·⟧
 interaction.action.preview	미리보기	Preview	⟦Prévíéwá⟧
+interaction.action.use	사용	Use	Úsé·
 camp.popup.title	{0}	{0}	{0}¿
 camp.popup.detail.campfire	먹거나 오늘의 생존 준비를 하고, 설치 위치를 다시 잡는다.	Eat, prepare today's survival bonus, or move the installation.	⟦Éát, prépáré tódáy's súrvívál bóñús, ór móvé thé íñstállátíóñ.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.workbench	제작·연구·수리·가방 확장은 이 작업대에서만 한다.	Craft, research, repair, and upgrade the bag at this workbench.	⟦Cráft, réséárch, répáír, áñd úpgrádé thé bág át thís wórkbéñch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
@@ -173,7 +174,7 @@ result.title.exhausted	김씨, 잠시 누움	Mr. Kim Needs a Lie-Down	⟦Mr. Kí
 result.title.deadline	구조 신호 미완성	Rescue Signal Incomplete	⟦Réscúé Sígñál Íñcómplétéáéíóúüñ¿⟧
 result.detail.rescued	급조 안테나가 기적처럼 작동했다. 김씨는 구조대보다 먼저 사진부터 찍었다.	The improvised antenna worked by a miracle. Mr. Kim took a photo before the rescuers arrived.	⟦Thé ímpróvíséd áñtéññá wórkéd by á míráclé. Mr. Kím tóók á phótó béfóré thé réscúérs árrívéd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 result.detail.exhausted	체력을 모두 소진했다. 다음에는 먹고 쉬고, 해 지기 전에 돌아오자.	All energy is gone. Next time, eat, rest, and return before sunset.	⟦Áll éñérgy ís góñé. Ñéxt tímé, éát, rést, áñd rétúrñ béfóré súñsét.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
-result.detail.deadline	3일 안에 구조 신호를 완성하지 못했다. 필요한 표류물과 밧줄을 더 일찍 준비해야 한다.	The rescue signal was not completed within 3 days. Prepare salvage and rope earlier next time.	⟦Thé réscúé sígñál wás ñót cómplétéd wíthíñ 3 dáys. Prépáré sálvágé áñd rópé éárlíér ñéxt tímé.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+result.detail.deadline	5일 안에 구조 신호를 완성하지 못했다. 필요한 표류물과 밧줄을 더 일찍 준비해야 한다.	The rescue signal was not completed within 5 days. Prepare salvage and rope earlier next time.	⟦Thé réscúé sígñál wás ñót cómplétéd wíthíñ 5 dáys. Prépáré sálvágé áñd rópé éárlíér ñéxt tímé.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 dev.fallback_probe	한국어 폴백 확인		
 controls.module_preview.keyboard_mouse	{0} · A/D 또는 ←/→ 후보 순환 · Enter/클릭 확정 · Esc/우클릭 취소	{0} · A/D or ←/→ cycle · Enter/click confirm · Esc/right-click cancel	⟦{0} · A/D ór ←/→ cyclé · Enter/clíck cóñfírm · Esc/ríght-clíck cáñcéláéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.module_preview.gamepad	{0} · 왼쪽 스틱 후보 순환 · A 확정 · B 취소	{0} · Left stick cycle · A confirm · B cancel	⟦{0} · Léft stíck cyclé · A cóñfírm · B cáñcéláéíóúüñ¿¡áéíóúüñ¿⟧

@@ -94,7 +94,7 @@ namespace KimSurvival
         public const int StackLimit = 2;
         public const int BagUpgradeWoodCost = 2;
         public const int BagUpgradeSalvageCost = 1;
-        public const int FinalDay = 3;
+        public const int FinalDay = 5;
 
         private readonly int[] storage = new int[4];
         private readonly BagStack[] bag = new BagStack[BagSlotCount];

@@ -967,6 +967,10 @@ MonoBehaviour:
     m_Key: world.module.preview.slot.invalid
     m_Metadata:
       m_Items: []
+  - m_Id: 359980967641088
+    m_Key: interaction.action.use
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

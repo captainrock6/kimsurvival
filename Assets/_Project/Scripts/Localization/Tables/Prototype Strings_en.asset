@@ -533,7 +533,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972644
-    m_Localized: The rescue signal was not completed within 3 days. Prepare salvage
+    m_Localized: The rescue signal was not completed within 5 days. Prepare salvage
       and rope earlier next time.
     m_Metadata:
       m_Items: []
@@ -1097,6 +1097,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 359980967641088
+    m_Localized: Use
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -1,0 +1,7 @@
+PASS
+Executable: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Builds\Windows\KimSurvivalIsland.exe
+Started: 2026-08-23T19:41:39.1510757+09:00
+Initialized: True
+Stayed running until probe: True
+Crash/load errors absent: True
+Player log: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave12-five-day-compact-a-86b6db8\windows-hidden-player.log

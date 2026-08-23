@@ -1,0 +1,41 @@
+Wave 12 · five-day compact-a runtime verification
+Baseline: origin/master 86b6db8d5bc628aa7cb9cdb0d3e59539b6633c91
+Branch: codex/wave12-five-day-compact-a-runtime
+Unity: 6000.4.9f1
+
+PASS · C# compile: 0 errors, 0 warnings
+PASS · Edit deterministic checks
+  - FinalDay=5 through the shared GameSession tuning constant
+  - Day 3 and Day 4 advance without deadline failure
+  - unfinished Day 5 fails at settlement
+  - signal completion before the deadline succeeds immediately
+  - compact-a source 384x64, center pivot, sliced border L70/R30/T12/B12
+  - runtime Resources skin references compact-a only
+  - glyph and localized action TMP are separate
+PASS · Play Mode complete survival/regression loop
+  - ko/en/qps-long prompt fit and locale/device state invariants
+  - far/popup/preview/terminal hiding
+  - Wave 11 direct module slots, facility popup, placement, bag 4→6, swimming, barrier and signal atomicity
+PASS · Windows x64 Development build
+  - output: Builds/Windows/KimSurvivalIsland.exe
+  - build errors: 0
+  - build warnings: 0
+  - reported player size: 180587545 bytes
+PASS · hidden Windows player smoke
+  - engine and Mono initialized
+  - process remained alive until probe termination
+  - crash/load errors absent
+
+Adopted source:
+  Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png
+  SHA256 32BCADF5EC7117EB5D0E2602C8BA8A8DD2E83A56A117E0A6368311831F901D43
+Playable EXE SHA256 93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D
+
+Required 1280x800 evidence:
+  kim-survival-wave12-camp-far-ko-1280x800.png
+  kim-survival-wave12-facility-near-ko-1280x800.png
+  kim-survival-wave12-facility-near-en-1280x800.png
+  kim-survival-wave12-direct-slot-near-qps-long-1280x800.png
+  kim-survival-wave12-popup-open-ko-1280x800.png
+
+Visual review: compact-a remains centered 8px below the narration card at 1280x800, stays clear of Kim, traversal ground, facilities and direct module slots, and is hidden in far/popup states. ko/en use no ellipsis; qps-long stays on one auto-sized line.

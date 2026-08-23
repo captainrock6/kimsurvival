@@ -1,0 +1,4 @@
+PASS · deterministic edit checks
+Started UTC: 2026-08-23T10:39:10.2620375Z
+Completed UTC: 2026-08-23T10:39:10.5688705Z
+Checks: Wave 12 five-day deadline (Day 3/4 survive, Day 5 settlement fails, early signal rescues immediately), adopted compact-a 384x64 sliced frame and Resources reference, separated 44x44 glyph/action TMP, locale-only action refresh and device-only glyph refresh, ko/en/qps-long one-line fit; Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit latch, popup/preview Cancel, W2/D1 atomic one-module limit; storage planning, placement, bag 4-to-6, swimming, barrier, signal, crafting and early Day 3 rescue regressions

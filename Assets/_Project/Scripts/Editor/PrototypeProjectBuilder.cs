@@ -23,6 +23,9 @@ namespace KimSurvival.EditorTools
         public const string VineBarrierBlockedPath = "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/blocked.png";
         public const string VineBarrierInteractablePath = "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/interactable.png";
         public const string VineBarrierClearedPath = "Assets/_Project/Art/Generated/separated_parts/job_20260822234631_ac651d92/cleared.png";
+        public const string CompactPromptFramePath = "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png";
+        public const string CompactPromptSkinPath = "Assets/_Project/Scripts/Localization/Resources/Wave12CompactPromptSkin.asset";
+        public const string CompactPromptAssetId = "ui.camp-contextual-interaction.compact-a";
         private const string DefaultVerificationFolder = "Artifacts/Verification";
 
         private static string VerificationFolder
@@ -37,6 +40,7 @@ namespace KimSurvival.EditorTools
         [MenuItem("Kim Survival/Create Prototype Scene")]
         public static void CreateProject()
         {
+            SyncCompactPromptSkin();
             Directory.CreateDirectory("Assets/_Project/Scenes");
             Directory.CreateDirectory(VerificationFolder);
 
@@ -96,6 +100,7 @@ namespace KimSurvival.EditorTools
             Directory.CreateDirectory(VerificationFolder);
             DateTime started = DateTime.UtcNow;
             PrototypeLocalizationAssetBuilder.SyncAssets();
+            SyncCompactPromptSkin();
 
             AssertCampBackgroundLayerImport(CampBackgroundPath, "background");
             AssertCampBackgroundLayerImport(CampGameplayGroundPath, "gameplay ground");
@@ -107,6 +112,7 @@ namespace KimSurvival.EditorTools
             AssertStructureSpriteImport(VineBarrierBlockedPath, new Vector2(0.5f, 0.078125f));
             AssertStructureSpriteImport(VineBarrierInteractablePath, new Vector2(0.5f, 0.078125f));
             AssertStructureSpriteImport(VineBarrierClearedPath, new Vector2(0.5f, 0.078125f));
+            AssertCompactPromptImport();
             string sceneText = File.ReadAllText(ScenePath);
             Assert(sceneText.Contains(AssetDatabase.AssetPathToGUID(CampBackgroundPath)) &&
                    sceneText.Contains(AssetDatabase.AssetPathToGUID(CampGameplayGroundPath)) &&
@@ -309,7 +315,9 @@ namespace KimSurvival.EditorTools
             {
                 Assert(localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false), "English locale is selectable");
                 Assert(localization.Format("ui.camp.title") == "Base Camp · Craft / Build / Research", "English String Table is active immediately");
-                Assert(localization.Format("hud.status.camp", 1, 3, "Camp", 70, 100).Contains("Hunger 70"), "Smart String arguments format in English");
+                Assert(localization.Format("hud.status.camp", 1, GameSession.FinalDay, "Camp", 70, 100).Contains("DAY 1/5") &&
+                       localization.Format("hud.status.camp", 1, GameSession.FinalDay, "Camp", 70, 100).Contains("Hunger 70"),
+                    "Five-day HUD Smart String arguments format in English");
                 Assert(localization.Format("controls.placement.gamepad", localization.DeviceName(PrototypeInputDevice.Gamepad)).Contains("left stick"), "English gamepad placement prompt is localized");
                 Assert(localization.Format("camp.interaction.prompt.gamepad", localization.Format("structure.workbench")).Contains("[X] Use Workbench"), "English gamepad proximity prompt is localized");
                 Assert(localization.Format("camp.popup.detail.workbench").Contains("Craft, research, repair"), "English workbench popup owns the intended actions");
@@ -319,9 +327,11 @@ namespace KimSurvival.EditorTools
                     "English module preview, invalid shape marker, and module cost arguments are localized");
                 Assert(localization.Format(
                            "interaction.structure.prompt",
-                           localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad)),
+                           string.Empty,
                            localization.Format("structure.module_connector", localization.Format("module.name.side")),
-                           localization.Format("interaction.action.preview")).Contains("[X] Preview Side room entrance connector") &&
+                           localization.Format("interaction.action.preview")).Trim().Contains("Preview Side room entrance connector") &&
+                       localization.Format("interaction.structure.prompt", string.Empty, localization.Format("structure.workbench"), localization.Format("interaction.action.use")).Trim().Contains("Use Workbench") &&
+                       localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad)) == "[X]" &&
                        localization.Format("ui.module.expand") == "Preview Room Expansion" &&
                        localization.Format("ui.module.preview.cost", "Side room", 2, 1, localization.Format("interaction.module.locked_workbench")).Contains("Wood 2 · Salvage 1"),
                     "English direct module slot prompt, popup action, and W2/D1 reason chip use stable String Table keys");
@@ -337,9 +347,11 @@ namespace KimSurvival.EditorTools
                     "Korean module preview, valid shape marker, and locked Wave 9 cost are localized");
                 Assert(localization.Format(
                            "interaction.structure.prompt",
-                           localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.KeyboardMouse)),
+                           string.Empty,
                            localization.Format("structure.module_connector", localization.Format("module.name.basement")),
-                           localization.Format("interaction.action.preview")).Contains("[E] 지하실 출입 연결부 미리보기") &&
+                           localization.Format("interaction.action.preview")).Trim().Contains("지하실 출입 연결부 미리보기") &&
+                       localization.Format("interaction.structure.prompt", string.Empty, localization.Format("structure.campfire"), localization.Format("interaction.action.use")).Trim().Contains("모닥불 사용") &&
+                       localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.KeyboardMouse)) == "[E]" &&
                        localization.Format("interaction.module.no_slot").Contains("연결 슬롯") &&
                        localization.Format("interaction.module.slot_unavailable").Contains("사용할 수 없다"),
                     "Korean direct slot action and canonical connection reason keys resolve from data");
@@ -364,17 +376,13 @@ namespace KimSurvival.EditorTools
                     "Actual qps-long String Table is selectable only through the QA path");
                 string qpsStress = localization.Format("ui.camp.title");
                 float qpsExpansion = qpsStress.Length / (float)englishStressSource.Length;
-                string qpsKeyboardPrompt = localization.Format(
-                    PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.KeyboardMouse),
-                    localization.Format("structure.campfire"));
-                string qpsGamepadPrompt = localization.Format(
-                    PrototypeInputPromptKeys.CampProximity(PrototypeInputDevice.Gamepad),
-                    localization.Format("structure.campfire"));
-                string qpsDirectSlotPrompt = localization.Format(
+                string qpsKeyboardGlyph = localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.KeyboardMouse));
+                string qpsGamepadGlyph = localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad));
+                string qpsDirectSlotAction = localization.Format(
                     "interaction.structure.prompt",
-                    localization.Format(PrototypeInputPromptKeys.InteractGlyph(PrototypeInputDevice.Gamepad)),
+                    string.Empty,
                     localization.Format("structure.module_connector", localization.Format("module.name.basement")),
-                    localization.Format("interaction.action.preview"));
+                    localization.Format("interaction.action.preview")).Trim();
                 string qpsModuleReason = localization.Format(
                     "ui.module.preview.cost",
                     localization.Format("module.name.basement"),
@@ -383,10 +391,11 @@ namespace KimSurvival.EditorTools
                     localization.Format("interaction.module.locked_workbench"));
                 Assert(qpsExpansion >= 1.35f && qpsExpansion <= 1.50f && qpsStress.StartsWith("⟦", StringComparison.Ordinal) && qpsStress.EndsWith("⟧", StringComparison.Ordinal),
                     "qps-long data expands a representative English string by 35-50 percent");
-                Assert(qpsKeyboardPrompt.Contains("[E]") && qpsGamepadPrompt.Contains("[X]") &&
-                       qpsDirectSlotPrompt.Contains("[X]") && qpsModuleReason.Contains("2") && qpsModuleReason.Contains("1") &&
+                Assert(qpsKeyboardGlyph == "[E]" && qpsGamepadGlyph == "[X]" &&
+                       !qpsDirectSlotAction.Contains("[X]") && qpsDirectSlotAction.Contains(localization.Format("interaction.action.preview")) &&
+                       qpsModuleReason.Contains("2") && qpsModuleReason.Contains("1") &&
                        localeInvariantInteraction.ActiveTargetKind == targetBeforeQaLocale,
-                    "ko/en/qps-long switching preserves the same proximity target, direct-slot action semantics, and W2/D1 tokens");
+                    "ko/en/qps-long switching preserves locale-invariant glyphs, the same target, direct-slot action semantics, and W2/D1 tokens");
                 Assert(PlayerPrefs.HasKey(PrototypeLocalization.PreferenceKey) == hadPreferenceBeforeQaLocale &&
                        PlayerPrefs.GetString(PrototypeLocalization.PreferenceKey, PrototypeLocalization.KoreanLocaleCode) == preferenceBeforeQaLocale,
                     "QA locale selection does not overwrite the persisted ko/en preference");
@@ -864,20 +873,37 @@ namespace KimSurvival.EditorTools
             Assert(naturalBagRoute.ReturnToCamp(false) && naturalBagRoute.TryUpgradeSignal() && naturalBagRoute.Result == RunResult.Rescued,
                 "Natural three-day route reaches rescue with the upgraded bag and no debug grants");
 
+            Assert(GameSession.FinalDay == 5, "Wave 12 deadline tuning uses the shared five-day constant");
             GameSession deadline = new GameSession();
-            for (int day = 1; day <= GameSession.FinalDay; day += 1)
+            for (int day = 1; day < GameSession.FinalDay; day += 1)
             {
                 Assert(deadline.BeginSearch(), "Deadline scenario search day " + day);
                 Assert(deadline.ReturnToCamp(false), "Deadline scenario returns day " + day);
                 Assert(deadline.EndDay(), "Deadline scenario ends day " + day);
+                Assert(deadline.Result == RunResult.None && deadline.Day == day + 1,
+                    "Unfinished day " + day + " advances without an early deadline");
             }
-            Assert(deadline.Result == RunResult.Deadline, "Third unfinished day fails with an explained deadline");
+            Assert(deadline.Day == 5 && deadline.Result == RunResult.None,
+                "Day 3 and Day 4 survive and reach the playable fifth day");
+            Assert(deadline.BeginSearch() && deadline.ReturnToCamp(false) && deadline.EndDay() &&
+                   deadline.Result == RunResult.Deadline && deadline.Day == 5 &&
+                   deadline.ResultDetail().Key == "result.detail.deadline",
+                "Unfinished Day 5 fails only at settlement with an explained deadline");
+
+            GameSession earlyRescue = new GameSession();
+            earlyRescue.Grant(ResourceKind.Wood, 20);
+            earlyRescue.Grant(ResourceKind.Salvage, 20);
+            Assert(earlyRescue.TryBuild(StructureKind.Workbench) &&
+                   earlyRescue.TryResearch(TechKind.Rope) && earlyRescue.TryCraft(TechKind.Rope) &&
+                   earlyRescue.TryUpgradeSignal() && earlyRescue.TryUpgradeSignal() &&
+                   earlyRescue.Result == RunResult.Rescued && earlyRescue.Day == 1,
+                "Completing the rescue signal before Day 5 succeeds immediately");
 
             string report =
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit far/near latch and facing selection, exact target ID popup retention, ui.module.expand one-action ownership, approached-slot preview seed, upper-to-side-to-basement cycle, preview-to-same-popup-to-same-field Cancel snapshots, canonical interaction.module geometry/economy reasons and priority, locked W2/D1 no-spend and atomic one-module commit, secondary storage.planning entry, ko/en/qps-long String Tables with Smart String placeholders/digits/tags preserved, qps hidden from the persisted ko/en player cycle, keyboard/gamepad action-semantic invariance, qps font fallback mapping, explicit room enter/return, module general-floor placement and connector/path protection, Wave 8 camp.general-ground/open-sky-ground/signal-anchor contracts, relocation resource/research/signal/day-benefit preservation, Wave 7 four-to-six bag contract and natural three-day rescue route, 1280x800/1920x1080 layout hooks, balance v0.2 signal/tool/barrier rules, adopted camp background/structure imports, swimming transitions and costs, crafting, rescue success, deadline failure\n";
+                "Checks: Wave 12 five-day deadline (Day 3/4 survive, Day 5 settlement fails, early signal rescues immediately), adopted compact-a 384x64 sliced frame and Resources reference, separated 44x44 glyph/action TMP, locale-only action refresh and device-only glyph refresh, ko/en/qps-long one-line fit; Wave 11 canonical slot.start.upper/side/basement direct targets, exact 1.25-unit latch, popup/preview Cancel, W2/D1 atomic one-module limit; storage planning, placement, bag 4-to-6, swimming, barrier, signal, crafting and early Day 3 rescue regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -886,6 +912,7 @@ namespace KimSurvival.EditorTools
         public static void BuildWindows()
         {
             PrototypeLocalizationAssetBuilder.SyncAssets();
+            SyncCompactPromptSkin();
             if (!File.Exists(ScenePath))
             {
                 CreateProject();
@@ -928,6 +955,27 @@ namespace KimSurvival.EditorTools
                 throw new InvalidOperationException("Adopted camp structure could not be loaded: " + path);
             }
             return sprite;
+        }
+
+        public static void SyncCompactPromptSkin()
+        {
+            Sprite frame = AssetDatabase.LoadAssetAtPath<Sprite>(CompactPromptFramePath);
+            if (frame == null)
+            {
+                throw new InvalidOperationException("Adopted compact-a frame could not be loaded: " + CompactPromptFramePath);
+            }
+
+            PrototypeCampPromptSkin skin = AssetDatabase.LoadAssetAtPath<PrototypeCampPromptSkin>(CompactPromptSkinPath);
+            if (skin == null)
+            {
+                skin = ScriptableObject.CreateInstance<PrototypeCampPromptSkin>();
+                skin.name = "Wave 12 Compact A Camp Prompt Skin";
+                AssetDatabase.CreateAsset(skin, CompactPromptSkinPath);
+            }
+
+            skin.Configure(CompactPromptAssetId, frame);
+            EditorUtility.SetDirty(skin);
+            AssetDatabase.SaveAssets();
         }
 
         private static GameSession CreateSpatialRestProbe()
@@ -975,6 +1023,32 @@ namespace KimSurvival.EditorTools
                 "Adopted camp structure keeps metadata bottom pivot: " + path);
         }
 
+        private static void AssertCompactPromptImport()
+        {
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(CompactPromptFramePath);
+            TextureImporter importer = AssetImporter.GetAtPath(CompactPromptFramePath) as TextureImporter;
+            TextureImporterSettings settings = new TextureImporterSettings();
+            if (importer != null)
+            {
+                importer.ReadTextureSettings(settings);
+                importer.GetSourceTextureWidthAndHeight(out int sourceWidth, out int sourceHeight);
+                Assert(sourceWidth == 384 && sourceHeight == 64,
+                    "Adopted compact-a preserves the 384x64 source canvas");
+            }
+
+            PrototypeCampPromptSkin skin = Resources.Load<PrototypeCampPromptSkin>("Wave12CompactPromptSkin");
+            Assert(sprite != null && importer != null && importer.textureType == TextureImporterType.Sprite &&
+                   importer.spriteImportMode == SpriteImportMode.Single && !importer.mipmapEnabled &&
+                   importer.textureCompression == TextureImporterCompression.Uncompressed,
+                "Adopted compact-a imports as one uncompressed mip-free sprite");
+            Assert(settings.spriteAlignment == (int)SpriteAlignment.Center &&
+                   Vector2.Distance(settings.spritePivot, new Vector2(0.5f, 0.5f)) < 0.0001f &&
+                   settings.spriteBorder == new Vector4(70f, 12f, 30f, 12f),
+                "Adopted compact-a keeps center pivot and L70/R30/T12/B12 9-slice border");
+            Assert(skin != null && skin.AssetId == CompactPromptAssetId && skin.Frame == sprite,
+                "Runtime Resources skin references only the adopted compact-a sprite");
+        }
+
         private static void Assert(bool condition, string message)
         {
             if (!condition)
@@ -1015,6 +1089,7 @@ namespace KimSurvival.EditorTools
         [MenuItem("Kim Survival/Run Play Mode Verification")]
         public static void RunPlayModeVerification()
         {
+            PrototypeProjectBuilder.SyncCompactPromptSkin();
             if (!File.Exists(PrototypeProjectBuilder.ScenePath))
             {
                 PrototypeProjectBuilder.CreateProject();
@@ -1098,12 +1173,12 @@ namespace KimSurvival.EditorTools
                 string bagUpgradedEnglish1280Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1280x800.png"));
                 string bagLockedKorean1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-locked-ko-1920x1080.png"));
                 string bagUpgradedEnglish1920Screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave7-bag-upgraded-en-1920x1080.png"));
-                string campFarKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-camp-far-ko-1280x800.png"));
-                string campProximityKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-proximity-prompt-ko-1280x800.png"));
-                string campProximityEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-proximity-prompt-en-1280x800.png"));
-                string campProximityQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-proximity-prompt-qps-long-1280x800.png"));
+                string campFarKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave12-camp-far-ko-1280x800.png"));
+                string campProximityKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave12-facility-near-ko-1280x800.png"));
+                string campProximityEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave12-facility-near-en-1280x800.png"));
+                string campProximityQpsLongScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave12-direct-slot-near-qps-long-1280x800.png"));
                 string campWorkbenchEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-workbench-popup-en-1280x800.png"));
-                string campCampfireKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave9-campfire-popup-ko-1280x800.png"));
+                string campCampfireKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave12-popup-open-ko-1280x800.png"));
                 string moduleSlotPopupKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave11-upper-slot-popup-ko-1280x800.png"));
                 string moduleUpperKoreanScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave11-module-upper-ko-1280x800.png"));
                 string moduleSideEnglishScreenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave11-module-side-en-1280x800.png"));
@@ -1124,7 +1199,7 @@ namespace KimSurvival.EditorTools
                     campProximityKoreanScreenshot,
                     campWorkbenchEnglishScreenshot,
                     campCampfireKoreanScreenshot);
-                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave10-camp-en-1280x800.png"));
+                string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave12-camp-reset-ko-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
                 SessionState.SetString(MessageKey, result +
@@ -1132,12 +1207,12 @@ namespace KimSurvival.EditorTools
                     "\nBag upgraded English 1280x800: " + bagUpgradedEnglish1280Screenshot +
                     "\nBag locked Korean 1920x1080: " + bagLockedKorean1920Screenshot +
                     "\nBag upgraded English 1920x1080: " + bagUpgradedEnglish1920Screenshot +
-                    "\nWave 10 far camp Korean 1280x800: " + campFarKoreanScreenshot +
-                    "\nWave 10 proximity prompt Korean 1280x800: " + campProximityKoreanScreenshot +
-                    "\nWave 10 proximity prompt English 1280x800: " + campProximityEnglishScreenshot +
-                    "\nWave 10 proximity prompt qps-long 1280x800: " + campProximityQpsLongScreenshot +
+                    "\nWave 12 far camp Korean 1280x800: " + campFarKoreanScreenshot +
+                    "\nWave 12 facility near Korean 1280x800: " + campProximityKoreanScreenshot +
+                    "\nWave 12 facility near English 1280x800: " + campProximityEnglishScreenshot +
+                    "\nWave 12 direct slot near qps-long 1280x800: " + campProximityQpsLongScreenshot +
                     "\nWave 9 workbench popup English 1280x800: " + campWorkbenchEnglishScreenshot +
-                    "\nWave 9 campfire popup Korean 1280x800: " + campCampfireKoreanScreenshot +
+                    "\nWave 12 popup-open Korean 1280x800: " + campCampfireKoreanScreenshot +
                     "\nWave 11 upper-slot popup Korean 1280x800: " + moduleSlotPopupKoreanScreenshot +
                     "\nWave 11 module upper Korean 1280x800: " + moduleUpperKoreanScreenshot +
                     "\nWave 11 module side English 1280x800: " + moduleSideEnglishScreenshot +

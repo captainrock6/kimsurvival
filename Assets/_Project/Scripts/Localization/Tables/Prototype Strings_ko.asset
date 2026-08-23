@@ -566,7 +566,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972644
-    m_Localized: "3\uC77C \uC548\uC5D0 \uAD6C\uC870 \uC2E0\uD638\uB97C \uC644\uC131\uD558\uC9C0
+    m_Localized: "5\uC77C \uC548\uC5D0 \uAD6C\uC870 \uC2E0\uD638\uB97C \uC644\uC131\uD558\uC9C0
       \uBABB\uD588\uB2E4. \uD544\uC694\uD55C \uD45C\uB958\uBB3C\uACFC \uBC27\uC904\uC744
       \uB354 \uC77C\uCC0D \uC900\uBE44\uD574\uC57C \uD55C\uB2E4."
     m_Metadata:
@@ -1168,6 +1168,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219866
+  - m_Id: 359980967641088
+    m_Localized: "\uC0AC\uC6A9"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

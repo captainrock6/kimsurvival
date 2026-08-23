@@ -174,6 +174,16 @@ namespace KimSurvival.EditorTools
 
         private static void ValidateQpsLong(string key, string english, string qpsLong)
         {
+            if (key.StartsWith("input.glyph.", StringComparison.Ordinal))
+            {
+                if (!string.Equals(english, qpsLong, StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException("Input glyphs must remain locale-invariant: " + key);
+                }
+
+                return;
+            }
+
             if (string.IsNullOrEmpty(english) && key == "dev.fallback_probe")
             {
                 if (!string.IsNullOrEmpty(qpsLong))
