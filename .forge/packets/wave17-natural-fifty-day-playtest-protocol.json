@@ -1,0 +1,584 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에 조난된 평범한 김씨가 50일의 기한 동안 위험을 견디고 수집 지역을 골라 물자를 모으며, 다섯 가지 이상의 탈출 계획과 자신이 살아온 방식에 따라 정상적이거나 황당한 결말을 맞는 코믹 2D 거점 생존 게임.",
+    "naturalFiftyDayPlaytestProtocol": {
+      "schemaVersion": 1,
+      "contractId": "playtest.wave17.natural-fifty-day.v1",
+      "sourceBaseline": "a5403173f299abc71ed4724bdaaf30c31ce8cc94",
+      "dependsOn": [
+        "campaign.wave15.escape-hazard-ending-matrix.v1",
+        "campaign.wave16.fifty-day-pacing.v1"
+      ],
+      "humanDocument": "Docs/Design/wave17-natural-fifty-day-playtest-protocol.md",
+      "executionStatus": "ALL_HUMAN_SESSIONS_UNRUN",
+      "balanceStatus": "SAMPLE_ONLY_NOT_ELIGIBLE_FOR_PROMOTION_BEFORE_E3",
+      "fixedInvariants": {
+        "defaultDeadlineDay": 50,
+        "earlyEscapeAllowed": true,
+        "escapeMethodCount": 5,
+        "regionCount": 6,
+        "hazardCount": 7,
+        "endingCount": 19,
+        "minimumCompletableEscapeMethodsPerSeed": 3,
+        "samplePity": {
+          "hintAfterEligibleSearches": 3,
+          "guaranteeNextEligibleSearchAfter": 5
+        },
+        "rule": "Wave 17 observes Wave 15 and Wave 16 without changing their IDs, content matrix, pacing values, resource economy, hazard values or ending resolution."
+      },
+      "cohort": {
+        "id": "cohort.wave17.first-users-6",
+        "status": "UNRUN",
+        "participantCount": 6,
+        "localeQuotas": {
+          "ko": 3,
+          "en": 3
+        },
+        "firstTimeUserRequired": true,
+        "sameWindowsBuildRequired": true,
+        "inputProfile": "keyboard-mouse-only",
+        "physicalGamepadStatus": "UNVERIFIED_SEPARATE_SESSION",
+        "neutralParticipantPromptKo": "김씨가 섬에서 살아가도록 선택하고, 결말에 도달해 주세요.",
+        "neutralParticipantPromptEn": "Make choices to help Mr. Kim live on the island and reach an ending.",
+        "hiddenLensRule": "The facilitator never tells the participant a profile, route, early-escape or Day 50 objective. Record observed behavior even when it differs from the assigned analytic lens.",
+        "sessionSlots": [
+          {
+            "id": "w17.s01",
+            "localeCode": "ko",
+            "seed": 170101,
+            "analyticLens": "play-profile.beginner-survivor",
+            "coverageGoals": [
+              "early hunger pressure",
+              "first hazard telegraph",
+              "recovery success or not-observed",
+              "first escape project preview"
+            ],
+            "resultStatus": "UNRUN"
+          },
+          {
+            "id": "w17.s02",
+            "localeCode": "ko",
+            "seed": 170202,
+            "analyticLens": "play-profile.explorer",
+            "coverageGoals": [
+              "region diversity",
+              "expansion unlock",
+              "natural early-escape attempt or not-observed",
+              "recovery failure, avoidance or not-observed"
+            ],
+            "resultStatus": "UNRUN"
+          },
+          {
+            "id": "w17.s03",
+            "localeCode": "ko",
+            "seed": 170303,
+            "analyticLens": "play-profile.technical",
+            "coverageGoals": [
+              "radio or beacon exposure",
+              "facility milestone",
+              "natural Day 50 settlement or technical escape"
+            ],
+            "resultStatus": "UNRUN"
+          },
+          {
+            "id": "w17.s04",
+            "localeCode": "en",
+            "seed": 170101,
+            "analyticLens": "play-profile.beginner-survivor",
+            "coverageGoals": [
+              "paired-seed semantic comparison with w17.s01",
+              "hazard and recovery comprehension"
+            ],
+            "resultStatus": "UNRUN"
+          },
+          {
+            "id": "w17.s05",
+            "localeCode": "en",
+            "seed": 170202,
+            "analyticLens": "play-profile.explorer",
+            "coverageGoals": [
+              "paired-seed region-choice comparison with w17.s02",
+              "natural early-escape judgment"
+            ],
+            "resultStatus": "UNRUN"
+          },
+          {
+            "id": "w17.s06",
+            "localeCode": "en",
+            "seed": 170303,
+            "analyticLens": "play-profile.technical",
+            "coverageGoals": [
+              "paired-seed project-requirement comparison with w17.s03",
+              "identity and ending comprehension"
+            ],
+            "resultStatus": "UNRUN"
+          }
+        ]
+      },
+      "sessionExecution": {
+        "newGameRequired": true,
+        "sameSaveResumeAllowed": true,
+        "sampleActiveTimeboxMinutes": 180,
+        "pauseRule": "Prefer pauses after daily settlement; exclude break time from active time.",
+        "forbiddenDebugAssists": [
+          "resource or key-part grant",
+          "coordinate or region warp",
+          "day skip",
+          "invulnerability",
+          "hunger or hazard disable",
+          "seed, hidden loot or ending resolver reveal",
+          "debug map or console",
+          "save editing or rollback",
+          "restart or reroll for a favorable outcome",
+          "facilitator strategy hint",
+          "external walkthrough"
+        ],
+        "allowedAssist": "Controls or technical troubleshooting only, logged manually as facilitator_technical_assist; any assist that changes economy, hazard or progression invalidates the session.",
+        "naturalOutcomeRule": "Early escape, Day 50 settlement, survival terminal and hazard recovery success or failure remain NOT_OBSERVED unless they occur naturally."
+      },
+      "sessionEndCodes": [
+        {
+          "id": "escape_complete",
+          "condition": "escape ending resolves before or on Day 50",
+          "terminalValid": true,
+          "countsAsNaturalFiftyDayCompletion": false
+        },
+        {
+          "id": "day50_settlement",
+          "condition": "Day 50 settlement ending resolves and Day 51 is unreachable",
+          "terminalValid": true,
+          "countsAsNaturalFiftyDayCompletion": true
+        },
+        {
+          "id": "survival_terminal",
+          "condition": "natural survival failure resolves to terminal state",
+          "terminalValid": true,
+          "countsAsNaturalFiftyDayCompletion": false
+        },
+        {
+          "id": "timebox_incomplete",
+          "condition": "180 active minutes without a terminal",
+          "terminalValid": false,
+          "countsAsNaturalFiftyDayCompletion": false
+        },
+        {
+          "id": "participant_stop",
+          "condition": "participant withdraws at any time",
+          "terminalValid": false,
+          "countsAsNaturalFiftyDayCompletion": false
+        },
+        {
+          "id": "p0_protocol_stop",
+          "condition": "P0 technical, data, privacy or softlock failure",
+          "terminalValid": false,
+          "countsAsNaturalFiftyDayCompletion": false
+        }
+      ],
+      "bandObservations": [
+        {
+          "bandId": "pacing.band.onboarding",
+          "dayRange": "1-10",
+          "telemetryMetrics": [
+            "first map-open day and elapsed segment",
+            "selected region IDs",
+            "return count",
+            "same-region streak",
+            "hunger and hazard telegraph",
+            "escape project preview"
+          ],
+          "manualObservations": [
+            "uses resource and hazard forecast to choose",
+            "notices a first recovery route"
+          ]
+        },
+        {
+          "bandId": "pacing.band.expansion",
+          "dayRange": "11-20",
+          "telemetryMetrics": [
+            "first expansion preview and unlock day",
+            "primary or alternative unlock result",
+            "travel band",
+            "unique region count",
+            "pity counter"
+          ],
+          "manualObservations": [
+            "distinguishes lock reason from alternate route",
+            "changes choice because of travel time"
+          ]
+        },
+        {
+          "bandId": "pacing.band.compound-choice",
+          "dayRange": "21-35",
+          "telemetryMetrics": [
+            "regions exposed",
+            "project preview, commit and pivot",
+            "repeated search rate",
+            "hazard preparation, mitigation and recovery",
+            "softlock audit"
+          ],
+          "manualObservations": [
+            "chosen repeat versus forced repeat",
+            "survival, camp and escape investment tension"
+          ]
+        },
+        {
+          "bandId": "pacing.band.finish-pressure",
+          "dayRange": "36-49",
+          "telemetryMetrics": [
+            "active project milestone",
+            "missing requirement",
+            "pity hint and guarantee",
+            "finish, repair or pivot",
+            "remaining-day warning"
+          ],
+          "manualObservations": [
+            "explains blocker and alternative source",
+            "judges pressure as fair or unfair"
+          ]
+        },
+        {
+          "bandId": "pacing.band.resolution",
+          "dayRange": "50",
+          "telemetryMetrics": [
+            "terminal priority",
+            "ending ID",
+            "identity snapshot",
+            "panel sequence",
+            "Day 51 prevented"
+          ],
+          "manualObservations": [
+            "ending and identity fit the run",
+            "locale preserves cause and result meaning"
+          ]
+        }
+      ],
+      "derivedMetrics": [
+        {
+          "id": "metric.unique-region-count",
+          "definition": "Distinct region IDs with a successful return before terminal or stop."
+        },
+        {
+          "id": "metric.same-region-streak-max",
+          "definition": "Maximum consecutive confirmed expeditions to one region without another region return."
+        },
+        {
+          "id": "metric.repeated-search-rate",
+          "definition": "Comparable searches with the same region and primary goal as the immediately previous search divided by all comparable searches."
+        },
+        {
+          "id": "metric.meaningful-choice-rate",
+          "definition": "Observed map decisions changed by forecast, hazard or project requirement divided by confirmed map choices."
+        },
+        {
+          "id": "metric.hazard-preparation-rate",
+          "definition": "Telegraphed hazards prepared for or avoided before occurrence divided by hazards with a response opportunity."
+        },
+        {
+          "id": "metric.hazard-recovery-rate",
+          "definition": "Completed recoveries divided by hazards that required recovery."
+        },
+        {
+          "id": "metric.escape-exposure-count",
+          "definition": "Distinct escape method IDs reaching previewed or later state, maximum five."
+        },
+        {
+          "id": "metric.softlock-minimum-routes",
+          "definition": "Minimum completable escape graph count across seed generation, expansion unlock, Day 35 and Day 49 audits."
+        },
+        {
+          "id": "metric.identity-final-action-flip",
+          "definition": "True when the final meaningful action alone replaces an established identity; required false."
+        },
+        {
+          "id": "metric.ending-fit-rating",
+          "definition": "Consent-based post-session rating from one to five."
+        }
+      ],
+      "escapeAndSoftlockObservation": {
+        "escapeMethodIds": [
+          "escape.raft",
+          "escape.smoke",
+          "escape.radio",
+          "escape.flare",
+          "escape.beacon"
+        ],
+        "methodStateEnum": [
+          "not_seen",
+          "previewed",
+          "requirement_understood",
+          "committed",
+          "completed",
+          "abandoned"
+        ],
+        "softlockAuditPoints": [
+          "seed_generation",
+          "expansion_region_unlock",
+          "day_35_settlement",
+          "day_49_settlement"
+        ],
+        "minimumCompletableMethods": 3,
+        "failureSeverity": "P0_STOP_BUILD",
+        "executionPrecondition": "Run this human protocol only when all five escape methods are playable in the same implementation build; data-only catalog status is insufficient."
+      },
+      "telemetryContract": {
+        "storage": "local structured log",
+        "allowedFields": [
+          "sessionSlotId",
+          "localeCode",
+          "seed",
+          "day",
+          "pacingBandId",
+          "eventId",
+          "stableEntityId",
+          "resultCode",
+          "elapsedSegmentMs"
+        ],
+        "eventIdSource": "project.campaignPacingContract.telemetry.eventIds",
+        "forbiddenFields": [
+          "name",
+          "account",
+          "IP address",
+          "device ID",
+          "raw input stream",
+          "voice",
+          "chat",
+          "coordinate trail",
+          "free text"
+        ],
+        "privacyRule": "sessionSlotId is not linked to recruitment identity; no lookup table is created."
+      },
+      "manualQualitativeForm": {
+        "separateFromTelemetry": true,
+        "consentRequired": true,
+        "participationAllowedWithoutConsent": true,
+        "identifier": "sessionSlotId only",
+        "quotePermissionSeparate": true,
+        "questions": [
+          "Which region did you visit most and why?",
+          "Was repeated searching a chosen strategy or caused by not finding another option?",
+          "When did you notice the most dangerous event and how could you prepare or recover?",
+          "Which escape methods did you know and why did you choose or abandon them?",
+          "How well did the final ending and lifestyle match your play, from 1 to 5?"
+        ]
+      },
+      "stopAndRollback": {
+        "p0StopConditions": [
+          "softlock audit below three completable methods",
+          "Day 51 entry",
+          "wrong terminal priority or nondeterministic ending ID",
+          "duplicate theft, damage or project transaction",
+          "protected key part permanently deleted",
+          "save corruption or progression-blocking crash or UI",
+          "telemetry field outside allowlist or any personal/free-text log",
+          "seed, build or locale changes during a session"
+        ],
+        "p0Action": "Stop current and remaining sessions on the build; do not merge results with a corrected build; start a new six-session cohort.",
+        "cohortPauseConditions": [
+          "two consecutive sessions cannot enter the next band for the same nontechnical blocker",
+          "two same-locale sessions misunderstand the same requirement",
+          "participant safety or fatigue issue repeats"
+        ],
+        "rollbackConditions": [
+          "any P0 after a one-axis candidate change",
+          "target metric worsens by at least twenty percent versus baseline",
+          "early escape, Day 50 terminal or minimum-three-route invariant disappears"
+        ],
+        "rollbackRule": "Return to the previous build and do not compensate by changing a second tuning axis."
+      },
+      "oneAxisTuningDecisionTable": [
+        {
+          "axisId": "REGION_ACCESS",
+          "candidateThreshold": "At least four of six see expansion clues but cannot identify a lock reason by Day 20.",
+          "excludeFirst": ["localization", "UI discovery", "runtime defect"],
+          "allowedChange": "one unlock requirement or one hint timing",
+          "holdRule": "Hold when delayed expansion is an explained survival choice."
+        },
+        {
+          "axisId": "TRAVEL_TIME",
+          "candidateThreshold": "At least four of six spend over thirty-five percent active time traveling and rate repetition fatigue four or five.",
+          "excludeFirst": ["pathing defect", "input latency"],
+          "allowedChange": "one travel band or one familiarity count",
+          "holdRule": "Hold when players explain a meaningful reward-risk trade."
+        },
+        {
+          "axisId": "RESOURCE_FORECAST",
+          "candidateThreshold": "Among sessions reaching Day 35, median forced repeated-search rate exceeds fifty percent.",
+          "excludeFirst": ["forecast comprehension", "key-part softlock"],
+          "allowedChange": "one categorical forecast modifier frequency",
+          "holdRule": "Hold when most repeats are chosen-repeat."
+        },
+        {
+          "axisId": "HAZARD_PRESSURE",
+          "candidateThreshold": "At least three of six read a telegraph but cannot recover because hazards stack on the same day.",
+          "excludeFirst": ["missing telegraph", "atomicity defect"],
+          "allowedChange": "one daily budget, active cap or major cap",
+          "holdRule": "Hold when the response opportunity was knowingly declined."
+        },
+        {
+          "axisId": "RECOVERY_WINDOW",
+          "candidateThreshold": "At least three of six mitigate successfully but cannot recover before another same-family major.",
+          "excludeFirst": ["recovery UI discovery", "material comprehension"],
+          "allowedChange": "one calm-day or recovery-reservation value",
+          "holdRule": "Hold when players knowingly abandon recovery."
+        },
+        {
+          "axisId": "ESCAPE_PREPARATION",
+          "candidateThreshold": "At least four of six understand three methods but no project reaches its middle milestone by Day 35.",
+          "excludeFirst": ["region access", "resource forecast", "softlock"],
+          "allowedChange": "one preparation stage or one sample preparation-duration value",
+          "holdRule": "Hold when progress is delayed by intentional multi-project investment."
+        },
+        {
+          "axisId": "IDENTITY_THRESHOLD",
+          "candidateThreshold": "At least two of six rate ending fit one or two and the log shows a final-action identity flip.",
+          "excludeFirst": ["ending localization", "resolver defect"],
+          "allowedChange": "one candidate minimum, daily cap or lead value",
+          "holdRule": "Hold when the mismatch is explanation copy rather than scoring."
+        }
+      ],
+      "tuningSelectionRule": "One validation build changes one axis only. If multiple axes qualify, choose by P0/P1 severity, affected-session count and earliest occurrence day; defer all others.",
+      "evidenceLadder": [
+        {
+          "id": "E0_AUTOMATED",
+          "minimumEvidence": "schema, seed, softlock and ending resolver automation",
+          "allowedConclusion": "implementation contract only; balance remains SAMPLE_ONLY"
+        },
+        {
+          "id": "E1_DIAGNOSTIC_6",
+          "minimumEvidence": "one unchanged build, six valid first-user sessions, ko three and en three",
+          "allowedConclusion": "select one tuning axis or hold; no formal promotion"
+        },
+        {
+          "id": "E2_CANDIDATE_6",
+          "minimumEvidence": "new users on one-axis candidate build with the same six-slot seed and locale plan",
+          "allowedConclusion": "mark only that axis as release candidate"
+        },
+        {
+          "id": "E3_CONFIRMATION_6",
+          "minimumEvidence": "independent new-user six-session cohort on the unchanged candidate build",
+          "allowedConclusion": "promote only the observed axis to PLAYTEST_LOCKED_V1 when all promotion gates pass"
+        }
+      ],
+      "promotionGates": {
+        "candidateAndConfirmationSessionCount": 12,
+        "p0CountMaximum": 0,
+        "localeQuotaPerCohort": { "ko": 3, "en": 3 },
+        "structuredLogCompletenessMinimumPercent": 95,
+        "personalOrFreeTextTelemetryCountMaximum": 0,
+        "naturalEarlyEscapeMinimum": 2,
+        "naturalDay50TerminalMinimum": 2,
+        "softlockMinimumRoutes": 3,
+        "duplicateTransactionMaximum": 0,
+        "medianForcedRepeatedSearchRateMaximumPercent": 40,
+        "medianHazardPreparationRateMinimumPercent": 50,
+        "mitigatedHazardRecoveryRateMinimumPercent": 70,
+        "escapeMethodCatalogAndUiExposureRequired": 5,
+        "terminalSessionsExplainingThreeMethodsMinimumPercent": 75,
+        "identityFinalActionFlipMaximum": 0,
+        "terminalEndingFitMedianMinimum": 4,
+        "pairedSeedKoEnSemanticMismatchMaximum": 0,
+        "promotionScope": "Only the tested single axis; every other cost, drop, survival, hazard, pacing and identity value remains SAMPLE_ONLY."
+      },
+      "postSessionQuestions": [
+        "Which region did you visit most and why?",
+        "Was repeated searching a strategy you chose or caused by not finding another option?",
+        "When did you notice the most dangerous event and how could you prepare or recover?",
+        "Which escape methods did you know and why did you choose or abandon them?",
+        "How well did the ending and dominant lifestyle match your play, from one to five?"
+      ],
+      "explicitlyUnverified": [
+        "all six first-user natural sessions",
+        "natural Day 50 user completion",
+        "physical gamepad ko and en hands-on play",
+        "Steamworks, App ID, achievements and distribution",
+        "formal promotion of any Wave 16 SAMPLE_ONLY value"
+      ],
+      "acceptanceCriteria": [
+        "Exactly six UNRUN first-user session slots exist with ko three, en three and three paired seeds; no result is fabricated.",
+        "Each slot defines seed, hidden analytic lens, coverage goal, forbidden debug assistance and terminal or stop conditions without directing player strategy.",
+        "All five Wave 16 bands record structured and manual metrics for region diversity, repeated search, hazard preparation and recovery, escape exposure, softlock and identity-ending fit.",
+        "Telemetry uses only the allowlisted minimal fields and separates consent-based qualitative notes from the game log.",
+        "Any softlock audit below three routes, duplicate transaction, Day 51, nondeterministic ending, privacy field or save-blocking defect stops the build cohort.",
+        "One build changes one tuning axis and has explicit candidate, hold, rollback and exclusion rules.",
+        "Six diagnostic sessions alone cannot promote balance; E3 requires twelve candidate-plus-confirmation sessions and all quantitative gates.",
+        "Physical gamepad, Steam and natural Day 50 completion remain UNVERIFIED until separately executed."
+      ]
+    }
+  },
+  "verticalSlice": {
+    "goal": "실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다."
+  },
+  "features": [],
+  "screens": [],
+  "systems": [],
+  "artAssets": [],
+  "tasks": [
+    {
+      "id": "task.design.wave17-natural-fifty-day-playtest-protocol",
+      "lane": "design",
+      "title": "Wave 17 자연 50일 플레이테스트·튜닝 프로토콜",
+      "description": "Wave 15·16 정본을 변경하지 않고 구현 이후 실행할 ko 3/en 3 자연 50일 첫 사용자 cohort, 날짜 밴드별 관찰, 최소 telemetry, softlock·중단·롤백, 단일 축 튜닝과 SAMPLE_ONLY 승격 증거 게이트를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "결과가 비어 있는 ko 3/en 3 첫 사용자 세션 6개가 seed·관찰 렌즈·금지 보조·종료 조건을 가진다.",
+        "Day 1–10, 11–20, 21–35, 36–49, 50의 지역·반복·위험·탈출·softlock·identity 관찰값이 자동/수동으로 분리된다.",
+        "허용 telemetry 필드와 동의형 수동 정성 메모가 분리되고 개인정보·자유 입력 게임 로그가 금지된다.",
+        "P0 중단, cohort 중단, 롤백, 한 빌드 한 축과 E0–E3 승격 게이트가 기계 판독 가능하다.",
+        "실제 사용자 완주·물리 게임패드·Steam·정식 밸런스는 실행 전 UNVERIFIED로 남는다."
+      ],
+      "paths": [
+        ".forge/packets/wave17-natural-fifty-day-playtest-protocol.json",
+        ".forge/design/project.json",
+        "Docs/Design/wave17-natural-fifty-day-playtest-protocol.md"
+      ],
+      "evidence": [
+        ".forge/packets/wave17-natural-fifty-day-playtest-protocol.json",
+        "Docs/Design/wave17-natural-fifty-day-playtest-protocol.md"
+      ],
+      "status": "planned"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.wave17-six-unrun-paired-seed-sessions",
+      "summary": "첫 사용자 진단 cohort는 결과를 비워 둔 ko 3/en 3의 6세션이며 세 seed를 locale 쌍으로 사용하고 참가자에게 성향·경로 목표를 지시하지 않는다.",
+      "rationale": "자연 행동과 locale 의미 차이를 함께 관찰하면서 결과 조작과 선행 학습을 피한다.",
+      "source": "wave17-design-contract"
+    },
+    {
+      "id": "decision.wave17-minimal-telemetry-consented-notes",
+      "summary": "게임 로그는 session slot·locale·seed·day·band·event·stable ID·result code·elapsed segment만 허용하고 정성 메모는 별도 동의형 수동 양식으로 분리한다.",
+      "rationale": "페이싱 판정에 필요한 최소 구조화 증거를 남기되 개인정보와 자유 입력 수집을 피한다.",
+      "source": "wave17-design-contract"
+    },
+    {
+      "id": "decision.wave17-p0-stops-whole-build-cohort",
+      "summary": "3경로 미만 softlock, Day 51, 중복 transaction, 비결정 ending, save 진행 불능 또는 privacy 위반은 같은 build의 cohort 전체를 중단하고 수정 build와 결과를 합치지 않는다.",
+      "rationale": "서로 다른 build의 결과를 섞어 밸런스 문제를 가리거나 유효하지 않은 자연 run을 승격 증거로 쓰지 않기 위함이다.",
+      "source": "wave17-design-contract"
+    },
+    {
+      "id": "decision.wave17-e3-required-for-single-axis-promotion",
+      "summary": "첫 6세션은 진단만 가능하고, 단일 축 승격은 후보 6+독립 확인 6의 E3와 모든 정량 게이트를 통과해야 한다.",
+      "rationale": "소표본 한 cohort나 단일 owner session으로 SAMPLE_ONLY 숫자를 정식 밸런스로 잠그지 않는다.",
+      "source": "wave17-design-contract"
+    }
+  ],
+  "openQuestions": []
+}

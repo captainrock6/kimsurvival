@@ -2088,6 +2088,50 @@
       "createdAt": "2026-08-23T16:10:47.152Z"
     },
     {
+      "id": "task.design.wave17-natural-fifty-day-playtest-protocol",
+      "lane": "design",
+      "title": "Wave 17 자연 50일 플레이테스트·튜닝 프로토콜",
+      "description": "Wave 15·16 정본을 변경하지 않고 구현 이후 실행할 ko 3/en 3 자연 50일 첫 사용자 cohort, 날짜 밴드별 관찰, 최소 telemetry, softlock·중단·롤백, 단일 축 튜닝과 SAMPLE_ONLY 승격 증거 게이트를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "결과가 비어 있는 ko 3/en 3 첫 사용자 세션 6개가 seed·관찰 렌즈·금지 보조·종료 조건을 가진다.",
+        "Day 1–10, 11–20, 21–35, 36–49, 50의 지역·반복·위험·탈출·softlock·identity 관찰값이 자동/수동으로 분리된다.",
+        "허용 telemetry 필드와 동의형 수동 정성 메모가 분리되고 개인정보·자유 입력 게임 로그가 금지된다.",
+        "P0 중단, cohort 중단, 롤백, 한 빌드 한 축과 E0–E3 승격 게이트가 기계 판독 가능하다.",
+        "실제 사용자 완주·물리 게임패드·Steam·정식 밸런스는 실행 전 UNVERIFIED로 남는다."
+      ],
+      "paths": [
+        ".forge/packets/wave17-natural-fifty-day-playtest-protocol.json",
+        ".forge/design/project.json",
+        "Docs/Design/wave17-natural-fifty-day-playtest-protocol.md"
+      ],
+      "evidence": [
+        ".forge/packets/wave17-natural-fifty-day-playtest-protocol.json",
+        "Docs/Design/wave17-natural-fifty-day-playtest-protocol.md",
+        "Forge status/report PASS; contract validation PASS: sessions 6 (ko 3/en 3), paired seeds 3, all UNRUN, bands 5, metrics 10, axes 7, E0-E3, catalog 5/6/7/19, pity 3/5, minimum routes 3; Wave 15/16 and assets/vertical/implementation preserved."
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-24T11:59:01.905Z",
+      "note": "Wave 17 protocol complete. All six human sessions, natural Day 50 completion, physical gamepad and Steam remain UNRUN or UNVERIFIED; JSON, reference, status/report and scope integrity passed.",
+      "completedAt": "2026-08-24T11:59:01.904Z",
+      "createdAt": "2026-08-24T11:59:01.905Z"
+    },
+    {
       "id": "task.art.background.island-camp",
       "lane": "art",
       "title": "무인도 베이스캠프 배경 제작",
@@ -3374,5 +3418,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-24T11:43:58.889Z"
+  "updatedAt": "2026-08-24T11:59:01.905Z"
 }
