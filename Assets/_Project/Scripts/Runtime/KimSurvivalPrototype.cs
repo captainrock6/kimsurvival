@@ -43,7 +43,7 @@ namespace KimSurvival
         private const float SignalAnchorBadgeQpsTextScale = 0.072f;
         private const float PlacementGhostBadgeMinimumWidth = 5.2f;
         private const float PlacementGhostBadgeHeight = 1.85f;
-        private const float PlacementGhostBadgeVerticalOffset = 1.28f;
+        private const float PlacementGhostBadgeVerticalOffset = 1.75f;
         private const float ResourceLabelWidth = 4.35f;
         private const float ResourceLabelHeight = 1.55f;
         private const float ResourceLabelViewportPadding = 0.22f;

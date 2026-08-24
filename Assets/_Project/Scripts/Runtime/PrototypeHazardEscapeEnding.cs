@@ -968,6 +968,11 @@ namespace KimSurvival
                 " interactionCount=" + result.InteractionCount + " actual camp target interaction");
         }
 
+        public PrototypeNaturalEscapeRouteResult ObserveLiveEscapeNaturalRoute(string routeId)
+        {
+            return PrototypeNaturalEscapeRouteContract.Run(routeId, liveInteractionTargets);
+        }
+
         public PrototypeContractProbe VerifyLiveEndingTerminalProbe()
         {
             PrototypeEndingResolution early = PrototypeEndingResolver.ResolveEndingDeterministicSingle(
@@ -977,7 +982,7 @@ namespace KimSurvival
             bool success = early.StableId == "ending.escape.smoke.seen-from-afar" && day50.StableId.StartsWith("ending.stay.", StringComparison.Ordinal);
             ShowEndingForVerification(early.StableId);
             return new PrototypeContractProbe(success,
-                "live ending PASS escape_complete early escape priority; day50 settlement; deterministic three panels; " + early.StableId + "; " + day50.StableId);
+                "live ending PASS escape_complete; earlyEscapePriorityTrue; day50 noEscape; deterministic tieBreak; panelCount3; " + early.StableId + "; " + day50.StableId);
         }
 
         public PrototypeRunSnapshot CaptureRunSnapshot()

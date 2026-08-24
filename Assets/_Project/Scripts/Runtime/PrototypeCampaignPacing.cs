@@ -423,6 +423,7 @@ namespace KimSurvival
     public sealed class PrototypeNaturalEscapeRouteResult
     {
         public string StableId = string.Empty;
+        public string[] InteractionTrace = Array.Empty<string>();
         public bool Success;
         public bool Completed;
         public bool Terminal;
@@ -449,7 +450,8 @@ namespace KimSurvival
             string routeId,
             IReadOnlyList<PrototypeCampInteractionTarget> liveTargets)
         {
-            bool radio = string.Equals(routeId, "smoke.route.radio", StringComparison.Ordinal);
+            bool radio = string.Equals(routeId, "smoke.route.radio", StringComparison.Ordinal) ||
+                         string.Equals(routeId, "escape.radio", StringComparison.Ordinal);
             string escapeId = radio ? "escape.radio" : "escape.smoke";
             PrototypeCampInteractionTargetKind kind = radio
                 ? PrototypeCampInteractionTargetKind.RadioBench
@@ -460,12 +462,15 @@ namespace KimSurvival
             PrototypeEscapeProjectDirector director = new PrototypeEscapeProjectDirector();
             bool prepared = radio ? PrepareRadio(session) : PrepareSmoke(session);
             int interactions = 0;
+            List<string> interactionTrace = new List<string>();
             bool progressed = prepared;
             for (int step = 0; step < 2 && progressed; step += 1)
             {
                 interaction.UpdateSelection(target.Position + Vector2.left * 0.5f, 1f, new[] { target });
                 bool opened = interaction.ActiveTargetKind == kind && interaction.TryOpenPopup();
                 bool confirmed = opened && interaction.TryConfirmAction();
+                if (opened) interactionTrace.Add("camp.interaction." + escapeId + ".popup-opened." + step);
+                if (confirmed) interactionTrace.Add("camp.interaction." + escapeId + ".action-confirmed." + step);
                 interactions += opened ? 1 : 0;
                 interactions += confirmed ? 1 : 0;
                 progressed = confirmed && PrototypeCampInteractionCatalog.OwnsAction(
@@ -473,6 +478,7 @@ namespace KimSurvival
                     radio ? PrototypeCampInteractionAction.ProgressRadioEscape : PrototypeCampInteractionAction.ProgressSmokeEscape,
                     true) && director.TryProgress(session, escapeId, "natural." + escapeId + "." + step);
                 interaction.ClosePopup();
+                interactionTrace.Add("camp.interaction." + escapeId + ".popup-closed." + step);
                 interactions += 1;
             }
 
@@ -481,6 +487,7 @@ namespace KimSurvival
             return new PrototypeNaturalEscapeRouteResult
             {
                 StableId = routeId,
+                InteractionTrace = interactionTrace.ToArray(),
                 Success = completed,
                 Completed = completed,
                 Terminal = session.Result == RunResult.Rescued,
