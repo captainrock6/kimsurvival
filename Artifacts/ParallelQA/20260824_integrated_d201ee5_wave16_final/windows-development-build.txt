@@ -1,0 +1,17 @@
+Wave 5 Windows x64 Development Build
+Run ID: 20260824_integrated_d201ee5_wave16_final
+Baseline: d201ee5336cb208735d09467116fb173717648ed
+Unity: 6000.4.9f1
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260824_integrated_d201ee5_wave16_final\unity-windows-build.log"
+Result: Succeeded
+Errors: 0
+Warnings: 0
+Addressables link contract: PASS
+Preflight -> before build stable: True
+Before -> after build stable: True
+Generated temporary copy cleanup: True
+Generated temporary copy evidence: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260824_integrated_d201ee5_wave16_final\addressables-generated-link-cleanup.json
+Executable: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260824_integrated_d201ee5_wave16_final\WindowsBuild\KimSurvivalIsland.exe
+Executable exists: True
+Executable bytes: 667648
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d

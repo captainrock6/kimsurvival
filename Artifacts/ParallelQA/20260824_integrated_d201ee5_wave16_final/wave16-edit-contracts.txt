@@ -1,0 +1,20 @@
+Wave 16 hazard/escape/ending RED-first Edit contracts
+Run ID: 20260824_integrated_d201ee5_wave16_final
+Baseline: d201ee5336cb208735d09467116fb173717648ed
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: FAIL/FAIL/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED: 2/0/12/0/0
+W16-I01.exact_baseline | PASS | NONE | baseline=d201ee5336cb208735d09467116fb173717648ed
+W16-I02.canonical_contract | PASS | NONE | missing=; files=2
+W16-H01.hazard_phase_catalog | FAIL | PRODUCT_REGRESSION | hazard.injury=entry:False,W:False,O:False,M:False,R:False; hazard.disaster=entry:False,W:False,O:False,M:False,R:False; hazard.food-theft=entry:False,W:False,O:False,M:False,R:False
+W16-H02.daily_stack_budget | FAIL | PRODUCT_REGRESSION | daily=False; major=False; active=False; recoveryReserve=False
+W16-H03.atomic_idempotent_resolution | FAIL | PRODUCT_REGRESSION | no public semantic deterministic probe discovered
+W16-E01.five_escape_catalog | FAIL | PRODUCT_REGRESSION | escape methods=0/5; found=
+W16-E02.escape_axis_separation | FAIL | PRODUCT_REGRESSION | escape entries missing; pairwise axes unavailable
+W16-E03.smoke_radio_playable | FAIL | PRODUCT_REGRESSION | metadata=False; smokeProbe=no public semantic deterministic probe discovered; radioProbe=no public semantic deterministic probe discovered
+W16-E04.raft_flare_beacon_data | FAIL | PRODUCT_REGRESSION | escape.raft=0/6; escape.flare=0/6; escape.beacon=0/6
+W16-O01.snapshot_and_private_log | FAIL | PRODUCT_REGRESSION | snapshot=KimSurvival.GameSession(2/5); log=KimSurvival.PrototypePlaytestEventRecord(2/5); piiFields=none
+W16-N01.ending_catalog_19 | FAIL | PRODUCT_REGRESSION | endings=0/19; samples=0/4; unique=True
+W16-N02.deterministic_single_ending | FAIL | PRODUCT_REGRESSION | probe=no public semantic deterministic probe discovered; tieBreak=priority:False,conditions:False,eventDay:False,ascii:True
+W16-N03.terminal_priority | FAIL | PRODUCT_REGRESSION | escapePriority=no public semantic deterministic probe discovered; behaviorEnding=no public semantic deterministic probe discovered
+W16-L01.ko_en_qps_contract | FAIL | PRODUCT_REGRESSION | required=65; present=0; qpsExpanded=0; tablesRows=286

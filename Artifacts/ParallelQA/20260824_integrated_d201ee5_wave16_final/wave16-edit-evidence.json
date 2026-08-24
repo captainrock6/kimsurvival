@@ -1,0 +1,17 @@
+{
+    "runId": "20260824_integrated_d201ee5_wave16_final",
+    "baselineCommit": "d201ee5336cb208735d09467116fb173717648ed",
+    "discoveryPolicy": "Public runtime objects, stable IDs, semantic members, deterministic probes; no required implementation class/file name.",
+    "discoveredStableIds": [],
+    "discoveredEntries": [],
+    "hazardPhases": "hazard.injury=entry:False,W:False,O:False,M:False,R:False; hazard.disaster=entry:False,W:False,O:False,M:False,R:False; hazard.food-theft=entry:False,W:False,O:False,M:False,R:False",
+    "hazardBudget": "daily=False; major=False; active=False; recoveryReserve=False",
+    "hazardTransaction": "no public semantic deterministic probe discovered",
+    "escapeCatalog": "escape methods=0/5; found=",
+    "escapeAxes": "escape entries missing; pairwise axes unavailable",
+    "playablePaths": "metadata=False; smokeProbe=no public semantic deterministic probe discovered; radioProbe=no public semantic deterministic probe discovered",
+    "snapshotAndLog": "snapshot=KimSurvival.GameSession(2/5); log=KimSurvival.PrototypePlaytestEventRecord(2/5); piiFields=none",
+    "endingCatalog": "endings=0/19; samples=0/4; unique=True",
+    "endingResolver": "probe=no public semantic deterministic probe discovered; tieBreak=priority:False,conditions:False,eventDay:False,ascii:True",
+    "localization": "required=65; present=0; qpsExpanded=0; tablesRows=286"
+}

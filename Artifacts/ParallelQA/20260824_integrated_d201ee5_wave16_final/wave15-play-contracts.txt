@@ -1,0 +1,13 @@
+Wave 15 campaign/map RED-first Play contracts
+Run ID: 20260824_integrated_d201ee5_wave16_final
+Baseline: d201ee5336cb208735d09467116fb173717648ed
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: GREEN/PASS/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED: 5/0/0/0/2
+W15-P01.map_proximity_state_machine | PASS | NONE | target=ExpeditionMap/camp.expedition-map at=(5.250,-2.180); farKind=RescueSignal; farHidden=True; nearSingle=True; opened=True; cards=activeTexts=11; regions=True; semantics=True; exactForecastAmounts=False; cancelRestored=True; fingerprint=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None
+W15-P02.region_card_player_semantics | PASS | NONE | target=ExpeditionMap/camp.expedition-map at=(5.250,-2.180); farKind=RescueSignal; farHidden=True; nearSingle=True; opened=True; cards=activeTexts=11; regions=True; semantics=True; exactForecastAmounts=False; cancelRestored=True; fingerprint=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None
+W15-P03.keyboard_gamepad_focus_parity | PASS | NONE | keyboard=[E]; gamepad=[X]; target=ExpeditionMap/camp.expedition-map->ExpeditionMap/camp.expedition-map; focus=expeditionMapSelection=PrototypeExpeditionMapSelection{FocusedIndex=0;FocusedRegionId=Beach;IsOpen=False}->expeditionMapSelection=PrototypeExpeditionMapSelection{FocusedIndex=0;FocusedRegionId=Beach;IsOpen=False}; progress=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None
+W15-P04.ko_en_qps_1280_layout | PASS | NONE | captures=9/9; overflow=0; offscreen=0; textOverlap=0
+W15-I03.fresh_capture_evidence | PASS | NONE | captures=wave15-ko-map-far-1280x800.png,wave15-ko-map-near-1280x800.png,wave15-ko-map-popup-1280x800.png,wave15-en-map-far-1280x800.png,wave15-en-map-near-1280x800.png,wave15-en-map-popup-1280x800.png,wave15-qps-long-map-far-1280x800.png,wave15-qps-long-map-near-1280x800.png,wave15-qps-long-map-popup-1280x800.png
+W15-HW01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | no non-empty joystick name exposed to Unity batch Play Mode
+W15-S01.steam_release | UNVERIFIED | EXTERNAL_RELEASE_GAP | Steam integration and release evidence remain outside this task; readiness is NOT_READY.
