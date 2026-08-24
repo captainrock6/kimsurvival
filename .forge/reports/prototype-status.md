@@ -11,9 +11,9 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | skipped | Wave 16 is design-only; it introduces no art asset or adoption work. |
-| implementation | planned |  |
-| verification | planned |  |
+| art | skipped | Wave 17 is a design-only playtest protocol and introduces no art work. |
+| implementation | skipped | No runtime or implementation task is registered by Wave 17. |
+| verification | skipped | Human sessions remain UNRUN; this run records protocol design only. |
 
 ## 다음 작업
 
@@ -82,6 +82,7 @@
 | task.implementation.wave15-hazard-ending-foundation | implementation | critical | ready | Wave 15 위험·다중 탈출·행동 엔딩 기반 |
 | task.qa.wave15-campaign-map-redfirst | qa | critical | done | Wave 15 Day 50·수집 지도·RNG red-first 게이트 |
 | task.design.wave16-fifty-day-pacing | design | critical | done | Wave 16 50일 SAMPLE_ONLY 페이싱 계약 |
+| task.design.wave17-natural-fifty-day-playtest-protocol | design | critical | done | Wave 17 자연 50일 플레이테스트·튜닝 프로토콜 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
@@ -303,6 +304,9 @@
 - task.design.wave16-fifty-day-pacing: .forge/packets/wave16-fifty-day-pacing.json
 - task.design.wave16-fifty-day-pacing: Docs/Design/wave16-fifty-day-pacing.md
 - task.design.wave16-fifty-day-pacing: Forge status/report PASS; contract validation PASS: catalog 5/6/7/19, bands 5, routes 2+3, pity 3/5, min routes 3, stats 7; assets hash preserved 3a8d0d976e9c9f53720a25e41496997fb72a1cfe
+- task.design.wave17-natural-fifty-day-playtest-protocol: .forge/packets/wave17-natural-fifty-day-playtest-protocol.json
+- task.design.wave17-natural-fifty-day-playtest-protocol: Docs/Design/wave17-natural-fifty-day-playtest-protocol.md
+- task.design.wave17-natural-fifty-day-playtest-protocol: Forge status/report PASS; contract validation PASS: sessions 6 (ko 3/en 3), paired seeds 3, all UNRUN, bands 5, metrics 10, axes 7, E0-E3, catalog 5/6/7/19, pity 3/5, minimum routes 3; Wave 15/16 and assets/vertical/implementation preserved.
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69

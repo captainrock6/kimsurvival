@@ -287,7 +287,35 @@
       "rationale": "50일 페이싱 병목의 원인을 구분하고 smoke 표본을 정식 자원·소모 밸런스로 오인하지 않기 위함이다.",
       "source": "wave16-design-contract",
       "createdAt": "2026-08-23T16:10:09.720Z"
+    },
+    {
+      "id": "decision.wave17-six-unrun-paired-seed-sessions",
+      "summary": "첫 사용자 진단 cohort는 결과를 비워 둔 ko 3/en 3의 6세션이며 세 seed를 locale 쌍으로 사용하고 참가자에게 성향·경로 목표를 지시하지 않는다.",
+      "rationale": "자연 행동과 locale 의미 차이를 함께 관찰하면서 결과 조작과 선행 학습을 피한다.",
+      "source": "wave17-design-contract",
+      "createdAt": "2026-08-24T11:58:25.288Z"
+    },
+    {
+      "id": "decision.wave17-minimal-telemetry-consented-notes",
+      "summary": "게임 로그는 session slot·locale·seed·day·band·event·stable ID·result code·elapsed segment만 허용하고 정성 메모는 별도 동의형 수동 양식으로 분리한다.",
+      "rationale": "페이싱 판정에 필요한 최소 구조화 증거를 남기되 개인정보와 자유 입력 수집을 피한다.",
+      "source": "wave17-design-contract",
+      "createdAt": "2026-08-24T11:58:25.288Z"
+    },
+    {
+      "id": "decision.wave17-p0-stops-whole-build-cohort",
+      "summary": "3경로 미만 softlock, Day 51, 중복 transaction, 비결정 ending, save 진행 불능 또는 privacy 위반은 같은 build의 cohort 전체를 중단하고 수정 build와 결과를 합치지 않는다.",
+      "rationale": "서로 다른 build의 결과를 섞어 밸런스 문제를 가리거나 유효하지 않은 자연 run을 승격 증거로 쓰지 않기 위함이다.",
+      "source": "wave17-design-contract",
+      "createdAt": "2026-08-24T11:58:25.288Z"
+    },
+    {
+      "id": "decision.wave17-e3-required-for-single-axis-promotion",
+      "summary": "첫 6세션은 진단만 가능하고, 단일 축 승격은 후보 6+독립 확인 6의 E3와 모든 정량 게이트를 통과해야 한다.",
+      "rationale": "소표본 한 cohort나 단일 owner session으로 SAMPLE_ONLY 숫자를 정식 밸런스로 잠그지 않는다.",
+      "source": "wave17-design-contract",
+      "createdAt": "2026-08-24T11:58:25.288Z"
     }
   ],
-  "updatedAt": "2026-08-23T16:10:09.720Z"
+  "updatedAt": "2026-08-24T11:58:25.288Z"
 }

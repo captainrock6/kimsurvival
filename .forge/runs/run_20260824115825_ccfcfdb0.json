@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260824115825_ccfcfdb0",
+  "createdAt": "2026-08-24T11:58:25.288Z",
+  "updatedAt": "2026-08-24T11:58:25.288Z",
+  "sourceRequest": "Wave 17 natural fifty-day playtest and tuning protocol; design-only; preserve Wave 15/16 contracts, completed tasks, assets and runtime state; all human results unrun.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-24T11:58:25.288Z"
+    },
+    "art": {
+      "status": "skipped",
+      "updatedAt": "2026-08-24T11:58:25.288Z",
+      "note": "Wave 17 is a design-only playtest protocol and introduces no art work."
+    },
+    "implementation": {
+      "status": "skipped",
+      "updatedAt": "2026-08-24T11:58:25.288Z",
+      "note": "No runtime or implementation task is registered by Wave 17."
+    },
+    "verification": {
+      "status": "skipped",
+      "updatedAt": "2026-08-24T11:58:25.288Z",
+      "note": "Human sessions remain UNRUN; this run records protocol design only."
+    }
+  }
+}
