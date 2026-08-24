@@ -65,6 +65,7 @@ namespace ParallelQA
             public string jobId;
             public string assetType;
             public string[] sourceFiles;
+            public string[] rejectFiles;
             public ImportPolicy import;
         }
 
@@ -108,6 +109,14 @@ namespace ParallelQA
             public int width;
             public int height;
             public bool hasAlpha;
+            public QualityIssue[] issues;
+        }
+
+        [Serializable]
+        private sealed class QualityIssue
+        {
+            public string code;
+            public string severity;
         }
 
         [Serializable]
@@ -560,10 +569,35 @@ namespace ParallelQA
 
             string qualityPath = packagePath + "/quality-report.json";
             QualityReport quality = ReadJson<QualityReport>(ToFull(qualityPath));
-            bool qualityPass = quality != null && quality.jobId == asset.currentJobId && quality.assetType == asset.assetType &&
-                               string.Equals(quality.grade, "pass", StringComparison.OrdinalIgnoreCase) && quality.summary != null && quality.summary.errors == 0;
+            bool qualityIdentity = quality != null && quality.jobId == asset.currentJobId && quality.assetType == asset.assetType;
+            bool wholeJobQualityPass = qualityIdentity && string.Equals(quality.grade, "pass", StringComparison.OrdinalIgnoreCase) &&
+                                       quality.summary != null && quality.summary.errors == 0;
+            string[] selectedSources = manifest == null || manifest.sourceFiles == null ? Array.Empty<string>() : manifest.sourceFiles;
+            HashSet<string> rejectedFiles = new HashSet<string>(
+                manifest == null || manifest.rejectFiles == null ? Array.Empty<string>() : manifest.rejectFiles,
+                StringComparer.OrdinalIgnoreCase);
+            QualityFile[] qualityFiles = quality == null || quality.files == null ? Array.Empty<QualityFile>() : quality.files;
+            QualityFile[] filesWithErrors = qualityFiles.Where(file => file != null && file.issues != null &&
+                file.issues.Any(issue => issue != null && string.Equals(issue.severity, "error", StringComparison.OrdinalIgnoreCase))).ToArray();
+            int enumeratedErrors = qualityFiles.Where(file => file != null && file.issues != null)
+                .SelectMany(file => file.issues)
+                .Count(issue => issue != null && string.Equals(issue.severity, "error", StringComparison.OrdinalIgnoreCase));
+            bool selectedSourcesClean = selectedSources.Length > 0 && selectedSources.All(fileName =>
+            {
+                QualityFile file = qualityFiles.FirstOrDefault(candidate => candidate != null &&
+                    string.Equals(candidate.fileName, fileName, StringComparison.OrdinalIgnoreCase));
+                return file != null && (file.issues == null || file.issues.All(issue => issue == null ||
+                    !string.Equals(issue.severity, "error", StringComparison.OrdinalIgnoreCase)));
+            });
+            bool rejectedReviewOnlyErrors = qualityIdentity && quality.summary != null && quality.summary.errors > 0 &&
+                                            quality.summary.errors == enumeratedErrors && filesWithErrors.Length > 0 &&
+                                            filesWithErrors.All(file => rejectedFiles.Contains(file.fileName));
+            bool selectedPackageQualityPass = selectedSourcesClean && rejectedReviewOnlyErrors;
+            bool qualityPass = wholeJobQualityPass || selectedPackageQualityPass;
             AddCheck(checks, prefix + ".quality_report", "forge-package", qualityPass, "P0",
-                "quality-report.json grade=pass, errors=0, identity matches", quality == null ? "missing or invalid" : quality.grade + " | errors=" + (quality.summary == null ? -1 : quality.summary.errors), qualityPath);
+                "quality identity matches and either the whole job passes or every selected package source is error-free while all errors are confined to manifest rejectFiles",
+                quality == null ? "missing or invalid" : quality.grade + " | errors=" + (quality.summary == null ? -1 : quality.summary.errors) +
+                " | selectedScope=" + (selectedPackageQualityPass ? "PASS" : "N/A"), qualityPath);
             if (quality != null)
             {
                 qualityReports[asset.id] = quality;
