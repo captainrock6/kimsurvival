@@ -22,7 +22,9 @@
   },
   "sliceGrid": null,
   "stateFiles": [],
-  "runtimeAllowlist": [],
-  "runtimeConnectAllowed": false,
-  "runtimeConnected": false
+  "runtimeAllowlist": [
+    "ending-comic-triptych-a-1280x800.png"
+  ],
+  "runtimeConnectAllowed": true,
+  "runtimeConnected": true
 }

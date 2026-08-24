@@ -150,6 +150,9 @@ namespace KimSurvival
         private TMP_Text expeditionMapSpecialText;
         private GameObject campActions;
         private GameObject campInteractionPopup;
+        private Image campInteractionPopupFrameImage;
+        private Sprite campInteractionPopupDefaultSprite;
+        private Color campInteractionPopupDefaultColor;
         private GameObject campProximityPrompt;
         private GameObject expeditionMapPanel;
         private Image expeditionMapFrameImage;
@@ -216,7 +219,7 @@ namespace KimSurvival
             BuildEventSystem();
             BuildUi();
             hazardEscapeEndingRuntime = gameObject.AddComponent<PrototypeCampaignRuntime>();
-            hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog);
+            hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog, campInteractionTargets);
             renderedPhase = (GamePhase)(-1);
             RefreshAll();
         }
@@ -446,6 +449,9 @@ namespace KimSurvival
             campModuleReasonText.maxVisibleLines = 2;
 
             campInteractionPopup = CreatePanel("설비 전용 소형 팝업", canvas.transform, CampPopupDefaultAnchorMin, CampPopupDefaultAnchorMax, Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.075f, 0.97f)).gameObject;
+            campInteractionPopupFrameImage = campInteractionPopup.GetComponent<Image>();
+            campInteractionPopupDefaultSprite = campInteractionPopupFrameImage.sprite;
+            campInteractionPopupDefaultColor = campInteractionPopupFrameImage.color;
             actionTitleText = CreateText("설비 팝업 제목", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -70f), new Vector2(-24f, -12f), 36, TextAnchor.MiddleLeft, new Color(1f, 0.91f, 0.5f));
             campPopupDetailText = CreateText("설비 팝업 설명", campInteractionPopup.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -154f), new Vector2(-24f, -76f), 28, TextAnchor.UpperLeft, new Color(0.9f, 0.96f, 0.91f));
 
@@ -675,6 +681,10 @@ namespace KimSurvival
         private void RefreshAll()
         {
             renderedPhase = session.Phase;
+            if (hazardEscapeEndingRuntime != null)
+            {
+                hazardEscapeEndingRuntime.TickCampaignState();
+            }
             RebuildWorld();
             RefreshCampInteractionSelection();
             SetButton(restartButton, localization.Format("ui.restart"), true);
@@ -3585,10 +3595,28 @@ namespace KimSurvival
         private void ConfigureCampPopupLayout(bool moduleSlot)
         {
             RectTransform popupRect = campInteractionPopup.GetComponent<RectTransform>();
-            popupRect.anchorMin = moduleSlot ? CampPopupModuleSlotAnchorMin : CampPopupDefaultAnchorMin;
-            popupRect.anchorMax = moduleSlot ? CampPopupModuleSlotAnchorMax : CampPopupDefaultAnchorMax;
+            bool escapeProject = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.SmokeBeacon ||
+                                 campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.RadioBench;
+            popupRect.anchorMin = escapeProject ? new Vector2(0.025f, 0.025f) : moduleSlot ? CampPopupModuleSlotAnchorMin : CampPopupDefaultAnchorMin;
+            popupRect.anchorMax = escapeProject ? new Vector2(0.975f, 0.975f) : moduleSlot ? CampPopupModuleSlotAnchorMax : CampPopupDefaultAnchorMax;
             popupRect.offsetMin = Vector2.zero;
             popupRect.offsetMax = Vector2.zero;
+
+            Sprite escapeFrame = hazardEscapeEndingRuntime == null ? null : hazardEscapeEndingRuntime.EscapeProjectPresentationFrame;
+            if (escapeProject && escapeFrame != null)
+            {
+                campInteractionPopupFrameImage.sprite = escapeFrame;
+                campInteractionPopupFrameImage.type = Image.Type.Simple;
+                campInteractionPopupFrameImage.preserveAspect = true;
+                campInteractionPopupFrameImage.color = Color.white;
+            }
+            else
+            {
+                campInteractionPopupFrameImage.sprite = campInteractionPopupDefaultSprite;
+                campInteractionPopupFrameImage.type = Image.Type.Simple;
+                campInteractionPopupFrameImage.preserveAspect = false;
+                campInteractionPopupFrameImage.color = campInteractionPopupDefaultColor;
+            }
 
             bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
             actionTitleText.enableAutoSizing = true;

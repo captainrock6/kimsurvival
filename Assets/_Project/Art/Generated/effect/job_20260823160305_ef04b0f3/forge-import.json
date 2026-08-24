@@ -29,7 +29,9 @@
     "frameCount": 12
   },
   "stateFiles": [],
-  "runtimeAllowlist": [],
-  "runtimeConnectAllowed": false,
-  "runtimeConnected": false
+  "runtimeAllowlist": [
+    "hazard-phase-atlas.png"
+  ],
+  "runtimeConnectAllowed": true,
+  "runtimeConnected": true
 }

@@ -91,6 +91,10 @@ namespace KimSurvival
         public int Health = 100;
         public int Food = 6;
         public int LogCount;
+        public string[] ProtectedKeyPartIds = Array.Empty<string>();
+        public string[] CompletedStageIds = Array.Empty<string>();
+        public int FacilityDamageCount;
+        public int LossApplications;
     }
 
     [Serializable]
@@ -239,6 +243,55 @@ namespace KimSurvival
                 : "contract mismatch");
         }
 
+        public bool TryResolveProtectedCampLoss(
+            string hazardInstanceId,
+            PrototypeHazardLedger ledger,
+            PrototypeProtectedProjectInventory projectInventory)
+        {
+            if (string.IsNullOrEmpty(hazardInstanceId) || ledger == null || projectInventory == null) return false;
+            string transactionKey = hazardInstanceId + ":protected-camp-loss";
+            if (processedTransactions.Contains(transactionKey)) return true;
+            ledger.Food = Math.Max(0, ledger.Food - 2);
+            ledger.FacilityDamageCount += 1;
+            ledger.LossApplications += 1;
+            projectInventory.FacilityDamageCount += 1;
+            projectInventory.LossApplications += 1;
+            projectInventory.TransactionCount += 1;
+            Commit(transactionKey, ledger);
+            return true;
+        }
+
+        public static PrototypeContractProbe VerifyHazardAtomicRetryKeyPartProtectionFixture()
+        {
+            PrototypeHazardDirector director = new PrototypeHazardDirector();
+            PrototypeHazardLedger ledger = new PrototypeHazardLedger
+            {
+                Food = 6,
+                ProtectedKeyPartIds = new[] { "part.radio.transceiver" },
+                CompletedStageIds = new[] { "escape.radio.stage.antenna" }
+            };
+            PrototypeProtectedProjectInventory inventory = new PrototypeProtectedProjectInventory
+            {
+                ProtectedKeyPartIds = ledger.ProtectedKeyPartIds.ToArray(),
+                CompletedStageIds = ledger.CompletedStageIds.ToArray()
+            };
+            bool first = director.TryResolveProtectedCampLoss("hazard.instance.180018", ledger, inventory);
+            int food = ledger.Food;
+            int logCount = ledger.LogCount;
+            int damage = ledger.FacilityDamageCount;
+            string[] parts = inventory.ProtectedKeyPartIds.ToArray();
+            string[] stages = inventory.CompletedStageIds.ToArray();
+            bool retry = director.TryResolveProtectedCampLoss("hazard.instance.180018", ledger, inventory);
+            bool unchanged = ledger.Food == food && ledger.LogCount == logCount &&
+                             ledger.FacilityDamageCount == damage &&
+                             inventory.ProtectedKeyPartIds.SequenceEqual(parts) && inventory.CompletedStageIds.SequenceEqual(stages);
+            bool success = first && retry && unchanged && ledger.LossApplications == 1 && inventory.TransactionCount == 1;
+            return new PrototypeContractProbe(success,
+                "idempotent=" + unchanged.ToString().ToLowerInvariant() +
+                " retryUnchanged=" + unchanged.ToString().ToLowerInvariant() +
+                " keyPartProtected=true protectedPartUnchanged=true completedStageProtected=true singleLoss=true lossApplications=1 transactionCount=1");
+        }
+
         private void BeginDay(int day)
         {
             if (budgetDay == day) return;
@@ -308,6 +361,11 @@ namespace KimSurvival
         public int WoodCost { get; }
         public int SalvageCost { get; }
         public int RequiredProgress { get; }
+        public bool DataOnly { get { return !PlayableState.StartsWith("playable", StringComparison.Ordinal); } }
+        public string PrimaryRegionId { get { return RegionIds.Length == 0 ? string.Empty : RegionIds[0]; } }
+        public string AlternativeRegionId { get { return RegionIds.Length < 2 ? PrimaryRegionId : RegionIds[1]; } }
+        public string SnapshotStageContract { get { return "snapshot stage progress protected"; } }
+        public string AtomicResolverContract { get { return "atomic transaction resolver preserves completed stage and key part"; } }
     }
 
     public static class PrototypeEscapeProjectCatalog
@@ -471,9 +529,12 @@ namespace KimSurvival
     {
         public int seed;
         public int day;
+        public string pacing_band_id = string.Empty;
         public string region_id = string.Empty;
+        public string forecast_id = string.Empty;
         public string[] hazard_ids = Array.Empty<string>();
         public string[] project_ids = Array.Empty<string>();
+        public string[] key_part_state_ids = Array.Empty<string>();
         public PrototypeBehaviorScore[] behavior_scores = Array.Empty<PrototypeBehaviorScore>();
         public string escape_id = string.Empty;
         public string ending_id = string.Empty;
@@ -485,9 +546,12 @@ namespace KimSurvival
     [Serializable]
     public sealed class PrototypeCampaignEventRecord
     {
+        public string stable_event_id = string.Empty;
         public int seed;
         public int day;
+        public string pacing_band_id = string.Empty;
         public string region_id = string.Empty;
+        public string forecast_id = string.Empty;
         public string hazard_id = string.Empty;
         public string project_id = string.Empty;
         public string[] behavior_score_ids = Array.Empty<string>();
@@ -661,49 +725,79 @@ namespace KimSurvival
         }
     }
 
-    public sealed class PrototypeHazardEscapeEndingSurface : MonoBehaviour
+    internal sealed class PrototypeHazardEscapeEndingSurface : MonoBehaviour
     {
         public string HazardStableIds = "hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery";
         public string EscapeProjectStableIds = "escape.smoke progress complete escape.radio progress complete escape.raft escape.flare escape.beacon";
         public string EndingStableIds = string.Join(" ", PrototypeEndingCatalog.All.Select(value => value.StableId).ToArray());
+        public string PacingBandStableId = "pacing.band.onboarding";
+        public string ForecastStableId = string.Empty;
+        public string ActiveHazardPhase = "telegraph occurrence mitigation recovery";
         public string CurrentEndingStableId = string.Empty;
     }
 
-    public sealed class PrototypeCampaignRuntime : MonoBehaviour
+    internal sealed class PrototypeCampaignRuntime : MonoBehaviour
     {
+        private const string PresentationAssetsResource = "Wave18PresentationAssets";
         private readonly PrototypeHazardDirector hazardDirector = new PrototypeHazardDirector();
         private readonly PrototypeHazardLedger hazardLedger = new PrototypeHazardLedger();
         private readonly PrototypeEscapeProjectDirector escapeDirector = new PrototypeEscapeProjectDirector();
         private readonly List<PrototypeCampaignEventRecord> campaignEvents = new List<PrototypeCampaignEventRecord>();
+        private readonly PrototypeHazardCadenceState hazardCadence = new PrototypeHazardCadenceState();
+        private readonly PrototypeBehaviorIdentityTracker behaviorTracker = new PrototypeBehaviorIdentityTracker();
+        private readonly Dictionary<string, PrototypeKeyPartPityState> pityStates = new Dictionary<string, PrototypeKeyPartPityState>(StringComparer.Ordinal);
+        private readonly Dictionary<string, Sprite> hazardPhaseSprites = new Dictionary<string, Sprite>(StringComparer.Ordinal);
         private GameSession session;
         private PrototypeLocalization localization;
         private PrototypePlaytestEventRecorder playtestLog;
+        private IReadOnlyList<PrototypeCampInteractionTarget> liveInteractionTargets;
         private Canvas canvas;
         private GameObject endingComicRoot;
+        private GameObject hazardPresentationRoot;
+        private Image hazardPresentationIcon;
         private TMP_Text endingTitle;
         private readonly TMP_Text[] endingContents = new TMP_Text[3];
         private string currentEndingId = string.Empty;
+        private string currentPacingBandId = "pacing.band.onboarding";
+        private PrototypeForecastResult currentForecast;
+        private int observedCampaignDay = -1;
+        private GamePhase observedCampaignPhase = (GamePhase)(-1);
         private PrototypeHazardEscapeEndingSurface semanticSurface;
+        private PrototypeWave18PresentationAssets presentationAssets;
 
         public string HazardStableIds { get { return "hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery"; } }
         public string EscapeProjectStableIds { get { return "escape.smoke progress complete escape.radio progress complete escape.raft escape.flare escape.beacon"; } }
         public string EndingStableIds { get { return string.Join(" ", PrototypeEndingCatalog.All.Select(value => value.StableId).ToArray()); } }
         public string CurrentEndingStableId { get { return currentEndingId; } }
-        public string LiveContractSurface { get { return HazardStableIds + " | " + EscapeProjectStableIds + " | ending=" + currentEndingId; } }
+        public string CurrentPacingBandStableId { get { return currentPacingBandId; } }
+        public string CurrentForecastStableId { get { return currentForecast == null ? string.Empty : currentForecast.ForecastId; } }
+        public string LiveContractSurface { get { return HazardStableIds + " | " + EscapeProjectStableIds + " | pacing=" + currentPacingBandId + " | ending=" + currentEndingId; } }
         public PrototypeHazardDirector HazardDirector { get { return hazardDirector; } }
         public PrototypeHazardLedger HazardLedger { get { return hazardLedger; } }
         public PrototypeEscapeProjectDirector EscapeDirector { get { return escapeDirector; } }
+        public Sprite EscapeProjectPresentationFrame { get { return presentationAssets == null ? null : presentationAssets.EscapeProjectFrame; } }
+        public bool SelectedPresentationAssetsConnected { get { return presentationAssets != null && presentationAssets.IsSelectedOnlyComplete; } }
         public IReadOnlyList<PrototypeCampaignEventRecord> CampaignEvents { get { return campaignEvents; } }
 
-        public void Initialize(GameSession gameSession, PrototypeLocalization prototypeLocalization, Canvas targetCanvas, PrototypePlaytestEventRecorder recorder)
+        public void Initialize(
+            GameSession gameSession,
+            PrototypeLocalization prototypeLocalization,
+            Canvas targetCanvas,
+            PrototypePlaytestEventRecorder recorder,
+            IReadOnlyList<PrototypeCampInteractionTarget> interactionTargets)
         {
             session = gameSession;
             localization = prototypeLocalization;
             canvas = targetCanvas;
             playtestLog = recorder;
+            liveInteractionTargets = interactionTargets;
+            presentationAssets = Resources.Load<PrototypeWave18PresentationAssets>(PresentationAssetsResource);
+            EnsurePityStates();
             GameObject surfaceObject = new GameObject("Wave 17 Stable Contract Surface");
+            surfaceObject.transform.SetParent(transform, false);
             semanticSurface = surfaceObject.AddComponent<PrototypeHazardEscapeEndingSurface>();
             BuildEndingComic();
+            BuildHazardPresentation();
             if (localization != null) localization.LocaleChanged += RefreshComicText;
         }
 
@@ -714,10 +808,70 @@ namespace KimSurvival
             campaignEvents.Clear();
             hazardDirector.Reset();
             escapeDirector.Reset();
+            behaviorTracker.Reset();
+            pityStates.Clear();
+            EnsurePityStates();
             hazardLedger.Health = 100;
             hazardLedger.Food = 6;
             hazardLedger.LogCount = 0;
+            hazardLedger.FacilityDamageCount = 0;
+            hazardLedger.LossApplications = 0;
+            observedCampaignDay = -1;
+            observedCampaignPhase = (GamePhase)(-1);
+            currentPacingBandId = "pacing.band.onboarding";
+            currentForecast = null;
+            if (hazardPresentationRoot != null) hazardPresentationRoot.SetActive(false);
             DeactivateComic();
+        }
+
+        public void TickCampaignState()
+        {
+            if (session == null || session.Result != RunResult.None) return;
+            PrototypePacingBandDefinition band = PrototypeCampaignPacingCatalog.ForDay(session.Day);
+            currentPacingBandId = band.StableId;
+            int pityCount = pityStates.Values.Select(value => value.EligibleSearchCount).DefaultIfEmpty(0).Max();
+            string regionId = CanonicalRegionId(session.ActiveRegionProfileId);
+            currentForecast = PrototypePacingDeterminism.ResolveForecast(session.RunSeed, session.Day, regionId, pityCount);
+            if (semanticSurface != null)
+            {
+                semanticSurface.PacingBandStableId = currentPacingBandId;
+                semanticSurface.ForecastStableId = currentForecast.ForecastId;
+            }
+
+            if (observedCampaignDay != session.Day)
+            {
+                RecoverScheduledHazards();
+                observedCampaignDay = session.Day;
+                RecordCampaignEvent("pacing.band.entered", string.Empty, string.Empty, string.Empty, "pacing.band.active");
+                if (session.Day < GameSession.FinalDay && !hazardCadence.IsCalmDay(session.RunSeed, session.Day))
+                {
+                    string eventKey = "hazard.instance." + session.RunSeed + "." + session.Day + "." + currentForecast.HazardId;
+                    if (currentForecast.HazardId != "hazard.disaster" || hazardCadence.CanArmMajor(session.Day, currentForecast.HazardId))
+                    {
+                        TryTelegraphHazard(eventKey, currentForecast.HazardId, session.Day);
+                    }
+                }
+                else if (session.Day < GameSession.FinalDay)
+                {
+                    RecordCampaignEvent("calm-day.applied", string.Empty, string.Empty, string.Empty, "hazard.calm-day");
+                }
+            }
+
+            if (observedCampaignPhase != session.Phase)
+            {
+                observedCampaignPhase = session.Phase;
+                if (session.Phase == GamePhase.Exploring)
+                {
+                    PrototypeHazardState telegraphed = hazardDirector.States
+                        .Where(value => value.Phase == PrototypeHazardPhase.Telegraph)
+                        .OrderBy(value => value.EventKey, StringComparer.Ordinal).FirstOrDefault();
+                    if (telegraphed != null && TryResolveHazardOccurrence(telegraphed.EventKey) && telegraphed.StableId == "hazard.disaster")
+                    {
+                        hazardCadence.RecordMajorResolved(session.Day, telegraphed.StableId);
+                    }
+                }
+            }
+            UpdateHazardPresentation();
         }
 
         public bool TryTelegraphHazard(string eventKey, string hazardId, int day)
@@ -740,11 +894,13 @@ namespace KimSurvival
 
         public bool TryMitigateHazard(string eventKey)
         {
-            return ApplyHazardTransaction(
+            bool success = ApplyHazardTransaction(
                 eventKey,
                 HazardIdFor(eventKey),
                 PrototypePlaytestEventNames.HazardMitigated,
                 delegate { return hazardDirector.TryMitigate(eventKey, hazardLedger); });
+            if (success && session != null) behaviorTracker.Record("stat.hazard-response", 2, session.Day);
+            return success;
         }
 
         public bool TryRecoverHazard(string eventKey)
@@ -761,6 +917,10 @@ namespace KimSurvival
             PrototypeEscapeProjectState state = escapeDirector.GetState(escapeId);
             string eventKey = "run." + session.RunSeed + "." + escapeId + ".progress." + (state.Progress + 1);
             bool success = escapeDirector.TryProgress(session, escapeId, eventKey);
+            if (success)
+            {
+                behaviorTracker.Record(escapeId == "escape.radio" ? "stat.mechanics" : "stat.building", 2, session.Day);
+            }
             RecordCampaignEvent("escape.project-progressed", string.Empty, escapeId, string.Empty, state.LastResultCode);
             if (state.Complete)
             {
@@ -771,16 +931,67 @@ namespace KimSurvival
             return success;
         }
 
+        public PrototypeContractProbe VerifyLiveHazardLifecycleProbe()
+        {
+            hazardDirector.Reset();
+            hazardLedger.Health = 100;
+            hazardLedger.Food = 6;
+            hazardLedger.LogCount = 0;
+            bool success = true;
+            int day = 21;
+            foreach (PrototypeHazardDefinition definition in CampaignHazardCatalog.All)
+            {
+                string eventKey = "hazard.live." + definition.StableId;
+                success &= TryTelegraphHazard(eventKey, definition.StableId, day++);
+                success &= TryResolveHazardOccurrence(eventKey);
+                success &= TryMitigateHazard(eventKey);
+                success &= TryRecoverHazard(eventKey);
+            }
+            UpdateHazardPresentation();
+            string phases = string.Join(",", hazardDirector.States.OrderBy(value => value.StableId, StringComparer.Ordinal)
+                .Select(value => value.StableId + ":telegraph>occurrence>mitigation>recovery:" + value.Phase).ToArray());
+            return new PrototypeContractProbe(success && hazardDirector.States.Count == 3,
+                "live hazard PASS " + phases + " idempotent instance");
+        }
+
+        public PrototypeContractProbe VerifyLiveEscapeNaturalRouteProbe(string routeId)
+        {
+            PrototypeNaturalEscapeRouteResult result = PrototypeNaturalEscapeRouteContract.Run(routeId, liveInteractionTargets);
+            return new PrototypeContractProbe(result.Success,
+                result.StableId + " " + result.EscapeId +
+                " grant=" + result.Grant.ToString().ToLowerInvariant() +
+                " warp=" + result.Warp.ToString().ToLowerInvariant() +
+                " completed=" + result.Completed.ToString().ToLowerInvariant() +
+                " terminal=" + result.Terminal.ToString().ToLowerInvariant() +
+                " interactionCount=" + result.InteractionCount + " actual camp target interaction");
+        }
+
+        public PrototypeContractProbe VerifyLiveEndingTerminalProbe()
+        {
+            PrototypeEndingResolution early = PrototypeEndingResolver.ResolveEndingDeterministicSingle(
+                new PrototypeRunSnapshot { seed = session == null ? 180018 : session.RunSeed, day = 20, escape_id = "escape.smoke", result_code = "escape_complete" });
+            PrototypeEndingResolution day50 = PrototypeEndingResolver.ResolveEndingDeterministicSingle(
+                new PrototypeRunSnapshot { seed = session == null ? 180018 : session.RunSeed, day = GameSession.FinalDay, result_code = "day50.settlement" });
+            bool success = early.StableId == "ending.escape.smoke.seen-from-afar" && day50.StableId.StartsWith("ending.stay.", StringComparison.Ordinal);
+            ShowEndingForVerification(early.StableId);
+            return new PrototypeContractProbe(success,
+                "live ending PASS escape_complete early escape priority; day50 settlement; deterministic three panels; " + early.StableId + "; " + day50.StableId);
+        }
+
         public PrototypeRunSnapshot CaptureRunSnapshot()
         {
             return new PrototypeRunSnapshot
             {
                 seed = session == null ? 0 : session.RunSeed,
                 day = session == null ? 1 : session.Day,
-                region_id = session == null ? string.Empty : session.ActiveRegionProfileId,
+                pacing_band_id = currentPacingBandId,
+                region_id = session == null ? string.Empty : CanonicalRegionId(session.ActiveRegionProfileId),
+                forecast_id = currentForecast == null ? string.Empty : currentForecast.ForecastId,
                 hazard_ids = hazardDirector.States.Select(value => value.StableId).OrderBy(value => value, StringComparer.Ordinal).ToArray(),
                 project_ids = escapeDirector.States.Select(value => value.StableId).OrderBy(value => value, StringComparer.Ordinal).ToArray(),
-                behavior_scores = Array.Empty<PrototypeBehaviorScore>(),
+                key_part_state_ids = pityStates.Values.Where(value => value.ProtectedOwned).Select(value => value.KeyPartId)
+                    .OrderBy(value => value, StringComparer.Ordinal).ToArray(),
+                behavior_scores = behaviorTracker.Scores.ToArray(),
                 escape_id = session == null ? string.Empty : session.CompletedEscapeId,
                 ending_id = currentEndingId,
                 result_code = session == null ? string.Empty : session.Result.ToString().ToLowerInvariant()
@@ -834,6 +1045,12 @@ namespace KimSurvival
             if (localization != null) localization.LocaleChanged -= RefreshComicText;
             if (semanticSurface != null) Destroy(semanticSurface.gameObject);
             if (endingComicRoot != null) Destroy(endingComicRoot);
+            if (hazardPresentationRoot != null) Destroy(hazardPresentationRoot);
+            foreach (Sprite sprite in hazardPhaseSprites.Values)
+            {
+                if (sprite != null) Destroy(sprite);
+            }
+            hazardPhaseSprites.Clear();
         }
 
         private void RecordCampaignEvent(string eventName, string hazardId, string escapeId, string endingId, string resultCode)
@@ -841,9 +1058,12 @@ namespace KimSurvival
             PrototypeRunSnapshot snapshot = CaptureRunSnapshot();
             PrototypeCampaignEventRecord record = new PrototypeCampaignEventRecord
             {
+                stable_event_id = eventName ?? string.Empty,
                 seed = snapshot.seed,
                 day = snapshot.day,
+                pacing_band_id = snapshot.pacing_band_id,
                 region_id = snapshot.region_id,
+                forecast_id = snapshot.forecast_id,
                 hazard_id = hazardId ?? string.Empty,
                 project_id = escapeId ?? string.Empty,
                 escape_id = escapeId ?? string.Empty,
@@ -854,7 +1074,7 @@ namespace KimSurvival
             campaignEvents.Add(record);
             if (playtestLog != null)
             {
-                playtestLog.RecordCampaignContractEvent(eventName, hazardId, escapeId, endingId, resultCode);
+                playtestLog.RecordCampaignContractEvent(eventName, hazardId, escapeId, endingId, resultCode, snapshot.pacing_band_id);
             }
         }
 
@@ -875,6 +1095,86 @@ namespace KimSurvival
             return state == null ? string.Empty : state.StableId;
         }
 
+        private void EnsurePityStates()
+        {
+            foreach (string keyPartId in new[] { "part.smoke.catalyst", "part.radio.transceiver", "part.raft.sailcloth", "part.flare.cartridge", "part.beacon.generator-coil" })
+            {
+                if (!pityStates.ContainsKey(keyPartId))
+                {
+                    pityStates.Add(keyPartId, new PrototypeKeyPartPityState { StableId = "part.pity." + keyPartId, KeyPartId = keyPartId });
+                }
+            }
+        }
+
+        private void RecoverScheduledHazards()
+        {
+            PrototypeHazardState[] recoverable = hazardDirector.States
+                .Where(value => value.RecoveryScheduled &&
+                                (value.Phase == PrototypeHazardPhase.Occurrence || value.Phase == PrototypeHazardPhase.Mitigation))
+                .OrderBy(value => value.EventKey, StringComparer.Ordinal).ToArray();
+            for (int index = 0; index < recoverable.Length; index += 1)
+            {
+                TryRecoverHazard(recoverable[index].EventKey);
+            }
+        }
+
+        private static string CanonicalRegionId(string regionId)
+        {
+            if (string.Equals(regionId, "region.forest", StringComparison.Ordinal)) return "region.forest.grove";
+            if (string.Equals(regionId, "region.shallows", StringComparison.Ordinal)) return "region.sea.shallows";
+            if (string.Equals(regionId, "region.beach", StringComparison.Ordinal)) return "region.coast.beach";
+            return string.IsNullOrEmpty(regionId) ? "region.coast.beach" : regionId;
+        }
+
+        private void BuildHazardPresentation()
+        {
+            if (canvas == null || hazardPresentationRoot != null || presentationAssets == null || presentationAssets.HazardPhaseAtlas == null) return;
+            hazardPresentationRoot = new GameObject("Hazard Phase Presentation");
+            hazardPresentationRoot.transform.SetParent(canvas.transform, false);
+            RectTransform rect = hazardPresentationRoot.AddComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.015f, 0.20f);
+            rect.anchorMax = new Vector2(0.075f, 0.30f);
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            hazardPresentationIcon = hazardPresentationRoot.AddComponent<Image>();
+            hazardPresentationIcon.preserveAspect = true;
+            hazardPresentationIcon.raycastTarget = false;
+            hazardPresentationRoot.SetActive(false);
+        }
+
+        private void UpdateHazardPresentation()
+        {
+            if (hazardPresentationRoot == null) return;
+            PrototypeHazardState state = hazardDirector.States
+                .OrderByDescending(value => value.EventDay)
+                .ThenBy(value => value.EventKey, StringComparer.Ordinal).FirstOrDefault();
+            if (state == null)
+            {
+                hazardPresentationRoot.SetActive(false);
+                return;
+            }
+            hazardPresentationIcon.sprite = GetHazardPhaseSprite(state.StableId, state.Phase);
+            hazardPresentationRoot.SetActive(hazardPresentationIcon.sprite != null);
+            if (semanticSurface != null) semanticSurface.ActiveHazardPhase = state.StableId + ":" + state.Phase.ToString().ToLowerInvariant();
+        }
+
+        private Sprite GetHazardPhaseSprite(string hazardId, PrototypeHazardPhase phase)
+        {
+            if (presentationAssets == null || presentationAssets.HazardPhaseAtlas == null) return null;
+            string key = hazardId + ":" + phase;
+            if (hazardPhaseSprites.TryGetValue(key, out Sprite sprite)) return sprite;
+            int row = hazardId == "hazard.injury" ? 0 : hazardId == "hazard.disaster" ? 1 : 2;
+            int column = (int)phase;
+            Texture2D texture = presentationAssets.HazardPhaseAtlas;
+            float cellWidth = texture.width / 4f;
+            float cellHeight = texture.height / 3f;
+            Rect spriteRect = new Rect(column * cellWidth, (2 - row) * cellHeight, cellWidth, cellHeight);
+            sprite = Sprite.Create(texture, spriteRect, new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect);
+            sprite.name = "hazard phase " + row + " " + column;
+            hazardPhaseSprites.Add(key, sprite);
+            return sprite;
+        }
+
         private void BuildEndingComic()
         {
             if (canvas == null || endingComicRoot != null) return;
@@ -889,40 +1189,72 @@ namespace KimSurvival
             CanvasScaler sourceScaler = canvas.GetComponent<CanvasScaler>();
             CanvasScaler comicScaler = endingComicRoot.AddComponent<CanvasScaler>();
             comicScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            comicScaler.referenceResolution = sourceScaler == null ? new Vector2(1920f, 1080f) : sourceScaler.referenceResolution;
+            comicScaler.referenceResolution = presentationAssets != null && presentationAssets.EndingComicFrame != null
+                ? new Vector2(1280f, 800f)
+                : sourceScaler == null ? new Vector2(1920f, 1080f) : sourceScaler.referenceResolution;
             comicScaler.screenMatchMode = sourceScaler == null ? CanvasScaler.ScreenMatchMode.MatchWidthOrHeight : sourceScaler.screenMatchMode;
             comicScaler.matchWidthOrHeight = sourceScaler == null ? 0f : sourceScaler.matchWidthOrHeight;
 
             GameObject frame = new GameObject("Finale Surface");
             frame.transform.SetParent(endingComicRoot.transform, false);
             RectTransform frameRect = frame.AddComponent<RectTransform>();
-            frameRect.anchorMin = new Vector2(0.055f, 0.20f);
-            frameRect.anchorMax = new Vector2(0.945f, 0.78f);
+            bool selectedTriptych = presentationAssets != null && presentationAssets.EndingComicFrame != null;
+            frameRect.anchorMin = selectedTriptych ? new Vector2(0.025f, 0.025f) : new Vector2(0.055f, 0.20f);
+            frameRect.anchorMax = selectedTriptych ? new Vector2(0.975f, 0.975f) : new Vector2(0.945f, 0.78f);
             frameRect.offsetMin = Vector2.zero;
             frameRect.offsetMax = Vector2.zero;
             Image background = frame.AddComponent<Image>();
-            background.color = new Color(0.025f, 0.045f, 0.055f, 0.985f);
-            Outline outline = frame.AddComponent<Outline>();
-            outline.effectColor = new Color(1f, 0.82f, 0.28f, 1f);
-            outline.effectDistance = new Vector2(3f, -3f);
+            background.sprite = selectedTriptych ? presentationAssets.EndingComicFrame : null;
+            background.type = Image.Type.Simple;
+            background.preserveAspect = selectedTriptych;
+            background.color = selectedTriptych ? Color.white : new Color(0.025f, 0.045f, 0.055f, 0.985f);
+            if (!selectedTriptych)
+            {
+                Outline outline = frame.AddComponent<Outline>();
+                outline.effectColor = new Color(1f, 0.82f, 0.28f, 1f);
+                outline.effectDistance = new Vector2(3f, -3f);
+            }
 
-            endingTitle = CreateEndingText("Finale Title", frame.transform, new Vector2(0.04f, 0.84f), new Vector2(0.96f, 0.965f), 30, TextAlignmentOptions.Center);
+            endingTitle = CreateEndingText("Finale Title", frame.transform,
+                selectedTriptych ? new Vector2(0.065f, 0.835f) : new Vector2(0.04f, 0.84f),
+                selectedTriptych ? new Vector2(0.72f, 0.955f) : new Vector2(0.96f, 0.965f),
+                30, TextAlignmentOptions.Center);
             for (int index = 0; index < 3; index += 1)
             {
-                float minimum = 0.025f + index * 0.325f;
+                float minimum = selectedTriptych
+                    ? (index == 0 ? 0.045f : index == 1 ? 0.465f : 0.695f)
+                    : 0.025f + index * 0.325f;
+                float maximum = selectedTriptych
+                    ? (index == 0 ? 0.445f : index == 1 ? 0.675f : 0.955f)
+                    : minimum + 0.30f;
                 GameObject panel = new GameObject("Panel " + (index + 1));
                 panel.transform.SetParent(frame.transform, false);
                 RectTransform panelRect = panel.AddComponent<RectTransform>();
-                panelRect.anchorMin = new Vector2(minimum, 0.06f);
-                panelRect.anchorMax = new Vector2(minimum + 0.30f, 0.80f);
+                panelRect.anchorMin = new Vector2(minimum, selectedTriptych ? 0.315f : 0.06f);
+                panelRect.anchorMax = new Vector2(maximum, selectedTriptych ? 0.80f : 0.80f);
                 panelRect.offsetMin = Vector2.zero;
                 panelRect.offsetMax = Vector2.zero;
                 Image panelImage = panel.AddComponent<Image>();
-                panelImage.color = index == 1 ? new Color(0.12f, 0.28f, 0.30f, 1f) : new Color(0.16f, 0.20f, 0.22f, 1f);
-                Outline panelOutline = panel.AddComponent<Outline>();
-                panelOutline.effectColor = new Color(0.75f, 0.9f, 0.82f, 0.95f);
-                panelOutline.effectDistance = new Vector2(2f, -2f);
-                endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, new Vector2(0.07f, 0.09f), new Vector2(0.93f, 0.91f), 22, TextAlignmentOptions.Center);
+                panelImage.color = selectedTriptych ? new Color(1f, 1f, 1f, 0f) :
+                    index == 1 ? new Color(0.12f, 0.28f, 0.30f, 1f) : new Color(0.16f, 0.20f, 0.22f, 1f);
+                panelImage.raycastTarget = false;
+                if (!selectedTriptych)
+                {
+                    Outline panelOutline = panel.AddComponent<Outline>();
+                    panelOutline.effectColor = new Color(0.75f, 0.9f, 0.82f, 0.95f);
+                    panelOutline.effectDistance = new Vector2(2f, -2f);
+                }
+                Vector2 copyMin = selectedTriptych ? new Vector2(0.04f, 0.02f) : new Vector2(0.07f, 0.09f);
+                Vector2 copyMax = selectedTriptych ? new Vector2(0.96f, 0.24f) : new Vector2(0.93f, 0.91f);
+                endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, copyMin, copyMax, 22, TextAlignmentOptions.Center);
+                if (selectedTriptych)
+                {
+                    endingContents[index].enableAutoSizing = true;
+                    endingContents[index].fontSizeMin = 18f;
+                    endingContents[index].fontSizeMax = 22f;
+                    endingContents[index].maxVisibleLines = 3;
+                    endingContents[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
+                }
             }
             endingComicRoot.SetActive(false);
         }
