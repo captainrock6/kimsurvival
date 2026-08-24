@@ -50,7 +50,7 @@ namespace ParallelQA
 
         private static string BuildFolder
         {
-            get { return Path.GetFullPath(Path.Combine(ProjectRoot, "work", "ParallelQA", RunId, "WindowsBuild")); }
+            get { return Path.GetFullPath(Path.Combine(ProjectRoot, "work", "ParallelQA", "StableWindowsBuild")); }
         }
 
         private static string WorkFolder
@@ -223,6 +223,10 @@ namespace ParallelQA
         public static void BuildWindowsDevelopmentPlayer()
         {
             Directory.CreateDirectory(EvidenceFolder);
+            if (Directory.Exists(BuildFolder))
+            {
+                Directory.Delete(BuildFolder, true);
+            }
             Directory.CreateDirectory(BuildFolder);
             DateTime started = DateTime.UtcNow;
             string executable = Path.Combine(BuildFolder, "KimSurvivalIsland.exe");
@@ -231,7 +235,7 @@ namespace ParallelQA
                 scenes = new[] { ScenePath },
                 locationPathName = executable,
                 target = BuildTarget.StandaloneWindows64,
-                options = BuildOptions.Development | BuildOptions.AllowDebugging
+                options = BuildOptions.Development
             };
 
             BuildReport report = BuildPipeline.BuildPlayer(options);
@@ -248,7 +252,7 @@ namespace ParallelQA
 
             string text = Header("Windows x64 Development Build", started) +
                           "Result: " + summary.result + Environment.NewLine +
-                          "BuildOptions: Development, AllowDebugging" + Environment.NewLine +
+                          "BuildOptions: Development" + Environment.NewLine +
                           "Target: StandaloneWindows64" + Environment.NewLine +
                           "Output (ignored local binary): " + executable + Environment.NewLine +
                           "Total size: " + summary.totalSize + " bytes" + Environment.NewLine +

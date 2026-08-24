@@ -10,7 +10,7 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
 $workRoot = Join-Path $projectRoot (Join-Path 'work\ParallelQA' $RunId)
-$buildRoot = Join-Path $workRoot 'WindowsBuild'
+$buildRoot = Join-Path $projectRoot 'work\ParallelQA\StableWindowsBuild'
 $runToken = if ($RunId.Length -le 24) { $RunId } else { $RunId.Substring(0, 12) + '_' + $RunId.Substring($RunId.Length - 11) }
 $kitRoot = Join-Path $projectRoot (Join-Path 'work\W13' $runToken)
 $packageRoot = Join-Path $kitRoot 'payload'
@@ -104,7 +104,10 @@ $expectedBuildRoot = (Resolve-Path -LiteralPath $buildRoot).Path
 $reportedExecutable = (Resolve-Path -LiteralPath ([string]$build.executable)).Path
 $reportedBuildRoot = Split-Path -Parent $reportedExecutable
 if (-not $reportedBuildRoot.Equals($expectedBuildRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
-    throw "Build report executable does not belong to this RunId work root. Expected $expectedBuildRoot, observed $reportedBuildRoot"
+    throw "Build report executable does not belong to the stable QA build root. Expected $expectedBuildRoot, observed $reportedBuildRoot"
+}
+if ([string]$build.executableSha256 -ne (Get-Sha256 $reportedExecutable)) {
+    throw 'Stable QA executable SHA-256 no longer matches the selected RunId build evidence.'
 }
 
 $executableName = Split-Path -Leaf $reportedExecutable

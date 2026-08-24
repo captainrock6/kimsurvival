@@ -12,7 +12,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
-$executable = Join-Path $projectRoot (Join-Path (Join-Path 'work\ParallelQA' $RunId) 'WindowsBuild\KimSurvivalIsland.exe')
+$executable = Join-Path $projectRoot 'work\ParallelQA\StableWindowsBuild\KimSurvivalIsland.exe'
 $preflightPath = Join-Path $evidenceRoot 'wave4-preflight.json'
 $buildPath = Join-Path $evidenceRoot 'windows-development-build.json'
 $addressBuildPath = Join-Path $evidenceRoot 'addressables-link-build-contract.json'
@@ -78,9 +78,22 @@ $exitCode = $null
 $responding = $false
 $aliveAtMinimum = $false
 $launchError = ''
+$expectedExecutable = [System.IO.Path]::GetFullPath($executable)
+$reportedExecutable = if ($null -ne $build -and -not [string]::IsNullOrWhiteSpace([string]$build.executable)) {
+    [System.IO.Path]::GetFullPath([string]$build.executable)
+} else { '' }
+$currentExecutableSha256 = Get-Sha256 $executable
+$buildIdentityMatches = $null -ne $build -and
+    [string]$build.runId -eq $RunId -and
+    [string]$build.baselineCommit -eq $BaselineCommit -and
+    $reportedExecutable.Equals($expectedExecutable, [System.StringComparison]::OrdinalIgnoreCase) -and
+    -not [string]::IsNullOrWhiteSpace($currentExecutableSha256) -and
+    [string]$build.executableSha256 -eq $currentExecutableSha256
 
 if (-not (Test-Path -LiteralPath $executable -PathType Leaf)) {
     $launchError = 'Windows executable is missing.'
+} elseif (-not $buildIdentityMatches) {
+    $launchError = 'Stable Windows executable does not match this RunId, baseline, path, and build SHA-256 evidence.'
 } else {
     try {
         $arguments = "-screen-width 1280 -screen-height 800 -screen-fullscreen 0 -logFile `"$playerLog`""
@@ -132,6 +145,8 @@ $smoke = [ordered]@{
     executable = $executable
     executableExists = Test-Path -LiteralPath $executable -PathType Leaf
     executableSha256 = Get-Sha256 $executable
+    stableExecutablePath = $true
+    buildIdentityMatches = $buildIdentityMatches
     processId = $processId
     windowStyle = 'Hidden'
     resolution = '1280x800 windowed'
@@ -151,6 +166,8 @@ $smoke | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidence
     "Result: $smokeStatus"
     "Executable: $executable"
     "Executable SHA-256: $($smoke.executableSha256)"
+    "Stable executable path: $($smoke.stableExecutablePath)"
+    "Build identity matches: $buildIdentityMatches"
     "PID: $processId"
     "Hidden: True"
     "Resolution: 1280x800 windowed"
