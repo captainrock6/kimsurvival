@@ -1,0 +1,14 @@
+Wave 16 hazard/escape/ending RED-first Play contracts
+Run ID: 20260824T015000Z_635725b_wave16_red_final
+Baseline: 635725b3e2679a7d6d4f66c09b137575bac374c8
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED: 1/5/0/0/2
+W16-P01.live_hazard_lifecycle | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | no live hazard/escape/ending stable-ID surface
+W16-P02.live_escape_paths | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | no live hazard/escape/ending stable-ID surface
+W16-P03.three_panel_comic | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | panels=0; no live hazard/escape/ending stable-ID surface
+W16-P04.ko_en_qps_1280 | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | captures=3/3; panels=0; locales=ko->ko,en->en,qps-long->qps-long; overflow=0; offscreen=0; overlap=0
+W16-P05.keyboard_gamepad_state_parity | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | before=D1/Camp/None/seed801923345/region/no live hazard/escape/ending stable-ID surface; gamepad=D1/Camp/None/seed801923345/region/no live hazard/escape/ending stable-ID surface; keyboard=D1/Camp/None/seed801923345/region/no live hazard/escape/ending stable-ID surface
+W16-I04.fresh_capture_evidence | PASS | NONE | captures=wave16-ko-ending-state-1280x800.png,wave16-en-ending-state-1280x800.png,wave16-qps-long-ending-state-1280x800.png
+W16-HW01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | no non-empty joystick name exposed to Unity batch Play Mode
+W16-S01.steam_release | UNVERIFIED | EXTERNAL_RELEASE_GAP | Steam integration remains outside this task; readiness is NOT_READY.

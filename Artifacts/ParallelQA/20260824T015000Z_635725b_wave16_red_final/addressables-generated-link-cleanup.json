@@ -1,0 +1,34 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260824T015000Z_635725b_wave16_red_final",
+    "baselineCommit": "635725b3e2679a7d6d4f66c09b137575bac374c8",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-23T16:24:50.4028442Z",
+    "phase": "IPostprocessBuildWithReport",
+    "ownership": "ADDRESSABLES_GENERATED_TEMPORARY",
+    "officialBehavior": "AddressablesPlayerBuildProcessor copies Library AddressablesLink/link.xml into ConfigFolder for the Player build and removes that temporary copy on Editor load.",
+    "deleteSucceeded": true,
+    "overall": "PASS",
+    "generatedTemporaryCopy": {
+        "observedUtc": "2026-08-23T16:24:50.3761952Z",
+        "linkExists": true,
+        "linkBytes": 2121,
+        "linkSha256": "1d2d8692d9ce6300bac7a7b46b20fae4f0d7cc42fdc7bb2d072cd9b2a5c28d85",
+        "metaExists": true,
+        "metaBytes": 158,
+        "metaSha256": "0ff74641619f8a8784c1621d4b6e63dcbca1fbeb769ad295599217c6d2a24a95",
+        "metaGuid": "99edbe9704901a64a8e8107ff9ee583f",
+        "assetDatabaseGuid": "99edbe9704901a64a8e8107ff9ee583f"
+    },
+    "canonicalAfterCleanup": {
+        "observedUtc": "2026-08-23T16:24:50.4018418Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    }
+}

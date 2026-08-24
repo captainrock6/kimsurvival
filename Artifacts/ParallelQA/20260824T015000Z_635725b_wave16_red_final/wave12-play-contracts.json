@@ -1,0 +1,96 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 12 five-day/compact-a Play contracts",
+    "runId": "20260824T015000Z_635725b_wave16_red_final",
+    "baselineCommit": "635725b3e2679a7d6d4f66c09b137575bac374c8",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-23T16:24:28.9440218Z",
+    "completedUtc": "2026-08-23T16:24:31.6839669Z",
+    "overall": "PASS",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 6,
+    "expectedFailed": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 1,
+    "checks": [
+        {
+            "id": "W12-P01.compact_a_frame_and_glyph_split",
+            "matrix": "runtime prompt",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The actual prompt uses compact-a as a sliced Image with border L70/R30/T12/B12 and separates the input glyph from TMP action text",
+            "actual": "spritePath=Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png; guid=070048b5b443d5d4a9c757c871873eb3; imageType=Sliced; border=(70.00, 12.00, 30.00, 12.00); separateGlyph=True; actionExcludesGlyph=True",
+            "reproduction": "Approach a direct slot, inspect the prompt Image/Sprite/GUID/type/border and its descendant glyph/action components.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+        },
+        {
+            "id": "W12-P02.device_locale_target_independence",
+            "matrix": "input/localization state",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Synthetic device changes update only glyph semantics and locale changes update only text; neither changes the direct-slot target or progress state",
+            "actual": "target=slot.start.upper; progress=D1/W2/S1/F0/D0/signal0/bag4/Camp/None; syntheticGamepadOnly=True; enOnly=True; qpsOnly=True",
+            "reproduction": "Latch slot.start.upper, switch keyboard→synthetic gamepad, then ko→en→qps-long while fingerprinting target, day, resources, signal, and bag.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W12-P03.compact_a_locale_capture_layout",
+            "matrix": "1280x800 visual",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "ko/en/qps-long far/near/popup/direct-slot captures are 1280x800; compact-a prompt is 220..440×40..44px, 12px below narration, clear of world silhouettes/path, with active TMP overflow 0",
+            "actual": "captures=12/12; png1280x800=True; wave11WorldClear=True; ko{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True} | en{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True} | qps-long{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=464.0,w=440.0,h=44.0,narration=x=230.4,y=520.0,w=819.2,h=136.0,gap=12.0,overflow=0/0/0,compact=True}",
+            "reproduction": "Open all twelve Wave 12 captures at 1:1 and compare the recorded prompt/narration Rects and overflow counts.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W12-I01.fresh_wave11_canvas_layout",
+            "matrix": "QA infrastructure",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Fresh Wave 11 evidence reports direct slot walkingPathClear 3/3 with actual prompt/player/target/walking Rects and no failure reasons",
+            "actual": "walkingPathClear=3/3; promptRects=3/3; failureReasonsNone=3/3; source=wave11-slot-play-evidence.json",
+            "reproduction": "Run Wave11SlotDiscoveryGateRunner in the same RunId before Wave 12 and inspect its serialized Rect evidence.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Wave11SlotDiscoveryGateRunner.cs"
+        },
+        {
+            "id": "W12-I02.fresh_wave3_visual_report",
+            "matrix": "QA infrastructure",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The current Play session generates a fresh Wave 3 visual report for this RunId before asset/release audit",
+            "actual": "generated=true; runId/baseline matched; visualOverall=PASS; frames=9; report=wave3-visual-gate.txt",
+            "reproduction": "Run the Wave 12 Play contract and verify wave3-visual-gate.txt has this RunId and baseline SHA.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/ParallelQaRunner.cs; Assets/Editor/ParallelQA/Wave3VisualGate.cs"
+        },
+        {
+            "id": "W12-P04.current_normal_wave3_visual",
+            "matrix": "1280x800 regression",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Fresh normal ko/en Wave 3 facts remain placement 24/24 PASS and exploration/swimming 10/10 PASS",
+            "actual": "placement=PLACEMENT_GATE: PASS · targets=24 · failures=0; exploration=EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0; source=wave3-visual-gate.txt",
+            "reproduction": "Open the fresh Wave 3 TSV/PNGs at 1:1 and inspect every normal placement/exploration failure row.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs"
+        },
+        {
+            "id": "W12-HW01.physical_gamepad",
+            "matrix": "input hardware",
+            "status": "UNVERIFIED",
+            "classification": "HARDWARE_GAP",
+            "severity": "P1",
+            "expected": "A human completes near/popup/direct-slot and the five-day loop with a physical gamepad",
+            "actual": "no non-empty joystick name exposed to Unity batch Play Mode",
+            "reproduction": "Run the Windows development build with a physical gamepad and record device identity plus human actuation.",
+            "recommendedFiles": "manual release-candidate hardware evidence"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+Wave 16 hazard/escape/ending RED-first Edit contracts
+Run ID: 20260824T015000Z_635725b_wave16_red_final
+Baseline: 635725b3e2679a7d6d4f66c09b137575bac374c8
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED: 2/12/0/0/0
+W16-I01.exact_baseline | PASS | NONE | baseline=635725b3e2679a7d6d4f66c09b137575bac374c8
+W16-I02.canonical_contract | PASS | NONE | missing=; files=2
+W16-H01.hazard_phase_catalog | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | hazard.injury=entry:False,W:False,O:False,M:False,R:False; hazard.disaster=entry:False,W:False,O:False,M:False,R:False; hazard.food-theft=entry:False,W:False,O:False,M:False,R:False
+W16-H02.daily_stack_budget | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | daily=False; major=False; active=False; recoveryReserve=False
+W16-H03.atomic_idempotent_resolution | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | no public semantic deterministic probe discovered
+W16-E01.five_escape_catalog | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | escape methods=0/5; found=
+W16-E02.escape_axis_separation | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | escape entries missing; pairwise axes unavailable
+W16-E03.smoke_radio_playable | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | metadata=False; smokeProbe=no public semantic deterministic probe discovered; radioProbe=no public semantic deterministic probe discovered
+W16-E04.raft_flare_beacon_data | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | escape.raft=0/6; escape.flare=0/6; escape.beacon=0/6
+W16-O01.snapshot_and_private_log | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | snapshot=KimSurvival.GameSession(2/5); log=KimSurvival.PrototypePlaytestEventRecord(2/5); piiFields=none
+W16-N01.ending_catalog_19 | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | endings=0/19; samples=0/4; unique=True
+W16-N02.deterministic_single_ending | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | probe=no public semantic deterministic probe discovered; tieBreak=priority:False,conditions:False,eventDay:False,ascii:True
+W16-N03.terminal_priority | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | escapePriority=no public semantic deterministic probe discovered; behaviorEnding=no public semantic deterministic probe discovered
+W16-L01.ko_en_qps_contract | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | required=65; present=0; qpsExpanded=0; tablesRows=271
