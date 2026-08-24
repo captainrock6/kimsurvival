@@ -1,0 +1,25 @@
+{
+    "runId": "20260824T121000Z_a540317_wave17_redfirst",
+    "baselineCommit": "a5403173f299abc71ed4724bdaaf30c31ce8cc94",
+    "liveContractSurface": "no live hazard/escape/ending stable-ID surface",
+    "hazardState": "missing",
+    "escapeState": "missing",
+    "endingState": "missing",
+    "inputParity": "before=D1/Camp/None/seed279435346/region/no live hazard/escape/ending stable-ID surface; gamepad=D1/Camp/None/seed279435346/region/no live hazard/escape/ending stable-ID surface; keyboard=D1/Camp/None/seed279435346/region/no live hazard/escape/ending stable-ID surface",
+    "layout": "captures=3/3; panels=0; locales=ko->ko,en->en,qps-long->qps-long; overflow=0; offscreen=0; overlap=0",
+    "activeComicPanels": 0,
+    "overflowCount": 0,
+    "offscreenCount": 0,
+    "overlapCount": 0,
+    "captureLocales": [
+        "ko->ko",
+        "en->en",
+        "qps-long->qps-long"
+    ],
+    "screenshots": [
+        "wave16-ko-ending-state-1280x800.png",
+        "wave16-en-ending-state-1280x800.png",
+        "wave16-qps-long-ending-state-1280x800.png"
+    ],
+    "joystickNames": []
+}

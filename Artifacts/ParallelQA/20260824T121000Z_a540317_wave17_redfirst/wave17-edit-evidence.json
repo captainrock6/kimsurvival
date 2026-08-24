@@ -1,0 +1,223 @@
+{
+    "runId": "20260824T121000Z_a540317_wave17_redfirst",
+    "baselineCommit": "a5403173f299abc71ed4724bdaaf30c31ce8cc94",
+    "discoveryPolicy": "Stable IDs, public data, public deterministic probe results, and live state; no implementation class/file-name requirement.",
+    "stableIds": [
+        "facility.action.completed",
+        "facility.action.rejected",
+        "facility.popup.closed",
+        "facility.popup.opened",
+        "facility.proximity.entered",
+        "facility.proximity.exited",
+        "region.beach",
+        "region.forest",
+        "region.shallows",
+        "research.completed"
+    ],
+    "entries": [
+        {
+            "id": "region.beach",
+            "type": "KimSurvival.PrototypeExpeditionRegionProfile",
+            "members": [
+                {
+                    "name": "Id",
+                    "value": "Beach"
+                },
+                {
+                    "name": "StableId",
+                    "value": "region.beach"
+                },
+                {
+                    "name": "NameKey",
+                    "value": "expedition.region.beach.name"
+                },
+                {
+                    "name": "SummaryKey",
+                    "value": "expedition.region.beach.summary"
+                },
+                {
+                    "name": "ResourceForecastKey",
+                    "value": "expedition.region.beach.resources"
+                },
+                {
+                    "name": "ResourceCategoryKey",
+                    "value": "expedition.region.beach.resources"
+                },
+                {
+                    "name": "RelativeAbundanceKey",
+                    "value": "expedition.region.beach.resources"
+                },
+                {
+                    "name": "TravelMinutes",
+                    "value": "20"
+                },
+                {
+                    "name": "RiskKey",
+                    "value": "expedition.region.beach.risk"
+                },
+                {
+                    "name": "WeatherKey",
+                    "value": "expedition.region.beach.weather"
+                },
+                {
+                    "name": "EquipmentKey",
+                    "value": "expedition.region.beach.equipment"
+                },
+                {
+                    "name": "SpecialDiscoveryKey",
+                    "value": "expedition.region.beach.special"
+                },
+                {
+                    "name": "UnknownDiscoveryStateKey",
+                    "value": "expedition.map.unknown"
+                },
+                {
+                    "name": "WaterNodeCount",
+                    "value": "2"
+                },
+                {
+                    "name": "NodeCount",
+                    "value": "10"
+                }
+            ]
+        },
+        {
+            "id": "region.forest",
+            "type": "KimSurvival.PrototypeExpeditionRegionProfile",
+            "members": [
+                {
+                    "name": "Id",
+                    "value": "Forest"
+                },
+                {
+                    "name": "StableId",
+                    "value": "region.forest"
+                },
+                {
+                    "name": "NameKey",
+                    "value": "expedition.region.forest.name"
+                },
+                {
+                    "name": "SummaryKey",
+                    "value": "expedition.region.forest.summary"
+                },
+                {
+                    "name": "ResourceForecastKey",
+                    "value": "expedition.region.forest.resources"
+                },
+                {
+                    "name": "ResourceCategoryKey",
+                    "value": "expedition.region.forest.resources"
+                },
+                {
+                    "name": "RelativeAbundanceKey",
+                    "value": "expedition.region.forest.resources"
+                },
+                {
+                    "name": "TravelMinutes",
+                    "value": "35"
+                },
+                {
+                    "name": "RiskKey",
+                    "value": "expedition.region.forest.risk"
+                },
+                {
+                    "name": "WeatherKey",
+                    "value": "expedition.region.forest.weather"
+                },
+                {
+                    "name": "EquipmentKey",
+                    "value": "expedition.region.forest.equipment"
+                },
+                {
+                    "name": "SpecialDiscoveryKey",
+                    "value": "expedition.region.forest.special"
+                },
+                {
+                    "name": "UnknownDiscoveryStateKey",
+                    "value": "expedition.map.unknown"
+                },
+                {
+                    "name": "WaterNodeCount",
+                    "value": "1"
+                },
+                {
+                    "name": "NodeCount",
+                    "value": "10"
+                }
+            ]
+        },
+        {
+            "id": "region.shallows",
+            "type": "KimSurvival.PrototypeExpeditionRegionProfile",
+            "members": [
+                {
+                    "name": "Id",
+                    "value": "Shallows"
+                },
+                {
+                    "name": "StableId",
+                    "value": "region.shallows"
+                },
+                {
+                    "name": "NameKey",
+                    "value": "expedition.region.shallows.name"
+                },
+                {
+                    "name": "SummaryKey",
+                    "value": "expedition.region.shallows.summary"
+                },
+                {
+                    "name": "ResourceForecastKey",
+                    "value": "expedition.region.shallows.resources"
+                },
+                {
+                    "name": "ResourceCategoryKey",
+                    "value": "expedition.region.shallows.resources"
+                },
+                {
+                    "name": "RelativeAbundanceKey",
+                    "value": "expedition.region.shallows.resources"
+                },
+                {
+                    "name": "TravelMinutes",
+                    "value": "30"
+                },
+                {
+                    "name": "RiskKey",
+                    "value": "expedition.region.shallows.risk"
+                },
+                {
+                    "name": "WeatherKey",
+                    "value": "expedition.region.shallows.weather"
+                },
+                {
+                    "name": "EquipmentKey",
+                    "value": "expedition.region.shallows.equipment"
+                },
+                {
+                    "name": "SpecialDiscoveryKey",
+                    "value": "expedition.region.shallows.special"
+                },
+                {
+                    "name": "UnknownDiscoveryStateKey",
+                    "value": "expedition.map.unknown"
+                },
+                {
+                    "name": "WaterNodeCount",
+                    "value": "2"
+                },
+                {
+                    "name": "NodeCount",
+                    "value": "10"
+                }
+            ]
+        }
+    ],
+    "semanticProbeResults": [],
+    "reviewAssetResults": [
+        "effect.survival-hazards.phase-silhouette-a: review=True; guid=22aa0efe034962041860a1171b2c5a73; runtime/scene/addressablesReferences=none",
+        "ui.escape-project-progress.route-signature-a: review=True; guid=a3fc27f38161341409c6fbe0be7bea6f; runtime/scene/addressablesReferences=none",
+        "ui.ending-comic.triptych-a: review=True; guid=ba9091d85a3bddd4a8c8b90aa07d1b7c; runtime/scene/addressablesReferences=none"
+    ]
+}

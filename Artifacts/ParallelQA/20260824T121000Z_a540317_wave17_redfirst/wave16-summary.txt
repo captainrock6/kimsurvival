@@ -1,0 +1,14 @@
+Wave 16 hazard, multi-escape, and behavioral-ending RED-first gate
+Run ID: 20260824T121000Z_a540317_wave17_redfirst
+Baseline: a5403173f299abc71ed4724bdaaf30c31ce8cc94
+PowerShell: Desktop 5.1.26100.9168
+Overall/Product/Infrastructure: FAIL/FAIL/PASS
+Wave 15 prerequisite: GREEN
+Expected product gaps: 0 []
+Unexpected product failures: 17
+Infrastructure failures: 0
+Compile/Build/Smoke/Addressables: PASS 0 errors/PASS/PASS/PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Exit code: 1 (0 GREEN, 2 RED_EXPECTED_GAP, 1 unexpected/infrastructure failure)
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave16HazardEndingGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'a5403173f299abc71ed4724bdaaf30c31ce8cc94' -MinimumSmokeSeconds 6
