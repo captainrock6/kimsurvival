@@ -66,7 +66,9 @@ namespace KimSurvival
         private const float ExpeditionMapX = 5.25f;
         private const float SmokeBeaconX = -2.35f;
         private const float RadioBenchX = 0f;
-        private const float EndingAlbumX = 6.15f;
+        // Keep this target outside the expedition map's 1.25-unit approach lane so
+        // both contextual objects retain an unambiguous proximity latch.
+        private const float EndingAlbumX = 7.75f;
 
         [SerializeField] private GameObject playerVisualPrefab;
         [SerializeField] private Sprite campBackgroundSprite;
@@ -672,7 +674,7 @@ namespace KimSurvival
         private void BuildEndingAlbumUi()
         {
             endingAlbumPanel = CreatePanel(
-                "채택 생존 앨범 A · " + AssetEndingAlbum,
+                "채택 생존 앨범 A",
                 canvas.transform,
                 new Vector2(0.025f, 0.025f),
                 new Vector2(0.975f, 0.975f),
@@ -1638,7 +1640,7 @@ namespace KimSurvival
 
         private void CreateEndingAlbumMarker()
         {
-            GameObject root = new GameObject("생존 앨범·기록함 상호작용 오브젝트 · " + AssetEndingAlbum);
+            GameObject root = new GameObject("생존 앨범·기록함 상호작용 오브젝트");
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(EndingAlbumX, PrototypeCampPlacement.FloorY + 0.6f, 0f);
             CreateRect(root.transform, "기록함 몸체", Vector2.zero, new Vector2(0.36f, 1.12f), new Color(0.10f, 0.25f, 0.27f, 0.98f), 4);
