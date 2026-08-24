@@ -17,11 +17,11 @@
 
 ## 다음 작업
 
-- **수집 지역 선택 지도 구현** (implementation, critical) — task.feature.feature.expedition-map
 - **Wave 15 위험·다중 탈출·행동 엔딩 기반** (implementation, critical) — task.implementation.wave15-hazard-ending-foundation
 - **행동 기반 엔딩 판정 구현** (implementation, critical) — task.system.system.ending-resolution
 - **다섯 탈출 프로젝트 구현** (implementation, critical) — task.system.system.escape-projects
 - **위험 예고·발생·완화 디렉터 구현** (implementation, critical) — task.system.system.hazard-director
+- **지역 loot seed와 softlock 보호 구현** (implementation, critical) — task.system.system.region-loot-rng
 
 ## 작업
 
@@ -70,8 +70,8 @@
 | task.system.system.hazard-director | implementation | critical | ready | 위험 예고·발생·완화 디렉터 구현 |
 | task.system.system.escape-projects | implementation | critical | ready | 다섯 탈출 프로젝트 구현 |
 | task.system.system.ending-resolution | implementation | critical | ready | 행동 기반 엔딩 판정 구현 |
-| task.feature.feature.expedition-map | implementation | critical | ready | 수집 지역 선택 지도 구현 |
-| task.qa.feature.expedition-map | qa | critical | planned | 수집 지역 선택 지도 검증 |
+| task.feature.feature.expedition-map | implementation | critical | done | 수집 지역 선택 지도 구현 |
+| task.qa.feature.expedition-map | qa | critical | ready | 수집 지역 선택 지도 검증 |
 | task.feature.feature.resource-randomization | implementation | critical | planned | 시드형 지역 자원·핵심 부품 분배 구현 |
 | task.qa.feature.resource-randomization | qa | critical | planned | 시드형 지역 자원·핵심 부품 분배 검증 |
 | task.feature.feature.survival-hazards | implementation | critical | planned | 예고·대응 가능한 생존 위험 구현 |
@@ -107,9 +107,9 @@
 | task.art.ui.camp-module-expansion | art | high | review | 방 모듈 증축 상태 UI 제작 |
 | task.feature.feature.camp-module-expansion | implementation | high | done | 위·옆·지하 방 모듈 증축 구현 |
 | task.qa.feature.camp-module-expansion | qa | high | done | 위·옆·지하 방 모듈 증축 검증 |
-| task.art.ui.escape-project-progress | art | high | ready | 다중 탈출 프로젝트 상태 UI 제작 |
-| task.art.ui.ending-comic | art | high | ready | 엔딩 코믹북 컷신 프레임 제작 |
-| task.art.effect.survival-hazards | art | high | ready | 생존 위험·완화 피드백 세트 제작 |
+| task.art.ui.escape-project-progress | art | high | review | 다중 탈출 프로젝트 상태 UI 제작 |
+| task.art.ui.ending-comic | art | high | review | 엔딩 코믹북 컷신 프레임 제작 |
+| task.art.effect.survival-hazards | art | high | review | 생존 위험·완화 피드백 세트 제작 |
 | task.feature.feature.behavioral-endings | implementation | high | ready | 누적 행동 기반 엔딩 판정 구현 |
 | task.qa.feature.behavioral-endings | qa | high | planned | 누적 행동 기반 엔딩 판정 검증 |
 | task.qa.wave15-hazard-ending-redfirst | qa | high | ready | Wave 15 위험·탈출·엔딩 red-first 게이트 |
@@ -133,10 +133,10 @@
 - background.modular-island-camp: review · 측면 절개형 모듈 베이스캠프
 - ui.camp-module-expansion: review · 방 모듈 증축 상태 UI
 - icon.expedition-resource-risk-set: review · Wave 15 icon.expedition-resource-risk-set 로컬 품질 정리 child job. 부모 job_20260823144003_552c87b1의 24개 투명 아이콘 atlas와 형태 문법을 변
-- ui.escape-project-progress: needed · 다중 탈출 프로젝트 상태 UI
-- ui.ending-comic: needed · 엔딩 코믹북 컷신 프레임
+- ui.escape-project-progress: review · Wave 16 review-only first candidate with stable candidate ID ui.escape-project-progress.route-signature-a. Create one ed
+- ui.ending-comic: review · Wave 16 review-only first candidate with stable candidate ID ui.ending-comic.triptych-a. Create one editable 1280x800 th
 - ui.ending-gallery: needed · 김씨의 생존 앨범 UI
-- effect.survival-hazards: needed · 생존 위험·완화 피드백 세트
+- effect.survival-hazards: review · Wave 16 review-only first candidate with stable candidate ID effect.survival-hazards.phase-silhouette-a. Create one edit
 
 ## 검증 증거
 
@@ -288,6 +288,7 @@
 - task.design.wave14-natural-route-ledger: Artifacts/ParallelQA/20260823T123000Z_386a602_wave13_release/wave13-playtest-package.json
 - task.art.ui.expedition-map: Forge asset ui.expedition-map adopted via job_20260823150636_e3b39abc
 - task.system.system.expedition-selection: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
+- task.feature.feature.expedition-map: Wave16 selected-only right-rail A GUID contract PASS; Unity compile 0 error/0 warning; deterministic EditMode PASS; full PlayMode ko/en/qps-long 1280x800 PASS with overflow/offscreen/rail/node overlap all 0; Windows x64 Development build and 6-second hidden smoke PASS. Evidence: Artifacts/Verification/wave16-expedition-map-a-runtime/verification-summary.txt
 - task.design.wave15-fifty-day-campaign-rebaseline: .forge/design/project.json; .forge/design/vertical-slice.json; .forge/project.json
 - task.design.wave15-escape-hazard-ending-matrix: .forge/packets/wave15-fifty-day-campaign-rebaseline.json
 - task.design.wave15-escape-hazard-ending-matrix: Docs/Design/wave15-escape-hazard-ending-matrix.md
@@ -301,6 +302,7 @@
 - task.qa.wave15-campaign-map-redfirst: Artifacts/ParallelQA/20260824_integrated_0aae8a2_wave15/wave15-play-contracts.txt
 - task.design.wave16-fifty-day-pacing: .forge/packets/wave16-fifty-day-pacing.json
 - task.design.wave16-fifty-day-pacing: Docs/Design/wave16-fifty-day-pacing.md
+- task.design.wave16-fifty-day-pacing: Forge status/report PASS; contract validation PASS: catalog 5/6/7/19, bands 5, routes 2+3, pity 3/5, min routes 3, stats 7; assets hash preserved 3a8d0d976e9c9f53720a25e41496997fb72a1cfe
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69

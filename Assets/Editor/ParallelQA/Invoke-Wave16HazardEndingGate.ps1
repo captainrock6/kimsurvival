@@ -126,9 +126,9 @@ $edit = Read-Json (Join-Path $evidenceRoot 'wave16-edit-contracts.json')
 $play = Read-Json (Join-Path $evidenceRoot 'wave16-play-contracts.json')
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
-if ($wave15Stage.exitCode -ne 0) { $infrastructureFailures.Add("Wave 15 prerequisite exited $($wave15Stage.exitCode)") }
-if ($editStage.exitCode -ne 0) { $infrastructureFailures.Add("Wave 16 Edit stage exited $($editStage.exitCode)") }
-if ($playStage.exitCode -ne 0) { $infrastructureFailures.Add("Wave 16 Play stage exited $($playStage.exitCode)") }
+# Unity runners deliberately return a non-zero code for product RED. The fresh
+# machine-readable reports below are authoritative for separating product gaps
+# from infrastructure failures; a crash or missing report is still INFRA_FAIL.
 if ($null -eq $wave15Summary -or $wave15Summary.overall -ne 'GREEN' -or
     $wave15Summary.productOverall -ne 'PASS' -or $wave15Summary.infrastructureOverall -ne 'PASS') {
     $infrastructureFailures.Add('fresh Wave 15 campaign/map prerequisite did not remain full GREEN')

@@ -2953,9 +2953,10 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "review",
+      "updatedAt": "2026-08-24T11:43:58.889Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "completedAt": null
     },
     {
       "id": "task.art.ui.ending-comic",
@@ -2978,9 +2979,10 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "review",
+      "updatedAt": "2026-08-24T11:43:58.889Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "completedAt": null
     },
     {
       "id": "task.art.effect.survival-hazards",
@@ -3002,9 +3004,10 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "review",
+      "updatedAt": "2026-08-24T11:43:58.889Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "completedAt": null
     },
     {
       "id": "task.feature.feature.behavioral-endings",
@@ -3371,5 +3374,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-23T16:32:52.263Z"
+  "updatedAt": "2026-08-24T11:43:58.889Z"
 }
