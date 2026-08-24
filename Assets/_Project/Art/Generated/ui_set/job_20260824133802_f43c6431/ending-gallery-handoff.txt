@@ -1,0 +1,30 @@
+Wave 18 · ui.ending-gallery · REVIEW ONLY
+
+Stable candidates
+- ui.ending-gallery.album-spread-a: four category rows on a physical album spread; recommended for review.
+- ui.ending-gallery.card-index-b: 5x4 overview with a bottom detail drawer.
+- ui.ending-gallery.filmstrip-c: category spine, three filmstrip rails and right detail.
+
+Content
+- Canonical 19 ending IDs: normal 5, comic 5, rare 4, day50 5.
+- Unlocked: representative panel, TMP title/summary/evidence and replay action.
+- Locked: silhouette plus non-spoiler TMP hint only.
+- Actual candidate PNG/SVG files contain no rendered text.
+
+Localization and input
+- KO default, EN supported, qps-long at 150%.
+- Minimum text 18px; wrap then vertical reflow.
+- Keyboard/mouse and gamepad glyph slots are 44x44 minimum.
+- Category and focus meaning is expressed by silhouette, pattern and outline, not color alone.
+
+Unity handoff
+- Canvas 1280x800; pivot 0.5,0.5; PPU 100; Bilinear; Uncompressed; maxSize 2048; mipmaps off; alphaIsTransparency on.
+- 9-slice: outer 32/32/28/28, page 20, card 14, action 18/18/14/14.
+
+Approval gate
+- decision=review
+- selectedCandidate=null
+- runtimeAllowlist=[]
+- packageAllowed=false
+- runtimeConnectAllowed=false
+- No runtime, scene or Addressables connection.

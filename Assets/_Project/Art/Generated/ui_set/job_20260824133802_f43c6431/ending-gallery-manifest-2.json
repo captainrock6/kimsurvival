@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.ending-gallery",
+  "jobId": "job_20260824133802_f43c6431",
+  "status": "review",
+  "decision": "review",
+  "selectedCandidate": null,
+  "recommendedCandidate": "ui.ending-gallery.album-spread-a",
+  "recommendationIsNotSelection": true,
+  "canvas": {
+    "width": 1280,
+    "height": 800,
+    "context": "situational album popup opened only from the camp record object"
+  },
+  "candidates": [
+    {
+      "stableId": "ui.ending-gallery.album-spread-a",
+      "layout": "four category rows on left album page plus selected detail on right page",
+      "strength": "best album identity and balance between 19-entry overview and selected detail",
+      "concern": "small left-page cards require category-row discipline",
+      "actualPng": "ending-gallery-album-spread-a-1280x800.png",
+      "editableSvg": "ending-gallery-album-spread-a.svg"
+    },
+    {
+      "stableId": "ui.ending-gallery.card-index-b",
+      "layout": "5x4 card index plus bottom detail drawer",
+      "strength": "fastest complete overview and direct mouse scanning",
+      "concern": "higher information density and weaker physical-album character",
+      "actualPng": "ending-gallery-card-index-b-1280x800.png",
+      "editableSvg": "ending-gallery-card-index-b.svg"
+    },
+    {
+      "stableId": "ui.ending-gallery.filmstrip-c",
+      "layout": "category spine, three filmstrip rails and right detail panel",
+      "strength": "strong sequential gamepad navigation and mystery silhouette mood",
+      "concern": "slower whole-collection status scan",
+      "actualPng": "ending-gallery-filmstrip-c-1280x800.png",
+      "editableSvg": "ending-gallery-filmstrip-c.svg"
+    }
+  ],
+  "endingCatalog": {
+    "count": 19,
+    "categoryCounts": {
+      "normal": 5,
+      "comic": 5,
+      "rare": 4,
+      "day50": 5
+    },
+    "orderedStableIds": [
+      "ending.escape.raft.open-water",
+      "ending.escape.smoke.seen-from-afar",
+      "ending.escape.radio.clear-signal",
+      "ending.escape.flare.one-shot",
+      "ending.escape.beacon.ridge-light",
+      "ending.comic.raft.coconut-navy",
+      "ending.comic.smoke.island-barbecue",
+      "ending.comic.radio.island-dj",
+      "ending.comic.flare.daylight-fireworks",
+      "ending.comic.beacon.brightest-address",
+      "ending.rare.raft.current-reader",
+      "ending.rare.smoke.cloud-letter",
+      "ending.rare.radio.forecast-rescue",
+      "ending.rare.beacon.storm-eye",
+      "ending.stay.green-king",
+      "ending.stay.fortress-manager",
+      "ending.stay.scrap-professor",
+      "ending.stay.island-ranger",
+      "ending.stay.just-kim"
+    ],
+    "byCategory": {
+      "normal": [
+        "ending.escape.raft.open-water",
+        "ending.escape.smoke.seen-from-afar",
+        "ending.escape.radio.clear-signal",
+        "ending.escape.flare.one-shot",
+        "ending.escape.beacon.ridge-light"
+      ],
+      "comic": [
+        "ending.comic.raft.coconut-navy",
+        "ending.comic.smoke.island-barbecue",
+        "ending.comic.radio.island-dj",
+        "ending.comic.flare.daylight-fireworks",
+        "ending.comic.beacon.brightest-address"
+      ],
+      "rare": [
+        "ending.rare.raft.current-reader",
+        "ending.rare.smoke.cloud-letter",
+        "ending.rare.radio.forecast-rescue",
+        "ending.rare.beacon.storm-eye"
+      ],
+      "day50": [
+        "ending.stay.green-king",
+        "ending.stay.fortress-manager",
+        "ending.stay.scrap-professor",
+        "ending.stay.island-ranger",
+        "ending.stay.just-kim"
+      ]
+    },
+    "localizationKeys": [
+      "{endingId}.title",
+      "{endingId}.summary",
+      "{endingId}.hint"
+    ]
+  },
+  "entryStates": {
+    "unlocked": [
+      "representative panel slot",
+      "title TMP",
+      "short summary TMP",
+      "play evidence TMP",
+      "replay action"
+    ],
+    "locked": [
+      "non-spoiler silhouette",
+      "hint TMP only",
+      "no title, summary, trigger or representative result spoiler"
+    ]
+  },
+  "categoryGrammar": {
+    "normal": "rounded frame plus double line",
+    "comic": "burst crown plus dot marks",
+    "rare": "star notch plus rays",
+    "day50": "square frame plus stitch and diagonal hatch"
+  },
+  "localization": {
+    "defaultLocale": "ko",
+    "supportedReviewLocales": [
+      "ko",
+      "en",
+      "qps-long"
+    ],
+    "qpsLongExpansion": 1.5,
+    "minimumTextPx": 18,
+    "overflow": "wrap then vertical reflow; never scale below minimum",
+    "rasterBodyText": "none",
+    "tmpSlots": [
+      "screen title",
+      "category",
+      "ending title",
+      "short summary",
+      "play evidence",
+      "locked hint",
+      "actions"
+    ]
+  },
+  "accessibility": {
+    "minimumFocusRect": {
+      "width": 44,
+      "height": 44
+    },
+    "glyphSlots": [
+      "keyboard-mouse",
+      "gamepad"
+    ],
+    "meaningNeverColorOnly": true,
+    "focusInvariant": "outline, size and corner marker survive locale and glyph replacement"
+  },
+  "unityHandoff": {
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSlice": {
+      "outerFrame": {
+        "left": 32,
+        "right": 32,
+        "top": 28,
+        "bottom": 28
+      },
+      "pagePanel": {
+        "left": 20,
+        "right": 20,
+        "top": 20,
+        "bottom": 20
+      },
+      "entryCard": {
+        "left": 14,
+        "right": 14,
+        "top": 14,
+        "bottom": 14
+      },
+      "actionButton": {
+        "left": 18,
+        "right": 18,
+        "top": 14,
+        "bottom": 14
+      }
+    },
+    "layers": [
+      "scrim",
+      "outer-frame",
+      "album-pages-or-index",
+      "category-marks",
+      "ending-cards",
+      "selected-detail",
+      "tmp-safe-rects",
+      "glyph-slots",
+      "focus-state"
+    ]
+  },
+  "reviewEvidence": [
+    "ending-gallery-review-board-1920x1080.png",
+    "ending-gallery-localization-accessibility-qa-1920x1080.png",
+    "ending-gallery-visual-qa.json"
+  ],
+  "runtime": {
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false,
+    "sceneModified": false,
+    "addressablesModified": false
+  },
+  "generation": {
+    "method": "local deterministic SVG and PIL rasterization",
+    "imageGenCalled": false,
+    "paidExternalApiCalled": false
+  }
+}
