@@ -366,11 +366,11 @@ namespace ParallelQA
                 ReviewAsset asset = ReviewAssets[index];
                 Observation review = ObserveReviewAsset(asset);
                 reviewResults.Add(asset.CandidateId + ": " + review.Detail);
-                Guard(checks, "W17-A0" + (index + 1) + ".review_only_not_runtime_referenced", "human adoption", "P0",
-                    asset.CandidateId + " remains review-only, unselected, and absent from runtime/scene/Addressables references",
+                Guard(checks, "W17-A0" + (index + 1) + ".selection_gate_not_runtime_referenced", "human adoption", "P0",
+                    asset.CandidateId + " is either review-only or explicitly adopted, and remains absent from runtime/scene/Addressables references until connection work",
                     review.Passed, review.Detail,
-                    "Inspect the review index/manifest and search runtime scripts, scenes, and Addressables for candidate/job/file/GUID references.",
-                    "Docs/Art/Wave16/wave16-art-review-index.json and the relevant review manifest; adoption owner files only after explicit human selection");
+                    "Inspect the review index/manifest or explicit adoption record/package, then search runtime scripts, scenes, and Addressables for candidate/job/file/GUID references.",
+                    "Docs/Art/Wave16/wave16-art-review-index.json, Docs/Art/Wave17/wave17-adoption-record.json, .forge/feedback.json, and the selected-only forge-import.json");
             }
 
             Unverified(checks, "W17-HW01.physical_gamepad", "hardware", "P1",
@@ -932,8 +932,11 @@ namespace ParallelQA
         private static Observation ObserveReviewAsset(ReviewAsset asset)
         {
             string indexPath = Path.Combine(ProjectRoot, "Docs", "Art", "Wave16", "wave16-art-review-index.json");
+            string adoptionPath = Path.Combine(ProjectRoot, "Docs", "Art", "Wave17", "wave17-adoption-record.json");
+            string feedbackPath = Path.Combine(ProjectRoot, ".forge", "feedback.json");
             string manifestPath = Path.Combine(ProjectRoot, asset.ManifestPath.Replace('/', Path.DirectorySeparatorChar));
             string primaryPath = Path.Combine(ProjectRoot, asset.PrimaryPath.Replace('/', Path.DirectorySeparatorChar));
+            string packagePath = Path.Combine(Path.GetDirectoryName(primaryPath), "forge-import.json");
             if (!File.Exists(indexPath) || !File.Exists(manifestPath) || !File.Exists(primaryPath))
                 return Obs(false, "missing index, manifest, or primary file");
             string index = File.ReadAllText(indexPath);
@@ -942,12 +945,27 @@ namespace ParallelQA
                           index.Contains("\"runtimeAllowlist\": []") && manifest.Contains("\"status\": \"review\"") &&
                           manifest.Contains("\"selectedCandidate\": null") && manifest.Contains("\"runtimeConnectAllowed\": false") &&
                           index.Contains(asset.CandidateId) && index.Contains(asset.JobId);
+            bool adopted = false;
+            if (File.Exists(adoptionPath) && File.Exists(feedbackPath) && File.Exists(packagePath))
+            {
+                string adoption = File.ReadAllText(adoptionPath);
+                string feedback = File.ReadAllText(feedbackPath);
+                string package = File.ReadAllText(packagePath);
+                adopted = adoption.Contains("\"decisionSource\": \"explicit-user-message\"") &&
+                          adoption.Contains(asset.CandidateId) && adoption.Contains(asset.JobId) &&
+                          adoption.Contains("\"decision\": \"adopted\"") && adoption.Contains("\"forgeStatus\": \"engine_ready\"") &&
+                          adoption.Contains("\"runtimeConnectAllowed\": false") && adoption.Contains("\"runtimeConnected\": false") &&
+                          feedback.Contains(asset.JobId) && feedback.Contains("\"decision\": \"adopted\"") &&
+                          package.Contains(asset.JobId) && package.Contains(Path.GetFileName(asset.PrimaryPath)) &&
+                          package.Contains("\"runtimeAllowlist\": []") && package.Contains("\"runtimeConnectAllowed\": false") &&
+                          package.Contains("\"runtimeConnected\": false");
+            }
             string guid = AssetDatabase.AssetPathToGUID(asset.PrimaryPath);
             List<string> needles = new List<string> { asset.CandidateId, asset.JobId, Path.GetFileName(asset.PrimaryPath) };
             if (!string.IsNullOrWhiteSpace(guid)) needles.Add(guid);
             List<string> references = FindProductReferences(needles);
-            return Obs(review && references.Count == 0,
-                "review=" + review + "; guid=" + guid + "; runtime/scene/addressablesReferences=" +
+            return Obs((review || adopted) && references.Count == 0,
+                "review=" + review + "; adopted=" + adopted + "; guid=" + guid + "; runtime/scene/addressablesReferences=" +
                 (references.Count == 0 ? "none" : string.Join(",", references.ToArray())));
         }
 
