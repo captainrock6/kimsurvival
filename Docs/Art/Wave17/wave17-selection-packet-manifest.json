@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "packetId": "wave17.hazard-escape-ending.selection-packet",
+  "title": "Wave 17 아트 사용자 선택 패킷",
+  "baselineCommit": "a5403173f299abc71ed4724bdaaf30c31ce8cc94",
+  "branch": "codex/wave17-hazard-escape-ending-selection-packet",
+  "purpose": "Three independent review-only candidates presented for explicit per-asset user decisions.",
+  "notACombinedRuntimeScreen": true,
+  "newArtCreated": false,
+  "imageGenCalled": false,
+  "paidExternalApiCalled": false,
+  "forgeJobCreatedOrRevised": false,
+  "decisionContract": {
+    "allowedResponses": [
+      "채택",
+      "수정 — 변경점",
+      "보류",
+      "거절 — 이유"
+    ],
+    "independentPerStableId": true,
+    "implicitCrossAssetApproval": false
+  },
+  "reviewSnapshotGate": {
+    "decision": "review",
+    "selectedCandidate": null,
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false
+  },
+  "selectionResolution": {
+    "decidedAt": "2026-08-24T21:56:40+09:00",
+    "decision": "adopted_all",
+    "selectedStableIds": [
+      "effect.survival-hazards.phase-silhouette-a",
+      "ui.escape-project-progress.route-signature-a",
+      "ui.ending-comic.triptych-a"
+    ],
+    "forgeStatus": "engine_ready",
+    "packageAllowed": true,
+    "runtimeAllowlist": [],
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false,
+    "note": "The board remains immutable pre-decision evidence; its REVIEW ONLY labels describe the gate at capture time."
+  },
+  "board": {
+    "path": "Docs/Art/Wave17/wave17-hazard-escape-ending-selection-board.png",
+    "width": 3200,
+    "height": 3000,
+    "sha256": "d79c47b16c9a646cafb9c17040a5d4755ddc485cc8bbd821b00a63f5be20dfca",
+    "sourcePixelPolicy": "Source files are loaded read-only and drawn unscaled into isolated 1:1 review regions. Runtime-placement diagrams are wireframes only.",
+    "regions": [
+      {
+        "stableId": "effect.survival-hazards.phase-silhouette-a",
+        "source": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/hazard-phase-atlas.png",
+        "rect": { "x": 48, "y": 188, "width": 1024, "height": 768 },
+        "scale": 1
+      },
+      {
+        "stableId": "effect.survival-hazards.phase-silhouette-a.readability-32-64",
+        "source": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/hazard-readability-32-64.png",
+        "rect": { "x": 1100, "y": 188, "width": 1024, "height": 512 },
+        "scale": 1
+      },
+      {
+        "stableId": "ui.escape-project-progress.route-signature-a",
+        "source": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/escape-project-route-signature-a-1280x800.png",
+        "rect": { "x": 48, "y": 1028, "width": 1280, "height": 800 },
+        "scale": 1
+      },
+      {
+        "stableId": "ui.ending-comic.triptych-a",
+        "source": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/ending-comic-triptych-a-1280x800.png",
+        "rect": { "x": 48, "y": 1894, "width": 1280, "height": 800 },
+        "scale": 1
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "assetId": "effect.survival-hazards",
+      "stableId": "effect.survival-hazards.phase-silhouette-a",
+      "jobId": "job_20260823160305_ef04b0f3",
+      "status": "engine_ready",
+      "selectedCandidate": "effect.survival-hazards.phase-silhouette-a",
+      "runtimeAllowlist": [],
+      "packageAllowed": true,
+      "runtimeConnectAllowed": false,
+      "packageManifest": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/forge-import.json",
+      "actualSizeEvidence": "1024x768 atlas plus 1024x512 32/64px readability sheet",
+      "locales": ["ko", "en", "qps-long"],
+      "minimumGlyphAndFocusRect": "44x44",
+      "colorIndependentMarks": [
+        "telegraph: dashed triangle and pulse arcs",
+        "occurrence: jagged burst",
+        "mitigation: shield and chevron/check",
+        "recovery: round field and rising leaf/sun"
+      ],
+      "expectedRuntimePlacement": "Short marker near the affected world action or related HUD event; never a persistent full-screen panel."
+    },
+    {
+      "assetId": "ui.escape-project-progress",
+      "stableId": "ui.escape-project-progress.route-signature-a",
+      "jobId": "job_20260823160324_1de3b748",
+      "status": "engine_ready",
+      "selectedCandidate": "ui.escape-project-progress.route-signature-a",
+      "runtimeAllowlist": [],
+      "packageAllowed": true,
+      "runtimeConnectAllowed": false,
+      "packageManifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/forge-import.json",
+      "actualSizeEvidence": "1280x800 candidate",
+      "locales": ["ko", "en", "qps-long"],
+      "minimumGlyphAndFocusRect": "44x44",
+      "qpsLongExpansion": 1.5,
+      "safeRects": {
+        "outer": "L36 R36 T38 B38",
+        "routeRail": "x88 y108 w250 h584",
+        "detail": "x360 y108 w830 h584",
+        "titleTmp": "x390 y132 w500 h54",
+        "weather": "x390 y466 w470 h104",
+        "risk": "x880 y466 w280 h104"
+      },
+      "colorIndependentMarks": [
+        "smoke: vertical fuel rings and wind/rain",
+        "radio: circuit grid, waveform and power",
+        "raft: hull planks and sea-window arc",
+        "flare: single-shot timing wedge",
+        "beacon: tower structure and power checkpoints"
+      ],
+      "expectedRuntimePlacement": "Centered situational popup opened only by direct escape-facility interaction; never a persistent camp dashboard."
+    },
+    {
+      "assetId": "ui.ending-comic",
+      "stableId": "ui.ending-comic.triptych-a",
+      "jobId": "job_20260823160342_eceb3933",
+      "status": "engine_ready",
+      "selectedCandidate": "ui.ending-comic.triptych-a",
+      "runtimeAllowlist": [],
+      "packageAllowed": true,
+      "runtimeConnectAllowed": false,
+      "packageManifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/forge-import.json",
+      "actualSizeEvidence": "1280x800 candidate",
+      "locales": ["ko", "en", "qps-long"],
+      "minimumGlyphAndFocusRect": "44x44",
+      "qpsLongExpansion": 1.5,
+      "safeRects": {
+        "setup": "x64 y154 w500 h344",
+        "closeupPolygonBounds": "x592 y144 to x866 y506",
+        "result": "x888 y154 w328 h344",
+        "verdict": "x64 y572 w1152 h142"
+      },
+      "colorIndependentMarks": [
+        "normal: rounded frame and double line",
+        "comic: burst frame and dot/punch pattern",
+        "rare: star and rays",
+        "day50: squared stitch and hatch"
+      ],
+      "expectedRuntimePlacement": "Full-screen terminal/results overlay at 1280x800; never placed in the camp HUD."
+    }
+  ],
+  "sourceIntegrity": [
+    {
+      "path": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/hazard-phase-atlas.png",
+      "width": 1024,
+      "height": 768,
+      "sha256BeforeAndAfter": "d294fe9273a8b1794aa558215e051d1bfb30b185b85d945e4ea0b184bcf5c7f8"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/hazard-readability-32-64.png",
+      "width": 1024,
+      "height": 512,
+      "sha256BeforeAndAfter": "9d139f3765fa0308e4d06ab52d321bbfd6d13c15330f392083531a975a8af8a4"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/escape-project-route-signature-a-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "sha256BeforeAndAfter": "82c3288f78849d28848f8974d6972d6b2f1aa9f952622f63513c0f0ade1a9482"
+    },
+    {
+      "path": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/ending-comic-triptych-a-1280x800.png",
+      "width": 1280,
+      "height": 800,
+      "sha256BeforeAndAfter": "c5b88ff152236d6a52c8157259dd1bac013c9c15f6736ffef42fdfca02a8a65d"
+    }
+  ],
+  "documents": [
+    "Docs/Art/Wave17/wave17-hazard-escape-ending-selection-guide.md",
+    "Docs/Art/Wave17/wave17-adoption-record.json",
+    "Docs/Art/Wave17/wave17-selection-packet-qa.json",
+    "Docs/Art/Wave17/generate-wave17-selection-packet.ps1"
+  ]
+}

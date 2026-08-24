@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "packetId": "wave17.hazard-escape-ending.selection-packet",
+  "checkedAt": "2026-08-24T21:57:41+09:00",
+  "result": "pass",
+  "score": 100,
+  "warnings": [],
+  "errors": [],
+  "phase": "post-user-adoption",
+  "checks": {
+    "explicitUserDecisionRecorded": true,
+    "threeStableIdsAdopted": true,
+    "forgeAssetsStatusAllEngineReady": true,
+    "forgeFeedbackAllAdopted": true,
+    "selectedOnlyPackageManifestsPresent": true,
+    "reviewBoardsExcludedFromPackageSources": true,
+    "hazardAtlasFourByThreeSliceContract": true,
+    "uiMaxSizePreserves1280x800": true,
+    "runtimeAllowlistAllEmpty": true,
+    "runtimeConnectAllowedAllFalse": true,
+    "runtimeConnectedAllFalse": true,
+    "sceneModified": false,
+    "addressablesModified": false,
+    "sourceHashesUnchanged": true,
+    "sourcePixelsEdited": false,
+    "boardRemainsPreDecisionEvidence": true,
+    "qualityScoreEach": 100,
+    "qualityWarningsEach": 0,
+    "qualityErrorsEach": 0,
+    "newArtCreated": false,
+    "imageGenCalled": false,
+    "paidExternalApiCalled": false
+  },
+  "packageImportSummary": [
+    {
+      "stableId": "effect.survival-hazards.phase-silhouette-a",
+      "spriteMode": "Multiple",
+      "sliceGrid": "4x3, 256x256, 12 frames",
+      "maxSize": 1024,
+      "runtimeConnected": false
+    },
+    {
+      "stableId": "ui.escape-project-progress.route-signature-a",
+      "spriteMode": "Single",
+      "maxSize": 2048,
+      "runtimeConnected": false
+    },
+    {
+      "stableId": "ui.ending-comic.triptych-a",
+      "spriteMode": "Single",
+      "maxSize": 2048,
+      "runtimeConnected": false
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "id": "job_20260823160305_ef04b0f3",
   "status": "succeeded",
   "createdAt": "2026-08-23T16:03:05.718Z",
-  "updatedAt": "2026-08-23T16:12:14.725Z",
+  "updatedAt": "2026-08-24T12:56:40.595Z",
   "input": {
     "assetType": "effect",
     "assetId": "effect.survival-hazards",
@@ -275,7 +275,17 @@
       "url": "/outputs/jobs/job_20260823160305_ef04b0f3/qa-preview-hazard-review-board-1920x1080.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 Wave 17 통합 선택 패킷에서 effect.survival-hazards.phase-silhouette-a를 명시적으로 채택함. 런타임 패키지는 효과 아틀라스와 편집 SVG/슬라이스 manifest만 포함하고 판독성·리뷰 보드는 제외함.",
+    "selectedArtifacts": [
+      "hazard-phase-atlas.png",
+      "hazard-phase-atlas.svg",
+      "hazard-phase-manifest.json"
+    ],
+    "updatedAt": "2026-08-24T12:56:40.565Z"
+  },
   "events": [
     {
       "at": "2026-08-23T16:03:05.718Z",
@@ -311,6 +321,16 @@
       "at": "2026-08-23T16:12:14.725Z",
       "level": "info",
       "message": "Codex/로컬 결과 12개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-24T12:54:15.399Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
+    },
+    {
+      "at": "2026-08-24T12:56:40.595Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

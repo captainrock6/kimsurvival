@@ -2,7 +2,7 @@
   "id": "job_20260823160342_eceb3933",
   "status": "succeeded",
   "createdAt": "2026-08-23T16:03:42.229Z",
-  "updatedAt": "2026-08-23T16:12:37.352Z",
+  "updatedAt": "2026-08-24T12:56:40.995Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.ending-comic",
@@ -257,7 +257,16 @@
       "url": "/outputs/jobs/job_20260823160342_eceb3933/qa-preview-ending-comic-review-board-1920x1080.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 Wave 17 통합 선택 패킷에서 ui.ending-comic.triptych-a를 명시적으로 채택함. 런타임 패키지는 A 후보 PNG와 편집 SVG만 포함하고 리뷰 보드는 제외함.",
+    "selectedArtifacts": [
+      "ending-comic-triptych-a-1280x800.png",
+      "ending-comic-triptych-a.svg"
+    ],
+    "updatedAt": "2026-08-24T12:56:40.985Z"
+  },
   "events": [
     {
       "at": "2026-08-23T16:03:42.229Z",
@@ -293,6 +302,16 @@
       "at": "2026-08-23T16:12:37.352Z",
       "level": "info",
       "message": "Codex/로컬 결과 10개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-24T12:54:15.910Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
+    },
+    {
+      "at": "2026-08-24T12:56:40.995Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-23T16:12:37.388Z",
+  "updatedAt": "2026-08-24T12:56:53.483Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -3949,7 +3949,7 @@
       "name": "Wave 16 review-only first candidate with stable candidate ID ui.escape-project-progress.route-signature-a. Create one ed",
       "assetType": "ui_set",
       "request": "Wave 16 review-only first candidate with stable candidate ID ui.escape-project-progress.route-signature-a. Create one editable 1280x800 situational facility popup, not a persistent global dashboard. Show five visually distinct escape paths: smoke and radio as playable paths, raft/flare/beacon as data-only catalog paths. Do not make them cloned buttons. Smoke uses stacked fuel rings plus wind/rain window; radio uses circuit grid, frequency waveform and power chain; raft uses horizontal hull planks and sea-window arc; flare uses a single-shot chamber and timing wedge; beacon uses a tall segmented tower and structure/power checkpoints. The selected route detail shows progress stages, preparation conditions, risk/weather window, preview/cancel atomicity, and confirm focus. Use blank TMP safe rectangles only, no localized body text. Include ko/en/qps-long 150 percent expansion, minimum 18px, 44x44 focus and keyboard/gamepad glyph slots, color-independent outline/pattern/status marks. Match adopted expedition map A navy/teal/cream, warm orange accents and thick readable shapes. Deliver actual-size PNG, editable SVG, QA comparison board, manifest and handoff. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "escape-routes",
@@ -3977,6 +3977,20 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-23T16:12:28.269Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823160324_1de3b748",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T12:54:15.711Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823160324_1de3b748",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T12:56:40.840Z",
           "qualityScore": 100
         }
       ],
@@ -4068,16 +4082,21 @@
           "url": "/outputs/jobs/job_20260823160324_1de3b748/qa-preview-escape-project-review-board-1920x1080.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823160324_1de3b748",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823160324_1de3b748\\forge-import.json",
+        "packagedAt": "2026-08-24T12:56:53.297Z"
+      },
       "createdAt": "2026-08-23T14:15:54.697Z",
-      "updatedAt": "2026-08-23T16:12:28.271Z"
+      "updatedAt": "2026-08-24T12:56:53.299Z"
     },
     {
       "id": "ui.ending-comic",
       "name": "Wave 16 review-only first candidate with stable candidate ID ui.ending-comic.triptych-a. Create one editable 1280x800 th",
       "assetType": "ui_set",
       "request": "Wave 16 review-only first candidate with stable candidate ID ui.ending-comic.triptych-a. Create one editable 1280x800 three-panel placeholder comic ending frame: a wide setup panel, expressive close-up panel, and wide punchline/result panel, with optional insert slots for at most one dominant-behavior modifier and one event-scar modifier. Include short panel transition indicators and a separate verdict/evidence region showing terminal route, dominant behavior, special event and deterministic tie-break reason as blank TMP safe rectangles. Cover representative smoke normal, radio normal, Island FM comic, and Just Kim Day50 cases in the QA board without baking ko/en body text or official logo text. Use blank TMP title/summary/hint areas, ko/en/qps-long 150 percent expansion, minimum 18px, 44x44 focus and keyboard/gamepad glyph slots. Normal/comic/rare/day50 must differ by frame silhouette, corner marks and pattern, not color alone. Match adopted expedition map A navy/teal/cream, warm tropical orange and thick hand-cut comic shapes; preserve Mr. Kim proportions only as a reference and do not copy another game's layout. Deliver actual-size PNG, editable SVG, transition/category QA board, manifest and handoff. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "comic-cutscene",
@@ -4106,6 +4125,20 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-23T16:12:37.386Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823160342_eceb3933",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T12:54:15.962Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823160342_eceb3933",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T12:56:41.024Z",
           "qualityScore": 100
         }
       ],
@@ -4197,9 +4230,14 @@
           "url": "/outputs/jobs/job_20260823160342_eceb3933/qa-preview-ending-comic-review-board-1920x1080.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823160342_eceb3933",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260823160342_eceb3933\\forge-import.json",
+        "packagedAt": "2026-08-24T12:56:53.482Z"
+      },
       "createdAt": "2026-08-23T14:15:54.705Z",
-      "updatedAt": "2026-08-23T16:12:37.388Z"
+      "updatedAt": "2026-08-24T12:56:53.483Z"
     },
     {
       "id": "ui.ending-gallery",
@@ -4232,7 +4270,7 @@
       "name": "Wave 16 review-only first candidate with stable candidate ID effect.survival-hazards.phase-silhouette-a. Create one edit",
       "assetType": "effect",
       "request": "Wave 16 review-only first candidate with stable candidate ID effect.survival-hazards.phase-silhouette-a. Create one editable Unity 2D source set for hazard.injury, hazard.disaster (heavy rain/storm), and hazard.food-theft. Each hazard must expose telegraph, occurrence, mitigation, and recovery as 12 isolated true-alpha cells. Distinguish phases with silhouette and pattern as well as color: dashed pulse/forecast for telegraph, jagged burst for occurrence, shield/chevron for mitigation, rounded rising leaf/sun for recovery. Comic, non-graphic, no blood, no embedded localized body text. Include transparent SVG/sprite-sheet source, 64/32px readability evidence, 1920x1080 QA board, metadata and handoff. Match adopted expedition map A navy/teal/cream with warm orange accents and existing comedy feedback line weight. ko/en/qps-long are engine text only; reserve 44px focus and keyboard/gamepad glyph slots only where state markers attach to UI. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "hazards",
@@ -4261,6 +4299,20 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-23T16:12:14.744Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823160305_ef04b0f3",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T12:54:15.449Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260823160305_ef04b0f3",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T12:56:40.630Z",
           "qualityScore": 100
         }
       ],
@@ -4366,9 +4418,14 @@
           "url": "/outputs/jobs/job_20260823160305_ef04b0f3/qa-preview-hazard-review-board-1920x1080.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\effect\\job_20260823160305_ef04b0f3",
+        "manifest": "Assets\\_Project\\Art\\Generated\\effect\\job_20260823160305_ef04b0f3\\forge-import.json",
+        "packagedAt": "2026-08-24T12:56:53.114Z"
+      },
       "createdAt": "2026-08-23T14:15:54.723Z",
-      "updatedAt": "2026-08-23T16:12:14.745Z"
+      "updatedAt": "2026-08-24T12:56:53.115Z"
     }
   ]
 }
