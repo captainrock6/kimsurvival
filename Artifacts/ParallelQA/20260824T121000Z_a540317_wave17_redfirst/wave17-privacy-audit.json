@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260824T121000Z_a540317_wave17_redfirst",
+  "overall": "PASS",
+  "durablePlayerSmokeEvidence": "windows-hidden-smoke.json",
+  "rawWindowsPlayerLog": "EXCLUDED_FROM_COMMIT",
+  "reason": "Unity Development Player logs local network interface addresses and the Windows host name.",
+  "futureRunnerPolicy": "Move raw windows-player.log to ignored work/ParallelQA/<run-id>/windows-player.raw.log before durable evidence classification.",
+  "piiScanAfterExclusion": "PASS"
+}

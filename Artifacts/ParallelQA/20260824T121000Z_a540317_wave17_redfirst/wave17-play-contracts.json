@@ -1,0 +1,77 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 17 pacing/hazard RED-first hardening Play contracts",
+    "runId": "20260824T121000Z_a540317_wave17_redfirst",
+    "baselineCommit": "a5403173f299abc71ed4724bdaaf30c31ce8cc94",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-24T12:10:10.2812998Z",
+    "completedUtc": "2026-08-24T12:10:10.9705823Z",
+    "overall": "RED",
+    "productOverall": "RED_EXPECTED_GAP",
+    "infrastructureOverall": "PASS",
+    "passed": 0,
+    "expectedGaps": 5,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "greenCompletionCondition": "Fresh Wave 15 GREEN, frozen Wave 16 foundation GREEN after implementation, infrastructure PASS, and zero Wave 17 EXPECTED_GAP/FAIL checks.",
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "W17-P01.live_hazard_lifecycle",
+            "matrix": "actual Play hazard",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "All three sample hazards execute four lifecycle phases in actual Play state with one idempotent instance",
+            "actual": "surface/probe=UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normalized=Vector2;magnitude=1.414214;sqrMagnitude=2};re...[truncated]",
+            "reproduction": "Run Play Mode and execute each public deterministic hazard fixture.",
+            "recommendedFiles": "runtime hazard director/presentation selected by the implementation owner"
+        },
+        {
+            "id": "W17-P02.live_smoke_radio_natural_paths",
+            "matrix": "actual Play escape",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Separate smoke/radio routes use actual interactions, complete terminally, and report grant=false/warp=false",
+            "actual": "smoke=no public live semantic probe discovered; radio=no public live semantic probe discovered",
+            "reproduction": "Run the two natural-route fixtures in Play Mode and inspect interaction trace and terminal state.",
+            "recommendedFiles": "runtime escape project fixtures/UI selected by the implementation owner"
+        },
+        {
+            "id": "W17-P03.live_terminal_priority_and_three_panels",
+            "matrix": "ending presentation",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Early escape and Day 50 priority resolve deterministically and show exactly three core panels",
+            "actual": "probe=no public live semantic probe discovered; panels=ko:0,en:0,qps-long:0",
+            "reproduction": "Resolve the four sample snapshots and inspect the active ending presentation hierarchy.",
+            "recommendedFiles": "runtime terminal resolver/ending presentation selected by the implementation owner"
+        },
+        {
+            "id": "W17-P04.ko_en_qps_1280_layout",
+            "matrix": "localized ending layout",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "KO/EN/qps-long each render 1280x800 with three panels and zero TMP overflow/offscreen/overlap",
+            "actual": "locales=ko->ko,en->en,qps-long->qps-long; ko:panels=0,overflow=0,offscreen=0,overlap=0; en:panels=0,overflow=0,offscreen=0,overlap=0; qps-long:panels=0,overflow=0,offscreen=0,overlap=0",
+            "reproduction": "Open each wave17-*-ending-state-1280x800.png at 1:1 and compare the recorded metrics.",
+            "recommendedFiles": "runtime ending presentation/localization tables selected by the implementation owner"
+        },
+        {
+            "id": "W17-P05.keyboard_synthetic_gamepad_parity",
+            "matrix": "input parity",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "Keyboard and synthetic gamepad preserve identical locale/progression/hazard/escape/ending semantics",
+            "actual": "keyboard=D1/Camp/None/seed607695572/region/localeqps-long/UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normali...[truncated]; gamepad=D1/Camp/None/seed607695572/region/localeqps-long/UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normali...[truncated]; restored=D1/Camp/None/seed607695572/region/localeqps-long/UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normali...[truncated]",
+            "reproduction": "Switch the prototype input tracker KeyboardMouse->Gamepad->KeyboardMouse and compare semantic fingerprints.",
+            "recommendedFiles": "runtime input and ending UI selected by the implementation owner"
+        }
+    ]
+}

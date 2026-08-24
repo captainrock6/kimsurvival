@@ -1,0 +1,196 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 16 hazard, multi-escape, and behavioral-ending RED-first gate",
+    "runId":  "20260824T121000Z_a540317_wave17_redfirst",
+    "baselineCommit":  "a5403173f299abc71ed4724bdaaf30c31ce8cc94",
+    "startedUtc":  "2026-08-24T12:07:07.2098168Z",
+    "completedUtc":  "2026-08-24T12:09:53.7712190Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "FAIL",
+    "productOverall":  "FAIL",
+    "infrastructureOverall":  "PASS",
+    "wave15Prerequisite":  "GREEN",
+    "currentGreenLocks":  {
+                              "wave15CampaignMap":  "GREEN",
+                              "qpsLong":  "10/10 PASS",
+                              "compile":  "PASS 0 errors",
+                              "windowsDevelopmentBuild":  "PASS",
+                              "hiddenSmoke":  "PASS",
+                              "addressables":  "PASS load/build/post-smoke"
+                          },
+    "expectedGapIds":  [
+
+                       ],
+    "expectedGaps":  [
+
+                     ],
+    "productFailures":  [
+                            {
+                                "id":  "W16-H01.hazard_phase_catalog",
+                                "severity":  "P0",
+                                "actual":  "hazard.injury=entry:False,W:False,O:False,M:False,R:False; hazard.disaster=entry:False,W:False,O:False,M:False,R:False; hazard.food-theft=entry:False,W:False,O:False,M:False,R:False",
+                                "reproduction":  "Enumerate public runtime contract objects by stable ID and inspect lifecycle members/values.",
+                                "recommendedFiles":  "runtime hazard catalog and state types selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-H02.daily_stack_budget",
+                                "severity":  "P0",
+                                "actual":  "daily=False; major=False; active=False; recoveryReserve=False",
+                                "reproduction":  "Inspect public hazard config data and execute the deterministic daily-stack fixture.",
+                                "recommendedFiles":  "runtime hazard director/config selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-H03.atomic_idempotent_resolution",
+                                "severity":  "P0",
+                                "actual":  "no public semantic deterministic probe discovered",
+                                "reproduction":  "Run the public deterministic hazard contract probe twice with the same instance/idempotency key and compare state/resources/logs.",
+                                "recommendedFiles":  "runtime hazard transaction and run-state types selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-E01.five_escape_catalog",
+                                "severity":  "P0",
+                                "actual":  "escape methods=0/5; found=",
+                                "reproduction":  "Enumerate public runtime catalog objects and compare their stable IDs with the canonical five.",
+                                "recommendedFiles":  "runtime escape-project catalog selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-E02.escape_axis_separation",
+                                "severity":  "P0",
+                                "actual":  "escape entries missing; pairwise axes unavailable",
+                                "reproduction":  "Compare public catalog member values pairwise; do not compare product class names.",
+                                "recommendedFiles":  "runtime escape-project public data selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-E03.smoke_radio_playable",
+                                "severity":  "P0",
+                                "actual":  "metadata=False; smokeProbe=no public semantic deterministic probe discovered; radioProbe=no public semantic deterministic probe discovered",
+                                "reproduction":  "Execute the deterministic public escape path probe for smoke and radio and inspect progress plus terminal result.",
+                                "recommendedFiles":  "runtime escape project state/transaction types selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-E04.raft_flare_beacon_data",
+                                "severity":  "P1",
+                                "actual":  "escape.raft=0/6; escape.flare=0/6; escape.beacon=0/6",
+                                "reproduction":  "Inspect the three public catalog entries and validate all stable references.",
+                                "recommendedFiles":  "runtime escape-project catalog selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-O01.snapshot_and_private_log",
+                                "severity":  "P0",
+                                "actual":  "snapshot=KimSurvival.GameSession(2/5); log=KimSurvival.PrototypePlaytestEventRecord(2/5); piiFields=none",
+                                "reproduction":  "Inspect public snapshot/log schemas and serialize a verification record containing stable IDs only.",
+                                "recommendedFiles":  "runtime run-state and development log schemas selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-N01.ending_catalog_19",
+                                "severity":  "P0",
+                                "actual":  "endings=0/19; samples=0/4; unique=True",
+                                "reproduction":  "Enumerate public ending entries by stable ID and compare with the canonical set.",
+                                "recommendedFiles":  "runtime ending catalog selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-N02.deterministic_single_ending",
+                                "severity":  "P0",
+                                "actual":  "probe=no public semantic deterministic probe discovered; tieBreak=priority:False,conditions:False,eventDay:False,ascii:True",
+                                "reproduction":  "Run the public resolver twice on the same sample snapshots and compare ending ID, reason, panels, and mapping ID.",
+                                "recommendedFiles":  "runtime ending resolver and snapshot types selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-N03.terminal_priority",
+                                "severity":  "P0",
+                                "actual":  "escapePriority=no public semantic deterministic probe discovered; behaviorEnding=no public semantic deterministic probe discovered",
+                                "reproduction":  "Execute the public terminal resolver for an early escape fixture and a Day 50 no-escape behavior fixture.",
+                                "recommendedFiles":  "runtime terminal/ending resolver selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-L01.ko_en_qps_contract",
+                                "severity":  "P1",
+                                "actual":  "required=65; present=0; qpsExpanded=0; tablesRows=286",
+                                "reproduction":  "Discover localization TSV tables by header, then validate stable keys and columns without checking Korean spelling variants.",
+                                "recommendedFiles":  "runtime localization tables selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-P01.live_hazard_lifecycle",
+                                "severity":  "P0",
+                                "actual":  "no live hazard/escape/ending stable-ID surface",
+                                "reproduction":  "Use the deterministic play fixture to advance each sample hazard through all four phases and retry the same event ID.",
+                                "recommendedFiles":  "runtime hazard director/UI selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-P02.live_escape_paths",
+                                "severity":  "P0",
+                                "actual":  "no live hazard/escape/ending stable-ID surface",
+                                "reproduction":  "Use the public play fixture to complete smoke and radio on separate snapshots and record terminal state.",
+                                "recommendedFiles":  "runtime escape project/UI selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-P03.three_panel_comic",
+                                "severity":  "P0",
+                                "actual":  "panels=0; no live hazard/escape/ending stable-ID surface",
+                                "reproduction":  "Resolve a sample ending, inspect the active presentation root, and count visible core panels.",
+                                "recommendedFiles":  "runtime ending presentation selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-P04.ko_en_qps_1280",
+                                "severity":  "P1",
+                                "actual":  "captures=3/3; panels=0; locales=ko-\u003eko,en-\u003een,qps-long-\u003eqps-long; overflow=0; offscreen=0; overlap=0",
+                                "reproduction":  "Open all wave16-*-ending-state-1280x800.png at 1:1 and compare the recorded TMP rectangles.",
+                                "recommendedFiles":  "runtime ending presentation and localization tables selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W16-P05.keyboard_gamepad_state_parity",
+                                "severity":  "P1",
+                                "actual":  "before=D1/Camp/None/seed279435346/region/no live hazard/escape/ending stable-ID surface; gamepad=D1/Camp/None/seed279435346/region/no live hazard/escape/ending stable-ID surface; keyboard=D1/Camp/None/seed279435346/region/no live hazard/escape/ending stable-ID surface",
+                                "reproduction":  "Capture the semantic live-state fingerprint, switch KeyboardMouse to synthetic Gamepad, and compare the fingerprint.",
+                                "recommendedFiles":  "runtime input and ending UI selected by the implementation owner"
+                            }
+                        ],
+    "infrastructureFailures":  [
+
+                               ],
+    "unverifiedIds":  [
+                          "W16-HW01.physical_gamepad",
+                          "W16-S01.steam_release"
+                      ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "greenTransition":  "On a post-implementation baseline, the same command must keep fresh Wave 15 GREEN and report zero Wave 16 EXPECTED_GAP/FAIL checks with infrastructure PASS.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave16HazardEndingGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u0027a5403173f299abc71ed4724bdaaf30c31ce8cc94\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave15-full-green-prerequisite",
+                       "startedUtc":  "2026-08-24T12:07:07.2304678Z",
+                       "completedUtc":  "2026-08-24T12:09:34.5116486Z",
+                       "exitCode":  0,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1\" -RunId 20260824T121000Z_a540317_wave17_redfirst -BaselineCommit a5403173f299abc71ed4724bdaaf30c31ce8cc94 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave16-wave15-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave16-wave15-stderr.log"
+                   },
+                   {
+                       "name":  "wave16-hazard-ending-edit",
+                       "startedUtc":  "2026-08-24T12:09:34.5164121Z",
+                       "completedUtc":  "2026-08-24T12:09:42.6059319Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\unity-wave16-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave16-edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave16-edit-stderr.log"
+                   },
+                   {
+                       "name":  "wave16-hazard-ending-play",
+                       "startedUtc":  "2026-08-24T12:09:42.6069325Z",
+                       "completedUtc":  "2026-08-24T12:09:53.7018309Z",
+                       "exitCode":  1,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\unity-wave16-play.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave16-play-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave16-play-stderr.log"
+                   }
+               ],
+    "exitCode":  1
+}

@@ -1,0 +1,278 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 17 pacing, hazard, escape, ending RED-first hardening gate",
+    "runId":  "20260824T121000Z_a540317_wave17_redfirst",
+    "baselineCommit":  "a5403173f299abc71ed4724bdaaf30c31ce8cc94",
+    "startedUtc":  "2026-08-24T12:07:06.9115424Z",
+    "completedUtc":  "2026-08-24T12:10:14.6531130Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "RED",
+    "productOverall":  "RED_EXPECTED_GAP",
+    "infrastructureOverall":  "PASS",
+    "frozenWave16Baseline":  {
+                                 "expectedCount":  17,
+                                 "expectedIds":  [
+                                                     "W16-H01.hazard_phase_catalog",
+                                                     "W16-H02.daily_stack_budget",
+                                                     "W16-H03.atomic_idempotent_resolution",
+                                                     "W16-E01.five_escape_catalog",
+                                                     "W16-E02.escape_axis_separation",
+                                                     "W16-E03.smoke_radio_playable",
+                                                     "W16-E04.raft_flare_beacon_data",
+                                                     "W16-O01.snapshot_and_private_log",
+                                                     "W16-N01.ending_catalog_19",
+                                                     "W16-N02.deterministic_single_ending",
+                                                     "W16-N03.terminal_priority",
+                                                     "W16-L01.ko_en_qps_contract",
+                                                     "W16-P01.live_hazard_lifecycle",
+                                                     "W16-P02.live_escape_paths",
+                                                     "W16-P03.three_panel_comic",
+                                                     "W16-P04.ko_en_qps_1280",
+                                                     "W16-P05.keyboard_gamepad_state_parity"
+                                                 ],
+                                 "observedIds":  [
+                                                     "W16-H01.hazard_phase_catalog",
+                                                     "W16-H02.daily_stack_budget",
+                                                     "W16-H03.atomic_idempotent_resolution",
+                                                     "W16-E01.five_escape_catalog",
+                                                     "W16-E02.escape_axis_separation",
+                                                     "W16-E03.smoke_radio_playable",
+                                                     "W16-E04.raft_flare_beacon_data",
+                                                     "W16-O01.snapshot_and_private_log",
+                                                     "W16-N01.ending_catalog_19",
+                                                     "W16-N02.deterministic_single_ending",
+                                                     "W16-N03.terminal_priority",
+                                                     "W16-L01.ko_en_qps_contract",
+                                                     "W16-P01.live_hazard_lifecycle",
+                                                     "W16-P02.live_escape_paths",
+                                                     "W16-P03.three_panel_comic",
+                                                     "W16-P04.ko_en_qps_1280",
+                                                     "W16-P05.keyboard_gamepad_state_parity"
+                                                 ],
+                                 "result":  "PASS 17/17"
+                             },
+    "currentGreenLocks":  {
+                              "wave15CampaignMap":  "GREEN",
+                              "qpsLong":  "10/10 PASS",
+                              "compile":  "PASS 0 errors / 0 warnings",
+                              "windowsDevelopmentBuild":  "PASS",
+                              "hiddenSmoke":  "PASS 6.463s (minimum 6)",
+                              "addressables":  "PASS"
+                          },
+    "expectedGapIds":  [
+                           "W17-T01.day_band_boundaries",
+                           "W17-T02.early_escape_no_hardlock",
+                           "W17-R01.six_region_primary_alternative",
+                           "W17-R02.seed_forecast_hazard_pity_determinism",
+                           "W17-R03.eligible_search_hint3_guarantee5",
+                           "W17-R04.minimum_three_completable_paths",
+                           "W17-H01.three_hazard_four_phase_lifecycle",
+                           "W17-H02.rolling_calm_and_major_recovery",
+                           "W17-H03.atomic_retry_loss_and_keypart_protection",
+                           "W17-E01.five_escape_ids_and_two_axes",
+                           "W17-E02.smoke_radio_natural_interaction_routes",
+                           "W17-E03.raft_flare_beacon_data_only",
+                           "W17-O01.snapshot_and_private_log",
+                           "W17-N01.ending_catalog_19_and_samples",
+                           "W17-N02.priority_tiebreak_and_hysteresis",
+                           "W17-P01.live_hazard_lifecycle",
+                           "W17-P02.live_smoke_radio_natural_paths",
+                           "W17-P03.live_terminal_priority_and_three_panels",
+                           "W17-P04.ko_en_qps_1280_layout",
+                           "W17-P05.keyboard_synthetic_gamepad_parity"
+                       ],
+    "expectedGaps":  [
+                         {
+                             "id":  "W17-T01.day_band_boundaries",
+                             "severity":  "P0",
+                             "actual":  "pacing.band.onboarding=missing; pacing.band.expansion=missing; pacing.band.compound-choice=missing; pacing.band.finish-pressure=missing; pacing.band.resolution=missing",
+                             "reproduction":  "Enumerate public pacing entries by stable ID and inspect exact start/end fields.",
+                             "recommendedFiles":  "runtime pacing catalog/config selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-T02.early_escape_no_hardlock",
+                             "severity":  "P0",
+                             "actual":  "no public deterministic semantic probe discovered",
+                             "reproduction":  "Run the public pacing/escape deterministic probe across all band boundaries and compare terminal results.",
+                             "recommendedFiles":  "runtime pacing and escape resolver selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-R01.six_region_primary_alternative",
+                             "severity":  "P0",
+                             "actual":  "regions=; region.ridge.highland=missing;region.cove.wreck=missing;region.ruins.relay=missing",
+                             "reproduction":  "Enumerate public region profiles and execute primary/alternative unlock fixtures without relying on dates.",
+                             "recommendedFiles":  "runtime region catalog/unlock resolver selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-R02.seed_forecast_hazard_pity_determinism",
+                             "severity":  "P0",
+                             "actual":  "no public deterministic semantic probe discovered",
+                             "reproduction":  "Execute a public deterministic pacing probe twice with the same seed and once with another seed.",
+                             "recommendedFiles":  "runtime seeded pacing/forecast/hazard resolver selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-R03.eligible_search_hint3_guarantee5",
+                             "severity":  "P0",
+                             "actual":  "data=False; probe=no public deterministic semantic probe discovered",
+                             "reproduction":  "Run eligible, cancelled, failed, unrelated, duplicate, hint-3, and guarantee-5 fixtures.",
+                             "recommendedFiles":  "runtime key-part pity/loot transaction selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-R04.minimum_three_completable_paths",
+                             "severity":  "P0",
+                             "actual":  "no public deterministic semantic probe discovered",
+                             "reproduction":  "Execute the public route audit at all four audit points and record stable escape IDs.",
+                             "recommendedFiles":  "runtime escape reachability auditor selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-H01.three_hazard_four_phase_lifecycle",
+                             "severity":  "P0",
+                             "actual":  "hazard.injury=missing; hazard.disaster=missing; hazard.food-theft=missing",
+                             "reproduction":  "Enumerate public hazard data and execute each four-phase fixture.",
+                             "recommendedFiles":  "runtime hazard catalog/state machine selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-H02.rolling_calm_and_major_recovery",
+                             "severity":  "P0",
+                             "actual":  "data=False; probe=no public deterministic semantic probe discovered",
+                             "reproduction":  "Run at least ten deterministic days and inspect every rolling window plus post-major reservation.",
+                             "recommendedFiles":  "runtime hazard cadence/director selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-H03.atomic_retry_loss_and_keypart_protection",
+                             "severity":  "P0",
+                             "actual":  "no public deterministic semantic probe discovered",
+                             "reproduction":  "Resolve the same hazardInstanceId twice and compare resource, facility, protected-part, stage, score, and log snapshots.",
+                             "recommendedFiles":  "runtime hazard transaction and protected project inventory selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-E01.five_escape_ids_and_two_axes",
+                             "severity":  "P0",
+                             "actual":  "found=; pairwiseDifferences=",
+                             "reproduction":  "Enumerate stable escape entries and compare region/research/facility/part/material/time/risk/timing axes pairwise.",
+                             "recommendedFiles":  "runtime escape-project catalog selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-E02.smoke_radio_natural_interaction_routes",
+                             "severity":  "P0",
+                             "actual":  "smoke=no public deterministic semantic probe discovered; radio=no public deterministic semantic probe discovered",
+                             "reproduction":  "Execute separate public smoke/radio natural-route probes and inspect interaction count, grant, warp, and terminal result.",
+                             "recommendedFiles":  "runtime smoke/radio project fixtures and public interaction surface selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-E03.raft_flare_beacon_data_only",
+                             "severity":  "P1",
+                             "actual":  "escape.raft=missing; escape.flare=missing; escape.beacon=missing",
+                             "reproduction":  "Inspect public entries and deterministic data validators; do not claim playable PASS.",
+                             "recommendedFiles":  "runtime escape-project catalog/data validators selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-O01.snapshot_and_private_log",
+                             "severity":  "P0",
+                             "actual":  "snapshot=False; log=False; piiFields=none",
+                             "reproduction":  "Inspect public snapshot/log schemas and serialize a stable-ID-only verification record.",
+                             "recommendedFiles":  "runtime run snapshot and development telemetry schemas selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-N01.ending_catalog_19_and_samples",
+                             "severity":  "P0",
+                             "actual":  "endings=0/19; samples=0/4; ids=",
+                             "reproduction":  "Enumerate public ending catalog objects by stable ID.",
+                             "recommendedFiles":  "runtime ending catalog selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-N02.priority_tiebreak_and_hysteresis",
+                             "severity":  "P0",
+                             "actual":  "no public deterministic semantic probe discovered",
+                             "reproduction":  "Run identical snapshots twice plus the established-identity challenger fixture and compare ending/reason/identity.",
+                             "recommendedFiles":  "runtime terminal/ending/behavior resolver selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-P01.live_hazard_lifecycle",
+                             "severity":  "P0",
+                             "actual":  "surface/probe=UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normalized=Vector2;magnitude=1.414214;sqrMagnitude=2};re...[truncated]",
+                             "reproduction":  "Run Play Mode and execute each public deterministic hazard fixture.",
+                             "recommendedFiles":  "runtime hazard director/presentation selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-P02.live_smoke_radio_natural_paths",
+                             "severity":  "P0",
+                             "actual":  "smoke=no public live semantic probe discovered; radio=no public live semantic probe discovered",
+                             "reproduction":  "Run the two natural-route fixtures in Play Mode and inspect interaction trace and terminal state.",
+                             "recommendedFiles":  "runtime escape project fixtures/UI selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-P03.live_terminal_priority_and_three_panels",
+                             "severity":  "P0",
+                             "actual":  "probe=no public live semantic probe discovered; panels=ko:0,en:0,qps-long:0",
+                             "reproduction":  "Resolve the four sample snapshots and inspect the active ending presentation hierarchy.",
+                             "recommendedFiles":  "runtime terminal resolver/ending presentation selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-P04.ko_en_qps_1280_layout",
+                             "severity":  "P1",
+                             "actual":  "locales=ko-\u003eko,en-\u003een,qps-long-\u003eqps-long; ko:panels=0,overflow=0,offscreen=0,overlap=0; en:panels=0,overflow=0,offscreen=0,overlap=0; qps-long:panels=0,overflow=0,offscreen=0,overlap=0",
+                             "reproduction":  "Open each wave17-*-ending-state-1280x800.png at 1:1 and compare the recorded metrics.",
+                             "recommendedFiles":  "runtime ending presentation/localization tables selected by the implementation owner"
+                         },
+                         {
+                             "id":  "W17-P05.keyboard_synthetic_gamepad_parity",
+                             "severity":  "P1",
+                             "actual":  "keyboard=D1/Camp/None/seed607695572/region/localeqps-long/UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normali...[truncated]; gamepad=D1/Camp/None/seed607695572/region/localeqps-long/UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normali...[truncated]; restored=D1/Camp/None/seed607695572/region/localeqps-long/UnityEngine.UI.Image/수집 지역 노드 · region.shallows{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit=1;material=Material{shader=Shader{maximumLOD=-1;isSupported=True;keywordSpace=LocalKeywordSpace;renderQueue=3000;passCount=1;subshaderCount=1;name=UI/Default;hideFlags=NotEditable};color=Color{r=1;g=1;b=1;a=1;grayscale=1;linear=Color;gamma=Color;maxColorComponent=1};mainTexture=null;mainTextureOffset=Vector2{x=0;y=0;normalized=Vector2;magnitude=0;sqrMagnitude=0};mainTextureScale=Vector2{x=1;y=1;normali...[truncated]",
+                             "reproduction":  "Switch the prototype input tracker KeyboardMouse-\u003eGamepad-\u003eKeyboardMouse and compare semantic fingerprints.",
+                             "recommendedFiles":  "runtime input and ending UI selected by the implementation owner"
+                         }
+                     ],
+    "productFailures":  [
+
+                        ],
+    "infrastructureFailures":  [
+
+                               ],
+    "unverifiedIds":  [
+                          "W17-HW01.physical_gamepad",
+                          "W17-S01.steam_release"
+                      ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "reviewOnlyArt":  "Three human-adoption candidates must remain unselected and absent from runtime/scene/Addressables references.",
+    "greenTransition":  "On a post-implementation baseline, fresh Wave 15 and Wave 16 must be GREEN, infrastructure locks PASS, and this gate must report zero EXPECTED_GAP/FAIL checks while review-only art remains unconnected until explicit human adoption.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave17PacingHazardGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u0027a5403173f299abc71ed4724bdaaf30c31ce8cc94\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave16-frozen-foundation-and-wave15-green",
+                       "startedUtc":  "2026-08-24T12:07:06.9320260Z",
+                       "completedUtc":  "2026-08-24T12:09:54.2985537Z",
+                       "exitCode":  1,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave16HazardEndingGate.ps1\" -RunId 20260824T121000Z_a540317_wave17_redfirst -BaselineCommit a5403173f299abc71ed4724bdaaf30c31ce8cc94 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave17-wave16-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave17-wave16-stderr.log"
+                   },
+                   {
+                       "name":  "wave17-pacing-hazard-edit",
+                       "startedUtc":  "2026-08-24T12:09:54.3030583Z",
+                       "completedUtc":  "2026-08-24T12:10:03.3999301Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave17PacingHazardRedFirstHardeningRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\unity-wave17-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave17-edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave17-edit-stderr.log"
+                   },
+                   {
+                       "name":  "wave17-pacing-hazard-play",
+                       "startedUtc":  "2026-08-24T12:10:03.4273278Z",
+                       "completedUtc":  "2026-08-24T12:10:14.5066754Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave17PacingHazardRedFirstHardeningRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\unity-wave17-play.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave17-play-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T121000Z_a540317_wave17_redfirst\\wave17-play-stderr.log"
+                   }
+               ],
+    "exitCode":  2
+}
