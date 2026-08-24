@@ -14,7 +14,9 @@ namespace KimSurvival
         StoragePlanning,
         ExpeditionMap,
         ModuleExpansionSlot,
-        ModuleConnector
+        ModuleConnector,
+        SmokeBeacon,
+        RadioBench
     }
 
     public enum PrototypeCampInteractionAction
@@ -31,7 +33,9 @@ namespace KimSurvival
         CollectRain,
         UpgradeSignal,
         OpenExpeditionMap,
-        PreviewModule
+        PreviewModule,
+        ProgressSmokeEscape,
+        ProgressRadioEscape
     }
 
     public interface IPrototypeCampInteractionTarget
@@ -84,6 +88,10 @@ namespace KimSurvival
                     return action == PrototypeCampInteractionAction.PreviewModule;
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
                     return false;
+                case PrototypeCampInteractionTargetKind.SmokeBeacon:
+                    return action == PrototypeCampInteractionAction.ProgressSmokeEscape;
+                case PrototypeCampInteractionTargetKind.RadioBench:
+                    return action == PrototypeCampInteractionAction.ProgressRadioEscape;
                 case PrototypeCampInteractionTargetKind.Campfire:
                     return action == PrototypeCampInteractionAction.BuildOrRelocate ||
                            action == PrototypeCampInteractionAction.Eat ||

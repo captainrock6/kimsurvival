@@ -285,3 +285,76 @@ expedition.map.state.risk	위험 경고	Risk warning	⟦Rísk wárñíñgáé⟧
 expedition.map.state.equipment_missing	장비 부족	Gear missing	⟦Géár míssíñgáé⟧
 expedition.map.state.ready	출발 가능	Ready to depart	⟦Réády tó dépártáéíóú⟧
 expedition.map.state.unknown	미확인	Unknown	⟦Úñkñówñá⟧
+hazard.injury	부상 위험	Injury hazard	⟦Íñjúry házárdáéíó⟧
+hazard.disaster	자연재해 위험	Disaster hazard	⟦Dísástér házárdáéíó⟧
+hazard.food-theft	식량 도난 위험	Food-theft hazard	⟦Fóód-théft házárdáéíóú⟧
+escape.raft	뗏목 탈출	Raft escape	⟦Ráft éscápéáéí⟧
+escape.smoke	대형 연기 신호	Smoke beacon escape	⟦Smóké béácóñ éscápéáéíóúü⟧
+escape.radio	무전 구조 신호	Radio rescue escape	⟦Rádíó réscúé éscápéáéíóúü⟧
+escape.flare	조명탄 탈출	Flare escape	⟦Fláré éscápéáéí⟧
+escape.beacon	고지대 신호탑 탈출	Ridge beacon escape	⟦Rídgé béácóñ éscápéáéíóúü⟧
+escape.project.action.smoke	연기 신호 {0}/{1} · 밧줄 {2} · 나무 {3} / 표류물 {4}	Smoke {0}/{1} · Rope {2} · Wood {3} / Salvage {4}	⟦Smóké {0}/{1} · Rópé {2} · Wóód {3} / Sálvágé {4}áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.project.action.radio	무전 신호 {0}/{1} · 돌도끼 {2} · 나무 {3} / 표류물 {4}	Radio {0}/{1} · Axe {2} · Wood {3} / Salvage {4}	⟦Rádíó {0}/{1} · Áxé {2} · Wóód {3} / Sálvágé {4}áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.project.message.progress	{0} 진행 {1}/{2}. 다음 투입도 현장에서 해야 한다.	{0} progressed to {1}/{2}. Return here for the next commit.	⟦{0} prógrésséd tó {1}/{2}. Rétúrñ héré fór thé ñéxt cómmít.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+escape.project.message.complete	{0} 완성. 구조 신호가 응답을 받았다.	{0} complete. The rescue signal received a response.	⟦{0} cómplété. Thé réscúé sígñál récéívéd á réspóñsé.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+escape.project.message.research	{0}에 필요한 연구·도구가 아직 없다.	The research or tool required by {0} is missing.	⟦Thé réséárch ór tóól réqúíréd by {0} ís míssíñg.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.project.message.resources	{0}에 투입할 자원이 부족하다.	Not enough resources for {0}.	⟦Ñót éñóúgh résóúrcés fór {0}.áéíóúüñ¿¡á⟧
+camp.popup.detail.escape_smoke	고지대 연기 설비에 직접 자원을 넣는다. 밧줄과 건조한 바람 창이 필요하다.	Commit resources at the smoke beacon. Rope and a dry wind window are required.	⟦Cómmít résóúrcés át thé smóké béácóñ. Rópé áñd á dry wíñd wíñdów áré réqúíréd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
+camp.popup.detail.escape_radio	무전 작업대에서 회로를 복구한다. 돌도끼와 전자 부품용 표류물이 필요하다.	Repair the radio circuit here. An axe and electronics salvage are required.	⟦Répáír thé rádíó círcúít héré. Áñ áxé áñd éléctróñícs sálvágé áré réqúíréd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+ending.escape.raft.open-water.title	수평선 너머로	Beyond the Horizon	⟦Béyóñd thé Hórízóñáéíóúü⟧
+ending.escape.raft.open-water.summary	직접 엮은 뗏목으로 조류를 타고 섬을 벗어났다.	He rides the current off the island on his own raft.	⟦Hé rídés thé cúrréñt óff thé ísláñd óñ hís ówñ ráft.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+ending.escape.raft.open-water.hint	바다는 벽이 아니라 길일지도 모른다.	The sea may be a road, not a wall.	⟦Thé séá máy bé á róád, ñót á wáll.áéíóúüñ¿¡áéí⟧
+ending.escape.smoke.seen-from-afar.title	연기는 답을 안다	Where There's Smoke	⟦Whéré Théré's Smókéáéíóúü⟧
+ending.escape.smoke.seen-from-afar.summary	며칠 지킨 연기가 마침내 배를 불렀다.	The smoke he tended finally draws a ship.	⟦Thé smóké hé téñdéd fíñálly dráws á shíp.áéíóúüñ¿¡áéíóúü⟧
+ending.escape.smoke.seen-from-afar.hint	멀리서도 보이는 하루를 만들어 보자.	Make a day visible from far away.	⟦Máké á dáy vísíblé fróm fár áwáy.áéíóúüñ¿¡áéí⟧
+ending.escape.radio.clear-signal.title	여기는 김씨, 응답하라	Kim Calling	⟦Kím Cállíñgáéí⟧
+ending.escape.radio.clear-signal.summary	잡음 속 한 문장이 위치를 세상에 알렸다.	One clear sentence puts him back on the map.	⟦Óñé cléár séñtéñcé púts hím báck óñ thé máp.áéíóúüñ¿¡áéíóúüñ⟧
+ending.escape.radio.clear-signal.hint	잡음도 오래 들으면 문장이 된다.	Static becomes a sentence if you listen long enough.	⟦Státíc bécómés á séñtéñcé íf yóú lístéñ lóñg éñóúgh.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+ending.escape.flare.one-shot.title	딱 한 발	One Good Shot	⟦Óñé Góód Shótáéíó⟧
+ending.escape.flare.one-shot.summary	유일한 조명탄을 정확한 순간에 발사했다.	He fires his only flare at the right moment.	⟦Hé fírés hís óñly fláré át thé ríght móméñt.áéíóúüñ¿¡áéíóúüñ⟧
+ending.escape.flare.one-shot.hint	기회가 올 때까지 한 발을 아껴라.	Save the shot until the opportunity arrives.	⟦Sávé thé shót úñtíl thé óppórtúñíty árrívés.áéíóúüñ¿¡áéíóúüñ⟧
+ending.escape.beacon.ridge-light.title	불이 켜진 산꼭대기	The Light on the Ridge	⟦Thé Líght óñ thé Rídgéáéíóúüñ⟧
+ending.escape.beacon.ridge-light.summary	복구한 중계소가 섬을 지도 위 점으로 만들었다.	The restored relay makes the island visible again.	⟦Thé réstóréd réláy mákés thé ísláñd vísíblé ágáíñ.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.escape.beacon.ridge-light.hint	가장 높은 곳의 죽은 불을 깨워라.	Wake the dead light at the highest point.	⟦Wáké thé déád líght át thé híghést póíñt.áéíóúüñ¿¡áéíóúü⟧
+ending.comic.raft.coconut-navy.title	코코넛 해군	Coconut Navy	⟦Cócóñút Ñávyáéí⟧
+ending.comic.raft.coconut-navy.summary	코코넛 화물이 뗏목보다 먼저 유명해졌다.	The coconut cargo becomes famous before the raft.	⟦Thé cócóñút cárgó bécómés fámóús béfóré thé ráft.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.comic.raft.coconut-navy.hint	배에는 평형추가 필요하다.	Every boat needs ballast.	⟦Évéry bóát ñééds bállást.áéíóúüñ¿⟧
+ending.comic.smoke.island-barbecue.title	무인도 맛집	Island Barbecue	⟦Ísláñd Bárbécúéáéíó⟧
+ending.comic.smoke.island-barbecue.summary	구조대가 전설의 바비큐 연기 소문을 따라왔다.	Rescuers follow rumors of legendary barbecue.	⟦Réscúérs fóllów rúmórs óf légéñdáry bárbécúé.áéíóúüñ¿¡áéíóúüñ⟧
+ending.comic.smoke.island-barbecue.hint	구조 신호가 너무 맛있어 보일 수도 있다.	A rescue signal can look a little too delicious.	⟦Á réscúé sígñál cáñ lóók á líttlé tóó délícíóús.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.comic.radio.island-dj.title	무인도 FM	Island FM	⟦Ísláñd FMáé⟧
+ending.comic.radio.island-dj.summary	구조 요청 사이의 선곡이 청취자를 만들었다.	Songs between distress calls gain listeners.	⟦Sóñgs bétwééñ dístréss cálls gáíñ lístéñérs.áéíóúüñ¿¡áéíóúüñ⟧
+ending.comic.radio.island-dj.hint	응답이 없으면 방송이라도 해 보자.	If nobody answers, try broadcasting.	⟦Íf ñóbódy áñswérs, try bróádcástíñg.áéíóúüñ¿¡áéíó⟧
+ending.comic.flare.daylight-fireworks.title	대낮의 불꽃놀이	Fireworks at Noon	⟦Fíréwórks át Ñóóñáéíóú⟧
+ending.comic.flare.daylight-fireworks.summary	축포로 오해한 배가 구경하러 왔다.	A curious boat follows what looks like a celebration.	⟦Á cúríóús bóát fóllóws whát lóóks líké á célébrátíóñ.áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
+ending.comic.flare.daylight-fireworks.hint	시간을 잘못 봐도 누군가는 볼 수 있다.	Even bad timing can find a witness.	⟦Évéñ bád tímíñg cáñ fíñd á wítñéss.áéíóúüñ¿¡áéí⟧
+ending.comic.beacon.brightest-address.title	전기세 없는 야경	The Brightest Address	⟦Thé Bríghtést Áddréssáéíóúüñ⟧
+ending.comic.beacon.brightest-address.summary	중계소가 항로의 야경 명소가 되었다.	The relay becomes a shipping landmark.	⟦Thé réláy bécómés á shíppíñg láñdmárk.áéíóúüñ¿¡áéíóú⟧
+ending.comic.beacon.brightest-address.hint	필요한 빛보다 조금 더 켜 보자.	Try a little more light than necessary.	⟦Try á líttlé móré líght tháñ ñécéssáry.áéíóúüñ¿¡áéíóú⟧
+ending.rare.raft.current-reader.title	바다가 길을 열었다	The Sea Made a Road	⟦Thé Séá Mádé á Róádáéíóúü⟧
+ending.rare.raft.current-reader.summary	반복 수영으로 읽은 고요한 조류를 탔다.	He catches a current learned through countless swims.	⟦Hé cátchés á cúrréñt léárñéd thróúgh cóúñtléss swíms.áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
+ending.rare.raft.current-reader.hint	같은 물길을 오래 오가면 바다가 말한다.	The sea speaks when you travel the same water long enough.	⟦Thé séá spéáks whéñ yóú trávél thé sámé wátér lóñg éñóúgh.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+ending.rare.smoke.cloud-letter.title	구름에 쓴 구조 요청	SOS in the Clouds	⟦SÓS íñ thé Clóúdsáéíóú⟧
+ending.rare.smoke.cloud-letter.summary	연기가 완벽한 구조 문양을 그렸다.	Smoke draws a perfect distress sign beneath the clouds.	⟦Smóké dráws á pérféct dístréss sígñ béñéáth thé clóúds.áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
+ending.rare.smoke.cloud-letter.hint	바람에 문장을 맡겨 보자.	Entrust a sentence to the wind.	⟦Éñtrúst á séñtéñcé tó thé wíñd.áéíóúüñ¿¡áé⟧
+ending.rare.radio.forecast-rescue.title	첫 응답은 기상청	Forecast: Rescue	⟦Fórécást: Réscúéáéíóú⟧
+ending.rare.radio.forecast-rescue.summary	기상망이 폭풍 사이 구조 항로를 계산했다.	A weather network calculates a rescue route between storms.	⟦Á wéáthér ñétwórk cálcúlátés á réscúé róúté bétwééñ stórms.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+ending.rare.radio.forecast-rescue.hint	낡은 기록에는 아직 듣는 귀가 있다.	Old records may still have listening ears.	⟦Óld récórds máy stíll hávé lístéñíñg éárs.áéíóúüñ¿¡áéíóúü⟧
+ending.rare.beacon.storm-eye.title	폭풍의 눈에서	Inside the Eye	⟦Íñsídé thé Éyéáéíó⟧
+ending.rare.beacon.storm-eye.summary	폭풍의 고요 속에서 중계소를 켰다.	He lights the relay inside the storm's calm eye.	⟦Hé líghts thé réláy íñsídé thé stórm's cálm éyé.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.rare.beacon.storm-eye.hint	가장 거센 날 모든 대비가 답한다.	Every preparation answers on the fiercest day.	⟦Évéry prépárátíóñ áñswérs óñ thé fíércést dáy.áéíóúüñ¿¡áéíóúüñ¿⟧
+ending.stay.green-king.title	김씨 농장 50일째	Kim Farm, Day 50	⟦Kím Fárm, Dáy 50áéíóú⟧
+ending.stay.green-king.summary	탈출 대신 계절표가 필요한 밭을 만들었다.	His farm grows large enough to need a calendar.	⟦Hís fárm gróws lárgé éñóúgh tó ñééd á cáléñdár.áéíóúüñ¿¡áéíóúüñ¿⟧
+ending.stay.green-king.hint	심는 계획이 떠나는 계획보다 많아진다면.	When planting plans outnumber departure plans.	⟦Whéñ pláñtíñg pláñs óútñúmbér dépártúré pláñs.áéíóúüñ¿¡áéíóúüñ¿⟧
+ending.stay.fortress-manager.title	무인도 관리사무소	Island Facilities Office	⟦Ísláñd Fácílítíés Óffícéáéíóúüñ¿⟧
+ending.stay.fortress-manager.summary	폭풍보다 점검표가 무서운 관리자가 되었다.	Checklists become scarier than storms.	⟦Chécklísts bécómé scáríér tháñ stórms.áéíóúüñ¿¡áéíóú⟧
+ending.stay.fortress-manager.hint	섬도 관리 구역이 될 수 있다.	Even an island can become a managed district.	⟦Évéñ áñ ísláñd cáñ bécómé á máñágéd dístríct.áéíóúüñ¿¡áéíóúüñ⟧
+ending.stay.scrap-professor.title	표류물 공학 박사	Doctor of Driftwood Engineering	⟦Dóctór óf Dríftwóód Éñgíñééríñgáéíóúüñ¿¡áé⟧
+ending.stay.scrap-professor.summary	쓸모없는 표류물은 없다는 이론을 증명했다.	He proves that no piece of salvage is useless.	⟦Hé próvés thát ñó píécé óf sálvágé ís úséléss.áéíóúüñ¿¡áéíóúüñ¿⟧
+ending.stay.scrap-professor.hint	주운 물건을 끝까지 연구해 보자.	Study every found object to the end.	⟦Stúdy évéry fóúñd óbjéct tó thé éñd.áéíóúüñ¿¡áéíó⟧
+ending.stay.island-ranger.title	섬의 레인저	Island Ranger	⟦Ísláñd Ráñgéráéíó⟧
+ending.stay.island-ranger.summary	물길과 동물 길을 모두 외웠다.	He learns every current and animal trail.	⟦Hé léárñs évéry cúrréñt áñd áñímál tráíl.áéíóúüñ¿¡áéíóúü⟧
+ending.stay.island-ranger.hint	섬의 길을 사람보다 먼저 외워 보자.	Learn the island's paths before people return.	⟦Léárñ thé ísláñd's páths béfóré péóplé rétúrñ.áéíóúüñ¿¡áéíóúüñ¿⟧
+ending.stay.just-kim.title	그냥 잘 사는 김씨	Mr. Kim, Doing Fine	⟦Mr. Kím, Dóíñg Fíñéáéíóúü⟧
+ending.stay.just-kim.summary	한 전문가가 아니어도 자기 방식으로 살아남았다.	He masters no single lifestyle but survives in his own way.	⟦Hé mástérs ñó síñglé líféstylé bút súrvívés íñ hís ówñ wáy.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+ending.stay.just-kim.hint	한 가지만 잘할 필요는 없다.	You do not need to master only one thing.	⟦Yóú dó ñót ñééd tó mástér óñly óñé thíñg.áéíóúüñ¿¡áéíóúü⟧

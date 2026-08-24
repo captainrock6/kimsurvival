@@ -1167,6 +1167,298 @@ MonoBehaviour:
     m_Key: expedition.map.state.unknown
     m_Metadata:
       m_Items: []
+  - m_Id: 747417753600000
+    m_Key: hazard.injury
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543040
+    m_Key: hazard.disaster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543041
+    m_Key: hazard.food-theft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543042
+    m_Key: escape.raft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543043
+    m_Key: escape.smoke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543044
+    m_Key: escape.radio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543045
+    m_Key: escape.flare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543046
+    m_Key: escape.beacon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543047
+    m_Key: escape.project.action.smoke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931648
+    m_Key: escape.project.action.radio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931649
+    m_Key: escape.project.message.progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931650
+    m_Key: escape.project.message.complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931651
+    m_Key: escape.project.message.research
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931652
+    m_Key: escape.project.message.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931653
+    m_Key: camp.popup.detail.escape_smoke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931654
+    m_Key: camp.popup.detail.escape_radio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931655
+    m_Key: ending.escape.raft.open-water.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931656
+    m_Key: ending.escape.raft.open-water.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931657
+    m_Key: ending.escape.raft.open-water.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931658
+    m_Key: ending.escape.smoke.seen-from-afar.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931659
+    m_Key: ending.escape.smoke.seen-from-afar.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931660
+    m_Key: ending.escape.smoke.seen-from-afar.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931661
+    m_Key: ending.escape.radio.clear-signal.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931662
+    m_Key: ending.escape.radio.clear-signal.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931663
+    m_Key: ending.escape.radio.clear-signal.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931664
+    m_Key: ending.escape.flare.one-shot.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931665
+    m_Key: ending.escape.flare.one-shot.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931666
+    m_Key: ending.escape.flare.one-shot.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931667
+    m_Key: ending.escape.beacon.ridge-light.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931668
+    m_Key: ending.escape.beacon.ridge-light.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931669
+    m_Key: ending.escape.beacon.ridge-light.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931670
+    m_Key: ending.comic.raft.coconut-navy.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931671
+    m_Key: ending.comic.raft.coconut-navy.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125952
+    m_Key: ending.comic.raft.coconut-navy.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125953
+    m_Key: ending.comic.smoke.island-barbecue.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125954
+    m_Key: ending.comic.smoke.island-barbecue.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125955
+    m_Key: ending.comic.smoke.island-barbecue.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125956
+    m_Key: ending.comic.radio.island-dj.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125957
+    m_Key: ending.comic.radio.island-dj.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125958
+    m_Key: ending.comic.radio.island-dj.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125959
+    m_Key: ending.comic.flare.daylight-fireworks.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125960
+    m_Key: ending.comic.flare.daylight-fireworks.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125961
+    m_Key: ending.comic.flare.daylight-fireworks.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125962
+    m_Key: ending.comic.beacon.brightest-address.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125963
+    m_Key: ending.comic.beacon.brightest-address.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125964
+    m_Key: ending.comic.beacon.brightest-address.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125965
+    m_Key: ending.rare.raft.current-reader.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125966
+    m_Key: ending.rare.raft.current-reader.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125967
+    m_Key: ending.rare.raft.current-reader.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125968
+    m_Key: ending.rare.smoke.cloud-letter.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125969
+    m_Key: ending.rare.smoke.cloud-letter.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125970
+    m_Key: ending.rare.smoke.cloud-letter.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125971
+    m_Key: ending.rare.radio.forecast-rescue.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125972
+    m_Key: ending.rare.radio.forecast-rescue.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125973
+    m_Key: ending.rare.radio.forecast-rescue.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125974
+    m_Key: ending.rare.beacon.storm-eye.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125975
+    m_Key: ending.rare.beacon.storm-eye.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125976
+    m_Key: ending.rare.beacon.storm-eye.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125977
+    m_Key: ending.stay.green-king.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125978
+    m_Key: ending.stay.green-king.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125979
+    m_Key: ending.stay.green-king.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125980
+    m_Key: ending.stay.fortress-manager.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125981
+    m_Key: ending.stay.fortress-manager.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125982
+    m_Key: ending.stay.fortress-manager.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125983
+    m_Key: ending.stay.scrap-professor.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125984
+    m_Key: ending.stay.scrap-professor.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125985
+    m_Key: ending.stay.scrap-professor.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125986
+    m_Key: ending.stay.island-ranger.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125987
+    m_Key: ending.stay.island-ranger.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125988
+    m_Key: ending.stay.island-ranger.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125989
+    m_Key: ending.stay.just-kim.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125990
+    m_Key: ending.stay.just-kim.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125991
+    m_Key: ending.stay.just-kim.hint
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

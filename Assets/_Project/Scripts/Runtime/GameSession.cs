@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace KimSurvival
 {
@@ -119,6 +120,7 @@ namespace KimSurvival
         public PrototypeExpeditionRegionId? SelectedRegionId { get; private set; }
         public string ActiveRegionProfileId { get; private set; }
         public string LastExpeditionResultId { get; private set; }
+        public string CompletedEscapeId { get; private set; }
 
         public bool HasPendingLoot
         {
@@ -168,6 +170,7 @@ namespace KimSurvival
             SelectedRegionId = null;
             ActiveRegionProfileId = string.Empty;
             LastExpeditionResultId = string.Empty;
+            CompletedEscapeId = string.Empty;
             LastMessage = Text("message.reset");
         }
 
@@ -749,6 +752,21 @@ namespace KimSurvival
             ExpeditionCompleted = false;
             Daylight = 100f;
             LastMessage = Text("message.day.start", Day);
+            return true;
+        }
+
+        public bool TryCompleteEscapeProject(string escapeId)
+        {
+            if (Phase != GamePhase.Camp || Result != RunResult.None ||
+                string.IsNullOrWhiteSpace(escapeId) ||
+                !PrototypeEscapeProjectCatalog.All.Any(project =>
+                    string.Equals(project.StableId, escapeId, StringComparison.Ordinal)))
+            {
+                return false;
+            }
+
+            CompletedEscapeId = escapeId;
+            Finish(RunResult.Rescued);
             return true;
         }
 

@@ -62,6 +62,8 @@ namespace KimSurvival
         private const float StoragePlanningX = -3.8f;
         private const float ModulePlanningX = 4f;
         private const float ExpeditionMapX = 5.25f;
+        private const float SmokeBeaconX = -2.35f;
+        private const float RadioBenchX = 0f;
 
         [SerializeField] private GameObject playerVisualPrefab;
         [SerializeField] private Sprite campBackgroundSprite;
@@ -111,6 +113,7 @@ namespace KimSurvival
         private GameSession session;
         private PrototypeLocalization localization;
         private PrototypePlaytestEventRecorder playtestLog;
+        private PrototypeCampaignRuntime hazardEscapeEndingRuntime;
         private Camera worldCamera;
         private Canvas canvas;
         private Sprite squareSprite;
@@ -173,6 +176,8 @@ namespace KimSurvival
         private Button modulePreviewButton;
         private Button expeditionMapConfirmButton;
         private Button expeditionMapCancelButton;
+        private Button smokeProjectButton;
+        private Button radioProjectButton;
         private Button phaseButton;
         private Button restartButton;
         private Button languageButton;
@@ -210,6 +215,8 @@ namespace KimSurvival
             BuildCamera();
             BuildEventSystem();
             BuildUi();
+            hazardEscapeEndingRuntime = gameObject.AddComponent<PrototypeCampaignRuntime>();
+            hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog);
             renderedPhase = (GamePhase)(-1);
             RefreshAll();
         }
@@ -456,6 +463,8 @@ namespace KimSurvival
             collectRainButton = CreateCampPopupButton("빗물 받기", delegate { ExecuteConfirmedPopupAction("survival.collect_rain", delegate { return TryPrepareDayBenefit(StructureKind.RainCollector, "message.camp.use.rain"); }); });
             repairButton = CreateCampPopupButton("수리", delegate { ExecuteConfirmedPopupAction("workbench.repair", ExecuteRepairAction); });
             bagUpgradeButton = CreateCampPopupButton("가방 용량 확장", delegate { ExecuteConfirmedPopupAction("bag.capacity_upgrade", session.TryUpgradeBagCapacity); });
+            smokeProjectButton = CreateCampPopupButton("대형 연기 신호 진행", delegate { ExecuteConfirmedPopupAction("escape.smoke.progress", delegate { return TryProgressEscapeProject("escape.smoke"); }); });
+            radioProjectButton = CreateCampPopupButton("무전 구조 신호 진행", delegate { ExecuteConfirmedPopupAction("escape.radio.progress", delegate { return TryProgressEscapeProject("escape.radio"); }); });
             cancelPopupButton = CreateCampPopupButton("취소", CancelCampPopup);
 
             expeditionMapPanel = CreatePanel(
@@ -651,6 +660,10 @@ namespace KimSurvival
             ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
             vineBarrierClearLogged = false;
+            if (hazardEscapeEndingRuntime != null)
+            {
+                hazardEscapeEndingRuntime.ResetRuntime();
+            }
             if (playtestLog != null)
             {
                 playtestLog.ObserveState("session.restart");
@@ -686,6 +699,10 @@ namespace KimSurvival
             {
                 resultTitleText.text = localization.Format(session.ResultTitle());
                 resultDetailText.text = localization.Format(session.ResultDetail());
+                if (hazardEscapeEndingRuntime != null)
+                {
+                    hazardEscapeEndingRuntime.ActivateTerminalComic();
+                }
                 EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
             }
             else if (camp)
@@ -814,6 +831,8 @@ namespace KimSurvival
             SetButton(prepareCampfireButton, localization.Format(campUse.IsDayBenefitPrepared(StructureKind.Campfire) ? "button.campfire.prepare.done" : "button.campfire.prepare"), available && !campUse.IsDayBenefitPrepared(StructureKind.Campfire));
             SetButton(collectRainButton, localization.Format(campUse.IsDayBenefitPrepared(StructureKind.RainCollector) ? "button.rain.collect.done" : "button.rain.collect"), available && !campUse.IsDayBenefitPrepared(StructureKind.RainCollector));
             SetButton(repairButton, localization.Format("button.workbench.repair"), available);
+            SetButton(smokeProjectButton, FormatEscapeProjectButton("escape.smoke"), available);
+            SetButton(radioProjectButton, FormatEscapeProjectButton("escape.radio"), available);
             SetButton(cancelPopupButton, localization.Format("button.popup.cancel"), available);
             bool directModuleSlot = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot;
             SetButton(
@@ -948,6 +967,10 @@ namespace KimSurvival
                     return localization.Format("structure.storage_planning");
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return localization.Format("camp.target.expedition_map");
+                case PrototypeCampInteractionTargetKind.SmokeBeacon:
+                    return localization.Format("escape.smoke");
+                case PrototypeCampInteractionTargetKind.RadioBench:
+                    return localization.Format("escape.radio");
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     if (PrototypeCampModuleCatalog.TryGetByStartSlotId(targetId, out CampModuleDefinition slotDefinition))
                     {
@@ -985,6 +1008,10 @@ namespace KimSurvival
                     return "camp.popup.detail.module_slot";
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return "camp.popup.detail.expedition_map";
+                case PrototypeCampInteractionTargetKind.SmokeBeacon:
+                    return "camp.popup.detail.escape_smoke";
+                case PrototypeCampInteractionTargetKind.RadioBench:
+                    return "camp.popup.detail.escape_radio";
                 default:
                     return "camp.popup.detail.generic";
             }
@@ -1018,6 +1045,8 @@ namespace KimSurvival
             SetPopupActionVisible(collectRainButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.CollectRain, built));
             SetPopupActionVisible(signalButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.UpgradeSignal, true));
             SetPopupActionVisible(modulePreviewButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PreviewModule, true));
+            SetPopupActionVisible(smokeProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressSmokeEscape, true));
+            SetPopupActionVisible(radioProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressRadioEscape, true));
             SetPopupActionVisible(cancelPopupButton, target != PrototypeCampInteractionTargetKind.None);
             LayoutVisiblePopupButtons();
         }
@@ -1036,6 +1065,8 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
+                case PrototypeCampInteractionTargetKind.SmokeBeacon:
+                case PrototypeCampInteractionTargetKind.RadioBench:
                     return true;
                 default:
                     return false;
@@ -1202,6 +1233,7 @@ namespace KimSurvival
                 if (!campPlacement.IsActive && !campModuleExpansion.IsPreviewActive)
                 {
                     CreateExpeditionMapMarker();
+                    CreateEscapeProjectMarkers();
                 }
             }
 
@@ -1324,6 +1356,23 @@ namespace KimSurvival
                 pseudoLong ? 29f : 32f);
         }
 
+        private string FormatEscapeProjectButton(string escapeId)
+        {
+            PrototypeEscapeProjectDefinition definition = PrototypeEscapeProjectCatalog.Get(escapeId);
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
+            string researchState = localization.Format(
+                escapeId == "escape.smoke"
+                    ? (session.HasRope ? "value.yes" : "value.no")
+                    : (session.HasAxe ? "value.yes" : "value.no"));
+            return localization.Format(
+                escapeId == "escape.smoke" ? "escape.project.action.smoke" : "escape.project.action.radio",
+                state.Progress,
+                state.RequiredProgress,
+                researchState,
+                definition.WoodCost,
+                definition.SalvageCost);
+        }
+
         private void CreateExpeditionMapMarker()
         {
             GameObject root = new GameObject("지도·출구 상호작용 오브젝트 placeholder · " + AssetExpeditionMap);
@@ -1345,6 +1394,30 @@ namespace KimSurvival
                 pseudoLong ? 0.068f : 0.084f,
                 pseudoLong ? 24f : 28f,
                 pseudoLong ? 28f : 31f);
+        }
+
+        private void CreateEscapeProjectMarkers()
+        {
+            CreateEscapeProjectMarker(
+                "escape.smoke",
+                SmokeBeaconX,
+                new Color(0.28f, 0.31f, 0.3f, 0.98f),
+                new Color(0.86f, 0.86f, 0.82f, 0.88f));
+            CreateEscapeProjectMarker(
+                "escape.radio",
+                RadioBenchX,
+                new Color(0.15f, 0.25f, 0.24f, 0.98f),
+                new Color(0.32f, 0.9f, 0.72f, 0.92f));
+        }
+
+        private void CreateEscapeProjectMarker(string escapeId, float x, Color bodyColor, Color signalColor)
+        {
+            GameObject root = new GameObject(escapeId == "escape.smoke" ? "Camp Signal Stack Placeholder" : "Camp Radio Bench Placeholder");
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.62f, 0f);
+            CreateRect(root.transform, "engine-native body", Vector2.zero, new Vector2(0.82f, 1.15f), bodyColor, 4);
+            CreateRect(root.transform, "engine-native signal", new Vector2(0f, 0.72f), new Vector2(0.48f, 0.18f), signalColor, 5);
+            CreateFootprintOutline(root.transform, new Vector2(1.1f, 0.28f), signalColor, null, new Vector2(0f, -0.62f));
         }
 
         private void CreateStartRoomModuleSlots()
@@ -1613,6 +1686,14 @@ namespace KimSurvival
                     "camp.expedition-map",
                     PrototypeCampInteractionTargetKind.ExpeditionMap,
                     new Vector2(ExpeditionMapX, PrototypeCampUse.PlayerFloorY)));
+                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                    "facility.smoke-beacon",
+                    PrototypeCampInteractionTargetKind.SmokeBeacon,
+                    new Vector2(SmokeBeaconX, PrototypeCampUse.PlayerFloorY)));
+                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                    "facility.radio-bench",
+                    PrototypeCampInteractionTargetKind.RadioBench,
+                    new Vector2(RadioBenchX, PrototypeCampUse.PlayerFloorY)));
                 IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
                 for (int i = 0; i < definitions.Count; i += 1)
                 {
@@ -3540,6 +3621,27 @@ namespace KimSurvival
                 localeCode + " 정상 캠프 상단 HUD TMP overflow=0");
         }
 
+        private bool TryProgressEscapeProject(string escapeId)
+        {
+            if (hazardEscapeEndingRuntime == null)
+            {
+                return false;
+            }
+
+            bool progressed = hazardEscapeEndingRuntime.TryProgressEscapeProject(escapeId);
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
+            campFeedback = new PrototypeLocalizedText(
+                progressed
+                    ? (state.Complete ? "escape.project.message.complete" : "escape.project.message.progress")
+                    : state.LastResultCode == "escape.requirement.research"
+                        ? "escape.project.message.research"
+                        : "escape.project.message.resources",
+                localization.Format(escapeId),
+                state.Progress,
+                state.RequiredProgress);
+            return progressed;
+        }
+
         private void RequireReadableExpeditionMapUi(bool pseudoLong)
         {
             Require(expeditionMapSelection.IsOpen && expeditionMapPanel.activeSelf &&
@@ -3815,6 +3917,10 @@ namespace KimSurvival
                         PrototypeCampPlacement.FloorY);
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return new Vector2(ExpeditionMapX, PrototypeCampUse.PlayerFloorY);
+                case PrototypeCampInteractionTargetKind.SmokeBeacon:
+                    return new Vector2(SmokeBeaconX, PrototypeCampUse.PlayerFloorY);
+                case PrototypeCampInteractionTargetKind.RadioBench:
+                    return new Vector2(RadioBenchX, PrototypeCampUse.PlayerFloorY);
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return GetCampModuleSlotPosition(CampModuleArchetype.Upper);
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
