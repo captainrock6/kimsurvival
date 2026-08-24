@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260823161009_0232ff7e",
+  "createdAt": "2026-08-23T16:10:09.720Z",
+  "updatedAt": "2026-08-23T16:10:09.720Z",
+  "sourceRequest": "Wave 16 fifty-day SAMPLE_ONLY pacing contract; preserve Wave 15 fixed catalog, completed tasks and adopted assets; design only.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-23T16:10:09.720Z"
+    },
+    "art": {
+      "status": "skipped",
+      "updatedAt": "2026-08-23T16:10:09.720Z",
+      "note": "Wave 16 is design-only; it introduces no art asset or adoption work."
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T16:10:09.720Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-23T16:10:09.720Z"
+    }
+  }
+}

@@ -61,7 +61,7 @@
     "Steam 업적을 설계와 결합하면 외부 계정 작업으로 범위가 커지므로 지금은 안정 ending ID와 게임 내 갤러리까지만 구현한다."
   ],
   "playerPromise": "오늘 고른 지역과 감수한 위험, 캠프에 투자한 설비와 탈출 계획이 50일 뒤의 김씨와 엔딩을 바꾼다.",
-  "updatedAt": "2026-08-23T14:52:07.110Z",
+  "updatedAt": "2026-08-23T16:10:09.720Z",
   "sampleDataContract": {
     "status": "SAMPLE_ONLY_NOT_FINAL_BALANCE",
     "source": "project.campaignContentContract.implementationSmoke",
@@ -82,5 +82,35 @@
       "4 sample endings"
     ],
     "balanceFreeze": "Do not treat preparation days, resource abundance, pity counts, hazard budget or behavior thresholds as final fifty-day balance; expose them as data and change one axis only after valid playtest evidence."
+  },
+  "pacingSmokeContract": {
+    "contractId": "vertical-slice.wave16.pacing-smoke.v1",
+    "status": "SAMPLE_ONLY_IMPLEMENTATION_AND_QA_ACCEPTANCE",
+    "source": "project.campaignPacingContract",
+    "representativePlayableRoutes": [
+      "smoke.route.smoke",
+      "smoke.route.radio"
+    ],
+    "dataOnlyRoutes": [
+      "escape.raft",
+      "escape.flare",
+      "escape.beacon"
+    ],
+    "requiredChecks": [
+      "day band boundaries and no early-escape hard gate",
+      "six-region primary and alternative unlock graph",
+      "forecast variation without exact-drop finalization",
+      "hazard budget, calm day, recovery and camp-loss atomicity",
+      "key-part eligible-search pity 3/5 and minimum-three-route audit",
+      "seven-stat identity snapshots and hysteresis",
+      "privacy-safe telemetry and KO/EN semantic parity"
+    ],
+    "cannotClaimFromSmoke": [
+      "final fifty-day balance",
+      "natural full fifty-day user completion",
+      "physical gamepad pass",
+      "raft, flare or beacon playable pass",
+      "Steamworks readiness"
+    ]
   }
 }

@@ -1962,16 +1962,19 @@
       "id": "task.implementation.wave15-hazard-ending-foundation",
       "lane": "implementation",
       "title": "Wave 15 위험·다중 탈출·행동 엔딩 기반",
-      "description": "대표 부상·날씨·캠프 도난 상태, 다섯 escape method 데이터와 연기·무전 대표 경로, 행동 통계와 4개 sample ending resolver를 구현한다.",
+      "description": "대표 부상·날씨·캠프 도난 상태, 다섯 escape method 데이터와 연기·무전 대표 경로, 행동 통계와 4개 sample ending resolver를 구현하며 Wave 16 SAMPLE_ONLY 페이싱 오버레이를 소비한다.",
       "priority": "critical",
       "dependencies": [
         "task.implementation.wave15-campaign-map-foundation",
-        "task.design.wave15-escape-hazard-ending-matrix"
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing"
       ],
       "featureIds": [
         "feature.survival-hazards",
         "feature.escape-outcome",
-        "feature.behavioral-endings"
+        "feature.behavioral-endings",
+        "feature.expedition-map",
+        "feature.resource-randomization"
       ],
       "assetIds": [
         "ui.escape-project-progress",
@@ -1981,14 +1984,22 @@
       "acceptanceCriteria": [
         "위험의 예고·발생·완화·회복과 원자적 자원 변화가 검증된다.",
         "다섯 method ID와 두 플레이 가능 경로가 서로 다른 요구를 사용한다.",
-        "같은 snapshot은 같은 sample ending ID를 낸다."
+        "같은 snapshot은 같은 sample ending ID를 낸다.",
+        "Wave 16 band 경계·지역 해금·전망·위험·pity·identity 필드를 데이터로 읽고 fulfilled 조기 탈출을 날짜로 막지 않는다.",
+        "연기와 무전 각각 30분 fixture가 실제 상호작용 경로로 실행되고 중간 grant·warp를 사용하지 않는다.",
+        "위험 예고→resolve→recovery, 도난/파손, project progress와 key-part 보호가 idempotent transaction을 사용한다.",
+        "telemetry는 run seed·day·stable ID·결과 코드만 기록하고 개인 식별 정보나 자유 입력을 저장하지 않는다."
       ],
-      "paths": [],
+      "paths": [
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T15:53:57.966Z"
+      "updatedAt": "2026-08-23T16:10:09.721Z"
     },
     {
       "id": "task.qa.wave15-campaign-map-redfirst",
@@ -2027,6 +2038,48 @@
       "updatedAt": "2026-08-23T15:55:25.220Z",
       "note": "독립 RED-first 게이트를 통합 master에서 EXPECTED_GAPS=0 GREEN으로 전환.",
       "completedAt": "2026-08-23T15:55:25.219Z"
+    },
+    {
+      "id": "task.design.wave16-fifty-day-pacing",
+      "lane": "design",
+      "title": "Wave 16 50일 SAMPLE_ONLY 페이싱 계약",
+      "description": "Wave 15 카탈로그와 Day 50·조기 탈출 결정을 유지한 채 날짜 밴드, 지역 해금·풍부함·이동, 위험 예산·회복, 핵심 부품 보호, 대표 30분 smoke와 행동 엔딩 히스테리시스를 구현 가능한 데이터 계약으로 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "Day 1–10, 11–20, 21–35, 36–49, Day 50 밴드가 안정 ID와 정량 SAMPLE 규칙을 가진다.",
+        "6개 지역의 primary·alternative 해금, 이동 친숙화와 범주형 풍부함 변화가 기존 ID로 연결된다.",
+        "연기·무전 30분 실행표와 raft·flare·beacon data-only 검증 지점이 분리된다.",
+        "위험 공정성, pity 3/5, 최소 3경로, 행동 히스테리시스와 한 축 조정 규칙이 자동 검증 가능한 필드로 존재한다."
+      ],
+      "paths": [
+        ".forge/packets/wave16-fifty-day-pacing.json",
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
+      "evidence": [
+        ".forge/packets/wave16-fifty-day-pacing.json",
+        "Docs/Design/wave16-fifty-day-pacing.md",
+        "Forge status/report PASS; contract validation PASS: catalog 5/6/7/19, bands 5, routes 2+3, pity 3/5, min routes 3, stats 7; assets hash preserved 3a8d0d976e9c9f53720a25e41496997fb72a1cfe"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T16:12:53.671Z",
+      "note": "Wave 16 design complete. JSON, canonical ID parity, task uniqueness, completed-status preservation, asset-registry hash and Forge status/report validated.",
+      "completedAt": "2026-08-23T16:12:53.670Z",
+      "createdAt": "2026-08-23T16:10:47.152Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -3011,28 +3064,42 @@
       "id": "task.qa.wave15-hazard-ending-redfirst",
       "lane": "qa",
       "title": "Wave 15 위험·탈출·엔딩 red-first 게이트",
-      "description": "위험 인과와 원자성, 다섯 탈출 ID, 조기 탈출·Day 50 우선순위, 행동 score·tie-breaker·sample ending과 개발 로그 개인정보 부재를 검증한다.",
+      "description": "위험 인과와 원자성, 다섯 탈출 ID, 조기 탈출·Day 50 우선순위, 행동 score·tie-breaker·sample ending과 Wave 16 SAMPLE_ONLY 페이싱·softlock·개발 로그 개인정보 부재를 검증한다.",
       "priority": "high",
       "dependencies": [
-        "task.design.wave15-escape-hazard-ending-matrix"
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing"
       ],
       "featureIds": [
         "feature.survival-hazards",
         "feature.escape-outcome",
-        "feature.behavioral-endings"
+        "feature.behavioral-endings",
+        "feature.expedition-map",
+        "feature.resource-randomization"
       ],
       "assetIds": [],
       "acceptanceCriteria": [
         "예고 없는 즉사·중복 피해·중복 자원 차감이 없다.",
         "escape와 ending ID가 안정적이고 같은 snapshot에서 결정론적이다.",
-        "Steam 연동과 물리 게임패드는 별도 미검증 게이트로 유지한다."
+        "Steam 연동과 물리 게임패드는 별도 미검증 게이트로 유지한다.",
+        "Day 1/11/21/36/50 경계, Day 49 계속, Day 50 terminal과 조기 탈출 우선순위를 fixture로 검증한다.",
+        "6개 지역 primary·alternative 해금과 같은 seed의 전망·pity·위험 재현성을 검증한다.",
+        "rolling 5일 평온일, major 다음 회복 예약, 도난/파손 단일 차감과 Day 50 surprise major 금지를 검증한다.",
+        "seed 생성·확장 해금·Day 35·49마다 최소 3개 탈출 경로가 완성 가능하고 pity 3 hint/5 guarantee가 정확하다.",
+        "연기·무전은 별도 30분 playable fixture, raft·flare·beacon은 data-only로 보고해 증거 수준을 섞지 않는다.",
+        "마지막 2점 행동 하나가 established identity를 바꾸지 않고 같은 terminal snapshot은 같은 ending ID를 낸다.",
+        "Steam 연동, 물리 게임패드, 실제 장기 사용자 run과 최종 밸런스는 별도 미검증으로 유지한다."
       ],
-      "paths": [],
+      "paths": [
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:52:07.112Z"
+      "updatedAt": "2026-08-23T16:10:09.721Z"
     },
     {
       "id": "task.art.icon.resource-tool-set",
@@ -3298,5 +3365,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-23T15:55:25.605Z"
+  "updatedAt": "2026-08-23T16:12:53.671Z"
 }
