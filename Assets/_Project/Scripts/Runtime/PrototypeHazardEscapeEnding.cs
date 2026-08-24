@@ -798,9 +798,6 @@ namespace KimSurvival
             GameObject surfaceObject = new GameObject("Wave Stable Contract Surface");
             surfaceObject.transform.SetParent(transform, false);
             semanticSurface = surfaceObject.AddComponent<PrototypeWaveSemanticSurface>();
-            CreateSemanticMarker(surfaceObject.transform, semanticSurface.HazardStableIds);
-            CreateSemanticMarker(surfaceObject.transform, semanticSurface.EscapeProjectStableIds);
-            CreateSemanticMarker(surfaceObject.transform, semanticSurface.EndingStableIds);
             BuildEndingComic();
             BuildHazardPresentation();
             if (localization != null) localization.LocaleChanged += RefreshComicText;
@@ -1200,7 +1197,8 @@ namespace KimSurvival
             comicScaler.screenMatchMode = sourceScaler == null ? CanvasScaler.ScreenMatchMode.MatchWidthOrHeight : sourceScaler.screenMatchMode;
             comicScaler.matchWidthOrHeight = sourceScaler == null ? 0f : sourceScaler.matchWidthOrHeight;
 
-            GameObject endingMarker = new GameObject("Ending Presentation");
+            GameObject endingMarker = new GameObject(
+                HazardStableIds + " | " + EscapeProjectStableIds + " | " + EndingStableIds);
             endingMarker.transform.SetParent(endingComicRoot.transform, false);
             RectTransform markerRect = endingMarker.AddComponent<RectTransform>();
             markerRect.anchorMin = Vector2.zero;
@@ -1315,12 +1313,6 @@ namespace KimSurvival
             text.raycastTarget = false;
             if (localization != null) localization.Register(text);
             return text;
-        }
-
-        private static void CreateSemanticMarker(Transform parent, string stableIds)
-        {
-            GameObject marker = new GameObject(stableIds);
-            marker.transform.SetParent(parent, false);
         }
 
         private static void RebuildComicText(TMP_Text text)
