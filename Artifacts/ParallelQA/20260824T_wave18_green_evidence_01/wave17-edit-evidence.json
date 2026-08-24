@@ -1,0 +1,2324 @@
+{
+    "runId": "20260824T_wave18_green_evidence_01",
+    "baselineCommit": "e9829556c4736da468ab62d004318dae8747b95f",
+    "discoveryPolicy": "Stable IDs, public data, public deterministic probe results, and live state; no implementation class/file-name requirement.",
+    "stableIds": [
+        "ending.comic.beacon.brightest-address",
+        "ending.comic.beacon.brightest-address.hint",
+        "ending.comic.beacon.brightest-address.summary",
+        "ending.comic.beacon.brightest-address.title",
+        "ending.comic.flare.daylight-fireworks",
+        "ending.comic.flare.daylight-fireworks.hint",
+        "ending.comic.flare.daylight-fireworks.summary",
+        "ending.comic.flare.daylight-fireworks.title",
+        "ending.comic.radio.island-dj",
+        "ending.comic.radio.island-dj.hint",
+        "ending.comic.radio.island-dj.summary",
+        "ending.comic.radio.island-dj.title",
+        "ending.comic.raft.coconut-navy",
+        "ending.comic.raft.coconut-navy.hint",
+        "ending.comic.raft.coconut-navy.summary",
+        "ending.comic.raft.coconut-navy.title",
+        "ending.comic.smoke.island-barbecue",
+        "ending.comic.smoke.island-barbecue.hint",
+        "ending.comic.smoke.island-barbecue.summary",
+        "ending.comic.smoke.island-barbecue.title",
+        "ending.escape.beacon.ridge-light",
+        "ending.escape.beacon.ridge-light.hint",
+        "ending.escape.beacon.ridge-light.summary",
+        "ending.escape.beacon.ridge-light.title",
+        "ending.escape.flare.one-shot",
+        "ending.escape.flare.one-shot.hint",
+        "ending.escape.flare.one-shot.summary",
+        "ending.escape.flare.one-shot.title",
+        "ending.escape.radio.clear-signal",
+        "ending.escape.radio.clear-signal.hint",
+        "ending.escape.radio.clear-signal.summary",
+        "ending.escape.radio.clear-signal.title",
+        "ending.escape.raft.open-water",
+        "ending.escape.raft.open-water.hint",
+        "ending.escape.raft.open-water.summary",
+        "ending.escape.raft.open-water.title",
+        "ending.escape.smoke.seen-from-afar",
+        "ending.escape.smoke.seen-from-afar.hint",
+        "ending.escape.smoke.seen-from-afar.summary",
+        "ending.escape.smoke.seen-from-afar.title",
+        "ending.rare.beacon.storm-eye",
+        "ending.rare.beacon.storm-eye.hint",
+        "ending.rare.beacon.storm-eye.summary",
+        "ending.rare.beacon.storm-eye.title",
+        "ending.rare.radio.forecast-rescue",
+        "ending.rare.radio.forecast-rescue.hint",
+        "ending.rare.radio.forecast-rescue.summary",
+        "ending.rare.radio.forecast-rescue.title",
+        "ending.rare.raft.current-reader",
+        "ending.rare.raft.current-reader.hint",
+        "ending.rare.raft.current-reader.summary",
+        "ending.rare.raft.current-reader.title",
+        "ending.rare.smoke.cloud-letter",
+        "ending.rare.smoke.cloud-letter.hint",
+        "ending.rare.smoke.cloud-letter.summary",
+        "ending.rare.smoke.cloud-letter.title",
+        "ending.resolved",
+        "ending.stay.fortress-manager",
+        "ending.stay.fortress-manager.hint",
+        "ending.stay.fortress-manager.summary",
+        "ending.stay.fortress-manager.title",
+        "ending.stay.green-king",
+        "ending.stay.green-king.hint",
+        "ending.stay.green-king.summary",
+        "ending.stay.green-king.title",
+        "ending.stay.island-ranger",
+        "ending.stay.island-ranger.hint",
+        "ending.stay.island-ranger.summary",
+        "ending.stay.island-ranger.title",
+        "ending.stay.just-kim",
+        "ending.stay.just-kim.hint",
+        "ending.stay.just-kim.summary",
+        "ending.stay.just-kim.title",
+        "ending.stay.scrap-professor",
+        "ending.stay.scrap-professor.hint",
+        "ending.stay.scrap-professor.summary",
+        "ending.stay.scrap-professor.title",
+        "escape.beacon",
+        "escape.completed",
+        "escape.flare",
+        "escape.project-progressed",
+        "escape.radio",
+        "escape.raft",
+        "escape.smoke",
+        "event.beacon.overpowered",
+        "event.beacon.storm-eye",
+        "event.current.safe-window",
+        "event.flare.daylight-fireworks",
+        "event.radio.island-dj",
+        "event.radio.repeated-reply",
+        "event.raft.coconut-ballast",
+        "event.schema.wave18",
+        "event.smoke.barbecue-misread",
+        "event.smoke.cloud-letter",
+        "facility.action.completed",
+        "facility.action.rejected",
+        "facility.flare-launcher",
+        "facility.popup.closed",
+        "facility.popup.opened",
+        "facility.proximity.entered",
+        "facility.proximity.exited",
+        "facility.radio-bench",
+        "facility.ridge-beacon",
+        "facility.shore-launch",
+        "facility.smoke-beacon",
+        "hazard.cadence.fairness",
+        "hazard.camp-damage",
+        "hazard.disaster",
+        "hazard.disease",
+        "hazard.food-theft",
+        "hazard.injury",
+        "hazard.mitigated",
+        "hazard.occurred",
+        "hazard.recovered",
+        "hazard.telegraphed",
+        "pacing.band.compound-choice",
+        "pacing.band.expansion",
+        "pacing.band.finish-pressure",
+        "pacing.band.onboarding",
+        "pacing.band.resolution",
+        "part.beacon.generator-coil",
+        "part.beacon.lens",
+        "part.flare.cartridge",
+        "part.radio.transceiver",
+        "part.raft.sailcloth",
+        "part.smoke.catalyst",
+        "region.beach",
+        "region.coast.beach",
+        "region.cove.wreck",
+        "region.forest",
+        "region.forest.grove",
+        "region.ridge.highland",
+        "region.ruins.relay",
+        "region.sea.shallows",
+        "region.shallows",
+        "research.coastal-navigation",
+        "research.completed",
+        "research.electronics",
+        "research.power-grid",
+        "research.pyrotechnics",
+        "research.radio-frequency",
+        "research.relay-restoration",
+        "research.ropework",
+        "research.signal-combustion",
+        "research.signal-timing",
+        "research.wind-reading",
+        "stat.building",
+        "stat.farming",
+        "stat.hazard-response",
+        "stat.mechanics",
+        "stat.swimming"
+    ],
+    "entries": [
+        {
+            "id": "ending.comic.beacon.brightest-address",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.comic.beacon.brightest-address"
+                },
+                {
+                    "name": "Priority",
+                    "value": "200"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "3"
+                },
+                {
+                    "name": "Category",
+                    "value": "comic"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.beacon"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.beacon.overpowered"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.building"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.comic.beacon.brightest-address.title,ending.comic.beacon.brightest-address.summary,ending.comic.beacon.brightest-address.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.comic.beacon.brightest-address"
+                }
+            ]
+        },
+        {
+            "id": "ending.comic.flare.daylight-fireworks",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.comic.flare.daylight-fireworks"
+                },
+                {
+                    "name": "Priority",
+                    "value": "200"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "2"
+                },
+                {
+                    "name": "Category",
+                    "value": "comic"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.flare"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.flare.daylight-fireworks"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.comic.flare.daylight-fireworks.title,ending.comic.flare.daylight-fireworks.summary,ending.comic.flare.daylight-fireworks.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.comic.flare.daylight-fireworks"
+                }
+            ]
+        },
+        {
+            "id": "ending.comic.radio.island-dj",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.comic.radio.island-dj"
+                },
+                {
+                    "name": "Priority",
+                    "value": "200"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "3"
+                },
+                {
+                    "name": "Category",
+                    "value": "comic"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.radio"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.radio.island-dj"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.mechanics"
+                },
+                {
+                    "name": "Sample",
+                    "value": "True"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.comic.radio.island-dj.title,ending.comic.radio.island-dj.summary,ending.comic.radio.island-dj.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.comic.radio.island-dj"
+                }
+            ]
+        },
+        {
+            "id": "ending.comic.raft.coconut-navy",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.comic.raft.coconut-navy"
+                },
+                {
+                    "name": "Priority",
+                    "value": "200"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "3"
+                },
+                {
+                    "name": "Category",
+                    "value": "comic"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.raft"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.raft.coconut-ballast"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.farming"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.comic.raft.coconut-navy.title,ending.comic.raft.coconut-navy.summary,ending.comic.raft.coconut-navy.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.comic.raft.coconut-navy"
+                }
+            ]
+        },
+        {
+            "id": "ending.comic.smoke.island-barbecue",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.comic.smoke.island-barbecue"
+                },
+                {
+                    "name": "Priority",
+                    "value": "200"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "3"
+                },
+                {
+                    "name": "Category",
+                    "value": "comic"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.smoke"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.smoke.barbecue-misread"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.farming"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.comic.smoke.island-barbecue.title,ending.comic.smoke.island-barbecue.summary,ending.comic.smoke.island-barbecue.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.comic.smoke.island-barbecue"
+                }
+            ]
+        },
+        {
+            "id": "ending.escape.beacon.ridge-light",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.escape.beacon.ridge-light"
+                },
+                {
+                    "name": "Priority",
+                    "value": "100"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "1"
+                },
+                {
+                    "name": "Category",
+                    "value": "escape"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.beacon"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.escape.beacon.ridge-light.title,ending.escape.beacon.ridge-light.summary,ending.escape.beacon.ridge-light.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.escape.beacon.ridge-light"
+                }
+            ]
+        },
+        {
+            "id": "ending.escape.flare.one-shot",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.escape.flare.one-shot"
+                },
+                {
+                    "name": "Priority",
+                    "value": "100"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "1"
+                },
+                {
+                    "name": "Category",
+                    "value": "escape"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.flare"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.escape.flare.one-shot.title,ending.escape.flare.one-shot.summary,ending.escape.flare.one-shot.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.escape.flare.one-shot"
+                }
+            ]
+        },
+        {
+            "id": "ending.escape.radio.clear-signal",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.escape.radio.clear-signal"
+                },
+                {
+                    "name": "Priority",
+                    "value": "100"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "1"
+                },
+                {
+                    "name": "Category",
+                    "value": "escape"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.radio"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "True"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.escape.radio.clear-signal.title,ending.escape.radio.clear-signal.summary,ending.escape.radio.clear-signal.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.escape.radio.clear-signal"
+                }
+            ]
+        },
+        {
+            "id": "ending.escape.raft.open-water",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.escape.raft.open-water"
+                },
+                {
+                    "name": "Priority",
+                    "value": "100"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "1"
+                },
+                {
+                    "name": "Category",
+                    "value": "escape"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.raft"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.escape.raft.open-water.title,ending.escape.raft.open-water.summary,ending.escape.raft.open-water.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.escape.raft.open-water"
+                }
+            ]
+        },
+        {
+            "id": "ending.escape.smoke.seen-from-afar",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.escape.smoke.seen-from-afar"
+                },
+                {
+                    "name": "Priority",
+                    "value": "100"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "1"
+                },
+                {
+                    "name": "Category",
+                    "value": "escape"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.smoke"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "True"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.escape.smoke.seen-from-afar.title,ending.escape.smoke.seen-from-afar.summary,ending.escape.smoke.seen-from-afar.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.escape.smoke.seen-from-afar"
+                }
+            ]
+        },
+        {
+            "id": "ending.rare.beacon.storm-eye",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.rare.beacon.storm-eye"
+                },
+                {
+                    "name": "Priority",
+                    "value": "300"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "3"
+                },
+                {
+                    "name": "Category",
+                    "value": "rare"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.beacon"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.beacon.storm-eye"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.hazard-response"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.rare.beacon.storm-eye.title,ending.rare.beacon.storm-eye.summary,ending.rare.beacon.storm-eye.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.rare.beacon.storm-eye"
+                }
+            ]
+        },
+        {
+            "id": "ending.rare.radio.forecast-rescue",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.rare.radio.forecast-rescue"
+                },
+                {
+                    "name": "Priority",
+                    "value": "300"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "3"
+                },
+                {
+                    "name": "Category",
+                    "value": "rare"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.radio"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.radio.repeated-reply"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.mechanics"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.rare.radio.forecast-rescue.title,ending.rare.radio.forecast-rescue.summary,ending.rare.radio.forecast-rescue.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.rare.radio.forecast-rescue"
+                }
+            ]
+        },
+        {
+            "id": "ending.rare.raft.current-reader",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.rare.raft.current-reader"
+                },
+                {
+                    "name": "Priority",
+                    "value": "300"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "3"
+                },
+                {
+                    "name": "Category",
+                    "value": "rare"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.raft"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.current.safe-window"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.swimming"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.rare.raft.current-reader.title,ending.rare.raft.current-reader.summary,ending.rare.raft.current-reader.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.rare.raft.current-reader"
+                }
+            ]
+        },
+        {
+            "id": "ending.rare.smoke.cloud-letter",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.rare.smoke.cloud-letter"
+                },
+                {
+                    "name": "Priority",
+                    "value": "300"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "2"
+                },
+                {
+                    "name": "Category",
+                    "value": "rare"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": "escape.smoke"
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": "event.smoke.cloud-letter"
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.rare.smoke.cloud-letter.title,ending.rare.smoke.cloud-letter.summary,ending.rare.smoke.cloud-letter.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.rare.smoke.cloud-letter"
+                }
+            ]
+        },
+        {
+            "id": "ending.stay.fortress-manager",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.stay.fortress-manager"
+                },
+                {
+                    "name": "Priority",
+                    "value": "50"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "2"
+                },
+                {
+                    "name": "Category",
+                    "value": "day50"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.building"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.stay.fortress-manager.title,ending.stay.fortress-manager.summary,ending.stay.fortress-manager.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.stay.fortress-manager"
+                }
+            ]
+        },
+        {
+            "id": "ending.stay.green-king",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.stay.green-king"
+                },
+                {
+                    "name": "Priority",
+                    "value": "50"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "2"
+                },
+                {
+                    "name": "Category",
+                    "value": "day50"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.farming"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.stay.green-king.title,ending.stay.green-king.summary,ending.stay.green-king.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.stay.green-king"
+                }
+            ]
+        },
+        {
+            "id": "ending.stay.island-ranger",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.stay.island-ranger"
+                },
+                {
+                    "name": "Priority",
+                    "value": "50"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "2"
+                },
+                {
+                    "name": "Category",
+                    "value": "day50"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.swimming"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.stay.island-ranger.title,ending.stay.island-ranger.summary,ending.stay.island-ranger.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.stay.island-ranger"
+                }
+            ]
+        },
+        {
+            "id": "ending.stay.just-kim",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.stay.just-kim"
+                },
+                {
+                    "name": "Priority",
+                    "value": "0"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "1"
+                },
+                {
+                    "name": "Category",
+                    "value": "day50"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": ""
+                },
+                {
+                    "name": "Sample",
+                    "value": "True"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.stay.just-kim.title,ending.stay.just-kim.summary,ending.stay.just-kim.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.stay.just-kim"
+                }
+            ]
+        },
+        {
+            "id": "ending.stay.scrap-professor",
+            "type": "KimSurvival.PrototypeEndingDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "ending.stay.scrap-professor"
+                },
+                {
+                    "name": "Priority",
+                    "value": "50"
+                },
+                {
+                    "name": "ConditionCount",
+                    "value": "2"
+                },
+                {
+                    "name": "Category",
+                    "value": "day50"
+                },
+                {
+                    "name": "RequiredEscapeId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredEventId",
+                    "value": ""
+                },
+                {
+                    "name": "RequiredBehaviorId",
+                    "value": "stat.mechanics"
+                },
+                {
+                    "name": "Sample",
+                    "value": "False"
+                },
+                {
+                    "name": "PanelKeys",
+                    "value": "[ending.stay.scrap-professor.title,ending.stay.scrap-professor.summary,ending.stay.scrap-professor.hint]"
+                },
+                {
+                    "name": "AchievementMappingId",
+                    "value": "achievement.stay.scrap-professor"
+                }
+            ]
+        },
+        {
+            "id": "escape.beacon",
+            "type": "KimSurvival.PrototypeEscapeProjectDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "escape.beacon"
+                },
+                {
+                    "name": "RegionIds",
+                    "value": "[region.ridge.highland,region.ruins.relay]"
+                },
+                {
+                    "name": "ResearchIds",
+                    "value": "[research.power-grid,research.relay-restoration]"
+                },
+                {
+                    "name": "FacilityId",
+                    "value": "facility.ridge-beacon"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.beacon.lens"
+                },
+                {
+                    "name": "MaterialIds",
+                    "value": "[resource.electronics,resource.metal,resource.fuel]"
+                },
+                {
+                    "name": "PreparationDays",
+                    "value": "15"
+                },
+                {
+                    "name": "RiskIds",
+                    "value": "[hazard.disaster,hazard.injury,hazard.camp-damage]"
+                },
+                {
+                    "name": "TimingRule",
+                    "value": "clear ridge night weather window"
+                },
+                {
+                    "name": "CompletionRule",
+                    "value": "restored power, lens and relay circuit complete the ridge light"
+                },
+                {
+                    "name": "PlayableState",
+                    "value": "data-only not playable"
+                },
+                {
+                    "name": "WoodCost",
+                    "value": "0"
+                },
+                {
+                    "name": "SalvageCost",
+                    "value": "0"
+                },
+                {
+                    "name": "RequiredProgress",
+                    "value": "0"
+                },
+                {
+                    "name": "DataOnly",
+                    "value": "True"
+                },
+                {
+                    "name": "PrimaryRegionId",
+                    "value": "region.ridge.highland"
+                },
+                {
+                    "name": "AlternativeRegionId",
+                    "value": "region.ruins.relay"
+                },
+                {
+                    "name": "SnapshotStageContract",
+                    "value": "snapshot stage progress protected"
+                },
+                {
+                    "name": "AtomicResolverContract",
+                    "value": "atomic transaction resolver preserves completed stage and key part"
+                }
+            ]
+        },
+        {
+            "id": "escape.flare",
+            "type": "KimSurvival.PrototypeEscapeProjectDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "escape.flare"
+                },
+                {
+                    "name": "RegionIds",
+                    "value": "[region.coast.beach,region.cove.wreck]"
+                },
+                {
+                    "name": "ResearchIds",
+                    "value": "[research.pyrotechnics,research.signal-timing]"
+                },
+                {
+                    "name": "FacilityId",
+                    "value": "facility.flare-launcher"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.flare.cartridge"
+                },
+                {
+                    "name": "MaterialIds",
+                    "value": "[resource.chemicals,resource.metal]"
+                },
+                {
+                    "name": "PreparationDays",
+                    "value": "6"
+                },
+                {
+                    "name": "RiskIds",
+                    "value": "[hazard.injury,hazard.disaster]"
+                },
+                {
+                    "name": "TimingRule",
+                    "value": "single witnessed daylight timing window"
+                },
+                {
+                    "name": "CompletionRule",
+                    "value": "prepared launcher and cartridge complete only on witnessed shot"
+                },
+                {
+                    "name": "PlayableState",
+                    "value": "data-only not playable"
+                },
+                {
+                    "name": "WoodCost",
+                    "value": "0"
+                },
+                {
+                    "name": "SalvageCost",
+                    "value": "0"
+                },
+                {
+                    "name": "RequiredProgress",
+                    "value": "0"
+                },
+                {
+                    "name": "DataOnly",
+                    "value": "True"
+                },
+                {
+                    "name": "PrimaryRegionId",
+                    "value": "region.coast.beach"
+                },
+                {
+                    "name": "AlternativeRegionId",
+                    "value": "region.cove.wreck"
+                },
+                {
+                    "name": "SnapshotStageContract",
+                    "value": "snapshot stage progress protected"
+                },
+                {
+                    "name": "AtomicResolverContract",
+                    "value": "atomic transaction resolver preserves completed stage and key part"
+                }
+            ]
+        },
+        {
+            "id": "escape.radio",
+            "type": "KimSurvival.PrototypeEscapeProjectDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "escape.radio"
+                },
+                {
+                    "name": "RegionIds",
+                    "value": "[region.cove.wreck,region.ruins.relay]"
+                },
+                {
+                    "name": "ResearchIds",
+                    "value": "[research.electronics,research.radio-frequency]"
+                },
+                {
+                    "name": "FacilityId",
+                    "value": "facility.radio-bench"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.radio.transceiver"
+                },
+                {
+                    "name": "MaterialIds",
+                    "value": "[resource.electronics,resource.wire,resource.battery]"
+                },
+                {
+                    "name": "PreparationDays",
+                    "value": "11"
+                },
+                {
+                    "name": "RiskIds",
+                    "value": "[hazard.disease,hazard.camp-damage]"
+                },
+                {
+                    "name": "TimingRule",
+                    "value": "powered dry broadcast timing window"
+                },
+                {
+                    "name": "CompletionRule",
+                    "value": "playable progress commit completes a confirmed frequency reply"
+                },
+                {
+                    "name": "PlayableState",
+                    "value": "playable progress commit complete"
+                },
+                {
+                    "name": "WoodCost",
+                    "value": "1"
+                },
+                {
+                    "name": "SalvageCost",
+                    "value": "2"
+                },
+                {
+                    "name": "RequiredProgress",
+                    "value": "2"
+                },
+                {
+                    "name": "DataOnly",
+                    "value": "False"
+                },
+                {
+                    "name": "PrimaryRegionId",
+                    "value": "region.cove.wreck"
+                },
+                {
+                    "name": "AlternativeRegionId",
+                    "value": "region.ruins.relay"
+                },
+                {
+                    "name": "SnapshotStageContract",
+                    "value": "snapshot stage progress protected"
+                },
+                {
+                    "name": "AtomicResolverContract",
+                    "value": "atomic transaction resolver preserves completed stage and key part"
+                }
+            ]
+        },
+        {
+            "id": "escape.raft",
+            "type": "KimSurvival.PrototypeEscapeProjectDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "escape.raft"
+                },
+                {
+                    "name": "RegionIds",
+                    "value": "[region.coast.beach,region.sea.shallows]"
+                },
+                {
+                    "name": "ResearchIds",
+                    "value": "[research.ropework,research.coastal-navigation]"
+                },
+                {
+                    "name": "FacilityId",
+                    "value": "facility.shore-launch"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.raft.sailcloth"
+                },
+                {
+                    "name": "MaterialIds",
+                    "value": "[resource.wood,resource.fiber,resource.fabric]"
+                },
+                {
+                    "name": "PreparationDays",
+                    "value": "8"
+                },
+                {
+                    "name": "RiskIds",
+                    "value": "[hazard.disaster,hazard.injury]"
+                },
+                {
+                    "name": "TimingRule",
+                    "value": "allowed sea-weather launch window"
+                },
+                {
+                    "name": "CompletionRule",
+                    "value": "completed hull, sailcloth and voyage supplies commit once"
+                },
+                {
+                    "name": "PlayableState",
+                    "value": "data-only not playable"
+                },
+                {
+                    "name": "WoodCost",
+                    "value": "0"
+                },
+                {
+                    "name": "SalvageCost",
+                    "value": "0"
+                },
+                {
+                    "name": "RequiredProgress",
+                    "value": "0"
+                },
+                {
+                    "name": "DataOnly",
+                    "value": "True"
+                },
+                {
+                    "name": "PrimaryRegionId",
+                    "value": "region.coast.beach"
+                },
+                {
+                    "name": "AlternativeRegionId",
+                    "value": "region.sea.shallows"
+                },
+                {
+                    "name": "SnapshotStageContract",
+                    "value": "snapshot stage progress protected"
+                },
+                {
+                    "name": "AtomicResolverContract",
+                    "value": "atomic transaction resolver preserves completed stage and key part"
+                }
+            ]
+        },
+        {
+            "id": "escape.smoke",
+            "type": "KimSurvival.PrototypeEscapeProjectDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "escape.smoke"
+                },
+                {
+                    "name": "RegionIds",
+                    "value": "[region.forest.grove,region.ridge.highland]"
+                },
+                {
+                    "name": "ResearchIds",
+                    "value": "[research.signal-combustion,research.wind-reading]"
+                },
+                {
+                    "name": "FacilityId",
+                    "value": "facility.smoke-beacon"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.smoke.catalyst"
+                },
+                {
+                    "name": "MaterialIds",
+                    "value": "[resource.wood,resource.fuel,resource.fabric]"
+                },
+                {
+                    "name": "PreparationDays",
+                    "value": "4"
+                },
+                {
+                    "name": "RiskIds",
+                    "value": "[hazard.disaster,hazard.camp-damage]"
+                },
+                {
+                    "name": "TimingRule",
+                    "value": "dry multi-day wind visibility window"
+                },
+                {
+                    "name": "CompletionRule",
+                    "value": "playable progress commit completes a sustained visible smoke signal"
+                },
+                {
+                    "name": "PlayableState",
+                    "value": "playable progress commit complete"
+                },
+                {
+                    "name": "WoodCost",
+                    "value": "2"
+                },
+                {
+                    "name": "SalvageCost",
+                    "value": "1"
+                },
+                {
+                    "name": "RequiredProgress",
+                    "value": "2"
+                },
+                {
+                    "name": "DataOnly",
+                    "value": "False"
+                },
+                {
+                    "name": "PrimaryRegionId",
+                    "value": "region.forest.grove"
+                },
+                {
+                    "name": "AlternativeRegionId",
+                    "value": "region.ridge.highland"
+                },
+                {
+                    "name": "SnapshotStageContract",
+                    "value": "snapshot stage progress protected"
+                },
+                {
+                    "name": "AtomicResolverContract",
+                    "value": "atomic transaction resolver preserves completed stage and key part"
+                }
+            ]
+        },
+        {
+            "id": "event.schema.wave18",
+            "type": "KimSurvival.PrototypeCampaignPersistenceSchema",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "event.schema.wave18"
+                },
+                {
+                    "name": "SeedField",
+                    "value": "seed"
+                },
+                {
+                    "name": "DayField",
+                    "value": "day"
+                },
+                {
+                    "name": "RegionField",
+                    "value": "region_id"
+                },
+                {
+                    "name": "HazardField",
+                    "value": "hazard_id"
+                },
+                {
+                    "name": "ProjectField",
+                    "value": "project_id"
+                },
+                {
+                    "name": "EscapeField",
+                    "value": "escape_id"
+                },
+                {
+                    "name": "EndingField",
+                    "value": "ending_id"
+                },
+                {
+                    "name": "BehaviorScoreField",
+                    "value": "behavior_score_ids"
+                },
+                {
+                    "name": "PacingBandField",
+                    "value": "pacing_band_id"
+                },
+                {
+                    "name": "ResultCodeField",
+                    "value": "result_code"
+                },
+                {
+                    "name": "StableIdsOnly",
+                    "value": "True"
+                },
+                {
+                    "name": "FreeTextAllowed",
+                    "value": "False"
+                },
+                {
+                    "name": "PersonallyIdentifyingFieldsAllowed",
+                    "value": "False"
+                }
+            ]
+        },
+        {
+            "id": "hazard.cadence.fairness",
+            "type": "KimSurvival.PrototypeHazardCadenceDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "hazard.cadence.fairness"
+                },
+                {
+                    "name": "RollingWindowDays",
+                    "value": "5"
+                },
+                {
+                    "name": "MinimumCalmDayCount",
+                    "value": "1"
+                },
+                {
+                    "name": "MajorRecoveryReservedBudget",
+                    "value": "2"
+                },
+                {
+                    "name": "MaximumActiveHazards",
+                    "value": "2"
+                },
+                {
+                    "name": "MaximumNewMajor",
+                    "value": "1"
+                }
+            ]
+        },
+        {
+            "id": "hazard.disaster",
+            "type": "KimSurvival.PrototypeHazardDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "hazard.disaster"
+                },
+                {
+                    "name": "Major",
+                    "value": "True"
+                },
+                {
+                    "name": "BudgetCost",
+                    "value": "2"
+                },
+                {
+                    "name": "WarningRule",
+                    "value": "telegraph forecast: severe weather notice"
+                },
+                {
+                    "name": "OccurrenceRule",
+                    "value": "occurrence resolve: storm exposure and camp impact"
+                },
+                {
+                    "name": "MitigationRule",
+                    "value": "mitigation counter: reinforce and shelter"
+                },
+                {
+                    "name": "RecoveryRule",
+                    "value": "recovery repair: calm-day restoration"
+                }
+            ]
+        },
+        {
+            "id": "hazard.food-theft",
+            "type": "KimSurvival.PrototypeHazardDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "hazard.food-theft"
+                },
+                {
+                    "name": "Major",
+                    "value": "False"
+                },
+                {
+                    "name": "BudgetCost",
+                    "value": "1"
+                },
+                {
+                    "name": "WarningRule",
+                    "value": "telegraph warning: tracks near food storage"
+                },
+                {
+                    "name": "OccurrenceRule",
+                    "value": "occurrence apply: protected food theft batch"
+                },
+                {
+                    "name": "MitigationRule",
+                    "value": "mitigation prevent: secure storage and decoy"
+                },
+                {
+                    "name": "RecoveryRule",
+                    "value": "recovery recover: forage and replace ration"
+                }
+            ]
+        },
+        {
+            "id": "hazard.injury",
+            "type": "KimSurvival.PrototypeHazardDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "hazard.injury"
+                },
+                {
+                    "name": "Major",
+                    "value": "False"
+                },
+                {
+                    "name": "BudgetCost",
+                    "value": "1"
+                },
+                {
+                    "name": "WarningRule",
+                    "value": "telegraph warning: terrain and tool notice"
+                },
+                {
+                    "name": "OccurrenceRule",
+                    "value": "occurrence apply: named injury exposure"
+                },
+                {
+                    "name": "MitigationRule",
+                    "value": "mitigation response: protective gear or safe route"
+                },
+                {
+                    "name": "RecoveryRule",
+                    "value": "recovery rest: treatment and low-risk rest"
+                }
+            ]
+        },
+        {
+            "id": "pacing.band.compound-choice",
+            "type": "KimSurvival.PrototypePacingBandDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "pacing.band.compound-choice"
+                },
+                {
+                    "name": "StartDay",
+                    "value": "21"
+                },
+                {
+                    "name": "EndDay",
+                    "value": "35"
+                },
+                {
+                    "name": "DailyHazardBudget",
+                    "value": "4"
+                },
+                {
+                    "name": "MaximumNewMajor",
+                    "value": "1"
+                },
+                {
+                    "name": "Day49Continues",
+                    "value": "False"
+                },
+                {
+                    "name": "Day50Terminal",
+                    "value": "False"
+                },
+                {
+                    "name": "EarlyEscapeAllowed",
+                    "value": "True"
+                },
+                {
+                    "name": "DateHardlock",
+                    "value": "False"
+                }
+            ]
+        },
+        {
+            "id": "pacing.band.expansion",
+            "type": "KimSurvival.PrototypePacingBandDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "pacing.band.expansion"
+                },
+                {
+                    "name": "StartDay",
+                    "value": "11"
+                },
+                {
+                    "name": "EndDay",
+                    "value": "20"
+                },
+                {
+                    "name": "DailyHazardBudget",
+                    "value": "3"
+                },
+                {
+                    "name": "MaximumNewMajor",
+                    "value": "1"
+                },
+                {
+                    "name": "Day49Continues",
+                    "value": "False"
+                },
+                {
+                    "name": "Day50Terminal",
+                    "value": "False"
+                },
+                {
+                    "name": "EarlyEscapeAllowed",
+                    "value": "True"
+                },
+                {
+                    "name": "DateHardlock",
+                    "value": "False"
+                }
+            ]
+        },
+        {
+            "id": "pacing.band.finish-pressure",
+            "type": "KimSurvival.PrototypePacingBandDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "pacing.band.finish-pressure"
+                },
+                {
+                    "name": "StartDay",
+                    "value": "36"
+                },
+                {
+                    "name": "EndDay",
+                    "value": "49"
+                },
+                {
+                    "name": "DailyHazardBudget",
+                    "value": "4"
+                },
+                {
+                    "name": "MaximumNewMajor",
+                    "value": "1"
+                },
+                {
+                    "name": "Day49Continues",
+                    "value": "True"
+                },
+                {
+                    "name": "Day50Terminal",
+                    "value": "False"
+                },
+                {
+                    "name": "EarlyEscapeAllowed",
+                    "value": "True"
+                },
+                {
+                    "name": "DateHardlock",
+                    "value": "False"
+                }
+            ]
+        },
+        {
+            "id": "pacing.band.onboarding",
+            "type": "KimSurvival.PrototypePacingBandDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "pacing.band.onboarding"
+                },
+                {
+                    "name": "StartDay",
+                    "value": "1"
+                },
+                {
+                    "name": "EndDay",
+                    "value": "10"
+                },
+                {
+                    "name": "DailyHazardBudget",
+                    "value": "2"
+                },
+                {
+                    "name": "MaximumNewMajor",
+                    "value": "0"
+                },
+                {
+                    "name": "Day49Continues",
+                    "value": "False"
+                },
+                {
+                    "name": "Day50Terminal",
+                    "value": "False"
+                },
+                {
+                    "name": "EarlyEscapeAllowed",
+                    "value": "True"
+                },
+                {
+                    "name": "DateHardlock",
+                    "value": "False"
+                }
+            ]
+        },
+        {
+            "id": "pacing.band.resolution",
+            "type": "KimSurvival.PrototypePacingBandDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "pacing.band.resolution"
+                },
+                {
+                    "name": "StartDay",
+                    "value": "50"
+                },
+                {
+                    "name": "EndDay",
+                    "value": "50"
+                },
+                {
+                    "name": "DailyHazardBudget",
+                    "value": "0"
+                },
+                {
+                    "name": "MaximumNewMajor",
+                    "value": "0"
+                },
+                {
+                    "name": "Day49Continues",
+                    "value": "False"
+                },
+                {
+                    "name": "Day50Terminal",
+                    "value": "True"
+                },
+                {
+                    "name": "EarlyEscapeAllowed",
+                    "value": "True"
+                },
+                {
+                    "name": "DateHardlock",
+                    "value": "False"
+                }
+            ]
+        },
+        {
+            "id": "region.beach",
+            "type": "KimSurvival.PrototypeExpeditionRegionProfile",
+            "members": [
+                {
+                    "name": "Id",
+                    "value": "Beach"
+                },
+                {
+                    "name": "StableId",
+                    "value": "region.beach"
+                },
+                {
+                    "name": "NameKey",
+                    "value": "expedition.region.beach.name"
+                },
+                {
+                    "name": "SummaryKey",
+                    "value": "expedition.region.beach.summary"
+                },
+                {
+                    "name": "ResourceForecastKey",
+                    "value": "expedition.region.beach.resources"
+                },
+                {
+                    "name": "ResourceCategoryKey",
+                    "value": "expedition.region.beach.resources"
+                },
+                {
+                    "name": "RelativeAbundanceKey",
+                    "value": "expedition.region.beach.resources"
+                },
+                {
+                    "name": "TravelMinutes",
+                    "value": "20"
+                },
+                {
+                    "name": "RiskKey",
+                    "value": "expedition.region.beach.risk"
+                },
+                {
+                    "name": "WeatherKey",
+                    "value": "expedition.region.beach.weather"
+                },
+                {
+                    "name": "EquipmentKey",
+                    "value": "expedition.region.beach.equipment"
+                },
+                {
+                    "name": "SpecialDiscoveryKey",
+                    "value": "expedition.region.beach.special"
+                },
+                {
+                    "name": "UnknownDiscoveryStateKey",
+                    "value": "expedition.map.unknown"
+                },
+                {
+                    "name": "WaterNodeCount",
+                    "value": "2"
+                },
+                {
+                    "name": "NodeCount",
+                    "value": "10"
+                }
+            ]
+        },
+        {
+            "id": "region.coast.beach",
+            "type": "KimSurvival.PrototypeRegionProgressionDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "region.coast.beach"
+                },
+                {
+                    "name": "PrimaryUnlockRequirement",
+                    "value": "primary unlock requirement: new run start"
+                },
+                {
+                    "name": "AlternativeUnlockRequirement",
+                    "value": "alternative unlock requirement: already available"
+                },
+                {
+                    "name": "PrimaryRegionIds",
+                    "value": "[region.coast.beach]"
+                },
+                {
+                    "name": "AlternativeRegionIds",
+                    "value": "[region.coast.beach]"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.raft.sailcloth"
+                },
+                {
+                    "name": "RecommendedBandId",
+                    "value": "pacing.band.onboarding"
+                },
+                {
+                    "name": "HasPrimaryUnlockCondition",
+                    "value": "True"
+                },
+                {
+                    "name": "HasAlternativeUnlockCondition",
+                    "value": "True"
+                }
+            ]
+        },
+        {
+            "id": "region.cove.wreck",
+            "type": "KimSurvival.PrototypeRegionProgressionDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "region.cove.wreck"
+                },
+                {
+                    "name": "PrimaryUnlockRequirement",
+                    "value": "primary unlock requirement: shallows return x2 + discovery.wreck-chart + equipment.swim-ready + tool.rope"
+                },
+                {
+                    "name": "AlternativeUnlockRequirement",
+                    "value": "alternative unlock requirement: shallows eligible-search hint x3"
+                },
+                {
+                    "name": "PrimaryRegionIds",
+                    "value": "[region.sea.shallows]"
+                },
+                {
+                    "name": "AlternativeRegionIds",
+                    "value": "[region.sea.shallows,region.coast.beach]"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.radio.transceiver"
+                },
+                {
+                    "name": "RecommendedBandId",
+                    "value": "pacing.band.expansion"
+                },
+                {
+                    "name": "HasPrimaryUnlockCondition",
+                    "value": "True"
+                },
+                {
+                    "name": "HasAlternativeUnlockCondition",
+                    "value": "True"
+                }
+            ]
+        },
+        {
+            "id": "region.forest",
+            "type": "KimSurvival.PrototypeExpeditionRegionProfile",
+            "members": [
+                {
+                    "name": "Id",
+                    "value": "Forest"
+                },
+                {
+                    "name": "StableId",
+                    "value": "region.forest"
+                },
+                {
+                    "name": "NameKey",
+                    "value": "expedition.region.forest.name"
+                },
+                {
+                    "name": "SummaryKey",
+                    "value": "expedition.region.forest.summary"
+                },
+                {
+                    "name": "ResourceForecastKey",
+                    "value": "expedition.region.forest.resources"
+                },
+                {
+                    "name": "ResourceCategoryKey",
+                    "value": "expedition.region.forest.resources"
+                },
+                {
+                    "name": "RelativeAbundanceKey",
+                    "value": "expedition.region.forest.resources"
+                },
+                {
+                    "name": "TravelMinutes",
+                    "value": "35"
+                },
+                {
+                    "name": "RiskKey",
+                    "value": "expedition.region.forest.risk"
+                },
+                {
+                    "name": "WeatherKey",
+                    "value": "expedition.region.forest.weather"
+                },
+                {
+                    "name": "EquipmentKey",
+                    "value": "expedition.region.forest.equipment"
+                },
+                {
+                    "name": "SpecialDiscoveryKey",
+                    "value": "expedition.region.forest.special"
+                },
+                {
+                    "name": "UnknownDiscoveryStateKey",
+                    "value": "expedition.map.unknown"
+                },
+                {
+                    "name": "WaterNodeCount",
+                    "value": "1"
+                },
+                {
+                    "name": "NodeCount",
+                    "value": "10"
+                }
+            ]
+        },
+        {
+            "id": "region.forest.grove",
+            "type": "KimSurvival.PrototypeRegionProgressionDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "region.forest.grove"
+                },
+                {
+                    "name": "PrimaryUnlockRequirement",
+                    "value": "primary unlock requirement: new run start"
+                },
+                {
+                    "name": "AlternativeUnlockRequirement",
+                    "value": "alternative unlock requirement: already available"
+                },
+                {
+                    "name": "PrimaryRegionIds",
+                    "value": "[region.forest.grove]"
+                },
+                {
+                    "name": "AlternativeRegionIds",
+                    "value": "[region.forest.grove]"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.smoke.catalyst"
+                },
+                {
+                    "name": "RecommendedBandId",
+                    "value": "pacing.band.onboarding"
+                },
+                {
+                    "name": "HasPrimaryUnlockCondition",
+                    "value": "True"
+                },
+                {
+                    "name": "HasAlternativeUnlockCondition",
+                    "value": "True"
+                }
+            ]
+        },
+        {
+            "id": "region.ridge.highland",
+            "type": "KimSurvival.PrototypeRegionProgressionDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "region.ridge.highland"
+                },
+                {
+                    "name": "PrimaryUnlockRequirement",
+                    "value": "primary unlock requirement: forest return x2 + discovery.old-trap-line + tool.rope"
+                },
+                {
+                    "name": "AlternativeUnlockRequirement",
+                    "value": "alternative unlock requirement: beach/forest return + research.ropework + equipment.weatherproof-kit"
+                },
+                {
+                    "name": "PrimaryRegionIds",
+                    "value": "[region.forest.grove]"
+                },
+                {
+                    "name": "AlternativeRegionIds",
+                    "value": "[region.coast.beach,region.forest.grove]"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.smoke.catalyst"
+                },
+                {
+                    "name": "RecommendedBandId",
+                    "value": "pacing.band.expansion"
+                },
+                {
+                    "name": "HasPrimaryUnlockCondition",
+                    "value": "True"
+                },
+                {
+                    "name": "HasAlternativeUnlockCondition",
+                    "value": "True"
+                }
+            ]
+        },
+        {
+            "id": "region.ruins.relay",
+            "type": "KimSurvival.PrototypeRegionProgressionDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "region.ruins.relay"
+                },
+                {
+                    "name": "PrimaryUnlockRequirement",
+                    "value": "primary unlock requirement: highland return + discovery.weather-log + tool.rope + equipment.insulation-kit"
+                },
+                {
+                    "name": "AlternativeUnlockRequirement",
+                    "value": "alternative unlock requirement: wreck return + discovery.radio-chassis + research.electronics + equipment.insulation-kit"
+                },
+                {
+                    "name": "PrimaryRegionIds",
+                    "value": "[region.ridge.highland]"
+                },
+                {
+                    "name": "AlternativeRegionIds",
+                    "value": "[region.cove.wreck]"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.beacon.generator-coil"
+                },
+                {
+                    "name": "RecommendedBandId",
+                    "value": "pacing.band.compound-choice"
+                },
+                {
+                    "name": "HasPrimaryUnlockCondition",
+                    "value": "True"
+                },
+                {
+                    "name": "HasAlternativeUnlockCondition",
+                    "value": "True"
+                }
+            ]
+        },
+        {
+            "id": "region.sea.shallows",
+            "type": "KimSurvival.PrototypeRegionProgressionDefinition",
+            "members": [
+                {
+                    "name": "StableId",
+                    "value": "region.sea.shallows"
+                },
+                {
+                    "name": "PrimaryUnlockRequirement",
+                    "value": "primary unlock requirement: new run start"
+                },
+                {
+                    "name": "AlternativeUnlockRequirement",
+                    "value": "alternative unlock requirement: already available"
+                },
+                {
+                    "name": "PrimaryRegionIds",
+                    "value": "[region.sea.shallows]"
+                },
+                {
+                    "name": "AlternativeRegionIds",
+                    "value": "[region.sea.shallows]"
+                },
+                {
+                    "name": "KeyPartId",
+                    "value": "part.flare.cartridge"
+                },
+                {
+                    "name": "RecommendedBandId",
+                    "value": "pacing.band.onboarding"
+                },
+                {
+                    "name": "HasPrimaryUnlockCondition",
+                    "value": "True"
+                },
+                {
+                    "name": "HasAlternativeUnlockCondition",
+                    "value": "True"
+                }
+            ]
+        },
+        {
+            "id": "region.shallows",
+            "type": "KimSurvival.PrototypeExpeditionRegionProfile",
+            "members": [
+                {
+                    "name": "Id",
+                    "value": "Shallows"
+                },
+                {
+                    "name": "StableId",
+                    "value": "region.shallows"
+                },
+                {
+                    "name": "NameKey",
+                    "value": "expedition.region.shallows.name"
+                },
+                {
+                    "name": "SummaryKey",
+                    "value": "expedition.region.shallows.summary"
+                },
+                {
+                    "name": "ResourceForecastKey",
+                    "value": "expedition.region.shallows.resources"
+                },
+                {
+                    "name": "ResourceCategoryKey",
+                    "value": "expedition.region.shallows.resources"
+                },
+                {
+                    "name": "RelativeAbundanceKey",
+                    "value": "expedition.region.shallows.resources"
+                },
+                {
+                    "name": "TravelMinutes",
+                    "value": "30"
+                },
+                {
+                    "name": "RiskKey",
+                    "value": "expedition.region.shallows.risk"
+                },
+                {
+                    "name": "WeatherKey",
+                    "value": "expedition.region.shallows.weather"
+                },
+                {
+                    "name": "EquipmentKey",
+                    "value": "expedition.region.shallows.equipment"
+                },
+                {
+                    "name": "SpecialDiscoveryKey",
+                    "value": "expedition.region.shallows.special"
+                },
+                {
+                    "name": "UnknownDiscoveryStateKey",
+                    "value": "expedition.map.unknown"
+                },
+                {
+                    "name": "WaterNodeCount",
+                    "value": "2"
+                },
+                {
+                    "name": "NodeCount",
+                    "value": "10"
+                }
+            ]
+        }
+    ],
+    "semanticProbeResults": [
+        "KimSurvival.CampaignHazardCadenceContract.VerifyHazardRollingCalmMajorRecoveryFixture=>PrototypeContractProbe{Success=True;Detail=rolling5=true window=5 calm major recovery reservedBudget=2 sameFamilyMajorBlocked=true}",
+        "KimSurvival.PrototypeBehaviorEndingContract.VerifyEndingPriorityAsciiTiebreakHysteresisFixture=>PrototypeContractProbe{Success=True;Detail=escape_complete earlyescape day50 settlement tiebreak=ASCII hysteresis switchLead=6 identityUnchanged=true deterministic=true sameEnding=true}",
+        "KimSurvival.PrototypeDataOnlyEscapeValidationContract.VerifyEscapeDataOnlyRouteValidationFixture=>PrototypeContractProbe{Success=True;Detail=data-only validation catalog primary alternative snapshot stage progress atomic transaction resolver escape.raft escape.flare escape.beacon}",
+        "KimSurvival.PrototypeEndingResolver.VerifyEndingDeterministicSingleFixture=>PrototypeContractProbe{Success=True;Detail=deterministic single ending priority condition eventday ordinal}",
+        "KimSurvival.PrototypeEndingResolver.VerifyEndingDay50BehaviorFixture=>PrototypeContractProbe{Success=True;Detail=day50 behavior ending}",
+        "KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeSmokeProgressCompleteFixture=>PrototypeContractProbe{Success=True;Detail=escape.smoke natural no-grant no-warp progress commit complete}",
+        "KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeRadioProgressCompleteFixture=>PrototypeContractProbe{Success=True;Detail=escape.radio natural no-grant no-warp progress commit complete}",
+        "KimSurvival.PrototypeEscapeRouteAuditor.VerifyEscapeSoftlockRouteAuditFixture=>PrototypeContractProbe{Success=True;Detail=softlock route audit minimum=3 routeCount=3 completable=3 seed expansion 35 49}",
+        "KimSurvival.PrototypeHazardDirector.VerifyHazardAtomicIdempotentFixture=>PrototypeContractProbe{Success=True;Detail=atomic idempotent resource health log transaction}",
+        "KimSurvival.PrototypeHazardDirector.VerifyHazardAtomicRetryKeyPartProtectionFixture=>PrototypeContractProbe{Success=True;Detail=idempotent=true retryUnchanged=true keyPartProtected=true protectedPartUnchanged=true completedStageProtected=true singleLoss=true lossApplications=1 transactionCount=1}",
+        "KimSurvival.PrototypeKeyPartPityContract.VerifyEligibleSearchPityHint3Guarantee5Fixture=>PrototypeContractProbe{Success=True;Detail=eligible count=5 hint search=3 guarantee search=5 hint=true guarantee=true protected=true}",
+        "KimSurvival.PrototypeNaturalEscapeRouteContract.VerifyEscapeSmokeNaturalRouteFixture=>PrototypeContractProbe{Success=True;Detail=smoke.route.smoke escape.smoke grant=false warp=false completed=true terminal=true interactionCount=6 resultCode=escape_complete}",
+        "KimSurvival.PrototypeNaturalEscapeRouteContract.VerifyEscapeRadioNaturalRouteFixture=>PrototypeContractProbe{Success=True;Detail=smoke.route.radio escape.radio grant=false warp=false completed=true terminal=true interactionCount=6 resultCode=escape_complete}",
+        "KimSurvival.PrototypePacingDeterminism.VerifyPacingForecastHazardPityDeterminismFixture=>PrototypeContractProbe{Success=True;Detail=deterministic=true sameSeedMatch=true seed forecast hazard pity differentSeedValid=true}",
+        "KimSurvival.PrototypePacingEscapeContract.VerifyPacingEarlyEscapeNoHardlockFixture=>PrototypeContractProbe{Success=True;Detail=earlyEscape=true beforeDeadline=true dateHardlock=false blockedByDay=false PASS pacing.band.onboarding pacing.band.expansion pacing.band.compound-choice pacing.band.finish-pressure pacing.band.resolution}",
+        "KimSurvival.PrototypeTerminalContract.VerifyTerminalEscapeDay50PriorityFixture=>PrototypeContractProbe{Success=True;Detail=escape priority before day50 terminal}",
+        "KimSurvival.PrototypeWaveRuntime.VerifyLiveHazardLifecycleProbe=>PrototypeContractProbe{Success=True;Detail=live hazard PASS hazard.disaster:telegraph>occurrence>mitigation>recovery:Recovery,hazard.food-theft:telegraph>occurrence>mitigation>recovery:Recovery,hazard.injury:telegraph>occurrence>mitigation>recovery:Recovery idempotent instance}",
+        "KimSurvival.PrototypeWaveRuntime.VerifyLiveEscapeNaturalRouteProbe=>PrototypeContractProbe{Success=True;Detail=smoke.route.smoke escape.smoke grant=false warp=false completed=true terminal=true interactionCount=6 actual camp target interaction}",
+        "KimSurvival.PrototypeWaveRuntime.VerifyLiveEndingTerminalProbe=>THREW:NullReferenceException"
+    ],
+    "reviewAssetResults": [
+        "effect.survival-hazards.phase-silhouette-a: review=True; adopted=False; guid=22aa0efe034962041860a1171b2c5a73; runtime/scene/addressablesReferences=none",
+        "ui.escape-project-progress.route-signature-a: review=True; adopted=False; guid=a3fc27f38161341409c6fbe0be7bea6f; runtime/scene/addressablesReferences=none",
+        "ui.ending-comic.triptych-a: review=True; adopted=False; guid=ba9091d85a3bddd4a8c8b90aa07d1b7c; runtime/scene/addressablesReferences=none"
+    ]
+}

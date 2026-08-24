@@ -199,6 +199,7 @@ namespace KimSurvival
     {
         public int schema_version = 1;
         public int sequence;
+        public string stable_event_id = string.Empty;
         public string run_id = string.Empty;
         public string utc = string.Empty;
         public string event_name = string.Empty;
@@ -212,6 +213,7 @@ namespace KimSurvival
         public string resource_location = string.Empty;
         public int delta;
         public int run_seed;
+        public string pacing_band_id = string.Empty;
         public string region_id = string.Empty;
         public string profile_id = string.Empty;
         public string result_id = string.Empty;
@@ -474,7 +476,8 @@ namespace KimSurvival
             string hazardId,
             string escapeId,
             string endingId,
-            string resultCode)
+            string resultCode,
+            string pacingBandId = "")
         {
             if (disposed || sinkFailed)
             {
@@ -495,6 +498,7 @@ namespace KimSurvival
             record.escape_id = escapeId ?? string.Empty;
             record.ending_id = endingId ?? string.Empty;
             record.result_code = resultCode ?? string.Empty;
+            record.pacing_band_id = pacingBandId ?? string.Empty;
             WriteRecord(record);
         }
 
@@ -658,6 +662,7 @@ namespace KimSurvival
             return new PrototypePlaytestEventRecord
             {
                 sequence = ++sequence,
+                stable_event_id = eventName ?? string.Empty,
                 run_id = runId,
                 utc = utcProvider().ToUniversalTime().ToString("O", CultureInfo.InvariantCulture),
                 event_name = eventName,
@@ -671,6 +676,7 @@ namespace KimSurvival
                 resource_location = resourceLocation ?? string.Empty,
                 delta = delta,
                 run_seed = after.run_seed,
+                pacing_band_id = PrototypeCampaignPacingCatalog.ForDay(after.day).StableId,
                 region_id = after.region_id ?? string.Empty,
                 profile_id = after.profile_id ?? string.Empty,
                 result_id = after.expedition_result_id ?? string.Empty,

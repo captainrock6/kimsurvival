@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260824T_wave18_green_evidence_01",
+  "powershellEdition": "Core",
+  "powershellVersion": "7.6.4",
+  "jsonUtf8NoBom": true,
+  "textUtf8NoBom": true,
+  "overall": "PASS"
+}
