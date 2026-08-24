@@ -1,0 +1,224 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 17 pacing, hazard, escape, ending RED-first hardening gate",
+    "runId":  "20260824T134000Z_fac8545_wave17_baseline",
+    "baselineCommit":  "fac8545148e1422fc6258f57cab2205cbb4596a9",
+    "startedUtc":  "2026-08-24T13:37:03.7169372Z",
+    "completedUtc":  "2026-08-24T13:40:29.6068303Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "FAIL",
+    "productOverall":  "FAIL",
+    "infrastructureOverall":  "PASS",
+    "frozenWave16Baseline":  {
+                                 "expectedCount":  17,
+                                 "expectedIds":  [
+                                                     "W16-H01.hazard_phase_catalog",
+                                                     "W16-H02.daily_stack_budget",
+                                                     "W16-H03.atomic_idempotent_resolution",
+                                                     "W16-E01.five_escape_catalog",
+                                                     "W16-E02.escape_axis_separation",
+                                                     "W16-E03.smoke_radio_playable",
+                                                     "W16-E04.raft_flare_beacon_data",
+                                                     "W16-O01.snapshot_and_private_log",
+                                                     "W16-N01.ending_catalog_19",
+                                                     "W16-N02.deterministic_single_ending",
+                                                     "W16-N03.terminal_priority",
+                                                     "W16-L01.ko_en_qps_contract",
+                                                     "W16-P01.live_hazard_lifecycle",
+                                                     "W16-P02.live_escape_paths",
+                                                     "W16-P03.three_panel_comic",
+                                                     "W16-P04.ko_en_qps_1280",
+                                                     "W16-P05.keyboard_gamepad_state_parity"
+                                                 ],
+                                 "observedIds":  {
+
+                                                 },
+                                 "result":  "FAIL"
+                             },
+    "currentGreenLocks":  {
+                              "wave15CampaignMap":  "GREEN",
+                              "qpsLong":  "10/10 PASS",
+                              "compile":  "PASS 0 errors / 0 warnings",
+                              "windowsDevelopmentBuild":  "PASS",
+                              "hiddenSmoke":  "PASS 6.387s (minimum 6)",
+                              "addressables":  "PASS"
+                          },
+    "expectedGapIds":  [
+
+                       ],
+    "expectedGaps":  [
+
+                     ],
+    "productFailures":  [
+                            {
+                                "id":  "W17-T01.day_band_boundaries",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "pacing.band.onboarding=missing; pacing.band.expansion=missing; pacing.band.compound-choice=missing; pacing.band.finish-pressure=missing; pacing.band.resolution=missing",
+                                "reproduction":  "Enumerate public pacing entries by stable ID and inspect exact start/end fields.",
+                                "recommendedFiles":  "runtime pacing catalog/config selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-T02.early_escape_no_hardlock",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeSmokeProgressCompleteFixture=\u003ePrototypeContractProbe{Success=True;Detail=escape.smoke natural no-grant no-warp progress commit complete} | KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeRadioProgressCompleteFixture=\u003ePrototypeContractProbe{Success=True;Detail=escape.radio natural no-grant no-warp progress commit complete} | KimSurvival.PrototypeTerminalContract.VerifyTerminalEscapeDay50PriorityFixture=\u003ePrototypeContractProbe{Success=True;Detail=escape priority before day50 terminal}",
+                                "reproduction":  "Run the public pacing/escape deterministic probe across all band boundaries and compare terminal results.",
+                                "recommendedFiles":  "runtime pacing and escape resolver selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-R01.six_region_primary_alternative",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "regions=region.coast.beach,region.forest.grove,region.sea.shallows,region.ridge.highland,region.cove.wreck,region.ruins.relay; region.ridge.highland=missing;region.cove.wreck=missing;region.ruins.relay=missing",
+                                "reproduction":  "Enumerate public region profiles and execute primary/alternative unlock fixtures without relying on dates.",
+                                "recommendedFiles":  "runtime region catalog/unlock resolver selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-R02.seed_forecast_hazard_pity_determinism",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "KimSurvival.PrototypeEndingResolver.VerifyEndingDeterministicSingleFixture=\u003ePrototypeContractProbe{Success=True;Detail=deterministic single ending priority condition eventday ordinal}",
+                                "reproduction":  "Execute a public deterministic pacing probe twice with the same seed and once with another seed.",
+                                "recommendedFiles":  "runtime seeded pacing/forecast/hazard resolver selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-R03.eligible_search_hint3_guarantee5",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "data=False; probe=no public deterministic semantic probe discovered",
+                                "reproduction":  "Run eligible, cancelled, failed, unrelated, duplicate, hint-3, and guarantee-5 fixtures.",
+                                "recommendedFiles":  "runtime key-part pity/loot transaction selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-R04.minimum_three_completable_paths",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "no public deterministic semantic probe discovered",
+                                "reproduction":  "Execute the public route audit at all four audit points and record stable escape IDs.",
+                                "recommendedFiles":  "runtime escape reachability auditor selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-H02.rolling_calm_and_major_recovery",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "data=False; probe=KimSurvival.PrototypeHazardDirector.VerifyHazardAtomicIdempotentFixture=\u003ePrototypeContractProbe{Success=True;Detail=atomic idempotent resource health log transaction}",
+                                "reproduction":  "Run at least ten deterministic days and inspect every rolling window plus post-major reservation.",
+                                "recommendedFiles":  "runtime hazard cadence/director selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-H03.atomic_retry_loss_and_keypart_protection",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "KimSurvival.PrototypeHazardDirector.VerifyHazardAtomicIdempotentFixture=\u003ePrototypeContractProbe{Success=True;Detail=atomic idempotent resource health log transaction}",
+                                "reproduction":  "Resolve the same hazardInstanceId twice and compare resource, facility, protected-part, stage, score, and log snapshots.",
+                                "recommendedFiles":  "runtime hazard transaction and protected project inventory selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-E02.smoke_radio_natural_interaction_routes",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "smoke=KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeSmokeProgressCompleteFixture=\u003ePrototypeContractProbe{Success=True;Detail=escape.smoke natural no-grant no-warp progress commit complete}; radio=KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeRadioProgressCompleteFixture=\u003ePrototypeContractProbe{Success=True;Detail=escape.radio natural no-grant no-warp progress commit complete}",
+                                "reproduction":  "Execute separate public smoke/radio natural-route probes and inspect interaction count, grant, warp, and terminal result.",
+                                "recommendedFiles":  "runtime smoke/radio project fixtures and public interaction surface selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-E03.raft_flare_beacon_data_only",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P1",
+                                "actual":  "escape.raft=kimsurvival.prototypeescapeprojectdefinition{stableid=escape.raft;regionids=[region.coast.beach,region.sea.shallows];researchids=[research.ropework,research.coastal-navigation];facilityid=facility.shore-launch;keypartid=part.raft.sailcloth;materialids=[resource.wood,resource.fiber,resource.fabric];preparationdays=8;riskids=[hazard.disaster,hazard.injury];timingrule=allowed sea-weather launch window;completionrule=completed hull, sailcloth and voyage supplies commit once;playablestate=data-only not playable;woodcost=0;salvagecost=0;requiredprogress=0}; escape.flare=kimsurvival.prototypeescapeprojectdefinition{stableid=escape.flare;regionids=[region.coast.beach,region.cove.wreck];researchids=[research.pyrotechnics,research.signal-timing];facilityid=facility.flare-launcher;keypartid=part.flare.cartridge;materialids=[resource.chemicals,resource.metal];preparationdays=6;riskids=[hazard.injury,hazard.disaster];timingrule=single witnessed daylight timing window;completionrule=prepared launcher and cartridge complete only on witnessed shot;playablestate=data-only not playable;woodcost=0;salvagecost=0;requiredprogress=0}; escape.beacon=kimsurvival.prototypeescapeprojectdefinition{stableid=escape.beacon;regionids=[region.ridge.highland,region.ruins.relay];researchids=[research.power-grid,research.relay-restoration];facilityid=facility.ridge-beacon;keypartid=part.beacon.lens;materialids=[resource.electronics,resource.metal,resource.fuel];preparationdays=15;riskids=[hazard.disaster,hazard.injury,hazard.camp-damage];timingrule=clear ridge night weather window;completionrule=...[truncated]",
+                                "reproduction":  "Inspect public entries and deterministic data validators; do not claim playable PASS.",
+                                "recommendedFiles":  "runtime escape-project catalog/data validators selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-O01.snapshot_and_private_log",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "snapshot=True; log=False; piiFields=present",
+                                "reproduction":  "Inspect public snapshot/log schemas and serialize a stable-ID-only verification record.",
+                                "recommendedFiles":  "runtime run snapshot and development telemetry schemas selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-N02.priority_tiebreak_and_hysteresis",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "KimSurvival.PrototypeEndingResolver.VerifyEndingDeterministicSingleFixture=\u003ePrototypeContractProbe{Success=True;Detail=deterministic single ending priority condition eventday ordinal} | KimSurvival.PrototypeEndingResolver.VerifyEndingDay50BehaviorFixture=\u003ePrototypeContractProbe{Success=True;Detail=day50 behavior ending} | KimSurvival.PrototypeTerminalContract.VerifyTerminalEscapeDay50PriorityFixture=\u003ePrototypeContractProbe{Success=True;Detail=escape priority before day50 terminal}",
+                                "reproduction":  "Run identical snapshots twice plus the established-identity challenger fixture and compare ending/reason/identity.",
+                                "recommendedFiles":  "runtime terminal/ending/behavior resolver selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-P01.live_hazard_lifecycle",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "surface/probe=UnityEngine.UI.Outline/수집 지역 노드 · region.forest{effectColor=Color{r=0.02;g=0.16;b=0.2;a=1;grayscale=0.1227;linear=Color{r=0.001547988;g=0.02198095;b=0.03310476;a=1;grayscale=0.01713961;linear=Color;gamma=Color;maxColorComponent=0.03310476};gamma=Color{r=0.1517037;g=0.436627;b=0.4845291;a=1;grayscale=0.3568958;linear=Color;gamma=Color;maxColorComponent=0.4845291};maxColorComponent=0.2};effectDistance=Vector2{x=2;y=-2;normalized=Vector2{x=0.7071068;y=-0.7071068;normalized=Vector2;magnitude=1;sqrMagnitude=0.9999999};magnitude=2.828427;sqrMagnitude=8};useGraphicAlpha=False;destroyCancellationToken=CancellationToken{IsCancellationRequested=False;CanBeCanceled=True;WaitHandle=ManualResetEvent{Handle=3028;SafeWaitHandle=SafeWaitHandle}};useGUILayout=True;didStart=False;didAwake=True;runInEditMode=True;enabled=True;isActiveAndEnabled=False;transform=[[]];transformHandle=TransformHandle{DirectChildren=[TransformHandle];position=Vector3{x=-1.083;y=1.528312;z=-9;normalized=Vector3;magnitude=9.192858;sqrMagnitude=84.50863};rotation=Quaternion{x=0;y=0;z=0;w=1;eulerAngles=Vector3;normalized=Quaternion};lossyScale=Vector3{x=0.009021098;y=0.009021098;z=0.009021098;normalized=Vector3;magnitude=0.015625;sqrMagnitude=0.0002441406};localPosition=Vector3{x=-120.0519;y=169.4153;z=0;normalized=Vector3;magnitude=207.6392;sqrMagnitude=43114.03};localRotation=Quaternion{x=0;y=0;z=0;w=1;eulerAngles=Vector3;normalized=Quaternion};localScale=Vector3{x=1;y=1;z=1;normalized=Vector3;magnitude=1.732051;sqrMagnitude=3};eulerAngles=Vector3{x=0;y=0;z=0;normalized=Vector3;magnitude=0;sqrMagnitude=0};localEuler...[truncated]",
+                                "reproduction":  "Run Play Mode and execute each public deterministic hazard fixture.",
+                                "recommendedFiles":  "runtime hazard director/presentation selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-P02.live_smoke_radio_natural_paths",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "smoke=no public live semantic probe discovered; radio=no public live semantic probe discovered",
+                                "reproduction":  "Run the two natural-route fixtures in Play Mode and inspect interaction trace and terminal state.",
+                                "recommendedFiles":  "runtime escape project fixtures/UI selected by the implementation owner"
+                            },
+                            {
+                                "id":  "W17-P03.live_terminal_priority_and_three_panels",
+                                "classification":  "PRODUCT_REGRESSION",
+                                "severity":  "P0",
+                                "actual":  "probe=no public live semantic probe discovered; panels=ko:3,en:3,qps-long:3",
+                                "reproduction":  "Resolve the four sample snapshots and inspect the active ending presentation hierarchy.",
+                                "recommendedFiles":  "runtime terminal resolver/ending presentation selected by the implementation owner"
+                            }
+                        ],
+    "infrastructureFailures":  [
+
+                               ],
+    "unverifiedIds":  [
+                          "W17-HW01.physical_gamepad",
+                          "W17-S01.steam_release"
+                      ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "reviewOnlyArt":  "Three human-adoption candidates must remain unselected and absent from runtime/scene/Addressables references.",
+    "playerLogPrivacy":  "PASS_RAW_LOG_QUARANTINED_TO_IGNORED_WORK",
+    "greenTransition":  "On a post-implementation baseline, fresh Wave 15 and Wave 16 must be GREEN, infrastructure locks PASS, and this gate must report zero EXPECTED_GAP/FAIL checks while review-only art remains unconnected until explicit human adoption.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave17PacingHazardGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u0027fac8545148e1422fc6258f57cab2205cbb4596a9\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave16-frozen-foundation-and-wave15-green",
+                       "startedUtc":  "2026-08-24T13:37:03.7359656Z",
+                       "completedUtc":  "2026-08-24T13:40:07.2534220Z",
+                       "exitCode":  0,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave16HazardEndingGate.ps1\" -RunId 20260824T134000Z_fac8545_wave17_baseline -BaselineCommit fac8545148e1422fc6258f57cab2205cbb4596a9 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave17-wave16-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave17-wave16-stderr.log"
+                   },
+                   {
+                       "name":  "wave17-pacing-hazard-edit",
+                       "startedUtc":  "2026-08-24T13:40:07.2584178Z",
+                       "completedUtc":  "2026-08-24T13:40:18.4039606Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave17PacingHazardRedFirstHardeningRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\unity-wave17-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave17-edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave17-edit-stderr.log"
+                   },
+                   {
+                       "name":  "wave17-pacing-hazard-play",
+                       "startedUtc":  "2026-08-24T13:40:18.4039606Z",
+                       "completedUtc":  "2026-08-24T13:40:29.5132454Z",
+                       "exitCode":  1,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave17PacingHazardRedFirstHardeningRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\unity-wave17-play.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave17-play-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave17-play-stderr.log"
+                   }
+               ],
+    "exitCode":  1
+}

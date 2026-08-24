@@ -1,0 +1,12 @@
+Wave 11 direct slot Edit contracts
+Run ID: 20260824T134000Z_fac8545_wave17_baseline
+Baseline: fac8545148e1422fc6258f57cab2205cbb4596a9
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: PASS/PASS/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 6/0/0/0/0
+W11-E01.canonical_slot_catalog | PASS | NONE | slot.start.upper<->slot.upper.down, slot.start.side<->slot.side.left, slot.start.basement<->slot.basement.up
+W11-E02.direct_slot_runtime_surface | PASS | NONE | catalogDrivenRegistration=True; canonicalActionKey=True; Play behavior remains authoritative
+W11-E03.candidates_reasons_economy | PASS | NONE | cycle=Upper>Side>Basement; reasonIds=9; economy=LOCKED>SHORT(W1/D1)>READY(W2/D1)
+W11-E04.atomicity_and_one_room_limit | PASS | NONE | cancel/invalid/short/duplicate/second neutral; success delta W-2/D-1 exactly once
+W11-E05.keyboard_synthetic_gamepad | PASS | NONE | interact=true; cycle=+1; confirm=true; cancel=true; device prompt keys remain distinct with equivalent meaning
+W11-E06.ko_en_qps_direct_action | PASS | NONE | required=13; missing=none; namedCanonicalPlaceholders={0},{1},{2}:True; qpsWrapped=True

@@ -1,0 +1,74 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 15 50-day campaign and expedition-map RED-first gate",
+    "runId":  "20260824T134000Z_fac8545_wave17_baseline",
+    "baselineCommit":  "fac8545148e1422fc6258f57cab2205cbb4596a9",
+    "startedUtc":  "2026-08-24T13:37:04.2490164Z",
+    "completedUtc":  "2026-08-24T13:39:43.7071039Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "GREEN",
+    "productOverall":  "PASS",
+    "infrastructureOverall":  "PASS",
+    "currentGreenLocks":  {
+                              "qpsLong":  "10/10 PASS",
+                              "koEnPlacement":  "PASS via fresh Wave14/Wave3",
+                              "campPromptPlacementModuleBagSwim":  "PASS (Wave 12 Day-5 assertion superseded by canonical Day 50)",
+                              "compile":  "PASS 0 errors",
+                              "windowsDevelopmentBuild":  "PASS",
+                              "hiddenSmoke":  "PASS",
+                              "addressables":  "PASS load/build/post-smoke"
+                          },
+    "expectedGapIds":  [
+
+                       ],
+    "expectedGaps":  [
+
+                     ],
+    "productFailures":  [
+
+                        ],
+    "infrastructureFailures":  [
+
+                               ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "greenTransition":  "On a post-implementation baseline, the same command must report infrastructure PASS, fresh Wave14 10/10 PASS, and zero Wave15 EXPECTED_GAP/FAIL checks.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u0027fac8545148e1422fc6258f57cab2205cbb4596a9\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave14-full-regression-prerequisite",
+                       "startedUtc":  "2026-08-24T13:37:04.2666517Z",
+                       "completedUtc":  "2026-08-24T13:39:14.3283818Z",
+                       "exitCode":  0,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave14QpsGlobalLayoutGate.ps1\" -RunId 20260824T134000Z_fac8545_wave17_baseline -BaselineCommit fac8545148e1422fc6258f57cab2205cbb4596a9 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave15-wave14-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave15-wave14-stderr.log"
+                   },
+                   {
+                       "name":  "wave15-campaign-map-edit",
+                       "startedUtc":  "2026-08-24T13:39:14.3339885Z",
+                       "completedUtc":  "2026-08-24T13:39:22.4318532Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\unity-wave15-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave15-edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave15-edit-stderr.log"
+                   },
+                   {
+                       "name":  "wave15-campaign-map-play",
+                       "startedUtc":  "2026-08-24T13:39:22.4330672Z",
+                       "completedUtc":  "2026-08-24T13:39:43.6317069Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\unity-wave15-play.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave15-play-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T134000Z_fac8545_wave17_baseline\\wave15-play-stderr.log"
+                   }
+               ],
+    "exitCode":  0
+}

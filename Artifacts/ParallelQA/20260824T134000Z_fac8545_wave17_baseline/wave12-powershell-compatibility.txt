@@ -1,0 +1,9 @@
+Wave 12 PowerShell compatibility preflight
+Run ID: 20260824T134000Z_fac8545_wave17_baseline
+Baseline: fac8545148e1422fc6258f57cab2205cbb4596a9
+PowerShell: Desktop 5.1.26100.9168
+Mode: Full
+Preflight exit: 0
+Preflight JSON UTF-8 no BOM: True
+Preflight TXT UTF-8 no BOM: True
+Result: PASS

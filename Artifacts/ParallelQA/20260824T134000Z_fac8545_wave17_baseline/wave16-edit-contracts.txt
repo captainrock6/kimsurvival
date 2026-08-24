@@ -1,0 +1,20 @@
+Wave 16 hazard/escape/ending RED-first Edit contracts
+Run ID: 20260824T134000Z_fac8545_wave17_baseline
+Baseline: fac8545148e1422fc6258f57cab2205cbb4596a9
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: GREEN/PASS/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED: 14/0/0/0/0
+W16-I01.exact_baseline | PASS | NONE | baseline=fac8545148e1422fc6258f57cab2205cbb4596a9
+W16-I02.canonical_contract | PASS | NONE | missing=; files=2
+W16-H01.hazard_phase_catalog | PASS | NONE | hazard.injury=4/4; hazard.disaster=4/4; hazard.food-theft=4/4
+W16-H02.daily_stack_budget | PASS | NONE | daily=True; major=True; active=True; recoveryReserve=True
+W16-H03.atomic_idempotent_resolution | PASS | NONE | KimSurvival.PrototypeHazardDirector.VerifyHazardAtomicIdempotentFixture=prototypecontractprobe{success=true;detail=atomic idempotent resource health log transaction}
+W16-E01.five_escape_catalog | PASS | NONE | escape methods=5/5; found=escape.raft,escape.smoke,escape.radio,escape.flare,escape.beacon
+W16-E02.escape_axis_separation | PASS | NONE | minimumPairwiseDifferentAxes=8; failures=
+W16-E03.smoke_radio_playable | PASS | NONE | metadata=True; smokeProbe=KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeSmokeProgressCompleteFixture=prototypecontractprobe{success=true;detail=escape.smoke natural no-grant no-warp progress commit complete}; radioProbe=KimSurvival.PrototypeEscapeProjectDirector.VerifyEscapeSmokeProgressCompleteFixture=prototypecontractprobe{success=true;detail=escape.smoke natural no-grant no-warp progress commit complete}
+W16-E04.raft_flare_beacon_data | PASS | NONE | escape.raft=6/6; escape.flare=6/6; escape.beacon=6/6
+W16-O01.snapshot_and_private_log | PASS | NONE | snapshot=KimSurvival.PrototypeCampaignEventRecord(5/5); log=KimSurvival.PrototypeCampaignEventRecord(5/5); piiFields=none
+W16-N01.ending_catalog_19 | PASS | NONE | endings=19/19; samples=4/4; unique=True
+W16-N02.deterministic_single_ending | PASS | NONE | probe=KimSurvival.PrototypeEndingResolver.VerifyEndingDeterministicSingleFixture=prototypecontractprobe{success=true;detail=deterministic single ending priority condition eventday ordinal}; tieBreak=priority:True,conditions:True,eventDay:True,ascii:True
+W16-N03.terminal_priority | PASS | NONE | escapePriority=KimSurvival.PrototypeTerminalContract.VerifyTerminalEscapeDay50PriorityFixture=prototypecontractprobe{success=true;detail=escape priority before day50 terminal}; behaviorEnding=KimSurvival.PrototypeEndingResolver.VerifyEndingDay50BehaviorFixture=prototypecontractprobe{success=true;detail=day50 behavior ending}
+W16-L01.ko_en_qps_contract | PASS | NONE | required=65; present=65; qpsExpanded=65; tablesRows=359
