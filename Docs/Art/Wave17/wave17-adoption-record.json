@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordId": "wave17.hazard-escape-ending.adoption",
+  "decisionSource": "explicit-user-message",
+  "userDecision": "일단 전부 채택한다.",
+  "recordedAt": "2026-08-24T21:56:40+09:00",
+  "candidates": [
+    {
+      "assetId": "effect.survival-hazards",
+      "stableId": "effect.survival-hazards.phase-silhouette-a",
+      "jobId": "job_20260823160305_ef04b0f3",
+      "decision": "adopted",
+      "forgeStatus": "engine_ready",
+      "packageManifest": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/forge-import.json",
+      "packageSourceAllowlist": [
+        "hazard-phase-atlas.png",
+        "hazard-phase-atlas.svg",
+        "hazard-phase-manifest.json"
+      ]
+    },
+    {
+      "assetId": "ui.escape-project-progress",
+      "stableId": "ui.escape-project-progress.route-signature-a",
+      "jobId": "job_20260823160324_1de3b748",
+      "decision": "adopted",
+      "forgeStatus": "engine_ready",
+      "packageManifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/forge-import.json",
+      "packageSourceAllowlist": [
+        "escape-project-route-signature-a-1280x800.png",
+        "escape-project-route-signature-a.svg"
+      ]
+    },
+    {
+      "assetId": "ui.ending-comic",
+      "stableId": "ui.ending-comic.triptych-a",
+      "jobId": "job_20260823160342_eceb3933",
+      "decision": "adopted",
+      "forgeStatus": "engine_ready",
+      "packageManifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/forge-import.json",
+      "packageSourceAllowlist": [
+        "ending-comic-triptych-a-1280x800.png",
+        "ending-comic-triptych-a.svg"
+      ]
+    }
+  ],
+  "quality": {
+    "scoreEach": 100,
+    "warningsEach": 0,
+    "errorsEach": 0,
+    "sourcePixelsChanged": false
+  },
+  "runtime": {
+    "runtimeAllowlist": [],
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false,
+    "sceneModified": false,
+    "addressablesModified": false
+  },
+  "generation": {
+    "newArtCreated": false,
+    "imageGenCalled": false,
+    "paidExternalApiCalled": false
+  }
+}

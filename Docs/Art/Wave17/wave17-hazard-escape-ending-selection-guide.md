@@ -4,7 +4,9 @@
 
 통합 보드: `wave17-hazard-escape-ending-selection-board.png`
 
-## 공통 승인 게이트
+> 2026-08-24 사용자 결정: 아래 세 안정 후보를 모두 명시적으로 채택했다. 보드 안의 `REVIEW ONLY` 표시는 선택 당시의 승인 게이트를 보존한 기록이다. 현재 Forge 상태는 `engine_ready`이며 selected-only Unity import 계약까지 만들었지만, 씬·런타임·Addressables 연결은 하지 않았다.
+
+## 선택 당시 공통 승인 게이트
 
 - 현재 결정: `review`
 - 선택 후보: `null`
@@ -13,6 +15,14 @@
 - 런타임 연결 허용: `false`
 - 이번 작업에서 ImageGen, 유료 외부 API, Forge 생성·수정 job을 호출하지 않음
 - 사용자가 각 안정 ID에 대해 새로 명시한 판단만 후속 승인 근거가 됨
+
+## 확정된 선택
+
+- `effect.survival-hazards.phase-silhouette-a`: 채택
+- `ui.escape-project-progress.route-signature-a`: 채택
+- `ui.ending-comic.triptych-a`: 채택
+- 실제 후보 PNG/SVG와 필요한 manifest만 패키지 대상으로 허용하며 리뷰·판독성 보드는 제외
+- 런타임 allowlist는 계속 비어 있고 `runtimeConnectAllowed=false`
 
 ## 1. effect.survival-hazards.phase-silhouette-a
 
@@ -53,7 +63,7 @@ Forge job: `job_20260823160342_eceb3933`
 
 예상 런타임 위치: 플레이 종료 시의 1280×800 전체 화면 결과 오버레이. 캠프 HUD에는 사용하지 않는다.
 
-## 답변 형식
+## 당시 사용한 답변 형식
 
 각 안정 ID를 따로 판단해 아래 형식으로 답하면 된다.
 

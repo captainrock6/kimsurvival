@@ -20,12 +20,27 @@
     "independentPerStableId": true,
     "implicitCrossAssetApproval": false
   },
-  "approvalGate": {
+  "reviewSnapshotGate": {
     "decision": "review",
     "selectedCandidate": null,
     "runtimeAllowlist": [],
     "packageAllowed": false,
     "runtimeConnectAllowed": false
+  },
+  "selectionResolution": {
+    "decidedAt": "2026-08-24T21:56:40+09:00",
+    "decision": "adopted_all",
+    "selectedStableIds": [
+      "effect.survival-hazards.phase-silhouette-a",
+      "ui.escape-project-progress.route-signature-a",
+      "ui.ending-comic.triptych-a"
+    ],
+    "forgeStatus": "engine_ready",
+    "packageAllowed": true,
+    "runtimeAllowlist": [],
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false,
+    "note": "The board remains immutable pre-decision evidence; its REVIEW ONLY labels describe the gate at capture time."
   },
   "board": {
     "path": "Docs/Art/Wave17/wave17-hazard-escape-ending-selection-board.png",
@@ -65,11 +80,12 @@
       "assetId": "effect.survival-hazards",
       "stableId": "effect.survival-hazards.phase-silhouette-a",
       "jobId": "job_20260823160305_ef04b0f3",
-      "status": "review",
-      "selectedCandidate": null,
+      "status": "engine_ready",
+      "selectedCandidate": "effect.survival-hazards.phase-silhouette-a",
       "runtimeAllowlist": [],
-      "packageAllowed": false,
+      "packageAllowed": true,
       "runtimeConnectAllowed": false,
+      "packageManifest": "Assets/_Project/Art/Generated/effect/job_20260823160305_ef04b0f3/forge-import.json",
       "actualSizeEvidence": "1024x768 atlas plus 1024x512 32/64px readability sheet",
       "locales": ["ko", "en", "qps-long"],
       "minimumGlyphAndFocusRect": "44x44",
@@ -85,11 +101,12 @@
       "assetId": "ui.escape-project-progress",
       "stableId": "ui.escape-project-progress.route-signature-a",
       "jobId": "job_20260823160324_1de3b748",
-      "status": "review",
-      "selectedCandidate": null,
+      "status": "engine_ready",
+      "selectedCandidate": "ui.escape-project-progress.route-signature-a",
       "runtimeAllowlist": [],
-      "packageAllowed": false,
+      "packageAllowed": true,
       "runtimeConnectAllowed": false,
+      "packageManifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160324_1de3b748/forge-import.json",
       "actualSizeEvidence": "1280x800 candidate",
       "locales": ["ko", "en", "qps-long"],
       "minimumGlyphAndFocusRect": "44x44",
@@ -115,11 +132,12 @@
       "assetId": "ui.ending-comic",
       "stableId": "ui.ending-comic.triptych-a",
       "jobId": "job_20260823160342_eceb3933",
-      "status": "review",
-      "selectedCandidate": null,
+      "status": "engine_ready",
+      "selectedCandidate": "ui.ending-comic.triptych-a",
       "runtimeAllowlist": [],
-      "packageAllowed": false,
+      "packageAllowed": true,
       "runtimeConnectAllowed": false,
+      "packageManifest": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/forge-import.json",
       "actualSizeEvidence": "1280x800 candidate",
       "locales": ["ko", "en", "qps-long"],
       "minimumGlyphAndFocusRect": "44x44",
@@ -167,6 +185,7 @@
   ],
   "documents": [
     "Docs/Art/Wave17/wave17-hazard-escape-ending-selection-guide.md",
+    "Docs/Art/Wave17/wave17-adoption-record.json",
     "Docs/Art/Wave17/wave17-selection-packet-qa.json",
     "Docs/Art/Wave17/generate-wave17-selection-packet.ps1"
   ]
