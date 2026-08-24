@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 16 hazard, multi-escape, and behavioral-ending RED-first gate",
+  "runId": "20260824T_wave17_7c14ab8_full",
+  "baselineCommit": "7c14ab8415149b76eeaab9fc02d4c965a2d9af68",
+  "startedUtc": "2026-08-24T12:53:57.3112810Z",
+  "completedUtc": "2026-08-24T12:56:18.6292704Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "compatibility": "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+  },
+  "executionPolicy": "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "wave15Prerequisite": "GREEN",
+  "currentGreenLocks": {
+    "wave15CampaignMap": "GREEN",
+    "qpsLong": "10/10 PASS",
+    "compile": "PASS 0 errors",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS",
+    "addressables": "PASS load/build/post-smoke"
+  },
+  "expectedGapIds": [],
+  "expectedGaps": [],
+  "productFailures": [],
+  "infrastructureFailures": [],
+  "unverifiedIds": [
+    "W16-HW01.physical_gamepad",
+    "W16-S01.steam_release"
+  ],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "greenTransition": "On a post-implementation baseline, the same command must keep fresh Wave 15 GREEN and report zero Wave 16 EXPECTED_GAP/FAIL checks with infrastructure PASS.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave16HazardEndingGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '7c14ab8415149b76eeaab9fc02d4c965a2d9af68' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "wave15-full-green-prerequisite",
+      "startedUtc": "2026-08-24T12:53:57.3497940Z",
+      "completedUtc": "2026-08-24T12:56:00.2143756Z",
+      "exitCode": 0,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1\" -RunId 20260824T_wave17_7c14ab8_full -BaselineCommit 7c14ab8415149b76eeaab9fc02d4c965a2d9af68 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\wave16-wave15-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\wave16-wave15-stderr.log"
+    },
+    {
+      "name": "wave16-hazard-ending-edit",
+      "startedUtc": "2026-08-24T12:56:00.2205573Z",
+      "completedUtc": "2026-08-24T12:56:07.7653259Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\unity-wave16-edit.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\wave16-edit-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\wave16-edit-stderr.log"
+    },
+    {
+      "name": "wave16-hazard-ending-play",
+      "startedUtc": "2026-08-24T12:56:07.7681164Z",
+      "completedUtc": "2026-08-24T12:56:18.5654840Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\unity-wave16-play.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\wave16-play-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_7c14ab8_full\\wave16-play-stderr.log"
+    }
+  ],
+  "exitCode": 0
+}

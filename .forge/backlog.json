@@ -1999,13 +1999,18 @@
       "paths": [
         ".forge/design/project.json",
         ".forge/design/vertical-slice.json",
-        "Docs/Design/wave16-fifty-day-pacing.md"
+        "Docs/Design/wave16-fifty-day-pacing.md",
+        "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260824T_wave17_7c14ab8_full/wave16-summary.json; Wave15 GREEN, product failures 0, infrastructure PASS, compile 0 errors/0 warnings, KO/EN/qps-long 1280x800 3-panel capture, Windows development build and hidden smoke PASS at 7c14ab8415149b76eeaab9fc02d4c965a2d9af68"
+      ],
       "blockedReason": "",
-      "status": "ready",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T16:10:09.721Z"
+      "updatedAt": "2026-08-24T12:57:44.476Z",
+      "note": "",
+      "completedAt": "2026-08-24T12:57:44.476Z"
     },
     {
       "id": "task.qa.wave15-campaign-map-redfirst",
@@ -3374,5 +3379,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-24T11:43:58.889Z"
+  "updatedAt": "2026-08-24T12:57:44.476Z"
 }
