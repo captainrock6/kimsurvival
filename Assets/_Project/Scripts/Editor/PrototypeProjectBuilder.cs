@@ -29,6 +29,11 @@ namespace KimSurvival.EditorTools
         public const string CompactPromptAssetId = "ui.camp-contextual-interaction.compact-a";
         public const string ExpeditionMapLayoutPath = "Assets/_Project/Art/Generated/ui_set/job_20260823150636_e3b39abc/candidate-a-right-rail-1280x800.png";
         public const string ExpeditionMapAssetId = "ui.expedition-map.right-rail-a";
+        public const string KimAtlasPath = "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png";
+        public const string WoodIconPath = "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png";
+        public const string StoneIconPath = "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png";
+        public const string FoodIconPath = "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png";
+        public const string SalvageIconPath = "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png";
         private const string DefaultVerificationFolder = "Artifacts/Verification";
 
         private static string VerificationFolder
@@ -64,6 +69,12 @@ namespace KimSurvival.EditorTools
                 LoadRequiredSprite(VineBarrierInteractablePath),
                 LoadRequiredSprite(VineBarrierClearedPath));
             prototype.ConfigureExpeditionMapArt(LoadRequiredSprite(ExpeditionMapLayoutPath));
+            prototype.ConfigureCharacterAndItemArt(
+                LoadRequiredSprite(KimAtlasPath),
+                LoadRequiredSprite(WoodIconPath),
+                LoadRequiredSprite(StoneIconPath),
+                LoadRequiredSprite(FoodIconPath),
+                LoadRequiredSprite(SalvageIconPath));
             EditorSceneManager.SaveScene(scene, ScenePath);
 
             EditorBuildSettings.scenes = new[]
@@ -93,6 +104,8 @@ namespace KimSurvival.EditorTools
                 "Layer order: background_opaque -> gameplay_ground_alpha -> foreground_alpha\n" +
                 "Canvas contract: 1672x941, walkable baseline top Y=721, signal anchor top Y=596\n" +
                 "Adopted camp structures: job_20260822130400_6d786a69\n" +
+                "Adopted Mr. Kim atlas: job_20260822085926_374033c5\n" +
+                "Adopted resource icons: job_20260822141317_caf8e11d\n" +
                 "Adopted vine barrier states: job_20260822234631_ac651d92\n" +
                 "Remaining placeholder asset IDs stay wired in KimSurvivalPrototype.cs\n");
             Debug.Log("[Kim Survival] Prototype scene created: " + ScenePath);

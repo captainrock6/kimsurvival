@@ -3372,11 +3372,14 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset ui.ending-gallery adopted via job_20260824133802_f43c6431"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-24T14:37:06.919Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "completedAt": "2026-08-24T14:37:06.919Z"
     },
     {
       "id": "task.system.system.ending-gallery",
@@ -3540,5 +3543,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-24T13:47:39.751Z"
+  "updatedAt": "2026-08-24T14:37:06.920Z"
 }

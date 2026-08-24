@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1390758421
+--- !u!1 &851953011
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,8 +127,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1390758423}
-  - component: {fileID: 1390758422}
+  - component: {fileID: 851953013}
+  - component: {fileID: 851953012}
   m_Layer: 0
   m_Name: "[BOOTSTRAP] \uAE40\uC528 \uC0DD\uC874\uAE30: \uBB34\uC778\uB3C4"
   m_TagString: Untagged
@@ -136,13 +136,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1390758422
+--- !u!114 &851953012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390758421}
+  m_GameObject: {fileID: 851953011}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c9d89b69c3da0c4bbe0c775043bf9e6, type: 3}
@@ -160,13 +160,18 @@ MonoBehaviour:
   vineBarrierInteractableSprite: {fileID: 21300000, guid: f91a7a81fecc6c042a6aa5c0b561d6e0, type: 3}
   vineBarrierClearedSprite: {fileID: 21300000, guid: e82d06cb4d931a94393ae1931b367daf, type: 3}
   expeditionMapLayoutSprite: {fileID: 21300000, guid: ae09637f2b24aa14295b1f9a5b4fde1c, type: 3}
---- !u!4 &1390758423
+  kimAtlasSprite: {fileID: 21300000, guid: cd48411681ba6264c9093f8b1cb1759a, type: 3}
+  woodIconSprite: {fileID: 21300000, guid: 5ba05e4e569ab6745bff72d0b9ba9151, type: 3}
+  stoneIconSprite: {fileID: 21300000, guid: c881b7198e647ad40b32c63ce18e27a2, type: 3}
+  foodIconSprite: {fileID: 21300000, guid: 59695c50812722b458c210b4cfb02c12, type: 3}
+  salvageIconSprite: {fileID: 21300000, guid: cb8829a17d9cc9049aa16fbf4393097a, type: 3}
+--- !u!4 &851953013
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390758421}
+  m_GameObject: {fileID: 851953011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -179,4 +184,4 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1390758423}
+  - {fileID: 851953013}

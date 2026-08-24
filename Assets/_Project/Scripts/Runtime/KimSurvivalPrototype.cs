@@ -77,6 +77,11 @@ namespace KimSurvival
         [SerializeField] private Sprite vineBarrierInteractableSprite;
         [SerializeField] private Sprite vineBarrierClearedSprite;
         [SerializeField] private Sprite expeditionMapLayoutSprite;
+        [SerializeField] private Sprite kimAtlasSprite;
+        [SerializeField] private Sprite woodIconSprite;
+        [SerializeField] private Sprite stoneIconSprite;
+        [SerializeField] private Sprite foodIconSprite;
+        [SerializeField] private Sprite salvageIconSprite;
 
         private sealed class NodeView
         {
@@ -117,6 +122,9 @@ namespace KimSurvival
         private Camera worldCamera;
         private Canvas canvas;
         private Sprite squareSprite;
+        private Sprite kimIdleSprite;
+        private Sprite kimWalkSprite;
+        private Sprite kimSwimSprite;
         private Transform worldRoot;
         private SpriteRenderer campBackgroundRenderer;
         private SpriteRenderer campGameplayGroundRenderer;
@@ -215,6 +223,7 @@ namespace KimSurvival
             }
             campPromptSkin = Resources.Load<PrototypeCampPromptSkin>(CampContextPromptSkinResource);
             squareSprite = MakeSquareSprite();
+            PrepareKimSprites();
             BuildCamera();
             BuildEventSystem();
             BuildUi();
@@ -291,8 +300,20 @@ namespace KimSurvival
             expeditionMapLayoutSprite = rightRailLayout;
         }
 
+        public void ConfigureCharacterAndItemArt(Sprite kimAtlas, Sprite wood, Sprite stone, Sprite food, Sprite salvage)
+        {
+            kimAtlasSprite = kimAtlas;
+            woodIconSprite = wood;
+            stoneIconSprite = stone;
+            foodIconSprite = food;
+            salvageIconSprite = salvage;
+        }
+
         private void OnDestroy()
         {
+            DestroyRuntimeSprite(kimIdleSprite);
+            DestroyRuntimeSprite(kimWalkSprite);
+            DestroyRuntimeSprite(kimSwimSprite);
             if (playtestLog != null)
             {
                 playtestLog.Dispose();
@@ -4085,6 +4106,10 @@ namespace KimSurvival
             Require(campfireSprite != null && workbenchSprite != null && rainCollectorSprite != null && rescueSignalSprite != null, "채택 구조물 패키지 4종 직렬화");
             Require(rescueSignalRenderer != null && rescueSignalRenderer.sprite == rescueSignalSprite, "고정 앵커 구조 신호대 아트 연결");
             Require(vineBarrierBlockedSprite != null && vineBarrierInteractableSprite != null && vineBarrierClearedSprite != null, "채택 덩굴·나무 장벽 3상태 직렬화");
+            Require(kimAtlasSprite != null && kimIdleSprite != null && kimWalkSprite != null && kimSwimSprite != null,
+                "채택 김씨 아틀라스의 대기·이동·수면 가독 포즈 런타임 연결");
+            Require(woodIconSprite != null && stoneIconSprite != null && foodIconSprite != null && salvageIconSprite != null,
+                "채택 자원 아이콘 4종 런타임 연결");
         }
 
         private void RequireExplorationBarrierArt()
@@ -4188,8 +4213,23 @@ namespace KimSurvival
             GameObject root = new GameObject((water ? "Water Search · " : "Gather · ") + kind);
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, water ? -1.72f : -2.25f, 0f);
-            GameObject marker = CreateRect(root.transform, "자원", Vector2.zero, new Vector2(0.95f, 0.95f), ResourceColor(kind, 1f), 4);
-            marker.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+            Sprite icon = GetResourceIconSprite(kind);
+            if (icon == null || icon.bounds.size.x <= 0f || icon.bounds.size.y <= 0f)
+            {
+                GameObject marker = CreateRect(root.transform, "자원 placeholder", Vector2.zero, new Vector2(0.95f, 0.95f), ResourceColor(kind, 1f), 4);
+                marker.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+            }
+            else
+            {
+                GameObject iconObject = new GameObject("채택 자원 아이콘 · " + AssetIcons + " · " + kind);
+                iconObject.transform.SetParent(root.transform, false);
+                SpriteRenderer iconRenderer = iconObject.AddComponent<SpriteRenderer>();
+                iconRenderer.sprite = icon;
+                iconRenderer.color = Color.white;
+                iconRenderer.sortingOrder = 4;
+                float iconScale = 1.15f / Mathf.Max(icon.bounds.size.x, icon.bounds.size.y);
+                iconObject.transform.localScale = new Vector3(iconScale, iconScale, 1f);
+            }
             float laneY = (water ? 1.18f : 1.25f) + (nodes.Count % 2) * 1.65f;
             SpriteRenderer labelBackground;
             TMP_Text label = CreateWorldBadge(
@@ -4488,8 +4528,20 @@ namespace KimSurvival
 
             GameObject visual = new GameObject("김씨 표현 · " + AssetSwim);
             visual.transform.SetParent(playerRoot, false);
-            bool placeholderPose = playerVisualPrefab == null;
-            if (placeholderPose)
+            bool adoptedKim = kimIdleSprite != null;
+            bool placeholderPose = !adoptedKim && playerVisualPrefab == null;
+            SpriteRenderer kimRenderer = null;
+            if (adoptedKim)
+            {
+                GameObject spriteObject = new GameObject("채택 김씨 스프라이트 · " + AssetKim);
+                spriteObject.transform.SetParent(visual.transform, false);
+                kimRenderer = spriteObject.AddComponent<SpriteRenderer>();
+                kimRenderer.sprite = kimIdleSprite;
+                kimRenderer.sortingOrder = 8;
+                float kimScale = 2.45f / Mathf.Max(0.01f, kimIdleSprite.bounds.size.y);
+                spriteObject.transform.localScale = new Vector3(kimScale, kimScale, 1f);
+            }
+            else if (placeholderPose)
             {
                 CreateRect(visual.transform, "몸", new Vector2(0f, 0.55f), new Vector2(0.85f, 1.35f), new Color(0.96f, 0.48f, 0.16f), 8);
                 CreateRect(visual.transform, "배낭", new Vector2(-0.46f, 0.52f), new Vector2(0.38f, 0.85f), new Color(0.22f, 0.36f, 0.27f), 7);
@@ -4503,6 +4555,10 @@ namespace KimSurvival
 
             playerPresentation = root.AddComponent<PrototypePlayerPresentation>();
             playerPresentation.Configure(visual.transform, placeholderPose);
+            if (kimRenderer != null)
+            {
+                playerPresentation.ConfigureSpriteStates(kimRenderer, kimIdleSprite, kimWalkSprite, kimSwimSprite);
+            }
             PrototypePlayerPresentationState initialPresentation = session.Phase == GamePhase.Exploring
                 ? playerTraversal.CurrentPresentation(session.IsSwimming)
                 : new PrototypePlayerPresentationState(position.x, position.y, 1f, 0f, false, true);
@@ -4884,6 +4940,60 @@ namespace KimSurvival
                     return new Color(0.95f, 0.57f, 0.16f, alpha);
                 default:
                     return Color.white;
+            }
+        }
+
+        private Sprite GetResourceIconSprite(ResourceKind kind)
+        {
+            switch (kind)
+            {
+                case ResourceKind.Wood:
+                    return woodIconSprite;
+                case ResourceKind.Stone:
+                    return stoneIconSprite;
+                case ResourceKind.Food:
+                    return foodIconSprite;
+                case ResourceKind.Salvage:
+                    return salvageIconSprite;
+                default:
+                    return null;
+            }
+        }
+
+        private void PrepareKimSprites()
+        {
+            if (kimAtlasSprite == null || kimAtlasSprite.texture == null)
+            {
+                return;
+            }
+
+            Rect source = kimAtlasSprite.rect;
+            float cellWidth = source.width / 4f;
+            float cellHeight = source.height / 2f;
+            float topRowY = source.y + cellHeight;
+            kimIdleSprite = CreateKimAtlasCell(source.x, topRowY, cellWidth, cellHeight, "kim-idle-adopted");
+            kimWalkSprite = CreateKimAtlasCell(source.x + cellWidth, topRowY, cellWidth, cellHeight, "kim-walk-adopted");
+            kimSwimSprite = CreateKimAtlasCell(source.x + cellWidth * 2f, topRowY, cellWidth, cellHeight, "kim-swim-readable-adopted");
+        }
+
+        private Sprite CreateKimAtlasCell(float x, float y, float width, float height, string spriteName)
+        {
+            Sprite sprite = Sprite.Create(
+                kimAtlasSprite.texture,
+                new Rect(x, y, width, height),
+                new Vector2(0.5f, 0.055f),
+                128f,
+                0u,
+                SpriteMeshType.FullRect);
+            sprite.name = spriteName;
+            return sprite;
+        }
+
+        private static void DestroyRuntimeSprite(Sprite sprite)
+        {
+            if (sprite != null)
+            {
+                Destroy(sprite);
             }
         }
 

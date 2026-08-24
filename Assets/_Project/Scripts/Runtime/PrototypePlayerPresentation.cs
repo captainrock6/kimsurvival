@@ -11,6 +11,10 @@ namespace KimSurvival
         private Transform visualRoot;
         private Transform swimWakeRoot;
         private Animator animator;
+        private SpriteRenderer stateRenderer;
+        private Sprite idleSprite;
+        private Sprite walkSprite;
+        private Sprite swimSprite;
         private Vector3 baseScale = Vector3.one;
         private Quaternion baseRotation = Quaternion.identity;
         private bool usePlaceholderPose;
@@ -31,6 +35,14 @@ namespace KimSurvival
         public void SetSwimWake(Transform wakeRoot)
         {
             swimWakeRoot = wakeRoot;
+        }
+
+        public void ConfigureSpriteStates(SpriteRenderer renderer, Sprite idle, Sprite walk, Sprite swim)
+        {
+            stateRenderer = renderer;
+            idleSprite = idle;
+            walkSprite = walk != null ? walk : idle;
+            swimSprite = swim != null ? swim : idle;
         }
 
         public void Apply(PrototypePlayerPresentationState state)
@@ -67,6 +79,13 @@ namespace KimSurvival
                 {
                     animator.SetBool(GroundedParameter, state.IsGrounded);
                 }
+            }
+
+            else if (stateRenderer != null)
+            {
+                stateRenderer.sprite = state.IsSwimming
+                    ? swimSprite
+                    : state.MoveAmount > 0.05f ? walkSprite : idleSprite;
             }
 
             if (swimWakeRoot != null)

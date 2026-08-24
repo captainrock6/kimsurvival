@@ -1230,6 +1230,13 @@ namespace KimSurvival
                 selectedTriptych ? new Vector2(0.065f, 0.835f) : new Vector2(0.04f, 0.84f),
                 selectedTriptych ? new Vector2(0.72f, 0.955f) : new Vector2(0.96f, 0.965f),
                 30, TextAlignmentOptions.Center);
+            if (selectedTriptych)
+            {
+                endingTitle.enableAutoSizing = true;
+                endingTitle.fontSizeMin = 18f;
+                endingTitle.fontSizeMax = 30f;
+                endingTitle.overflowMode = TextOverflowModes.Ellipsis;
+            }
             for (int index = 0; index < 3; index += 1)
             {
                 float minimum = selectedTriptych
@@ -1256,14 +1263,15 @@ namespace KimSurvival
                     panelOutline.effectDistance = new Vector2(2f, -2f);
                 }
                 Vector2 copyMin = selectedTriptych ? new Vector2(0.04f, 0.02f) : new Vector2(0.07f, 0.09f);
-                Vector2 copyMax = selectedTriptych ? new Vector2(0.96f, 0.24f) : new Vector2(0.93f, 0.91f);
-                endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, copyMin, copyMax, 22, TextAlignmentOptions.Center);
+                Vector2 copyMax = selectedTriptych ? new Vector2(0.96f, 0.34f) : new Vector2(0.93f, 0.91f);
+                endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, copyMin, copyMax, selectedTriptych ? 18 : 22, TextAlignmentOptions.Center);
                 if (selectedTriptych)
                 {
                     endingContents[index].enableAutoSizing = true;
                     endingContents[index].fontSizeMin = 18f;
-                    endingContents[index].fontSizeMax = 22f;
+                    endingContents[index].fontSizeMax = 18f;
                     endingContents[index].maxVisibleLines = 3;
+                    endingContents[index].overflowMode = TextOverflowModes.Ellipsis;
                     endingContents[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
                 }
             }
