@@ -361,7 +361,7 @@ namespace ParallelQA
 
         private static string BuildFolder
         {
-            get { return Path.Combine(WorkFolder, "WindowsBuild"); }
+            get { return Path.Combine(ProjectRoot, "work", "ParallelQA", "StableWindowsBuild"); }
         }
 
         public static void RunAssetContracts()
@@ -447,6 +447,10 @@ namespace ParallelQA
         {
             DateTime started = DateTime.UtcNow;
             Directory.CreateDirectory(EvidenceFolder);
+            if (Directory.Exists(BuildFolder))
+            {
+                Directory.Delete(BuildFolder, true);
+            }
             Directory.CreateDirectory(BuildFolder);
             PreflightReport preflight = ReadJson<PreflightReport>(Path.Combine(EvidenceFolder, "wave5-preflight.json"));
             AddressSnapshot before = CaptureAddressSnapshot();
@@ -456,7 +460,7 @@ namespace ParallelQA
                 scenes = new[] { ScenePath },
                 locationPathName = executable,
                 target = BuildTarget.StandaloneWindows64,
-                options = BuildOptions.Development | BuildOptions.AllowDebugging
+                options = BuildOptions.Development
             };
 
             BuildReport report = BuildPipeline.BuildPlayer(options);
@@ -500,7 +504,7 @@ namespace ParallelQA
                 completedUtc = DateTime.UtcNow.ToString("O"),
                 command = CommandLine(),
                 target = "StandaloneWindows64",
-                options = "Development, AllowDebugging",
+                options = "Development",
                 result = summary.result.ToString(),
                 totalSizeBytes = summary.totalSize,
                 durationSeconds = summary.totalTime.TotalSeconds,
@@ -973,6 +977,7 @@ namespace ParallelQA
             text.AppendLine("Baseline: " + evidence.baselineCommit);
             text.AppendLine("Unity: " + evidence.unityVersion);
             text.AppendLine("Command: " + evidence.command);
+            text.AppendLine("Build options: " + evidence.options);
             text.AppendLine("Result: " + evidence.result);
             text.AppendLine("Errors: " + evidence.errors);
             text.AppendLine("Warnings: " + evidence.warnings);

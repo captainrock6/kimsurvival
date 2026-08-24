@@ -1,0 +1,20 @@
+{
+    "schemaVersion":  1,
+    "observedUtc":  "2026-08-24T13:50:35.1282285Z",
+    "overall":  "PASS",
+    "rules":  [
+                  {
+                      "displayName":  "Kim Survival QA Player - Block Inbound 165FBE1AE6FC",
+                      "ruleName":  "KimSurvivalQaBlock-165FBE1AE6FC",
+                      "program":  "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+                      "direction":  "Inbound",
+                      "action":  "Block",
+                      "profiles":  "Any",
+                      "observedEnabled":  "True",
+                      "observedDirection":  "Inbound",
+                      "observedAction":  "Block",
+                      "observedProgram":  "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+                      "status":  "PASS"
+                  }
+              ]
+}
