@@ -68,7 +68,7 @@
       "사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다.",
       "Wave 15 콘텐츠 매트릭스의 준비 일수, 위험 예산, pity 횟수와 행동 점수 임계값은 구현 smoke용 SAMPLE_ONLY이며 사용자 플레이테스트 전 정식 50일 밸런스로 잠그지 않는다."
     ],
-    "updatedAt": "2026-08-24T13:45:51.245Z",
+    "updatedAt": "2026-08-24T15:31:50.791Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -3222,6 +3222,325 @@
         "Raft, flare and beacon remain data-only and are not claimed as playable PASS.",
         "Six first-user sessions remain UNRUN; physical gamepad and Steam remain UNVERIFIED."
       ]
+    },
+    "resourceIntegratedFirstUserPlaytestContract": {
+      "schemaVersion": 1,
+      "contractId": "playtest.wave19.resource-integrated-first-user.v1",
+      "sourceBaseline": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+      "humanDocument": "Docs/Design/Playtest/wave19-resource-integrated-first-user-playtest.md",
+      "machinePacket": ".forge/packets/wave19-resource-playtest-contract.json",
+      "automationEvidence": "Artifacts/Verification/resource-integrated-playtest/README.md",
+      "status": "READY_TO_RUN_HUMAN_RESULT_UNRUN",
+      "session": {
+        "playMinutesMinimum": 30,
+        "playMinutesMaximum": 45,
+        "observationDayBand": {
+          "start": 1,
+          "end": 10,
+          "day10Required": false
+        },
+        "freshSave": true,
+        "allowedInput": "keyboard_mouse",
+        "forbiddenAssist": [
+          "grant",
+          "warp",
+          "day_skip",
+          "save_edit",
+          "invulnerability",
+          "solution_hint"
+        ],
+        "earlyStop": [
+          "valid_terminal",
+          "participant_stop",
+          "P0",
+          "45_minutes"
+        ]
+      },
+      "buildIdentity": {
+        "executable": "KimSurvivalIsland.exe",
+        "sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+        "window": "1280x800_windowed",
+        "productGate": "23_OF_23_PASS",
+        "qpsLongGate": "10_OF_10_PASS",
+        "physicalGamepad": "UNVERIFIED",
+        "steamworks": "NOT_READY"
+      },
+      "exposureTiers": {
+        "playable": [
+          "camp.direct-proximity-interaction",
+          "placement.limited-free",
+          "placement.fixed-anchor-exception",
+          "region.catalog-and-starting-map",
+          "swimming",
+          "bag.capacity.4-to-6",
+          "escape.smoke",
+          "escape.radio",
+          "ending.sample-resolution"
+        ],
+        "catalogOrConditional": [
+          "campaign.day50-default",
+          "region.six-profiles",
+          "hazard.seven-catalog",
+          "ending.nineteen-catalog"
+        ],
+        "dataOnly": [
+          "escape.raft",
+          "escape.flare",
+          "escape.beacon"
+        ],
+        "notProvenOrFuture": [
+          "ending.gallery-navigation",
+          "steam.achievement-runtime",
+          "physical-gamepad"
+        ]
+      },
+      "fixedCatalogs": {
+        "regions": [
+          "region.coast.beach",
+          "region.forest.grove",
+          "region.sea.shallows",
+          "region.ridge.highland",
+          "region.cove.wreck",
+          "region.ruins.relay"
+        ],
+        "regionComparisonDimensions": [
+          "resource_abundance",
+          "hazard",
+          "weather",
+          "equipment",
+          "special_discovery"
+        ],
+        "escapeMethods": [
+          "escape.raft",
+          "escape.smoke",
+          "escape.radio",
+          "escape.flare",
+          "escape.beacon"
+        ],
+        "playableEscapeMethods": [
+          "escape.smoke",
+          "escape.radio"
+        ],
+        "dataOnlyEscapeMethods": [
+          "escape.raft",
+          "escape.flare",
+          "escape.beacon"
+        ],
+        "hazards": [
+          "hazard.hunger",
+          "hazard.disease",
+          "hazard.injury",
+          "hazard.disaster",
+          "hazard.wildlife",
+          "hazard.food-theft",
+          "hazard.camp-damage"
+        ],
+        "minimumEndingCount": 19,
+        "defaultDeadlineDay": 50,
+        "earlyEscapeAllowedBeforeDeadline": true,
+        "bag": {
+          "initialSlots": 4,
+          "upgradedSlots": 6,
+          "stackPerSlot": 2,
+          "upgradeCountPerRun": 1
+        }
+      },
+      "manualMetrics": [
+        {
+          "key": "first.move_s",
+          "passMaximum": 60
+        },
+        {
+          "key": "first.camp_proximity_s",
+          "passMaximum": 120
+        },
+        {
+          "key": "first.camp_popup_s",
+          "passMaximum": 180
+        },
+        {
+          "key": "map.first_open_s",
+          "passMaximum": 480
+        },
+        {
+          "key": "expedition.first_start_s",
+          "passMaximum": 720
+        },
+        {
+          "key": "expedition.first_return_s",
+          "passMaximum": 1200
+        },
+        {
+          "key": "expedition.completed_count_by_40m",
+          "passMinimum": 2,
+          "alternatePass": "valid_terminal"
+        },
+        {
+          "key": "map.compared_region_count",
+          "passMinimum": 2
+        },
+        {
+          "key": "map.used_dimension_count",
+          "passMinimum": 2
+        },
+        {
+          "key": "camp.growth_action_by_30m",
+          "passMinimum": 1
+        },
+        {
+          "key": "expedition.unique_region_count",
+          "targetMinimum": 2
+        }
+      ],
+      "conditionalMetrics": [
+        "placement.general.preview-confirm-relocate-use",
+        "placement.fixed-anchor.reason-understood",
+        "bag.full-replace-upgrade-or-decline-reason",
+        "swim.enter-exit-and-cost-understood",
+        "hazard.telegraph-response-recovery",
+        "escape.day50-and-five-method-exposure",
+        "escape.smoke-radio-distinct-interaction",
+        "ending.behavior-reason-understood",
+        "ending.album-surface-if-present"
+      ],
+      "observationStates": [
+        "PASS",
+        "FAIL",
+        "NOT_OBSERVED",
+        "NOT_EXPOSED_CURRENT_BUILD",
+        "EVIDENCE_INVALID"
+      ],
+      "sessionCorePass": [
+        "All timed core thresholds pass.",
+        "Two complete expedition-return loops by 40 minutes or one earlier valid terminal.",
+        "At least two region comparison dimensions are used.",
+        "If both placement types are exposed, limited-free and fixed-anchor rules are not reversed.",
+        "No P0, debug assistance or solution hint contamination."
+      ],
+      "blockerTaxonomy": {
+        "P0": [
+          "crash",
+          "input_loss",
+          "unescapable_softlock_over_60s",
+          "day51_reached",
+          "duplicate_spend_or_loss",
+          "cancel_or_failure_deletes_completed_stage",
+          "duplicate_terminal_unlock"
+        ],
+        "P1_DISCOVERY": [
+          "map_not_found_by_8m",
+          "direct_camp_path_not_understood",
+          "free_and_anchor_placement_reversed",
+          "region_dimensions_unreadable",
+          "swim_cost_not_visible"
+        ],
+        "P1_ECONOMY": [
+          "discovery_passed_but_all_growth_blocked_after_two_correct_loops",
+          "bag_escape_deadlock",
+          "no_recovery_choice_hunger_chain"
+        ],
+        "P1_LOCALE": [
+          "ko_en_state_or_cost_meaning_diverges",
+          "glyph_or_long_text_blocks_action"
+        ],
+        "P2": [
+          "nonblocking_copy_confusion",
+          "repetition_fatigue",
+          "comedy_delays_state_reading"
+        ]
+      },
+      "stableEventNames": [
+        "session.started",
+        "day.changed",
+        "day.survived",
+        "phase.changed",
+        "resource.changed",
+        "facility.proximity.entered",
+        "facility.proximity.exited",
+        "facility.popup.opened",
+        "facility.popup.closed",
+        "facility.action.completed",
+        "facility.action.rejected",
+        "crafting.completed",
+        "research.completed",
+        "bag.capacity.upgraded",
+        "swimming.entered",
+        "swimming.exited",
+        "vine_barrier.blocked",
+        "vine_barrier.cleared",
+        "expedition.region.selected",
+        "expedition.started",
+        "expedition.result.resolved",
+        "hazard.telegraphed",
+        "hazard.occurred",
+        "hazard.mitigated",
+        "hazard.recovered",
+        "escape.project-progressed",
+        "escape.completed",
+        "ending.resolved",
+        "run.completed"
+      ],
+      "privacy": {
+        "rawLogCommitAllowed": false,
+        "aggregateOnly": true,
+        "forbiddenFields": [
+          "name",
+          "account",
+          "ip",
+          "device_id",
+          "free_text",
+          "raw_input",
+          "position_trace"
+        ]
+      },
+      "locales": {
+        "ko": "PRIMARY_MEANING_AND_COMEDY_SOURCE",
+        "en": "FIRST_SUPPORTED_LANGUAGE_SEPARATE_FIRST_USER_SESSION",
+        "qps-long": "QA_ONLY_NOT_A_HUMAN_MEANING_SAMPLE",
+        "officialEnglishTitle": "TBD"
+      },
+      "postQuestionKeys": [
+        "pt.wave19.q01.goal",
+        "pt.wave19.q02.region-choice",
+        "pt.wave19.q03.camp-space",
+        "pt.wave19.q04.bag-swim",
+        "pt.wave19.q05.hazard",
+        "pt.wave19.q06.escape",
+        "pt.wave19.q07.ending"
+      ],
+      "ratingKeys": [
+        "loop_clarity",
+        "region_choice_tension",
+        "hazard_fairness",
+        "repetition_fatigue",
+        "comedy_fit",
+        "replay_intent",
+        "concept_ending_album_steam_motivation"
+      ],
+      "decisionRules": {
+        "singleOwnerSession": "HYPOTHESIS_ONLY_EXCEPT_P0_STOP",
+        "keepCore": "At least 2 of 3 valid first users pass SESSION_CORE_PASS with no shared P0.",
+        "keepProvisional": "At least 2 of 3 naturally use the optional feature and rate meaning/value at least 4.",
+        "fixDiscoveryFirst": "Automation reachability passes but at least 2 of 3 users miss or misunderstand; change one information axis before tuning economy.",
+        "deferFromFirstUserSlice": "After one discovery revision, at most 1 of 3 new users use it or median value is at most 2; preserve campaign data and stable IDs.",
+        "openOneAxisTune": "At least 3 valid users pass discovery and locale yet share the same resource or pressure blocker.",
+        "promoteSampleOnly": "Requires the Wave 17 KO3/EN3 evidence set plus natural long-run evidence and separate approval.",
+        "cutCandidateOrder": [
+          "ending_album_and_future_steam_motivation_day1_10_surface",
+          "data_only_escape_preview_from_immediate_action_list",
+          "room_module_expansion_before_two_core_loops"
+        ],
+        "neverCutFromOneSession": [
+          "direct_camp_movement",
+          "region_comparison",
+          "search_return_loop",
+          "swimming_region_difference",
+          "bag_4_to_6_choice",
+          "survival_hazards",
+          "day50_and_early_escape_contract"
+        ]
+      },
+      "resultStatus": "GO_MORE_EVIDENCE"
     }
   },
   "features": [
@@ -5015,5 +5334,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-24T13:45:51.244Z"
+  "updatedAt": "2026-08-24T15:31:50.790Z"
 }

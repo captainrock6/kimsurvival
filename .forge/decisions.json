@@ -343,7 +343,35 @@
       "rationale": "자동화 결과와 실제 사용자 관찰을 섞거나 수행하지 않은 결과를 꾸며내지 않는다.",
       "source": "wave18-design-contract",
       "createdAt": "2026-08-24T13:45:51.244Z"
+    },
+    {
+      "id": "decision.wave19-playable-and-data-only-evidence-separated",
+      "summary": "현재 첫 사용자 세션에서 연기·무전만 직접 플레이 판정하고 뗏목·조명탄·고지대 신호는 5종 catalog 이해와 data-only 상태만 판정한다.",
+      "rationale": "자동 데이터 GREEN을 구현되지 않은 자연 상호작용 PASS로 과장하지 않는다.",
+      "source": "wave19-resource-playtest-contract",
+      "createdAt": "2026-08-24T15:31:50.790Z"
+    },
+    {
+      "id": "decision.wave19-day1-10-is-observation-band-not-required-arrival",
+      "summary": "30~45분 세션은 Day 1~10 자연 경로를 관찰하되 Day 10 도달을 강제하지 않는다.",
+      "rationale": "첫 사용자 페이스를 보존하고 날짜 도달을 위해 debug나 유도 행동을 쓰지 않는다.",
+      "source": "wave19-resource-playtest-contract",
+      "createdAt": "2026-08-24T15:31:50.790Z"
+    },
+    {
+      "id": "decision.wave19-one-owner-session-cannot-cut-or-rebalance",
+      "summary": "단일 owner 세션은 P0 중단을 제외하면 가설만 만들며 밸런스 변경·catalog 삭제·SAMPLE_ONLY 승격을 승인하지 않는다.",
+      "rationale": "발견성 문제와 경제 문제를 분리하고 작은 표본에 대한 과잉 반응을 막는다.",
+      "source": "wave19-resource-playtest-contract",
+      "createdAt": "2026-08-24T15:31:50.790Z"
+    },
+    {
+      "id": "decision.wave19-locale-and-steam-evidence-boundaries",
+      "summary": "KO와 EN은 별도 첫 사용자 세션으로 보고 qps-long은 QA 전용, 앨범·Steam 업적 질문은 현재 구현 PASS가 아닌 개념 동기로만 기록한다.",
+      "rationale": "언어 표본 오염과 미구현 Steamworks·앨범 기능의 허위 PASS를 방지한다.",
+      "source": "wave19-resource-playtest-contract",
+      "createdAt": "2026-08-24T15:31:50.790Z"
     }
   ],
-  "updatedAt": "2026-08-24T13:45:51.244Z"
+  "updatedAt": "2026-08-24T15:31:50.790Z"
 }
