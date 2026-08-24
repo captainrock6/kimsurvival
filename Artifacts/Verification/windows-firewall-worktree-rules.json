@@ -1,32 +1,19 @@
 {
     "schemaVersion":  1,
-    "observedUtc":  "2026-08-24T13:51:04.4878102Z",
+    "observedUtc":  "2026-08-24T15:05:35.3218395Z",
     "overall":  "PASS",
     "rules":  [
                   {
-                      "displayName":  "Kim Survival QA Player - Block Inbound E68E1B5A3F56",
-                      "ruleName":  "KimSurvivalQaBlock-E68E1B5A3F56",
-                      "program":  "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+                      "displayName":  "Kim Survival QA Player - Block Inbound 165FBE1AE6FC",
+                      "ruleName":  "KimSurvivalQaBlock-165FBE1AE6FC",
+                      "program":  "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
                       "direction":  "Inbound",
                       "action":  "Block",
                       "profiles":  "Any",
                       "observedEnabled":  "True",
                       "observedDirection":  "Inbound",
                       "observedAction":  "Block",
-                      "observedProgram":  "C:\\Users\\dev\\.codex\\worktrees\\2266\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
-                      "status":  "PASS"
-                  },
-                  {
-                      "displayName":  "Kim Survival QA Player - Block Inbound 285F1427D754",
-                      "ruleName":  "KimSurvivalQaBlock-285F1427D754",
-                      "program":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
-                      "direction":  "Inbound",
-                      "action":  "Block",
-                      "profiles":  "Any",
-                      "observedEnabled":  "True",
-                      "observedDirection":  "Inbound",
-                      "observedAction":  "Block",
-                      "observedProgram":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+                      "observedProgram":  "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
                       "status":  "PASS"
                   }
               ]
