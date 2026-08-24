@@ -1,0 +1,715 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "greenTransitionContract": {
+      "schemaVersion": 1,
+      "contractId": "implementation.wave18.green-transition.v1",
+      "sourceBaseline": "fac8545148e1422fc6258f57cab2205cbb4596a9",
+      "humanDocument": "Docs/Design/wave18-green-transition-contract.md",
+      "machinePacket": ".forge/packets/wave18-green-transition-contract.json",
+      "redEvidence": "Artifacts/ParallelQA/20260824T_wave17_integrated_d3e71f3_full/wave17-summary.json",
+      "dependsOn": [
+        "campaign.wave15.escape-hazard-ending-matrix.v1",
+        "campaign.wave16.fifty-day-pacing.v1",
+        "playtest.wave17.natural-fifty-day.v1"
+      ],
+      "status": "DESIGN_COMPLETE_IMPLEMENTATION_AND_LIVE_QA_PENDING",
+      "fixedCatalogCounts": {
+        "escapeMethods": 5,
+        "regions": 6,
+        "hazards": 7,
+        "endings": 19
+      },
+      "fixedRules": [
+        "Day 50 is the default terminal deadline and Day 51 is unreachable.",
+        "A fulfilled escape completes immediately on any day and outranks Day 50 settlement.",
+        "Only completed eligible searches in a listed primary or alternative region increment key-part pity.",
+        "Every softlock audit point retains at least three completable escape method IDs.",
+        "A major hazard reserves the next day recovery budget and forbids a same-family new major.",
+        "Protected key parts and completed escape stages survive theft, damage, retry and recovery.",
+        "Smoke and radio use distinct direct world interactions and never a shared global completion shortcut.",
+        "Ending priority, tie-break and hysteresis prevent one final two-point action from replacing an established identity.",
+        "Structured logs contain no name, account, IP, device ID, raw input, position trace or free text."
+      ],
+      "sampleOnlyStatus": "ALL_WAVE16_TUNABLE_VALUES_REMAIN_SAMPLE_ONLY_NOT_FINAL_BALANCE",
+      "humanSessionStatus": "SIX_FIRST_USER_SESSIONS_UNRUN",
+      "physicalGamepadStatus": "UNVERIFIED",
+      "steamStatus": "UNVERIFIED_OUT_OF_SCOPE",
+      "commonProbeContract": {
+        "publicProbeIdRule": "Use the exact existing W17 gate ID; no synonym probe IDs.",
+        "schemaVersion": 1,
+        "inputFields": [
+          "probeId",
+          "schemaVersion",
+          "runSeed",
+          "day",
+          "worldStateHashBefore",
+          "stableEntityIds"
+        ],
+        "outputFields": [
+          "success",
+          "resultCode",
+          "stableEntityIds",
+          "worldStateHashAfter",
+          "mutationApplied"
+        ],
+        "determinism": "Same runSeed, day, world state and input produce the same stable-ID ordered result.",
+        "naturalPath": {
+          "freshSave": true,
+          "grantAllowed": false,
+          "warpAllowed": false,
+          "daySkipAllowed": false,
+          "saveEditingAllowed": false,
+          "invulnerabilityAllowed": false,
+          "requiresRealInteractionSurface": true
+        },
+        "privacyAllowedFields": [
+          "runSeed",
+          "day",
+          "pacingBandId",
+          "eventId",
+          "stableEntityId",
+          "resultCode",
+          "elapsedSegmentMs",
+          "declaredNumericOrBooleanProbeFields"
+        ],
+        "privacyForbiddenFields": [
+          "name",
+          "account",
+          "ip",
+          "deviceId",
+          "freeText",
+          "rawInput",
+          "positionTrace"
+        ]
+      },
+      "localizationTemplates": [
+        {
+          "key": "ui.pacing.day-band",
+          "ko": "Day {day}/50 · {bandName}",
+          "en": "Day {day}/50 · {bandName}"
+        },
+        {
+          "key": "ui.region.lock-reason",
+          "ko": "잠김: {reason} · 다른 길: {alternative}",
+          "en": "Locked: {reason} · Alternate: {alternative}"
+        },
+        {
+          "key": "ui.key-part.pity-hint",
+          "ko": "단서 발견: {sourceRegion}",
+          "en": "Clue found: {sourceRegion}"
+        },
+        {
+          "key": "ui.hazard.telegraph",
+          "ko": "{hazardName} 예고 · 대상 {target} · 대비 {mitigation}",
+          "en": "{hazardName} forecast · Target {target} · Prepare {mitigation}"
+        },
+        {
+          "key": "ui.hazard.recovery",
+          "ko": "회복 가능: {recoveryAction}",
+          "en": "Recovery available: {recoveryAction}"
+        },
+        {
+          "key": "ui.escape.project-action",
+          "ko": "{projectName}: {action}",
+          "en": "{projectName}: {action}"
+        },
+        {
+          "key": "ui.escape.ready",
+          "ko": "탈출 준비 완료",
+          "en": "Escape ready"
+        },
+        {
+          "key": "ui.ending.reason",
+          "ko": "결말: {endingTitle} · 근거 {reason}",
+          "en": "Ending: {endingTitle} · Reason {reason}"
+        }
+      ],
+      "gateItems": [
+        {
+          "gateId": "W17-T01.day_band_boundaries",
+          "priority": "P0",
+          "playerContract": "Show the current one of five day bands; Day 49 settlement continues to Day 50 and Day 50 settlement terminates without Day 51.",
+          "publicContract": {
+            "stableIds": [
+              "pacing.band.onboarding",
+              "pacing.band.expansion",
+              "pacing.band.compound-choice",
+              "pacing.band.finish-pressure",
+              "pacing.band.resolution"
+            ],
+            "probeId": "W17-T01.day_band_boundaries",
+            "inputs": {
+              "days": [1, 10, 11, 20, 21, 35, 36, 49, 50]
+            },
+            "expected": "Exact start/end enumeration, day49=continue, day50=day50_settlement, day51 unreachable."
+          },
+          "naturalAcceptance": "Use real settlement input on a fresh run to continue Day 49 and terminate Day 50.",
+          "atomicity": "Band lookup is read-only; failed or cancelled settlement changes nothing; retry cannot increment the day twice.",
+          "koEnOrLog": "Display ui.pacing.day-band; log pacing.band.entered with day, pacingBandId and resultCode.",
+          "sampleBoundary": "Band boundaries and Day 50 terminal are fixed; per-band hazard budgets and forecast modifiers remain SAMPLE_ONLY."
+        },
+        {
+          "gateId": "W17-T02.early_escape_no_hardlock",
+          "priority": "P0",
+          "playerContract": "A player with a fulfilled escape project can complete it immediately on any day through the project interaction.",
+          "publicContract": {
+            "stableIds": [
+              "escape.raft",
+              "escape.smoke",
+              "escape.radio",
+              "escape.flare",
+              "escape.beacon"
+            ],
+            "probeId": "W17-T02.early_escape_no_hardlock",
+            "inputs": {
+              "boundaryDays": [1, 10, 11, 20, 21, 35, 36, 49, 50],
+              "projectState": "fulfilled"
+            },
+            "expected": "escape_complete on every boundary and escape priority over day50_settlement."
+          },
+          "naturalAcceptance": "Complete smoke and radio requirements through fresh no-grant no-warp routes and invoke their real completion interactions.",
+          "atomicity": "Cancel or failure preserves costs, stages and terminal state; retry returns the same ending without duplicate spend, log or panel unlock.",
+          "koEnOrLog": "Display ui.escape.ready; log escape.completed with escapeMethodId, day and resultCode=escape_complete.",
+          "sampleBoundary": "Preparation time and costs remain SAMPLE_ONLY; no date hard lock on a fulfilled escape is fixed."
+        },
+        {
+          "gateId": "W17-R01.six_region_primary_alternative",
+          "priority": "P0",
+          "playerContract": "Preview all three starting and three expansion regions; each locked expansion region shows one prioritized lock reason and an alternate route.",
+          "publicContract": {
+            "stableIds": [
+              "region.coast.beach",
+              "region.forest.grove",
+              "region.sea.shallows",
+              "region.ridge.highland",
+              "region.cove.wreck",
+              "region.ruins.relay"
+            ],
+            "probeId": "W17-R01.six_region_primary_alternative",
+            "inputs": {
+              "expansionRegionIds": [
+                "region.ridge.highland",
+                "region.cove.wreck",
+                "region.ruins.relay"
+              ],
+              "unlockRouteIds": ["primary", "alternative"]
+            },
+            "expected": "Exactly six profiles; either independent route unlocks the same region and unresolved state returns one lockReasonCode."
+          },
+          "naturalAcceptance": "Unlock one primary and one alternative expansion route through actual return, research, equipment and discovery state without a recommended-band date gate.",
+          "atomicity": "Preview and cancel change nothing; confirm writes one regionUnlockId; failure and retry cannot duplicate reward or score.",
+          "koEnOrLog": "Display ui.region.lock-reason; log region.previewed/unlocked with regionId, unlockRouteId and lockReasonCode.",
+          "sampleBoundary": "Requirement counts, travel bands and forecast shifts remain SAMPLE_ONLY; six IDs, two independent routes and no day hard gate are fixed."
+        },
+        {
+          "gateId": "W17-R02.seed_forecast_hazard_pity_determinism",
+          "priority": "P0",
+          "playerContract": "The same seed, day and committed state preserve map forecast, hazard forecast, unlock and pity clue across reload.",
+          "publicContract": {
+            "stableIds": [
+              "resource.forecast.shown",
+              "hazard.telegraphed",
+              "region.unlocked",
+              "key-part.pity-hint"
+            ],
+            "probeId": "W17-R02.seed_forecast_hazard_pity_determinism",
+            "inputs": {
+              "sameSnapshotRuns": 2,
+              "differentSeedRuns": 1
+            },
+            "expected": "Same seed produces identical ordered forecastIds, hazardIds, unlockIds, pityCounters and hash; another seed remains inside catalogs and invariants."
+          },
+          "naturalAcceptance": "Run map-search-return on two fresh saves with the same seed and actions, then one valid different seed.",
+          "atomicity": "Read probe, preview, locale/input switch and reload do not consume RNG; only a committed event advances its declared stream once.",
+          "koEnOrLog": "KO and EN show identical abundance, risk and lock meaning; log only runSeed, day, stable IDs and result codes.",
+          "sampleBoundary": "Probabilities, abundance shifts and hazard frequency remain SAMPLE_ONLY; deterministic inputs and catalog bounds are fixed."
+        },
+        {
+          "gateId": "W17-R03.eligible_search_hint3_guarantee5",
+          "priority": "P0",
+          "playerContract": "After three missing eligible searches the player sees a source clue; after five misses the next eligible result grants the missing protected part.",
+          "publicContract": {
+            "stableIds": [
+              "key-part.pity-hint",
+              "key-part.pity-guaranteed"
+            ],
+            "probeId": "W17-R03.eligible_search_hint3_guarantee5",
+            "inputs": {
+              "cases": [
+                "eligible-complete",
+                "cancelled",
+                "failed",
+                "unrelated",
+                "duplicate",
+                "hint-3",
+                "miss-5",
+                "next-guarantee"
+              ]
+            },
+            "expected": "Only completed eligible increments; hint at 3; after miss 5 the next eligible places the part before optional loot."
+          },
+          "naturalAcceptance": "Select, search and return from listed primary or alternative regions through real interactions; date and noneligible repeats cannot create the hint or guarantee.",
+          "atomicity": "Cancel, fail, unrelated and duplicate keep the counter and loot unchanged; guarantee commits with inventory capacity or not at all and retry cannot duplicate the part.",
+          "koEnOrLog": "Display ui.key-part.pity-hint; log keyPartId, eligibleSearchCount and sourceRegionId on hint/guarantee events.",
+          "sampleBoundary": "Thresholds 3 and 5 remain SAMPLE_ONLY; eligibility semantics, part-first guarantee and non-counted cases are fixed."
+        },
+        {
+          "gateId": "W17-R04.minimum_three_completable_paths",
+          "priority": "P0",
+          "playerContract": "The player chooses one route, but a seed cannot reduce technically completable escape routes below three; audit internals remain hidden.",
+          "publicContract": {
+            "stableIds": [
+              "seed_generation",
+              "expansion_region_unlock",
+              "day_35_settlement",
+              "day_49_settlement"
+            ],
+            "probeId": "W17-R04.minimum_three_completable_paths",
+            "inputs": {
+              "escapeMethodIds": [
+                "escape.raft",
+                "escape.smoke",
+                "escape.radio",
+                "escape.flare",
+                "escape.beacon"
+              ],
+              "minimumCompletable": 3
+            },
+            "expected": "At every audit point return at least three stable-ID-sorted completableEscapeIds."
+          },
+          "naturalAcceptance": "Capture actual fresh-run state at all four audit points and distinguish route refusal from technical softlock.",
+          "atomicity": "Audit read is immutable; repair rerolls only unowned key-part placement atomically before exposure or inside unlock, preserving resources, actions and owned parts; retry is identical.",
+          "koEnOrLog": "Do not expose hidden placement; log auditPoint, resultCode and completableEscapeIds without free text.",
+          "sampleBoundary": "Four audit points and minimum three are fixed; which unowned placement is rerolled and its probability remain SAMPLE_ONLY."
+        },
+        {
+          "gateId": "W17-H02.rolling_calm_and_major_recovery",
+          "priority": "P0",
+          "playerContract": "The player receives a calm opportunity in every rolling five days and a visible recovery choice on the day after a major hazard.",
+          "publicContract": {
+            "stableIds": [
+              "calm-day.applied",
+              "hazard.telegraphed",
+              "hazard.recovered"
+            ],
+            "probeId": "W17-H02.rolling_calm_and_major_recovery",
+            "inputs": {
+              "minimumScheduleDays": 10,
+              "rollingWindowDays": 5,
+              "minimumCalmDays": 1,
+              "reservedRecoveryBudget": 2
+            },
+            "expected": "Every rolling five-day window has a calm day; the day after major reserves recovery budget 2 and forbids same-family new major; Day 50 arms no surprise theft/damage."
+          },
+          "naturalAcceptance": "Execute at least ten natural settlements including telegraph, major resolution and next-day recovery; hunger and existing recovery continue on calm days.",
+          "atomicity": "Schedule preview is immutable; one day key arms once; cancelled pre-arm is unchanged; unused recovery budget cannot arm another major; retry cannot reserve twice.",
+          "koEnOrLog": "Display ui.hazard.telegraph/recovery; log hazard ID, family, budget and result on calm, telegraph and recovery events.",
+          "sampleBoundary": "Window 5, budget 2 and band budgets remain SAMPLE_ONLY; telegraph, reserved recovery, same-family ban and Day50 surprise ban are fixed fairness rules."
+        },
+        {
+          "gateId": "W17-H03.atomic_retry_loss_and_keypart_protection",
+          "priority": "P0",
+          "playerContract": "The player sees one explained theft or damage loss and never loses a protected key part or completed escape stage.",
+          "publicContract": {
+            "stableIds": [
+              "hazard.food-theft",
+              "hazard.camp-damage"
+            ],
+            "probeId": "W17-H03.atomic_retry_loss_and_keypart_protection",
+            "inputs": {
+              "sameHazardInstanceResolveCalls": 2,
+              "snapshots": [
+                "resources",
+                "facilities",
+                "protectedParts",
+                "completedStages",
+                "behaviorScores",
+                "events"
+              ]
+            },
+            "expected": "First call changes one allowed target; second returns already_resolved; protected parts, completed stages, score and additional log remain unchanged."
+          },
+          "naturalAcceptance": "Execute telegraphed, armed, resolved, recovering and recovered through real camp interactions with one mitigated and one unmitigated case.",
+          "atomicity": "Resource/facility/hazard/score/log commit together or roll back; retry, locale and input switch cannot duplicate loss, repair or event.",
+          "koEnOrLog": "KO/EN state the same cause and protection result; log hazardInstanceId, targetId, lossCode and resultCode only.",
+          "sampleBoundary": "Loss quantity and recovery cost remain SAMPLE_ONLY; single loss, idempotency and protected part/stage preservation are fixed."
+        },
+        {
+          "gateId": "W17-E02.smoke_radio_natural_interaction_routes",
+          "priority": "P0",
+          "playerContract": "Smoke uses direct fuel, ignition and smoke-maintenance interaction while radio uses direct power, tuning and transmit interaction; no shared global completion shortcut.",
+          "publicContract": {
+            "stableIds": [
+              "smoke.route.smoke",
+              "smoke.route.radio",
+              "escape.smoke",
+              "escape.radio"
+            ],
+            "probeId": "W17-E02.smoke_radio_natural_interaction_routes",
+            "inputs": {
+              "routes": ["smoke.route.smoke", "smoke.route.radio"]
+            },
+            "expected": "Each separate route reports unique interactionIds, actualInteractionCount greater than zero, grant=false, warp=false and terminalResult=escape_complete."
+          },
+          "naturalAcceptance": "Run two separate fresh 30-minute fixtures through movement, map, search, return and world project interactions.",
+          "atomicity": "Preview, cancel and failure preserve cost and stage; each milestone commits once; one route failure cannot erase another route stage.",
+          "koEnOrLog": "Display ui.escape.project-action; log escapeMethodId, interactionId, milestoneId, resultCode, grantUsed=false and warpUsed=false.",
+          "sampleBoundary": "Cost, duration and hazard intensity remain SAMPLE_ONLY; route-distinct direct interactions and no-debug completion are fixed."
+        },
+        {
+          "gateId": "W17-E03.raft_flare_beacon_data_only",
+          "priority": "P1",
+          "playerContract": "Do not expose raft, flare or beacon as playable-ready in this transition; validate their data and resolver only.",
+          "publicContract": {
+            "stableIds": [
+              "escape.raft",
+              "escape.flare",
+              "escape.beacon"
+            ],
+            "probeId": "W17-E03.raft_flare_beacon_data_only",
+            "inputs": {
+              "requiredFields": [
+                "regionIds",
+                "researchIds",
+                "facilityId",
+                "keyPartId",
+                "materialIds",
+                "preparationDays",
+                "riskIds",
+                "primarySource",
+                "alternativeSource",
+                "snapshotSchema",
+                "playableState"
+              ]
+            },
+            "expected": "All references validate, playableState=data-only, and sample result transactions preserve unrelated completed stages and protected parts."
+          },
+          "naturalAcceptance": "No human or playable natural-route PASS is allowed; catalog and deterministic snapshots use the same campaign stable IDs only.",
+          "atomicity": "Validator is read-only; sample success, delay or failure mutates only declared result fields once and preserves unrelated progress.",
+          "koEnOrLog": "Prepare equivalent KO/EN catalog meaning but expose no playable CTA; log escapeMethodId, playableState=data-only and resultCode.",
+          "sampleBoundary": "All costs, durations and probabilities remain SAMPLE_ONLY; three IDs and data-only evidence boundary are fixed."
+        },
+        {
+          "gateId": "W17-O01.snapshot_and_private_log",
+          "priority": "P0",
+          "playerContract": "Save and resume preserve region, hazard, project and behavior state without asking for personal information.",
+          "publicContract": {
+            "stableIds": [
+              "pacing.band.entered",
+              "region.unlocked",
+              "hazard.resolved",
+              "escape.project-progressed",
+              "behavior.identity-updated",
+              "ending.resolved"
+            ],
+            "probeId": "W17-O01.snapshot_and_private_log",
+            "inputs": {
+              "snapshotFields": [
+                "runSeed",
+                "day",
+                "pacingBandId",
+                "regionStates",
+                "hazardStates",
+                "projectStates",
+                "behaviorScores",
+                "protectedKeyPartIds"
+              ],
+              "forbiddenFieldCountExpected": 0
+            },
+            "expected": "Round-trip preserves all stable states and privacy scan finds zero forbidden fields."
+          },
+          "naturalAcceptance": "Save and resume a fresh run, then perform the next real interaction with the same deterministic result; gameplay remains usable if development logging fails.",
+          "atomicity": "Snapshot uses atomic replacement and preserves the prior copy on failure; an event idempotency key appends once and never reapplies gameplay state.",
+          "koEnOrLog": "KO/EN display the same stable state; only the common allowlist is serialized and all forbidden privacy fields are absent.",
+          "sampleBoundary": "Snapshot and privacy schemas are not balance; logging frequency and elapsed values cannot promote SAMPLE_ONLY tuning."
+        },
+        {
+          "gateId": "W17-N02.priority_tiebreak_and_hysteresis",
+          "priority": "P0",
+          "playerContract": "Early escape outranks Day 50 settlement and the ending explains the established lifestyle without a last-button identity flip.",
+          "publicContract": {
+            "stableIds": [
+              "stat.swimming",
+              "stat.farming",
+              "stat.hunting-trapping",
+              "stat.mechanics",
+              "stat.building",
+              "stat.search",
+              "stat.hazard-response"
+            ],
+            "probeId": "W17-N02.priority_tiebreak_and_hysteresis",
+            "inputs": {
+              "identicalSnapshotRuns": 2,
+              "terminalPriorityCases": ["early_escape", "day50_settlement"],
+              "challengerFinalActionPoints": 2
+            },
+            "expected": "Identical ending, reason and identity; escape priority; tie-break keep-established then established-day then stat-ID ASCII; challenger plus two cannot switch identity."
+          },
+          "naturalAcceptance": "Create smoke/radio and Day50 terminal snapshots from real accumulated actions without debug score grants.",
+          "atomicity": "Resolver is pure; reopen, cancel or locale switch changes no ending or score; gallery unlock commits once per ending ID.",
+          "koEnOrLog": "Display ui.ending.reason; log stat ID, ending ID and reasonCode only on identity and ending events.",
+          "sampleBoundary": "Action 1-2, cap 4, candidate 12, lead 4 and switch 6 remain SAMPLE_ONLY; priority, tie-break order and no one-action reversal are fixed."
+        },
+        {
+          "gateId": "W17-P01.live_hazard_lifecycle",
+          "priority": "P0",
+          "playerContract": "In Play state the player sees and acts through telegraph, occurrence, mitigation and recovery for injury, disaster and food theft.",
+          "publicContract": {
+            "stableIds": [
+              "hazard.injury",
+              "hazard.disaster",
+              "hazard.food-theft"
+            ],
+            "probeId": "W17-P01.live_hazard_lifecycle",
+            "inputs": {
+              "executionMode": "play",
+              "requiredPhases": ["telegraph", "occurrence", "mitigation", "recovery"]
+            },
+            "expected": "Each hazard records four phases, unique hazardInstanceId, active surface ID and deterministic transition results; reflection-only is not PASS."
+          },
+          "naturalAcceptance": "Use actual Play interactions once per hazard in automated natural fixtures; keep this evidence separate from six unrun human sessions.",
+          "atomicity": "Failed or cancelled phase is unchanged; same instance adds no loss; recovered retry returns already_recovered.",
+          "koEnOrLog": "KO/EN preserve cause and response meaning at every phase; only structured events are logged.",
+          "sampleBoundary": "Occurrence rate, damage and recovery cost remain SAMPLE_ONLY; four phases, live surface and idempotency are fixed."
+        },
+        {
+          "gateId": "W17-P02.live_smoke_radio_natural_paths",
+          "priority": "P0",
+          "playerContract": "In Play state the player walks to distinct smoke and radio facilities and completes each through its real interaction sequence.",
+          "publicContract": {
+            "stableIds": [
+              "smoke.route.smoke",
+              "smoke.route.radio",
+              "escape.smoke",
+              "escape.radio"
+            ],
+            "probeId": "W17-P02.live_smoke_radio_natural_paths",
+            "inputs": {
+              "executionMode": "play",
+              "separateFreshRuns": 2
+            },
+            "expected": "Separate interaction traces, actualInteractionCount greater than zero, grantCount=0, warpCount=0 and matching terminal escape ID."
+          },
+          "naturalAcceptance": "Use two fresh saves and only actual movement, map, search, return and facility input; one probe completing both methods is a failure.",
+          "atomicity": "Failed or cancelled interaction preserves stage and cost; retry commits once; terminal replay cannot consume again or select another ending.",
+          "koEnOrLog": "Method CTAs have the same KO/EN action meaning; log E02 fields without raw input.",
+          "sampleBoundary": "Time and costs remain SAMPLE_ONLY; distinct live natural interaction evidence is fixed."
+        },
+        {
+          "gateId": "W17-P03.live_terminal_priority_and_three_panels",
+          "priority": "P0",
+          "playerContract": "After early escape or Day 50 resolution the player sees exactly three core comic roles: setup, escalation and punchline.",
+          "publicContract": {
+            "stableIds": [
+              "ending.escape.smoke.seen-from-afar",
+              "ending.escape.radio.clear-signal",
+              "ending.comic.radio.island-dj",
+              "ending.stay.just-kim"
+            ],
+            "probeId": "W17-P03.live_terminal_priority_and_three_panels",
+            "inputs": {
+              "executionMode": "play",
+              "wave15SampleSnapshots": 4,
+              "requiredPanelRoleCodes": ["setup", "escalation", "punchline"],
+              "requiredCorePanelCount": 3
+            },
+            "expected": "Correct terminal priority and existing ending ID with exactly three active panelRoleCodes in stable order; no new content ID."
+          },
+          "naturalAcceptance": "Reach at least one smoke, radio or Day50 terminal through real accumulated actions; validate remaining sample snapshots deterministically.",
+          "atomicity": "Close, reopen and locale switch preserve terminal, score and unlock; reload restores the same three-panel order without duplicate unlock.",
+          "koEnOrLog": "Use existing ending KO/EN title/body keys plus ui.ending.reason; log endingId, panelRoleCode, panelIndex and resultCode.",
+          "sampleBoundary": "Final art, animation and copy length remain unadopted or tunable; exactly three core roles and terminal priority are fixed smoke-contract behavior, not new endings."
+        }
+      ],
+      "implementationOrder": [
+        {
+          "order": 1,
+          "gateIds": [
+            "W17-T01.day_band_boundaries",
+            "W17-T02.early_escape_no_hardlock",
+            "W17-R01.six_region_primary_alternative",
+            "W17-R02.seed_forecast_hazard_pity_determinism",
+            "W17-R03.eligible_search_hint3_guarantee5",
+            "W17-R04.minimum_three_completable_paths"
+          ],
+          "goal": "Publish pacing, region, seed, pity and softlock data plus pure deterministic probes."
+        },
+        {
+          "order": 2,
+          "gateIds": [
+            "W17-H02.rolling_calm_and_major_recovery",
+            "W17-H03.atomic_retry_loss_and_keypart_protection"
+          ],
+          "goal": "Connect fair cadence and protected atomic hazard transactions."
+        },
+        {
+          "order": 3,
+          "gateIds": [
+            "W17-E02.smoke_radio_natural_interaction_routes",
+            "W17-E03.raft_flare_beacon_data_only",
+            "W17-O01.snapshot_and_private_log",
+            "W17-N02.priority_tiebreak_and_hysteresis"
+          ],
+          "goal": "Complete route-distinct projects, data-only validators, snapshot privacy and terminal identity."
+        },
+        {
+          "order": 4,
+          "gateIds": [
+            "W17-P01.live_hazard_lifecycle",
+            "W17-P02.live_smoke_radio_natural_paths",
+            "W17-P03.live_terminal_priority_and_three_panels"
+          ],
+          "goal": "Drive the same public semantics through actual Play interactions and presentation."
+        }
+      ],
+      "greenAcceptance": [
+        "Exactly the fifteen declared W17 gate IDs pass on a fresh post-implementation SHA with no expected gap or failure.",
+        "Wave 15 and Wave 16 remain GREEN and compile, Windows build, hidden smoke, qps-long and Addressables infrastructure remain PASS.",
+        "All deterministic probes are stable on repeat and all natural routes record grant, warp and skip as zero.",
+        "Eligible-only pity, four minimum-three softlock audits, calm/recovery reservation, key-part protection, distinct smoke/radio interactions, ending hysteresis and privacy allowlist pass independently.",
+        "Raft, flare and beacon remain data-only and are not claimed as playable PASS.",
+        "Six first-user sessions remain UNRUN; physical gamepad and Steam remain UNVERIFIED."
+      ]
+    }
+  },
+  "verticalSlice": {
+    "goal": "실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다."
+  },
+  "features": [],
+  "screens": [],
+  "systems": [],
+  "artAssets": [],
+  "tasks": [
+    {
+      "id": "task.design.wave18-green-transition-contract",
+      "lane": "design",
+      "title": "Wave 18 15개 FAIL GREEN 전환 계약",
+      "description": "Wave 17 통합 FAIL 15개를 기존 게이트 ID별 플레이어 행동, 공개 결정론 probe, 자연 경로, 원자성, KO/EN·privacy 로그와 SAMPLE_ONLY 경계에 1:1 매핑한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing",
+        "task.design.wave17-natural-fifty-day-playtest-protocol"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "지정 15개 W17 gate가 중복·누락 없이 각각 여섯 계약 축에 1:1 매핑된다.",
+        "Day band 비잠금, eligible-only pity, 최소 3경로, 평온일·회복 예약, 핵심 부품 보호, smoke/radio 분리, hysteresis와 privacy가 명시된다.",
+        "Wave 15/16 카탈로그와 SAMPLE_ONLY 수치가 변경·승격되지 않고 인간 6세션은 UNRUN이다."
+      ],
+      "paths": [
+        ".forge/packets/wave18-green-transition-contract.json",
+        ".forge/design/project.json",
+        "Docs/Design/wave18-green-transition-contract.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260824T_wave17_integrated_d3e71f3_full/wave17-summary.json",
+        ".forge/packets/wave18-green-transition-contract.json",
+        "Docs/Design/wave18-green-transition-contract.md"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.implementation.wave18-green-transition",
+      "lane": "implementation",
+      "title": "Wave 18 15개 제품 FAIL GREEN 전환 구현",
+      "description": "Wave 18 계약의 기존 15개 W17 gate 공개 데이터·결정론 probe·자연 상호작용·원자 transaction·privacy 로그를 구현한다. 새 콘텐츠나 최종 밸런스 승격은 하지 않는다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave18-green-transition-contract"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "지정 15개 gate의 공개 데이터와 semantic probe가 문서의 안정 ID·입출력·원자성 계약을 그대로 제공한다.",
+        "smoke/radio는 별도 실제 상호작용이며 raft/flare/beacon은 data-only를 유지한다.",
+        "자연 route는 grant/warp/skip 0이고 로그 allowlist 밖 개인정보·자유 입력이 없다.",
+        "Wave 15/16 GREEN과 SAMPLE_ONLY 값을 되돌리거나 정식 값으로 승격하지 않는다."
+      ],
+      "paths": [
+        ".forge/packets/wave18-green-transition-contract.json",
+        "Docs/Design/wave18-green-transition-contract.md"
+      ],
+      "evidence": [],
+      "status": "planned"
+    },
+    {
+      "id": "task.qa.wave18-green-transition",
+      "lane": "qa",
+      "title": "Wave 18 GREEN 전환 통합 검증",
+      "description": "새 구현 SHA에서 Wave 17 게이트를 fresh 실행해 지정 15개 PASS, Wave 15/16 GREEN과 인프라 PASS 보존, 인간 6세션 UNRUN 경계를 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.implementation.wave18-green-transition"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "지정 15개 gate의 EXPECTED_GAP/FAIL이 0이고 같은 seed 반복 결과가 결정론적이다.",
+        "P01–P03은 실제 Play 증거를 가지며 Edit-only PASS로 대체되지 않는다.",
+        "Wave 15/16 GREEN, qps-long, compile, Windows build, hidden smoke와 Addressables PASS가 보존된다.",
+        "인간 6세션, 물리 게임패드와 Steam을 실행 증거 없이 PASS 처리하지 않는다."
+      ],
+      "paths": [
+        ".forge/packets/wave18-green-transition-contract.json",
+        "Docs/Design/wave18-green-transition-contract.md",
+        "Docs/QA/wave17-pacing-hazard-redfirst-hardening-a540317.md"
+      ],
+      "evidence": [],
+      "status": "planned"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.wave18-existing-gate-ids-are-public-contract",
+      "summary": "지정된 기존 W17 gate ID 15개를 공개 probe ID로 그대로 사용하고 동의어를 만들지 않는다.",
+      "rationale": "구현·QA·통합 보고서 사이의 1:1 추적성을 보존하고 파일명·reflection 기반 허위 PASS를 막는다.",
+      "source": "wave18-design-contract"
+    },
+    {
+      "id": "decision.wave18-natural-and-deterministic-evidence-separated",
+      "summary": "결정론 fixture, 실제 Play 자연 경로, 인간 플레이테스트를 별도 증거 등급으로 유지하며 grant·warp·skip 없는 경로만 자연 경로로 센다.",
+      "rationale": "semantic probe 성공을 실제 플레이 경험이나 미실행 사용자 결과로 오인하지 않기 위함이다.",
+      "source": "wave18-design-contract"
+    },
+    {
+      "id": "decision.wave18-sample-only-boundary-preserved",
+      "summary": "Wave 16의 위험 예산, pity 3/5, 준비 기간과 행동 임계값은 구현 smoke 값으로만 유지하고 E3 전 최종 밸런스로 승격하지 않는다.",
+      "rationale": "이번 작업은 누락된 제품 계약을 GREEN으로 전환하는 작업이며 새로운 밸런스 증거를 만들지 않는다.",
+      "source": "wave18-design-contract"
+    },
+    {
+      "id": "decision.wave18-six-human-sessions-remain-unrun",
+      "summary": "Wave 17의 ko 3/en 3 첫 사용자 자연 50일 세션은 구현·자동 게이트 GREEN 이후에도 별도 실행 전까지 UNRUN이다.",
+      "rationale": "자동화 결과와 실제 사용자 관찰을 섞거나 수행하지 않은 결과를 꾸며내지 않는다.",
+      "source": "wave18-design-contract"
+    }
+  ],
+  "openQuestions": []
+}

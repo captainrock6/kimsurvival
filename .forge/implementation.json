@@ -1630,6 +1630,74 @@
       "completedAt": "2026-08-23T15:55:25.219Z"
     },
     {
+      "id": "task.implementation.wave18-green-transition",
+      "lane": "implementation",
+      "title": "Wave 18 15개 제품 FAIL GREEN 전환 구현",
+      "description": "Wave 18 계약의 기존 15개 W17 gate 공개 데이터·결정론 probe·자연 상호작용·원자 transaction·privacy 로그를 구현한다. 새 콘텐츠나 최종 밸런스 승격은 하지 않는다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave18-green-transition-contract"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "지정 15개 gate의 공개 데이터와 semantic probe가 문서의 안정 ID·입출력·원자성 계약을 그대로 제공한다.",
+        "smoke/radio는 별도 실제 상호작용이며 raft/flare/beacon은 data-only를 유지한다.",
+        "자연 route는 grant/warp/skip 0이고 로그 allowlist 밖 개인정보·자유 입력이 없다.",
+        "Wave 15/16 GREEN과 SAMPLE_ONLY 값을 되돌리거나 정식 값으로 승격하지 않는다."
+      ],
+      "paths": [
+        ".forge/packets/wave18-green-transition-contract.json",
+        "Docs/Design/wave18-green-transition-contract.md"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-24T13:47:39.751Z"
+    },
+    {
+      "id": "task.qa.wave18-green-transition",
+      "lane": "qa",
+      "title": "Wave 18 GREEN 전환 통합 검증",
+      "description": "새 구현 SHA에서 Wave 17 게이트를 fresh 실행해 지정 15개 PASS, Wave 15/16 GREEN과 인프라 PASS 보존, 인간 6세션 UNRUN 경계를 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.implementation.wave18-green-transition"
+      ],
+      "featureIds": [
+        "feature.phase-cycle",
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "지정 15개 gate의 EXPECTED_GAP/FAIL이 0이고 같은 seed 반복 결과가 결정론적이다.",
+        "P01–P03은 실제 Play 증거를 가지며 Edit-only PASS로 대체되지 않는다.",
+        "Wave 15/16 GREEN, qps-long, compile, Windows build, hidden smoke와 Addressables PASS가 보존된다.",
+        "인간 6세션, 물리 게임패드와 Steam을 실행 증거 없이 PASS 처리하지 않는다."
+      ],
+      "paths": [
+        ".forge/packets/wave18-green-transition-contract.json",
+        "Docs/Design/wave18-green-transition-contract.md",
+        "Docs/QA/wave17-pacing-hazard-redfirst-hardening-a540317.md"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
       "id": "task.system.system.comedy-feedback",
       "lane": "implementation",
       "title": "상황형 코믹 피드백 구현",
@@ -2519,5 +2587,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-24T12:57:44.476Z"
+  "updatedAt": "2026-08-24T13:47:39.751Z"
 }
