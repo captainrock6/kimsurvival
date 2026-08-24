@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260825T_resource_integrated_playtest_03",
+  "baselineCommit": "b51683440c27063bc335cb0f9de3e6bd27302b26",
+  "expectedStableExecutable": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+  "build": {
+    "runId": "20260825T_resource_integrated_playtest_03",
+    "baselineCommit": "b51683440c27063bc335cb0f9de3e6bd27302b26",
+    "reportedExecutable": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "currentExecutableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "options": "Development",
+    "allowDebuggingAbsent": true,
+    "identityResult": "PASS"
+  },
+  "smoke": {
+    "runId": "20260825T_resource_integrated_playtest_03",
+    "baselineCommit": "b51683440c27063bc335cb0f9de3e6bd27302b26",
+    "reportedExecutable": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "buildIdentityMatches": true,
+    "identityResult": "PASS"
+  },
+  "firewall": {
+    "evidenceSource": "Artifacts/Verification/windows-firewall-worktree-rules.json",
+    "exactProgram": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "direction": "Inbound",
+    "action": "Block",
+    "status": "PASS"
+  },
+  "overall": "PASS"
+}
