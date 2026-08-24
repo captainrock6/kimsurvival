@@ -125,6 +125,11 @@ function Test-Utf8NoBom([string]$Path) {
     return $bytes.Length -lt 3 -or -not ($bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF)
 }
 
+function Get-Sha256([string]$Path) {
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return '' }
+    return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
+}
+
 function Find-Check([object[]]$Checks, [string]$Id) {
     return @($Checks | Where-Object { [string]$_.id -eq $Id } | Select-Object -First 1)[0]
 }
@@ -169,8 +174,11 @@ $wave16Summary = Read-Json (Join-Path $evidenceRoot 'wave16-summary.json')
 $wave15Summary = Read-Json (Join-Path $evidenceRoot 'wave15-summary.json')
 $wave14Gate = Read-Json (Join-Path $evidenceRoot 'wave14-qps-global-layout-gate.json')
 $wave12Summary = Read-Json (Join-Path $evidenceRoot 'wave12-summary.json')
+$windowsBuild = Read-Json (Join-Path $evidenceRoot 'windows-development-build.json')
 $smoke = Read-Json (Join-Path $evidenceRoot 'windows-hidden-smoke.json')
 $addressables = Read-Json (Join-Path $evidenceRoot 'addressables-link-post-smoke-contract.json')
+$firewallEvidencePath = Join-Path $projectRoot 'Artifacts\Verification\windows-firewall-worktree-rules.json'
+$firewallEvidence = Read-Json $firewallEvidencePath
 $wave17Edit = Read-Json (Join-Path $evidenceRoot 'wave17-edit-contracts.json')
 $wave17Play = Read-Json (Join-Path $evidenceRoot 'wave17-play-contracts.json')
 $wave18Edit = Read-Json (Join-Path $evidenceRoot 'wave18-edit-contracts.json')
@@ -178,6 +186,84 @@ $wave18Play = Read-Json (Join-Path $evidenceRoot 'wave18-play-contracts.json')
 $privacy = Read-Json (Join-Path $evidenceRoot 'wave18-privacy-schema-evidence.json')
 $art = Read-Json (Join-Path $evidenceRoot 'wave18-art-connection-evidence.json')
 $playEvidence = Read-Json (Join-Path $evidenceRoot 'wave18-play-observation-evidence.json')
+
+$expectedExecutable = [System.IO.Path]::GetFullPath((Join-Path $projectRoot 'work\ParallelQA\StableWindowsBuild\KimSurvivalIsland.exe'))
+$reportedBuildExecutable = if ($null -ne $windowsBuild -and -not [string]::IsNullOrWhiteSpace([string]$windowsBuild.executable)) {
+    [System.IO.Path]::GetFullPath([string]$windowsBuild.executable)
+} else { '' }
+$reportedSmokeExecutable = if ($null -ne $smoke -and -not [string]::IsNullOrWhiteSpace([string]$smoke.executable)) {
+    [System.IO.Path]::GetFullPath([string]$smoke.executable)
+} else { '' }
+$currentExecutableSha256 = Get-Sha256 $expectedExecutable
+$buildSourcePaths = @(
+    (Join-Path $projectRoot 'Assets\Editor\ParallelQA\ParallelQaRunner.cs'),
+    (Join-Path $projectRoot 'Assets\Editor\ParallelQA\Wave4AssetReleaseGate.cs')
+)
+$buildSource = [string]::Join([Environment]::NewLine, @($buildSourcePaths | ForEach-Object {
+    if (Test-Path -LiteralPath $_ -PathType Leaf) { Get-Content -LiteralPath $_ -Raw } else { '' }
+}))
+$allowDebuggingAbsent = $buildSource.IndexOf('AllowDebugging', [System.StringComparison]::Ordinal) -lt 0
+$buildIdentityPass = $null -ne $windowsBuild -and
+    [string]$windowsBuild.runId -eq $RunId -and
+    [string]$windowsBuild.baselineCommit -eq $BaselineCommit -and
+    [string]$windowsBuild.options -eq 'Development' -and
+    $allowDebuggingAbsent -and
+    $reportedBuildExecutable.Equals($expectedExecutable, [System.StringComparison]::OrdinalIgnoreCase) -and
+    -not [string]::IsNullOrWhiteSpace($currentExecutableSha256) -and
+    [string]$windowsBuild.executableSha256 -eq $currentExecutableSha256
+$smokeIdentityPass = $null -ne $smoke -and
+    [string]$smoke.runId -eq $RunId -and
+    [string]$smoke.baselineCommit -eq $BaselineCommit -and
+    $reportedSmokeExecutable.Equals($expectedExecutable, [System.StringComparison]::OrdinalIgnoreCase) -and
+    [string]$smoke.executableSha256 -eq $currentExecutableSha256 -and
+    [bool]$smoke.stableExecutablePath -and [bool]$smoke.buildIdentityMatches
+$firewallRule = if ($null -eq $firewallEvidence) { $null } else {
+    @($firewallEvidence.rules | Where-Object {
+        -not [string]::IsNullOrWhiteSpace([string]$_.program) -and
+        [System.IO.Path]::GetFullPath([string]$_.program).Equals($expectedExecutable, [System.StringComparison]::OrdinalIgnoreCase)
+    } | Select-Object -First 1)[0]
+}
+$firewallPass = $null -ne $firewallEvidence -and [string]$firewallEvidence.overall -eq 'PASS' -and
+    $null -ne $firewallRule -and [string]$firewallRule.status -eq 'PASS' -and
+    [string]$firewallRule.direction -eq 'Inbound' -and [string]$firewallRule.action -eq 'Block' -and
+    [string]$firewallRule.observedEnabled -eq 'True' -and [string]$firewallRule.observedDirection -eq 'Inbound' -and
+    [string]$firewallRule.observedAction -eq 'Block' -and
+    [System.IO.Path]::GetFullPath([string]$firewallRule.observedProgram).Equals($expectedExecutable, [System.StringComparison]::OrdinalIgnoreCase)
+
+$windowsFirewallContract = [ordered]@{
+    schemaVersion = 1
+    runId = $RunId
+    baselineCommit = $BaselineCommit
+    expectedStableExecutable = $expectedExecutable
+    build = [ordered]@{
+        runId = if ($null -eq $windowsBuild) { '' } else { [string]$windowsBuild.runId }
+        baselineCommit = if ($null -eq $windowsBuild) { '' } else { [string]$windowsBuild.baselineCommit }
+        reportedExecutable = $reportedBuildExecutable
+        executableSha256 = if ($null -eq $windowsBuild) { '' } else { [string]$windowsBuild.executableSha256 }
+        currentExecutableSha256 = $currentExecutableSha256
+        options = if ($null -eq $windowsBuild) { '' } else { [string]$windowsBuild.options }
+        allowDebuggingAbsent = $allowDebuggingAbsent
+        identityResult = if ($buildIdentityPass) { 'PASS' } else { 'FAIL' }
+    }
+    smoke = [ordered]@{
+        runId = if ($null -eq $smoke) { '' } else { [string]$smoke.runId }
+        baselineCommit = if ($null -eq $smoke) { '' } else { [string]$smoke.baselineCommit }
+        reportedExecutable = $reportedSmokeExecutable
+        executableSha256 = if ($null -eq $smoke) { '' } else { [string]$smoke.executableSha256 }
+        buildIdentityMatches = if ($null -eq $smoke) { $false } else { [bool]$smoke.buildIdentityMatches }
+        identityResult = if ($smokeIdentityPass) { 'PASS' } else { 'FAIL' }
+    }
+    firewall = [ordered]@{
+        evidenceSource = 'Artifacts/Verification/windows-firewall-worktree-rules.json'
+        exactProgram = if ($null -eq $firewallRule) { '' } else { [string]$firewallRule.program }
+        direction = if ($null -eq $firewallRule) { '' } else { [string]$firewallRule.direction }
+        action = if ($null -eq $firewallRule) { '' } else { [string]$firewallRule.action }
+        status = if ($firewallPass) { 'PASS' } else { 'FAIL' }
+    }
+    overall = if ($buildIdentityPass -and $smokeIdentityPass -and $firewallPass) { 'PASS' } else { 'FAIL' }
+}
+$windowsFirewallContractPath = Join-Path $evidenceRoot 'wave18-windows-firewall-contract.json'
+[System.IO.File]::WriteAllText($windowsFirewallContractPath, ($windowsFirewallContract | ConvertTo-Json -Depth 10) + [Environment]::NewLine, $utf8NoBom)
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
 if ($null -eq $wave17Summary -or $wave17Summary.infrastructureOverall -ne 'PASS') {
@@ -204,6 +290,15 @@ if ($null -eq $smoke -or $smoke.result -ne 'PASS' -or [double]$smoke.observedSec
 }
 if ($null -eq $addressables -or $addressables.overall -ne 'PASS') {
     $infrastructureFailures.Add('Addressables post-smoke contract did not remain PASS')
+}
+if (-not $buildIdentityPass) {
+    $infrastructureFailures.Add('stable Windows build RunId/baseline/path/SHA/options identity contract failed or AllowDebugging returned')
+}
+if (-not $smokeIdentityPass) {
+    $infrastructureFailures.Add('hidden smoke RunId/baseline/stable-path/SHA identity contract failed')
+}
+if (-not $firewallPass) {
+    $infrastructureFailures.Add('exact StableWindowsBuild executable does not have a verified inbound Block firewall rule')
 }
 foreach ($report in @($wave17Edit, $wave17Play, $wave18Edit, $wave18Play)) {
     if ($null -eq $report -or $report.infrastructureOverall -ne 'PASS') {
@@ -317,6 +412,9 @@ $summary = [ordered]@{
         windowsDevelopmentBuild = if ($null -ne $wave12Summary) { [string]$wave12Summary.windowsDevelopmentBuild } else { 'MISSING' }
         hiddenSmoke = if ($null -ne $smoke) { "$($smoke.result) $($smoke.observedSeconds)s" } else { 'MISSING' }
         addressables = if ($null -ne $addressables) { [string]$addressables.overall } else { 'MISSING' }
+        windowsBuildIdentity = if ($buildIdentityPass) { 'PASS' } else { 'FAIL' }
+        smokeIdentity = if ($smokeIdentityPass) { 'PASS' } else { 'FAIL' }
+        firewallInboundBlock = if ($firewallPass) { 'PASS' } else { 'FAIL' }
         rawPlayerLog = if (Test-Path -LiteralPath (Join-Path $evidenceRoot 'windows-player.log')) { 'FAIL_PRESENT' } else { 'PASS_QUARANTINED' }
     }
     privacySchema = if ($null -ne $privacy) { [string]$privacy.result } else { 'MISSING' }
@@ -346,6 +444,7 @@ $txtPath = Join-Path $evidenceRoot 'wave18-summary.txt'
     "Hardened FAIL IDs: $([string]::Join(', ', @($summary.hardenedMatrix.failureIds)))"
     "Wave 15/Wave 16/qps: $($summary.greenLocks.wave15)/$($summary.greenLocks.wave16)/$($summary.greenLocks.qpsLong)"
     "Compile/Build/Smoke/Addressables: $($summary.greenLocks.compile)/$($summary.greenLocks.windowsDevelopmentBuild)/$($summary.greenLocks.hiddenSmoke)/$($summary.greenLocks.addressables)"
+    "Stable path Build/Smoke/Firewall identity: $($summary.greenLocks.windowsBuildIdentity)/$($summary.greenLocks.smokeIdentity)/$($summary.greenLocks.firewallInboundBlock)"
     "Privacy/Art/Raw player log: $($summary.privacySchema)/$($summary.artConnection)/$($summary.greenLocks.rawPlayerLog)"
     "Infrastructure failures: $($infrastructureFailures.Count)"
     'Physical gamepad: UNVERIFIED'
@@ -361,9 +460,11 @@ $compatibility = [ordered]@{
     powershellVersion = $shellVersion
     jsonUtf8NoBom = Test-Utf8NoBom $jsonPath
     textUtf8NoBom = Test-Utf8NoBom $txtPath
+    windowsFirewallContractUtf8NoBom = Test-Utf8NoBom $windowsFirewallContractPath
     rawPlayerLogQuarantined = -not (Test-Path -LiteralPath (Join-Path $evidenceRoot 'windows-player.log'))
 }
-$compatibility.overall = if ($compatibility.jsonUtf8NoBom -and $compatibility.textUtf8NoBom -and $compatibility.rawPlayerLogQuarantined) { 'PASS' } else { 'FAIL' }
+$compatibility.overall = if ($compatibility.jsonUtf8NoBom -and $compatibility.textUtf8NoBom -and
+    $compatibility.windowsFirewallContractUtf8NoBom -and $compatibility.rawPlayerLogQuarantined) { 'PASS' } else { 'FAIL' }
 [System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'wave18-powershell-compatibility.json'), ($compatibility | ConvertTo-Json -Depth 8) + [Environment]::NewLine, $utf8NoBom)
 if ($compatibility.overall -ne 'PASS') {
     Write-Error 'Wave 18 PowerShell/UTF-8/raw-log compatibility failed.'
