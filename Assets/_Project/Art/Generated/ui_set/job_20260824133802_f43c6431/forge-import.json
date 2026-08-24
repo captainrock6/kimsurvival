@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-24T13:52:59.987Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "ui.ending-gallery",
+  "jobId": "job_20260824133802_f43c6431",
+  "assetType": "ui_set",
+  "decision": "adopted",
+  "selectedCandidate": "ui.ending-gallery.album-spread-a",
+  "sourceFiles": [
+    "ending-gallery-album-spread-a-1280x800-2.png",
+    "ending-gallery-album-spread-a-2.svg"
+  ],
+  "rejectFiles": [
+    "ending-gallery-card-index-b-1280x800-2.png",
+    "ending-gallery-card-index-b-2.svg",
+    "ending-gallery-filmstrip-c-1280x800-2.png",
+    "ending-gallery-filmstrip-c-2.svg",
+    "ending-gallery-review-board-1920x1080-2.png",
+    "ending-gallery-localization-accessibility-qa-1920x1080-2.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": true
+  },
+  "sliceGrid": null,
+  "stateFiles": [],
+  "runtimeAllowlist": [],
+  "packageAllowed": true,
+  "packaged": true,
+  "runtimeConnectAllowed": false,
+  "runtimeConnected": false,
+  "sceneModified": false,
+  "addressablesModified": false
+}

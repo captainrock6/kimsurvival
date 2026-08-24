@@ -15,12 +15,16 @@ function Assert-Equal($Actual, $Expected, [string]$Message) {
 $assets = Get-Content -Raw -LiteralPath (Join-Path $repoRoot '.forge/assets.json') | ConvertFrom-Json
 $asset = $assets.assets | Where-Object { $_.id -eq 'ui.ending-gallery' }
 Assert-True ($null -ne $asset) 'ui.ending-gallery missing from Forge ledger'
-Assert-Equal $asset.status 'review' 'Forge asset status'
+Assert-Equal $asset.status 'engine_ready' 'Forge asset status'
 Assert-Equal $asset.currentJobId 'job_20260824133802_f43c6431' 'Forge current job'
-Assert-Equal @($asset.engine.PSObject.Properties).Count 0 'Forge engine mapping count'
+Assert-Equal $asset.engine.kind 'unity' 'Forge engine kind'
+Assert-Equal $asset.engine.manifest 'Assets\_Project\Art\Generated\ui_set\job_20260824133802_f43c6431\forge-import.json' 'Forge package manifest'
 
 $feedback = Get-Content -Raw -LiteralPath (Join-Path $repoRoot '.forge/feedback.json') | ConvertFrom-Json
-Assert-Equal @($feedback.entries | Where-Object { $_.jobId -eq 'job_20260824133802_f43c6431' }).Count 0 'Forge feedback decision count'
+$feedbackEntry = @($feedback.entries | Where-Object { $_.jobId -eq 'job_20260824133802_f43c6431' })
+Assert-Equal $feedbackEntry.Count 1 'Forge feedback decision count'
+Assert-Equal $feedbackEntry[0].decision 'adopted' 'Forge feedback decision'
+Assert-Equal ($feedbackEntry[0].artifacts -join '|') 'Assets\_Project\Art\Generated\ui_set\job_20260824133802_f43c6431\ending-gallery-album-spread-a-1280x800-2.png|Assets\_Project\Art\Generated\ui_set\job_20260824133802_f43c6431\ending-gallery-album-spread-a-2.svg' 'Forge selected artifacts'
 
 $manifest = Get-Content -Raw -LiteralPath (Join-Path $jobRoot 'ending-gallery-manifest-2.json') | ConvertFrom-Json
 Assert-Equal $manifest.status 'review' 'manifest status'
@@ -36,6 +40,22 @@ Assert-Equal $manifest.endingCatalog.categoryCounts.comic 5 'comic count'
 Assert-Equal $manifest.endingCatalog.categoryCounts.rare 4 'rare count'
 Assert-Equal $manifest.endingCatalog.categoryCounts.day50 5 'day50 count'
 Assert-Equal @($manifest.candidates).Count 3 'candidate count'
+
+$package = Get-Content -Raw -LiteralPath (Join-Path $jobRoot 'forge-import.json') | ConvertFrom-Json
+Assert-Equal $package.decision 'adopted' 'package decision'
+Assert-Equal $package.selectedCandidate 'ui.ending-gallery.album-spread-a' 'package selected candidate'
+Assert-Equal ($package.sourceFiles -join '|') 'ending-gallery-album-spread-a-1280x800-2.png|ending-gallery-album-spread-a-2.svg' 'selected-only package sources'
+Assert-Equal @($package.rejectFiles).Count 6 'package reject count'
+Assert-True ('ending-gallery-card-index-b-1280x800-2.png' -in $package.rejectFiles) 'B PNG missing from reject list'
+Assert-True ('ending-gallery-filmstrip-c-1280x800-2.png' -in $package.rejectFiles) 'C PNG missing from reject list'
+Assert-Equal @($package.runtimeAllowlist).Count 0 'package runtime allowlist count'
+Assert-Equal $package.packageAllowed $true 'package allowed'
+Assert-Equal $package.packaged $true 'package completed'
+Assert-Equal $package.runtimeConnectAllowed $false 'runtime connect allowed'
+Assert-Equal $package.runtimeConnected $false 'runtime connected'
+Assert-Equal $package.sceneModified $false 'scene modified'
+Assert-Equal $package.addressablesModified $false 'Addressables modified'
+Assert-Equal $package.import.alphaIsTransparency $true 'package alpha import'
 
 $candidatePngs = @(
     'ending-gallery-album-spread-a-1280x800-2.png',
@@ -91,11 +111,11 @@ foreach ($pair in $pairs) {
     Assert-Equal $left $right "duplicate import byte identity $($pair[0])"
 }
 
-Assert-True (-not (Test-Path -LiteralPath (Join-Path $jobRoot 'forge-import.json'))) 'package manifest must not exist'
+Assert-True (Test-Path -LiteralPath (Join-Path $jobRoot 'forge-import.json')) 'package manifest missing'
 
 Push-Location $repoRoot
 try {
-    $allowedPrefixes = @('.forge/assets.json', 'Assets/_Project/Art/Generated/ui_set/job_20260824133802_f43c6431', 'Docs/Art/Wave18')
+    $allowedPrefixes = @('.forge/assets.json', '.forge/feedback.json', 'Assets/_Project/Art/Generated/ui_set/job_20260824133802_f43c6431', 'Docs/Art/Wave18')
     $changed = @(git status --porcelain=v1 | ForEach-Object { if ($_.Length -ge 4) { $_.Substring(3).Trim('"') } })
     foreach ($path in $changed) {
         Assert-True (($allowedPrefixes | Where-Object { $path -like "$_*" }).Count -gt 0) "out-of-scope change: $path"
@@ -118,9 +138,10 @@ if ($failures.Count -gt 0) {
     productionCandidatesWithIssues = 0
     endingCount = 19
     candidates = 3
-    status = 'review'
-    selectedCandidate = $null
+    status = 'engine_ready'
+    selectedCandidate = 'ui.ending-gallery.album-spread-a'
     runtimeAllowlistEmpty = $true
-    packageAndRuntimeBlocked = $true
+    selectedOnlyPackage = $true
+    runtimeConnectBlocked = $true
     externalApiCalled = $false
 } | ConvertTo-Json -Depth 4

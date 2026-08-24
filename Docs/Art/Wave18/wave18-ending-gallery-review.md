@@ -4,10 +4,17 @@
 - 브랜치: `codex/wave18-ending-gallery-review`
 - Forge asset: `ui.ending-gallery`
 - Forge job: `job_20260824133802_f43c6431`
-- 상태: `review`
-- 선택: `selectedCandidate=null`
-- 런타임: `runtimeAllowlist=[]`, package/runtime/scene/Addressables 연결 없음
+- 현재 상태: `engine_ready` (사용자 채택 및 selected-only package 계약 완료)
+- 사용자 선택: `ui.ending-gallery.album-spread-a`
+- 런타임: `runtimeAllowlist=[]`, runtime/scene/Addressables 연결 없음
 - 생성 경로: 로컬 결정론 SVG + PIL 래스터, ImageGen 및 유료 외부 API 미사용
+
+## 사용자 채택 기록
+
+- 2026-08-24 사용자가 `ui.ending-gallery.album-spread-a`를 정확한 ID로 명시적으로 채택했다.
+- 패키지 source allowlist는 A actual-size PNG와 editable SVG 두 파일뿐이다.
+- B/C와 review·localization QA 보드는 미선택 검토 증거이며 패키지 reject list에 유지한다.
+- 채택은 런타임·씬·Addressables 연결 승인이 아니므로 해당 연결은 수행하지 않았다.
 
 ## 후보
 
@@ -17,7 +24,7 @@
 
 - 장점: 캠프의 앨범/기록 오브젝트와 가장 자연스럽게 이어지고, 전체 19개 현황과 선택 상세의 균형이 좋다.
 - 우려: 작은 왼쪽 카드가 흐트러지지 않도록 범주별 행 규칙을 유지해야 한다.
-- 추천: **1순위**. 추천은 채택이 아니다.
+- 결과: **사용자 채택**.
 
 ### B — `ui.ending-gallery.card-index-b`
 
@@ -52,12 +59,12 @@
 - 실패 후 자동 재생성·재import하지 않았으며 최초 job과 실패 증거를 보존했다.
 - Forge가 같은 job 폴더의 기존 파일을 import하면서 추적 파일명에 `-2`를 붙였지만 unsuffixed 원본과 SHA-256이 동일하며 별도 후보나 재생성 결과가 아니다.
 
-## 사용자 선택 문구
+## 사용자 선택 문구 기록
 
-추천 A를 고를 경우 정확히 다음처럼 답하면 된다.
+사용자가 다음 문구로 A를 채택했다.
 
 ```text
 ui.ending-gallery.album-spread-a를 채택한다.
 ```
 
-B 또는 C를 고를 때는 안정 ID만 바꾸면 된다. 수정이 필요하면 `ui.ending-gallery.[ID]: 수정 — [변경점]`으로 답한다.
+B와 C는 미선택 검토 증거로 남는다.

@@ -2,7 +2,7 @@
   "id": "job_20260824133802_f43c6431",
   "status": "succeeded",
   "createdAt": "2026-08-24T13:38:02.322Z",
-  "updatedAt": "2026-08-24T13:44:53.508Z",
+  "updatedAt": "2026-08-24T13:52:43.753Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.ending-gallery",
@@ -308,7 +308,18 @@
       "url": "/outputs/jobs/job_20260824133802_f43c6431/qa-preview-ending-gallery-localization-accessibility-qa-192.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "wave18-ending-gallery-album-spread-a-approved"
+    ],
+    "note": "사용자가 안정 후보 ui.ending-gallery.album-spread-a를 정확한 후보 ID로 명시적으로 채택했다. 채택 범위는 A actual-size PNG와 editable SVG뿐이다. B card-index-b와 C filmstrip-c, review board, localization/accessibility QA board는 미선택 검토 증거이며 패키지 또는 런타임 자산이 아니다. 런타임·씬·Addressables 연결은 별도 구현 작업 전까지 수행하지 않는다.",
+    "selectedArtifacts": [
+      "ending-gallery-album-spread-a-1280x800-2.png",
+      "ending-gallery-album-spread-a-2.svg"
+    ],
+    "updatedAt": "2026-08-24T13:52:43.735Z"
+  },
   "events": [
     {
       "at": "2026-08-24T13:38:02.322Z",
@@ -344,6 +355,16 @@
       "at": "2026-08-24T13:44:53.508Z",
       "level": "info",
       "message": "Codex/로컬 결과 18개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-24T13:52:20.715Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave18-ending-gallery-album-spread-a-approved"
+    },
+    {
+      "at": "2026-08-24T13:52:43.753Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · wave18-ending-gallery-album-spread-a-approved"
     }
   ],
   "error": null,
