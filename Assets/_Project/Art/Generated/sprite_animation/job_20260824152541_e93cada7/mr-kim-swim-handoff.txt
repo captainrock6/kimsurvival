@@ -1,0 +1,7 @@
+Wave 19 REVIEW ONLY
+Candidate: animation.mr-kim.swim.surface-cycle-a
+Atlas: 1536x1024 RGBA source layout. Use the six individual 512x512 pose files; source slicing uses explicit safe rects.
+Frames: shore-entry, surface-pull-a, surface-pull-b, surface-recover, shallow-duck-resurface, exhausted-float.
+Unity: PPU 128, shared waterline pivot (0.5,0.335938), Bilinear, Uncompressed, max 2048, mipmaps off, sRGB, alpha transparency on.
+KO/EN: no raster text; engine prompts remain separate.
+Gate: decision=review, selectedCandidate=null, runtimeAllowlist=[], no package/runtime/scene/Addressables.

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-24T13:52:59.995Z",
+  "updatedAt": "2026-08-24T15:37:37.506Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -1619,7 +1619,7 @@
       "id": "animation.mr-kim.swim",
       "name": "김씨 수영 애니메이션",
       "assetType": "sprite_animation",
-      "request": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
+      "request": "Wave 19 review-only 안정 후보 animation.mr-kim.swim.surface-cycle-a. Unity 2D 횡스크롤에서 오른쪽을 보는 김씨 수영 key-pose atlas 한 장. 1536x1024 true-alpha RGBA, 3열x2행의 정확한 512x512 셀, 셀 사이 침범 없음, 각 셀 동일한 몸 크기와 pelvis pivot. 좌상부터 shore-entry, surface-pull-a, surface-pull-b, surface-recover, shallow-duck-and-resurface, exhausted-float 순서. surface-pull-a/b/recover는 최소 3프레임 루프가 자연스럽게 이어지고 지침은 코믹하지만 익사·부상처럼 잔혹하지 않다. 채택된 김씨의 얼굴, 짧은 검은 머리, 빛바랜 주황 셔츠, 짙은 초록 반바지, 파란 슬리퍼, 밧줄과 천의 작은 등가방, 성인 비율과 굵은 선을 그대로 유지한다. 얕은 물 접촉을 위한 작은 물방울만 허용하고 바다·수면 직사각형·배경·체커보드·그림자·프레임·셀선·글자·숫자·라벨·UI·워터마크는 금지한다. 실제 후보는 사용자 승인 전 review이며 package/runtime 연결 금지.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -1634,7 +1634,8 @@
         "character.mr-kim"
       ],
       "jobIds": [
-        "job_20260822091448_251bc2a1"
+        "job_20260822091448_251bc2a1",
+        "job_20260824152541_e93cada7"
       ],
       "versions": [
         {
@@ -1650,57 +1651,190 @@
           "status": "review",
           "at": "2026-08-22T09:15:36.895Z",
           "qualityScore": 70
+        },
+        {
+          "jobId": "job_20260824152541_e93cada7",
+          "parentJobId": "job_20260822091448_251bc2a1",
+          "status": "awaiting_import",
+          "at": "2026-08-24T15:25:41.500Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260824152541_e93cada7",
+          "parentJobId": "job_20260822091448_251bc2a1",
+          "status": "review",
+          "at": "2026-08-24T15:37:24.997Z",
+          "qualityScore": 100
         }
       ],
-      "currentJobId": "job_20260822091448_251bc2a1",
-      "parentJobId": null,
+      "currentJobId": "job_20260824152541_e93cada7",
+      "parentJobId": "job_20260822091448_251bc2a1",
       "artifacts": [
         {
           "kind": "codex-request",
           "fileName": "codex-request.json",
           "contentType": "application/json",
-          "bytes": 51369,
-          "url": "/outputs/jobs/job_20260822091448_251bc2a1/codex-request.json"
+          "bytes": 55836,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/codex-request.json"
         },
         {
           "kind": "prompt",
           "fileName": "prompt.txt",
           "contentType": "text/plain",
-          "bytes": 46776,
-          "url": "/outputs/jobs/job_20260822091448_251bc2a1/prompt.txt"
+          "bytes": 46758,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/prompt.txt"
         },
         {
           "kind": "image",
-          "fileName": "exec-71e8e101-9429-46d2-88f5-5900153d941a.png",
+          "fileName": "mr-kim-swim-surface-cycle-a-atlas.png",
           "contentType": "image/png",
-          "bytes": 988472,
-          "url": "/outputs/jobs/job_20260822091448_251bc2a1/exec-71e8e101-9429-46d2-88f5-5900153d941a.png"
+          "bytes": 647021,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/mr-kim-swim-surface-cycle-a-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "swim-shore-entry.png",
+          "contentType": "image/png",
+          "bytes": 123120,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/swim-shore-entry.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "swim-surface-pull-a.png",
+          "contentType": "image/png",
+          "bytes": 104225,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/swim-surface-pull-a.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "swim-surface-pull-b.png",
+          "contentType": "image/png",
+          "bytes": 114731,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/swim-surface-pull-b.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "swim-surface-recover.png",
+          "contentType": "image/png",
+          "bytes": 107656,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/swim-surface-recover.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "swim-shallow-duck-resurface.png",
+          "contentType": "image/png",
+          "bytes": 83390,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/swim-shallow-duck-resurface.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "swim-exhausted-float.png",
+          "contentType": "image/png",
+          "bytes": 126815,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/swim-exhausted-float.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "mr-kim-swim-actual-size-review-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 245426,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/mr-kim-swim-actual-size-review-1280x800.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "mr-kim-swim-manifest.json",
+          "contentType": "application/json",
+          "bytes": 3176,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/mr-kim-swim-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "mr-kim-swim-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 3150,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/mr-kim-swim-visual-qa.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "mr-kim-swim-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 601,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/mr-kim-swim-handoff.txt"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.json",
           "contentType": "application/json",
-          "bytes": 963,
-          "url": "/outputs/jobs/job_20260822091448_251bc2a1/quality-report.json"
+          "bytes": 4156,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/quality-report.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.html",
           "contentType": "text/html",
-          "bytes": 1536,
-          "url": "/outputs/jobs/job_20260822091448_251bc2a1/quality-report.html"
+          "bytes": 3258,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/quality-report.html"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-exec-71e8e101-9429-46d2-88f5-5900153d941a.jpg",
+          "fileName": "qa-preview-mr-kim-swim-surface-cycle-a-atlas.jpg",
           "contentType": "image/jpeg",
-          "bytes": 6237,
-          "url": "/outputs/jobs/job_20260822091448_251bc2a1/qa-preview-exec-71e8e101-9429-46d2-88f5-5900153d941a.jpg"
+          "bytes": 5975,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-mr-kim-swim-surface-cycle-a-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-swim-shore-entry.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6552,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-swim-shore-entry.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-swim-surface-pull-a.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5065,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-swim-surface-pull-a.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-swim-surface-pull-b.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5411,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-swim-surface-pull-b.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-swim-surface-recover.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5303,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-swim-surface-recover.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-swim-shallow-duck-resurface.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4728,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-swim-shallow-duck-resurface.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-swim-exhausted-float.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6350,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-swim-exhausted-float.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-mr-kim-swim-actual-size-review-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7148,
+          "url": "/outputs/jobs/job_20260824152541_e93cada7/qa-preview-mr-kim-swim-actual-size-review-1280x800.jpg"
         }
       ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-23T14:16:09.886Z"
+      "updatedAt": "2026-08-24T15:37:24.998Z"
     },
     {
       "id": "object.vine-wood-barrier",
@@ -4603,6 +4737,209 @@
       },
       "createdAt": "2026-08-23T14:15:54.723Z",
       "updatedAt": "2026-08-24T12:56:53.115Z"
+    },
+    {
+      "id": "environment.expedition-region-kit",
+      "name": "수집 지역 레이어 환경 키트",
+      "assetType": "separated_parts",
+      "request": "Wave 19 review-only 안정 후보 environment.expedition-region-kit.layered-props-a. Unity 2D 횡스크롤 수집 맵의 flat color를 교체·보강하는 true-alpha 분리 파츠 atlas. 1536x1024, 정확한 3열x2행 512x512 셀, 셀 침범 없음. 열은 해변, 얕은 숲, 얕은 바다 순서. 윗행은 캐릭터 뒤에 놓는 낮은 중경 클러스터: 해변의 낮은 모래둔덕·조개·드문 풀, 숲의 양치식물·낮은 뿌리·잎층, 바다의 낮은 먼 암초·수면 잔물결. 아랫행은 화면 가장자리에만 쓰는 전경/접촉 클러스터: 작은 유목·모래풀, 큰 잎과 작은 바위, true-alpha 포말 띠·수초·잠긴 돌. 각 셀의 요소는 bottom-center pivot, 사방 투명 여백, 긴 횡스크롤에서 반복·좌우 반전 배치 가능한 비대칭이 약한 실루엣을 가진다. 채택된 gameplay-band-contrast의 따뜻한 황금 모래, 짙은 올리브 숲, 밝은 청록 얕은 물, 굵은 어두운 외곽선을 계승한다. 김씨·사람·동물·채집 자원·수집 노드·아이콘·덩굴 장벽·통나무 장벽·충돌 지면·건물·UI·글자·라벨·체커보드·프레임·셀선·워터마크·불투명 배경은 금지한다. 바다 셀도 사각 물 배경이 아니라 독립 포말·잔물결·수초 파츠만 제공한다. 배경 장식과 실제 이동/충돌 영역은 완전히 분리하고 사용자 승인 전 review, package/runtime 연결 금지.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "wave19",
+        "review-only",
+        "layered-side-scroller"
+      ],
+      "dependencies": [
+        "background.coast-forest"
+      ],
+      "jobIds": [
+        "job_20260824152619_30c0f7dd"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260824152619_30c0f7dd",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-24T15:26:19.385Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260824152619_30c0f7dd",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-24T15:37:37.504Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260824152619_30c0f7dd",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 51257,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 44364,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-region-layered-props-a-atlas.png",
+          "contentType": "image/png",
+          "bytes": 1489125,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/expedition-region-layered-props-a-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "region-beach-midground.png",
+          "contentType": "image/png",
+          "bytes": 308999,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/region-beach-midground.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "region-forest-midground.png",
+          "contentType": "image/png",
+          "bytes": 317802,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/region-forest-midground.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "region-shallow-sea-midground.png",
+          "contentType": "image/png",
+          "bytes": 131812,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/region-shallow-sea-midground.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "region-beach-foreground.png",
+          "contentType": "image/png",
+          "bytes": 234903,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/region-beach-foreground.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "region-forest-foreground.png",
+          "contentType": "image/png",
+          "bytes": 275930,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/region-forest-foreground.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "region-shallow-sea-foreground.png",
+          "contentType": "image/png",
+          "bytes": 195057,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/region-shallow-sea-foreground.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "expedition-region-actual-size-review-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 541677,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/expedition-region-actual-size-review-1280x800.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expedition-region-kit-manifest.json",
+          "contentType": "application/json",
+          "bytes": 2830,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/expedition-region-kit-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "expedition-region-kit-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 3183,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/expedition-region-kit-visual-qa.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "expedition-region-kit-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 679,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/expedition-region-kit-handoff.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 4254,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3368,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expedition-region-layered-props-a-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8517,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-expedition-region-layered-props-a-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-region-beach-midground.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 10811,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-region-beach-midground.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-region-forest-midground.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 10132,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-region-forest-midground.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-region-shallow-sea-midground.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6917,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-region-shallow-sea-midground.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-region-beach-foreground.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9133,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-region-beach-foreground.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-region-forest-foreground.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9163,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-region-forest-foreground.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-region-shallow-sea-foreground.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7849,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-region-shallow-sea-foreground.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-expedition-region-actual-size-review-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8751,
+          "url": "/outputs/jobs/job_20260824152619_30c0f7dd/qa-preview-expedition-region-actual-size-review-1280x800.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-24T15:24:58.822Z",
+      "updatedAt": "2026-08-24T15:37:37.506Z"
     }
   ]
 }

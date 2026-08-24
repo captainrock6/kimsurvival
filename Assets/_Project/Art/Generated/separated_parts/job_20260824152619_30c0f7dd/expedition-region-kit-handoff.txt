@@ -1,0 +1,8 @@
+Wave 19 REVIEW ONLY
+Candidate: environment.expedition-region-kit.layered-props-a
+Atlas: 1536x1024 RGBA, 3x2 cells, 512x512 each.
+Columns: beach, shallow forest, shallow sea. Rows: midground, foreground/contact.
+Unity: PPU 100, bottom-center pivot (0.5,0.0), Bilinear, Uncompressed, max 2048, mipmaps off, sRGB, alpha transparency on.
+Layer rule: background -> midground -> engine collision/water mask -> resource/barrier -> player -> foreground -> UI.
+KO/EN: no raster text. Water collision, swim state, resource nodes and vine barrier are engine/separate assets.
+Gate: decision=review, selectedCandidate=null, runtimeAllowlist=[], no package/runtime/scene/Addressables.

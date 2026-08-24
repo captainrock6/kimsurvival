@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "assetId": "animation.mr-kim.swim",
+  "jobId": "job_20260824152541_e93cada7",
+  "candidateId": "animation.mr-kim.swim.surface-cycle-a",
+  "decision": "review",
+  "selectedCandidate": null,
+  "parentJobId": "job_20260822091448_251bc2a1",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "sourceLayout": {
+    "columns": 3,
+    "rows": 2,
+    "sliceMode": "explicit-safe-rects"
+  },
+  "frames": [
+    {
+      "id": "shore-entry",
+      "file": "swim-shore-entry.png",
+      "sourceRect": [
+        32,
+        150,
+        423,
+        350
+      ],
+      "frameSize": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.335938
+      ]
+    },
+    {
+      "id": "surface-pull-a",
+      "file": "swim-surface-pull-a.png",
+      "sourceRect": [
+        480,
+        225,
+        535,
+        275
+      ],
+      "frameSize": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.335938
+      ]
+    },
+    {
+      "id": "surface-pull-b",
+      "file": "swim-surface-pull-b.png",
+      "sourceRect": [
+        1018,
+        220,
+        492,
+        280
+      ],
+      "frameSize": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.335938
+      ]
+    },
+    {
+      "id": "surface-recover",
+      "file": "swim-surface-recover.png",
+      "sourceRect": [
+        20,
+        540,
+        535,
+        295
+      ],
+      "frameSize": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.335938
+      ]
+    },
+    {
+      "id": "shallow-duck-resurface",
+      "file": "swim-shallow-duck-resurface.png",
+      "sourceRect": [
+        575,
+        525,
+        370,
+        285
+      ],
+      "frameSize": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.335938
+      ]
+    },
+    {
+      "id": "exhausted-float",
+      "file": "swim-exhausted-float.png",
+      "sourceRect": [
+        960,
+        520,
+        505,
+        380
+      ],
+      "frameSize": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.335938
+      ]
+    }
+  ],
+  "loop": [
+    "surface-pull-a",
+    "surface-pull-b",
+    "surface-recover"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "pixelsPerUnit": 128,
+    "pivot": [
+      0.5,
+      0.335938
+    ],
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "colorSpace": "sRGB",
+    "wrapMode": "Clamp",
+    "previewFps": 8
+  },
+  "localization": {
+    "rasterText": "none",
+    "ko": "engine text",
+    "en": "engine text"
+  },
+  "runtime": {
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false
+  },
+  "generation": {
+    "method": "built-in Codex ImageGen once plus deterministic local alpha extraction",
+    "paidExternalApiCalled": false,
+    "sourceSha256": "17494853a3cd3c03a3ff4bac08f187628bd3a41f819fd4c0edf789cec96a8ad5"
+  }
+}

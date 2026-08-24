@@ -1,0 +1,149 @@
+{
+  "result": "review",
+  "candidateId": "animation.mr-kim.swim.surface-cycle-a",
+  "sourceHadBakedCheckerboard": true,
+  "checkerboardRemovedDeterministically": true,
+  "atlas": {
+    "width": 1536,
+    "height": 1024,
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentPixels": 1345290,
+    "opaquePixels": 225295,
+    "partialAlphaPixels": 2279,
+    "transparentRatio": 0.855312,
+    "contentBounds": [
+      34,
+      172,
+      1492,
+      860
+    ],
+    "edgeTouch": false
+  },
+  "frames": {
+    "swim-shore-entry": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 219534,
+      "opaquePixels": 42122,
+      "partialAlphaPixels": 488,
+      "transparentRatio": 0.837456,
+      "contentBounds": [
+        69,
+        42,
+        443,
+        350
+      ],
+      "edgeTouch": false
+    },
+    "swim-surface-pull-a": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 226642,
+      "opaquePixels": 30807,
+      "partialAlphaPixels": 4695,
+      "transparentRatio": 0.864571,
+      "contentBounds": [
+        20,
+        157,
+        492,
+        353
+      ],
+      "edgeTouch": false
+    },
+    "swim-surface-pull-b": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 222178,
+      "opaquePixels": 34457,
+      "partialAlphaPixels": 5509,
+      "transparentRatio": 0.847542,
+      "contentBounds": [
+        20,
+        159,
+        492,
+        381
+      ],
+      "edgeTouch": false
+    },
+    "swim-surface-recover": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 225647,
+      "opaquePixels": 31309,
+      "partialAlphaPixels": 5188,
+      "transparentRatio": 0.860775,
+      "contentBounds": [
+        20,
+        185,
+        492,
+        385
+      ],
+      "edgeTouch": false
+    },
+    "swim-shallow-duck-resurface": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 234143,
+      "opaquePixels": 27654,
+      "partialAlphaPixels": 347,
+      "transparentRatio": 0.893185,
+      "contentBounds": [
+        101,
+        146,
+        410,
+        352
+      ],
+      "edgeTouch": false
+    },
+    "swim-exhausted-float": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 218335,
+      "opaquePixels": 43330,
+      "partialAlphaPixels": 479,
+      "transparentRatio": 0.832882,
+      "contentBounds": [
+        40,
+        190,
+        472,
+        496
+      ],
+      "edgeTouch": false
+    }
+  },
+  "allFramesTrueAlpha": true,
+  "edgeTouchWarnings": [],
+  "manualReview": [
+    "identity preserved",
+    "six required poses readable",
+    "surface loop requires in-engine timing review"
+  ],
+  "externalApiCalled": false
+}

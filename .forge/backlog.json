@@ -2538,17 +2538,52 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [
-        "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1"
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1",
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7"
       ],
       "evidence": [
-        "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json"
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json",
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/quality-report.json",
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/mr-kim-swim-visual-qa.json"
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-22T09:25:35.054Z",
-      "note": "Six-frame candidate preserved for review; quality gate failed because the checkerboard background is baked pixels rather than real alpha. Do not adopt until revised.",
+      "updatedAt": "2026-08-24T15:37:24.997Z",
+      "note": "기존 job_20260822091448_251bc2a1의 missing-alpha 실패 기록은 보존한다. Wave 19 child job_20260824152541_e93cada7의 안정 후보 animation.mr-kim.swim.surface-cycle-a는 true alpha 6포즈, Forge 100점/경고 0으로 review 중이다. surface 3포즈의 실제 루프 타이밍과 수면선 정렬은 사용자 선택 후 Unity에서 확인해야 하며 adopt/package/runtime 연결은 금지한다.",
       "completedAt": null,
       "createdAt": "2026-08-22T09:25:35.033Z"
+    },
+    {
+      "id": "task.art.environment.expedition-region-kit",
+      "lane": "art",
+      "title": "수집 지역 레이어 환경 파츠 리뷰",
+      "description": "해변·얕은 숲·얕은 바다의 flat color를 대체·보강하는 2D 횡스크롤용 true-alpha 중경/전경 파츠를 준비한다. 실제 이동 지면·물 마스크·자원 노드·장벽·캐릭터는 별도 엔진/자산 레이어로 유지한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [
+        "environment.expedition-region-kit"
+      ],
+      "acceptanceCriteria": [
+        "해변·숲·얕은 바다의 중경/전경 실루엣이 1280×800에서 구분되고 캐릭터 보행 밴드와 실제 충돌/수영 영역이 분리된다.",
+        "개별 PNG는 512×512 true alpha, 사방 투명 여백과 bottom-center 피벗 규칙을 갖는다.",
+        "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Art/Generated/separated_parts/job_20260824152619_30c0f7dd"
+      ],
+      "evidence": [
+        "Assets/_Project/Art/Generated/separated_parts/job_20260824152619_30c0f7dd/quality-report.json",
+        "Assets/_Project/Art/Generated/separated_parts/job_20260824152619_30c0f7dd/expedition-region-kit-visual-qa.json"
+      ],
+      "blockedReason": "",
+      "status": "review",
+      "updatedAt": "2026-08-24T15:37:37.504Z",
+      "note": "안정 후보 environment.expedition-region-kit.layered-props-a는 Forge 100점/경고 0으로 review 중이다. 긴 맵 반복 간격, 수면 마스크 합성, 자원/장벽 가독성은 사용자 선택 후 Unity에서 검증해야 하며 adopt/package/runtime 연결은 금지한다.",
+      "completedAt": null,
+      "createdAt": "2026-08-24T15:37:37.504Z"
     },
     {
       "id": "task.system.system.swimming",

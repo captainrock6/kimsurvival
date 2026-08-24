@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "assetId": "environment.expedition-region-kit",
+  "jobId": "job_20260824152619_30c0f7dd",
+  "candidateId": "environment.expedition-region-kit.layered-props-a",
+  "decision": "review",
+  "selectedCandidate": null,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "grid": {
+    "columns": 3,
+    "rows": 2,
+    "cell": [
+      512,
+      512
+    ]
+  },
+  "parts": [
+    {
+      "id": "beach-midground",
+      "file": "region-beach-midground.png",
+      "layer": "midground",
+      "pivot": [
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "id": "forest-midground",
+      "file": "region-forest-midground.png",
+      "layer": "midground",
+      "pivot": [
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "id": "shallow-sea-midground",
+      "file": "region-shallow-sea-midground.png",
+      "layer": "midground",
+      "pivot": [
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "id": "beach-foreground",
+      "file": "region-beach-foreground.png",
+      "layer": "foreground",
+      "pivot": [
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "id": "forest-foreground",
+      "file": "region-forest-foreground.png",
+      "layer": "foreground",
+      "pivot": [
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "id": "shallow-sea-foreground",
+      "file": "region-shallow-sea-foreground.png",
+      "layer": "foreground",
+      "pivot": [
+        0.5,
+        0.0
+      ]
+    }
+  ],
+  "composition": {
+    "layerOrder": [
+      "far-background",
+      "region-midground",
+      "engine-collision-ground",
+      "resource-and-barrier-objects",
+      "player",
+      "region-foreground",
+      "UI"
+    ],
+    "longMap": "repeat or horizontal-flip clusters with at least one cluster-width of spacing; never bake gameplay objects",
+    "water": "foam/ripple/sea-grass sprites sit above an engine water mask; water collision and swim state remain engine data"
+  },
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "pixelsPerUnit": 100,
+    "pivot": [
+      0.5,
+      0.0
+    ],
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "colorSpace": "sRGB",
+    "wrapMode": "Clamp"
+  },
+  "localization": {
+    "rasterText": "none",
+    "ko": "engine text",
+    "en": "engine text"
+  },
+  "runtime": {
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false
+  },
+  "generation": {
+    "method": "built-in Codex ImageGen once plus deterministic local alpha cleanup",
+    "paidExternalApiCalled": false,
+    "sourceSha256": "1a685e0d3f7fff7299f929697b9f58064901c2e1b0cecc11c2da78aed7467a0a"
+  }
+}
