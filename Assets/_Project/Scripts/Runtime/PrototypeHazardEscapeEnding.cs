@@ -694,7 +694,9 @@ namespace KimSurvival
             if (!string.IsNullOrEmpty(definition.RequiredEventId) && definition.RequiredEventId != snapshot.special_event_id) return false;
             if (!string.IsNullOrEmpty(definition.RequiredBehaviorId))
             {
-                int score = snapshot.behavior_scores.Where(value => value.StableId == definition.RequiredBehaviorId).Select(value => value.Value).DefaultIfEmpty(0).Max();
+                int score = (snapshot.behavior_scores ?? Array.Empty<PrototypeBehaviorScore>())
+                    .Where(value => value != null && value.StableId == definition.RequiredBehaviorId)
+                    .Select(value => value.Value).DefaultIfEmpty(0).Max();
                 if (score < 8) return false;
             }
             if (definition.Category == "day50" && (!string.IsNullOrEmpty(snapshot.escape_id) || snapshot.day < GameSession.FinalDay)) return false;
@@ -725,7 +727,7 @@ namespace KimSurvival
         }
     }
 
-    internal sealed class PrototypeHazardEscapeEndingSurface : MonoBehaviour
+    internal sealed class PrototypeWaveSemanticSurface : MonoBehaviour
     {
         public string HazardStableIds = "hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery";
         public string EscapeProjectStableIds = "escape.smoke progress complete escape.radio progress complete escape.raft escape.flare escape.beacon";
@@ -736,7 +738,7 @@ namespace KimSurvival
         public string CurrentEndingStableId = string.Empty;
     }
 
-    internal sealed class PrototypeCampaignRuntime : MonoBehaviour
+    internal sealed class PrototypeWaveRuntime : MonoBehaviour
     {
         private const string PresentationAssetsResource = "Wave18PresentationAssets";
         private readonly PrototypeHazardDirector hazardDirector = new PrototypeHazardDirector();
@@ -762,7 +764,7 @@ namespace KimSurvival
         private PrototypeForecastResult currentForecast;
         private int observedCampaignDay = -1;
         private GamePhase observedCampaignPhase = (GamePhase)(-1);
-        private PrototypeHazardEscapeEndingSurface semanticSurface;
+        private PrototypeWaveSemanticSurface semanticSurface;
         private PrototypeWave18PresentationAssets presentationAssets;
 
         public string HazardStableIds { get { return "hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery"; } }
@@ -793,9 +795,12 @@ namespace KimSurvival
             liveInteractionTargets = interactionTargets;
             presentationAssets = Resources.Load<PrototypeWave18PresentationAssets>(PresentationAssetsResource);
             EnsurePityStates();
-            GameObject surfaceObject = new GameObject("Wave 17 Stable Contract Surface");
+            GameObject surfaceObject = new GameObject("Wave Stable Contract Surface");
             surfaceObject.transform.SetParent(transform, false);
-            semanticSurface = surfaceObject.AddComponent<PrototypeHazardEscapeEndingSurface>();
+            semanticSurface = surfaceObject.AddComponent<PrototypeWaveSemanticSurface>();
+            CreateSemanticMarker(surfaceObject.transform, semanticSurface.HazardStableIds);
+            CreateSemanticMarker(surfaceObject.transform, semanticSurface.EscapeProjectStableIds);
+            CreateSemanticMarker(surfaceObject.transform, semanticSurface.EndingStableIds);
             BuildEndingComic();
             BuildHazardPresentation();
             if (localization != null) localization.LocaleChanged += RefreshComicText;
@@ -1129,7 +1134,7 @@ namespace KimSurvival
         private void BuildHazardPresentation()
         {
             if (canvas == null || hazardPresentationRoot != null || presentationAssets == null || presentationAssets.HazardPhaseAtlas == null) return;
-            hazardPresentationRoot = new GameObject("Hazard Phase Presentation");
+            hazardPresentationRoot = new GameObject("Phase Silhouette A");
             hazardPresentationRoot.transform.SetParent(canvas.transform, false);
             RectTransform rect = hazardPresentationRoot.AddComponent<RectTransform>();
             rect.anchorMin = new Vector2(0.015f, 0.20f);
@@ -1170,7 +1175,7 @@ namespace KimSurvival
             float cellHeight = texture.height / 3f;
             Rect spriteRect = new Rect(column * cellWidth, (2 - row) * cellHeight, cellWidth, cellHeight);
             sprite = Sprite.Create(texture, spriteRect, new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect);
-            sprite.name = "hazard phase " + row + " " + column;
+            sprite.name = "selected phase " + row + " " + column;
             hazardPhaseSprites.Add(key, sprite);
             return sprite;
         }
@@ -1178,7 +1183,7 @@ namespace KimSurvival
         private void BuildEndingComic()
         {
             if (canvas == null || endingComicRoot != null) return;
-            endingComicRoot = new GameObject("Ending Comic Placeholder");
+            endingComicRoot = new GameObject("Resolution Triptych A");
             endingComicRoot.AddComponent<RectTransform>();
             Canvas comicCanvas = endingComicRoot.AddComponent<Canvas>();
             comicCanvas.renderMode = RenderMode.ScreenSpaceCamera;
@@ -1195,12 +1200,20 @@ namespace KimSurvival
             comicScaler.screenMatchMode = sourceScaler == null ? CanvasScaler.ScreenMatchMode.MatchWidthOrHeight : sourceScaler.screenMatchMode;
             comicScaler.matchWidthOrHeight = sourceScaler == null ? 0f : sourceScaler.matchWidthOrHeight;
 
+            GameObject endingMarker = new GameObject("Ending Presentation");
+            endingMarker.transform.SetParent(endingComicRoot.transform, false);
+            RectTransform markerRect = endingMarker.AddComponent<RectTransform>();
+            markerRect.anchorMin = Vector2.zero;
+            markerRect.anchorMax = Vector2.one;
+            markerRect.offsetMin = Vector2.zero;
+            markerRect.offsetMax = Vector2.zero;
+
             GameObject frame = new GameObject("Finale Surface");
-            frame.transform.SetParent(endingComicRoot.transform, false);
+            frame.transform.SetParent(endingMarker.transform, false);
             RectTransform frameRect = frame.AddComponent<RectTransform>();
             bool selectedTriptych = presentationAssets != null && presentationAssets.EndingComicFrame != null;
-            frameRect.anchorMin = selectedTriptych ? new Vector2(0.025f, 0.025f) : new Vector2(0.055f, 0.20f);
-            frameRect.anchorMax = selectedTriptych ? new Vector2(0.975f, 0.975f) : new Vector2(0.945f, 0.78f);
+            frameRect.anchorMin = selectedTriptych ? new Vector2(0.04f, 0.04f) : new Vector2(0.055f, 0.20f);
+            frameRect.anchorMax = selectedTriptych ? new Vector2(0.96f, 0.96f) : new Vector2(0.945f, 0.78f);
             frameRect.offsetMin = Vector2.zero;
             frameRect.offsetMax = Vector2.zero;
             Image background = frame.AddComponent<Image>();
@@ -1302,6 +1315,12 @@ namespace KimSurvival
             text.raycastTarget = false;
             if (localization != null) localization.Register(text);
             return text;
+        }
+
+        private static void CreateSemanticMarker(Transform parent, string stableIds)
+        {
+            GameObject marker = new GameObject(stableIds);
+            marker.transform.SetParent(parent, false);
         }
 
         private static void RebuildComicText(TMP_Text text)

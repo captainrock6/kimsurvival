@@ -113,7 +113,7 @@ namespace KimSurvival
         private GameSession session;
         private PrototypeLocalization localization;
         private PrototypePlaytestEventRecorder playtestLog;
-        private PrototypeCampaignRuntime hazardEscapeEndingRuntime;
+        private PrototypeWaveRuntime hazardEscapeEndingRuntime;
         private Camera worldCamera;
         private Canvas canvas;
         private Sprite squareSprite;
@@ -218,7 +218,7 @@ namespace KimSurvival
             BuildCamera();
             BuildEventSystem();
             BuildUi();
-            hazardEscapeEndingRuntime = gameObject.AddComponent<PrototypeCampaignRuntime>();
+            hazardEscapeEndingRuntime = gameObject.AddComponent<PrototypeWaveRuntime>();
             hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog, campInteractionTargets);
             renderedPhase = (GamePhase)(-1);
             RefreshAll();

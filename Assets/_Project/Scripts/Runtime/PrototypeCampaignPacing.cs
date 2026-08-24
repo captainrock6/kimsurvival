@@ -206,7 +206,7 @@ namespace KimSurvival
                 ForecastId = "forecast." + (hash % 7).ToString(),
                 HazardId = HazardIds[hazardIndex],
                 AbundanceBand = AbundanceBands[PrototypeExpeditionRegionCatalog.PositiveModulo(hash / 7, AbundanceBands.Length)],
-                PityStateId = PrototypeKeyPartPityConfig.StateIdFor(eligibleSearchCount)
+                PityStateId = CampaignKeyPartPityConfig.StateIdFor(eligibleSearchCount)
             };
         }
 
@@ -230,7 +230,7 @@ namespace KimSurvival
         }
     }
 
-    public static class PrototypeKeyPartPityConfig
+    public static class CampaignKeyPartPityConfig
     {
         public const int EligibleHintSearchCount = 3;
         public const int EligibleGuaranteeSearchCount = 5;
@@ -273,8 +273,8 @@ namespace KimSurvival
             }
 
             EligibleSearchCount += 1;
-            HintVisible = EligibleSearchCount >= PrototypeKeyPartPityConfig.EligibleHintSearchCount;
-            Guaranteed = EligibleSearchCount >= PrototypeKeyPartPityConfig.EligibleGuaranteeSearchCount;
+            HintVisible = EligibleSearchCount >= CampaignKeyPartPityConfig.EligibleHintSearchCount;
+            Guaranteed = EligibleSearchCount >= CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount;
             if (Guaranteed) ProtectedOwned = true;
             LastResultCode = Guaranteed ? "pity.guaranteed" : HintVisible ? "pity.hint" : "pity.eligible";
             return true;
@@ -386,7 +386,7 @@ namespace KimSurvival
         }
     }
 
-    public static class PrototypeHazardCadenceContract
+    public static class CampaignHazardCadenceContract
     {
         public static PrototypeHazardCadenceDefinition Definition { get; } = new PrototypeHazardCadenceDefinition();
 
