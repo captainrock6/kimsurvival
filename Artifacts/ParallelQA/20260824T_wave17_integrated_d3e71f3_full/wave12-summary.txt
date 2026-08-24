@@ -1,0 +1,17 @@
+Wave 12 five-day compact-a RED-first gate
+Run ID: 20260824T_wave17_integrated_d3e71f3_full
+Baseline: d3e71f30decb9af45d8c10c9041b333d0e5b7471
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+Fresh Wave3 visual: PASS
+Wave11 walking path: PASS 3/3 actual screen rects
+Compile: PASS 0 errors
+Windows build: PASS, warnings=0
+Hidden smoke: PASS
+Addressables: PASS load/build/post-smoke
+PowerShell compatibility: PASS (Core 7.6.4)
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)
+Expected product gaps: 1 [W12-D01.five_day_deadline]
+Unexpected product failures: 0
+Infrastructure failures: 0
+Evidence: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260824T_wave17_integrated_d3e71f3_full

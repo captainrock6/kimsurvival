@@ -3000,12 +3000,14 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset ui.escape-project-progress adopted via job_20260823160324_1de3b748"
+      ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-24T11:43:58.889Z",
+      "status": "done",
+      "updatedAt": "2026-08-24T13:31:04.090Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "completedAt": null
+      "completedAt": "2026-08-24T13:31:04.090Z"
     },
     {
       "id": "task.art.ui.ending-comic",
@@ -3026,12 +3028,14 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset ui.ending-comic adopted via job_20260823160342_eceb3933"
+      ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-24T11:43:58.889Z",
+      "status": "done",
+      "updatedAt": "2026-08-24T13:31:04.090Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "completedAt": null
+      "completedAt": "2026-08-24T13:31:04.090Z"
     },
     {
       "id": "task.art.effect.survival-hazards",
@@ -3051,12 +3055,14 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset effect.survival-hazards adopted via job_20260823160305_ef04b0f3"
+      ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-24T11:43:58.889Z",
+      "status": "done",
+      "updatedAt": "2026-08-24T13:31:04.090Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "completedAt": null
+      "completedAt": "2026-08-24T13:31:04.090Z"
     },
     {
       "id": "task.feature.feature.behavioral-endings",
@@ -3423,5 +3429,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-24T12:57:44.476Z"
+  "updatedAt": "2026-08-24T13:31:04.090Z"
 }

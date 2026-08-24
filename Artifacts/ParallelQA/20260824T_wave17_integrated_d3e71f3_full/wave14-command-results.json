@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 14 qps-long global 1280x800 layout gate command result",
+  "runId": "20260824T_wave17_integrated_d3e71f3_full",
+  "baselineCommit": "d3e71f30decb9af45d8c10c9041b333d0e5b7471",
+  "startedUtc": "2026-08-24T13:27:17.6054365Z",
+  "completedUtc": "2026-08-24T13:29:10.6195736Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "compatibility": "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+  },
+  "executionPolicy": "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "infrastructureFailures": [],
+  "exactReportedBaselineReproduced": false,
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "exitCode": 0,
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave14QpsGlobalLayoutGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'd3e71f30decb9af45d8c10c9041b333d0e5b7471' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "wave12-prerequisite-full-gate",
+      "startedUtc": "2026-08-24T13:27:17.6259672Z",
+      "completedUtc": "2026-08-24T13:29:03.1119483Z",
+      "exitCode": 2,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1\" -RunId 20260824T_wave17_integrated_d3e71f3_full -BaselineCommit d3e71f30decb9af45d8c10c9041b333d0e5b7471 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_integrated_d3e71f3_full\\wave14-wave12-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_integrated_d3e71f3_full\\wave14-wave12-stderr.log"
+    },
+    {
+      "name": "wave14-qps-global-layout-contracts",
+      "startedUtc": "2026-08-24T13:29:03.1166921Z",
+      "completedUtc": "2026-08-24T13:29:10.6005866Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave14QpsGlobalLayoutGateRunner.RunEvidenceContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_integrated_d3e71f3_full\\unity-wave14-qps-global-layout.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_integrated_d3e71f3_full\\wave14-unity-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260824T_wave17_integrated_d3e71f3_full\\wave14-unity-stderr.log"
+    }
+  ]
+}

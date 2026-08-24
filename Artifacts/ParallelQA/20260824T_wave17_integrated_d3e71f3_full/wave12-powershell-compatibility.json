@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260824T_wave17_integrated_d3e71f3_full",
+  "baselineCommit": "d3e71f30decb9af45d8c10c9041b333d0e5b7471",
+  "observedUtc": "2026-08-24T13:27:18.2692606Z",
+  "entryPoint": "Invoke-Wave12FiveDayUiGate.ps1",
+  "mode": "Full",
+  "psEdition": "Core",
+  "psVersion": "7.6.4",
+  "preflightExitCode": 0,
+  "preflightJsonUtf8NoBom": true,
+  "preflightTextUtf8NoBom": true,
+  "evidenceFormat": "UTF-8 without BOM; existing Wave 5 JSON/TXT names and schemas preserved",
+  "overall": "PASS"
+}
