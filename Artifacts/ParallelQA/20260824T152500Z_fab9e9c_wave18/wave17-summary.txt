@@ -1,0 +1,15 @@
+Wave 17 pacing, hazard, escape, ending RED-first hardening gate
+Run ID: 20260824T152500Z_fab9e9c_wave18
+Baseline: fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8
+PowerShell: Desktop 5.1.26100.9168
+Overall/Product/Infrastructure: FAIL/FAIL/PASS
+Frozen Wave 16 failures: FAIL
+Wave 15/qps: GREEN/10/10 PASS
+Compile/Build/Smoke/Addressables: PASS 0 errors / 0 warnings/PASS/PASS 6.393s (minimum 6)/PASS
+Expected Wave 17 product gaps: 0 []
+Unexpected product/adoption failures: 15
+Infrastructure failures: 0
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Exit code: 1 (0 GREEN, 2 RED_EXPECTED_GAP, 1 unexpected/infrastructure failure)
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave17PacingHazardGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8' -MinimumSmokeSeconds 6

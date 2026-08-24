@@ -1,0 +1,32 @@
+{
+    "schemaVersion":  1,
+    "runId":  "20260824T152500Z_fab9e9c_wave18",
+    "baselineCommit":  "fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8",
+    "expectedStableExecutable":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "build":  {
+                  "runId":  "20260824T152500Z_fab9e9c_wave18",
+                  "baselineCommit":  "fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8",
+                  "reportedExecutable":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+                  "executableSha256":  "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+                  "currentExecutableSha256":  "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+                  "options":  "Development",
+                  "allowDebuggingAbsent":  true,
+                  "identityResult":  "PASS"
+              },
+    "smoke":  {
+                  "runId":  "20260824T152500Z_fab9e9c_wave18",
+                  "baselineCommit":  "fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8",
+                  "reportedExecutable":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+                  "executableSha256":  "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+                  "buildIdentityMatches":  true,
+                  "identityResult":  "PASS"
+              },
+    "firewall":  {
+                     "evidenceSource":  "Artifacts/Verification/windows-firewall-worktree-rules.json",
+                     "exactProgram":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+                     "direction":  "Inbound",
+                     "action":  "Block",
+                     "status":  "PASS"
+                 },
+    "overall":  "PASS"
+}
