@@ -1,0 +1,8 @@
+ui.ending-comic.triptych-a / REVIEW ONLY
+1280x800 three-core-panel placeholder: setup, expressive close-up, punchline/result.
+Optional inserts: maximum one dominant-behavior panel and one event-scar panel; modifiers never change endingId.
+Verdict evidence remains a separate band for terminal route, dominant behavior, special event and deterministic tie-break reason.
+Category shape grammar: rounded/double-line normal, burst/dot comic, star/ray rare, stitched/hatch Day50.
+TMP only for ko/en/qps-long. qps-long expansion 150%, wrap then vertical reflow, minimum 18px. Focus/glyph minimum 44x44.
+9-slice: outer L32 R32 T28 B28; panel L16 R16 T16 B16; evidence L18 R18 T14 B14.
+selectedCandidate=null; runtime allowlist empty; adopt/package/runtime-connect prohibited until explicit user selection.

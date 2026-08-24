@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <metadata>candidateId=effect.survival-hazards.phase-silhouette-a; cells=4x3; cell=256; pivot=0.5,0.5; status=review</metadata>
+  <defs>
+    <style>.o{fill:none;stroke:#17353B;stroke-width:14;stroke-linecap:round;stroke-linejoin:round}.t{fill:#168C84;stroke:#17353B;stroke-width:14}.c{fill:#F4E0AE;stroke:#17353B;stroke-width:14}.a{fill:#E8682A;stroke:#17353B;stroke-width:14}.y{fill:#F3BE4D;stroke:#17353B;stroke-width:12}.g{fill:#6D9A56;stroke:#17353B;stroke-width:14}.dash{fill:none;stroke:#F3BE4D;stroke-width:12;stroke-dasharray:22 14;stroke-linejoin:round}</style>
+    <g id="phase-telegraph"><path class="dash" d="M128 34 222 204 34 204Z"/><path class="o" stroke="#F3BE4D" d="M38 88q20-35 50-45M216 88q-20-35-50-45"/></g>
+    <g id="phase-occurrence"><path class="a" d="m128 24 18 34 34-22 3 42 42-3-22 34 34 18-34 18 22 34-42-3-3 42-34-22-18 34-18-34-34 22-3-42-42 3 22-34-34-18 34-18-22-34 42 3 3-42 34 22Z"/></g>
+    <g id="phase-mitigation"><path class="t" d="M128 24 214 62 196 178 128 230 60 178 42 62Z"/></g>
+    <g id="phase-recovery"><circle class="g" cx="128" cy="128" r="102"/><ellipse class="y" cx="180" cy="46" rx="20" ry="34"/></g>
+    <g id="hazard-injury"><g transform="rotate(-38 128 128)"><rect class="c" x="58" y="102" width="140" height="52" rx="18"/><rect fill="#E8682A" x="104" y="98" width="48" height="60"/></g></g>
+    <g id="hazard-storm"><path class="c" d="M58 140q-18-42 26-58 12-52 66-38 30 2 38 36 48 4 42 60Z"/><path class="o" d="m78 158-20 46m66-46-20 46m66-46-20 46"/></g>
+    <g id="hazard-theft"><rect class="a" x="58" y="104" width="140" height="88" rx="12"/><path class="o" d="m70 116 116 64m0-64L70 180M54 98h148"/><circle fill="#17353B" cx="74" cy="64" r="10"/><circle fill="#17353B" cx="112" cy="48" r="10"/><circle fill="#17353B" cx="150" cy="64" r="10"/></g>
+  </defs>
+  <g id="hazard.injury.telegraph" transform="translate(0 0)"><use href="#phase-telegraph"/><use href="#hazard-injury"/></g>
+  <g id="hazard.injury.occurrence" transform="translate(256 0)"><use href="#phase-occurrence"/><use href="#hazard-injury"/></g>
+  <g id="hazard.injury.mitigation" transform="translate(512 0)"><use href="#phase-mitigation"/><use href="#hazard-injury"/></g>
+  <g id="hazard.injury.recovery" transform="translate(768 0)"><use href="#phase-recovery"/><use href="#hazard-injury"/></g>
+  <g id="hazard.disaster.telegraph" transform="translate(0 256)"><use href="#phase-telegraph"/><use href="#hazard-storm"/></g>
+  <g id="hazard.disaster.occurrence" transform="translate(256 256)"><use href="#phase-occurrence"/><use href="#hazard-storm"/></g>
+  <g id="hazard.disaster.mitigation" transform="translate(512 256)"><use href="#phase-mitigation"/><use href="#hazard-storm"/></g>
+  <g id="hazard.disaster.recovery" transform="translate(768 256)"><use href="#phase-recovery"/><use href="#hazard-storm"/></g>
+  <g id="hazard.food-theft.telegraph" transform="translate(0 512)"><use href="#phase-telegraph"/><use href="#hazard-theft"/></g>
+  <g id="hazard.food-theft.occurrence" transform="translate(256 512)"><use href="#phase-occurrence"/><use href="#hazard-theft"/></g>
+  <g id="hazard.food-theft.mitigation" transform="translate(512 512)"><use href="#phase-mitigation"/><use href="#hazard-theft"/></g>
+  <g id="hazard.food-theft.recovery" transform="translate(768 512)"><use href="#phase-recovery"/><use href="#hazard-theft"/></g>
+</svg>

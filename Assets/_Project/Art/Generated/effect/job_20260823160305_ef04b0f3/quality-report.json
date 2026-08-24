@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 7,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "hazard-phase-atlas.png",
+      "kind": "raster",
+      "width": 1024,
+      "height": 768,
+      "hasAlpha": true,
+      "transparentRatio": 0.856,
+      "contrastStdDev": 61.68,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 46,
+        "top": 40,
+        "right": 43,
+        "bottom": 40
+      },
+      "previewFile": "qa-preview-hazard-phase-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "hazard-phase-atlas.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1024 768",
+      "issues": []
+    },
+    {
+      "fileName": "hazard-readability-32-64.png",
+      "kind": "raster",
+      "width": 1024,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.112,
+      "contrastStdDev": 26.88,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-hazard-readability-32-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "hazard-review-board-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.0719,
+      "contrastStdDev": 80.77,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 21,
+        "top": 21,
+        "right": 21,
+        "bottom": 21
+      },
+      "previewFile": "qa-preview-hazard-review-board-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "hazard-phase-manifest.json",
+      "kind": "editable-source",
+      "bytes": 1550,
+      "issues": []
+    },
+    {
+      "fileName": "hazard-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 536,
+      "issues": []
+    },
+    {
+      "fileName": "hazard-handoff.txt",
+      "kind": "file",
+      "bytes": 597,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T16:12:14.698Z",
+  "jobId": "job_20260823160305_ef04b0f3",
+  "assetType": "effect"
+}

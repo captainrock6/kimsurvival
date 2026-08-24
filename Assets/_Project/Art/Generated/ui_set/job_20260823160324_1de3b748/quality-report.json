@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 6,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "escape-project-route-signature-a-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 77.83,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-escape-project-route-signature-a-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "escape-project-route-signature-a.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1280 800",
+      "issues": []
+    },
+    {
+      "fileName": "escape-project-review-board-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 81.16,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-escape-project-review-board-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "escape-project-manifest.json",
+      "kind": "editable-source",
+      "bytes": 2213,
+      "issues": []
+    },
+    {
+      "fileName": "escape-project-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 627,
+      "issues": []
+    },
+    {
+      "fileName": "escape-project-handoff.txt",
+      "kind": "file",
+      "bytes": 687,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-23T16:12:28.208Z",
+  "jobId": "job_20260823160324_1de3b748",
+  "assetType": "ui_set"
+}

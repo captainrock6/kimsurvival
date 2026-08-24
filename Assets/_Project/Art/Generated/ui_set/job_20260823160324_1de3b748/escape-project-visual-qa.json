@@ -1,0 +1,19 @@
+{
+  "candidateId": "ui.escape-project-progress.route-signature-a",
+  "checks": {
+    "focus": "44x44",
+    "actualSize": "1280x800",
+    "colorIndependent": true,
+    "qpsLongExpansion": 1.5,
+    "globalDashboard": false,
+    "routeShapeDistinct": true,
+    "localizedRasterText": false,
+    "playableVsDataOnly": true
+  },
+  "manualReview": [
+    "compare smoke stacked fuel/wind silhouette against radio circuit/waveform",
+    "verify three data paths are readable but not presented as playable clones",
+    "verify panel remains situational and does not cover camp persistently"
+  ],
+  "status": "review"
+}

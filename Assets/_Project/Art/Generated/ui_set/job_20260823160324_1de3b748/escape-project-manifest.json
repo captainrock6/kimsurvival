@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.escape-project-progress",
+  "candidateId": "ui.escape-project-progress.route-signature-a",
+  "status": "review",
+  "selectedCandidate": null,
+  "canvas": {
+    "width": 1280,
+    "height": 800
+  },
+  "mode": "situational facility popup only",
+  "playableRoutes": [
+    "escape.smoke",
+    "escape.radio"
+  ],
+  "dataOnlyRoutes": [
+    "escape.raft",
+    "escape.flare",
+    "escape.beacon"
+  ],
+  "routeGrammar": {
+    "smoke": "vertical fuel rings + wind/rain",
+    "radio": "circuit grid + frequency waveform + power chain",
+    "raft": "horizontal hull planks + sea window arc",
+    "flare": "single-shot chamber + timing wedge",
+    "beacon": "vertical tower + structure/power checkpoints"
+  },
+  "layout": {
+    "outerSafe": {
+      "top": 38,
+      "bottom": 38,
+      "right": 36,
+      "left": 36
+    },
+    "routeRail": {
+      "x": 88,
+      "y": 108,
+      "height": 584,
+      "width": 250
+    },
+    "detail": {
+      "x": 360,
+      "y": 108,
+      "height": 584,
+      "width": 830
+    },
+    "titleTmp": {
+      "x": 390,
+      "y": 132,
+      "height": 54,
+      "width": 500
+    },
+    "weather": {
+      "x": 390,
+      "y": 466,
+      "height": 104,
+      "width": 470
+    },
+    "risk": {
+      "x": 880,
+      "y": 466,
+      "height": 104,
+      "width": 280
+    },
+    "minimumFocus": {
+      "width": 44,
+      "height": 44
+    }
+  },
+  "localization": {
+    "minimumTextPx": 18,
+    "overflow": "wrap then vertical reflow",
+    "tmpLocales": [
+      "ko",
+      "en",
+      "qps-long"
+    ],
+    "glyphDevices": [
+      "keyboard-mouse",
+      "gamepad"
+    ],
+    "rasterBodyText": "none",
+    "qpsLongExpansion": 1.5
+  },
+  "slices": {
+    "action": {
+      "top": 14,
+      "bottom": 14,
+      "right": 18,
+      "left": 18
+    },
+    "routeCard": {
+      "top": 16,
+      "bottom": 16,
+      "right": 20,
+      "left": 20
+    },
+    "popup": {
+      "top": 28,
+      "bottom": 28,
+      "right": 32,
+      "left": 32
+    }
+  },
+  "runtime": {
+    "runtimeConnectAllowed": false,
+    "packageAllowed": false,
+    "allowlist": []
+  }
+}

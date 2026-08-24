@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.ending-comic",
+  "candidateId": "ui.ending-comic.triptych-a",
+  "status": "review",
+  "selectedCandidate": null,
+  "canvas": {
+    "width": 1280,
+    "height": 800
+  },
+  "corePanels": {
+    "result": {
+      "x": 888,
+      "y": 154,
+      "height": 344,
+      "width": 328
+    },
+    "closeup": "polygon bounds 592,144 to 866,506",
+    "count": 3,
+    "setup": {
+      "x": 64,
+      "y": 154,
+      "height": 344,
+      "width": 500
+    }
+  },
+  "optionalInsertPolicy": {
+    "eventScarMax": 1,
+    "endingIdNeverChanges": true,
+    "dominantBehaviorMax": 1
+  },
+  "representativeEndings": [
+    "ending.escape.smoke.seen-from-afar",
+    "ending.escape.radio.clear-signal",
+    "ending.comic.radio.island-dj",
+    "ending.stay.just-kim"
+  ],
+  "categoryGrammar": {
+    "comic": "burst-cut frame + dot/punch marks",
+    "day50": "squared stitched frame + diagonal hatch",
+    "normal": "rounded frame + double-line corner",
+    "rare": "star-cut frame + ray notches"
+  },
+  "verdictEvidence": {
+    "x": 64,
+    "y": 572,
+    "height": 142,
+    "fields": [
+      "terminal route",
+      "dominant behavior",
+      "special event",
+      "tie-break reason"
+    ],
+    "width": 1152
+  },
+  "localization": {
+    "minimumTextPx": 18,
+    "overflow": "wrap then vertical reflow",
+    "tmpLocales": [
+      "ko",
+      "en",
+      "qps-long"
+    ],
+    "glyphDevices": [
+      "keyboard-mouse",
+      "gamepad"
+    ],
+    "rasterBodyText": "none",
+    "qpsLongExpansion": 1.5,
+    "minimumFocus": {
+      "width": 44,
+      "height": 44
+    }
+  },
+  "slices": {
+    "comicPanel": {
+      "top": 16,
+      "bottom": 16,
+      "right": 16,
+      "left": 16
+    },
+    "outerFrame": {
+      "top": 28,
+      "bottom": 28,
+      "right": 32,
+      "left": 32
+    },
+    "evidenceBand": {
+      "top": 14,
+      "bottom": 14,
+      "right": 18,
+      "left": 18
+    }
+  },
+  "runtime": {
+    "runtimeConnectAllowed": false,
+    "packageAllowed": false,
+    "allowlist": []
+  }
+}

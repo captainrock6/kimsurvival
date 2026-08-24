@@ -1,0 +1,7 @@
+ui.escape-project-progress.route-signature-a / REVIEW ONLY
+1280x800 situational facility popup. It is not a persistent global dashboard.
+Playable: escape.smoke and escape.radio. Data-only catalog: escape.raft, escape.flare, escape.beacon.
+Route identity is silhouette-led: fuel/wind, circuit/waveform, hull/sea arc, single-shot/timing wedge, tower/checkpoints.
+TMP only for ko/en/qps-long. qps-long expansion 150%, wrap then vertical reflow, minimum 18px. Focus/glyph minimum 44x44.
+9-slice: popup L32 R32 T28 B28; route card L20 R20 T16 B16; action L18 R18 T14 B14.
+selectedCandidate=null; runtime allowlist empty; adopt/package/runtime-connect prohibited until explicit user selection.

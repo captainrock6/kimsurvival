@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "assetId": "effect.survival-hazards",
+  "candidateId": "effect.survival-hazards.phase-silhouette-a",
+  "status": "review",
+  "selectedCandidate": null,
+  "scope": {
+    "hazards": [
+      "hazard.injury",
+      "hazard.disaster",
+      "hazard.food-theft"
+    ],
+    "phases": [
+      "telegraph",
+      "occurrence",
+      "mitigation",
+      "recovery"
+    ],
+    "cells": 12
+  },
+  "atlas": {
+    "file": "hazard-phase-atlas.png",
+    "editable": "hazard-phase-atlas.svg",
+    "width": 1024,
+    "height": 768,
+    "columns": 4,
+    "rows": 3,
+    "cellWidth": 256,
+    "cellHeight": 256,
+    "padding": 30,
+    "pivot": {
+      "y": 0.5,
+      "x": 0.5
+    },
+    "ppu": 100,
+    "trueAlpha": true
+  },
+  "phaseGrammar": {
+    "telegraph": "dashed triangle plus pulse arcs",
+    "occurrence": "jagged impact burst",
+    "mitigation": "shield silhouette plus chevron/check",
+    "recovery": "round field plus rising leaf/sun"
+  },
+  "timingMs": {
+    "telegraph": "600-900 loop",
+    "occurrence": "160-220 one-shot",
+    "mitigation": "260-360 one-shot",
+    "recovery": "400-600 ease-out"
+  },
+  "uiAttachment": {
+    "minimumFocus": {
+      "width": 44,
+      "height": 44
+    },
+    "glyphSlot": {
+      "width": 44,
+      "height": 44
+    },
+    "locales": [
+      "ko",
+      "en",
+      "qps-long"
+    ],
+    "rasterBodyText": "none"
+  },
+  "runtime": {
+    "allowlist": [],
+    "runtimeConnectAllowed": false,
+    "packageAllowed": false
+  }
+}
