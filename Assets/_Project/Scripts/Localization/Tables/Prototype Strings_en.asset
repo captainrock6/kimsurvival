@@ -1283,7 +1283,7 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 445243630796802
-    m_Localized: "! Current risk \xB7 about {1} min\n{0}"
+    m_Localized: "! Risk \xB7 travel time ~{1} min\n{0}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867

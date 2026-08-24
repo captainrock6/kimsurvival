@@ -1365,7 +1365,7 @@ MonoBehaviour:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 445243630796802
-    m_Localized: "\u27E6! C\xFArr\xE9\xF1t r\xEDsk \xB7 \xE1b\xF3\xFAt {1} m\xED\xF1\xFAt\xE9s\n{0}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Localized: "\u27E6! R\xEDsk \xB7 tr\xE1v\xE9l t\xEDm\xE9 ~{1} m\xED\xF1\n{0}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
     m_Metadata:
       m_Items:
       - rid: 828367092230914048

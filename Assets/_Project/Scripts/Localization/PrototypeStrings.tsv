@@ -273,7 +273,7 @@ message.search.begin_region	{0}(으)로 출발한다. 정확한 수확량은 현
 expedition.map.title_region	수집 지도 · DAY {0}/{1}\n{2}	Expedition Map · DAY {0}/{1}\n{2}	⟦Éxpédítíóñ Máp · DÁY {0}/{1}\n{2}áéíóúüñ¿¡⟧
 expedition.map.node.state	{0} {1}\n{2}	{0} {1}\n{2}	⟦{0} {1}\n{2}áéí⟧
 expedition.map.rail.resources	예상 자원\n{0}	Expected resources\n{0}	⟦Éxpéctéd résóúrcés\n{0}áéíóúüñ¿¡⟧
-expedition.map.rail.risk	! 현재 위험 · 약 {1}분\n{0}	! Current risk · about {1} min\n{0}	⟦! Cúrréñt rísk · ábóút {1} míñútés\n{0}áéíóúüñ¿¡⟧
+expedition.map.rail.risk	! 위험 · 이동 시간 약 {1}분\n{0}	! Risk · travel time ~{1} min\n{0}	⟦! Rísk · trávél tímé ~{1} míñ\n{0}áéíóúüñ¿¡⟧
 expedition.map.rail.weather	~ 날씨\n{0}	~ Weather\n{0}	⟦~ Wéáthér\n{0}áéíóú⟧
 expedition.map.rail.equipment	△ 필요 장비\n{0}	△ Required gear\n{0}	⟦△ Réqúíréd géár\n{0}áéíóúüñ¿⟧
 expedition.map.rail.special	? 특별 발견\n{0}	? Special discovery\n{0}	⟦? Spécíál díscóvéry\n{0}áéíóúüñ¿¡⟧
