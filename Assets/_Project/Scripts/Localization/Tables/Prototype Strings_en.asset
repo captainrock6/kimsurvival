@@ -1338,6 +1338,306 @@ MonoBehaviour:
     m_Localized: Unknown
     m_Metadata:
       m_Items: []
+  - m_Id: 747417753600000
+    m_Localized: Injury hazard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543040
+    m_Localized: Disaster hazard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543041
+    m_Localized: Food-theft hazard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543042
+    m_Localized: Raft escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543043
+    m_Localized: Smoke beacon escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543044
+    m_Localized: Radio rescue escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543045
+    m_Localized: Flare escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543046
+    m_Localized: Ridge beacon escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417795543047
+    m_Localized: "Smoke {0}/{1} \xB7 Rope {2} \xB7 Wood {3} / Salvage {4}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 747417803931648
+    m_Localized: "Radio {0}/{1} \xB7 Axe {2} \xB7 Wood {3} / Salvage {4}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 747417803931649
+    m_Localized: '{0} progressed to {1}/{2}. Return here for the next commit.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 747417803931650
+    m_Localized: '{0} complete. The rescue signal received a response.'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 747417803931651
+    m_Localized: The research or tool required by {0} is missing.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 747417803931652
+    m_Localized: Not enough resources for {0}.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 747417803931653
+    m_Localized: Commit resources at the smoke beacon. Rope and a dry wind window
+      are required.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931654
+    m_Localized: Repair the radio circuit here. An axe and electronics salvage are
+      required.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931655
+    m_Localized: Beyond the Horizon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931656
+    m_Localized: He rides the current off the island on his own raft.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931657
+    m_Localized: The sea may be a road, not a wall.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931658
+    m_Localized: Where There's Smoke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931659
+    m_Localized: The smoke he tended finally draws a ship.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931660
+    m_Localized: Make a day visible from far away.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931661
+    m_Localized: Kim Calling
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931662
+    m_Localized: One clear sentence puts him back on the map.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931663
+    m_Localized: Static becomes a sentence if you listen long enough.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931664
+    m_Localized: One Good Shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931665
+    m_Localized: He fires his only flare at the right moment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931666
+    m_Localized: Save the shot until the opportunity arrives.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931667
+    m_Localized: The Light on the Ridge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931668
+    m_Localized: The restored relay makes the island visible again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931669
+    m_Localized: Wake the dead light at the highest point.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931670
+    m_Localized: Coconut Navy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417803931671
+    m_Localized: The coconut cargo becomes famous before the raft.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125952
+    m_Localized: Every boat needs ballast.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125953
+    m_Localized: Island Barbecue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125954
+    m_Localized: Rescuers follow rumors of legendary barbecue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125955
+    m_Localized: A rescue signal can look a little too delicious.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125956
+    m_Localized: Island FM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125957
+    m_Localized: Songs between distress calls gain listeners.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125958
+    m_Localized: If nobody answers, try broadcasting.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125959
+    m_Localized: Fireworks at Noon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125960
+    m_Localized: A curious boat follows what looks like a celebration.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125961
+    m_Localized: Even bad timing can find a witness.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125962
+    m_Localized: The Brightest Address
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125963
+    m_Localized: The relay becomes a shipping landmark.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125964
+    m_Localized: Try a little more light than necessary.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125965
+    m_Localized: The Sea Made a Road
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125966
+    m_Localized: He catches a current learned through countless swims.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125967
+    m_Localized: The sea speaks when you travel the same water long enough.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125968
+    m_Localized: SOS in the Clouds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125969
+    m_Localized: Smoke draws a perfect distress sign beneath the clouds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125970
+    m_Localized: Entrust a sentence to the wind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125971
+    m_Localized: 'Forecast: Rescue'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125972
+    m_Localized: A weather network calculates a rescue route between storms.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125973
+    m_Localized: Old records may still have listening ears.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125974
+    m_Localized: Inside the Eye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125975
+    m_Localized: He lights the relay inside the storm's calm eye.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125976
+    m_Localized: Every preparation answers on the fiercest day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125977
+    m_Localized: Kim Farm, Day 50
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125978
+    m_Localized: His farm grows large enough to need a calendar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125979
+    m_Localized: When planting plans outnumber departure plans.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125980
+    m_Localized: Island Facilities Office
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125981
+    m_Localized: Checklists become scarier than storms.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125982
+    m_Localized: Even an island can become a managed district.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125983
+    m_Localized: Doctor of Driftwood Engineering
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125984
+    m_Localized: He proves that no piece of salvage is useless.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125985
+    m_Localized: Study every found object to the end.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125986
+    m_Localized: Island Ranger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125987
+    m_Localized: He learns every current and animal trail.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125988
+    m_Localized: Learn the island's paths before people return.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125989
+    m_Localized: Mr. Kim, Doing Fine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125990
+    m_Localized: He masters no single lifestyle but survives in his own way.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747417808125991
+    m_Localized: You do not need to master only one thing.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -1437,3 +1737,9 @@ MonoBehaviour:
         - id: 445243630796803
         - id: 445243634991104
         - id: 445243634991105
+        - id: 747417795543047
+        - id: 747417803931648
+        - id: 747417803931649
+        - id: 747417803931650
+        - id: 747417803931651
+        - id: 747417803931652

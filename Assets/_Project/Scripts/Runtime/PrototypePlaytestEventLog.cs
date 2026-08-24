@@ -35,6 +35,13 @@ namespace KimSurvival
         public const string ExpeditionRegionSelected = "expedition.region.selected";
         public const string ExpeditionStarted = "expedition.started";
         public const string ExpeditionResultResolved = "expedition.result.resolved";
+        public const string HazardTelegraphed = "hazard.telegraphed";
+        public const string HazardOccurred = "hazard.occurred";
+        public const string HazardMitigated = "hazard.mitigated";
+        public const string HazardRecovered = "hazard.recovered";
+        public const string EscapeProjectProgressed = "escape.project-progressed";
+        public const string EscapeCompleted = "escape.completed";
+        public const string EndingResolved = "ending.resolved";
         public const string RunCompleted = "run.completed";
     }
 
@@ -73,6 +80,7 @@ namespace KimSurvival
         public string region_id = string.Empty;
         public string profile_id = string.Empty;
         public string expedition_result_id = string.Empty;
+        public string completed_escape_id = string.Empty;
 
         public static PrototypePlaytestStateFingerprint Capture(GameSession session)
         {
@@ -106,7 +114,8 @@ namespace KimSurvival
                     ? PrototypeExpeditionRegionCatalog.Get(session.SelectedRegionId.Value).StableId
                     : string.Empty,
                 profile_id = session.ActiveRegionProfileId,
-                expedition_result_id = session.LastExpeditionResultId
+                expedition_result_id = session.LastExpeditionResultId,
+                completed_escape_id = session.CompletedEscapeId
             };
 
             for (int index = 0; index < session.ActiveBagSlotCount; index += 1)
@@ -161,7 +170,7 @@ namespace KimSurvival
                 research_stone_axe ? "1" : "0", research_rope ? "1" : "0",
                 crafted_stone_axe ? "1" : "0", crafted_rope ? "1" : "0",
                 pending_resource, pending_amount.ToString(CultureInfo.InvariantCulture),
-                run_seed.ToString(CultureInfo.InvariantCulture), region_id, profile_id, expedition_result_id
+                run_seed.ToString(CultureInfo.InvariantCulture), region_id, profile_id, expedition_result_id, completed_escape_id
             });
         }
 
@@ -206,6 +215,12 @@ namespace KimSurvival
         public string region_id = string.Empty;
         public string profile_id = string.Empty;
         public string result_id = string.Empty;
+        public string hazard_id = string.Empty;
+        public string project_id = string.Empty;
+        public string escape_id = string.Empty;
+        public string ending_id = string.Empty;
+        public string[] behavior_score_ids = Array.Empty<string>();
+        public string result_code = string.Empty;
         public PrototypePlaytestStateFingerprint state_before;
         public PrototypePlaytestStateFingerprint state_after;
     }
@@ -454,6 +469,35 @@ namespace KimSurvival
                 "vine_barrier", "exploration.vine_barrier", "move", "cleared");
         }
 
+        public void RecordCampaignContractEvent(
+            string eventName,
+            string hazardId,
+            string escapeId,
+            string endingId,
+            string resultCode)
+        {
+            if (disposed || sinkFailed)
+            {
+                return;
+            }
+
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            PrototypePlaytestEventRecord record = CreateRecord(
+                eventName,
+                current,
+                current,
+                "campaign_contract",
+                !string.IsNullOrEmpty(hazardId) ? hazardId : !string.IsNullOrEmpty(escapeId) ? escapeId : endingId,
+                "wave17.runtime",
+                resultCode);
+            record.hazard_id = hazardId ?? string.Empty;
+            record.project_id = escapeId ?? string.Empty;
+            record.escape_id = escapeId ?? string.Empty;
+            record.ending_id = endingId ?? string.Empty;
+            record.result_code = resultCode ?? string.Empty;
+            WriteRecord(record);
+        }
+
         public void Dispose()
         {
             if (disposed)
@@ -593,7 +637,25 @@ namespace KimSurvival
                 return;
             }
 
-            PrototypePlaytestEventRecord record = new PrototypePlaytestEventRecord
+            PrototypePlaytestEventRecord record = CreateRecord(
+                eventName, before, after, targetKind, targetId, action, outcome, resource, resourceLocation, delta);
+
+            WriteRecord(record);
+        }
+
+        private PrototypePlaytestEventRecord CreateRecord(
+            string eventName,
+            PrototypePlaytestStateFingerprint before,
+            PrototypePlaytestStateFingerprint after,
+            string targetKind = "",
+            string targetId = "",
+            string action = "",
+            string outcome = "",
+            string resource = "",
+            string resourceLocation = "",
+            int delta = 0)
+        {
+            return new PrototypePlaytestEventRecord
             {
                 sequence = ++sequence,
                 run_id = runId,
@@ -612,10 +674,14 @@ namespace KimSurvival
                 region_id = after.region_id ?? string.Empty,
                 profile_id = after.profile_id ?? string.Empty,
                 result_id = after.expedition_result_id ?? string.Empty,
+                escape_id = after.completed_escape_id ?? string.Empty,
                 state_before = before,
                 state_after = after
             };
+        }
 
+        private void WriteRecord(PrototypePlaytestEventRecord record)
+        {
             try
             {
                 sink.WriteLine(JsonUtility.ToJson(record));

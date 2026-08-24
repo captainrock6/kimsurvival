@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using KimSurvival;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
@@ -933,15 +934,126 @@ namespace KimSurvival.EditorTools
 
             VerifyCampaignMapContract();
 
+            VerifyWave17HazardEscapeEndingContract();
+
             VerifyDevelopmentPlaytestLogContract();
 
             string report =
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
+                "Checks: Wave 17 four-phase hazard budget and idempotent transaction, five escape catalog entries with playable smoke/radio, private stable-ID snapshot/log schema, nineteen deterministic endings and terminal priority; Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
+        }
+
+        private static void VerifyWave17HazardEscapeEndingContract()
+        {
+            Assert(CampaignHazardCatalog.All.Count == 3 &&
+                   CampaignHazardCatalog.All.All(value =>
+                       !string.IsNullOrEmpty(value.WarningRule) && !string.IsNullOrEmpty(value.OccurrenceRule) &&
+                       !string.IsNullOrEmpty(value.MitigationRule) && !string.IsNullOrEmpty(value.RecoveryRule)),
+                "Wave 17 hazards expose telegraph, occurrence, mitigation, and recovery data");
+            Assert(CampaignHazardBudgetConfig.DailyBudget == 4 && CampaignHazardBudgetConfig.MaxMajor == 1 &&
+                   CampaignHazardBudgetConfig.MaxActive == 2 && CampaignHazardBudgetConfig.RecoveryReserve == 2,
+                "Wave 17 hazard daily, major, concurrent, and recovery-reservation budgets are centralized");
+
+            PrototypeHazardDirector hazard = new PrototypeHazardDirector();
+            PrototypeHazardLedger ledger = new PrototypeHazardLedger();
+            Assert(hazard.TryTelegraph("event.edit.injury", "hazard.injury", 11, ledger) &&
+                   hazard.TryResolveOccurrence("event.edit.injury", ledger),
+                "Hazard warning advances to occurrence");
+            int healthAfterOccurrence = ledger.Health;
+            int logAfterOccurrence = ledger.LogCount;
+            Assert(hazard.TryResolveOccurrence("event.edit.injury", ledger) &&
+                   ledger.Health == healthAfterOccurrence && ledger.LogCount == logAfterOccurrence,
+                "Retrying the same hazard event and phase is idempotent for health and log state");
+            Assert(hazard.TryMitigate("event.edit.injury", ledger) && hazard.TryRecover("event.edit.injury", ledger),
+                "Hazard occurrence advances through mitigation and scheduled recovery");
+            Assert(PrototypeHazardDirector.VerifyHazardAtomicIdempotentFixture().Success,
+                "Public hazard atomic/idempotent fixture passes");
+
+            PrototypeHazardDirector budgetHazards = new PrototypeHazardDirector();
+            PrototypeHazardLedger budgetLedger = new PrototypeHazardLedger();
+            Assert(budgetHazards.TryTelegraph("event.edit.budget.injury", "hazard.injury", 12, budgetLedger) &&
+                   budgetHazards.TryMitigate("event.edit.budget.injury", budgetLedger) &&
+                   budgetHazards.TryRecover("event.edit.budget.injury", budgetLedger) &&
+                   budgetHazards.TryTelegraph("event.edit.budget.disaster", "hazard.disaster", 12, budgetLedger) &&
+                   budgetHazards.TryResolveOccurrence("event.edit.budget.disaster", budgetLedger) &&
+                   budgetHazards.TryRecover("event.edit.budget.disaster", budgetLedger) &&
+                   budgetHazards.TryTelegraph("event.edit.budget.theft", "hazard.food-theft", 12, budgetLedger) &&
+                   budgetHazards.TryResolveOccurrence("event.edit.budget.theft", budgetLedger) &&
+                   budgetHazards.TryRecover("event.edit.budget.theft", budgetLedger) &&
+                   budgetHazards.SpentDailyBudget == CampaignHazardBudgetConfig.DailyBudget &&
+                   !budgetHazards.TryTelegraph("event.edit.budget.overflow", "hazard.injury", 12, budgetLedger),
+                "Hazard daily budget reserves recovery and rejects overflow after four committed points");
+
+            PrototypeHazardDirector concurrentHazards = new PrototypeHazardDirector();
+            PrototypeHazardLedger concurrentLedger = new PrototypeHazardLedger();
+            Assert(concurrentHazards.TryTelegraph("event.edit.concurrent.disaster", "hazard.disaster", 13, concurrentLedger) &&
+                   !concurrentHazards.TryTelegraph("event.edit.concurrent.major", "hazard.disaster", 13, concurrentLedger) &&
+                   concurrentHazards.TryTelegraph("event.edit.concurrent.injury", "hazard.injury", 13, concurrentLedger) &&
+                   !concurrentHazards.TryTelegraph("event.edit.concurrent.theft", "hazard.food-theft", 13, concurrentLedger) &&
+                   concurrentHazards.NewMajorCount == CampaignHazardBudgetConfig.MaxMajor &&
+                   concurrentHazards.ActiveHazardCount == CampaignHazardBudgetConfig.MaxActive &&
+                   concurrentHazards.ReservedRecoveryBudget == CampaignHazardBudgetConfig.RecoveryReserve,
+                "Hazard major, concurrent-active, and recovery reservation caps reject excess scheduling");
+
+            Assert(PrototypeEscapeProjectCatalog.All.Count == 5 &&
+                   PrototypeEscapeProjectCatalog.All.Select(value => value.StableId).Distinct(StringComparer.Ordinal).Count() == 5,
+                "Five stable escape methods are public runtime data");
+            Assert(PrototypeEscapeProjectCatalog.Get("escape.smoke").PlayableState.StartsWith("playable", StringComparison.Ordinal) &&
+                   PrototypeEscapeProjectCatalog.Get("escape.radio").PlayableState.StartsWith("playable", StringComparison.Ordinal) &&
+                   PrototypeEscapeProjectCatalog.Get("escape.raft").PlayableState.StartsWith("data-only", StringComparison.Ordinal) &&
+                   PrototypeEscapeProjectCatalog.Get("escape.flare").PlayableState.StartsWith("data-only", StringComparison.Ordinal) &&
+                   PrototypeEscapeProjectCatalog.Get("escape.beacon").PlayableState.StartsWith("data-only", StringComparison.Ordinal),
+                "Smoke/radio are playable while raft/flare/beacon remain honestly data-only");
+            PrototypeContractProbe smokeFixture = PrototypeEscapeProjectDirector.VerifyEscapeSmokeProgressCompleteFixture();
+            PrototypeContractProbe radioFixture = PrototypeEscapeProjectDirector.VerifyEscapeRadioProgressCompleteFixture();
+            Assert(smokeFixture.Success && radioFixture.Success && smokeFixture.Detail.Contains("no-grant no-warp") &&
+                   radioFixture.Detail.Contains("no-grant no-warp"),
+                "Smoke and radio expose deterministic natural progress/complete fixtures without grant or warp");
+            Assert(PrototypeCampInteractionCatalog.OwnsAction(
+                       PrototypeCampInteractionTargetKind.SmokeBeacon,
+                       PrototypeCampInteractionAction.ProgressSmokeEscape,
+                       true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(
+                       PrototypeCampInteractionTargetKind.RadioBench,
+                       PrototypeCampInteractionAction.ProgressRadioEscape,
+                       true),
+                "Smoke and radio are owned by actual contextual camp interaction targets");
+            Assert(PrototypeEscapeProjectCatalog.All.Select(value => value.FacilityId).Distinct(StringComparer.Ordinal).Count() == 5 &&
+                   PrototypeEscapeProjectCatalog.All.Select(value => value.KeyPartId).Distinct(StringComparer.Ordinal).Count() == 5 &&
+                   PrototypeEscapeProjectCatalog.All.Select(value => value.TimingRule).Distinct(StringComparer.Ordinal).Count() == 5,
+                "Every escape method has distinct facility, core-part, and timing axes");
+
+            Assert(PrototypeEndingCatalog.All.Count == 19 &&
+                   PrototypeEndingCatalog.All.Count(value => value.Sample) == 4 &&
+                   PrototypeEndingCatalog.All.Select(value => value.StableId).Distinct(StringComparer.Ordinal).Count() == 19,
+                "Nineteen stable endings and four sample endings are unique");
+            Assert(PrototypeEndingResolver.VerifyEndingDeterministicSingleFixture().Success &&
+                   PrototypeEndingResolver.VerifyEndingDay50BehaviorFixture().Success &&
+                   PrototypeTerminalContract.VerifyTerminalEscapeDay50PriorityFixture().Success,
+                "Ending resolution is deterministic and early escape precedes Day 50 behavior resolution");
+
+            PrototypeRunSnapshot snapshot = new PrototypeRunSnapshot
+            {
+                seed = 17017,
+                day = 22,
+                region_id = "region.forest.grove",
+                hazard_ids = new[] { "hazard.injury" },
+                project_ids = new[] { "escape.smoke" },
+                behavior_scores = new[] { new PrototypeBehaviorScore { StableId = "stat.hazard-response", Value = 3 } },
+                escape_id = "escape.smoke",
+                ending_id = "ending.escape.smoke.seen-from-afar",
+                result_code = "escape.complete"
+            };
+            string serialized = JsonUtility.ToJson(snapshot);
+            Assert(serialized.Contains("17017") && serialized.Contains("region.forest.grove") &&
+                   serialized.Contains("hazard.injury") && serialized.Contains("escape.smoke") &&
+                   serialized.Contains("ending.escape.smoke.seen-from-afar") &&
+                   !serialized.Contains("username") && !serialized.Contains("machine") && !serialized.Contains("email"),
+                "Run snapshot serializes stable IDs and result codes without personal or free-input fields");
         }
 
         private static void VerifyCampaignMapContract()
