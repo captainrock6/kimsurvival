@@ -1,0 +1,577 @@
+[REQUEST]
+Wave 18 review-only ui.ending-gallery 후보 세트. 안정 후보 ID는 ui.ending-gallery.album-spread-a, ui.ending-gallery.card-index-b, ui.ending-gallery.filmstrip-c. 베이스캠프의 앨범/기록 오브젝트와 상호작용할 때만 열리는 1280x800 상황형 UI이며 상시 전역 대시보드가 아니다. 정본의 19 ending ID를 normal 5, comic 5, rare 4, day50 5로 모두 수용한다. 해금 항목은 대표 triptych panel placeholder, TMP 제목·짧은 요약·플레이 근거 영역과 재생 액션을 제공하고, 미해금 항목은 비스포일러 실루엣과 TMP hint 영역만 제공한다. 색상 외 범주 문법은 normal 이중선 둥근 모서리, comic 버스트/점무늬, rare 별 노치/광선, day50 스티치/사선 해칭이다. A는 펼친 생존 앨범과 우측 상세 페이지, B는 5x4 카드 인덱스와 하단 상세 drawer, C는 세로 category spine과 filmstrip rail 및 우측 상세 panel이다. 실제 ko/en 본문과 입력 글자는 raster에 굽지 않고 엔진 TMP safe rect와 keyboard/gamepad glyph slot만 둔다. KO 기본, EN, qps-long 150 percent, 최소 18px, 44x44 focus를 지원한다. 채택된 expedition map right-rail A와 ending comic triptych A의 navy teal cream orange 문법을 계승하되 기존 게임 화면은 복제하지 않는다. actual-size PNG 3개, editable SVG 3개, 1920x1080 review board, localization/accessibility QA board, Forge manifest와 handoff를 로컬 결정론 도구로 만든다. selectedCandidate=null, decision=review, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false. adopt/package/runtime/scene/Addressables 금지.
+
+[ASSET TYPE]
+UI 세트: cohesive game UI kit contact sheet, panels, frames, tabs, badges and icons, consistent scale and padding, front view
+
+[PROJECT ASSET ID]
+ui.ending-gallery
+
+[PROJECT CONTEXT]
+Unity로 제작하는 Windows PC·Steam 목표의 코믹 2D 횡스크롤 거점 생존 게임. 무인도에 조난된 평범한 김씨가 기본 Day 50 데드라인 동안 공간형 베이스캠프에서 제작·건설·연구·치료·보강을 하고, 지도 오브젝트에서 자원 전망과 위험이 다른 수집 지역을 선택해 원정한다. run seed에 따라 탈출 재료가 달라지되 softlock을 막고, 뗏목·배·연기·무전·조명탄·고지대 신호 등 최소 5개 탈출법으로 Day 50 이전에 나갈 수 있다. 탈출 방법 또는 Day 50 상태, 누적 생활 방식과 특별 사건이 정상·병맛·희귀 엔딩과 3~5장 코믹북 컷신을 결정한다. 한국어가 기본이며 영어와 추가 언어 확장, 키보드·마우스와 게임패드를 지원한다.
+
+[ART DIRECTION]
+밝고 따뜻한 열대색의 오리지널 2D 측면 일러스트, 굵고 읽기 쉬운 형태, 과장된 포즈와 표정, 표류물로 급조한 비뚤지만 기능적인 설비, 코믹한 반응과 명확한 생존 정보 계층.
+
+[AVOID]
+특정 게임·영화의 로고, 고유 캐릭터, 배우 외모, 고유 아이콘, 문구, 정확한 화면 배치 또는 독점적 시각 요소 복제, 워터마크, 래스터 본문 텍스트, 지나치게 잔혹하거나 음울한 표현
+
+[ACCEPTED AND REJECTED WORK MEMORY]
+Keep from accepted work:
+- 사용자가 Wave 5 코믹 피드백 효과 6종 후보를 명시적으로 채택했다. · wave5-comedy-feedback-approved
+- 사용자가 Wave 6 object.vine-wood-barrier의 blocked, interactable, cleared 3상태 후보 전체를 명시적으로 채택함.
+- 사용자가 Wave 10 선택 보드의 A안, 안정 후보 ui.camp-contextual-interaction.compact-a를 명시적으로 채택했다. 다크 네이비·틸·크림 톤, 분리된 입력 glyph 슬롯과 TMP 행동명 영역, 내레이션 카드 바로 아래의 작은 한 줄 프롬프트를 유지한다. B와 C는 미선택이며, 이번 결정은 A의 패키징과 런타임 적용을 다음 구현 작업에서 진행하도록 승인한다. · compact-a-approved
+- 사용자가 안정 후보 background.coast-forest.gameplay-band-contrast를 명시적으로 채택했다. A current-balanced와 C shoreline-first는 미선택이며, review board와 localized capture evidence는 런타임 자산이 아니다. 다음 단계는 기존 원화 구도를 보존하면서 baked fallen trunk/vines를 제거 또는 분리하고, gameplay-band contrast를 독립 레이어로 구현한 깨끗한 production candidate를 만드는 것이다. · wave14-gameplay-band-contrast-approved
+- 사용자가 Wave 15 수집 지역 선택 지도 후보 중 A안, 안정 ID ui.expedition-map.right-rail-a를 명시적으로 채택했다. 채택 범위는 우측 상세 rail 레이아웃과 candidate-a-right-rail-1280x800.png 한 개다. B bottom-drawer와 C compact-right, QA/리뷰 보드, localization overlay는 미선택이며 runtime 자산이 아니다. icon.expedition-resource-risk-set은 이번 A 선택과 독립된 review 자산으로 유지한다. · wave15-expedition-map-right-rail-a-approved
+- 사용자가 ui.expedition-map.right-rail-a(A안)를 명시적으로 채택했다. 이 자식 작업은 원본 A 비트맵과 필요한 공통 편집 소스만 보존한 pixel-identical selected-only 패키징 파생본이다. B/C, 리뷰/QA/로컬라이제이션 오버레이는 미선택이며 icon.expedition-resource-risk-set은 독립 review 상태다. 씬 또는 런타임 연결은 수행하지 않는다. · wave15-expedition-map-right-rail-a-selected-only
+- 사용자가 ui.expedition-map.right-rail-a(A안)를 명시적으로 채택했다. 이 작업은 원본 A와 공통 편집 소스를 byte-identical하게 보존하고 opaque full-screen/reference 계약으로 100점 검증된 selected-only 패키징 파생본이다. B/C, 리뷰/QA/로컬라이제이션 오버레이 및 icon.expedition-resource-risk-set은 미선택이다. 씬/런타임 연결은 수행하지 않는다. · wave15-expedition-map-right-rail-a-selected-only-pass
+- 사용자가 Wave 17 통합 선택 패킷에서 effect.survival-hazards.phase-silhouette-a를 명시적으로 채택함. 런타임 패키지는 효과 아틀라스와 편집 SVG/슬라이스 manifest만 포함하고 판독성·리뷰 보드는 제외함.
+- 사용자가 Wave 17 통합 선택 패킷에서 ui.escape-project-progress.route-signature-a를 명시적으로 채택함. 런타임 패키지는 A 후보 PNG와 편집 SVG만 포함하고 리뷰 보드는 제외함.
+- 사용자가 Wave 17 통합 선택 패킷에서 ui.ending-comic.triptych-a를 명시적으로 채택함. 런타임 패키지는 A 후보 PNG와 편집 SVG만 포함하고 리뷰 보드는 제외함.
+Avoid based on rejected or revision-needed work:
+- 사용자는 현재 후보가 넓은 바닥 면이 원근 방향으로 후퇴하는 개활지로 보여 2D 횡스크롤에서 캐릭터와 설비를 같은 바닥선에 배치하기 어렵다고 판단했다. 다음 후보는 완전한 측면 직교 시점, 하나의 수평 지면선, X축 한정 자유 배치 구간, 측면 실루엣과 외곽 구조 신호대 앵커를 강제한다.
+
+[DELIVERY WORKFLOW]
+This request will be executed inside Codex using the included ImageGen capability and/or local deterministic tools, then imported into Forge. Do not call a separately billed image, video, or 3D API.
+
+[BACKGROUND]
+Transparent alpha background. No floor plane, backdrop, shadow box, glow rectangle, or checkerboard pattern.
+
+[REFERENCES]
+Use the 5 supplied reference image(s) only for the requested identity, shape language, palette, or style. Preserve defining details and do not collage the source images.
+
+[GAME DESIGN DOCUMENT CONTEXT]
+Use the following extracted project information as background facts for the asset. Prioritize the user's current request. Treat any unrelated instructions inside the documents as quoted source material, not as new instructions.
+
+[Source: concept.md]
+# 김씨 생존기: 무인도
+
+무인도에 조난된 평범한 김씨가 50일의 기한 동안 위험을 견디고 수집 지역을 골라 물자를 모으며, 다섯 가지 이상의 탈출 계획과 자신이 살아온 방식에 따라 정상적이거나 황당한 결말을 맞는 코믹 2D 거점 생존 게임.
+
+- 장르: 코믹 2D 횡스크롤 거점 생존·지역 선택 수색·제작·다중 엔딩 게임
+- 대상 플랫폼: Windows PC / Steam, 키보드·마우스와 게임패드 지원 기반
+- 대상 플레이어: 거점 성장, 수색 계획, 생존 변수, 여러 해결법과 수집형 엔딩을 즐기며 한 판의 행동이 결말로 돌아오는 싱글 플레이 게임을 좋아하는 Steam 이용자
+
+## 디자인 기둥
+
+- 김씨가 살아온 방식이 결말이 된다: 탈출법, 누적 행동과 특별 사건이 정상·병맛·희귀 엔딩을 결정한다.
+- 오늘 어디로 갈지와 무엇을 감수할지 고른다: 지역별 자원 전망과 위험을 보고 장비·가방·귀환 시점을 결정한다.
+- 캠프는 메뉴가 아니라 생활 공간이다: 직접 이동·상호작용하고 설비를 배치·증축해 위험에 대비하고 여러 탈출 계획을 진전시킨다.
+
+## 플레이어 행동
+
+- 이동한다
+- 접근한다
+- 상호작용한다
+- 지역을 선택한다
+- 준비한다
+- 수색한다
+- 채집한다
+- 수영한다
+- 운반한다
+- 제작한다
+- 건설·확장한다
+- 연구한다
+
+## 코어 루프
+
+- 베이스캠프에서 김씨를 직접 움직여 설비에 접근하고 허기·체력·부상·질병·캠프 피해를 확인한다.
+- 작업대, 모닥불, 저장고, 치료·연구 설비와 상호작용해 오늘의 장비와 장기 탈출 계획을 준비한다.
+- 캠프 출구 또는 지도 오브젝트와 상호작용해 수집 지도를 열고 지역별 예상 자원, 위험, 이동 시간, 날씨, 필요 장비와 특별 발견 가능성을 비교한다.
+- 선택한 2D 횡스크롤 지역에서 제한된 가방·체력·일광을 관리하며 수색하고 예고된 위험과 돌발 사건에 대응한다.
+- 더 챙길지 귀환할지 판단하고, 일몰 또는 자발적 귀환 뒤 물자·부상·사건 결과를 캠프로 가져온다.
+- 귀환 물자를 생존, 치료, 캠프 보강, 가방·공간 성장과 다섯 가지 이상의 탈출 계획 중 어디에 쓸지 선택한다.
+- 하루를 정산해 위험과 세계 상태를 갱신하고, Day 50 이전 탈출 또는 Day 50 종료까지 반복한다.
+- 탈출 방법 또는 Day 50 상태, 누적 생활 방식과 특별 사건을 조합해 고유 엔딩과 코믹북 컷신을 해금한다.
+
+## 버티컬 슬라이스
+
+실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다.
+
+플레이어 약속: 오늘 고른 지역과 감수한 위험, 캠프에 투자한 설비와 탈출 계획이 50일 뒤의 김씨와 엔딩을 바꾼다.
+
+## 포함 범위
+
+- 표준 run의 실제 Day 50 하드 데드라인과 Day 50 이전 즉시 탈출 우선순위
+- 캠프 출구 또는 지도 오브젝트에 직접 접근해 여는 상황형 수집 지역 선택 화면
+- 해변·숲·얕은 바다 최소 3개 지역 노드와 한국어·영어 지역명·설명
+- 지역별 예상 자원 종류·상대 풍부함, 이동 시간, 위험, 날씨, 필요 장비, 특별 발견 가능성 표시
+- run seed와 지역 프로필에 따른 자원 분배 및 재현 가능한 동일 seed 결과
+- 진행 불가능 seed를 막는 최소 핵심 부품 보장 계약
+- 배고픔과 함께 부상 1종, 기상 위험 1종, 캠프 식량 도난 또는 야생동물 침입 1종의 예고·발생·완화·회복 상태
+- 다섯 탈출 방법의 안정 ID와 데이터 계약, 그중 연기 신호와 무전 신호 두 경로의 플레이 가능한 대표 구현
+- 수영·농사 준비·사냥 또는 덫·기계공학·건설·수색·위험 대응·탈출법 선택을 기록할 행동 통계 기반
+- 정상 5·병맛 5·희귀 4·Day 50 잔류 5의 19개 ending ID 카탈로그와 재사용 modifier panel 계약
+- 탈출 방식·우세 행동·특별 사건을 입력으로 받는 결정론적 엔딩 판정기와 대표 4개 sample ending
+- 엔진 텍스트를 사용하는 3장짜리 placeholder 코믹북 엔딩 컷신과 엔딩 갤러리 기록
+- 기존 직접 조작 캠프, 제한적 자유 배치, 모듈 증축, 4→6 가방, 육상·수영 수색의 회귀 보존
+- 한국어 기본·영어 지원·qps-long 레이아웃 검증과 키보드·게임패드 공통 액션 구조
+
+## 제외 범위
+
+- 50일 전체를 채우는 최종 지역·사건·제작법·밸런스 콘텐츠
+- 다섯 탈출 경로 모두의 최종 자원 비용·연출과 고유 레벨 콘텐츠
+- 18개 이상 엔딩의 최종 원화·애니메이션·음향과 전문 현지화 감수
+- 본격 근접·원거리 전투, 적 AI와 보스
+- 복수 생존자, 동료 관계와 정착민 관리
+- 절차적으로 생성되는 지형과 여러 섬 캠페인
+- 깊은 잠수, 산소 시뮬레이션과 수중 전투
+- 완성형 농사·사냥·요리 미니게임과 대규모 기술 트리
+- 사용자 설정 run UI와 업적 인정 정책의 최종 구현
+- Steamworks SDK, 실제 Steam 업적·클라우드·Depot·스토어 작업
+- 한국어·영어 이외 언어의 실제 번역
+- 최종 상용 아트·사운드·전체 접근성 감수
+
+## 성공 조건
+
+- 새 표준 run은 Day 1/50으로 시작하고 Day 49 미탈출 정산은 계속되며 Day 50 정산 또는 조기 탈출에서만 terminal ending resolution이 실행된다.
+- 지도 오브젝트에서 멀면 지역 선택 UI가 숨고 가까이서 상호작용한 뒤에만 열리며 취소하면 같은 캠프의 김씨 조작으로 복귀한다.
+- 세 지역 각각이 서로 다른 자원 전망과 위험·이동 시간·필요 장비를 표시하고 선택한 지역만 실제 수색 장면과 보상 프로필에 반영된다.
+- 동일 seed·동일 지역·동일 행동은 같은 핵심 부품 배치를 만들고 서로 다른 seed는 허용 범위 안에서 결과가 달라지며 최소 세 탈출 경로가 softlock되지 않는다.
+- 플레이어가 위험을 사전에 확인하고 장비·설비·지역 변경 중 하나로 피해를 줄일 수 있으며 대부분의 위험은 원인 없이 즉사시키지 않는다.
+- 부상은 미처치 시 악화되고 치료 시 회복되며, 캠프 침입·도난은 저장고 보강 또는 방어 수단으로 완화되고 자원 변화가 한 번만 적용된다.
+- escape.raft/smoke/radio/flare/beacon 다섯 method가 지역·연구·설비·핵심 부품·준비 기간·위험 중 최소 두 축 이상 다르고, 연기·무전 두 대표 경로는 플레이 가능한 smoke data로 조기 탈출할 수 있다.
+- 시작 3개와 확장 3개의 region profile이 자원 풍부함·위험·날씨·장비·이동 시간·특별 발견과 핵심 부품의 primary·alternative·pity를 모두 가진다.
+- 배고픔·질병·부상·자연재해·야생동물·식량 도난·캠프 피해의 7개 hazard가 예고→발생→완화→회복, 일일 예산과 원자 transaction을 가진다.
+- 엔딩 판정은 탈출 방법 또는 Day 50 상태, run 전체의 우세 행동 점수, 특별 사건을 순서대로 사용하고 마지막 행동 하나로 우세 생활 방식이 뒤집히지 않는다.
+- 19개 ending이 안정 ID, ko/en 제목·요약, 3개 core panel beat, modifier panel, 갤러리 힌트와 future-only achievement mapping ID를 가지며 4개 sample ending만 먼저 실행한다.
+- 수집 지도와 엔딩 갤러리에서 미발견 희귀 결과는 실루엣·미확인으로 남아 반복 플레이 목표를 제공한다.
+- 1280×800 ko/en/qps-long에서 지역 카드, 위험 아이콘, 자원 범주, 지도 노드, 엔딩 패널이 잘리거나 겹치지 않고 색상 외 표식으로 상태를 구분한다.
+- 기존 캠프 근접 안내, 배치, 모듈, 가방, 구조 신호, 수영과 qps-long 10/10 GREEN 계약이 회귀하지 않는다.
+- 개발 로그는 seed, 선택 지역, 위험 발생·완화, 탈출 프로젝트 진척, 행동 점수와 ending ID를 개인 식별자 없이 기록한다.
+
+## 가정
+
+- Day 50에 탈출하지 못해도 단일 deadline 문구로 끝내지 않고 그동안의 우세 행동과 특별 사건에 따라 정착·자연인·기술 지배 등 서로 다른 엔딩을 판정한다.
+- 표준 run은 다섯 탈출법 전체를 데이터로 제공하되 seed와 플레이 선택에 따라 난도가 달라지며 최소 세 경로는 진행 불가능 상태 없이 완성 가능하도록 보장한다.
+- 수집 지도는 상시 전역 대시보드가 아니라 출발 준비 중에만 열리고 닫으면 같은 캠프 공간으로 돌아오는 설비형 팝업이다.
+- 지역의 자원 표시는 풍부·보통·희귀·미확인 같은 범주를 사용하고 정확한 수량과 사건 결과는 공개하지 않는다.
+- 야생동물 대응은 본격 액션 전투보다 회피, 장비, 위협, 함정과 캠프 방어를 우선한다.
+- 위험 강도는 50일 동안 단조롭게 상승하지 않고 세계 상태와 플레이 행동에 따라 변하며 감당 불가능한 중첩을 막는 일일 위험 예산과 회복 가능한 평온일을 둔다.
+- 엔딩 컷신은 3~5장 코믹북 패널을 기본으로 하고 희귀 대표 엔딩만 추가 애니메이션을 받을 수 있다.
+- 게임 내 엔딩 갤러리는 실루엣과 비스포일러 힌트를 제공하며, 사용자 설정 run의 업적 인정 정책은 Steam 연동 단계에서 별도로 결정한다.
+- 현재 5일 빌드와 Wave 12~14 자연 경로 문서는 새 구조의 구현 증거가 아니라 기존 캠프·수색·UI·원자성 회귀 기준으로만 보존한다.
+- 사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다.
+- Wave 15 콘텐츠 매트릭스의 준비 일수, 위험 예산, pity 횟수와 행동 점수 임계값은 구현 smoke용 SAMPLE_ONLY이며 사용자 플레이테스트 전 정식 50일 밸런스로 잠그지 않는다.
+
+## 아트 방향
+
+밝고 따뜻한 열대색을 기반으로 한 오리지널 2D 측면 일러스트. 굵고 읽기 쉬운 형태, 과장된 포즈와 표정, 표류물로 급조한 설비를 사용한다. 수집 지도는 원화풍 무인도 지도와 명료한 노드·아이콘·정보 카드를 결합하되 특정 게임의 정확한 화면 구성을 복제하지 않는다. 위험은 잔혹함보다 상황과 결과가 읽히는 코믹한 실루엣·상태 아이콘으로 표현한다. 엔딩은 3~5장 코믹북 패널과 짧은 전환 효과를 기본으로 하며 모든 본문은 엔진 텍스트로 분리한다.
+
+---
+
+[Source: vertical-slice.json]
+{
+  "schemaVersion": 1,
+  "goal": "실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다.",
+  "inScope": [
+    "표준 run의 실제 Day 50 하드 데드라인과 Day 50 이전 즉시 탈출 우선순위",
+    "캠프 출구 또는 지도 오브젝트에 직접 접근해 여는 상황형 수집 지역 선택 화면",
+    "해변·숲·얕은 바다 최소 3개 지역 노드와 한국어·영어 지역명·설명",
+    "지역별 예상 자원 종류·상대 풍부함, 이동 시간, 위험, 날씨, 필요 장비, 특별 발견 가능성 표시",
+    "run seed와 지역 프로필에 따른 자원 분배 및 재현 가능한 동일 seed 결과",
+    "진행 불가능 seed를 막는 최소 핵심 부품 보장 계약",
+    "배고픔과 함께 부상 1종, 기상 위험 1종, 캠프 식량 도난 또는 야생동물 침입 1종의 예고·발생·완화·회복 상태",
+    "다섯 탈출 방법의 안정 ID와 데이터 계약, 그중 연기 신호와 무전 신호 두 경로의 플레이 가능한 대표 구현",
+    "수영·농사 준비·사냥 또는 덫·기계공학·건설·수색·위험 대응·탈출법 선택을 기록할 행동 통계 기반",
+    "정상 5·병맛 5·희귀 4·Day 50 잔류 5의 19개 ending ID 카탈로그와 재사용 modifier panel 계약",
+    "탈출 방식·우세 행동·특별 사건을 입력으로 받는 결정론적 엔딩 판정기와 대표 4개 sample ending",
+    "엔진 텍스트를 사용하는 3장짜리 placeholder 코믹북 엔딩 컷신과 엔딩 갤러리 기록",
+    "기존 직접 조작 캠프, 제한적 자유 배치, 모듈 증축, 4→6 가방, 육상·수영 수색의 회귀 보존",
+    "한국어 기본·영어 지원·qps-long 레이아웃 검증과 키보드·게임패드 공통 액션 구조"
+  ],
+  "outOfScope": [
+    "50일 전체를 채우는 최종 지역·사건·제작법·밸런스 콘텐츠",
+    "다섯 탈출 경로 모두의 최종 자원 비용·연출과 고유 레벨 콘텐츠",
+    "18개 이상 엔딩의 최종 원화·애니메이션·음향과 전문 현지화 감수",
+    "본격 근접·원거리 전투, 적 AI와 보스",
+    "복수 생존자, 동료 관계와 정착민 관리",
+    "절차적으로 생성되는 지형과 여러 섬 캠페인",
+    "깊은 잠수, 산소 시뮬레이션과 수중 전투",
+    "완성형 농사·사냥·요리 미니게임과 대규모 기술 트리",
+    "사용자 설정 run UI와 업적 인정 정책의 최종 구현",
+    "Steamworks SDK, 실제 Steam 업적·클라우드·Depot·스토어 작업",
+    "한국어·영어 이외 언어의 실제 번역",
+    "최종 상용 아트·사운드·전체 접근성 감수"
+  ],
+  "successCriteria": [
+    "새 표준 run은 Day 1/50으로 시작하고 Day 49 미탈출 정산은 계속되며 Day 50 정산 또는 조기 탈출에서만 terminal ending resolution이 실행된다.",
+    "지도 오브젝트에서 멀면 지역 선택 UI가 숨고 가까이서 상호작용한 뒤에만 열리며 취소하면 같은 캠프의 김씨 조작으로 복귀한다.",
+    "세 지역 각각이 서로 다른 자원 전망과 위험·이동 시간·필요 장비를 표시하고 선택한 지역만 실제 수색 장면과 보상 프로필에 반영된다.",
+    "동일 seed·동일 지역·동일 행동은 같은 핵심 부품 배치를 만들고 서로 다른 seed는 허용 범위 안에서 결과가 달라지며 최소 세 탈출 경로가 softlock되지 않는다.",
+    "플레이어가 위험을 사전에 확인하고 장비·설비·지역 변경 중 하나로 피해를 줄일 수 있으며 대부분의 위험은 원인 없이 즉사시키지 않는다.",
+    "부상은 미처치 시 악화되고 치료 시 회복되며, 캠프 침입·도난은 저장고 보강 또는 방어 수단으로 완화되고 자원 변화가 한 번만 적용된다.",
+    "escape.raft/smoke/radio/flare/beacon 다섯 method가 지역·연구·설비·핵심 부품·준비 기간·위험 중 최소 두 축 이상 다르고, 연기·무전 두 대표 경로는 플레이 가능한 smoke data로 조기 탈출할 수 있다.",
+    "시작 3개와 확장 3개의 region profile이 자원 풍부함·위험·날씨·장비·이동 시간·특별 발견과 핵심 부품의 primary·alternative·pity를 모두 가진다.",
+    "배고픔·질병·부상·자연재해·야생동물·식량 도난·캠프 피해의 7개 hazard가 예고→발생→완화→회복, 일일 예산과 원자 transaction을 가진다.",
+    "엔딩 판정은 탈출 방법 또는 Day 50 상태, run 전체의 우세 행동 점수, 특별 사건을 순서대로 사용하고 마지막 행동 하나로 우세 생활 방식이 뒤집히지 않는다.",
+    "19개 ending이 안정 ID, ko/en 제목·요약, 3개 core panel beat, modifier panel, 갤러리 힌트와 future-only achievement mapping ID를 가지며 4개 sample ending만 먼저 실행한다.",
+    "수집 지도와 엔딩 갤러리에서 미발견 희귀 결과는 실루엣·미확인으로 남아 반복 플레이 목표를 제공한다.",
+    "1280×800 ko/en/qps-long에서 지역 카드, 위험 아이콘, 자원 범주, 지도 노드, 엔딩 패널이 잘리거나 겹치지 않고 색상 외 표식으로 상태를 구분한다.",
+    "기존 캠프 근접 안내, 배치, 모듈, 가방, 구조 신호, 수영과 qps-long 10/10 GREEN 계약이 회귀하지 않는다.",
+    "개발 로그는 seed, 선택 지역, 위험 발생·완화, 탈출 프로젝트 진척, 행동 점수와 ending ID를 개인 식별자 없이 기록한다."
+  ],
+  "risks": [
+    "50일만 늘리고 콘텐츠 변화가 없으면 같은 수색 반복이 되므로 지역·위험·탈출 프로젝트·사건이 선택을 바꾸는지 먼저 검증한다.",
+    "순수 RNG가 핵심 부품을 막으면 장시간 run이 허무해지므로 seed 재현성과 softlock 방지 계약을 자동 검증한다.",
+    "위험이 무예고 자원 삭제나 즉사로 느껴지면 전략보다 불공정으로 받아들여지므로 예고·대응·회복을 한 묶음으로 구현한다.",
+    "위험 종류를 한 번에 많이 구현하면 인과가 불명확해지므로 부상·날씨·캠프 침입 대표 하나씩으로 상태기계를 먼저 검증한다.",
+    "다섯 탈출법이 같은 제작 버튼의 외형만 바뀌는 위험이 있으므로 지역·연구·설비·타이밍 요구를 최소 두 축 이상 다르게 한다.",
+    "엔딩 조합을 완전 절차식으로 만들면 개성이 약해지고 모든 조합에 고유 컷신을 만들면 제작량이 폭발하므로 큐레이션된 core ending과 재사용 가능한 modifier panel을 결합한다.",
+    "수집 지도가 캠프 대시보드처럼 상시 화면을 덮을 수 있으므로 지도 오브젝트 상호작용 중에만 열고 즉시 현장으로 돌아가게 한다.",
+    "정확한 자원 수량을 모두 공개하면 탐험성이 사라지고 너무 숨기면 선택 근거가 사라지므로 범주형 풍부함과 미확인 표시를 사용한다.",
+    "사용자 설정이 표준 밸런스 검증을 무력화할 수 있으므로 표준 Day 50 규칙을 먼저 완성하고 커스텀은 별도 run profile로 분리한다.",
+    "Steam 업적을 설계와 결합하면 외부 계정 작업으로 범위가 커지므로 지금은 안정 ending ID와 게임 내 갤러리까지만 구현한다."
+  ],
+  "playerPromise": "오늘 고른 지역과 감수한 위험, 캠프에 투자한 설비와 탈출 계획이 50일 뒤의 김씨와 엔딩을 바꾼다.",
+  "updatedAt": "2026-08-23T16:10:09.720Z",
+  "sampleDataContract": {
+    "status": "SAMPLE_ONLY_NOT_FINAL_BALANCE",
+    "source": "project.campaignContentContract.implementationSmoke",
+    "catalogMustLoad": [
+      "5 escape methods",
+      "6 region profiles",
+      "7 hazard profiles",
+      "19 endings",
+      "9 modifier panels"
+    ],
+    "smokeMustExecute": [
+      "3 starting regions",
+      "escape.smoke",
+      "escape.radio",
+      "hazard.injury",
+      "hazard.disaster",
+      "hazard.food-theft",
+      "4 sample endings"
+    ],
+    "balanceFreeze": "Do not treat preparation days, resource abundance, pity counts, hazard budget or behavior thresholds as final fifty-day balance; expose them as data and change one axis only after valid playtest evidence."
+  },
+  "pacingSmokeContract": {
+    "contractId": "vertical-slice.wave16.pacing-smoke.v1",
+    "status": "SAMPLE_ONLY_IMPLEMENTATION_AND_QA_ACCEPTANCE",
+    "source": "project.campaignPacingContract",
+    "representativePlayableRoutes": [
+      "smoke.route.smoke",
+      "smoke.route.radio"
+    ],
+    "dataOnlyRoutes": [
+      "escape.raft",
+      "escape.flare",
+      "escape.beacon"
+    ],
+    "requiredChecks": [
+      "day band boundaries and no early-escape hard gate",
+      "six-region primary and alternative unlock graph",
+      "forecast variation without exact-drop finalization",
+      "hazard budget, calm day, recovery and camp-loss atomicity",
+      "key-part eligible-search pity 3/5 and minimum-three-route audit",
+      "seven-stat identity snapshots and hysteresis",
+      "privacy-safe telemetry and KO/EN semantic parity"
+    ],
+    "cannotClaimFromSmoke": [
+      "final fifty-day balance",
+      "natural full fifty-day user completion",
+      "physical gamepad pass",
+      "raft, flare or beacon playable pass",
+      "Steamworks readiness"
+    ]
+  }
+}
+
+---
+
+[Source: wave15-fifty-day-campaign-rebaseline.json]
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에 조난된 평범한 김씨가 50일의 기한 동안 위험을 견디고 수집 지역을 골라 물자를 모으며, 다섯 가지 이상의 탈출 계획과 자신이 살아온 방식에 따라 정상적이거나 황당한 결말을 맞는 코믹 2D 거점 생존 게임.",
+    "genre": "코믹 2D 횡스크롤 거점 생존·지역 선택 수색·제작·다중 엔딩 게임",
+    "targetPlatform": "Windows PC / Steam, 키보드·마우스와 게임패드 지원 기반",
+    "audience": "거점 성장, 수색 계획, 생존 변수, 여러 해결법과 수집형 엔딩을 즐기며 한 판의 행동이 결말로 돌아오는 싱글 플레이 게임을 좋아하는 Steam 이용자",
+    "pillars": [
+      "김씨가 살아온 방식이 결말이 된다: 탈출법, 누적 행동과 특별 사건이 정상·병맛·희귀 엔딩을 결정한다.",
+      "오늘 어디로 갈지와 무엇을 감수할지 고른다: 지역별 자원 전망과 위험을 보고 장비·가방·귀환 시점을 결정한다.",
+      "캠프는 메뉴가 아니라 생활 공간이다: 직접 이동·상호작용하고 설비를 배치·증축해 위험에 대비하고 여러 탈출 계획을 진전시킨다."
+    ],
+    "playerVerbs": [
+      "이동한다",
+      "접근한다",
+      "상호작용한다",
+      "지역을 선택한다",
+      "준비한다",
+      "수색한다",
+      "채집한다",
+      "수영한다",
+      "운반한다",
+      "제작한다",
+      "건설·확장한다",
+      "연구한다",
+      "먹고 쉰다",
+      "치료·수리한다",
+      "위험을 피하거나 완화한다",
+      "탈출한다"
+    ],
+    "coreLoop": [
+      "베이스캠프에서 김씨를 직접 움직여 설비에 접근하고 허기·체력·부상·질병·캠프 피해를 확인한다.",
+      "작업대, 모닥불, 저장고, 치료·연구 설비와 상호작용해 오늘의 장비와 장기 탈출 계획을 준비한다.",
+      "캠프 출구 또는 지도 오브젝트와 상호작용해 수집 지도를 열고 지역별 예상 자원, 위험, 이동 시간, 날씨, 필요 장비와 특별 발견 가능성을 비교한다.",
+      "선택한 2D 횡스크롤 지역에서 제한된 가방·체력·일광을 관리하며 수색하고 예고된 위험과 돌발 사건에 대응한다.",
+      "더 챙길지 귀환할지 판단하고, 일몰 또는 자발적 귀환 뒤 물자·부상·사건 결과를 캠프로 가져온다.",
+      "귀환 물자를 생존, 치료, 캠프 보강, 가방·공간 성장과 다섯 가지 이상의 탈출 계획 중 어디에 쓸지 선택한다.",
+      "하루를 정산해 위험과 세계 상태를 갱신하고, Day 50 이전 탈출 또는 Day 50 종료까지 반복한다.",
+      "탈출 방법 또는 Day 50 상태, 누적 생활 방식과 특별 사건을 조합해 고유 엔딩과 코믹북 컷신을 해금한다."
+    ],
+    "artDirection": "밝고 따뜻한 열대색을 기반으로 한 오리지널 2D 측면 일러스트. 굵고 읽기 쉬운 형태, 과장된 포즈와 표정, 표류물로 급조한 설비를 사용한다. 수집 지도는 원화풍 무인도 지도와 명료한 노드·아이콘·정보 카드를 결합하되 특정 게임의 정확한 화면 구성을 복제하지 않는다. 위험은 잔혹함보다 상황과 결과가 읽히는 코믹한 실루엣·상태 아이콘으로 표현한다. 엔딩은 3~5장 코믹북 패널과 짧은 전환 효과를 기본으로 하며 모든 본문은 엔진 텍스트로 분리한다.",
+    "constraints": [
+      "Unity로 제작하며 첫 목표 플랫폼은 Windows PC와 Steam이다.",
+      "기본 캠페인의 하드 데드라인은 Day 50 종료이며 Day 5는 구조 기회나 종료일이 아니다.",
+      "Day 50 이전에도 조건을 충족하면 즉시 탈출할 수 있다.",
+      "정식 목표에는 뗏목·배, 대형 연기 신호, 무전 구조 신호, 조명탄, 고지대 신호탑·폐시설 복구를 포함한 서로 다른 탈출 방법이 최소 5개 있어야 한다.",
+      "탈출 방법은 재료명만 다른 동일 버튼이 아니라 서로 다른 지역, 연구, 설비, 위험과 타이밍을 요구한다.",
+      "수집 출발은 캠프의 출구 또는 지도 오브젝트에 직접 접근·상호작용한 뒤 열리는 상황형 지역 선택 화면을 거친다.",
+      "수집 지도는 지역별 예상 자원 종류와 상대적 풍부함, 이동 시간, 현재 위험, 날씨, 필요 장비와 특별 발견 가능성을 표시하되 정확한 결과 수량은 숨긴다.",
+      "자원과 핵심 부품은 run seed와 지역 프로필에 따라 달라지지만 진행 불가능한 seed를 만들지 않도록 핵심 부품 보장, 대체 획득처와 장기 미발견 보호 규칙을 둔다.",
+      "배고픔, 질병, 부상, 자연재해, 야생동물과 식량 도난·캠프 피해는 예고·대비·완화·회복 수단을 가진 생존 위험으로 구현한다.",
+      "대부분의 위험은 무예고 즉사보다 노출→상태 이상→위기의 단계적 악화를 사용한다.",
+      "엔딩 판정은 탈출 또는 Day 50 종료 방식, 누적 생활 방식, 특별 사건의 안정 ID 조합으로 결정하며 마지막 한 행동만으로 전체 삶을 덮어쓰지 않는다.",
+      "정식 목표는 정상·코믹·희귀 엔딩을 합쳐 18개 이상이며 주요 엔딩은 향후 Steam 업적과 일대일 또는 명시적 그룹으로 연결 가능한 안정 ID를 가진다.",
+      "일반 설비는 모듈 내부에서 제한적 자유 배치하고 특수 설비와 연결부는 전용 앵커·구역 규칙을 사용할 수 있다.",
+      "한국어를 기본·원문 언어로 사용하고 영어를 첫 정식 지원 언어로 제공하며 추가 언어를 게임 로직 변경 없이 확장할 수 있어야 한다.",
+      "키보드·마우스와 게임패드는 같은 게임 액션과 포커스 상태 머신을 사용한다.",
+      "1280×800에서 캠프, 수집 지도, 지역 정보, 위험 경고, 엔딩 패널이 잘리거나 핵심 플레이 공간을 부당하게 가리지 않아야 한다.",
+      "Steamworks SDK, App ID, 업적 등록, 배포와 퍼블리싱은 별도 승인 전까지 구현 범위에 포함하지 않는다."
+    ],
+    "assumptions": [
+      "Day 50에 탈출하지 못해도 단일 deadline 문구로 끝내지 않고 그동안의 우세 행동과 특별 사건에 따라 정착·자연인·기술 지배 등 서로 다른 엔딩을 판정한다.",
+      "표준 run은 다섯 탈출법 전체를 데이터로 제공하되 seed와 플레이 선택에 따라 난도가 달라지며 최소 세 경로는 진행 불가능 상태 없이 완성 가능하도록 보장한다.",
+      "수집 지도는 상시 전역 대시보드가 아니라 출발 준비 중에만 열리고 닫으면 같은 캠프 공간으로 돌아오는 설비형 팝업이다.",
+      "지역의 자원 표시는 풍부·보통·희귀·미확인 같은 범주를 사용하고 정확한 수량과 사건 결과는 공개하지 않는다.",
+      "야생동물 대응은 본격 액션 전투보다 회피, 장비, 위협, 함정과 캠프 방어를 우선한다.",
+      "위험 강도는 50일 동안 단조롭게 상승하지 않고 세계 상태와 플레이 행동에 따라 변하며 감당 불가능한 중첩을 막는 일일 위험 예산과 회복 가능한 평온일을 둔다.",
+      "엔딩 컷신은 3~5장 코믹북 패널을 기본으로 하고 희귀 대표 엔딩만 추가 애니메이션을 받을 수 있다.",
+      "게임 내 엔딩 갤러리는 실루엣과 비스포일러 힌트를 제공하며, 사용자 설정 run의 업적 인정 정책은 Steam 연동 단계에서 별도로 결정한다.",
+      "현재 5일 빌드와 Wave 12~14 자연 경로 문서는 새 구조의 구현 증거가 아니라 기존 캠프·수색·UI·원자성 회귀 기준으로만 보존한다.",
+      "사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다.",
+      "Wave 15 콘텐츠 매트릭스의 준비 일수, 위험 예산, pity 횟수와 행동 점수 임계값은 구현 smoke용 SAMPLE_ONLY이며 사용자 플레이테스트 전 정식 50일 밸런스로 잠그지 않는다."
+    ],
+    "campaignContentContract": {
+      "schemaVersion": 1,
+      "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
+      "sourceCommit": "7796cf57568d0bad24595379e833e1dd9b4d8d3f",
+      "balanceStatus": "SAMPLE_ONLY_NOT_FINAL_FIFTY_DAY_BALANCE",
+      "humanDocument": "Docs/Design/wave15-escape-hazard-ending-matrix.md",
+      "escapeMethods": [
+        {
+          "id": "escape.raft",
+          "fantasyKo": "김씨가 직접 엮은 뗏목·소형 범선으로 조류와 날씨를 읽어 섬을 벗어난다.",
+          "fantasyEn": "Mr. Kim builds a raft or tiny sailboat and rides the current off the island.",
+          "primaryRegions": ["region.coast.beach", "region.sea.shallows", "region.cove.wreck"],
+          "researchIds": ["research.ropework", "research.coastal-navigation"],
+          "facilityId": "facility.shore-launch",
+          "coreMaterialCategories": ["resource.wood", "resource.fiber", "resource.fabric", "resource.food", "resource.water"],
+          "keyPartIds": ["part.raft.sailcloth"],
+          "samplePreparationDays": { "min": 6, "max": 10, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.disaster", "hazard.injury", "hazard.hunger"],
+          "failureEventIds": ["event.raft.launch-delayed", "event.raft.drift-return", "event.raft.hull-damaged"],
+          "variantEventIds": ["event.raft.coconut-ballast", "event.current.safe-window"],
+          "differentiationAxes": ["region", "navigation_research", "shore_anchor", "weather_window", "voyage_supplies"],
+          "completionRule": "Launch transaction succeeds only with a completed hull, sailcloth, voyage supplies and an allowed sea-weather window; failure preserves project progress and changes only the declared launch consequence once."
+        },
+        {
+          "id": "escape.smoke",
+          "fantasyKo": "고지대의 대형 연기 설비를 며칠간 유지해 멀리 있는 배나 항공기의 눈에 든다.",
+          "fantasyEn": "A sustained smoke beacon on high ground catches a distant ship or aircraft.",
+          "primaryRegions": ["region.forest.grove", "region.ridge.highland"],
+          "researchIds": ["research.signal-combustion", "research.wind-reading"],
+          "facilityId": "facility.smoke-beacon",
+          "coreMaterialCategories": ["resource.wood", "resource.fiber", "resource.fuel", "resource.fabric"],
+          "keyPartIds": ["part.smoke.catalyst"],
+          "samplePreparationDays": { "min": 3, "max": 6, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.disaster", "hazard.camp-damage", "hazard.hunger"],
+          "failureEventIds": ["event.smoke.rained-out", "event.smoke.wind-wrong-way", "event.smoke.firebreak-breach"],
+          "variantEventIds": ["event.smoke.barbecue-misread", "event.smoke.cloud-letter"],
+          "differentiationAxes": ["highland_region", "combustion_research", "fixed_beacon", "multi_day_fuel", "wind_and_rain"],
+          "completionRule": "A prepared beacon must survive its visible signal window; weather failure consumes only the declared daily fuel batch and never deletes the facility or protected catalyst."
+        },
+        {
+          "id": "escape.radio",
+          "fantasyKo": "폐시설과 난파선에서 모은 부품으로 무전기를 복구하고 정확한 주파수와 위치를 송신한다.",
+          "fantasyEn": "Salvaged electronics become a radio that broadcasts Mr. Kim's position.",
+          "primaryRegions": ["region.cove.wreck", "region.ruins.relay", "region.ridge.highland"],
+          "researchIds": ["research.electronics", "research.radio-frequency"],
+          "facilityId": "facility.radio-bench",
+          "coreMaterialCategories": ["resource.electronics", "resource.wire", "resource.battery", "resource.metal"],
+          "keyPartIds": ["part.radio.transceiver"],
+          "samplePreparationDays": { "min": 8, "max": 14, "status": "SAMPLE_ONLY" },
+          "riskIds": ["hazard.disaster", "hazard.camp-damage", "hazard.disease"],
+          "failureEventIds": ["event.radio.false-reply", "event.radio.water-short", "event.radio.antenna-detun
+
+[UI-relevant excerpts]
+    "genre": "코믹 2D 횡스크롤 거점 생존·지역 선택 수색·제작·다중 엔딩 게임",
+    "audience": "거점 성장, 수색 계획, 생존 변수, 여러 해결법과 수집형 엔딩을 즐기며 한 판의 행동이 결말로 돌아오는 싱글 플레이 게임을 좋아하는 Steam 이용자",
+      "오늘 어디로 갈지와 무엇을 감수할지 고른다: 지역별 자원 전망과 위험을 보고 장비·가방·귀환 시점을 결정한다.",
+      "캠프는 메뉴가 아니라 생활 공간이다: 직접 이동·상호작용하고 설비를 배치·증축해 위험에 대비하고 여러 탈출 계획을 진전시킨다."
+      "제작한다",
+      "작업대, 모닥불, 저장고, 치료·연구 설비와 상호작용해 오늘의 장비와 장기 탈출 계획을 준비한다.",
+      "캠프 출구 또는 지도 오브젝트와 상호작용해 수집 지도를 열고 지역별 예상 자원, 위험, 이동 시간, 날씨, 필요 장비와 특별 발견 가능성을 비교한다.",
+      "선택한 2D 횡스크롤 지역에서 제한된 가방·체력·일광을 관리하며 수색하고 예고된 위험과 돌발 사건에 대응한다.",
+      "귀환 물자를 생존, 치료, 캠프 보강, 가방·공간 성장과 다섯 가지 이상의 탈출 계획 중 어디에 쓸지 선택한다.",
+    "artDirection": "밝고 따뜻한 열대색을 기반으로 한 오리지널 2D 측면 일러스트. 굵고 읽기 쉬운 형태, 과장된 포즈와 표정, 표류물로 급조한 설비를 사용한다. 수집 지도는 원화풍 무인도 지도와 명료한 노드·아이콘·정보 카드를 결합하되 특정 게임의 정확한 화면 구성을 복제하지 않는다. 위험은 잔혹함보다 상황과 결과가 읽히는 코믹한 실루엣·상태 아이콘으로 표현한다. 엔딩은 3~5장 코믹북 패널과 짧은 전환 효과를 기본으로 하며 모든 본문은 엔진 텍스트로 분리한다.",
+      "Unity로 제작하며 첫 목표 플랫폼은 Windows PC와 Steam이다.",
+      "탈출 방법은 재료명만 다른 동일 버튼이 아니라 서로 다른 지역, 연구, 설비, 위험과 타이밍을 요구한다.",
+      "수집 출발은 캠프의 출구 또는 지도 오브젝트에 직접 접근·상호작용한 뒤 열리는 상황형 지역 선택 화면을 거친다.",
+      "수집 지도는 지역별 예상 자원 종류와 상대적 풍부함, 이동 시간, 현재 위험, 날씨, 필요 장비와 특별 발견 가능성을 표시하되 정확한 결과 수량은 숨긴다.",
+      "수집 지도는 상시 전역 대시보드가 아니라 출발 준비 중에만 열리고 닫으면 같은 캠프 공간으로 돌아오는 설비형 팝업이다.",
+      "야생동물 대응은 본격 액션 전투보다 회피, 장비, 위협, 함정과 캠프 방어를 우선한다.",
+      "게임 내 엔딩 갤러리는 실루엣과 비스포일러 힌트를 제공하며, 사용자 설정 run의 업적 인정 정책은 Steam 연동 단계에서 별도로 결정한다.",
+      "현재 5일 빌드와 Wave 12~14 자연 경로 문서는 새 구조의 구현 증거가 아니라 기존 캠프·수색·UI·원자성 회귀 기준으로만 보존한다.",
+      "사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다.",
+          "fantasyEn": "Mr. Kim builds a raft or tiny sailboat and rides the current off the island.",
+          "primaryRegions": ["region.cove.wreck", "region.ruins.relay", "region.ridge.highland"],
+          "differentiationAxes": ["ruin_and_wreck_regions", "electronics_research", "powered_bench", "frequency_puzzle", "moisture_and_lightning"],
+          "completionRule": "A valid reply requires a repaired transceiver, powered antenna and confirmed frequency; a failed transmission records one event and leaves repairable components instead of rerolling them."
+          "primaryRegions": ["region.ridge.highland", "region.ruins.relay", "region.forest.grove"],
+          "differentiationAxes": ["late_highland_region", "structural_and_generator_research", "fixed_ruin_anchor", "long_repair_chain", "storm_exposure"],
+          "equipmentIds": [],
+          "equipmentIds": ["tool.stone-axe"],
+          "equipmentIds": ["equipment.swim-ready"],
+          "alternativeRegionIds": ["region.cove.wreck", "region.ruins.relay"]
+          "equipmentIds": ["tool.rope", "equipment.weatherproof-kit"],
+          "alternativeRegionIds": ["region.forest.grove", "region.ruins.relay"]
+          "equipmentIds": ["equipment.swim-ready", "tool.rope"],
+          "alternativeRegionIds": ["region.sea.shallows", "region.coast.beach", "region.ruins.relay"]
+          "id": "region.ruins.relay",
+          "equipmentIds": ["tool.rope", "equipment.insulation-kit"],
+        "seedRule": "After region generation, reroll only key-part placements until at least three escape methods have a primary and alternative acquisition chain.",
+        "ownershipRule": "An acquired key part enters protected project inventory; theft and generic camp damage cannot delete it, while a declared hazard may mark it damaged with a deterministic repair path.",
+          { "id": "part.radio.transceiver", "primary": "region.cove.wreck", "alternatives": ["region.ruins.relay", "region.sea.shallows"] },
+          { "id": "part.beacon.generator-coil", "primary": "region.ruins.relay", "alternatives": ["region.sea.shallows", "region.ridge.highland"] }
+          "telegraph": "HUD trend and next-settlement forecast before critical hunger.",
+          "mitigation": ["protective equipment", "rope or safe route", "cancel risky action"],
+          "mitigation": ["change region", "weatherproof equipment", "camp reinforcement"],
+          "behaviorStatIds": ["stat.building", "stat.hazard-response"]
+          "behaviorStatIds": ["stat.hunting-trapping", "stat.building", "stat.hazard-response"]
+          "behaviorStatIds": ["stat.mechanics", "stat.building", "stat.hazard-response"]
+        "statIds": ["stat.swimming", "stat.farming", "stat.hunting-trapping", "stat.mechanics", "stat.building", "stat.search", "stat.hazard-response"],
+        { "id": "modifier.stat.swimming", "ko": "젖은 장비와 능숙한 물길 흔적", "en": "Wet gear and the marks of a practiced swimmer" },
+        { "id": "modifier.stat.building", "ko": "섬 전체를 접은 설계도", "en": "Blueprints large enough to fold the island" },
+        { "id": "modifier.stat.hazard-response", "ko": "수선 자국과 멀쩡한 비상 가방", "en": "Patch marks and an emergency bag that actually worked" },
+          "summary": { "ko": "김씨는 직접 엮은 뗏목으로 조류를 타고 섬을 벗어났다.", "en": "Mr. Kim rode the current off the island on a raft he built himself." },
+          "modifierPanelId": "modifier.stat.farming", "galleryHint": { "ko": "배에는 평형추가 필요하다. 너무 많지만 않다면.", "en": "A boat needs ballast. Just not quite that much." }, "achievementMappingId": "achievement.ending.comic.raft.coconut-navy"
+          "panelBeats": ["김씨가 연기 재료를 너무 맛있게 배열한다.", "배 위 사람들이 접시를 들고 방향을 튼다.", "구조 직후 메뉴판부터 요구받는다."],
+          "trigger": "event.beacon.overpowered and stat.building at sample comic threshold", "threshold": "stat.building >= 8 SAMPLE_ONLY",
+          "modifierPanelId": "modifier.stat.building", "galleryHint": { "ko": "필요한 빛보다 조금 더 켜 보자.", "en": "Try turning on slightly more light than necessary." }, "achievementMappingId": "achievement.ending.comic.beacon.brightest-address"
+          "trigger": "event.disaster.perfect-mitigation during beacon completion", "threshold": "stat.building >= 10 and stat.hazard-response >= 10 SAMPLE_ONLY",
+          "trigger": "no escape at Day 50 and locked dominant stat.building or stat.hazard-response", "threshold": "identity snapshot in listed pair SAMPLE_ONLY",
+        "requiredCatalogCounts": { "escapeMethods": 5, "regions": 6, "hazards": 7, "endings": 19, "modifierPanels": 9 },
+      "캠프 출구 또는 지도 오브젝트에 직접 접근해 여는 상황형 수집 지역 선택 화면",
+      "지역별 예상 자원 종류·상대 풍부함, 이동 시간, 위험, 날씨, 필요 장비, 특별 발견 가능성 표시",
+      "기존 직접 조작 캠프, 제한적 자유 배치, 모듈 증축, 4→6 가방, 육상·수영 수색의 회귀 보존",
+      "50일 전체를 채우는 최종 지역·사건·제작법·밸런스 콘텐츠",
+      "다섯 탈출 경로 모두의 최종 자원 비용·연출과 고유 레벨 콘텐츠",
+      "본격 근접·원거리 전투, 적 AI와 보스",
+      "깊은 잠수, 산소 시뮬레이션과 수중 전투",
+      "사용자 설정 run UI와 업적 인정 정책의 최종 구현",
+      "지도 오브젝트에서 멀면 지역 선택 UI가 숨고 가까이서 상호작용한 뒤에만 열리며 취소하면 같은 캠프의 김씨 조작으로 복귀한다.",
+      "세 지역 각각이 서로 다른 자원 전망과 위험·이동 시간·필요 장비를 표시하고 선택한 지역만 실제 수색 장면과 보상 프로필에 반영된다.",
+      "플레이어가 위험을 사전에 확인하고 장비·설비·지역 변경 중 하나로 피해를 줄일 수 있으며 대부분의 위험은 원인 없이 즉사시키지 않는다.",
+      "시작 3개와 확장 3개의 region profile이 자원 풍부함·위험·날씨·장비·이동 시간·특별 발견과 핵심 부품의 primary·alternative·pity를 모두 가진다.",
+      "기존 캠프 근접 안내, 배치, 모듈, 가방, 구조 신호, 수영과 qps-long 10/10 GREEN 계약이 회귀하지 않는다.",
+      "다섯 탈출법이 같은 제작 버튼의 외형만 바뀌는 위험이 있으므로 지역·연구·설비·타이밍 요구를 최소 두 축 이상 다르게 한다.",
+      "엔딩 조합을 완전 절차식으로 만들면 개성이 약해지고 모든 조합에 고유 컷신을 만들면 제작량이 폭발하므로 큐레이션된 core ending과 재사용 가능한 modifier panel을 결합한다.",
+      "수집 지도가 캠프 대시보드처럼 상시 화면을 덮을 수 있으므로 지도 오브젝트 상호작용 중에만 열고 즉시 현장으로 돌아가게 한다.",
+      "사용자 설정이 표준 밸런스 검증을 무력화할 수 있으므로 표준 Day 50 규칙을 먼저 완성하고 커스텀은 별도 run profile로 분리한다.",
+      "assetIds": ["ui.survival-hud", "ui.expedition-map"],
+      "assetIds": ["ui.expedition-map", "background.coast-forest", "character.mr-kim", "ui.survival-hud", "icon.expedition-resource-risk-set"],
+      "assetIds": ["ui.survival-hud", "icon.expedition-resource-risk-set", "effect.survival-hazards"],
+      "dependencies": ["feature.camp-building", "feature.island-exploration"],
+      "assetIds": ["ui.escape-project-progress", "ui.ending-comic", "ui.ending-gallery", "effect.comedy-feedback"],
+      "description": "캠프 지도 오브젝트에서 지역 노드를 비교하고 예상 자원, 위험, 이동 시간, 날씨, 필요 장비와 특별 발견 가능성을 본 뒤 오늘의 수집 지역을 확정한다.",
+      "assetIds": ["ui.expedition-map", "icon.expedition-resource-risk-set"],
+        "세 지역의 자원 범주·풍부함·위험·시간·날씨·장비 정보가 선택 전에 보인다.",
+      "assetIds": ["ui.expedition-map", "icon.expedition-resource-risk-set"],
+      "assetIds": ["icon.expedition-resource-risk-set", "effect.survival-hazards", "ui.survival-hud"],
+      "dependencies": ["feature.survival-pressure", "feature.expedition-map", "feature.camp-building"],
+      "assetIds": ["ui.ending-comic", "ui.ending-gallery"],
+        "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다.",
+      "assetIds": ["ui.ending-comic", "ui.ending-gallery"],
+      "name": "사용자 설정 생존 플레이",
+      "assetIds": ["ui.survival-hud"],
+      "purpose": "캠프에서 오늘 갈 지역의 자원 전망과 위험을 비교하고 장비·가방·탈출 목표에 맞는 한 곳을 선택하는 상황형 원정 계획 화면.",
+      "assetIds": ["ui.expedition-map", "icon.expedition-resource-risk-set", "background.coast-forest"],
+      "actions": ["지역 노드 탐색", "지역 상세 비교", "예상 자원·위험·시간·날씨·장비 확인", "지역 확정", "취소하고 캠프로 복귀"],
+      "states": ["지도 닫힘", "지역 미확인", "지역 확인", "지역 잠김", "지역 위험 경고", "필요 장비 부족", "출발 가능", "확정 확인"]
+      "purpose": "지도에서 선택한 해변·숲·얕은 바다 등 지역에서 자원 전망과 위험 프로필이 실제 플레이로 이어지는 2D 횡스크롤 수색 화면.",
+      "assetIds": ["background.coast-forest", "character.mr-kim", "ui.survival-hud", "icon.expedition-resource-risk-set", "effect.survival-hazards", "animation.mr-kim.swim"],
+      "actions": ["이동", "오르기", "채집", "수색", "도구 사용", "가방 교체", "수영", "위험 회피·완화", "자발적 귀환"],
+      "states": ["탐색", "채집 중", "가방 가득 참", "일몰 임박", "지역 위험 예고", "위험 노출", "부상·질병", "수영 중", "자발적 귀환", "강제 귀환"]
+      "assetIds": ["ui.ending-comic", "ui.ending-gallery", "character.mr-kim", "effect.comedy-feedback"],
+      "purpose": "발견한 엔딩과 미발견 실루엣·힌트를 모아 다음 run의 목표를 제공하는 엔딩 컬렉션 화면.",
+      "assetIds": ["ui.ending-gallery", "ui.ending-comic"],
+      "entryPoints": ["메인 메뉴", "결과 화면"],
+      "name": "설정과 사용자 run profile",
+      "purpose": "표시 언어와 접근성·오디오를 변경하고, 표준 캠페인 완성 뒤 별도 사용자 설정 run profile을 선택하는 화면.",
+      "assetIds": ["ui.survival-hud"],
+      "entryPoints": ["메인 메뉴", "베이스캠프 일시정지 메뉴"],
+      "states": ["한국어", "영어", "폴백", "표준 Day 50", "사용자 설정", "게임패드 포커스"]
+      "description": "날짜, seed, 선택 지역, 창고·가방, 생존 상태, 설비·연구, 탈출 프로젝트, 위험 상태, 행동 점수, 특별 사건과 ending ID를 화면 전환 동안 유지한다.",
+      "acceptanceCriteria": ["새 게임과 화면 전환 뒤 seed·지역·위험·탈출·행동 점수가 누락되거나 중복되지 않는다."]
+      "description": "확정된 지역의 채집 지점, seed 보상, 도구 요구, 위험 노출, 체력·일광 비용과 자발·강제 귀환을 처리한다.",
+      "acceptanceCriteria": ["선택 지역과 다른 profile의 보상을 주지 않고 한 지점은 정의된 횟수만 보상한다."]
+      "description": "오늘 이용 가능한 지역, 발견 상태, 자원 전망, 위험, 시간, 날씨, 필요 장비와 선택 확정·취소를 관리한다.",
+      "id": "ui.expedition-map",
+      "name": "수집 지역 선택 지도 UI",
+      "assetType": "ui_set",
+      "request": "김씨가 베이스캠프의 지도 또는 출구 오브젝트와 상호작용했을 때만 열리는 1280×800 원정 계획 UI. 오리지널 손그림 열대 무인도 지도를 중심으로 해변·숲·얕은 바다 등 선택 노드를 배치하고, 선택 지역의 예상 자원 범주와 풍부함, 이동 시간, 현재 위험, 날씨, 필요 장비, 특별 발견 가능성, 잠김·미확인·선택·출발 가능 상태를 한 개의 상세 카드에 보여준다. 캠프 상시 대시보드가 아니며 확인·취소 후 현장으로 복귀한다. 특정 레퍼런스 게임의 정확한 배치·아이콘을 복제하지 않고 한국어·영어·qps-long 엔진 텍스트, 키보드·마우스와 게임패드 포커스, 색상 외 상태 문법을 지원한다. 지도 원화, 노드, 연결선, 카드 프레임, 포커스·잠금·위험 상태를 편집 가능한 분리 레이어로 제공하며 본문 텍스트는 래스터에 넣지 않는다.",
+      "dependencies": ["icon.expedition-resource-risk-set", "background.coast-forest", "ui.survival-hud"],
+      "assetType": "ui_set",
+      "request": "수집 지도와 HUD에서 사용하는 오리지널 아이콘 세트. 목재·돌·식량·표류물·전자부품·약품·천·연료 같은 자원 범주, 풍부·보통·희귀·미확인, 이동 시간, 폭풍·폭우·폭염·높은 파도, 부상·질병·야생동물·도난·침수, 필요 장비와 완화됨 상태를 16~48px에서 읽히는 굵은 실루엣과 형태 차이로 제공한다. 색상만으로 의미를 전달하지 않고 본문·숫자·문자를 래스터에 넣지 않는다.",
+      "id": "ui.escape-project-progress",
+      "name": "다중 탈출 프로젝트 상태 UI",
+      "assetType": "ui_set",
+      "request": "캠프의 각 탈출 설비와 상호작용할 때 뗏목·배, 연기 신호, 무전, 조명탄, 고지대 신호탑의 연구·재료·단계·완성 가능·위험·확인·취소를 해당 설비 주변 소형 팝업으로 보여주는 UI 세트. 전역 목록을 상시 덮지 않고 한국어·영어 엔진 텍스트와 게임패드 포커스를 지원한다.",
+      "dependencies": ["ui.camp-contextual-interaction", "icon.expedition-resource-risk-set"],
+      "id": "ui.ending-comic",
+      "assetType": "ui_set",
+      "id": "ui.ending-gallery",
+      "name": "김씨의 생존 앨범 UI",
+      "assetType": "ui_set",
+      "request": "18개 이상 엔딩을 일반·코믹·희귀·Day 50로 탐색하고 해금된 컷신을 재생하며 미해금 결과는 실루엣과 비스포일러 힌트로 보여주는 앨범형 UI. 1280×800, 한국어·영어·qps-long, 키보드·마우스·게임패드 포커스를 지원하고 실제 Steam 로고·업적 UI는 사용하지 않는다.",
+      "dependencies": ["ui.ending-comic"],
+      "description": "사용자 확정 방향을 프로젝트·수직 슬라이스·기능·화면·시스템·아트·QA 정본에 반영하고 기존 5일 자료를 역사적 회귀 증거로 분리한다.",
+      "assetIds": ["ui.expedition-map", "icon.expedition-resource-risk-set", "ui.ending-comic"],
+        "수집 지도 UI의 정보·상태·상호작용과 국제화·입력 계약이 있다.",
+      "assetIds": ["ui.escape-project-progress", "ui.ending-comic", "ui.ending-gallery"],
+      "description": "표준 Day 50 달력, 캠프 지도 오브젝트, 해변·숲·얕은 바다 세 지역 선택, 지역 정보 카드, seed형 자원 profile과 개발 로그를 placeholder UI로 구현한다.",
+      "assetIds": ["ui.expedition-map", "icon.expedition-resource-risk-set"],
+      "assetIds": ["ui.escape-project-progress", "ui.ending-comic", "effect.survival-hazards"],
+        "기존 qps-long 10/10, 캠프·가방·모듈·수영 회귀를 함께 잠근다."
+      "rationale": "수색을 반복 행동이 아니라 오늘의 목표·위험·장비를 비교하는 전략적 선택으로 만든다.",
+      "source": "user-confirmed-and-art-ui-discussion"
+      "summary": "탈출 재료와 지역 보상은 seed형 랜덤성을 가지되 softlock 방지와 핵심 부품 보호를 적용한다.",
+      "rationale": "위험이 50일의 계획을 흔들고 캠프 건
+[Document context truncated]
+
+---
+
+[Source: wave15-escape-hazard-ending-matrix.md]
+# Wave 15 탈출·위험·엔딩 매트릭스
+
+- 상태: `DESIGN CONTRACT COMPLETE / IMPLEME
+
+[UI-relevant excerpts]
+
+[Document context truncated]
+
+[UI SYSTEM DERIVATION]
+Derive a coherent interface system from the documented core loop, screen hierarchy, currencies, resources, progression, inventory, combat states, navigation, settings, confirmations, disabled states, and rewards. Include only components supported by the project context or current request. Make hierarchy and interaction states immediately readable. Keep every component in one consistent visual language.
+
+[EDITABLE UI DELIVERY]
+Prefer editable SVG, engine-native UI structure, and 9-slice-ready components for panels, buttons, gauges, and layout. Use raster generation only for decorative frames, illustrations, textures, and icons. Keep final localized text out of raster artwork.
+
+[GLOBAL RULES]
+Create an original production asset for a commercial game.
+Follow the requested art direction consistently.
+Do not add signatures, watermarks, labels, captions, borders, contact-sheet numbering, or unrelated props unless explicitly requested.
+Keep shapes readable at the intended in-game scale.

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "grade": "fail",
+  "score": 40,
+  "summary": {
+    "files": 11,
+    "errors": 2,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "ending-gallery-album-spread-a-1280x800-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1021,
+      "contrastStdDev": 90.77,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 19,
+        "top": 19,
+        "right": 19,
+        "bottom": 19
+      },
+      "previewFile": "qa-preview-ending-gallery-album-spread-a-1280x800-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-album-spread-a-2.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1280 800",
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-card-index-b-1280x800-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.092,
+      "contrastStdDev": 77.05,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 19,
+        "top": 19,
+        "right": 19,
+        "bottom": 19
+      },
+      "previewFile": "qa-preview-ending-gallery-card-index-b-1280x800-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-card-index-b-2.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1280 800",
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-filmstrip-c-1280x800-2.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.092,
+      "contrastStdDev": 83.39,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 19,
+        "top": 19,
+        "right": 19,
+        "bottom": 19
+      },
+      "previewFile": "qa-preview-ending-gallery-filmstrip-c-1280x800-2.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-filmstrip-c-2.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1280 800",
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-review-board-1920x1080-2.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 66.78,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-ending-gallery-review-board-1920x1080-2.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "ending-gallery-localization-accessibility-qa-1920x1080-2.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 70.08,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-ending-gallery-localization-accessibility-qa-192.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "ending-gallery-manifest-2.json",
+      "kind": "editable-source",
+      "bytes": 6632,
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-visual-qa-2.json",
+      "kind": "editable-source",
+      "bytes": 1287,
+      "issues": []
+    },
+    {
+      "fileName": "ending-gallery-handoff-2.txt",
+      "kind": "file",
+      "bytes": 1284,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-24T13:44:53.482Z",
+  "jobId": "job_20260824133802_f43c6431",
+  "assetType": "ui_set"
+}

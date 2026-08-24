@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.ending-gallery",
+  "jobId": "job_20260824133802_f43c6431",
+  "result": "pass",
+  "score": 100,
+  "warnings": [],
+  "errors": [],
+  "checks": {
+    "endingCount": 19,
+    "categoryCounts": {
+      "normal": 5,
+      "comic": 5,
+      "rare": 4,
+      "day50": 5
+    },
+    "candidateCount": 3,
+    "actualSizeEach": "1280x800",
+    "editableSvgEach": true,
+    "svgTextElementCountEach": 0,
+    "rasterBodyTextAdded": false,
+    "unlockedAndLockedStatesShown": true,
+    "koEnQpsLongSafeRectsShown": true,
+    "minimumTextPx": 18,
+    "minimumFocus": "44x44",
+    "colorIndependentCategoryMarks": true,
+    "situationalCampObjectPopupOnly": true,
+    "selectedCandidate": null,
+    "decision": "review",
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "sourceReferencesModified": false,
+    "imageGenCalled": false,
+    "paidExternalApiCalled": false
+  },
+  "manualReview": {
+    "albumSpreadA": "Best balance of physical album identity, full catalog scan and selected ending detail.",
+    "cardIndexB": "Fastest catalog scan; denser and less tactile.",
+    "filmstripC": "Strong sequential focus path and locked mystery; slower whole-catalog scan."
+  }
+}

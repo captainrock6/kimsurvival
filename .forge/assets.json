@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-24T12:56:53.483Z",
+  "updatedAt": "2026-08-24T13:52:59.995Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -4243,9 +4243,9 @@
       "id": "ui.ending-gallery",
       "name": "김씨의 생존 앨범 UI",
       "assetType": "ui_set",
-      "request": "18개 이상 엔딩을 일반·코믹·희귀·Day 50로 탐색하고 해금된 컷신을 재생하며 미해금 결과는 실루엣과 비스포일러 힌트로 보여주는 앨범형 UI. 1280×800, 한국어·영어·qps-long, 키보드·마우스·게임패드 포커스를 지원하고 실제 Steam 로고·업적 UI는 사용하지 않는다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Wave 18 review-only ui.ending-gallery 후보 세트. 안정 후보 ID는 ui.ending-gallery.album-spread-a, ui.ending-gallery.card-index-b, ui.ending-gallery.filmstrip-c. 베이스캠프의 앨범/기록 오브젝트와 상호작용할 때만 열리는 1280x800 상황형 UI이며 상시 전역 대시보드가 아니다. 정본의 19 ending ID를 normal 5, comic 5, rare 4, day50 5로 모두 수용한다. 해금 항목은 대표 triptych panel placeholder, TMP 제목·짧은 요약·플레이 근거 영역과 재생 액션을 제공하고, 미해금 항목은 비스포일러 실루엣과 TMP hint 영역만 제공한다. 색상 외 범주 문법은 normal 이중선 둥근 모서리, comic 버스트/점무늬, rare 별 노치/광선, day50 스티치/사선 해칭이다. A는 펼친 생존 앨범과 우측 상세 페이지, B는 5x4 카드 인덱스와 하단 상세 drawer, C는 세로 category spine과 filmstrip rail 및 우측 상세 panel이다. 실제 ko/en 본문과 입력 글자는 raster에 굽지 않고 엔진 TMP safe rect와 keyboard/gamepad glyph slot만 둔다. KO 기본, EN, qps-long 150 percent, 최소 18px, 44x44 focus를 지원한다. 채택된 expedition map right-rail A와 ending comic triptych A의 navy teal cream orange 문법을 계승하되 기존 게임 화면은 복제하지 않는다. actual-size PNG 3개, editable SVG 3개, 1920x1080 review board, localization/accessibility QA board, Forge manifest와 handoff를 로컬 결정론 도구로 만든다. selectedCandidate=null, decision=review, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false. adopt/package/runtime/scene/Addressables 금지.",
+      "status": "engine_ready",
+      "source": "forge-job",
       "tags": [
         "ending-gallery",
         "collection",
@@ -4256,14 +4256,191 @@
       "dependencies": [
         "ui.ending-comic"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260824133802_f43c6431"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260824133802_f43c6431",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-24T13:38:02.393Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260824133802_f43c6431",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-24T13:44:53.573Z",
+          "qualityScore": 40
+        },
+        {
+          "jobId": "job_20260824133802_f43c6431",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T13:52:20.832Z",
+          "qualityScore": 40
+        },
+        {
+          "jobId": "job_20260824133802_f43c6431",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-24T13:52:43.891Z",
+          "qualityScore": 40
+        }
+      ],
+      "currentJobId": "job_20260824133802_f43c6431",
       "parentJobId": null,
-      "artifacts": [],
-      "engine": {},
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 70540,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 62320,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-album-spread-a-1280x800-2.png",
+          "contentType": "image/png",
+          "bytes": 114895,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-album-spread-a-1280x800-2.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-album-spread-a-2.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 33899,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-album-spread-a-2.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-card-index-b-1280x800-2.png",
+          "contentType": "image/png",
+          "bytes": 114744,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-card-index-b-1280x800-2.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-card-index-b-2.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 31684,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-card-index-b-2.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-filmstrip-c-1280x800-2.png",
+          "contentType": "image/png",
+          "bytes": 124640,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-filmstrip-c-1280x800-2.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-filmstrip-c-2.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 40053,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-filmstrip-c-2.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-review-board-1920x1080-2.png",
+          "contentType": "image/png",
+          "bytes": 332188,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-review-board-1920x1080-2.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "ending-gallery-localization-accessibility-qa-1920x1080-2.png",
+          "contentType": "image/png",
+          "bytes": 195092,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-localization-accessibility-qa-1920x1080-2.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "ending-gallery-manifest-2.json",
+          "contentType": "application/json",
+          "bytes": 6632,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-manifest-2.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "ending-gallery-visual-qa-2.json",
+          "contentType": "application/json",
+          "bytes": 1287,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-visual-qa-2.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "ending-gallery-handoff-2.txt",
+          "contentType": "text/plain",
+          "bytes": 1284,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/ending-gallery-handoff-2.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 3889,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3465,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ending-gallery-album-spread-a-1280x800-2.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9385,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/qa-preview-ending-gallery-album-spread-a-1280x800-2.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ending-gallery-card-index-b-1280x800-2.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9119,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/qa-preview-ending-gallery-card-index-b-1280x800-2.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ending-gallery-filmstrip-c-1280x800-2.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9930,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/qa-preview-ending-gallery-filmstrip-c-1280x800-2.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ending-gallery-review-board-1920x1080-2.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8119,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/qa-preview-ending-gallery-review-board-1920x1080-2.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-ending-gallery-localization-accessibility-qa-192.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6927,
+          "url": "/outputs/jobs/job_20260824133802_f43c6431/qa-preview-ending-gallery-localization-accessibility-qa-192.jpg"
+        }
+      ],
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260824133802_f43c6431",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260824133802_f43c6431\\forge-import.json",
+        "packagedAt": "2026-08-24T13:52:59.990Z"
+      },
       "createdAt": "2026-08-23T14:15:54.716Z",
-      "updatedAt": "2026-08-23T14:16:09.962Z"
+      "updatedAt": "2026-08-24T13:52:59.995Z"
     },
     {
       "id": "effect.survival-hazards",
