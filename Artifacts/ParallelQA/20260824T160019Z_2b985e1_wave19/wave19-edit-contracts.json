@@ -1,0 +1,64 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 19 resource connection Edit contracts",
+    "runId": "20260824T160019Z_2b985e1_wave19",
+    "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-24T16:03:12.6770017Z",
+    "completedUtc": "2026-08-24T16:03:12.7110848Z",
+    "overall": "GREEN",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 4,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "W19-E01.kim_adopted_atlas_guid",
+            "matrix": "Edit asset contract",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "severity": "P0",
+            "expected": "The adopted Mr. Kim atlas GUID resolves to the packaged source and is serialized on the canonical scene",
+            "actual": "character.mr-kim.atlas=Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png@cd48411681ba6264c9093f8b1cb1759a; scene=cd48411681ba6264c9093f8b1cb1759a",
+            "reproduction": "Open the canonical Scene and compare kimAtlasSprite with AssetDatabase.GUIDToAssetPath.",
+            "recommendedFiles": "Assets/_Project/Scenes/KimSurvivalPrototype.unity; adopted Mr. Kim atlas .meta"
+        },
+        {
+            "id": "W19-E02.resource_icon_guids",
+            "matrix": "Edit asset contract",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "severity": "P0",
+            "expected": "Wood, stone, food, and salvage use the four adopted icon GUIDs",
+            "actual": "resource.wood@5ba05e4e569ab6745bff72d0b9ba9151 | resource.stone@c881b7198e647ad40b32c63ce18e27a2 | resource.food@59695c50812722b458c210b4cfb02c12 | resource.salvage@cb8829a17d9cc9049aa16fbf4393097a",
+            "reproduction": "Inspect the four serialized icon fields and their .meta GUIDs.",
+            "recommendedFiles": "Assets/_Project/Scenes/KimSurvivalPrototype.unity; adopted resource icon .meta files"
+        },
+        {
+            "id": "W19-E03.structure_sprite_guids",
+            "matrix": "Edit asset contract",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "severity": "P0",
+            "expected": "Campfire, workbench, rain collector, and rescue signal use adopted separated structure GUIDs",
+            "actual": "structure.campfire@aefba80bf6c588847ba3b66d017616cc | structure.workbench@f1920158f3a3ba14f8999ead8f869e30 | structure.rain_collector@0af1d92982f80ce4a89462c076305386 | structure.rescue_signal@00ff5be74a04dbe48a49fe2e1a673eec",
+            "reproduction": "Inspect the four serialized structure fields and their .meta GUIDs.",
+            "recommendedFiles": "Assets/_Project/Scenes/KimSurvivalPrototype.unity; adopted structure .meta files"
+        },
+        {
+            "id": "W19-E04.selected_ui_guid_contracts",
+            "matrix": "Edit asset contract",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "severity": "P0",
+            "expected": "Compact A, expedition map A, and ending triptych A resolve only to their selected GUIDs",
+            "actual": "compact-a/map-a/ending-triptych-a GUIDs resolve and Resources assets reference the selected sources",
+            "reproduction": "Load both Resources assets and compare object source GUIDs with the selected-only contracts.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/Resources/Wave12CompactPromptSkin.asset; Assets/_Project/Settings/Resources/Wave18PresentationAssets.asset"
+        }
+    ]
+}

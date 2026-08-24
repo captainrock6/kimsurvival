@@ -1,0 +1,16 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260824T160019Z_2b985e1_wave19",
+    "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+    "unityVersion": "6000.4.9f1",
+    "deadline": "FinalDay=50; day3Playable=True; day4Playable=True; day5Deadline=False; earlyDay1Rescue=True; states=start=D1>D2/Camp/None>D3/Camp/None>D4/Camp/None>D5/Camp/None>D6/Camp/None",
+    "adoptedPackage": "ledgerEngineReady=True; adoptedCompactA=True; fileGuid=True(070048b5b443d5d4a9c757c871873eb3); border=L70/R30/T12/B12:True; B/C runtime refs=False",
+    "runtimeFrame": "",
+    "inputLocaleIndependence": "",
+    "captureLayout": "",
+    "freshWave11Layout": "",
+    "freshWave3Visual": "",
+    "screenshots": [],
+    "joystickNames": [],
+    "physicalGamepad": "UNVERIFIED"
+}

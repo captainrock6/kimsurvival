@@ -1,0 +1,22 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260824T160019Z_2b985e1_wave19",
+    "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-24T16:01:25.8383012Z",
+    "completedUtc": "2026-08-24T16:01:30.7248535Z",
+    "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\unity-windows-build.log\"",
+    "target": "StandaloneWindows64",
+    "options": "Development",
+    "result": "Succeeded",
+    "totalSizeBytes": 190600995,
+    "durationSeconds": 4.6393211999999999,
+    "errors": 0,
+    "warnings": 0,
+    "warningInventory": [],
+    "executable": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "executableExists": true,
+    "executableBytes": 667648,
+    "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "addressablesLinkContract": "PASS"
+}

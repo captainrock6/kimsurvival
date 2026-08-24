@@ -1,0 +1,19 @@
+{
+    "runId": "20260824T160019Z_2b985e1_wave19",
+    "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+    "mode": "EXPLICIT_ADOPTED_UNCONNECTED",
+    "selectedStableIds": [
+        "effect.survival-hazards.phase-silhouette-a",
+        "ui.escape-project-progress.route-signature-a",
+        "ui.ending-comic.triptych-a"
+    ],
+    "selectedPrimaryGuids": [
+        "22aa0efe034962041860a1171b2c5a73",
+        "a3fc27f38161341409c6fbe0be7bea6f",
+        "ba9091d85a3bddd4a8c8b90aa07d1b7c"
+    ],
+    "selectedReferences": [],
+    "forbiddenReferences": [],
+    "allowlistReferences": [],
+    "result": "PASS"
+}

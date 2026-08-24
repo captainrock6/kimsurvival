@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 17 pacing, hazard, escape, ending RED-first hardening gate",
+  "runId": "20260824T160019Z_2b985e1_wave19",
+  "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+  "startedUtc": "2026-08-24T16:00:20.2158470Z",
+  "completedUtc": "2026-08-24T16:02:51.3999251Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "compatibility": "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+  },
+  "executionPolicy": "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "frozenWave16Baseline": {
+    "expectedCount": 17,
+    "expectedIds": [
+      "W16-H01.hazard_phase_catalog",
+      "W16-H02.daily_stack_budget",
+      "W16-H03.atomic_idempotent_resolution",
+      "W16-E01.five_escape_catalog",
+      "W16-E02.escape_axis_separation",
+      "W16-E03.smoke_radio_playable",
+      "W16-E04.raft_flare_beacon_data",
+      "W16-O01.snapshot_and_private_log",
+      "W16-N01.ending_catalog_19",
+      "W16-N02.deterministic_single_ending",
+      "W16-N03.terminal_priority",
+      "W16-L01.ko_en_qps_contract",
+      "W16-P01.live_hazard_lifecycle",
+      "W16-P02.live_escape_paths",
+      "W16-P03.three_panel_comic",
+      "W16-P04.ko_en_qps_1280",
+      "W16-P05.keyboard_gamepad_state_parity"
+    ],
+    "observedIds": null,
+    "result": "FAIL"
+  },
+  "currentGreenLocks": {
+    "wave15CampaignMap": "GREEN",
+    "qpsLong": "10/10 PASS",
+    "compile": "PASS 0 errors / 0 warnings",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS 6.356s (minimum 6)",
+    "addressables": "PASS"
+  },
+  "expectedGapIds": [],
+  "expectedGaps": [],
+  "productFailures": [],
+  "infrastructureFailures": [],
+  "unverifiedIds": [
+    "W17-HW01.physical_gamepad",
+    "W17-S01.steam_release"
+  ],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "reviewOnlyArt": "Three human-adoption candidates must remain unselected and absent from runtime/scene/Addressables references.",
+  "playerLogPrivacy": "PASS_RAW_LOG_QUARANTINED_TO_IGNORED_WORK",
+  "greenTransition": "On a post-implementation baseline, fresh Wave 15 and Wave 16 must be GREEN, infrastructure locks PASS, and this gate must report zero EXPECTED_GAP/FAIL checks while review-only art remains unconnected until explicit human adoption.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave17PacingHazardGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "wave16-frozen-foundation-and-wave15-green",
+      "startedUtc": "2026-08-24T16:00:20.2326768Z",
+      "completedUtc": "2026-08-24T16:02:33.1201221Z",
+      "exitCode": 0,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave16HazardEndingGate.ps1\" -RunId 20260824T160019Z_2b985e1_wave19 -BaselineCommit 2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave17-wave16-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave17-wave16-stderr.log"
+    },
+    {
+      "name": "wave17-pacing-hazard-edit",
+      "startedUtc": "2026-08-24T16:02:33.1302947Z",
+      "completedUtc": "2026-08-24T16:02:40.6306905Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave17PacingHazardRedFirstHardeningRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\unity-wave17-edit.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave17-edit-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave17-edit-stderr.log"
+    },
+    {
+      "name": "wave17-pacing-hazard-play",
+      "startedUtc": "2026-08-24T16:02:40.6354293Z",
+      "completedUtc": "2026-08-24T16:02:51.2476627Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave17PacingHazardRedFirstHardeningRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\unity-wave17-play.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave17-play-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave17-play-stderr.log"
+    }
+  ],
+  "exitCode": 0
+}
