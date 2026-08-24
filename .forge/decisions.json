@@ -315,7 +315,35 @@
       "rationale": "소표본 한 cohort나 단일 owner session으로 SAMPLE_ONLY 숫자를 정식 밸런스로 잠그지 않는다.",
       "source": "wave17-design-contract",
       "createdAt": "2026-08-24T11:58:25.288Z"
+    },
+    {
+      "id": "decision.wave18-existing-gate-ids-are-public-contract",
+      "summary": "지정된 기존 W17 gate ID 15개를 공개 probe ID로 그대로 사용하고 동의어를 만들지 않는다.",
+      "rationale": "구현·QA·통합 보고서 사이의 1:1 추적성을 보존하고 파일명·reflection 기반 허위 PASS를 막는다.",
+      "source": "wave18-design-contract",
+      "createdAt": "2026-08-24T13:45:51.244Z"
+    },
+    {
+      "id": "decision.wave18-natural-and-deterministic-evidence-separated",
+      "summary": "결정론 fixture, 실제 Play 자연 경로, 인간 플레이테스트를 별도 증거 등급으로 유지하며 grant·warp·skip 없는 경로만 자연 경로로 센다.",
+      "rationale": "semantic probe 성공을 실제 플레이 경험이나 미실행 사용자 결과로 오인하지 않기 위함이다.",
+      "source": "wave18-design-contract",
+      "createdAt": "2026-08-24T13:45:51.244Z"
+    },
+    {
+      "id": "decision.wave18-sample-only-boundary-preserved",
+      "summary": "Wave 16의 위험 예산, pity 3/5, 준비 기간과 행동 임계값은 구현 smoke 값으로만 유지하고 E3 전 최종 밸런스로 승격하지 않는다.",
+      "rationale": "이번 작업은 누락된 제품 계약을 GREEN으로 전환하는 작업이며 새로운 밸런스 증거를 만들지 않는다.",
+      "source": "wave18-design-contract",
+      "createdAt": "2026-08-24T13:45:51.244Z"
+    },
+    {
+      "id": "decision.wave18-six-human-sessions-remain-unrun",
+      "summary": "Wave 17의 ko 3/en 3 첫 사용자 자연 50일 세션은 구현·자동 게이트 GREEN 이후에도 별도 실행 전까지 UNRUN이다.",
+      "rationale": "자동화 결과와 실제 사용자 관찰을 섞거나 수행하지 않은 결과를 꾸며내지 않는다.",
+      "source": "wave18-design-contract",
+      "createdAt": "2026-08-24T13:45:51.244Z"
     }
   ],
-  "updatedAt": "2026-08-24T11:58:25.288Z"
+  "updatedAt": "2026-08-24T13:45:51.244Z"
 }
