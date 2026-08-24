@@ -1,0 +1,10 @@
+Wave 4 Steam readiness
+Run ID: 20260824T_wave18_green_evidence_01
+Baseline: e9829556c4736da468ab62d004318dae8747b95f
+Overall: NOT_READY
+NOT_READY · Steamworks SDK/API · no targeted repository match
+NOT_READY · Steam App ID · no targeted repository match
+NOT_READY · Depot/upload · no targeted repository match
+NOT_READY · Steam Input · no targeted repository match
+NOT_READY · Steam Cloud · no targeted repository match
+NOT_READY · Steam Achievements · no targeted repository match

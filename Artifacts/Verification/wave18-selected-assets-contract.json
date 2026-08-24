@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "validatedCodeCommit": "e9829556c4736da468ab62d004318dae8747b95f",
+  "bindingResource": "Wave18PresentationAssets",
+  "bindingAsset": "Assets/_Project/Settings/Resources/Wave18PresentationAssets.asset",
+  "selectedOnly": [
+    {
+      "candidateId": "effect.survival-hazards.phase-silhouette-a",
+      "sourceGuid": "22aa0efe034962041860a1171b2c5a73",
+      "allowlistedFile": "hazard-phase-atlas.png",
+      "runtimeConnected": true
+    },
+    {
+      "candidateId": "ui.escape-project-progress.route-signature-a",
+      "sourceGuid": "a3fc27f38161341409c6fbe0be7bea6f",
+      "allowlistedFile": "escape-project-route-signature-a-1280x800.png",
+      "runtimeConnected": true
+    },
+    {
+      "candidateId": "ui.ending-comic.triptych-a",
+      "sourceGuid": "ba9091d85a3bddd4a8c8b90aa07d1b7c",
+      "allowlistedFile": "ending-comic-triptych-a-1280x800.png",
+      "runtimeConnected": true
+    }
+  ],
+  "unselectedRuntimeReferences": 0
+}
