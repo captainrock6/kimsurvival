@@ -171,7 +171,7 @@ namespace ParallelQA
         [Serializable]
         private sealed class HazardTrace
         {
-            public int ownerInstanceId;
+            public string ownerEntityId;
             public string ownerScene;
             public string ownerType;
             public string hazardId;
@@ -186,7 +186,7 @@ namespace ParallelQA
         private sealed class RouteTrace
         {
             public string routeId;
-            public int ownerInstanceId;
+            public string ownerEntityId;
             public string ownerScene;
             public string ownerType;
             public string method;
@@ -672,7 +672,7 @@ namespace ParallelQA
                 bool sequence = phases.SequenceEqual(new[] { "Telegraph", "Occurrence", "Mitigation", "Recovery" });
                 traces.Add(new HazardTrace
                 {
-                    ownerInstanceId = owner.GetInstanceID(),
+                    ownerEntityId = owner.GetEntityId().ToString(),
                     ownerScene = owner.gameObject.scene.path,
                     ownerType = owner.GetType().FullName,
                     hazardId = id,
@@ -790,7 +790,7 @@ namespace ParallelQA
             return new RouteTrace
             {
                 routeId = routeId,
-                ownerInstanceId = owner.GetInstanceID(),
+                ownerEntityId = owner.GetEntityId().ToString(),
                 ownerScene = owner.gameObject.scene.path,
                 ownerType = owner.GetType().FullName,
                 method = method.Name,
@@ -827,7 +827,7 @@ namespace ParallelQA
                     {
                         object result = method.Invoke(owner, arguments);
                         if (result != null)
-                            values.Add("instance=" + owner.GetInstanceID() + ";scene=" + owner.gameObject.scene.path + ";type=" +
+                            values.Add("entity=" + owner.GetEntityId() + ";scene=" + owner.gameObject.scene.path + ";type=" +
                                        owner.GetType().FullName + ";method=" + method.Name + ";result=" + CompactDescribe(result, 5));
                     }
                     catch { }
@@ -847,7 +847,7 @@ namespace ParallelQA
 
         private static bool IsStrictRoute(RouteTrace trace, string expectedId)
         {
-            return trace != null && trace.result == "PASS" && trace.routeId == expectedId && trace.ownerInstanceId != 0 &&
+            return trace != null && trace.result == "PASS" && trace.routeId == expectedId && !string.IsNullOrWhiteSpace(trace.ownerEntityId) &&
                    !string.IsNullOrWhiteSpace(trace.ownerScene) && trace.interactionCount > 0 && trace.grantFlagFound &&
                    !trace.grantUsed && trace.warpFlagFound && !trace.warpUsed && trace.completed;
         }
@@ -970,13 +970,13 @@ namespace ParallelQA
 
         private static string DescribeHazard(HazardTrace value)
         {
-            return value.hazardId + "@" + value.ownerInstanceId + "[" + string.Join(",", value.phases) + "] retry=" + value.retryIdempotent;
+            return value.hazardId + "@" + value.ownerEntityId + "[" + string.Join(",", value.phases) + "] retry=" + value.retryIdempotent;
         }
 
         private static string DescribeRoute(RouteTrace value)
         {
             if (value == null) return "missing";
-            return value.result + "@" + value.ownerInstanceId + "/" + value.routeId + "/interactions=" + value.interactionCount +
+            return value.result + "@" + value.ownerEntityId + "/" + value.routeId + "/interactions=" + value.interactionCount +
                    "/grant=" + (value.grantFlagFound ? value.grantUsed.ToString() : "MISSING") +
                    "/warp=" + (value.warpFlagFound ? value.warpUsed.ToString() : "MISSING") + "/complete=" + value.completed;
         }
