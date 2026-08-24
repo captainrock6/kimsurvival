@@ -1,0 +1,9 @@
+PASS · ko placement valid · gated=6 · screenshot=playmode-ko-placement-valid-1280x800.png
+PASS · ko placement invalid · gated=6 · screenshot=playmode-ko-placement-invalid-1280x800.png
+PASS · en placement valid · gated=6 · screenshot=playmode-en-placement-valid-1280x800.png
+PASS · en placement invalid · gated=6 · screenshot=playmode-en-placement-invalid-1280x800.png
+PASS · qps-long placement valid · gated=10 · screenshot=playmode-qps-long-placement-valid-1280x800.png
+PASS · ko day1 swimming · gated=2 · screenshot=playmode-ko-day1-swimming-1280x800.png
+PASS · ko day2 exploration · gated=3 · screenshot=playmode-ko-day2-exploration-1280x800.png
+PASS · en day1 swimming · gated=2 · screenshot=playmode-en-day1-swimming-1280x800.png
+PASS · en day2 exploration · gated=3 · screenshot=playmode-en-day2-exploration-1280x800.png

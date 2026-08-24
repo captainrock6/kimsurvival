@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260824T152500Z_fab9e9c_wave18",
+  "baselineCommit": "fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8",
+  "observedUtc": "2026-08-24T14:11:27.2076958Z",
+  "executable": "pwsh",
+  "version": "7.6.4",
+  "target": "Assets/Editor/ParallelQA/Invoke-Wave18GreenTransitionGate.ps1",
+  "method": "System.Management.Automation.Language.Parser.ParseFile",
+  "errors": 0,
+  "result": "PASS"
+}

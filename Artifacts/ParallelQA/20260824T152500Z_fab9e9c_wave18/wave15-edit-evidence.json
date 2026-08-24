@@ -1,0 +1,13 @@
+{
+    "runId": "20260824T152500Z_fab9e9c_wave18",
+    "baselineCommit": "fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8",
+    "observedFinalDay": 50,
+    "dayOne": "D1/50/Camp/None",
+    "day49": "settled=True; D50/Camp/None",
+    "day50": "settled=True; D50/Result/Deadline",
+    "earlyEscape": "FinalDay=50; workbench=True; rope=True/True; signal=True/True; result=Rescued; phase=Result",
+    "catalog": "catalogEntries=9; regions=beach,forest,shallow-sea; failures=none",
+    "rng": "PrototypeRegionLootRng.Generate same=True different=True bounds=True/True [explicit-within-bounds=true;explicit-within-bounds=true]; PrototypeRegionLootRng.ResolveProfile same=True different=False bounds=False/False [actual/min/max=-1/-1/-1;actual/min/max=-1/-1/-1]; same=True; different=True; routes>=3=True",
+    "localization": "rows=360; mapRows=47; qpsExpanded=47; failures=none",
+    "logging": "seedField=True; regionField=True; prohibitedPiiField=False"
+}

@@ -1,0 +1,105 @@
+{
+    "runId": "20260824T152500Z_fab9e9c_wave18",
+    "baselineCommit": "fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8",
+    "discoveryPolicy": "Active KimSurvival Scene objects, public method/result shape, stable IDs, and observed state only. Static Edit fixtures cannot satisfy P01-P03.",
+    "hazardTraces": [
+        {
+            "ownerEntityId": "-2532",
+            "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+            "ownerType": "KimSurvival.PrototypeCampaignRuntime",
+            "hazardId": "hazard.injury",
+            "eventKey": "qa.wave18.hazard.injury",
+            "phases": [
+                "Telegraph",
+                "Occurrence",
+                "Mitigation",
+                "Recovery"
+            ],
+            "resultCodes": [
+                "hazard.telegraphed",
+                "hazard.exposure.applied",
+                "hazard.mitigation.applied",
+                "hazard.recovery.completed"
+            ],
+            "retryIdempotent": true,
+            "result": "PASS"
+        },
+        {
+            "ownerEntityId": "-2532",
+            "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+            "ownerType": "KimSurvival.PrototypeCampaignRuntime",
+            "hazardId": "hazard.disaster",
+            "eventKey": "qa.wave18.hazard.disaster",
+            "phases": [
+                "Telegraph",
+                "Occurrence",
+                "Mitigation",
+                "Recovery"
+            ],
+            "resultCodes": [
+                "hazard.telegraphed",
+                "hazard.exposure.applied",
+                "hazard.mitigation.applied",
+                "hazard.recovery.completed"
+            ],
+            "retryIdempotent": true,
+            "result": "PASS"
+        },
+        {
+            "ownerEntityId": "-2532",
+            "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+            "ownerType": "KimSurvival.PrototypeCampaignRuntime",
+            "hazardId": "hazard.food-theft",
+            "eventKey": "qa.wave18.hazard.food-theft",
+            "phases": [
+                "Telegraph",
+                "Occurrence",
+                "Mitigation",
+                "Recovery"
+            ],
+            "resultCodes": [
+                "hazard.telegraphed",
+                "hazard.exposure.applied",
+                "hazard.mitigation.applied",
+                "hazard.recovery.completed"
+            ],
+            "retryIdempotent": true,
+            "result": "PASS"
+        }
+    ],
+    "smoke": {
+        "routeId": "escape.smoke",
+        "ownerEntityId": "",
+        "ownerScene": "",
+        "ownerType": "",
+        "method": "",
+        "interactionCount": 0,
+        "grantFlagFound": false,
+        "grantUsed": false,
+        "warpFlagFound": false,
+        "warpUsed": false,
+        "completed": false,
+        "traceFingerprint": "",
+        "result": "FAIL_NO_LIVE_INTERACTION_RESULT"
+    },
+    "radio": {
+        "routeId": "escape.radio",
+        "ownerEntityId": "",
+        "ownerScene": "",
+        "ownerType": "",
+        "method": "",
+        "interactionCount": 0,
+        "grantFlagFound": false,
+        "grantUsed": false,
+        "warpFlagFound": false,
+        "warpUsed": false,
+        "completed": false,
+        "traceFingerprint": "",
+        "result": "FAIL_NO_LIVE_INTERACTION_RESULT"
+    },
+    "ignoredStaticRouteFixtures": 3,
+    "liveEndingObservations": [
+        "entity=-2532;scene=Assets/_Project/Scenes/KimSurvivalPrototype.unity;type=KimSurvival.PrototypeCampaignRuntime;method=ChooseTerminalOutcome;result=PrototypeEndingResolution{StableId=ending.stay.just-kim;DeterministicSingleReason=priority > condition specificity > event day > ASCII stable ID;Priority=0;MatchedConditions=1;EventDay=2147483647;AsciiStableIdTieBreaker=ending.stay.just-kim;PanelKeys=[ending.stay.just-kim.title,ending.stay.just-kim.summary,ending.stay.just-kim.hint];AchievementMappingId=achievement.stay.just-kim}"
+    ],
+    "joystickNames": []
+}

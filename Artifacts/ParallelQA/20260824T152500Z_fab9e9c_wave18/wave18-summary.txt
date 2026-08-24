@@ -1,0 +1,17 @@
+Wave 18 independent green-transition hardening gate
+Run ID: 20260824T152500Z_fab9e9c_wave18
+Baseline: fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8
+PowerShell: Desktop 5.1.26100.9168
+Overall/Product/Infrastructure: RED/FAIL/PASS
+Source Wave 17 exact baseline: NOT_APPLICABLE_POST_BASELINE; EXPECTED_GAP=0
+Hardened matrix PASS/FAIL: 10/13 of 23
+Hardened FAIL IDs: W17-T01.day_band_boundaries, W17-T02.early_escape_no_hardlock, W17-R01.six_region_primary_alternative, W17-R02.seed_forecast_hazard_pity_determinism, W17-R03.eligible_search_hint3_guarantee5, W17-R04.minimum_three_completable_paths, W17-H02.rolling_calm_and_major_recovery, W17-H03.atomic_retry_loss_and_keypart_protection, W17-E02.smoke_radio_natural_interaction_routes, W17-E03.raft_flare_beacon_data_only, W17-N02.priority_tiebreak_and_hysteresis, W17-P02.live_smoke_radio_natural_paths, W17-P03.live_terminal_priority_and_three_panels
+Wave 15/Wave 16/qps: GREEN/GREEN/10/10 PASS
+Compile/Build/Smoke/Addressables: PASS 0 errors/PASS/PASS 6.393s/PASS
+Stable path Build/Smoke/Firewall identity: PASS/PASS/PASS
+Privacy/Art/Raw player log: PASS/PASS EXPLICIT_ADOPTED_UNCONNECTED/PASS_QUARANTINED
+Infrastructure failures: 0
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Exit code: 2 (0 GREEN, 2 product RED, 1 infrastructure FAIL)
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave18GreenTransitionGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8' -MinimumSmokeSeconds 6

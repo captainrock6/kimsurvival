@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260824T152500Z_fab9e9c_wave18
+Started UTC: 2026-08-24T14:07:34.1512399Z
+Completed UTC: 2026-08-24T14:07:34.1728974Z
+Unity: 6000.4.9f1
+Baseline commit: fab9e9c7c527e9d7fa62dc3fd85f736bf0c30fd8
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260824T152500Z_fab9e9c_wave18\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260824T152500Z_fab9e9c_wave18\unity-compile.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.
