@@ -1107,6 +1107,66 @@ MonoBehaviour:
     m_Key: message.search.begin_region
     m_Metadata:
       m_Items: []
+  - m_Id: 445243593048064
+    m_Key: expedition.map.title_region
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243630796800
+    m_Key: expedition.map.node.state
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243630796801
+    m_Key: expedition.map.rail.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243630796802
+    m_Key: expedition.map.rail.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243630796803
+    m_Key: expedition.map.rail.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991104
+    m_Key: expedition.map.rail.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991105
+    m_Key: expedition.map.rail.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991106
+    m_Key: expedition.map.cancel.short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991107
+    m_Key: expedition.map.state.default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991108
+    m_Key: expedition.map.state.selected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991109
+    m_Key: expedition.map.state.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991110
+    m_Key: expedition.map.state.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991111
+    m_Key: expedition.map.state.equipment_missing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991112
+    m_Key: expedition.map.state.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991113
+    m_Key: expedition.map.state.unknown
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

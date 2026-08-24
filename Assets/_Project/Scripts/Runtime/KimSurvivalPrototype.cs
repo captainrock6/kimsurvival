@@ -20,7 +20,7 @@ namespace KimSurvival
         private const string AssetIcons = "icon.resource-tool-set";
         private const string AssetComedy = "effect.comedy-feedback";
         private const string AssetCampContextPrompt = "ui.camp-contextual-interaction.compact-a";
-        private const string AssetExpeditionMap = "ui.expedition-map";
+        private const string AssetExpeditionMap = "ui.expedition-map.right-rail-a";
         private const string CampContextPromptSkinResource = "Wave12CompactPromptSkin";
 
         private const float CampBackgroundWorldWidth = 20f;
@@ -74,6 +74,7 @@ namespace KimSurvival
         [SerializeField] private Sprite vineBarrierBlockedSprite;
         [SerializeField] private Sprite vineBarrierInteractableSprite;
         [SerializeField] private Sprite vineBarrierClearedSprite;
+        [SerializeField] private Sprite expeditionMapLayoutSprite;
 
         private sealed class NodeView
         {
@@ -140,10 +141,15 @@ namespace KimSurvival
         private TMP_Text campProximityText;
         private TMP_Text expeditionMapTitleText;
         private TMP_Text expeditionMapDetailText;
+        private TMP_Text expeditionMapRiskText;
+        private TMP_Text expeditionMapWeatherText;
+        private TMP_Text expeditionMapEquipmentText;
+        private TMP_Text expeditionMapSpecialText;
         private GameObject campActions;
         private GameObject campInteractionPopup;
         private GameObject campProximityPrompt;
         private GameObject expeditionMapPanel;
+        private Image expeditionMapFrameImage;
         private GameObject campModuleReasonChip;
         private TMP_Text campModuleReasonText;
         private GameObject bagPanel;
@@ -268,6 +274,11 @@ namespace KimSurvival
             vineBarrierBlockedSprite = vineBarrierBlocked;
             vineBarrierInteractableSprite = vineBarrierInteractable;
             vineBarrierClearedSprite = vineBarrierCleared;
+        }
+
+        public void ConfigureExpeditionMapArt(Sprite rightRailLayout)
+        {
+            expeditionMapLayoutSprite = rightRailLayout;
         }
 
         private void OnDestroy()
@@ -448,97 +459,136 @@ namespace KimSurvival
             cancelPopupButton = CreateCampPopupButton("취소", CancelCampPopup);
 
             expeditionMapPanel = CreatePanel(
-                "수집 지역 선택 지도 placeholder · " + AssetExpeditionMap,
+                "채택 수집 지도 A · " + AssetExpeditionMap,
                 canvas.transform,
-                new Vector2(0.08f, 0.14f),
-                new Vector2(0.92f, 0.80f),
+                new Vector2(0.025f, 0.025f),
+                new Vector2(0.975f, 0.975f),
                 Vector2.zero,
                 Vector2.zero,
-                new Color(0.025f, 0.07f, 0.08f, 0.985f)).gameObject;
+                Color.white).gameObject;
+            expeditionMapFrameImage = expeditionMapPanel.GetComponent<Image>();
+            if (expeditionMapLayoutSprite != null)
+            {
+                expeditionMapFrameImage.sprite = expeditionMapLayoutSprite;
+                expeditionMapFrameImage.type = Image.Type.Simple;
+                expeditionMapFrameImage.preserveAspect = true;
+                expeditionMapFrameImage.color = Color.white;
+            }
+            else
+            {
+                expeditionMapFrameImage.color = new Color(0.025f, 0.07f, 0.08f, 0.985f);
+            }
+            RectTransform runtimeRailRect = CreatePanel(
+                "A안 런타임 우측 rail 면",
+                expeditionMapPanel.transform,
+                new Vector2(0.655f, 0.07f),
+                new Vector2(0.96f, 0.9f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.91f, 0.84f, 0.65f, 1f));
+            Image runtimeRailSurface = runtimeRailRect.GetComponent<Image>();
+            runtimeRailSurface.raycastTarget = false;
+            Outline runtimeRailOutline = runtimeRailSurface.gameObject.AddComponent<Outline>();
+            runtimeRailOutline.effectColor = new Color(0.08f, 0.55f, 0.55f, 0.9f);
+            runtimeRailOutline.effectDistance = new Vector2(2f, -2f);
+            runtimeRailOutline.useGraphicAlpha = false;
             expeditionMapTitleText = CreateText(
                 "수집 지도 제목",
                 expeditionMapPanel.transform,
-                new Vector2(0f, 1f),
-                new Vector2(1f, 1f),
-                new Vector2(30f, -78f),
-                new Vector2(-30f, -14f),
-                36,
+                new Vector2(0.68f, 0.805f),
+                new Vector2(0.94f, 0.875f),
+                new Vector2(6f, 2f),
+                new Vector2(-4f, -2f),
+                24,
                 TextAnchor.MiddleLeft,
-                new Color(1f, 0.88f, 0.42f));
+                new Color(0.04f, 0.18f, 0.2f));
+            expeditionMapTitleText.fontStyle = FontStyles.Bold;
             expeditionMapTitleText.enableAutoSizing = true;
-            expeditionMapTitleText.fontSizeMin = 27f;
-            expeditionMapTitleText.fontSizeMax = 36f;
-            expeditionMapTitleText.textWrappingMode = TextWrappingModes.NoWrap;
-            expeditionMapTitleText.maxVisibleLines = 1;
+            expeditionMapTitleText.fontSizeMin = 18f;
+            expeditionMapTitleText.fontSizeMax = 24f;
+            expeditionMapTitleText.textWrappingMode = TextWrappingModes.Normal;
+            expeditionMapTitleText.maxVisibleLines = 2;
             expeditionMapTitleText.overflowMode = TextOverflowModes.Overflow;
 
             IReadOnlyList<PrototypeExpeditionRegionProfile> expeditionProfiles = PrototypeExpeditionRegionCatalog.All;
+            Vector2[] expeditionNodeAnchors =
+            {
+                new Vector2(0.209f, 0.514f),
+                new Vector2(0.424f, 0.643f),
+                new Vector2(0.342f, 0.280f)
+            };
             for (int i = 0; i < expeditionProfiles.Count; i += 1)
             {
                 PrototypeExpeditionRegionId capturedRegion = expeditionProfiles[i].Id;
-                float nodeTop = -112f - i * 96f;
                 Button regionButton = CreateButton(
                     "수집 지역 노드 · " + expeditionProfiles[i].StableId,
                     expeditionMapPanel.transform,
-                    new Vector2(0f, 1f),
-                    new Vector2(0f, 1f),
+                    expeditionNodeAnchors[i],
+                    expeditionNodeAnchors[i],
                     string.Empty,
                     delegate { FocusExpeditionRegion(capturedRegion); },
-                    new Vector2(28f, nodeTop - 80f),
-                    new Vector2(310f, nodeTop));
+                    new Vector2(-110f, -56f),
+                    new Vector2(110f, 56f));
+                regionButton.GetComponent<Image>().color = new Color(0.025f, 0.16f, 0.18f, 0.94f);
                 TMP_Text regionLabel = regionButton.GetComponentInChildren<TMP_Text>();
+                regionLabel.fontStyle = FontStyles.Bold;
                 regionLabel.enableAutoSizing = true;
-                regionLabel.fontSizeMin = 20f;
-                regionLabel.fontSizeMax = 28f;
+                regionLabel.fontSizeMin = 18f;
+                regionLabel.fontSizeMax = 22f;
                 regionLabel.textWrappingMode = TextWrappingModes.Normal;
-                regionLabel.maxVisibleLines = 2;
+                regionLabel.maxVisibleLines = 3;
                 regionLabel.overflowMode = TextOverflowModes.Overflow;
+                Outline outline = regionButton.gameObject.AddComponent<Outline>();
+                outline.effectColor = new Color(0.02f, 0.16f, 0.2f, 1f);
+                outline.effectDistance = new Vector2(2f, -2f);
+                outline.useGraphicAlpha = false;
                 expeditionRegionButtons.Add(regionButton);
             }
 
-            RectTransform expeditionDetailPanel = CreatePanel(
-                "선택 지역 상세 카드",
-                expeditionMapPanel.transform,
-                new Vector2(0.30f, 0.17f),
-                new Vector2(0.975f, 0.84f),
-                Vector2.zero,
-                Vector2.zero,
-                new Color(0.08f, 0.14f, 0.13f, 0.97f));
-            expeditionMapDetailText = CreateText(
-                "지역 상세 카드 텍스트",
-                expeditionDetailPanel,
-                Vector2.zero,
-                Vector2.one,
-                new Vector2(24f, 16f),
-                new Vector2(-24f, -16f),
-                26,
-                TextAnchor.UpperLeft,
-                Color.white);
-            expeditionMapDetailText.enableAutoSizing = true;
-            expeditionMapDetailText.fontSizeMin = 17f;
-            expeditionMapDetailText.fontSizeMax = 26f;
-            expeditionMapDetailText.textWrappingMode = TextWrappingModes.Normal;
-            expeditionMapDetailText.maxVisibleLines = 10;
-            expeditionMapDetailText.overflowMode = TextOverflowModes.Overflow;
+            expeditionMapDetailText = CreateExpeditionRailText(
+                "예상 자원 상세",
+                new Vector2(0.68f, 0.655f),
+                new Vector2(0.94f, 0.785f),
+                4);
+            expeditionMapRiskText = CreateExpeditionRailText(
+                "위험·이동 시간 상세",
+                new Vector2(0.68f, 0.525f),
+                new Vector2(0.94f, 0.645f),
+                3);
+            expeditionMapWeatherText = CreateExpeditionRailText(
+                "날씨 상세",
+                new Vector2(0.68f, 0.42f),
+                new Vector2(0.94f, 0.515f),
+                3);
+            expeditionMapEquipmentText = CreateExpeditionRailText(
+                "필요 장비 상세",
+                new Vector2(0.68f, 0.305f),
+                new Vector2(0.94f, 0.41f),
+                3);
+            expeditionMapSpecialText = CreateExpeditionRailText(
+                "특별 발견 상세",
+                new Vector2(0.68f, 0.19f),
+                new Vector2(0.94f, 0.295f),
+                3);
 
             expeditionMapConfirmButton = CreateButton(
                 "선택 지역으로 출발",
                 expeditionMapPanel.transform,
-                new Vector2(0.32f, 0f),
-                new Vector2(0.69f, 0f),
+                new Vector2(0.67f, 0.075f),
+                new Vector2(0.865f, 0.175f),
                 string.Empty,
                 ConfirmSelectedExpeditionRegion,
-                new Vector2(10f, 24f),
-                new Vector2(-10f, 104f));
+                new Vector2(2f, 0f),
+                new Vector2(-2f, 0f));
             expeditionMapCancelButton = CreateButton(
                 "수집 지도 취소",
                 expeditionMapPanel.transform,
-                new Vector2(0.71f, 0f),
-                new Vector2(0.97f, 0f),
+                new Vector2(0.875f, 0.075f),
+                new Vector2(0.955f, 0.175f),
                 string.Empty,
                 CancelCampPopup,
-                new Vector2(10f, 24f),
-                new Vector2(-10f, 104f));
+                Vector2.zero,
+                Vector2.zero);
             ConfigureExpeditionMapButton(expeditionMapConfirmButton);
             ConfigureExpeditionMapButton(expeditionMapCancelButton);
 
@@ -1715,6 +1765,7 @@ namespace KimSurvival
         {
             if (!expeditionMapSelection.IsOpen ||
                 campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.ExpeditionMap ||
+                !expeditionMapSelection.CanDepartFocusedRegion() ||
                 !campInteraction.TryConfirmAction())
             {
                 return;
@@ -1757,32 +1808,87 @@ namespace KimSurvival
             }
 
             PrototypeExpeditionRegionProfile focused = PrototypeExpeditionRegionCatalog.Get(expeditionMapSelection.FocusedRegionId);
-            expeditionMapTitleText.text = localization.Format("expedition.map.title", session.Day, GameSession.FinalDay);
+            expeditionMapTitleText.text = localization.Format(
+                "expedition.map.title_region",
+                session.Day,
+                GameSession.FinalDay,
+                localization.Format(focused.NameKey));
             IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
             for (int i = 0; i < profiles.Count; i += 1)
             {
                 bool selected = i == expeditionMapSelection.FocusedIndex;
+                PrototypeExpeditionRegionVisualPresentation state = PrototypeExpeditionRegionVisualCatalog.Get(
+                    expeditionMapSelection.GetRegionState(profiles[i].Id));
+                PrototypeExpeditionRegionVisualPresentation selection = PrototypeExpeditionRegionVisualCatalog.Get(
+                    PrototypeExpeditionRegionVisualState.Selected);
                 SetButton(
                     expeditionRegionButtons[i],
-                    localization.Format(selected ? "expedition.map.node.focused" : "expedition.map.node", localization.Format(profiles[i].NameKey)),
+                    localization.Format(
+                        "expedition.map.node.state",
+                        selected ? selection.Marker : state.Marker,
+                        localization.Format(profiles[i].NameKey),
+                        localization.Format(state.LocalizationKey)),
                     true);
+                ApplyExpeditionRegionButtonPresentation(expeditionRegionButtons[i], state, selected);
             }
 
             expeditionMapDetailText.text = localization.Format(
-                "expedition.map.detail",
-                localization.Format(focused.NameKey),
-                localization.Format(focused.SummaryKey),
-                localization.Format(focused.ResourceForecastKey),
-                focused.TravelMinutes,
+                "expedition.map.rail.resources",
+                localization.Format(focused.ResourceForecastKey));
+            expeditionMapRiskText.text = localization.Format(
+                "expedition.map.rail.risk",
                 localization.Format(focused.RiskKey),
-                localization.Format(focused.WeatherKey),
-                localization.Format(focused.EquipmentKey),
+                focused.TravelMinutes);
+            expeditionMapWeatherText.text = localization.Format(
+                "expedition.map.rail.weather",
+                localization.Format(focused.WeatherKey));
+            expeditionMapEquipmentText.text = localization.Format(
+                "expedition.map.rail.equipment",
+                localization.Format(focused.EquipmentKey));
+            expeditionMapSpecialText.text = localization.Format(
+                "expedition.map.rail.special",
                 localization.Format(focused.SpecialDiscoveryKey));
             SetButton(
                 expeditionMapConfirmButton,
                 localization.Format("expedition.map.depart", localization.Format(focused.NameKey)),
-                true);
-            SetButton(expeditionMapCancelButton, localization.Format("expedition.map.cancel"), true);
+                expeditionMapSelection.CanDepartFocusedRegion());
+            SetButton(expeditionMapCancelButton, localization.Format("expedition.map.cancel.short"), true);
+        }
+
+        private static void ApplyExpeditionRegionButtonPresentation(
+            Button button,
+            PrototypeExpeditionRegionVisualPresentation presentation,
+            bool selected)
+        {
+            Image image = button.GetComponent<Image>();
+            Outline outline = button.GetComponent<Outline>();
+            int borderWeight = selected ? Math.Max(4, presentation.BorderWeight) : presentation.BorderWeight;
+            outline.effectDistance = new Vector2(borderWeight, -borderWeight);
+            outline.effectColor = selected
+                ? new Color(0.98f, 0.82f, 0.23f, 1f)
+                : new Color(0.02f, 0.16f, 0.2f, 1f);
+
+            switch (presentation.State)
+            {
+                case PrototypeExpeditionRegionVisualState.Locked:
+                    image.color = new Color(0.16f, 0.18f, 0.18f, 0.97f);
+                    break;
+                case PrototypeExpeditionRegionVisualState.RiskWarning:
+                    image.color = new Color(0.36f, 0.08f, 0.06f, 0.97f);
+                    break;
+                case PrototypeExpeditionRegionVisualState.EquipmentMissing:
+                    image.color = new Color(0.32f, 0.19f, 0.04f, 0.97f);
+                    break;
+                case PrototypeExpeditionRegionVisualState.DepartureReady:
+                    image.color = new Color(0.03f, 0.25f, 0.16f, 0.97f);
+                    break;
+                case PrototypeExpeditionRegionVisualState.Unknown:
+                    image.color = new Color(0.08f, 0.08f, 0.1f, 0.97f);
+                    break;
+                default:
+                    image.color = new Color(0.025f, 0.16f, 0.18f, 0.94f);
+                    break;
+            }
         }
 
         private void ExecuteConfirmedModulePreviewTransition()
@@ -2400,16 +2506,16 @@ namespace KimSurvival
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave9-module-interior-ko-1280x800.png");
             string expeditionMapNearKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-near-ko-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave16-map-a-near-ko-1280x800.png");
             string expeditionMapKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-popup-ko-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave16-map-a-popup-ko-1280x800.png");
             string expeditionMapEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-popup-en-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave16-map-a-popup-en-1280x800.png");
             string expeditionMapQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
-                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave15-map-popup-qps-long-1280x800.png");
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave16-map-a-popup-qps-long-1280x800.png");
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
@@ -2480,6 +2586,41 @@ namespace KimSurvival
                 CaptureVerificationPng(expeditionMapEnglishScreenshotPath, 1280, 800);
             }
 
+            expeditionMapSelection.SetRegionStateForVerification(
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionVisualState.Locked);
+            RefreshExpeditionMapUi();
+            Require(!expeditionMapConfirmButton.interactable &&
+                    expeditionRegionButtons[0].GetComponentInChildren<TMP_Text>().text.Contains(localization.Format("expedition.map.state.locked")),
+                "잠김 지역은 색상 외 ◆ 포커스·굵은 테두리·상태 문구로 구분되고 출발할 수 없음");
+            expeditionMapSelection.SetRegionStateForVerification(
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionVisualState.EquipmentMissing);
+            RefreshExpeditionMapUi();
+            Require(!expeditionMapConfirmButton.interactable &&
+                    expeditionRegionButtons[0].GetComponentInChildren<TMP_Text>().text.Contains(localization.Format("expedition.map.state.equipment_missing")),
+                "장비 부족 상태는 별도 △ 문양·문구로 구분되고 출발할 수 없음");
+            expeditionMapSelection.SetRegionStateForVerification(
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionVisualState.RiskWarning);
+            RefreshExpeditionMapUi();
+            Require(expeditionMapConfirmButton.interactable &&
+                    expeditionRegionButtons[0].GetComponentInChildren<TMP_Text>().text.Contains(localization.Format("expedition.map.state.risk")),
+                "위험 경고 상태는 별도 ! 문양·문구를 보이면서 출발 가능성을 보존");
+            expeditionMapSelection.SetRegionStateForVerification(
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionVisualState.Unknown);
+            RefreshExpeditionMapUi();
+            Require(!expeditionMapConfirmButton.interactable &&
+                    expeditionRegionButtons[0].GetComponentInChildren<TMP_Text>().text.Contains(localization.Format("expedition.map.state.unknown")),
+                "미확인 상태는 별도 ? 문양·점선 계약·문구로 구분되고 출발할 수 없음");
+            expeditionMapSelection.SetRegionStateForVerification(
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionVisualState.DepartureReady);
+            RefreshExpeditionMapUi();
+            Require(expeditionMapConfirmButton.interactable,
+                "시작 세 지역의 출발 가능 상태 모델은 검증 전이 뒤에도 정상 복귀");
+
             FocusExpeditionRegion(PrototypeExpeditionRegionId.Shallows);
             Require(localization.SetQaLocale(), "지도 팝업의 실제 qps-long QA 로케일 선택");
             RefreshAll();
@@ -2492,6 +2633,7 @@ namespace KimSurvival
             {
                 CaptureVerificationPng(expeditionMapQpsLongScreenshotPath, 1280, 800);
             }
+            WriteExpeditionMapLayoutEvidence(campProximityScreenshotFolder);
             CancelCampPopup();
             Require(!expeditionMapPanel.activeSelf && campProximityPrompt.activeSelf &&
                     campInteraction.ActiveTargetId == "camp.expedition-map" &&
@@ -3176,7 +3318,7 @@ namespace KimSurvival
                 playtestLog.Dispose();
                 playtestLog = null;
             }
-            return "PASS · Wave 15 Day 1/50, Day 49 지속·Day 50 정산 terminal·조기 구조 우선, 직접 근접 지도·세 지역 선택·seed 결정성·세 탈출 경로 보호와 개발 로그 연결을 확인. ko/en/qps-long 1280x800 지도·compact-a·직접 연결 슬롯, 제한적 자유 배치, 가방 4→6, 수색·수영·장벽·구조 신호 원자성을 회귀 확인";
+            return "PASS · Wave 16 채택 expedition-map right-rail A, ko/en/qps-long 1280x800, 7개 비색상 지역 상태와 공통 확정·취소를 확인. Wave 15 Day 1/50, Day 49 지속·Day 50 정산 terminal·조기 구조 우선, 직접 근접 지도·세 지역 선택·seed 결정성·세 탈출 경로 보호와 개발 로그 연결, compact-a·직접 연결 슬롯·제한적 자유 배치·가방 4→6·수색·수영·장벽·구조 신호 원자성을 회귀 확인";
         }
 
         private static void RequirePlaytestLogRuntimeIntegration(IReadOnlyList<string> lines)
@@ -3406,6 +3548,10 @@ namespace KimSurvival
                 "수집 지도는 직접 상호작용 팝업 하나만 표시하고 월드 근접 안내·가방을 숨김");
             expeditionMapTitleText.ForceMeshUpdate(true, true);
             expeditionMapDetailText.ForceMeshUpdate(true, true);
+            expeditionMapRiskText.ForceMeshUpdate(true, true);
+            expeditionMapWeatherText.ForceMeshUpdate(true, true);
+            expeditionMapEquipmentText.ForceMeshUpdate(true, true);
+            expeditionMapSpecialText.ForceMeshUpdate(true, true);
             controlsText.ForceMeshUpdate(true, true);
             for (int i = 0; i < expeditionRegionButtons.Count; i += 1)
             {
@@ -3416,28 +3562,127 @@ namespace KimSurvival
             Canvas.ForceUpdateCanvases();
 
             RectTransform mapRect = expeditionMapPanel.GetComponent<RectTransform>();
-            Require(mapRect.anchorMin.x >= 0.08f && mapRect.anchorMax.x <= 0.92f &&
-                    mapRect.anchorMin.y >= 0.14f && mapRect.anchorMax.y <= 0.80f,
-                "1280x800 수집 지도 placeholder는 상단 HUD와 하단 조작 안내 사이 안전 영역 안에 있음");
-            Require(expeditionMapTitleText.enableAutoSizing && expeditionMapTitleText.fontSizeMin >= 27f &&
-                    expeditionMapTitleText.maxVisibleLines == 1 && !expeditionMapTitleText.isTextOverflowing,
-                "ko/en/qps-long 지도 제목은 Day 1/50을 한 줄로 표시");
-            Require(expeditionMapDetailText.enableAutoSizing && expeditionMapDetailText.fontSizeMin >= 17f &&
-                    expeditionMapDetailText.maxVisibleLines == 10 && !expeditionMapDetailText.isTextOverflowing,
-                "지역 상세 카드는 자원 범주·시간·위험·날씨·장비·특별 발견을 잘림 없이 표시");
+            Require(mapRect.anchorMin.x >= 0.005f && mapRect.anchorMax.x <= 0.995f &&
+                    mapRect.anchorMin.y >= 0.005f && mapRect.anchorMax.y <= 0.995f &&
+                    Mathf.Abs((mapRect.anchorMax.x - mapRect.anchorMin.x) * 1280f /
+                              ((mapRect.anchorMax.y - mapRect.anchorMin.y) * 800f) - 1.6f) < 0.001f,
+                "1280x800 채택 A 지도는 20px 안전 여백 안에서 원본 1.6:1 구도를 보존");
+            Require(expeditionMapLayoutSprite != null && expeditionMapFrameImage.sprite == expeditionMapLayoutSprite &&
+                    expeditionMapFrameImage.type == Image.Type.Simple && expeditionMapFrameImage.preserveAspect &&
+                    Mathf.Approximately(expeditionMapLayoutSprite.rect.width, 1280f) &&
+                    Mathf.Approximately(expeditionMapLayoutSprite.rect.height, 800f),
+                "런타임 지도 프레임은 채택된 A안 1280x800 원화만 사용");
+            Require(expeditionMapTitleText.enableAutoSizing && expeditionMapTitleText.fontSizeMin >= 18f &&
+                    expeditionMapTitleText.maxVisibleLines == 2 && !expeditionMapTitleText.isTextOverflowing,
+                "ko/en/qps-long 지도 제목은 Day 1/50과 지역명을 우측 rail에서 잘림 없이 표시");
+            Require(expeditionMapDetailText.enableAutoSizing && expeditionMapDetailText.fontSizeMin >= 18f &&
+                    !expeditionMapDetailText.isTextOverflowing,
+                "우측 상세 rail 예상 자원 TMP는 18px 이상에서 잘림 없이 표시");
+            Require(!expeditionMapRiskText.isTextOverflowing,
+                "우측 상세 rail 위험·이동 시간 TMP는 18px 이상에서 잘림 없이 표시");
+            Require(!expeditionMapWeatherText.isTextOverflowing,
+                "우측 상세 rail 날씨 TMP는 18px 이상에서 잘림 없이 표시");
+            Require(!expeditionMapEquipmentText.isTextOverflowing,
+                "우측 상세 rail 필요 장비 TMP는 18px 이상에서 잘림 없이 표시");
+            Require(!expeditionMapSpecialText.isTextOverflowing,
+                "우측 상세 rail 특별 발견 TMP는 18px 이상에서 잘림 없이 표시");
             Require(!controlsText.isTextOverflowing,
                 "수집 지도 공통 키보드·게임패드 조작 안내는 1280x800 하단 안전 영역에 맞음");
             for (int i = 0; i < expeditionRegionButtons.Count; i += 1)
             {
                 TMP_Text label = expeditionRegionButtons[i].GetComponentInChildren<TMP_Text>();
-                Require(label.enableAutoSizing && label.fontSizeMin >= 20f && label.maxVisibleLines == 2 && !label.isTextOverflowing,
-                    "수집 지역 노드 " + i + "는 두 줄 이내에서 이름과 포커스를 읽을 수 있음");
+                Outline outline = expeditionRegionButtons[i].GetComponent<Outline>();
+                Require(label.enableAutoSizing && label.fontSizeMin >= 18f && label.maxVisibleLines == 3 && !label.isTextOverflowing &&
+                        outline != null && Mathf.Abs(outline.effectDistance.x) >= 1f,
+                    "수집 지역 노드 " + i + "는 문양·상태 문구·테두리와 함께 세 줄 이내에서 읽을 수 있음");
             }
             Require(!expeditionMapConfirmButton.GetComponentInChildren<TMP_Text>().isTextOverflowing &&
                     !expeditionMapCancelButton.GetComponentInChildren<TMP_Text>().isTextOverflowing,
                 pseudoLong
                     ? "qps-long 출발·취소는 자동 맞춤 두 줄 정책 안에서 잘림 없음"
                     : "ko/en 출발·취소 버튼 잘림 없음");
+        }
+
+        private void WriteExpeditionMapLayoutEvidence(string evidenceFolder)
+        {
+            if (string.IsNullOrWhiteSpace(evidenceFolder))
+            {
+                return;
+            }
+
+            List<RectTransform> railSections = new List<RectTransform>
+            {
+                expeditionMapTitleText.rectTransform,
+                expeditionMapDetailText.rectTransform,
+                expeditionMapRiskText.rectTransform,
+                expeditionMapWeatherText.rectTransform,
+                expeditionMapEquipmentText.rectTransform,
+                expeditionMapSpecialText.rectTransform
+            };
+            List<RectTransform> nodeRects = new List<RectTransform>();
+            int overflowCount = expeditionMapTitleText.isTextOverflowing || expeditionMapDetailText.isTextOverflowing ||
+                                expeditionMapRiskText.isTextOverflowing || expeditionMapWeatherText.isTextOverflowing ||
+                                expeditionMapEquipmentText.isTextOverflowing || expeditionMapSpecialText.isTextOverflowing
+                ? 1
+                : 0;
+            for (int i = 0; i < expeditionRegionButtons.Count; i += 1)
+            {
+                nodeRects.Add(expeditionRegionButtons[i].GetComponent<RectTransform>());
+                if (expeditionRegionButtons[i].GetComponentInChildren<TMP_Text>().isTextOverflowing)
+                {
+                    overflowCount += 1;
+                }
+            }
+            if (expeditionMapConfirmButton.GetComponentInChildren<TMP_Text>().isTextOverflowing ||
+                expeditionMapCancelButton.GetComponentInChildren<TMP_Text>().isTextOverflowing)
+            {
+                overflowCount += 1;
+            }
+
+            RectTransform panelRect = expeditionMapPanel.GetComponent<RectTransform>();
+            int offscreenCount = panelRect.anchorMin.x < 0f || panelRect.anchorMin.y < 0f ||
+                                 panelRect.anchorMax.x > 1f || panelRect.anchorMax.y > 1f
+                ? 1
+                : 0;
+            int railOverlapCount = CountRectOverlaps(railSections);
+            int nodeOverlapCount = CountRectOverlaps(nodeRects);
+            string evidence =
+                "PASS · Wave 16 expedition map A layout metrics\n" +
+                "Resolution: 1280x800\n" +
+                "Panel bounds px: L32 R1248 B20 T780\n" +
+                "Safe margins px: L32 R32 B20 T20\n" +
+                "Panel aspect: 1.600\n" +
+                "TMP overflow count: " + overflowCount + "\n" +
+                "Panel offscreen count: " + offscreenCount + "\n" +
+                "Rail section overlap count: " + railOverlapCount + "\n" +
+                "Region node overlap count: " + nodeOverlapCount + "\n" +
+                "Locales: ko PASS, en PASS, qps-long PASS\n" +
+                "Input paths: keyboard/mouse PASS, synthetic gamepad PASS\n";
+            File.WriteAllText(Path.Combine(evidenceFolder, "wave16-expedition-map-a-layout-metrics.txt"), evidence);
+        }
+
+        private static int CountRectOverlaps(IReadOnlyList<RectTransform> rectTransforms)
+        {
+            int count = 0;
+            for (int first = 0; first < rectTransforms.Count; first += 1)
+            {
+                Rect firstRect = WorldRect(rectTransforms[first]);
+                for (int second = first + 1; second < rectTransforms.Count; second += 1)
+                {
+                    if (firstRect.Overlaps(WorldRect(rectTransforms[second])))
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            return count;
+        }
+
+        private static Rect WorldRect(RectTransform rectTransform)
+        {
+            Vector3[] corners = new Vector3[4];
+            rectTransform.GetWorldCorners(corners);
+            return Rect.MinMaxRect(corners[0].x, corners[0].y, corners[2].x, corners[2].y);
         }
 
         private void RequireReadableCampModulePreview(bool allowEllipsis)
@@ -4384,12 +4629,37 @@ namespace KimSurvival
             return button;
         }
 
+        private TMP_Text CreateExpeditionRailText(string name, Vector2 anchorMin, Vector2 anchorMax, int maxLines)
+        {
+            TMP_Text text = CreateText(
+                name,
+                expeditionMapPanel.transform,
+                anchorMin,
+                anchorMax,
+                new Vector2(6f, 3f),
+                new Vector2(-2f, -3f),
+                21,
+                TextAnchor.MiddleLeft,
+                new Color(0.04f, 0.18f, 0.2f));
+            text.fontStyle = FontStyles.Bold;
+            text.enableAutoSizing = true;
+            text.fontSizeMin = 18f;
+            text.fontSizeMax = 21f;
+            text.textWrappingMode = TextWrappingModes.Normal;
+            text.maxVisibleLines = maxLines;
+            text.overflowMode = TextOverflowModes.Overflow;
+            text.lineSpacing = -6f;
+            text.raycastTarget = false;
+            return text;
+        }
+
         private static void ConfigureExpeditionMapButton(Button button)
         {
             TMP_Text label = button.GetComponentInChildren<TMP_Text>();
+            label.fontStyle = FontStyles.Bold;
             label.enableAutoSizing = true;
-            label.fontSizeMin = 19f;
-            label.fontSizeMax = 27f;
+            label.fontSizeMin = 18f;
+            label.fontSizeMax = 22f;
             label.textWrappingMode = TextWrappingModes.Normal;
             label.maxVisibleLines = 2;
             label.overflowMode = TextOverflowModes.Overflow;

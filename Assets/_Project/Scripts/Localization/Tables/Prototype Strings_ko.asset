@@ -1329,6 +1329,75 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219866
+  - m_Id: 445243593048064
+    m_Localized: "\uC218\uC9D1 \uC9C0\uB3C4 \xB7 DAY {0}/{1}\n{2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 445243630796800
+    m_Localized: '{0} {1}
+
+      {2}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 445243630796801
+    m_Localized: "\uC608\uC0C1 \uC790\uC6D0\n{0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 445243630796802
+    m_Localized: "! \uD604\uC7AC \uC704\uD5D8 \xB7 \uC57D {1}\uBD84\n{0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 445243630796803
+    m_Localized: "~ \uB0A0\uC528\n{0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 445243634991104
+    m_Localized: "\u25B3 \uD544\uC694 \uC7A5\uBE44\n{0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 445243634991105
+    m_Localized: "? \uD2B9\uBCC4 \uBC1C\uACAC\n{0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 445243634991106
+    m_Localized: "\uB2EB\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991107
+    m_Localized: "\uC9C0\uC5ED \uD655\uC778"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991108
+    m_Localized: "\uC120\uD0DD\uB428"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991109
+    m_Localized: "\uC7A0\uAE40"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991110
+    m_Localized: "\uC704\uD5D8 \uACBD\uACE0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991111
+    m_Localized: "\uC7A5\uBE44 \uBD80\uC871"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991112
+    m_Localized: "\uCD9C\uBC1C \uAC00\uB2A5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445243634991113
+    m_Localized: "\uBBF8\uD655\uC778"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -1421,3 +1490,10 @@ MonoBehaviour:
         - id: 427966646697989
         - id: 427966646697990
         - id: 427966650892298
+        - id: 445243593048064
+        - id: 445243630796800
+        - id: 445243630796801
+        - id: 445243630796802
+        - id: 445243630796803
+        - id: 445243634991104
+        - id: 445243634991105

@@ -159,6 +159,7 @@ MonoBehaviour:
   vineBarrierBlockedSprite: {fileID: 21300000, guid: 6c4e2ecdfdf7bf54294b1daeb304bcef, type: 3}
   vineBarrierInteractableSprite: {fileID: 21300000, guid: f91a7a81fecc6c042a6aa5c0b561d6e0, type: 3}
   vineBarrierClearedSprite: {fileID: 21300000, guid: e82d06cb4d931a94393ae1931b367daf, type: 3}
+  expeditionMapLayoutSprite: {fileID: 21300000, guid: ae09637f2b24aa14295b1f9a5b4fde1c, type: 3}
 --- !u!4 &1390758423
 Transform:
   m_ObjectHideFlags: 0

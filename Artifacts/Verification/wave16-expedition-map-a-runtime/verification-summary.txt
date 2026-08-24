@@ -1,0 +1,23 @@
+PASS · Wave 16 expedition map right-rail A runtime
+Baseline: 635725b3e2679a7d6d4f66c09b137575bac374c8
+Branch: codex/wave16-expedition-map-a-runtime
+Unity: 6000.4.9f1
+
+RED-first: PASS · five intended gaps captured before implementation
+Unity compile: PASS · 0 errors, 0 warnings
+Deterministic EditMode: PASS
+Wave 16 selected-only asset/state/localization contracts: PASS · failure count 0
+Full PlayMode survival loop: PASS
+1280x800 layouts: ko PASS, en PASS, qps-long PASS
+Layout metrics: TMP overflow 0, panel offscreen 0, rail overlap 0, region-node overlap 0
+Keyboard/mouse action path: PASS
+Synthetic gamepad action path: PASS
+Windows x64 Development build: PASS · 0 errors, 0 warnings
+Windows hidden smoke: PASS · alive and responding at 6 seconds
+
+Selected runtime asset: ui.expedition-map.right-rail-a
+Selected package: job_20260823150636_e3b39abc
+Selected sprite GUID: ae09637f2b24aa14295b1f9a5b4fde1c
+Rejected runtime dependencies: candidate B/C, review boards, QA/localization overlays, icon.expedition-resource-risk-set
+
+UNVERIFIED: physical gamepad actuation, Steam/Steamworks integration

@@ -1,0 +1,12 @@
+EXPECTED_RED
+Wave: 16 expedition map right-rail A runtime
+Unity: 6000.4.9f1
+Baseline: 635725b3e2679a7d6d4f66c09b137575bac374c8
+Candidate: ui.expedition-map.right-rail-a / job_20260823150636_e3b39abc
+Contracts: selected-only scene GUID, Forge import, no B/C/review/icon runtime load, seven non-color states, localization, verification transitions
+Failure count: 5
+EXPECTED_GAP: active_scene_serializes_candidate_a_guid
+EXPECTED_GAP: runtime_connects_only_adopted_a
+EXPECTED_GAP: seven_color_independent_region_states
+EXPECTED_GAP: region_state_model_and_verification_transition
+EXPECTED_GAP: ko_en_qps_region_state_keys
