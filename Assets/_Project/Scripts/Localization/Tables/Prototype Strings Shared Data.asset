@@ -1459,6 +1459,70 @@ MonoBehaviour:
     m_Key: ending.stay.just-kim.hint
     m_Metadata:
       m_Items: []
+  - m_Id: 798776876056576
+    m_Key: interaction.action.open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748352
+    m_Key: camp.target.ending_album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748353
+    m_Key: world.ending_album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748354
+    m_Key: camp.popup.detail.ending_album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748355
+    m_Key: button.ending_album.open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748356
+    m_Key: controls.ending_album.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942656
+    m_Key: controls.ending_album.gamepad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942657
+    m_Key: ending.album.header
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942658
+    m_Key: ending.album.locked.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942659
+    m_Key: ending.album.status.unlocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942660
+    m_Key: ending.album.status.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942661
+    m_Key: ending.album.category.escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942662
+    m_Key: ending.album.category.comic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942663
+    m_Key: ending.album.category.rare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942664
+    m_Key: ending.album.category.day50
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942665
+    m_Key: ending.album.back
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

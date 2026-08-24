@@ -766,6 +766,7 @@ namespace KimSurvival
         private GamePhase observedCampaignPhase = (GamePhase)(-1);
         private PrototypeWaveSemanticSurface semanticSurface;
         private PrototypeWave18PresentationAssets presentationAssets;
+        private PrototypeEndingAlbumCollection endingAlbumCollection;
 
         public string HazardStableIds { get { return "hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery"; } }
         public string EscapeProjectStableIds { get { return "escape.smoke progress complete escape.radio progress complete escape.raft escape.flare escape.beacon"; } }
@@ -786,13 +787,15 @@ namespace KimSurvival
             PrototypeLocalization prototypeLocalization,
             Canvas targetCanvas,
             PrototypePlaytestEventRecorder recorder,
-            IReadOnlyList<PrototypeCampInteractionTarget> interactionTargets)
+            IReadOnlyList<PrototypeCampInteractionTarget> interactionTargets,
+            PrototypeEndingAlbumCollection albumCollection)
         {
             session = gameSession;
             localization = prototypeLocalization;
             canvas = targetCanvas;
             playtestLog = recorder;
             liveInteractionTargets = interactionTargets;
+            endingAlbumCollection = albumCollection;
             presentationAssets = Resources.Load<PrototypeWave18PresentationAssets>(PresentationAssetsResource);
             EnsurePityStates();
             GameObject surfaceObject = new GameObject("Wave Stable Contract Surface");
@@ -928,6 +931,7 @@ namespace KimSurvival
             {
                 PrototypeEndingResolution resolution = ChooseTerminalOutcome();
                 RecordCampaignEvent("escape.completed", string.Empty, escapeId, resolution.StableId, "escape.complete");
+                RecordEndingUnlock(resolution.StableId);
                 ShowEndingForVerification(resolution.StableId);
             }
             return success;
@@ -1017,6 +1021,7 @@ namespace KimSurvival
             if (session == null || session.Result == RunResult.None) return;
             PrototypeEndingResolution resolution = ChooseTerminalOutcome();
             bool firstPresentation = !string.Equals(currentEndingId, resolution.StableId, StringComparison.Ordinal);
+            RecordEndingUnlock(resolution.StableId);
             ShowEndingForVerification(resolution.StableId);
             if (firstPresentation)
             {
@@ -1045,6 +1050,14 @@ namespace KimSurvival
         public void DeactivateComic()
         {
             if (endingComicRoot != null) endingComicRoot.SetActive(false);
+        }
+
+        private void RecordEndingUnlock(string stableId)
+        {
+            if (endingAlbumCollection != null && session != null)
+            {
+                endingAlbumCollection.Unlock(stableId, session.Day);
+            }
         }
 
         private void OnDestroy()

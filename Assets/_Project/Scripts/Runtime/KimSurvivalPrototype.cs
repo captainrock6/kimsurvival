@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +22,7 @@ namespace KimSurvival
         private const string AssetComedy = "effect.comedy-feedback";
         private const string AssetCampContextPrompt = "ui.camp-contextual-interaction.compact-a";
         private const string AssetExpeditionMap = "ui.expedition-map.right-rail-a";
+        private const string AssetEndingAlbum = "ui.ending-gallery.album-spread-a";
         private const string CampContextPromptSkinResource = "Wave12CompactPromptSkin";
 
         private const float CampBackgroundWorldWidth = 20f;
@@ -64,6 +66,7 @@ namespace KimSurvival
         private const float ExpeditionMapX = 5.25f;
         private const float SmokeBeaconX = -2.35f;
         private const float RadioBenchX = 0f;
+        private const float EndingAlbumX = 6.15f;
 
         [SerializeField] private GameObject playerVisualPrefab;
         [SerializeField] private Sprite campBackgroundSprite;
@@ -77,6 +80,7 @@ namespace KimSurvival
         [SerializeField] private Sprite vineBarrierInteractableSprite;
         [SerializeField] private Sprite vineBarrierClearedSprite;
         [SerializeField] private Sprite expeditionMapLayoutSprite;
+        [SerializeField] private Sprite endingAlbumLayoutSprite;
         [SerializeField] private Sprite kimAtlasSprite;
         [SerializeField] private Sprite woodIconSprite;
         [SerializeField] private Sprite stoneIconSprite;
@@ -102,6 +106,7 @@ namespace KimSurvival
         private readonly List<Button> bagButtons = new List<Button>();
         private readonly List<Button> campPopupButtons = new List<Button>();
         private readonly List<Button> expeditionRegionButtons = new List<Button>();
+        private readonly List<Button> endingAlbumCardButtons = new List<Button>();
         private readonly List<PrototypeCampInteractionTarget> campInteractionTargets = new List<PrototypeCampInteractionTarget>();
         private readonly List<SpriteRenderer> placementGhostOutlineRenderers = new List<SpriteRenderer>();
         private readonly Dictionary<StructureKind, GameObject> structureViews = new Dictionary<StructureKind, GameObject>();
@@ -111,6 +116,7 @@ namespace KimSurvival
         private readonly PrototypeCampUse campUse = new PrototypeCampUse();
         private readonly PrototypeCampInteraction campInteraction = new PrototypeCampInteraction();
         private readonly PrototypeExpeditionMapSelection expeditionMapSelection = new PrototypeExpeditionMapSelection();
+        private readonly PrototypeEndingAlbumSelection endingAlbumSelection = new PrototypeEndingAlbumSelection();
         private readonly PrototypeCampModuleExpansion campModuleExpansion = new PrototypeCampModuleExpansion(PrototypeCampModuleExpansionConfig.CreateVerticalSliceBalance());
         private readonly CampModuleValidationContext campModuleValidation = new CampModuleValidationContext();
         private readonly List<SpriteRenderer> modulePreviewOutlineRenderers = new List<SpriteRenderer>();
@@ -119,6 +125,7 @@ namespace KimSurvival
         private PrototypeLocalization localization;
         private PrototypePlaytestEventRecorder playtestLog;
         private PrototypeWaveRuntime hazardEscapeEndingRuntime;
+        private PrototypeEndingAlbumCollection endingAlbumCollection;
         private Camera worldCamera;
         private Canvas canvas;
         private Sprite squareSprite;
@@ -156,6 +163,11 @@ namespace KimSurvival
         private TMP_Text expeditionMapWeatherText;
         private TMP_Text expeditionMapEquipmentText;
         private TMP_Text expeditionMapSpecialText;
+        private TMP_Text endingAlbumHeaderText;
+        private TMP_Text endingAlbumDetailTitleText;
+        private TMP_Text endingAlbumSummaryText;
+        private TMP_Text endingAlbumStatusText;
+        private TMP_Text endingAlbumControlsText;
         private GameObject campActions;
         private GameObject campInteractionPopup;
         private Image campInteractionPopupFrameImage;
@@ -164,6 +176,8 @@ namespace KimSurvival
         private GameObject campProximityPrompt;
         private GameObject expeditionMapPanel;
         private Image expeditionMapFrameImage;
+        private GameObject endingAlbumPanel;
+        private Image endingAlbumFrameImage;
         private GameObject campModuleReasonChip;
         private TMP_Text campModuleReasonText;
         private GameObject bagPanel;
@@ -189,6 +203,8 @@ namespace KimSurvival
         private Button expeditionMapCancelButton;
         private Button smokeProjectButton;
         private Button radioProjectButton;
+        private Button endingAlbumOpenButton;
+        private Button endingAlbumCloseButton;
         private Button phaseButton;
         private Button restartButton;
         private Button languageButton;
@@ -211,6 +227,7 @@ namespace KimSurvival
         {
             Application.targetFrameRate = 60;
             session = new GameSession(PrototypeExpeditionRegionCatalog.CreateRuntimeSeed());
+            endingAlbumCollection = PrototypeEndingAlbumCollection.LoadDefault();
             localization = new PrototypeLocalization();
             localization.LocaleChanged += HandleLocaleChanged;
             playtestLog = PrototypePlaytestEventRecorder.CreateDevelopment(
@@ -228,7 +245,7 @@ namespace KimSurvival
             BuildEventSystem();
             BuildUi();
             hazardEscapeEndingRuntime = gameObject.AddComponent<PrototypeWaveRuntime>();
-            hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog, campInteractionTargets);
+            hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog, campInteractionTargets, endingAlbumCollection);
             renderedPhase = (GamePhase)(-1);
             RefreshAll();
         }
@@ -298,6 +315,11 @@ namespace KimSurvival
         public void ConfigureExpeditionMapArt(Sprite rightRailLayout)
         {
             expeditionMapLayoutSprite = rightRailLayout;
+        }
+
+        public void ConfigureEndingAlbumArt(Sprite albumSpreadLayout)
+        {
+            endingAlbumLayoutSprite = albumSpreadLayout;
         }
 
         public void ConfigureCharacterAndItemArt(Sprite kimAtlas, Sprite wood, Sprite stone, Sprite food, Sprite salvage)
@@ -492,6 +514,7 @@ namespace KimSurvival
             bagUpgradeButton = CreateCampPopupButton("가방 용량 확장", delegate { ExecuteConfirmedPopupAction("bag.capacity_upgrade", session.TryUpgradeBagCapacity); });
             smokeProjectButton = CreateCampPopupButton("대형 연기 신호 진행", delegate { ExecuteConfirmedPopupAction("escape.smoke.progress", delegate { return TryProgressEscapeProject("escape.smoke"); }); });
             radioProjectButton = CreateCampPopupButton("무전 구조 신호 진행", delegate { ExecuteConfirmedPopupAction("escape.radio.progress", delegate { return TryProgressEscapeProject("escape.radio"); }); });
+            endingAlbumOpenButton = CreateCampPopupButton("생존 앨범 열기", OpenEndingAlbumFromPopup);
             cancelPopupButton = CreateCampPopupButton("취소", CancelCampPopup);
 
             expeditionMapPanel = CreatePanel(
@@ -628,6 +651,8 @@ namespace KimSurvival
             ConfigureExpeditionMapButton(expeditionMapConfirmButton);
             ConfigureExpeditionMapButton(expeditionMapCancelButton);
 
+            BuildEndingAlbumUi();
+
             bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 170f), new Vector2(-30f, 795f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
             bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -128f), new Vector2(-18f, -8f), 34, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
             for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
@@ -642,6 +667,160 @@ namespace KimSurvival
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
             restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, RestartSession);
+        }
+
+        private void BuildEndingAlbumUi()
+        {
+            endingAlbumPanel = CreatePanel(
+                "채택 생존 앨범 A · " + AssetEndingAlbum,
+                canvas.transform,
+                new Vector2(0.025f, 0.025f),
+                new Vector2(0.975f, 0.975f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.02f, 0.12f, 0.15f, 1f)).gameObject;
+            endingAlbumPanel.GetComponent<Image>().raycastTarget = false;
+            RectTransform endingAlbumArt = CreatePanel(
+                "album-spread-a 원화",
+                endingAlbumPanel.transform,
+                Vector2.zero,
+                Vector2.one,
+                Vector2.zero,
+                Vector2.zero,
+                Color.white);
+            endingAlbumFrameImage = endingAlbumArt.GetComponent<Image>();
+            endingAlbumFrameImage.sprite = endingAlbumLayoutSprite;
+            endingAlbumFrameImage.type = Image.Type.Simple;
+            endingAlbumFrameImage.preserveAspect = true;
+            endingAlbumFrameImage.color = endingAlbumLayoutSprite == null
+                ? new Color(0.025f, 0.07f, 0.08f, 0.985f)
+                : Color.white;
+            endingAlbumFrameImage.raycastTarget = false;
+
+            endingAlbumHeaderText = CreateEndingAlbumText(
+                "생존 앨범 해금 현황",
+                new Vector2(0.06f, 0.85f),
+                new Vector2(0.5f, 0.925f),
+                28,
+                TextAlignmentOptions.Left,
+                2);
+            endingAlbumDetailTitleText = CreateEndingAlbumText(
+                "생존 앨범 선택 제목",
+                new Vector2(0.535f, 0.715f),
+                new Vector2(0.88f, 0.79f),
+                28,
+                TextAlignmentOptions.Center,
+                2);
+            endingAlbumSummaryText = CreateEndingAlbumText(
+                "생존 앨범 요약 또는 비스포일러 힌트",
+                new Vector2(0.535f, 0.375f),
+                new Vector2(0.915f, 0.47f),
+                22,
+                TextAlignmentOptions.Center,
+                4);
+            endingAlbumStatusText = CreateEndingAlbumText(
+                "생존 앨범 해금·범주 상태",
+                new Vector2(0.535f, 0.265f),
+                new Vector2(0.915f, 0.365f),
+                20,
+                TextAlignmentOptions.Center,
+                3);
+            endingAlbumControlsText = CreateEndingAlbumText(
+                "생존 앨범 조작 안내",
+                new Vector2(0.09f, 0.025f),
+                new Vector2(0.48f, 0.13f),
+                20,
+                TextAlignmentOptions.Left,
+                3);
+            endingAlbumHeaderText.color = new Color(0.72f, 0.96f, 0.95f);
+            endingAlbumControlsText.color = new Color(0.72f, 0.96f, 0.95f);
+
+            float[] cardX = { 0.125f, 0.199f, 0.273f, 0.347f, 0.421f };
+            float[] cardY = { 0.681f, 0.548f, 0.414f, 0.281f };
+            int[] rowCounts = { 5, 5, 4, 5 };
+            int definitionIndex = 0;
+            for (int row = 0; row < rowCounts.Length; row += 1)
+            {
+                for (int column = 0; column < rowCounts[row]; column += 1)
+                {
+                    int capturedIndex = definitionIndex;
+                    Button card = CreateButton(
+                        "생존 앨범 카드 " + (definitionIndex + 1),
+                        endingAlbumPanel.transform,
+                        new Vector2(cardX[column], cardY[row]),
+                        new Vector2(cardX[column], cardY[row]),
+                        string.Empty,
+                        delegate { FocusEndingAlbumEntry(capturedIndex); },
+                        new Vector2(-36f, -42f),
+                        new Vector2(36f, 42f));
+                    TMP_Text label = card.GetComponentInChildren<TMP_Text>();
+                    label.fontStyle = FontStyles.Bold;
+                    label.enableAutoSizing = true;
+                    label.fontSizeMin = 18f;
+                    label.fontSizeMax = 22f;
+                    label.textWrappingMode = TextWrappingModes.NoWrap;
+                    label.maxVisibleLines = 1;
+                    label.overflowMode = TextOverflowModes.Overflow;
+                    Outline outline = card.gameObject.AddComponent<Outline>();
+                    outline.effectDistance = new Vector2(2f, -2f);
+                    outline.useGraphicAlpha = false;
+                    endingAlbumCardButtons.Add(card);
+                    definitionIndex += 1;
+                }
+            }
+
+            endingAlbumCloseButton = CreateButton(
+                "생존 앨범 닫기",
+                endingAlbumPanel.transform,
+                new Vector2(0.65f, 0.16f),
+                new Vector2(0.87f, 0.245f),
+                string.Empty,
+                CloseEndingAlbumToPopup,
+                new Vector2(4f, 0f),
+                new Vector2(-4f, 0f));
+            TMP_Text closeLabel = endingAlbumCloseButton.GetComponentInChildren<TMP_Text>();
+            ColorBlock closeColors = endingAlbumCloseButton.colors;
+            closeColors.normalColor = new Color(0.02f, 0.18f, 0.2f, 0.28f);
+            closeColors.highlightedColor = new Color(0.08f, 0.44f, 0.45f, 0.52f);
+            closeColors.selectedColor = closeColors.highlightedColor;
+            closeColors.pressedColor = new Color(0.92f, 0.48f, 0.16f, 0.58f);
+            endingAlbumCloseButton.colors = closeColors;
+            closeLabel.enableAutoSizing = true;
+            closeLabel.fontSizeMin = 18f;
+            closeLabel.fontSizeMax = 24f;
+            closeLabel.textWrappingMode = TextWrappingModes.NoWrap;
+            closeLabel.maxVisibleLines = 1;
+            closeLabel.overflowMode = TextOverflowModes.Overflow;
+        }
+
+        private TMP_Text CreateEndingAlbumText(
+            string name,
+            Vector2 anchorMin,
+            Vector2 anchorMax,
+            int fontSize,
+            TextAlignmentOptions alignment,
+            int maximumLines)
+        {
+            TMP_Text text = CreateText(
+                name,
+                endingAlbumPanel.transform,
+                anchorMin,
+                anchorMax,
+                new Vector2(4f, 2f),
+                new Vector2(-4f, -2f),
+                fontSize,
+                TextAnchor.MiddleCenter,
+                new Color(0.025f, 0.15f, 0.18f));
+            text.alignment = alignment;
+            text.fontStyle = FontStyles.Bold;
+            text.enableAutoSizing = true;
+            text.fontSizeMin = 18f;
+            text.fontSizeMax = fontSize;
+            text.textWrappingMode = maximumLines == 1 ? TextWrappingModes.NoWrap : TextWrappingModes.Normal;
+            text.maxVisibleLines = maximumLines;
+            text.overflowMode = TextOverflowModes.Overflow;
+            text.raycastTarget = false;
+            return text;
         }
 
         private void HandlePhaseButton()
@@ -683,6 +862,7 @@ namespace KimSurvival
             campUse.Reset();
             campInteraction.Reset();
             expeditionMapSelection.Close();
+            endingAlbumSelection.Close();
             campModuleExpansion.Reset();
             ResetModulePreviewReturnRoute();
             campFeedback = PrototypeLocalizedText.Empty;
@@ -717,9 +897,11 @@ namespace KimSurvival
             bool modulePreview = camp && campModuleExpansion.IsPreviewActive;
             bool popup = camp && !placing && !modulePreview && campInteraction.IsPopupOpen;
             bool expeditionMapPopup = popup && campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap;
+            bool endingAlbumPopup = popup && campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum && endingAlbumSelection.IsOpen;
             campActions.SetActive(false);
-            campInteractionPopup.SetActive(popup && !expeditionMapPopup);
+            campInteractionPopup.SetActive(popup && !expeditionMapPopup && !endingAlbumPopup);
             expeditionMapPanel.SetActive(expeditionMapPopup);
+            endingAlbumPanel.SetActive(endingAlbumPopup);
             campProximityPrompt.SetActive(camp && !placing && !modulePreview && !popup && campInteraction.HasProximityPrompt);
             campModuleReasonChip.SetActive(modulePreview);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
@@ -744,6 +926,11 @@ namespace KimSurvival
                 {
                     RefreshExpeditionMapUi();
                     EventSystem.current.SetSelectedGameObject(expeditionRegionButtons[expeditionMapSelection.FocusedIndex].gameObject);
+                }
+                else if (endingAlbumPopup)
+                {
+                    RefreshEndingAlbumUi();
+                    EventSystem.current.SetSelectedGameObject(endingAlbumCardButtons[endingAlbumSelection.FocusedIndex].gameObject);
                 }
                 else
                 {
@@ -813,6 +1000,8 @@ namespace KimSurvival
                     controlsText.text = localization.Format(
                         campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap
                             ? PrototypeInputPromptKeys.ExpeditionMap(playerInput.ActiveDevice)
+                            : campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum && endingAlbumSelection.IsOpen
+                                ? PrototypeInputPromptKeys.EndingAlbum(playerInput.ActiveDevice)
                             : PrototypeInputPromptKeys.CampPopup(playerInput.ActiveDevice),
                         device);
                 }
@@ -864,6 +1053,7 @@ namespace KimSurvival
             SetButton(repairButton, localization.Format("button.workbench.repair"), available);
             SetButton(smokeProjectButton, FormatEscapeProjectButton("escape.smoke"), available);
             SetButton(radioProjectButton, FormatEscapeProjectButton("escape.radio"), available);
+            SetButton(endingAlbumOpenButton, localization.Format("button.ending_album.open"), available);
             SetButton(cancelPopupButton, localization.Format("button.popup.cancel"), available);
             bool directModuleSlot = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot;
             SetButton(
@@ -931,8 +1121,12 @@ namespace KimSurvival
             bool camp = session.Phase == GamePhase.Camp && !campPlacement.IsActive && !campModuleExpansion.IsPreviewActive;
             bool expeditionMapPopup = camp && campInteraction.IsPopupOpen &&
                                       campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap;
-            campInteractionPopup.SetActive(camp && campInteraction.IsPopupOpen && !expeditionMapPopup);
+            bool endingAlbumPopup = camp && campInteraction.IsPopupOpen &&
+                                    campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum &&
+                                    endingAlbumSelection.IsOpen;
+            campInteractionPopup.SetActive(camp && campInteraction.IsPopupOpen && !expeditionMapPopup && !endingAlbumPopup);
             expeditionMapPanel.SetActive(expeditionMapPopup);
+            endingAlbumPanel.SetActive(endingAlbumPopup);
             campProximityPrompt.SetActive(camp && !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt);
             if (campInteraction.HasProximityPrompt)
             {
@@ -950,6 +1144,12 @@ namespace KimSurvival
             if (expeditionMapPopup)
             {
                 RefreshExpeditionMapUi();
+                return;
+            }
+
+            if (endingAlbumPopup)
+            {
+                RefreshEndingAlbumUi();
                 return;
             }
 
@@ -979,6 +1179,8 @@ namespace KimSurvival
                 targetName,
                 localization.Format(target == PrototypeCampInteractionTargetKind.ModuleExpansionSlot
                     ? "interaction.action.preview"
+                    : target == PrototypeCampInteractionTargetKind.EndingAlbum
+                        ? "interaction.action.open"
                     : "interaction.action.use")).Trim();
         }
 
@@ -998,6 +1200,8 @@ namespace KimSurvival
                     return localization.Format("structure.storage_planning");
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return localization.Format("camp.target.expedition_map");
+                case PrototypeCampInteractionTargetKind.EndingAlbum:
+                    return localization.Format("camp.target.ending_album");
                 case PrototypeCampInteractionTargetKind.SmokeBeacon:
                     return localization.Format("escape.smoke");
                 case PrototypeCampInteractionTargetKind.RadioBench:
@@ -1039,6 +1243,8 @@ namespace KimSurvival
                     return "camp.popup.detail.module_slot";
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return "camp.popup.detail.expedition_map";
+                case PrototypeCampInteractionTargetKind.EndingAlbum:
+                    return "camp.popup.detail.ending_album";
                 case PrototypeCampInteractionTargetKind.SmokeBeacon:
                     return "camp.popup.detail.escape_smoke";
                 case PrototypeCampInteractionTargetKind.RadioBench:
@@ -1078,6 +1284,7 @@ namespace KimSurvival
             SetPopupActionVisible(modulePreviewButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PreviewModule, true));
             SetPopupActionVisible(smokeProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressSmokeEscape, true));
             SetPopupActionVisible(radioProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressRadioEscape, true));
+            SetPopupActionVisible(endingAlbumOpenButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.OpenEndingAlbum, true));
             SetPopupActionVisible(cancelPopupButton, target != PrototypeCampInteractionTargetKind.None);
             LayoutVisiblePopupButtons();
         }
@@ -1096,6 +1303,7 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.StoragePlanning:
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
+                case PrototypeCampInteractionTargetKind.EndingAlbum:
                 case PrototypeCampInteractionTargetKind.SmokeBeacon:
                 case PrototypeCampInteractionTargetKind.RadioBench:
                     return true;
@@ -1264,6 +1472,7 @@ namespace KimSurvival
                 if (!campPlacement.IsActive && !campModuleExpansion.IsPreviewActive)
                 {
                     CreateExpeditionMapMarker();
+                    CreateEndingAlbumMarker();
                     CreateEscapeProjectMarkers();
                 }
             }
@@ -1425,6 +1634,17 @@ namespace KimSurvival
                 pseudoLong ? 0.068f : 0.084f,
                 pseudoLong ? 24f : 28f,
                 pseudoLong ? 28f : 31f);
+        }
+
+        private void CreateEndingAlbumMarker()
+        {
+            GameObject root = new GameObject("생존 앨범·기록함 상호작용 오브젝트 · " + AssetEndingAlbum);
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = new Vector3(EndingAlbumX, PrototypeCampPlacement.FloorY + 0.6f, 0f);
+            CreateRect(root.transform, "기록함 몸체", Vector2.zero, new Vector2(0.36f, 1.12f), new Color(0.10f, 0.25f, 0.27f, 0.98f), 4);
+            CreateRect(root.transform, "앨범 등", new Vector2(0f, 0.18f), new Vector2(0.24f, 0.62f), new Color(0.95f, 0.63f, 0.22f, 0.98f), 5);
+            CreateRect(root.transform, "앨범 라벨", new Vector2(0f, 0.18f), new Vector2(0.12f, 0.2f), new Color(0.92f, 0.88f, 0.62f, 0.98f), 6);
+            CreateFootprintOutline(root.transform, new Vector2(0.72f, 0.28f), new Color(0.22f, 0.86f, 0.82f, 0.92f), null, new Vector2(0f, -0.6f));
         }
 
         private void CreateEscapeProjectMarkers()
@@ -1652,6 +1872,11 @@ namespace KimSurvival
 
             if (campInteraction.IsPopupOpen)
             {
+                if (campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum && endingAlbumSelection.IsOpen)
+                {
+                    ProcessEndingAlbumActions(playerInput.ReadExpeditionMapActions());
+                    return;
+                }
                 if (campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap)
                 {
                     ProcessExpeditionMapActions(playerInput.ReadExpeditionMapActions());
@@ -1717,6 +1942,10 @@ namespace KimSurvival
                     "camp.expedition-map",
                     PrototypeCampInteractionTargetKind.ExpeditionMap,
                     new Vector2(ExpeditionMapX, PrototypeCampUse.PlayerFloorY)));
+                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                    "camp.ending-album",
+                    PrototypeCampInteractionTargetKind.EndingAlbum,
+                    new Vector2(EndingAlbumX, PrototypeCampUse.PlayerFloorY)));
                 campInteractionTargets.Add(new PrototypeCampInteractionTarget(
                     "facility.smoke-beacon",
                     PrototypeCampInteractionTargetKind.SmokeBeacon,
@@ -1829,6 +2058,10 @@ namespace KimSurvival
             {
                 expeditionMapSelection.Close();
             }
+            if (kind == PrototypeCampInteractionTargetKind.EndingAlbum)
+            {
+                endingAlbumSelection.Close();
+            }
             campInteraction.ClosePopup();
             if (playtestLog != null)
             {
@@ -1860,6 +2093,63 @@ namespace KimSurvival
             {
                 ConfirmSelectedExpeditionRegion();
             }
+        }
+
+        private void OpenEndingAlbumFromPopup()
+        {
+            if (campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.EndingAlbum ||
+                endingAlbumSelection.IsOpen ||
+                !campInteraction.TryConfirmAction())
+            {
+                return;
+            }
+
+            endingAlbumSelection.Open(endingAlbumCollection.FirstUnlockedIndexOrZero());
+            RefreshAll();
+        }
+
+        private void ProcessEndingAlbumActions(PrototypeExpeditionMapActions actions)
+        {
+            if (!endingAlbumSelection.IsOpen)
+            {
+                return;
+            }
+
+            if (actions.CancelPressed)
+            {
+                CloseEndingAlbumToPopup();
+                return;
+            }
+
+            if (endingAlbumSelection.StepFocus(actions.CycleDirection))
+            {
+                RefreshEndingAlbumUi();
+                EventSystem.current.SetSelectedGameObject(endingAlbumCardButtons[endingAlbumSelection.FocusedIndex].gameObject);
+            }
+        }
+
+        private void CloseEndingAlbumToPopup()
+        {
+            if (!endingAlbumSelection.IsOpen)
+            {
+                return;
+            }
+
+            endingAlbumSelection.Close();
+            campInteraction.PrepareOpenPopupForReturn();
+            RefreshAll();
+        }
+
+        private void FocusEndingAlbumEntry(int index)
+        {
+            if (!endingAlbumSelection.IsOpen)
+            {
+                return;
+            }
+
+            endingAlbumSelection.SetFocusedIndex(index);
+            RefreshEndingAlbumUi();
+            EventSystem.current.SetSelectedGameObject(endingAlbumCardButtons[endingAlbumSelection.FocusedIndex].gameObject);
         }
 
         private void FocusExpeditionRegion(PrototypeExpeditionRegionId region)
@@ -1965,6 +2255,94 @@ namespace KimSurvival
                 localization.Format("expedition.map.depart", localization.Format(focused.NameKey)),
                 expeditionMapSelection.CanDepartFocusedRegion());
             SetButton(expeditionMapCancelButton, localization.Format("expedition.map.cancel.short"), true);
+        }
+
+        private void RefreshEndingAlbumUi()
+        {
+            if (!endingAlbumSelection.IsOpen || endingAlbumPanel == null || endingAlbumCollection == null)
+            {
+                return;
+            }
+
+            endingAlbumHeaderText.text = localization.Format(
+                "ending.album.header",
+                endingAlbumCollection.UnlockedCount,
+                endingAlbumCollection.EndingCount);
+            for (int index = 0; index < endingAlbumCardButtons.Count; index += 1)
+            {
+                PrototypeEndingAlbumEntry entry = endingAlbumCollection.GetEntry(index);
+                bool focused = index == endingAlbumSelection.FocusedIndex;
+                string marker = EndingAlbumCategoryMarker(entry.Definition.Category);
+                SetButton(
+                    endingAlbumCardButtons[index],
+                    marker + " " + (entry.Unlocked ? "+" : "?"),
+                    true);
+                ApplyEndingAlbumCardPresentation(endingAlbumCardButtons[index], entry, focused);
+            }
+
+            PrototypeEndingAlbumEntry selected = endingAlbumCollection.GetEntry(endingAlbumSelection.FocusedIndex);
+            string categoryName = localization.Format("ending.album.category." + selected.Definition.Category);
+            endingAlbumDetailTitleText.text = localization.Format(selected.TitleKey);
+            endingAlbumSummaryText.text = localization.Format(selected.DetailKey);
+            endingAlbumStatusText.text = selected.Unlocked
+                ? localization.Format("ending.album.status.unlocked", categoryName, selected.FirstUnlockedDay)
+                : localization.Format("ending.album.status.locked", categoryName);
+            ApplyEndingAlbumControlsPresentation(playerInput.ActiveDevice);
+            SetButton(endingAlbumCloseButton, localization.Format("ending.album.back"), true);
+        }
+
+        private void ApplyEndingAlbumControlsPresentation(PrototypeInputDevice device)
+        {
+            endingAlbumControlsText.text = localization.Format(
+                PrototypeInputPromptKeys.EndingAlbum(device),
+                localization.DeviceName(device));
+        }
+
+        private static void ApplyEndingAlbumCardPresentation(
+            Button button,
+            PrototypeEndingAlbumEntry entry,
+            bool focused)
+        {
+            Image image = button.GetComponent<Image>();
+            Outline outline = button.GetComponent<Outline>();
+            Color categoryColor = EndingAlbumCategoryColor(entry.Definition.Category);
+            image.color = entry.Unlocked
+                ? new Color(categoryColor.r, categoryColor.g, categoryColor.b, focused ? 0.42f : 0.18f)
+                : new Color(0.015f, 0.12f, 0.15f, focused ? 0.82f : 0.62f);
+            outline.effectColor = focused ? new Color(1f, 0.45f, 0.18f, 1f) : categoryColor;
+            outline.effectDistance = focused ? new Vector2(4f, -4f) : new Vector2(2f, -2f);
+            TMP_Text label = button.GetComponentInChildren<TMP_Text>();
+            label.color = entry.Unlocked ? new Color(0.02f, 0.15f, 0.17f) : new Color(1f, 0.84f, 0.32f);
+        }
+
+        private static string EndingAlbumCategoryMarker(string category)
+        {
+            switch (category)
+            {
+                case "comic":
+                    return "!";
+                case "rare":
+                    return "*";
+                case "day50":
+                    return "#";
+                default:
+                    return "O";
+            }
+        }
+
+        private static Color EndingAlbumCategoryColor(string category)
+        {
+            switch (category)
+            {
+                case "comic":
+                    return new Color(0.98f, 0.38f, 0.18f, 1f);
+                case "rare":
+                    return new Color(0.98f, 0.74f, 0.18f, 1f);
+                case "day50":
+                    return new Color(0.35f, 0.48f, 0.5f, 1f);
+                default:
+                    return new Color(0.08f, 0.58f, 0.62f, 1f);
+            }
         }
 
         private static void ApplyExpeditionRegionButtonPresentation(
@@ -2589,6 +2967,8 @@ namespace KimSurvival
                     delegate { return playerInput.ActiveDevice; });
                 playtestLog.RecordSessionStarted();
             }
+            string endingAlbumSnapshotBeforeVerification = endingAlbumCollection.CaptureSnapshot();
+            endingAlbumCollection.PersistenceEnabled = false;
 
             string campProximityScreenshotFolder = Path.GetDirectoryName(campProximityKoreanScreenshotPath ?? string.Empty);
             string placementScreenshotFolder = Path.GetDirectoryName(placementKoreanScreenshotPath ?? string.Empty);
@@ -2628,6 +3008,21 @@ namespace KimSurvival
             string expeditionMapQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave16-map-a-popup-qps-long-1280x800.png");
+            string endingAlbumNearKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave19-album-near-ko-1280x800.png");
+            string endingAlbumPopupEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave19-album-popup-en-1280x800.png");
+            string endingAlbumKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave19-album-open-ko-1280x800.png");
+            string endingAlbumEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave19-album-open-en-1280x800.png");
+            string endingAlbumQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave19-album-open-qps-long-1280x800.png");
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
@@ -2753,6 +3148,142 @@ namespace KimSurvival
                     !session.SelectedRegionId.HasValue,
                 "지도 취소는 지역 선택 없이 같은 캠프 위치·방향·근접 대상에 복귀");
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            RefreshAll();
+
+            PrototypeContractProbe endingAlbumContract = PrototypeEndingAlbumContract.VerifyCatalogUnlockAndSelectionFixture();
+            Require(endingAlbumContract.Success, endingAlbumContract.Detail);
+            endingAlbumCollection.RestoreTransientSnapshot(string.Empty);
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.EndingAlbum));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.EndingAlbum &&
+                    campInteraction.ActiveTargetId == "camp.ending-album" && campProximityPrompt.activeSelf &&
+                    !campInteractionPopup.activeSelf && !endingAlbumPanel.activeSelf,
+                "생존 앨범은 1.25 unit 안에서만 하나의 직접 상호작용 안내를 표시");
+            Vector2 albumReturnPosition = campUse.PlayerPosition;
+            float albumReturnFacing = campUse.FacingDirection;
+            if (!string.IsNullOrWhiteSpace(endingAlbumNearKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(endingAlbumNearKoreanScreenshotPath, 1280, 800);
+            }
+
+            PrototypePlayerActions keyboardAlbumInteract = PrototypePlayerActions.FromRaw(
+                new PrototypeRawInput { KeyboardInteract = true });
+            PrototypePlayerActions gamepadAlbumInteract = PrototypePlayerActions.FromRaw(
+                new PrototypeRawInput { GamepadInteract = true });
+            Require(keyboardAlbumInteract.InteractPressed && gamepadAlbumInteract.InteractPressed,
+                "키보드 E와 게임패드 X는 같은 캠프 Interact 액션 스냅샷으로 합류");
+            UseNearestCampTarget();
+            Require(campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum &&
+                    campInteractionPopup.activeSelf && endingAlbumOpenButton.gameObject.activeSelf &&
+                    !endingAlbumSelection.IsOpen && !endingAlbumPanel.activeSelf && !campProximityPrompt.activeSelf,
+                "앨범 Interact는 먼저 기록함 전용 소형 팝업을 열고 앨범 화면은 아직 숨김");
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            Require(campInteraction.OpenPopupTargetId == "camp.ending-album" &&
+                    campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing) &&
+                    endingAlbumOpenButton.GetComponentInChildren<TMP_Text>().text == localization.Format("button.ending_album.open"),
+                "영어 전환은 같은 앨범 팝업 대상·위치·방향과 Submit 의미를 보존");
+            RequireReadableCampPopup();
+            if (!string.IsNullOrWhiteSpace(endingAlbumPopupEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(endingAlbumPopupEnglishScreenshotPath, 1280, 800);
+            }
+
+            Require(endingAlbumCollection.UnlockForVerification(
+                    "ending.escape.smoke.seen-from-afar",
+                    12,
+                    "2026-08-25T00:00:00.0000000Z"),
+                "검증용 해금은 로컬 외부 저장 없이 한 번만 적용");
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            endingAlbumOpenButton.onClick.Invoke();
+            Require(endingAlbumSelection.IsOpen && endingAlbumPanel.activeSelf &&
+                    !campInteractionPopup.activeSelf && !expeditionMapPanel.activeSelf && !campProximityPrompt.activeSelf &&
+                    campInteraction.OpenPopupTargetId == "camp.ending-album" &&
+                    campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing),
+                "팝업 Submit 뒤 채택 A 앨범만 열리고 이동·대상 latch는 보존");
+            Require(endingAlbumSelection.FocusedIndex == 1 &&
+                    endingAlbumDetailTitleText.text == localization.Format("ending.escape.smoke.seen-from-afar.title") &&
+                    endingAlbumSummaryText.text == localization.Format("ending.escape.smoke.seen-from-afar.summary"),
+                "해금 엔딩은 정본 제목·요약과 최초 해금 기록을 표시");
+            RequireReadableEndingAlbumUi(false);
+            if (!string.IsNullOrWhiteSpace(endingAlbumKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(endingAlbumKoreanScreenshotPath, 1280, 800);
+            }
+
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            Require(endingAlbumSelection.FocusedIndex == 1 &&
+                    endingAlbumDetailTitleText.text == localization.Format("ending.escape.smoke.seen-from-afar.title") &&
+                    campInteraction.OpenPopupTargetId == "camp.ending-album" &&
+                    campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing),
+                "영어 앨범 전환은 같은 해금 기록·근접 대상·위치·방향을 보존");
+            RequireReadableEndingAlbumUi(false);
+            if (!string.IsNullOrWhiteSpace(endingAlbumEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(endingAlbumEnglishScreenshotPath, 1280, 800);
+            }
+
+            FocusEndingAlbumEntry(10);
+            Require(localization.SetQaLocale(), "생존 앨범 실제 qps-long QA 로케일 선택");
+            RefreshAll();
+            Require(endingAlbumSelection.FocusedIndex == 10 && campInteraction.OpenPopupTargetId == "camp.ending-album" &&
+                    campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing) &&
+                    endingAlbumDetailTitleText.text == localization.Format("ending.album.locked.title") &&
+                    endingAlbumSummaryText.text == localization.Format("ending.rare.raft.current-reader.hint") &&
+                    endingAlbumDetailTitleText.text != localization.Format("ending.rare.raft.current-reader.title"),
+                "qps-long 전환은 같은 기록 포커스를 보존하고 미해금 제목 대신 비스포일러 힌트만 표시");
+            RequireReadableEndingAlbumUi(true);
+            if (!string.IsNullOrWhiteSpace(endingAlbumQpsLongScreenshotPath))
+            {
+                CaptureVerificationPng(endingAlbumQpsLongScreenshotPath, 1280, 800);
+            }
+
+            int keyboardFocusedIndex = endingAlbumSelection.FocusedIndex;
+            PrototypeExpeditionMapActions keyboardAlbumNavigation = PrototypeExpeditionMapActions.FromRaw(
+                new PrototypeRawExpeditionMapInput { KeyboardNext = true });
+            PrototypeExpeditionMapActions gamepadAlbumNavigation = PrototypeExpeditionMapActions.FromRaw(
+                new PrototypeRawExpeditionMapInput { HorizontalAxis = 1f, GamepadConfirm = true });
+            Require(keyboardAlbumNavigation.CycleDirection == gamepadAlbumNavigation.CycleDirection &&
+                    gamepadAlbumNavigation.ConfirmPressed,
+                "앨범 키보드·합성 게임패드는 같은 순환·확인 액션 의미를 생성");
+            ProcessEndingAlbumActions(gamepadAlbumNavigation);
+            ApplyEndingAlbumControlsPresentation(PrototypeInputDevice.Gamepad);
+            Require(endingAlbumSelection.FocusedIndex == (keyboardFocusedIndex + 1) % PrototypeEndingCatalog.All.Count &&
+                    endingAlbumControlsText.text == localization.Format(
+                        PrototypeInputPromptKeys.EndingAlbum(PrototypeInputDevice.Gamepad),
+                        localization.DeviceName(PrototypeInputDevice.Gamepad)) &&
+                    campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing),
+                "합성 게임패드 전환은 동일 앨범 상태에서 포커스만 이동하고 위치·방향을 보존");
+            RequireReadableEndingAlbumUi(true);
+
+            for (int index = 0; index < PrototypeEndingCatalog.All.Count; index += 1)
+            {
+                FocusEndingAlbumEntry(index);
+                RequireReadableEndingAlbumUi(true);
+            }
+            for (int index = 0; index < PrototypeEndingCatalog.All.Count; index += 1)
+            {
+                PrototypeEndingDefinition definition = PrototypeEndingCatalog.All[index];
+                endingAlbumCollection.UnlockForVerification(definition.StableId, 20 + index, "2026-08-25T00:00:00.0000000Z");
+                FocusEndingAlbumEntry(index);
+                RequireReadableEndingAlbumUi(true);
+            }
+            WriteEndingAlbumLayoutEvidence(campProximityScreenshotFolder);
+
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            CloseEndingAlbumToPopup();
+            Require(!endingAlbumSelection.IsOpen && !endingAlbumPanel.activeSelf && campInteractionPopup.activeSelf &&
+                    campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum &&
+                    campInteraction.OpenPopupTargetId == "camp.ending-album" &&
+                    campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing),
+                "앨범 취소는 같은 기록함 소형 팝업으로 한 단계 복귀");
+            CancelCampPopup();
+            Require(!campInteraction.IsPopupOpen && campProximityPrompt.activeSelf &&
+                    campInteraction.ActiveTargetId == "camp.ending-album" &&
+                    campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing),
+                "팝업 취소는 같은 현장·방향·앨범 근접 안내로 복귀");
+            endingAlbumCollection.RestoreTransientSnapshot(endingAlbumSnapshotBeforeVerification);
             RefreshAll();
 
             campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.Campfire));
@@ -3424,13 +3955,15 @@ namespace KimSurvival
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
             RequireFiftyDayRuntimeContract();
+            endingAlbumCollection.RestoreTransientSnapshot(endingAlbumSnapshotBeforeVerification);
+            endingAlbumCollection.PersistenceEnabled = true;
             if (ownsVerificationLog)
             {
                 RequirePlaytestLogRuntimeIntegration(playtestLog.VerificationLines);
                 playtestLog.Dispose();
                 playtestLog = null;
             }
-            return "PASS · Wave 16 채택 expedition-map right-rail A, ko/en/qps-long 1280x800, 7개 비색상 지역 상태와 공통 확정·취소를 확인. Wave 15 Day 1/50, Day 49 지속·Day 50 정산 terminal·조기 구조 우선, 직접 근접 지도·세 지역 선택·seed 결정성·세 탈출 경로 보호와 개발 로그 연결, compact-a·직접 연결 슬롯·제한적 자유 배치·가방 4→6·수색·수영·장벽·구조 신호 원자성을 회귀 확인";
+            return "PASS · Wave 19 채택 ending-gallery album-spread A, 현장 기록함 근접→팝업→앨범, 19개 stable ID·achievement mapping·로컬 해금/비스포일러 힌트, ko/en/qps-long 1280x800 overflow 0과 키보드/합성 게임패드 동등성을 확인. Wave 16 지도 A, Wave 15 Day 50·seed·탈출 경로와 compact-a·직접 연결 슬롯·제한적 자유 배치·가방 4→6·수색·수영·장벽·구조 신호 원자성을 회귀 확인";
         }
 
         private static void RequirePlaytestLogRuntimeIntegration(IReadOnlyList<string> lines)
@@ -3689,6 +4222,114 @@ namespace KimSurvival
                 state.Progress,
                 state.RequiredProgress);
             return progressed;
+        }
+
+        private void RequireReadableEndingAlbumUi(bool pseudoLong)
+        {
+            Require(endingAlbumSelection.IsOpen && endingAlbumPanel.activeSelf &&
+                    campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum &&
+                    !campInteractionPopup.activeSelf && !expeditionMapPanel.activeSelf &&
+                    !campProximityPrompt.activeSelf && !bagPanel.activeSelf,
+                "생존 앨범은 현장 popup 상태에서 채택 A 화면 하나만 표시");
+            endingAlbumHeaderText.ForceMeshUpdate(true, true);
+            endingAlbumDetailTitleText.ForceMeshUpdate(true, true);
+            endingAlbumSummaryText.ForceMeshUpdate(true, true);
+            endingAlbumStatusText.ForceMeshUpdate(true, true);
+            endingAlbumControlsText.ForceMeshUpdate(true, true);
+            endingAlbumCloseButton.GetComponentInChildren<TMP_Text>().ForceMeshUpdate(true, true);
+            List<RectTransform> cardRects = new List<RectTransform>();
+            for (int index = 0; index < endingAlbumCardButtons.Count; index += 1)
+            {
+                TMP_Text label = endingAlbumCardButtons[index].GetComponentInChildren<TMP_Text>();
+                label.ForceMeshUpdate(true, true);
+                cardRects.Add(endingAlbumCardButtons[index].GetComponent<RectTransform>());
+            }
+            Canvas.ForceUpdateCanvases();
+
+            RectTransform panelRect = endingAlbumPanel.GetComponent<RectTransform>();
+            Require(panelRect.anchorMin.x >= 0.025f && panelRect.anchorMax.x <= 0.975f &&
+                    panelRect.anchorMin.y >= 0.025f && panelRect.anchorMax.y <= 0.975f &&
+                    Mathf.Abs((panelRect.anchorMax.x - panelRect.anchorMin.x) * 1280f /
+                              ((panelRect.anchorMax.y - panelRect.anchorMin.y) * 800f) - 1.6f) < 0.001f,
+                "1280x800 채택 A 앨범은 20px 이상 안전 여백 안에서 원본 1.6:1 구도를 보존");
+            Require(endingAlbumLayoutSprite != null && endingAlbumFrameImage.sprite == endingAlbumLayoutSprite &&
+                    endingAlbumFrameImage.type == Image.Type.Simple && endingAlbumFrameImage.preserveAspect &&
+                    Mathf.Approximately(endingAlbumLayoutSprite.rect.width, 1280f) &&
+                    Mathf.Approximately(endingAlbumLayoutSprite.rect.height, 800f),
+                "런타임 앨범 프레임은 채택된 album-spread-a 1280x800 원화만 사용");
+            Require(endingAlbumCardButtons.Count == 19 && CountRectOverlaps(cardRects) == 0,
+                "정본 19개 엔딩 카드는 normal 5·comic 5·rare 4·day50 5 행에서 겹치지 않음");
+            Require(endingAlbumHeaderText.enableAutoSizing && endingAlbumHeaderText.fontSizeMin >= 18f &&
+                    endingAlbumDetailTitleText.enableAutoSizing && endingAlbumDetailTitleText.fontSizeMin >= 18f &&
+                    endingAlbumSummaryText.enableAutoSizing && endingAlbumSummaryText.fontSizeMin >= 18f &&
+                    endingAlbumStatusText.enableAutoSizing && endingAlbumStatusText.fontSizeMin >= 18f &&
+                    endingAlbumControlsText.enableAutoSizing && endingAlbumControlsText.fontSizeMin >= 18f &&
+                    !endingAlbumHeaderText.isTextOverflowing && !endingAlbumDetailTitleText.isTextOverflowing &&
+                    !endingAlbumSummaryText.isTextOverflowing && !endingAlbumStatusText.isTextOverflowing &&
+                    !endingAlbumControlsText.isTextOverflowing &&
+                    !endingAlbumCloseButton.GetComponentInChildren<TMP_Text>().isTextOverflowing,
+                pseudoLong
+                    ? "qps-long 앨범 제목·힌트·상태·조작은 18px 이상에서 overflow 0"
+                    : "ko/en 앨범 제목·힌트·상태·조작은 18px 이상에서 overflow 0");
+            for (int index = 0; index < endingAlbumCardButtons.Count; index += 1)
+            {
+                TMP_Text label = endingAlbumCardButtons[index].GetComponentInChildren<TMP_Text>();
+                Outline outline = endingAlbumCardButtons[index].GetComponent<Outline>();
+                Require(label.enableAutoSizing && label.fontSizeMin >= 18f && !label.isTextOverflowing &&
+                        outline != null && Mathf.Abs(outline.effectDistance.x) >= 2f,
+                    "앨범 카드 " + index + "는 범주 문양·해금 기호·테두리를 색상과 함께 표시");
+            }
+        }
+
+        private void WriteEndingAlbumLayoutEvidence(string evidenceFolder)
+        {
+            if (string.IsNullOrWhiteSpace(evidenceFolder))
+            {
+                return;
+            }
+
+            Directory.CreateDirectory(evidenceFolder);
+            int overflowCount = 0;
+            TMP_Text[] primaryTexts =
+            {
+                endingAlbumHeaderText,
+                endingAlbumDetailTitleText,
+                endingAlbumSummaryText,
+                endingAlbumStatusText,
+                endingAlbumControlsText,
+                endingAlbumCloseButton.GetComponentInChildren<TMP_Text>()
+            };
+            for (int index = 0; index < primaryTexts.Length; index += 1)
+            {
+                if (primaryTexts[index].isTextOverflowing) overflowCount += 1;
+            }
+            List<RectTransform> cardRects = new List<RectTransform>();
+            for (int index = 0; index < endingAlbumCardButtons.Count; index += 1)
+            {
+                TMP_Text label = endingAlbumCardButtons[index].GetComponentInChildren<TMP_Text>();
+                if (label.isTextOverflowing) overflowCount += 1;
+                cardRects.Add(endingAlbumCardButtons[index].GetComponent<RectTransform>());
+            }
+
+            RectTransform panelRect = endingAlbumPanel.GetComponent<RectTransform>();
+            int offscreenCount = panelRect.anchorMin.x < 0f || panelRect.anchorMin.y < 0f ||
+                                 panelRect.anchorMax.x > 1f || panelRect.anchorMax.y > 1f
+                ? 1
+                : 0;
+            string evidence =
+                "PASS · Wave 19 ending album A layout metrics\n" +
+                "Resolution: 1280x800\n" +
+                "Panel bounds px: L32 R1248 B20 T780\n" +
+                "Safe margins px: L32 R32 B20 T20\n" +
+                "Panel aspect: 1.600\n" +
+                "Ending catalog count: " + PrototypeEndingCatalog.All.Count + "\n" +
+                "Achievement mapping count: " + PrototypeEndingCatalog.All.Select(value => value.AchievementMappingId).Distinct(StringComparer.Ordinal).Count() + "\n" +
+                "TMP overflow count: " + overflowCount + "\n" +
+                "Panel offscreen count: " + offscreenCount + "\n" +
+                "Ending card overlap count: " + CountRectOverlaps(cardRects) + "\n" +
+                "Locales: ko PASS, en PASS, qps-long PASS\n" +
+                "Input paths: keyboard/mouse PASS, synthetic gamepad PASS\n";
+            File.WriteAllText(Path.Combine(evidenceFolder, "wave19-ending-album-layout-metrics.txt"), evidence);
         }
 
         private void RequireReadableExpeditionMapUi(bool pseudoLong)
@@ -3966,6 +4607,8 @@ namespace KimSurvival
                         PrototypeCampPlacement.FloorY);
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return new Vector2(ExpeditionMapX, PrototypeCampUse.PlayerFloorY);
+                case PrototypeCampInteractionTargetKind.EndingAlbum:
+                    return new Vector2(EndingAlbumX, PrototypeCampUse.PlayerFloorY);
                 case PrototypeCampInteractionTargetKind.SmokeBeacon:
                     return new Vector2(SmokeBeaconX, PrototypeCampUse.PlayerFloorY);
                 case PrototypeCampInteractionTargetKind.RadioBench:

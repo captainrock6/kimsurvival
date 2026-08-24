@@ -1638,6 +1638,77 @@ MonoBehaviour:
     m_Localized: You do not need to master only one thing.
     m_Metadata:
       m_Items: []
+  - m_Id: 798776876056576
+    m_Localized: Open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748352
+    m_Localized: Survival Album & Records
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748353
+    m_Localized: Survival Album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748354
+    m_Localized: Review discovered outcomes and spoiler-free clues still ahead.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748355
+    m_Localized: Open Survival Album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776955748356
+    m_Localized: "{0} \xB7 Arrows/A\xB7D select record \xB7 Esc back one step \xB7
+      F1 language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 798776959942656
+    m_Localized: "{0} \xB7 D-pad/stick select record \xB7 B back one step \xB7 Y
+      language"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 798776959942657
+    m_Localized: "Mr. Kim's Survival Album \xB7 {0}/{1} found"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 798776959942658
+    m_Localized: An Undiscovered Outcome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942659
+    m_Localized: "{0} \xB7 Found \xB7 DAY {1}\nLocal record"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 798776959942660
+    m_Localized: "{0} \xB7 Locked\nSilhouette + clue"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 798776959942661
+    m_Localized: Escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942662
+    m_Localized: Comic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942663
+    m_Localized: Rare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942664
+    m_Localized: DAY 50
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798776959942665
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -1743,3 +1814,8 @@ MonoBehaviour:
         - id: 747417803931650
         - id: 747417803931651
         - id: 747417803931652
+        - id: 798776955748356
+        - id: 798776959942656
+        - id: 798776959942657
+        - id: 798776959942659
+        - id: 798776959942660
