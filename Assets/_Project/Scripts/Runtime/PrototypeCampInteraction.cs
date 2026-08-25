@@ -13,6 +13,7 @@ namespace KimSurvival
         RescueSignal,
         StoragePlanning,
         ExpeditionMap,
+        EndingAlbum,
         ModuleExpansionSlot,
         ModuleConnector,
         SmokeBeacon,
@@ -33,6 +34,7 @@ namespace KimSurvival
         CollectRain,
         UpgradeSignal,
         OpenExpeditionMap,
+        OpenEndingAlbum,
         PreviewModule,
         ProgressSmokeEscape,
         ProgressRadioEscape
@@ -84,6 +86,8 @@ namespace KimSurvival
                            action == PrototypeCampInteractionAction.PreviewModule;
                 case PrototypeCampInteractionTargetKind.ExpeditionMap:
                     return action == PrototypeCampInteractionAction.OpenExpeditionMap;
+                case PrototypeCampInteractionTargetKind.EndingAlbum:
+                    return action == PrototypeCampInteractionAction.OpenEndingAlbum;
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return action == PrototypeCampInteractionAction.PreviewModule;
                 case PrototypeCampInteractionTargetKind.ModuleConnector:

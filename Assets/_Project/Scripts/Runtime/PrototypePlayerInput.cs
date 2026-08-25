@@ -74,6 +74,11 @@ namespace KimSurvival
             return device == PrototypeInputDevice.Gamepad ? "controls.expedition_map.gamepad" : "controls.expedition_map.keyboard_mouse";
         }
 
+        public static string EndingAlbum(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.ending_album.gamepad" : "controls.ending_album.keyboard_mouse";
+        }
+
         public static string Explore(PrototypeInputDevice device)
         {
             return device == PrototypeInputDevice.Gamepad ? "controls.explore.gamepad" : "controls.explore.keyboard_mouse";

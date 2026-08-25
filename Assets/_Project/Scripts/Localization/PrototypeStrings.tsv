@@ -23,6 +23,7 @@ input.glyph.interact.keyboard_mouse	[E]	[E]	[E]
 input.glyph.interact.gamepad	[X]	[X]	[X]
 interaction.structure.prompt	{0} {1} {2}	{0} {2} {1}	⟦{0} {2} {1} ·⟧
 interaction.action.preview	미리보기	Preview	⟦Prévíéwá⟧
+interaction.action.open	열기	Open	⟦Ópéñ⟧
 interaction.action.use	사용	Use	Úsé·
 camp.popup.title	{0}	{0}	{0}¿
 camp.popup.detail.campfire	먹거나 오늘의 생존 준비를 하고, 설치 위치를 다시 잡는다.	Eat, prepare today's survival bonus, or move the installation.	⟦Éát, prépáré tódáy's súrvívál bóñús, ór móvé thé íñstállátíóñ.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
@@ -241,6 +242,21 @@ world.expedition_map	◇ 수집 지도·출구	◇ Expedition Map & Exit	⟦◇ 
 camp.popup.detail.expedition_map	오늘 갈 지역의 전망과 위험을 비교한다.	Compare today's regions, forecasts, and risks.	⟦Cómpáré tódáy's régíóñs, fórécásts, áñd rísks.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.expedition_map.keyboard_mouse	{0} · 방향키/A·D 지역 선택 · Enter 출발 · Esc 취소 · F1 언어	{0} · Arrows/A·D select region · Enter depart · Esc cancel · F1 language	⟦{0} · Árróws/A·D séléct régíóñ · Enter dépárt · Esc cáñcél · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.expedition_map.gamepad	{0} · 방향 패드/스틱 지역 선택 · A 출발 · B 취소 · Y 언어	{0} · D-pad/stick select region · A depart · B cancel · Y language	⟦{0} · D-pád/stíck séléct régíóñ · A dépárt · B cáñcél · Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+camp.target.ending_album	생존 앨범·기록함	Survival Album & Records	⟦Súrvívál Álbúm & Récórdsáéíóúüñ¿¡⟧
+world.ending_album	생존 앨범	Survival Album	⟦Súrvívál Álbúmáéí⟧
+camp.popup.detail.ending_album	발견한 결말과 아직 남은 비스포일러 단서를 확인한다.	Review discovered outcomes and spoiler-free clues still ahead.	⟦Révíéw díscóvéréd óútcómés áñd spóílér-fréé clúés stíll áhéád.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+button.ending_album.open	생존 앨범 펼치기	Open Survival Album	⟦Ópéñ Súrvívál Álbúmáéíóúü⟧
+controls.ending_album.keyboard_mouse	{0} · 방향키/A·D 기록 선택 · Esc 한 단계 뒤로 · F1 언어	{0} · Arrows/A·D select record · Esc back one step · F1 language	⟦{0} · Árróws/A·D séléct récórd · Esc báck óñé stép · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+controls.ending_album.gamepad	{0} · 방향 패드/스틱 기록 선택 · B 한 단계 뒤로 · Y 언어	{0} · D-pad/stick select record · B back one step · Y language	⟦{0} · D-pád/stíck séléct récórd · B báck óñé stép · Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.album.header	김씨의 생존 앨범 · {0}/{1} 해금	Mr. Kim's Survival Album · {0}/{1} found	⟦Mr. Kím's Súrvívál Álbúm · {0}/{1} fóúñdáéíóúüñ¿¡áéíóúüñ⟧
+ending.album.locked.title	아직 기록되지 않은 결말	An Undiscovered Outcome	⟦Áñ Úñdíscóvéréd Óútcóméáéíóúüñ¿¡⟧
+ending.album.status.unlocked	{0} · 해금 · DAY {1}\n로컬 기록	{0} · Found · DAY {1}\nLocal record	⟦{0} · Fóúñd · DÁY {1}\nLócál récórdáéíóúüñ¿¡áéí⟧
+ending.album.status.locked	{0} · 미해금\n실루엣 + 단서	{0} · Locked\nSilhouette + clue	⟦{0} · Lóckéd\nSílhoúétté + clúéáéíóúüñ¿¡⟧
+ending.album.category.escape	탈출	Escape	⟦Éscápé⟧
+ending.album.category.comic	코믹	Comic	⟦Cómíc⟧
+ending.album.category.rare	희귀	Rare	⟦Ráré⟧
+ending.album.category.day50	DAY 50	DAY 50	⟦DÁY 50⟧
+ending.album.back	뒤로	Back	⟦Báck⟧
 expedition.map.title	수집 지도 · DAY {0}/{1} 원정 계획	Expedition Map · DAY {0}/{1} Plan	⟦Éxpédítíóñ Máp · DÁY {0}/{1} Pláñáéíóúüñ¿¡⟧
 expedition.map.node	◇ {0}	◇ {0}	⟦◇ {0}⟧
 expedition.map.node.focused	◆ {0} · 선택	◆ {0} · Selected	⟦◆ {0} · Séléctédáéíó⟧
