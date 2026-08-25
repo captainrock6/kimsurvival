@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GAME JAM Wave B/C Forge design packet schema",
+  "type": "object",
+  "required": ["schemaVersion", "project", "tasks"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "project": {
+      "type": "object",
+      "required": ["title", "oneLinePitch", "gameJamWaveBCContract"],
+      "properties": {
+        "gameJamWaveBCContract": {
+          "type": "object",
+          "required": [
+            "schemaVersion",
+            "contractId",
+            "sourceBaseline",
+            "balanceStatus",
+            "targetCatalog",
+            "finiteResourceTotals",
+            "regions",
+            "diseaseContract",
+            "protectedPartContract",
+            "pacingBudget",
+            "acceptanceMatrix",
+            "fileOwnership"
+          ],
+          "properties": {
+            "schemaVersion": {"const": 1},
+            "contractId": {"const": "gamejam.wave-bc.catalog-disease-parts.v1"},
+            "sourceBaseline": {"const": "00e0d5a9df597ab4a9f54bff665291f367d40c92"},
+            "balanceStatus": {"const": "BALANCE_PROVISIONAL"},
+            "targetCatalog": {
+              "type": "object",
+              "required": [
+                "regionCount",
+                "archetypeCount",
+                "instanceCount",
+                "existingInstanceCount",
+                "newInstanceCount",
+                "finiteGeneralResourceUnits"
+              ],
+              "properties": {
+                "regionCount": {"const": 7},
+                "archetypeCount": {"const": 21},
+                "instanceCount": {"const": 42},
+                "existingInstanceCount": {"const": 28},
+                "newInstanceCount": {"const": 14},
+                "finiteGeneralResourceUnits": {"const": 144}
+              }
+            },
+            "finiteResourceTotals": {
+              "type": "object",
+              "required": [
+                "resource.wood",
+                "resource.salvage",
+                "resource.food",
+                "resource.fabric",
+                "resource.fiber",
+                "resource.medicine",
+                "resource.stone",
+                "resource.metal",
+                "resource.wire",
+                "resource.fuel",
+                "resource.chemicals",
+                "resource.electronics",
+                "total"
+              ],
+              "properties": {
+                "total": {"const": 144}
+              },
+              "additionalProperties": {"type": "integer", "minimum": 0}
+            },
+            "regions": {
+              "type": "array",
+              "minItems": 7,
+              "maxItems": 7,
+              "items": {
+                "type": "object",
+                "required": ["id", "finiteUnits", "archetypes"],
+                "properties": {
+                  "id": {"type": "string", "pattern": "^region\\.[a-z0-9-]+\\.[a-z0-9-]+$"},
+                  "finiteUnits": {"type": "integer", "minimum": 1},
+                  "archetypes": {
+                    "type": "array",
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "items": {
+                      "type": "object",
+                      "required": ["id", "searchCostBand", "instances"],
+                      "properties": {
+                        "id": {"type": "string", "pattern": "^node\\.archetype\\.[a-z0-9-]+\\.[a-z0-9-]+$"},
+                        "searchCostBand": {"enum": ["low", "medium", "high"]},
+                        "instances": {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "items": {
+                            "type": "object",
+                            "required": ["id", "origin", "visualKind", "finiteYield"],
+                            "properties": {
+                              "id": {"type": "string", "pattern": "^node\\.[a-z0-9-]+\\.[a-z0-9-]+\\.[a-z0-9-]+\\.[0-9]{2}$"},
+                              "origin": {"enum": ["existing", "new"]},
+                              "visualKind": {"type": "string", "minLength": 1},
+                              "finiteYield": {
+                                "type": "object",
+                                "minProperties": 1,
+                                "patternProperties": {
+                                  "^resource\\.[a-z0-9-]+$": {"type": "integer", "minimum": 1}
+                                },
+                                "additionalProperties": false
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "diseaseContract": {
+              "type": "object",
+              "required": ["familyId", "conditionId", "exposureThreshold", "exposureNodeIds", "medicineSourceNodeIds", "stages", "atomicityRule", "snapshotFields", "naturalProbe"],
+              "properties": {
+                "familyId": {"const": "hazard.disease"},
+                "conditionId": {"const": "hazard-profile.disease.jungle-fever"},
+                "exposureThreshold": {"const": 2},
+                "exposureNodeIds": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true},
+                "medicineSourceNodeIds": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true},
+                "stages": {"type": "array", "minItems": 7, "maxItems": 7}
+              }
+            },
+            "protectedPartContract": {
+              "type": "object",
+              "required": ["assignmentHash", "assignmentPasses", "radioDistinctRegionRule", "parts", "pity", "seedAudit"],
+              "properties": {
+                "assignmentPasses": {"const": 16},
+                "radioDistinctRegionRule": {"const": true},
+                "parts": {
+                  "type": "array",
+                  "minItems": 4,
+                  "maxItems": 4,
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "primaryRegionId", "alternativeRegionIds", "eligibleNodeIds"],
+                    "properties": {
+                      "eligibleNodeIds": {"type": "array", "minItems": 6, "maxItems": 6, "uniqueItems": true}
+                    }
+                  }
+                },
+                "pity": {
+                  "type": "object",
+                  "required": ["hintAfterEligibleMisses", "guaranteeAfterEligibleMisses", "snapshotFields"],
+                  "properties": {
+                    "hintAfterEligibleMisses": {"const": 3},
+                    "guaranteeAfterEligibleMisses": {"const": 5}
+                  }
+                },
+                "seedAudit": {
+                  "type": "object",
+                  "required": ["profileId", "requiredPlayableEscapeIds", "minimumCompletable"],
+                  "properties": {
+                    "profileId": {"const": "GAMEJAM_25_35"},
+                    "requiredPlayableEscapeIds": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 3,
+                      "uniqueItems": true
+                    },
+                    "minimumCompletable": {"const": 3}
+                  }
+                }
+              }
+            },
+            "acceptanceMatrix": {
+              "type": "array",
+              "minItems": 15,
+              "maxItems": 15,
+              "items": {
+                "type": "object",
+                "required": ["id", "ownerTaskId", "probe", "acceptance"]
+              }
+            },
+            "fileOwnership": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "object",
+                "required": ["sequence", "taskId", "futurePaths", "scope"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["id", "lane", "title", "description", "priority", "dependencies", "featureIds", "acceptanceCriteria", "status"]
+      }
+    }
+  }
+}
