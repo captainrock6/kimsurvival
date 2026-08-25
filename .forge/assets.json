@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-25T15:19:19.789Z",
+  "updatedAt": "2026-08-25T17:23:18.040Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -5765,6 +5765,243 @@
       "engine": {},
       "createdAt": "2026-08-25T13:55:38.025Z",
       "updatedAt": "2026-08-25T16:19:42.919Z"
+    },
+    {
+      "id": "icon.gamejam-hazard-part-set",
+      "name": "GAME JAM 위험·핵심 부품 보조 아이콘",
+      "assetType": "ui_set",
+      "request": "GAME JAM Wave B/C review-only 보조 아이콘 세트. 기존 자산 감사 결과 실제 공백인 risk.insects, risk.dangerous-plants, part.smoke.flint, part.radio.transceiver(망가진 무전기), part.radio.circuit-board(망가진 전자기판), part.radio.transistor 여섯 실루엣만 만든다. 질병 lifecycle은 engine-ready effect.survival-hazards.phase-silhouette-a의 단계 문법과 review icon.expedition-resource-risk-set의 risk.illness를 재사용하고, 야생동물은 risk.wildlife를 재사용한다. 48/64px에서 형태로 구분하고 벌레는 날개/더듬이 점군, 위험 식물은 세 갈래 잎/가시/포자 노치, 부싯돌은 각진 조각/불꽃 홈, 무전기는 부러진 안테나/갈라진 본체, 전자기판은 모서리 노치/회로 패턴, 트랜지스터는 세 다리 실루엣을 사용한다. 고어 없음, true alpha, 래스터 본문 없음, 엔진 TMP 슬롯만 사용. stable candidate icon.gamejam-hazard-part-set.silhouette-a, decision=review, selectedCandidate=null, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false. 채택·패키징·런타임 연결 금지.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "gamejam",
+        "hazard",
+        "protected-part",
+        "review-only"
+      ],
+      "dependencies": [
+        "icon.expedition-resource-risk-set",
+        "effect.survival-hazards"
+      ],
+      "jobIds": [
+        "job_20260825171815_f7640e25"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260825171815_f7640e25",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-25T17:18:15.623Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260825171815_f7640e25",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-25T17:23:18.038Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260825171815_f7640e25",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 80988,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 73416,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "gamejam-hazard-part-atlas.png",
+          "contentType": "image/png",
+          "bytes": 38300,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/gamejam-hazard-part-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "gamejam-hazard-part-atlas.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 2889,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/gamejam-hazard-part-atlas.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "gamejam-hazard-part-readability-48-64.png",
+          "contentType": "image/png",
+          "bytes": 30640,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/gamejam-hazard-part-readability-48-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "risk-insects.png",
+          "contentType": "image/png",
+          "bytes": 5973,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/risk-insects.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "risk-dangerous-plants.png",
+          "contentType": "image/png",
+          "bytes": 7896,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/risk-dangerous-plants.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "part-smoke-flint.png",
+          "contentType": "image/png",
+          "bytes": 6192,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/part-smoke-flint.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "part-radio-transceiver.png",
+          "contentType": "image/png",
+          "bytes": 5736,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/part-radio-transceiver.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "part-radio-circuit-board.png",
+          "contentType": "image/png",
+          "bytes": 3497,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/part-radio-circuit-board.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "part-radio-transistor.png",
+          "contentType": "image/png",
+          "bytes": 4179,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/part-radio-transistor.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "gamejam-hazard-part-manifest.json",
+          "contentType": "application/json",
+          "bytes": 4913,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/gamejam-hazard-part-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "gamejam-hazard-part-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 1392,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/gamejam-hazard-part-visual-qa.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "gamejam-hazard-part-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 475,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/gamejam-hazard-part-handoff.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 4263,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3382,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-gamejam-hazard-part-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 3893,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-gamejam-hazard-part-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-gamejam-hazard-part-readability-48-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 2927,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-gamejam-hazard-part-readability-48-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-risk-insects.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6272,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-risk-insects.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-risk-dangerous-plants.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6587,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-risk-dangerous-plants.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-part-smoke-flint.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5972,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-part-smoke-flint.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-part-radio-transceiver.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6279,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-part-radio-transceiver.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-part-radio-circuit-board.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5727,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-part-radio-circuit-board.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-part-radio-transistor.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4928,
+          "url": "/outputs/jobs/job_20260825171815_f7640e25/qa-preview-part-radio-transistor.jpg"
+        }
+      ],
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "packageAllowed": false,
+      "runtimeConnectAllowed": false,
+      "runtimeConnected": false,
+      "reuseAudit": {
+        "diseaseLifecycle": "reuse effect.survival-hazards.phase-silhouette-a plus icon.expedition-resource-risk-set/risk.illness",
+        "wildlife": "reuse icon.expedition-resource-risk-set/risk.wildlife",
+        "genericElectronics": "reuse icon.expedition-resource-risk-set/resource.electronics only as a category cue",
+        "newCandidateIds": [
+          "risk.insects",
+          "risk.dangerous-plants",
+          "part.smoke.flint",
+          "part.radio.transceiver",
+          "part.radio.circuit-board",
+          "part.radio.transistor"
+        ]
+      },
+      "registryIsolation": {
+        "protectedAdoptedAssetId": "icon.resource-tool-set",
+        "protectedAdoptedJobId": "job_20260822141317_caf8e11d",
+        "protectedResourceIconGuidsUnchanged": true,
+        "candidateJobRuntimeRejected": true
+      },
+      "engine": {},
+      "createdAt": "2026-08-25T17:18:00.573Z",
+      "updatedAt": "2026-08-25T17:23:18.040Z"
     }
   ]
 }

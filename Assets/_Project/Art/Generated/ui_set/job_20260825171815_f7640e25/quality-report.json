@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 12,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "gamejam-hazard-part-atlas.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7067,
+      "contrastStdDev": 59.34,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 38,
+        "top": 23,
+        "right": 56,
+        "bottom": 17
+      },
+      "previewFile": "qa-preview-gamejam-hazard-part-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "gamejam-hazard-part-atlas.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1536 256",
+      "issues": []
+    },
+    {
+      "fileName": "gamejam-hazard-part-readability-48-64.png",
+      "kind": "raster",
+      "width": 1024,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.9652,
+      "contrastStdDev": 25.02,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 41,
+        "top": 29,
+        "right": 141,
+        "bottom": 69
+      },
+      "previewFile": "qa-preview-gamejam-hazard-part-readability-48-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "risk-insects.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7327,
+      "contrastStdDev": 68.11,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 38,
+        "top": 26,
+        "right": 38,
+        "bottom": 19
+      },
+      "previewFile": "qa-preview-risk-insects.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "risk-dangerous-plants.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7626,
+      "contrastStdDev": 46.9,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 39,
+        "top": 28,
+        "right": 39,
+        "bottom": 17
+      },
+      "previewFile": "qa-preview-risk-dangerous-plants.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "part-smoke-flint.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.6397,
+      "contrastStdDev": 60.22,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 45,
+        "top": 32,
+        "right": 18,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-part-smoke-flint.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "part-radio-transceiver.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.6107,
+      "contrastStdDev": 68.14,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 36,
+        "top": 23,
+        "right": 26,
+        "bottom": 46
+      },
+      "previewFile": "qa-preview-part-radio-transceiver.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "part-radio-circuit-board.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.5911,
+      "contrastStdDev": 61.91,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 40,
+        "top": 49,
+        "right": 38,
+        "bottom": 46
+      },
+      "previewFile": "qa-preview-part-radio-circuit-board.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "part-radio-transistor.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 256,
+      "hasAlpha": true,
+      "transparentRatio": 0.7128,
+      "contrastStdDev": 50.49,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 56,
+        "top": 38,
+        "right": 56,
+        "bottom": 21
+      },
+      "previewFile": "qa-preview-part-radio-transistor.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "gamejam-hazard-part-manifest.json",
+      "kind": "editable-source",
+      "bytes": 4913,
+      "issues": []
+    },
+    {
+      "fileName": "gamejam-hazard-part-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 1392,
+      "issues": []
+    },
+    {
+      "fileName": "gamejam-hazard-part-handoff.txt",
+      "kind": "file",
+      "bytes": 475,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-25T17:23:17.994Z",
+  "jobId": "job_20260825171815_f7640e25",
+  "assetType": "ui_set"
+}

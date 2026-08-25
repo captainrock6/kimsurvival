@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "assetId": "icon.gamejam-hazard-part-set",
+  "jobId": "job_20260825171815_f7640e25",
+  "candidateId": "icon.gamejam-hazard-part-set.silhouette-a",
+  "decision": "review",
+  "selectedCandidate": null,
+  "reuse": {
+    "diseaseLifecycle": {
+      "icon": "icon.expedition-resource-risk-set/risk.illness",
+      "phaseGrammar": "effect.survival-hazards.phase-silhouette-a",
+      "createNew": false
+    },
+    "wildlife": {
+      "icon": "icon.expedition-resource-risk-set/risk.wildlife",
+      "createNew": false
+    },
+    "genericElectronics": {
+      "icon": "icon.expedition-resource-risk-set/resource.electronics",
+      "use": "category only; not a substitute for protected part identities",
+      "createNew": false
+    },
+    "statusOverlays": [
+      "hazard-exposed",
+      "protected-part",
+      "known-remainder"
+    ]
+  },
+  "atlas": {
+    "file": "gamejam-hazard-part-atlas.png",
+    "editable": "gamejam-hazard-part-atlas.svg",
+    "width": 1536,
+    "height": 256,
+    "columns": 6,
+    "rows": 1,
+    "cell": 256,
+    "trueAlpha": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "ppu": 100,
+    "sprites": [
+      {
+        "id": "risk.insects",
+        "file": "risk-insects.png",
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "role": "review-new"
+      },
+      {
+        "id": "risk.dangerous-plants",
+        "file": "risk-dangerous-plants.png",
+        "x": 256,
+        "y": 0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "role": "review-new"
+      },
+      {
+        "id": "part.smoke.flint",
+        "file": "part-smoke-flint.png",
+        "x": 512,
+        "y": 0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "role": "review-new"
+      },
+      {
+        "id": "part.radio.transceiver",
+        "file": "part-radio-transceiver.png",
+        "x": 768,
+        "y": 0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "role": "review-new"
+      },
+      {
+        "id": "part.radio.circuit-board",
+        "file": "part-radio-circuit-board.png",
+        "x": 1024,
+        "y": 0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "role": "review-new"
+      },
+      {
+        "id": "part.radio.transistor",
+        "file": "part-radio-transistor.png",
+        "x": 1280,
+        "y": 0,
+        "width": 256,
+        "height": 256,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "role": "review-new"
+      }
+    ]
+  },
+  "readability": {
+    "file": "gamejam-hazard-part-readability-48-64.png",
+    "sizes": [
+      48,
+      64
+    ],
+    "referenceResolution": [
+      1280,
+      800
+    ]
+  },
+  "stateGrammar": {
+    "telegraph": "dashed/pulse frame from adopted hazard phase grammar",
+    "exposed": "hazard-exposed triangle overlay",
+    "protected": "shield/lock overlay",
+    "knownRemainder": "notched tray overlay",
+    "localizedText": "engine TMP only"
+  },
+  "unityImport": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "alphaIsTransparency": true,
+    "colorSpace": "sRGB",
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed during review",
+    "mipmaps": false,
+    "wrapMode": "Clamp",
+    "maxSize": 2048
+  },
+  "runtime": {
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false
+  },
+  "generation": {
+    "method": "local deterministic editable SVG and raster composition",
+    "paidExternalApiCalled": false,
+    "imageGenCalled": false
+  },
+  "hashes": {
+    "gamejam-hazard-part-atlas.png": "d4d90e358b75bb37a23919399d4c6088f11bce0552ac81b4b6350db4fda328e8",
+    "gamejam-hazard-part-atlas.svg": "acf8e375b9df9637dec669f7a988e0e8c9c24a1a49624a3e330009272ef66622",
+    "gamejam-hazard-part-readability-48-64.png": "1af594e7172a7454fa762e7a35654c234d2033e1bfdbb054022823ebb39c8a70",
+    "part-radio-circuit-board.png": "0b156e5ec2aa6f93dd9322dcb30a06bf7eb174e5a7e670f6dd6211b1e73acf73",
+    "part-radio-transceiver.png": "550c7d67a00d7ebfa241d522875cd05a7704b35b4f16b1df42d87f8634fb405e",
+    "part-radio-transistor.png": "6ec94cf48270bd5142ef8fb2d234ec9432d94626507206d2a90e3dc62bfcc860",
+    "part-smoke-flint.png": "fe1ac9b79d82039e09f8f7e6e878956c88c9290d887037280b38f040976c3441",
+    "risk-dangerous-plants.png": "deded2c746d55918ac4f9246939b1bda3a72c7b54c928e3fedddb7c1f6d77a35",
+    "risk-insects.png": "07e159f3334c4cc4a04b9009ab6ed62d7c762db00fc0dd9511acc8bbfba4c75d"
+  }
+}

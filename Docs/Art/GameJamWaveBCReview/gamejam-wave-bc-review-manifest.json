@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "title": "GAME JAM Wave B/C art and UI selection packet",
+  "baseline": {
+    "remoteBranch": "origin/codex/gamejam-director-search-node-integration",
+    "commit": "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "integratedGreenEvidence": "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green"
+  },
+  "status": "review",
+  "selectedCandidate": null,
+  "runtimeAllowlist": [],
+  "packageAllowed": false,
+  "runtimeConnectAllowed": false,
+  "runtimeConnected": false,
+  "selectionBoard": {
+    "path": "Docs/Art/GameJamWaveBCReview/gamejam-wave-bc-selection-board-3840x1856.png",
+    "width": 3840,
+    "height": 1856,
+    "sha256": "ba59a32d518cd66e77feba5326a48070181f0d8d253199fe229df3c47e4f9ca5",
+    "runtimeSource": false,
+    "sourceCellsRemainOriginalSize": true
+  },
+  "actualGreenAudit": {
+    "referenceResolution": [1280, 800],
+    "screens": [
+      {
+        "locale": "ko",
+        "path": "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/kim-survival-search-tray-ko-1280x800.png",
+        "sha256": "d2324ea6ce064d063ac37a037d221911f3cf9dd4c68aadecd453a0d769b9990d"
+      },
+      {
+        "locale": "en",
+        "path": "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/kim-survival-search-tray-en-1280x800.png",
+        "sha256": "f12b9ecc46b95d82fce326349e953be5a266fa503223e96735ef35ca3bc14d2c"
+      },
+      {
+        "locale": "qps-long",
+        "path": "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/kim-survival-search-tray-qps-long-1280x800.png",
+        "sha256": "14547534bd26275161ff8bbe29e417c45f278146999c86f6d2cde66ca2cbae04"
+      }
+    ],
+    "result": "pass-with-art-review",
+    "observations": [
+      "KO, EN and qps-long remain inside the 1280x800 viewport without clipped action rows or lost resource icons.",
+      "The current opaque tray occupies the upper-left world view and the current world nodes remain flat placeholder geometry.",
+      "The review 9-slice tray moves the decision surface to the lower band and preserves the character and center traversal view.",
+      "The review node kit adds persistent unknown, known-partial and depleted silhouettes but remains unselected and runtime rejected."
+    ]
+  },
+  "candidates": [
+    {
+      "assetId": "object.searchable-resource-node-kit",
+      "candidateId": "object.searchable-resource-node-kit.state-language-a",
+      "jobId": "job_20260825150605_49020784",
+      "origin": "existing-review",
+      "forgeQualityScore": 62,
+      "qualityIssues": "one opaque actual-size evidence alpha error and one evidence warning; transparent production parts pass",
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "runtimeConnectAllowed": false
+    },
+    {
+      "assetId": "ui.search-loot-tray",
+      "candidateId": "ui.search-loot-tray.compact-bottom-a",
+      "jobId": "job_20260825150608_cb65726e",
+      "origin": "existing-review",
+      "forgeQualityScore": 70,
+      "qualityIssues": "one opaque actual-size evidence alpha error; transparent 9-slice components pass",
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "runtimeConnectAllowed": false
+    },
+    {
+      "assetId": "icon.gamejam-hazard-part-set",
+      "candidateId": "icon.gamejam-hazard-part-set.silhouette-a",
+      "jobId": "job_20260825171815_f7640e25",
+      "origin": "new-local-deterministic-review",
+      "forgeQualityScore": 100,
+      "qualityErrors": 0,
+      "qualityWarnings": 0,
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "runtimeConnectAllowed": false
+    }
+  ],
+  "reuseAudit": {
+    "reused": [
+      {
+        "need": "disease lifecycle",
+        "sources": [
+          "icon.expedition-resource-risk-set/risk.illness",
+          "effect.survival-hazards.phase-silhouette-a"
+        ],
+        "newBitmapCreated": false
+      },
+      {
+        "need": "wildlife warning",
+        "sources": ["icon.expedition-resource-risk-set/risk.wildlife"],
+        "newBitmapCreated": false
+      },
+      {
+        "need": "generic electronics category",
+        "sources": ["icon.expedition-resource-risk-set/resource.electronics"],
+        "newBitmapCreated": false,
+        "note": "category cue only; it must not replace the three protected radio-part identities"
+      },
+      {
+        "need": "search result states",
+        "sources": ["hazard-exposed", "protected-part", "known-remainder"],
+        "newBitmapCreated": false
+      }
+    ],
+    "newReviewOnly": [
+      "risk.insects",
+      "risk.dangerous-plants",
+      "part.smoke.flint",
+      "part.radio.transceiver",
+      "part.radio.circuit-board",
+      "part.radio.transistor"
+    ]
+  },
+  "adoptedResourceIconGuidGuard": [
+    {"resource": "Wood", "guid": "5ba05e4e569ab6745bff72d0b9ba9151"},
+    {"resource": "Stone", "guid": "c881b7198e647ad40b32c63ce18e27a2"},
+    {"resource": "Food", "guid": "59695c50812722b458c210b4cfb02c12"},
+    {"resource": "Salvage", "guid": "cb8829a17d9cc9049aa16fbf4393097a"}
+  ],
+  "generation": {
+    "paidExternalApiCalled": false,
+    "imageGenCalled": false,
+    "method": "Forge prepare/import plus local deterministic SVG and raster tooling"
+  }
+}
