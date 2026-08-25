@@ -599,6 +599,12 @@ namespace ParallelQA
             {
                 prototype.Session.Reset();
                 InvokePrivate(prototype, "RefreshAll");
+                Require(prototype.Session.BeginSearch(PrototypeExpeditionRegionId.Shallows),
+                    "shore-launch observation could not begin the natural shallows discovery route");
+                InvokePrivate(prototype, "RefreshAll");
+                Require(prototype.Session.ReturnToCamp(false),
+                    "shore-launch observation could not complete the natural shallows discovery route");
+                InvokePrivate(prototype, "RefreshAll");
                 InvokePrivate(prototype, "RefreshCampInteractionSelection");
                 IEnumerable targets = GetField(prototype, "campInteractionTargets") as IEnumerable;
                 List<object> targetList = targets == null ? new List<object>() : targets.Cast<object>().ToList();
