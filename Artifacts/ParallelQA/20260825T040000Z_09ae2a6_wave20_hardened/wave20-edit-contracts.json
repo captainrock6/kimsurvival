@@ -1,0 +1,89 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 20 raft RED-first Edit contracts",
+    "runId": "20260825T040000Z_09ae2a6_wave20_hardened",
+    "baselineCommit": "09ae2a6d578eb4dcbf11b9c571f57f640b88d969",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-25T12:10:53.8550249Z",
+    "completedUtc": "2026-08-25T12:10:53.8794989Z",
+    "overall": "RED",
+    "productOverall": "RED_EXPECTED_GAP",
+    "infrastructureOverall": "PASS",
+    "passed": 3,
+    "expectedGaps": 3,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "notReady": 0,
+    "greenCompletionCondition": "Fresh Wave 19 21/21 and Wave 18 23/23 GREEN locks, infrastructure PASS, and zero Wave 20 EXPECTED_GAP/FAIL checks on an implementation baseline.",
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "W20-I01.exact_baseline",
+            "matrix": "Edit infrastructure",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The runner records the exact requested baseline SHA and a fresh RunId",
+            "actual": "runId=20260825T040000Z_09ae2a6_wave20_hardened; baseline=09ae2a6d578eb4dcbf11b9c571f57f640b88d969; redBaseline=True",
+            "reproduction": "Invoke the PowerShell entry point with a fresh RunId and the exact HEAD.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Invoke-Wave20RaftRedFirstGate.ps1"
+        },
+        {
+            "id": "W20-E01.raft_canonical_data",
+            "matrix": "raft catalog",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "escape.raft retains coast/shallows, shore-launch, sailcloth, material/risk/timing/completion, and raft ending IDs",
+            "actual": "escape.raft regions=region.coast.beach,region.sea.shallows research=research.ropework,research.coastal-navigation facility=facility.shore-launch keyPart=part.raft.sailcloth materials=resource.wood,resource.fiber,resource.fabric risks=hazard.disaster,hazard.injury timing=allowed sea-weather launch window completion=completed hull, sailcloth and voyage supplies commit once playableState=data-only not playable requiredProgress=0",
+            "reproduction": "Inspect the public escape catalog by stable ID.",
+            "recommendedFiles": "runtime escape catalog/data owner selected by stable ID"
+        },
+        {
+            "id": "W20-E02.playable_three_stage_transition",
+            "matrix": "raft runtime schema",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "escape.raft is playable and exposes ordered hull, sail, and voyage-supplies stage state",
+            "actual": "InvalidOperationException: escape.raft remains data-only not playable",
+            "reproduction": "Query escape.raft and stable/public raft state members without depending on a product class name.",
+            "recommendedFiles": "runtime raft project state/catalog owner selected by stable IDs"
+        },
+        {
+            "id": "W20-E03.atomic_save_window_contract",
+            "matrix": "raft public contract",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Public raft state covers protected sailcloth, weather/current window, cancel/failure atomicity, duplicate suppression, and save/restore",
+            "actual": "InvalidOperationException: public raft semantic surface is incomplete: kimsurvival.prototypeescapeprojectdefinition{stableid=escape.raft;regionids=[region.coast.beach,region.sea.shallows];researchids=[research.ropework,research.coastal-navigation];facilityid=facility.shore-launch;keypartid=part.raft.sailcloth;materialids=[resource.wood,resource.fiber,resource.fabric];preparationdays=8;riskids=[hazard.disaster,hazard.injury];timingrule=allowed sea-weather launch window;completionrule=completed hull, sailcloth and voyage supplies commit once;playablestate=data-only not playable;woodcost=0;salvagecost=0;requiredprogress=0;dataonly=true;primaryregionid=region.coast.beach;alternativeregionid=region.sea.shallows;snapshotstagecontract=snapshot stage progress protected;atomicresolvercontract=atomic transaction resolver preserves completed stage and key part} | kimsurvival.prototypenaturalescaperouteresult{completed,escapeid,grant,interactioncount,interactiontrace,resultcode,stableid,success,terminal,warp} | kimsurvival.prototypeescapeprojectstate{complete,lastresultcode,progress,requiredprogress,stableid} | kimsurvival.prototyperunsnapshot{behavior_scores,day,ending_id,escape_id,forecast_id,hazard_ids,key_part_state_ids,pacing_band_id,project_ids,region_id,result_code,seed,special_event_day,special_event_id}",
+            "reproduction": "Enumerate public raft/stage/snapshot/result member names and stable values.",
+            "recommendedFiles": "runtime raft public data/state contract owner"
+        },
+        {
+            "id": "W20-E04.ko_en_qps_localization_surface",
+            "matrix": "localization data",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "ko/en/qps-long contain raft launch, prompt, popup, hull, sail, supplies, weather/current, failure, cancel, and confirm rows",
+            "actual": "InvalidOperationException: raft localization key surface incomplete; keys=escape.raft\t뗏목 탈출\tRaft escape\t⟦Ráft éscápéáéí⟧,ending.escape.raft.open-water.title\t수평선 너머로\tBeyond the Horizon\t⟦Béyóñd thé Hórízóñáéíóúü⟧,ending.escape.raft.open-water.summary\t직접 엮은 뗏목으로 조류를 타고 섬을 벗어났다.\tHe rides the current off the island on his own raft.\t⟦Hé rídés thé cúrréñt óff thé ísláñd óñ hís ówñ ráft.áéíóúüñ¿¡áéíóúüñ¿¡á⟧,ending.escape.raft.open-water.hint\t바다는 벽이 아니라 길일지도 모른다.\tThe sea may be a road, not a wall.\t⟦Thé séá máy bé á róád, ñót á wáll.áéíóúüñ¿¡áéí⟧,ending.comic.raft.coconut-navy.title\t코코넛 해군\tCoconut Navy\t⟦Cócóñút Ñávyáéí⟧,ending.comic.raft.coconut-navy.summary\t코코넛 화물이 뗏목보다 먼저 유명해졌다.\tThe coconut cargo becomes famous before the raft.\t⟦Thé cócóñút cárgó bécómés fámóús béfóré thé ráft.áéíóúüñ¿¡áéíóúüñ¿¡⟧,ending.comic.raft.coconut-navy.hint\t배에는 평형추가 필요하다.\tEvery boat needs ballast.\t⟦Évéry bóát ñééds bállást.áéíóúüñ¿⟧,ending.rare.raft.current-reader.title\t바다가 길을 열었다\tThe Sea Made a Road\t⟦Thé Séá Mádé á Róádáéíóúü⟧,ending.rare.raft.current-reader.summary\t반복 수영으로 읽은 고요한 조류를 탔다.\tHe catches a current learned through countless swims.\t⟦Hé cátchés á cúrréñt léárñéd thróúgh cóúñtléss swíms.áéíóúüñ¿¡áéíóúüñ¿¡áé⟧,ending.rare.raft.current-reader.hint\t같은 물길을 오래 오가면 바다가 말한다.\tThe sea speaks when you travel the same water long enough.\t⟦Thé séá spéáks whéñ yóú trávél thé sámé wátér lóñg éñóúgh.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧",
+            "reproduction": "Parse the canonical localization TSV and inspect all three locale columns.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "W20-E05.raft_ending_album_data_lock",
+            "matrix": "ending and album data",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A deterministic early escape.raft snapshot resolves the raft ending and its album unlock is idempotent/persistent",
+            "actual": "ending=ending.escape.raft.open-water; first=True; duplicate=False; restoredCount=1",
+            "reproduction": "Resolve an early raft snapshot, unlock twice, serialize, and restore a transient album.",
+            "recommendedFiles": "runtime ending resolver/album data owners selected by stable IDs"
+        }
+    ]
+}

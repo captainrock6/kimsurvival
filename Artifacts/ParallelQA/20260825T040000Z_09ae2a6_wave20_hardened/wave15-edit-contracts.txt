@@ -1,0 +1,18 @@
+Wave 15 campaign/map RED-first Edit contracts
+Run ID: 20260825T040000Z_09ae2a6_wave20_hardened
+Baseline: 09ae2a6d578eb4dcbf11b9c571f57f640b88d969
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: GREEN/PASS/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED: 12/0/0/0/0
+W15-I01.exact_baseline | PASS | NONE | baseline=09ae2a6d578eb4dcbf11b9c571f57f640b88d969
+W15-I02.canonical_sources | PASS | NONE | files=4; tokens=Day 50,feature.expedition-map,system.region-loot-rng,task.qa.wave15-campaign-map-redfirst,softlock
+W15-D01.day_1_of_50 | PASS | NONE | D1/50/Camp/None
+W15-D02.day49_continues | PASS | NONE | settled=True; D50/Camp/None
+W15-D03.day50_terminal | PASS | NONE | settled=True; D50/Result/Deadline
+W15-D04.early_escape_priority | PASS | NONE | FinalDay=50; workbench=True; rope=True/True; signal=True/True; result=Rescued; phase=Result
+W15-M01.three_region_forecast_catalog | PASS | NONE | catalogEntries=15; regions=beach,forest,shallow-sea; failures=none
+W15-R01.same_seed_reproducible | PASS | NONE | PrototypeRegionLootRng.Generate same=True different=True bounds=True/True [explicit-within-bounds=true;explicit-within-bounds=true]; PrototypeRegionLootRng.ResolveProfile same=True different=False bounds=False/False [actual/min/max=-1/-1/-1;actual/min/max=-1/-1/-1]; same=True; different=True; routes>=3=True
+W15-R02.different_seed_bounded_variation | PASS | NONE | PrototypeRegionLootRng.Generate same=True different=True bounds=True/True [explicit-within-bounds=true;explicit-within-bounds=true]; PrototypeRegionLootRng.ResolveProfile same=True different=False bounds=False/False [actual/min/max=-1/-1/-1;actual/min/max=-1/-1/-1]; same=True; different=True; routes>=3=True
+W15-R03.softlock_protection | PASS | NONE | PrototypeRegionLootRng.Generate same=True different=True bounds=True/True [explicit-within-bounds=true;explicit-within-bounds=true]; PrototypeRegionLootRng.ResolveProfile same=True different=False bounds=False/False [actual/min/max=-1/-1/-1;actual/min/max=-1/-1/-1]; same=True; different=True; routes>=3=True
+W15-L01.ko_en_qps_map_keys | PASS | NONE | rows=376; mapRows=47; qpsExpanded=47; failures=none
+W15-O01.seed_region_privacy_log | PASS | NONE | seedField=True; regionField=True; prohibitedPiiField=False
