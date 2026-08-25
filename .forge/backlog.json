@@ -3003,6 +3003,49 @@
       "status": "done"
     },
     {
+      "id": "task.design.gamejam-completion-matrix",
+      "lane": "design",
+      "title": "GAME JAM 제출 완료 기준 감사",
+      "description": "통합 GDD, Forge 수직 슬라이스와 현재 통합 probe를 요구사항별로 대조하여 DONE/PARTIAL/MISSING/HUMAN_REQUIRED를 분리하고, 기존 task를 중복 생성하지 않는 3개 red-first 구현 wave 순서를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.gamejam-seven-region-search-node-contract"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.survival-hazards",
+        "feature.inventory-capacity-upgrade",
+        "feature.camp-module-expansion",
+        "feature.raft-escape",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.ending-gallery",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "통합 GDD와 vertical slice의 제출 요구를 23개 stable requirement ID로 분해하고 네 상태 외 값을 사용하지 않는다.",
+        "7지역, live 수색 node, 유한 자원·재방문, 장벽·위험, 질병, 가방 4→6, 위층·지하, raft/smoke/radio, 30분 profile, KO/EN, gamepad와 ending comic을 모두 판정한다.",
+        "20260825T160510Z 통합 증거의 GSN 0/15 실패, Wave 19 20/21, Wave 20 product 16/16, Wave 16 panels=0을 현재 판정에 반영한다.",
+        "다음 구현은 live 수색 골격, 7지역 지속 world, 보호 부품·3탈출·30분 ending 통합 순이며 기존 task ID를 재사용한다.",
+        "인간 6세션과 물리 gamepad는 UNRUN/UNVERIFIED를 유지하고 자동화 GREEN 뒤에만 실행한다."
+      ],
+      "paths": [
+        "Docs/Design/gamejam-completion-matrix.md",
+        ".forge/design/project.json",
+        ".forge/packets/gamejam-completion-matrix-design.json"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-completion-matrix.md",
+        ".forge/packets/gamejam-completion-matrix-design.json",
+        "Artifacts/ParallelQA/20260825T160510Z_gamejam_search_node_integrated/gamejam-search-node-summary.json"
+      ],
+      "blockedReason": "",
+      "status": "done"
+    },
+    {
       "id": "task.art.background.island-camp",
       "lane": "art",
       "title": "무인도 베이스캠프 배경 제작",
@@ -4326,5 +4369,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-25T15:15:52.430Z"
+  "updatedAt": "2026-08-25T16:20:58.144Z"
 }
