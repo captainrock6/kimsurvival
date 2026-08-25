@@ -621,16 +621,17 @@ namespace ParallelQA
                 Vector2 position = ReadVector2(launch, "Position");
                 object kind = GetMember(launch, "Kind");
                 object campUse = GetField(prototype, "campUse");
+                PrototypeCampUse typedCampUse = campUse as PrototypeCampUse;
                 object interaction = GetField(prototype, "campInteraction");
                 GameObject prompt = GetField(prototype, "campProximityPrompt") as GameObject;
                 GameObject popup = GetField(prototype, "campInteractionPopup") as GameObject;
-                Require(campUse != null && interaction != null && prompt != null && popup != null, "camp interaction runtime objects missing");
+                Require(typedCampUse != null && interaction != null && prompt != null && popup != null, "camp interaction runtime objects missing");
 
-                InvokePublic(campUse, "Warp", new Vector2(-100f, position.y));
+                typedCampUse.Warp(new Vector2(-100f, position.y));
                 InvokePrivate(prototype, "RefreshAll");
                 evidence.farPromptCount = prompt.activeSelf ? 1 : 0;
 
-                InvokePublic(campUse, "Warp", position + Vector2.left * 0.35f);
+                typedCampUse.Warp(position + Vector2.left * 0.35f);
                 InvokePrivate(prototype, "RefreshAll");
                 string activeId = ReadString(interaction, "ActiveTargetId");
                 evidence.nearPromptCount = prompt.activeSelf && activeId == LaunchId ? 1 : 0;
@@ -656,7 +657,7 @@ namespace ParallelQA
                 {
                     string locale = locales[index];
                     SetLocale(localization, locale);
-                    InvokePublic(campUse, "Warp", position + Vector2.left * 0.35f);
+                    typedCampUse.Warp(position + Vector2.left * 0.35f);
                     InvokePrivate(prototype, "RefreshAll");
                     string nearFile = "wave20-raft-near-" + locale + "-1280x800.png";
                     prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, nearFile), 1280, 800);
