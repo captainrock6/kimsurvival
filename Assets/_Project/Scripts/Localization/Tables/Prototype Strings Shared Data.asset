@@ -1523,6 +1523,14 @@ MonoBehaviour:
     m_Key: ending.album.back
     m_Metadata:
       m_Items: []
+  - m_Id: 1106045870260224
+    m_Key: interaction.action.expedition_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1106045933174784
+    m_Key: expedition.map.depart.completed
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

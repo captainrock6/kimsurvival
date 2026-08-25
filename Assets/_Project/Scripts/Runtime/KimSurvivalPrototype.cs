@@ -33,28 +33,15 @@ namespace KimSurvival
         private const float CampBackgroundGroundNormalizedY = (CampCanvasHeightPixels - CampWalkableBaselineTopPixels) / CampCanvasHeightPixels;
         private const float CampSignalAnchorNormalizedX = 0.86f;
         private const float CampSignalAnchorNormalizedY = (CampCanvasHeightPixels - CampSignalAnchorTopPixels) / CampCanvasHeightPixels;
-        private const float CampSignalLabelX = 5.1f;
-        private const float PlacementZoneBadgeY = -0.25f;
-        private const float PlacementZoneBadgeLeftX = 1.25f;
-        private const float PlacementZoneBadgeMinimumWidth = 4.8f;
-        private const float PlacementZoneBadgeMaximumWidth = 6.8f;
-        private const float PlacementZoneBadgeMinimumHeight = 1.65f;
-        private const float PlacementZoneBadgeMaximumHeight = 1.8f;
-        private const float SignalAnchorBadgeWidth = 5.2f;
-        private const float SignalAnchorBadgeHeight = 1.85f;
-        private const float SignalAnchorBadgeQpsTextScale = 0.072f;
-        private const float PlacementGhostBadgeMinimumWidth = 5.2f;
-        private const float PlacementGhostBadgeHeight = 1.85f;
-        private const float PlacementGhostBadgeVerticalOffset = 1.75f;
         private const float ResourceLabelWidth = 4.35f;
         private const float ResourceLabelHeight = 1.55f;
         private const float ResourceLabelViewportPadding = 0.22f;
         private const float ResourceLabelSafeViewportRight = 0.74f;
         private const float MinimumSupportedAspect = 1.6f;
-        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.58f);
-        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.635f);
-        private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.56f);
-        private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.64f);
+        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.595f);
+        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.665f);
+        private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.59f);
+        private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.67f);
         private static readonly Vector2 CampPopupDefaultAnchorMin = new Vector2(0.56f, 0.2f);
         private static readonly Vector2 CampPopupDefaultAnchorMax = new Vector2(0.96f, 0.82f);
         private static readonly Vector2 CampPopupModuleSlotAnchorMin = new Vector2(0.62f, 0.36f);
@@ -415,9 +402,9 @@ namespace KimSurvival
             ConfigureTopHudText(resourceText);
             ConfigureLayout(resourceText.gameObject, 1f, 1f, 0f, 68f);
 
-            RectTransform message = CreatePanel("김씨 독백 · 배치 상태 · " + AssetComedy, canvas.transform, new Vector2(0.18f, 0.65f), new Vector2(0.82f, 0.82f), Vector2.zero, Vector2.zero, new Color(0.07f, 0.08f, 0.07f, 0.88f));
+            RectTransform message = CreatePanel("김씨 독백 · 배치 상태 · " + AssetComedy, canvas.transform, new Vector2(0.25f, 0.68f), new Vector2(0.75f, 0.8f), Vector2.zero, Vector2.zero, new Color(0.07f, 0.08f, 0.07f, 0.84f));
             messagePanelImage = message.GetComponent<Image>();
-            messageText = CreateText("김씨 독백 또는 배치 상태", message, Vector2.zero, Vector2.one, new Vector2(26f, 10f), new Vector2(-26f, -10f), 29, TextAnchor.MiddleCenter, Color.white);
+            messageText = CreateText("김씨 독백 또는 배치 상태", message, Vector2.zero, Vector2.one, new Vector2(22f, 6f), new Vector2(-22f, -6f), 27, TextAnchor.MiddleCenter, Color.white);
 
             RectTransform controlPanel = CreatePanel("조작 안내", canvas.transform, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 20f), new Vector2(-32f, 165f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
             HorizontalLayoutGroup controlLayout = controlPanel.gameObject.AddComponent<HorizontalLayoutGroup>();
@@ -977,15 +964,18 @@ namespace KimSurvival
                 : session.LastMessage;
             messageText.text = localization.Format(activeMessage);
             string device = localization.DeviceName(playerInput.ActiveDevice);
-            messageText.fontSize = activeMessage.Key.StartsWith("message.signal", StringComparison.Ordinal)
-                ? 48f
-                : activeMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 40f : 29f;
+            float messageFontSize = activeMessage.Key.StartsWith("message.signal", StringComparison.Ordinal)
+                ? 30f
+                : activeMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 30f : 27f;
+            messageText.fontSize = messageFontSize;
             messageText.fontStyle = FontStyles.Normal;
-            messageText.enableAutoSizing = false;
+            messageText.enableAutoSizing = true;
+            messageText.fontSizeMin = 22f;
+            messageText.fontSizeMax = messageFontSize;
             messageText.textWrappingMode = TextWrappingModes.Normal;
             messageText.overflowMode = TextOverflowModes.Overflow;
-            messageText.maxVisibleLines = 0;
-            messagePanelImage.color = new Color(0.07f, 0.08f, 0.07f, 0.88f);
+            messageText.maxVisibleLines = 2;
+            messagePanelImage.color = new Color(0.07f, 0.08f, 0.07f, 0.84f);
 
             if (session.Phase == GamePhase.Camp)
             {
@@ -1028,7 +1018,11 @@ namespace KimSurvival
             bool valid = campPlacement.CurrentValidity == CampPlacementValidity.Valid;
             string state = localization.Format(valid ? "placement.state.valid" : "placement.state.invalid");
             messageText.text = localization.Format("placement.summary", state, localization.Format(campPlacement.CurrentFeedback));
-            messageText.fontSize = 36f;
+            messageText.fontSize = 32f;
+            messageText.enableAutoSizing = true;
+            messageText.fontSizeMin = 26f;
+            messageText.fontSizeMax = 32f;
+            messageText.maxVisibleLines = 2;
             messageText.fontStyle = FontStyles.Bold;
             messagePanelImage.color = valid
                 ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
@@ -1039,9 +1033,9 @@ namespace KimSurvival
         private void UpdateCampButtons()
         {
             bool available = campInteraction.IsPopupOpen && !campPlacement.IsActive;
-            SetButton(campfireButton, localization.Format(session.HasStructure(StructureKind.Campfire) ? "button.campfire.relocate" : "button.campfire.build"), available && (session.HasStructure(StructureKind.Campfire) || session.CanBuild(StructureKind.Campfire)));
-            SetButton(workbenchButton, localization.Format(session.HasStructure(StructureKind.Workbench) ? "button.workbench.relocate" : "button.workbench.build"), available && (session.HasStructure(StructureKind.Workbench) || session.CanBuild(StructureKind.Workbench)));
-            SetButton(rainButton, localization.Format(session.HasStructure(StructureKind.RainCollector) ? "button.rain.relocate" : "button.rain.build"), available && (session.HasStructure(StructureKind.RainCollector) || session.CanBuild(StructureKind.RainCollector)));
+            SetButton(campfireButton, localization.Format(session.HasStructure(StructureKind.Campfire) ? "button.campfire.relocate" : "button.campfire.build"), available);
+            SetButton(workbenchButton, localization.Format(session.HasStructure(StructureKind.Workbench) ? "button.workbench.relocate" : "button.workbench.build"), available);
+            SetButton(rainButton, localization.Format(session.HasStructure(StructureKind.RainCollector) ? "button.rain.relocate" : "button.rain.build"), available);
             SetButton(researchAxeButton, localization.Format(session.HasResearched(TechKind.StoneAxe) ? "button.research.axe.done" : "button.research.axe"), available && session.CanResearch(TechKind.StoneAxe));
             SetButton(craftAxeButton, localization.Format(session.HasAxe ? "button.craft.axe.done" : "button.craft.axe"), available && session.CanCraft(TechKind.StoneAxe));
             SetButton(researchRopeButton, localization.Format(session.HasResearched(TechKind.Rope) ? "button.research.rope.done" : "button.research.rope"), available && session.CanResearch(TechKind.Rope));
@@ -1175,15 +1169,23 @@ namespace KimSurvival
             string targetId)
         {
             string targetName = FormatCampInteractionTarget(target, targetId);
+            string actionKey = target == PrototypeCampInteractionTargetKind.ExpeditionMap && session.ExpeditionCompleted
+                ? "interaction.action.expedition_done"
+                : target == PrototypeCampInteractionTargetKind.ModuleExpansionSlot
+                    ? "interaction.action.preview"
+                    : target == PrototypeCampInteractionTargetKind.EndingAlbum
+                        ? "interaction.action.open"
+                        : "interaction.action.use";
+            if (target == PrototypeCampInteractionTargetKind.ExpeditionMap && session.ExpeditionCompleted)
+            {
+                return localization.Format(actionKey);
+            }
+
             return localization.Format(
                 "interaction.structure.prompt",
                 string.Empty,
                 targetName,
-                localization.Format(target == PrototypeCampInteractionTargetKind.ModuleExpansionSlot
-                    ? "interaction.action.preview"
-                    : target == PrototypeCampInteractionTargetKind.EndingAlbum
-                        ? "interaction.action.open"
-                    : "interaction.action.use")).Trim();
+                localization.Format(actionKey)).Trim();
         }
 
         private string FormatCampInteractionTarget(PrototypeCampInteractionTargetKind target, string targetId = "")
@@ -1439,19 +1441,10 @@ namespace KimSurvival
                 float zoneMaximumX = openSky ? activeZone.OpenSkyMaximumX : activeZone.BuildMaximumX;
                 float buildWidth = zoneMaximumX - zoneMinimumX;
                 float buildCenter = (zoneMinimumX + zoneMaximumX) * 0.5f;
-                Color zoneColor = openSky ? new Color(0.2f, 0.7f, 0.92f, 0.82f) : new Color(0.16f, 0.72f, 0.38f, 0.78f);
-                CreateRect(openSky ? "camp.open-sky-ground" : "camp.general-ground", new Vector2(buildCenter, PrototypeCampPlacement.FloorY + 0.08f), new Vector2(buildWidth, 0.16f), zoneColor, -5);
-                CreateRect("건설 구역 왼쪽 경계", new Vector2(zoneMinimumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), zoneColor, -3);
-                CreateRect("건설 구역 오른쪽 경계", new Vector2(zoneMaximumX, PrototypeCampPlacement.FloorY + 0.48f), new Vector2(0.1f, 1.02f), zoneColor, -3);
-                string zoneBadgeText = localization.Format(openSky ? "world.open_sky_ground" : "world.general_ground");
-                Vector2 zoneBadgeSize = GetPlacementZoneBadgeSize(zoneBadgeText);
-                CreateWorldBadge(
-                    "호환 건설 구역 안내",
-                    zoneBadgeText,
-                    new Vector2(PlacementZoneBadgeLeftX + zoneBadgeSize.x * 0.5f, PlacementZoneBadgeY),
-                    zoneBadgeSize,
-                    openSky ? new Color(0.03f, 0.25f, 0.38f, 0.88f) : new Color(0.04f, 0.25f, 0.13f, 0.88f),
-                    Color.white);
+                Color zoneColor = openSky ? new Color(0.2f, 0.78f, 0.96f, 0.62f) : new Color(0.22f, 0.88f, 0.46f, 0.58f);
+                CreateRect(openSky ? "camp.open-sky-ground" : "camp.general-ground", new Vector2(buildCenter, PrototypeCampPlacement.FloorY + 0.07f), new Vector2(buildWidth, 0.07f), zoneColor, 2);
+                CreateRect("건설 구역 왼쪽 경계", new Vector2(zoneMinimumX, PrototypeCampPlacement.FloorY + 0.17f), new Vector2(0.06f, 0.34f), zoneColor, 2);
+                CreateRect("건설 구역 오른쪽 경계", new Vector2(zoneMaximumX, PrototypeCampPlacement.FloorY + 0.17f), new Vector2(0.06f, 0.34f), zoneColor, 2);
                 CreateReservedCampStrip("world.entrance", activeZone.EntranceMinimumX, activeZone.EntranceMaximumX, new Color(0.95f, 0.38f, 0.18f, 0.72f));
                 CreateReservedCampStrip("world.required_path", activeZone.RequiredPathMinimumX, activeZone.RequiredPathMaximumX, new Color(1f, 0.72f, 0.16f, 0.72f));
             }
@@ -1486,19 +1479,6 @@ namespace KimSurvival
                 if (campPlacement.IsActive)
                 {
                     CreateFootprintOutline(worldRoot, new Vector2(2.25f, 0.35f), new Color(1f, 0.88f, 0.38f, 0.95f), null, signalAnchor);
-                    bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
-                    CreateWorldBadge(
-                        worldRoot,
-                        "구조 신호대 전용 앵커 안내",
-                        localization.Format("world.signal_anchor", session.SignalStage),
-                        new Vector2(CampSignalLabelX, signalAnchor.y - 0.78f),
-                        new Vector2(SignalAnchorBadgeWidth, SignalAnchorBadgeHeight),
-                        new Color(0.16f, 0.17f, 0.18f, 0.96f),
-                        new Color(1f, 0.88f, 0.38f),
-                        out _,
-                        pseudoLong ? SignalAnchorBadgeQpsTextScale : 0.084f,
-                        pseudoLong ? 26f : 30f,
-                        pseudoLong ? 29f : 32f);
                 }
             }
 
@@ -1562,6 +1542,8 @@ namespace KimSurvival
             bool relocating = session.HasStructure(kind);
             if (!relocating && !session.CanBuild(kind))
             {
+                campFeedback = new PrototypeLocalizedText("message.build.materials");
+                RefreshAll();
                 return;
             }
 
@@ -1580,22 +1562,11 @@ namespace KimSurvival
         {
             GameObject root = new GameObject("현장형 창고·증축 계획 지점 placeholder");
             root.transform.SetParent(worldRoot, false);
-            root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.42f, 0f);
-            CreateRect(root.transform, "placeholder crate", Vector2.zero, new Vector2(0.82f, 0.72f), new Color(0.32f, 0.22f, 0.12f, 0.96f), 3);
-            CreateFootprintOutline(root.transform, new Vector2(1.05f, 0.28f), new Color(1f, 0.82f, 0.35f, 0.92f), null, new Vector2(0f, -0.34f));
-            bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
-            CreateWorldBadge(
-                root.transform,
-                "증축 계획 지점 안내",
-                localization.Format("world.module.planning"),
-                new Vector2(0f, 1.08f),
-                pseudoLong ? new Vector2(3.35f, 1.1f) : new Vector2(3.7f, 1.35f),
-                new Color(0.1f, 0.12f, 0.13f, 0.95f),
-                new Color(1f, 0.87f, 0.4f),
-                out _,
-                pseudoLong ? 0.068f : 0.084f,
-                pseudoLong ? 27f : 30f,
-                pseudoLong ? 29f : 32f);
+            root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.34f, 0f);
+            CreateRect(root.transform, "placeholder crate", Vector2.zero, new Vector2(0.58f, 0.5f), new Color(0.32f, 0.22f, 0.12f, 0.82f), 3);
+            CreateFootprintOutline(root.transform, new Vector2(0.76f, 0.16f), new Color(1f, 0.82f, 0.35f, 0.52f), null, new Vector2(0f, -0.25f));
+            GameObject planningMark = CreateRect(root.transform, "계획 표식", new Vector2(0f, 0.08f), new Vector2(0.18f, 0.18f), new Color(1f, 0.82f, 0.35f, 0.72f), 4);
+            planningMark.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
         }
 
         private string FormatEscapeProjectButton(string escapeId)
@@ -1623,19 +1594,6 @@ namespace KimSurvival
             CreateRect(root.transform, "지도 게시판 기둥", new Vector2(0f, -0.32f), new Vector2(0.16f, 1.2f), new Color(0.28f, 0.18f, 0.1f, 0.98f), 3);
             CreateRect(root.transform, "지도 게시판", new Vector2(0f, 0.35f), new Vector2(1.45f, 0.92f), new Color(0.9f, 0.78f, 0.46f, 0.98f), 4);
             CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), new Color(0.94f, 0.77f, 0.28f, 0.92f), null, new Vector2(0f, -0.62f));
-            bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
-            CreateWorldBadge(
-                root.transform,
-                "지도·출구 안내",
-                localization.Format("world.expedition_map"),
-                new Vector2(0f, 1.42f),
-                pseudoLong ? new Vector2(4.5f, 1.25f) : new Vector2(3.5f, 1.2f),
-                new Color(0.03f, 0.11f, 0.12f, 0.96f),
-                new Color(1f, 0.9f, 0.52f),
-                out _,
-                pseudoLong ? 0.068f : 0.084f,
-                pseudoLong ? 24f : 28f,
-                pseudoLong ? 28f : 31f);
         }
 
         private void CreateEndingAlbumMarker()
@@ -1667,10 +1625,12 @@ namespace KimSurvival
         {
             GameObject root = new GameObject(escapeId == "escape.smoke" ? "Camp Signal Stack Placeholder" : "Camp Radio Bench Placeholder");
             root.transform.SetParent(worldRoot, false);
-            root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.62f, 0f);
-            CreateRect(root.transform, "engine-native body", Vector2.zero, new Vector2(0.82f, 1.15f), bodyColor, 4);
-            CreateRect(root.transform, "engine-native signal", new Vector2(0f, 0.72f), new Vector2(0.48f, 0.18f), signalColor, 5);
-            CreateFootprintOutline(root.transform, new Vector2(1.1f, 0.28f), signalColor, null, new Vector2(0f, -0.62f));
+            bodyColor.a = Mathf.Min(bodyColor.a, 0.7f);
+            signalColor.a = Mathf.Min(signalColor.a, 0.62f);
+            root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.39f, 0f);
+            CreateRect(root.transform, "engine-native body", Vector2.zero, new Vector2(0.48f, 0.68f), bodyColor, 4);
+            CreateRect(root.transform, "engine-native signal", new Vector2(0f, 0.42f), new Vector2(0.3f, 0.1f), signalColor, 5);
+            CreateFootprintOutline(root.transform, new Vector2(0.66f, 0.16f), signalColor, null, new Vector2(0f, -0.36f));
         }
 
         private void CreateStartRoomModuleSlots()
@@ -1687,18 +1647,18 @@ namespace KimSurvival
                 GameObject root = new GameObject("연결 슬롯 placeholder · " + definition.StartSlotId);
                 root.transform.SetParent(worldRoot, false);
                 root.transform.position = new Vector3(definition.StartConnectorDisplayX, PrototypeCampPlacement.FloorY + 0.44f, 0f);
-                Color outline = new Color(1f, 0.83f, 0.28f, 0.96f);
+                Color outline = new Color(1f, 0.83f, 0.28f, 0.42f);
                 if (definition.Archetype == CampModuleArchetype.Side)
                 {
-                    CreateFootprintOutline(root.transform, new Vector2(0.72f, 1.26f), outline, null, Vector2.zero);
-                    CreateModuleSlotChevron(root.transform, new Vector2(0.62f, 0f), 0f, outline);
+                    CreateFootprintOutline(root.transform, new Vector2(0.42f, 0.78f), outline, null, Vector2.zero);
+                    CreateModuleSlotChevron(root.transform, new Vector2(0.38f, 0f), 0f, outline);
                 }
                 else
                 {
-                    CreateRect(root.transform, "연결 슬롯 hatch", Vector2.zero, new Vector2(1.12f, 0.18f), outline, 5);
+                    CreateRect(root.transform, "연결 슬롯 hatch", Vector2.zero, new Vector2(0.72f, 0.1f), outline, 5);
                     CreateModuleSlotChevron(
                         root.transform,
-                        new Vector2(0f, definition.Archetype == CampModuleArchetype.Upper ? 0.52f : -0.5f),
+                        new Vector2(0f, definition.Archetype == CampModuleArchetype.Upper ? 0.3f : -0.3f),
                         definition.Archetype == CampModuleArchetype.Upper ? 90f : -90f,
                         outline);
                 }
@@ -1707,8 +1667,8 @@ namespace KimSurvival
 
         private void CreateModuleSlotChevron(Transform parent, Vector2 position, float rotation, Color color)
         {
-            GameObject first = CreateRect(parent, "연결 슬롯 chevron A", position + new Vector2(-0.14f, 0.12f), new Vector2(0.1f, 0.42f), color, 6);
-            GameObject second = CreateRect(parent, "연결 슬롯 chevron B", position + new Vector2(-0.14f, -0.12f), new Vector2(0.1f, 0.42f), color, 6);
+            GameObject first = CreateRect(parent, "연결 슬롯 chevron A", position + new Vector2(-0.08f, 0.07f), new Vector2(0.06f, 0.24f), color, 6);
+            GameObject second = CreateRect(parent, "연결 슬롯 chevron B", position + new Vector2(-0.08f, -0.07f), new Vector2(0.06f, 0.24f), color, 6);
             first.transform.localRotation = Quaternion.Euler(0f, 0f, rotation - 45f);
             second.transform.localRotation = Quaternion.Euler(0f, 0f, rotation + 45f);
         }
@@ -2029,6 +1989,18 @@ namespace KimSurvival
                 return true;
             }
 
+            if (campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ExpeditionMap &&
+                session.ExpeditionCompleted)
+            {
+                campFeedback = new PrototypeLocalizedText("message.search.finished");
+                if (playtestLog != null)
+                {
+                    playtestLog.ObserveState("expedition.map.blocked.already_completed");
+                }
+                RefreshAll();
+                return false;
+            }
+
             if (!campInteraction.TryOpenPopup())
             {
                 return false;
@@ -2188,7 +2160,13 @@ namespace KimSurvival
                 : session.BeginSearch(region);
             if (!began)
             {
-                campInteraction.PrepareOpenPopupForReturn();
+                campFeedback = session.LastMessage;
+                expeditionMapSelection.Close();
+                campInteraction.ClosePopup();
+                if (playtestLog != null)
+                {
+                    playtestLog.RecordPopupClosed(kind, targetId, "expedition_rejected");
+                }
                 RefreshAll();
                 return;
             }
@@ -2252,10 +2230,14 @@ namespace KimSurvival
             expeditionMapSpecialText.text = localization.Format(
                 "expedition.map.rail.special",
                 localization.Format(focused.SpecialDiscoveryKey));
+            bool canDepartToday = session.Phase == GamePhase.Camp && !session.ExpeditionCompleted &&
+                                  session.Result == RunResult.None && expeditionMapSelection.CanDepartFocusedRegion();
             SetButton(
                 expeditionMapConfirmButton,
-                localization.Format("expedition.map.depart", localization.Format(focused.NameKey)),
-                expeditionMapSelection.CanDepartFocusedRegion());
+                session.ExpeditionCompleted
+                    ? localization.Format("expedition.map.depart.completed")
+                    : localization.Format("expedition.map.depart", localization.Format(focused.NameKey)),
+                canDepartToday);
             SetButton(expeditionMapCancelButton, localization.Format("expedition.map.cancel.short"), true);
         }
 
@@ -3948,7 +3930,24 @@ namespace KimSurvival
             Require(languageButton.GetComponentInChildren<TMP_Text>().text == localization.Format("ui.language.switch.en"), "수색 중 언어 설정 문구 유지");
 
             Require(session.ReturnToCamp(false), "캠프 귀환");
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             RefreshAll();
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ExpeditionMap));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ExpeditionMap &&
+                    campProximityText.text.Contains(localization.Format("interaction.action.expedition_done")),
+                "당일 수집 완료 뒤 지도 근접 안내는 재출발 대신 완료 안내를 표시");
+            Require(!TryOpenCampPopup() && !expeditionMapPanel.activeSelf &&
+                    campFeedback.Key == "message.search.finished" &&
+                    messageText.text == localization.Format("message.search.finished"),
+                "당일 수집 완료 뒤 지도를 다시 사용하면 팝업을 열지 않고 명시적 안내 표시");
+            if (!string.IsNullOrWhiteSpace(campProximityScreenshotFolder))
+            {
+                CaptureVerificationPng(
+                    Path.Combine(campProximityScreenshotFolder, "kim-survival-hotfix-expedition-complete-notice-ko-1280x800.png"),
+                    1280,
+                    800);
+            }
             phaseButton.onClick.Invoke();
             Require(session.Day == 2, "하루 정산 UI 경로");
             campUse.Warp(GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY));
@@ -4664,7 +4663,7 @@ namespace KimSurvival
             messageText.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
             Require(signalLabel.fontSize >= 23f && !signalLabel.isTextOverflowing, "1280x800 신호대 단계·요구조건 라벨 잘림 없음");
-            Require(messageText.fontSize >= 29f && !messageText.isTextOverflowing, "1280x800 신호대 부족 사유 잘림 없음");
+            Require(messageText.fontSizeMin >= 22f && !messageText.isTextOverflowing, "1280x800 축소 독백 카드의 신호대 부족 사유 잘림 없음");
         }
 
         private void RequireReadablePlacementUi()
@@ -4673,9 +4672,12 @@ namespace KimSurvival
             controlsText.ForceMeshUpdate(true, true);
             placementGhostLabel.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
-            Require(messageText.fontSize >= 36f && !messageText.isTextOverflowing, "1280x800 배치 상태 카드 18px 대응·잘림 없음");
+            Require(messageText.fontSizeMin >= 26f && !messageText.isTextOverflowing, "1280x800 배치 상태 카드 18px 대응·잘림 없음");
             Require(!controlsText.isTextOverflowing, "1280x800 현재 장치 조작 안내 잘림 없음");
-            Require(placementGhostLabel.fontSizeMin >= 30f && placementGhostBadgeRenderer != null && placementGhostOutlineRenderers.Count == 4, "배치 유령 아트·16px 상태 배지·발자국 표현");
+            Require(placementGhostLabel.fontSizeMin >= 30f && placementGhostBadgeRenderer != null &&
+                    placementGhostBadgeRenderer.bounds.size.x <= 0.83f && placementGhostBadgeRenderer.bounds.size.y <= 0.83f &&
+                    placementGhostOutlineRenderers.Count == 4,
+                "배치 유령은 상단 상태 카드와 작은 ✓/×만 사용하고 발자국 윤곽을 유지");
         }
 
         private void RequireQpsGlobalPlacementLayout()
@@ -4683,21 +4685,11 @@ namespace KimSurvival
             TMP_Text languageLabel = languageButton.GetComponentInChildren<TMP_Text>();
             Transform zoneBadge = worldRoot.Find("호환 건설 구역 안내");
             Transform signalBadge = worldRoot.Find("구조 신호대 전용 앵커 안내");
-            TMP_Text zoneLabel = zoneBadge != null ? zoneBadge.GetComponentInChildren<TMP_Text>() : null;
-            TMP_Text signalLabel = signalBadge != null ? signalBadge.GetComponentInChildren<TMP_Text>() : null;
 
             statusText.ForceMeshUpdate(true, true);
             resourceText.ForceMeshUpdate(true, true);
             languageLabel.ForceMeshUpdate(true, true);
             placementGhostLabel.ForceMeshUpdate(true, true);
-            if (zoneLabel != null)
-            {
-                zoneLabel.ForceMeshUpdate(true, true);
-            }
-            if (signalLabel != null)
-            {
-                signalLabel.ForceMeshUpdate(true, true);
-            }
             Canvas.ForceUpdateCanvases();
 
             Require(statusText.fontSizeMin >= 28f && resourceText.fontSizeMin >= 28f &&
@@ -4706,20 +4698,11 @@ namespace KimSurvival
             Require(languageLabel.enableAutoSizing && languageLabel.fontSizeMin >= 30f &&
                     languageLabel.maxVisibleLines == 1 && !languageLabel.isTextOverflowing,
                 "qps-long 언어 전환은 우측 안전 여백 안의 1줄 자동 맞춤 사용");
-            Require(zoneBadge != null && zoneLabel != null && signalBadge != null && signalLabel != null &&
-                    zoneBadge.localPosition.y >= PlacementZoneBadgeY - 0.01f &&
-                    zoneBadge.localPosition.x >= PlacementZoneBadgeLeftX + PlacementZoneBadgeMaximumWidth * 0.5f - 0.01f,
-                "qps-long 건설 구역 배지는 플레이어·필수 보행선 위의 전역 안전 위치 사용");
-            Require(!placementGhostLabel.isTextOverflowing && !zoneLabel.isTextOverflowing && !signalLabel.isTextOverflowing,
-                "qps-long 배치 판정·건설 구역·신호 앵커 월드 배지 overflow=0");
-
-            MeshRenderer ghostRenderer = placementGhostLabel.GetComponent<MeshRenderer>();
-            MeshRenderer zoneRenderer = zoneLabel.GetComponent<MeshRenderer>();
-            MeshRenderer signalRenderer = signalLabel.GetComponent<MeshRenderer>();
-            Require(ghostRenderer != null && zoneRenderer != null && signalRenderer != null &&
-                    !ghostRenderer.bounds.Intersects(zoneRenderer.bounds) &&
-                    !zoneRenderer.bounds.Intersects(signalRenderer.bounds),
-                "qps-long 배치 판정·건설 구역·신호 앵커 텍스트 중첩=0");
+            Require(zoneBadge == null && signalBadge == null,
+                "건설 구역·신호 앵커의 대형 월드 텍스트 배지를 제거하고 상단 상태 카드로 일원화");
+            Require(!placementGhostLabel.isTextOverflowing &&
+                    (placementGhostLabel.text == "✓" || placementGhostLabel.text == "×"),
+                "qps-long 배치 월드 표시는 작은 언어 비의존 ✓/×만 사용");
         }
 
         private void RequireCampBackgroundAlignment()
@@ -4964,18 +4947,10 @@ namespace KimSurvival
         {
             float width = maximumX - minimumX;
             float center = (minimumX + maximumX) * 0.5f;
-            CreateRect(localizationKey, new Vector2(center, -2.62f), new Vector2(width, 0.62f), color, -2);
-            CreateRect(localizationKey + " 왼쪽 경계", new Vector2(minimumX, -2.36f), new Vector2(0.08f, 1.08f), color, -1);
-            CreateRect(localizationKey + " 오른쪽 경계", new Vector2(maximumX, -2.36f), new Vector2(0.08f, 1.08f), color, -1);
-            Color badgeColor = localizationKey == "world.entrance"
-                ? new Color(0.46f, 0.09f, 0.05f, 0.96f)
-                : new Color(0.43f, 0.25f, 0.03f, 0.96f);
-            bool entrance = localizationKey == "world.entrance";
-            float badgeCenter = entrance ? -3.4f : -1.1f;
-            float badgeY = entrance ? -2.8f : -3.15f;
-            float badgeWidth = entrance ? 3.2f : 2.8f;
-            float badgeHeight = entrance ? 2.5f : 1.65f;
-            CreateWorldBadge(localizationKey + " 안내", localization.Format(localizationKey), new Vector2(badgeCenter, badgeY), new Vector2(badgeWidth, badgeHeight), badgeColor, Color.white);
+            Color subtle = new Color(color.r, color.g, color.b, 0.46f);
+            CreateRect(localizationKey, new Vector2(center, PrototypeCampPlacement.FloorY + 0.11f), new Vector2(width, 0.08f), subtle, 3);
+            CreateRect(localizationKey + " 왼쪽 경계", new Vector2(minimumX, PrototypeCampPlacement.FloorY + 0.19f), new Vector2(0.05f, 0.28f), subtle, 3);
+            CreateRect(localizationKey + " 오른쪽 경계", new Vector2(maximumX, PrototypeCampPlacement.FloorY + 0.19f), new Vector2(0.05f, 0.28f), subtle, 3);
         }
 
         private void CreatePlacedStructure(StructureKind kind, Color color)
@@ -5011,11 +4986,20 @@ namespace KimSurvival
             GameObject root = new GameObject("미설치 설비 현장 표식 · " + kind);
             root.transform.SetParent(worldRoot, false);
             root.transform.position = position;
-            CreateFootprintOutline(root.transform, size, color, null);
-            GameObject first = CreateRect(root.transform, "임시 공구 표식 A", Vector2.zero, new Vector2(0.12f, Mathf.Min(0.7f, size.y)), color, 5);
-            first.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
-            GameObject second = CreateRect(root.transform, "임시 공구 표식 B", Vector2.zero, new Vector2(0.12f, Mathf.Min(0.7f, size.y)), color, 5);
-            second.transform.localRotation = Quaternion.Euler(0f, 0f, -45f);
+            Color subtle = new Color(color.r, color.g, color.b, 0.42f);
+            CreateFootprintOutline(root.transform, size, subtle, null);
+            Sprite blueprintSprite = GetStructureSprite(kind);
+            if (blueprintSprite != null)
+            {
+                CreateStructureVisual(root.transform, kind, blueprintSprite, size, new Color(0.55f, 0.88f, 0.92f, 0.3f), 2, out _);
+            }
+            else
+            {
+                GameObject first = CreateRect(root.transform, "임시 공구 표식 A", Vector2.zero, new Vector2(0.08f, Mathf.Min(0.55f, size.y)), subtle, 4);
+                first.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+                GameObject second = CreateRect(root.transform, "임시 공구 표식 B", Vector2.zero, new Vector2(0.08f, Mathf.Min(0.55f, size.y)), subtle, 4);
+                second.transform.localRotation = Quaternion.Euler(0f, 0f, -45f);
+            }
         }
 
         private void CreatePlacementGhost()
@@ -5038,11 +5022,14 @@ namespace KimSurvival
                 placementGhost.transform,
                 "배치 판정",
                 string.Empty,
-                new Vector2(0f, visualTop + PlacementGhostBadgeVerticalOffset),
-                new Vector2(Mathf.Max(PlacementGhostBadgeMinimumWidth, size.x + 0.7f), PlacementGhostBadgeHeight),
+                new Vector2(0f, visualTop + 0.52f),
+                new Vector2(0.82f, 0.82f),
                 Color.black,
                 Color.white,
-                out placementGhostBadgeRenderer);
+                out placementGhostBadgeRenderer,
+                0.042f,
+                30f,
+                32f);
             UpdatePlacementGhost();
         }
 
@@ -5065,7 +5052,7 @@ namespace KimSurvival
             placementGhostBadgeRenderer.color = valid
                 ? new Color(0.03f, 0.34f, 0.15f, 0.98f)
                 : new Color(0.5f, 0.05f, 0.04f, 0.98f);
-            placementGhostLabel.text = localization.Format(valid ? "world.placement.valid" : "world.placement.invalid", campPlacement.SelectedKind);
+            placementGhostLabel.text = valid ? "✓" : "×";
             placementGhostLabel.color = Color.white;
         }
 
@@ -5287,25 +5274,6 @@ namespace KimSurvival
             {
                 output.Add(edges[i].GetComponent<SpriteRenderer>());
             }
-        }
-
-        private static Vector2 GetPlacementZoneBadgeSize(string value)
-        {
-            string normalized = (value ?? string.Empty).Replace("\\n", "\n");
-            string[] lines = normalized.Split('\n');
-            int longestLine = 0;
-            for (int i = 0; i < lines.Length; i += 1)
-            {
-                longestLine = Mathf.Max(longestLine, lines[i].Length);
-            }
-
-            float width = Mathf.Clamp(
-                PlacementZoneBadgeMinimumWidth + Mathf.Max(0, longestLine - 23) * 0.25f,
-                PlacementZoneBadgeMinimumWidth,
-                PlacementZoneBadgeMaximumWidth);
-            float expansion = Mathf.InverseLerp(PlacementZoneBadgeMinimumWidth, PlacementZoneBadgeMaximumWidth, width);
-            float height = Mathf.Lerp(PlacementZoneBadgeMinimumHeight, PlacementZoneBadgeMaximumHeight, expansion);
-            return new Vector2(width, height);
         }
 
         private TMP_Text CreateWorldBadge(string name, string value, Vector2 position, Vector2 size, Color background, Color foreground)

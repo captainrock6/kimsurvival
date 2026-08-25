@@ -1709,6 +1709,14 @@ MonoBehaviour:
     m_Localized: Back
     m_Metadata:
       m_Items: []
+  - m_Id: 1106045870260224
+    m_Localized: "Expedition complete today \xB7 View notice"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1106045933174784
+    m_Localized: Expedition complete today
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -197,6 +197,46 @@ namespace KimSurvival
             candidateX = relocatingWithinSameRoom ? installed.X : GetDefaultX(kind, activeRoomZone);
             cursorX = candidateX;
             IsActive = true;
+            if (!relocatingWithinSameRoom && CurrentValidity != CampPlacementValidity.Valid)
+            {
+                SelectNearestValidCandidate(candidateX);
+            }
+        }
+
+        private void SelectNearestValidCandidate(float preferredX)
+        {
+            float halfWidth = GetStructureSize(selectedKind).x * 0.5f;
+            float minimum = activeRoomZone.BuildMinimumX + halfWidth;
+            float maximum = activeRoomZone.BuildMaximumX - halfWidth;
+            if (GetRequiredZone(selectedKind) == CampPlacementZone.OpenSkyGround)
+            {
+                minimum = Mathf.Max(minimum, activeRoomZone.OpenSkyMinimumX + halfWidth);
+                maximum = Mathf.Min(maximum, activeRoomZone.OpenSkyMaximumX - halfWidth);
+            }
+
+            float bestX = candidateX;
+            float bestDistance = float.MaxValue;
+            for (float probe = Snap(minimum); probe <= maximum + OverlapTolerance; probe += GridSize)
+            {
+                float snapped = Snap(probe);
+                if (Validate(selectedKind, snapped) != CampPlacementValidity.Valid)
+                {
+                    continue;
+                }
+
+                float distance = Mathf.Abs(snapped - preferredX);
+                if (distance < bestDistance)
+                {
+                    bestX = snapped;
+                    bestDistance = distance;
+                }
+            }
+
+            if (bestDistance < float.MaxValue)
+            {
+                candidateX = bestX;
+                cursorX = bestX;
+            }
         }
 
         public void Update(PrototypeCampPlacementActions actions, float deltaTime)

@@ -22,6 +22,7 @@ camp.interaction.prompt.gamepad	[X] {0} 사용	[X] Use {0}	⟦[X] Úsé {0}áé�
 input.glyph.interact.keyboard_mouse	[E]	[E]	[E]
 input.glyph.interact.gamepad	[X]	[X]	[X]
 interaction.structure.prompt	{0} {1} {2}	{0} {2} {1}	⟦{0} {2} {1} ·⟧
+interaction.action.expedition_done	오늘 수집 완료 · 안내 보기	Expedition complete today · View notice	⟦Éxpédítíóñ cómplété tódáy · Víéw ñótícéáéíóúüñ¿¡áéíó⟧
 interaction.action.preview	미리보기	Preview	⟦Prévíéwá⟧
 interaction.action.open	열기	Open	⟦Ópéñ⟧
 interaction.action.use	사용	Use	Úsé·
@@ -144,6 +145,7 @@ message.food.none	먹을 것이 없다. 코코넛 그림이라도 그려 볼까.
 message.food.full	지금은 배가 충분히 부르다.	He is full enough for now.	⟦Hé ís fúll éñóúgh fór ñów.áéíóúüñ¿¡⟧
 message.food.eaten	식사 완료. 메뉴 이름은 '그냥 익힌 것'이다.	Meal complete. The dish is called 'Something Cooked.'	⟦Méál cómplété. Thé dísh ís cálléd 'Sóméthíñg Cóókéd.'áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
 message.search.finished	오늘 수색은 끝났다. 캠프를 정리하고 다음 날로 넘어가자.	Today's expedition is over. Tend camp and move to the next day.	⟦Tódáy's éxpédítíóñ ís óvér. Téñd cámp áñd móvé tó thé ñéxt dáy.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
+expedition.map.depart.completed	오늘 수집 완료	Expedition complete today	⟦Éxpédítíóñ cómplété tódáyáéíóúüñ¿¡⟧
 message.search.unavailable	지금은 수색을 시작할 수 없다.	An expedition cannot start right now.	⟦Áñ éxpédítíóñ cáññót stárt ríght ñów.áéíóúüñ¿¡áéíóú⟧
 message.search.begin	김씨 출발. 해 지기 전에는 돌아오는 것이 소박한 목표다.	Mr. Kim sets out. Returning before sunset is the modest goal.	⟦Mr. Kím séts óút. Rétúrñíñg béfóré súñsét ís thé módést góál.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 message.swim.enter	김씨 입수. 물은 생각보다 차갑고 가방은 생각보다 무겁다.	Mr. Kim enters the water. It is colder—and the bag heavier—than expected.	⟦Mr. Kím éñtérs thé wátér. Ít ís cóldér—áñd thé bág héávíér—tháñ éxpéctéd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
