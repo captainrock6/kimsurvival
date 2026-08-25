@@ -371,7 +371,35 @@
       "rationale": "언어 표본 오염과 미구현 Steamworks·앨범 기능의 허위 PASS를 방지한다.",
       "source": "wave19-resource-playtest-contract",
       "createdAt": "2026-08-24T15:31:50.790Z"
+    },
+    {
+      "id": "decision.wave20-flare-before-beacon",
+      "summary": "뗏목 계약 다음에는 단발 window·escrow를 검증하는 escape.flare를 먼저 구현하고, 그 GREEN 위에 세 현장 milestone과 재해 복구가 필요한 escape.beacon을 구현한다.",
+      "rationale": "작은 상태기계에서 직접 상호작용·window·원자 retry를 먼저 안정화한 뒤 더 복잡한 원격 고정 시설로 확장한다.",
+      "source": "wave20-escape-expansion-design",
+      "createdAt": "2026-08-25T11:47:26.240Z"
+    },
+    {
+      "id": "decision.wave20-canonical-beacon-ids-win-over-runtime-aliases",
+      "summary": "beacon은 research.structural-repair, research.generator-repair, facility.relay-station, part.beacon.generator-coil만 canonical로 사용하고 현재 data-only 임시 별칭을 공개 ID로 승격하지 않는다.",
+      "rationale": "Wave 15~19 정본과 save·로그·QA 추적성을 유지한다.",
+      "source": "wave20-escape-expansion-design",
+      "createdAt": "2026-08-25T11:47:26.240Z"
+    },
+    {
+      "id": "decision.wave20-flare-single-shot-and-beacon-spatial-restoration",
+      "summary": "flare는 목격 창의 단발 위험 결정, beacon은 원격 고정 폐시설의 access·generator·signal-head 복구로 플레이 문법을 분리한다.",
+      "rationale": "같은 제작 버튼에서 재료명만 바꾸는 탈출법을 방지하고 각 경로에 다른 공간·시간·실패 판단을 준다.",
+      "source": "wave20-escape-expansion-design",
+      "createdAt": "2026-08-25T11:47:26.240Z"
+    },
+    {
+      "id": "decision.wave20-sample-values-do-not-promote-balance",
+      "summary": "Wave 20 비용·준비 기간·창 빈도·실패 확률·행동 임계는 playable fixture용 SAMPLE_ONLY이며 자연 세션과 별도 승인 전 정식 50일 밸런스가 아니다.",
+      "rationale": "기능 상태기계 검증과 장기 캠페인 튜닝 증거를 분리한다.",
+      "source": "wave20-escape-expansion-design",
+      "createdAt": "2026-08-25T11:47:26.240Z"
     }
   ],
-  "updatedAt": "2026-08-24T15:31:50.790Z"
+  "updatedAt": "2026-08-25T11:47:26.240Z"
 }

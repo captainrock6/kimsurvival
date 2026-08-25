@@ -2278,6 +2278,207 @@
       "createdAt": "2026-08-25T11:33:49.761Z"
     },
     {
+      "id": "task.design.wave20-escape-expansion-contract",
+      "lane": "design",
+      "title": "Wave 20 조명탄·고지대 신호 플레이 가능 확장 계약",
+      "description": "기존 뗏목과 Day 50 계약을 보존하면서 escape.flare와 escape.beacon의 canonical 데이터, 직접 오브젝트 상태기계, 날씨 창, 실패·재시도, 원자성, 엔딩 modifier와 SAMPLE_ONLY 최소 세로 조각을 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave18-green-transition-contract",
+        "task.design.wave19-resource-playtest-contract"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.camp-object-interaction",
+        "feature.expedition-map",
+        "feature.survival-hazards",
+        "feature.behavioral-endings",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "escape.raft와 Day 50·조기 탈출·5경로·19엔딩 정본을 바꾸지 않는다.",
+        "flare와 beacon이 각각 기존 세 경로와 최소 두 행동 축 이상 다르고 공용 제작 완료 버튼을 쓰지 않는다.",
+        "canonical region/research/facility/key-part ID, 직접 object state, window, 실패 overlay, transaction과 ending modifier가 기계 판독 가능하다.",
+        "각 경로의 no-grant/no-warp playable 최소 slice와 red-first FAIL→GREEN 조건이 있다.",
+        "KO/EN/qps-long과 keyboard/gamepad 공통 focus, compact prompt와 전용 popup을 보존한다.",
+        "비용·기간·빈도·확률·점수는 SAMPLE_ONLY이고 인간 결과를 꾸며내지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave20-escape-expansion-design.md",
+        ".forge/packets/wave20-escape-expansion-design.json",
+        ".forge/design/project.json"
+      ],
+      "evidence": [
+        "Docs/Design/wave15-escape-hazard-ending-matrix.md",
+        "Docs/Design/wave16-fifty-day-pacing.md",
+        "Docs/Design/wave18-green-transition-contract.md",
+        "Docs/Design/Playtest/wave19-resource-integrated-first-user-playtest.md"
+      ],
+      "blockedReason": "",
+      "status": "done"
+    },
+    {
+      "id": "task.qa.wave20-flare-redfirst",
+      "lane": "qa",
+      "title": "Wave 20 조명탄 red-first 게이트",
+      "description": "W20-F01~F04와 공통 X01의 조명탄 부분을 현재 data-only 상태에서 의미 있게 실패시키는 결정론 probe와 자연 Play 수용 test를 먼저 만든다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.design.wave20-escape-expansion-contract"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.expedition-map",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "catalog load나 reflection만으로 PASS하지 않고 실제 launcher interaction 부재로 RED가 난다.",
+        "canonical 전체 집합, window 공정성, cartridge 최대 1 소비, retry와 자연 경로를 각각 독립 assertion으로 둔다.",
+        "현재 실패 gate ID와 원인을 기록하며 구현 전 GREEN을 주장하지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave20-escape-expansion-design.md"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready"
+    },
+    {
+      "id": "task.implementation.wave20-flare-playable-slice",
+      "lane": "implementation",
+      "title": "Wave 20 조명탄 플레이 가능 최소 세로 조각",
+      "description": "red-first 뒤 canonical flare launcher, escrow, witnessed window, 단발 실패·재시도와 즉시 조기 탈출을 실제 object interaction으로 구현한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.qa.wave20-flare-redfirst"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.camp-object-interaction",
+        "feature.expedition-map"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "W20-F01~F04와 X01 flare 부분을 동일 probe로 GREEN 전환한다.",
+        "fresh save SAMPLE 30분 경로에서 grant·warp·skip 없이 기존 flare ending 하나로 terminal한다.",
+        "escape.raft와 smoke/radio 상태·비용·terminal을 바꾸지 않는다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.qa.wave20-flare-green",
+      "lane": "qa",
+      "title": "Wave 20 조명탄 GREEN·회귀 검증",
+      "description": "조명탄 red-first gate, 자연 slice, 기존 smoke/radio/raft와 Day 50 우선순위 회귀를 같은 빌드에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.implementation.wave20-flare-playable-slice"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "W20-F01~F04와 X01 flare 부분이 실제 Play 증거로 GREEN이다.",
+        "실패·취소·retry·locale/input 전환의 추가 소비·점수·해금이 0이다.",
+        "기존 세 경로와 Day 50 회귀가 없다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.qa.wave20-beacon-redfirst",
+      "lane": "qa",
+      "title": "Wave 20 고지대 중계소 red-first 게이트",
+      "description": "flare GREEN 뒤 W20-B01~B04와 X01 beacon 부분을 현재 data-only alias·상호작용 부재 상태에서 의미 있게 실패시키는 gate를 만든다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.qa.wave20-flare-green"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.expedition-map",
+        "feature.survival-hazards",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "비정본 alias와 playable=false를 독립 RED로 잡는다.",
+        "세 target/milestone, failure overlay 보존, window activation과 자연 경로가 각각 실패한다.",
+        "reflection·data resolver만으로 playable PASS를 만들지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave20-escape-expansion-design.md"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.implementation.wave20-beacon-playable-slice",
+      "lane": "implementation",
+      "title": "Wave 20 고지대 중계소 플레이 가능 최소 세로 조각",
+      "description": "canonical relay station과 coil, 세 현장 milestone, 날씨 창, 재해 overlay 복구와 즉시 조기 탈출을 실제 object interaction으로 구현한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.qa.wave20-beacon-redfirst"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.camp-object-interaction",
+        "feature.expedition-map",
+        "feature.survival-hazards"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "W20-B01~B04와 X01 beacon 부분을 동일 probe로 GREEN 전환한다.",
+        "fresh save SAMPLE 45분 경로에서 grant·warp·skip 없이 기존 beacon ending 하나로 terminal한다.",
+        "완료 milestone과 coil은 power-drop/stair-collapse/lightning-trip에서 보존된다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.qa.wave20-beacon-green",
+      "lane": "qa",
+      "title": "Wave 20 고지대 중계소 GREEN·전체 탈출 회귀 검증",
+      "description": "beacon red-first gate와 자연 slice를 GREEN으로 전환하고 5개 탈출법·Day 50·19엔딩·최소 3경로 softlock 보호를 회귀 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.implementation.wave20-beacon-playable-slice"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.survival-hazards",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "W20-B01~B04와 X01 전체가 실제 Play 증거로 GREEN이다.",
+        "5개 탈출 stable ID, 최소 3경로 softlock 보호와 ending 우선순위가 보존된다.",
+        "최종 수치·실제 Steam·인간 50일 완주·물리 게임패드는 별도 증거 전까지 승격하지 않는다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
       "id": "task.art.background.island-camp",
       "lane": "art",
       "title": "무인도 베이스캠프 배경 제작",
@@ -3675,5 +3876,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-25T11:33:58.584Z"
+  "updatedAt": "2026-08-25T11:47:26.240Z"
 }

@@ -68,7 +68,7 @@
       "사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다.",
       "Wave 15 콘텐츠 매트릭스의 준비 일수, 위험 예산, pity 횟수와 행동 점수 임계값은 구현 smoke용 SAMPLE_ONLY이며 사용자 플레이테스트 전 정식 50일 밸런스로 잠그지 않는다."
     ],
-    "updatedAt": "2026-08-24T15:31:50.791Z",
+    "updatedAt": "2026-08-25T11:47:26.240Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -3541,6 +3541,638 @@
         ]
       },
       "resultStatus": "GO_MORE_EVIDENCE"
+    },
+    "escapeExpansionContract": {
+      "schemaVersion": 1,
+      "contractId": "escape.wave20.flare-beacon-playable.v1",
+      "sourceBaseline": "09ae2a6d578eb4dcbf11b9c571f57f640b88d969",
+      "humanDocument": "Docs/Design/wave20-escape-expansion-design.md",
+      "machinePacket": ".forge/packets/wave20-escape-expansion-design.json",
+      "status": "DESIGN_COMPLETE_IMPLEMENTATION_AND_RED_FIRST_UNRUN",
+      "balanceStatus": "SAMPLE_ONLY_NOT_FINAL_FIFTY_DAY_BALANCE",
+      "implementationOrder": [
+        "preserve.escape.raft",
+        "slice.escape.flare.playable.v1",
+        "slice.escape.beacon.playable.v1"
+      ],
+      "fixedRules": [
+        "escape.raft and its shore-launch, sailcloth, hull, supply and sea-window contract are read-only.",
+        "Day 50 is the default terminal; a completed escape resolves immediately on any day and outranks Day 50 settlement.",
+        "Five escape, six region, seven hazard and nineteen ending stable catalogs are unchanged.",
+        "Flare and beacon must each differ from smoke, radio and raft on at least two player-action axes.",
+        "A project is completed through direct world-object interactions, never a shared global crafting or completion button.",
+        "Preview, cancel, locale and input-device changes are mutation-free.",
+        "All costs, preparation ranges, window frequencies, failure probabilities and behavior thresholds remain SAMPLE_ONLY."
+      ],
+      "canonicalAliasPolicy": {
+        "publicCanonicalOnly": true,
+        "flareRequiredSets": {
+          "regionIds": [
+            "region.coast.beach",
+            "region.sea.shallows",
+            "region.cove.wreck"
+          ],
+          "researchIds": [
+            "research.pyrotechnics",
+            "research.signal-timing"
+          ],
+          "facilityId": "facility.flare-launcher",
+          "keyPartId": "part.flare.cartridge",
+          "materialIds": [
+            "resource.chemicals",
+            "resource.metal",
+            "resource.fabric",
+            "resource.fuel"
+          ]
+        },
+        "beaconRequiredSets": {
+          "regionIds": [
+            "region.ridge.highland",
+            "region.ruins.relay",
+            "region.forest.grove"
+          ],
+          "researchIds": [
+            "research.structural-repair",
+            "research.generator-repair"
+          ],
+          "facilityId": "facility.relay-station",
+          "keyPartId": "part.beacon.generator-coil",
+          "materialIds": [
+            "resource.wood",
+            "resource.stone",
+            "resource.metal",
+            "resource.wire",
+            "resource.fuel"
+          ]
+        },
+        "nonCanonicalRuntimeAliases": [
+          "research.power-grid",
+          "research.relay-restoration",
+          "facility.ridge-beacon",
+          "part.beacon.lens"
+        ],
+        "aliasRule": "Aliases may be read by an internal developer-fixture migration only; new display, save, log and probe output must use canonical IDs."
+      },
+      "directInteraction": {
+        "states": [
+          "far",
+          "near",
+          "popup-open",
+          "preview",
+          "confirm",
+          "success",
+          "failure",
+          "cancel",
+          "field-return"
+        ],
+        "promptAssetId": "ui.camp-contextual-interaction.compact-a",
+        "promptPatternKey": "interaction.structure.prompt",
+        "promptTokens": [
+          "inputGlyph",
+          "objectName",
+          "action"
+        ],
+        "qpsLongPromptMaximum": "520x64_at_1280x800_one_line",
+        "popupRule": "Only the latched object's requirements, next milestone, window and risk are visible; movement and world Interact are locked until cancel or result acknowledgement.",
+        "cancelRule": "Return to the same object, position and facing with zero resource, RNG, project and focus-graph mutation.",
+        "inputParity": [
+          "input.interact",
+          "input.navigate",
+          "input.confirm",
+          "input.cancel",
+          "input.tab-detail"
+        ]
+      },
+      "routes": [
+        {
+          "escapeId": "escape.flare",
+          "playableSliceId": "slice.escape.flare.playable.v1",
+          "fantasy": "Prepare one protected shot, read a short witnessed visibility window and decide whether to fire safely or risk the cartridge.",
+          "regionIds": [
+            "region.coast.beach",
+            "region.sea.shallows",
+            "region.cove.wreck"
+          ],
+          "researchIds": [
+            "research.pyrotechnics",
+            "research.signal-timing"
+          ],
+          "facilityId": "facility.flare-launcher",
+          "anchorId": "anchor.camp.flare-launcher",
+          "anchorRule": "Fixed camp shoreline anchor; no free placement or relocation.",
+          "keyPart": {
+            "id": "part.flare.cartridge",
+            "primary": "region.cove.wreck",
+            "alternatives": [
+              "region.coast.beach",
+              "region.sea.shallows"
+            ],
+            "escrowRule": "Load moves the part into project escrow without consuming it; unload before a shot returns it atomically; shot resolution consumes at most one."
+          },
+          "materialIds": [
+            "resource.chemicals",
+            "resource.metal",
+            "resource.fabric",
+            "resource.fuel"
+          ],
+          "riskIds": [
+            "hazard.injury",
+            "hazard.camp-damage",
+            "hazard.disaster"
+          ],
+          "failureEventIds": [
+            "event.flare.misfire",
+            "event.flare.no-witness",
+            "event.flare.launcher-damaged"
+          ],
+          "variantEventIds": [
+            "event.flare.daylight-fireworks",
+            "event.flare.perfect-window"
+          ],
+          "samplePreparationDays": {
+            "minimum": 4,
+            "maximum": 8,
+            "status": "SAMPLE_ONLY"
+          },
+          "stateAxes": {
+            "projectStage": [
+              "locked-research",
+              "missing-facility",
+              "missing-part",
+              "payload-missing",
+              "ready-to-load",
+              "loaded",
+              "resolving",
+              "completed"
+            ],
+            "launcherState": [
+              "missing",
+              "working",
+              "damaged"
+            ],
+            "cartridgeState": [
+              "missing",
+              "protected-inventory",
+              "project-escrow",
+              "spent"
+            ],
+            "windowState": [
+              "window.flare.closed",
+              "window.flare.uncertain",
+              "window.flare.confirmed",
+              "window.flare.perfect"
+            ]
+          },
+          "playerStatePriority": [
+            "escape.flare.state.completed",
+            "escape.flare.state.launcher-damaged",
+            "escape.flare.state.locked-research",
+            "escape.flare.state.missing-facility",
+            "escape.flare.state.missing-part",
+            "escape.flare.state.payload-missing",
+            "escape.flare.state.ready-to-load",
+            "escape.flare.state.window-closed",
+            "escape.flare.state.window-uncertain",
+            "escape.flare.state.window-confirmed",
+            "escape.flare.state.resolving"
+          ],
+          "actionIds": [
+            "action.flare.install-launcher",
+            "action.flare.prepare-payload",
+            "action.flare.load-cartridge",
+            "action.flare.unload-cartridge",
+            "action.flare.fire",
+            "action.flare.fire-risky",
+            "action.flare.repair-launcher"
+          ],
+          "windowRules": [
+            "Closed blocks confirm and consumes nothing.",
+            "Uncertain exposes no-witness risk and cartridge consumption before risky confirm.",
+            "Confirmed permits standard fire.",
+            "Perfect records event.flare.perfect-window but creates no new ending or achievement ID.",
+            "A UI-confirmed safe window cannot resolve no-witness for a hidden reason."
+          ],
+          "atomicFailureRules": [
+            "Misfire and no-witness consume at most the selected cartridge and prepared payload once.",
+            "Launcher-damaged before fire blocks confirm and does not consume escrow.",
+            "Research, facility and unrelated escape stages survive every declared failure.",
+            "A spent missing cartridge re-enters the canonical eligible-search pity path.",
+            "Retry of one attemptId returns already_resolved without another spend, score or event."
+          ],
+          "sampleCosts": [
+            {
+              "id": "sample.cost.flare.launcher",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.metal": 2,
+                "resource.fabric": 1
+              }
+            },
+            {
+              "id": "sample.cost.flare.payload",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.chemicals": 1,
+                "resource.fuel": 1
+              }
+            },
+            {
+              "id": "sample.cost.flare.shot",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "part.flare.cartridge": 1
+              }
+            },
+            {
+              "id": "sample.cost.flare.repair",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.metal": 1
+              }
+            }
+          ],
+          "naturalSlice": {
+            "targetMinutesMaximum": 30,
+            "freshSave": true,
+            "grantAllowed": false,
+            "warpAllowed": false,
+            "daySkipAllowed": false,
+            "requiredSteps": [
+              "compare flare source and weather data on the expedition map",
+              "complete real search and return for the cartridge and materials",
+              "complete both research IDs",
+              "install and approach the fixed launcher",
+              "prepare, escrow-load and fire in a confirmed window",
+              "resolve escape.flare and one existing flare ending"
+            ],
+            "failureFixture": "Resolve one uncertain no-witness or telegraphed misfire, then prove a replacement cartridge can be reacquired and retried naturally."
+          }
+        },
+        {
+          "escapeId": "escape.beacon",
+          "playableSliceId": "slice.escape.beacon.playable.v1",
+          "fantasy": "Travel to a fixed ruined relay, repair access, generator and signal head in place, recover from storm damage and activate a visible ridge light.",
+          "regionIds": [
+            "region.ridge.highland",
+            "region.ruins.relay",
+            "region.forest.grove"
+          ],
+          "researchIds": [
+            "research.structural-repair",
+            "research.generator-repair"
+          ],
+          "facilityId": "facility.relay-station",
+          "anchorId": "anchor.region.relay-station",
+          "anchorRule": "Fixed world anchor in the relay-region path; no free placement, relocation or global remote completion.",
+          "targetIds": [
+            "target.beacon.access",
+            "target.beacon.generator",
+            "target.beacon.signal-head"
+          ],
+          "keyPart": {
+            "id": "part.beacon.generator-coil",
+            "primary": "region.ruins.relay",
+            "alternatives": [
+              "region.sea.shallows",
+              "region.ridge.highland"
+            ],
+            "installationRule": "Move the protected coil into project inventory on the power milestone; hazards cannot delete it."
+          },
+          "materialIds": [
+            "resource.wood",
+            "resource.stone",
+            "resource.metal",
+            "resource.wire",
+            "resource.fuel"
+          ],
+          "riskIds": [
+            "hazard.disaster",
+            "hazard.injury",
+            "hazard.camp-damage"
+          ],
+          "failureEventIds": [
+            "event.beacon.power-drop",
+            "event.beacon.stair-collapse",
+            "event.beacon.lightning-trip"
+          ],
+          "variantEventIds": [
+            "event.beacon.overpowered",
+            "event.disaster.perfect-mitigation"
+          ],
+          "samplePreparationDays": {
+            "minimum": 10,
+            "maximum": 18,
+            "status": "SAMPLE_ONLY"
+          },
+          "milestoneIds": [
+            "milestone.beacon.structure-repaired",
+            "milestone.beacon.power-restored",
+            "milestone.beacon.signal-head-aligned"
+          ],
+          "playerStates": [
+            "escape.beacon.state.locked-region",
+            "escape.beacon.state.locked-research",
+            "escape.beacon.state.access-blocked",
+            "escape.beacon.state.structure-ready",
+            "escape.beacon.state.missing-coil",
+            "escape.beacon.state.power-ready",
+            "escape.beacon.state.signal-ready",
+            "escape.beacon.state.circuit-tripped",
+            "escape.beacon.state.window-closed",
+            "escape.beacon.state.window-open",
+            "escape.beacon.state.storm-eye-window",
+            "escape.beacon.state.overdrive-ready",
+            "escape.beacon.state.completed"
+          ],
+          "actionIds": [
+            "action.beacon.repair-access",
+            "action.beacon.repair-structure",
+            "action.beacon.restore-power",
+            "action.beacon.align-signal",
+            "action.beacon.reset-power",
+            "action.beacon.activate",
+            "action.beacon.activate-overdrive"
+          ],
+          "windowIds": [
+            "window.beacon.clear-night",
+            "window.beacon.storm-eye"
+          ],
+          "weatherRules": [
+            "Clear-night permits standard activation.",
+            "Storm-eye requires event.disaster.perfect-mitigation in the same telegraphed hazard chain.",
+            "Rain and lightning warning block activation but do not date-lock repair actions.",
+            "Only a resolved lightning event can trip power."
+          ],
+          "atomicFailureRules": [
+            "Power-drop changes powered to false only.",
+            "Stair-collapse changes access to blocked only.",
+            "Lightning-trip changes breaker and powered only.",
+            "All three completed milestones and the installed coil survive every failure overlay.",
+            "Direct repair or reset commits once; retry returns already_resolved."
+          ],
+          "sampleCosts": [
+            {
+              "id": "sample.cost.beacon.structure",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.wood": 2,
+                "resource.stone": 2,
+                "resource.metal": 1
+              }
+            },
+            {
+              "id": "sample.cost.beacon.power",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.wire": 2,
+                "resource.fuel": 1,
+                "part.beacon.generator-coil": 1
+              }
+            },
+            {
+              "id": "sample.cost.beacon.signal-head",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.metal": 1,
+                "resource.wire": 1
+              }
+            },
+            {
+              "id": "sample.cost.beacon.activation",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.fuel": 1
+              }
+            },
+            {
+              "id": "sample.cost.beacon.access-repair",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.wood": 1,
+                "resource.stone": 1
+              }
+            },
+            {
+              "id": "sample.cost.beacon.overdrive-extra",
+              "status": "SAMPLE_ONLY",
+              "values": {
+                "resource.fuel": 1
+              }
+            }
+          ],
+          "naturalSlice": {
+            "targetMinutesMaximum": 45,
+            "freshSave": true,
+            "grantAllowed": false,
+            "warpAllowed": false,
+            "daySkipAllowed": false,
+            "requiredSteps": [
+              "unlock a highland or relay path through actual searches and returns",
+              "acquire the canonical coil and materials and complete both research IDs",
+              "interact directly with access, generator and signal-head targets",
+              "resolve and recover one failure overlay without milestone loss",
+              "activate in clear-night or storm-eye window",
+              "resolve escape.beacon and one existing beacon ending"
+            ]
+          }
+        }
+      ],
+      "transactionContract": {
+        "validationBeforeCommit": [
+          "canonical research IDs",
+          "correct region and anchor",
+          "facility and overlay state",
+          "current window snapshot",
+          "complete cost vector",
+          "inventory and project escrow capacity",
+          "terminal not already committed"
+        ],
+        "atomicCommit": [
+          "resources",
+          "protected project inventory",
+          "milestone or overlay",
+          "behavior score",
+          "structured event"
+        ],
+        "idempotency": "The same run, escape, action, attempt and stage version can commit once; retries return already_resolved or already_completed.",
+        "terminalPriority": "escape_complete resolves immediately on every day including Day 50 and precedes Day 50 settlement."
+      },
+      "snapshotFields": {
+        "flare": [
+          "escapeMethodId",
+          "canonicalResearchIds",
+          "facilityState",
+          "payloadPrepared",
+          "cartridgeState",
+          "windowId",
+          "windowExpiresAt",
+          "launcherState",
+          "attemptId",
+          "lastEventId",
+          "completed",
+          "endingId"
+        ],
+        "beacon": [
+          "escapeMethodId",
+          "canonicalResearchIds",
+          "regionUnlockIds",
+          "accessState",
+          "structureMilestone",
+          "powerMilestone",
+          "signalHeadMilestone",
+          "coilState",
+          "powered",
+          "windowId",
+          "hazardOverlayId",
+          "attemptId",
+          "lastEventId",
+          "completed",
+          "endingId"
+        ]
+      },
+      "structuredLog": {
+        "eventNames": [
+          "facility.action.completed",
+          "facility.action.rejected",
+          "escape.project-progressed",
+          "escape.completed",
+          "ending.resolved",
+          "hazard.telegraphed",
+          "hazard.occurred",
+          "hazard.mitigated",
+          "hazard.recovered"
+        ],
+        "allowedFields": [
+          "runSeed",
+          "day",
+          "escapeId",
+          "projectId",
+          "targetId",
+          "interactionId",
+          "milestoneId",
+          "windowId",
+          "eventId",
+          "resultCode",
+          "stateBefore",
+          "stateAfter",
+          "grantUsed",
+          "warpUsed"
+        ],
+        "forbiddenFields": [
+          "name",
+          "account",
+          "ip",
+          "deviceId",
+          "freeText",
+          "rawInput",
+          "positionTrace"
+        ]
+      },
+      "localization": {
+        "ko": "PRIMARY_MEANING_AND_COMEDY_SOURCE",
+        "en": "FIRST_SUPPORTED_LANGUAGE_WITH_NATURAL_WORD_ORDER",
+        "qps-long": "QA_ONLY_150_PERCENT_EXPANSION_AND_FALLBACK",
+        "officialEnglishTitle": "TBD",
+        "keys": [
+          "object.escape.flare-launcher.name",
+          "object.escape.relay-station.name",
+          "action.escape.flare.open",
+          "action.escape.beacon.open",
+          "ui.escape.requirements",
+          "ui.escape.flare.window-closed",
+          "ui.escape.flare.window-uncertain",
+          "ui.escape.flare.missing-part",
+          "ui.escape.beacon.next-stage",
+          "ui.escape.beacon.circuit-tripped",
+          "ui.escape.beacon.window-closed",
+          "ui.escape.ready"
+        ]
+      },
+      "endingContract": [
+        {
+          "priority": 300,
+          "endingId": "ending.rare.beacon.storm-eye",
+          "modifierId": "modifier.event.scar"
+        },
+        {
+          "priority": 200,
+          "endingId": "ending.comic.beacon.brightest-address",
+          "modifierId": "modifier.stat.building"
+        },
+        {
+          "priority": 200,
+          "endingId": "ending.comic.flare.daylight-fireworks",
+          "modifierId": "modifier.behavior.dominant"
+        },
+        {
+          "priority": 100,
+          "endingId": "ending.escape.flare.one-shot",
+          "modifierId": "modifier.behavior.dominant"
+        },
+        {
+          "priority": 100,
+          "endingId": "ending.escape.beacon.ridge-light",
+          "modifierId": "modifier.behavior.dominant"
+        }
+      ],
+      "redFirstGates": [
+        {
+          "gateId": "W20-F01.flare-canonical-data",
+          "initialRed": "Flare is data-only and its current provisional definition may omit canonical region or material IDs.",
+          "green": "All canonical sets are exact and playableState is playable."
+        },
+        {
+          "gateId": "W20-F02.flare-direct-state-machine",
+          "initialRed": "No live launcher, popup, escrow or witness-window interaction trace exists.",
+          "green": "Real far-near-popup-load-window-fire-field-or-terminal trace with grant and warp counts zero."
+        },
+        {
+          "gateId": "W20-F03.flare-window-atomic-retry",
+          "initialRed": "Shot result, failure consumption and replacement retry are not implemented.",
+          "green": "Closed costs zero, uncertain is explicit, at most one cartridge is consumed, retry duplicates zero and replacement remains reachable."
+        },
+        {
+          "gateId": "W20-F04.flare-natural-slice",
+          "initialRed": "No fresh natural playable flare terminal evidence exists.",
+          "green": "Map-search-return-research-install-fire-ending completes in the SAMPLE 30-minute slice without debug assistance."
+        },
+        {
+          "gateId": "W20-B01.beacon-canonical-data",
+          "initialRed": "Beacon is data-only and provisional runtime aliases diverge from canonical IDs.",
+          "green": "Only canonical IDs are displayed, saved, logged and probed; three targets exist and playableState is playable."
+        },
+        {
+          "gateId": "W20-B02.beacon-spatial-milestones",
+          "initialRed": "No live relay object or three spatial milestone interactions exist.",
+          "green": "Access, generator and signal-head traces each commit one distinct milestone and cancel changes nothing."
+        },
+        {
+          "gateId": "W20-B03.beacon-hazard-preservation",
+          "initialRed": "Failure overlays, weather activation and in-place recovery are not implemented.",
+          "green": "Power-drop, stair-collapse and lightning-trip preserve milestones and coil; direct recovery and retry duplicate nothing."
+        },
+        {
+          "gateId": "W20-B04.beacon-natural-slice",
+          "initialRed": "No fresh natural playable beacon terminal evidence exists.",
+          "green": "Unlock-search-research-three-repairs-window-activation-ending completes in the SAMPLE 45-minute slice without debug assistance."
+        },
+        {
+          "gateId": "W20-X01.day50-ending-locale-input",
+          "initialRed": "Live flare and beacon cannot yet prove terminal priority, localized surfaces or focus parity.",
+          "green": "Both routes complete in any band, Day 50 escape wins, KO and EN meaning match, qps-long fits and keyboard/gamepad focus semantics match."
+        }
+      ],
+      "outOfScope": [
+        "changes to escape.raft",
+        "new escape methods or endings",
+        "final resource costs, preparation days, window frequency or failure probability",
+        "full fifty-day human completion",
+        "Steamworks achievements",
+        "new final art or cinematics",
+        "deep diving or combat",
+        "global escape completion menu"
+      ],
+      "openQuestions": []
     }
   },
   "features": [
@@ -5334,5 +5966,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-24T15:31:50.790Z"
+  "updatedAt": "2026-08-25T11:47:26.240Z"
 }
