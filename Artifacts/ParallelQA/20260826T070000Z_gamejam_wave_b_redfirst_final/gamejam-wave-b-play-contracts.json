@@ -1,0 +1,78 @@
+{
+    "schemaVersion": 1,
+    "title": "GameJam Wave B RED-first actual Play contracts",
+    "runId": "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit": "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-25T17:41:06.5274784Z",
+    "completedUtc": "2026-08-25T17:41:06.5678155Z",
+    "overall": "RED",
+    "productOverall": "RED_EXPECTED_GAP",
+    "infrastructureOverall": "PASS",
+    "passed": 0,
+    "expectedGaps": 5,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "notReady": 0,
+    "greenCompletionCondition": "Wave B product checks are all PASS from actual structured Edit/Play evidence while GSN 15/15, Wave 19 21/21, Wave 20 16/16, compile/build/smoke/Addressables/firewall remain GREEN.",
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "GWB-P01.return_forced_return_snapshot_persistence",
+            "matrix": "actual persistence trace",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Actual Play trace preserves hidden/partial/depleted, known remainder, broken barrier, and removed persistent hazard through return, forced return, revisit, and snapshot restore",
+            "actual": "InvalidOperationException: known remaining fingerprint is missing",
+            "reproduction": "Use a fresh run, naturally search, return, force-return, revisit, serialize, restore, and compare stable state fingerprints.",
+            "recommendedFiles": "runtime region/search persistence owners selected by live trace and public snapshot"
+        },
+        {
+            "id": "GWB-P02.stock_not_regenerated_outside_new_game",
+            "matrix": "stock lifecycle",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "The same seed+revisions keeps byte-identical stock across transition/return/forced-return/revisit/restore; stock generation occurs only once at new game",
+            "actual": "InvalidOperationException: stock fingerprints missing: ",
+            "reproduction": "Observe generation event and stock bytes across every non-new-game transition without reopening or reconstructing fixtures.",
+            "recommendedFiles": "runtime new-game stock and run snapshot owners selected by structured live observation"
+        },
+        {
+            "id": "GWB-P03.natural_disease_lifecycle_atomic",
+            "matrix": "natural disease lifecycle",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "One actual disease trace proceeds telegraph→exposure→effect→worsen→mitigate/treat with single application and zero duplicate/cancel contamination",
+            "actual": "InvalidOperationException: stable disease ID missing: ",
+            "reproduction": "From a fresh run, walk to a declared disease region and complete exposure, worsening, and mitigation/treatment through actual interactions.",
+            "recommendedFiles": "runtime live disease state, treatment transaction, and hazard ledger owners selected by structured trace"
+        },
+        {
+            "id": "GWB-P04.ko_en_qps_input_layout_parity",
+            "matrix": "locale/input/layout",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "ko/en/qps-long actual 1280x800 disease/search states have zero overflow/offscreen/occlusion and keyboard/mouse plus synthetic gamepad preserve identical meaning",
+            "actual": "InvalidOperationException: locale layouts=",
+            "reproduction": "Capture the same actual disease/search state in all locales and actuate identical actions through both synthetic input paths.",
+            "recommendedFiles": "runtime disease/search HUD, canonical localization, and action input owners selected by live observation"
+        },
+        {
+            "id": "GWB-P05.actual_natural_trace_no_cheats",
+            "matrix": "acceptance integrity",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Acceptance comes from an active live Scene component, stable IDs, structured state fingerprints, and a natural region/search/treatment trace with grant/warp/skip false",
+            "actual": "InvalidOperationException: no live Wave B observation owner: No active live Scene component exposes a structured Wave B disease/persistence observation.",
+            "reproduction": "Independently discover an active Scene component by returned structured surface and inspect actual trace/state values; never accept a bool result or fixture text.",
+            "recommendedFiles": "runtime live Wave B observation owner selected by returned member shape, not class name"
+        }
+    ]
+}

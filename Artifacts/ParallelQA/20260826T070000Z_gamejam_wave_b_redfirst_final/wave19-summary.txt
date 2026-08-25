@@ -1,0 +1,14 @@
+Wave 19 independent resource connection visual regression gate
+Run ID: 20260826T070000Z_gamejam_wave_b_redfirst_final
+Baseline: 00e0d5a9df597ab4a9f54bff665291f367d40c92
+Overall/Product/Infrastructure: FAIL/PASS/FAIL
+Wave 18 GREEN lock: 22/23
+Wave 19 PASS/FAIL: 21/0
+Failure IDs: 
+Compile/qps/build/smoke/Addressables/firewall: PASS 0/0/0/10/PASS/PASS 6.344s/PASS/PASS
+Stable executable: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\StableWindowsBuild\KimSurvivalIsland.exe
+Stable executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave19ResourceConnectionGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '00e0d5a9df597ab4a9f54bff665291f367d40c92' -MinimumSmokeSeconds 6
+Exit code: 1 (0 GREEN, 2 product RED, 1 infrastructure FAIL)

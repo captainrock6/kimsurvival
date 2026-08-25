@@ -1,0 +1,10 @@
+Wave 4 Steam readiness
+Run ID: 20260826T070000Z_gamejam_wave_b_redfirst_final
+Baseline: 00e0d5a9df597ab4a9f54bff665291f367d40c92
+Overall: NOT_READY
+NOT_READY · Steamworks SDK/API · no targeted repository match
+NOT_READY · Steam App ID · no targeted repository match
+NOT_READY · Depot/upload · no targeted repository match
+NOT_READY · Steam Input · no targeted repository match
+NOT_READY · Steam Cloud · no targeted repository match
+NOT_READY · Steam Achievements · no targeted repository match

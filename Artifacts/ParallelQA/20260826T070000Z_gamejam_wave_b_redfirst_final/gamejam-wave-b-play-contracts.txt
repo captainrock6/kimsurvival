@@ -1,0 +1,11 @@
+GameJam Wave B RED-first actual Play contracts
+Run ID: 20260826T070000Z_gamejam_wave_b_redfirst_final
+Baseline: 00e0d5a9df597ab4a9f54bff665291f367d40c92
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL: 0/5/0/0
+GWB-P01.return_forced_return_snapshot_persistence | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: known remaining fingerprint is missing
+GWB-P02.stock_not_regenerated_outside_new_game | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: stock fingerprints missing: 
+GWB-P03.natural_disease_lifecycle_atomic | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: stable disease ID missing: 
+GWB-P04.ko_en_qps_input_layout_parity | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: locale layouts=
+GWB-P05.actual_natural_trace_no_cheats | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: no live Wave B observation owner: No active live Scene component exposes a structured Wave B disease/persistence observation.

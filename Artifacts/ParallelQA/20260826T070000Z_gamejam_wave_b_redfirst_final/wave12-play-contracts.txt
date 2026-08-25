@@ -1,0 +1,13 @@
+Wave 12 Play infrastructure failure
+Run ID: 20260826T070000Z_gamejam_wave_b_redfirst_final
+Baseline: 00e0d5a9df597ab4a9f54bff665291f367d40c92
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: FAIL/PASS/FAIL
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 0/0/0/1/0
+W12-I99.play_runner | INFRA_FAIL | INFRASTRUCTURE | System.Reflection.AmbiguousMatchException: Ambiguous match found.
+  at System.RuntimeType.GetMethodImplCommon (System.String name, System.Int32 genericParameterCount, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00050] in <f713e1c3c5f545ce9b1df47230f4f853>:0 
+  at System.RuntimeType.GetMethodImpl (System.String name, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 
+  at System.Type.GetMethod (System.String name, System.Reflection.BindingFlags bindingAttr) [0x0000e] in <f713e1c3c5f545ce9b1df47230f4f853>:0 
+  at ParallelQA.Wave12FiveDayCompactUiGateRunner.Invoke (System.Object target, System.String name, System.Object[] arguments) [0x00000] in C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Assets\Editor\ParallelQA\Wave12FiveDayCompactUiGateRunner.cs:779 
+  at ParallelQA.Wave12FiveDayCompactUiGateRunner.ObserveInputLocaleIndependence (KimSurvival.KimSurvivalPrototype prototype) [0x00045] in C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Assets\Editor\ParallelQA\Wave12FiveDayCompactUiGateRunner.cs:400 
+  at ParallelQA.Wave12FiveDayCompactUiGateRunner.PlayTick () [0x000c8] in C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Assets\Editor\ParallelQA\Wave12FiveDayCompactUiGateRunner.cs:231 

@@ -1,0 +1,22 @@
+{
+    "runId": "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit": "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "targetDiscovery": "found ExpeditionMap/camp.expedition-map",
+    "stateTransition": "target=ExpeditionMap/camp.expedition-map at=(5.250,-2.180); farKind=RescueSignal; farHidden=True; nearSingle=True; opened=True; cards=activeTexts=11; regions=True; semantics=True; exactForecastAmounts=False; cancelRestored=True; fingerprint=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None",
+    "regionCards": "three localized forecast cards found",
+    "inputParity": "keyboard=[E]; gamepad=[X]; target=ExpeditionMap/camp.expedition-map->ExpeditionMap/camp.expedition-map; focus=expeditionMapSelection=PrototypeExpeditionMapSelection{FocusedIndex=0;FocusedRegionId=Beach;IsOpen=False}->expeditionMapSelection=PrototypeExpeditionMapSelection{FocusedIndex=0;FocusedRegionId=Beach;IsOpen=False}; progress=D1/W2/S1/F0/D0/signal0/bag4/Camp/None->D1/W2/S1/F0/D0/signal0/bag4/Camp/None",
+    "layout": "captures=9/9; overflow=0; offscreen=0; textOverlap=0",
+    "progressFingerprint": "D1/W2/S1/F0/D0/signal0/bag4/Camp/None",
+    "screenshots": [
+        "wave15-ko-map-far-1280x800.png",
+        "wave15-ko-map-near-1280x800.png",
+        "wave15-ko-map-popup-1280x800.png",
+        "wave15-en-map-far-1280x800.png",
+        "wave15-en-map-near-1280x800.png",
+        "wave15-en-map-popup-1280x800.png",
+        "wave15-qps-long-map-far-1280x800.png",
+        "wave15-qps-long-map-near-1280x800.png",
+        "wave15-qps-long-map-popup-1280x800.png"
+    ],
+    "joystickNames": []
+}

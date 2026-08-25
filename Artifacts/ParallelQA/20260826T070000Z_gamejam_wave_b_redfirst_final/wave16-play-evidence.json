@@ -1,0 +1,25 @@
+{
+    "runId": "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit": "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "liveContractSurface": "GameObject:hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery | escape.raft progress complete escape.smoke progress complete escape.radio progress complete escape.flare escape.beacon | ending.escape.raft.open-water ending.escape.smoke.seen-from-afar ending.escape.radio.clear-signal ending.escape.flare.one-shot ending.escape.beacon.ridge-light ending.comic.raft.coconut-navy ending.comic.smoke.island-barbecue ending.comic.radio.island-dj ending.comic.flare.daylight-fireworks ending.comic.beacon.brightest-address ending.rare.raft.current-reader ending.rare.smoke.cloud-letter ending.rare.radio.forecast-rescue ending.rare.beacon.storm-eye ending.stay.green-king ending.stay.fortress-manager ending.stay.scrap-professor ending.stay.island-ranger ending.stay.just-kim:active=True",
+    "hazardState": "available",
+    "escapeState": "available",
+    "endingState": "available",
+    "inputParity": "before=D1/Camp/None/seed849831389/region/GameObject:hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery | escape.raft progress complete escape.smoke progress complete escape.radio progress complete escape.flare escape.beacon | ending.escape.raft.open-water ending.escape.smoke.seen-from-afar ending.escape.radio.clear-signal ending.escape.flare.one-shot ending.escape.beacon.ridge-light ending.comic.raft.coconut-navy ending.comic.smoke.island-barbecue ending.comic.radio.island-dj ending.comic.flare.daylight-fireworks ending.comic.beacon.brightest-address ending.rare.raft.current-reader ending.rare.smoke.cloud-letter ending.rare.radio.forecast-rescue ending.rare.beacon.storm-eye ending.stay.green-king ending.stay.fortress-manager ending.stay.scrap-professor ending.stay.island-ranger ending.stay.just-kim:active=True; gamepad=D1/Camp/None/seed849831389/region/GameObject:hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery | escape.raft progress complete escape.smoke progress complete escape.radio progress complete escape.flare escape.beacon | ending.escape.raft.open-water ending.escape.smoke.seen-from-afar ending.escape.radio.clear-signal ending.escape.flare.one-shot ending.escape.beacon.ridge-light ending.comic.raft.coconut-navy ending.comic.smoke.island-barbecue ending.comic.radio.island-dj ending.comic.flare.daylight-fireworks ending.comic.beacon.brightest-address ending.rare.raft.current-reader ending.rare.smoke.cloud-letter ending.rare.radio.forecast-rescue ending.rare.beacon.storm-eye ending.stay.green-king ending.stay.fortress-manager ending.stay.scrap-professor ending.stay.island-ranger ending.stay.just-kim:active=True; keyboard=D1/Camp/None/seed849831389/region/GameObject:hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery | escape.raft progress complete escape.smoke progress complete escape.radio progress complete escape.flare escape.beacon | ending.escape.raft.open-water ending.escape.smoke.seen-from-afar ending.escape.radio.clear-signal ending.escape.flare.one-shot ending.escape.beacon.ridge-light ending.comic.raft.coconut-navy ending.comic.smoke.island-barbecue ending.comic.radio.island-dj ending.comic.flare.daylight-fireworks ending.comic.beacon.brightest-address ending.rare.raft.current-reader ending.rare.smoke.cloud-letter ending.rare.radio.forecast-rescue ending.rare.beacon.storm-eye ending.stay.green-king ending.stay.fortress-manager ending.stay.scrap-professor ending.stay.island-ranger ending.stay.just-kim:active=True",
+    "layout": "captures=3/3; panels=3; locales=ko->ko,en->en,qps-long->qps-long; overflow=0; offscreen=0; overlap=0",
+    "activeComicPanels": 3,
+    "overflowCount": 0,
+    "offscreenCount": 0,
+    "overlapCount": 0,
+    "captureLocales": [
+        "ko->ko",
+        "en->en",
+        "qps-long->qps-long"
+    ],
+    "screenshots": [
+        "wave16-ko-ending-state-1280x800.png",
+        "wave16-en-ending-state-1280x800.png",
+        "wave16-qps-long-ending-state-1280x800.png"
+    ],
+    "joystickNames": []
+}

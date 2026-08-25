@@ -1,0 +1,11 @@
+id	matrix	status	glyph_px	block_height_px	max_block_height_px	line_count	max_lines	left_px	bottom_px	right_px	top_px	player_occlusion_ratio	walking_path_occlusion_ratio	overflow	failures	screenshot	hierarchy
+W14-QPS-01.hud_day_status	minimal HUD / day and status	FAIL	0.000	0.000	64.000	0	2	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-02.hud_resources	minimal HUD / resources	FAIL	0.000	0.000	64.000	0	2	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-03.language_button	language button	FAIL	0.000	0.000	32.000	0	1	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-04.bottom_help	minimal HUD / bottom help	FAIL	0.000	0.000	96.000	0	3	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-05.world_entrance	world badge / entrance	FAIL	0.000	0.000	120.000	0	3	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-06.world_required_path	world badge / required path	FAIL	0.000	0.000	80.000	0	2	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-07.world_signal_anchor	world badge / signal anchor	FAIL	0.000	0.000	108.000	0	3	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-08.placement_status	placement state	FAIL	0.000	0.000	108.000	0	3	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-09.world_expansion_planning	world badge / expansion planning	FAIL	0.000	0.000	64.000	0	2	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		
+W14-QPS-10.world_general_floor	world badge / general floor	FAIL	0.000	0.000	144.000	0	4	0.000	0.000	0.000	0.000	0.000	0.000	0	canonical-target-count=0		

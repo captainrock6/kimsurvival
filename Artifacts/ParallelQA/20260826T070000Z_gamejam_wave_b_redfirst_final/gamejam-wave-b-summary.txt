@@ -1,0 +1,13 @@
+GameJam Wave B RED-first independent QA gate
+Run ID: 20260826T070000Z_gamejam_wave_b_redfirst_final
+Baseline: 00e0d5a9df597ab4a9f54bff665291f367d40c92
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+GSN/Wave19/Wave20 GREEN locks: 15/15/21/21/16/16
+Wave B PASS/EXPECTED_GAP/FAIL: 0/9/0
+Expected gap IDs: GWB-E01.catalog_7_21_42_144, GWB-E02.seed_revision_byte_determinism, GWB-E03.revision_and_new_game_stock_schema, GWB-E04.ko_en_qps_wave_b_surface, GWB-P01.return_forced_return_snapshot_persistence, GWB-P02.stock_not_regenerated_outside_new_game, GWB-P03.natural_disease_lifecycle_atomic, GWB-P04.ko_en_qps_input_layout_parity, GWB-P05.actual_natural_trace_no_cheats
+Product failure IDs: 
+Compile/build/smoke/Addressables/firewall: PASS 0/0/PASS/PASS 6.344s/PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-GameJamWaveBRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '00e0d5a9df597ab4a9f54bff665291f367d40c92' -MinimumSmokeSeconds 6
+Exit code: 2 (0 GREEN, 2 product RED, 1 infrastructure FAIL)

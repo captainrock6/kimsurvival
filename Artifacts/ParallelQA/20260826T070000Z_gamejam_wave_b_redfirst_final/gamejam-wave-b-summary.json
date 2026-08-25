@@ -1,0 +1,95 @@
+{
+    "schemaVersion":  1,
+    "title":  "GameJam Wave B RED-first independent QA gate",
+    "runId":  "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit":  "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "startedUtc":  "2026-08-25T17:36:27.0068564Z",
+    "completedUtc":  "2026-08-25T17:41:11.6170098Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                   },
+    "overall":  "RED",
+    "productOverall":  "RED_EXPECTED_GAP",
+    "infrastructureOverall":  "PASS",
+    "prerequisites":  {
+                          "gsn":  "15/15",
+                          "wave19":  "21/21",
+                          "wave20":  "16/16"
+                      },
+    "waveB":  {
+                  "passed":  0,
+                  "expectedGaps":  9,
+                  "failed":  0,
+                  "passIds":  [
+
+                              ],
+                  "expectedGapIds":  [
+                                         "GWB-E01.catalog_7_21_42_144",
+                                         "GWB-E02.seed_revision_byte_determinism",
+                                         "GWB-E03.revision_and_new_game_stock_schema",
+                                         "GWB-E04.ko_en_qps_wave_b_surface",
+                                         "GWB-P01.return_forced_return_snapshot_persistence",
+                                         "GWB-P02.stock_not_regenerated_outside_new_game",
+                                         "GWB-P03.natural_disease_lifecycle_atomic",
+                                         "GWB-P04.ko_en_qps_input_layout_parity",
+                                         "GWB-P05.actual_natural_trace_no_cheats"
+                                     ],
+                  "failureIds":  [
+
+                                 ]
+              },
+    "currentLocks":  {
+                         "compile":  "PASS 0/0",
+                         "windowsDevelopmentBuild":  "PASS",
+                         "hiddenSmoke":  "PASS 6.344s",
+                         "addressables":  "PASS",
+                         "firewallInboundBlock":  "PASS",
+                         "rawPlayerLog":  "PASS_QUARANTINED"
+                     },
+    "greenTransitionConditions":  [
+                                      "exact public catalog observes 7 regions, 21 stable archetypes, 42 stable instances, and 144 derived general resource units",
+                                      "same seed+contractRevision+lootTableRevision is byte-equal, another seed validly varies stock, and non-new-game transitions never regenerate stock",
+                                      "hidden/partial/depleted, known remainder, broken barrier, and removed persistent hazard survive return, forced return, revisit, and snapshot restore",
+                                      "one live natural disease trace completes telegraph, exposure, effect, worsen, and mitigate/treat with zero duplicate/cancel contamination",
+                                      "ko/en/qps-long 1280x800 and keyboard/mouse/synthetic-gamepad meanings match without overflow, offscreen, player, or walking-band occlusion",
+                                      "GSN 15/15, Wave 19 21/21, Wave 20 16/16, compile/build/smoke/Addressables/firewall remain PASS"
+                                  ],
+    "infrastructureFailures":  [
+
+                               ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-GameJamWaveBRedFirstGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u002700e0d5a9df597ab4a9f54bff665291f367d40c92\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "fresh-gsn-green-prerequisite",
+                       "startedUtc":  "2026-08-25T17:36:27.0210408Z",
+                       "completedUtc":  "2026-08-25T17:40:52.2783151Z",
+                       "exitCode":  0,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-GameJamSearchNodeRedFirstGate.ps1\" -RunId 20260826T070000Z_gamejam_wave_b_redfirst_final -BaselineCommit 00e0d5a9df597ab4a9f54bff665291f367d40c92 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave-b-gsn-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave-b-gsn-stderr.log"
+                   },
+                   {
+                       "name":  "wave-b-edit-contracts",
+                       "startedUtc":  "2026-08-25T17:40:52.2994640Z",
+                       "completedUtc":  "2026-08-25T17:41:00.4079395Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.GameJamWaveBRedFirstGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave_b_edit_contracts.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave_b_edit_contracts-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave_b_edit_contracts-stderr.log"
+                   },
+                   {
+                       "name":  "wave-b-play-contracts",
+                       "startedUtc":  "2026-08-25T17:41:00.4120949Z",
+                       "completedUtc":  "2026-08-25T17:41:11.5362925Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.GameJamWaveBRedFirstGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave_b_play_contracts.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave_b_play_contracts-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave_b_play_contracts-stderr.log"
+                   }
+               ],
+    "exitCode":  2
+}

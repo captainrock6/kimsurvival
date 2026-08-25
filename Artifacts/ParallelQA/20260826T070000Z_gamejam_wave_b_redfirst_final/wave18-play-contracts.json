@@ -1,0 +1,87 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 18 green-transition Play hardening",
+    "runId": "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit": "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-25T17:39:16.3047550Z",
+    "completedUtc": "2026-08-25T17:39:16.4054416Z",
+    "overall": "GREEN",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 6,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "greenCompletionCondition": "Fresh Wave 15/16 GREEN, infrastructure locks PASS, all 15 transition IDs and eight regression locks present, and zero product FAIL; hardware/Steam remain external.",
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "W18-I02.actual_play_scene",
+            "matrix": "Play infrastructure",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The runner observes active KimSurvival components with valid Scene instance IDs",
+            "actual": "liveProductComponents=4; scene=Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+            "reproduction": "Run the Wave 18 Play execute method through the PowerShell entry point.",
+            "recommendedFiles": "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+        },
+        {
+            "id": "W17-P01.live_hazard_lifecycle",
+            "matrix": "actual Play hazard",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "All three hazard stable IDs traverse telegraph, occurrence, mitigation, recovery on actual Play objects and retry idempotently",
+            "actual": "hazard.injury@-3440[Telegraph,Occurrence,Mitigation,Recovery] retry=True | hazard.disaster@-3440[Telegraph,Occurrence,Mitigation,Recovery] retry=True | hazard.food-theft@-3440[Telegraph,Occurrence,Mitigation,Recovery] retry=True",
+            "reproduction": "Load the prototype Scene in Play Mode and invoke the public phase-shaped methods on the live owner while observing its state collection.",
+            "recommendedFiles": "live hazard interaction owner selected by the implementation owner"
+        },
+        {
+            "id": "W17-P02.live_smoke_radio_natural_paths",
+            "matrix": "actual Play escape",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Smoke and radio produce distinct stable-ID interaction traces from live Play owners with grant=false, warp=false, and terminal completion",
+            "actual": "smoke=PASS@-3440/escape.smoke/interactions=6/grant=False/warp=False/complete=True; radio=PASS@-3440/escape.radio/interactions=6/grant=False/warp=False/complete=True; ignoredStaticFixtures=8",
+            "reproduction": "Expose or drive separate live interaction traces for smoke and radio; static Edit fixtures are deliberately ignored.",
+            "recommendedFiles": "live smoke/radio interaction owner selected by the implementation owner"
+        },
+        {
+            "id": "W17-P03.live_terminal_priority_and_three_panels",
+            "matrix": "actual Play ending",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "An actual Play object proves early-escape priority, Day 50 no-escape resolution, deterministic tie-break, and exactly three panels",
+            "actual": "entity=-3440;scene=Assets/_Project/Scenes/KimSurvivalPrototype.unity;type=KimSurvival.PrototypeWaveRuntime;method=VerifyLiveEndingTerminalProbe;result=PrototypeContractProbe{Success=True;Detail=live ending PASS escape_complete; earlyEscapePriorityTrue; day50 noEscape; deterministic tieBreak; panelCount3; ending.escape.smoke.seen-from-afar; ending.stay.just-kim} | entity=-3440;scene=Assets/_Project/Scenes/KimSurvivalPrototype.unity;type=KimSurvival.PrototypeWaveRuntime;method=ChooseTerminalOutcome;result=PrototypeEndingResolution{StableId=ending.stay.just-kim;DeterministicSingleReason=priority > condition specificity > event day > ASCII stable ID;Priority=0;MatchedConditions=1;EventDay=2147483647;AsciiStableIdTieBreaker=ending.stay.just-kim;PanelKeys=[ending.stay.just-kim.title,ending.stay.just-kim.summary,ending.stay.just-kim.hint];AchievementMappingId=achievement.stay.just-kim}",
+            "reproduction": "Observe both terminal scenarios through a public instance result on an active Scene object, then inspect the three-panel presentation.",
+            "recommendedFiles": "live ending/terminal owner selected by the implementation owner"
+        },
+        {
+            "id": "W17-P04.ko_en_qps_1280_layout",
+            "matrix": "localized ending layout",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Fresh ko/en/qps-long 1280x800 three-panel layout remains locked",
+            "actual": "freshWave17Status=PASS; locales=ko->ko,en->en,qps-long->qps-long; ko:panels=3,overflow=0,offscreen=0,overlap=0; en:panels=3,overflow=0,offscreen=0,overlap=0; qps-long:panels=3,overflow=0,offscreen=0,overlap=0",
+            "reproduction": "Open each wave17-*-ending-state-1280x800.png at 1:1 and compare the recorded metrics.",
+            "recommendedFiles": "runtime ending presentation/localization tables selected by the implementation owner"
+        },
+        {
+            "id": "W17-P05.keyboard_synthetic_gamepad_parity",
+            "matrix": "input parity",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "Fresh keyboard/synthetic-gamepad semantic state remains locked",
+            "actual": "freshWave17Status=PASS; keyboard=D1/Camp/None/seed646906563/region/localeqps-long/UnityEngine.UI.Image/수집 지역 노드 · region.beach{sprite=null;overrideSprite=null;type=Simple;preserveAspect=False;fillCenter=True;fillMethod=Radial360;fillAmount=1;fillClockwise=True;fillOrigin=0;eventAlphaThreshold=1;alphaHitTestMinimumThreshold=0;useSpriteMesh=False;mainTexture=Texture2D{format=RGBA32;mipmapLimitGroup=;activeMipmapLimit=0;isReadable=True;vtOnly=False;streamingMipmaps=False;streamingMipmapsPriority=0;requestedMipmapLevel=-1;minimumMipmapLevel=-1;calculatedMipmapLevel=-1;desiredMipmapLevel=-1;loadingMipmapLevel=0;loadedMipmapLevel=0;alphaIsTransparency=False;ignoreMipmapLimit=False;mipmapCount=1;graphicsFormat=R8G8B8A8_UNorm;width=4;height=4;dimension=Tex2D;wrapMode=Repeat;wrapModeU=Repeat;wrapModeV=Repeat;wrapModeW=Repeat;filterMode=Bilinear;anisoLevel=0;mipMapBias=0;texelSize=Vector2{x=0.25;y=0.25;normalized=Vector2;magnitude=0.3535534;sqrMagnitude=0.125};updateCount=2;isDataSRGB=False;imageContentsHash=Hash128{isValid=True};graphicsTexture=GraphicsTexture{descriptor=GraphicsTextureDescriptor;state=InitializedOnRenderThread};name=UnityWhite;hideFlags=125};hasBorder=False;pixelsPerUnitMultiplier=1;pixelsPerUnit...[truncated]",
+            "reproduction": "Switch the prototype input tracker KeyboardMouse->Gamepad->KeyboardMouse and compare semantic fingerprints.",
+            "recommendedFiles": "runtime input and ending UI selected by the implementation owner"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 11 Play infrastructure failure",
+    "runId": "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit": "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-25T17:36:55.1471398Z",
+    "completedUtc": "2026-08-25T17:36:55.1506440Z",
+    "overall": "FAIL",
+    "productOverall": "PASS",
+    "infrastructureOverall": "FAIL",
+    "passed": 0,
+    "expectedFailed": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 1,
+    "unverified": 0,
+    "checks": [
+        {
+            "id": "W11-I99.play_runner",
+            "matrix": "infrastructure",
+            "status": "INFRA_FAIL",
+            "classification": "INFRASTRUCTURE",
+            "severity": "P0",
+            "expected": "Wave 11 Play runner produces parseable evidence",
+            "actual": "System.Reflection.AmbiguousMatchException: Ambiguous match found.\r\n  at System.RuntimeType.GetMethodImplCommon (System.String name, System.Int32 genericParameterCount, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00050] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.RuntimeType.GetMethodImpl (System.String name, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.Type.GetMethod (System.String name, System.Reflection.BindingFlags bindingAttr) [0x0000e] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at ParallelQA.Wave11SlotDiscoveryGateRunner.Invoke (System.Object target, System.String name, System.Object[] arguments) [0x00000] in C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Wave11SlotDiscoveryGateRunner.cs:941 \r\n  at ParallelQA.Wave11SlotDiscoveryGateRunner.ObserveDirectSlots (KimSurvival.KimSurvivalPrototype prototype) [0x00096] in C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Wave11SlotDiscoveryGateRunner.cs:377 \r\n  at ParallelQA.Wave11SlotDiscoveryGateRunner.PlayTick () [0x0007b] in C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Wave11SlotDiscoveryGateRunner.cs:307 ",
+            "reproduction": "Run the Wave 11 Play execute method outside the Codex sandbox.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Wave11SlotDiscoveryGateRunner.cs"
+        }
+    ]
+}

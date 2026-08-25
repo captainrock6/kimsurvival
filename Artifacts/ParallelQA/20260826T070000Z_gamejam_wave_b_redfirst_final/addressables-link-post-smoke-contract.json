@@ -1,0 +1,30 @@
+{
+    "schemaVersion":  2,
+    "runId":  "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit":  "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "overall":  "PASS",
+    "ownership":  "ADDRESSABLES_GENERATED_TEMPORARY",
+    "canonicalDurableState":  "ABSENT",
+    "preflight":  {
+                      "observedUtc":  "2026-08-25T17:36:29.0996278Z",
+                      "linkExists":  false,
+                      "linkBytes":  0,
+                      "linkSha256":  "",
+                      "metaExists":  false,
+                      "metaBytes":  0,
+                      "metaSha256":  "",
+                      "metaGuid":  "",
+                      "assetDatabaseGuid":  ""
+                  },
+    "postSmoke":  {
+                      "observedUtc":  "2026-08-25T17:37:49.5032760Z",
+                      "linkExists":  false,
+                      "linkBytes":  0,
+                      "linkSha256":  "",
+                      "metaExists":  false,
+                      "metaBytes":  0,
+                      "metaSha256":  "",
+                      "metaGuid":  "",
+                      "assetDatabaseGuid":  ""
+                  }
+}

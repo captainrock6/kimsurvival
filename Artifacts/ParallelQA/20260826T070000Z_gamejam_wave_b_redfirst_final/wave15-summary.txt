@@ -1,0 +1,14 @@
+Wave 15 50-day campaign and expedition-map RED-first gate
+Run ID: 20260826T070000Z_gamejam_wave_b_redfirst_final
+Baseline: 00e0d5a9df597ab4a9f54bff665291f367d40c92
+PowerShell: Desktop 5.1.26100.9168
+Overall/Product/Infrastructure: FAIL/FAIL/FAIL
+Expected product gaps: 0 []
+Unexpected product failures: 1
+Infrastructure failures: 4
+qps-long lock: 0/10 PASS
+Compile/Build/Smoke/Addressables: PASS 0 errors/PASS/PASS/PASS load/build/post-smoke
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Exit code: 1 (0 GREEN, 2 RED_EXPECTED_GAP, 1 unexpected/infrastructure failure)
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave15CampaignMapGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '00e0d5a9df597ab4a9f54bff665291f367d40c92' -MinimumSmokeSeconds 6

@@ -1,0 +1,81 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 16 hazard, multi-escape, and behavioral-ending RED-first gate",
+    "runId":  "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit":  "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "startedUtc":  "2026-08-25T17:36:28.2344919Z",
+    "completedUtc":  "2026-08-25T17:38:41.5976026Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "FAIL",
+    "productOverall":  "PASS",
+    "infrastructureOverall":  "FAIL",
+    "wave15Prerequisite":  "FAIL",
+    "currentGreenLocks":  {
+                              "wave15CampaignMap":  "FAIL",
+                              "qpsLong":  "0/10 FAIL",
+                              "compile":  "PASS 0 errors",
+                              "windowsDevelopmentBuild":  "PASS",
+                              "hiddenSmoke":  "PASS",
+                              "addressables":  "PASS load/build/post-smoke"
+                          },
+    "expectedGapIds":  [
+
+                       ],
+    "expectedGaps":  [
+
+                     ],
+    "productFailures":  [
+
+                        ],
+    "infrastructureFailures":  [
+                                   "fresh Wave 15 campaign/map prerequisite did not remain full GREEN",
+                                   "a fresh Wave 15 Edit/Play prerequisite report is missing or not GREEN",
+                                   "qps-long global layout lock is not a fresh 10/10 PASS",
+                                   "compile/build/hidden-smoke/Addressables regression lock did not remain PASS"
+                               ],
+    "unverifiedIds":  [
+                          "W16-HW01.physical_gamepad",
+                          "W16-S01.steam_release"
+                      ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "greenTransition":  "On a post-implementation baseline, the same command must keep fresh Wave 15 GREEN and report zero Wave 16 EXPECTED_GAP/FAIL checks with infrastructure PASS.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave16HazardEndingGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u002700e0d5a9df597ab4a9f54bff665291f367d40c92\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave15-full-green-prerequisite",
+                       "startedUtc":  "2026-08-25T17:36:28.2501213Z",
+                       "completedUtc":  "2026-08-25T17:38:22.3293802Z",
+                       "exitCode":  1,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1\" -RunId 20260826T070000Z_gamejam_wave_b_redfirst_final -BaselineCommit 00e0d5a9df597ab4a9f54bff665291f367d40c92 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave16-wave15-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave16-wave15-stderr.log"
+                   },
+                   {
+                       "name":  "wave16-hazard-ending-edit",
+                       "startedUtc":  "2026-08-25T17:38:22.3334657Z",
+                       "completedUtc":  "2026-08-25T17:38:30.4116876Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave16-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave16-edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave16-edit-stderr.log"
+                   },
+                   {
+                       "name":  "wave16-hazard-ending-play",
+                       "startedUtc":  "2026-08-25T17:38:30.4116876Z",
+                       "completedUtc":  "2026-08-25T17:38:41.5341432Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave16-play.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave16-play-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave16-play-stderr.log"
+                   }
+               ],
+    "exitCode":  1
+}

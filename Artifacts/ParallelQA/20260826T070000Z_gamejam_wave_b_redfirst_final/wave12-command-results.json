@@ -1,0 +1,113 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 12 five-day compact-a RED-first gate",
+    "runId":  "20260826T070000Z_gamejam_wave_b_redfirst_final",
+    "baselineCommit":  "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+    "unityVersionExpected":  "6000.4.9f1",
+    "unityExecutable":  "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+    "startedUtc":  "2026-08-25T17:36:28.9885362Z",
+    "completedUtc":  "2026-08-25T17:37:49.5551216Z",
+    "executionPolicy":  "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+    "evidencePolicy":  "Fresh run ID only. A fresh Wave 3 visual report is generated before the asset/release contracts.",
+    "powershell":  {
+                       "schemaVersion":  1,
+                       "runId":  "20260826T070000Z_gamejam_wave_b_redfirst_final",
+                       "baselineCommit":  "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+                       "observedUtc":  "2026-08-25T17:36:29.2225855Z",
+                       "entryPoint":  "Invoke-Wave12FiveDayUiGate.ps1",
+                       "mode":  "Full",
+                       "psEdition":  "Desktop",
+                       "psVersion":  "5.1.26100.9168",
+                       "preflightExitCode":  0,
+                       "preflightJsonUtf8NoBom":  true,
+                       "preflightTextUtf8NoBom":  true,
+                       "evidenceFormat":  "UTF-8 without BOM; existing Wave 5 JSON/TXT names and schemas preserved",
+                       "overall":  "PASS"
+                   },
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u002700e0d5a9df597ab4a9f54bff665291f367d40c92\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "preflight",
+                       "executeMethod":  "Capture-Wave5Preflight.ps1",
+                       "startedUtc":  "2026-08-25T17:36:28.9885362Z",
+                       "completedUtc":  "2026-08-25T17:36:29.2107167Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave5-preflight.txt",
+                       "command":  "Capture-Wave5Preflight.ps1 -RunId \u002720260826T070000Z_gamejam_wave_b_redfirst_final\u0027 -BaselineCommit \u002700e0d5a9df597ab4a9f54bff665291f367d40c92\u0027",
+                       "output":  "PREFLIGHT=PASS | CANONICAL_ADDRESSABLES_LINK=ABSENT | EVIDENCE=C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\wave5-preflight.json"
+                   },
+                   {
+                       "name":  "compile",
+                       "executeMethod":  "ParallelQA.ParallelQaRunner.RecordCompilePass",
+                       "startedUtc":  "2026-08-25T17:36:29.2552097Z",
+                       "completedUtc":  "2026-08-25T17:36:40.3844684Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-compile.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-compile.log\""
+                   },
+                   {
+                       "name":  "wave11-slot-edit",
+                       "executeMethod":  "ParallelQA.Wave11SlotDiscoveryGateRunner.RunEditContracts",
+                       "startedUtc":  "2026-08-25T17:36:40.3895494Z",
+                       "completedUtc":  "2026-08-25T17:36:48.4763795Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave11-edit.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave11SlotDiscoveryGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave11-edit.log\""
+                   },
+                   {
+                       "name":  "wave11-slot-play",
+                       "executeMethod":  "ParallelQA.Wave11SlotDiscoveryGateRunner.RunPlayContracts",
+                       "startedUtc":  "2026-08-25T17:36:48.4989723Z",
+                       "completedUtc":  "2026-08-25T17:36:59.6146865Z",
+                       "exitCode":  1,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave11-play.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave11SlotDiscoveryGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave11-play.log\""
+                   },
+                   {
+                       "name":  "wave12-five-day-ui-edit",
+                       "executeMethod":  "ParallelQA.Wave12FiveDayCompactUiGateRunner.RunEditContracts",
+                       "startedUtc":  "2026-08-25T17:36:59.6156932Z",
+                       "completedUtc":  "2026-08-25T17:37:07.6913588Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave12-edit.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave12-edit.log\""
+                   },
+                   {
+                       "name":  "wave12-five-day-ui-play",
+                       "executeMethod":  "ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts",
+                       "startedUtc":  "2026-08-25T17:37:07.6958455Z",
+                       "completedUtc":  "2026-08-25T17:37:18.8054696Z",
+                       "exitCode":  1,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave12-play.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-wave12-play.log\""
+                   },
+                   {
+                       "name":  "asset-release-contracts",
+                       "executeMethod":  "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+                       "startedUtc":  "2026-08-25T17:37:18.8107931Z",
+                       "completedUtc":  "2026-08-25T17:37:22.8770885Z",
+                       "exitCode":  1,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-asset-contracts.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-asset-contracts.log\""
+                   },
+                   {
+                       "name":  "windows-development-build",
+                       "executeMethod":  "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+                       "startedUtc":  "2026-08-25T17:37:22.8825474Z",
+                       "completedUtc":  "2026-08-25T17:37:43.0866043Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-windows-build.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\unity-windows-build.log\""
+                   },
+                   {
+                       "name":  "windows-hidden-smoke",
+                       "executeMethod":  "Invoke-Wave5WindowsSmoke.ps1",
+                       "startedUtc":  "2026-08-25T17:37:43.0866043Z",
+                       "completedUtc":  "2026-08-25T17:37:49.5551216Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260826T070000Z_gamejam_wave_b_redfirst_final\\windows-player.log",
+                       "command":  "Invoke-Wave5WindowsSmoke.ps1 -RunId \u002720260826T070000Z_gamejam_wave_b_redfirst_final\u0027 -BaselineCommit \u002700e0d5a9df597ab4a9f54bff665291f367d40c92\u0027 -MinimumSeconds 6",
+                       "error":  ""
+                   }
+               ]
+}

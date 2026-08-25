@@ -1,0 +1,16 @@
+GameJam searchable resource node RED-first independent regression gate
+Run ID: 20260826T070000Z_gamejam_wave_b_redfirst_final
+Baseline: 00e0d5a9df597ab4a9f54bff665291f367d40c92
+Overall/Product/Infrastructure: GREEN/PASS/PASS
+Wave 20 GREEN lock: 16/16
+Wave 19 GREEN lock: 21/21
+Search node PASS/EXPECTED_GAP/FAIL: 15/0/0
+Wave 19 equivalent resource-icon lock: PASS: Wood=2@5ba05e4e569ab6745bff72d0b9ba9151/fallback=0 | Stone=3@c881b7198e647ad40b32c63ce18e27a2/fallback=0 | Food=1@59695c50812722b458c210b4cfb02c12/fallback=0 | Salvage=2@cb8829a17d9cc9049aa16fbf4393097a/fallback=0
+Expected gap IDs: 
+Unexpected failure IDs: 
+Camp/module/map and same-day notice: PASS/PASS
+Compile/build/smoke/Addressables/firewall: PASS 0/0/PASS/PASS 6.344s/PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-GameJamSearchNodeRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '00e0d5a9df597ab4a9f54bff665291f367d40c92' -MinimumSmokeSeconds 6
+Exit code: 0 (0 GREEN, 2 product RED, 1 infrastructure FAIL)
