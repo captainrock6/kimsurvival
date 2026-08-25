@@ -440,8 +440,12 @@ search.tray.bag	가방: {0}	Bag: {0}	⟦Bág: {0}á⟧
 search.tray.action.take	선택 담기	Take selected	⟦Táké séléctédáéí⟧
 search.tray.action.take_all	모두 담기	Take all that fit	⟦Táké áll thát fítáéíó⟧
 search.tray.action.choose_swap	교체할 가방 칸 선택	Choose bag slot to swap	⟦Chóósé á bág slót tó swápáéíóúüñ⟧
+search.tray.action.replace	선택한 가방 칸 교체	Replace selected bag slot	⟦Réplácé séléctéd bág slótáéíóúüñ⟧
 search.tray.action.leave	남기고 닫기	Leave and close	⟦Léávé áñd clóséáéí⟧
 search.tray.action.cancel_swap	교체 취소	Cancel swap	⟦Cáñcél swápáé⟧
+search.tray.remaining	남은 발견물 {0}종	{0} finds remaining	⟦{0} fíñds rémáíñíñgáéíóúü⟧
+search.tray.cost	수색 비용 체력 -{0} / 일광 -{1}	Search cost Energy -{0} / Daylight -{1}	⟦Séárch cóst Éñérgy -{0} / Dáylíght -{1}áéíóúüñ¿¡áéíó⟧
+search.tray.risk	위험 노출: {0}	Risk exposure: {0}	⟦Rísk éxpósúré: {0}áéíóúü⟧
 search.part.raft.sailcloth	뗏목 돛천	Raft sailcloth	⟦Ráft sáílclótháéí⟧
 controls.search_tray.keyboard_mouse	발견물: ←/→ 선택 · E/Enter 담기 · T 모두 담기 · 1–{1} 교체 · Esc 남기기 ({0})	Finds: ←/→ select · E/Enter take · T take all · 1–{1} swap · Esc leave ({0})	⟦Fíñds: ←/→ séléct ítém · É/Éñtér táké · T táké áll · 1–{1} swáp slót · Ésc léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.search_tray.gamepad	발견물: 스틱 선택 · A 담기 · RB 모두 담기 · D-pad+A 교체 · B 남기기 ({0})	Finds: stick select · A take · RB take all · D-pad+A swap · B leave ({0})	⟦Fíñds: stíck séléct ítém · Á táké · RB táké áll · D-pád+Á swáp slót · B léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧

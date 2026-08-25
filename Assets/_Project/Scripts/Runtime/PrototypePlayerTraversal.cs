@@ -144,6 +144,15 @@ namespace KimSurvival
             return CreatePresentation(0f, swimming);
         }
 
+        public PrototypePlayerPresentationState RestorePosition(float restoredX, float restoredY, bool swimming)
+        {
+            x = Mathf.Clamp(restoredX, MinimumX, UnlockedMaximumX);
+            y = restoredY;
+            verticalVelocity = 0f;
+            grounded = true;
+            return CreatePresentation(0f, swimming);
+        }
+
         public PrototypePlayerPresentationState CurrentPresentation(bool swimming, float horizontal = 0f)
         {
             return CreatePresentation(horizontal, swimming);

@@ -1807,6 +1807,22 @@ MonoBehaviour:
     m_Key: controls.search_tray.gamepad
     m_Metadata:
       m_Items: []
+  - m_Id: 1172586326376448
+    m_Key: search.tray.action.replace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1172586372513792
+    m_Key: search.tray.remaining
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1172586372513793
+    m_Key: search.tray.cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1172586372513794
+    m_Key: search.tray.risk
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

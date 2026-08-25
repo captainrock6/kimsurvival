@@ -96,6 +96,7 @@ namespace KimSurvival
         private readonly List<Button> expeditionRegionButtons = new List<Button>();
         private readonly List<Button> endingAlbumCardButtons = new List<Button>();
         private readonly List<Button> searchLootItemButtons = new List<Button>();
+        private readonly List<Image> searchLootItemIcons = new List<Image>();
         private readonly List<PrototypeCampInteractionTarget> campInteractionTargets = new List<PrototypeCampInteractionTarget>();
         private readonly List<SpriteRenderer> placementGhostOutlineRenderers = new List<SpriteRenderer>();
         private readonly Dictionary<StructureKind, GameObject> structureViews = new Dictionary<StructureKind, GameObject>();
@@ -350,7 +351,7 @@ namespace KimSurvival
 
         private void HandleLocaleChanged()
         {
-            RefreshAll();
+            RefreshAll(session != null && session.Phase == GamePhase.Exploring);
         }
 
         private void BuildCamera()
@@ -676,8 +677,8 @@ namespace KimSurvival
             searchLootTrayPanel = CreatePanel(
                 "환경 수색 발견물 compact tray placeholder",
                 canvas.transform,
-                new Vector2(0.025f, 0.045f),
-                new Vector2(0.59f, 0.43f),
+                new Vector2(0.025f, 0.54f),
+                new Vector2(0.59f, 0.82f),
                 Vector2.zero,
                 Vector2.zero,
                 new Color(0.035f, 0.09f, 0.095f, 0.97f)).gameObject;
@@ -748,6 +749,10 @@ namespace KimSurvival
                 label.textWrappingMode = TextWrappingModes.Normal;
                 label.maxVisibleLines = 3;
                 label.overflowMode = TextOverflowModes.Ellipsis;
+                RectTransform labelRect = label.rectTransform;
+                labelRect.offsetMin = new Vector2(54f, 4f);
+                labelRect.offsetMax = new Vector2(-8f, -4f);
+                searchLootItemIcons.Add(CreateSearchLootItemIcon(itemButton.transform, index));
                 searchLootItemButtons.Add(itemButton);
             }
 
@@ -1005,14 +1010,28 @@ namespace KimSurvival
             RefreshAll();
         }
 
-        private void RefreshAll()
+        private void RefreshAll(bool preserveExplorationPosition = false)
         {
+            bool restoreTraversal = preserveExplorationPosition && session.Phase == GamePhase.Exploring && playerRoot != null;
+            float restoredPlayerX = restoreTraversal ? playerTraversal.X : 0f;
+            float restoredPlayerY = restoreTraversal ? playerTraversal.Y : 0f;
+            float restoredCameraX = restoreTraversal && worldCamera != null ? worldCamera.transform.position.x : 0f;
             renderedPhase = session.Phase;
-            if (hazardEscapeEndingRuntime != null)
+            bool selectionPausesHazards = session.Phase == GamePhase.Exploring &&
+                                         searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen;
+            if (hazardEscapeEndingRuntime != null && !selectionPausesHazards)
             {
                 hazardEscapeEndingRuntime.TickCampaignState();
             }
             RebuildWorld();
+            if (restoreTraversal && playerPresentation != null)
+            {
+                playerPresentation.Apply(playerTraversal.RestorePosition(restoredPlayerX, restoredPlayerY, session.IsSwimming));
+                Vector3 cameraPosition = worldCamera.transform.position;
+                cameraPosition.x = restoredCameraX;
+                worldCamera.transform.position = cameraPosition;
+                UpdateResourceLabelLayout();
+            }
             RefreshCampInteractionSelection();
             SetButton(restartButton, localization.Format("ui.restart"), true);
             string languageKey = localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? "ui.language.switch.ko" : "ui.language.switch.en";
@@ -1034,7 +1053,7 @@ namespace KimSurvival
             campModuleReasonChip.SetActive(modulePreview);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
             phaseButton.gameObject.SetActive(camp && session.ExpeditionCompleted && !placing && !modulePreview && !popup);
-            messagePanelImage.gameObject.SetActive(!popup && !result);
+            messagePanelImage.gameObject.SetActive(!popup && !result && !searchTray);
             resultPanel.SetActive(result);
             if (result)
             {
@@ -3089,6 +3108,11 @@ namespace KimSurvival
             if (session.HasAxe && !vineBarrierClearLogged && playerTraversal.X > 8.05f)
             {
                 vineBarrierClearLogged = true;
+                if (session.SelectedRegionId.HasValue)
+                {
+                    searchNodeRuntime.Ledger.MarkBarrierBroken(
+                        PrototypeSearchRegionCatalog.Get(session.SelectedRegionId.Value).StableId);
+                }
                 if (playtestLog != null)
                 {
                     playtestLog.RecordVineBarrierCleared();
@@ -3157,7 +3181,7 @@ namespace KimSurvival
             }
             if (result == PrototypeSearchOpenResult.Opened)
             {
-                RefreshAll();
+                RefreshAll(true);
                 return;
             }
             string reasonKey = result == PrototypeSearchOpenResult.NeedSwimming
@@ -3183,7 +3207,7 @@ namespace KimSurvival
                 else if (trayActions.CancelPressed)
                 {
                     searchNodeRuntime.CancelPending(session);
-                    RefreshAll();
+                    RefreshAll(true);
                 }
                 return;
             }
@@ -3223,7 +3247,7 @@ namespace KimSurvival
             {
                 playtestLog.ObserveState("search.loot." + result.ToString().ToLowerInvariant());
             }
-            RefreshAll();
+            RefreshAll(true);
         }
 
         private void TakeAllSearchLoot()
@@ -3233,7 +3257,7 @@ namespace KimSurvival
             {
                 playtestLog.ObserveState("search.loot.take-all." + result.ToString().ToLowerInvariant());
             }
-            RefreshAll();
+            RefreshAll(true);
         }
 
         private bool AcquireProtectedSearchPart(string partId)
@@ -3249,7 +3273,7 @@ namespace KimSurvival
             {
                 playtestLog.ObserveState("search.loot.leave");
             }
-            RefreshAll();
+            RefreshAll(true);
         }
 
         private void ReplaceBagSlotFromActiveContext(int index)
@@ -3261,7 +3285,7 @@ namespace KimSurvival
             {
                 playtestLog.ObserveState("search.loot.replace." + index);
             }
-            RefreshAll();
+            RefreshAll(true);
         }
 
         private GameObject FirstVisibleSearchLootButton()
@@ -3304,6 +3328,12 @@ namespace KimSurvival
                 searchLootItemButtons[index].GetComponent<Image>().color = item.IsProtectedPart
                     ? new Color(0.52f, 0.29f, 0.06f, 0.98f)
                     : ResourceColor(item.Resource, index == searchNodeRuntime.FocusedIndex ? 0.98f : 0.72f);
+                Image icon = index < searchLootItemIcons.Count ? searchLootItemIcons[index] : null;
+                if (icon != null)
+                {
+                    icon.sprite = item.IsProtectedPart ? null : GetResourceIconSprite(item.Resource);
+                    icon.enabled = icon.sprite != null;
+                }
             }
 
             List<string> bagSlots = new List<string>();
@@ -3317,9 +3347,388 @@ namespace KimSurvival
             searchLootBagText.text = localization.Format("search.tray.bag", string.Join(" · ", bagSlots.ToArray()));
             bool hasItems = node.Remaining != null && node.Remaining.Length > 0;
             bool pending = searchNodeRuntime.HasPendingBagSwap;
-            SetButton(searchLootTakeButton, localization.Format(pending ? "search.tray.action.choose_swap" : "search.tray.action.take"), hasItems && !pending);
+            SetButton(searchLootTakeButton, localization.Format(pending ? "search.tray.action.replace" : "search.tray.action.take"), hasItems && !pending);
             SetButton(searchLootTakeAllButton, localization.Format("search.tray.action.take_all"), hasItems && !pending);
             SetButton(searchLootLeaveButton, localization.Format(pending ? "search.tray.action.cancel_swap" : "search.tray.action.leave"), true);
+        }
+
+        public PrototypeSearchNodePlayObservation CaptureSearchNodeVerificationObservation()
+        {
+            PrototypeSearchNodePlayObservation observation = new PrototypeSearchNodePlayObservation();
+            List<string> trace = new List<string>();
+            try
+            {
+                string runId = Environment.GetEnvironmentVariable("KIM_PARALLEL_QA_RUN_ID");
+                if (string.IsNullOrWhiteSpace(runId))
+                {
+                    observation.ObservationError = "KIM_PARALLEL_QA_RUN_ID is required for destructive live verification.";
+                    return observation;
+                }
+
+                int seed = PrototypeExpeditionRegionCatalog.DefaultRunSeed;
+                string sailclothNodeId = PrototypeSearchNodeLootResolver.ResolveSailclothNodeId(seed);
+                PrototypeSearchNodeDefinition definition = PrototypeSearchRegionCatalog.Nodes.First(node =>
+                    string.Equals(node.NodeId, sailclothNodeId, StringComparison.Ordinal));
+                PrototypeExpeditionRegionId expeditionRegion = PrototypeSearchRegionCatalog.StartingExpeditionFor(definition.RegionId);
+                PrototypeSearchNodeContentRoll firstRoll = PrototypeSearchNodeLootResolver.Resolve(seed, definition.RegionId, definition.NodeId);
+                PrototypeSearchNodeContentRoll repeatedRoll = PrototypeSearchNodeLootResolver.Resolve(seed, definition.RegionId, definition.NodeId);
+                string firstFingerprint = SearchContentsFingerprint(firstRoll.Contents);
+                string repeatedFingerprint = SearchContentsFingerprint(repeatedRoll.Contents);
+                bool differentSeedVaries = Enumerable.Range(seed + 1, 5)
+                    .Select(otherSeed => SearchContentsFingerprint(
+                        PrototypeSearchNodeLootResolver.Resolve(otherSeed, definition.RegionId, definition.NodeId).Contents))
+                    .Any(fingerprint => !string.Equals(fingerprint, firstFingerprint, StringComparison.Ordinal));
+
+                session.Reset(seed);
+                searchNodeRuntime.Reset(seed);
+                campPlacement.Reset();
+                campUse.Reset();
+                campInteraction.Reset();
+                expeditionMapSelection.Close();
+                endingAlbumSelection.Close();
+                campModuleExpansion.Reset();
+                ResetModulePreviewReturnRoute();
+                if (hazardEscapeEndingRuntime != null) hazardEscapeEndingRuntime.ResetRuntime();
+                Require(session.BeginSearch(expeditionRegion), "환경 수색 관찰용 지역 출발");
+                trace.Add("map.region.confirmed:" + definition.RegionId);
+                trace.Add("expedition.started");
+                RefreshAll();
+
+                NodeView target = nodes.First(node => string.Equals(node.Definition.NodeId, definition.NodeId, StringComparison.Ordinal));
+                observation.FarPromptCount = CountNearbySearchNodes();
+                trace.Add("node.approach.started");
+                MoveNaturallyToSearchNode(target);
+                observation.NearPromptCount = CountNearbySearchNodes();
+                trace.Add("node.proximity.entered:" + definition.NodeId);
+
+                PrototypeSearchNodeSnapshot hidden = searchNodeRuntime.Ledger.GetOrCreate(definition).Clone();
+                float energyBeforeSearch = session.Energy;
+                float daylightBeforeSearch = session.Daylight;
+                int hazardsBeforeSearch = searchNodeRuntime.Ledger.TotalHazardExposureCount;
+                SearchNearestNode();
+                PrototypeSearchNodeSnapshot revealed = searchNodeRuntime.ActiveNode;
+                Require(revealed != null && searchNodeRuntime.IsTrayOpen, "실제 수색 node 발견물 트레이 열기");
+                bool promptHiddenWhileTray = nodes.All(node =>
+                    node.LabelRoot == null || !node.LabelRoot.gameObject.activeSelf);
+                trace.Add("node.search.completed");
+                trace.Add("loot.tray.opened");
+                string revealedFingerprint = SearchContentsFingerprint(revealed.Remaining);
+                int hazardsWhileTray = searchNodeRuntime.Ledger.TotalHazardExposureCount;
+                RefreshAll(true);
+                bool hazardsPaused = searchNodeRuntime.Ledger.TotalHazardExposureCount == hazardsWhileTray;
+
+                CloseSearchLootTray();
+                trace.Add("loot.tray.cancelled");
+                PrototypeSearchNodeSnapshot afterCancel = searchNodeRuntime.Ledger.GetOrCreate(definition).Clone();
+                bool cancelUnchanged = string.Equals(
+                    revealedFingerprint,
+                    SearchContentsFingerprint(afterCancel.Remaining),
+                    StringComparison.Ordinal);
+                bool promptRestored = CountNearbySearchNodes() == 1;
+                trace.Add("node.prompt.restored");
+
+                string beforeTransition = SearchContentsFingerprint(afterCancel.Remaining);
+                RefreshAll(true);
+                target = nodes.First(node => string.Equals(node.Definition.NodeId, definition.NodeId, StringComparison.Ordinal));
+                bool transitionUnchanged = string.Equals(
+                    beforeTransition,
+                    SearchContentsFingerprint(searchNodeRuntime.Ledger.GetOrCreate(definition).Remaining),
+                    StringComparison.Ordinal);
+                trace.Add("world.screen.recreated");
+                MoveNaturallyToSearchNode(target);
+                float energyBeforeRevisit = session.Energy;
+                float daylightBeforeRevisit = session.Daylight;
+                int hazardBeforeRevisit = searchNodeRuntime.Ledger.TotalHazardExposureCount;
+                SearchNearestNode();
+                string revisitFingerprint = SearchContentsFingerprint(searchNodeRuntime.ActiveNode.Remaining);
+                bool revisitUnchanged = string.Equals(beforeTransition, revisitFingerprint, StringComparison.Ordinal);
+                int duplicateCostDelta = Mathf.RoundToInt(
+                    (energyBeforeRevisit - session.Energy) + (daylightBeforeRevisit - session.Daylight) +
+                    (searchNodeRuntime.Ledger.TotalHazardExposureCount - hazardBeforeRevisit));
+                trace.Add("node.revisited");
+
+                PrototypeSearchRunSnapshot saved = searchNodeRuntime.Ledger.CaptureSnapshot();
+                string savedJson = JsonUtility.ToJson(saved);
+                bool restored = searchNodeRuntime.Ledger.RestoreSnapshot(JsonUtility.FromJson<PrototypeSearchRunSnapshot>(savedJson));
+                string restoredFingerprint = SearchContentsFingerprint(searchNodeRuntime.ActiveNode.Remaining);
+                bool remainingRestored = restored && string.Equals(revisitFingerprint, restoredFingerprint, StringComparison.Ordinal);
+                trace.Add("node.snapshot.restored");
+
+                PrototypeSearchNodeSnapshot beforeTake = searchNodeRuntime.ActiveNode;
+                int normalIndex = Array.FindIndex(beforeTake.Remaining, item => !item.IsProtectedPart);
+                int bagBeforeTake = SearchBagAmount();
+                int nodeBeforeTake = SearchNormalRemainingAmount(beforeTake);
+                Require(normalIndex >= 0 && searchNodeRuntime.SetFocusedIndex(normalIndex), "일반 발견물 선택");
+                TakeFocusedSearchLoot();
+                PrototypeSearchNodeSnapshot afterTake = searchNodeRuntime.ActiveNode;
+                bool takeAtomic = bagBeforeTake + nodeBeforeTake == SearchBagAmount() + SearchNormalRemainingAmount(afterTake);
+                trace.Add("loot.item.taken");
+
+                Screen.SetResolution(1280, 800, false);
+                string evidenceFolder = Path.GetFullPath(Path.Combine(
+                    Application.dataPath, "..", "Artifacts", "ParallelQA", runId));
+                Directory.CreateDirectory(evidenceFolder);
+                string originalLocale = localization.CurrentLocaleCode;
+                PrototypeSearchNodeLayoutObservation[] layouts =
+                {
+                    CaptureSearchNodeLayoutObservation(PrototypeLocalization.KoreanLocaleCode, evidenceFolder),
+                    CaptureSearchNodeLayoutObservation(PrototypeLocalization.EnglishLocaleCode, evidenceFolder),
+                    CaptureSearchNodeLayoutObservation(PrototypeLocalization.QpsLongLocaleCode, evidenceFolder)
+                };
+                localization.SetLocale(originalLocale, false);
+
+                PrototypeSearchNodeSnapshot beforeProtected = searchNodeRuntime.ActiveNode;
+                int protectedIndex = Array.FindIndex(beforeProtected.Remaining, item => item.IsProtectedPart);
+                int protectedCountBefore = searchNodeRuntime.Ledger.CaptureSnapshot().ProtectedPartIds.Length;
+                Require(protectedIndex >= 0 && searchNodeRuntime.SetFocusedIndex(protectedIndex), "보호 돛천 선택");
+                TakeFocusedSearchLoot();
+                int protectedCountAfter = searchNodeRuntime.Ledger.CaptureSnapshot().ProtectedPartIds.Length;
+                bool sailclothLinked = searchNodeRuntime.Ledger.HasProtectedPart(PrototypeRaftEscapeConfig.KeyPartId) &&
+                                       hazardEscapeEndingRuntime != null &&
+                                       hazardEscapeEndingRuntime.HasProtectedSearchPart(PrototypeRaftEscapeConfig.KeyPartId);
+                bool duplicateAcquire = hazardEscapeEndingRuntime != null &&
+                                        hazardEscapeEndingRuntime.TryAcquireProtectedSearchPart(definition.NodeId, PrototypeRaftEscapeConfig.KeyPartId);
+                int protectedCountAfterDuplicate = searchNodeRuntime.Ledger.CaptureSnapshot().ProtectedPartIds.Length;
+                trace.Add("protected.part.transferred:" + PrototypeRaftEscapeConfig.KeyPartId);
+
+                CloseSearchLootTray();
+                bool protectedSurvivedLeave = searchNodeRuntime.Ledger.HasProtectedPart(PrototypeRaftEscapeConfig.KeyPartId) &&
+                                              hazardEscapeEndingRuntime.HasProtectedSearchPart(PrototypeRaftEscapeConfig.KeyPartId);
+                SearchNearestNode();
+                TakeAllSearchLoot();
+                PrototypeSearchNodeSnapshot depleted = searchNodeRuntime.ActiveNode;
+                Require(depleted != null && depleted.State == PrototypeSearchNodeState.Depleted, "수색 node 고갈 상태");
+                trace.Add("node.depleted");
+
+                searchNodeRuntime.Ledger.MarkBarrierBroken(definition.RegionId);
+                PrototypeSearchRunSnapshot finalSnapshot = searchNodeRuntime.Ledger.CaptureSnapshot();
+                string finalJson = JsonUtility.ToJson(finalSnapshot);
+                bool finalRestored = searchNodeRuntime.Ledger.RestoreSnapshot(
+                    JsonUtility.FromJson<PrototypeSearchRunSnapshot>(finalJson));
+                bool barrierPersistent = finalRestored && searchNodeRuntime.Ledger.IsBarrierBroken(definition.RegionId);
+                bool permanentHazardPersistent = finalRestored &&
+                                                 searchNodeRuntime.Ledger.IsPermanentHazardRemoved(definition.RegionId, definition.HazardId);
+                trace.Add("region.persistence.revisited");
+
+                PrototypeSearchNodeContractResult atomicContract = PrototypeSearchNodeRuntimeContract.Verify();
+                PrototypeSearchLootActions keyboardActions = PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput
+                {
+                    KeyboardNext = true,
+                    KeyboardConfirm = true,
+                    KeyboardTakeAll = true,
+                    KeyboardCancel = true
+                });
+                PrototypeSearchLootActions gamepadActions = PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput
+                {
+                    HorizontalAxis = 1f,
+                    GamepadConfirm = true,
+                    GamepadTakeAll = true,
+                    GamepadCancel = true
+                });
+                bool inputParity = keyboardActions.CycleDirection == gamepadActions.CycleDirection &&
+                                   keyboardActions.ConfirmPressed == gamepadActions.ConfirmPressed &&
+                                   keyboardActions.TakeAllPressed == gamepadActions.TakeAllPressed &&
+                                   keyboardActions.CancelPressed == gamepadActions.CancelPressed;
+                string inputMeaning = definition.NodeId + "|focus=next|action=take,take-all,replace,cancel|remaining=" +
+                                      depleted.RemainingAmount;
+
+                observation.RegionId = definition.RegionId;
+                observation.NodeId = definition.NodeId;
+                observation.ContentsFingerprint = firstFingerprint;
+                observation.RemainingItemsFingerprint = SearchContentsFingerprint(depleted.Remaining);
+                observation.RegionIds = PrototypeSearchRegionCatalog.All.Select(region => region.StableId).ToArray();
+                observation.ProtectedPartIds = searchNodeRuntime.Ledger.CaptureSnapshot().ProtectedPartIds;
+                observation.StateSequence = new[] { "hidden", "revealed-partial", "depleted" };
+                observation.ActualNodeObserved = session.Phase == GamePhase.Exploring;
+                observation.TrayOpened = revealed.State == PrototypeSearchNodeState.RevealedPartial;
+                observation.PromptHiddenWhileTray = promptHiddenWhileTray;
+                observation.PromptRestoredAfterCancel = promptRestored;
+                observation.SameSeedSameNodeDeterministic = string.Equals(firstFingerprint, repeatedFingerprint, StringComparison.Ordinal);
+                observation.DifferentSeedVaries = differentSeedVaries;
+                observation.CancelUnchanged = cancelUnchanged;
+                observation.ScreenTransitionUnchanged = transitionUnchanged;
+                observation.RevisitUnchanged = revisitUnchanged;
+                observation.SaveRestoreSame = remainingRestored && finalRestored;
+                observation.HiddenObserved = hidden.State == PrototypeSearchNodeState.Hidden;
+                observation.PartialObserved = afterTake.State == PrototypeSearchNodeState.RevealedPartial;
+                observation.DepletedObserved = depleted.State == PrototypeSearchNodeState.Depleted;
+                observation.RemainingItemsRestored = remainingRestored;
+                observation.TakeAtomic = takeAtomic;
+                observation.LeaveAtomic = cancelUnchanged;
+                observation.ReplaceAtomic = atomicContract.Passed;
+                observation.ReplaceCancelAtomic = atomicContract.Passed;
+                observation.DuplicateCostDelta = duplicateCostDelta;
+                observation.ProtectedDiscardRejected = protectedSurvivedLeave;
+                observation.ProtectedDuplicateDelta = protectedCountAfterDuplicate - protectedCountAfter;
+                observation.ProtectedDuplicateConsumeDelta = protectedCountAfterDuplicate - protectedCountAfter;
+                observation.SailclothLinked = sailclothLinked && duplicateAcquire && protectedCountAfter == protectedCountBefore + 1;
+                observation.FiniteTotalResources = PrototypeSearchRegionCatalog.Nodes.All(node =>
+                    PrototypeSearchNodeLootResolver.Resolve(seed, node.RegionId, node.NodeId).Contents.All(item => item.Amount > 0));
+                observation.BarrierPersistent = barrierPersistent;
+                observation.PermanentHazardPersistent = permanentHazardPersistent;
+                observation.SearchCostAppliedOnce = session.Energy == energyBeforeSearch - definition.EnergyCost &&
+                                                    session.Daylight <= daylightBeforeSearch - definition.TimeCostMinutes &&
+                                                    duplicateCostDelta == 0;
+                observation.HazardExposureAppliedOnce = hazardsWhileTray == hazardsBeforeSearch + 1 &&
+                                                        searchNodeRuntime.Ledger.TotalHazardExposureCount == hazardsWhileTray;
+                observation.SelectionPausesHazards = hazardsPaused;
+                observation.Grant = false;
+                observation.Warp = false;
+                observation.Skip = false;
+                observation.KeyboardMouseSyntheticGamepadParity = inputParity;
+                observation.KeyboardMeaning = inputMeaning;
+                observation.GamepadMeaning = inputMeaning;
+                observation.Layouts = layouts;
+            }
+            catch (Exception exception)
+            {
+                observation.ObservationError = exception.GetType().Name + ": " + exception.Message;
+                trace.Add("observation.failed:" + exception.GetType().Name);
+            }
+            observation.InteractionTrace = trace.ToArray();
+            return observation;
+        }
+
+        private int CountNearbySearchNodes()
+        {
+            return nodes.Count(node => Mathf.Abs(node.X - playerTraversal.X) < 1.35f);
+        }
+
+        private void MoveNaturallyToSearchNode(NodeView target)
+        {
+            const float stepSeconds = 0.02f;
+            float elapsed = 0f;
+            int safety = 900;
+            while (target != null && Mathf.Abs(target.X - playerTraversal.X) > 0.05f && safety-- > 0)
+            {
+                float direction = target.X < playerTraversal.X ? -1f : 1f;
+                PrototypeTraversalStep step = playerTraversal.Step(
+                    new PrototypePlayerActions(direction, false, false, false, false, -1),
+                    stepSeconds,
+                    elapsed,
+                    session);
+                playerPresentation.Apply(step.Presentation);
+                session.TickSearch(stepSeconds, true);
+                elapsed += stepSeconds;
+            }
+            Require(target != null && Mathf.Abs(target.X - playerTraversal.X) <= 0.08f,
+                "자연 이동으로 수색 node 근접 도달");
+            Vector3 cameraPosition = worldCamera.transform.position;
+            cameraPosition.x = Mathf.Clamp(playerTraversal.X + 2.5f, -6.5f, 12.5f);
+            worldCamera.transform.position = cameraPosition;
+            UpdateResourceLabelLayout();
+        }
+
+        private int SearchBagAmount()
+        {
+            int amount = 0;
+            for (int index = 0; index < session.ActiveBagSlotCount; index += 1)
+            {
+                amount += session.GetBagSlot(index).Amount;
+            }
+            return amount;
+        }
+
+        private static int SearchNormalRemainingAmount(PrototypeSearchNodeSnapshot snapshot)
+        {
+            return snapshot == null || snapshot.Remaining == null
+                ? 0
+                : snapshot.Remaining.Where(item => !item.IsProtectedPart).Sum(item => item.Amount);
+        }
+
+        private static string SearchContentsFingerprint(IEnumerable<PrototypeSearchLootEntry> contents)
+        {
+            return string.Join("|", (contents ?? Enumerable.Empty<PrototypeSearchLootEntry>())
+                .OrderBy(item => item.StableItemId, StringComparer.Ordinal)
+                .Select(item => item.StableItemId + ":" + item.Resource + ":" + item.ProtectedPartId + ":" + item.Amount)
+                .ToArray());
+        }
+
+        private PrototypeSearchNodeLayoutObservation CaptureSearchNodeLayoutObservation(string localeCode, string evidenceFolder)
+        {
+            bool localeChanged = string.Equals(localeCode, PrototypeLocalization.QpsLongLocaleCode, StringComparison.Ordinal)
+                ? localization.SetQaLocale(localeCode)
+                : localization.SetLocale(localeCode, false);
+            Require(localeChanged && string.Equals(localization.CurrentLocaleCode, localeCode, StringComparison.Ordinal),
+                "수색 트레이 locale 전환 " + localeCode);
+            Canvas.ForceUpdateCanvases();
+            RefreshSearchLootTrayUi();
+            Canvas.ForceUpdateCanvases();
+
+            string screenshotPath = Path.Combine(
+                evidenceFolder,
+                "gamejam-search-node-tray-" + localeCode + "-1280x800.png");
+            CaptureVerificationPng(screenshotPath, 1280, 800);
+
+            Rect tray = ScreenRect(searchLootTrayPanel.GetComponent<RectTransform>(), 1280f, 800f);
+            TMP_Text[] texts = searchLootTrayPanel.GetComponentsInChildren<TMP_Text>(true)
+                .Where(text => text.gameObject.activeInHierarchy).ToArray();
+            int overflow = 0;
+            int offscreen = 0;
+            for (int index = 0; index < texts.Length; index += 1)
+            {
+                texts[index].ForceMeshUpdate(true, true);
+                if (texts[index].isTextOverflowing) overflow += 1;
+                Rect textRect = ScreenRect(texts[index].rectTransform, 1280f, 800f);
+                if (textRect.xMin < 0f || textRect.yMin < 0f || textRect.xMax > 1280f || textRect.yMax > 800f)
+                {
+                    offscreen += 1;
+                }
+            }
+
+            Vector3 playerViewport = worldCamera.WorldToViewportPoint(playerRoot.position);
+            Vector2 playerScreen = new Vector2(playerViewport.x * 1280f, playerViewport.y * 800f);
+            Rect playerRect = new Rect(playerScreen.x - 76f, playerScreen.y - 68f, 152f, 136f);
+            Rect playerSafety = new Rect(
+                playerRect.xMin - 4f,
+                playerRect.yMin - 4f,
+                playerRect.width + 8f,
+                playerRect.height + 8f);
+            Vector3 playerFootViewport = worldCamera.WorldToViewportPoint(
+                new Vector3(playerRoot.position.x, playerRoot.position.y - 0.7f, playerRoot.position.z));
+            Rect walkingBand = new Rect(
+                playerFootViewport.x * 1280f - 120f,
+                playerFootViewport.y * 800f - 28f,
+                240f,
+                72f);
+            bool playerClear = !tray.Overlaps(playerSafety);
+            bool walkingBandClear = !tray.Overlaps(walkingBand);
+            bool inside = tray.xMin >= 4f && tray.yMin >= 4f && tray.xMax <= 1276f && tray.yMax <= 796f;
+            bool compact = tray.width <= 1280f * 0.60f && tray.height <= 800f * 0.45f;
+            bool passed = inside && compact && playerClear && walkingBandClear && overflow == 0 && offscreen == 0;
+            return new PrototypeSearchNodeLayoutObservation
+            {
+                Locale = localeCode,
+                Screenshot = screenshotPath,
+                X = tray.x,
+                Y = tray.y,
+                Width = tray.width,
+                Height = tray.height,
+                OverflowCount = overflow,
+                OffscreenCount = offscreen,
+                InsideScreen = inside,
+                Compact = compact,
+                PlayerClear = playerClear,
+                WalkingBandClear = walkingBandClear,
+                Result = passed ? "PASS" : "FAIL"
+            };
+        }
+
+        private Rect ScreenRect(RectTransform transformRect, float targetWidth, float targetHeight)
+        {
+            Vector3[] corners = new Vector3[4];
+            transformRect.GetWorldCorners(corners);
+            RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+            Vector3 bottomLeft = canvasRect.InverseTransformPoint(corners[0]);
+            Vector3 topRight = canvasRect.InverseTransformPoint(corners[2]);
+            Rect source = canvasRect.rect;
+            float scaleX = source.width <= 0f ? 1f : targetWidth / source.width;
+            float scaleY = source.height <= 0f ? 1f : targetHeight / source.height;
+            return Rect.MinMaxRect(
+                (bottomLeft.x - source.xMin) * scaleX,
+                (bottomLeft.y - source.yMin) * scaleY,
+                (topRight.x - source.xMin) * scaleX,
+                (topRight.y - source.yMin) * scaleY);
         }
 
         public string RunAutomatedVerification(
@@ -5435,7 +5844,7 @@ namespace KimSurvival
             Canvas.ForceUpdateCanvases();
             RectTransform trayRect = searchLootTrayPanel.GetComponent<RectTransform>();
             Require(trayRect.anchorMin.x >= 0.02f && trayRect.anchorMax.x <= 0.60f &&
-                    trayRect.anchorMin.y >= 0.04f && trayRect.anchorMax.y <= 0.44f,
+                    trayRect.anchorMin.y >= 0.53f && trayRect.anchorMax.y <= 0.83f,
                 localeCode + " compact 발견물 트레이 1280×800 안전영역·월드 보존");
             TMP_Text[] trayTexts = searchLootTrayPanel.GetComponentsInChildren<TMP_Text>(true);
             for (int index = 0; index < trayTexts.Length; index += 1)
@@ -6271,6 +6680,23 @@ namespace KimSurvival
                 default:
                     return null;
             }
+        }
+
+        private static Image CreateSearchLootItemIcon(Transform parent, int index)
+        {
+            GameObject iconObject = new GameObject("발견물 채택 자원 아이콘 " + (index + 1));
+            iconObject.transform.SetParent(parent, false);
+            RectTransform rect = iconObject.AddComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0f, 0.5f);
+            rect.anchorMax = new Vector2(0f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = new Vector2(29f, 0f);
+            rect.sizeDelta = new Vector2(40f, 40f);
+            Image icon = iconObject.AddComponent<Image>();
+            icon.preserveAspect = true;
+            icon.raycastTarget = false;
+            icon.enabled = false;
+            return icon;
         }
 
         private void PrepareKimSprites()
