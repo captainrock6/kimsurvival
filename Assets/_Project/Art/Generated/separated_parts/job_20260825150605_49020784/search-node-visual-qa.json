@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "assetId": "object.searchable-resource-node-kit",
+  "jobId": "job_20260825150605_49020784",
+  "candidateId": "object.searchable-resource-node-kit.state-language-a",
+  "result": "review",
+  "automated": {
+    "sourceSize": [
+      1536,
+      1024
+    ],
+    "atlasSize": [
+      2304,
+      1152
+    ],
+    "stripStats": {
+      "search-node-grass-thicket-states.png": {
+        "width": 1152,
+        "height": 384,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 262131,
+        "partialAlphaPixels": 24381,
+        "opaquePixels": 155856,
+        "contentBounds": [
+          48,
+          40,
+          1104,
+          360
+        ],
+        "padding": {
+          "left": 48,
+          "top": 40,
+          "right": 48,
+          "bottom": 24
+        },
+        "edgeTouch": false
+      },
+      "search-node-rock-crevice-states.png": {
+        "width": 1152,
+        "height": 384,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 265209,
+        "partialAlphaPixels": 16817,
+        "opaquePixels": 160342,
+        "contentBounds": [
+          64,
+          40,
+          1107,
+          360
+        ],
+        "padding": {
+          "left": 64,
+          "top": 40,
+          "right": 45,
+          "bottom": 24
+        },
+        "edgeTouch": false
+      },
+      "search-node-drift-pile-states.png": {
+        "width": 1152,
+        "height": 384,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 255884,
+        "partialAlphaPixels": 21848,
+        "opaquePixels": 164636,
+        "contentBounds": [
+          41,
+          56,
+          1128,
+          360
+        ],
+        "padding": {
+          "left": 41,
+          "top": 56,
+          "right": 24,
+          "bottom": 24
+        },
+        "edgeTouch": false
+      },
+      "search-node-tree-hollow-states.png": {
+        "width": 1152,
+        "height": 384,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 245255,
+        "partialAlphaPixels": 26015,
+        "opaquePixels": 171098,
+        "contentBounds": [
+          43,
+          56,
+          1128,
+          360
+        ],
+        "padding": {
+          "left": 43,
+          "top": 56,
+          "right": 24,
+          "bottom": 24
+        },
+        "edgeTouch": false
+      },
+      "search-node-wreck-chest-states.png": {
+        "width": 1152,
+        "height": 384,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 260004,
+        "partialAlphaPixels": 13550,
+        "opaquePixels": 168814,
+        "contentBounds": [
+          24,
+          45,
+          1128,
+          360
+        ],
+        "padding": {
+          "left": 24,
+          "top": 45,
+          "right": 24,
+          "bottom": 24
+        },
+        "edgeTouch": false
+      },
+      "search-node-facility-cabinet-states.png": {
+        "width": 1152,
+        "height": 384,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 309515,
+        "partialAlphaPixels": 19700,
+        "opaquePixels": 113153,
+        "contentBounds": [
+          73,
+          41,
+          1081,
+          360
+        ],
+        "padding": {
+          "left": 73,
+          "top": 41,
+          "right": 71,
+          "bottom": 24
+        },
+        "edgeTouch": false
+      },
+      "search-node-states-atlas.png": {
+        "width": 2304,
+        "height": 1152,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1597998,
+        "partialAlphaPixels": 122311,
+        "opaquePixels": 933899,
+        "contentBounds": [
+          47,
+          40,
+          2233,
+          1128
+        ],
+        "padding": {
+          "left": 47,
+          "top": 40,
+          "right": 71,
+          "bottom": 24
+        },
+        "edgeTouch": false
+      },
+      "search-node-status-icons-64.png": {
+        "width": 192,
+        "height": 64,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 4629,
+        "partialAlphaPixels": 0,
+        "opaquePixels": 7659,
+        "contentBounds": [
+          4,
+          4,
+          189,
+          61
+        ],
+        "padding": {
+          "left": 4,
+          "top": 4,
+          "right": 3,
+          "bottom": 3
+        },
+        "edgeTouch": false
+      }
+    },
+    "allStateStripsTrueAlpha": true,
+    "allStateStripsEdgeClear": true,
+    "actualCompositeSize": [
+      1280,
+      800
+    ],
+    "reviewBoardSize": [
+      1920,
+      1080
+    ]
+  },
+  "forgeAutomaticGate": {
+    "grade": "fail",
+    "score": 62,
+    "errors": 1,
+    "warnings": 1,
+    "runtimeArtAssessment": "pass",
+    "runtimeArtNotes": "All six true-alpha state strips, the transparent atlas, status icons and editable SVG have no Forge issues.",
+    "evidenceOnlyExceptions": [
+      {
+        "file": "search-node-actual-size-1280x800.png",
+        "forgeIssues": [
+          "missing-alpha",
+          "edge-touch"
+        ],
+        "classification": "intentional full-frame 1280x800 placement evidence; not a runtime sprite"
+      }
+    ],
+    "policy": "Automatic output is preserved without retry. Evidence-only exceptions do not authorize adoption, packaging or runtime connection."
+  },
+  "manualReview": {
+    "passed": [
+      "six node families are visually distinct",
+      "unknown / known-partial / depleted use silhouette and physical pattern changes",
+      "no exact loot or quantity is baked into world sprites",
+      "all three states per node share one canvas, pivot and bottom baseline",
+      "1280x800 placement remains below the character torso band"
+    ],
+    "warnings": [
+      "wreck chest has a skull-like ornament that may read as a hazard cue and needs user review",
+      "tree hollow unknown and known-partial both expose a cavity; the tied hook and opening depth carry the distinction",
+      "actual-size composite uses current prototype capture as placement evidence only"
+    ]
+  },
+  "gate": {
+    "decision": "review",
+    "selectedCandidate": null,
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false
+  }
+}

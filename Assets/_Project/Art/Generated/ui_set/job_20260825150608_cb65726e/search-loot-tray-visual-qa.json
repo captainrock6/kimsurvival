@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.search-loot-tray",
+  "jobId": "job_20260825150608_cb65726e",
+  "candidateId": "ui.search-loot-tray.compact-bottom-a",
+  "result": "review",
+  "automated": {
+    "components": {
+      "width": 1200,
+      "height": 700,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 377408,
+      "partialAlphaPixels": 0,
+      "opaquePixels": 462592,
+      "contentBounds": [
+        40,
+        40,
+        1161,
+        591
+      ],
+      "padding": {
+        "left": 40,
+        "top": 40,
+        "right": 39,
+        "bottom": 109
+      },
+      "edgeTouch": false
+    },
+    "icons": {
+      "width": 192,
+      "height": 64,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 4629,
+      "partialAlphaPixels": 0,
+      "opaquePixels": 7659,
+      "contentBounds": [
+        4,
+        4,
+        189,
+        61
+      ],
+      "padding": {
+        "left": 4,
+        "top": 4,
+        "right": 3,
+        "bottom": 3
+      },
+      "edgeTouch": false
+    },
+    "actualCompositeSize": [
+      1280,
+      800
+    ],
+    "localizationBoardSize": [
+      1280,
+      800
+    ],
+    "reviewBoardSize": [
+      1920,
+      1080
+    ],
+    "focusRectPx": [
+      44,
+      44
+    ],
+    "tmpSafeWidthsPx": {
+      "ko": 300,
+      "en": 380,
+      "qpsLong": 520
+    }
+  },
+  "forgeAutomaticGate": {
+    "grade": "fail",
+    "score": 70,
+    "errors": 1,
+    "warnings": 0,
+    "runtimeArtAssessment": "pass",
+    "runtimeArtNotes": "The transparent component raster, two editable SVG sources, status icon atlas and localization/focus review components have no Forge issues.",
+    "evidenceOnlyExceptions": [
+      {
+        "file": "search-loot-tray-actual-1280x800.png",
+        "forgeIssues": [
+          "missing-alpha"
+        ],
+        "classification": "intentional full-frame 1280x800 contextual placement evidence; not a runtime sprite"
+      }
+    ],
+    "policy": "Automatic output is preserved without retry. Evidence-only exceptions do not authorize adoption, packaging or runtime connection."
+  },
+  "manualReview": {
+    "passed": [
+      "compact tray leaves the upper world and player-reading band visible",
+      "three loot cards, bag summary and action slots remain one interaction group",
+      "focus, disabled, full bag, protected part, hazard and known remainder use non-color shape or pattern cues",
+      "KO/EN/qps-long use empty TMP-safe rectangles rather than raster body copy",
+      "keyboard and gamepad share a replaceable 44x44 glyph focus slot"
+    ],
+    "warnings": [
+      "actual-size composite is a review mockup over a prototype capture, not runtime evidence",
+      "three simultaneous loot cards are the current compact capacity assumption and require user approval",
+      "exact bag-swap flow and button ordering remain engine interaction design after adoption"
+    ]
+  },
+  "gate": {
+    "decision": "review",
+    "selectedCandidate": null,
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false
+  }
+}

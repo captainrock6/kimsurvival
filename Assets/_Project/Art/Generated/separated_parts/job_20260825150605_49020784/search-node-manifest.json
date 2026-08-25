@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "assetId": "object.searchable-resource-node-kit",
+  "jobId": "job_20260825150605_49020784",
+  "candidateId": "object.searchable-resource-node-kit.state-language-a",
+  "decision": "review",
+  "selectedCandidate": null,
+  "states": [
+    "unknown",
+    "known-partial",
+    "depleted"
+  ],
+  "strips": [
+    {
+      "nodeId": "grass-thicket",
+      "file": "search-node-grass-thicket-states.png",
+      "size": [
+        1152,
+        384
+      ],
+      "cellSize": [
+        384,
+        384
+      ],
+      "stateOrder": [
+        "unknown",
+        "known-partial",
+        "depleted"
+      ],
+      "pivot": [
+        0.5,
+        0.0625
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "nodeId": "rock-crevice",
+      "file": "search-node-rock-crevice-states.png",
+      "size": [
+        1152,
+        384
+      ],
+      "cellSize": [
+        384,
+        384
+      ],
+      "stateOrder": [
+        "unknown",
+        "known-partial",
+        "depleted"
+      ],
+      "pivot": [
+        0.5,
+        0.0625
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "nodeId": "drift-pile",
+      "file": "search-node-drift-pile-states.png",
+      "size": [
+        1152,
+        384
+      ],
+      "cellSize": [
+        384,
+        384
+      ],
+      "stateOrder": [
+        "unknown",
+        "known-partial",
+        "depleted"
+      ],
+      "pivot": [
+        0.5,
+        0.0625
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "nodeId": "tree-hollow",
+      "file": "search-node-tree-hollow-states.png",
+      "size": [
+        1152,
+        384
+      ],
+      "cellSize": [
+        384,
+        384
+      ],
+      "stateOrder": [
+        "unknown",
+        "known-partial",
+        "depleted"
+      ],
+      "pivot": [
+        0.5,
+        0.0625
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "nodeId": "wreck-chest",
+      "file": "search-node-wreck-chest-states.png",
+      "size": [
+        1152,
+        384
+      ],
+      "cellSize": [
+        384,
+        384
+      ],
+      "stateOrder": [
+        "unknown",
+        "known-partial",
+        "depleted"
+      ],
+      "pivot": [
+        0.5,
+        0.0625
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "nodeId": "facility-cabinet",
+      "file": "search-node-facility-cabinet-states.png",
+      "size": [
+        1152,
+        384
+      ],
+      "cellSize": [
+        384,
+        384
+      ],
+      "stateOrder": [
+        "unknown",
+        "known-partial",
+        "depleted"
+      ],
+      "pivot": [
+        0.5,
+        0.0625
+      ],
+      "pixelsPerUnit": 100
+    }
+  ],
+  "statusIcons": {
+    "file": "search-node-status-icons-64.png",
+    "editable": "search-node-status-icons-editable.svg",
+    "cellSize": [
+      64,
+      64
+    ],
+    "order": [
+      "hazard-exposed",
+      "protected-part",
+      "known-remainder"
+    ]
+  },
+  "unityImport": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "alphaIsTransparency": true,
+    "colorSpace": "sRGB",
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "mipmaps": false,
+    "wrapMode": "Clamp"
+  },
+  "layerOrder": [
+    "region-background",
+    "search-node",
+    "node-state-icon-slot",
+    "character",
+    "context-ui"
+  ],
+  "screenScale": {
+    "referenceResolution": [
+      1280,
+      800
+    ],
+    "targetWorldHeightPx": [
+      128,
+      190
+    ],
+    "maxPlayerOcclusionHeightPx": 190
+  },
+  "runtime": {
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false
+  },
+  "generation": {
+    "method": "built-in Codex ImageGen once plus deterministic alpha normalization, slicing and repadding",
+    "paidExternalApiCalled": false,
+    "sourceSha256": "de47b526ceb824c97d897c08d93777c32b516dd0ff2c7e3ff396a1d8dcad2411"
+  }
+}

@@ -1,0 +1,7 @@
+REVIEW ONLY — ui.search-loot-tray.compact-bottom-a
+Reference 1280x800 rect: x=176 y=485 w=928 h=199. The tray is contextual and temporary, not a global dashboard.
+Main panel 9-slice: L24 R24 T24 B24. Import sRGB, alpha transparency, Bilinear, Uncompressed, mipmaps off, Clamp.
+Glyph focus rect 44x44; keyboard/mouse and gamepad art replace the same slot.
+TMP safe widths: KO 300px, EN 380px, qps-long 520px; minimum body 18px; wrap enabled.
+Status must survive grayscale: focus corner/double notch, disabled hatch, full-bag stripe, protected shield, hazard triangle, known-remainder notch.
+Gate: decision=review, selectedCandidate=null, runtimeAllowlist=[], package/runtime/scene/Addressables forbidden.

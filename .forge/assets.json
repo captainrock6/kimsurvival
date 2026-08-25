@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-25T11:48:13.289Z",
+  "updatedAt": "2026-08-25T15:19:19.789Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -5251,11 +5251,11 @@
     },
     {
       "id": "object.searchable-resource-node-kit",
-      "name": "7지역 환경 수색 오브젝트 키트",
+      "name": "환경 수색 오브젝트 상태 키트",
       "assetType": "separated_parts",
-      "request": "김씨 생존기: 무인도의 2D 측면 수색용 오브젝트 키트. 풀숲, 바위틈, 표류물 더미, 속 빈 나무, 조개·해초 웅덩이, 동굴 잔해, 난파선 수납함, 폐기상 관측소 캐비닛을 같은 열대 코믹 생존 화풍으로 제작한다. 각 오브젝트는 미수색, 뒤지는 중 피드백용 분리 파츠, 부분 수색, 고갈, 위험 단서 상태를 엔진에서 전환할 수 있게 분리하고 실제 개별 loot 아이템은 배경에 굽지 않는다. true-alpha, bottom-center pivot, 명확한 상호작용 실루엣, 1280x800 가독성, 한국어·영어 텍스트 미포함, 배경·충돌·위험·발견물 아이콘 분리를 지킨다. 기존 환경 키트와 후보는 사용자 채택 전 runtime에 연결하지 않는다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Review-only 안정 후보 object.searchable-resource-node-kit.state-language-a. 밝고 따뜻한 열대 2D 횡스크롤 측면 원화로 풀숲, 바위틈, 표류물 더미, 속 빈 나무 구멍, 난파선 수납함, 폐시설 캐비닛 여섯 종류를 만든다. 각 노드는 세 상태가 형태로 읽혀야 한다: unknown은 닫힌 덩어리 실루엣과 수색 단서 모양, known-partial은 열린 틈/젖혀진 덮개와 노치형 잔여물 표식 슬롯, depleted는 꺼진 중심·빈 내부·교차 끈 또는 반복 사선 홈으로 고갈을 표시한다. 정확한 loot 아이템이나 수량, 글자, 김씨, 지면, 배경을 굽지 않는다. true alpha, 각 파츠 독립, bottom-center pivot, 동일 종류 상태 간 크기·바닥선 일치, 사방 투명 여백, 1280x800에서 캐릭터 허리 아래 규모, 자원 노드와 보행 band를 가리지 않는 측면 실루엣을 유지한다. 위험 노출, 보호 핵심 부품, 알려진 잔여물은 별도 엔진 아이콘 슬롯으로만 연결한다. decision=review, selectedCandidate=null, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false, runtimeConnected=false. 사용자 승인 전 adopt/package/runtime/scene/Addressables 금지.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "gamejam",
         "search-node",
@@ -5266,22 +5266,278 @@
       "dependencies": [
         "environment.expedition-region-kit"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260825150605_49020784"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260825150605_49020784",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-25T15:06:06.060Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260825150605_49020784",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-25T15:19:19.161Z",
+          "qualityScore": 62
+        }
+      ],
+      "currentJobId": "job_20260825150605_49020784",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 75941,
+          "url": "/outputs/jobs/job_20260825150605_49020784/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 67030,
+          "url": "/outputs/jobs/job_20260825150605_49020784/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-actual-size-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 253782,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-actual-size-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-drift-pile-states.png",
+          "contentType": "image/png",
+          "bytes": 520982,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-drift-pile-states.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-facility-cabinet-states.png",
+          "contentType": "image/png",
+          "bytes": 381030,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-facility-cabinet-states.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-grass-thicket-states.png",
+          "contentType": "image/png",
+          "bytes": 476244,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-grass-thicket-states.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "search-node-manifest.json",
+          "contentType": "application/json",
+          "bytes": 4023,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-manifest.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-review-board-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 761838,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-review-board-1920x1080.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-rock-crevice-states.png",
+          "contentType": "image/png",
+          "bytes": 475668,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-rock-crevice-states.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-state-language-a-source.png",
+          "contentType": "image/png",
+          "bytes": 1945334,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-state-language-a-source.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-state-readability-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 646058,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-state-readability-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-states-atlas.png",
+          "contentType": "image/png",
+          "bytes": 2844301,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-states-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-status-icon-readability.png",
+          "contentType": "image/png",
+          "bytes": 12476,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-status-icon-readability.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-status-icons-64.png",
+          "contentType": "image/png",
+          "bytes": 1351,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-status-icons-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-status-icons-editable.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 988,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-status-icons-editable.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-tree-hollow-states.png",
+          "contentType": "image/png",
+          "bytes": 512472,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-tree-hollow-states.png"
+        },
+        {
+          "kind": "file",
+          "fileName": "search-node-unity-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 756,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-unity-handoff.txt"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "search-node-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 6498,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-visual-qa.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-node-wreck-chest-states.png",
+          "contentType": "image/png",
+          "bytes": 468643,
+          "url": "/outputs/jobs/job_20260825150605_49020784/search-node-wreck-chest-states.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 7144,
+          "url": "/outputs/jobs/job_20260825150605_49020784/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 4992,
+          "url": "/outputs/jobs/job_20260825150605_49020784/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-actual-size-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9771,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-actual-size-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-drift-pile-states.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5806,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-drift-pile-states.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-facility-cabinet-states.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4293,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-facility-cabinet-states.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-grass-thicket-states.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5232,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-grass-thicket-states.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-review-board-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7915,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-review-board-1920x1080.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-rock-crevice-states.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5064,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-rock-crevice-states.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-state-language-a-source.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9375,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-state-language-a-source.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-state-readability-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8354,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-state-readability-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-states-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7778,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-states-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-status-icon-readability.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5817,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-status-icon-readability.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-status-icons-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7518,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-status-icons-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-tree-hollow-states.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5696,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-tree-hollow-states.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-node-wreck-chest-states.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4911,
+          "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-wreck-chest-states.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-25T13:55:38.014Z",
-      "updatedAt": "2026-08-25T13:55:38.014Z"
+      "updatedAt": "2026-08-25T15:19:19.162Z"
     },
     {
       "id": "ui.search-loot-tray",
-      "name": "발견물 선별 트레이 UI",
+      "name": "발견물 선별 compact 트레이",
       "assetType": "ui_set",
-      "request": "환경 수색 오브젝트를 뒤진 직후 사용하는 작고 빠른 발견물 선별 UI. 발견물 아이콘·이름·수량, 현재 4칸 이상 가방, 남은 칸, 담기·모두 담기·교체·남겨두기, 보호 핵심 부품, 위험 결과와 고갈 상태를 1280x800 하단 또는 측면의 compact tray로 보여준다. 월드와 김씨를 과도하게 가리지 않고 ko/en 장문, 키보드·마우스와 게임패드 포커스, qps-long 검증을 고려한다. 버튼 본문은 엔진 텍스트로 분리하고 normal, focus, disabled, full-bag, protected-part 상태를 별도 파츠로 제공한다. 사용자 채택 전 runtime에 연결하지 않는다.",
-      "status": "needed",
-      "source": "forge-director",
+      "request": "Review-only 안정 후보 ui.search-loot-tray.compact-bottom-a. 환경 수색 직후 화면 하단에 잠깐 열리는 compact 발견물 선별 트레이를 1280x800 기준으로 만든다. 월드 중앙과 김씨를 가리지 않도록 x=176..1104, y=560..760 안에 들어가는 확장 가능한 9-slice 구조, 발견물 카드 3개, 현재 가방 4칸/6칸 요약, 남은 칸, 담기·남기기·가방 교체 행동의 분리된 버튼/글리프/TMP 슬롯을 제공한다. normal, focus, disabled, full-bag, protected-part, hazard-exposed, known-remainder 상태를 색상뿐 아니라 모서리 실루엣, 빗금/점 패턴, 자물쇠/방패/잔여물 노치 아이콘 슬롯으로 구분한다. 실제 한국어·영어·qps-long 본문이나 수량을 래스터에 굽지 않고 KO/EN/qps-long 150% TMP-safe rect, 44x44 focus rect, keyboard/gamepad glyph 슬롯을 명세한다. 네이비·틸·크림·따뜻한 오렌지의 기존 UI 문법과 굵은 손맛 외곽선을 유지한다. editable SVG, component atlas, 1280x800 actual-size composite, KO/EN/qps-long 가독성 보드, manifest/handoff/visual QA가 필요하다. decision=review, selectedCandidate=null, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false, runtimeConnected=false. 사용자 승인 전 adopt/package/runtime/scene/Addressables 금지.",
+      "status": "review",
+      "source": "forge-job",
       "tags": [
         "gamejam",
         "loot-selection",
@@ -5292,14 +5548,179 @@
       "dependencies": [
         "icon.resource-tool-set"
       ],
-      "jobIds": [],
-      "versions": [],
-      "currentJobId": null,
+      "jobIds": [
+        "job_20260825150608_cb65726e"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260825150608_cb65726e",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-25T15:06:08.290Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260825150608_cb65726e",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-25T15:19:19.787Z",
+          "qualityScore": 70
+        }
+      ],
+      "currentJobId": "job_20260825150608_cb65726e",
       "parentJobId": null,
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 76326,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 67622,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-actual-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 125850,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-actual-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-components-editable.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 1335,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-components-editable.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-components.png",
+          "contentType": "image/png",
+          "bytes": 11187,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-components.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-icon-readability.png",
+          "contentType": "image/png",
+          "bytes": 12456,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-icon-readability.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-localization-focus-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 19667,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-localization-focus-1280x800.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "search-loot-tray-manifest.json",
+          "contentType": "application/json",
+          "bytes": 2361,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-manifest.json"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-review-board-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 336060,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-review-board-1920x1080.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-status-icons-64.png",
+          "contentType": "image/png",
+          "bytes": 1351,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-status-icons-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "search-loot-tray-status-icons-editable.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 988,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-status-icons-editable.svg"
+        },
+        {
+          "kind": "file",
+          "fileName": "search-loot-tray-unity-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 713,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-unity-handoff.txt"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "search-loot-tray-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 3172,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/search-loot-tray-visual-qa.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 3929,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 3392,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-loot-tray-actual-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9465,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/qa-preview-search-loot-tray-actual-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-loot-tray-components.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7203,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/qa-preview-search-loot-tray-components.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-loot-tray-icon-readability.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5823,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/qa-preview-search-loot-tray-icon-readability.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-loot-tray-localization-focus-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7398,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/qa-preview-search-loot-tray-localization-focus-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-loot-tray-review-board-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8130,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/qa-preview-search-loot-tray-review-board-1920x1080.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-search-loot-tray-status-icons-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7518,
+          "url": "/outputs/jobs/job_20260825150608_cb65726e/qa-preview-search-loot-tray-status-icons-64.jpg"
+        }
+      ],
       "engine": {},
       "createdAt": "2026-08-25T13:55:38.025Z",
-      "updatedAt": "2026-08-25T13:55:38.025Z"
+      "updatedAt": "2026-08-25T15:19:19.789Z"
     }
   ]
 }
