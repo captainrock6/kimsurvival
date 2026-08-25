@@ -303,6 +303,33 @@ namespace KimSurvival
         public bool GamepadCancel;
     }
 
+    public struct PrototypeRawDiseaseInput
+    {
+        public bool KeyboardTreat;
+        public bool GamepadTreat;
+        public bool KeyboardCancel;
+        public bool GamepadCancel;
+    }
+
+    public readonly struct PrototypeDiseaseActions
+    {
+        public PrototypeDiseaseActions(bool treatPressed, bool cancelPressed)
+        {
+            TreatPressed = treatPressed;
+            CancelPressed = cancelPressed;
+        }
+
+        public bool TreatPressed { get; }
+        public bool CancelPressed { get; }
+
+        public static PrototypeDiseaseActions FromRaw(PrototypeRawDiseaseInput raw)
+        {
+            return new PrototypeDiseaseActions(
+                raw.KeyboardTreat || raw.GamepadTreat,
+                raw.KeyboardCancel || raw.GamepadCancel);
+        }
+    }
+
     public readonly struct PrototypeSearchLootActions
     {
         public PrototypeSearchLootActions(int cycleDirection, bool confirmPressed, bool takeAllPressed, bool cancelPressed)
@@ -382,7 +409,7 @@ namespace KimSurvival
                 }
             }
 
-            bool keyboard = keyboardDirection || bagNumber || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Space) ||
+            bool keyboard = keyboardDirection || bagNumber || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Space) ||
                              Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) ||
                             Mathf.Abs(Input.GetAxisRaw("Mouse X")) > 0.01f || Mathf.Abs(Input.GetAxisRaw("Mouse Y")) > 0.01f;
             deviceTracker.Update(new PrototypeInputActivity(keyboard, gamepad || gamepadAxis));
@@ -495,6 +522,17 @@ namespace KimSurvival
             {
                 KeyboardLanguage = Input.GetKeyDown(KeyCode.F1),
                 GamepadLanguage = Input.GetKeyDown(KeyCode.JoystickButton3)
+            });
+        }
+
+        public PrototypeDiseaseActions ReadDiseaseActions()
+        {
+            return PrototypeDiseaseActions.FromRaw(new PrototypeRawDiseaseInput
+            {
+                KeyboardTreat = Input.GetKeyDown(KeyCode.T),
+                GamepadTreat = Input.GetKeyDown(KeyCode.JoystickButton5),
+                KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
+                GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
             });
         }
     }

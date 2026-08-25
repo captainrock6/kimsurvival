@@ -2046,6 +2046,95 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 1191866950467584
+    m_Localized: Fabric
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410624
+    m_Localized: Fiber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410625
+    m_Localized: Medicine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410626
+    m_Localized: Metal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410627
+    m_Localized: Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410628
+    m_Localized: Fuel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410629
+    m_Localized: Chemicals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410630
+    m_Localized: Electronics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353664
+    m_Localized: Waterborne fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353665
+    m_Localized: Healthy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353666
+    m_Localized: Exposure warning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353667
+    m_Localized: "Exposed \xB7 incubating"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353668
+    m_Localized: Fever symptoms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353669
+    m_Localized: Symptoms worsened
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353670
+    m_Localized: "Stabilized \xB7 treatment ready"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353671
+    m_Localized: Recovered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353672
+    m_Localized: "{0} \xB7 Vitality {1} \xB7 Medicine {2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1191867034353673
+    m_Localized: "Stabilize & treat \xB7 Medicine 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353674
+    m_Localized: Medicine required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353675
+    m_Localized: Treatment complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353676
+    m_Localized: "T treat \xB7 Esc cancel"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353677
+    m_Localized: "RB treat \xB7 B cancel"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -2181,3 +2270,4 @@ MonoBehaviour:
         - id: 1172586372513792
         - id: 1172586372513793
         - id: 1172586372513794
+        - id: 1191867034353672

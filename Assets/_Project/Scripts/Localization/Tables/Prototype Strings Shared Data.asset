@@ -1823,6 +1823,94 @@ MonoBehaviour:
     m_Key: search.tray.risk
     m_Metadata:
       m_Items: []
+  - m_Id: 1191866950467584
+    m_Key: resource.fabric
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410624
+    m_Key: resource.fiber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410625
+    m_Key: resource.medicine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410626
+    m_Key: resource.metal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410627
+    m_Key: resource.wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410628
+    m_Key: resource.fuel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410629
+    m_Key: resource.chemicals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410630
+    m_Key: resource.electronics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353664
+    m_Key: disease.name.waterborne-fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353665
+    m_Key: disease.phase.healthy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353666
+    m_Key: disease.phase.telegraph
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353667
+    m_Key: disease.phase.exposed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353668
+    m_Key: disease.phase.effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353669
+    m_Key: disease.phase.worsened
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353670
+    m_Key: disease.phase.mitigated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353671
+    m_Key: disease.phase.recovered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353672
+    m_Key: disease.panel.status
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353673
+    m_Key: disease.treatment.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353674
+    m_Key: disease.treatment.unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353675
+    m_Key: disease.treatment.completed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353676
+    m_Key: disease.controls.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353677
+    m_Key: disease.controls.gamepad
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

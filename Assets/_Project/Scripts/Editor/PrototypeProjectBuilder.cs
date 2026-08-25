@@ -998,6 +998,10 @@ namespace KimSurvival.EditorTools
 
             VerifyCampaignMapContract();
 
+            PrototypeContractProbe waveBProduct = PrototypeWaveBProductContract.Verify();
+            Assert(waveBProduct.Success,
+                "Wave B product contract: " + waveBProduct.Detail);
+
             VerifyWave17HazardEscapeEndingContract();
 
             VerifyDevelopmentPlaytestLogContract();
@@ -1006,6 +1010,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
+                "Wave B product: " + waveBProduct.Detail + "\n" +
                 "Checks: Wave 20 natural shore-launch raft stages, protected sailcloth, weather/current launch window, atomic failure/retry and snapshot restore; Wave 17 four-phase hazard budget and idempotent transaction, five escape catalog entries with playable raft/smoke/radio, private stable-ID snapshot/log schema, nineteen deterministic endings and terminal priority; Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
@@ -1774,10 +1779,12 @@ namespace KimSurvival.EditorTools
                     campProximityKoreanScreenshot,
                     campWorkbenchEnglishScreenshot,
                     campCampfireKoreanScreenshot);
+                string waveBDiseaseResult = prototype.CaptureWaveBDiseaseVerification(VerificationFolder);
                 string screenshot = Path.GetFullPath(Path.Combine(VerificationFolder, "kim-survival-wave12-camp-reset-ko-1280x800.png"));
                 prototype.CaptureVerificationPng(screenshot, 1280, 800);
                 SessionState.SetBool(PassedKey, true);
                 SessionState.SetString(MessageKey, result +
+                    "\nWave B disease: " + waveBDiseaseResult +
                     "\nBag locked Korean 1280x800: " + bagLockedKorean1280Screenshot +
                     "\nBag upgraded English 1280x800: " + bagUpgradedEnglish1280Screenshot +
                     "\nBag locked Korean 1920x1080: " + bagLockedKorean1920Screenshot +

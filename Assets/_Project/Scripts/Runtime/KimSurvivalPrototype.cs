@@ -162,6 +162,8 @@ namespace KimSurvival
         private TMP_Text searchLootTitleText;
         private TMP_Text searchLootStatusText;
         private TMP_Text searchLootBagText;
+        private TMP_Text diseaseStatusText;
+        private TMP_Text diseaseControlsText;
         private GameObject campActions;
         private GameObject campInteractionPopup;
         private Image campInteractionPopupFrameImage;
@@ -172,6 +174,7 @@ namespace KimSurvival
         private Image expeditionMapFrameImage;
         private GameObject endingAlbumPanel;
         private GameObject searchLootTrayPanel;
+        private GameObject diseaseStatusPanel;
         private Image endingAlbumFrameImage;
         private GameObject campModuleReasonChip;
         private TMP_Text campModuleReasonText;
@@ -204,6 +207,7 @@ namespace KimSurvival
         private Button searchLootTakeButton;
         private Button searchLootTakeAllButton;
         private Button searchLootLeaveButton;
+        private Button diseaseTreatButton;
         private Button phaseButton;
         private Button restartButton;
         private Button languageButton;
@@ -256,6 +260,24 @@ namespace KimSurvival
             if (playerInput.ReadSystemActions().LanguagePressed)
             {
                 localization.CycleLocale();
+            }
+
+            if (session.Phase == GamePhase.Camp && searchNodeRuntime != null &&
+                searchNodeRuntime.Disease.IsActive && !campPlacement.IsActive &&
+                !campModuleExpansion.IsPreviewActive && !campInteraction.IsPopupOpen)
+            {
+                PrototypeDiseaseActions diseaseActions = playerInput.ReadDiseaseActions();
+                if (diseaseActions.TreatPressed)
+                {
+                    TreatDisease();
+                    return;
+                }
+                if (diseaseActions.CancelPressed)
+                {
+                    searchNodeRuntime.Disease.CancelTreatment();
+                    RefreshAll();
+                    return;
+                }
             }
 
             if (session.Phase == GamePhase.Exploring)
@@ -665,6 +687,7 @@ namespace KimSurvival
             }
 
             BuildSearchLootTrayUi();
+            BuildDiseaseStatusUi();
 
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
@@ -797,6 +820,68 @@ namespace KimSurvival
             ConfigureExpeditionMapButton(searchLootTakeButton);
             ConfigureExpeditionMapButton(searchLootTakeAllButton);
             ConfigureExpeditionMapButton(searchLootLeaveButton);
+        }
+
+        private void BuildDiseaseStatusUi()
+        {
+            diseaseStatusPanel = CreatePanel(
+                "질병 상태·치료 compact placeholder",
+                canvas.transform,
+                new Vector2(0.765f, 0.675f),
+                new Vector2(0.985f, 0.815f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.12f, 0.055f, 0.045f, 0.96f)).gameObject;
+            Outline outline = diseaseStatusPanel.AddComponent<Outline>();
+            outline.effectColor = new Color(1f, 0.69f, 0.28f, 0.96f);
+            outline.effectDistance = new Vector2(3f, -3f);
+            outline.useGraphicAlpha = false;
+            diseaseStatusText = CreateText(
+                "질병 상태",
+                diseaseStatusPanel.transform,
+                new Vector2(0.045f, 0.56f),
+                new Vector2(0.955f, 0.95f),
+                Vector2.zero,
+                Vector2.zero,
+                22,
+                TextAnchor.MiddleLeft,
+                Color.white);
+            diseaseStatusText.enableAutoSizing = true;
+            diseaseStatusText.fontSizeMin = 13f;
+            diseaseStatusText.fontSizeMax = 22f;
+            diseaseStatusText.textWrappingMode = TextWrappingModes.Normal;
+            diseaseStatusText.maxVisibleLines = 2;
+            diseaseStatusText.overflowMode = TextOverflowModes.Truncate;
+            diseaseTreatButton = CreateButton(
+                "질병 안정화·치료",
+                diseaseStatusPanel.transform,
+                new Vector2(0.045f, 0.12f),
+                new Vector2(0.63f, 0.53f),
+                string.Empty,
+                TreatDisease);
+            ConfigureExpeditionMapButton(diseaseTreatButton);
+            TMP_Text treatmentLabel = diseaseTreatButton.GetComponentInChildren<TMP_Text>();
+            treatmentLabel.enableAutoSizing = true;
+            treatmentLabel.fontSizeMin = 12f;
+            treatmentLabel.fontSizeMax = 18f;
+            treatmentLabel.maxVisibleLines = 2;
+            treatmentLabel.overflowMode = TextOverflowModes.Truncate;
+            diseaseControlsText = CreateText(
+                "질병 치료 조작",
+                diseaseStatusPanel.transform,
+                new Vector2(0.65f, 0.08f),
+                new Vector2(0.955f, 0.54f),
+                Vector2.zero,
+                Vector2.zero,
+                16,
+                TextAnchor.MiddleCenter,
+                new Color(1f, 0.88f, 0.62f));
+            diseaseControlsText.enableAutoSizing = true;
+            diseaseControlsText.fontSizeMin = 11f;
+            diseaseControlsText.fontSizeMax = 16f;
+            diseaseControlsText.textWrappingMode = TextWrappingModes.Normal;
+            diseaseControlsText.maxVisibleLines = 2;
+            diseaseControlsText.overflowMode = TextOverflowModes.Truncate;
         }
 
         private void BuildEndingAlbumUi()
@@ -1017,6 +1102,10 @@ namespace KimSurvival
 
         private void RefreshAll(bool preserveExplorationPosition)
         {
+            if (searchNodeRuntime != null && !searchNodeRuntime.IsTrayOpen)
+            {
+                searchNodeRuntime.Disease.AdvanceUntreatedDay(session.Day);
+            }
             bool restoreTraversal = preserveExplorationPosition && session.Phase == GamePhase.Exploring && playerRoot != null;
             float restoredPlayerX = restoreTraversal ? playerTraversal.X : 0f;
             float restoredPlayerY = restoreTraversal ? playerTraversal.Y : 0f;
@@ -1054,6 +1143,10 @@ namespace KimSurvival
             expeditionMapPanel.SetActive(expeditionMapPopup);
             endingAlbumPanel.SetActive(endingAlbumPopup);
             searchLootTrayPanel.SetActive(searchTray);
+            bool diseaseVisible = searchNodeRuntime != null &&
+                                  searchNodeRuntime.Disease.Phase != PrototypeDiseasePhase.Healthy &&
+                                  !result && !popup && !searchTray;
+            diseaseStatusPanel.SetActive(diseaseVisible);
             campProximityPrompt.SetActive(camp && !placing && !modulePreview && !popup && campInteraction.HasProximityPrompt);
             campModuleReasonChip.SetActive(modulePreview);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
@@ -1107,6 +1200,7 @@ namespace KimSurvival
             }
 
             RefreshHud();
+            RefreshDiseaseStatusUi();
             Canvas.ForceUpdateCanvases();
         }
 
@@ -1188,6 +1282,29 @@ namespace KimSurvival
             }
 
             RefreshBagButtons();
+        }
+
+        private void RefreshDiseaseStatusUi()
+        {
+            if (diseaseStatusPanel == null || searchNodeRuntime == null || !diseaseStatusPanel.activeSelf) return;
+            PrototypeDiseaseRuntime disease = searchNodeRuntime.Disease;
+            string phaseKey = "disease.phase." + disease.Phase.ToString().ToLowerInvariant();
+            diseaseStatusText.text = localization.Format(
+                "disease.panel.status",
+                localization.Format(phaseKey),
+                disease.Vitality,
+                disease.MedicineUnits);
+            bool campTreatable = session.Phase == GamePhase.Camp && disease.IsActive;
+            SetButton(
+                diseaseTreatButton,
+                localization.Format(disease.CanTreat ? "disease.treatment.action" : "disease.treatment.unavailable"),
+                campTreatable && disease.CanTreat);
+            diseaseTreatButton.gameObject.SetActive(session.Phase == GamePhase.Camp && disease.IsActive);
+            diseaseControlsText.gameObject.SetActive(session.Phase == GamePhase.Camp && disease.IsActive);
+            diseaseControlsText.text = localization.Format(
+                playerInput.ActiveDevice == PrototypeInputDevice.Gamepad
+                    ? "disease.controls.gamepad"
+                    : "disease.controls.keyboard_mouse");
         }
 
         private void ApplyPlacementGuidance(PrototypeInputDevice device)
@@ -3059,8 +3176,8 @@ namespace KimSurvival
 
             PrototypeSearchRegionDefinition searchRegion = PrototypeSearchRegionCatalog.Get(
                 session.SelectedRegionId ?? PrototypeExpeditionRegionId.Beach);
-            float[] waterPositions = { -8.2f, -5.55f };
-            float[] landPositions = { -1.1f, 4.2f, 11.2f, 15.2f };
+            float[] waterPositions = { -8.35f, -7.1f, -5.85f, -4.6f };
+            float[] landPositions = { -1.1f, 2.7f, 6.5f, 10.3f, 14.1f, 17.9f };
             int waterIndex = 0;
             int landIndex = 0;
             for (int index = 0; index < searchRegion.Nodes.Count; index += 1)
@@ -3143,7 +3260,11 @@ namespace KimSurvival
 
             if (actions.ReturnPressed)
             {
-                session.ReturnToCamp(false);
+                bool returned = session.ReturnToCamp(false);
+                if (returned && searchNodeRuntime != null)
+                {
+                    searchNodeRuntime.Disease.ResolveReturn(false, session.Day);
+                }
                 if (playtestLog != null)
                 {
                     playtestLog.ObserveState("expedition.return");
@@ -3152,7 +3273,12 @@ namespace KimSurvival
                 return;
             }
 
+            GamePhase phaseBeforeTick = session.Phase;
             session.TickSearch(Time.deltaTime, Mathf.Abs(actions.Horizontal) > 0.05f);
+            if (phaseBeforeTick == GamePhase.Exploring && session.Phase == GamePhase.Camp && searchNodeRuntime != null)
+            {
+                searchNodeRuntime.Disease.ResolveReturn(true, session.Day);
+            }
             if (session.Phase != GamePhase.Exploring)
             {
                 RefreshAll();
@@ -3281,6 +3407,24 @@ namespace KimSurvival
             RefreshAll(true);
         }
 
+        private void TreatDisease()
+        {
+            if (searchNodeRuntime == null || session.Phase != GamePhase.Camp) return;
+            PrototypeDiseaseRuntime disease = searchNodeRuntime.Disease;
+            if (disease.Phase == PrototypeDiseasePhase.Effect || disease.Phase == PrototypeDiseasePhase.Worsened)
+            {
+                disease.TryMitigate();
+            }
+            bool treated = disease.TryTreat();
+            campFeedback = new PrototypeLocalizedText(
+                treated ? "disease.treatment.completed" : "disease.treatment.unavailable");
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState(treated ? "disease.treatment.completed" : "disease.treatment.rejected");
+            }
+            RefreshAll();
+        }
+
         private void ReplaceBagSlotFromActiveContext(int index)
         {
             bool replaced = searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen && searchNodeRuntime.HasPendingBagSwap
@@ -3328,7 +3472,13 @@ namespace KimSurvival
                 string marker = index == searchNodeRuntime.FocusedIndex ? "◆" : "◇";
                 string label = item.IsProtectedPart
                     ? localization.Format("search.tray.item.protected", marker, localization.Format("search." + item.ProtectedPartId))
-                    : localization.Format("search.tray.item.resource", marker, item.Resource, item.Amount);
+                    : localization.Format(
+                        "search.tray.item.resource",
+                        marker,
+                        localization.Format(string.IsNullOrEmpty(item.ResourceId)
+                            ? PrototypeSearchNodeLootResolver.ResourceId(item.Resource)
+                            : item.ResourceId),
+                        item.Amount);
                 SetButton(searchLootItemButtons[index], label, !searchNodeRuntime.HasPendingBagSwap);
                 searchLootItemButtons[index].GetComponent<Image>().color = item.IsProtectedPart
                     ? new Color(0.52f, 0.29f, 0.06f, 0.98f)
@@ -3355,6 +3505,111 @@ namespace KimSurvival
             SetButton(searchLootTakeButton, localization.Format(pending ? "search.tray.action.replace" : "search.tray.action.take"), hasItems && !pending);
             SetButton(searchLootTakeAllButton, localization.Format("search.tray.action.take_all"), hasItems && !pending);
             SetButton(searchLootLeaveButton, localization.Format(pending ? "search.tray.action.cancel_swap" : "search.tray.action.leave"), true);
+        }
+
+        public string CaptureWaveBDiseaseVerification(string evidenceFolder)
+        {
+            int seed = PrototypeExpeditionRegionCatalog.DefaultRunSeed;
+            string originalLocale = localization.CurrentLocaleCode;
+            session.Reset(seed);
+            searchNodeRuntime.Reset(seed);
+            campPlacement.Reset();
+            campUse.Reset();
+            campInteraction.Reset();
+            expeditionMapSelection.Close();
+            endingAlbumSelection.Close();
+            campModuleExpansion.Reset();
+            ResetModulePreviewReturnRoute();
+            if (hazardEscapeEndingRuntime != null)
+            {
+                hazardEscapeEndingRuntime.ResetRuntime();
+            }
+            PrototypeSearchRegionDefinition forest = PrototypeSearchRegionCatalog.Get("region.forest.grove");
+            PrototypeSearchNodeDefinition source = forest.Nodes.First(node => string.Equals(
+                node.NodeId,
+                "node.forest.grove.tree-hollow.01",
+                StringComparison.Ordinal));
+            PrototypeSearchNodeDefinition medicineSource = forest.Nodes.First(node => string.Equals(
+                node.NodeId,
+                "node.forest.grove.grass-patch.01",
+                StringComparison.Ordinal));
+            Require(session.BeginSearch(PrototypeExpeditionRegionId.Forest), "Wave B 질병 자연 경로 지역 출발");
+            Require(searchNodeRuntime.Disease.TryTelegraph(source, session.Day), "수색 전 질병 위험 예고");
+            Require(searchNodeRuntime.TryOpen(source, session) == PrototypeSearchOpenResult.Opened,
+                "환경 node 직접 수색으로 질병 노출");
+            searchNodeRuntime.Close(session);
+            Require(searchNodeRuntime.TryOpen(medicineSource, session) == PrototypeSearchOpenResult.Opened,
+                "forest grass-patch medicine source 직접 수색");
+            int medicineIndex = Array.FindIndex(searchNodeRuntime.ActiveNode.Remaining, item =>
+                string.Equals(item.ResourceId, PrototypeDiseaseConfig.TreatmentResourceId, StringComparison.Ordinal));
+            Require(medicineIndex >= 0 && searchNodeRuntime.SetFocusedIndex(medicineIndex), "치료 약품 발견물 선택");
+            PrototypeSearchTakeResult take = searchNodeRuntime.TryTakeFocused(session, delegate { return false; });
+            Require(take == PrototypeSearchTakeResult.Added || take == PrototypeSearchTakeResult.Depleted,
+                "발견물 tray의 원자 담기로 치료 약품 획득");
+            searchNodeRuntime.Close(session);
+            Require(session.ReturnToCamp(false) && searchNodeRuntime.Disease.ResolveReturn(false, session.Day),
+                "현장 취소 없이 캠프 귀환 후 질병 효과 발현");
+            Require(searchNodeRuntime.Disease.AdvanceUntreatedDay(session.Day + 1) &&
+                    searchNodeRuntime.Disease.Phase == PrototypeDiseasePhase.Worsened,
+                "미치료 질병 악화");
+
+            Directory.CreateDirectory(evidenceFolder);
+            string[] localeCodes =
+            {
+                PrototypeLocalization.KoreanLocaleCode,
+                PrototypeLocalization.EnglishLocaleCode,
+                PrototypeLocalization.QpsLongLocaleCode
+            };
+            string[] fileNames =
+            {
+                "wave-b-disease-worsened-ko-1280x800.png",
+                "wave-b-disease-worsened-en-1280x800.png",
+                "wave-b-disease-worsened-qps-long-1280x800.png"
+            };
+            for (int index = 0; index < localeCodes.Length; index += 1)
+            {
+                bool localeSet = string.Equals(localeCodes[index], PrototypeLocalization.QpsLongLocaleCode, StringComparison.Ordinal)
+                    ? localization.SetQaLocale()
+                    : localization.SetLocale(localeCodes[index], false);
+                Require(localeSet, "Wave B 질병 locale 선택 " + localeCodes[index]);
+                RefreshAll();
+                RequireReadableDiseasePanel(localeCodes[index]);
+                CaptureVerificationPng(Path.Combine(evidenceFolder, fileNames[index]), 1280, 800);
+            }
+
+            PrototypeDiseaseActions keyboard = PrototypeDiseaseActions.FromRaw(new PrototypeRawDiseaseInput
+            {
+                KeyboardTreat = true,
+                KeyboardCancel = true
+            });
+            PrototypeDiseaseActions gamepad = PrototypeDiseaseActions.FromRaw(new PrototypeRawDiseaseInput
+            {
+                GamepadTreat = true,
+                GamepadCancel = true
+            });
+            Require(keyboard.TreatPressed == gamepad.TreatPressed && keyboard.CancelPressed == gamepad.CancelPressed,
+                "질병 치료 키보드·마우스/합성 게임패드 action 의미 동등성");
+            localization.SetLocale(originalLocale, false);
+            return PrototypeDiseaseRuntimeContract.VerifyNaturalAtomicTrace().Detail +
+                   " locales=ko,en,qps-long layout=1280x800 inputParity=true";
+        }
+
+        private void RequireReadableDiseasePanel(string localeCode)
+        {
+            Require(diseaseStatusPanel != null && diseaseStatusPanel.activeSelf,
+                localeCode + " 질병 상태·치료 패널 표시");
+            RectTransform panel = diseaseStatusPanel.GetComponent<RectTransform>();
+            Require(panel.anchorMin.x >= 0.75f && panel.anchorMax.x <= 0.99f &&
+                    panel.anchorMin.y >= 0.67f && panel.anchorMax.y <= 0.82f,
+                localeCode + " 질병 패널 1280×800 우측 안전영역");
+            TMP_Text[] texts = diseaseStatusPanel.GetComponentsInChildren<TMP_Text>(true);
+            foreach (TMP_Text text in texts)
+            {
+                if (!text.gameObject.activeInHierarchy) continue;
+                text.ForceMeshUpdate(true, true);
+                Require(text.font != null && text.fontSize >= 10.5f && !text.isTextOverflowing,
+                    localeCode + " 질병 상태·치료 TMP overflow=0 · " + text.name);
+            }
         }
 
         public PrototypeSearchNodePlayObservation CaptureSearchNodeVerificationObservation()
@@ -3645,7 +3900,7 @@ namespace KimSurvival
         {
             return string.Join("|", (contents ?? Enumerable.Empty<PrototypeSearchLootEntry>())
                 .OrderBy(item => item.StableItemId, StringComparer.Ordinal)
-                .Select(item => item.StableItemId + ":" + item.Resource + ":" + item.ProtectedPartId + ":" + item.Amount)
+                .Select(item => item.StableItemId + ":" + item.ResourceId + ":" + item.Resource + ":" + item.ProtectedPartId + ":" + item.Amount)
                 .ToArray());
         }
 
@@ -4739,7 +4994,10 @@ namespace KimSurvival
             Require(searchNodeContract.Passed, "7지역 결정론적 수색 노드·잔량·원자 거래 계약 · " + searchNodeContract.Detail);
             Require(nodes.Count == PrototypeSearchRegionCatalog.Get(PrototypeExpeditionRegionId.Shallows).Nodes.Count,
                 "선택 지역의 환경 수색 오브젝트만 실제 월드에 생성");
-            Require(nodes.TrueForAll(node => node.Definition.NodeId.StartsWith("node.sea.shallows.", StringComparison.Ordinal)),
+            Require(nodes.TrueForAll(node => string.Equals(
+                        node.Definition.RegionId,
+                        "region.sea.shallows",
+                        StringComparison.Ordinal)),
                 "선택한 얕은 바다 stable region/node ID만 실제 수색 오브젝트에 반영");
             RequireExplorationBarrierArt();
             UpdateResourceLabelLayout();
@@ -4831,7 +5089,9 @@ namespace KimSurvival
                 "발견물 선별 중 추가 위험 판정 정지");
             CloseSearchLootTray();
 
-            Require(session.Phase == GamePhase.Exploring && nodes.Count == 4, "수색 중 영어 즉시 전환과 node 상태 재구성");
+            Require(session.Phase == GamePhase.Exploring &&
+                    nodes.Count == PrototypeSearchRegionCatalog.Get(PrototypeExpeditionRegionId.Shallows).Nodes.Count,
+                "수색 중 영어 즉시 전환과 Wave B node 상태 재구성");
             RequireReadableResourceLabels(PrototypeLocalization.EnglishLocaleCode);
             string keyboardExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.KeyboardMouse), localization.DeviceName(PrototypeInputDevice.KeyboardMouse), session.ActiveBagSlotCount);
             string gamepadExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.Gamepad), localization.DeviceName(PrototypeInputDevice.Gamepad), session.ActiveBagSlotCount);
@@ -5901,7 +6161,9 @@ namespace KimSurvival
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, water ? -1.72f : -2.25f, 0f);
             CreateSearchNodePlaceholder(root.transform, definition.Kind, snapshot.State, water);
-            float laneY = (water ? 1.18f : 1.25f) + (nodes.Count % 2) * 1.65f;
+            // UpdateResourceLabelLayout assigns a deterministic screen-safe lane.
+            // Keep the spawn offset neutral so node interaction geometry remains unchanged.
+            float laneY = water ? 1.18f : 1.25f;
             SpriteRenderer labelBackground;
             TMP_Text label = CreateWorldBadge(
                 root.transform,
@@ -6015,6 +6277,14 @@ namespace KimSurvival
             float right = worldCamera.transform.position.x + halfWidth;
             float safeRight = Mathf.Lerp(left, right, ResourceLabelSafeViewportRight);
             float labelHalfWidth = ResourceLabelWidth * 0.5f;
+            float[] laneWorldY = { -0.65f, 0.95f, 2.55f, 4.15f };
+            List<float>[] occupiedLaneX =
+            {
+                new List<float>(),
+                new List<float>(),
+                new List<float>(),
+                new List<float>()
+            };
             for (int i = 0; i < nodes.Count; i += 1)
             {
                 NodeView node = nodes[i];
@@ -6042,6 +6312,19 @@ namespace KimSurvival
 
                 Vector3 localPosition = node.LabelRoot.localPosition;
                 localPosition.x = labelX - node.X;
+                int laneIndex = laneWorldY.Length - 1;
+                for (int candidate = 0; candidate < occupiedLaneX.Length; candidate += 1)
+                {
+                    bool overlaps = occupiedLaneX[candidate].Any(existingX =>
+                        Mathf.Abs(existingX - labelX) < ResourceLabelWidth + 0.08f);
+                    if (!overlaps)
+                    {
+                        laneIndex = candidate;
+                        break;
+                    }
+                }
+                occupiedLaneX[laneIndex].Add(labelX);
+                localPosition.y = laneWorldY[laneIndex] - node.Root.transform.position.y;
                 node.LabelRoot.localPosition = localPosition;
             }
         }

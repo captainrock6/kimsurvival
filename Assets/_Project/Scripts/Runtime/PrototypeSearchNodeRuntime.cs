@@ -44,6 +44,7 @@ namespace KimSurvival
     public sealed class PrototypeSearchLootEntry
     {
         public string StableItemId = string.Empty;
+        public string ResourceId = string.Empty;
         public ResourceKind Resource;
         public int Amount;
         public string ProtectedPartId = string.Empty;
@@ -63,11 +64,25 @@ namespace KimSurvival
             return new PrototypeSearchLootEntry
             {
                 StableItemId = StableItemId,
+                ResourceId = ResourceId,
                 Resource = Resource,
                 Amount = Amount,
                 ProtectedPartId = ProtectedPartId
             };
         }
+    }
+
+    [Serializable]
+    public sealed class PrototypeSearchResourceAllocation
+    {
+        public PrototypeSearchResourceAllocation(string resourceId, int amount)
+        {
+            ResourceId = resourceId ?? string.Empty;
+            Amount = Math.Max(0, amount);
+        }
+
+        public string ResourceId { get; }
+        public int Amount { get; }
     }
 
     [Serializable]
@@ -148,33 +163,54 @@ namespace KimSurvival
         public string[] ProtectedPartIds = Array.Empty<string>();
     }
 
+    [Serializable]
+    public sealed class PrototypeSearchRuntimeSnapshot
+    {
+        public PrototypeSearchRunSnapshot Search = new PrototypeSearchRunSnapshot();
+        public PrototypeDiseaseSnapshot Disease = new PrototypeDiseaseSnapshot();
+    }
+
     public sealed class PrototypeSearchNodeDefinition
     {
         public PrototypeSearchNodeDefinition(
             string regionId,
+            string archetypeId,
             string nodeId,
+            int instanceIndex,
             PrototypeSearchNodeKind kind,
             bool requiresSwimming,
+            string searchCostBand,
             int energyCost,
             int timeCostMinutes,
-            string hazardId)
+            string hazardId,
+            IReadOnlyList<PrototypeSearchResourceAllocation> finiteYield)
         {
             RegionId = regionId ?? string.Empty;
+            ArchetypeId = archetypeId ?? string.Empty;
             NodeId = nodeId ?? string.Empty;
+            InstanceIndex = Math.Max(1, instanceIndex);
             Kind = kind;
             RequiresSwimming = requiresSwimming;
+            SearchCostBand = searchCostBand ?? string.Empty;
             EnergyCost = Math.Max(1, energyCost);
             TimeCostMinutes = Math.Max(1, timeCostMinutes);
             HazardId = hazardId ?? string.Empty;
+            FiniteYield = finiteYield == null
+                ? Array.Empty<PrototypeSearchResourceAllocation>()
+                : finiteYield.ToArray();
         }
 
         public string RegionId { get; }
+        public string ArchetypeId { get; }
         public string NodeId { get; }
+        public int InstanceIndex { get; }
         public PrototypeSearchNodeKind Kind { get; }
         public bool RequiresSwimming { get; }
+        public string SearchCostBand { get; }
         public int EnergyCost { get; }
         public int TimeCostMinutes { get; }
         public string HazardId { get; }
+        public IReadOnlyList<PrototypeSearchResourceAllocation> FiniteYield { get; }
         public string ProtectedPartId
         {
             get
@@ -198,6 +234,39 @@ namespace KimSurvival
         }
     }
 
+    public sealed class PrototypeSearchArchetypeDefinition
+    {
+        public PrototypeSearchArchetypeDefinition(
+            string stableId,
+            string regionId,
+            PrototypeSearchNodeKind kind,
+            bool requiresSwimming,
+            string searchCostBand,
+            string hazardId,
+            IReadOnlyList<PrototypeSearchResourceAllocation> finiteYield,
+            IReadOnlyList<PrototypeSearchNodeDefinition> instances)
+        {
+            StableId = stableId ?? string.Empty;
+            RegionId = regionId ?? string.Empty;
+            Kind = kind;
+            RequiresSwimming = requiresSwimming;
+            SearchCostBand = searchCostBand ?? string.Empty;
+            HazardId = hazardId ?? string.Empty;
+            FiniteYield = finiteYield == null ? Array.Empty<PrototypeSearchResourceAllocation>() : finiteYield.ToArray();
+            Instances = instances == null ? Array.Empty<PrototypeSearchNodeDefinition>() : instances.ToArray();
+        }
+
+        public string StableId { get; }
+        public string RegionId { get; }
+        public PrototypeSearchNodeKind Kind { get; }
+        public bool RequiresSwimming { get; }
+        public string SearchCostBand { get; }
+        public string HazardId { get; }
+        public IReadOnlyList<PrototypeSearchResourceAllocation> FiniteYield { get; }
+        public IReadOnlyList<PrototypeSearchNodeDefinition> Instances { get; }
+        public int FiniteGeneralUnits { get { return FiniteYield.Sum(value => value.Amount); } }
+    }
+
     public sealed class PrototypeSearchRegionDefinition
     {
         private readonly PrototypeSearchNodeDefinition[] nodes;
@@ -214,70 +283,140 @@ namespace KimSurvival
 
     public static class PrototypeSearchRegionCatalog
     {
-        private static PrototypeSearchNodeDefinition Node(
+        private static PrototypeSearchResourceAllocation Y(string resourceId, int amount)
+        {
+            return new PrototypeSearchResourceAllocation(resourceId, amount);
+        }
+
+        private sealed class NodeSeed
+        {
+            public NodeSeed(string nodeId, PrototypeSearchNodeKind kind, bool water, string hazardId)
+            {
+                NodeId = nodeId;
+                Kind = kind;
+                Water = water;
+                HazardId = hazardId;
+            }
+
+            public string NodeId { get; }
+            public PrototypeSearchNodeKind Kind { get; }
+            public bool Water { get; }
+            public string HazardId { get; }
+        }
+
+        private static NodeSeed N(string nodeId, PrototypeSearchNodeKind kind, bool water, string hazardId)
+        {
+            return new NodeSeed(nodeId, kind, water, hazardId);
+        }
+
+        private static PrototypeSearchNodeDefinition[] Archetype(
             string regionId,
             string suffix,
-            PrototypeSearchNodeKind kind,
-            bool water,
-            string hazardId)
+            string costBand,
+            PrototypeSearchResourceAllocation[] finiteYield,
+            params NodeSeed[] instances)
         {
-            return new PrototypeSearchNodeDefinition(
+            int energy = string.Equals(costBand, "low", StringComparison.Ordinal) ? 6 :
+                string.Equals(costBand, "medium", StringComparison.Ordinal) ? 8 : 10;
+            int minutes = string.Equals(costBand, "low", StringComparison.Ordinal) ? 12 :
+                string.Equals(costBand, "medium", StringComparison.Ordinal) ? 16 : 20;
+            string archetypeId = "node.archetype." + regionId.Substring("region.".Length).Replace('.', '-') + "." + suffix;
+            if (instances == null || instances.Length != 2)
+            {
+                throw new InvalidOperationException(archetypeId + " must declare exactly two stable instances.");
+            }
+            return instances.Select((instance, index) => new PrototypeSearchNodeDefinition(
                 regionId,
-                "node." + regionId.Substring("region.".Length) + "." + suffix,
-                kind,
-                water,
-                water ? 9 : 7,
-                water ? 18 : 14,
-                hazardId);
+                archetypeId,
+                instance.NodeId,
+                index + 1,
+                instance.Kind,
+                instance.Water,
+                costBand,
+                energy,
+                minutes,
+                instance.HazardId,
+                finiteYield)).ToArray();
+        }
+
+        private static PrototypeSearchRegionDefinition Region(string stableId, params PrototypeSearchNodeDefinition[][] archetypes)
+        {
+            return new PrototypeSearchRegionDefinition(stableId, archetypes.SelectMany(value => value).ToArray());
         }
 
         private static readonly PrototypeSearchRegionDefinition[] Regions =
         {
-            new PrototypeSearchRegionDefinition(
-                "region.coast.beach",
-                Node("region.coast.beach", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf"),
-                Node("region.coast.beach", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects"),
-                Node("region.coast.beach", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.coast.beach", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife")),
-            new PrototypeSearchRegionDefinition(
-                "region.sea.shallows",
-                Node("region.sea.shallows", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, true, "hazard.high-surf"),
-                Node("region.sea.shallows", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, true, "hazard.injury"),
-                Node("region.sea.shallows", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects"),
-                Node("region.sea.shallows", "wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.disaster")),
-            new PrototypeSearchRegionDefinition(
-                "region.forest.grove",
-                Node("region.forest.grove", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"),
-                Node("region.forest.grove", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants"),
-                Node("region.forest.grove", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.forest.grove", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.insects")),
-            new PrototypeSearchRegionDefinition(
-                "region.ridge.highland",
-                Node("region.ridge.highland", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.ridge.highland", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.high-wind"),
-                Node("region.ridge.highland", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"),
-                Node("region.ridge.highland", "facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster")),
-            new PrototypeSearchRegionDefinition(
-                "region.cave.island",
-                Node("region.cave.island", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.cave.island", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.disease"),
-                Node("region.cave.island", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"),
-                Node("region.cave.island", "facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster")),
-            new PrototypeSearchRegionDefinition(
-                "region.cove.wreck",
-                Node("region.cove.wreck", "wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.injury"),
-                Node("region.cove.wreck", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf"),
-                Node("region.cove.wreck", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster"),
-                Node("region.cove.wreck", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects")),
-            new PrototypeSearchRegionDefinition(
-                "region.ruins.relay",
-                Node("region.ruins.relay", "facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disease"),
-                Node("region.ruins.relay", "facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster"),
-                Node("region.ruins.relay", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.ruins.relay", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants"))
+            Region("region.coast.beach",
+                Archetype("region.coast.beach", "driftline", "low", new[] { Y("resource.salvage", 4), Y("resource.wood", 2) },
+                    N("node.coast.beach.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf"), N("node.coast.beach.drift-pile.02", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf")),
+                Archetype("region.coast.beach", "tide-cache", "low", new[] { Y("resource.food", 4), Y("resource.fabric", 2) },
+                    N("node.coast.beach.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects"), N("node.coast.beach.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects")),
+                Archetype("region.coast.beach", "storm-wrack", "medium", new[] { Y("resource.wood", 4), Y("resource.salvage", 2) },
+                    N("node.coast.beach.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"), N("node.coast.beach.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"))),
+            Region("region.sea.shallows",
+                Archetype("region.sea.shallows", "reef-pocket", "medium", new[] { Y("resource.food", 4), Y("resource.stone", 2) },
+                    N("node.sea.shallows.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, true, "hazard.injury"), N("node.sea.shallows.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects")),
+                Archetype("region.sea.shallows", "submerged-crate", "medium", new[] { Y("resource.salvage", 4), Y("resource.metal", 2) },
+                    N("node.sea.shallows.wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.disaster"), N("node.sea.shallows.wreck-locker.02", PrototypeSearchNodeKind.WreckLocker, false, "hazard.disaster")),
+                Archetype("region.sea.shallows", "wreck-scatter", "high", new[] { Y("resource.wire", 4), Y("resource.salvage", 2) },
+                    N("node.sea.shallows.drift-pile.01", PrototypeSearchNodeKind.DriftPile, true, "hazard.high-surf"), N("node.sea.shallows.drift-pile.02", PrototypeSearchNodeKind.DriftPile, true, "hazard.high-surf"))),
+            Region("region.forest.grove",
+                Archetype("region.forest.grove", "deadfall", "medium", new[] { Y("resource.wood", 8) },
+                    N("node.forest.grove.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.disease"), N("node.forest.grove.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.disease")),
+                Archetype("region.forest.grove", "forage-patch", "low", new[] { Y("resource.food", 4), Y("resource.medicine", 2) },
+                    N("node.forest.grove.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants"), N("node.forest.grove.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants")),
+                Archetype("region.forest.grove", "vine-hollow", "medium", new[] { Y("resource.fiber", 6), Y("resource.wood", 2) },
+                    N("node.forest.grove.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"), N("node.forest.grove.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"))),
+            Region("region.ridge.highland",
+                Archetype("region.ridge.highland", "rockfall", "high", new[] { Y("resource.stone", 8), Y("resource.metal", 2) },
+                    N("node.ridge.highland.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"), N("node.ridge.highland.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury")),
+                Archetype("region.ridge.highland", "windfall", "medium", new[] { Y("resource.wood", 6), Y("resource.fiber", 2) },
+                    N("node.ridge.highland.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.high-wind"), N("node.ridge.highland.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.high-wind")),
+                Archetype("region.ridge.highland", "signal-overlook", "high", new[] { Y("resource.fuel", 2), Y("resource.medicine", 2) },
+                    N("node.ridge.highland.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"), N("node.ridge.highland.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster"))),
+            Region("region.cave.island",
+                Archetype("region.cave.island", "mineral-seam", "high", new[] { Y("resource.stone", 6), Y("resource.metal", 2) },
+                    N("node.cave.island.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"), N("node.cave.island.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife")),
+                Archetype("region.cave.island", "dry-cache", "medium", new[] { Y("resource.chemicals", 4), Y("resource.fuel", 2) },
+                    N("node.cave.island.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster"), N("node.cave.island.facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster")),
+                Archetype("region.cave.island", "fungus-ledge", "high", new[] { Y("resource.stone", 2), Y("resource.medicine", 2) },
+                    N("node.cave.island.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.disease"), N("node.cave.island.drift-pile.02", PrototypeSearchNodeKind.DriftPile, false, "hazard.disease"))),
+            Region("region.cove.wreck",
+                Archetype("region.cove.wreck", "cargo-locker", "medium", new[] { Y("resource.salvage", 6), Y("resource.metal", 4) },
+                    N("node.cove.wreck.wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.injury"), N("node.cove.wreck.wreck-locker.02", PrototypeSearchNodeKind.WreckLocker, false, "hazard.injury")),
+                Archetype("region.cove.wreck", "rigging-locker", "medium", new[] { Y("resource.fabric", 4), Y("resource.fiber", 2) },
+                    N("node.cove.wreck.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf"), N("node.cove.wreck.drift-pile.02", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf")),
+                Archetype("region.cove.wreck", "engine-bay", "high", new[] { Y("resource.electronics", 4), Y("resource.chemicals", 2) },
+                    N("node.cove.wreck.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster"), N("node.cove.wreck.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects"))),
+            Region("region.ruins.relay",
+                Archetype("region.ruins.relay", "control-cabinet", "high", new[] { Y("resource.electronics", 6), Y("resource.wire", 2) },
+                    N("node.ruins.relay.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disease"), N("node.ruins.relay.facility-cabinet.03", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster")),
+                Archetype("region.ruins.relay", "cable-duct", "high", new[] { Y("resource.wire", 6), Y("resource.metal", 2) },
+                    N("node.ruins.relay.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"), N("node.ruins.relay.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury")),
+                Archetype("region.ruins.relay", "generator-room", "high", new[] { Y("resource.fuel", 4), Y("resource.metal", 2), Y("resource.electronics", 2) },
+                    N("node.ruins.relay.facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster"), N("node.ruins.relay.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants")))
         };
 
+        private static readonly PrototypeSearchArchetypeDefinition[] ArchetypeEntries = Regions
+            .SelectMany(region => region.Nodes)
+            .GroupBy(node => node.ArchetypeId, StringComparer.Ordinal)
+            .OrderBy(group => group.Key, StringComparer.Ordinal)
+            .Select(group =>
+            {
+                PrototypeSearchNodeDefinition first = group.First();
+                return new PrototypeSearchArchetypeDefinition(
+                    group.Key,
+                    first.RegionId,
+                    first.Kind,
+                    first.RequiresSwimming,
+                    first.SearchCostBand,
+                    first.HazardId,
+                    first.FiniteYield,
+                    group.OrderBy(node => node.InstanceIndex).ToArray());
+            }).ToArray();
+
         public static IReadOnlyList<PrototypeSearchRegionDefinition> All { get { return Regions; } }
+        public static IReadOnlyList<PrototypeSearchArchetypeDefinition> Archetypes { get { return ArchetypeEntries; } }
         public static IReadOnlyList<PrototypeSearchNodeDefinition> Nodes
         {
             get { return Regions.SelectMany(region => region.Nodes).ToArray(); }
@@ -347,22 +486,25 @@ namespace KimSurvival
 
         public static PrototypeSearchLootEntry[] Resolve(int runSeed, PrototypeSearchNodeDefinition definition)
         {
-            ResourceKind[] pattern = Pattern(definition.Kind);
-            int offset = PrototypeExpeditionRegionCatalog.PositiveModulo(
-                PrototypeExpeditionRegionCatalog.StableHash(runSeed, definition.NodeId, "resource-order"),
-                pattern.Length);
             List<PrototypeSearchLootEntry> contents = new List<PrototypeSearchLootEntry>();
-            for (int index = 0; index < 2; index += 1)
+            IEnumerable<PrototypeSearchResourceAllocation> ordered = definition.FiniteYield
+                .OrderBy(allocation => PrototypeExpeditionRegionCatalog.StableHash(
+                    runSeed, definition.NodeId, "resource-order." + allocation.ResourceId));
+            foreach (PrototypeSearchResourceAllocation allocation in ordered)
             {
-                ResourceKind resource = pattern[(offset + index) % pattern.Length];
-                int amount = resource == ResourceKind.Wood
-                    ? 1
+                int firstAmount = allocation.Amount <= 1
+                    ? allocation.Amount
                     : 1 + PrototypeExpeditionRegionCatalog.PositiveModulo(
-                        PrototypeExpeditionRegionCatalog.StableHash(runSeed, definition.NodeId, "amount." + index), 2);
+                        PrototypeExpeditionRegionCatalog.StableHash(
+                            runSeed, definition.ArchetypeId, allocation.ResourceId + ".split"),
+                        allocation.Amount - 1);
+                int amount = definition.InstanceIndex == 1 ? firstAmount : allocation.Amount - firstAmount;
+                if (amount <= 0) continue;
                 contents.Add(new PrototypeSearchLootEntry
                 {
-                    StableItemId = definition.NodeId + ".loot." + index,
-                    Resource = resource,
+                    StableItemId = definition.NodeId + ".loot." + allocation.ResourceId.Substring("resource.".Length),
+                    ResourceId = allocation.ResourceId,
+                    Resource = Carrier(allocation.ResourceId),
                     Amount = amount
                 });
             }
@@ -393,24 +535,18 @@ namespace KimSurvival
             };
         }
 
-        private static ResourceKind[] Pattern(PrototypeSearchNodeKind kind)
+        public static ResourceKind Carrier(string resourceId)
         {
-            switch (kind)
-            {
-                case PrototypeSearchNodeKind.GrassPatch:
-                    return new[] { ResourceKind.Food, ResourceKind.Wood, ResourceKind.Stone };
-                case PrototypeSearchNodeKind.RockCrevice:
-                    return new[] { ResourceKind.Stone, ResourceKind.Salvage, ResourceKind.Food };
-                case PrototypeSearchNodeKind.DriftPile:
-                    return new[] { ResourceKind.Salvage, ResourceKind.Wood, ResourceKind.Food };
-                case PrototypeSearchNodeKind.TreeHollow:
-                    return new[] { ResourceKind.Wood, ResourceKind.Food, ResourceKind.Stone };
-                case PrototypeSearchNodeKind.WreckLocker:
-                case PrototypeSearchNodeKind.FacilityCabinet:
-                    return new[] { ResourceKind.Salvage, ResourceKind.Stone, ResourceKind.Food };
-                default:
-                    return new[] { ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Food, ResourceKind.Salvage };
-            }
+            if (string.Equals(resourceId, "resource.wood", StringComparison.Ordinal)) return ResourceKind.Wood;
+            if (string.Equals(resourceId, "resource.stone", StringComparison.Ordinal)) return ResourceKind.Stone;
+            if (string.Equals(resourceId, "resource.food", StringComparison.Ordinal) ||
+                string.Equals(resourceId, "resource.medicine", StringComparison.Ordinal)) return ResourceKind.Food;
+            return ResourceKind.Salvage;
+        }
+
+        public static string ResourceId(ResourceKind resource)
+        {
+            return "resource." + resource.ToString().ToLowerInvariant();
         }
     }
 
@@ -557,6 +693,7 @@ namespace KimSurvival
                 remaining.Add(new PrototypeSearchLootEntry
                 {
                     StableItemId = snapshot.NodeId + ".left-behind." + displaced.Kind.ToString().ToLowerInvariant(),
+                    ResourceId = PrototypeSearchNodeLootResolver.ResourceId(displaced.Kind),
                     Resource = displaced.Kind,
                     Amount = displaced.Amount
                 });
@@ -627,9 +764,11 @@ namespace KimSurvival
         public PrototypeSearchNodeRuntime(int runSeed)
         {
             Ledger = new PrototypeSearchNodeLedger(runSeed);
+            Disease = new PrototypeDiseaseRuntime(runSeed);
         }
 
         public PrototypeSearchNodeLedger Ledger { get; private set; }
+        public PrototypeDiseaseRuntime Disease { get; private set; }
         public bool IsTrayOpen { get { return !string.IsNullOrEmpty(activeNodeId); } }
         public bool HasPendingBagSwap { get { return !string.IsNullOrEmpty(pendingItemId); } }
         public int FocusedIndex { get; private set; }
@@ -648,10 +787,35 @@ namespace KimSurvival
         public void Reset(int runSeed)
         {
             Ledger = new PrototypeSearchNodeLedger(runSeed);
+            Disease = new PrototypeDiseaseRuntime(runSeed);
             activeNodeId = string.Empty;
             pendingItemId = string.Empty;
             FocusedIndex = 0;
             cycleLatched = false;
+        }
+
+        public PrototypeSearchRuntimeSnapshot CaptureSnapshot()
+        {
+            return new PrototypeSearchRuntimeSnapshot
+            {
+                Search = Ledger.CaptureSnapshot(),
+                Disease = Disease.CaptureSnapshot()
+            };
+        }
+
+        public bool RestoreSnapshot(PrototypeSearchRuntimeSnapshot snapshot)
+        {
+            if (snapshot == null || snapshot.Search == null || snapshot.Disease == null) return false;
+            PrototypeSearchNodeLedger restoredLedger = new PrototypeSearchNodeLedger(Ledger.RunSeed);
+            PrototypeDiseaseRuntime restoredDisease = new PrototypeDiseaseRuntime(Ledger.RunSeed);
+            if (!restoredLedger.RestoreSnapshot(snapshot.Search) || !restoredDisease.RestoreSnapshot(snapshot.Disease)) return false;
+            Ledger = restoredLedger;
+            Disease = restoredDisease;
+            activeNodeId = string.Empty;
+            pendingItemId = string.Empty;
+            FocusedIndex = 0;
+            cycleLatched = false;
+            return true;
         }
 
         public PrototypeSearchOpenResult TryOpen(PrototypeSearchNodeDefinition definition, GameSession session)
@@ -670,6 +834,8 @@ namespace KimSurvival
                     return PrototypeSearchOpenResult.TooTired;
                 }
                 Ledger.Reveal(definition);
+                Disease.TryTelegraph(definition, session.Day);
+                Disease.TryExpose(definition, session.Day);
                 session.RecordSearchNodeResult(definition.NodeId);
             }
             activeNodeId = definition.NodeId;
@@ -741,6 +907,7 @@ namespace KimSurvival
             {
                 return PrototypeSearchTakeResult.Rejected;
             }
+            Disease.ObserveStoredResource(item.ResourceId, item.StableItemId, item.Amount);
             ClampFocus();
             return ActiveNode == null || ActiveNode.State == PrototypeSearchNodeState.Depleted
                 ? PrototypeSearchTakeResult.Depleted
@@ -769,6 +936,7 @@ namespace KimSurvival
             if (pending == null) return false;
             if (!session.ReplaceBagSlot(bagSlotIndex, out BagStack displaced)) return false;
             if (!Ledger.Consume(node.NodeId, pending.StableItemId, pending.Amount)) return false;
+            Disease.ObserveStoredResource(pending.ResourceId, pending.StableItemId, pending.Amount);
             Ledger.LeaveDisplacedResource(node.NodeId, displaced);
             pendingItemId = string.Empty;
             ClampFocus();

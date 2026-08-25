@@ -81,6 +81,14 @@ resource.wood	나무	Wood	⟦Wóód⟧
 resource.stone	돌	Stone	⟦Stóñé⟧
 resource.food	식량	Food	⟦Fóód⟧
 resource.salvage	표류물	Salvage	⟦Sálvágéá⟧
+resource.fabric	천 조각	Fabric	⟦Fabricá⟧
+resource.fiber	섬유	Fiber	⟦Fiber⟧
+resource.medicine	약품	Medicine	⟦Medicineá⟧
+resource.metal	금속	Metal	⟦Metal⟧
+resource.wire	전선	Wire	⟦Wire⟧
+resource.fuel	연료	Fuel	⟦Fuel⟧
+resource.chemicals	화학 재료	Chemicals	⟦Chemicalsáé⟧
+resource.electronics	전자 부품	Electronics	⟦Electronicsáé⟧
 structure.campfire	모닥불	Campfire	⟦Cámpfíréá⟧
 structure.workbench	작업대	Workbench	⟦Wórkbéñcháé⟧
 structure.rain_collector	빗물받이	Rain Collector	⟦Ráíñ Cólléctóráéíó⟧
@@ -427,6 +435,20 @@ search.hazard.dangerous-plants	위험 식물	Dangerous plants	⟦Dáñgéróús 
 search.hazard.disaster	붕괴·기상 위험	Collapse or weather risk	⟦Cóllápsé ór wéáthér rískáéíóúüñ¿¡⟧
 search.hazard.high-wind	강풍 노출	High-wind exposure	⟦Hígh-wíñd éxpósúréáéíóúü⟧
 search.hazard.disease	질병 노출	Disease exposure	⟦Díséásé éxpósúréáéíóú⟧
+disease.name.waterborne-fever	수인성 열병	Waterborne fever	⟦Waterborne feveráéíóú⟧
+disease.phase.healthy	건강	Healthy	⟦Healthyá⟧
+disease.phase.telegraph	감염 위험 예고	Exposure warning	⟦Exposure warningáéíóú⟧
+disease.phase.exposed	잠복 노출	Exposed · incubating	⟦Exposed · incubatingáéíóúü⟧
+disease.phase.effect	발열 증상	Fever symptoms	⟦Fever symptomsáéíó⟧
+disease.phase.worsened	증상 악화	Symptoms worsened	⟦Symptoms worsenedáéíóú⟧
+disease.phase.mitigated	안정화·치료 대기	Stabilized · treatment ready	⟦Stabilized · treatment readyáéíóúüñ¿¡⟧
+disease.phase.recovered	회복	Recovered	⟦Recoveredáé⟧
+disease.panel.status	{0} · 회복력 {1} · 약품 {2}	{0} · Vitality {1} · Medicine {2}	⟦{0} · Vitality {1} · Medicine {2}áéíóúüñ¿¡áé⟧
+disease.treatment.action	안정화·치료 · 약품 1	Stabilize & treat · Medicine 1	⟦Stabilize & treat · Medicine 1áéíóúüñ¿¡á⟧
+disease.treatment.unavailable	약품이 필요하다	Medicine required	⟦Medicine requiredáéíóú⟧
+disease.treatment.completed	치료가 끝났다	Treatment complete	⟦Treatment completeáéíóúü⟧
+disease.controls.keyboard_mouse	T 치료 · Esc 취소	T treat · Esc cancel	⟦T treat · Esc canceláéíóúü⟧
+disease.controls.gamepad	RB 치료 · B 취소	RB treat · B cancel	⟦RB treat · B canceláéíóúü⟧
 search.node.world.hidden	{0} {1} 뒤지기\n미확인 · 위험 단서: {2}	{0} Search {1}\nUnsearched · Risk clue: {2}	⟦{0} Séárch {1}\nÚñséárchéd · Rísk clúé: {2}.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 search.node.world.partial	{0} {1} 다시 열기\n알려진 발견물 {2}종	{0} Reopen {1}\n{2} known finds remain	⟦{0} Réópéñ {1}\n{2} kñówñ fíñds rémáíñ.áéíóúüñ¿¡áéíóú⟧
 search.node.world.depleted	{0}\n고갈	{0}\nDepleted	⟦{0}\nDéplétédáéí⟧

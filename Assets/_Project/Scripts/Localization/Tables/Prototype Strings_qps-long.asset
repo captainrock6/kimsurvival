@@ -2171,6 +2171,95 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
+  - m_Id: 1191866950467584
+    m_Localized: "\u27E6Fabric\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410624
+    m_Localized: "\u27E6Fiber\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410625
+    m_Localized: "\u27E6Medicine\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410626
+    m_Localized: "\u27E6Metal\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410627
+    m_Localized: "\u27E6Wire\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410628
+    m_Localized: "\u27E6Fuel\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410629
+    m_Localized: "\u27E6Chemicals\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191866992410630
+    m_Localized: "\u27E6Electronics\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353664
+    m_Localized: "\u27E6Waterborne fever\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353665
+    m_Localized: "\u27E6Healthy\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353666
+    m_Localized: "\u27E6Exposure warning\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353667
+    m_Localized: "\u27E6Exposed \xB7 incubating\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353668
+    m_Localized: "\u27E6Fever symptoms\xE1\xE9\xED\xF3\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353669
+    m_Localized: "\u27E6Symptoms worsened\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353670
+    m_Localized: "\u27E6Stabilized \xB7 treatment ready\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353671
+    m_Localized: "\u27E6Recovered\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353672
+    m_Localized: "\u27E6{0} \xB7 Vitality {1} \xB7 Medicine {2}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1191867034353673
+    m_Localized: "\u27E6Stabilize & treat \xB7 Medicine 1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353674
+    m_Localized: "\u27E6Medicine required\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353675
+    m_Localized: "\u27E6Treatment complete\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353676
+    m_Localized: "\u27E6T treat \xB7 Esc cancel\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1191867034353677
+    m_Localized: "\u27E6RB treat \xB7 B cancel\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -2306,3 +2395,4 @@ MonoBehaviour:
         - id: 1172586372513792
         - id: 1172586372513793
         - id: 1172586372513794
+        - id: 1191867034353672
