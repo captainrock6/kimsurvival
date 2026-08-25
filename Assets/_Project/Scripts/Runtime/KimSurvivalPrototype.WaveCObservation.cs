@@ -83,7 +83,18 @@ namespace KimSurvival
                                                                   item.Resource == ResourceKind.Stone ||
                                                                   item.Resource == ResourceKind.Salvage ||
                                                                   item.Resource == ResourceKind.Food))
-                    .OrderBy(value => value.InstanceOrdinal)
+                    .OrderBy(value => string.Equals(
+                            value.NodeId,
+                            "node.coast.beach.drift-pile.01",
+                            StringComparison.Ordinal)
+                        ? 0
+                        : string.Equals(
+                            value.NodeId,
+                            "node.sea.shallows.grass-patch.01",
+                            StringComparison.Ordinal)
+                            ? 1
+                            : 2)
+                    .ThenBy(value => value.InstanceOrdinal)
                     .ThenBy(value => value.NodeId, StringComparer.Ordinal)
                     .ToArray();
                 for (int index = 0; index < easyNodes.Length && (!session.HasAxe || !session.HasRope); index += 1)

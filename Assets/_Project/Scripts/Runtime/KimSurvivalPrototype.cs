@@ -4500,7 +4500,10 @@ namespace KimSurvival
                 elapsed += stepSeconds;
             }
             Require(target != null && Mathf.Abs(target.X - playerTraversal.X) <= 0.08f,
-                "자연 이동으로 수색 node 근접 도달");
+                "자연 이동으로 수색 node 근접 도달: " +
+                (target == null ? "<null>" : target.Definition.NodeId +
+                 " target=" + target.X.ToString("0.00") + " actual=" + playerTraversal.X.ToString("0.00") +
+                 " axe=" + session.HasAxe + " phase=" + session.Phase));
             Vector3 cameraPosition = worldCamera.transform.position;
             cameraPosition.x = Mathf.Clamp(playerTraversal.X + 2.5f, -6.5f, 12.5f);
             worldCamera.transform.position = cameraPosition;
