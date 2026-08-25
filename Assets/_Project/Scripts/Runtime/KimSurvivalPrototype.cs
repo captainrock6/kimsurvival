@@ -7210,6 +7210,7 @@ namespace KimSurvival
             float right = worldCamera.transform.position.x + halfWidth;
             float safeRight = Mathf.Lerp(left, right, ResourceLabelSafeViewportRight);
             float labelHalfWidth = ResourceLabelWidth * 0.5f;
+            var visibleLabels = new List<NodeView>();
             for (int i = 0; i < nodes.Count; i += 1)
             {
                 NodeView node = nodes[i];
@@ -7218,7 +7219,9 @@ namespace KimSurvival
                     continue;
                 }
 
-                bool labelVisible = !suppressLabels && node.X <= safeRight;
+                bool labelVisible = !suppressLabels &&
+                                    node.X >= left - labelHalfWidth &&
+                                    node.X <= safeRight + labelHalfWidth;
                 node.LabelRoot.gameObject.SetActive(labelVisible);
                 if (!labelVisible)
                 {
@@ -7237,6 +7240,23 @@ namespace KimSurvival
 
                 Vector3 localPosition = node.LabelRoot.localPosition;
                 localPosition.x = labelX - node.X;
+                node.LabelRoot.localPosition = localPosition;
+                visibleLabels.Add(node);
+            }
+
+            const float firstSafeLaneWorldY = -1.35f;
+            const float safeLaneSpacing = 1.8f;
+            const int safeLaneCount = 4;
+            NodeView[] orderedLabels = visibleLabels
+                .OrderBy(node => node.LabelRoot.position.x)
+                .ThenBy(node => node.Definition.NodeId, StringComparer.Ordinal)
+                .ToArray();
+            for (int index = 0; index < orderedLabels.Length; index += 1)
+            {
+                NodeView node = orderedLabels[index];
+                float worldY = firstSafeLaneWorldY + index % safeLaneCount * safeLaneSpacing;
+                Vector3 localPosition = node.LabelRoot.localPosition;
+                localPosition.y = worldY - node.Root.transform.position.y;
                 node.LabelRoot.localPosition = localPosition;
             }
         }
