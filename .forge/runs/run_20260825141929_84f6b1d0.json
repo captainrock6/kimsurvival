@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260825141929_84f6b1d0",
+  "createdAt": "2026-08-25T14:19:28.851Z",
+  "updatedAt": "2026-08-25T14:19:28.851Z",
+  "sourceRequest": "4개 작업 결과를 통합하고 최신 7지역·수색 오브젝트·3개 플레이 가능 탈출 경로 정본으로 조정",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-25T14:19:28.851Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T14:19:28.851Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T14:19:28.851Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T14:19:28.851Z"
+    }
+  }
+}

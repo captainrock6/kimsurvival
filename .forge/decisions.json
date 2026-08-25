@@ -427,7 +427,28 @@
       "rationale": "",
       "source": "user-and-codex",
       "createdAt": "2026-08-25T13:55:37.808Z"
+    },
+    {
+      "id": "decision.wave20.raft-playable-art-review-separated",
+      "summary": "Wave 20 통합부터 escape.raft는 플레이 가능 경로지만 생성된 escape.raft 아트 후보는 사용자 채택 전까지 review-only이며 placeholder 런타임과 분리한다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T14:19:28.851Z"
+    },
+    {
+      "id": "decision.wave20.three-playable-two-deferred",
+      "summary": "현재 플레이 가능 탈출은 뗏목·대형 연기·무전 3종이며 조명탄과 고지대 중계소는 다음 구현 파동까지 data-only로 유지한다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T14:19:28.851Z"
+    },
+    {
+      "id": "decision.wave20.escape-parts-through-search-nodes",
+      "summary": "돛천·부싯돌·무전 부품을 포함한 탈출 핵심 부품은 적격 지역의 환경 수색 오브젝트를 뒤져 발견하고 선별하는 경로로 통일한다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T14:19:28.851Z"
     }
   ],
-  "updatedAt": "2026-08-25T13:55:37.808Z"
+  "updatedAt": "2026-08-25T14:19:28.851Z"
 }

@@ -1281,8 +1281,8 @@
     {
       "id": "task.feature.feature.escape-outcome",
       "lane": "implementation",
-      "title": "재료 추적형 연기·무전 탈출 구현",
-      "description": "게임잼에서는 대량 나무·부싯돌·기상을 요구하는 연기 신호와 세 지역 이상에서 고유 기계 부품을 모으는 무전 구조를 완전 플레이 가능하게 한다.",
+      "title": "재료 추적형 뗏목·연기·무전 탈출 구현",
+      "description": "게임잼에서는 보호 돛천·선체·보급·해상 창을 요구하는 뗏목, 대량 나무·부싯돌·기상을 요구하는 연기, 세 지역 이상의 기계 부품을 요구하는 무전을 직접 오브젝트 상호작용으로 플레이 가능하게 한다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.camp-building",
@@ -1291,7 +1291,8 @@
         "task.feature.feature.resource-randomization",
         "task.feature.feature.behavioral-endings",
         "task.feature.feature.survival-hazards",
-        "task.feature.feature.region-persistence"
+        "task.feature.feature.region-persistence",
+        "task.feature.feature.searchable-resource-nodes"
       ],
       "featureIds": [
         "feature.escape-outcome"
@@ -1316,7 +1317,10 @@
         "21개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다.",
         "연기는 부싯돌과 PROVISIONAL 대량 나무 비용을 단계별로 소비하고 기상 창에서만 완료된다.",
         "무전은 망가진 무전기·전자기판·트랜지스터를 모두 보유하고 복구 단계를 완료해야 송신된다.",
-        "중복 확인, 실패한 기상 창과 취소는 부품·자원을 선언된 양보다 더 소비하지 않는다."
+        "중복 확인, 실패한 기상 창과 취소는 부품·자원을 선언된 양보다 더 소비하지 않는다.",
+        "뗏목·연기·무전은 각각 다른 현장 오브젝트와 재료·단계·날씨 또는 주파수 조건을 가진 플레이 가능 경로다.",
+        "뗏목의 단계, 보호 돛천, 실패·재시도와 조기 탈출 결과는 저장·복원 뒤에도 중복 소비 없이 유지된다.",
+        "탈출 핵심 부품은 적격 환경 수색 node의 발견물로 회수되고 바닥 개별 줍기를 주 경로로 사용하지 않는다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -1331,7 +1335,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:36:42.419Z",
+      "updatedAt": "2026-08-25T14:19:28.853Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.558Z"
@@ -1339,8 +1343,8 @@
     {
       "id": "task.qa.feature.escape-outcome",
       "lane": "qa",
-      "title": "재료 추적형 연기·무전 탈출 검증",
-      "description": "재료 추적형 연기·무전 탈출의 수용 조건을 실행 환경에서 검증한다.",
+      "title": "재료 추적형 뗏목·연기·무전 탈출 검증",
+      "description": "재료 추적형 뗏목·연기·무전 탈출의 수용 조건을 실행 환경에서 검증한다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.escape-outcome"
@@ -1359,7 +1363,10 @@
         "21개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다.",
         "연기는 부싯돌과 PROVISIONAL 대량 나무 비용을 단계별로 소비하고 기상 창에서만 완료된다.",
         "무전은 망가진 무전기·전자기판·트랜지스터를 모두 보유하고 복구 단계를 완료해야 송신된다.",
-        "중복 확인, 실패한 기상 창과 취소는 부품·자원을 선언된 양보다 더 소비하지 않는다."
+        "중복 확인, 실패한 기상 창과 취소는 부품·자원을 선언된 양보다 더 소비하지 않는다.",
+        "뗏목·연기·무전은 각각 다른 현장 오브젝트와 재료·단계·날씨 또는 주파수 조건을 가진 플레이 가능 경로다.",
+        "뗏목의 단계, 보호 돛천, 실패·재시도와 조기 탈출 결과는 저장·복원 뒤에도 중복 소비 없이 유지된다.",
+        "탈출 핵심 부품은 적격 환경 수색 node의 발견물로 회수되고 바닥 개별 줍기를 주 경로로 사용하지 않는다."
       ],
       "paths": [
         "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
@@ -1373,7 +1380,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:36:42.419Z",
+      "updatedAt": "2026-08-25T14:19:28.853Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.452Z"
@@ -1673,15 +1680,17 @@
     {
       "id": "task.system.system.escape-projects",
       "lane": "implementation",
-      "title": "유한 재료형 연기·무전 프로젝트 구현",
-      "description": "연기의 대량 나무·부싯돌·기상 단계와 무전의 망가진 무전기·전자기판·트랜지스터·복구 단계를 독립 transaction으로 관리한다.",
+      "title": "유한 재료형 뗏목·연기·무전 프로젝트 구현",
+      "description": "세 플레이 가능 탈출법의 서로 다른 현장 상호작용, 유한 재료, 보호 부품, 단계, 실패·재시도와 terminal 전달을 원자적으로 처리한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.escape-outcome",
         "feature.resource-randomization",
         "feature.crafting-research",
-        "feature.region-persistence"
+        "feature.region-persistence",
+        "feature.raft-escape",
+        "feature.searchable-resource-nodes"
       ],
       "assetIds": [],
       "acceptanceCriteria": [
@@ -1689,13 +1698,15 @@
         "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소와 선언된 실패·변형 사건을 지원한다.",
         "연기와 무전은 재료 이름만 다른 동일 버튼이 아니라 수색 지역, 부품, 설비, 자원 규모와 완료 조건이 다르다.",
         "모든 단계는 확인 성공 때만 정확히 한 번 자원을 소비하고 취소·실패·중복 제출은 원자성을 지킨다.",
-        "완료한 프로젝트는 하나의 escape ID를 terminal 판정에 전달하고 다른 프로젝트 상태를 덮어쓰지 않는다."
+        "완료한 프로젝트는 하나의 escape ID를 terminal 판정에 전달하고 다른 프로젝트 상태를 덮어쓰지 않는다.",
+        "뗏목·연기·무전은 같은 완료 버튼을 공유하지 않고 각 현장 설비에서만 진행한다.",
+        "보호 핵심 부품은 수색 node와 프로젝트 사이에서 복제·폐기·중복 소비되지 않는다."
       ],
       "paths": [],
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-25T13:36:42.419Z",
+      "updatedAt": "2026-08-25T14:19:28.853Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -2845,6 +2856,90 @@
         "뒤지기 완료 전 취소는 시간·위험·내용물 공개를 중복 적용하지 않고 완료 transaction만 한 번 반영한다.",
         "두고 간 물건은 같은 오브젝트에 그대로 남고 고갈된 오브젝트는 보상 없이 고갈 상태를 명확히 표시한다.",
         "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.system.system.raft-escape",
+      "lane": "implementation",
+      "title": "뗏목 단계·출항 창 상태기계 구현",
+      "description": "escape.raft의 발견, 선체·돛·보급 단계, 보호 돛천, 날씨·조류 확인, 실패·재시도, 저장·복원과 terminal 결과를 독립 상태기계로 처리한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.raft-escape",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "각 단계와 출항 시도는 원자적이며 중복 입력·취소·실패가 선언된 비용보다 더 소비하지 않는다.",
+        "저장·복원 뒤 완료 단계, 보호 돛천, 재시도와 terminal 결과가 보존된다.",
+        "성공은 escape.raft를 정확히 한 번 해결하고 엔딩 앨범에 기록한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-25T14:19:28.853Z"
+    },
+    {
+      "id": "task.feature.feature.raft-escape",
+      "lane": "implementation",
+      "title": "뗏목 제작·해안 진수 탈출 구현",
+      "description": "김씨가 해안 진수대에 접근해 선체, 보호 돛천을 사용한 돛, 항해 보급을 단계별로 완성하고 날씨·조류 창을 확인해 조기 탈출한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.escape-outcome",
+        "task.feature.feature.camp-object-interaction",
+        "task.feature.feature.region-persistence",
+        "task.feature.feature.searchable-resource-nodes",
+        "task.feature.feature.localization",
+        "task.feature.feature.dual-input"
+      ],
+      "featureIds": [
+        "feature.raft-escape"
+      ],
+      "assetIds": [
+        "ui.escape-project-progress",
+        "ui.ending-comic",
+        "icon.resource-tool-set"
+      ],
+      "acceptanceCriteria": [
+        "해안 진수대 1.25m 안에서만 전용 팝업이 열리고 다른 설비·연결부보다 잘못 우선되지 않는다.",
+        "선체·돛·항해 보급은 성공한 확인 transaction에서만 한 번 자원을 소비하고 완료 단계가 저장된다.",
+        "돛은 수색 node에서 회수한 보호 돛천과 밧줄을 요구하며 실패·취소로 돛천을 삭제하지 않는다.",
+        "출항 실패는 선언된 시도 비용만 소비하고 단계와 돛천을 보존하며 재시도가 가능하다.",
+        "안전한 날씨·외해 조류의 출항은 escape.raft를 한 번만 해결하고 뗏목 엔딩·앨범을 해금한다.",
+        "ko/en/qps-long, 키보드·마우스와 합성 게임패드가 같은 상태·비용·결과를 만든다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.qa.feature.raft-escape",
+      "lane": "qa",
+      "title": "뗏목 제작·해안 진수 탈출 검증",
+      "description": "뗏목 제작·해안 진수 탈출의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.raft-escape"
+      ],
+      "featureIds": [
+        "feature.raft-escape"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "해안 진수대 1.25m 안에서만 전용 팝업이 열리고 다른 설비·연결부보다 잘못 우선되지 않는다.",
+        "선체·돛·항해 보급은 성공한 확인 transaction에서만 한 번 자원을 소비하고 완료 단계가 저장된다.",
+        "돛은 수색 node에서 회수한 보호 돛천과 밧줄을 요구하며 실패·취소로 돛천을 삭제하지 않는다.",
+        "출항 실패는 선언된 시도 비용만 소비하고 단계와 돛천을 보존하며 재시도가 가능하다.",
+        "안전한 날씨·외해 조류의 출항은 escape.raft를 한 번만 해결하고 뗏목 엔딩·앨범을 해금한다.",
+        "ko/en/qps-long, 키보드·마우스와 합성 게임패드가 같은 상태·비용·결과를 만든다."
       ],
       "paths": [],
       "evidence": [],
@@ -4175,5 +4270,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-25T13:55:37.808Z"
+  "updatedAt": "2026-08-25T14:19:28.851Z"
 }

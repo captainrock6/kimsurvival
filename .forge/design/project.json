@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "project": {
     "title": "김씨 생존기: 무인도",
-    "oneLinePitch": "무인도에 조난된 김씨가 내용물을 알 수 없는 수색 오브젝트를 직접 뒤져 필요한 물건만 가방에 챙기고, 상태가 영구히 변하는 일곱 지역과 다층 캠프를 오가며 탈출하거나 행동 기반 코믹 엔딩을 맞는 2D 생존 게임.",
+    "oneLinePitch": "무인도에 조난된 김씨가 내용물을 알 수 없는 수색 오브젝트를 직접 뒤져 필요한 물건만 가방에 챙기고, 상태가 영구히 변하는 일곱 지역과 다층 캠프를 오가며 여러 방법으로 탈출하거나 행동 기반 코믹 엔딩을 맞는 2D 생존 게임.",
     "genre": "코믹 2D 횡스크롤 거점 생존·유한 자원 수색·제작·행동 기반 다중 엔딩 게임",
     "targetPlatform": "게임잼 Windows PC 빌드, 한국어 기본·영어 지원, 키보드·마우스와 게임패드",
     "audience": "30분 안에 직접 탐색한 섬과 확장한 거점이 눈에 남고, 다른 탈출법과 엔딩을 위해 다시 플레이하고 싶은 싱글 플레이 생존 게임 이용자",
@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-25T13:55:37.809Z",
+    "updatedAt": "2026-08-25T14:19:28.852Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -3932,8 +3932,8 @@
     },
     {
       "id": "feature.escape-outcome",
-      "name": "재료 추적형 연기·무전 탈출",
-      "description": "게임잼에서는 대량 나무·부싯돌·기상을 요구하는 연기 신호와 세 지역 이상에서 고유 기계 부품을 모으는 무전 구조를 완전 플레이 가능하게 한다.",
+      "name": "재료 추적형 뗏목·연기·무전 탈출",
+      "description": "게임잼에서는 보호 돛천·선체·보급·해상 창을 요구하는 뗏목, 대량 나무·부싯돌·기상을 요구하는 연기, 세 지역 이상의 기계 부품을 요구하는 무전을 직접 오브젝트 상호작용으로 플레이 가능하게 한다.",
       "priority": "critical",
       "status": "planned",
       "dependencies": [
@@ -3943,7 +3943,8 @@
         "feature.resource-randomization",
         "feature.behavioral-endings",
         "feature.survival-hazards",
-        "feature.region-persistence"
+        "feature.region-persistence",
+        "feature.searchable-resource-nodes"
       ],
       "screenIds": [
         "screen.camp",
@@ -3973,10 +3974,13 @@
         "21개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다.",
         "연기는 부싯돌과 PROVISIONAL 대량 나무 비용을 단계별로 소비하고 기상 창에서만 완료된다.",
         "무전은 망가진 무전기·전자기판·트랜지스터를 모두 보유하고 복구 단계를 완료해야 송신된다.",
-        "중복 확인, 실패한 기상 창과 취소는 부품·자원을 선언된 양보다 더 소비하지 않는다."
+        "중복 확인, 실패한 기상 창과 취소는 부품·자원을 선언된 양보다 더 소비하지 않는다.",
+        "뗏목·연기·무전은 각각 다른 현장 오브젝트와 재료·단계·날씨 또는 주파수 조건을 가진 플레이 가능 경로다.",
+        "뗏목의 단계, 보호 돛천, 실패·재시도와 조기 탈출 결과는 저장·복원 뒤에도 중복 소비 없이 유지된다.",
+        "탈출 핵심 부품은 적격 환경 수색 node의 발견물로 회수되고 바닥 개별 줍기를 주 경로로 사용하지 않는다."
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-25T13:36:42.418Z"
+      "updatedAt": "2026-08-25T14:19:28.852Z"
     },
     {
       "id": "feature.dual-input",
@@ -4401,13 +4405,47 @@
         "두고 간 물건은 같은 오브젝트에 그대로 남고 고갈된 오브젝트는 보상 없이 고갈 상태를 명확히 표시한다.",
         "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
       ]
+    },
+    {
+      "id": "feature.raft-escape",
+      "name": "뗏목 제작·해안 진수 탈출",
+      "description": "김씨가 해안 진수대에 접근해 선체, 보호 돛천을 사용한 돛, 항해 보급을 단계별로 완성하고 날씨·조류 창을 확인해 조기 탈출한다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.escape-outcome",
+        "feature.camp-object-interaction",
+        "feature.region-persistence",
+        "feature.searchable-resource-nodes",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "screenIds": [
+        "screen.camp",
+        "screen.island",
+        "screen.result",
+        "screen.ending-gallery"
+      ],
+      "assetIds": [
+        "ui.escape-project-progress",
+        "ui.ending-comic",
+        "icon.resource-tool-set"
+      ],
+      "acceptanceCriteria": [
+        "해안 진수대 1.25m 안에서만 전용 팝업이 열리고 다른 설비·연결부보다 잘못 우선되지 않는다.",
+        "선체·돛·항해 보급은 성공한 확인 transaction에서만 한 번 자원을 소비하고 완료 단계가 저장된다.",
+        "돛은 수색 node에서 회수한 보호 돛천과 밧줄을 요구하며 실패·취소로 돛천을 삭제하지 않는다.",
+        "출항 실패는 선언된 시도 비용만 소비하고 단계와 돛천을 보존하며 재시도가 가능하다.",
+        "안전한 날씨·외해 조류의 출항은 escape.raft를 한 번만 해결하고 뗏목 엔딩·앨범을 해금한다.",
+        "ko/en/qps-long, 키보드·마우스와 합성 게임패드가 같은 상태·비용·결과를 만든다."
+      ]
     }
   ],
   "screens": [
     {
       "id": "screen.camp",
       "name": "시작층·2층·지하실 베이스캠프",
-      "purpose": "세 층을 직접 이동하며 설비를 배치·사용하고 질병을 치료하며 연기·무전 탈출 프로젝트와 공간 성장을 관리한다.",
+      "purpose": "세 층을 직접 이동하며 설비를 배치·사용하고 질병을 치료하며 뗏목·연기·무전 탈출 프로젝트와 공간 성장을 관리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4418,7 +4456,8 @@
         "feature.dual-input",
         "feature.camp-object-interaction",
         "feature.camp-module-expansion",
-        "feature.survival-hazards"
+        "feature.survival-hazards",
+        "feature.raft-escape"
       ],
       "assetIds": [
         "background.island-camp",
@@ -4429,7 +4468,8 @@
         "effect.comedy-feedback",
         "background.modular-island-camp",
         "ui.camp-contextual-interaction",
-        "ui.camp-module-expansion"
+        "ui.camp-module-expansion",
+        "ui.escape-project-progress"
       ],
       "entryPoints": [
         "새 게임 시작",
@@ -4439,7 +4479,8 @@
         "설비 팝업·배치·증축 완료 또는 취소 뒤 현장 복귀",
         "새 게임 시작층",
         "수색 귀환",
-        "2층·지하실 연결부"
+        "2층·지하실 연결부",
+        "해안 진수대 근접"
       ],
       "actions": [
         "설비 선택",
@@ -4473,7 +4514,11 @@
         "일반 설비 배치·재배치",
         "2층 건설",
         "지하실 건설",
-        "연기·무전 프로젝트 진행"
+        "연기·무전 프로젝트 진행",
+        "해안 진수대 상호작용",
+        "뗏목 단계 진행",
+        "날씨·조류 확인",
+        "출항 확인 또는 재시도"
       ],
       "states": [
         "준비",
@@ -4525,10 +4570,17 @@
         "질병 치료 가능",
         "연기 재료 부족",
         "무전 부품 부족",
-        "탈출 준비 완료"
+        "탈출 준비 완료",
+        "뗏목 재료 부족",
+        "선체 완료",
+        "돛 완료",
+        "보급 완료",
+        "출항 확인",
+        "출항 실패 보존",
+        "뗏목 탈출 완료"
       ],
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-25T13:36:42.418Z"
+      "updatedAt": "2026-08-25T14:19:28.852Z"
     },
     {
       "id": "screen.island",
@@ -4636,7 +4688,7 @@
     {
       "id": "screen.result",
       "name": "탈출·장기 체류 엔딩 코믹북",
-      "purpose": "연기·무전 탈출 또는 Day 20 PROVISIONAL 장기 체류 판정과 누적 행동 근거를 3~5장 코믹북으로 보여준다.",
+      "purpose": "뗏목·연기·무전 탈출 또는 장기 체류 판정과 누적 행동 근거를 3~5장 코믹북으로 보여준다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4645,7 +4697,8 @@
         "feature.dual-input",
         "feature.behavioral-endings",
         "feature.ending-gallery",
-        "feature.localization"
+        "feature.localization",
+        "feature.raft-escape"
       ],
       "assetIds": [
         "character.mr-kim",
@@ -4663,7 +4716,8 @@
         "엔딩 갤러리 재생",
         "연기 구조 완료",
         "무전 구조 완료",
-        "장기 체류 판정일 미탈출"
+        "장기 체류 판정일 미탈출",
+        "뗏목 출항 성공"
       ],
       "actions": [
         "다시 시작",
@@ -4675,7 +4729,9 @@
         "새 run 시작",
         "패널 넘기기",
         "엔딩 근거 보기",
-        "앨범 등록"
+        "앨범 등록",
+        "뗏목 엔딩 패널 넘기기",
+        "뗏목 엔딩 근거 보기"
       ],
       "states": [
         "구조 성공",
@@ -4694,10 +4750,13 @@
         "장기 체류 자연인",
         "장기 체류 무인도 건물주",
         "신규 해금",
-        "재발견"
+        "재발견",
+        "뗏목 정상",
+        "뗏목 코믹 변형",
+        "뗏목 희귀 변형"
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-25T13:36:42.418Z"
+      "updatedAt": "2026-08-25T14:19:28.852Z"
     },
     {
       "id": "screen.settings",
@@ -5220,31 +5279,36 @@
     },
     {
       "id": "system.escape-projects",
-      "name": "유한 재료형 연기·무전 프로젝트",
-      "description": "연기의 대량 나무·부싯돌·기상 단계와 무전의 망가진 무전기·전자기판·트랜지스터·복구 단계를 독립 transaction으로 관리한다.",
+      "name": "유한 재료형 뗏목·연기·무전 프로젝트",
+      "description": "세 플레이 가능 탈출법의 서로 다른 현장 상호작용, 유한 재료, 보호 부품, 단계, 실패·재시도와 terminal 전달을 원자적으로 처리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.escape-outcome",
         "feature.resource-randomization",
         "feature.crafting-research",
-        "feature.region-persistence"
+        "feature.region-persistence",
+        "feature.raft-escape",
+        "feature.searchable-resource-nodes"
       ],
       "dependencies": [
         "system.run-state",
         "system.inventory",
         "system.crafting-tech",
         "system.camp-structures",
-        "system.region-persistence"
+        "system.region-persistence",
+        "system.search-node-loot"
       ],
       "acceptanceCriteria": [
         "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소를 지원한다.",
         "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소와 선언된 실패·변형 사건을 지원한다.",
         "연기와 무전은 재료 이름만 다른 동일 버튼이 아니라 수색 지역, 부품, 설비, 자원 규모와 완료 조건이 다르다.",
         "모든 단계는 확인 성공 때만 정확히 한 번 자원을 소비하고 취소·실패·중복 제출은 원자성을 지킨다.",
-        "완료한 프로젝트는 하나의 escape ID를 terminal 판정에 전달하고 다른 프로젝트 상태를 덮어쓰지 않는다."
+        "완료한 프로젝트는 하나의 escape ID를 terminal 판정에 전달하고 다른 프로젝트 상태를 덮어쓰지 않는다.",
+        "뗏목·연기·무전은 같은 완료 버튼을 공유하지 않고 각 현장 설비에서만 진행한다.",
+        "보호 핵심 부품은 수색 node와 프로젝트 사이에서 복제·폐기·중복 소비되지 않는다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-25T13:36:42.418Z"
+      "updatedAt": "2026-08-25T14:19:28.853Z"
     },
     {
       "id": "system.ending-resolution",
@@ -5339,6 +5403,28 @@
         "보호 핵심 부품은 적격 node의 발견물로 공개되고 획득 즉시 보호 프로젝트 인벤토리로 이동하며 일반 폐기 대상이 되지 않는다.",
         "수색 비용과 위험은 뒤지기 완료 때 한 번만 적용되고 발견물 선별 중에는 새 위험 판정을 진행하지 않는다.",
         "고갈 node, 가방 부족, 장비 부족과 취소는 ko/en 이유 코드와 입력 장치에 무관한 동일 결과를 낸다."
+      ]
+    },
+    {
+      "id": "system.raft-escape",
+      "name": "뗏목 단계·출항 창 상태기계",
+      "description": "escape.raft의 발견, 선체·돛·보급 단계, 보호 돛천, 날씨·조류 확인, 실패·재시도, 저장·복원과 terminal 결과를 독립 상태기계로 처리한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.raft-escape",
+        "feature.escape-outcome"
+      ],
+      "dependencies": [
+        "system.run-state",
+        "system.inventory",
+        "system.escape-projects",
+        "system.region-persistence",
+        "system.localization"
+      ],
+      "acceptanceCriteria": [
+        "각 단계와 출항 시도는 원자적이며 중복 입력·취소·실패가 선언된 비용보다 더 소비하지 않는다.",
+        "저장·복원 뒤 완료 단계, 보호 돛천, 재시도와 terminal 결과가 보존된다.",
+        "성공은 escape.raft를 정확히 한 번 해결하고 엔딩 앨범에 기록한다."
       ]
     }
   ],
@@ -5880,5 +5966,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-25T13:55:37.808Z"
+  "updatedAt": "2026-08-25T14:19:28.851Z"
 }

@@ -1,5 +1,7 @@
 # Wave 20 잔여 탈출법 플레이 가능 확장 계약
 
+> 통합 주의: 이 문서는 조명탄·고지대 중계소 설계 당시의 분기 기준선을 기록한다. 현재 정본은 최소 7지역, 질병 포함 위험 계약, 21엔딩, 환경 수색 오브젝트 기반 획득이며 `escape.raft`는 플레이 가능 상태다. 충돌하는 내용은 `wave20-four-result-integration-reconcile.md`와 `.forge/design/`을 우선한다.
+
 상태: `DESIGN_COMPLETE / IMPLEMENTATION_AND_RED_FIRST_UNRUN`
 
 계약 ID: `escape.wave20.flare-beacon-playable.v1`
