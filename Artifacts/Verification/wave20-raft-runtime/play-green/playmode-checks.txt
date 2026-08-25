@@ -1,0 +1,25 @@
+PASS
+PASS · Wave 20 해안 진수대 직접 접근→compact 안내→전용 소형 팝업, 선체·돛·항해 보급, 보호 돛천, 날씨·조류 출항 확인, 실패 1회 비용·멱등 재시도·snapshot 복구·Day 50 이전 단일 뗏목 탈출과 ko/en/qps-long 1280x800·키보드/합성 게임패드 동등성을 확인. Wave 19 앨범, Wave 16 지도 A, Wave 15 Day 50와 직접 연결 슬롯·배치·가방·수색·수영·장벽·구조 신호를 회귀 확인
+Bag locked Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-bag-locked-ko-1280x800.png
+Bag upgraded English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-bag-upgraded-en-1280x800.png
+Bag locked Korean 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-bag-locked-ko-1920x1080.png
+Bag upgraded English 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-bag-upgraded-en-1920x1080.png
+Wave 12 far camp Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave12-camp-far-ko-1280x800.png
+Wave 12 facility near Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave12-facility-near-ko-1280x800.png
+Wave 12 facility near English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave12-facility-near-en-1280x800.png
+Wave 12 direct slot near qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave12-direct-slot-near-qps-long-1280x800.png
+Wave 9 workbench popup English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave9-workbench-popup-en-1280x800.png
+Wave 12 popup-open Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave12-popup-open-ko-1280x800.png
+Wave 11 upper-slot popup Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave11-upper-slot-popup-ko-1280x800.png
+Wave 11 module upper Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave11-module-upper-ko-1280x800.png
+Wave 11 module side English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave11-module-side-en-1280x800.png
+Wave 11 module basement qps-long 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave11-module-basement-qps-long-1280x800.png
+Wave 9 module interior Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave9-module-interior-ko-1280x800.png
+Signal stage one missing/workbench Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
+Signal stage two missing/rope English screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
+Placement Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-placement-ko-invalid-1280x800.png
+Placement English/gamepad screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
+Swimming screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-swimming-en-1280x800.png
+Exploration screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave7-exploration-ko-1280x800.png
+Camp screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\wave20-raft-runtime\play-green\kim-survival-wave12-camp-reset-ko-1280x800.png
+Completed UTC: 2026-08-25T12:08:21.8369019Z

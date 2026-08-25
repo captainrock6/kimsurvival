@@ -1717,6 +1717,117 @@ MonoBehaviour:
     m_Localized: Expedition complete today
     m_Metadata:
       m_Items: []
+  - m_Id: 1102836418199552
+    m_Localized: Shore launch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142592
+    m_Localized: Build the hull, rig the protected sailcloth, load supplies, then
+      confirm a safe weather and current window.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142593
+    m_Localized: Hull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142594
+    m_Localized: Sail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142595
+    m_Localized: Voyage supplies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142596
+    m_Localized: Calm sea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142597
+    m_Localized: Rough sea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142598
+    m_Localized: Outbound current
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142599
+    m_Localized: Cross-current
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142600
+    m_Localized: Wood {0} / Salvage {1}
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142601
+    m_Localized: "Wood {0} / Salvage {1} \xB7 Rope {2} \xB7 Sailcloth {3}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142602
+    m_Localized: Food {0}
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142603
+    m_Localized: "{0} {1}/{2} \xB7 {3}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142604
+    m_Localized: "Check launch window \xB7 {0} / {1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142605
+    m_Localized: "Confirm launch \xB7 Food {0} \xB7 {1} / {2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142606
+    m_Localized: "Retry after failed launch \xB7 preserved \xB7 {0} / {1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142607
+    m_Localized: Raft escape complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142608
+    m_Localized: A rope is required to rig the sail.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142609
+    m_Localized: Find the protected sailcloth through eligible coastal searches.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142610
+    m_Localized: Not enough resources for this raft action.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142611
+    m_Localized: Raft stage committed ({0}/{1}). Completed stages are preserved.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1102836460142612
+    m_Localized: Launch confirmation armed. Check the weather and current before
+      committing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142613
+    m_Localized: The launch window failed. One attempt cost was spent; all stages
+      and sailcloth remain.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142614
+    m_Localized: Retry is ready. Recheck the launch window.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142615
+    m_Localized: The raft caught the outbound current. Escape resolved once.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -1827,3 +1938,11 @@ MonoBehaviour:
         - id: 798776959942657
         - id: 798776959942659
         - id: 798776959942660
+        - id: 1102836460142600
+        - id: 1102836460142601
+        - id: 1102836460142602
+        - id: 1102836460142603
+        - id: 1102836460142604
+        - id: 1102836460142605
+        - id: 1102836460142606
+        - id: 1102836460142611

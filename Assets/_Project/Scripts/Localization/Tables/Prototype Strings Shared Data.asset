@@ -1531,6 +1531,106 @@ MonoBehaviour:
     m_Key: expedition.map.depart.completed
     m_Metadata:
       m_Items: []
+  - m_Id: 1102836418199552
+    m_Key: camp.target.shore_launch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142592
+    m_Key: camp.popup.detail.escape_raft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142593
+    m_Key: raft.stage.hull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142594
+    m_Key: raft.stage.sail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142595
+    m_Key: raft.stage.supplies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142596
+    m_Key: raft.weather.calm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142597
+    m_Key: raft.weather.rough
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142598
+    m_Key: raft.current.outbound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142599
+    m_Key: raft.current.cross
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142600
+    m_Key: escape.raft.cost.hull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142601
+    m_Key: escape.raft.cost.sail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142602
+    m_Key: escape.raft.cost.supplies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142603
+    m_Key: escape.raft.action.stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142604
+    m_Key: escape.raft.action.check_window
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142605
+    m_Key: escape.raft.action.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142606
+    m_Key: escape.raft.action.retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142607
+    m_Key: escape.raft.action.complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142608
+    m_Key: escape.raft.message.rope
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142609
+    m_Key: escape.raft.message.sailcloth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142610
+    m_Key: escape.raft.message.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142611
+    m_Key: escape.raft.message.progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142612
+    m_Key: escape.raft.message.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142613
+    m_Key: escape.raft.message.failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142614
+    m_Key: escape.raft.message.retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142615
+    m_Key: escape.raft.message.complete
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

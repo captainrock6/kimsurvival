@@ -1839,6 +1839,117 @@ MonoBehaviour:
     m_Localized: "\u27E6\xC9xp\xE9d\xEDt\xED\xF3\xF1 c\xF3mpl\xE9t\xE9 t\xF3d\xE1y\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
     m_Metadata:
       m_Items: []
+  - m_Id: 1102836418199552
+    m_Localized: "\u27E6Shore launch\xE1\xE9\xED\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142592
+    m_Localized: "\u27E6Build the hull, rig the protected sailcloth, load supplies,
+      then confirm a safe weather and current window.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142593
+    m_Localized: "\u27E6Hull\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142594
+    m_Localized: "\u27E6Sail\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142595
+    m_Localized: "\u27E6Voyage supplies\xE1\xE9\xED\xF3\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142596
+    m_Localized: "\u27E6Calm sea\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142597
+    m_Localized: "\u27E6Rough sea\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142598
+    m_Localized: "\u27E6Outbound current\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142599
+    m_Localized: "\u27E6Cross-current\xE1\xE9\xED\xF3\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142600
+    m_Localized: "\u27E6Wood {0} / Salvage {1}\xE1\xE9\xED\xF3\xFA\xFC\xF1\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142601
+    m_Localized: "\u27E6Wood {0} / Salvage {1} \xB7 Rope {2} \xB7 Sailcloth {3}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142602
+    m_Localized: "\u27E6Food {0}\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142603
+    m_Localized: "\u27E6{0} {1}/{2} \xB7 {3}\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142604
+    m_Localized: "\u27E6Check launch window \xB7 {0} / {1}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142605
+    m_Localized: "\u27E6Confirm launch \xB7 Food {0} \xB7 {1} / {2}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142606
+    m_Localized: "\u27E6Retry after failed launch \xB7 preserved \xB7 {0} / {1}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142607
+    m_Localized: "\u27E6Raft escape complete\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142608
+    m_Localized: "\u27E6A rope is required to rig the sail.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142609
+    m_Localized: "\u27E6Find the protected sailcloth through eligible coastal searches.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142610
+    m_Localized: "\u27E6Not enough resources for this raft action.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142611
+    m_Localized: "\u27E6Raft stage committed ({0}/{1}). Completed stages are preserved.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1102836460142612
+    m_Localized: "\u27E6Launch confirmation armed. Check the weather and current
+      before committing.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142613
+    m_Localized: "\u27E6The launch window failed. One attempt cost was spent; all
+      stages and sailcloth remain.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142614
+    m_Localized: "\u27E6Retry is ready. Recheck the launch window.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1102836460142615
+    m_Localized: "\u27E6The raft caught the outbound current. Escape resolved once.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\u27E7"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -1949,3 +2060,11 @@ MonoBehaviour:
         - id: 798776959942657
         - id: 798776959942659
         - id: 798776959942660
+        - id: 1102836460142600
+        - id: 1102836460142601
+        - id: 1102836460142602
+        - id: 1102836460142603
+        - id: 1102836460142604
+        - id: 1102836460142605
+        - id: 1102836460142606
+        - id: 1102836460142611

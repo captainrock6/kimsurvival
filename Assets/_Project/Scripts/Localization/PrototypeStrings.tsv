@@ -307,6 +307,31 @@ hazard.injury	부상 위험	Injury hazard	⟦Íñjúry házárdáéíó⟧
 hazard.disaster	자연재해 위험	Disaster hazard	⟦Dísástér házárdáéíó⟧
 hazard.food-theft	식량 도난 위험	Food-theft hazard	⟦Fóód-théft házárdáéíóú⟧
 escape.raft	뗏목 탈출	Raft escape	⟦Ráft éscápéáéí⟧
+camp.target.shore_launch	해안 진수대	Shore launch	⟦Shore launcháéí⟧
+camp.popup.detail.escape_raft	선체를 만들고 보호된 돛천으로 돛을 단 뒤 항해 보급을 싣는다. 날씨와 조류 창을 확인하고 출항을 확정한다.	Build the hull, rig the protected sailcloth, load supplies, then confirm a safe weather and current window.	⟦Build the hull, rig the protected sailcloth, load supplies, then confirm a safe weather and current window.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+raft.stage.hull	선체	Hull	⟦Hull⟧
+raft.stage.sail	돛	Sail	⟦Sail⟧
+raft.stage.supplies	항해 보급	Voyage supplies	⟦Voyage suppliesáéíó⟧
+raft.weather.calm	잔잔한 바다	Calm sea	⟦Calm seaáé⟧
+raft.weather.rough	거친 바다	Rough sea	⟦Rough seaáé⟧
+raft.current.outbound	외해 방향 조류	Outbound current	⟦Outbound currentáéíóú⟧
+raft.current.cross	횡조류	Cross-current	⟦Cross-currentáéíó⟧
+escape.raft.cost.hull	나무 {0} / 표류물 {1}	Wood {0} / Salvage {1}	⟦Wood {0} / Salvage {1}áéíóúüñ⟧
+escape.raft.cost.sail	나무 {0} / 표류물 {1} · 밧줄 {2} · 돛천 {3}	Wood {0} / Salvage {1} · Rope {2} · Sailcloth {3}	⟦Wood {0} / Salvage {1} · Rope {2} · Sailcloth {3}áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.raft.cost.supplies	식량 {0}	Food {0}	⟦Food {0}áé⟧
+escape.raft.action.stage	{0} {1}/{2} · {3}	{0} {1}/{2} · {3}	⟦{0} {1}/{2} · {3}áéíóú⟧
+escape.raft.action.check_window	출항 창 확인 · {0} / {1}	Check launch window · {0} / {1}	⟦Check launch window · {0} / {1}áéíóúüñ¿¡áé⟧
+escape.raft.action.confirm	출항 확정 · 식량 {0} · {1} / {2}	Confirm launch · Food {0} · {1} / {2}	⟦Confirm launch · Food {0} · {1} / {2}áéíóúüñ¿¡áéíó⟧
+escape.raft.action.retry	출항 실패 재시도 · 진행 보존 · {0} / {1}	Retry after failed launch · preserved · {0} / {1}	⟦Retry after failed launch · preserved · {0} / {1}áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.raft.action.complete	뗏목 탈출 완료	Raft escape complete	⟦Raft escape completeáéíóúü⟧
+escape.raft.message.rope	돛을 달려면 밧줄이 필요하다.	A rope is required to rig the sail.	⟦A rope is required to rig the sail.áéíóúüñ¿¡áéí⟧
+escape.raft.message.sailcloth	해안 수색을 반복해 보호되는 핵심 부품 돛천을 찾아야 한다.	Find the protected sailcloth through eligible coastal searches.	⟦Find the protected sailcloth through eligible coastal searches.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
+escape.raft.message.resources	이번 뗏목 행동에 필요한 자원이 부족하다.	Not enough resources for this raft action.	⟦Not enough resources for this raft action.áéíóúüñ¿¡áéíóúü⟧
+escape.raft.message.progress	뗏목 단계가 확정됐다({0}/{1}). 완료 단계는 보존된다.	Raft stage committed ({0}/{1}). Completed stages are preserved.	⟦Raft stage committed ({0}/{1}). Completed stages are preserved.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
+escape.raft.message.confirm	출항 확인 대기. 확정 전에 날씨와 조류를 다시 확인하자.	Launch confirmation armed. Check the weather and current before committing.	⟦Launch confirmation armed. Check the weather and current before committing.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+escape.raft.message.failed	출항 창이 맞지 않았다. 시도 비용 한 번만 썼고 모든 단계와 돛천은 남아 있다.	The launch window failed. One attempt cost was spent; all stages and sailcloth remain.	⟦The launch window failed. One attempt cost was spent; all stages and sailcloth remain.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
+escape.raft.message.retry	재시도 준비 완료. 출항 창을 다시 확인하자.	Retry is ready. Recheck the launch window.	⟦Retry is ready. Recheck the launch window.áéíóúüñ¿¡áéíóúü⟧
+escape.raft.message.complete	뗏목이 외해 조류를 탔다. 탈출 결과는 한 번만 확정됐다.	The raft caught the outbound current. Escape resolved once.	⟦The raft caught the outbound current. Escape resolved once.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 escape.smoke	대형 연기 신호	Smoke beacon escape	⟦Smóké béácóñ éscápéáéíóúü⟧
 escape.radio	무전 구조 신호	Radio rescue escape	⟦Rádíó réscúé éscápéáéíóúü⟧
 escape.flare	조명탄 탈출	Flare escape	⟦Fláré éscápéáéí⟧

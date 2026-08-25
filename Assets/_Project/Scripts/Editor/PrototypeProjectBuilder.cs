@@ -1006,7 +1006,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 17 four-phase hazard budget and idempotent transaction, five escape catalog entries with playable smoke/radio, private stable-ID snapshot/log schema, nineteen deterministic endings and terminal priority; Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
+                "Checks: Wave 20 natural shore-launch raft stages, protected sailcloth, weather/current launch window, atomic failure/retry and snapshot restore; Wave 17 four-phase hazard budget and idempotent transaction, five escape catalog entries with playable raft/smoke/radio, private stable-ID snapshot/log schema, nineteen deterministic endings and terminal priority; Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -1068,15 +1068,17 @@ namespace KimSurvival.EditorTools
                 "Five stable escape methods are public runtime data");
             Assert(PrototypeEscapeProjectCatalog.Get("escape.smoke").PlayableState.StartsWith("playable", StringComparison.Ordinal) &&
                    PrototypeEscapeProjectCatalog.Get("escape.radio").PlayableState.StartsWith("playable", StringComparison.Ordinal) &&
-                   PrototypeEscapeProjectCatalog.Get("escape.raft").PlayableState.StartsWith("data-only", StringComparison.Ordinal) &&
+                   PrototypeEscapeProjectCatalog.Get("escape.raft").PlayableState.StartsWith("playable", StringComparison.Ordinal) &&
                    PrototypeEscapeProjectCatalog.Get("escape.flare").PlayableState.StartsWith("data-only", StringComparison.Ordinal) &&
                    PrototypeEscapeProjectCatalog.Get("escape.beacon").PlayableState.StartsWith("data-only", StringComparison.Ordinal),
-                "Smoke/radio are playable while raft/flare/beacon remain honestly data-only");
+                "Raft/smoke/radio are playable while flare/beacon remain honestly data-only");
             PrototypeContractProbe smokeFixture = PrototypeEscapeProjectDirector.VerifyEscapeSmokeProgressCompleteFixture();
             PrototypeContractProbe radioFixture = PrototypeEscapeProjectDirector.VerifyEscapeRadioProgressCompleteFixture();
+            PrototypeContractProbe raftFixture = PrototypeRaftRuntimeContract.VerifyAtomicFailureRetrySnapshotFixture();
             Assert(smokeFixture.Success && radioFixture.Success && smokeFixture.Detail.Contains("no-grant no-warp") &&
-                   radioFixture.Detail.Contains("no-grant no-warp"),
-                "Smoke and radio expose deterministic natural progress/complete fixtures without grant or warp");
+                   radioFixture.Detail.Contains("no-grant no-warp") && raftFixture.Success &&
+                   raftFixture.Detail.Contains("grant=false warp=false"),
+                "Raft, smoke and radio expose deterministic natural progress/complete fixtures without grant or warp");
             Assert(PrototypeCampInteractionCatalog.OwnsAction(
                        PrototypeCampInteractionTargetKind.SmokeBeacon,
                        PrototypeCampInteractionAction.ProgressSmokeEscape,
@@ -1084,8 +1086,12 @@ namespace KimSurvival.EditorTools
                    PrototypeCampInteractionCatalog.OwnsAction(
                        PrototypeCampInteractionTargetKind.RadioBench,
                        PrototypeCampInteractionAction.ProgressRadioEscape,
+                       true) &&
+                   PrototypeCampInteractionCatalog.OwnsAction(
+                       PrototypeCampInteractionTargetKind.ShoreLaunch,
+                       PrototypeCampInteractionAction.ProgressRaftEscape,
                        true),
-                "Smoke and radio are owned by actual contextual camp interaction targets");
+                "Raft, smoke and radio are owned by distinct contextual camp interaction targets");
             Assert(PrototypeEscapeProjectCatalog.All.Select(value => value.FacilityId).Distinct(StringComparer.Ordinal).Count() == 5 &&
                    PrototypeEscapeProjectCatalog.All.Select(value => value.KeyPartId).Distinct(StringComparer.Ordinal).Count() == 5 &&
                    PrototypeEscapeProjectCatalog.All.Select(value => value.TimingRule).Distinct(StringComparer.Ordinal).Count() == 5,

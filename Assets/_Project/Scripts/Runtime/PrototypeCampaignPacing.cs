@@ -450,6 +450,11 @@ namespace KimSurvival
             string routeId,
             IReadOnlyList<PrototypeCampInteractionTarget> liveTargets)
         {
+            if (string.Equals(routeId, "smoke.route.raft", StringComparison.Ordinal) ||
+                string.Equals(routeId, PrototypeRaftEscapeConfig.EscapeId, StringComparison.Ordinal))
+            {
+                return PrototypeRaftRuntimeContract.RunNaturalRoute(liveTargets);
+            }
             bool radio = string.Equals(routeId, "smoke.route.radio", StringComparison.Ordinal) ||
                          string.Equals(routeId, "escape.radio", StringComparison.Ordinal);
             string escapeId = radio ? "escape.radio" : "escape.smoke";
@@ -559,7 +564,7 @@ namespace KimSurvival
     {
         public static PrototypeContractProbe VerifyEscapeDataOnlyRouteValidationFixture()
         {
-            string[] ids = { "escape.raft", "escape.flare", "escape.beacon" };
+            string[] ids = { "escape.flare", "escape.beacon" };
             bool success = ids.Select(PrototypeEscapeProjectCatalog.Get).All(definition =>
                 definition.DataOnly && !string.IsNullOrEmpty(definition.PrimaryRegionId) &&
                 !string.IsNullOrEmpty(definition.AlternativeRegionId) &&
