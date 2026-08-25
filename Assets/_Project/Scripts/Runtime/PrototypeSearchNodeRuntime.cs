@@ -53,6 +53,11 @@ namespace KimSurvival
             get { return !string.IsNullOrEmpty(ProtectedPartId); }
         }
 
+        public string ItemId
+        {
+            get { return StableItemId; }
+        }
+
         public PrototypeSearchLootEntry Clone()
         {
             return new PrototypeSearchLootEntry
@@ -78,6 +83,8 @@ namespace KimSurvival
         public int EnergyCost;
         public int HazardExposureCount;
         public string HazardId = string.Empty;
+        public bool BarrierBroken;
+        public bool PermanentHazardRemoved;
         public PrototypeSearchLootEntry[] Remaining = Array.Empty<PrototypeSearchLootEntry>();
 
         public int RemainingAmount
@@ -99,9 +106,35 @@ namespace KimSurvival
                 EnergyCost = EnergyCost,
                 HazardExposureCount = HazardExposureCount,
                 HazardId = HazardId,
+                BarrierBroken = BarrierBroken,
+                PermanentHazardRemoved = PermanentHazardRemoved,
                 Remaining = Remaining == null
                     ? Array.Empty<PrototypeSearchLootEntry>()
                     : Remaining.Select(item => item.Clone()).ToArray()
+            };
+        }
+    }
+
+    [Serializable]
+    public sealed class PrototypeSearchRegionSnapshot
+    {
+        public string RegionId = string.Empty;
+        public string[] NodeIds = Array.Empty<string>();
+        public bool BarrierBroken;
+        public bool PermanentHazardRemoved;
+        public string[] RemovedPermanentHazardIds = Array.Empty<string>();
+
+        public PrototypeSearchRegionSnapshot Clone()
+        {
+            return new PrototypeSearchRegionSnapshot
+            {
+                RegionId = RegionId,
+                NodeIds = NodeIds == null ? Array.Empty<string>() : NodeIds.ToArray(),
+                BarrierBroken = BarrierBroken,
+                PermanentHazardRemoved = PermanentHazardRemoved,
+                RemovedPermanentHazardIds = RemovedPermanentHazardIds == null
+                    ? Array.Empty<string>()
+                    : RemovedPermanentHazardIds.ToArray()
             };
         }
     }
@@ -111,6 +144,7 @@ namespace KimSurvival
     {
         public int RunSeed;
         public PrototypeSearchNodeSnapshot[] Nodes = Array.Empty<PrototypeSearchNodeSnapshot>();
+        public PrototypeSearchRegionSnapshot[] Regions = Array.Empty<PrototypeSearchRegionSnapshot>();
         public string[] ProtectedPartIds = Array.Empty<string>();
     }
 
@@ -141,6 +175,27 @@ namespace KimSurvival
         public int EnergyCost { get; }
         public int TimeCostMinutes { get; }
         public string HazardId { get; }
+        public string ProtectedPartId
+        {
+            get
+            {
+                return string.Equals(
+                    NodeId,
+                    PrototypeSearchNodeLootResolver.ResolveSailclothNodeId(PrototypeExpeditionRegionCatalog.DefaultRunSeed),
+                    StringComparison.Ordinal)
+                    ? PrototypeRaftEscapeConfig.KeyPartId
+                    : string.Empty;
+            }
+        }
+        public IReadOnlyList<PrototypeSearchLootEntry> Contents
+        {
+            get { return PrototypeSearchNodeLootResolver.Resolve(PrototypeExpeditionRegionCatalog.DefaultRunSeed, this); }
+        }
+
+        public override string ToString()
+        {
+            return NodeId + "|region=" + RegionId + "|protected=" + ProtectedPartId;
+        }
     }
 
     public sealed class PrototypeSearchRegionDefinition
@@ -223,6 +278,10 @@ namespace KimSurvival
         };
 
         public static IReadOnlyList<PrototypeSearchRegionDefinition> All { get { return Regions; } }
+        public static IReadOnlyList<PrototypeSearchNodeDefinition> Nodes
+        {
+            get { return Regions.SelectMany(region => region.Nodes).ToArray(); }
+        }
 
         public static PrototypeSearchRegionDefinition Get(string stableId)
         {
@@ -248,6 +307,25 @@ namespace KimSurvival
             if (string.Equals(stableId, "region.sea.shallows", StringComparison.Ordinal)) return PrototypeExpeditionRegionId.Shallows;
             return PrototypeExpeditionRegionId.Beach;
         }
+    }
+
+    [Serializable]
+    public sealed class PrototypeSearchNodeContentRoll
+    {
+        public int RunSeed;
+        public string RegionId = string.Empty;
+        public string NodeId = string.Empty;
+        public PrototypeSearchLootEntry[] Contents = Array.Empty<PrototypeSearchLootEntry>();
+    }
+
+    [Serializable]
+    public sealed class PrototypeProtectedSearchPartTransactionPolicy
+    {
+        public string ProtectedPartId = PrototypeRaftEscapeConfig.KeyPartId;
+        public bool ProtectedDiscardRejected = true;
+        public int ProtectedDuplicateAcquireDelta;
+        public int ProtectedDuplicateConsumeDelta;
+        public bool ConsumeExactlyOnce = true;
     }
 
     public static class PrototypeSearchNodeLootResolver
@@ -301,6 +379,20 @@ namespace KimSurvival
             return contents.ToArray();
         }
 
+        public static PrototypeSearchNodeContentRoll Resolve(int runSeed, string regionId, string nodeId)
+        {
+            PrototypeSearchNodeDefinition definition = PrototypeSearchRegionCatalog.Nodes.FirstOrDefault(node =>
+                string.Equals(node.RegionId, regionId, StringComparison.Ordinal) &&
+                string.Equals(node.NodeId, nodeId, StringComparison.Ordinal));
+            return new PrototypeSearchNodeContentRoll
+            {
+                RunSeed = runSeed,
+                RegionId = regionId ?? string.Empty,
+                NodeId = nodeId ?? string.Empty,
+                Contents = definition == null ? Array.Empty<PrototypeSearchLootEntry>() : Resolve(runSeed, definition)
+            };
+        }
+
         private static ResourceKind[] Pattern(PrototypeSearchNodeKind kind)
         {
             switch (kind)
@@ -327,6 +419,8 @@ namespace KimSurvival
         private readonly Dictionary<string, PrototypeSearchNodeSnapshot> nodes =
             new Dictionary<string, PrototypeSearchNodeSnapshot>(StringComparer.Ordinal);
         private readonly HashSet<string> protectedPartIds = new HashSet<string>(StringComparer.Ordinal);
+        private readonly Dictionary<string, PrototypeSearchRegionSnapshot> regions =
+            new Dictionary<string, PrototypeSearchRegionSnapshot>(StringComparer.Ordinal);
 
         public PrototypeSearchNodeLedger(int runSeed)
         {
@@ -338,6 +432,7 @@ namespace KimSurvival
 
         public PrototypeSearchNodeSnapshot GetOrCreate(PrototypeSearchNodeDefinition definition)
         {
+            PrototypeSearchRegionSnapshot region = GetOrCreateRegion(definition.RegionId);
             if (!nodes.TryGetValue(definition.NodeId, out PrototypeSearchNodeSnapshot snapshot))
             {
                 snapshot = new PrototypeSearchNodeSnapshot
@@ -353,8 +448,56 @@ namespace KimSurvival
                     Remaining = PrototypeSearchNodeLootResolver.Resolve(RunSeed, definition)
                 };
                 nodes.Add(definition.NodeId, snapshot);
+                region.NodeIds = region.NodeIds.Concat(new[] { definition.NodeId })
+                    .Distinct(StringComparer.Ordinal).OrderBy(value => value, StringComparer.Ordinal).ToArray();
             }
             return snapshot;
+        }
+
+        public PrototypeSearchRegionSnapshot GetOrCreateRegion(string regionId)
+        {
+            string stableId = regionId ?? string.Empty;
+            if (!regions.TryGetValue(stableId, out PrototypeSearchRegionSnapshot snapshot))
+            {
+                snapshot = new PrototypeSearchRegionSnapshot { RegionId = stableId };
+                regions.Add(stableId, snapshot);
+            }
+            return snapshot;
+        }
+
+        public void MarkBarrierBroken(string regionId)
+        {
+            PrototypeSearchRegionSnapshot region = GetOrCreateRegion(regionId);
+            region.BarrierBroken = true;
+            foreach (PrototypeSearchNodeSnapshot node in nodes.Values.Where(node => node.RegionId == region.RegionId))
+            {
+                node.BarrierBroken = true;
+            }
+        }
+
+        public void MarkPermanentHazardRemoved(string regionId, string hazardId)
+        {
+            if (string.IsNullOrEmpty(hazardId)) return;
+            PrototypeSearchRegionSnapshot region = GetOrCreateRegion(regionId);
+            region.PermanentHazardRemoved = true;
+            region.RemovedPermanentHazardIds = region.RemovedPermanentHazardIds.Concat(new[] { hazardId })
+                .Distinct(StringComparer.Ordinal).OrderBy(value => value, StringComparer.Ordinal).ToArray();
+            foreach (PrototypeSearchNodeSnapshot node in nodes.Values.Where(node =>
+                         node.RegionId == region.RegionId && node.HazardId == hazardId))
+            {
+                node.PermanentHazardRemoved = true;
+            }
+        }
+
+        public bool IsBarrierBroken(string regionId)
+        {
+            return regions.TryGetValue(regionId ?? string.Empty, out PrototypeSearchRegionSnapshot region) && region.BarrierBroken;
+        }
+
+        public bool IsPermanentHazardRemoved(string regionId, string hazardId)
+        {
+            return regions.TryGetValue(regionId ?? string.Empty, out PrototypeSearchRegionSnapshot region) &&
+                   region.RemovedPermanentHazardIds.Contains(hazardId ?? string.Empty);
         }
 
         public void Reveal(PrototypeSearchNodeDefinition definition)
@@ -392,6 +535,10 @@ namespace KimSurvival
             snapshot.State = snapshot.Remaining.Length == 0
                 ? PrototypeSearchNodeState.Depleted
                 : PrototypeSearchNodeState.RevealedPartial;
+            if (snapshot.State == PrototypeSearchNodeState.Depleted)
+            {
+                MarkPermanentHazardRemoved(snapshot.RegionId, snapshot.HazardId);
+            }
             return true;
         }
 
@@ -425,6 +572,8 @@ namespace KimSurvival
                 RunSeed = RunSeed,
                 Nodes = nodes.Values.OrderBy(value => value.NodeId, StringComparer.Ordinal)
                     .Select(value => value.Clone()).ToArray(),
+                Regions = regions.Values.OrderBy(value => value.RegionId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray(),
                 ProtectedPartIds = protectedPartIds.OrderBy(value => value, StringComparer.Ordinal).ToArray()
             };
         }
@@ -438,10 +587,27 @@ namespace KimSurvival
             {
                 return false;
             }
+            PrototypeSearchRegionSnapshot[] regionSource = snapshot.Regions ?? Array.Empty<PrototypeSearchRegionSnapshot>();
+            if (regionSource.Any(region => region == null || string.IsNullOrEmpty(region.RegionId)) ||
+                regionSource.Select(region => region.RegionId).Distinct(StringComparer.Ordinal).Count() != regionSource.Length)
+            {
+                return false;
+            }
             nodes.Clear();
             foreach (PrototypeSearchNodeSnapshot node in source)
             {
                 nodes.Add(node.NodeId, node.Clone());
+            }
+            regions.Clear();
+            foreach (PrototypeSearchRegionSnapshot region in regionSource)
+            {
+                regions.Add(region.RegionId, region.Clone());
+            }
+            foreach (PrototypeSearchNodeSnapshot node in nodes.Values)
+            {
+                PrototypeSearchRegionSnapshot region = GetOrCreateRegion(node.RegionId);
+                region.NodeIds = region.NodeIds.Concat(new[] { node.NodeId })
+                    .Distinct(StringComparer.Ordinal).OrderBy(value => value, StringComparer.Ordinal).ToArray();
             }
             protectedPartIds.Clear();
             foreach (string partId in snapshot.ProtectedPartIds ?? Array.Empty<string>())

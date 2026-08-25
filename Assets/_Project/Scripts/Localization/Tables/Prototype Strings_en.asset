@@ -2027,6 +2027,25 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 1172586326376448
+    m_Localized: Replace selected bag slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1172586372513792
+    m_Localized: '{0} finds remaining'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1172586372513793
+    m_Localized: Search cost Energy -{0} / Daylight -{1}
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1172586372513794
+    m_Localized: 'Risk exposure: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -2159,3 +2178,6 @@ MonoBehaviour:
         - id: 1157017996869639
         - id: 1157017996869646
         - id: 1157017996869647
+        - id: 1172586372513792
+        - id: 1172586372513793
+        - id: 1172586372513794
