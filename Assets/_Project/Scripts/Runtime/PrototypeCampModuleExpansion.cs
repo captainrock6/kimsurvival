@@ -239,7 +239,7 @@ namespace KimSurvival
                 CampModuleConnectorKind.Ladder,
                 1f,
                 7.75f,
-                1.5f,
+                2.5f,
                 3f)
         };
 

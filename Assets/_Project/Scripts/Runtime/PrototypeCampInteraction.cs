@@ -46,22 +46,30 @@ namespace KimSurvival
         PrototypeCampInteractionTargetKind Kind { get; }
         Vector2 Position { get; }
         bool IsEnabled { get; }
+        int SelectionPriority { get; }
     }
 
     public readonly struct PrototypeCampInteractionTarget : IPrototypeCampInteractionTarget
     {
-        public PrototypeCampInteractionTarget(string id, PrototypeCampInteractionTargetKind kind, Vector2 position, bool isEnabled = true)
+        public PrototypeCampInteractionTarget(
+            string id,
+            PrototypeCampInteractionTargetKind kind,
+            Vector2 position,
+            bool isEnabled = true,
+            int selectionPriority = 0)
         {
             Id = id ?? string.Empty;
             Kind = kind;
             Position = position;
             IsEnabled = isEnabled;
+            SelectionPriority = Mathf.Max(0, selectionPriority);
         }
 
         public string Id { get; }
         public PrototypeCampInteractionTargetKind Kind { get; }
         public Vector2 Position { get; }
         public bool IsEnabled { get; }
+        public int SelectionPriority { get; }
     }
 
     public static class PrototypeCampInteractionCatalog
@@ -123,6 +131,7 @@ namespace KimSurvival
     {
         private const float FacingPenalty = 0.28f;
         private const float CurrentTargetHysteresis = 0.08f;
+        private const float SelectionPriorityBias = 0.12f;
         private const float DirectionEpsilon = 0.05f;
         private const float ScoreEpsilon = 0.0001f;
 
@@ -200,7 +209,8 @@ namespace KimSurvival
 
                     float horizontalOffset = candidate.Position.x - playerPosition.x;
                     bool behind = Mathf.Abs(horizontalOffset) > DirectionEpsilon && Mathf.Sign(horizontalOffset) != normalizedFacing;
-                    float score = distance + (behind ? FacingPenalty : 0f);
+                    float score = distance + (behind ? FacingPenalty : 0f) -
+                                  candidate.SelectionPriority * SelectionPriorityBias;
                     if (candidate.Kind == activeTarget.Kind && string.Equals(candidate.Id, activeTarget.Id, StringComparison.Ordinal))
                     {
                         score -= CurrentTargetHysteresis;

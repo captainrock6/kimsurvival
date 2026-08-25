@@ -11,6 +11,9 @@ namespace KimSurvival
 {
     public sealed class KimSurvivalPrototype : MonoBehaviour
     {
+        private const int UnbuiltBlueprintInteractionPriority = 0;
+        private const int ModuleInteractionPriority = 1;
+        private const int InstalledFacilityInteractionPriority = 2;
         private const string AssetCampBackground = "background.island-camp";
         private const string AssetSearchBackground = "background.coast-forest";
         private const string AssetKim = "character.mr-kim";
@@ -1927,7 +1930,9 @@ namespace KimSurvival
                         campInteractionTargets.Add(new PrototypeCampInteractionTarget(
                             definition.StartSlotId,
                             PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
-                            new Vector2(definition.StartConnectorDisplayX, PrototypeCampUse.PlayerFloorY)));
+                            new Vector2(definition.StartConnectorDisplayX, PrototypeCampUse.PlayerFloorY),
+                            true,
+                            ModuleInteractionPriority));
                     }
                 }
 
@@ -1943,7 +1948,9 @@ namespace KimSurvival
                 campInteractionTargets.Add(new PrototypeCampInteractionTarget(
                     "camp.module-connector." + definition.RoomId,
                     PrototypeCampInteractionTargetKind.ModuleConnector,
-                    new Vector2(startRoom ? definition.StartConnectorDisplayX : definition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY)));
+                    new Vector2(startRoom ? definition.StartConnectorDisplayX : definition.ModuleConnectorDisplayX, PrototypeCampUse.PlayerFloorY),
+                    true,
+                    ModuleInteractionPriority));
             }
             campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
             ObserveCampInteractionTarget();
@@ -1968,8 +1975,15 @@ namespace KimSurvival
                 return;
             }
 
-            Vector2 position = campPlacement.GetInstalledPosition(structure);
-            campInteractionTargets.Add(new PrototypeCampInteractionTarget("camp." + structure, target, position));
+            bool isInstalled = session.HasStructure(structure);
+            Vector2 installedPosition = campPlacement.GetInstalledPosition(structure);
+            Vector2 interactionPosition = new Vector2(installedPosition.x, PrototypeCampUse.PlayerFloorY);
+            campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                "camp." + structure,
+                target,
+                interactionPosition,
+                true,
+                isInstalled ? InstalledFacilityInteractionPriority : UnbuiltBlueprintInteractionPriority));
         }
 
         private bool TryOpenCampPopup()
@@ -4624,7 +4638,7 @@ namespace KimSurvival
                             campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId
                                 ? definition.StartConnectorDisplayX
                                 : definition.ModuleConnectorDisplayX,
-                            PrototypeCampPlacement.FloorY);
+                            PrototypeCampUse.PlayerFloorY);
                     }
                     return campUse.PlayerPosition;
                 default:

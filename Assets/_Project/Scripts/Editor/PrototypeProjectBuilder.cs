@@ -536,7 +536,10 @@ namespace KimSurvival.EditorTools
             {
                 new PrototypeCampInteractionTarget("slot.start.upper", PrototypeCampInteractionTargetKind.ModuleExpansionSlot, new Vector2(-4f, PrototypeCampUse.PlayerFloorY)),
                 new PrototypeCampInteractionTarget("slot.start.side", PrototypeCampInteractionTargetKind.ModuleExpansionSlot, new Vector2(8.1f, PrototypeCampUse.PlayerFloorY)),
-                new PrototypeCampInteractionTarget("slot.start.basement", PrototypeCampInteractionTargetKind.ModuleExpansionSlot, new Vector2(1.5f, PrototypeCampUse.PlayerFloorY))
+                new PrototypeCampInteractionTarget(
+                    "slot.start.basement",
+                    PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
+                    new Vector2(PrototypeCampModuleCatalog.Get(CampModuleArchetype.Basement).StartConnectorDisplayX, PrototypeCampUse.PlayerFloorY))
             };
             directSlotInteraction.UpdateSelection(new Vector2(8.1f + PrototypeCampUse.UseRange + 0.01f, PrototypeCampUse.PlayerFloorY), -1f, directSlotTargets);
             Assert(!directSlotInteraction.HasProximityPrompt && !directSlotInteraction.IsPopupOpen,
@@ -552,6 +555,43 @@ namespace KimSurvival.EditorTools
             directSlotInteraction.ClosePopup();
             Assert(directSlotInteraction.HasProximityPrompt && directSlotInteraction.ActiveTargetId == "slot.start.side",
                 "Root popup Cancel returns to the same direct field target without moving the player");
+            PrototypeCampInteraction overlappingFacilityInteraction = new PrototypeCampInteraction();
+            Vector2 basementInteractionPoint = new Vector2(1.5f, PrototypeCampUse.PlayerFloorY);
+            List<PrototypeCampInteractionTarget> basementOnlyTargets = new List<PrototypeCampInteractionTarget>
+            {
+                new PrototypeCampInteractionTarget(
+                    "slot.start.basement",
+                    PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
+                    basementInteractionPoint,
+                    true,
+                    1)
+            };
+            overlappingFacilityInteraction.UpdateSelection(basementInteractionPoint, 1f, basementOnlyTargets);
+            Assert(overlappingFacilityInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
+                "An unobstructed basement slot remains directly selectable");
+            List<PrototypeCampInteractionTarget> overlappingFacilityTargets = new List<PrototypeCampInteractionTarget>(basementOnlyTargets)
+            {
+                new PrototypeCampInteractionTarget(
+                    "camp.Workbench",
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    basementInteractionPoint,
+                    true,
+                    2)
+            };
+            overlappingFacilityInteraction.UpdateSelection(basementInteractionPoint, 1f, overlappingFacilityTargets);
+            Assert(overlappingFacilityInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.Workbench &&
+                   overlappingFacilityInteraction.ActiveTargetId == "camp.Workbench",
+                "An installed workbench wins over a co-located basement preview even when the slot was previously latched");
+            overlappingFacilityTargets[1] = new PrototypeCampInteractionTarget(
+                "camp.Workbench",
+                PrototypeCampInteractionTargetKind.Workbench,
+                basementInteractionPoint + Vector2.right * 2f,
+                true,
+                2);
+            overlappingFacilityInteraction.UpdateSelection(basementInteractionPoint, 1f, overlappingFacilityTargets);
+            Assert(overlappingFacilityInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot &&
+                   overlappingFacilityInteraction.ActiveTargetId == "slot.start.basement",
+                "Relocating the workbench restores direct access to the basement expansion slot");
             Assert(PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.Repair, true) &&
                    PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.UpgradeBag, true) &&
                    !PrototypeCampInteractionCatalog.OwnsAction(PrototypeCampInteractionTargetKind.Workbench, PrototypeCampInteractionAction.Eat, true) &&
@@ -571,6 +611,8 @@ namespace KimSurvival.EditorTools
             CampModuleDefinition upperDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Upper);
             CampModuleDefinition sideDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Side);
             CampModuleDefinition basementDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Basement);
+            Assert(Mathf.Approximately(basementDefinition.StartConnectorDisplayX, 2.5f),
+                "The basement entry interaction stays separated from the default workbench at x=1.5");
             Assert(PrototypeCampModuleCatalog.TryGetByStartSlotId("slot.start.upper", out CampModuleDefinition mappedUpper) &&
                    mappedUpper.Archetype == CampModuleArchetype.Upper &&
                    PrototypeCampModuleCatalog.TryGetByStartSlotId("slot.start.side", out CampModuleDefinition mappedSide) &&
