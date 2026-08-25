@@ -1,0 +1,30 @@
+{
+    "schemaVersion":  2,
+    "runId":  "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit":  "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "overall":  "PASS",
+    "ownership":  "ADDRESSABLES_GENERATED_TEMPORARY",
+    "canonicalDurableState":  "ABSENT",
+    "preflight":  {
+                      "observedUtc":  "2026-08-25T16:50:30.0441123Z",
+                      "linkExists":  false,
+                      "linkBytes":  0,
+                      "linkSha256":  "",
+                      "metaExists":  false,
+                      "metaBytes":  0,
+                      "metaSha256":  "",
+                      "metaGuid":  "",
+                      "assetDatabaseGuid":  ""
+                  },
+    "postSmoke":  {
+                      "observedUtc":  "2026-08-25T16:52:02.0832944Z",
+                      "linkExists":  false,
+                      "linkBytes":  0,
+                      "linkSha256":  "",
+                      "metaExists":  false,
+                      "metaBytes":  0,
+                      "metaSha256":  "",
+                      "metaGuid":  "",
+                      "assetDatabaseGuid":  ""
+                  }
+}

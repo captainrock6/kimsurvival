@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260826T041500Z_gamejam_search_node_diagnostic_final
+Baseline: 2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7
+Normal ko/en: FAIL
+Placement: MISSING
+Exploration/swimming: MISSING
+qps-long: MISSING
+qps-long classification: FAIL · retained as Unity system-work input

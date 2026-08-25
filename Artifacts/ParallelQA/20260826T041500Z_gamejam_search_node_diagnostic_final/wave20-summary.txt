@@ -1,0 +1,14 @@
+Wave 20 independent raft escape RED-first regression gate
+Run ID: 20260826T041500Z_gamejam_search_node_diagnostic_final
+Baseline: 2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7
+Overall/Product/Infrastructure: FAIL/PASS/FAIL
+Wave 18 legacy lock: 22/23 쨌 superseded=False
+Wave 19 GREEN lock: 20/21
+Wave 20 PASS/EXPECTED_GAP/FAIL: 16/0/0
+Expected gap IDs: 
+Unexpected failure IDs: 
+Compile/build/smoke/Addressables/firewall: PASS 0/0/PASS/PASS 6.244s/PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave20RaftRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7' -MinimumSmokeSeconds 6
+Exit code: 1 (0 GREEN, 2 product RED, 1 infrastructure FAIL)

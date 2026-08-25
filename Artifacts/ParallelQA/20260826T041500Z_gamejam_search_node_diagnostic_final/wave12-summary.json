@@ -1,0 +1,58 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 12 five-day compact-a RED-first gate",
+    "runId":  "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit":  "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "observedUtc":  "2026-08-25T16:52:02.2426590Z",
+    "overall":  "FAIL",
+    "productOverall":  "FAIL",
+    "infrastructureOverall":  "FAIL",
+    "freshWave3Visual":  "FAIL",
+    "wave11WalkingPath":  "PASS 3/3 actual screen rects",
+    "expectedProductGapIds":  [
+                                  "W12-D01.five_day_deadline",
+                                  "W12-P03.compact_a_locale_capture_layout"
+                              ],
+    "expectedProductGaps":  [
+                                {
+                                    "id":  "W12-D01.five_day_deadline",
+                                    "severity":  "P0",
+                                    "actual":  "FinalDay=50; day3Playable=True; day4Playable=True; day5Deadline=False; earlyDay1Rescue=True; states=start=D1\u003eD2/Camp/None\u003eD3/Camp/None\u003eD4/Camp/None\u003eD5/Camp/None\u003eD6/Camp/None",
+                                    "reproduction":  "Advance fresh GameSession instances without Grant/warp through Day 5 and independently complete the signal early.",
+                                    "recommendedFiles":  "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+                                },
+                                {
+                                    "id":  "W12-P03.compact_a_locale_capture_layout",
+                                    "severity":  "P1",
+                                    "actual":  "captures=12/12; png1280x800=True; wave11WorldClear=True; ko{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=480.0,w=440.0,h=48.0,narration=x=320.0,y=544.0,w=640.0,h=96.0,gap=16.0,overflow=0/0/0,compact=False} | en{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=480.0,w=440.0,h=48.0,narration=x=320.0,y=544.0,w=640.0,h=96.0,gap=16.0,overflow=0/0/0,compact=False} | qps-long{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=480.0,w=440.0,h=48.0,narration=x=320.0,y=544.0,w=640.0,h=96.0,gap=16.0,overflow=0/0/0,compact=False}",
+                                    "reproduction":  "Open all twelve Wave 12 captures at 1:1 and compare the recorded prompt/narration Rects and overflow counts.",
+                                    "recommendedFiles":  "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+                                }
+                            ],
+    "unexpectedProductFailures":  [
+                                      {
+                                          "id":  "W12-P04.current_normal_wave3_visual",
+                                          "severity":  "P1",
+                                          "actual":  "InvalidOperationException: fresh Wave 3 report missing",
+                                          "reproduction":  "Open the fresh Wave 3 TSV/PNGs at 1:1 and inspect every normal placement/exploration failure row.",
+                                          "recommendedFiles":  "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs"
+                                      }
+                                  ],
+    "compile":  "PASS 0 errors",
+    "windowsDevelopmentBuild":  "PASS",
+    "windowsBuildWarnings":  0,
+    "hiddenSmoke":  "PASS",
+    "addressables":  "PASS load/build/post-smoke",
+    "physicalGamepad":  "UNVERIFIED",
+    "powershellCompatibility":  "PASS",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "infrastructureFailures":  [
+                                   "fresh Wave 3 visual report was not generated and parsed for the current RunId/baseline",
+                                   "wave12-five-day-ui-play did not complete with infrastructure PASS",
+                                   "asset/release non-visual core contracts or fresh baseline identity did not pass"
+                               ],
+    "greenTransition":  "FinalDay=5; compact-a stable reference is connected as sliced UI with exact borders; glyph and TMP action are separate; all twelve locale/state captures satisfy geometry and overflow=0.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u00272a89e53000f7a5e8d19ad0ecec519fd29bfb38f7\u0027 -MinimumSmokeSeconds 6",
+    "evidenceRoot":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final"
+}

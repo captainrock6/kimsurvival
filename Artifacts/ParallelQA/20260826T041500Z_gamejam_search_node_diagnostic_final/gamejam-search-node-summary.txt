@@ -1,0 +1,16 @@
+GameJam searchable resource node RED-first independent regression gate
+Run ID: 20260826T041500Z_gamejam_search_node_diagnostic_final
+Baseline: 2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7
+Overall/Product/Infrastructure: RED/FAIL/PASS
+Wave 20 GREEN lock: 16/16
+Wave 19 GREEN lock: 20/21
+Search node PASS/EXPECTED_GAP/FAIL: 11/0/4
+Wave 19 equivalent resource-icon lock: FAIL: Wood environmental node/compact tray omits adopted icon GUID 5ba05e4e569ab6745bff72d0b9ba9151; nodes=1; adoptedRenderers=0; unresolved=1 | Stone environmental node/compact tray omits adopted icon GUID c881b7198e647ad40b32c63ce18e27a2; nodes=3; adoptedRenderers=0; unresolved=3 | Food environmental node/compact tray omits adopted icon GUID 59695c50812722b458c210b4cfb02c12; nodes=2; adoptedRenderers=0; unresolved=2 | Salvage environmental node/compact tray omits adopted icon GUID cb8829a17d9cc9049aa16fbf4393097a; nodes=2; adoptedRenderers=0; unresolved=2
+Expected gap IDs: 
+Unexpected failure IDs: GSN-E03.persistent_snapshot_schema, GSN-P01.actual_node_prompt_tray, GSN-P06.seven_region_finite_persistence, GSN-P08.ko_en_qps_compact_tray_1280, W19-P02.resource_nodes_adopted_icons
+Camp/module/map and same-day notice: PASS/PASS
+Compile/build/smoke/Addressables/firewall: PASS 0/0/PASS/PASS 6.244s/PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-GameJamSearchNodeRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7' -MinimumSmokeSeconds 6
+Exit code: 2 (0 GREEN, 2 product RED, 1 infrastructure FAIL)

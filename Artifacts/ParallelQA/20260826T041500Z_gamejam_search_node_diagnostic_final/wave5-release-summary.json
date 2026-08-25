@@ -1,0 +1,22 @@
+{
+    "schemaVersion":  2,
+    "runId":  "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit":  "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "observedUtc":  "2026-08-25T16:52:02.1250932Z",
+    "qaBuildInfrastructureGate":  "PASS",
+    "releaseOverall":  "FAIL",
+    "unityCompile":  "PASS",
+    "addressablesLoadContract":  "PASS",
+    "addressablesBuildContract":  "PASS",
+    "addressablesGeneratedTemporaryCleanup":  "PASS",
+    "addressablesPostSmokeContract":  "PASS",
+    "windowsDevelopmentBuild":  "Succeeded",
+    "hiddenSmoke":  "PASS",
+    "normalKoEnVisualGate":  "FAIL",
+    "qpsLongVisualGate":  "FAIL",
+    "backgroundReachability":  "PASS",
+    "assetContracts":  "FAIL",
+    "steamReadiness":  "NOT_READY",
+    "physicalGamepad":  "UNVERIFIED",
+    "physicalGamepadReason":  "No physical-device actuation was performed; automated/code-path evidence cannot upgrade this status."
+}

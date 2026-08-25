@@ -1,0 +1,15 @@
+{
+    "schemaVersion":  1,
+    "runId":  "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit":  "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "observedUtc":  "2026-08-25T16:50:30.2288622Z",
+    "entryPoint":  "Invoke-Wave12FiveDayUiGate.ps1",
+    "mode":  "Full",
+    "psEdition":  "Desktop",
+    "psVersion":  "5.1.26100.9168",
+    "preflightExitCode":  0,
+    "preflightJsonUtf8NoBom":  true,
+    "preflightTextUtf8NoBom":  true,
+    "evidenceFormat":  "UTF-8 without BOM; existing Wave 5 JSON/TXT names and schemas preserved",
+    "overall":  "PASS"
+}

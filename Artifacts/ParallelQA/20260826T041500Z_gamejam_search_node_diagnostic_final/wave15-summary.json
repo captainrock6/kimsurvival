@@ -1,0 +1,83 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 15 50-day campaign and expedition-map RED-first gate",
+    "runId":  "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit":  "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "startedUtc":  "2026-08-25T16:50:29.3332422Z",
+    "completedUtc":  "2026-08-25T16:52:41.0021960Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "FAIL",
+    "productOverall":  "FAIL",
+    "infrastructureOverall":  "FAIL",
+    "currentGreenLocks":  {
+                              "qpsLong":  "0/10 PASS",
+                              "koEnPlacement":  "FAIL",
+                              "campPromptPlacementModuleBagSwim":  "FAIL",
+                              "compile":  "PASS 0 errors",
+                              "windowsDevelopmentBuild":  "PASS",
+                              "hiddenSmoke":  "PASS",
+                              "addressables":  "PASS load/build/post-smoke"
+                          },
+    "expectedGapIds":  [
+
+                       ],
+    "expectedGaps":  [
+
+                     ],
+    "productFailures":  [
+                            {
+                                "id":  "W15-M01.three_region_forecast_catalog",
+                                "severity":  "P0",
+                                "actual":  "catalogEntries=22; regions=beach,forest,shallow-sea; failures=beach:resource|category,beach:abundance|richness,beach:travel|duration|time,beach:risk|hazard,beach:weather,beach:gear|equipment,beach:special|discovery,beach:unknown|discovered|identified,forest:resource|category,forest:abundance|richness,forest:travel|duration|time,forest:risk|hazard,forest:weather,forest:gear|equipment,forest:special|discovery,forest:unknown|discovered|identified,shallow-sea:resource|category,shallow-sea:abundance|richness,shallow-sea:travel|duration|time,shallow-sea:risk|hazard,shallow-sea:weather,shallow-sea:gear|equipment,shallow-sea:special|discovery,shallow-sea:unknown|discovered|identified",
+                                "reproduction":  "Reflect the runtime expedition/region catalog and inspect every public forecast member.",
+                                "recommendedFiles":  "Assets/_Project/Scripts/Runtime/PrototypeExpeditionRegionCatalog.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs"
+                            }
+                        ],
+    "infrastructureFailures":  [
+                                   "Wave 14 prerequisite exited 1",
+                                   "fresh Wave 14 prerequisite did not remain GREEN/PASS",
+                                   "qps-long current lock is not a fresh 10/10 PASS",
+                                   "compile/camp/bag/module/swim/build/smoke/Addressables lock did not remain PASS"
+                               ],
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "steamReadyClaim":  false,
+    "greenTransition":  "On a post-implementation baseline, the same command must report infrastructure PASS, fresh Wave14 10/10 PASS, and zero Wave15 EXPECTED_GAP/FAIL checks.",
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u00272a89e53000f7a5e8d19ad0ecec519fd29bfb38f7\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave14-full-regression-prerequisite",
+                       "startedUtc":  "2026-08-25T16:50:29.3503893Z",
+                       "completedUtc":  "2026-08-25T16:52:11.7445405Z",
+                       "exitCode":  1,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave14QpsGlobalLayoutGate.ps1\" -RunId 20260826T041500Z_gamejam_search_node_diagnostic_final -BaselineCommit 2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave15-wave14-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave15-wave14-stderr.log"
+                   },
+                   {
+                       "name":  "wave15-campaign-map-edit",
+                       "startedUtc":  "2026-08-25T16:52:11.7445405Z",
+                       "completedUtc":  "2026-08-25T16:52:20.7995655Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\unity-wave15-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave15-edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave15-edit-stderr.log"
+                   },
+                   {
+                       "name":  "wave15-campaign-map-play",
+                       "startedUtc":  "2026-08-25T16:52:20.8006606Z",
+                       "completedUtc":  "2026-08-25T16:52:40.9451660Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave15CampaignMapRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\unity-wave15-play.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave15-play-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave15-play-stderr.log"
+                   }
+               ],
+    "exitCode":  1
+}
