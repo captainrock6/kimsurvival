@@ -2,73 +2,62 @@
   "schemaVersion": 1,
   "project": {
     "title": "김씨 생존기: 무인도",
-    "oneLinePitch": "무인도에 조난된 평범한 김씨가 50일의 기한 동안 위험을 견디고 수집 지역을 골라 물자를 모으며, 다섯 가지 이상의 탈출 계획과 자신이 살아온 방식에 따라 정상적이거나 황당한 결말을 맞는 코믹 2D 거점 생존 게임.",
-    "genre": "코믹 2D 횡스크롤 거점 생존·지역 선택 수색·제작·다중 엔딩 게임",
-    "targetPlatform": "Windows PC / Steam, 키보드·마우스와 게임패드 지원 기반",
-    "audience": "거점 성장, 수색 계획, 생존 변수, 여러 해결법과 수집형 엔딩을 즐기며 한 판의 행동이 결말로 돌아오는 싱글 플레이 게임을 좋아하는 Steam 이용자",
+    "oneLinePitch": "무인도에 조난된 김씨가 상태가 영구히 변하는 일곱 수색 지역에서 생존 자원과 흩어진 기계 부품을 모으고, 2층·지하 캠프를 확장해 30분 안에 연기 또는 무전 구조를 완성하거나 장기 체류 행동에 따른 코믹 엔딩을 맞는 2D 생존 게임.",
+    "genre": "코믹 2D 횡스크롤 거점 생존·유한 자원 수색·제작·행동 기반 다중 엔딩 게임",
+    "targetPlatform": "게임잼 Windows PC 빌드, 한국어 기본·영어 지원, 키보드·마우스와 게임패드",
+    "audience": "30분 안에 직접 탐색한 섬과 확장한 거점이 눈에 남고, 다른 탈출법과 엔딩을 위해 다시 플레이하고 싶은 싱글 플레이 생존 게임 이용자",
     "pillars": [
-      "김씨가 살아온 방식이 결말이 된다: 탈출법, 누적 행동과 특별 사건이 정상·병맛·희귀 엔딩을 결정한다.",
-      "오늘 어디로 갈지와 무엇을 감수할지 고른다: 지역별 자원 전망과 위험을 보고 장비·가방·귀환 시점을 결정한다.",
-      "캠프는 메뉴가 아니라 생활 공간이다: 직접 이동·상호작용하고 설비를 배치·증축해 위험에 대비하고 여러 탈출 계획을 진전시킨다."
+      "다녀온 섬은 그대로 남는다: 자원 고갈, 부순 장벽, 제거하거나 남긴 위험과 획득한 핵심 부품을 같은 run에서 영구 보존한다.",
+      "탈출법이 수색 계획을 바꾼다: 연기는 막대한 나무와 부싯돌을, 무전은 서로 다른 지역에 흩어진 고유 기계 부품 전부를 요구한다.",
+      "캠프와 삶이 위아래로 자란다: 시작층·2층·지하실을 직접 연결하고 설비를 배치한 방식과 누적 행동이 탈출·장기 체류 엔딩을 결정한다."
     ],
     "playerVerbs": [
       "이동한다",
       "접근한다",
       "상호작용한다",
-      "지역을 선택한다",
-      "준비한다",
+      "지역을 비교한다",
       "수색한다",
       "채집한다",
       "수영한다",
+      "장벽을 부순다",
+      "위험을 피하거나 제거한다",
       "운반한다",
-      "제작한다",
-      "건설·확장한다",
-      "연구한다"
+      "치료한다",
+      "제작·연구한다"
     ],
     "coreLoop": [
-      "베이스캠프에서 김씨를 직접 움직여 설비에 접근하고 허기·체력·부상·질병·캠프 피해를 확인한다.",
-      "작업대, 모닥불, 저장고, 치료·연구 설비와 상호작용해 오늘의 장비와 장기 탈출 계획을 준비한다.",
-      "캠프 출구 또는 지도 오브젝트와 상호작용해 수집 지도를 열고 지역별 예상 자원, 위험, 이동 시간, 날씨, 필요 장비와 특별 발견 가능성을 비교한다.",
-      "선택한 2D 횡스크롤 지역에서 제한된 가방·체력·일광을 관리하며 수색하고 예고된 위험과 돌발 사건에 대응한다.",
-      "더 챙길지 귀환할지 판단하고, 일몰 또는 자발적 귀환 뒤 물자·부상·사건 결과를 캠프로 가져온다.",
-      "귀환 물자를 생존, 치료, 캠프 보강, 가방·공간 성장과 다섯 가지 이상의 탈출 계획 중 어디에 쓸지 선택한다.",
-      "하루를 정산해 위험과 세계 상태를 갱신하고, Day 50 이전 탈출 또는 Day 50 종료까지 반복한다.",
-      "탈출 방법 또는 Day 50 상태, 누적 생활 방식과 특별 사건을 조합해 고유 엔딩과 코믹북 컷신을 해금한다."
+      "시작층·2층·지하실을 직접 오가며 설비와 상호작용하고 허기·체력·부상·질병·장비와 탈출 프로젝트를 점검한다.",
+      "지도 오브젝트에서 최소 일곱 지역의 남은 자원 전망, 위험도, 확인된 위험, 날씨, 필요 장비와 핵심 부품 단서를 비교한다.",
+      "선택 지역을 횡스크롤로 수색하며 유한 자원을 채집하고 돌도끼 장벽, 벌레, 야생동물, 위험 식물과 환경 위험에 대응한다.",
+      "가방·체력·일광·질병 노출을 보고 귀환하며 채집 노드, 장벽, 위험 제거와 핵심 부품 획득 상태를 지역별로 저장한다.",
+      "귀환 자원을 치료·생존·가방·2층·지하·설비 또는 대형 연기·무전 구조 프로젝트 중 어디에 쓸지 선택한다.",
+      "연기는 대량의 나무와 부싯돌을 모아 여러 단계로 유지하고, 무전은 망가진 무전기·전자기판·트랜지스터 등 흩어진 부품 전부를 복구한다.",
+      "조기 탈출 또는 게임잼 장기 체류 판정일에 도달하면 탈출법, 캠프 확장과 누적 생활 방식으로 하나의 코믹북 엔딩을 결정한다."
     ],
-    "artDirection": "밝고 따뜻한 열대색을 기반으로 한 오리지널 2D 측면 일러스트. 굵고 읽기 쉬운 형태, 과장된 포즈와 표정, 표류물로 급조한 설비를 사용한다. 수집 지도는 원화풍 무인도 지도와 명료한 노드·아이콘·정보 카드를 결합하되 특정 게임의 정확한 화면 구성을 복제하지 않는다. 위험은 잔혹함보다 상황과 결과가 읽히는 코믹한 실루엣·상태 아이콘으로 표현한다. 엔딩은 3~5장 코믹북 패널과 짧은 전환 효과를 기본으로 하며 모든 본문은 엔진 텍스트로 분리한다.",
+    "artDirection": "밝고 따뜻한 열대색의 오리지널 2D 측면 일러스트. 일곱 지역은 같은 섬이라는 통일감을 유지하되 해변·맹그로브·숲·절벽·동굴·난파선·폐시설의 실루엣과 전경을 즉시 구분한다. 벌레·야생동물·위험 식물·질병은 고어나 혐오 표현 없이 과장된 동작, 상태 아이콘과 코믹한 김씨 반응으로 전달한다. 캠프는 시작층 위 2층과 아래 지하가 보이는 측면 절개형이며 모든 본문은 엔진 텍스트로 분리한다.",
     "constraints": [
-      "Unity로 제작하며 첫 목표 플랫폼은 Windows PC와 Steam이다.",
-      "기본 캠페인의 하드 데드라인은 Day 50 종료이며 Day 5는 구조 기회나 종료일이 아니다.",
-      "Day 50 이전에도 조건을 충족하면 즉시 탈출할 수 있다.",
-      "정식 목표에는 뗏목·배, 대형 연기 신호, 무전 구조 신호, 조명탄, 고지대 신호탑·폐시설 복구를 포함한 서로 다른 탈출 방법이 최소 5개 있어야 한다.",
-      "탈출 방법은 재료명만 다른 동일 버튼이 아니라 서로 다른 지역, 연구, 설비, 위험과 타이밍을 요구한다.",
-      "수집 출발은 캠프의 출구 또는 지도 오브젝트에 직접 접근·상호작용한 뒤 열리는 상황형 지역 선택 화면을 거친다.",
-      "수집 지도는 지역별 예상 자원 종류와 상대적 풍부함, 이동 시간, 현재 위험, 날씨, 필요 장비와 특별 발견 가능성을 표시하되 정확한 결과 수량은 숨긴다.",
-      "자원과 핵심 부품은 run seed와 지역 프로필에 따라 달라지지만 진행 불가능한 seed를 만들지 않도록 핵심 부품 보장, 대체 획득처와 장기 미발견 보호 규칙을 둔다.",
-      "배고픔, 질병, 부상, 자연재해, 야생동물과 식량 도난·캠프 피해는 예고·대비·완화·회복 수단을 가진 생존 위험으로 구현한다.",
-      "대부분의 위험은 무예고 즉사보다 노출→상태 이상→위기의 단계적 악화를 사용한다.",
-      "엔딩 판정은 탈출 또는 Day 50 종료 방식, 누적 생활 방식, 특별 사건의 안정 ID 조합으로 결정하며 마지막 한 행동만으로 전체 삶을 덮어쓰지 않는다.",
-      "정식 목표는 정상·코믹·희귀 엔딩을 합쳐 18개 이상이며 주요 엔딩은 향후 Steam 업적과 일대일 또는 명시적 그룹으로 연결 가능한 안정 ID를 가진다.",
-      "일반 설비는 모듈 내부에서 제한적 자유 배치하고 특수 설비와 연결부는 전용 앵커·구역 규칙을 사용할 수 있다.",
-      "한국어를 기본·원문 언어로 사용하고 영어를 첫 정식 지원 언어로 제공하며 추가 언어를 게임 로직 변경 없이 확장할 수 있어야 한다.",
-      "키보드·마우스와 게임패드는 같은 게임 액션과 포커스 상태 머신을 사용한다.",
-      "1280×800에서 캠프, 수집 지도, 지역 정보, 위험 경고, 엔딩 패널이 잘리거나 핵심 플레이 공간을 부당하게 가리지 않아야 한다.",
-      "Steamworks SDK, App ID, 업적 등록, 배포와 퍼블리싱은 별도 승인 전까지 구현 범위에 포함하지 않는다."
+      "게임잼 첫 플레이는 5~10분 안에 캠프→지도→수색→귀환→투자의 핵심 루프를 이해하고 약 30분 안에 대표 탈출 엔딩을 볼 수 있어야 한다.",
+      "본편 표준 캠페인의 Day 50 데드라인은 유지하며 게임잼 빌드는 그 전에 자연 조기 탈출이 가능하도록 별도 밸런스 프로필을 사용한다.",
+      "게임잼 빌드에는 서로 구분되는 수색 지역이 최소 7개 있어야 한다.",
+      "각 지역은 위험도와 벌레·야생동물·위험 식물·질병·환경 위험 중 고유 조합을 지도에서 예고한다.",
+      "지역 자원은 run마다 유한하며 방문 뒤 남은 채집량, 부순 장벽, 획득한 핵심 부품과 영구 제거 위험을 지역 안정 ID로 보존한다.",
+      "무전 구조는 망가진 무전기, 망가진 전자기판과 트랜지스터를 포함한 고유 부품 전부를 서로 다른 지역에서 회수해야 완료된다.",
+      "대형 연기 신호는 다른 경로보다 훨씬 많은 나무를 소모하고 부싯돌을 요구하며 단계별 투입과 기상 조건을 가진다.",
+      "시작층·2층·지하실은 같은 run에서 모두 건설·이동 가능하고 일반 설비를 2층과 지하에 제한적 자유 배치할 수 있어야 한다.",
+      "특수 설비, 사다리·계단과 연결부는 고정 앵커를 사용할 수 있지만 일반 설비는 모듈별 유효 구역 안에서 자유 배치한다.",
+      "유한 자원 때문에 모든 탈출법이 동시에 막히지 않도록 핵심 부품 보호, 시설 해체 환급, 총자원 예산과 대체 탈출 경로를 검증한다.",
+      "위험과 질병은 무예고 즉사 대신 예고→노출→상태 이상→악화의 단계와 장비·치료·회피 수단을 가진다.",
+      "금지된 성적 콘텐츠, 불법 약물 중심 테마, 극단적 고어, 현실 정치 선전, 혐오·차별과 타사 IP 복제를 포함하지 않는다."
     ],
     "assumptions": [
-      "Day 50에 탈출하지 못해도 단일 deadline 문구로 끝내지 않고 그동안의 우세 행동과 특별 사건에 따라 정착·자연인·기술 지배 등 서로 다른 엔딩을 판정한다.",
-      "표준 run은 다섯 탈출법 전체를 데이터로 제공하되 seed와 플레이 선택에 따라 난도가 달라지며 최소 세 경로는 진행 불가능 상태 없이 완성 가능하도록 보장한다.",
-      "수집 지도는 상시 전역 대시보드가 아니라 출발 준비 중에만 열리고 닫으면 같은 캠프 공간으로 돌아오는 설비형 팝업이다.",
-      "지역의 자원 표시는 풍부·보통·희귀·미확인 같은 범주를 사용하고 정확한 수량과 사건 결과는 공개하지 않는다.",
-      "야생동물 대응은 본격 액션 전투보다 회피, 장비, 위협, 함정과 캠프 방어를 우선한다.",
-      "위험 강도는 50일 동안 단조롭게 상승하지 않고 세계 상태와 플레이 행동에 따라 변하며 감당 불가능한 중첩을 막는 일일 위험 예산과 회복 가능한 평온일을 둔다.",
-      "엔딩 컷신은 3~5장 코믹북 패널을 기본으로 하고 희귀 대표 엔딩만 추가 애니메이션을 받을 수 있다.",
-      "게임 내 엔딩 갤러리는 실루엣과 비스포일러 힌트를 제공하며, 사용자 설정 run의 업적 인정 정책은 Steam 연동 단계에서 별도로 결정한다.",
-      "현재 5일 빌드와 Wave 12~14 자연 경로 문서는 새 구조의 구현 증거가 아니라 기존 캠프·수색·UI·원자성 회귀 기준으로만 보존한다.",
-      "사용자 설정 플레이에서는 추후 데드라인, 생존 소모, 위험 빈도와 자원 희귀도를 조절할 수 있지만 첫 구현은 표준 Day 50 규칙을 우선한다.",
-      "Wave 15 콘텐츠 매트릭스의 준비 일수, 위험 예산, pity 횟수와 행동 점수 임계값은 구현 smoke용 SAMPLE_ONLY이며 사용자 플레이테스트 전 정식 50일 밸런스로 잠그지 않는다."
+      "게임잼용 최소 7지역의 작업명은 시작 해변, 맹그로브 얕은물, 밀림 숲, 바위 절벽, 섬 동굴, 난파선 만, 폐기상 관측소이며 이름과 세부 배치는 아트 제작 전 변경 가능하다.",
+      "지역 상태 저장은 우선 한 run 안의 재방문 지속성을 뜻하며 게임 종료 후 이어하기 저장은 게임잼 필수 범위에서 제외한다.",
+      "게임잼의 장기 체류 엔딩 판정일은 우선 Day 20으로 두고 인간 플레이테스트 결과에 따라 Day 15~20 사이에서 조정한다.",
+      "장기 체류 엔딩 두 개는 Day 15와 Day 20에 각각 강제 종료하는 방식이 아니라 동일한 판정일에서 누적 생존·채집 우세와 건설·기계 우세 중 하나를 고르는 방식으로 가정한다.",
+      "대표 탈출은 Day 4~10 사이에 가능하고 장기 체류 엔딩은 의도적으로 탈출하지 않은 반복 플레이용 목표이므로 첫 30분 완주 기준에 포함하지 않는다.",
+      "일반 자원 수치, 연기 신호의 총 나무 비용과 장기 체류 판정일은 BALANCE_PROVISIONAL이며 자연 플레이테스트 전 확정하지 않는다."
     ],
-    "updatedAt": "2026-08-24T15:31:50.791Z",
+    "updatedAt": "2026-08-25T13:46:05.434Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -148,7 +137,7 @@
             "resource.fabric"
           ],
           "keyPartIds": [
-            "part.smoke.catalyst"
+            "part.smoke.flint"
           ],
           "samplePreparationDays": {
             "min": 3,
@@ -176,7 +165,7 @@
             "multi_day_fuel",
             "wind_and_rain"
           ],
-          "completionRule": "A prepared beacon must survive its visible signal window; weather failure consumes only the declared daily fuel batch and never deletes the facility or protected catalyst."
+          "completionRule": "A prepared beacon requires the protected flint and a PROVISIONAL heavy wood budget, then must survive its visible signal window; weather failure consumes only the declared daily fuel batch and never deletes the facility or flint."
         },
         {
           "id": "escape.radio",
@@ -199,7 +188,9 @@
             "resource.metal"
           ],
           "keyPartIds": [
-            "part.radio.transceiver"
+            "part.radio.transceiver",
+            "part.radio.circuit-board",
+            "part.radio.transistor"
           ],
           "samplePreparationDays": {
             "min": 8,
@@ -227,7 +218,7 @@
             "frequency_puzzle",
             "moisture_and_lightning"
           ],
-          "completionRule": "A valid reply requires a repaired transceiver, powered antenna and confirmed frequency; a failed transmission records one event and leaves repairable components instead of rerolling them."
+          "completionRule": "A valid reply requires the broken radio, broken circuit board and transistor recovered from three distinct regions, followed by a powered antenna and confirmed frequency; a failed transmission records one event and leaves repairable components instead of rerolling them."
         },
         {
           "id": "escape.flare",
@@ -397,7 +388,9 @@
           "hazardIds": [
             "hazard.hunger",
             "hazard.disease",
-            "hazard.wildlife"
+            "hazard.wildlife",
+            "hazard.insects",
+            "hazard.dangerous-plants"
           ],
           "weatherIds": [
             "weather.clear",
@@ -414,7 +407,7 @@
             "discovery.old-trap-line"
           ],
           "keyPartCandidateIds": [
-            "part.smoke.catalyst",
+            "part.smoke.flint",
             "part.raft.sailcloth"
           ],
           "alternativeRegionIds": [
@@ -442,7 +435,9 @@
           "hazardIds": [
             "hazard.hunger",
             "hazard.injury",
-            "hazard.disaster"
+            "hazard.disaster",
+            "hazard.disease",
+            "hazard.insects"
           ],
           "weatherIds": [
             "weather.clear",
@@ -505,11 +500,62 @@
             "discovery.old-lens"
           ],
           "keyPartCandidateIds": [
-            "part.smoke.catalyst",
+            "part.smoke.flint",
+            "part.radio.transistor",
             "part.beacon.generator-coil"
           ],
           "alternativeRegionIds": [
             "region.forest.grove",
+            "region.ruins.relay",
+            "region.cave.island"
+          ]
+        },
+        {
+          "id": "region.cave.island",
+          "unlockTier": "expansion",
+          "resourceAbundance": {
+            "abundant": [
+              "resource.stone",
+              "resource.chemicals"
+            ],
+            "common": [
+              "resource.metal",
+              "resource.medicine",
+              "resource.fuel"
+            ],
+            "scarce": [
+              "resource.food",
+              "resource.wood",
+              "resource.electronics"
+            ]
+          },
+          "hazardIds": [
+            "hazard.injury",
+            "hazard.disease",
+            "hazard.insects",
+            "hazard.dangerous-plants"
+          ],
+          "weatherIds": [
+            "weather.rain",
+            "weather.heat"
+          ],
+          "equipmentIds": [
+            "tool.stone-axe",
+            "equipment.light-source"
+          ],
+          "travelTimeBand": "medium",
+          "specialDiscoveryIds": [
+            "discovery.cave-mouth",
+            "discovery.flint-vein",
+            "discovery.abandoned-parts-cache"
+          ],
+          "keyPartCandidateIds": [
+            "part.smoke.flint",
+            "part.radio.transistor"
+          ],
+          "alternativeRegionIds": [
+            "region.forest.grove",
+            "region.ridge.highland",
             "region.ruins.relay"
           ]
         },
@@ -600,7 +646,7 @@
             "discovery.relay-log"
           ],
           "keyPartCandidateIds": [
-            "part.radio.transceiver",
+            "part.radio.circuit-board",
             "part.beacon.generator-coil"
           ],
           "alternativeRegionIds": [
@@ -612,7 +658,7 @@
       ],
       "keyPartProtection": {
         "minimumCompletableEscapeMethodsPerSeed": 3,
-        "seedRule": "After region generation, reroll only key-part placements until at least three escape methods have a primary and alternative acquisition chain.",
+        "seedRule": "After region generation, reroll only key-part placements until at least three escape methods have a primary and alternative acquisition chain; the three required radio parts must occupy three distinct regions.",
         "ownershipRule": "An acquired key part enters protected project inventory; theft and generic camp damage cannot delete it, while a declared hazard may mark it damaged with a deterministic repair path.",
         "duplicateRule": "A duplicate never replaces a missing different key part and does not reset that part's pity counter.",
         "samplePity": {
@@ -639,11 +685,32 @@
             ]
           },
           {
+            "id": "part.smoke.flint",
+            "primary": "region.cave.island",
+            "alternatives": [
+              "region.ridge.highland",
+              "region.forest.grove"
+            ]
+          },
+          {
             "id": "part.radio.transceiver",
             "primary": "region.cove.wreck",
             "alternatives": [
-              "region.ruins.relay",
               "region.sea.shallows"
+            ]
+          },
+          {
+            "id": "part.radio.circuit-board",
+            "primary": "region.ruins.relay",
+            "alternatives": [
+              "region.cove.wreck"
+            ]
+          },
+          {
+            "id": "part.radio.transistor",
+            "primary": "region.ridge.highland",
+            "alternatives": [
+              "region.cave.island"
             ]
           },
           {
@@ -765,6 +832,46 @@
           ]
         },
         {
+          "id": "hazard.insects",
+          "telegraph": "Buzzing, nests, bite marks or a region-card insect warning appears before exposure.",
+          "occurrence": "Contact may drain stamina or create a named disease exposure, but never causes an unannounced instant terminal.",
+          "mitigation": [
+            "repellent or smoke",
+            "protective clothing",
+            "avoid the marked nest"
+          ],
+          "recovery": [
+            "wash and treat bites",
+            "medicine if disease incubates",
+            "rest away from the exposed region"
+          ],
+          "sampleSeverityWeight": 1,
+          "behaviorStatIds": [
+            "stat.search",
+            "stat.hazard-response"
+          ]
+        },
+        {
+          "id": "hazard.dangerous-plants",
+          "telegraph": "Distinct silhouette, spores, thorns or an identified plant icon marks the dangerous patch before contact.",
+          "occurrence": "Touching or harvesting without protection applies poison, rash or injury exposure and may leave a removable regional obstacle.",
+          "mitigation": [
+            "stone axe or safe detour",
+            "gloves or protective clothing",
+            "identify the plant before harvesting"
+          ],
+          "recovery": [
+            "clean water and medicine",
+            "rest until the named condition clears",
+            "permanently remove the marked plant obstacle"
+          ],
+          "sampleSeverityWeight": 2,
+          "behaviorStatIds": [
+            "stat.search",
+            "stat.hazard-response"
+          ]
+        },
+        {
           "id": "hazard.food-theft",
           "telegraph": "Tracks or tampered storage warn of a pending raid at next settlement.",
           "occurrence": "One incident removes at most the declared unprotected food batch in one transaction.",
@@ -850,12 +957,14 @@
       "endingResolution": {
         "terminalOrder": [
           "escape_complete",
-          "day50_settlement"
+          "gamejam_long_stay_if_profile",
+          "day50_settlement_if_profile"
         ],
         "candidateOrder": [
           "rare",
           "comic",
           "normal",
+          "gamejam_long_stay_lifestyle",
           "day50_lifestyle",
           "day50_fallback"
         ],
@@ -1296,6 +1405,60 @@
           "achievementMappingId": "achievement.ending.rare.beacon.storm-eye"
         },
         {
+          "id": "ending.gamejam.stay.natural-kim",
+          "category": "gamejam-long-stay",
+          "terminal": "gamejam-long-stay",
+          "priority": 80,
+          "title": {
+            "ko": "무인도 자연인 김씨",
+            "en": "Kim, Island Naturalist"
+          },
+          "summary": {
+            "ko": "탈출보다 채집과 사냥에 익숙해진 김씨는 섬의 먹을거리와 위험을 누구보다 잘 아는 자연인이 되었다.",
+            "en": "More practiced at foraging and hunting than escaping, Kim became the island's resident naturalist."
+          },
+          "trigger": "game-jam profile reaches PROVISIONAL Day 20 without escape and survival, search, farming or hunting-trapping is the locked dominant lifestyle",
+          "threshold": "Day 20 PROVISIONAL and naturalist lifestyle minimum SAMPLE_ONLY",
+          "panelBeats": [
+            "구조 신호대 위에 새가 둥지를 튼다.",
+            "김씨는 열매와 발자국만 보고 오늘 식단을 정한다.",
+            "멀리 배가 지나가지만 김씨는 저녁 덫부터 확인한다."
+          ],
+          "modifierPanelId": "modifier.behavior.dominant",
+          "galleryHint": {
+            "ko": "탈출하지 않는 것도 생활 방식이 될 수 있다.",
+            "en": "Not escaping can become a way of life."
+          },
+          "achievementMappingId": "achievement.ending.gamejam.stay.natural-kim"
+        },
+        {
+          "id": "ending.gamejam.stay.island-engineer",
+          "category": "gamejam-long-stay",
+          "terminal": "gamejam-long-stay",
+          "priority": 80,
+          "title": {
+            "ko": "무인도 건물주 김씨",
+            "en": "Kim, Island Landlord"
+          },
+          "summary": {
+            "ko": "2층과 지하를 모두 완성한 김씨는 구조대보다 먼저 섬의 증축 계획부터 세우는 기계공이 되었다.",
+            "en": "After finishing both an upper floor and basement, Kim became the island's engineer-landlord."
+          },
+          "trigger": "game-jam profile reaches PROVISIONAL Day 20 without escape and building or mechanics is the locked dominant lifestyle",
+          "threshold": "Day 20 PROVISIONAL and engineer lifestyle minimum SAMPLE_ONLY",
+          "panelBeats": [
+            "지하 작업대에서 무전기보다 새 설비가 먼저 켜진다.",
+            "2층 난간에서 김씨가 다음 증축선을 긋는다.",
+            "구조선이 다가오자 김씨가 임대 계약서부터 꺼낸다."
+          ],
+          "modifierPanelId": "modifier.behavior.dominant",
+          "galleryHint": {
+            "ko": "섬에 갇혔다고 누가 개발을 멈추랬나.",
+            "en": "Being stranded never stopped a development plan."
+          },
+          "achievementMappingId": "achievement.ending.gamejam.stay.island-engineer"
+        },
+        {
           "id": "ending.stay.green-king",
           "category": "day50",
           "terminal": "day50",
@@ -1435,7 +1598,11 @@
         "regions": [
           "region.coast.beach",
           "region.forest.grove",
-          "region.sea.shallows"
+          "region.sea.shallows",
+          "region.ridge.highland",
+          "region.cave.island",
+          "region.cove.wreck",
+          "region.ruins.relay"
         ],
         "playableEscapeMethods": [
           "escape.smoke",
@@ -1448,6 +1615,10 @@
         ],
         "hazardInstances": [
           "hazard.injury",
+          "hazard.disease",
+          "hazard.insects",
+          "hazard.dangerous-plants",
+          "hazard.wildlife",
           "hazard.disaster",
           "hazard.food-theft"
         ],
@@ -1455,13 +1626,15 @@
           "ending.escape.smoke.seen-from-afar",
           "ending.escape.radio.clear-signal",
           "ending.comic.radio.island-dj",
+          "ending.gamejam.stay.natural-kim",
+          "ending.gamejam.stay.island-engineer",
           "ending.stay.just-kim"
         ],
         "requiredCatalogCounts": {
           "escapeMethods": 5,
-          "regions": 6,
-          "hazards": 7,
-          "endings": 19,
+          "regions": 7,
+          "hazards": 9,
+          "endings": 21,
           "modifierPanels": 9
         },
         "notImplementedBySmoke": [
@@ -1502,9 +1675,9 @@
         "expeditionSelectionRequiresCampMapInteraction": true,
         "catalogCounts": {
           "escapeMethods": 5,
-          "regions": 6,
-          "hazards": 7,
-          "endings": 19
+          "regions": 7,
+          "hazards": 9,
+          "endings": 21
         },
         "escapeMethodIds": [
           "escape.raft",
@@ -1518,6 +1691,7 @@
           "region.forest.grove",
           "region.sea.shallows",
           "region.ridge.highland",
+          "region.cave.island",
           "region.cove.wreck",
           "region.ruins.relay"
         ],
@@ -1527,6 +1701,8 @@
           "hazard.injury",
           "hazard.disaster",
           "hazard.wildlife",
+          "hazard.insects",
+          "hazard.dangerous-plants",
           "hazard.food-theft",
           "hazard.camp-damage"
         ],
@@ -1570,8 +1746,8 @@
           "id": "pacing.band.compound-choice",
           "startDay": 21,
           "endDay": 35,
-          "purpose": "Trade survival, camp protection and multiple escape projects while all six regions are conditionally discoverable.",
-          "availableRegionRule": "All six region profiles have reachable unlock graphs; player choice may leave some locked.",
+          "purpose": "Trade survival, camp protection and multiple escape projects while all seven regions are conditionally discoverable.",
+          "availableRegionRule": "All seven region profiles have reachable unlock graphs; player choice may leave some locked.",
           "sampleNewHazardBudget": 4,
           "sampleMaximumNewMajor": 1,
           "pacingSignals": [
@@ -1667,6 +1843,29 @@
             "familiarTravelTimeBand": "medium",
             "familiarityCondition": "first successful return with required equipment",
             "abundanceChange": "Unknown while locked; Wave 15 baseline on unlock; active smoke or beacon non-key milestone may raise one listed category by one tier."
+          },
+          {
+            "id": "region.cave.island",
+            "recommendedBandId": "pacing.band.expansion",
+            "primaryUnlock": {
+              "requirements": [
+                "one successful region.forest.grove return",
+                "discovery.cave-mouth",
+                "tool.stone-axe",
+                "equipment.light-source"
+              ]
+            },
+            "alternativeUnlock": {
+              "requirements": [
+                "one successful region.ridge.highland return",
+                "tool.rope",
+                "equipment.light-source"
+              ]
+            },
+            "baseTravelTimeBand": "medium",
+            "familiarTravelTimeBand": "short",
+            "familiarityCondition": "first successful return after the entrance barrier is permanently cleared",
+            "abundanceChange": "Unknown while locked; Wave 15 baseline on unlock; an active smoke project may reveal flint probability and an active radio project may reveal the abandoned parts cache without granting either part."
           },
           {
             "id": "region.cove.wreck",
@@ -2067,7 +2266,7 @@
           "early escape",
           "five escape method IDs",
           "six region IDs",
-          "seven hazard IDs",
+          "nine hazard IDs",
           "nineteen ending IDs",
           "atomic transaction rules",
           "ending priority and tie-breaker order"
@@ -2629,9 +2828,9 @@
       "status": "DESIGN_COMPLETE_IMPLEMENTATION_AND_LIVE_QA_PENDING",
       "fixedCatalogCounts": {
         "escapeMethods": 5,
-        "regions": 6,
-        "hazards": 7,
-        "endings": 19
+        "regions": 7,
+        "hazards": 9,
+        "endings": 21
       },
       "fixedRules": [
         "Day 50 is the default terminal deadline and Day 51 is unreachable.",
@@ -3726,8 +3925,8 @@
     },
     {
       "id": "feature.escape-outcome",
-      "name": "다중 탈출과 행동 기반 결말",
-      "description": "다섯 가지 이상의 서로 다른 탈출 프로젝트와 Day 50 잔류 결과를 제공하고, 탈출 방법·누적 생활 방식·특별 사건으로 고유 ending ID를 판정한다.",
+      "name": "재료 추적형 연기·무전 탈출",
+      "description": "게임잼에서는 대량 나무·부싯돌·기상을 요구하는 연기 신호와 세 지역 이상에서 고유 기계 부품을 모으는 무전 구조를 완전 플레이 가능하게 한다.",
       "priority": "critical",
       "status": "planned",
       "dependencies": [
@@ -3735,7 +3934,9 @@
         "feature.crafting-research",
         "feature.survival-pressure",
         "feature.resource-randomization",
-        "feature.behavioral-endings"
+        "feature.behavioral-endings",
+        "feature.survival-hazards",
+        "feature.region-persistence"
       ],
       "screenIds": [
         "screen.camp",
@@ -3751,7 +3952,8 @@
         "effect.comedy-feedback",
         "ui.escape-project-progress",
         "ui.ending-comic",
-        "ui.ending-gallery"
+        "ui.ending-gallery",
+        "icon.resource-tool-set"
       ],
       "acceptanceCriteria": [
         "구조 신호대에 필요한 자원과 현재 단계가 항상 확인 가능하다.",
@@ -3761,10 +3963,13 @@
         "Day 50 이전에 완성한 경로는 즉시 해당 탈출 판정을 시작한다.",
         "Day 50 미탈출도 우세 행동과 특별 사건에 따라 하나 이상의 비탈출 엔딩으로 끝난다.",
         "escape.raft, escape.smoke, escape.radio, escape.flare, escape.beacon은 지역·연구·설비·부품·준비 기간·위험 중 최소 두 축 이상 다르다.",
-        "19개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다."
+        "21개 ending catalog는 안정 ID, ko/en 문안, panel beat, modifier, gallery hint와 future achievement mapping ID를 가진다.",
+        "연기는 부싯돌과 PROVISIONAL 대량 나무 비용을 단계별로 소비하고 기상 창에서만 완료된다.",
+        "무전은 망가진 무전기·전자기판·트랜지스터를 모두 보유하고 복구 단계를 완료해야 송신된다.",
+        "중복 확인, 실패한 기상 창과 취소는 부품·자원을 선언된 양보다 더 소비하지 않는다."
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "feature.dual-input",
@@ -3908,13 +4113,14 @@
     },
     {
       "id": "feature.camp-module-expansion",
-      "name": "위·옆·지하 방 모듈 증축",
-      "description": "시작 방의 고정 연결 슬롯에서 표준 방 모듈의 위층·옆방·지하실 후보를 처음부터 현장 미리보기하고, 작업대·기하·연결·지형·통로와 공통 W2/D1을 통과한 후보 하나를 원자적으로 확정한다.",
-      "priority": "high",
+      "name": "2층·지하실 다층 캠프 확장",
+      "description": "시작층에 2층과 지하실을 모두 연결·건설하고 사다리·계단으로 이동해 각 층의 일반 구역에 설비를 제한적 자유 배치한다.",
+      "priority": "critical",
       "status": "planned",
       "dependencies": [
         "feature.camp-building",
-        "feature.camp-object-interaction"
+        "feature.camp-object-interaction",
+        "feature.crafting-research"
       ],
       "screenIds": [
         "screen.camp"
@@ -3940,21 +4146,26 @@
         "가방 4칸과 4→6칸 경로 모두 grant·warp 없이 방·위험 대비·탈출 프로젝트 투자와 경쟁하며, 모듈 선택은 표준 Day 50 데드라인을 바꾸지 않는다.",
         "첫 사용자는 전역 메뉴 없이 연결 슬롯에 직접 접근해 50초 안에 preview를 열고 75초 안에 위·옆·지하 세 후보를 본 뒤 90초 안에 작업대 잠금과 W2/D1을 이해할 수 있다.",
         "연결 없음·겹침·지형·필수 통로의 geometry와 작업대 잠금·자원 부족·1회 확정의 economy reason ID가 분리되며 Confirm은 가장 우선인 정확한 canonical 사유 하나를 표시하고 실패 상태를 바꾸지 않는다.",
-        "keyboard와 gamepad는 far→near→popup→preview→confirm/cancel→field-return에서 같은 target·candidate·reason·자원 결과를 내고 binding glyph만 다르다."
+        "keyboard와 gamepad는 far→near→popup→preview→confirm/cancel→field-return에서 같은 target·candidate·reason·자원 결과를 내고 binding glyph만 다르다.",
+        "같은 run에서 2층과 지하실을 모두 확정할 수 있고 하나의 모듈 제한이 적용되지 않는다.",
+        "고정 연결부를 통해 시작층·2층·지하실을 양방향 이동할 수 있다.",
+        "2층과 지하실 각각에 일반 설비 하나 이상을 배치·재배치하고 직접 접근해 사용할 수 있다.",
+        "모든 층의 필수 통로, 연결부와 설비 상호작용 지점이 배치 때문에 막히지 않는다."
       ],
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-23T08:53:04.313Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "feature.expedition-map",
-      "name": "수집 지역 선택 지도",
-      "description": "캠프 지도 오브젝트에서 지역 노드를 비교하고 예상 자원, 위험, 이동 시간, 날씨, 필요 장비와 특별 발견 가능성을 본 뒤 오늘의 수집 지역을 확정한다.",
+      "name": "7지역 상태형 수집 지도",
+      "description": "캠프 지도에서 최소 일곱 지역의 남은 자원 전망, 위험도, 확인된 위험, 고갈·장벽 상태, 날씨, 필요 장비와 핵심 부품 단서를 비교한다.",
       "priority": "critical",
       "status": "planned",
       "dependencies": [
         "feature.camp-object-interaction",
         "feature.localization",
-        "feature.dual-input"
+        "feature.dual-input",
+        "feature.region-persistence"
       ],
       "screenIds": [
         "screen.camp",
@@ -3968,15 +4179,18 @@
         "지도 오브젝트 근접 상호작용 뒤에만 열리고 취소하면 캠프 직접 조작으로 돌아온다.",
         "세 지역의 자원 범주·풍부함·위험·시간·날씨·장비 정보가 선택 전에 보인다.",
         "미확인 정보와 잠긴 지역을 색상 외 아이콘·문구로 구분한다.",
-        "키보드·마우스와 게임패드가 같은 지역 포커스·확정·취소 상태를 사용한다."
+        "키보드·마우스와 게임패드가 같은 지역 포커스·확정·취소 상태를 사용한다.",
+        "지도 오브젝트 근접 상호작용 뒤에만 열리고 최소 7개 지역 노드를 선택할 수 있다.",
+        "각 지역은 위험도, 대표 위험, 남은 자원 범주, 고갈 상태와 필요 장비를 출발 전에 보여준다.",
+        "재방문 정보는 실제 지역 영구 상태와 일치하고 미확인 정보는 정확한 수량을 노출하지 않는다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "feature.resource-randomization",
-      "name": "시드형 지역 자원·핵심 부품 분배",
-      "description": "run seed와 지역별 loot profile로 일반 자원과 탈출 핵심 부품의 위치·풍부함을 변화시키면서 softlock 방지 보장을 적용한다.",
+      "name": "7지역 유한 자원·핵심 부품 분배",
+      "description": "run seed로 일곱 지역의 유한 일반 자원과 보호된 탈출 핵심 부품 위치를 분산하되 무전 부품은 서로 다른 지역에 놓고 최소 한 탈출 경로를 보장한다.",
       "priority": "critical",
       "status": "planned",
       "dependencies": [
@@ -3996,21 +4210,25 @@
         "다른 seed는 정의된 범위 안에서 자원 전망과 발견 결과가 달라진다.",
         "표준 run에서 최소 세 탈출 경로가 핵심 부품 부재로 막히지 않는다.",
         "장기 미발견 핵심 부품은 단서·대체 획득처·보호 규칙 중 하나를 제공한다.",
-        "장기 미발견 핵심 부품은 primary·alternative 획득처, eligible-search pity, 획득 후 삭제 방지와 손상 시 복구 경로를 모두 제공한다."
+        "장기 미발견 핵심 부품은 primary·alternative 획득처, eligible-search pity, 획득 후 삭제 방지와 손상 시 복구 경로를 모두 제공한다.",
+        "망가진 무전기, 망가진 전자기판과 트랜지스터가 한 지역에 몰리지 않는다.",
+        "동일 seed는 같은 초기 배치와 총자원 예산을 만들고 다른 seed는 위치·풍부함을 바꾼다.",
+        "보호 핵심 부품과 시설 해체 환급을 포함한 softlock 검사가 모든 seed에서 최소 한 탈출 경로를 보장한다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "feature.survival-hazards",
-      "name": "예고·대응 가능한 생존 위험",
-      "description": "질병, 부상, 자연재해, 야생동물, 식량 도난과 캠프 피해를 지역·날씨·행동에 연결하고 준비·회피·치료·보강으로 완화하게 한다.",
+      "name": "지역 위험도·질병 생존 위험",
+      "description": "지역별 위험도와 벌레·야생동물·위험 식물·날씨 노출을 예고하고 부상, 질병, 중독과 캠프 피해로 단계적으로 연결한다.",
       "priority": "critical",
       "status": "planned",
       "dependencies": [
         "feature.survival-pressure",
         "feature.expedition-map",
-        "feature.camp-building"
+        "feature.camp-building",
+        "feature.resource-randomization"
       ],
       "screenIds": [
         "screen.camp",
@@ -4028,20 +4246,25 @@
         "각 위험은 최소 하나의 준비 또는 완화 수단과 최소 하나의 회복 수단을 가진다.",
         "부상·질병은 미처치 악화와 치료 회복 상태를 구분한다.",
         "도난·파손 자원 변화는 한 번만 적용되고 원인과 예방 수단이 기록된다.",
-        "배고픔 포함 7개 hazard는 일일 중첩 예산과 run-local idempotency key를 공유하고 입력·locale 전환으로 중복 적용되지 않는다."
+        "배고픔 포함 7개 hazard는 일일 중첩 예산과 run-local idempotency key를 공유하고 입력·locale 전환으로 중복 적용되지 않는다.",
+        "벌레, 야생동물과 위험 식물은 서로 다른 예고·회피·완화 수단을 가진다.",
+        "질병은 원인, 현재 효과, 악화 조건과 치료법을 HUD와 설비 팝업에서 설명한다.",
+        "제거형 위험과 일시적 위험을 구분하고 전자는 지역 영구 상태에 기록한다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "feature.behavioral-endings",
-      "name": "누적 행동 기반 엔딩 판정",
-      "description": "수영, 농사, 사냥·덫, 기계공학, 건축, 수색, 위험 대응과 특별 사건을 run 전체에 누적해 탈출 방식 또는 Day 50 상태와 결합한 큐레이션 엔딩을 판정한다.",
-      "priority": "high",
+      "name": "탈출·장기 체류 행동 기반 엔딩",
+      "description": "대표 탈출법과 누적 행동을 결합하고 게임잼 장기 체류 판정일에 생존·채집 우세 또는 건설·기계 우세의 추가 엔딩 두 개를 결정한다.",
+      "priority": "critical",
       "status": "planned",
       "dependencies": [
         "feature.phase-cycle",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.survival-hazards",
+        "feature.camp-module-expansion"
       ],
       "screenIds": [
         "screen.result",
@@ -4057,10 +4280,13 @@
         "특별 사건 플래그가 필요한 희귀 엔딩은 행동 점수만으로 해금되지 않는다.",
         "판정 결과는 ending ID와 근거를 개발 로그와 결과 화면에 남긴다.",
         "우세 생활 방식은 action cap, 최소 기준, initial/switch lead와 hysteresis를 사용해 마지막 행동 하나로 뒤집히지 않는다.",
-        "rare→comic→normal→Day50 lifestyle→fallback과 명시적 tie-breaker가 같은 snapshot에서 하나의 ending만 고른다."
+        "rare→comic→normal→Day50 lifestyle→fallback과 명시적 tie-breaker가 같은 snapshot에서 하나의 ending만 고른다.",
+        "Day 20 PROVISIONAL 미탈출 상태는 생존·채집 우세 또는 건설·기계 우세 중 정확히 하나의 장기 체류 엔딩을 낸다.",
+        "마지막 한 행동이 아니라 누적 점수, 최소 기준과 결정적 tie-breaker로 판정한다.",
+        "결과 화면은 탈출법 또는 장기 체류 조건과 판정에 영향을 준 행동 근거를 보여준다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "feature.ending-gallery",
@@ -4112,13 +4338,38 @@
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
       "updatedAt": "2026-08-23T14:52:07.111Z"
+    },
+    {
+      "id": "feature.region-persistence",
+      "name": "수색 지역 영구 변화",
+      "description": "같은 run에서 지역별 유한 자원, 채집 노드, 돌도끼 장벽, 핵심 부품, 제거형 위험과 방문 횟수를 안정 ID로 저장해 재방문 월드에 복원한다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.island-exploration",
+        "feature.resource-randomization"
+      ],
+      "screenIds": [
+        "screen.expedition-map",
+        "screen.island"
+      ],
+      "assetIds": [
+        "ui.expedition-map",
+        "icon.expedition-resource-risk-set",
+        "background.coast-forest"
+      ],
+      "acceptanceCriteria": [
+        "한 번 채집한 유한 노드는 같은 run에서 다시 보상을 주지 않는다.",
+        "부순 장벽과 영구 제거 위험은 귀환 후 같은 지역에 다시 들어가도 복원되지 않는다.",
+        "새 run은 모든 지역 상태를 seed에 맞게 초기화하고 이전 run 상태와 섞이지 않는다."
+      ]
     }
   ],
   "screens": [
     {
       "id": "screen.camp",
-      "name": "공간형 직접 조작 베이스캠프",
-      "purpose": "김씨가 측면 절개형 캠프 안을 직접 걸어 설비별 상황형 팝업을 사용하고, 기존 공간을 보존한 위·옆·지하 모듈 미리보기로 생활 공간을 확장하는 주 플레이 화면.",
+      "name": "시작층·2층·지하실 베이스캠프",
+      "purpose": "세 층을 직접 이동하며 설비를 배치·사용하고 질병을 치료하며 연기·무전 탈출 프로젝트와 공간 성장을 관리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4128,7 +4379,8 @@
         "feature.escape-outcome",
         "feature.dual-input",
         "feature.camp-object-interaction",
-        "feature.camp-module-expansion"
+        "feature.camp-module-expansion",
+        "feature.survival-hazards"
       ],
       "assetIds": [
         "background.island-camp",
@@ -4146,7 +4398,10 @@
         "섬 수색에서 귀환",
         "베이스캠프 정상 플레이",
         "새 게임의 베이스캠프",
-        "설비 팝업·배치·증축 완료 또는 취소 뒤 현장 복귀"
+        "설비 팝업·배치·증축 완료 또는 취소 뒤 현장 복귀",
+        "새 게임 시작층",
+        "수색 귀환",
+        "2층·지하실 연결부"
       ],
       "actions": [
         "설비 선택",
@@ -4172,7 +4427,15 @@
         "내레이션 카드 아래 중앙 상단의 compact-a 한 줄 안내와 분리 Interact glyph/TMP",
         "대상 전용 팝업 탐색·확인·취소",
         "일반 설비 배치·무료 재배치",
-        "위층·옆방·지하실 후보 순회와 하나의 증축 확정"
+        "위층·옆방·지하실 후보 순회와 하나의 증축 확정",
+        "층간 이동",
+        "설비 접근·상호작용",
+        "치료",
+        "연구·제작",
+        "일반 설비 배치·재배치",
+        "2층 건설",
+        "지하실 건설",
+        "연기·무전 프로젝트 진행"
       ],
       "states": [
         "준비",
@@ -4213,15 +4476,26 @@
         "ModuleNoConnection",
         "ModuleOverlap",
         "ModuleTerrainBlocked",
-        "ModulePathBlocked"
+        "ModulePathBlocked",
+        "시작층",
+        "2층 잠김",
+        "2층 건설됨",
+        "지하실 잠김",
+        "지하실 건설됨",
+        "설비 배치 가능",
+        "통로 차단",
+        "질병 치료 가능",
+        "연기 재료 부족",
+        "무전 부품 부족",
+        "탈출 준비 완료"
       ],
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-23T08:53:04.313Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "screen.island",
-      "name": "선택 지역 횡스크롤 수색",
-      "purpose": "지도에서 선택한 해변·숲·얕은 바다 등 지역에서 자원 전망과 위험 프로필이 실제 플레이로 이어지는 2D 횡스크롤 수색 화면.",
+      "name": "지속 변화형 선택 지역 수색",
+      "purpose": "선택한 지역에서 유한 자원과 흩어진 부품을 수색하고 장벽·벌레·야생동물·위험 식물·질병에 대응하며 변화 상태를 남긴다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4232,7 +4506,8 @@
         "feature.dual-input",
         "feature.swimming",
         "feature.resource-randomization",
-        "feature.survival-hazards"
+        "feature.survival-hazards",
+        "feature.region-persistence"
       ],
       "assetIds": [
         "background.coast-forest",
@@ -4248,7 +4523,9 @@
         "베이스캠프에서 수색 출발",
         "해변의 완만한 물가에서 수영 진입",
         "수집 지도에서 지역 확정",
-        "해안의 완만한 물가에서 수영 진입"
+        "해안의 완만한 물가에서 수영 진입",
+        "7지역 지도에서 지역 확정",
+        "이전 방문 상태를 가진 지역 재진입"
       ],
       "actions": [
         "이동",
@@ -4263,7 +4540,11 @@
         "수상 표류물 수색",
         "오르기",
         "위험 회피·완화",
-        "자발적 귀환"
+        "자발적 귀환",
+        "돌도끼 장벽 파괴",
+        "위험 회피·제거",
+        "핵심 부품 획득",
+        "치료 아이템 사용"
       ],
       "states": [
         "탐색",
@@ -4279,15 +4560,26 @@
         "수영 체력 부족",
         "지역 위험 예고",
         "위험 노출",
-        "부상·질병"
+        "부상·질병",
+        "미채집 노드",
+        "고갈 노드",
+        "장벽 차단",
+        "장벽 제거",
+        "벌레 노출",
+        "야생동물 경계",
+        "위험 식물",
+        "질병 노출",
+        "부상",
+        "핵심 부품 보호 획득",
+        "귀환"
       ],
       "createdAt": "2026-08-22T09:09:25.632Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "screen.result",
-      "name": "김씨의 엔딩 코믹북",
-      "purpose": "탈출 방식 또는 Day 50 상태, 우세 생활 방식과 특별 사건이 만든 ending ID를 3~5장 코믹북과 판정 근거로 보여준다.",
+      "name": "탈출·장기 체류 엔딩 코믹북",
+      "purpose": "연기·무전 탈출 또는 Day 20 PROVISIONAL 장기 체류 판정과 누적 행동 근거를 3~5장 코믹북으로 보여준다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4311,7 +4603,10 @@
         "Day 50 이전 탈출",
         "Day 50 종료",
         "생존 실패",
-        "엔딩 갤러리 재생"
+        "엔딩 갤러리 재생",
+        "연기 구조 완료",
+        "무전 구조 완료",
+        "장기 체류 판정일 미탈출"
       ],
       "actions": [
         "다시 시작",
@@ -4320,7 +4615,10 @@
         "이전 패널",
         "판정 근거 보기",
         "갤러리에 기록",
-        "새 run 시작"
+        "새 run 시작",
+        "패널 넘기기",
+        "엔딩 근거 보기",
+        "앨범 등록"
       ],
       "states": [
         "구조 성공",
@@ -4332,10 +4630,17 @@
         "Day 50 정착",
         "생존 실패",
         "신규 엔딩 해금",
-        "기존 엔딩 재발견"
+        "기존 엔딩 재발견",
+        "연기 정상",
+        "무전 정상",
+        "코믹 변형",
+        "장기 체류 자연인",
+        "장기 체류 무인도 건물주",
+        "신규 해금",
+        "재발견"
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "screen.settings",
@@ -4379,8 +4684,8 @@
     },
     {
       "id": "screen.expedition-map",
-      "name": "수집 지역 선택 지도",
-      "purpose": "캠프에서 오늘 갈 지역의 자원 전망과 위험을 비교하고 장비·가방·탈출 목표에 맞는 한 곳을 선택하는 상황형 원정 계획 화면.",
+      "name": "7지역 지속 상태 수집 지도",
+      "purpose": "일곱 지역의 자원 전망, 현재 고갈도, 위험도, 확인된 위험, 장벽·장비, 기계 부품 단서를 비교해 오늘의 원정을 선택한다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4389,7 +4694,8 @@
         "feature.survival-hazards",
         "feature.island-exploration",
         "feature.dual-input",
-        "feature.localization"
+        "feature.localization",
+        "feature.region-persistence"
       ],
       "assetIds": [
         "ui.expedition-map",
@@ -4398,14 +4704,19 @@
       ],
       "entryPoints": [
         "베이스캠프 출구 또는 지도 오브젝트 근접 상호작용",
-        "수색 출발 직전"
+        "수색 출발 직전",
+        "캠프 지도 오브젝트 근접 상호작용",
+        "수색 귀환 후 다음 원정 준비"
       ],
       "actions": [
         "지역 노드 탐색",
         "지역 상세 비교",
         "예상 자원·위험·시간·날씨·장비 확인",
         "지역 확정",
-        "취소하고 캠프로 복귀"
+        "취소하고 캠프로 복귀",
+        "7지역 탐색",
+        "남은 자원·위험·장벽 비교",
+        "핵심 부품 단서 확인"
       ],
       "states": [
         "지도 닫힘",
@@ -4415,10 +4726,21 @@
         "지역 위험 경고",
         "필요 장비 부족",
         "출발 가능",
-        "확정 확인"
+        "확정 확인",
+        "미확인",
+        "미방문",
+        "방문함",
+        "부분 고갈",
+        "고갈",
+        "장벽 남음",
+        "장벽 제거",
+        "위험 높음",
+        "질병 위험",
+        "핵심 부품 회수",
+        "장비 부족"
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "screen.ending-gallery",
@@ -4462,8 +4784,8 @@
   "systems": [
     {
       "id": "system.run-state",
-      "name": "50일 run·행동 기록 상태",
-      "description": "날짜, seed, 선택 지역, 창고·가방, 생존 상태, 설비·연구, 탈출 프로젝트, 위험 상태, 행동 점수, 특별 사건과 ending ID를 화면 전환 동안 유지한다.",
+      "name": "게임잼 캠페인·지역·다층 캠프 상태",
+      "description": "날짜, seed, 일곱 지역 snapshot, 창고·가방, 생존·질병, 시작층·2층·지하 설비, 탈출 부품·프로젝트, 행동 점수와 ending ID를 화면 전환 동안 유지한다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4475,35 +4797,43 @@
         "feature.expedition-map",
         "feature.resource-randomization",
         "feature.survival-hazards",
-        "feature.behavioral-endings"
+        "feature.behavioral-endings",
+        "feature.region-persistence",
+        "feature.camp-module-expansion"
       ],
       "dependencies": [],
       "acceptanceCriteria": [
         "새 게임 초기화와 화면 전환 후 상태 보존이 같은 실행 안에서 일관되게 동작한다.",
-        "새 게임과 화면 전환 뒤 seed·지역·위험·탈출·행동 점수가 누락되거나 중복되지 않는다."
+        "새 게임과 화면 전환 뒤 seed·지역·위험·탈출·행동 점수가 누락되거나 중복되지 않는다.",
+        "캠프·지도·일곱 지역을 오가도 지역·질병·층·설비·탈출 부품 상태가 누락되거나 중복되지 않는다.",
+        "새 run은 모든 상태를 초기화하고 같은 seed 검증 fixture는 같은 snapshot을 만든다."
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.phase-flow",
-      "name": "50일 캠프·지도·수색·정산 흐름",
-      "description": "캠프, 지역 선택, 수색, 귀환, 하루 정산, 조기 탈출과 Day 50 엔딩의 우선순위를 제어한다.",
+      "name": "30분 조기 탈출·장기 체류 흐름",
+      "description": "캠프, 지도, 수색, 귀환, 정산, 조기 탈출과 게임잼 Day 20 PROVISIONAL 장기 체류 판정 우선순위를 제어하며 본편 Day 50 프로필을 데이터로 분리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
         "feature.escape-outcome",
-        "feature.expedition-map"
+        "feature.expedition-map",
+        "feature.behavioral-endings"
       ],
       "dependencies": [
         "system.run-state"
       ],
       "acceptanceCriteria": [
         "유효하지 않은 단계 전환이나 중복 정산 없이 표준 Day 50 시나리오가 진행되고 Day 49까지 미탈출은 계속된다.",
-        "중복 정산 없이 Day 50까지 진행하고 조기 탈출은 같은 프레임의 Day 50 실패보다 우선한다."
+        "중복 정산 없이 Day 50까지 진행하고 조기 탈출은 같은 프레임의 Day 50 실패보다 우선한다.",
+        "대표 fresh run은 25~35분 안에 조기 탈출할 수 있고 Day 20은 강제 첫 구조 기회가 아니다.",
+        "같은 정산에서 탈출 완료가 장기 체류 판정보다 먼저 적용되고 terminal은 한 번만 확정된다.",
+        "본편 Day 50과 게임잼 장기 체류 threshold는 코드 상수가 아니라 별도 프로필 데이터로 선택된다."
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.inventory",
@@ -4542,14 +4872,16 @@
     },
     {
       "id": "system.camp-structures",
-      "name": "캠프 설비",
-      "description": "모닥불, 작업대, 빗물받이, 구조 신호대의 비용, 건설 상태, 배치 위치, 기능과 시각 단계를 관리한다.",
+      "name": "다층 캠프 설비·연결부",
+      "description": "시작층·2층·지하실, 고정 연결부, 모닥불·작업대·빗물받이·치료 설비와 연기·무전 특수 설비의 방·위치·기능을 관리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.camp-building",
         "feature.crafting-research",
         "feature.survival-pressure",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.camp-module-expansion",
+        "feature.survival-hazards"
       ],
       "dependencies": [
         "system.run-state",
@@ -4558,22 +4890,26 @@
       "acceptanceCriteria": [
         "조건을 충족한 설비만 한 번 건설되고 기능과 외형이 즉시 갱신된다.",
         "조건을 충족한 설비만 한 번 건설되고 배치 좌표, 기능과 외형이 즉시 갱신된다.",
-        "재배치해도 건설 상태와 열린 기능이 유지되며 자원이 추가로 소비되거나 복제되지 않는다."
+        "재배치해도 건설 상태와 열린 기능이 유지되며 자원이 추가로 소비되거나 복제되지 않는다.",
+        "2층과 지하실이 동시에 존재하고 각 방의 설비 상태가 이동 뒤에도 유지된다.",
+        "특수 설비는 호환 앵커에서만 작동하고 일반 설비는 방별 자유 배치 위치를 보존한다.",
+        "층 또는 설비 해체 환급은 유한 자원 softlock 규칙을 지키고 중복 환급되지 않는다."
       ],
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-22T10:15:38.551Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.island-search",
-      "name": "선택 지역 수색과 일광",
-      "description": "확정된 지역의 채집 지점, seed 보상, 도구 요구, 위험 노출, 체력·일광 비용과 자발·강제 귀환을 처리한다.",
+      "name": "7지역 유한 수색과 변화 기록",
+      "description": "선택 지역의 유한 노드, 도구 장벽, 핵심 부품, 위험 노출, 체력·일광 비용과 귀환 transaction을 지역 snapshot에 연결한다.",
       "priority": "critical",
       "featureIds": [
         "feature.island-exploration",
         "feature.inventory-choice",
         "feature.crafting-research",
         "feature.resource-randomization",
-        "feature.survival-hazards"
+        "feature.survival-hazards",
+        "feature.region-persistence"
       ],
       "dependencies": [
         "system.phase-flow",
@@ -4581,19 +4917,23 @@
         "system.crafting-tech",
         "system.expedition-selection",
         "system.region-loot-rng",
-        "system.hazard-director"
+        "system.hazard-director",
+        "system.region-persistence"
       ],
       "acceptanceCriteria": [
         "수색 지점은 한 원정에서 정해진 횟수만 보상을 주고 일광 종료 시 규칙에 따라 강제 귀환한다.",
-        "선택 지역과 다른 profile의 보상을 주지 않고 한 지점은 정의된 횟수만 보상한다."
+        "선택 지역과 다른 profile의 보상을 주지 않고 한 지점은 정의된 횟수만 보상한다.",
+        "한 노드는 정의된 총 횟수만 보상하고 귀환·강제 귀환 모두 변경 상태를 보존한다.",
+        "장벽과 위험 변화는 보상이 아니라 월드 상태 transaction으로 한 번 기록된다.",
+        "선택 지역과 다른 지역의 자원·부품·위험 snapshot을 변경하지 않는다."
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.survival",
-      "name": "생존 수치·상태 이상·회복",
-      "description": "허기·체력·피로, 부상·질병 단계, 식량 사용, 휴식·치료와 일몰 정산을 한 번씩 적용한다.",
+      "name": "허기·부상·질병 악화와 치료",
+      "description": "허기·체력·피로와 벌레성 질병, 위험 식물 중독, 부상 감염의 노출·악화·효과·치료를 일일 정산에 원자적으로 적용한다.",
       "priority": "critical",
       "featureIds": [
         "feature.survival-pressure",
@@ -4608,10 +4948,13 @@
       ],
       "acceptanceCriteria": [
         "행동과 하루 정산이 허기·체력에 한 번씩 예측 가능하게 반영되고 0 도달 시 정확한 실패 원인이 기록된다.",
-        "상태 변화가 중복 적용되지 않고 원인·효과·회복 수단과 terminal 우선순위가 기록된다."
+        "상태 변화가 중복 적용되지 않고 원인·효과·회복 수단과 terminal 우선순위가 기록된다.",
+        "질병은 노출 즉시 terminal이 되지 않고 최소 한 번의 경고·치료 기회를 제공한다.",
+        "치료 성공과 하루 악화는 상태를 한 번만 변경하고 원인·효과·회복 수단을 기록한다.",
+        "허기·부상·질병이 동시에 있을 때 일일 위험 예산과 terminal 우선순위를 지킨다."
       ],
       "createdAt": "2026-08-23T14:15:54.552Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.comedy-feedback",
@@ -4681,12 +5024,13 @@
     },
     {
       "id": "system.camp-placement",
-      "name": "제한적 자유 배치",
-      "description": "배치 모드, 설비 유령, 호환 건설 구역, 격자·바닥 스냅, 발자국 겹침, 필수 이동 통로, 전용 앵커와 입력 처리를 관리한다.",
+      "name": "다층 제한적 자유 배치",
+      "description": "현재 방, 바닥 높이, 배치 구역, 설비 유령, 겹침, 필수 통로와 고정 연결부를 기준으로 시작층·2층·지하실 설비 배치를 검증한다.",
       "priority": "critical",
       "featureIds": [
         "feature.camp-building",
-        "feature.dual-input"
+        "feature.dual-input",
+        "feature.camp-module-expansion"
       ],
       "dependencies": [
         "system.run-state",
@@ -4697,8 +5041,13 @@
       "acceptanceCriteria": [
         "일반 설비는 호환 건설 구역 안의 유효 위치에서만 확정되고 특수 설비는 지정된 앵커에서만 확정된다.",
         "배치 유령의 위치와 유효성 판정이 마우스와 게임패드 입력에서 같은 결과를 낸다.",
-        "배치 확정과 재배치 후 김씨의 필수 이동 경로와 모든 설비 상호작용 지점이 접근 가능하다."
-      ]
+        "배치 확정과 재배치 후 김씨의 필수 이동 경로와 모든 설비 상호작용 지점이 접근 가능하다.",
+        "일반 설비는 현재 방의 유효 바닥에만 놓이고 다른 층 설비와 잘못 충돌하지 않는다.",
+        "연결부·출입구와 모든 설비 상호작용 지점이 배치 뒤에도 접근 가능하다.",
+        "마우스와 게임패드가 같은 방·좌표·유효성 결과를 만든다."
+      ],
+      "createdAt": "2026-08-25T13:36:42.418Z",
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.localization",
@@ -4762,13 +5111,14 @@
     },
     {
       "id": "system.region-loot-rng",
-      "name": "지역 loot seed와 softlock 보호",
-      "description": "run seed, 지역 profile, 방문 횟수와 세계 상태로 자원·핵심 부품을 결정하고 보장·대체·장기 미발견 보호를 적용한다.",
+      "name": "7지역 유한 loot·부품 softlock 보호",
+      "description": "run seed와 지역 profile로 총자원 예산과 보호 핵심 부품을 일곱 지역에 분배하고 고갈·시설 투자 뒤에도 최소 한 탈출 경로를 보장한다.",
       "priority": "critical",
       "featureIds": [
         "feature.resource-randomization",
         "feature.expedition-map",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.region-persistence"
       ],
       "dependencies": [
         "system.run-state",
@@ -4776,64 +5126,78 @@
       ],
       "acceptanceCriteria": [
         "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장과 핵심 부품 추적이 자동 검증된다.",
-        "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장, protected part와 3/5 eligible-search SAMPLE pity 추적이 자동 검증된다."
+        "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장, protected part와 3/5 eligible-search SAMPLE pity 추적이 자동 검증된다.",
+        "망가진 무전기·전자기판·트랜지스터는 서로 다른 적격 지역에 하나씩 존재한다.",
+        "부싯돌과 PROVISIONAL 연기 나무 총예산은 지도와 실제 노드 합계가 일치한다.",
+        "모든 검증 seed는 보호 부품 분실, 과잉 건설과 지역 고갈 뒤에도 해체 환급 또는 대체 경로로 최소 한 엔딩에 도달한다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.hazard-director",
-      "name": "위험 예고·발생·완화 디렉터",
-      "description": "지역·날씨·행동·캠프 상태와 일일 위험 예산으로 부상, 질병, 재해, 야생동물과 도난·파손을 예고하고 발생·완화·회복시킨다.",
+      "name": "벌레·야생동물·위험 식물·질병 디렉터",
+      "description": "지역 위험도, 날씨, 영구 위험 snapshot과 일일 예산으로 벌레, 야생동물, 위험 식물, 부상·질병·재해를 예고하고 발생·완화·제거한다.",
       "priority": "critical",
       "featureIds": [
         "feature.survival-hazards",
         "feature.survival-pressure",
-        "feature.expedition-map"
+        "feature.expedition-map",
+        "feature.region-persistence"
       ],
       "dependencies": [
         "system.run-state",
         "system.survival",
-        "system.camp-structures"
+        "system.camp-structures",
+        "system.region-persistence"
       ],
       "acceptanceCriteria": [
         "무예고 치명 결과를 만들지 않고 동시 위험 예산과 평온일 규칙을 지키며 동일 seed를 재현한다.",
-        "배고픔·질병·부상·재해·야생동물·도난·파손이 무예고 치명 결과 없이 동일 seed, 중첩 예산, 평온일과 원자 transaction 규칙을 지킨다."
+        "배고픔·질병·부상·재해·야생동물·도난·파손이 무예고 치명 결과 없이 동일 seed, 중첩 예산, 평온일과 원자 transaction 규칙을 지킨다.",
+        "각 지역의 표시 위험도와 실제 hazard budget이 같은 profile을 사용한다.",
+        "벌레·야생동물·위험 식물은 고유 경고와 장비·행동 대응을 가지며 무예고 즉사를 만들지 않는다.",
+        "영구 제거 위험은 snapshot에 기록되고 일시 위험과 질병 노출은 선언된 조건에 따라 다시 발생할 수 있다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.escape-projects",
-      "name": "다섯 탈출 프로젝트",
-      "description": "escape.raft, escape.smoke, escape.radio, escape.flare, escape.beacon의 연구·설비·재료·상태와 완성 판정을 독립적으로 관리한다.",
+      "name": "유한 재료형 연기·무전 프로젝트",
+      "description": "연기의 대량 나무·부싯돌·기상 단계와 무전의 망가진 무전기·전자기판·트랜지스터·복구 단계를 독립 transaction으로 관리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.escape-outcome",
         "feature.resource-randomization",
-        "feature.crafting-research"
+        "feature.crafting-research",
+        "feature.region-persistence"
       ],
       "dependencies": [
         "system.run-state",
         "system.inventory",
         "system.crafting-tech",
-        "system.camp-structures"
+        "system.camp-structures",
+        "system.region-persistence"
       ],
       "acceptanceCriteria": [
         "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소를 지원한다.",
-        "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소와 선언된 실패·변형 사건을 지원한다."
+        "각 method는 최소 두 축 이상의 서로 다른 요구를 갖고 원자적 진척·완성·취소와 선언된 실패·변형 사건을 지원한다.",
+        "연기와 무전은 재료 이름만 다른 동일 버튼이 아니라 수색 지역, 부품, 설비, 자원 규모와 완료 조건이 다르다.",
+        "모든 단계는 확인 성공 때만 정확히 한 번 자원을 소비하고 취소·실패·중복 제출은 원자성을 지킨다.",
+        "완료한 프로젝트는 하나의 escape ID를 terminal 판정에 전달하고 다른 프로젝트 상태를 덮어쓰지 않는다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.ending-resolution",
-      "name": "행동 기반 엔딩 판정",
-      "description": "terminal trigger, escape method 또는 Day 50 상태, 우세 행동 점수, 특별 사건과 우선순위로 하나의 ending ID와 근거를 결정한다.",
+      "name": "탈출·Day 20 장기 체류 판정",
+      "description": "탈출 프로젝트, PROVISIONAL 장기 체류 threshold, 생존·채집과 건설·기계 행동 점수, 특별 사건으로 하나의 ending ID와 근거를 결정한다.",
       "priority": "critical",
       "featureIds": [
         "feature.escape-outcome",
-        "feature.behavioral-endings"
+        "feature.behavioral-endings",
+        "feature.camp-module-expansion"
       ],
       "dependencies": [
         "system.run-state",
@@ -4842,10 +5206,13 @@
       ],
       "acceptanceCriteria": [
         "같은 run snapshot은 같은 ending ID를 내고 tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다.",
-        "19개 ending catalog에서 같은 run snapshot은 같은 하나의 ending ID를 내고 priority, 조건 수, 사건 시점, ASCII ID tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다."
+        "21개 ending catalog에서 같은 run snapshot은 같은 하나의 ending ID를 내고 priority, 조건 수, 사건 시점, ASCII ID tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다.",
+        "조기 탈출은 같은 정산의 장기 체류 판정보다 우선하며 ending은 한 번만 해금된다.",
+        "미탈출 Day 20 snapshot은 생존·채집 우세 또는 건설·기계 우세 엔딩 중 정확히 하나를 결정한다.",
+        "같은 snapshot은 같은 ending ID와 사람이 읽을 수 있는 행동 근거를 낸다."
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
-      "updatedAt": "2026-08-23T14:52:07.111Z"
+      "updatedAt": "2026-08-25T13:36:42.418Z"
     },
     {
       "id": "system.ending-gallery",
@@ -4867,6 +5234,27 @@
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
       "updatedAt": "2026-08-23T14:52:07.111Z"
+    },
+    {
+      "id": "system.region-persistence",
+      "name": "지역별 유한 월드 상태",
+      "description": "region ID 아래 채집 노드 잔량, 장벽 상태, 핵심 부품 획득, 제거형 위험, 발견 정보와 방문 횟수를 저장·복원한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.region-persistence",
+        "feature.resource-randomization",
+        "feature.expedition-map",
+        "feature.island-exploration"
+      ],
+      "dependencies": [
+        "system.run-state",
+        "system.region-loot-rng"
+      ],
+      "acceptanceCriteria": [
+        "지역 종료 transaction은 변경 상태를 한 번만 저장하고 중복 보상이나 롤백을 만들지 않는다.",
+        "지도 요약과 월드 재생성은 동일한 지역 snapshot을 사용한다.",
+        "새 run 초기화는 모든 지역 snapshot을 새 seed 기준으로 교체한다."
+      ]
     }
   ],
   "artAssets": [
@@ -5331,8 +5719,32 @@
       "source": "forge-director",
       "createdAt": "2026-08-23T14:16:09.803Z",
       "updatedAt": "2026-08-23T14:52:07.111Z"
+    },
+    {
+      "id": "environment.expedition-region-kit",
+      "name": "7지역 지속 수색 환경 키트",
+      "assetType": "separated_parts",
+      "request": "기존 review-only 3지역 환경 키트를 채택 없이 보존하면서 게임잼의 시작 해변, 맹그로브 얕은물, 밀림 숲, 바위 절벽, 섬 동굴, 난파선 만, 폐기상 관측소 최소 7지역으로 확장 가능한 Unity 2D 횡스크롤 레이어·파츠 규격을 준비한다. 각 지역은 고유 중경·전경·위험 실루엣을 가지며 채집 전·고갈, 장벽 차단·제거, 벌레·야생동물·위험 식물의 활성·제거 상태를 엔진 오브젝트로 분리한다. 배경 장식과 실제 자원·위험·충돌은 합쳐 굽지 않고 true-alpha, bottom-center pivot과 1280x800 안전영역을 유지한다. 기존 후보나 새 후보는 사용자 채택 전 package·runtime 연결하지 않는다.",
+      "priority": "high",
+      "dependencies": [
+        "background.coast-forest"
+      ],
+      "featureIds": [
+        "feature.island-exploration",
+        "feature.region-persistence",
+        "feature.survival-hazards"
+      ],
+      "tags": [
+        "gamejam",
+        "seven-regions",
+        "persistent-state",
+        "layered-side-scroller",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-24T15:31:50.790Z"
+  "updatedAt": "2026-08-25T13:46:05.433Z"
 }

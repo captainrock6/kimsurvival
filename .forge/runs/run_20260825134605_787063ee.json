@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260825134605_787063ee",
+  "createdAt": "2026-08-25T13:46:05.433Z",
+  "updatedAt": "2026-08-25T13:46:05.433Z",
+  "sourceRequest": "7지역·9위험·유한 영속 수색·연기/무전 분산 부품·2층과 지하·Day20 장기 체류 엔딩 2종 구현 델타를 과거 완료 범위와 분리해 백로그화",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-25T13:46:05.433Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:46:05.433Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:46:05.433Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:46:05.433Z"
+    }
+  }
+}

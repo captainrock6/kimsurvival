@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에 조난된 김씨가 상태가 영구히 변하는 일곱 수색 지역에서 생존 자원과 흩어진 기계 부품을 모으고, 2층·지하 캠프를 확장해 30분 안에 연기 또는 무전 구조를 완성하거나 장기 체류 행동에 따른 코믹 엔딩을 맞는 2D 생존 게임."
+  },
+  "verticalSlice": {
+    "goal": "처음 10분 안에 상태가 남는 유한 수색과 다층 캠프 투자를 이해시키고, 약 30분 안에 대형 연기 또는 무전 구조 중 하나를 완성해 행동 기반 코믹북 엔딩을 보게 한다."
+  },
+  "features": [],
+  "screens": [],
+  "systems": [],
+  "artAssets": [],
+  "tasks": [
+    {
+      "id": "task.gamejam.seven-region-catalog",
+      "lane": "implementation",
+      "title": "게임잼 7지역 카탈로그·지도 전환",
+      "description": "기존 6지역 캠페인 계약을 시작 해변, 밀림 숲, 맹그로브 얕은물, 바위 절벽, 섬 동굴, 난파선 만, 폐기상 관측소의 7지역 데이터와 지도 노드로 전환한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.expedition-map", "feature.resource-randomization"],
+      "assetIds": ["ui.expedition-map", "environment.expedition-region-kit"],
+      "acceptanceCriteria": [
+        "일곱 안정 region ID가 지도, 로드, 출발, 귀환과 상태 요약에서 동일하게 사용된다.",
+        "각 지역은 위험도, 대표 위험, 유한 자원 범주, 필요 장비, 고갈·장벽 상태와 핵심 부품 단서를 색상 외 정보로 보여준다.",
+        "잠긴 지역도 지도에서 위치와 우선 해금 이유를 확인할 수 있다."
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.persistent-region-runtime",
+      "lane": "implementation",
+      "title": "게임잼 지역 영속 상태·유한 자원 런타임",
+      "description": "한 run 안에서 지역별 채집 노드 잔량, 돌도끼 장벽, 제거형 위험, 핵심 부품과 방문 횟수를 저장하고 재방문 월드에 복원한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.seven-region-catalog"],
+      "featureIds": ["feature.region-persistence", "feature.island-exploration"],
+      "assetIds": ["environment.expedition-region-kit"],
+      "acceptanceCriteria": [
+        "채집한 유한 노드는 같은 run에서 다시 보상을 주지 않는다.",
+        "돌도끼로 부순 장벽과 영구 제거 위험은 귀환 뒤 재방문해도 제거 상태를 유지한다.",
+        "새 run은 이전 지역 snapshot과 섞이지 않고 새 seed로 초기화된다."
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.smoke-radio-material-routes",
+      "lane": "implementation",
+      "title": "게임잼 연기·무전 재료 수색 경로",
+      "description": "부싯돌과 막대한 나무가 필요한 대형 연기 신호, 서로 다른 세 지역의 망가진 무전기·전자기판·트랜지스터가 필요한 무전 구조를 완전 플레이 가능하게 만든다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.persistent-region-runtime"],
+      "featureIds": ["feature.escape-outcome", "feature.resource-randomization", "feature.region-persistence"],
+      "assetIds": ["icon.resource-tool-set", "object.camp-structures"],
+      "acceptanceCriteria": [
+        "세 무전 부품은 세 개의 서로 다른 지역에 배치되고 모두 회수하기 전 송신할 수 없다.",
+        "부싯돌과 PROVISIONAL 대량 나무를 모두 투입하고 기상 창을 만족해야 연기 신호가 완료된다.",
+        "모든 seed에서 핵심 부품 보호, pity, 환급 또는 대체 경로로 최소 한 탈출법이 남는다."
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.insect-plant-wildlife-disease",
+      "lane": "implementation",
+      "title": "게임잼 벌레·식물·야생동물·질병 위험",
+      "description": "지역 위험도와 벌레, 위험 식물, 야생동물, 질병 노출을 예고하고 회피·완화·치료 및 영구 제거 상태로 연결한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.seven-region-catalog", "task.gamejam.persistent-region-runtime"],
+      "featureIds": ["feature.survival-hazards", "feature.region-persistence"],
+      "assetIds": ["effect.survival-hazards", "icon.expedition-resource-risk-set", "ui.survival-hud"],
+      "acceptanceCriteria": [
+        "벌레, 위험 식물과 야생동물은 서로 다른 시각·소리 예고와 준비·회피 수단을 가진다.",
+        "질병은 노출, 잠복, 증상, 악화와 치료를 표시하고 무예고 즉사를 만들지 않는다.",
+        "영구 제거 위험과 일시 노출을 구분해 지역 snapshot과 일일 위험 예산에 정확히 반영한다."
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.upper-basement-both",
+      "lane": "implementation",
+      "title": "게임잼 2층·지하실 동시 확장",
+      "description": "기존 한 모듈 제한을 게임잼 프로필에서 제거하고 시작층 위 2층과 아래 지하실을 모두 건설·이동·설비 배치 가능하게 한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.camp-module-expansion", "feature.camp-building", "feature.camp-object-interaction"],
+      "assetIds": ["background.modular-island-camp", "ui.camp-module-expansion", "object.camp-structures"],
+      "acceptanceCriteria": [
+        "같은 run에서 2층과 지하실을 모두 건설하고 양방향으로 이동할 수 있다.",
+        "각 층에 일반 설비를 하나 이상 제한적 자유 배치하고 직접 접근해 사용할 수 있다.",
+        "연결부, 출입구, 작업대 상호작용 우선순위와 필수 통로가 배치·미리보기 때문에 막히지 않는다."
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.long-stay-two-endings",
+      "lane": "implementation",
+      "title": "게임잼 장기 체류 엔딩 2종",
+      "description": "PROVISIONAL Day 20 미탈출 상태에서 생존·채집 우세의 자연인 김씨와 건설·기계 우세의 무인도 건물주 김씨 중 하나를 누적 행동으로 결정한다.",
+      "priority": "high",
+      "dependencies": ["task.gamejam.upper-basement-both", "task.gamejam.insect-plant-wildlife-disease"],
+      "featureIds": ["feature.behavioral-endings", "feature.escape-outcome"],
+      "assetIds": ["ui.ending-comic", "ui.ending-gallery"],
+      "acceptanceCriteria": [
+        "같은 snapshot은 두 장기 체류 ending ID 중 정확히 하나와 사람이 읽을 수 있는 판정 근거를 낸다.",
+        "조기 탈출 완료는 같은 정산의 장기 체류 판정보다 우선한다.",
+        "Day 20 값은 데이터로 조정 가능하고 Day 15~20 플레이테스트에서 한 축만 변경한다."
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.qa-thirty-minute-seven-region-slice",
+      "lane": "qa",
+      "title": "게임잼 30분 7지역 수직 슬라이스 검증",
+      "description": "fresh run에서 5~10분 핵심 루프 학습, 25~35분 연기 또는 무전 탈출, 지역 상태 재방문, 다층 캠프와 장기 체류 가속 fixture를 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.smoke-radio-material-routes",
+        "task.gamejam.insect-plant-wildlife-disease",
+        "task.gamejam.upper-basement-both",
+        "task.gamejam.long-stay-two-endings"
+      ],
+      "featureIds": ["feature.expedition-map", "feature.region-persistence", "feature.survival-hazards", "feature.camp-module-expansion", "feature.escape-outcome", "feature.behavioral-endings"],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "첫 사용자는 10분 안에 캠프→지도→수색→귀환→투자 루프를 완주한다.",
+        "fresh run의 70퍼센트 이상이 25~35분 안에 대표 탈출에 도달하고 진행 불가능 seed가 없다.",
+        "ko/en 1280x800과 키보드·게임패드에서 7지역 지도, 질병 HUD, 3층 캠프와 엔딩 근거가 플레이 공간을 가리지 않는다."
+      ],
+      "status": "planned"
+    }
+  ],
+  "decisions": [],
+  "openQuestions": []
+}

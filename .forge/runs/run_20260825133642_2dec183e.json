@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260825133642_2dec183e",
+  "createdAt": "2026-08-25T13:36:42.251Z",
+  "updatedAt": "2026-08-25T13:36:42.251Z",
+  "sourceRequest": "게임잼 스펙을 최소 7개 지속 상태 수색 지역, 벌레·야생동물·위험 식물·질병, 유한 자원과 지역 변화 저장, 흩어진 무전 부품, 대량 나무·부싯돌 연기 신호, 2층·지하실 동시 건설·설비 배치, Day 15~20 장기 체류 엔딩 2종으로 최신화",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-25T13:36:42.251Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:36:42.251Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:36:42.251Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:36:42.251Z"
+    }
+  }
+}

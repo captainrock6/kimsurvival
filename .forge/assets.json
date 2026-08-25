@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-24T15:37:37.506Z",
+  "updatedAt": "2026-08-25T13:46:05.633Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -351,7 +351,7 @@
         "packagedAt": "2026-08-22T13:36:38.680Z"
       },
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-23T14:16:09.821Z"
+      "updatedAt": "2026-08-25T13:46:05.454Z"
     },
     {
       "id": "background.coast-forest",
@@ -564,7 +564,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-23T14:16:09.833Z"
+      "updatedAt": "2026-08-25T13:46:05.464Z"
     },
     {
       "id": "character.mr-kim",
@@ -661,7 +661,7 @@
         "packagedAt": "2026-08-22T09:08:11.959Z"
       },
       "createdAt": "2026-08-22T07:58:18.376Z",
-      "updatedAt": "2026-08-23T14:16:09.843Z"
+      "updatedAt": "2026-08-25T13:46:05.474Z"
     },
     {
       "id": "object.camp-structures",
@@ -846,7 +846,7 @@
         "packagedAt": "2026-08-22T13:36:38.842Z"
       },
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-23T14:16:09.851Z"
+      "updatedAt": "2026-08-25T13:46:05.485Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -1153,7 +1153,7 @@
         "packagedAt": "2026-08-22T22:03:55.368Z"
       },
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-23T14:16:09.861Z"
+      "updatedAt": "2026-08-25T13:46:05.496Z"
     },
     {
       "id": "ui.survival-hud",
@@ -1353,7 +1353,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-23T14:16:09.869Z"
+      "updatedAt": "2026-08-25T13:46:05.506Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -1613,13 +1613,13 @@
         "packagedAt": "2026-08-22T22:56:15.525Z"
       },
       "createdAt": "2026-08-22T07:58:18.414Z",
-      "updatedAt": "2026-08-23T14:16:09.878Z"
+      "updatedAt": "2026-08-25T13:46:05.515Z"
     },
     {
       "id": "animation.mr-kim.swim",
       "name": "김씨 수영 애니메이션",
       "assetType": "sprite_animation",
-      "request": "Wave 19 review-only 안정 후보 animation.mr-kim.swim.surface-cycle-a. Unity 2D 횡스크롤에서 오른쪽을 보는 김씨 수영 key-pose atlas 한 장. 1536x1024 true-alpha RGBA, 3열x2행의 정확한 512x512 셀, 셀 사이 침범 없음, 각 셀 동일한 몸 크기와 pelvis pivot. 좌상부터 shore-entry, surface-pull-a, surface-pull-b, surface-recover, shallow-duck-and-resurface, exhausted-float 순서. surface-pull-a/b/recover는 최소 3프레임 루프가 자연스럽게 이어지고 지침은 코믹하지만 익사·부상처럼 잔혹하지 않다. 채택된 김씨의 얼굴, 짧은 검은 머리, 빛바랜 주황 셔츠, 짙은 초록 반바지, 파란 슬리퍼, 밧줄과 천의 작은 등가방, 성인 비율과 굵은 선을 그대로 유지한다. 얕은 물 접촉을 위한 작은 물방울만 허용하고 바다·수면 직사각형·배경·체커보드·그림자·프레임·셀선·글자·숫자·라벨·UI·워터마크는 금지한다. 실제 후보는 사용자 승인 전 review이며 package/runtime 연결 금지.",
+      "request": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -1834,7 +1834,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-24T15:37:24.998Z"
+      "updatedAt": "2026-08-25T13:46:05.526Z"
     },
     {
       "id": "object.vine-wood-barrier",
@@ -2374,7 +2374,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T01:52:41.889Z",
-      "updatedAt": "2026-08-23T14:16:09.895Z"
+      "updatedAt": "2026-08-25T13:46:05.537Z"
     },
     {
       "id": "ui.camp-contextual-interaction",
@@ -2881,7 +2881,7 @@
         "packagedAt": "2026-08-23T10:11:28.729Z"
       },
       "createdAt": "2026-08-23T04:07:47.284Z",
-      "updatedAt": "2026-08-23T14:16:09.903Z"
+      "updatedAt": "2026-08-25T13:46:05.548Z"
     },
     {
       "id": "background.modular-island-camp",
@@ -3156,7 +3156,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.292Z",
-      "updatedAt": "2026-08-23T14:16:09.911Z"
+      "updatedAt": "2026-08-25T13:46:05.556Z"
     },
     {
       "id": "ui.camp-module-expansion",
@@ -3418,7 +3418,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.303Z",
-      "updatedAt": "2026-08-23T14:16:09.919Z"
+      "updatedAt": "2026-08-25T13:46:05.565Z"
     },
     {
       "id": "ui.wave10-art-review-board",
@@ -3754,9 +3754,9 @@
     },
     {
       "id": "ui.expedition-map",
-      "name": "Prepare the deterministic selected-only package for adopted ui.expedition-map.right-rail-a. The 1280x800 candidate A com",
+      "name": "수집 지역 선택 지도 UI",
       "assetType": "ui_set",
-      "request": "Prepare the deterministic selected-only package for adopted ui.expedition-map.right-rail-a. The 1280x800 candidate A composite and island-map-art are intentionally opaque full-screen/reference rasters; validate them with opaque background semantics. Import the exact existing bytes only. Do not generate or edit art. Allow only candidate-a-right-rail-1280x800.png, island-map-art.png, expedition-map-components.svg, selected-only manifest and handoff; reject B/C, QA/review overlays, and the independent icon asset. Packaging preparation only; no runtime or scene connection.",
+      "request": "김씨가 베이스캠프의 지도 또는 출구 오브젝트와 상호작용했을 때만 열리는 1280×800 원정 계획 UI. 오리지널 손그림 열대 무인도 지도를 중심으로 해변·숲·얕은 바다 등 선택 노드를 배치하고, 선택 지역의 예상 자원 범주와 풍부함, 이동 시간, 현재 위험, 날씨, 필요 장비, 특별 발견 가능성, 잠김·미확인·선택·출발 가능 상태를 한 개의 상세 카드에 보여준다. 캠프 상시 대시보드가 아니며 확인·취소 후 현장으로 복귀한다. 특정 레퍼런스 게임의 정확한 배치·아이콘을 복제하지 않고 한국어·영어·qps-long 엔진 텍스트, 키보드·마우스와 게임패드 포커스, 색상 외 상태 문법을 지원한다. 지도 원화, 노드, 연결선, 카드 프레임, 포커스·잠금·위험 상태를 편집 가능한 분리 레이어로 제공하며 본문 텍스트는 래스터에 넣지 않는다.",
       "status": "engine_ready",
       "source": "forge-job",
       "tags": [
@@ -3939,13 +3939,13 @@
         "packagedAt": "2026-08-23T15:07:06.405Z"
       },
       "createdAt": "2026-08-23T14:15:54.679Z",
-      "updatedAt": "2026-08-23T15:07:06.406Z"
+      "updatedAt": "2026-08-25T13:46:05.574Z"
     },
     {
       "id": "icon.expedition-resource-risk-set",
-      "name": "Wave 15 icon.expedition-resource-risk-set 로컬 품질 정리 child job. 부모 job_20260823144003_552c87b1의 24개 투명 아이콘 atlas와 형태 문법을 변",
+      "name": "수집 자원·위험·날씨 아이콘 세트",
       "assetType": "ui_set",
-      "request": "Wave 15 icon.expedition-resource-risk-set 로컬 품질 정리 child job. 부모 job_20260823144003_552c87b1의 24개 투명 아이콘 atlas와 형태 문법을 변경하지 않는다. QA readability 보드만 true alpha 외곽 여백, 고대비 밝은 패널, 16/24/32/48 실제 크기 증거로 다시 작성해 missing-alpha와 low-contrast 기계 경고를 해소한다. editable SVG, atlas metadata, visual QA를 동기화하고 selectedCandidate=null, status=review, runtime allowlist empty를 유지한다. ImageGen이나 외부 API를 호출하지 않는다.",
+      "request": "수집 지도와 HUD에서 사용하는 오리지널 아이콘 세트. 목재·돌·식량·표류물·전자부품·약품·천·연료 같은 자원 범주, 풍부·보통·희귀·미확인, 이동 시간, 폭풍·폭우·폭염·높은 파도, 부상·질병·야생동물·도난·침수, 필요 장비와 완화됨 상태를 16~48px에서 읽히는 굵은 실루엣과 형태 차이로 제공한다. 색상만으로 의미를 전달하지 않고 본문·숫자·문자를 래스터에 넣지 않는다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -4076,13 +4076,13 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T14:15:54.688Z",
-      "updatedAt": "2026-08-23T14:53:26.569Z"
+      "updatedAt": "2026-08-25T13:46:05.586Z"
     },
     {
       "id": "ui.escape-project-progress",
-      "name": "Wave 16 review-only first candidate with stable candidate ID ui.escape-project-progress.route-signature-a. Create one ed",
+      "name": "다중 탈출 프로젝트 상태 UI",
       "assetType": "ui_set",
-      "request": "Wave 16 review-only first candidate with stable candidate ID ui.escape-project-progress.route-signature-a. Create one editable 1280x800 situational facility popup, not a persistent global dashboard. Show five visually distinct escape paths: smoke and radio as playable paths, raft/flare/beacon as data-only catalog paths. Do not make them cloned buttons. Smoke uses stacked fuel rings plus wind/rain window; radio uses circuit grid, frequency waveform and power chain; raft uses horizontal hull planks and sea-window arc; flare uses a single-shot chamber and timing wedge; beacon uses a tall segmented tower and structure/power checkpoints. The selected route detail shows progress stages, preparation conditions, risk/weather window, preview/cancel atomicity, and confirm focus. Use blank TMP safe rectangles only, no localized body text. Include ko/en/qps-long 150 percent expansion, minimum 18px, 44x44 focus and keyboard/gamepad glyph slots, color-independent outline/pattern/status marks. Match adopted expedition map A navy/teal/cream, warm orange accents and thick readable shapes. Deliver actual-size PNG, editable SVG, QA comparison board, manifest and handoff. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
+      "request": "캠프의 각 탈출 설비와 상호작용할 때 뗏목·배, 연기 신호, 무전, 조명탄, 고지대 신호탑의 연구·재료·단계·완성 가능·위험·확인·취소를 해당 설비 주변 소형 팝업으로 보여주는 UI 세트. 전역 목록을 상시 덮지 않고 한국어·영어 엔진 텍스트와 게임패드 포커스를 지원한다.",
       "status": "engine_ready",
       "source": "forge-job",
       "tags": [
@@ -4223,13 +4223,13 @@
         "packagedAt": "2026-08-24T12:56:53.297Z"
       },
       "createdAt": "2026-08-23T14:15:54.697Z",
-      "updatedAt": "2026-08-24T12:56:53.299Z"
+      "updatedAt": "2026-08-25T13:46:05.594Z"
     },
     {
       "id": "ui.ending-comic",
-      "name": "Wave 16 review-only first candidate with stable candidate ID ui.ending-comic.triptych-a. Create one editable 1280x800 th",
+      "name": "엔딩 코믹북 컷신 프레임",
       "assetType": "ui_set",
-      "request": "Wave 16 review-only first candidate with stable candidate ID ui.ending-comic.triptych-a. Create one editable 1280x800 three-panel placeholder comic ending frame: a wide setup panel, expressive close-up panel, and wide punchline/result panel, with optional insert slots for at most one dominant-behavior modifier and one event-scar modifier. Include short panel transition indicators and a separate verdict/evidence region showing terminal route, dominant behavior, special event and deterministic tie-break reason as blank TMP safe rectangles. Cover representative smoke normal, radio normal, Island FM comic, and Just Kim Day50 cases in the QA board without baking ko/en body text or official logo text. Use blank TMP title/summary/hint areas, ko/en/qps-long 150 percent expansion, minimum 18px, 44x44 focus and keyboard/gamepad glyph slots. Normal/comic/rare/day50 must differ by frame silhouette, corner marks and pattern, not color alone. Match adopted expedition map A navy/teal/cream, warm tropical orange and thick hand-cut comic shapes; preserve Mr. Kim proportions only as a reference and do not copy another game's layout. Deliver actual-size PNG, editable SVG, transition/category QA board, manifest and handoff. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
+      "request": "정상·코믹·희귀·Day 50 잔류 엔딩을 3~5장으로 표현하는 오리지널 코믹북 컷신 프레임과 전환 세트. 김씨의 과장된 표정과 생존 결과를 담는 와이드·클로즈업·펀치라인 패널, 다음·이전·건너뛰기·신규 해금 상태를 포함한다. 말풍선과 제목·본문은 엔진 텍스트 영역으로 비우고 한국어·영어·장문 로케일과 1280×800을 지원한다.",
       "status": "engine_ready",
       "source": "forge-job",
       "tags": [
@@ -4371,13 +4371,13 @@
         "packagedAt": "2026-08-24T12:56:53.482Z"
       },
       "createdAt": "2026-08-23T14:15:54.705Z",
-      "updatedAt": "2026-08-24T12:56:53.483Z"
+      "updatedAt": "2026-08-25T13:46:05.604Z"
     },
     {
       "id": "ui.ending-gallery",
       "name": "김씨의 생존 앨범 UI",
       "assetType": "ui_set",
-      "request": "Wave 18 review-only ui.ending-gallery 후보 세트. 안정 후보 ID는 ui.ending-gallery.album-spread-a, ui.ending-gallery.card-index-b, ui.ending-gallery.filmstrip-c. 베이스캠프의 앨범/기록 오브젝트와 상호작용할 때만 열리는 1280x800 상황형 UI이며 상시 전역 대시보드가 아니다. 정본의 19 ending ID를 normal 5, comic 5, rare 4, day50 5로 모두 수용한다. 해금 항목은 대표 triptych panel placeholder, TMP 제목·짧은 요약·플레이 근거 영역과 재생 액션을 제공하고, 미해금 항목은 비스포일러 실루엣과 TMP hint 영역만 제공한다. 색상 외 범주 문법은 normal 이중선 둥근 모서리, comic 버스트/점무늬, rare 별 노치/광선, day50 스티치/사선 해칭이다. A는 펼친 생존 앨범과 우측 상세 페이지, B는 5x4 카드 인덱스와 하단 상세 drawer, C는 세로 category spine과 filmstrip rail 및 우측 상세 panel이다. 실제 ko/en 본문과 입력 글자는 raster에 굽지 않고 엔진 TMP safe rect와 keyboard/gamepad glyph slot만 둔다. KO 기본, EN, qps-long 150 percent, 최소 18px, 44x44 focus를 지원한다. 채택된 expedition map right-rail A와 ending comic triptych A의 navy teal cream orange 문법을 계승하되 기존 게임 화면은 복제하지 않는다. actual-size PNG 3개, editable SVG 3개, 1920x1080 review board, localization/accessibility QA board, Forge manifest와 handoff를 로컬 결정론 도구로 만든다. selectedCandidate=null, decision=review, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false. adopt/package/runtime/scene/Addressables 금지.",
+      "request": "18개 이상 엔딩을 일반·코믹·희귀·Day 50로 탐색하고 해금된 컷신을 재생하며 미해금 결과는 실루엣과 비스포일러 힌트로 보여주는 앨범형 UI. 1280×800, 한국어·영어·qps-long, 키보드·마우스·게임패드 포커스를 지원하고 실제 Steam 로고·업적 UI는 사용하지 않는다.",
       "status": "engine_ready",
       "source": "forge-job",
       "tags": [
@@ -4574,13 +4574,13 @@
         "packagedAt": "2026-08-24T13:52:59.990Z"
       },
       "createdAt": "2026-08-23T14:15:54.716Z",
-      "updatedAt": "2026-08-24T13:52:59.995Z"
+      "updatedAt": "2026-08-25T13:46:05.613Z"
     },
     {
       "id": "effect.survival-hazards",
-      "name": "Wave 16 review-only first candidate with stable candidate ID effect.survival-hazards.phase-silhouette-a. Create one edit",
+      "name": "생존 위험·완화 피드백 세트",
       "assetType": "effect",
-      "request": "Wave 16 review-only first candidate with stable candidate ID effect.survival-hazards.phase-silhouette-a. Create one editable Unity 2D source set for hazard.injury, hazard.disaster (heavy rain/storm), and hazard.food-theft. Each hazard must expose telegraph, occurrence, mitigation, and recovery as 12 isolated true-alpha cells. Distinguish phases with silhouette and pattern as well as color: dashed pulse/forecast for telegraph, jagged burst for occurrence, shield/chevron for mitigation, rounded rising leaf/sun for recovery. Comic, non-graphic, no blood, no embedded localized body text. Include transparent SVG/sprite-sheet source, 64/32px readability evidence, 1920x1080 QA board, metadata and handoff. Match adopted expedition map A navy/teal/cream with warm orange accents and existing comedy feedback line weight. ko/en/qps-long are engine text only; reserve 44px focus and keyboard/gamepad glyph slots only where state markers attach to UI. Keep decision=review, selectedCandidate=null, runtime allowlist empty. Do not adopt, package, or runtime-connect.",
+      "request": "부상·질병·폭풍·폭우·높은 파도·야생동물·식량 도난·침수·설비 파손의 예고, 발생, 완화, 회복을 과도한 유혈 없이 읽히게 하는 Unity 2D 효과·오버레이·상태 마커 세트. 코믹한 김씨 반응을 허용하되 위험의 원인과 심각도를 색상 외 형태·움직임으로 구분한다.",
       "status": "engine_ready",
       "source": "forge-job",
       "tags": [
@@ -4736,19 +4736,22 @@
         "packagedAt": "2026-08-24T12:56:53.114Z"
       },
       "createdAt": "2026-08-23T14:15:54.723Z",
-      "updatedAt": "2026-08-24T12:56:53.115Z"
+      "updatedAt": "2026-08-25T13:46:05.622Z"
     },
     {
       "id": "environment.expedition-region-kit",
-      "name": "수집 지역 레이어 환경 키트",
+      "name": "7지역 지속 수색 환경 키트",
       "assetType": "separated_parts",
-      "request": "Wave 19 review-only 안정 후보 environment.expedition-region-kit.layered-props-a. Unity 2D 횡스크롤 수집 맵의 flat color를 교체·보강하는 true-alpha 분리 파츠 atlas. 1536x1024, 정확한 3열x2행 512x512 셀, 셀 침범 없음. 열은 해변, 얕은 숲, 얕은 바다 순서. 윗행은 캐릭터 뒤에 놓는 낮은 중경 클러스터: 해변의 낮은 모래둔덕·조개·드문 풀, 숲의 양치식물·낮은 뿌리·잎층, 바다의 낮은 먼 암초·수면 잔물결. 아랫행은 화면 가장자리에만 쓰는 전경/접촉 클러스터: 작은 유목·모래풀, 큰 잎과 작은 바위, true-alpha 포말 띠·수초·잠긴 돌. 각 셀의 요소는 bottom-center pivot, 사방 투명 여백, 긴 횡스크롤에서 반복·좌우 반전 배치 가능한 비대칭이 약한 실루엣을 가진다. 채택된 gameplay-band-contrast의 따뜻한 황금 모래, 짙은 올리브 숲, 밝은 청록 얕은 물, 굵은 어두운 외곽선을 계승한다. 김씨·사람·동물·채집 자원·수집 노드·아이콘·덩굴 장벽·통나무 장벽·충돌 지면·건물·UI·글자·라벨·체커보드·프레임·셀선·워터마크·불투명 배경은 금지한다. 바다 셀도 사각 물 배경이 아니라 독립 포말·잔물결·수초 파츠만 제공한다. 배경 장식과 실제 이동/충돌 영역은 완전히 분리하고 사용자 승인 전 review, package/runtime 연결 금지.",
+      "request": "기존 review-only 3지역 환경 키트를 채택 없이 보존하면서 게임잼의 시작 해변, 맹그로브 얕은물, 밀림 숲, 바위 절벽, 섬 동굴, 난파선 만, 폐기상 관측소 최소 7지역으로 확장 가능한 Unity 2D 횡스크롤 레이어·파츠 규격을 준비한다. 각 지역은 고유 중경·전경·위험 실루엣을 가지며 채집 전·고갈, 장벽 차단·제거, 벌레·야생동물·위험 식물의 활성·제거 상태를 엔진 오브젝트로 분리한다. 배경 장식과 실제 자원·위험·충돌은 합쳐 굽지 않고 true-alpha, bottom-center pivot과 1280x800 안전영역을 유지한다. 기존 후보나 새 후보는 사용자 채택 전 package·runtime 연결하지 않는다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
         "wave19",
         "review-only",
-        "layered-side-scroller"
+        "layered-side-scroller",
+        "gamejam",
+        "seven-regions",
+        "persistent-state"
       ],
       "dependencies": [
         "background.coast-forest"
@@ -4939,7 +4942,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-24T15:24:58.822Z",
-      "updatedAt": "2026-08-24T15:37:37.506Z"
+      "updatedAt": "2026-08-25T13:46:05.633Z"
     }
   ]
 }

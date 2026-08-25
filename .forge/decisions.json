@@ -371,7 +371,42 @@
       "rationale": "언어 표본 오염과 미구현 Steamworks·앨범 기능의 허위 PASS를 방지한다.",
       "source": "wave19-resource-playtest-contract",
       "createdAt": "2026-08-24T15:31:50.790Z"
+    },
+    {
+      "id": "decision.gamejam.minimum-seven-persistent-regions",
+      "summary": "게임잼 수색 지역은 최소 7개이며 같은 run에서 자원·장벽·핵심 부품·영구 위험 상태를 재방문까지 보존한다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:36:42.251Z"
+    },
+    {
+      "id": "decision.gamejam.radio-scattered-protected-parts",
+      "summary": "무전 구조는 망가진 무전기·전자기판·트랜지스터를 서로 다른 지역에서 전부 회수해야 하며 핵심 부품은 폐기·중복 소비되지 않는다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:36:42.251Z"
+    },
+    {
+      "id": "decision.gamejam.smoke-heavy-wood-flint",
+      "summary": "대형 연기 신호는 PROVISIONAL 대량 나무 예산, 부싯돌과 기상 창을 요구해 무전과 다른 수색·소비 계획을 만든다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:36:42.251Z"
+    },
+    {
+      "id": "decision.gamejam.upper-and-basement-both-buildable",
+      "summary": "2층과 지하실은 선택지 중 하나가 아니라 같은 run에서 모두 건설 가능하며 일반 설비를 각 층에 배치할 수 있다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:36:42.251Z"
+    },
+    {
+      "id": "decision.gamejam.long-stay-day20-provisional",
+      "summary": "장기 체류 엔딩 두 개는 우선 Day 20 동일 threshold에서 행동 우세로 나누며 인간 플레이테스트로 Day 15~20 사이를 조정한다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:36:42.251Z"
     }
   ],
-  "updatedAt": "2026-08-24T15:31:50.790Z"
+  "updatedAt": "2026-08-25T13:46:05.433Z"
 }
