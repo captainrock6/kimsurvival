@@ -1,0 +1,6 @@
+icon.gamejam-hazard-part-set.silhouette-a / REVIEW ONLY
+Atlas: 1536x256, six 256x256 cells, pivot 0.5/0.5, PPU 100.
+Use at 48-64 px in the 1280x800 search tray or region warning surface.
+Reuse risk.illness + adopted hazard phase grammar for disease lifecycle; reuse risk.wildlife for wildlife.
+Localized names, counts and actions remain TMP. No raster KO/EN/qps-long body text.
+runtimeAllowlist=[]; packageAllowed=false; runtimeConnectAllowed=false; runtimeConnected=false.

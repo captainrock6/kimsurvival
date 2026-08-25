@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "icon.gamejam-hazard-part-set.silhouette-a",
+  "status": "review",
+  "selectedCandidate": null,
+  "score": 100,
+  "checks": [
+    {
+      "id": "true-alpha",
+      "result": "pass"
+    },
+    {
+      "id": "48-64-readability",
+      "result": "pass",
+      "note": "six identities remain distinct at both requested sizes"
+    },
+    {
+      "id": "non-color-separation",
+      "result": "pass",
+      "note": "wings/antennae, leaf-thorn-spore, jagged spark, broken antenna, corner notch/traces, three legs"
+    },
+    {
+      "id": "non-gory-comic-tone",
+      "result": "pass"
+    },
+    {
+      "id": "raster-localized-text",
+      "result": "pass",
+      "value": "none"
+    },
+    {
+      "id": "external-paid-api",
+      "result": "pass",
+      "value": "none"
+    },
+    {
+      "id": "reuse-before-create",
+      "result": "pass",
+      "value": "illness, wildlife, generic electronics and phase grammar reused"
+    }
+  ],
+  "manualReview": [
+    "confirm radio and circuit-board do not collapse into generic electronics at 48px",
+    "confirm insects and dangerous plants remain distinct in grayscale",
+    "confirm protected-part overlay remains an independent state cue"
+  ],
+  "runtime": {
+    "runtimeAllowlist": [],
+    "runtimeConnectAllowed": false,
+    "packageAllowed": false
+  }
+}
