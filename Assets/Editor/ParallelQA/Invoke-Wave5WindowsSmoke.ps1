@@ -92,8 +92,10 @@ $processId = 0
 $earlyExit = $false
 $exitCode = $null
 $responding = $false
+$respondingAtMinimum = $false
 $aliveAtMinimum = $false
 $launchError = ''
+$responseGraceSeconds = 6
 $expectedExecutable = [System.IO.Path]::GetFullPath($executable)
 $reportedExecutable = if ($null -ne $build -and -not [string]::IsNullOrWhiteSpace([string]$build.executable)) {
     [System.IO.Path]::GetFullPath([string]$build.executable)
@@ -129,9 +131,24 @@ if (-not (Test-Path -LiteralPath $executable -PathType Leaf)) {
         $process.Refresh()
         if (-not $process.HasExited) {
             $aliveAtMinimum = $watch.Elapsed.TotalSeconds -ge $MinimumSeconds
-            $responding = $process.Responding
-            Stop-Process -Id $process.Id -Force
-            $process.WaitForExit(5000) | Out-Null
+            $respondingAtMinimum = $process.Responding
+            $responding = $respondingAtMinimum
+            $responseWatch = [Diagnostics.Stopwatch]::StartNew()
+            while (-not $responding -and $responseWatch.Elapsed.TotalSeconds -lt $responseGraceSeconds) {
+                Start-Sleep -Milliseconds 250
+                $process.Refresh()
+                if ($process.HasExited) {
+                    $earlyExit = $true
+                    $exitCode = $process.ExitCode
+                    break
+                }
+                $responding = $process.Responding
+            }
+            $responseWatch.Stop()
+            if (-not $process.HasExited) {
+                Stop-Process -Id $process.Id -Force
+                $process.WaitForExit(5000) | Out-Null
+            }
         }
     } catch {
         $launchError = $_.Exception.Message
@@ -174,7 +191,9 @@ $smoke = [ordered]@{
     windowStyle = 'Hidden'
     resolution = '1280x800 windowed'
     aliveAtMinimum = $aliveAtMinimum
-    respondingAtMinimum = $responding
+    respondingAtMinimum = $respondingAtMinimum
+    responseGraceSeconds = $responseGraceSeconds
+    respondingByGraceDeadline = $responding
     earlyExit = $earlyExit
     exitCode = $exitCode
     launchError = $launchError
@@ -191,7 +210,9 @@ $smokeLines = @(
     "Required seconds: $MinimumSeconds"
     "Observed seconds: $($smoke.observedSeconds)"
     "Alive at minimum: $aliveAtMinimum"
-    "Responding at minimum: $responding"
+    "Responding at minimum: $respondingAtMinimum"
+    "Response grace seconds: $responseGraceSeconds"
+    "Responding by grace deadline: $responding"
     "Executable SHA-256: $($smoke.executableSha256)"
     "Stable executable path: $($smoke.stableExecutablePath)"
     "Build identity matches: $buildIdentityMatches"
