@@ -1,0 +1,148 @@
+{
+  "result": "review",
+  "candidateId": "environment.expedition-region-kit.layered-props-a",
+  "lowAlphaHaloRemoved": true,
+  "atlas": {
+    "width": 1536,
+    "height": 1024,
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentPixels": 1021152,
+    "opaquePixels": 516150,
+    "partialAlphaPixels": 35562,
+    "transparentRatio": 0.649231,
+    "contentBounds": [
+      15,
+      49,
+      1518,
+      983
+    ],
+    "edgeTouch": false
+  },
+  "parts": {
+    "region-beach-midground": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 147047,
+      "opaquePixels": 109450,
+      "partialAlphaPixels": 5647,
+      "transparentRatio": 0.56094,
+      "contentBounds": [
+        18,
+        33,
+        493,
+        496
+      ],
+      "edgeTouch": false
+    },
+    "region-forest-midground": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 143199,
+      "opaquePixels": 104101,
+      "partialAlphaPixels": 14844,
+      "transparentRatio": 0.546261,
+      "contentBounds": [
+        16,
+        145,
+        496,
+        496
+      ],
+      "edgeTouch": false
+    },
+    "region-shallow-sea-midground": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 213453,
+      "opaquePixels": 42600,
+      "partialAlphaPixels": 6091,
+      "transparentRatio": 0.814259,
+      "contentBounds": [
+        24,
+        239,
+        487,
+        496
+      ],
+      "edgeTouch": false
+    },
+    "region-beach-foreground": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 181765,
+      "opaquePixels": 65137,
+      "partialAlphaPixels": 15242,
+      "transparentRatio": 0.693378,
+      "contentBounds": [
+        16,
+        33,
+        496,
+        496
+      ],
+      "edgeTouch": false
+    },
+    "region-forest-foreground": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 152776,
+      "opaquePixels": 99183,
+      "partialAlphaPixels": 10185,
+      "transparentRatio": 0.582794,
+      "contentBounds": [
+        16,
+        51,
+        496,
+        496
+      ],
+      "edgeTouch": false
+    },
+    "region-shallow-sea-foreground": {
+      "width": 512,
+      "height": 512,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 189670,
+      "opaquePixels": 68467,
+      "partialAlphaPixels": 4007,
+      "transparentRatio": 0.723534,
+      "contentBounds": [
+        21,
+        29,
+        491,
+        496
+      ],
+      "edgeTouch": false
+    }
+  },
+  "allPartsTrueAlpha": true,
+  "edgeTouchWarnings": [],
+  "manualReview": [
+    "beach, forest and shallow-sea silhouettes distinct",
+    "props separated from collision and nodes",
+    "actual long-loop tiling remains an engine review"
+  ],
+  "externalApiCalled": false
+}

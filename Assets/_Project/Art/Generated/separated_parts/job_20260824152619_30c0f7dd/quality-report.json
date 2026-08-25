@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 11,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "expedition-region-layered-props-a-atlas.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.7098,
+      "contrastStdDev": 51.16,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 15,
+        "top": 49,
+        "right": 18,
+        "bottom": 41
+      },
+      "previewFile": "qa-preview-expedition-region-layered-props-a-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "region-beach-midground.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6021,
+      "contrastStdDev": 58.37,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 18,
+        "top": 33,
+        "right": 19,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-region-beach-midground.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "region-forest-midground.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6045,
+      "contrastStdDev": 41.67,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 16,
+        "top": 145,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-region-forest-midground.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "region-shallow-sea-midground.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.8493,
+      "contrastStdDev": 51.3,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 24,
+        "top": 239,
+        "right": 25,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-region-shallow-sea-midground.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "region-beach-foreground.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.7566,
+      "contrastStdDev": 59.83,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 16,
+        "top": 33,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-region-beach-foreground.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "region-forest-foreground.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6227,
+      "contrastStdDev": 42.47,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 16,
+        "top": 51,
+        "right": 16,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-region-forest-foreground.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "region-shallow-sea-foreground.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.7471,
+      "contrastStdDev": 60.05,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 21,
+        "top": 29,
+        "right": 21,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-region-shallow-sea-foreground.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-region-actual-size-review-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1012,
+      "contrastStdDev": 56.88,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 15,
+        "bottom": 15
+      },
+      "previewFile": "qa-preview-expedition-region-actual-size-review-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "expedition-region-kit-manifest.json",
+      "kind": "editable-source",
+      "bytes": 2830,
+      "issues": []
+    },
+    {
+      "fileName": "expedition-region-kit-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 3183,
+      "issues": []
+    },
+    {
+      "fileName": "expedition-region-kit-handoff.txt",
+      "kind": "file",
+      "bytes": 679,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-24T15:37:37.436Z",
+  "jobId": "job_20260824152619_30c0f7dd",
+  "assetType": "separated_parts"
+}
