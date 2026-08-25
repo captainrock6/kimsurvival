@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 20 independent raft escape RED-first regression gate",
+  "runId": "20260826T053000Z_gamejam_search_node_integrated_green",
+  "baselineCommit": "078661e653851802aa97d86fd691337411ac345c",
+  "startedUtc": "2026-08-25T16:58:03.0309066Z",
+  "completedUtc": "2026-08-25T17:01:42.5758112Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe"
+  },
+  "overall": "FAIL",
+  "productOverall": "PASS",
+  "infrastructureOverall": "FAIL",
+  "wave18GreenLock": {
+    "total": 23,
+    "passed": 22,
+    "failed": 1
+  },
+  "legacySupersession": {
+    "accepted": false,
+    "raftDataOnlyLock": "SUPERSEDED_BY_PLAYABLE_WAVE20",
+    "removedWorldBadgeLayoutLock": "NOT_SUPERSEDED",
+    "ids": [
+      "W17-E03.raft_flare_beacon_data_only",
+      "W14-QPS-01.hud_day_status",
+      "W14-QPS-02.hud_resources",
+      "W14-QPS-03.language_button",
+      "W14-QPS-04.bottom_help",
+      "W14-QPS-05.world_entrance",
+      "W14-QPS-06.world_required_path",
+      "W14-QPS-07.world_signal_anchor",
+      "W14-QPS-08.placement_status",
+      "W14-QPS-09.world_expansion_planning",
+      "W14-QPS-10.world_general_floor"
+    ]
+  },
+  "wave19GreenLock": {
+    "passed": 21,
+    "total": 21,
+    "failed": 0
+  },
+  "wave20": {
+    "passed": 16,
+    "expectedGaps": 0,
+    "failed": 0,
+    "passIds": [
+      "W20-E01.raft_canonical_data",
+      "W20-E02.playable_three_stage_transition",
+      "W20-E03.atomic_save_window_contract",
+      "W20-E04.ko_en_qps_localization_surface",
+      "W20-E05.raft_ending_album_data_lock",
+      "W20-P01.shore_launch_proximity_popup",
+      "W20-P02.hull_sail_supplies_stages",
+      "W20-P03.weather_current_launch_window",
+      "W20-P04.failure_cancel_atomicity",
+      "W20-P05.duplicate_cost_terminal_zero",
+      "W20-P06.early_escape_priority",
+      "W20-P07.save_restore_progress",
+      "W20-P08.ending_album_unlock_once",
+      "W20-P09.natural_trace_no_cheats",
+      "W20-P10.ko_en_qps_1280_layout",
+      "W20-P11.keyboard_mouse_synthetic_gamepad_parity"
+    ],
+    "expectedGapIds": [],
+    "failureIds": [],
+    "unverified": 1,
+    "notReady": 1
+  },
+  "greenLocks": {
+    "compile": "PASS 0/0",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS 6.198s",
+    "addressables": "PASS",
+    "firewallInboundBlock": "PASS",
+    "rawPlayerLog": "PASS_QUARANTINED"
+  },
+  "greenTransitionConditions": [
+    "facility.shore-launch is an actual proximity target with far=0, near=1, compact prompt, popup, and cancel restore",
+    "escape.raft naturally completes ordered hull/sail/voyage-supplies with protected part.raft.sailcloth",
+    "weather/current allow+reject window and atomic/idempotent cost/failure/cancel/terminal contracts pass",
+    "save/restore and ending.escape.raft.open-water album unlock exactly once pass",
+    "grant=false, warp=false, skip=false are observed on a real Play interaction trace",
+    "ko/en/qps-long near/popup captures are 1280x800 with overflow/offscreen zero and prompt <=512x50",
+    "keyboard/mouse and synthetic gamepad target/action semantics match",
+    "fresh Wave 19 21/21 plus current Wave 20 contracts pass; legacy raft-data-only and removed-world-badge locks are explicitly superseded; compile/build/smoke/Addressables/firewall remain PASS"
+  ],
+  "infrastructureFailures": [
+    "Wave 19 prerequisite exited 1",
+    "fresh Wave 19 prerequisite is missing or not GREEN/PASS",
+    "Wave 18 GREEN lock is not exactly 23/23 PASS"
+  ],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave20RaftRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '078661e653851802aa97d86fd691337411ac345c' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "fresh-wave19-green-prerequisite",
+      "startedUtc": "2026-08-25T16:58:03.0468639Z",
+      "completedUtc": "2026-08-25T17:01:24.4803116Z",
+      "exitCode": 1,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave19ResourceConnectionGate.ps1\" -RunId 20260826T053000Z_gamejam_search_node_integrated_green -BaselineCommit 078661e653851802aa97d86fd691337411ac345c -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave20-wave19-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave20-wave19-stderr.log"
+    },
+    {
+      "name": "wave20-edit-raft-contracts",
+      "startedUtc": "2026-08-25T17:01:24.4905361Z",
+      "completedUtc": "2026-08-25T17:01:31.8927300Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave20RaftRedFirstGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\unity-wave20_edit_raft_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave20_edit_raft_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave20_edit_raft_contracts-stderr.log"
+    },
+    {
+      "name": "wave20-play-raft-contracts",
+      "startedUtc": "2026-08-25T17:01:31.9058944Z",
+      "completedUtc": "2026-08-25T17:01:42.5092799Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave20RaftRedFirstGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\unity-wave20_play_raft_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave20_play_raft_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave20_play_raft_contracts-stderr.log"
+    }
+  ],
+  "exitCode": 1
+}

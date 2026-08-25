@@ -5650,7 +5650,7 @@
       "name": "수색 지역 영구 변화",
       "description": "같은 run에서 지역별 유한 자원, 채집 노드, 돌도끼 장벽, 핵심 부품, 제거형 위험과 방문 횟수를 안정 ID로 저장해 재방문 월드에 복원한다.",
       "priority": "critical",
-      "status": "planned",
+      "status": "implemented",
       "dependencies": [
         "feature.island-exploration",
         "feature.resource-randomization"
@@ -5675,7 +5675,7 @@
       "name": "환경 수색 오브젝트·발견물 선별",
       "description": "풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함과 폐시설 캐비닛을 직접 뒤져 숨겨진 유한 물품을 공개하고 가방에 담을 것과 남길 것을 고른다.",
       "priority": "critical",
-      "status": "planned",
+      "status": "implemented",
       "dependencies": [
         "feature.island-exploration",
         "feature.inventory-choice",
@@ -5706,7 +5706,7 @@
       "name": "뗏목 제작·해안 진수 탈출",
       "description": "김씨가 해안 진수대에 접근해 선체, 보호 돛천을 사용한 돛, 항해 보급을 단계별로 완성하고 날씨·조류 창을 확인해 조기 탈출한다.",
       "priority": "critical",
-      "status": "planned",
+      "status": "implemented",
       "dependencies": [
         "feature.escape-outcome",
         "feature.camp-object-interaction",
@@ -7261,5 +7261,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-25T16:20:57.894Z"
+  "updatedAt": "2026-08-26T05:30:00.000Z"
 }

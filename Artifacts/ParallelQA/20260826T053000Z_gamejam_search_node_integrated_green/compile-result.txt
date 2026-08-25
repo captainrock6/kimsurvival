@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260826T053000Z_gamejam_search_node_integrated_green
+Started UTC: 2026-08-25T16:58:18.7970505Z
+Completed UTC: 2026-08-25T16:58:18.8231919Z
+Unity: 6000.4.9f1
+Baseline commit: 078661e653851802aa97d86fd691337411ac345c
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260826T053000Z_gamejam_search_node_integrated_green\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260826T053000Z_gamejam_search_node_integrated_green\unity-compile.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

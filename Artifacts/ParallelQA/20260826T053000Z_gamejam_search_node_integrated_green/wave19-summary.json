@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 19 independent resource connection visual regression gate",
+  "runId": "20260826T053000Z_gamejam_search_node_integrated_green",
+  "baselineCommit": "078661e653851802aa97d86fd691337411ac345c",
+  "startedUtc": "2026-08-25T16:58:03.4844528Z",
+  "completedUtc": "2026-08-25T17:01:24.4267088Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe"
+  },
+  "overall": "FAIL",
+  "productOverall": "PASS",
+  "infrastructureOverall": "FAIL",
+  "wave18GreenLock": {
+    "total": 23,
+    "passed": 22,
+    "failed": 1
+  },
+  "wave19": {
+    "passed": 21,
+    "failed": 0,
+    "failureIds": [],
+    "unverified": 1,
+    "notReady": 1,
+    "layoutObservations": 12
+  },
+  "greenLocks": {
+    "compile": "PASS 0/0",
+    "qpsLong": "0/10",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS 6.198s",
+    "addressables": "PASS",
+    "firewallInboundBlock": "PASS",
+    "rawPlayerLog": "PASS_QUARANTINED"
+  },
+  "stableWindowsBuild": {
+    "executable": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d"
+  },
+  "infrastructureFailures": [
+    "Wave 17 prerequisite exited 1",
+    "fresh Wave 17 prerequisite is missing or not GREEN/PASS",
+    "current Wave 18 GREEN matrix is not exactly 23/23 PASS; observed=23",
+    "qps-long global layout lock is not 10/10 PASS"
+  ],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave19ResourceConnectionGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '078661e653851802aa97d86fd691337411ac345c' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "fresh-wave17-green-prerequisite",
+      "startedUtc": "2026-08-25T16:58:03.5010921Z",
+      "completedUtc": "2026-08-25T17:00:38.0673034Z",
+      "exitCode": 1,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave17PacingHazardGate.ps1\" -RunId 20260826T053000Z_gamejam_search_node_integrated_green -BaselineCommit 078661e653851802aa97d86fd691337411ac345c -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave19-wave17-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave19-wave17-stderr.log"
+    },
+    {
+      "name": "wave18-edit-green-lock",
+      "startedUtc": "2026-08-25T17:00:38.0904496Z",
+      "completedUtc": "2026-08-25T17:00:45.5498165Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave18GreenTransitionHardeningRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\unity-wave18_edit_green_lock.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave18_edit_green_lock-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave18_edit_green_lock-stderr.log"
+    },
+    {
+      "name": "wave18-play-green-lock",
+      "startedUtc": "2026-08-25T17:00:45.5529571Z",
+      "completedUtc": "2026-08-25T17:00:56.1661425Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave18GreenTransitionHardeningRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\unity-wave18_play_green_lock.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave18_play_green_lock-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave18_play_green_lock-stderr.log"
+    },
+    {
+      "name": "wave19-edit-resource-contracts",
+      "startedUtc": "2026-08-25T17:00:56.1672479Z",
+      "completedUtc": "2026-08-25T17:01:03.5564183Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave19ResourceConnectionGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\unity-wave19_edit_resource_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave19_edit_resource_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave19_edit_resource_contracts-stderr.log"
+    },
+    {
+      "name": "wave19-play-resource-contracts",
+      "startedUtc": "2026-08-25T17:01:03.5571308Z",
+      "completedUtc": "2026-08-25T17:01:20.2082532Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave19ResourceConnectionGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\unity-wave19_play_resource_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave19_play_resource_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260826T053000Z_gamejam_search_node_integrated_green\\wave19_play_resource_contracts-stderr.log"
+    }
+  ],
+  "exitCode": 1
+}

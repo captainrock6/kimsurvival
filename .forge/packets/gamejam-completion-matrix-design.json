@@ -13,7 +13,8 @@
         ".forge/design/vertical-slice.json",
         ".forge/design/project.json#project.sevenRegionSearchNodeContract"
       ],
-      "integratedEvidenceRoot": "Artifacts/ParallelQA/20260825T160510Z_gamejam_search_node_integrated",
+      "integratedEvidenceRoot": "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green",
+      "currentIntegratedCommit": "078661e653851802aa97d86fd691337411ac345c",
       "evidencePrecedence": [
         "current_integrated_probe",
         "same_build_observation",
@@ -27,17 +28,27 @@
         "MISSING": "The live player path or structured observable required for submission is absent.",
         "HUMAN_REQUIRED": "Automatable acceptance is green and only a human or physical-device result remains."
       },
-      "submissionVerdict": "MISSING",
+      "submissionVerdict": "PARTIAL",
       "submissionBlockerIds": [
-        "gamejam.req.search-node-live",
-        "gamejam.req.loot-selection-atomicity",
-        "gamejam.req.finite-revisit-persistence"
+        "gamejam.req.seven-regions",
+        "gamejam.req.disease-lifecycle",
+        "gamejam.req.bag-four-to-six",
+        "gamejam.req.upper-and-basement",
+        "gamejam.req.escape-raft",
+        "gamejam.req.escape-smoke",
+        "gamejam.req.escape-radio",
+        "gamejam.req.thirty-minute-profile",
+        "gamejam.req.ko-en-qps",
+        "gamejam.req.input-semantic-parity",
+        "gamejam.req.physical-gamepad",
+        "gamejam.req.ending-comic-panels",
+        "gamejam.req.first-user-cohort"
       ],
       "summary": {
         "requirementCount": 23,
-        "DONE": 5,
-        "PARTIAL": 12,
-        "MISSING": 3,
+        "DONE": 10,
+        "PARTIAL": 10,
+        "MISSING": 0,
         "HUMAN_REQUIRED": 3
       },
       "requirements": [
@@ -81,44 +92,44 @@
           "label": "Seven stable-ID regions",
           "status": "PARTIAL",
           "evidence": ["gamejam-search-node-edit-observation-evidence.json#regionIds", "gamejam-search-node-edit-observation-evidence.json#nodeCatalogCount"],
-          "gap": "Seven region IDs exist but nodeCatalogCount is zero.",
-          "nextWave": "gamejam.wave.a-search-spine",
+          "gap": "The integrated catalog exposes seven stable regions and 28 finite live nodes, but the frozen provisional contract still requires 21 archetypes, 42 instances and 144 general units.",
+          "nextWave": "gamejam.wave.b-seven-region-persistence",
           "closeCondition": "Load 7 regions, 21 archetypes, 42 node instances and 144 finite general units from one catalog."
         },
         {
           "id": "gamejam.req.search-node-live",
           "label": "Live environmental search object and loot tray",
-          "status": "MISSING",
+          "status": "DONE",
           "evidence": ["gamejam-search-node-summary.json#searchNode", "gamejam-search-node-play-observation-evidence.json"],
-          "gap": "No live scene component or tray is observed.",
-          "nextWave": "gamejam.wave.a-search-spine",
+          "result": "Actual Scene node approach, compact prompt, tray, cancel and field return pass without grant, warp or skip.",
+          "completedWave": "gamejam.wave.a-search-spine",
           "closeCondition": "Observe node approach, compact prompt, search commit, tray and field return in the actual scene."
         },
         {
           "id": "gamejam.req.loot-selection-atomicity",
           "label": "Hidden loot, take, leave, swap and atomic bag transaction",
-          "status": "MISSING",
+          "status": "DONE",
           "evidence": ["gamejam-search-node-play-observation-evidence.json"],
-          "gap": "All live hidden/partial/depleted and take/leave/replace probes are false.",
-          "nextWave": "gamejam.wave.a-search-spine",
+          "result": "Hidden, partial and depleted states plus take, leave, replace and cancel conserve totals and roll back atomically.",
+          "completedWave": "gamejam.wave.a-search-spine",
           "closeCondition": "Conserve items for four/six slots and stack two; roll back node, bag and cost together on rejection or cancel."
         },
         {
           "id": "gamejam.req.finite-revisit-persistence",
           "label": "Finite resources, partial remainder, depletion and revisit persistence",
-          "status": "MISSING",
+          "status": "DONE",
           "evidence": ["gamejam-search-node-summary.json#GSN-P02", "gamejam-search-node-summary.json#GSN-P03", "gamejam-search-node-summary.json#GSN-P06"],
-          "gap": "Schema types exist but no live snapshot restoration is observed.",
-          "nextWave": "gamejam.wave.b-seven-region-persistence",
+          "result": "Hidden, partial, depleted and known remainder restore across cancel, transition, revisit and snapshot serialization.",
+          "completedWave": "gamejam.wave.b-seven-region-persistence",
           "closeCondition": "Restore hidden, partial, depleted and known remainder across return, forced return, revisit and save/load."
         },
         {
           "id": "gamejam.req.barrier-hazard-persistence",
           "label": "Broken barrier and removed hazard persistence",
-          "status": "PARTIAL",
+          "status": "DONE",
           "evidence": ["gamejam-search-node-play-observation-evidence.json"],
-          "gap": "Base barrier/hazard systems exist but current region-persistence probes are false.",
-          "nextWave": "gamejam.wave.b-seven-region-persistence",
+          "result": "Run snapshots persist broken barriers and declared permanent removed hazards and reset on a new seeded run.",
+          "completedWave": "gamejam.wave.b-seven-region-persistence",
           "closeCondition": "Persist broken barriers and only declared persistent removed hazards for the run; reset on new game."
         },
         {
@@ -153,7 +164,7 @@
           "label": "Raft escape",
           "status": "PARTIAL",
           "evidence": ["wave20-summary.json", "gamejam-search-node-summary.json#GSN-E05", "gamejam-search-node-summary.json#GSN-P05"],
-          "gap": "Raft 16/16 passes, but sailcloth is not acquired from a live protected search node.",
+          "gap": "Protected sailcloth resolves from eligible live nodes and the ordered shore-launch route remains 16/16 GREEN, but one combined no-grant node-to-ending trace is still absent.",
           "nextWave": "gamejam.wave.c-three-escape-integration",
           "closeCondition": "Natural node sailcloth to protected inventory to ordered raft stages to weather window to ending."
         },
@@ -189,8 +200,8 @@
           "label": "Korean source, English support and qps-long QA",
           "status": "PARTIAL",
           "evidence": ["gamejam-search-node-edit-observation-evidence.json", "gamejam-search-node-summary.json#GSN-E04", "gamejam-search-node-summary.json#GSN-P08"],
-          "gap": "General surfaces exist, but search tokens replace, remaining, cost and risk are missing.",
-          "nextWave": "gamejam.wave.a-search-spine",
+          "gap": "Search semantics and compact-tray layouts now pass in ko, en and qps-long, while disease, smoke, radio and final multi-panel ending surfaces still lack one same-build coverage set.",
+          "nextWave": "gamejam.wave.c-three-escape-integration",
           "closeCondition": "Equal KO/EN meaning and zero required-action clipping at 1280x800 under qps-long."
         },
         {
@@ -198,8 +209,8 @@
           "label": "Keyboard/mouse and synthetic gamepad semantic parity",
           "status": "PARTIAL",
           "evidence": ["gamejam-search-node-summary.json#GSN-P09"],
-          "gap": "Base dual-input exists, but live search tray parity cannot be observed.",
-          "nextWave": "gamejam.wave.a-search-spine",
+          "gap": "Live search node/action/focus semantics now match, but the same stable-action proof still has to include natural smoke, radio and final ending navigation.",
+          "nextWave": "gamejam.wave.c-three-escape-integration",
           "closeCondition": "Equal stable action and result codes for search, bag swap, three escapes and ending."
         },
         {
@@ -223,9 +234,9 @@
         {
           "id": "gamejam.req.search-node-runtime-art",
           "label": "Runtime adoption of search-node visual resources",
-          "status": "PARTIAL",
+          "status": "DONE",
           "evidence": ["wave19-summary.json#W19-P02"],
-          "gap": "Wave 19 is 20/21; resource node adopted icons are its only product failure.",
+          "result": "Wave 19 is 21/21 and the existing adopted Wood, Stone, Food and Salvage GUIDs render in the live compact tray; new review candidates remain unadopted.",
           "externalOwner": "art-director",
           "closeCondition": "Adopted source GUID is wired to runtime node/tray and passes the current gate; this design task does not change art status."
         },
@@ -362,15 +373,15 @@
       "acceptanceCriteria": [
         "통합 GDD와 vertical slice의 제출 요구를 23개 stable requirement ID로 분해하고 네 상태 외 값을 사용하지 않는다.",
         "7지역, live 수색 node, 유한 자원·재방문, 장벽·위험, 질병, 가방 4→6, 위층·지하, raft/smoke/radio, 30분 profile, KO/EN, gamepad와 ending comic을 모두 판정한다.",
-        "20260825T160510Z 통합 증거의 GSN 0/15 실패, Wave 19 20/21, Wave 20 product 16/16, Wave 16 panels=0을 현재 판정에 반영한다.",
-        "다음 구현은 live 수색 골격, 7지역 지속 world, 보호 부품·3탈출·30분 ending 통합 순이며 기존 task ID를 재사용한다.",
+        "20260825T160510Z의 GSN 0/15 역사적 RED와 20260826T053000Z의 GSN 15/15, Wave 19 21/21, Wave 20 16/16 GREEN을 함께 보존한다.",
+        "live 수색 골격과 기본 지역 persistence는 GREEN이다. 다음 구현은 7/21/42/144 표본, 질병, 위층+지하, 세 탈출·30분 ending 통합 순이며 기존 task ID를 재사용한다.",
         "인간 6세션과 물리 gamepad는 UNRUN/UNVERIFIED를 유지하고 자동화 GREEN 뒤에만 실행한다."
       ],
       "status": "done",
       "evidence": [
         "Docs/Design/gamejam-completion-matrix.md",
         ".forge/packets/gamejam-completion-matrix-design.json",
-        "Artifacts/ParallelQA/20260825T160510Z_gamejam_search_node_integrated/gamejam-search-node-summary.json"
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
       ]
     }
   ],

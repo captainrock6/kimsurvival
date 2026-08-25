@@ -2548,10 +2548,14 @@
         "새 run 초기화는 모든 지역 snapshot을 새 seed 기준으로 교체한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T13:36:42.419Z"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "Integrated GREEN proved finite region snapshots, node remainders, broken barriers, permanent hazard removal and new-run seed reset contracts.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.feature.feature.region-persistence",
@@ -2577,9 +2581,14 @@
         "새 run은 모든 지역 상태를 seed에 맞게 초기화하고 이전 run 상태와 섞이지 않는다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "Integrated GREEN proved finite node, barrier and permanent-hazard state across transition, revisit and snapshot restore.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.region-persistence",
@@ -2600,9 +2609,14 @@
         "새 run은 모든 지역 상태를 seed에 맞게 초기화하고 이전 run 상태와 섞이지 않는다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "GSN-E03, GSN-P02, GSN-P03 and GSN-P06 passed on the integrated runtime.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.seven-region-catalog",
@@ -2625,10 +2639,14 @@
         "잠긴 지역도 지도에서 위치와 우선 해금 이유를 확인할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T13:46:05.434Z"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "Integrated catalog exposed exactly seven stable regions with finite structured environmental nodes and deterministic contents.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.persistent-region-runtime",
@@ -2652,9 +2670,14 @@
         "새 run은 이전 지역 snapshot과 섞이지 않고 새 seed로 초기화된다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "Integrated GREEN proved finite node stock, stable visit state, barriers, protected parts and permanent hazard removal without revisit regeneration.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.smoke-radio-material-routes",
@@ -2796,10 +2819,14 @@
         "고갈 node, 가방 부족, 장비 부족과 취소는 ko/en 이유 코드와 입력 장치에 무관한 동일 결과를 낸다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T13:55:37.810Z"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "Integrated GREEN passed deterministic contents, hidden/partial/depleted lifecycle, atomic bag transactions, one-time costs and protected-part routing.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.feature.feature.searchable-resource-nodes",
@@ -2832,9 +2859,14 @@
         "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "Actual Scene traversal, compact loot tray, take/leave/swap/cancel, persistence, localization and dual-input contracts passed without grant, warp or skip.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.searchable-resource-nodes",
@@ -2858,9 +2890,14 @@
         "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
+      "note": "All 15 search-node product checks passed with Wave 19 21/21 and Wave 20 16/16 regression locks.",
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.system.system.raft-escape",
@@ -2928,14 +2965,16 @@
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
       ],
       "evidence": [
-        "Artifacts/ParallelQA/20260825T145418Z_wave20_release_candidate/wave20-summary.json"
+        "Artifacts/ParallelQA/20260825T145418Z_wave20_release_candidate/wave20-summary.json",
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/wave20-summary.json",
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
       ],
       "blockedReason": "",
-      "status": "in_progress",
-      "note": "Playable shore-launch route is GREEN; remains in progress until protected sailcloth is acquired through the forthcoming persistent environmental search-node UI/runtime.",
-      "completedAt": null,
+      "status": "done",
+      "note": "Protected sailcloth now routes from deterministic environmental search nodes into the 16/16 GREEN shore-launch route.",
+      "completedAt": "2026-08-26T05:30:00.000Z",
       "createdAt": "2026-08-25T14:59:52.564Z",
-      "updatedAt": "2026-08-25T14:59:52.564Z"
+      "updatedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.raft-escape",
@@ -2962,14 +3001,16 @@
         "Assets/Editor/ParallelQA/Wave20RaftRedFirstGateRunner.cs"
       ],
       "evidence": [
-        "Artifacts/ParallelQA/20260825T145418Z_wave20_release_candidate/wave20-summary.json"
+        "Artifacts/ParallelQA/20260825T145418Z_wave20_release_candidate/wave20-summary.json",
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/wave20-summary.json",
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
       ],
       "blockedReason": "",
-      "status": "in_progress",
-      "note": "Current raft gate is 16/16 GREEN; re-run after persistent environmental search-node acquisition is connected.",
-      "completedAt": null,
+      "status": "done",
+      "note": "Integrated rerun passed Wave 20 16/16 plus protected sailcloth search-node acquisition and persistence contracts.",
+      "completedAt": "2026-08-26T05:30:00.000Z",
       "createdAt": "2026-08-25T14:59:52.656Z",
-      "updatedAt": "2026-08-25T14:59:52.657Z"
+      "updatedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.design.gamejam-seven-region-search-node-contract",
@@ -4062,8 +4103,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T13:55:37.810Z"
+      "status": "review",
+      "updatedAt": "2026-08-25T17:02:44.025Z",
+      "completedAt": null
     },
     {
       "id": "task.art.ui.search-loot-tray",
@@ -4087,8 +4129,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T13:55:37.810Z"
+      "status": "review",
+      "updatedAt": "2026-08-25T17:02:44.025Z",
+      "completedAt": null
     },
     {
       "id": "task.art.icon.resource-tool-set",
@@ -4369,5 +4412,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-25T16:20:58.144Z"
+  "updatedAt": "2026-08-26T05:30:00.000Z"
 }
