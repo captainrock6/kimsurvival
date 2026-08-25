@@ -137,6 +137,7 @@ namespace KimSurvival
         private const float CurrentTargetHysteresis = 0.08f;
         private const float SelectionPriorityBias = 0.12f;
         private const float DirectionEpsilon = 0.05f;
+        private const float DistanceTieEpsilon = 0.01f;
         private const float ScoreEpsilon = 0.0001f;
 
         private PrototypeCampInteractionTarget activeTarget;
@@ -193,7 +194,8 @@ namespace KimSurvival
             }
 
             PrototypeCampInteractionTarget best = default(PrototypeCampInteractionTarget);
-            float bestScore = float.MaxValue;
+            float bestDistance = float.MaxValue;
+            float bestTieBreakScore = float.MaxValue;
             float normalizedFacing = facingDirection < 0f ? -1f : 1f;
             if (targets != null)
             {
@@ -213,25 +215,150 @@ namespace KimSurvival
 
                     float horizontalOffset = candidate.Position.x - playerPosition.x;
                     bool behind = Mathf.Abs(horizontalOffset) > DirectionEpsilon && Mathf.Sign(horizontalOffset) != normalizedFacing;
-                    float score = distance + (behind ? FacingPenalty : 0f) -
-                                  candidate.SelectionPriority * SelectionPriorityBias;
+                    float tieBreakScore = (behind ? FacingPenalty : 0f) -
+                                          candidate.SelectionPriority * SelectionPriorityBias;
                     if (candidate.Kind == activeTarget.Kind && string.Equals(candidate.Id, activeTarget.Id, StringComparison.Ordinal))
                     {
-                        score -= CurrentTargetHysteresis;
+                        tieBreakScore -= CurrentTargetHysteresis;
                     }
 
-                    bool lowerScore = score < bestScore - ScoreEpsilon;
-                    bool deterministicTie = Mathf.Abs(score - bestScore) <= ScoreEpsilon &&
+                    bool meaningfullyCloser = distance < bestDistance - DistanceTieEpsilon;
+                    bool nearlySameDistance = Mathf.Abs(distance - bestDistance) <= DistanceTieEpsilon;
+                    bool betterTieBreak = nearlySameDistance && tieBreakScore < bestTieBreakScore - ScoreEpsilon;
+                    bool deterministicTie = nearlySameDistance &&
+                                            Mathf.Abs(tieBreakScore - bestTieBreakScore) <= ScoreEpsilon &&
                                             string.CompareOrdinal(candidate.Id, best.Id) < 0;
-                    if (lowerScore || deterministicTie)
+                    if (meaningfullyCloser || betterTieBreak || deterministicTie)
                     {
                         best = candidate;
-                        bestScore = score;
+                        bestDistance = distance;
+                        bestTieBreakScore = tieBreakScore;
                     }
                 }
             }
 
             activeTarget = best;
+        }
+
+        public static bool RunDistanceFirstSelectionProbe()
+        {
+            PrototypeCampInteraction interaction = new PrototypeCampInteraction();
+            List<PrototypeCampInteractionTarget> targets = new List<PrototypeCampInteractionTarget>
+            {
+                new PrototypeCampInteractionTarget(
+                    "slot.start.upper",
+                    PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
+                    new Vector2(-4f, PrototypeCampUse.PlayerFloorY),
+                    true,
+                    1),
+                new PrototypeCampInteractionTarget(
+                    "storage.planning",
+                    PrototypeCampInteractionTargetKind.StoragePlanning,
+                    new Vector2(-3.8f, PrototypeCampUse.PlayerFloorY)),
+                new PrototypeCampInteractionTarget(
+                    "slot.start.basement",
+                    PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
+                    new Vector2(2.5f, PrototypeCampUse.PlayerFloorY),
+                    true,
+                    1),
+                new PrototypeCampInteractionTarget(
+                    "camp.Workbench",
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    new Vector2(1.5f, PrototypeCampUse.PlayerFloorY),
+                    true,
+                    2),
+                new PrototypeCampInteractionTarget(
+                    "camp.expedition-map",
+                    PrototypeCampInteractionTargetKind.ExpeditionMap,
+                    new Vector2(5.25f, PrototypeCampUse.PlayerFloorY))
+            };
+
+            interaction.UpdateSelection(targets[0].Position, 1f, targets);
+            if (interaction.ActiveTargetId != targets[0].Id)
+            {
+                return false;
+            }
+            interaction.UpdateSelection(targets[1].Position, 1f, targets);
+            if (interaction.ActiveTargetId != targets[1].Id)
+            {
+                return false;
+            }
+            interaction.UpdateSelection(targets[2].Position, -1f, targets);
+            if (interaction.ActiveTargetId != targets[2].Id)
+            {
+                return false;
+            }
+            interaction.UpdateSelection(targets[3].Position, -1f, targets);
+            if (interaction.ActiveTargetId != targets[3].Id)
+            {
+                return false;
+            }
+            interaction.UpdateSelection(targets[4].Position, -1f, targets);
+            if (interaction.ActiveTargetId != targets[4].Id || !interaction.TryOpenPopup())
+            {
+                return false;
+            }
+            interaction.UpdateSelection(targets[1].Position, -1f, targets);
+            bool popupLatched = interaction.ActiveTargetId == targets[4].Id &&
+                                interaction.OpenPopupTargetId == targets[4].Id;
+            interaction.ClosePopup();
+
+            List<PrototypeCampInteractionTarget> sharedAnchor = new List<PrototypeCampInteractionTarget>
+            {
+                new PrototypeCampInteractionTarget(
+                    "blueprint",
+                    PrototypeCampInteractionTargetKind.StoragePlanning,
+                    Vector2.zero,
+                    true,
+                    0),
+                new PrototypeCampInteractionTarget(
+                    "installed",
+                    PrototypeCampInteractionTargetKind.Workbench,
+                    Vector2.zero,
+                    true,
+                    2)
+            };
+            interaction.Reset();
+            interaction.UpdateSelection(Vector2.zero, 1f, sharedAnchor);
+            bool installedWinsSharedAnchor = interaction.ActiveTargetId == "installed";
+
+            List<PrototypeCampInteractionTarget> stableTie = new List<PrototypeCampInteractionTarget>
+            {
+                new PrototypeCampInteractionTarget(
+                    "zeta",
+                    PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
+                    Vector2.zero),
+                new PrototypeCampInteractionTarget(
+                    "alpha",
+                    PrototypeCampInteractionTargetKind.StoragePlanning,
+                    Vector2.zero)
+            };
+            interaction.Reset();
+            interaction.UpdateSelection(Vector2.zero, 1f, stableTie);
+            bool deterministicTie = interaction.ActiveTargetId == "alpha";
+
+            interaction.Reset();
+            interaction.UpdateSelection(Vector2.zero, 1f, new[] { stableTie[0] });
+            interaction.UpdateSelection(Vector2.zero, 1f, stableTie);
+            bool hysteresisRetainsExactTie = interaction.ActiveTargetId == "zeta";
+
+            List<PrototypeCampInteractionTarget> facingTie = new List<PrototypeCampInteractionTarget>
+            {
+                new PrototypeCampInteractionTarget(
+                    "left",
+                    PrototypeCampInteractionTargetKind.StoragePlanning,
+                    new Vector2(-1f, 0f)),
+                new PrototypeCampInteractionTarget(
+                    "right",
+                    PrototypeCampInteractionTargetKind.ExpeditionMap,
+                    new Vector2(1f, 0f))
+            };
+            interaction.Reset();
+            interaction.UpdateSelection(Vector2.zero, 1f, facingTie);
+            bool facingBreaksDistanceTie = interaction.ActiveTargetId == "right";
+
+            return popupLatched && installedWinsSharedAnchor && deterministicTie &&
+                   hysteresisRetainsExactTie && facingBreaksDistanceTie;
         }
 
         public bool TryOpenPopup()

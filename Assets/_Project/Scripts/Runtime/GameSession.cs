@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KimSurvival
@@ -20,10 +21,10 @@ namespace KimSurvival
 
     public enum ResourceKind
     {
-        Wood,
-        Stone,
-        Food,
-        Salvage
+        Wood = 0,
+        Stone = 1,
+        Food = 2,
+        Salvage = 3
     }
 
     public enum StructureKind
@@ -74,17 +75,55 @@ namespace KimSurvival
     {
         public ResourceKind Kind;
         public int Amount;
+        public string StableResourceId;
 
         public BagStack(ResourceKind kind, int amount)
+            : this(GameSession.StableResourceIdForLegacy(kind), kind, amount)
+        {
+        }
+
+        public BagStack(string stableResourceId, ResourceKind kind, int amount)
         {
             Kind = kind;
             Amount = amount;
+            StableResourceId = string.IsNullOrWhiteSpace(stableResourceId)
+                ? GameSession.StableResourceIdForLegacy(kind)
+                : stableResourceId;
         }
 
         public bool IsEmpty
         {
             get { return Amount <= 0; }
         }
+    }
+
+    [Serializable]
+    public struct StableResourceAmount
+    {
+        public string StableResourceId;
+        public ResourceKind LegacyKind;
+        public int Amount;
+
+        public StableResourceAmount(string stableResourceId, ResourceKind legacyKind, int amount)
+        {
+            StableResourceId = stableResourceId ?? string.Empty;
+            LegacyKind = legacyKind;
+            Amount = amount;
+        }
+    }
+
+    [Serializable]
+    public sealed class GameSessionStableState
+    {
+        public int ActiveBagSlotCount = GameSession.DefaultBagSlotCount;
+        public BagStack[] Bag = Array.Empty<BagStack>();
+        public StableResourceAmount[] Storage = Array.Empty<StableResourceAmount>();
+        public bool HasPendingLoot;
+        public string PendingStableResourceId = string.Empty;
+        public ResourceKind PendingKind;
+        public int PendingAmount;
+        public int Health = 100;
+        public string[] AppliedHealthTransactionIds = Array.Empty<string>();
     }
 
     public sealed class GameSession
@@ -97,16 +136,35 @@ namespace KimSurvival
         public const int BagUpgradeSalvageCost = 1;
         public const int FinalDay = 50;
 
+        private static readonly StableResourceAmount[] StableResourceCatalog =
+        {
+            new StableResourceAmount("resource.wood", ResourceKind.Wood, 0),
+            new StableResourceAmount("resource.salvage", ResourceKind.Salvage, 0),
+            new StableResourceAmount("resource.food", ResourceKind.Food, 0),
+            new StableResourceAmount("resource.fabric", ResourceKind.Salvage, 0),
+            new StableResourceAmount("resource.fiber", ResourceKind.Wood, 0),
+            new StableResourceAmount("resource.medicine", ResourceKind.Food, 0),
+            new StableResourceAmount("resource.stone", ResourceKind.Stone, 0),
+            new StableResourceAmount("resource.metal", ResourceKind.Stone, 0),
+            new StableResourceAmount("resource.wire", ResourceKind.Salvage, 0),
+            new StableResourceAmount("resource.fuel", ResourceKind.Salvage, 0),
+            new StableResourceAmount("resource.chemicals", ResourceKind.Salvage, 0),
+            new StableResourceAmount("resource.electronics", ResourceKind.Salvage, 0)
+        };
+
         private readonly int[] storage = new int[4];
+        private readonly Dictionary<string, int> stableStorage = new Dictionary<string, int>(StringComparer.Ordinal);
         private readonly BagStack[] bag = new BagStack[BagSlotCount];
         private readonly bool[] structures = new bool[3];
         private readonly bool[] researched = new bool[2];
         private readonly bool[] craftedTools = new bool[2];
+        private readonly HashSet<string> appliedHealthTransactionIds = new HashSet<string>(StringComparer.Ordinal);
 
         public int Day { get; private set; }
         public float Hunger { get; private set; }
         public float Energy { get; private set; }
         public float Daylight { get; private set; }
+        public int Health { get; private set; }
         public GamePhase Phase { get; private set; }
         public RunResult Result { get; private set; }
         public bool ExpeditionCompleted { get; private set; }
@@ -115,6 +173,7 @@ namespace KimSurvival
         public int ActiveBagSlotCount { get; private set; }
         public PrototypeLocalizedText LastMessage { get; private set; }
         public ResourceKind? PendingKind { get; private set; }
+        public string PendingStableResourceId { get; private set; }
         public int PendingAmount { get; private set; }
         public int RunSeed { get; private set; }
         public PrototypeExpeditionRegionId? SelectedRegionId { get; private set; }
@@ -146,19 +205,21 @@ namespace KimSurvival
         public void Reset()
         {
             Array.Clear(storage, 0, storage.Length);
+            ResetStableStorage();
             Array.Clear(bag, 0, bag.Length);
             Array.Clear(structures, 0, structures.Length);
             Array.Clear(researched, 0, researched.Length);
             Array.Clear(craftedTools, 0, craftedTools.Length);
 
-            storage[(int)ResourceKind.Wood] = 2;
-            storage[(int)ResourceKind.Stone] = 1;
-            storage[(int)ResourceKind.Food] = 0;
+            AddStableStorage("resource.wood", ResourceKind.Wood, 2);
+            AddStableStorage("resource.stone", ResourceKind.Stone, 1);
 
             Day = 1;
             Hunger = 70f;
             Energy = 100f;
             Daylight = 100f;
+            Health = 100;
+            appliedHealthTransactionIds.Clear();
             Phase = GamePhase.Camp;
             Result = RunResult.None;
             ExpeditionCompleted = false;
@@ -166,6 +227,7 @@ namespace KimSurvival
             SignalStage = 0;
             ActiveBagSlotCount = DefaultBagSlotCount;
             PendingKind = null;
+            PendingStableResourceId = string.Empty;
             PendingAmount = 0;
             SelectedRegionId = null;
             ActiveRegionProfileId = string.Empty;
@@ -183,6 +245,266 @@ namespace KimSurvival
         public int GetStorage(ResourceKind kind)
         {
             return storage[(int)kind];
+        }
+
+        public int GetSpendableLegacyStorage(ResourceKind kind)
+        {
+            return GetStableStorage(StableResourceIdForLegacy(kind));
+        }
+
+        public int GetStableStorage(string stableResourceId)
+        {
+            return !string.IsNullOrWhiteSpace(stableResourceId) &&
+                   stableStorage.TryGetValue(stableResourceId, out int amount)
+                ? amount
+                : 0;
+        }
+
+        public StableResourceAmount[] GetStableStorageEntries()
+        {
+            StableResourceAmount[] entries = new StableResourceAmount[StableResourceCatalog.Length];
+            for (int index = 0; index < StableResourceCatalog.Length; index += 1)
+            {
+                StableResourceAmount definition = StableResourceCatalog[index];
+                entries[index] = new StableResourceAmount(
+                    definition.StableResourceId,
+                    definition.LegacyKind,
+                    GetStableStorage(definition.StableResourceId));
+            }
+            return entries;
+        }
+
+        public bool IsStableStorageSynchronized()
+        {
+            if (stableStorage.Count != StableResourceCatalog.Length)
+            {
+                return false;
+            }
+
+            long[] stableTotals = new long[storage.Length];
+            foreach (StableResourceAmount definition in StableResourceCatalog)
+            {
+                if (!stableStorage.TryGetValue(definition.StableResourceId, out int amount) || amount < 0)
+                {
+                    return false;
+                }
+                stableTotals[(int)definition.LegacyKind] += amount;
+            }
+
+            for (int index = 0; index < storage.Length; index += 1)
+            {
+                if (storage[index] < 0 || stableTotals[index] != storage[index])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static string StableResourceIdForLegacy(ResourceKind kind)
+        {
+            switch (kind)
+            {
+                case ResourceKind.Wood:
+                    return "resource.wood";
+                case ResourceKind.Stone:
+                    return "resource.stone";
+                case ResourceKind.Food:
+                    return "resource.food";
+                case ResourceKind.Salvage:
+                    return "resource.salvage";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(kind), kind, "Unknown legacy resource kind.");
+            }
+        }
+
+        public static bool TryGetLegacyResourceKind(string stableResourceId, out ResourceKind legacyKind)
+        {
+            for (int index = 0; index < StableResourceCatalog.Length; index += 1)
+            {
+                StableResourceAmount definition = StableResourceCatalog[index];
+                if (string.Equals(definition.StableResourceId, stableResourceId, StringComparison.Ordinal))
+                {
+                    legacyKind = definition.LegacyKind;
+                    return true;
+                }
+            }
+
+            legacyKind = default(ResourceKind);
+            return false;
+        }
+
+        public bool CanAffordStableResource(string stableResourceId, int amount)
+        {
+            return amount >= 0 && TryGetLegacyResourceKind(stableResourceId, out _) &&
+                   GetStableStorage(stableResourceId) >= amount;
+        }
+
+        public bool TrySpendStableResource(string stableResourceId, int amount)
+        {
+            if (Phase != GamePhase.Camp || Result != RunResult.None ||
+                !IsStableStorageSynchronized() ||
+                !CanAffordStableResource(stableResourceId, amount))
+            {
+                return false;
+            }
+
+            if (amount == 0)
+            {
+                return true;
+            }
+
+            ResourceKind legacyKind;
+            if (!TryGetLegacyResourceKind(stableResourceId, out legacyKind))
+            {
+                return false;
+            }
+
+            stableStorage[stableResourceId] -= amount;
+            storage[(int)legacyKind] -= amount;
+            if (!IsStableStorageSynchronized())
+            {
+                throw new InvalidOperationException("Stable and legacy storage ledgers diverged.");
+            }
+            return true;
+        }
+
+        public bool ApplyHealthDelta(string transactionId, int delta)
+        {
+            if (string.IsNullOrWhiteSpace(transactionId) ||
+                !appliedHealthTransactionIds.Add(transactionId))
+            {
+                return false;
+            }
+
+            Health = Math.Max(0, Math.Min(100, Health + delta));
+            return true;
+        }
+
+        public bool HasAppliedHealthDelta(string transactionId)
+        {
+            return !string.IsNullOrWhiteSpace(transactionId) &&
+                   appliedHealthTransactionIds.Contains(transactionId);
+        }
+
+        public GameSessionStableState CaptureStableState()
+        {
+            BagStack[] capturedBag = new BagStack[BagSlotCount];
+            for (int index = 0; index < bag.Length; index += 1)
+            {
+                BagStack stack = bag[index];
+                capturedBag[index] = stack.IsEmpty
+                    ? default(BagStack)
+                    : new BagStack(StableResourceIdOrLegacy(stack), stack.Kind, stack.Amount);
+            }
+
+            return new GameSessionStableState
+            {
+                ActiveBagSlotCount = ActiveBagSlotCount,
+                Bag = capturedBag,
+                Storage = GetStableStorageEntries(),
+                HasPendingLoot = HasPendingLoot,
+                PendingStableResourceId = HasPendingLoot
+                    ? PendingStableResourceId
+                    : string.Empty,
+                PendingKind = HasPendingLoot ? PendingKind.Value : default(ResourceKind),
+                PendingAmount = HasPendingLoot ? PendingAmount : 0,
+                Health = Health,
+                AppliedHealthTransactionIds = appliedHealthTransactionIds
+                    .OrderBy(value => value, StringComparer.Ordinal)
+                    .ToArray()
+            };
+        }
+
+        public bool RestoreStableState(GameSessionStableState state)
+        {
+            if (state == null || state.ActiveBagSlotCount < DefaultBagSlotCount ||
+                state.ActiveBagSlotCount > MaximumBagSlotCount)
+            {
+                return false;
+            }
+
+            BagStack[] sourceBag = state.Bag ?? Array.Empty<BagStack>();
+            if (sourceBag.Length > BagSlotCount)
+            {
+                return false;
+            }
+
+            BagStack[] restoredBag = new BagStack[BagSlotCount];
+            for (int index = 0; index < sourceBag.Length; index += 1)
+            {
+                BagStack source = sourceBag[index];
+                if (source.Amount < 0 || source.Amount > StackLimit ||
+                    (index >= state.ActiveBagSlotCount && !source.IsEmpty))
+                {
+                    return false;
+                }
+                if (source.IsEmpty)
+                {
+                    continue;
+                }
+
+                string stableResourceId = StableResourceIdOrLegacy(source);
+                if (!IsValidStableResource(stableResourceId, source.Kind))
+                {
+                    return false;
+                }
+                restoredBag[index] = new BagStack(stableResourceId, source.Kind, source.Amount);
+            }
+
+            Dictionary<string, int> restoredStorage = CreateEmptyStableStorage();
+            HashSet<string> restoredStorageIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (StableResourceAmount entry in state.Storage ?? Array.Empty<StableResourceAmount>())
+            {
+                if (entry.Amount < 0 || !IsValidStableResource(entry.StableResourceId, entry.LegacyKind) ||
+                    !restoredStorageIds.Add(entry.StableResourceId))
+                {
+                    return false;
+                }
+                restoredStorage[entry.StableResourceId] = entry.Amount;
+            }
+
+            string restoredPendingStableResourceId = string.Empty;
+            if (state.HasPendingLoot)
+            {
+                restoredPendingStableResourceId = string.IsNullOrWhiteSpace(state.PendingStableResourceId)
+                    ? StableResourceIdForLegacy(state.PendingKind)
+                    : state.PendingStableResourceId;
+                if (state.PendingAmount <= 0 ||
+                    !IsValidStableResource(restoredPendingStableResourceId, state.PendingKind))
+                {
+                    return false;
+                }
+            }
+
+            HashSet<string> restoredTransactions = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string transactionId in state.AppliedHealthTransactionIds ?? Array.Empty<string>())
+            {
+                if (string.IsNullOrWhiteSpace(transactionId) || !restoredTransactions.Add(transactionId))
+                {
+                    return false;
+                }
+            }
+
+            Array.Clear(storage, 0, storage.Length);
+            stableStorage.Clear();
+            foreach (StableResourceAmount definition in StableResourceCatalog)
+            {
+                int amount = restoredStorage[definition.StableResourceId];
+                stableStorage.Add(definition.StableResourceId, amount);
+                storage[(int)definition.LegacyKind] += amount;
+            }
+
+            Array.Clear(bag, 0, bag.Length);
+            Array.Copy(restoredBag, bag, restoredBag.Length);
+            ActiveBagSlotCount = state.ActiveBagSlotCount;
+            PendingKind = state.HasPendingLoot ? state.PendingKind : (ResourceKind?)null;
+            PendingStableResourceId = restoredPendingStableResourceId;
+            PendingAmount = state.HasPendingLoot ? state.PendingAmount : 0;
+            Health = Math.Max(0, Math.Min(100, state.Health));
+            appliedHealthTransactionIds.Clear();
+            appliedHealthTransactionIds.UnionWith(restoredTransactions);
+            return true;
         }
 
         public BagStack GetBagSlot(int index)
@@ -217,7 +539,17 @@ namespace KimSurvival
 
         public void Grant(ResourceKind kind, int amount)
         {
-            storage[(int)kind] = Math.Max(0, storage[(int)kind] + amount);
+            PrototypeProductionActionCounters.RecordGrant();
+            int current = GetSpendableLegacyStorage(kind);
+            int target = Math.Max(0, current + amount);
+            if (target > current)
+            {
+                AddStableStorage(StableResourceIdForLegacy(kind), kind, target - current);
+            }
+            else if (target < current)
+            {
+                ConsumeLegacyStorage(kind, current - target);
+            }
         }
 
         public bool CanAffordResources(int wood, int stone, int food, int salvage)
@@ -309,12 +641,12 @@ namespace KimSurvival
                 blockers |= BagCapacityUpgradeBlockers.Complete;
             }
 
-            if (storage[(int)ResourceKind.Wood] < BagUpgradeWoodCost)
+            if (GetSpendableLegacyStorage(ResourceKind.Wood) < BagUpgradeWoodCost)
             {
                 blockers |= BagCapacityUpgradeBlockers.MissingWood;
             }
 
-            if (storage[(int)ResourceKind.Salvage] < BagUpgradeSalvageCost)
+            if (GetSpendableLegacyStorage(ResourceKind.Salvage) < BagUpgradeSalvageCost)
             {
                 blockers |= BagCapacityUpgradeBlockers.MissingSalvage;
             }
@@ -342,15 +674,15 @@ namespace KimSurvival
                 else if ((blockers & BagCapacityUpgradeBlockers.MissingWood) != 0 &&
                          (blockers & BagCapacityUpgradeBlockers.MissingSalvage) != 0)
                 {
-                    LastMessage = Text("message.bag_upgrade.materials", storage[(int)ResourceKind.Wood], storage[(int)ResourceKind.Salvage]);
+                    LastMessage = Text("message.bag_upgrade.materials", GetSpendableLegacyStorage(ResourceKind.Wood), GetSpendableLegacyStorage(ResourceKind.Salvage));
                 }
                 else if ((blockers & BagCapacityUpgradeBlockers.MissingWood) != 0)
                 {
-                    LastMessage = Text("message.bag_upgrade.wood", storage[(int)ResourceKind.Wood]);
+                    LastMessage = Text("message.bag_upgrade.wood", GetSpendableLegacyStorage(ResourceKind.Wood));
                 }
                 else
                 {
-                    LastMessage = Text("message.bag_upgrade.salvage", storage[(int)ResourceKind.Salvage]);
+                    LastMessage = Text("message.bag_upgrade.salvage", GetSpendableLegacyStorage(ResourceKind.Salvage));
                 }
 
                 return false;
@@ -451,12 +783,12 @@ namespace KimSurvival
                 blockers |= SignalUpgradeBlockers.MissingRope;
             }
 
-            if (storage[(int)ResourceKind.Wood] < 2)
+            if (GetSpendableLegacyStorage(ResourceKind.Wood) < 2)
             {
                 blockers |= SignalUpgradeBlockers.MissingWood;
             }
 
-            if (storage[(int)ResourceKind.Salvage] < 2)
+            if (GetSpendableLegacyStorage(ResourceKind.Salvage) < 2)
             {
                 blockers |= SignalUpgradeBlockers.MissingSalvage;
             }
@@ -485,15 +817,15 @@ namespace KimSurvival
                 else if ((blockers & SignalUpgradeBlockers.MissingWood) != 0 &&
                          (blockers & SignalUpgradeBlockers.MissingSalvage) != 0)
                 {
-                    LastMessage = Text("message.signal.materials", storage[(int)ResourceKind.Wood], storage[(int)ResourceKind.Salvage]);
+                    LastMessage = Text("message.signal.materials", GetSpendableLegacyStorage(ResourceKind.Wood), GetSpendableLegacyStorage(ResourceKind.Salvage));
                 }
                 else if ((blockers & SignalUpgradeBlockers.MissingWood) != 0)
                 {
-                    LastMessage = Text("message.signal.wood", storage[(int)ResourceKind.Wood]);
+                    LastMessage = Text("message.signal.wood", GetSpendableLegacyStorage(ResourceKind.Wood));
                 }
                 else
                 {
-                    LastMessage = Text("message.signal.salvage", storage[(int)ResourceKind.Salvage]);
+                    LastMessage = Text("message.signal.salvage", GetSpendableLegacyStorage(ResourceKind.Salvage));
                 }
 
                 return false;
@@ -513,13 +845,14 @@ namespace KimSurvival
 
         public bool UseFood()
         {
-            if (Phase != GamePhase.Camp || storage[(int)ResourceKind.Food] <= 0 || Hunger >= 100f)
+            int spendableFood = GetSpendableLegacyStorage(ResourceKind.Food);
+            if (Phase != GamePhase.Camp || spendableFood <= 0 || Hunger >= 100f)
             {
-                LastMessage = Text(storage[(int)ResourceKind.Food] <= 0 ? "message.food.none" : "message.food.full");
+                LastMessage = Text(spendableFood <= 0 ? "message.food.none" : "message.food.full");
                 return false;
             }
 
-            storage[(int)ResourceKind.Food] -= 1;
+            ConsumeLegacyStorage(ResourceKind.Food, 1);
             Hunger = Math.Min(100f, Hunger + 35f);
             LastMessage = Text("message.food.eaten");
             return true;
@@ -629,6 +962,16 @@ namespace KimSurvival
 
         public int GetBagRemainingCapacity(ResourceKind kind)
         {
+            return GetBagRemainingCapacity(StableResourceIdForLegacy(kind), kind);
+        }
+
+        public int GetBagRemainingCapacity(string stableResourceId, ResourceKind legacyKind)
+        {
+            if (!IsValidStableResource(stableResourceId, legacyKind))
+            {
+                return 0;
+            }
+
             int capacity = 0;
             for (int index = 0; index < ActiveBagSlotCount; index += 1)
             {
@@ -636,7 +979,10 @@ namespace KimSurvival
                 {
                     capacity += StackLimit;
                 }
-                else if (bag[index].Kind == kind)
+                else if (string.Equals(
+                    StableResourceIdOrLegacy(bag[index]),
+                    stableResourceId,
+                    StringComparison.Ordinal))
                 {
                     capacity += Math.Max(0, StackLimit - bag[index].Amount);
                 }
@@ -646,24 +992,31 @@ namespace KimSurvival
 
         public GatherResult TryStoreSearchLoot(ResourceKind kind, int amount)
         {
-            if (Phase != GamePhase.Exploring || Result != RunResult.None || HasPendingLoot || amount <= 0)
+            return TryStoreSearchLoot(StableResourceIdForLegacy(kind), kind, amount);
+        }
+
+        public GatherResult TryStoreSearchLoot(string stableResourceId, ResourceKind legacyKind, int amount)
+        {
+            if (Phase != GamePhase.Exploring || Result != RunResult.None || HasPendingLoot || amount <= 0 ||
+                !IsValidStableResource(stableResourceId, legacyKind))
             {
                 return GatherResult.Rejected;
             }
 
-            if (GetBagRemainingCapacity(kind) < amount)
+            if (GetBagRemainingCapacity(stableResourceId, legacyKind) < amount)
             {
-                PendingKind = kind;
+                PendingKind = legacyKind;
+                PendingStableResourceId = stableResourceId;
                 PendingAmount = amount;
                 LastMessage = Text("message.bag.full");
                 return GatherResult.PendingSwap;
             }
 
-            if (AddToBag(kind, amount) != 0)
+            if (AddToBag(stableResourceId, legacyKind, amount) != 0)
             {
                 throw new InvalidOperationException("Atomic search loot preflight did not match bag insertion.");
             }
-            LastMessage = Text("message.search_node.taken", kind, amount);
+            LastMessage = Text("message.search_node.taken", legacyKind, amount);
             return GatherResult.Added;
         }
 
@@ -694,7 +1047,8 @@ namespace KimSurvival
                         .ResolveActionResultId(RunSeed, actionId);
             }
             Energy = Math.Max(0f, Energy - (waterSearch ? 9f : 6f));
-            int remaining = AddToBag(kind, amount);
+            string stableResourceId = StableResourceIdForLegacy(kind);
+            int remaining = AddToBag(stableResourceId, kind, amount);
             if (Energy <= 0f)
             {
                 Finish(RunResult.Exhausted);
@@ -704,6 +1058,7 @@ namespace KimSurvival
             if (remaining > 0)
             {
                 PendingKind = kind;
+                PendingStableResourceId = stableResourceId;
                 PendingAmount = remaining;
                 LastMessage = Text("message.bag.full");
                 return GatherResult.PendingSwap;
@@ -731,8 +1086,12 @@ namespace KimSurvival
             }
 
             displaced = bag[index];
-            bag[index] = new BagStack(PendingKind.Value, Math.Min(StackLimit, PendingAmount));
+            bag[index] = new BagStack(
+                PendingStableResourceId,
+                PendingKind.Value,
+                Math.Min(StackLimit, PendingAmount));
             PendingKind = null;
+            PendingStableResourceId = string.Empty;
             PendingAmount = 0;
             LastMessage = displaced.IsEmpty ? Text("message.bag.empty_fill") : Text("message.bag.replace", displaced.Kind);
             return true;
@@ -747,6 +1106,7 @@ namespace KimSurvival
 
             LastMessage = Text("message.bag.discard", PendingKind.Value);
             PendingKind = null;
+            PendingStableResourceId = string.Empty;
             PendingAmount = 0;
         }
 
@@ -762,7 +1122,10 @@ namespace KimSurvival
             {
                 if (!bag[i].IsEmpty)
                 {
-                    storage[(int)bag[i].Kind] += bag[i].Amount;
+                    AddStableStorage(
+                        StableResourceIdOrLegacy(bag[i]),
+                        bag[i].Kind,
+                        bag[i].Amount);
                 }
             }
 
@@ -884,26 +1247,27 @@ namespace KimSurvival
 
         private bool CanAfford(int wood, int stone, int food, int salvage)
         {
-            return storage[(int)ResourceKind.Wood] >= wood &&
-                   storage[(int)ResourceKind.Stone] >= stone &&
-                   storage[(int)ResourceKind.Food] >= food &&
-                   storage[(int)ResourceKind.Salvage] >= salvage;
+            return GetSpendableLegacyStorage(ResourceKind.Wood) >= wood &&
+                   GetSpendableLegacyStorage(ResourceKind.Stone) >= stone &&
+                   GetSpendableLegacyStorage(ResourceKind.Food) >= food &&
+                   GetSpendableLegacyStorage(ResourceKind.Salvage) >= salvage;
         }
 
         private void Spend(int wood, int stone, int food, int salvage)
         {
-            storage[(int)ResourceKind.Wood] -= wood;
-            storage[(int)ResourceKind.Stone] -= stone;
-            storage[(int)ResourceKind.Food] -= food;
-            storage[(int)ResourceKind.Salvage] -= salvage;
+            ConsumeLegacyStorage(ResourceKind.Wood, wood);
+            ConsumeLegacyStorage(ResourceKind.Stone, stone);
+            ConsumeLegacyStorage(ResourceKind.Food, food);
+            ConsumeLegacyStorage(ResourceKind.Salvage, salvage);
         }
 
-        private int AddToBag(ResourceKind kind, int amount)
+        private int AddToBag(string stableResourceId, ResourceKind kind, int amount)
         {
             int remaining = amount;
             for (int i = 0; i < ActiveBagSlotCount && remaining > 0; i += 1)
             {
-                if (!bag[i].IsEmpty && bag[i].Kind == kind && bag[i].Amount < StackLimit)
+                if (!bag[i].IsEmpty && bag[i].Amount < StackLimit &&
+                    string.Equals(StableResourceIdOrLegacy(bag[i]), stableResourceId, StringComparison.Ordinal))
                 {
                     int accepted = Math.Min(StackLimit - bag[i].Amount, remaining);
                     bag[i].Amount += accepted;
@@ -916,7 +1280,7 @@ namespace KimSurvival
                 if (bag[i].IsEmpty)
                 {
                     int accepted = Math.Min(StackLimit, remaining);
-                    bag[i] = new BagStack(kind, accepted);
+                    bag[i] = new BagStack(stableResourceId, kind, accepted);
                     remaining -= accepted;
                 }
             }
@@ -928,7 +1292,75 @@ namespace KimSurvival
         {
             Array.Clear(bag, 0, bag.Length);
             PendingKind = null;
+            PendingStableResourceId = string.Empty;
             PendingAmount = 0;
+        }
+
+        private static bool IsValidStableResource(string stableResourceId, ResourceKind legacyKind)
+        {
+            return TryGetLegacyResourceKind(stableResourceId, out ResourceKind expectedKind) &&
+                   expectedKind == legacyKind;
+        }
+
+        private static string StableResourceIdOrLegacy(BagStack stack)
+        {
+            return string.IsNullOrWhiteSpace(stack.StableResourceId)
+                ? StableResourceIdForLegacy(stack.Kind)
+                : stack.StableResourceId;
+        }
+
+        private static Dictionary<string, int> CreateEmptyStableStorage()
+        {
+            Dictionary<string, int> result = new Dictionary<string, int>(StringComparer.Ordinal);
+            foreach (StableResourceAmount definition in StableResourceCatalog)
+            {
+                result.Add(definition.StableResourceId, 0);
+            }
+            return result;
+        }
+
+        private void ResetStableStorage()
+        {
+            stableStorage.Clear();
+            foreach (StableResourceAmount definition in StableResourceCatalog)
+            {
+                stableStorage.Add(definition.StableResourceId, 0);
+            }
+        }
+
+        private void AddStableStorage(string stableResourceId, ResourceKind legacyKind, int amount)
+        {
+            if (amount <= 0 || !IsValidStableResource(stableResourceId, legacyKind))
+            {
+                return;
+            }
+
+            stableStorage[stableResourceId] += amount;
+            storage[(int)legacyKind] += amount;
+        }
+
+        private void ConsumeLegacyStorage(ResourceKind legacyKind, int amount)
+        {
+            if (amount <= 0)
+            {
+                return;
+            }
+            if (!IsStableStorageSynchronized())
+            {
+                throw new InvalidOperationException("Stable and legacy storage ledgers diverged.");
+            }
+            string canonicalId = StableResourceIdForLegacy(legacyKind);
+            if (GetStableStorage(canonicalId) < amount)
+            {
+                throw new InvalidOperationException("Legacy resource spend exceeded canonical storage.");
+            }
+
+            stableStorage[canonicalId] -= amount;
+            storage[(int)legacyKind] -= amount;
+            if (!IsStableStorageSynchronized())
+            {
+                throw new InvalidOperationException("Stable and legacy storage ledgers diverged.");
+            }
         }
 
         private static PrototypeLocalizedText Text(string key, params object[] arguments)

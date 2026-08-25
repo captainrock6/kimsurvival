@@ -56,12 +56,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 892583943
-    m_Localized: "DAY {0}/{1} \xB7 {2}\nHunger {3} | Energy {4}"
+    m_Localized: "DAY {0}/{1} \xB7 {2}\nHunger {3} | Energy {4} | Health {5}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 896778240
-    m_Localized: "DAY {0}/{1} \xB7 {2}\nHunger {3} | Energy {4} | Daylight {5}"
+    m_Localized: "DAY {0}/{1} \xB7 {2}\nHunger {3} | Energy {4} | Daylight {5} |
+      Health {6}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
@@ -2046,6 +2047,224 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 1212147207225344
+    m_Localized: Windy Highland Ridge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974080
+    m_Localized: A wind-beaten ridge of collapsed rock with traces of old signal
+      work.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974081
+    m_Localized: "Stone and wood abundant \xB7 Metal and fiber common \xB7 Fuel scarce"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974082
+    m_Localized: "High \xB7 Rockfalls, wasps, and cliff winds"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974083
+    m_Localized: "Strong wind \xB7 Mostly clear \xB7 Lightning possible"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974084
+    m_Localized: "Rope required \xB7 Weatherproof gear advised"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974085
+    m_Localized: '? Possible flint and signal overlook'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974086
+    m_Localized: Island Cave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974087
+    m_Localized: A damp, dark cave with mineral seams and traces of an old cache.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974088
+    m_Localized: "Stone and chemicals abundant \xB7 Metal and fuel common \xB7 Medicine
+      scarce"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974089
+    m_Localized: "High \xB7 Cave-ins, mites, and toxic fungus"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974090
+    m_Localized: "Humid inside \xB7 Flooding possible during heavy rain"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974091
+    m_Localized: Stone axe and light source required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974092
+    m_Localized: '? Possible flint seam and hidden parts cache'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974093
+    m_Localized: Wreck Cove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974094
+    m_Localized: Broken hulls and flooded cargo holds crowd a narrow cove.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974095
+    m_Localized: "Metal and salvage abundant \xB7 Fabric and electronics common \xB7
+      Food scarce"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168384
+    m_Localized: "High \xB7 Sharp wreckage, rats, and flooding"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168385
+    m_Localized: "Strong currents \xB7 High surf \xB7 Rain possible"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168386
+    m_Localized: Swimming gear and rope required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168387
+    m_Localized: '? Possible radio chassis, sailcloth, and engine parts'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168388
+    m_Localized: Abandoned Relay Observatory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168389
+    m_Localized: A scorched stairway leads to broken antennas and an abandoned control
+      room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168390
+    m_Localized: "Electronics and wire abundant \xB7 Metal and fuel common \xB7 Fiber
+      scarce"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168391
+    m_Localized: "Very high \xB7 Lightning, unstable stairs, and electrical creepers"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168392
+    m_Localized: "Thunderstorms \xB7 Strong wind \xB7 Rain"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168393
+    m_Localized: Rope and insulation gear required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168394
+    m_Localized: '? Possible circuit board, transistor, and relay log'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945600
+    m_Localized: Fabric
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945601
+    m_Localized: Fiber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945602
+    m_Localized: Medicine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945603
+    m_Localized: Metal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945604
+    m_Localized: Wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945605
+    m_Localized: Fuel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945606
+    m_Localized: Chemicals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945607
+    m_Localized: Electronics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945608
+    m_Localized: Known remaining finds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139904
+    m_Localized: The broken barrier remains open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139905
+    m_Localized: The removed persistent hazard stays gone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139906
+    m_Localized: Jungle Fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139907
+    m_Localized: Signs of fever linger around the damp deadfall.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139908
+    m_Localized: Searching two distinct contaminated deadfalls caused exposure.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139909
+    m_Localized: Fever and chills began on return. Health -10.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139910
+    m_Localized: Untreated fever worsened. Health -15.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139911
+    m_Localized: Treat Jungle Fever with medicine ({0} held)
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1212147270139912
+    m_Localized: Medicine applied. Jungle Fever clears next day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334208
+    m_Localized: The fever broke. Health +5.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334209
+    m_Localized: Treatment unavailable. A workbench and 1 medicine are required.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334210
+    m_Localized: Disease warning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334211
+    m_Localized: Disease exposure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334212
+    m_Localized: Disease symptom effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334213
+    m_Localized: Untreated disease worsens
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334214
+    m_Localized: Medicine treatment
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -2181,3 +2400,4 @@ MonoBehaviour:
         - id: 1172586372513792
         - id: 1172586372513793
         - id: 1172586372513794
+        - id: 1212147270139911

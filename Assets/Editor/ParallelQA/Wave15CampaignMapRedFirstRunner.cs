@@ -200,10 +200,10 @@ namespace ParallelQA
 
             Observation catalog = ObserveRegionCatalog();
             evidence.catalog = catalog.Detail;
-            Product(checks, "W15-M01.three_region_forecast_catalog", "expedition region cards", "P0",
-                "beach, forest, and shallow-sea definitions expose resource category, relative abundance, travel time, risk, weather, gear, special discovery, and unknown state without exact forecast quantities",
+            Product(checks, "W15-M01.seven_region_forecast_catalog", "expedition region cards", "P0",
+                "seven exact stable region definitions expose resource category, relative abundance, travel time, risk, weather, gear, special discovery, and unknown state without exact forecast quantities",
                 catalog.Passed, catalog.Detail,
-                "Reflect the runtime expedition/region catalog and inspect every public forecast member.",
+                "Inspect the runtime expedition catalog order, exact stable IDs, public forecast members, and GameSession selection roundtrip.",
                 "Assets/_Project/Scripts/Runtime/PrototypeExpeditionRegionCatalog.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs");
 
             Observation rng = ObserveRngContract(out bool sameSeed, out bool differentSeed, out bool protectedRoutes);
@@ -227,9 +227,9 @@ namespace ParallelQA
             Observation localization = ObserveLocalizationContract();
             evidence.localization = localization.Detail;
             Product(checks, "W15-L01.ko_en_qps_map_keys", "localization", "P1",
-                "Map/three-region/card-state keys have aligned ko/en/qps-long columns and qps content is expanded rather than copied",
+                "Map/seven-region/card-state keys have aligned ko/en/qps-long columns and qps content is expanded rather than copied",
                 localization.Passed, localization.Detail,
-                "Parse PrototypeStrings.tsv and group map/region forecast keys across all three locale columns.",
+                "Parse PrototypeStrings.tsv and verify every seven-region forecast key across all three locale columns.",
                 "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Localization/Tables/**");
 
             Observation logging = ObservePrivacyLogContract();
@@ -311,7 +311,7 @@ namespace ParallelQA
                     baselineCommit = BaselineCommit,
                     targetDiscovery = probe.TargetFound ? "found " + probe.TargetKind + "/" + probe.TargetId : "no expedition-map proximity target",
                     stateTransition = probe.Detail,
-                    regionCards = probe.RegionCardSemantics ? "three localized forecast cards found" : "region forecast card semantics unavailable",
+                    regionCards = probe.RegionCardSemantics ? "seven localized forecast cards found" : "region forecast card semantics unavailable",
                     inputParity = probe.InputDetail,
                     layout = probe.LayoutDetail,
                     progressFingerprint = progress,
@@ -326,7 +326,7 @@ namespace ParallelQA
                     "At the map target, test distance=1.26m, distance=1.00m, Interact, then Cancel while recording target/prompt/popup/player/session fingerprints.",
                     "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs");
                 Product(checks, "W15-P02.region_card_player_semantics", "map card content", "P0",
-                    "The opened map exposes beach/forest/shallow-sea cards with category/abundance/time/risk/weather/gear/special/unknown semantics and no exact reward amount",
+                    "The opened map exposes all seven region cards with category/abundance/time/risk/weather/gear/special/unknown semantics and no exact reward amount",
                     probe.RegionCardSemantics, probe.Detail,
                     "Open the map in ko/en/qps-long and inspect active node/card TMP text plus stable semantic IDs.",
                     "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv");
@@ -436,36 +436,61 @@ namespace ParallelQA
 
         private static Observation ObserveRegionCatalog()
         {
-            List<object> entries = DiscoverCatalogEntries();
-            Dictionary<string, object> regionEntries = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-            foreach (object entry in entries)
+            PrototypeExpeditionRegionId[] expectedRegions =
             {
-                string description = Describe(entry, 2);
-                if (ContainsAny(description, "region.beach", "beach")) regionEntries["beach"] = entry;
-                if (ContainsAny(description, "region.forest", "forest")) regionEntries["forest"] = entry;
-                if (ContainsAny(description, "region.shallow", "shallow_sea", "shallow-sea", "shallows")) regionEntries["shallow-sea"] = entry;
-            }
-            string[] semanticGroups = { "resource|category", "abundance|richness", "travel|duration|time", "risk|hazard", "weather", "gear|equipment", "special|discovery", "unknown|discovered|identified" };
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionId.Forest,
+                PrototypeExpeditionRegionId.Shallows,
+                PrototypeExpeditionRegionId.RidgeHighland,
+                PrototypeExpeditionRegionId.CaveIsland,
+                PrototypeExpeditionRegionId.CoveWreck,
+                PrototypeExpeditionRegionId.RuinsRelay
+            };
+            string[] expectedStableIds =
+            {
+                "region.coast.beach",
+                "region.forest.grove",
+                "region.sea.shallows",
+                "region.ridge.highland",
+                "region.cave.island",
+                "region.cove.wreck",
+                "region.ruins.relay"
+            };
+            IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
             List<string> failures = new List<string>();
-            foreach (string region in new[] { "beach", "forest", "shallow-sea" })
+            if (profiles.Count != expectedRegions.Length) failures.Add("count=" + profiles.Count);
+            for (int index = 0; index < expectedRegions.Length && index < profiles.Count; index += 1)
             {
-                if (!regionEntries.TryGetValue(region, out object entry))
-                {
-                    failures.Add(region + ":missing");
-                    continue;
-                }
-                string members = string.Join("|", PublicMemberNames(entry.GetType())).ToLowerInvariant();
-                foreach (string group in semanticGroups)
-                {
-                    string[] alternatives = group.Split('|');
-                    if (!alternatives.Any(members.Contains)) failures.Add(region + ":" + group);
-                }
-                if (Regex.IsMatch(members, @"exact.*(amount|quantity)|(amount|quantity).*exact")) failures.Add(region + ":exact-forecast-quantity-exposed");
+                PrototypeExpeditionRegionProfile profile = profiles[index];
+                string stableId = expectedStableIds[index];
+                if (profile.Id != expectedRegions[index] ||
+                    !string.Equals(profile.StableId, stableId, StringComparison.Ordinal) ||
+                    !ReferenceEquals(PrototypeExpeditionRegionCatalog.Get(expectedRegions[index]), profile))
+                    failures.Add(stableId + ":catalog-roundtrip");
+                if (string.IsNullOrWhiteSpace(profile.ResourceForecastKey) ||
+                    string.IsNullOrWhiteSpace(profile.RelativeAbundanceKey) ||
+                    profile.TravelMinutes <= 0 ||
+                    string.IsNullOrWhiteSpace(profile.RiskKey) ||
+                    string.IsNullOrWhiteSpace(profile.WeatherKey) ||
+                    string.IsNullOrWhiteSpace(profile.EquipmentKey) ||
+                    string.IsNullOrWhiteSpace(profile.SpecialDiscoveryKey) ||
+                    string.IsNullOrWhiteSpace(profile.UnknownDiscoveryStateKey))
+                    failures.Add(stableId + ":forecast-semantics");
+
+                string members = string.Join("|", PublicMemberNames(profile.GetType())).ToLowerInvariant();
+                if (Regex.IsMatch(members, @"exact.*(amount|quantity)|(amount|quantity).*exact"))
+                    failures.Add(stableId + ":exact-forecast-quantity-exposed");
+
+                GameSession roundtrip = new GameSession(PrototypeExpeditionRegionCatalog.DefaultRunSeed);
+                if (!roundtrip.BeginSearch(expectedRegions[index]) ||
+                    roundtrip.SelectedRegionId != expectedRegions[index] ||
+                    !string.Equals(roundtrip.ActiveRegionProfileId, stableId, StringComparison.Ordinal))
+                    failures.Add(stableId + ":session-roundtrip");
             }
             return new Observation
             {
-                Passed = failures.Count == 0 && regionEntries.Count == 3,
-                Detail = "catalogEntries=" + entries.Count + "; regions=" + string.Join(",", regionEntries.Keys.OrderBy(key => key)) +
+                Passed = failures.Count == 0 && profiles.Count == expectedRegions.Length,
+                Detail = "catalogEntries=" + profiles.Count + "; regions=" + string.Join(",", profiles.Select(profile => profile.StableId)) +
                          "; failures=" + (failures.Count == 0 ? "none" : string.Join(",", failures))
             };
         }
@@ -533,15 +558,19 @@ namespace ParallelQA
             if (!File.Exists(path)) return new Observation { Detail = "PrototypeStrings.tsv missing" };
             string[][] rows = File.ReadAllLines(path, Encoding.UTF8).Where(line => !string.IsNullOrWhiteSpace(line))
                 .Select(line => line.Split('\t')).Where(parts => parts.Length >= 4).ToArray();
-            string[] regionTokens = { "beach", "forest", "shallow" };
+            string[] regionSlugs = { "beach", "forest", "shallows", "ridge_highland", "cave_island", "cove_wreck", "ruins_relay" };
+            string[] forecastSuffixes = { "name", "summary", "resources", "risk", "weather", "equipment", "special" };
             List<string> failures = new List<string>();
-            foreach (string token in regionTokens)
+            foreach (string slug in regionSlugs)
             {
-                string[][] matching = rows.Where(parts => parts[0].IndexOf("region", StringComparison.OrdinalIgnoreCase) >= 0 &&
-                                                           parts[0].IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
-                if (matching.Length == 0) failures.Add(token + ":keys-missing");
-                else if (matching.Any(parts => string.IsNullOrWhiteSpace(parts[1]) || string.IsNullOrWhiteSpace(parts[2]) || string.IsNullOrWhiteSpace(parts[3])))
-                    failures.Add(token + ":locale-column-empty");
+                foreach (string suffix in forecastSuffixes)
+                {
+                    string key = "expedition.region." + slug + "." + suffix;
+                    string[][] matching = rows.Where(parts => string.Equals(parts[0], key, StringComparison.Ordinal)).ToArray();
+                    if (matching.Length != 1) failures.Add(key + ":count=" + matching.Length);
+                    else if (string.IsNullOrWhiteSpace(matching[0][1]) || string.IsNullOrWhiteSpace(matching[0][2]) || string.IsNullOrWhiteSpace(matching[0][3]))
+                        failures.Add(key + ":locale-column-empty");
+                }
             }
             string[][] mapRows = rows.Where(parts => parts[0].IndexOf("expedition", StringComparison.OrdinalIgnoreCase) >= 0 ||
                                                      parts[0].IndexOf("map", StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
@@ -700,7 +729,13 @@ namespace ParallelQA
             TMP_Text[] texts = mapRoot.GetComponentsInChildren<TMP_Text>(false)
                 .Where(text => text != null && text.gameObject.activeInHierarchy).ToArray();
             string combined = string.Join(" | ", texts.Select(text => text.text));
-            bool regions = ContainsAny(combined, "해변", "Beach") && ContainsAny(combined, "숲", "Forest") && ContainsAny(combined, "얕은 바다", "얇은 바다", "Shallow");
+            bool regions = ContainsAny(combined, "해변", "Beach") &&
+                           ContainsAny(combined, "숲", "Forest") &&
+                           ContainsAny(combined, "얕은 바다", "얇은 바다", "Shallow") &&
+                           ContainsAny(combined, "바람 절벽", "Windy Highland Ridge") &&
+                           ContainsAny(combined, "섬 동굴", "Island Cave") &&
+                           ContainsAny(combined, "난파선 만", "Wreck Cove") &&
+                           ContainsAny(combined, "폐중계 관측소", "Abandoned Relay Observatory");
             string[] groups = { "자원|resource", "풍부|abundan|rich", "시간|time|travel", "위험|risk|hazard", "날씨|weather", "장비|gear|equipment", "특별|special|discovery", @"미확인|unknown|\?" };
             bool semantics = groups.All(group => Regex.IsMatch(combined, group, RegexOptions.IgnoreCase));
             bool exactAmounts = Regex.IsMatch(combined, @"(?:wood|stone|food|salvage|나무|돌|식량|표류물)\s*[x×:]?\s*\d+", RegexOptions.IgnoreCase);
@@ -806,7 +841,7 @@ namespace ParallelQA
                 ParameterInfo parameter = parameters[index];
                 string name = parameter.Name ?? string.Empty;
                 if (parameter.ParameterType == typeof(int)) values[index] = name.IndexOf("seed", StringComparison.OrdinalIgnoreCase) >= 0 ? seed : 0;
-                else if (parameter.ParameterType == typeof(string)) values[index] = name.IndexOf("region", StringComparison.OrdinalIgnoreCase) >= 0 ? "region.beach" :
+                else if (parameter.ParameterType == typeof(string)) values[index] = name.IndexOf("region", StringComparison.OrdinalIgnoreCase) >= 0 ? "region.coast.beach" :
                     name.IndexOf("action", StringComparison.OrdinalIgnoreCase) >= 0 ? "action.search" : string.Empty;
                 else if (parameter.ParameterType == typeof(bool)) values[index] = false;
                 else if (parameter.ParameterType.IsEnum) values[index] = Enum.GetValues(parameter.ParameterType).GetValue(0);
@@ -1189,7 +1224,7 @@ namespace ParallelQA
                 productFailed = checks.Count(check => check.status == "FAIL"),
                 infrastructureFailed = checks.Count(check => check.status == "INFRA_FAIL"),
                 unverified = checks.Count(check => check.status == "UNVERIFIED"),
-                greenCompletionCondition = "Infrastructure PASS, zero EXPECTED_GAP/FAIL, Day 50/map/three-region/RNG/privacy contracts PASS, and the fresh Wave 14 prerequisite remains 10/10 GREEN.",
+                greenCompletionCondition = "Infrastructure PASS, zero EXPECTED_GAP/FAIL, Day 50/map/seven-region/RNG/privacy contracts PASS, and the fresh Wave 14 prerequisite remains 10/10 GREEN.",
                 checks = checks.ToArray()
             };
             report.productOverall = report.productFailed > 0 ? "FAIL" : report.expectedGaps > 0 ? "RED_EXPECTED_GAP" : "PASS";

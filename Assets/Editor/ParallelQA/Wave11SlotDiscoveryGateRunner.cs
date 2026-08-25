@@ -125,6 +125,7 @@ namespace ParallelQA
             public string auxiliaryStoragePlanning;
             public string candidatesReasonsEconomy;
             public string transactionAtomicity;
+            public string snapshotPersistence;
             public string keyboardSyntheticGamepad;
             public string localization;
             public string fullRegression;
@@ -201,10 +202,10 @@ namespace ParallelQA
                 "Cycle Upper/Side/Basement, evaluate each geometry reason, then evaluate before/after workbench with normalized resources.",
                 "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv");
 
-            evidence.transactionAtomicity = Product(checks, "W11-E04.atomicity_and_one_room_limit", "transaction", "P0",
-                "Cancel, failed, and duplicate submits spend nothing; success spends W2/D1 once; a second room is PROTOTYPE_LIMIT",
+            evidence.transactionAtomicity = Product(checks, "W11-E04.same_run_atomicity_and_duplicate", "transaction", "P0",
+                "Cancel and failed submits spend nothing; Upper and Basement commit in one run for W2/D1 each; duplicate Upper spends zero",
                 VerifyTransactionAtomicity,
-                "Fingerprint storage before/after cancel, invalid, short, success, duplicate, and second-room submit.",
+                "Fingerprint storage before/after cancel, invalid, short, Upper success, duplicate Upper, and Basement success.",
                 "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/GameSession.cs");
 
             evidence.keyboardSyntheticGamepad = Product(checks, "W11-E05.keyboard_synthetic_gamepad", "input parity", "P1",
@@ -220,6 +221,12 @@ namespace ParallelQA
                 localeReady, evidence.localization,
                 "Load the TSV/table rows for ui.module.expand and the module reason IDs in all three locales.",
                 "Assets/_Project/Scripts/Localization/**");
+
+            evidence.snapshotPersistence = Product(checks, "W11-E07.module_snapshot_v2_v1_atomic_reset", "persistence", "P0",
+                "v2 captures and restores Upper+Basement stable identities; v1 singular saves migrate; invalid restore is atomic; Reset returns new-game state",
+                VerifyModuleSnapshotPersistence,
+                "Commit Upper+Basement, capture/restore v2, restore a v1 singular fixture, reject a corrupted room identity, then Reset.",
+                "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs");
 
             WriteJson("wave11-slot-edit-evidence.json", evidence);
             WriteReport("wave11-slot-edit-contracts", "Wave 11 direct slot Edit contracts", started, checks);
@@ -594,12 +601,24 @@ namespace ParallelQA
 
         private static string VerifyCanonicalSlotCatalog()
         {
-            string[] expected = { "slot.start.upper", "slot.start.side", "slot.start.basement" };
+            string[] expectedRooms = { "room.upper.standard", "room.side.standard", "room.basement.standard" };
+            string[] expectedStartSlots = { "slot.start.upper", "slot.start.side", "slot.start.basement" };
+            string[] expectedReciprocalSlots = { "slot.upper.down", "slot.side.left", "slot.basement.up" };
+            CampModuleConnectorKind[] expectedConnectors =
+            {
+                CampModuleConnectorKind.Ladder,
+                CampModuleConnectorKind.Door,
+                CampModuleConnectorKind.Ladder
+            };
             CampModuleDefinition[] definitions = PrototypeCampModuleCatalog.All.ToArray();
             Require(definitions.Length == 3, "three definitions");
-            Require(definitions.Select(item => item.StartSlotId).SequenceEqual(expected), "canonical slot IDs and order");
-            Require(definitions.All(item => !string.IsNullOrWhiteSpace(item.ReciprocalSlotId) && item.StartSlotId != item.ReciprocalSlotId), "distinct reciprocal IDs");
-            return string.Join(", ", definitions.Select(item => item.StartSlotId + "<->" + item.ReciprocalSlotId));
+            Require(PrototypeCampModuleCatalog.StartRoomId == "room.start", "canonical start room ID");
+            Require(definitions.Select(item => item.RoomId).SequenceEqual(expectedRooms), "canonical room IDs and order");
+            Require(definitions.Select(item => item.StartSlotId).SequenceEqual(expectedStartSlots), "canonical start connector IDs and order");
+            Require(definitions.Select(item => item.ReciprocalSlotId).SequenceEqual(expectedReciprocalSlots), "canonical reciprocal connector IDs and order");
+            Require(definitions.Select(item => item.ConnectorKind).SequenceEqual(expectedConnectors), "canonical connector kinds and order");
+            Require(definitions.All(item => item.StartSlotId != item.ReciprocalSlotId), "distinct reciprocal IDs");
+            return string.Join(", ", definitions.Select(item => item.RoomId + ":" + item.StartSlotId + "<->" + item.ReciprocalSlotId));
         }
 
         private static string InspectDirectSurface(out bool passed)
@@ -679,17 +698,92 @@ namespace ParallelQA
             Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Short && StorageFingerprint(session) == shortBefore, "short neutral");
             expansion.CancelPreview();
 
-            SetStorage(session, ResourceKind.Wood, 2); SetStorage(session, ResourceKind.Salvage, 1);
-            expansion.BeginPreview(DefaultSnapshot());
-            Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Succeeded, "commit succeeds");
-            Require(session.GetStorage(ResourceKind.Wood) == 0 && session.GetStorage(ResourceKind.Salvage) == 0, "W2/D1 once");
-            string after = StorageFingerprint(session);
-            Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.NotPreviewing && StorageFingerprint(session) == after, "duplicate neutral");
-            expansion.BeginPreview(DefaultSnapshot());
+            SetStorage(session, ResourceKind.Wood, 4); SetStorage(session, ResourceKind.Salvage, 2);
+            Require(expansion.BeginPreview(DefaultSnapshot(), CampModuleArchetype.Upper), "begin Upper");
+            Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Succeeded, "Upper commit succeeds");
+            Require(session.GetStorage(ResourceKind.Wood) == 2 && session.GetStorage(ResourceKind.Salvage) == 1 &&
+                    expansion.CommittedModuleCount == 1 && expansion.IsCommitted(CampModuleArchetype.Upper),
+                "Upper spends W2/D1 exactly once");
+            string afterUpper = StorageFingerprint(session);
+            Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.NotPreviewing &&
+                    StorageFingerprint(session) == afterUpper,
+                "duplicate submit after Upper is neutral");
+
+            Require(expansion.BeginPreview(DefaultSnapshot(), CampModuleArchetype.Upper), "begin duplicate Upper");
             Require(expansion.Evaluate(session, new CampModuleValidationContext()).Economy == CampModuleEconomyStatus.PrototypeLimit &&
-                    expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.PrototypeLimit && StorageFingerprint(session) == after,
-                "second room limit neutral");
-            return "cancel/invalid/short/duplicate/second neutral; success delta W-2/D-1 exactly once";
+                    expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.PrototypeLimit &&
+                    StorageFingerprint(session) == afterUpper && expansion.CommittedModuleCount == 1,
+                "duplicate Upper spends zero and adds no room");
+            expansion.CancelPreview();
+
+            Require(expansion.BeginPreview(DefaultSnapshot(), CampModuleArchetype.Basement), "begin Basement");
+            Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Succeeded,
+                "Basement commits in the same run");
+            Require(session.GetStorage(ResourceKind.Wood) == 0 && session.GetStorage(ResourceKind.Salvage) == 0 &&
+                    expansion.CommittedModuleCount == 2 && expansion.HasUpperAndBasementCommitted,
+                "Upper+Basement spend W4/D2 total and coexist");
+            return "cancel/invalid/short neutral; Upper+Basement committed same-run; duplicate Upper delta W0/D0";
+        }
+
+        private static string VerifyModuleSnapshotPersistence()
+        {
+            PrototypeCampModuleExpansion source = NewExpansion();
+            GameSession session = NewWorkbenchSession(4, 2);
+            Require(source.BeginPreview(DefaultSnapshot(), CampModuleArchetype.Upper) &&
+                    source.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Succeeded,
+                "v2 fixture Upper commit");
+            Require(source.BeginPreview(DefaultSnapshot(), CampModuleArchetype.Basement) &&
+                    source.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Succeeded,
+                "v2 fixture Basement commit");
+
+            PrototypeCampModuleExpansionSnapshot v2 = source.CaptureSnapshot();
+            Require(v2.SchemaVersion == PrototypeCampModuleExpansionSnapshot.CurrentSchemaVersion &&
+                    v2.SchemaVersion == 2 && v2.HasCommittedModule && v2.CommittedRooms.Length == 2,
+                "v2 captures two committed rooms");
+            string v2Fingerprint = ModuleSnapshotFingerprint(v2);
+            PrototypeCampModuleExpansion restored = NewExpansion();
+            Require(restored.RestoreSnapshot(v2) && ModuleSnapshotFingerprint(restored.CaptureSnapshot()) == v2Fingerprint &&
+                    restored.HasUpperAndBasementCommitted,
+                "v2 restores Upper+Basement exactly");
+            Require(restored.IsRoomCommitted("room.upper.standard") && restored.IsRoomCommitted("room.basement.standard") &&
+                    restored.IsConnectorCommitted("slot.start.upper") && restored.IsConnectorCommitted("slot.upper.down") &&
+                    restored.IsConnectorCommitted("slot.start.basement") && restored.IsConnectorCommitted("slot.basement.up"),
+                "v2 restores stable room and connector IDs");
+
+            PrototypeCampModuleExpansionSnapshot legacyV1 = new PrototypeCampModuleExpansionSnapshot
+            {
+                SchemaVersion = 1,
+                HasCommittedModule = true,
+                CommittedArchetype = CampModuleArchetype.Basement,
+                CommittedRoomId = "room.basement.standard",
+                CommittedRooms = Array.Empty<CampModuleCommittedRoomSnapshot>()
+            };
+            PrototypeCampModuleExpansion migrated = NewExpansion();
+            Require(migrated.RestoreSnapshot(legacyV1) && migrated.CommittedModuleCount == 1 &&
+                    migrated.IsCommitted(CampModuleArchetype.Basement) &&
+                    migrated.IsRoomCommitted("room.basement.standard") &&
+                    migrated.IsConnectorCommitted("slot.start.basement") &&
+                    migrated.IsConnectorCommitted("slot.basement.up"),
+                "v1 singular save migrates to canonical Basement room");
+
+            string beforeFailedRestore = ModuleSnapshotFingerprint(restored.CaptureSnapshot());
+            PrototypeCampModuleExpansionSnapshot corrupted = v2.Clone();
+            corrupted.CommittedRooms[1].RoomId = "room.basement.corrupted";
+            Require(!restored.RestoreSnapshot(corrupted) &&
+                    ModuleSnapshotFingerprint(restored.CaptureSnapshot()) == beforeFailedRestore,
+                "failed restore preserves the prior committed state atomically");
+
+            restored.Reset();
+            PrototypeCampModuleExpansionSnapshot reset = restored.CaptureSnapshot();
+            Require(!restored.HasCommittedModule && restored.CommittedModuleCount == 0 &&
+                    !restored.HasUpperAndBasementCommitted && restored.CommittedRooms.Count == 0 &&
+                    !restored.IsPreviewActive && restored.TransactionGuard == CampModuleTransactionGuard.Idle &&
+                    restored.SelectedArchetype == CampModuleArchetype.Upper &&
+                    !restored.HasSeen(CampModuleArchetype.Upper) && !restored.HasSeen(CampModuleArchetype.Side) &&
+                    !restored.HasSeen(CampModuleArchetype.Basement) &&
+                    reset.SchemaVersion == 2 && !reset.HasCommittedModule && reset.CommittedRooms.Length == 0,
+                "Reset restores a clean new-game module state");
+            return "v2=Upper+Basement exact; v1=Basement migrated; failedRestore=atomic; reset=clean";
         }
 
         private static string VerifyInputParity()
@@ -922,6 +1016,20 @@ namespace ParallelQA
         {
             return "W" + session.GetStorage(ResourceKind.Wood) + "/S" + session.GetStorage(ResourceKind.Stone) +
                    "/F" + session.GetStorage(ResourceKind.Food) + "/D" + session.GetStorage(ResourceKind.Salvage);
+        }
+
+        private static string ModuleSnapshotFingerprint(PrototypeCampModuleExpansionSnapshot snapshot)
+        {
+            CampModuleCommittedRoomSnapshot[] rooms = snapshot == null || snapshot.CommittedRooms == null
+                ? Array.Empty<CampModuleCommittedRoomSnapshot>()
+                : snapshot.CommittedRooms;
+            return snapshot == null
+                ? "null"
+                : snapshot.SchemaVersion + "|" + snapshot.HasCommittedModule + "|" + snapshot.CommittedArchetype + "|" +
+                  snapshot.CommittedRoomId + "|" + string.Join(";", rooms.Select(room => room == null
+                      ? "null"
+                      : room.CommitSequence + ":" + room.Archetype + ":" + room.RoomId + ":" + room.StartSlotId +
+                        ":" + room.ReciprocalSlotId + ":" + room.ConnectorKind));
         }
 
         private static bool IsMissingLocalization(string value)

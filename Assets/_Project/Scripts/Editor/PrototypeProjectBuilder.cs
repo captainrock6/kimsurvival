@@ -1006,7 +1006,7 @@ namespace KimSurvival.EditorTools
                 "PASS · deterministic edit checks\n" +
                 "Started UTC: " + started.ToString("O") + "\n" +
                 "Completed UTC: " + DateTime.UtcNow.ToString("O") + "\n" +
-                "Checks: Wave 20 natural shore-launch raft stages, protected sailcloth, weather/current launch window, atomic failure/retry and snapshot restore; Wave 17 four-phase hazard budget and idempotent transaction, five escape catalog entries with playable raft/smoke/radio, private stable-ID snapshot/log schema, nineteen deterministic endings and terminal priority; Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, three localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
+                "Checks: Wave 20 natural shore-launch raft stages, protected sailcloth, weather/current launch window, atomic failure/retry and snapshot restore; Wave 17 four-phase hazard budget and idempotent transaction, five escape catalog entries with playable raft/smoke/radio, private stable-ID snapshot/log schema, nineteen deterministic endings and terminal priority; Wave 16 selected-only right-rail A import/GUID, seven non-color region states and playable verification transitions; Wave 15 fifty-day boundary (Day 49 continues, Day 50 settlement resolves, early signal wins), direct proximity expedition map, seven exact localized region profiles, deterministic seed/profile/action results, three-route softlock manifest, selected-region world profile and privacy-free development log linkage; Wave 13 local JSONL schema; compact-a, direct module slots, storage planning, placement, bag 4-to-6, swimming, barrier, signal and crafting regressions\n";
             File.WriteAllText(Path.Combine(VerificationFolder, "editmode-checks.txt"), report);
             Debug.Log("[Kim Survival] " + report.Replace('\n', ' '));
         }
@@ -1129,11 +1129,42 @@ namespace KimSurvival.EditorTools
         private static void VerifyCampaignMapContract()
         {
             IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
-            Assert(profiles.Count == 3 &&
-                   profiles[0].Id == PrototypeExpeditionRegionId.Beach &&
-                   profiles[1].Id == PrototypeExpeditionRegionId.Forest &&
-                   profiles[2].Id == PrototypeExpeditionRegionId.Shallows,
-                "Campaign map exposes exactly the beach, forest and shallows profiles in stable order");
+            PrototypeExpeditionRegionId[] expectedRegions =
+            {
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionId.Forest,
+                PrototypeExpeditionRegionId.Shallows,
+                PrototypeExpeditionRegionId.RidgeHighland,
+                PrototypeExpeditionRegionId.CaveIsland,
+                PrototypeExpeditionRegionId.CoveWreck,
+                PrototypeExpeditionRegionId.RuinsRelay
+            };
+            string[] expectedStableIds =
+            {
+                "region.coast.beach",
+                "region.forest.grove",
+                "region.sea.shallows",
+                "region.ridge.highland",
+                "region.cave.island",
+                "region.cove.wreck",
+                "region.ruins.relay"
+            };
+            Assert(profiles.Count == expectedRegions.Length,
+                "Campaign map exposes exactly seven region profiles");
+            for (int regionIndex = 0; regionIndex < expectedRegions.Length; regionIndex += 1)
+            {
+                PrototypeExpeditionRegionProfile profile = profiles[regionIndex];
+                Assert(profile.Id == expectedRegions[regionIndex] &&
+                       string.Equals(profile.StableId, expectedStableIds[regionIndex], StringComparison.Ordinal) &&
+                       ReferenceEquals(PrototypeExpeditionRegionCatalog.Get(expectedRegions[regionIndex]), profile),
+                    "Campaign map preserves exact stable ID order and catalog roundtrip: " + expectedStableIds[regionIndex]);
+
+                GameSession roundtrip = new GameSession(PrototypeExpeditionRegionCatalog.DefaultRunSeed);
+                Assert(roundtrip.BeginSearch(expectedRegions[regionIndex]) &&
+                       roundtrip.SelectedRegionId == expectedRegions[regionIndex] &&
+                       string.Equals(roundtrip.ActiveRegionProfileId, expectedStableIds[regionIndex], StringComparison.Ordinal),
+                    "Game session roundtrips the selected region stable ID: " + expectedStableIds[regionIndex]);
+            }
 
             int seed = PrototypeExpeditionRegionCatalog.DefaultRunSeed;
             bool differentSeedVariesWithinProfile = false;
@@ -1173,7 +1204,7 @@ namespace KimSurvival.EditorTools
             Assert(manifest.HasMinimumSoftlockProtection && manifest.Guarantees.Count == 3 &&
                    routeIds.Count == 3 && coreIds.Count == 3 && assignedRegions.Count == 3 &&
                    manifest.GuaranteesRoute("escape.smoke") && manifest.GuaranteesRoute("escape.radio") && manifest.GuaranteesRoute("escape.raft"),
-                "Every run seed reserves three distinct escape-route cores across the three playable regions");
+                "Every run seed reserves three distinct escape-route cores across the seven-region catalog");
 
             PrototypeCampUse campUse = new PrototypeCampUse();
             PrototypeCampInteraction interaction = new PrototypeCampInteraction();
@@ -1206,12 +1237,19 @@ namespace KimSurvival.EditorTools
             selection.StepFocus(0);
             Assert(selection.StepFocus(1) && selection.FocusedRegionId == PrototypeExpeditionRegionId.Shallows,
                 "Map focus cycles beach to forest to shallows after release");
+            for (int regionIndex = 3; regionIndex < expectedRegions.Length; regionIndex += 1)
+            {
+                selection.StepFocus(0);
+                Assert(selection.StepFocus(1) && selection.FocusedRegionId == expectedRegions[regionIndex],
+                    "Map focus exposes the added region: " + expectedStableIds[regionIndex]);
+            }
+            selection.StepFocus(0);
+            Assert(selection.StepFocus(1) && selection.FocusedRegionId == PrototypeExpeditionRegionId.Beach,
+                "Map focus wraps from ruins relay to beach across all seven regions");
 
-            Assert(selection.GetRegionState(PrototypeExpeditionRegionId.Beach) == PrototypeExpeditionRegionVisualState.DepartureReady &&
-                   selection.GetRegionState(PrototypeExpeditionRegionId.Forest) == PrototypeExpeditionRegionVisualState.DepartureReady &&
-                   selection.GetRegionState(PrototypeExpeditionRegionId.Shallows) == PrototypeExpeditionRegionVisualState.DepartureReady &&
+            Assert(expectedRegions.All(region => selection.GetRegionState(region) == PrototypeExpeditionRegionVisualState.DepartureReady) &&
                    selection.CanDepartFocusedRegion(),
-                "All three starting regions use the playable departure-ready state");
+                "All seven regions use the playable departure-ready state");
             PrototypeExpeditionRegionVisualState[] visualStates =
             {
                 PrototypeExpeditionRegionVisualState.Default,

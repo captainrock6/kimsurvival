@@ -48,11 +48,13 @@ namespace KimSurvival
 
         public void Warp(float worldX)
         {
+            PrototypeProductionActionCounters.RecordWarp();
             PlayerPosition = new Vector2(Mathf.Clamp(worldX, PlayerMinimumX, PlayerMaximumX), PlayerFloorY);
         }
 
         public void Warp(Vector2 position)
         {
+            PrototypeProductionActionCounters.RecordWarp();
             PlayerPosition = new Vector2(Mathf.Clamp(position.x, PlayerMinimumX, PlayerMaximumX), position.y);
         }
 

@@ -8,8 +8,8 @@ phase.camp.preparing	캠프 준비	Camp preparation	⟦Cámp prépárátíóñá
 phase.exploring.swimming	얕은 연안 수영	Swimming the shallows	⟦Swímmíñg thé shállówsáéíóúüñ⟧
 phase.exploring.land	섬 수색	Island expedition	⟦Ísláñd éxpédítíóñáéíóú⟧
 phase.result	결과	Result	⟦Résúltá⟧
-hud.status.camp	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4}	⟦DÁY {0}/{1} · {2}\nHúñgér {3} | Éñérgy {4}áéíóúüñ¿¡áéíóúüñ⟧
-hud.status.exploring	DAY {0}/{1} · {2}\n허기 {3} | 체력 {4} | 일광 {5}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Daylight {5}	⟦DÁY {0}/{1} · {2}\nHúñgér {3} | Éñérgy {4} | Dáylíght {5}áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+hud.status.camp	DAY {0}/{1} · {2}\n허기 {3} | 기력 {4} | 체력 {5}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Health {5}	⟦DÁY {0}/{1} · {2}\nHúñgér {3} | Éñérgy {4} | Héálth {5}áéíóúüñ¿¡áéíóúüñ⟧
+hud.status.exploring	DAY {0}/{1} · {2}\n허기 {3} | 기력 {4} | 일광 {5} | 체력 {6}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Daylight {5} | Health {6}	⟦DÁY {0}/{1} · {2}\nHúñgér {3} | Éñérgy {4} | Dáylíght {5} | Héálth {6}áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 hud.resources	나무 {0}   돌 {1}   식량 {2}   표류물 {3}\n신호대 {4}/2   도끼 {5}   밧줄 {6}	Wood {0}   Stone {1}   Food {2}   Salvage {3}\nSignal {4}/2   Axe {5}   Rope {6}	⟦Wóód {0}   Stóñé {1}   Fóód {2}   Sálvágé {3}\nSígñál {4}/2   Áxé {5}   Rópé {6}áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
 controls.placement.keyboard_mouse	{0} · 마우스로 위치 이동\n클릭/Enter 확정 · 우클릭/Esc 취소\nF1 언어	{0} · Move with mouse\nClick/Enter confirm · Right-click/Esc cancel\nF1 language	⟦{0} · Móvé wíth móúsé\nClíck/Enter cóñfírm · Ríght-clíck/Esc cáñcél\nF1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
 controls.placement.gamepad	{0} · 왼쪽 스틱으로 위치 이동\nA 확정 · B 취소\nY 언어	{0} · Move with left stick\nA confirm · B cancel\nY language	⟦{0} · Móvé wíth léft stíck\nÁ cóñfírm · B cáñcél\nY láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
@@ -286,6 +286,34 @@ expedition.region.shallows.risk	보통 · 조류와 미끄러운 암초	Medium �
 expedition.region.shallows.weather	파도 약간 · 시야 양호	Small waves · Good visibility	⟦Smáll wávés · Góód vísíbílítyáéíóúüñ¿⟧
 expedition.region.shallows.equipment	수영 체력 필요 · 밧줄 권장	Swimming stamina required · Rope advised	⟦Swímmíñg stámiñá réqúíréd · Rópé ádvísédáéíóúüñ¿¡áéí⟧
 expedition.region.shallows.special	? 가라앉은 부품 가능성	? Possible sunken component	⟦? Póssíblé súñkéñ cómpóñéñtáéíóúüá⟧
+expedition.region.ridge_highland.name	바람 절벽	Windy Highland Ridge	⟦Wíñdy Híghláñd Rídgéáéíóú⟧
+expedition.region.ridge_highland.summary	강풍이 부는 능선과 무너진 바위틈. 고지대 신호 흔적이 보인다.	A wind-beaten ridge of collapsed rock with traces of old signal work.	⟦Á wíñd-béátéñ rídgé óf cóllápséd róck wíth trácés óf óld sígñál wórkáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
+expedition.region.ridge_highland.resources	돌·나무 풍부 · 금속·섬유 보통 · 연료 희귀	Stone and wood abundant · Metal and fiber common · Fuel scarce	⟦Stóñé áñd wóód ábúñdáñt · Métál áñd fíbér cómmóñ · Fúél scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+expedition.region.ridge_highland.risk	높음 · 낙석·말벌·절벽 강풍	High · Rockfalls, wasps, and cliff winds	⟦Hígh · Róckfálls, wásps, áñd clíff wíñdsáéíóúüñ¿¡áéíóú⟧
+expedition.region.ridge_highland.weather	강풍 · 대체로 맑음 · 번개 가능	Strong wind · Mostly clear · Lightning possible	⟦Stróñg wíñd · Móstly cléár · Líghtñíñg póssíbléáéíóúüñ¿¡áéíóúüñ⟧
+expedition.region.ridge_highland.equipment	밧줄 필수 · 방수 장비 권장	Rope required · Weatherproof gear advised	⟦Rópé réqúíréd · Wéáthérpróóf géár ádvísédáéíóúüñ¿¡áéíóú⟧
+expedition.region.ridge_highland.special	? 부싯돌·신호 전망대 가능성	? Possible flint and signal overlook	⟦? Póssíblé flíñt áñd sígñál óvérlóókáéíóúüñ¿¡áéí⟧
+expedition.region.cave_island.name	섬 동굴	Island Cave	⟦Ísláñd Cávéáéí⟧
+expedition.region.cave_island.summary	습하고 어두운 동굴 안에 광맥과 오래된 저장 흔적이 이어진다.	A damp, dark cave with mineral seams and traces of an old cache.	⟦Á dámp, dárk cávé wíth míñérál séáms áñd trácés óf áñ óld cáchéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
+expedition.region.cave_island.resources	돌·화학 재료 풍부 · 금속·연료 보통 · 약품 희귀	Stone and chemicals abundant · Metal and fuel common · Medicine scarce	⟦Stóñé áñd chémícáls ábúñdáñt · Métál áñd fúél cómmóñ · Médícíñé scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
+expedition.region.cave_island.risk	높음 · 낙반·동굴 진드기·독성 균류	High · Cave-ins, mites, and toxic fungus	⟦Hígh · Cávé-íñs, mítés, áñd tóxíc fúñgúsáéíóúüñ¿¡áéíóú⟧
+expedition.region.cave_island.weather	동굴 안 습함 · 폭우 때 침수 가능	Humid inside · Flooding possible during heavy rain	⟦Húmíd íñsídé · Flóódíñg póssíblé dúríñg héávy ráíñáéíóúüñ¿¡áéíóúüñ¿⟧
+expedition.region.cave_island.equipment	돌도끼·광원 필요	Stone axe and light source required	⟦Stóñé áxé áñd líght sóúrcé réqúírédáéíóúüñ¿¡áéí⟧
+expedition.region.cave_island.special	? 부싯돌 광맥·부품 은닉처 가능성	? Possible flint seam and hidden parts cache	⟦? Póssíblé flíñt séám áñd híddéñ párts cáchéáéíóúüñ¿¡áéíóúü⟧
+expedition.region.cove_wreck.name	난파선 만	Wreck Cove	⟦Wréck Cóvéáé⟧
+expedition.region.cove_wreck.summary	부서진 선체와 침수된 화물칸이 좁은 만에 겹쳐 있다.	Broken hulls and flooded cargo holds crowd a narrow cove.	⟦Brókéñ húlls áñd flóódéd cárgó hólds crówd á ñárrów cóvéáéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
+expedition.region.cove_wreck.resources	금속·표류물 풍부 · 천·전자 부품 보통 · 식량 희귀	Metal and salvage abundant · Fabric and electronics common · Food scarce	⟦Métál áñd sálvágé ábúñdáñt · Fábríc áñd éléctróñícs cómmóñ · Fóód scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
+expedition.region.cove_wreck.risk	높음 · 날카로운 잔해·쥐 떼·침수	High · Sharp wreckage, rats, and flooding	⟦Hígh · Shárp wréckágé, ráts, áñd flóódíñgáéíóúüñ¿¡áéíóú⟧
+expedition.region.cove_wreck.weather	거센 조류 · 높은 파도 · 비 가능	Strong currents · High surf · Rain possible	⟦Stróñg cúrréñts · Hígh súrf · Ráíñ póssíbléáéíóúüñ¿¡áéíóúü⟧
+expedition.region.cove_wreck.equipment	수영 준비·밧줄 필수	Swimming gear and rope required	⟦Swímmíñg géár áñd rópé réqúírédáéíóúüñ¿¡⟧
+expedition.region.cove_wreck.special	? 무전기 몸체·돛천·엔진 부품 가능성	? Possible radio chassis, sailcloth, and engine parts	⟦? Póssíblé rádíó chássís, sáílclóth, áñd éñgíñé pártsáéíóúüñ¿¡áéíóúüñ¿¡á⟧
+expedition.region.ruins_relay.name	폐중계 관측소	Abandoned Relay Observatory	⟦Ábáñdóñéd Réláy Óbsérvátóryáéíóúáéíó⟧
+expedition.region.ruins_relay.summary	번개에 그을린 계단 위로 끊어진 안테나와 제어실이 남아 있다.	A scorched stairway leads to broken antennas and an abandoned control room.	⟦Á scórchéd stáírwáy léáds tó brókéñ áñtéññás áñd áñ ábáñdóñéd cóñtról róómáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+expedition.region.ruins_relay.resources	전자 부품·전선 풍부 · 금속·연료 보통 · 섬유 희귀	Electronics and wire abundant · Metal and fuel common · Fiber scarce	⟦Éléctróñícs áñd wíré ábúñdáñt · Métál áñd fúél cómmóñ · Fíbér scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
+expedition.region.ruins_relay.risk	매우 높음 · 번개·불안정한 계단·전기 덩굴	Very high · Lightning, unstable stairs, and electrical creepers	⟦Véry hígh · Líghtñíñg, úñstáblé stáírs, áñd éléctrícál créépérsáéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+expedition.region.ruins_relay.weather	뇌우 · 강풍 · 비	Thunderstorms · Strong wind · Rain	⟦Thúñdérstórms · Stróñg wíñd · Ráíñáéíóúüñ¿¡⟧
+expedition.region.ruins_relay.equipment	밧줄·절연 장비 필수	Rope and insulation gear required	⟦Rópé áñd íñsúlátíóñ géár réqúírédáéíóúüñ¿¡⟧
+expedition.region.ruins_relay.special	? 회로기판·트랜지스터·중계 기록 가능성	? Possible circuit board, transistor, and relay log	⟦? Póssíblé círcúít bóárd, tráñsístór, áñd réláy lógáéíóúüñ¿¡áéíóúüñ¿¡⟧
 message.search.choose_region	지도·출구에서 오늘 갈 지역을 먼저 골라야 한다.	Choose today's region at the expedition map and exit first.	⟦Chóósé tódáy's régíóñ át thé éxpédítíóñ máp áñd éxít fírst.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
 message.search.begin_region	{0}(으)로 출발한다. 정확한 수확량은 현장에서 확인하자.	Departing for {0}. Exact yields remain unknown until the search.	⟦Dépártíñg fór {0}. Éxáct yíélds rémáíñ úñkñówñ úñtíl thé séárch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
 expedition.map.title_region	수집 지도 · DAY {0}/{1}\n{2}	Expedition Map · DAY {0}/{1}\n{2}	⟦Éxpédítíóñ Máp · DÁY {0}/{1}\n{2}áéíóúüñ¿¡⟧
@@ -449,3 +477,28 @@ search.tray.risk	위험 노출: {0}	Risk exposure: {0}	⟦Rísk éxpósúré: {0
 search.part.raft.sailcloth	뗏목 돛천	Raft sailcloth	⟦Ráft sáílclótháéí⟧
 controls.search_tray.keyboard_mouse	발견물: ←/→ 선택 · E/Enter 담기 · T 모두 담기 · 1–{1} 교체 · Esc 남기기 ({0})	Finds: ←/→ select · E/Enter take · T take all · 1–{1} swap · Esc leave ({0})	⟦Fíñds: ←/→ séléct ítém · É/Éñtér táké · T táké áll · 1–{1} swáp slót · Ésc léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.search_tray.gamepad	발견물: 스틱 선택 · A 담기 · RB 모두 담기 · D-pad+A 교체 · B 남기기 ({0})	Finds: stick select · A take · RB take all · D-pad+A swap · B leave ({0})	⟦Fíñds: stíck séléct ítém · Á táké · RB táké áll · D-pád+Á swáp slót · B léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧
+resource.fabric	천	Fabric	⟦Fábrícá⟧
+resource.fiber	섬유	Fiber	⟦Fíbér⟧
+resource.medicine	약품	Medicine	⟦Médícíñéáé⟧
+resource.metal	금속	Metal	⟦Métál⟧
+resource.wire	전선	Wire	⟦Wíré⟧
+resource.fuel	연료	Fuel	⟦Fúél⟧
+resource.chemicals	화학 재료	Chemicals	⟦Chémícálsáé⟧
+resource.electronics	전자 부품	Electronics	⟦Éléctróñícsáéí⟧
+search.known-remaining	이미 확인한 남은 발견물	Known remaining finds	⟦Kñówñ rémáíñíñg fíñdsáéíóú⟧
+search.barrier-broken	부순 장벽은 그대로 열려 있다	The broken barrier remains open	⟦Thé brókéñ bárríér rémáíñs ópéñáéíóúüáéíó⟧
+search.hazard-removed	제거한 영구 위험은 돌아오지 않는다	The removed persistent hazard stays gone	⟦Thé rémóvéd pérsístéñt házárd stáys góñéáéíóúüñ¿¡áéíóú⟧
+hazard-profile.disease.jungle-fever.name	정글열	Jungle Fever	⟦Júñglé Févéráéí⟧
+hazard-profile.disease.jungle-fever.telegraph	축축한 사체 더미 주변에 열병의 징후가 보인다.	Signs of fever linger around the damp deadfall.	⟦Sígñs óf févér líñgér áróúñd thé dámp déádfálláéíóúüñ¿¡áéíóúüñ¿⟧
+hazard-profile.disease.jungle-fever.exposed	서로 다른 오염 지점을 뒤져 정글열에 노출되었다.	Searching two distinct contaminated deadfalls caused exposure.	⟦Séárchíñg twó dístíñct cóñtámíñátéd déádfálls cáúséd éxpósúréáéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+hazard-profile.disease.jungle-fever.symptomatic	귀환하자 열과 오한이 시작됐다. 체력 -10.	Fever and chills began on return. Health -10.	⟦Févér áñd chílls bégáñ óñ rétúrñ. Héálth -10áéíóúüñ¿¡áéíóúüñ¿⟧
+hazard-profile.disease.jungle-fever.aggravated	치료하지 않아 병세가 악화됐다. 체력 -15.	Untreated fever worsened. Health -15.	⟦Úñtréátéd févér wórséñéd. Héálth -15áéíóúüñ¿¡áéíóú⟧
+hazard-profile.disease.jungle-fever.treatment	약품으로 정글열 치료 ({0} 보유)	Treat Jungle Fever with medicine ({0} held)	⟦Tréát Júñglé Févér wíth médícíñé ({0} héld)áéíóúüñ¿¡áéíóúü⟧
+hazard-profile.disease.jungle-fever.recovering	약품을 사용했다. 다음 날 정글열이 가라앉는다.	Medicine applied. Jungle Fever clears next day.	⟦Médícíñé ápplíéd. Júñglé Févér cléárs ñéxt dáyáéíóúüñ¿¡áéíóúüñ¿⟧
+hazard-profile.disease.jungle-fever.cleared	열이 내렸다. 체력 +5.	The fever broke. Health +5.	⟦Thé févér bróké. Héálth +5áéíóúüñ¿¡⟧
+failure.disease.jungle-fever	치료할 수 없다. 작업대와 약품 1개가 필요하다.	Treatment unavailable. A workbench and 1 medicine are required.	⟦Tréátméñt úñáváíláblé. Á wórkbéñch áñd 1 médícíñé áré réqúírédáéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+disease.telegraph.jungle-fever	열병 위험 경고	Disease warning	⟦Díséásé wárñíñgáéíóú⟧
+disease.exposure.jungle-fever	정글열 노출	Disease exposure	⟦Díséásé éxpósúréáéíóú⟧
+disease.effect.jungle-fever	정글열 증상 발현	Disease symptom effect	⟦Díséásé symptóm éfféctáéíóúáé⟧
+disease.worsen.jungle-fever	미치료 정글열 악화	Untreated disease worsens	⟦Úñtréátéd díséásé wórséñsáéíóúáéí⟧
+disease.treat.jungle-fever	약품 치료	Medicine treatment	⟦Médícíñé tréátméñtáéíóú⟧

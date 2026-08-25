@@ -421,6 +421,16 @@ namespace KimSurvival
                 GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1),
                 BagSlotIndex = bagSlotIndex
             };
+            return MapRawActions(raw);
+        }
+
+        public PrototypePlayerActions MapRawActions(PrototypeRawInput raw)
+        {
+            bool keyboardMouse = raw.KeyboardLeft || raw.KeyboardRight || raw.KeyboardJump ||
+                                 raw.KeyboardInteract || raw.KeyboardReturn || raw.KeyboardCancel ||
+                                 raw.BagSlotIndex >= 0;
+            bool gamepad = raw.GamepadJump || raw.GamepadInteract || raw.GamepadReturn || raw.GamepadCancel;
+            deviceTracker.Update(new PrototypeInputActivity(keyboardMouse, gamepad));
             return PrototypePlayerActions.FromRaw(raw);
         }
 
@@ -475,7 +485,7 @@ namespace KimSurvival
 
         public PrototypeSearchLootActions ReadSearchLootActions()
         {
-            return PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput
+            return MapRawSearchLootActions(new PrototypeRawSearchLootInput
             {
                 HorizontalAxis = Input.GetAxisRaw("Horizontal"),
                 KeyboardPrevious = Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A),
@@ -487,6 +497,15 @@ namespace KimSurvival
                 KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
                 GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
             });
+        }
+
+        public PrototypeSearchLootActions MapRawSearchLootActions(PrototypeRawSearchLootInput raw)
+        {
+            bool keyboardMouse = raw.KeyboardPrevious || raw.KeyboardNext || raw.KeyboardConfirm ||
+                                 raw.KeyboardTakeAll || raw.KeyboardCancel;
+            bool gamepad = raw.GamepadConfirm || raw.GamepadTakeAll || raw.GamepadCancel;
+            deviceTracker.Update(new PrototypeInputActivity(keyboardMouse, gamepad));
+            return PrototypeSearchLootActions.FromRaw(raw);
         }
 
         public PrototypeSystemActions ReadSystemActions()

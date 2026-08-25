@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -79,13 +80,67 @@ namespace KimSurvival
     public readonly struct CampInstalledStructurePlacement
     {
         public CampInstalledStructurePlacement(string roomId, float x)
+            : this(roomId, PrototypeCampPlacement.GetZoneId(CampPlacementZone.GeneralGround), x)
+        {
+        }
+
+        public CampInstalledStructurePlacement(string roomId, string stablePlacementZoneId, float x)
         {
             RoomId = string.IsNullOrWhiteSpace(roomId) ? PrototypeCampModuleCatalog.StartRoomId : roomId;
+            StablePlacementZoneId = stablePlacementZoneId ?? string.Empty;
             X = x;
         }
 
         public string RoomId { get; }
+        public string StablePlacementZoneId { get; }
         public float X { get; }
+    }
+
+    [Serializable]
+    public sealed class CampInstalledStructurePlacementSnapshot
+    {
+        public string StableStructureId = string.Empty;
+        public StructureKind Structure;
+        public string StablePlacementZoneId = string.Empty;
+        public string StableRoomId = string.Empty;
+        public float X;
+
+        public CampInstalledStructurePlacementSnapshot Clone()
+        {
+            return new CampInstalledStructurePlacementSnapshot
+            {
+                StableStructureId = StableStructureId,
+                Structure = Structure,
+                StablePlacementZoneId = StablePlacementZoneId,
+                StableRoomId = StableRoomId,
+                X = X
+            };
+        }
+    }
+
+    [Serializable]
+    public sealed class PrototypeCampPlacementSnapshot
+    {
+        public const int CurrentSchemaVersion = 1;
+
+        public int SchemaVersion = CurrentSchemaVersion;
+        public CampInstalledStructurePlacementSnapshot[] Installed = Array.Empty<CampInstalledStructurePlacementSnapshot>();
+
+        public PrototypeCampPlacementSnapshot Clone()
+        {
+            CampInstalledStructurePlacementSnapshot[] source = Installed ?? Array.Empty<CampInstalledStructurePlacementSnapshot>();
+            CampInstalledStructurePlacementSnapshot[] copy = new CampInstalledStructurePlacementSnapshot[source.Length];
+            for (int index = 0; index < source.Length; index += 1)
+            {
+                copy[index] = source[index] == null ? null : source[index].Clone();
+            }
+
+            return new PrototypeCampPlacementSnapshot
+            {
+                SchemaVersion = SchemaVersion,
+                Installed = copy
+            };
+        }
     }
 
     public sealed class PrototypeCampPlacement
@@ -112,6 +167,11 @@ namespace KimSurvival
 
         public bool IsActive { get; private set; }
         public bool IsRelocating { get; private set; }
+
+        public int InstalledCount
+        {
+            get { return installedPlacements.Count; }
+        }
 
         public StructureKind SelectedKind
         {
@@ -271,7 +331,10 @@ namespace KimSurvival
                 return false;
             }
 
-            installedPlacements[selectedKind] = new CampInstalledStructurePlacement(activeRoomZone.RoomId, candidateX);
+            installedPlacements[selectedKind] = new CampInstalledStructurePlacement(
+                activeRoomZone.RoomId,
+                GetZoneId(GetRequiredZone(selectedKind)),
+                candidateX);
             IsActive = false;
             IsRelocating = false;
             return true;
@@ -286,12 +349,7 @@ namespace KimSurvival
         public void Reset()
         {
             installedPlacements.Clear();
-            IsActive = false;
-            IsRelocating = false;
-            selectedKind = default(StructureKind);
-            cursorX = 0f;
-            candidateX = 0f;
-            activeRoomZone = CampPlacementRoomZone.StartRoom;
+            ResetTransientState();
         }
 
         public void EnsureInstalled(StructureKind kind)
@@ -300,6 +358,7 @@ namespace KimSurvival
             {
                 installedPlacements[kind] = new CampInstalledStructurePlacement(
                     PrototypeCampModuleCatalog.StartRoomId,
+                    GetZoneId(GetRequiredZone(kind)),
                     GetDefaultX(kind));
             }
         }
@@ -316,6 +375,14 @@ namespace KimSurvival
                 : PrototypeCampModuleCatalog.StartRoomId;
         }
 
+        public string GetInstalledPlacementZoneId(StructureKind kind)
+        {
+            return installedPlacements.TryGetValue(kind, out CampInstalledStructurePlacement installed) &&
+                   !string.IsNullOrWhiteSpace(installed.StablePlacementZoneId)
+                ? installed.StablePlacementZoneId
+                : GetZoneId(GetRequiredZone(kind));
+        }
+
         public bool IsInstalledInRoom(StructureKind kind, string roomId)
         {
             return string.Equals(GetInstalledRoomId(kind), roomId, System.StringComparison.Ordinal);
@@ -330,36 +397,91 @@ namespace KimSurvival
             return new Vector2(x, FloorY + size.y * 0.5f);
         }
 
+        public PrototypeCampPlacementSnapshot CaptureSnapshot()
+        {
+            List<CampInstalledStructurePlacementSnapshot> entries = new List<CampInstalledStructurePlacementSnapshot>();
+            Array structureValues = Enum.GetValues(typeof(StructureKind));
+            for (int index = 0; index < structureValues.Length; index += 1)
+            {
+                StructureKind kind = (StructureKind)structureValues.GetValue(index);
+                if (!installedPlacements.TryGetValue(kind, out CampInstalledStructurePlacement installed))
+                {
+                    continue;
+                }
+
+                entries.Add(new CampInstalledStructurePlacementSnapshot
+                {
+                    StableStructureId = GetStructureId(kind),
+                    Structure = kind,
+                    StablePlacementZoneId = GetInstalledPlacementZoneId(kind),
+                    StableRoomId = installed.RoomId,
+                    X = installed.X
+                });
+            }
+
+            return new PrototypeCampPlacementSnapshot
+            {
+                SchemaVersion = PrototypeCampPlacementSnapshot.CurrentSchemaVersion,
+                Installed = entries.ToArray()
+            };
+        }
+
+        public bool RestoreSnapshot(PrototypeCampPlacementSnapshot snapshot)
+        {
+            if (!TryBuildRestoredPlacements(snapshot, out Dictionary<StructureKind, CampInstalledStructurePlacement> restored))
+            {
+                return false;
+            }
+
+            installedPlacements.Clear();
+            foreach (KeyValuePair<StructureKind, CampInstalledStructurePlacement> entry in restored)
+            {
+                installedPlacements.Add(entry.Key, entry.Value);
+            }
+
+            ResetTransientState();
+            return true;
+        }
+
         public CampPlacementValidity Validate(StructureKind kind, float worldX)
+        {
+            return ValidatePlacement(kind, worldX, activeRoomZone, installedPlacements);
+        }
+
+        private static CampPlacementValidity ValidatePlacement(
+            StructureKind kind,
+            float worldX,
+            CampPlacementRoomZone roomZone,
+            IReadOnlyDictionary<StructureKind, CampInstalledStructurePlacement> placements)
         {
             Vector2 size = GetStructureSize(kind);
             float halfWidth = size.x * 0.5f;
             float left = worldX - halfWidth;
             float right = worldX + halfWidth;
-            if (left < activeRoomZone.BuildMinimumX || right > activeRoomZone.BuildMaximumX)
+            if (left < roomZone.BuildMinimumX || right > roomZone.BuildMaximumX)
             {
                 return CampPlacementValidity.OutsideCampBounds;
             }
 
             if (GetRequiredZone(kind) == CampPlacementZone.OpenSkyGround &&
-                (!activeRoomZone.AllowsOpenSky || left < activeRoomZone.OpenSkyMinimumX || right > activeRoomZone.OpenSkyMaximumX))
+                (!roomZone.AllowsOpenSky || left < roomZone.OpenSkyMinimumX || right > roomZone.OpenSkyMaximumX))
             {
                 return CampPlacementValidity.WrongZone;
             }
 
-            if (Intersects(left, right, activeRoomZone.EntranceMinimumX, activeRoomZone.EntranceMaximumX))
+            if (Intersects(left, right, roomZone.EntranceMinimumX, roomZone.EntranceMaximumX))
             {
                 return CampPlacementValidity.BlocksEntrance;
             }
 
-            if (Intersects(left, right, activeRoomZone.RequiredPathMinimumX, activeRoomZone.RequiredPathMaximumX))
+            if (Intersects(left, right, roomZone.RequiredPathMinimumX, roomZone.RequiredPathMaximumX))
             {
                 return CampPlacementValidity.BlocksRequiredPath;
             }
 
-            foreach (KeyValuePair<StructureKind, CampInstalledStructurePlacement> installed in installedPlacements)
+            foreach (KeyValuePair<StructureKind, CampInstalledStructurePlacement> installed in placements)
             {
-                if (installed.Key == kind || installed.Value.RoomId != activeRoomZone.RoomId)
+                if (installed.Key == kind || !string.Equals(installed.Value.RoomId, roomZone.RoomId, StringComparison.Ordinal))
                 {
                     continue;
                 }
@@ -372,6 +494,21 @@ namespace KimSurvival
             }
 
             return CampPlacementValidity.Valid;
+        }
+
+        public static string GetStructureId(StructureKind kind)
+        {
+            switch (kind)
+            {
+                case StructureKind.Campfire:
+                    return "structure.campfire";
+                case StructureKind.Workbench:
+                    return "structure.workbench";
+                case StructureKind.RainCollector:
+                    return "structure.rain_collector";
+                default:
+                    return string.Empty;
+            }
         }
 
         public static CampPlacementZone GetRequiredZone(StructureKind kind)
@@ -394,6 +531,42 @@ namespace KimSurvival
             }
         }
 
+        public static bool TryGetRoomZone(string stableRoomId, out CampPlacementRoomZone roomZone)
+        {
+            if (string.Equals(stableRoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal))
+            {
+                roomZone = CampPlacementRoomZone.StartRoom;
+                return true;
+            }
+
+            IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
+            for (int index = 0; index < definitions.Count; index += 1)
+            {
+                CampModuleDefinition definition = definitions[index];
+                if (!string.Equals(stableRoomId, definition.RoomId, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                float connectorX = definition.ModuleConnectorDisplayX;
+                roomZone = new CampPlacementRoomZone(
+                    definition.RoomId,
+                    definition.GeneralFloorDisplayMinimumX,
+                    definition.GeneralFloorDisplayMaximumX,
+                    false,
+                    0f,
+                    0f,
+                    connectorX - 0.8f,
+                    connectorX + 0.8f,
+                    connectorX - 1.1f,
+                    connectorX + 1.1f);
+                return true;
+            }
+
+            roomZone = default(CampPlacementRoomZone);
+            return false;
+        }
+
         public static Vector2 GetStructureSize(StructureKind kind)
         {
             switch (kind)
@@ -407,6 +580,190 @@ namespace KimSurvival
                 default:
                     return Vector2.one;
             }
+        }
+
+        public static bool RunSnapshotContractProbe(out string detail)
+        {
+            if (!TryGetRoomZone("room.upper.standard", out CampPlacementRoomZone upperRoom) ||
+                !TryGetRoomZone("room.basement.standard", out CampPlacementRoomZone basementRoom))
+            {
+                detail = "Known module room IDs did not resolve to placement zones.";
+                return false;
+            }
+
+            PrototypeCampPlacement source = new PrototypeCampPlacement();
+            source.Begin(StructureKind.Campfire, false, upperRoom);
+            source.SetCandidateX(0f);
+            if (source.CurrentValidity != CampPlacementValidity.Valid || !source.Commit())
+            {
+                detail = "Upper-room campfire placement could not be committed.";
+                return false;
+            }
+
+            source.Begin(StructureKind.Workbench, false, basementRoom);
+            source.SetCandidateX(-2f);
+            if (source.CurrentValidity != CampPlacementValidity.Valid || !source.Commit())
+            {
+                detail = "Basement workbench placement could not be committed in the same run.";
+                return false;
+            }
+
+            PrototypeCampPlacementSnapshot captured = source.CaptureSnapshot();
+            if (captured.SchemaVersion != PrototypeCampPlacementSnapshot.CurrentSchemaVersion ||
+                captured.Installed == null ||
+                captured.Installed.Length != 2)
+            {
+                detail = "The v1 capture did not contain both installed structures.";
+                return false;
+            }
+
+            string capturedJson = JsonUtility.ToJson(captured);
+            PrototypeCampPlacementSnapshot roundTripped = JsonUtility.FromJson<PrototypeCampPlacementSnapshot>(capturedJson);
+            PrototypeCampPlacement restored = new PrototypeCampPlacement();
+            if (!restored.RestoreSnapshot(roundTripped) ||
+                !restored.IsInstalledInRoom(StructureKind.Campfire, upperRoom.RoomId) ||
+                !restored.IsInstalledInRoom(StructureKind.Workbench, basementRoom.RoomId) ||
+                !string.Equals(restored.GetInstalledPlacementZoneId(StructureKind.Campfire), GetZoneId(CampPlacementZone.GeneralGround), StringComparison.Ordinal))
+            {
+                detail = "The v1 restore did not preserve structure, room, and placement-zone IDs.";
+                return false;
+            }
+
+            PrototypeCampPlacementSnapshot baseline = restored.CaptureSnapshot();
+            restored.Begin(StructureKind.RainCollector, false, CampPlacementRoomZone.StartRoom);
+            restored.SetCandidateX(3.5f);
+            PrototypeCampPlacementSnapshot invalidId = baseline.Clone();
+            invalidId.Installed[0].StableRoomId = "room.invalid";
+            if (restored.RestoreSnapshot(invalidId) ||
+                !SnapshotsEqual(baseline, restored.CaptureSnapshot()) ||
+                !restored.IsActive ||
+                restored.SelectedKind != StructureKind.RainCollector ||
+                !string.Equals(restored.CandidateRoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal) ||
+                Mathf.Abs(restored.CandidateX - 3.5f) > OverlapTolerance)
+            {
+                detail = "Invalid room ID rejection did not preserve installed and active-preview state atomically.";
+                return false;
+            }
+
+            PrototypeCampPlacementSnapshot invalidZone = baseline.Clone();
+            invalidZone.Installed[0].StablePlacementZoneId = GetZoneId(CampPlacementZone.OpenSkyGround);
+            if (restored.RestoreSnapshot(invalidZone) || !SnapshotsEqual(baseline, restored.CaptureSnapshot()))
+            {
+                detail = "Invalid placement-zone ID rejection was not atomic.";
+                return false;
+            }
+
+            PrototypeCampPlacementSnapshot duplicate = baseline.Clone();
+            duplicate.Installed = new[]
+            {
+                baseline.Installed[0].Clone(),
+                baseline.Installed[0].Clone()
+            };
+            if (restored.RestoreSnapshot(duplicate) || !SnapshotsEqual(baseline, restored.CaptureSnapshot()))
+            {
+                detail = "Duplicate stable structure ID rejection was not atomic.";
+                return false;
+            }
+
+            restored.Reset();
+            if (restored.InstalledCount != 0 || restored.IsActive || restored.IsRelocating)
+            {
+                detail = "Reset did not clear placement snapshot state for a new game.";
+                return false;
+            }
+
+            detail = "v1 capture/restore preserved Upper+Basement placements; invalid and duplicate IDs were rejected atomically; Reset cleared state.";
+            return true;
+        }
+
+        public static void ExecuteSnapshotContractProbe()
+        {
+            if (!RunSnapshotContractProbe(out string detail))
+            {
+                throw new InvalidOperationException("PrototypeCampPlacement snapshot probe failed: " + detail);
+            }
+
+            Debug.Log("PrototypeCampPlacement snapshot probe passed: " + detail);
+        }
+
+        private static bool TryBuildRestoredPlacements(
+            PrototypeCampPlacementSnapshot snapshot,
+            out Dictionary<StructureKind, CampInstalledStructurePlacement> restored)
+        {
+            restored = null;
+            if (snapshot == null ||
+                snapshot.SchemaVersion != PrototypeCampPlacementSnapshot.CurrentSchemaVersion ||
+                snapshot.Installed == null)
+            {
+                return false;
+            }
+
+            Dictionary<StructureKind, CampInstalledStructurePlacement> candidate = new Dictionary<StructureKind, CampInstalledStructurePlacement>();
+            HashSet<string> seenStableStructureIds = new HashSet<string>(StringComparer.Ordinal);
+            for (int index = 0; index < snapshot.Installed.Length; index += 1)
+            {
+                CampInstalledStructurePlacementSnapshot entry = snapshot.Installed[index];
+                if (entry == null ||
+                    !Enum.IsDefined(typeof(StructureKind), entry.Structure) ||
+                    !string.Equals(entry.StableStructureId, GetStructureId(entry.Structure), StringComparison.Ordinal) ||
+                    !seenStableStructureIds.Add(entry.StableStructureId) ||
+                    candidate.ContainsKey(entry.Structure) ||
+                    !string.Equals(entry.StablePlacementZoneId, GetZoneId(GetRequiredZone(entry.Structure)), StringComparison.Ordinal) ||
+                    !TryGetRoomZone(entry.StableRoomId, out CampPlacementRoomZone roomZone) ||
+                    float.IsNaN(entry.X) ||
+                    float.IsInfinity(entry.X) ||
+                    Mathf.Abs(Snap(entry.X) - entry.X) > OverlapTolerance ||
+                    ValidatePlacement(entry.Structure, entry.X, roomZone, candidate) != CampPlacementValidity.Valid)
+                {
+                    return false;
+                }
+
+                candidate.Add(
+                    entry.Structure,
+                    new CampInstalledStructurePlacement(entry.StableRoomId, entry.StablePlacementZoneId, entry.X));
+            }
+
+            restored = candidate;
+            return true;
+        }
+
+        private static bool SnapshotsEqual(PrototypeCampPlacementSnapshot left, PrototypeCampPlacementSnapshot right)
+        {
+            if (left == null || right == null ||
+                left.SchemaVersion != right.SchemaVersion ||
+                left.Installed == null ||
+                right.Installed == null ||
+                left.Installed.Length != right.Installed.Length)
+            {
+                return false;
+            }
+
+            for (int index = 0; index < left.Installed.Length; index += 1)
+            {
+                CampInstalledStructurePlacementSnapshot leftEntry = left.Installed[index];
+                CampInstalledStructurePlacementSnapshot rightEntry = right.Installed[index];
+                if (leftEntry == null || rightEntry == null ||
+                    leftEntry.Structure != rightEntry.Structure ||
+                    !string.Equals(leftEntry.StableStructureId, rightEntry.StableStructureId, StringComparison.Ordinal) ||
+                    !string.Equals(leftEntry.StablePlacementZoneId, rightEntry.StablePlacementZoneId, StringComparison.Ordinal) ||
+                    !string.Equals(leftEntry.StableRoomId, rightEntry.StableRoomId, StringComparison.Ordinal) ||
+                    Mathf.Abs(leftEntry.X - rightEntry.X) > OverlapTolerance)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void ResetTransientState()
+        {
+            IsActive = false;
+            IsRelocating = false;
+            selectedKind = default(StructureKind);
+            cursorX = 0f;
+            candidateX = 0f;
+            activeRoomZone = CampPlacementRoomZone.StartRoom;
         }
 
         private static float GetDefaultX(StructureKind kind)

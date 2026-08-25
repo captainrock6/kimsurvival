@@ -32,6 +32,7 @@ namespace ParallelQA
         private const int ExpectedGeneralUnits = 144;
         private static readonly UTF8Encoding Utf8NoBom = new UTF8Encoding(false);
         private static readonly BindingFlags PublicInstance = BindingFlags.Instance | BindingFlags.Public;
+        private static readonly BindingFlags AllInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
         private static readonly BindingFlags PublicStatic = BindingFlags.Static | BindingFlags.Public;
         private static readonly string[] ExpectedRegionIds =
         {
@@ -134,6 +135,9 @@ namespace ParallelQA
         {
             public string locale = string.Empty;
             public string screenshot = string.Empty;
+            public string renderSha256 = string.Empty;
+            public string renderedTextFingerprint = string.Empty;
+            public string stateFingerprint = string.Empty;
             public int screenWidth;
             public int screenHeight;
             public int overflowCount;
@@ -142,6 +146,52 @@ namespace ParallelQA
             public bool walkingBandClear;
             public string result = "FAIL";
             public string failureReason = string.Empty;
+        }
+
+        [Serializable]
+        private sealed class ProductionInteractionEvidence
+        {
+            public int sequence;
+            public string stableEventId = string.Empty;
+            public string inputDevice = string.Empty;
+            public string action = string.Empty;
+            public string outcome = string.Empty;
+            public string targetKind = string.Empty;
+            public string targetId = string.Empty;
+            public string regionId = string.Empty;
+            public string resourceId = string.Empty;
+            public int delta;
+            public string stateBeforeFingerprint = string.Empty;
+            public string stateAfterFingerprint = string.Empty;
+        }
+
+        [Serializable]
+        private sealed class DiseaseSnapshotEvidence
+        {
+            public int RunSeed;
+            public string StableId = string.Empty;
+            public int Phase;
+            public int ExposureCount;
+            public int ExposureApplyCount;
+            public int EffectCount;
+            public int WorsenCount;
+            public int TreatmentPaidCount;
+            public int HealthDeltaTotal;
+        }
+
+        [Serializable]
+        private sealed class SearchLootEvidence
+        {
+            public int Amount;
+        }
+
+        [Serializable]
+        private sealed class SearchSnapshotEvidence
+        {
+            public int RunSeed;
+            public string NodeId = string.Empty;
+            public int State;
+            public SearchLootEvidence[] Remaining = Array.Empty<SearchLootEvidence>();
         }
 
         [Serializable]
@@ -157,6 +207,7 @@ namespace ParallelQA
             public string liveObservationSurface;
             public string observationError;
             public string[] searchStateSequence = Array.Empty<string>();
+            public string[] searchStateFingerprints = Array.Empty<string>();
             public string[] searchInteractionTrace = Array.Empty<string>();
             public string knownRemainingFingerprint;
             public bool searchGrant;
@@ -164,6 +215,9 @@ namespace ParallelQA
             public bool searchSkip;
             public string[] stockFingerprints = Array.Empty<string>();
             public string[] stockGenerationEvents = Array.Empty<string>();
+            public string liveStockOwner = string.Empty;
+            public string liveStockFingerprint = string.Empty;
+            public bool stockEventsFromLiveRuntime;
             public string diseaseId;
             public string[] diseasePhaseSequence = Array.Empty<string>();
             public string[] diseaseInteractionTrace = Array.Empty<string>();
@@ -179,6 +233,11 @@ namespace ParallelQA
             public bool warp;
             public bool skip;
             public bool cheatFieldsObserved;
+            public int grantCallCount = -1;
+            public int warpCallCount = -1;
+            public int skipCallCount = -1;
+            public bool cheatCountersObserved;
+            public ProductionInteractionEvidence[] productionInteractionEvents = Array.Empty<ProductionInteractionEvidence>();
             public string keyboardMeaning;
             public string gamepadMeaning;
             public string[] localeStateFingerprints = Array.Empty<string>();
@@ -205,6 +264,7 @@ namespace ParallelQA
             public readonly HashSet<string> InstanceIds = new HashSet<string>(StringComparer.Ordinal);
             public readonly HashSet<string> LegacyNodeIds = new HashSet<string>(StringComparer.Ordinal);
             public readonly List<ResourceBucket> ResourceBuckets = new List<ResourceBucket>();
+            public readonly Dictionary<string, int> StableLootUnitsByItemId = new Dictionary<string, int>(StringComparer.Ordinal);
             public int LootUnits;
             public int LootEntries;
         }
@@ -405,19 +465,15 @@ namespace ParallelQA
                     "Actual Play trace preserves hidden/partial/depleted, known remainder, broken barrier, and removed persistent hazard through return, forced return, revisit, and snapshot restore",
                     delegate
                     {
-                        Require(SequenceHas(evidence.searchStateSequence, "hidden", "partial", "depleted"),
-                            "state sequence=" + string.Join(">", evidence.searchStateSequence));
+                        Require(SearchSnapshotSequencePasses(evidence.searchStateFingerprints),
+                            "structured search snapshots missing or invalid; labels are not acceptance evidence");
                         Require(!string.IsNullOrWhiteSpace(evidence.knownRemainingFingerprint), "known remaining fingerprint is missing");
-                        Require(TraceHas(evidence.searchInteractionTrace, "return") &&
-                                TraceHas(evidence.searchInteractionTrace, "forced", "return") &&
-                                TraceHas(evidence.searchInteractionTrace, "revisit") &&
-                                TraceHas(evidence.searchInteractionTrace, "snapshot", "restore") &&
-                                TraceHas(evidence.searchInteractionTrace, "barrier", "broken") &&
-                                TraceHas(evidence.searchInteractionTrace, "hazard", "removed"),
-                            "required transitions are absent: " + string.Join(" | ", evidence.searchInteractionTrace));
-                        Require(!evidence.searchGrant && !evidence.searchWarp && !evidence.searchSkip,
-                            "search trace contains grant/warp/skip");
-                        return "source=" + evidence.searchEvidenceSource + "; trace=" + string.Join(" | ", evidence.searchInteractionTrace);
+                        Require(HasProductionPersistencePath(evidence.productionInteractionEvents),
+                            "ordered production return/forced-return/revisit/restore/barrier/hazard event records are absent");
+                        Require(ZeroCheatCallsObserved(evidence),
+                            "grant/warp/skip call counters are missing or non-zero");
+                        return "source=" + evidence.searchEvidenceSource + "; structuredEvents=" +
+                               evidence.productionInteractionEvents.Length;
                     },
                     "Use a fresh run, naturally search, return, force-return, revisit, serialize, restore, and compare stable state fingerprints.",
                     "runtime region/search persistence owners selected by live trace and public snapshot");
@@ -426,15 +482,24 @@ namespace ParallelQA
                     "The same seed+revisions keeps byte-identical stock across transition/return/forced-return/revisit/restore; stock generation occurs only once at new game",
                     delegate
                     {
+                        Require(evidence.stockEventsFromLiveRuntime && !string.IsNullOrWhiteSpace(evidence.liveStockOwner),
+                            "stock events were not read directly from the active runtime ledger");
                         Require(evidence.stockFingerprints.Length >= 5,
                             "stock fingerprints missing: " + string.Join(",", evidence.stockFingerprints));
                         Require(evidence.stockFingerprints.Distinct(StringComparer.Ordinal).Count() == 1,
                             "stock regenerated outside new game: " + string.Join(",", evidence.stockFingerprints));
+                        Require(!string.IsNullOrWhiteSpace(evidence.liveStockFingerprint) &&
+                                evidence.stockFingerprints.All(value => string.Equals(
+                                    value, evidence.liveStockFingerprint, StringComparison.Ordinal)),
+                            "reported stock fingerprints differ from the active runtime ledger");
                         Require(evidence.stockGenerationEvents.Length == 1 &&
                                 evidence.stockGenerationEvents[0].IndexOf("new", StringComparison.OrdinalIgnoreCase) >= 0,
                             "stock generation events=" + string.Join(",", evidence.stockGenerationEvents));
+                        Require(HasProductionEvent(evidence.productionInteractionEvents, "snapshot.restored"),
+                            "no production snapshot.restore event proves the non-new-game branch");
                         return "fingerprints=" + string.Join(",", evidence.stockFingerprints) +
-                               "; generation=" + string.Join(",", evidence.stockGenerationEvents);
+                               "; generation=" + string.Join(",", evidence.stockGenerationEvents) +
+                               "; ledger=" + evidence.liveStockOwner;
                     },
                     "Observe generation event and stock bytes across every non-new-game transition without reopening or reconstructing fixtures.",
                     "runtime new-game stock and run snapshot owners selected by structured live observation");
@@ -444,13 +509,12 @@ namespace ParallelQA
                     delegate
                     {
                         Require(IsStableDiseaseId(evidence.diseaseId), "stable disease ID missing: " + evidence.diseaseId);
-                        Require(DiseaseSequencePasses(evidence.diseasePhaseSequence),
-                            "disease phases=" + string.Join(">", evidence.diseasePhaseSequence));
-                        Require(DiseaseSequencePasses(evidence.diseaseInteractionTrace),
-                            "disease interaction trace lacks ordered phases: " + string.Join(" | ", evidence.diseaseInteractionTrace));
-                        Require(evidence.diseaseStateFingerprints.Length >= 5 &&
-                                evidence.diseaseStateFingerprints.Distinct(StringComparer.Ordinal).Count() >= 4,
-                            "structured state fingerprints missing or static: " + string.Join(",", evidence.diseaseStateFingerprints));
+                        Require(DiseaseSnapshotSequencePasses(evidence.diseaseStateFingerprints, evidence.diseaseId),
+                            "runtime disease snapshots do not prove telegraph/exposure/effect/worsen/treatment deltas");
+                        Require(HasNaturalDiseaseProductionPath(evidence.productionInteractionEvents),
+                            "ordered production region/search/return/workbench treatment event records are absent");
+                        Require(HasAtomicDiseaseTransactions(evidence.productionInteractionEvents),
+                            "production treatment commit/reject/cancel/duplicate zero-delta records are absent");
                         Require(evidence.exposureApplyCount == 1 && evidence.effectApplyCount == 1 &&
                                 evidence.worsenApplyCount == 1 && evidence.treatmentCostCount == 1,
                             "application counts exposure/effect/worsen/treat=" + evidence.exposureApplyCount + "/" +
@@ -473,13 +537,20 @@ namespace ParallelQA
                             "locale layouts=" + string.Join(",", evidence.layouts.Select(value => value.locale).ToArray()));
                         Require(evidence.layouts.All(value => value.result == "PASS"),
                             "layout failures=" + string.Join(" | ", evidence.layouts.Select(DescribeLayout).ToArray()));
-                        Require(!string.IsNullOrWhiteSpace(evidence.keyboardMeaning) &&
-                                string.Equals(evidence.keyboardMeaning, evidence.gamepadMeaning, StringComparison.Ordinal),
-                            "keyboard/gamepad meaning=" + evidence.keyboardMeaning + "/" + evidence.gamepadMeaning);
-                        Require(evidence.localeStateFingerprints.Length == 3 &&
-                                evidence.localeStateFingerprints.Distinct(StringComparer.Ordinal).Count() == 1,
-                            "locale changed progress state: " + string.Join(",", evidence.localeStateFingerprints));
-                        return "meaning=" + evidence.keyboardMeaning + "; layouts=" +
+                        Require(evidence.layouts.All(value => !string.IsNullOrWhiteSpace(value.renderSha256)) &&
+                                evidence.layouts.Select(value => value.renderSha256).Distinct(StringComparer.Ordinal).Count() == 3,
+                            "ko/en/qps must be three distinct rendered image bytes");
+                        Require(evidence.layouts.All(value => !string.IsNullOrWhiteSpace(value.renderedTextFingerprint)) &&
+                                evidence.layouts.Select(value => value.renderedTextFingerprint)
+                                    .Distinct(StringComparer.Ordinal).Count() == 3,
+                            "per-locale rendered text fingerprints are missing or repeated");
+                        Require(evidence.layouts.All(value => !string.IsNullOrWhiteSpace(value.stateFingerprint)) &&
+                                evidence.layouts.Select(value => value.stateFingerprint)
+                                    .Distinct(StringComparer.Ordinal).Count() == 1,
+                            "each locale capture must carry its independently observed, invariant runtime state");
+                        Require(HasProductionInputParity(evidence.productionInteractionEvents),
+                            "no paired keyboard_mouse/gamepad production event records prove action parity");
+                        return "layouts=" +
                                string.Join(" | ", evidence.layouts.Select(DescribeLayout).ToArray());
                     },
                     "Capture the same actual disease/search state in all locales and actuate identical actions through both synthetic input paths.",
@@ -492,14 +563,10 @@ namespace ParallelQA
                         Require(!string.IsNullOrWhiteSpace(evidence.liveObservationOwner) &&
                                 !string.IsNullOrWhiteSpace(evidence.liveObservationMethod),
                             "no live Wave B observation owner: " + evidence.observationError);
-                        Require(evidence.cheatFieldsObserved && !evidence.grant && !evidence.warp && !evidence.skip,
-                            "grant/warp/skip fields missing or contaminated=" + evidence.cheatFieldsObserved + "/" +
-                            evidence.grant + "/" + evidence.warp + "/" + evidence.skip);
-                        Require(TraceHas(evidence.diseaseInteractionTrace, "region") &&
-                                TraceHas(evidence.diseaseInteractionTrace, "expedition") &&
-                                TraceHas(evidence.diseaseInteractionTrace, "search") &&
-                                (TraceHas(evidence.diseaseInteractionTrace, "treat") || TraceHas(evidence.diseaseInteractionTrace, "mitigat")),
-                            "natural interaction path incomplete: " + string.Join(" | ", evidence.diseaseInteractionTrace));
+                        Require(ZeroCheatCallsObserved(evidence),
+                            "actual grant/warp/skip counters are missing or non-zero");
+                        Require(HasNaturalDiseaseProductionPath(evidence.productionInteractionEvents),
+                            "production interaction records do not prove region UI, expedition, two deadfall searches, return, and workbench treatment");
                         return DescribeDisease(evidence);
                     },
                     "Independently discover an active Scene component by returned structured surface and inspect actual trace/state values; never accept a bool result or fixture text.",
@@ -615,6 +682,8 @@ namespace ParallelQA
             evidence.observationError = ReadString(observed, "ObservationError", "Error");
 
             string[] liveSearchStates = ReadStrings(observed, "SearchStateSequence", "NodeStateSequence");
+            evidence.searchStateFingerprints = ReadStrings(
+                observed, "SearchStateFingerprints", "SearchSnapshotFingerprints", "NodeSnapshotFingerprints");
             string[] liveSearchTrace = ReadStrings(observed, "SearchInteractionTrace", "PersistenceTrace");
             if (liveSearchStates.Length > 0) evidence.searchStateSequence = liveSearchStates;
             if (liveSearchTrace.Length > 0) evidence.searchInteractionTrace = liveSearchTrace;
@@ -639,10 +708,18 @@ namespace ParallelQA
             evidence.cheatFieldsObserved = HasMember(observed.GetType(), "Grant", "UsedGrant") &&
                                            HasMember(observed.GetType(), "Warp", "UsedWarp") &&
                                            HasMember(observed.GetType(), "Skip", "UsedSkip");
+            evidence.grantCallCount = ReadInt(observed, -1, "GrantCallCount", "GrantCalls");
+            evidence.warpCallCount = ReadInt(observed, -1, "WarpCallCount", "WarpCalls");
+            evidence.skipCallCount = ReadInt(observed, -1, "SkipCallCount", "SkipCalls");
+            evidence.cheatCountersObserved = HasMember(observed.GetType(), "GrantCallCount", "GrantCalls") &&
+                                             HasMember(observed.GetType(), "WarpCallCount", "WarpCalls") &&
+                                             HasMember(observed.GetType(), "SkipCallCount", "SkipCalls");
+            evidence.productionInteractionEvents = ReadProductionInteractionEvents(observed);
             evidence.keyboardMeaning = ReadString(observed, "KeyboardMeaning", "KeyboardMouseMeaning");
             evidence.gamepadMeaning = ReadString(observed, "GamepadMeaning", "SyntheticGamepadMeaning");
             evidence.localeStateFingerprints = ReadStrings(observed, "LocaleStateFingerprints", "LocalizedStateFingerprints");
             evidence.layouts = ReadLayouts(observed);
+            PopulateLiveRuntimeEvidence(evidence, owner);
         }
 
         private static LayoutEvidence[] ReadLayouts(object observed)
@@ -657,17 +734,187 @@ namespace ParallelQA
                 {
                     locale = ReadString(item, "Locale", "LocaleCode").ToLowerInvariant(),
                     screenshot = ResolveEvidencePath(ReadString(item, "Screenshot", "Capture", "Path")),
+                    renderedTextFingerprint = ReadString(
+                        item, "RenderedTextFingerprint", "TextFingerprint", "LocalizedTextFingerprint"),
+                    stateFingerprint = ReadString(
+                        item, "StateFingerprint", "RuntimeStateFingerprint", "ProgressStateFingerprint"),
                     overflowCount = ReadInt(item, -1, "OverflowCount", "TmpOverflowCount"),
                     offscreenCount = ReadInt(item, -1, "OffscreenCount", "OffscreenTextCount"),
                     playerClear = ReadBool(item, "PlayerClear", "PlayerNotOccluded"),
                     walkingBandClear = ReadBool(item, "WalkingBandClear", "RequiredPathClear")
                 };
+                if (!string.IsNullOrWhiteSpace(layout.screenshot) && File.Exists(layout.screenshot))
+                {
+                    layout.renderSha256 = Sha256(File.ReadAllBytes(layout.screenshot));
+                }
                 string failure = ValidateLayout(layout);
                 layout.result = string.IsNullOrEmpty(failure) ? "PASS" : "FAIL";
                 layout.failureReason = failure;
                 output.Add(layout);
             }
             return output.ToArray();
+        }
+
+        private static ProductionInteractionEvidence[] ReadProductionInteractionEvents(object observed)
+        {
+            object value = GetMember(
+                observed, "ProductionInteractionEvents", "ProductionEvents", "PlaytestEventRecords");
+            if (!(value is IEnumerable enumerable) || value is string) return Array.Empty<ProductionInteractionEvidence>();
+            List<ProductionInteractionEvidence> output = new List<ProductionInteractionEvidence>();
+            foreach (object item in enumerable)
+            {
+                if (item == null || item is string) continue;
+                object before = GetMember(item, "StateBefore", "state_before", "Before");
+                object after = GetMember(item, "StateAfter", "state_after", "After");
+                ProductionInteractionEvidence record = new ProductionInteractionEvidence
+                {
+                    sequence = ReadInt(item, -1, "Sequence", "sequence"),
+                    stableEventId = ReadString(item, "StableEventId", "stable_event_id", "EventName", "event_name"),
+                    inputDevice = ReadString(item, "InputDevice", "input_device").ToLowerInvariant(),
+                    action = ReadString(item, "Action", "action"),
+                    outcome = ReadString(item, "Outcome", "outcome"),
+                    targetKind = ReadString(item, "TargetKind", "target_kind"),
+                    targetId = ReadString(item, "TargetId", "target_id", "NodeId"),
+                    regionId = ReadString(item, "RegionId", "region_id"),
+                    resourceId = ReadString(item, "ResourceId", "Resource", "resource"),
+                    delta = ReadInt(item, int.MinValue, "Delta", "delta"),
+                    stateBeforeFingerprint = ReadString(before, "Fingerprint", "fingerprint"),
+                    stateAfterFingerprint = ReadString(after, "Fingerprint", "fingerprint")
+                };
+                if (!string.IsNullOrWhiteSpace(record.stableEventId)) output.Add(record);
+            }
+            return output.OrderBy(item => item.sequence).ToArray();
+        }
+
+        private static void PopulateLiveRuntimeEvidence(PlayEvidence evidence, MonoBehaviour owner)
+        {
+            if (owner == null) return;
+            foreach (FieldInfo field in owner.GetType().GetFields(AllInstance))
+            {
+                object candidate;
+                try { candidate = field.GetValue(owner); } catch { continue; }
+                if (candidate == null) continue;
+                object ledger = GetMember(candidate, "Ledger", "SearchLedger");
+                if (ledger == null && HasMember(candidate.GetType(), "StockGenerationEvents", "GenerationEvents"))
+                {
+                    ledger = candidate;
+                }
+                if (ledger == null) continue;
+                string[] events = ReadStrings(ledger, "StockGenerationEvents", "GenerationEvents");
+                string fingerprint = ReadString(ledger, "NewGameStockFingerprint", "StockFingerprint");
+                if (events.Length == 0 || string.IsNullOrWhiteSpace(fingerprint)) continue;
+                evidence.liveStockOwner = owner.GetType().FullName + "." + field.Name + "." + ledger.GetType().Name;
+                evidence.liveStockFingerprint = fingerprint;
+                evidence.stockGenerationEvents = events;
+                evidence.stockEventsFromLiveRuntime = true;
+                return;
+            }
+        }
+
+        private static bool ZeroCheatCallsObserved(PlayEvidence evidence)
+        {
+            return evidence != null && evidence.cheatCountersObserved &&
+                   evidence.grantCallCount == 0 && evidence.warpCallCount == 0 && evidence.skipCallCount == 0;
+        }
+
+        private static bool HasProductionEvent(
+            IEnumerable<ProductionInteractionEvidence> events,
+            string stableEventId)
+        {
+            return (events ?? Array.Empty<ProductionInteractionEvidence>()).Any(value =>
+                value != null && string.Equals(value.stableEventId, stableEventId, StringComparison.Ordinal));
+        }
+
+        private static int ProductionEventIndex(
+            IReadOnlyList<ProductionInteractionEvidence> events,
+            string stableEventId,
+            int afterIndex = -1)
+        {
+            if (events == null) return -1;
+            for (int index = Math.Max(0, afterIndex + 1); index < events.Count; index += 1)
+            {
+                if (events[index] != null &&
+                    string.Equals(events[index].stableEventId, stableEventId, StringComparison.Ordinal)) return index;
+            }
+            return -1;
+        }
+
+        private static bool HasProductionPersistencePath(ProductionInteractionEvidence[] events)
+        {
+            if (!ProductionEventsAreOrdered(events)) return false;
+            string[] required =
+            {
+                "expedition.returned", "expedition.forced-returned", "search.node.revisited",
+                "snapshot.restored", "search.barrier.broken", "search.hazard.removed"
+            };
+            int cursor = -1;
+            foreach (string stableEventId in required)
+            {
+                cursor = ProductionEventIndex(events, stableEventId, cursor);
+                if (cursor < 0) return false;
+            }
+            return true;
+        }
+
+        private static bool HasNaturalDiseaseProductionPath(ProductionInteractionEvidence[] events)
+        {
+            if (!ProductionEventsAreOrdered(events)) return false;
+            int selected = ProductionEventIndex(events, "expedition.region.selected");
+            int started = ProductionEventIndex(events, "expedition.started", selected);
+            if (selected < 0 || started < 0 ||
+                !string.Equals(events[selected].regionId, "region.forest.grove", StringComparison.Ordinal)) return false;
+            ProductionInteractionEvidence[] deadfalls = events.Skip(started + 1).Where(value =>
+                value != null && string.Equals(value.stableEventId, "search.node.opened", StringComparison.Ordinal) &&
+                value.targetId.StartsWith("node.forest.grove.", StringComparison.Ordinal)).ToArray();
+            if (deadfalls.Select(value => value.targetId).Distinct(StringComparer.Ordinal).Count() < 2) return false;
+            int returned = ProductionEventIndex(events, "expedition.returned", started);
+            int popup = ProductionEventIndex(events, "facility.popup.opened", returned);
+            int treated = ProductionEventIndex(events, "disease.treatment.committed", popup);
+            return returned >= 0 && popup >= 0 && treated >= 0 &&
+                   events[popup].targetId.IndexOf("workbench", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static bool HasAtomicDiseaseTransactions(ProductionInteractionEvidence[] events)
+        {
+            ProductionInteractionEvidence[] values = events ?? Array.Empty<ProductionInteractionEvidence>();
+            ProductionInteractionEvidence[] committed = values.Where(value => value != null &&
+                string.Equals(value.stableEventId, "disease.treatment.committed", StringComparison.Ordinal)).ToArray();
+            if (committed.Length != 1 || committed[0].delta != -1 ||
+                !string.Equals(committed[0].resourceId, "resource.medicine", StringComparison.Ordinal)) return false;
+            string[] zeroDeltaIds =
+            {
+                "disease.treatment.cancelled", "disease.treatment.rejected", "disease.effect.duplicate-rejected"
+            };
+            return zeroDeltaIds.All(stableEventId => values.Any(value => value != null &&
+                string.Equals(value.stableEventId, stableEventId, StringComparison.Ordinal) && value.delta == 0));
+        }
+
+        private static bool HasProductionInputParity(ProductionInteractionEvidence[] events)
+        {
+            ProductionInteractionEvidence[] values = events ?? Array.Empty<ProductionInteractionEvidence>();
+            return values.Where(value => value != null && !string.IsNullOrWhiteSpace(value.action) &&
+                                         !string.IsNullOrWhiteSpace(value.stateBeforeFingerprint) &&
+                                         !string.IsNullOrWhiteSpace(value.stateAfterFingerprint))
+                .GroupBy(value => value.stableEventId + "|" + value.action + "|" + value.outcome + "|" + value.targetId,
+                    StringComparer.Ordinal)
+                .Any(group => group.Any(keyboard =>
+                    string.Equals(keyboard.inputDevice, "keyboard_mouse", StringComparison.Ordinal) &&
+                    group.Any(gamepad =>
+                        string.Equals(gamepad.inputDevice, "gamepad", StringComparison.Ordinal) &&
+                        string.Equals(gamepad.stateBeforeFingerprint, keyboard.stateBeforeFingerprint, StringComparison.Ordinal) &&
+                        string.Equals(gamepad.stateAfterFingerprint, keyboard.stateAfterFingerprint, StringComparison.Ordinal))));
+        }
+
+        private static bool ProductionEventsAreOrdered(ProductionInteractionEvidence[] events)
+        {
+            if (events == null || events.Length == 0) return false;
+            int previous = 0;
+            foreach (ProductionInteractionEvidence record in events)
+            {
+                if (record == null || record.sequence <= previous) return false;
+                previous = record.sequence;
+            }
+            return true;
         }
 
         private static string ValidateLayout(LayoutEvidence layout)
@@ -730,10 +977,15 @@ namespace ParallelQA
                 if (CatalogScore(candidate) > CatalogScore(best)) best = candidate;
             }
 
+            int stableLootTotal = best.StableLootUnitsByItemId.Values.Sum();
             int bucketTotal = best.ResourceBuckets.Sum(value => value.Units);
             ResourceBucket exact = best.ResourceBuckets.FirstOrDefault(value => value.Units == ExpectedGeneralUnits);
-            int units = exact != null ? exact.Units : (bucketTotal > 0 ? bucketTotal : best.LootUnits);
-            int entries = exact != null ? exact.Entries : (bucketTotal > 0 ? best.ResourceBuckets.Sum(value => value.Entries) : best.LootEntries);
+            int units = stableLootTotal > 0
+                ? stableLootTotal
+                : (exact != null ? exact.Units : (bucketTotal > 0 ? bucketTotal : best.LootUnits));
+            int entries = stableLootTotal > 0
+                ? best.StableLootUnitsByItemId.Count
+                : (exact != null ? exact.Entries : (bucketTotal > 0 ? best.ResourceBuckets.Sum(value => value.Entries) : best.LootEntries));
             return new CatalogEvidence
             {
                 owner = best.Owner,
@@ -792,14 +1044,30 @@ namespace ParallelQA
             }
 
             string resource = ReadString(value, "ResourceId", "StableResourceId", "Resource");
+            string stableItemId = ReadString(value, "StableItemId", "ItemId");
             int amountValue = ReadInt(value, 0, "Amount", "Count", "Units", "Quantity");
             string protectedId = ReadString(value, "ProtectedPartId", "KeyPartId", "PartId");
             if (amountValue > 0 && string.IsNullOrWhiteSpace(protectedId) &&
                 !string.IsNullOrWhiteSpace(resource) &&
                 ContainsAny(path.ToLowerInvariant(), "content", "loot", "remaining", "stock", "yield"))
             {
-                audit.LootUnits += amountValue;
-                audit.LootEntries += 1;
+                if (!string.IsNullOrWhiteSpace(stableItemId))
+                {
+                    if (audit.StableLootUnitsByItemId.TryGetValue(stableItemId, out int existingAmount))
+                    {
+                        Require(existingAmount == amountValue,
+                            "stable loot amount conflict for " + stableItemId + ": " + existingAmount + "/" + amountValue);
+                    }
+                    else
+                    {
+                        audit.StableLootUnitsByItemId.Add(stableItemId, amountValue);
+                    }
+                }
+                else
+                {
+                    audit.LootUnits += amountValue;
+                    audit.LootEntries += 1;
+                }
             }
 
             foreach (FieldInfo field in type.GetFields(PublicInstance).OrderBy(item => item.Name, StringComparer.Ordinal))
@@ -828,7 +1096,9 @@ namespace ParallelQA
             else if (value.StartsWith("node.instance.", StringComparison.Ordinal)) audit.InstanceIds.Add(value);
             else if (value.StartsWith("node.", StringComparison.Ordinal) &&
                      value.IndexOf(".loot.", StringComparison.Ordinal) < 0 &&
-                     value.IndexOf(".protected.", StringComparison.Ordinal) < 0)
+                     value.IndexOf(".protected.", StringComparison.Ordinal) < 0 &&
+                     value.IndexOf(".resource.", StringComparison.Ordinal) < 0 &&
+                     value.IndexOf(".left-behind.", StringComparison.Ordinal) < 0)
                 audit.LegacyNodeIds.Add(value);
         }
 
@@ -1068,54 +1338,91 @@ namespace ParallelQA
 
         private static string Sha256(string text)
         {
+            return Sha256(Encoding.UTF8.GetBytes(text ?? string.Empty));
+        }
+
+        private static string Sha256(byte[] bytes)
+        {
             using (System.Security.Cryptography.SHA256 sha = System.Security.Cryptography.SHA256.Create())
             {
-                byte[] hash = sha.ComputeHash(Encoding.UTF8.GetBytes(text ?? string.Empty));
+                byte[] hash = sha.ComputeHash(bytes ?? Array.Empty<byte>());
                 return BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
             }
         }
 
-        private static bool DiseaseSequencePasses(IEnumerable<string> sequence)
+        private static bool SearchSnapshotSequencePasses(IEnumerable<string> fingerprints)
         {
-            string[] values = (sequence ?? Array.Empty<string>()).Select(value => (value ?? string.Empty).ToLowerInvariant()).ToArray();
-            string[][] phases =
-            {
-                new[] { "telegraph", "warning" },
-                new[] { "exposure", "exposed" },
-                new[] { "effect", "symptom", "active" },
-                new[] { "worsen", "aggravat", "severity" },
-                new[] { "mitigat", "treat", "treated" }
-            };
+            SearchSnapshotEvidence[] values = (fingerprints ?? Array.Empty<string>())
+                .Select(ParseSearchSnapshot)
+                .Where(value => value != null)
+                .ToArray();
+            if (values.Length < 3) return false;
+            SearchSnapshotEvidence hidden = values.FirstOrDefault(value => value.State == 0);
+            SearchSnapshotEvidence partial = values.FirstOrDefault(value => value.State == 1);
+            SearchSnapshotEvidence depleted = values.FirstOrDefault(value => value.State == 2);
+            if (hidden == null || partial == null || depleted == null || hidden.RunSeed <= 0 ||
+                string.IsNullOrWhiteSpace(hidden.NodeId)) return false;
+            int hiddenIndex = Array.IndexOf(values, hidden);
+            int partialIndex = Array.IndexOf(values, partial);
+            int depletedIndex = Array.IndexOf(values, depleted);
+            return hiddenIndex < partialIndex && partialIndex < depletedIndex &&
+                   values.All(value => value.RunSeed == hidden.RunSeed &&
+                                       string.Equals(value.NodeId, hidden.NodeId, StringComparison.Ordinal)) &&
+                   RemainingUnits(hidden) > RemainingUnits(partial) && RemainingUnits(partial) > 0 &&
+                   RemainingUnits(depleted) == 0;
+        }
+
+        private static SearchSnapshotEvidence ParseSearchSnapshot(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json) || json[0] != '{') return null;
+            try { return JsonUtility.FromJson<SearchSnapshotEvidence>(json); }
+            catch { return null; }
+        }
+
+        private static int RemainingUnits(SearchSnapshotEvidence value)
+        {
+            return value == null || value.Remaining == null
+                ? 0
+                : value.Remaining.Where(item => item != null).Sum(item => Math.Max(0, item.Amount));
+        }
+
+        private static bool DiseaseSnapshotSequencePasses(IEnumerable<string> fingerprints, string diseaseId)
+        {
+            DiseaseSnapshotEvidence[] values = (fingerprints ?? Array.Empty<string>())
+                .Select(ParseDiseaseSnapshot)
+                .Where(value => value != null)
+                .ToArray();
+            if (values.Length < 5 || !IsStableDiseaseId(diseaseId)) return false;
+            DiseaseSnapshotEvidence[] ordered = new DiseaseSnapshotEvidence[5];
             int cursor = 0;
-            foreach (string[] phase in phases)
+            for (int phase = 1; phase <= 5; phase += 1)
             {
-                int found = -1;
-                for (int index = cursor; index < values.Length; index += 1)
-                {
-                    if (phase.Any(alias => values[index].Contains(alias))) { found = index; break; }
-                }
-                if (found < 0) return false;
-                cursor = found + 1;
+                while (cursor < values.Length && values[cursor].Phase != phase) cursor += 1;
+                if (cursor >= values.Length) return false;
+                ordered[phase - 1] = values[cursor++];
             }
-            return true;
+            return ordered.All(value => value.RunSeed > 0 &&
+                                        string.Equals(value.StableId, diseaseId, StringComparison.Ordinal)) &&
+                   ordered[0].ExposureCount == 1 && ordered[0].ExposureApplyCount == 0 &&
+                   ordered[1].ExposureCount == 2 && ordered[1].ExposureApplyCount == 1 &&
+                   ordered[2].EffectCount == 1 && ordered[2].HealthDeltaTotal == -10 &&
+                   ordered[3].WorsenCount == 1 && ordered[3].HealthDeltaTotal == -25 &&
+                   ordered[4].TreatmentPaidCount == 1 && ordered[4].HealthDeltaTotal == -25;
         }
 
-        private static bool SequenceHas(IEnumerable<string> sequence, params string[] tokens)
+        private static DiseaseSnapshotEvidence ParseDiseaseSnapshot(string json)
         {
-            string combined = string.Join(" ", sequence ?? Array.Empty<string>()).ToLowerInvariant();
-            return tokens.All(combined.Contains);
-        }
-
-        private static bool TraceHas(IEnumerable<string> trace, params string[] tokens)
-        {
-            return (trace ?? Array.Empty<string>()).Any(value => tokens.All(token =>
-                (value ?? string.Empty).IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0));
+            if (string.IsNullOrWhiteSpace(json) || json[0] != '{') return null;
+            try { return JsonUtility.FromJson<DiseaseSnapshotEvidence>(json); }
+            catch { return null; }
         }
 
         private static bool IsStableDiseaseId(string value)
         {
             return !string.IsNullOrWhiteSpace(value) &&
-                   (value.StartsWith("disease.", StringComparison.Ordinal) || value.StartsWith("hazard.disease", StringComparison.Ordinal));
+                   (value.StartsWith("disease.", StringComparison.Ordinal) ||
+                    value.StartsWith("hazard.disease", StringComparison.Ordinal) ||
+                    value.StartsWith("hazard-profile.disease.", StringComparison.Ordinal));
         }
 
         private static bool IsStructuredRoot(object value)

@@ -8,6 +8,35 @@ using UnityEngine;
 
 namespace KimSurvival
 {
+    public static class PrototypeProductionActionCounters
+    {
+        public static int GrantCallCount { get; private set; }
+        public static int WarpCallCount { get; private set; }
+        public static int SkipCallCount { get; private set; }
+
+        public static void Reset()
+        {
+            GrantCallCount = 0;
+            WarpCallCount = 0;
+            SkipCallCount = 0;
+        }
+
+        public static void RecordGrant()
+        {
+            GrantCallCount += 1;
+        }
+
+        public static void RecordWarp()
+        {
+            WarpCallCount += 1;
+        }
+
+        public static void RecordSkip()
+        {
+            SkipCallCount += 1;
+        }
+    }
+
     public static class PrototypePlaytestEventNames
     {
         public const string LogStarted = "log.started";
@@ -34,7 +63,18 @@ namespace KimSurvival
         public const string SignalStageTwoCompleted = "signal.stage2.completed";
         public const string ExpeditionRegionSelected = "expedition.region.selected";
         public const string ExpeditionStarted = "expedition.started";
+        public const string ExpeditionReturned = "expedition.returned";
+        public const string ExpeditionForcedReturned = "expedition.forced-returned";
         public const string ExpeditionResultResolved = "expedition.result.resolved";
+        public const string SearchNodeOpened = "search.node.opened";
+        public const string SearchNodeRevisited = "search.node.revisited";
+        public const string SearchSnapshotRestored = "snapshot.restored";
+        public const string SearchBarrierBroken = "search.barrier.broken";
+        public const string SearchHazardRemoved = "search.hazard.removed";
+        public const string DiseaseTreatmentCommitted = "disease.treatment.committed";
+        public const string DiseaseTreatmentCancelled = "disease.treatment.cancelled";
+        public const string DiseaseTreatmentRejected = "disease.treatment.rejected";
+        public const string DiseaseEffectDuplicateRejected = "disease.effect.duplicate-rejected";
         public const string HazardTelegraphed = "hazard.telegraphed";
         public const string HazardOccurred = "hazard.occurred";
         public const string HazardMitigated = "hazard.mitigated";
@@ -422,7 +462,9 @@ namespace KimSurvival
         {
             PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
             Write(PrototypePlaytestEventNames.FacilityPopupClosed, current, current,
-                PrototypePlaytestStateFingerprint.StableName(kind), targetId, string.Empty, outcome);
+                PrototypePlaytestStateFingerprint.StableName(kind), targetId,
+                string.Equals(outcome, "cancelled", StringComparison.Ordinal) ? "popup.cancel" : string.Empty,
+                outcome);
         }
 
         public bool TrackFacilityAction(
@@ -469,6 +511,135 @@ namespace KimSurvival
             PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
             Write(PrototypePlaytestEventNames.VineBarrierCleared, current, current,
                 "vine_barrier", "exploration.vine_barrier", "move", "cleared");
+        }
+
+        public void RecordSearchRegionSelected(string regionId)
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            PrototypePlaytestEventRecord record = CreateRecord(
+                PrototypePlaytestEventNames.ExpeditionRegionSelected,
+                current,
+                current,
+                "search_region",
+                regionId,
+                "expedition.map.confirm",
+                "selected");
+            record.region_id = regionId ?? string.Empty;
+            WriteRecord(record);
+        }
+
+        public void RecordSearchNodeOpened(string regionId, string nodeId, bool revisited)
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            PrototypePlaytestEventRecord record = CreateRecord(
+                PrototypePlaytestEventNames.SearchNodeOpened,
+                current,
+                current,
+                "search_node",
+                nodeId,
+                "search.interact",
+                "opened");
+            record.region_id = regionId ?? string.Empty;
+            WriteRecord(record);
+            if (revisited)
+            {
+                record = CreateRecord(
+                    PrototypePlaytestEventNames.SearchNodeRevisited,
+                    current,
+                    current,
+                    "search_node",
+                    nodeId,
+                    "search.interact",
+                    "revisited");
+                record.region_id = regionId ?? string.Empty;
+                WriteRecord(record);
+            }
+        }
+
+        public void RecordExpeditionReturned(bool forced)
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            Write(
+                forced ? PrototypePlaytestEventNames.ExpeditionForcedReturned : PrototypePlaytestEventNames.ExpeditionReturned,
+                current,
+                current,
+                "expedition",
+                current.region_id,
+                forced ? "expedition.auto-return" : "expedition.return",
+                "completed");
+        }
+
+        public void RecordSearchSnapshotRestored(string targetId)
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            Write(PrototypePlaytestEventNames.SearchSnapshotRestored, current, current,
+                "search_runtime", targetId, "snapshot.restore", "restored");
+        }
+
+        public void RecordSearchBarrierBroken(string regionId)
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            Write(PrototypePlaytestEventNames.SearchBarrierBroken, current, current,
+                "search_region", regionId, "barrier.break", "committed");
+        }
+
+        public void RecordSearchHazardRemoved(string regionId, string hazardId)
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            PrototypePlaytestEventRecord record = CreateRecord(
+                PrototypePlaytestEventNames.SearchHazardRemoved,
+                current,
+                current,
+                "search_hazard",
+                hazardId,
+                "search.loot.take-all",
+                "committed");
+            record.region_id = regionId ?? string.Empty;
+            record.hazard_id = hazardId ?? string.Empty;
+            WriteRecord(record);
+        }
+
+        public void RecordDiseaseTreatment(string outcome, int medicineDelta)
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            string eventName = string.Equals(outcome, "committed", StringComparison.Ordinal)
+                ? PrototypePlaytestEventNames.DiseaseTreatmentCommitted
+                : string.Equals(outcome, "cancelled", StringComparison.Ordinal)
+                    ? PrototypePlaytestEventNames.DiseaseTreatmentCancelled
+                    : PrototypePlaytestEventNames.DiseaseTreatmentRejected;
+            Write(eventName, current, current, "workbench", "camp.Workbench", "disease.treat", outcome,
+                PrototypeDiseaseRuntime.MedicineResourceId, "storage", medicineDelta);
+        }
+
+        public bool TrackDiseaseTreatment(Func<bool> operation)
+        {
+            PrototypePlaytestStateFingerprint before = PrototypePlaytestStateFingerprint.Capture(session);
+            int medicineBefore = session.GetStableStorage(PrototypeDiseaseRuntime.MedicineResourceId);
+            bool committed = operation();
+            PrototypePlaytestStateFingerprint after = PrototypePlaytestStateFingerprint.Capture(session);
+            int medicineAfter = session.GetStableStorage(PrototypeDiseaseRuntime.MedicineResourceId);
+            Write(
+                committed
+                    ? PrototypePlaytestEventNames.DiseaseTreatmentCommitted
+                    : PrototypePlaytestEventNames.DiseaseTreatmentRejected,
+                before,
+                after,
+                "workbench",
+                "camp.Workbench",
+                "disease.treat",
+                committed ? "committed" : "rejected",
+                PrototypeDiseaseRuntime.MedicineResourceId,
+                "storage",
+                medicineAfter - medicineBefore);
+            observedState = after;
+            return committed;
+        }
+
+        public void RecordDiseaseEffectDuplicateRejected()
+        {
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            Write(PrototypePlaytestEventNames.DiseaseEffectDuplicateRejected, current, current,
+                "disease", PrototypeDiseaseRuntime.StableId, "disease.effect", "duplicate-rejected", delta: 0);
         }
 
         public void RecordCampaignContractEvent(

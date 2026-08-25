@@ -44,6 +44,7 @@ namespace KimSurvival
     public sealed class PrototypeSearchLootEntry
     {
         public string StableItemId = string.Empty;
+        public string StableResourceId = string.Empty;
         public ResourceKind Resource;
         public int Amount;
         public string ProtectedPartId = string.Empty;
@@ -63,6 +64,7 @@ namespace KimSurvival
             return new PrototypeSearchLootEntry
             {
                 StableItemId = StableItemId,
+                StableResourceId = StableResourceId,
                 Resource = Resource,
                 Amount = Amount,
                 ProtectedPartId = ProtectedPartId
@@ -90,6 +92,26 @@ namespace KimSurvival
         public int RemainingAmount
         {
             get { return Remaining == null ? 0 : Remaining.Sum(item => Math.Max(0, item.Amount)); }
+        }
+
+        public int GeneralRemainingAmount
+        {
+            get
+            {
+                return Remaining == null
+                    ? 0
+                    : Remaining.Where(item => !item.IsProtectedPart).Sum(item => Math.Max(0, item.Amount));
+            }
+        }
+
+        public int ProtectedRemainingAmount
+        {
+            get
+            {
+                return Remaining == null
+                    ? 0
+                    : Remaining.Where(item => item.IsProtectedPart).Sum(item => Math.Max(0, item.Amount));
+            }
         }
 
         public PrototypeSearchNodeSnapshot Clone()
@@ -140,51 +162,131 @@ namespace KimSurvival
     }
 
     [Serializable]
+    public sealed class PrototypeProtectedPartAssignmentSnapshot
+    {
+        public string PartId = string.Empty;
+        public string AssignedNodeId = string.Empty;
+        public string SourceRegionId = string.Empty;
+        public int AssignmentPass = -1;
+        public string RepairState = string.Empty;
+
+        public PrototypeProtectedPartAssignmentSnapshot Clone()
+        {
+            return new PrototypeProtectedPartAssignmentSnapshot
+            {
+                PartId = PartId,
+                AssignedNodeId = AssignedNodeId,
+                SourceRegionId = SourceRegionId,
+                AssignmentPass = AssignmentPass,
+                RepairState = RepairState
+            };
+        }
+    }
+
+    [Serializable]
+    public sealed class PrototypeProtectedPartPitySnapshot
+    {
+        public string PartId = string.Empty;
+        public string AssignedNodeId = string.Empty;
+        public int EligibleMissCount;
+        public string[] CountedNodeIds = Array.Empty<string>();
+        public bool HintRevealed;
+        public bool GuaranteeArmed;
+        public bool Acquired;
+        public string SourceNodeId = string.Empty;
+        public string RepairState = string.Empty;
+
+        public PrototypeProtectedPartPitySnapshot Clone()
+        {
+            return new PrototypeProtectedPartPitySnapshot
+            {
+                PartId = PartId,
+                AssignedNodeId = AssignedNodeId,
+                EligibleMissCount = EligibleMissCount,
+                CountedNodeIds = (CountedNodeIds ?? Array.Empty<string>()).ToArray(),
+                HintRevealed = HintRevealed,
+                GuaranteeArmed = GuaranteeArmed,
+                Acquired = Acquired,
+                SourceNodeId = SourceNodeId,
+                RepairState = RepairState
+            };
+        }
+    }
+
+    [Serializable]
     public sealed class PrototypeSearchRunSnapshot
     {
+        public string ContractRevision = PrototypeSearchRegionCatalog.ContractRevision;
+        public string LootTableRevision = PrototypeSearchRegionCatalog.LootTableRevision;
+        public string CatalogRevision = PrototypeSearchRegionCatalog.CatalogRevision;
+        public string NewGameStockGenerationEvent = PrototypeSearchRegionCatalog.NewGameStockGenerationEvent;
+        public string NewGameStockFingerprint = string.Empty;
+        public string[] StockGenerationEvents = { PrototypeSearchRegionCatalog.NewGameStockGenerationEvent };
         public int RunSeed;
         public PrototypeSearchNodeSnapshot[] Nodes = Array.Empty<PrototypeSearchNodeSnapshot>();
         public PrototypeSearchRegionSnapshot[] Regions = Array.Empty<PrototypeSearchRegionSnapshot>();
         public string[] ProtectedPartIds = Array.Empty<string>();
+        public PrototypeProtectedPartAssignmentSnapshot[] ProtectedPartAssignments =
+            Array.Empty<PrototypeProtectedPartAssignmentSnapshot>();
+        public PrototypeProtectedPartPitySnapshot[] ProtectedPartPity =
+            Array.Empty<PrototypeProtectedPartPitySnapshot>();
+        public PrototypeDiseaseSnapshot Disease;
     }
 
     public sealed class PrototypeSearchNodeDefinition
     {
         public PrototypeSearchNodeDefinition(
             string regionId,
+            string archetypeId,
             string nodeId,
+            int instanceOrdinal,
+            string origin,
             PrototypeSearchNodeKind kind,
             bool requiresSwimming,
             int energyCost,
             int timeCostMinutes,
-            string hazardId)
+            string hazardId,
+            params PrototypeSearchLootEntry[] finiteYield)
         {
             RegionId = regionId ?? string.Empty;
+            ArchetypeId = archetypeId ?? string.Empty;
             NodeId = nodeId ?? string.Empty;
+            InstanceOrdinal = Math.Max(1, instanceOrdinal);
+            Origin = origin ?? string.Empty;
             Kind = kind;
             RequiresSwimming = requiresSwimming;
             EnergyCost = Math.Max(1, energyCost);
             TimeCostMinutes = Math.Max(1, timeCostMinutes);
             HazardId = hazardId ?? string.Empty;
+            FiniteYield = finiteYield == null
+                ? Array.Empty<PrototypeSearchLootEntry>()
+                : finiteYield.Select(item => item == null ? null : item.Clone()).Where(item => item != null).ToArray();
         }
 
         public string RegionId { get; }
+        public string ArchetypeId { get; }
         public string NodeId { get; }
+        public string InstanceId { get { return "node.instance." + NodeId.Substring("node.".Length); } }
+        public int InstanceOrdinal { get; }
+        public string Origin { get; }
         public PrototypeSearchNodeKind Kind { get; }
         public bool RequiresSwimming { get; }
         public int EnergyCost { get; }
         public int TimeCostMinutes { get; }
         public string HazardId { get; }
+        public IReadOnlyList<PrototypeSearchLootEntry> FiniteYield { get; }
+        public int GeneralStockUnits { get { return FiniteYield.Sum(item => Math.Max(0, item.Amount)); } }
         public string ProtectedPartId
         {
             get
             {
-                return string.Equals(
-                    NodeId,
-                    PrototypeSearchNodeLootResolver.ResolveSailclothNodeId(PrototypeExpeditionRegionCatalog.DefaultRunSeed),
-                    StringComparison.Ordinal)
-                    ? PrototypeRaftEscapeConfig.KeyPartId
-                    : string.Empty;
+                PrototypeProtectedPartAssignmentSnapshot assignment =
+                    PrototypeSearchNodeLootResolver.ResolveProtectedPartAssignments(
+                            PrototypeExpeditionRegionCatalog.DefaultRunSeed,
+                            PrototypeSearchRegionCatalog.ContractRevision)
+                        .FirstOrDefault(value =>
+                            string.Equals(value.AssignedNodeId, NodeId, StringComparison.Ordinal));
+                return assignment == null ? string.Empty : assignment.PartId;
             }
         }
         public IReadOnlyList<PrototypeSearchLootEntry> Contents
@@ -194,93 +296,303 @@ namespace KimSurvival
 
         public override string ToString()
         {
-            return NodeId + "|region=" + RegionId + "|protected=" + ProtectedPartId;
+            return NodeId + "|region=" + RegionId + "|archetype=" + ArchetypeId +
+                   "|instance=" + InstanceOrdinal + "|origin=" + Origin + "|generalStock=" + GeneralStockUnits +
+                   "|protected=" + ProtectedPartId;
         }
+    }
+
+    public sealed class PrototypeSearchNodeArchetypeDefinition
+    {
+        private readonly PrototypeSearchNodeDefinition[] instances;
+
+        public PrototypeSearchNodeArchetypeDefinition(
+            string regionId,
+            string stableId,
+            string searchCostBand,
+            PrototypeSearchNodeKind kind,
+            params PrototypeSearchNodeDefinition[] instances)
+        {
+            RegionId = regionId ?? string.Empty;
+            StableId = stableId ?? string.Empty;
+            SearchCostBand = searchCostBand ?? string.Empty;
+            Kind = kind;
+            this.instances = instances ?? Array.Empty<PrototypeSearchNodeDefinition>();
+        }
+
+        public string RegionId { get; }
+        public string StableId { get; }
+        public string SearchCostBand { get; }
+        public PrototypeSearchNodeKind Kind { get; }
+        public IReadOnlyList<PrototypeSearchNodeDefinition> Instances { get { return instances; } }
     }
 
     public sealed class PrototypeSearchRegionDefinition
     {
+        private readonly PrototypeSearchNodeArchetypeDefinition[] archetypes;
         private readonly PrototypeSearchNodeDefinition[] nodes;
 
-        public PrototypeSearchRegionDefinition(string stableId, params PrototypeSearchNodeDefinition[] nodes)
+        public PrototypeSearchRegionDefinition(
+            string stableId,
+            params PrototypeSearchNodeArchetypeDefinition[] archetypes)
         {
             StableId = stableId ?? string.Empty;
-            this.nodes = nodes ?? Array.Empty<PrototypeSearchNodeDefinition>();
+            this.archetypes = archetypes ?? Array.Empty<PrototypeSearchNodeArchetypeDefinition>();
+            nodes = this.archetypes.SelectMany(archetype => archetype.Instances).ToArray();
         }
 
         public string StableId { get; }
+        public IReadOnlyList<PrototypeSearchNodeArchetypeDefinition> Archetypes { get { return archetypes; } }
         public IReadOnlyList<PrototypeSearchNodeDefinition> Nodes { get { return nodes; } }
     }
 
     public static class PrototypeSearchRegionCatalog
     {
-        private static PrototypeSearchNodeDefinition Node(
+        public const string ContractRevision = "gamejam.wave-bc.catalog-disease-parts.v1";
+        public const string LootTableRevision = "gamejam.wave-b.loot.144.v1";
+        public const string CatalogRevision = "gamejam.wave-b.7r21a42i.v1";
+        public const string NewGameStockGenerationEvent = "new-game-stock-generation";
+        public const string BalanceStatus = "BALANCE_PROVISIONAL";
+        public const int BalanceProvisionalGeneralStockUnits = 144;
+
+        // Ordinals 0/1/2 are save-compatible with the original Beach/Forest/Shallows enum.
+        private static readonly string[] StableRegionIdsByExpeditionOrdinal =
+        {
+            "region.coast.beach",
+            "region.forest.grove",
+            "region.sea.shallows",
+            "region.ridge.highland",
+            "region.cave.island",
+            "region.cove.wreck",
+            "region.ruins.relay"
+        };
+
+        private static readonly string[] LegacyCanonicalIds =
+        {
+            "node.coast.beach.drift-pile.01", "node.coast.beach.grass-patch.01",
+            "node.coast.beach.rock-crevice.01", "node.coast.beach.tree-hollow.01",
+            "node.sea.shallows.drift-pile.01", "node.sea.shallows.rock-crevice.01",
+            "node.sea.shallows.grass-patch.01", "node.sea.shallows.wreck-locker.01",
+            "node.forest.grove.tree-hollow.01", "node.forest.grove.grass-patch.01",
+            "node.forest.grove.rock-crevice.01", "node.forest.grove.drift-pile.01",
+            "node.ridge.highland.rock-crevice.01", "node.ridge.highland.grass-patch.01",
+            "node.ridge.highland.tree-hollow.01", "node.ridge.highland.facility-cabinet.01",
+            "node.cave.island.rock-crevice.01", "node.cave.island.drift-pile.01",
+            "node.cave.island.tree-hollow.01", "node.cave.island.facility-cabinet.01",
+            "node.cove.wreck.wreck-locker.01", "node.cove.wreck.drift-pile.01",
+            "node.cove.wreck.rock-crevice.01", "node.cove.wreck.grass-patch.01",
+            "node.ruins.relay.facility-cabinet.01", "node.ruins.relay.facility-cabinet.02",
+            "node.ruins.relay.rock-crevice.01", "node.ruins.relay.grass-patch.01"
+        };
+
+        private static readonly string[] AddedWaveBIds =
+        {
+            "node.coast.beach.grass-patch.02", "node.coast.beach.rock-crevice.02",
+            "node.sea.shallows.drift-pile.02", "node.sea.shallows.wreck-locker.02",
+            "node.forest.grove.grass-patch.02", "node.forest.grove.rock-crevice.02",
+            "node.ridge.highland.rock-crevice.02", "node.ridge.highland.facility-cabinet.02",
+            "node.cave.island.rock-crevice.02", "node.cave.island.tree-hollow.02",
+            "node.cove.wreck.grass-patch.02", "node.cove.wreck.rock-crevice.02",
+            "node.ruins.relay.rock-crevice.02", "node.ruins.relay.grass-patch.02"
+        };
+
+        public static IReadOnlyList<string> ExistingCanonicalNodeIds { get { return LegacyCanonicalIds; } }
+        public static IReadOnlyList<string> NewWaveBNodeIds { get { return AddedWaveBIds; } }
+
+        private static PrototypeSearchLootEntry Yield(string stableResourceId, int amount)
+        {
+            return new PrototypeSearchLootEntry
+            {
+                StableResourceId = stableResourceId,
+                Resource = LegacyFallback(stableResourceId),
+                Amount = amount
+            };
+        }
+
+        private static ResourceKind LegacyFallback(string stableResourceId)
+        {
+            switch (stableResourceId)
+            {
+                case "resource.wood":
+                case "resource.fiber":
+                    return ResourceKind.Wood;
+                case "resource.stone":
+                case "resource.metal":
+                    return ResourceKind.Stone;
+                case "resource.food":
+                case "resource.medicine":
+                    return ResourceKind.Food;
+                default:
+                    return ResourceKind.Salvage;
+            }
+        }
+
+        private static PrototypeSearchNodeArchetypeDefinition Pair(
             string regionId,
-            string suffix,
+            string role,
+            string searchCostBand,
+            string firstId,
+            PrototypeSearchNodeKind firstKind,
+            bool firstWater,
+            string firstHazard,
+            string secondId,
+            PrototypeSearchNodeKind secondKind,
+            bool secondWater,
+            string secondHazard,
+            params PrototypeSearchLootEntry[] finiteYield)
+        {
+            string regionSlug = regionId.Substring("region.".Length).Replace('.', '-');
+            string archetypeId = "node.archetype." + regionSlug + "." + role;
+            return new PrototypeSearchNodeArchetypeDefinition(
+                regionId,
+                archetypeId,
+                searchCostBand,
+                firstKind,
+                Instance(regionId, archetypeId, firstId, 1, firstKind, firstWater, firstHazard, finiteYield),
+                Instance(regionId, archetypeId, secondId, 2, secondKind, secondWater, secondHazard, finiteYield));
+        }
+
+        private static PrototypeSearchNodeDefinition Instance(
+            string regionId,
+            string archetypeId,
+            string nodeId,
+            int ordinal,
             PrototypeSearchNodeKind kind,
             bool water,
-            string hazardId)
+            string hazardId,
+            PrototypeSearchLootEntry[] finiteYield)
         {
+            bool legacy = LegacyCanonicalIds.Contains(nodeId, StringComparer.Ordinal);
             return new PrototypeSearchNodeDefinition(
                 regionId,
-                "node." + regionId.Substring("region.".Length) + "." + suffix,
+                archetypeId,
+                nodeId,
+                ordinal,
+                legacy ? "existing" : "new",
                 kind,
                 water,
                 water ? 9 : 7,
                 water ? 18 : 14,
-                hazardId);
+                hazardId,
+                finiteYield);
         }
 
         private static readonly PrototypeSearchRegionDefinition[] Regions =
         {
             new PrototypeSearchRegionDefinition(
                 "region.coast.beach",
-                Node("region.coast.beach", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf"),
-                Node("region.coast.beach", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects"),
-                Node("region.coast.beach", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.coast.beach", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife")),
+                Pair("region.coast.beach", "driftline", "low",
+                    "node.coast.beach.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf",
+                    "node.coast.beach.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.high-surf",
+                    Yield("resource.salvage", 2), Yield("resource.wood", 1)),
+                Pair("region.coast.beach", "tide-cache", "low",
+                    "node.coast.beach.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects",
+                    "node.coast.beach.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects",
+                    Yield("resource.food", 2), Yield("resource.fabric", 1)),
+                Pair("region.coast.beach", "storm-wrack", "medium",
+                    "node.coast.beach.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    "node.coast.beach.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    Yield("resource.wood", 2), Yield("resource.salvage", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.sea.shallows",
-                Node("region.sea.shallows", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, true, "hazard.high-surf"),
-                Node("region.sea.shallows", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, true, "hazard.injury"),
-                Node("region.sea.shallows", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects"),
-                Node("region.sea.shallows", "wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.disaster")),
+                Pair("region.sea.shallows", "reef-pocket", "medium",
+                    "node.sea.shallows.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, true, "hazard.injury",
+                    "node.sea.shallows.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.injury",
+                    Yield("resource.food", 2), Yield("resource.stone", 1)),
+                Pair("region.sea.shallows", "submerged-crate", "medium",
+                    "node.sea.shallows.drift-pile.01", PrototypeSearchNodeKind.DriftPile, true, "hazard.high-surf",
+                    "node.sea.shallows.drift-pile.02", PrototypeSearchNodeKind.DriftPile, true, "hazard.high-surf",
+                    Yield("resource.salvage", 2), Yield("resource.metal", 1)),
+                Pair("region.sea.shallows", "wreck-scatter", "high",
+                    "node.sea.shallows.wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.disaster",
+                    "node.sea.shallows.wreck-locker.02", PrototypeSearchNodeKind.WreckLocker, false, "hazard.disaster",
+                    Yield("resource.wire", 2), Yield("resource.salvage", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.forest.grove",
-                Node("region.forest.grove", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"),
-                Node("region.forest.grove", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants"),
-                Node("region.forest.grove", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.forest.grove", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.insects")),
+                Pair("region.forest.grove", "deadfall", "medium",
+                    "node.forest.grove.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, PrototypeDiseaseRuntime.TriggerHazardId,
+                    "node.forest.grove.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, PrototypeDiseaseRuntime.TriggerHazardId,
+                    Yield("resource.wood", 4)),
+                Pair("region.forest.grove", "forage-patch", "low",
+                    "node.forest.grove.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
+                    "node.forest.grove.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
+                    Yield("resource.food", 2), Yield("resource.medicine", 1)),
+                Pair("region.forest.grove", "vine-hollow", "medium",
+                    "node.forest.grove.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.wildlife",
+                    "node.forest.grove.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.wildlife",
+                    Yield("resource.fiber", 3), Yield("resource.wood", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.ridge.highland",
-                Node("region.ridge.highland", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.ridge.highland", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.high-wind"),
-                Node("region.ridge.highland", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"),
-                Node("region.ridge.highland", "facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster")),
+                Pair("region.ridge.highland", "rockfall", "high",
+                    "node.ridge.highland.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    "node.ridge.highland.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    Yield("resource.stone", 4), Yield("resource.metal", 1)),
+                Pair("region.ridge.highland", "windfall", "medium",
+                    "node.ridge.highland.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.high-wind",
+                    "node.ridge.highland.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.high-wind",
+                    Yield("resource.wood", 3), Yield("resource.fiber", 1)),
+                Pair("region.ridge.highland", "signal-overlook", "high",
+                    "node.ridge.highland.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
+                    "node.ridge.highland.facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
+                    Yield("resource.fuel", 1), Yield("resource.medicine", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.cave.island",
-                Node("region.cave.island", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.cave.island", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.disease"),
-                Node("region.cave.island", "tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.wildlife"),
-                Node("region.cave.island", "facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster")),
+                Pair("region.cave.island", "mineral-seam", "high",
+                    "node.cave.island.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    "node.cave.island.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    Yield("resource.stone", 3), Yield("resource.metal", 1)),
+                Pair("region.cave.island", "dry-cache", "medium",
+                    "node.cave.island.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.insects",
+                    "node.cave.island.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.insects",
+                    Yield("resource.chemicals", 2), Yield("resource.fuel", 1)),
+                Pair("region.cave.island", "fungus-ledge", "high",
+                    "node.cave.island.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.dangerous-plants",
+                    "node.cave.island.tree-hollow.02", PrototypeSearchNodeKind.TreeHollow, false, "hazard.dangerous-plants",
+                    Yield("resource.stone", 1), Yield("resource.medicine", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.cove.wreck",
-                Node("region.cove.wreck", "wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.injury"),
-                Node("region.cove.wreck", "drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf"),
-                Node("region.cove.wreck", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster"),
-                Node("region.cove.wreck", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects")),
+                Pair("region.cove.wreck", "cargo-locker", "medium",
+                    "node.cove.wreck.wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.high-surf",
+                    "node.cove.wreck.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf",
+                    Yield("resource.salvage", 3), Yield("resource.metal", 2)),
+                Pair("region.cove.wreck", "rigging-locker", "medium",
+                    "node.cove.wreck.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.injury",
+                    "node.cove.wreck.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.injury",
+                    Yield("resource.fabric", 2), Yield("resource.fiber", 1)),
+                Pair("region.cove.wreck", "engine-bay", "high",
+                    "node.cove.wreck.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster",
+                    "node.cove.wreck.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster",
+                    Yield("resource.electronics", 2), Yield("resource.chemicals", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.ruins.relay",
-                Node("region.ruins.relay", "facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disease"),
-                Node("region.ruins.relay", "facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster"),
-                Node("region.ruins.relay", "rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury"),
-                Node("region.ruins.relay", "grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants"))
+                Pair("region.ruins.relay", "control-cabinet", "high",
+                    "node.ruins.relay.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
+                    "node.ruins.relay.facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
+                    Yield("resource.electronics", 3), Yield("resource.wire", 1)),
+                Pair("region.ruins.relay", "cable-duct", "high",
+                    "node.ruins.relay.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    "node.ruins.relay.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
+                    Yield("resource.wire", 3), Yield("resource.metal", 1)),
+                Pair("region.ruins.relay", "generator-room", "high",
+                    "node.ruins.relay.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
+                    "node.ruins.relay.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
+                    Yield("resource.fuel", 2), Yield("resource.metal", 1), Yield("resource.electronics", 1)))
         };
 
         public static IReadOnlyList<PrototypeSearchRegionDefinition> All { get { return Regions; } }
+        public static IReadOnlyList<PrototypeSearchNodeArchetypeDefinition> Archetypes
+        {
+            get { return Regions.SelectMany(region => region.Archetypes).ToArray(); }
+        }
         public static IReadOnlyList<PrototypeSearchNodeDefinition> Nodes
         {
             get { return Regions.SelectMany(region => region.Nodes).ToArray(); }
+        }
+
+        public static int GeneralStockUnitsForSeed(int runSeed)
+        {
+            return Nodes.Sum(node => PrototypeSearchNodeLootResolver.Resolve(runSeed, node)
+                .Where(item => !item.IsProtectedPart).Sum(item => Math.Max(0, item.Amount)));
         }
 
         public static PrototypeSearchRegionDefinition Get(string stableId)
@@ -290,22 +602,47 @@ namespace KimSurvival
 
         public static PrototypeSearchRegionDefinition Get(PrototypeExpeditionRegionId region)
         {
-            switch (region)
+            int ordinal = (int)region;
+            if (ordinal < 0 || ordinal >= StableRegionIdsByExpeditionOrdinal.Length)
             {
-                case PrototypeExpeditionRegionId.Forest:
-                    return Get("region.forest.grove");
-                case PrototypeExpeditionRegionId.Shallows:
-                    return Get("region.sea.shallows");
-                default:
-                    return Get("region.coast.beach");
+                throw new ArgumentOutOfRangeException(nameof(region), region, "Unknown expedition region enum value.");
             }
+            return Get(StableRegionIdsByExpeditionOrdinal[ordinal]);
         }
 
         public static PrototypeExpeditionRegionId StartingExpeditionFor(string stableId)
         {
-            if (string.Equals(stableId, "region.forest.grove", StringComparison.Ordinal)) return PrototypeExpeditionRegionId.Forest;
-            if (string.Equals(stableId, "region.sea.shallows", StringComparison.Ordinal)) return PrototypeExpeditionRegionId.Shallows;
-            return PrototypeExpeditionRegionId.Beach;
+            int ordinal = Array.FindIndex(
+                StableRegionIdsByExpeditionOrdinal,
+                candidate => string.Equals(candidate, stableId, StringComparison.Ordinal));
+            if (ordinal < 0)
+            {
+                throw new KeyNotFoundException("Unknown search region stable ID: " + (stableId ?? "<null>"));
+            }
+            return (PrototypeExpeditionRegionId)ordinal;
+        }
+
+        public static bool VerifyExactRegionRoundTrip()
+        {
+            if (StableRegionIdsByExpeditionOrdinal.Length != 7 || Regions.Length != 7 ||
+                StableRegionIdsByExpeditionOrdinal.Distinct(StringComparer.Ordinal).Count() != 7)
+            {
+                return false;
+            }
+
+            var catalogIds = new HashSet<string>(Regions.Select(region => region.StableId), StringComparer.Ordinal);
+            if (!catalogIds.SetEquals(StableRegionIdsByExpeditionOrdinal)) return false;
+            for (int ordinal = 0; ordinal < StableRegionIdsByExpeditionOrdinal.Length; ordinal += 1)
+            {
+                var expedition = (PrototypeExpeditionRegionId)ordinal;
+                if (!Enum.IsDefined(typeof(PrototypeExpeditionRegionId), expedition) ||
+                    !string.Equals(Get(expedition).StableId, StableRegionIdsByExpeditionOrdinal[ordinal], StringComparison.Ordinal) ||
+                    StartingExpeditionFor(StableRegionIdsByExpeditionOrdinal[ordinal]) != expedition)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
@@ -316,6 +653,60 @@ namespace KimSurvival
         public string RegionId = string.Empty;
         public string NodeId = string.Empty;
         public PrototypeSearchLootEntry[] Contents = Array.Empty<PrototypeSearchLootEntry>();
+    }
+
+    [Serializable]
+    public sealed class PrototypeSearchGeneratedInstanceStock
+    {
+        public string RegionId = string.Empty;
+        public string ArchetypeId = string.Empty;
+        public string InstanceId = string.Empty;
+        public string LegacyNodeId = string.Empty;
+        public PrototypeSearchLootEntry[] FiniteStock = Array.Empty<PrototypeSearchLootEntry>();
+    }
+
+    [Serializable]
+    public sealed class PrototypeSearchNewGameStockManifest
+    {
+        public int RunSeed;
+        public string ContractRevision = string.Empty;
+        public string LootTableRevision = string.Empty;
+        public string NewGameStockGenerationEvent = PrototypeSearchRegionCatalog.NewGameStockGenerationEvent;
+        public string[] RegionIds = Array.Empty<string>();
+        public string[] ArchetypeIds = Array.Empty<string>();
+        public PrototypeProtectedPartAssignmentSnapshot[] ProtectedPartAssignments =
+            Array.Empty<PrototypeProtectedPartAssignmentSnapshot>();
+        public PrototypeSearchGeneratedInstanceStock[] Instances = Array.Empty<PrototypeSearchGeneratedInstanceStock>();
+    }
+
+    public static class PrototypeSearchNewGameStockGenerator
+    {
+        public static PrototypeSearchNewGameStockManifest GenerateNewGameStock(
+            int runSeed,
+            string contractRevision,
+            string lootTableRevision)
+        {
+            PrototypeProtectedPartAssignmentSnapshot[] protectedAssignments =
+                PrototypeSearchNodeLootResolver.ResolveProtectedPartAssignments(runSeed, contractRevision);
+            return new PrototypeSearchNewGameStockManifest
+            {
+                RunSeed = runSeed,
+                ContractRevision = contractRevision ?? string.Empty,
+                LootTableRevision = lootTableRevision ?? string.Empty,
+                NewGameStockGenerationEvent = PrototypeSearchRegionCatalog.NewGameStockGenerationEvent,
+                RegionIds = PrototypeSearchRegionCatalog.All.Select(region => region.StableId).ToArray(),
+                ArchetypeIds = PrototypeSearchRegionCatalog.Archetypes.Select(archetype => archetype.StableId).ToArray(),
+                ProtectedPartAssignments = protectedAssignments.Select(value => value.Clone()).ToArray(),
+                Instances = PrototypeSearchRegionCatalog.Nodes.Select(node => new PrototypeSearchGeneratedInstanceStock
+                {
+                    RegionId = node.RegionId,
+                    ArchetypeId = node.ArchetypeId,
+                    InstanceId = node.InstanceId,
+                    LegacyNodeId = node.NodeId,
+                    FiniteStock = PrototypeSearchNodeLootResolver.Resolve(runSeed, node, protectedAssignments)
+                }).ToArray()
+            };
+        }
     }
 
     [Serializable]
@@ -330,12 +721,98 @@ namespace KimSurvival
 
     public static class PrototypeSearchNodeLootResolver
     {
+        public const string FlintPartId = "part.smoke.flint";
+        public const string RadioTransceiverPartId = "part.radio.transceiver";
+        public const string RadioCircuitBoardPartId = "part.radio.circuit-board";
+        public const string RadioTransistorPartId = "part.radio.transistor";
+        public const int AssignmentPassCount = 16;
+
         private static readonly string[] SailclothCandidateNodeIds =
         {
             "node.coast.beach.drift-pile.01",
             "node.sea.shallows.drift-pile.01",
             "node.forest.grove.tree-hollow.01"
         };
+
+        private sealed class ProtectedPartDefinition
+        {
+            public ProtectedPartDefinition(string partId, bool radio, params string[] eligibleNodeIds)
+            {
+                PartId = partId;
+                Radio = radio;
+                EligibleNodeIds = eligibleNodeIds ?? Array.Empty<string>();
+            }
+
+            public string PartId { get; }
+            public bool Radio { get; }
+            public string[] EligibleNodeIds { get; }
+        }
+
+        private static readonly ProtectedPartDefinition[] WaveBCProtectedPartDefinitions =
+        {
+            new ProtectedPartDefinition(
+                FlintPartId,
+                false,
+                "node.cave.island.drift-pile.01",
+                "node.cave.island.facility-cabinet.01",
+                "node.ridge.highland.grass-patch.01",
+                "node.ridge.highland.tree-hollow.01",
+                "node.forest.grove.tree-hollow.01",
+                "node.forest.grove.drift-pile.01"),
+            new ProtectedPartDefinition(
+                RadioTransceiverPartId,
+                true,
+                "node.cove.wreck.rock-crevice.01",
+                "node.cove.wreck.rock-crevice.02",
+                "node.sea.shallows.drift-pile.01",
+                "node.sea.shallows.drift-pile.02",
+                "node.ruins.relay.grass-patch.01",
+                "node.ruins.relay.grass-patch.02"),
+            new ProtectedPartDefinition(
+                RadioCircuitBoardPartId,
+                true,
+                "node.ruins.relay.facility-cabinet.01",
+                "node.ruins.relay.facility-cabinet.02",
+                "node.cove.wreck.rock-crevice.01",
+                "node.cove.wreck.rock-crevice.02",
+                "node.sea.shallows.wreck-locker.01",
+                "node.sea.shallows.wreck-locker.02"),
+            new ProtectedPartDefinition(
+                RadioTransistorPartId,
+                true,
+                "node.ridge.highland.facility-cabinet.01",
+                "node.ridge.highland.facility-cabinet.02",
+                "node.cave.island.drift-pile.01",
+                "node.cave.island.facility-cabinet.01",
+                "node.ruins.relay.rock-crevice.01",
+                "node.ruins.relay.rock-crevice.02")
+        };
+
+        public static IReadOnlyList<string> ProtectedPartIds
+        {
+            get
+            {
+                return new[]
+                {
+                    PrototypeRaftEscapeConfig.KeyPartId,
+                    FlintPartId,
+                    RadioTransceiverPartId,
+                    RadioCircuitBoardPartId,
+                    RadioTransistorPartId
+                };
+            }
+        }
+
+        public static IReadOnlyList<string> EligibleNodeIdsFor(string partId)
+        {
+            if (string.Equals(partId, PrototypeRaftEscapeConfig.KeyPartId, StringComparison.Ordinal))
+            {
+                return SailclothCandidateNodeIds.ToArray();
+            }
+            ProtectedPartDefinition definition = WaveBCProtectedPartDefinitions.FirstOrDefault(value =>
+                string.Equals(value.PartId, partId, StringComparison.Ordinal));
+            return definition == null ? Array.Empty<string>() : definition.EligibleNodeIds.ToArray();
+        }
 
         public static string ResolveSailclothNodeId(int runSeed)
         {
@@ -345,38 +822,147 @@ namespace KimSurvival
             return SailclothCandidateNodeIds[index];
         }
 
-        public static PrototypeSearchLootEntry[] Resolve(int runSeed, PrototypeSearchNodeDefinition definition)
+        public static PrototypeProtectedPartAssignmentSnapshot[] ResolveProtectedPartAssignments(
+            int runSeed,
+            string contractRevision)
         {
-            ResourceKind[] pattern = Pattern(definition.Kind);
-            int offset = PrototypeExpeditionRegionCatalog.PositiveModulo(
-                PrototypeExpeditionRegionCatalog.StableHash(runSeed, definition.NodeId, "resource-order"),
-                pattern.Length);
-            List<PrototypeSearchLootEntry> contents = new List<PrototypeSearchLootEntry>();
-            for (int index = 0; index < 2; index += 1)
+            PrototypeProtectedPartAssignmentSnapshot sailcloth = CreateAssignment(
+                PrototypeRaftEscapeConfig.KeyPartId,
+                ResolveSailclothNodeId(runSeed),
+                -1,
+                "legacy-sailcloth");
+
+            for (int passIndex = 0; passIndex < AssignmentPassCount; passIndex += 1)
             {
-                ResourceKind resource = pattern[(offset + index) % pattern.Length];
-                int amount = resource == ResourceKind.Wood
-                    ? 1
-                    : 1 + PrototypeExpeditionRegionCatalog.PositiveModulo(
-                        PrototypeExpeditionRegionCatalog.StableHash(runSeed, definition.NodeId, "amount." + index), 2);
-                contents.Add(new PrototypeSearchLootEntry
+                var assignments = new List<PrototypeProtectedPartAssignmentSnapshot> { sailcloth.Clone() };
+                var usedNodes = new HashSet<string>(StringComparer.Ordinal) { sailcloth.AssignedNodeId };
+                var usedRadioRegions = new HashSet<string>(StringComparer.Ordinal);
+                bool valid = true;
+                for (int definitionIndex = 0;
+                     definitionIndex < WaveBCProtectedPartDefinitions.Length;
+                     definitionIndex += 1)
                 {
-                    StableItemId = definition.NodeId + ".loot." + index,
-                    Resource = resource,
-                    Amount = amount
-                });
+                    ProtectedPartDefinition definition = WaveBCProtectedPartDefinitions[definitionIndex];
+                    ulong hash = Hash64(
+                        runSeed,
+                        contractRevision,
+                        definition.PartId,
+                        passIndex,
+                        "protected-part");
+                    string nodeId = definition.EligibleNodeIds[(int)(hash % (ulong)definition.EligibleNodeIds.Length)];
+                    string regionId = RegionIdForNode(nodeId);
+                    if (usedNodes.Contains(nodeId) ||
+                        (definition.Radio && usedRadioRegions.Contains(regionId)))
+                    {
+                        valid = false;
+                        break;
+                    }
+
+                    assignments.Add(CreateAssignment(definition.PartId, nodeId, passIndex, "initial-pass"));
+                    usedNodes.Add(nodeId);
+                    if (definition.Radio) usedRadioRegions.Add(regionId);
+                }
+                if (valid) return assignments.ToArray();
             }
 
-            if (string.Equals(definition.NodeId, ResolveSailclothNodeId(runSeed), StringComparison.Ordinal))
+            return ResolveProtectedPartAssignmentsWithRepair(runSeed, contractRevision, sailcloth);
+        }
+
+        public static ulong Hash64(
+            int runSeed,
+            string contractRevision,
+            string partId,
+            int passIndex,
+            string purpose)
+        {
+            unchecked
             {
+                ulong hash = 14695981039346656037UL;
+                AppendHash(ref hash, runSeed);
+                AppendHash(ref hash, contractRevision);
+                AppendHash(ref hash, partId);
+                AppendHash(ref hash, passIndex);
+                AppendHash(ref hash, purpose);
+                return hash;
+            }
+        }
+
+        public static PrototypeSearchLootEntry[] Resolve(int runSeed, PrototypeSearchNodeDefinition definition)
+        {
+            return Resolve(
+                runSeed,
+                definition,
+                ResolveProtectedPartAssignments(runSeed, PrototypeSearchRegionCatalog.ContractRevision));
+        }
+
+        public static PrototypeSearchLootEntry[] Resolve(
+            int runSeed,
+            PrototypeSearchNodeDefinition definition,
+            IReadOnlyList<PrototypeProtectedPartAssignmentSnapshot> protectedAssignments)
+        {
+            List<PrototypeSearchLootEntry> contents = ResolveGeneralStock(runSeed, definition).ToList();
+            if (definition == null) return contents.ToArray();
+
+            PrototypeProtectedPartAssignmentSnapshot[] nodeAssignments = (protectedAssignments ??
+                    Array.Empty<PrototypeProtectedPartAssignmentSnapshot>())
+                .Where(value => value != null &&
+                                string.Equals(value.AssignedNodeId, definition.NodeId, StringComparison.Ordinal))
+                .ToArray();
+            for (int assignmentIndex = 0; assignmentIndex < nodeAssignments.Length; assignmentIndex += 1)
+            {
+                PrototypeProtectedPartAssignmentSnapshot assignment = nodeAssignments[assignmentIndex];
+                string suffix = string.Equals(
+                    assignment.PartId,
+                    PrototypeRaftEscapeConfig.KeyPartId,
+                    StringComparison.Ordinal)
+                    ? "sailcloth"
+                    : assignment.PartId.Replace("part.", string.Empty).Replace('.', '-');
                 contents.Add(new PrototypeSearchLootEntry
                 {
-                    StableItemId = definition.NodeId + ".protected.sailcloth",
+                    StableItemId = definition.NodeId + ".protected." + suffix,
                     Amount = 1,
-                    ProtectedPartId = PrototypeRaftEscapeConfig.KeyPartId
+                    ProtectedPartId = assignment.PartId
                 });
             }
             return contents.ToArray();
+        }
+
+        public static PrototypeSearchLootEntry[] ResolveGeneralStock(
+            int runSeed,
+            PrototypeSearchNodeDefinition definition)
+        {
+            if (definition == null)
+            {
+                return Array.Empty<PrototypeSearchLootEntry>();
+            }
+            PrototypeSearchLootEntry[] finiteYield = definition.FiniteYield
+                .Where(item => item != null && item.Amount > 0 && !string.IsNullOrWhiteSpace(item.StableResourceId))
+                .Select(item => item.Clone()).ToArray();
+            int offset = PrototypeExpeditionRegionCatalog.PositiveModulo(
+                PrototypeExpeditionRegionCatalog.StableHash(runSeed, definition.NodeId, "finite-yield-display-order"),
+                Math.Max(1, finiteYield.Length));
+            var contents = new List<PrototypeSearchLootEntry>();
+            for (int index = 0; index < finiteYield.Length; index += 1)
+            {
+                PrototypeSearchLootEntry item = finiteYield[(offset + index) % finiteYield.Length];
+                string resourceSuffix = item.StableResourceId.StartsWith("resource.", StringComparison.Ordinal)
+                    ? item.StableResourceId.Substring("resource.".Length)
+                    : item.StableResourceId.Replace('.', '-');
+                contents.Add(new PrototypeSearchLootEntry
+                {
+                    StableItemId = definition.NodeId + ".resource." + resourceSuffix,
+                    StableResourceId = item.StableResourceId,
+                    Resource = item.Resource,
+                    Amount = item.Amount
+                });
+            }
+
+            return contents.ToArray();
+        }
+
+        public static string StableResourceIdForLegacy(ResourceKind resource)
+        {
+            return "resource." + resource.ToString().ToLowerInvariant();
         }
 
         public static PrototypeSearchNodeContentRoll Resolve(int runSeed, string regionId, string nodeId)
@@ -393,25 +979,100 @@ namespace KimSurvival
             };
         }
 
-        private static ResourceKind[] Pattern(PrototypeSearchNodeKind kind)
+        private static PrototypeProtectedPartAssignmentSnapshot[] ResolveProtectedPartAssignmentsWithRepair(
+            int runSeed,
+            string contractRevision,
+            PrototypeProtectedPartAssignmentSnapshot sailcloth)
         {
-            switch (kind)
+            var assignments = new List<PrototypeProtectedPartAssignmentSnapshot> { sailcloth.Clone() };
+            var usedNodes = new HashSet<string>(StringComparer.Ordinal) { sailcloth.AssignedNodeId };
+            var usedRadioRegions = new HashSet<string>(StringComparer.Ordinal);
+            for (int definitionIndex = 0;
+                 definitionIndex < WaveBCProtectedPartDefinitions.Length;
+                 definitionIndex += 1)
             {
-                case PrototypeSearchNodeKind.GrassPatch:
-                    return new[] { ResourceKind.Food, ResourceKind.Wood, ResourceKind.Stone };
-                case PrototypeSearchNodeKind.RockCrevice:
-                    return new[] { ResourceKind.Stone, ResourceKind.Salvage, ResourceKind.Food };
-                case PrototypeSearchNodeKind.DriftPile:
-                    return new[] { ResourceKind.Salvage, ResourceKind.Wood, ResourceKind.Food };
-                case PrototypeSearchNodeKind.TreeHollow:
-                    return new[] { ResourceKind.Wood, ResourceKind.Food, ResourceKind.Stone };
-                case PrototypeSearchNodeKind.WreckLocker:
-                case PrototypeSearchNodeKind.FacilityCabinet:
-                    return new[] { ResourceKind.Salvage, ResourceKind.Stone, ResourceKind.Food };
-                default:
-                    return new[] { ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Food, ResourceKind.Salvage };
+                ProtectedPartDefinition definition = WaveBCProtectedPartDefinitions[definitionIndex];
+                string nodeId = definition.EligibleNodeIds
+                    .Where(candidate => !usedNodes.Contains(candidate) &&
+                                        (!definition.Radio || !usedRadioRegions.Contains(RegionIdForNode(candidate))))
+                    .OrderBy(candidate => RepairRank(runSeed, contractRevision, definition.PartId, candidate))
+                    .ThenBy(candidate => candidate, StringComparer.Ordinal)
+                    .FirstOrDefault();
+                if (string.IsNullOrEmpty(nodeId))
+                {
+                    throw new InvalidOperationException("Protected-part deterministic repair has no valid candidate: " + definition.PartId);
+                }
+
+                PrototypeProtectedPartAssignmentSnapshot assignment = CreateAssignment(
+                    definition.PartId,
+                    nodeId,
+                    AssignmentPassCount,
+                    "deterministic-repair");
+                assignments.Add(assignment);
+                usedNodes.Add(nodeId);
+                if (definition.Radio) usedRadioRegions.Add(assignment.SourceRegionId);
+            }
+            return assignments.ToArray();
+        }
+
+        private static PrototypeProtectedPartAssignmentSnapshot CreateAssignment(
+            string partId,
+            string nodeId,
+            int passIndex,
+            string repairState)
+        {
+            return new PrototypeProtectedPartAssignmentSnapshot
+            {
+                PartId = partId ?? string.Empty,
+                AssignedNodeId = nodeId ?? string.Empty,
+                SourceRegionId = RegionIdForNode(nodeId),
+                AssignmentPass = passIndex,
+                RepairState = repairState ?? string.Empty
+            };
+        }
+
+        private static string RegionIdForNode(string nodeId)
+        {
+            PrototypeSearchNodeDefinition definition = PrototypeSearchRegionCatalog.Nodes.FirstOrDefault(value =>
+                string.Equals(value.NodeId, nodeId, StringComparison.Ordinal));
+            return definition == null ? string.Empty : definition.RegionId;
+        }
+
+        private static ulong RepairRank(int runSeed, string contractRevision, string partId, string nodeId)
+        {
+            ulong baseRank = Hash64(runSeed, contractRevision, partId, AssignmentPassCount, "protected-part");
+            ulong nodeRank = Hash64(runSeed, contractRevision, nodeId, AssignmentPassCount, "protected-part-repair");
+            return baseRank ^ ((nodeRank << 17) | (nodeRank >> 47));
+        }
+
+        private static void AppendHash(ref ulong hash, int value)
+        {
+            unchecked
+            {
+                uint bits = (uint)value;
+                for (int shift = 0; shift < 32; shift += 8)
+                {
+                    hash = (hash ^ (byte)(bits >> shift)) * 1099511628211UL;
+                }
+                hash = (hash ^ 0xffUL) * 1099511628211UL;
             }
         }
+
+        private static void AppendHash(ref ulong hash, string value)
+        {
+            unchecked
+            {
+                string stable = value ?? string.Empty;
+                for (int index = 0; index < stable.Length; index += 1)
+                {
+                    char character = stable[index];
+                    hash = (hash ^ (byte)character) * 1099511628211UL;
+                    hash = (hash ^ (byte)(character >> 8)) * 1099511628211UL;
+                }
+                hash = (hash ^ 0xffUL) * 1099511628211UL;
+            }
+        }
+
     }
 
     public sealed class PrototypeSearchNodeLedger
@@ -421,14 +1082,83 @@ namespace KimSurvival
         private readonly HashSet<string> protectedPartIds = new HashSet<string>(StringComparer.Ordinal);
         private readonly Dictionary<string, PrototypeSearchRegionSnapshot> regions =
             new Dictionary<string, PrototypeSearchRegionSnapshot>(StringComparer.Ordinal);
+        private readonly Dictionary<string, PrototypeSearchLootEntry[]> generatedNewGameStock =
+            new Dictionary<string, PrototypeSearchLootEntry[]>(StringComparer.Ordinal);
+        private readonly Dictionary<string, PrototypeProtectedPartAssignmentSnapshot> protectedPartAssignments =
+            new Dictionary<string, PrototypeProtectedPartAssignmentSnapshot>(StringComparer.Ordinal);
+        private readonly Dictionary<string, PrototypeProtectedPartPitySnapshot> protectedPartPity =
+            new Dictionary<string, PrototypeProtectedPartPitySnapshot>(StringComparer.Ordinal);
+        private readonly List<string> stockGenerationEvents = new List<string>();
+        private readonly bool allowNewGameStockGeneration;
+        private string newGameStockFingerprint = string.Empty;
 
         public PrototypeSearchNodeLedger(int runSeed)
+            : this(runSeed, true)
+        {
+        }
+
+        private PrototypeSearchNodeLedger(int runSeed, bool initializeNewGameStock)
         {
             RunSeed = runSeed;
+            Disease = new PrototypeDiseaseRuntime(runSeed);
+            allowNewGameStockGeneration = initializeNewGameStock;
+            if (!initializeNewGameStock) return;
+            PrototypeSearchNewGameStockManifest manifest = PrototypeSearchNewGameStockGenerator.GenerateNewGameStock(
+                runSeed,
+                PrototypeSearchRegionCatalog.ContractRevision,
+                PrototypeSearchRegionCatalog.LootTableRevision);
+            foreach (PrototypeProtectedPartAssignmentSnapshot assignment in manifest.ProtectedPartAssignments)
+            {
+                protectedPartAssignments.Add(assignment.PartId, assignment.Clone());
+            }
+            InitializeProtectedPartPity(protectedPartAssignments.Values, Array.Empty<string>());
+            foreach (PrototypeSearchGeneratedInstanceStock instance in manifest.Instances)
+            {
+                generatedNewGameStock[instance.LegacyNodeId] = instance.FiniteStock
+                    .Select(item => item.Clone()).ToArray();
+            }
+            newGameStockFingerprint = JsonUtility.ToJson(manifest);
+            stockGenerationEvents.Add(manifest.NewGameStockGenerationEvent);
+            foreach (PrototypeSearchRegionDefinition region in PrototypeSearchRegionCatalog.All)
+            {
+                GetOrCreateRegion(region.StableId);
+                foreach (PrototypeSearchNodeDefinition node in region.Nodes)
+                {
+                    GetOrCreate(node);
+                }
+            }
         }
 
         public int RunSeed { get; private set; }
+        public PrototypeDiseaseRuntime Disease { get; private set; }
         public int TotalHazardExposureCount { get { return nodes.Values.Sum(node => node.HazardExposureCount); } }
+        public int GeneralRemainingAmount { get { return nodes.Values.Sum(node => node.GeneralRemainingAmount); } }
+        public int ProtectedRemainingAmount { get { return nodes.Values.Sum(node => node.ProtectedRemainingAmount); } }
+        public IReadOnlyList<string> StockGenerationEvents { get { return stockGenerationEvents; } }
+        public string NewGameStockFingerprint { get { return newGameStockFingerprint; } }
+        public IReadOnlyList<PrototypeProtectedPartAssignmentSnapshot> ProtectedPartAssignments
+        {
+            get
+            {
+                return protectedPartAssignments.Values
+                    .OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray();
+            }
+        }
+        public IReadOnlyList<PrototypeProtectedPartPitySnapshot> ProtectedPartPity
+        {
+            get
+            {
+                return protectedPartPity.Values
+                    .OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray();
+            }
+        }
+
+        public static PrototypeSearchNodeLedger CreateForRestore(int runSeed)
+        {
+            return new PrototypeSearchNodeLedger(runSeed, false);
+        }
 
         public PrototypeSearchNodeSnapshot GetOrCreate(PrototypeSearchNodeDefinition definition)
         {
@@ -445,7 +1175,11 @@ namespace KimSurvival
                     TimeCostMinutes = definition.TimeCostMinutes,
                     EnergyCost = definition.EnergyCost,
                     HazardId = definition.HazardId,
-                    Remaining = PrototypeSearchNodeLootResolver.Resolve(RunSeed, definition)
+                    Remaining = generatedNewGameStock.TryGetValue(definition.NodeId, out PrototypeSearchLootEntry[] generated)
+                        ? generated.Select(item => item.Clone()).ToArray()
+                        : allowNewGameStockGeneration
+                            ? PrototypeSearchNodeLootResolver.Resolve(RunSeed, definition)
+                            : Array.Empty<PrototypeSearchLootEntry>()
                 };
                 nodes.Add(definition.NodeId, snapshot);
                 region.NodeIds = region.NodeIds.Concat(new[] { definition.NodeId })
@@ -518,7 +1252,79 @@ namespace KimSurvival
 
         public bool TryAcquireProtectedPart(string partId)
         {
-            return !string.IsNullOrEmpty(partId) && protectedPartIds.Add(partId);
+            if (string.IsNullOrEmpty(partId) || !protectedPartIds.Add(partId)) return false;
+            if (protectedPartPity.TryGetValue(partId, out PrototypeProtectedPartPitySnapshot pity))
+            {
+                pity.Acquired = true;
+                pity.SourceNodeId = pity.AssignedNodeId;
+                pity.RepairState = pity.GuaranteeArmed
+                    ? "pity-guaranteed-next-eligible-node"
+                    : "assigned-node-acquired";
+            }
+            return true;
+        }
+
+        public bool TryRecordEligibleProtectedPartNodeResult(
+            string sourceNodeId,
+            string partId,
+            bool canCommitGuarantee,
+            out PrototypeProtectedPartPitySnapshot result)
+        {
+            result = null;
+            if (string.IsNullOrWhiteSpace(sourceNodeId) || string.IsNullOrWhiteSpace(partId) ||
+                !protectedPartPity.TryGetValue(partId, out PrototypeProtectedPartPitySnapshot pity) ||
+                pity.Acquired || protectedPartIds.Contains(partId) ||
+                !PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(partId).Contains(sourceNodeId))
+            {
+                return false;
+            }
+
+            HashSet<string> counted = new HashSet<string>(pity.CountedNodeIds ?? Array.Empty<string>(), StringComparer.Ordinal);
+            if (counted.Contains(sourceNodeId)) return false;
+            if (pity.GuaranteeArmed)
+            {
+                if (!canCommitGuarantee || !TryAcquireProtectedPartFromPity(partId, sourceNodeId)) return false;
+                pity = protectedPartPity[partId];
+                result = pity.Clone();
+                return true;
+            }
+
+            counted.Add(sourceNodeId);
+            pity.CountedNodeIds = counted.OrderBy(value => value, StringComparer.Ordinal).ToArray();
+            pity.EligibleMissCount = Math.Min(
+                CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount,
+                pity.CountedNodeIds.Length);
+            pity.HintRevealed = pity.EligibleMissCount >= CampaignKeyPartPityConfig.EligibleHintSearchCount;
+            pity.GuaranteeArmed = pity.EligibleMissCount >= CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount;
+            pity.RepairState = pity.GuaranteeArmed ? "pity-guarantee-armed" : pity.HintRevealed ? "pity-hint" : "pity-miss";
+            result = pity.Clone();
+            return true;
+        }
+
+        private bool TryAcquireProtectedPartFromPity(string partId, string sourceNodeId)
+        {
+            if (!protectedPartPity.TryGetValue(partId, out PrototypeProtectedPartPitySnapshot pity) ||
+                pity.Acquired || protectedPartIds.Contains(partId))
+            {
+                return false;
+            }
+            foreach (PrototypeSearchNodeSnapshot node in nodes.Values)
+            {
+                node.Remaining = (node.Remaining ?? Array.Empty<PrototypeSearchLootEntry>())
+                    .Where(item => item == null || !item.IsProtectedPart ||
+                                   !string.Equals(item.ProtectedPartId, partId, StringComparison.Ordinal))
+                    .ToArray();
+                if (node.State != PrototypeSearchNodeState.Hidden && node.Remaining.Length == 0)
+                {
+                    node.State = PrototypeSearchNodeState.Depleted;
+                    MarkPermanentHazardRemoved(node.RegionId, node.HazardId);
+                }
+            }
+            if (!protectedPartIds.Add(partId)) return false;
+            pity.Acquired = true;
+            pity.SourceNodeId = sourceNodeId;
+            pity.RepairState = "pity-guaranteed-next-eligible-node";
+            return true;
         }
 
         public bool Consume(string nodeId, string itemId, int amount)
@@ -546,7 +1352,15 @@ namespace KimSurvival
         {
             if (displaced.IsEmpty || !nodes.TryGetValue(nodeId ?? string.Empty, out PrototypeSearchNodeSnapshot snapshot)) return;
             PrototypeSearchLootEntry existing = snapshot.Remaining.FirstOrDefault(item =>
-                !item.IsProtectedPart && item.Resource == displaced.Kind);
+                !item.IsProtectedPart &&
+                string.Equals(
+                    string.IsNullOrEmpty(item.StableResourceId)
+                        ? PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(item.Resource)
+                        : item.StableResourceId,
+                    string.IsNullOrEmpty(displaced.StableResourceId)
+                        ? PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(displaced.Kind)
+                        : displaced.StableResourceId,
+                    StringComparison.Ordinal));
             if (existing != null)
             {
                 existing.Amount += displaced.Amount;
@@ -557,6 +1371,9 @@ namespace KimSurvival
                 remaining.Add(new PrototypeSearchLootEntry
                 {
                     StableItemId = snapshot.NodeId + ".left-behind." + displaced.Kind.ToString().ToLowerInvariant(),
+                    StableResourceId = string.IsNullOrEmpty(displaced.StableResourceId)
+                        ? PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(displaced.Kind)
+                        : displaced.StableResourceId,
                     Resource = displaced.Kind,
                     Amount = displaced.Amount
                 });
@@ -569,34 +1386,109 @@ namespace KimSurvival
         {
             return new PrototypeSearchRunSnapshot
             {
+                ContractRevision = PrototypeSearchRegionCatalog.ContractRevision,
+                LootTableRevision = PrototypeSearchRegionCatalog.LootTableRevision,
+                CatalogRevision = PrototypeSearchRegionCatalog.CatalogRevision,
+                NewGameStockGenerationEvent = stockGenerationEvents.FirstOrDefault() ?? string.Empty,
+                NewGameStockFingerprint = newGameStockFingerprint,
+                StockGenerationEvents = stockGenerationEvents.ToArray(),
                 RunSeed = RunSeed,
                 Nodes = nodes.Values.OrderBy(value => value.NodeId, StringComparer.Ordinal)
                     .Select(value => value.Clone()).ToArray(),
                 Regions = regions.Values.OrderBy(value => value.RegionId, StringComparer.Ordinal)
                     .Select(value => value.Clone()).ToArray(),
-                ProtectedPartIds = protectedPartIds.OrderBy(value => value, StringComparer.Ordinal).ToArray()
+                ProtectedPartIds = protectedPartIds.OrderBy(value => value, StringComparer.Ordinal).ToArray(),
+                ProtectedPartAssignments = protectedPartAssignments.Values
+                    .OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray(),
+                ProtectedPartPity = protectedPartPity.Values
+                    .OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray(),
+                Disease = Disease.CaptureSnapshot()
             };
         }
 
         public bool RestoreSnapshot(PrototypeSearchRunSnapshot snapshot)
         {
-            if (snapshot == null || snapshot.RunSeed != RunSeed) return false;
-            PrototypeSearchNodeSnapshot[] source = snapshot.Nodes ?? Array.Empty<PrototypeSearchNodeSnapshot>();
+            if (snapshot == null || snapshot.RunSeed != RunSeed)
+            {
+                return false;
+            }
+            PrototypeSearchNodeSnapshot[] source = (snapshot.Nodes ?? Array.Empty<PrototypeSearchNodeSnapshot>())
+                .Select(node => node == null ? null : node.Clone()).ToArray();
+            HashSet<string> sourceIds = new HashSet<string>(
+                source.Where(node => node != null).Select(node => node.NodeId),
+                StringComparer.Ordinal);
+            bool exactRevision =
+                string.Equals(snapshot.ContractRevision, PrototypeSearchRegionCatalog.ContractRevision, StringComparison.Ordinal) &&
+                string.Equals(snapshot.LootTableRevision, PrototypeSearchRegionCatalog.LootTableRevision, StringComparison.Ordinal) &&
+                string.Equals(snapshot.CatalogRevision, PrototypeSearchRegionCatalog.CatalogRevision, StringComparison.Ordinal);
+            bool migrateLegacy28 = source.Length == 28 &&
+                PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.All(sourceIds.Contains) &&
+                sourceIds.All(id => PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.Contains(id));
+            if (!exactRevision && !migrateLegacy28) return false;
+            HashSet<string> expectedNodeIds = new HashSet<string>(
+                PrototypeSearchRegionCatalog.Nodes.Select(node => node.NodeId),
+                StringComparer.Ordinal);
             if (source.Any(node => node == null || node.RunSeed != RunSeed || string.IsNullOrEmpty(node.NodeId)) ||
-                source.Select(node => node.NodeId).Distinct(StringComparer.Ordinal).Count() != source.Length)
+                source.Select(node => node.NodeId).Distinct(StringComparer.Ordinal).Count() != source.Length ||
+                (!migrateLegacy28 && source.Length != expectedNodeIds.Count) ||
+                source.Any(node => !expectedNodeIds.Contains(node.NodeId)))
             {
                 return false;
             }
             PrototypeSearchRegionSnapshot[] regionSource = snapshot.Regions ?? Array.Empty<PrototypeSearchRegionSnapshot>();
+            HashSet<string> expectedRegionIds = new HashSet<string>(
+                PrototypeSearchRegionCatalog.All.Select(region => region.StableId),
+                StringComparer.Ordinal);
             if (regionSource.Any(region => region == null || string.IsNullOrEmpty(region.RegionId)) ||
-                regionSource.Select(region => region.RegionId).Distinct(StringComparer.Ordinal).Count() != regionSource.Length)
+                regionSource.Select(region => region.RegionId).Distinct(StringComparer.Ordinal).Count() != regionSource.Length ||
+                regionSource.Length != expectedRegionIds.Count ||
+                regionSource.Any(region => !expectedRegionIds.Contains(region.RegionId)))
             {
                 return false;
             }
+            if (!TryBuildRestoredProtectedAssignments(snapshot, source, out PrototypeProtectedPartAssignmentSnapshot[] restoredAssignments))
+            {
+                return false;
+            }
+            if (!TryBuildRestoredProtectedPartPity(snapshot, restoredAssignments, out PrototypeProtectedPartPitySnapshot[] restoredPity))
+            {
+                return false;
+            }
+            var restoredDisease = new PrototypeDiseaseRuntime(RunSeed);
+            if (!restoredDisease.RestoreSnapshot(snapshot.Disease)) return false;
+
             nodes.Clear();
             foreach (PrototypeSearchNodeSnapshot node in source)
             {
+                foreach (PrototypeSearchLootEntry item in node.Remaining ?? Array.Empty<PrototypeSearchLootEntry>())
+                {
+                    if (!item.IsProtectedPart && string.IsNullOrEmpty(item.StableResourceId))
+                    {
+                        item.StableResourceId = PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(item.Resource);
+                    }
+                }
                 nodes.Add(node.NodeId, node.Clone());
+            }
+            if (migrateLegacy28)
+            {
+                foreach (PrototypeSearchNodeDefinition definition in PrototypeSearchRegionCatalog.Nodes.Where(node =>
+                             !nodes.ContainsKey(node.NodeId)))
+                {
+                    nodes.Add(definition.NodeId, new PrototypeSearchNodeSnapshot
+                    {
+                        RunSeed = RunSeed,
+                        RegionId = definition.RegionId,
+                        NodeId = definition.NodeId,
+                        NodeKind = definition.Kind,
+                        State = PrototypeSearchNodeState.Hidden,
+                        TimeCostMinutes = definition.TimeCostMinutes,
+                        EnergyCost = definition.EnergyCost,
+                        HazardId = definition.HazardId,
+                        Remaining = PrototypeSearchNodeLootResolver.ResolveGeneralStock(RunSeed, definition)
+                    });
+                }
             }
             regions.Clear();
             foreach (PrototypeSearchRegionSnapshot region in regionSource)
@@ -614,6 +1506,224 @@ namespace KimSurvival
             {
                 if (!string.IsNullOrEmpty(partId)) protectedPartIds.Add(partId);
             }
+            protectedPartAssignments.Clear();
+            foreach (PrototypeProtectedPartAssignmentSnapshot assignment in restoredAssignments)
+            {
+                protectedPartAssignments.Add(assignment.PartId, assignment.Clone());
+            }
+            protectedPartPity.Clear();
+            foreach (PrototypeProtectedPartPitySnapshot pity in restoredPity)
+            {
+                protectedPartPity.Add(pity.PartId, pity.Clone());
+            }
+            Disease = restoredDisease;
+            stockGenerationEvents.Clear();
+            stockGenerationEvents.AddRange(snapshot.StockGenerationEvents ?? Array.Empty<string>());
+            newGameStockFingerprint = snapshot.NewGameStockFingerprint ?? string.Empty;
+            if (migrateLegacy28) stockGenerationEvents.Add("migration-add-wave-b-14-stock");
+            return true;
+        }
+
+        private void InitializeProtectedPartPity(
+            IEnumerable<PrototypeProtectedPartAssignmentSnapshot> assignments,
+            IEnumerable<string> acquiredPartIds)
+        {
+            var acquired = new HashSet<string>(acquiredPartIds ?? Array.Empty<string>(), StringComparer.Ordinal);
+            protectedPartPity.Clear();
+            foreach (PrototypeProtectedPartAssignmentSnapshot assignment in assignments ??
+                     Array.Empty<PrototypeProtectedPartAssignmentSnapshot>())
+            {
+                protectedPartPity[assignment.PartId] = new PrototypeProtectedPartPitySnapshot
+                {
+                    PartId = assignment.PartId,
+                    AssignedNodeId = assignment.AssignedNodeId,
+                    Acquired = acquired.Contains(assignment.PartId),
+                    SourceNodeId = acquired.Contains(assignment.PartId) ? assignment.AssignedNodeId : string.Empty,
+                    RepairState = acquired.Contains(assignment.PartId) ? "legacy-acquired" : assignment.RepairState
+                };
+            }
+        }
+
+        private static bool TryBuildRestoredProtectedAssignments(
+            PrototypeSearchRunSnapshot snapshot,
+            IReadOnlyList<PrototypeSearchNodeSnapshot> source,
+            out PrototypeProtectedPartAssignmentSnapshot[] restoredAssignments)
+        {
+            restoredAssignments = Array.Empty<PrototypeProtectedPartAssignmentSnapshot>();
+            var expectedPartIds = new HashSet<string>(
+                PrototypeSearchNodeLootResolver.ProtectedPartIds,
+                StringComparer.Ordinal);
+            string[] acquiredPartIds = snapshot.ProtectedPartIds ?? Array.Empty<string>();
+            if (acquiredPartIds.Any(string.IsNullOrWhiteSpace) ||
+                acquiredPartIds.Distinct(StringComparer.Ordinal).Count() != acquiredPartIds.Length ||
+                acquiredPartIds.Any(partId => !expectedPartIds.Contains(partId)))
+            {
+                return false;
+            }
+
+            var acquired = new HashSet<string>(acquiredPartIds, StringComparer.Ordinal);
+            var remainingAssignments = new Dictionary<string, PrototypeProtectedPartAssignmentSnapshot>(StringComparer.Ordinal);
+            var occupiedNodes = new HashSet<string>(StringComparer.Ordinal);
+            foreach (PrototypeSearchNodeSnapshot node in source)
+            {
+                PrototypeSearchNodeDefinition definition = PrototypeSearchRegionCatalog.Nodes.FirstOrDefault(value =>
+                    string.Equals(value.NodeId, node.NodeId, StringComparison.Ordinal));
+                if (definition == null || !string.Equals(definition.RegionId, node.RegionId, StringComparison.Ordinal))
+                {
+                    return false;
+                }
+
+                PrototypeSearchLootEntry[] protectedItems = (node.Remaining ?? Array.Empty<PrototypeSearchLootEntry>())
+                    .Where(item => item != null && item.IsProtectedPart).ToArray();
+                if (protectedItems.Length > 1) return false;
+                foreach (PrototypeSearchLootEntry item in protectedItems)
+                {
+                    string partId = item.ProtectedPartId ?? string.Empty;
+                    if (item.Amount != 1 || !expectedPartIds.Contains(partId) || acquired.Contains(partId) ||
+                        remainingAssignments.ContainsKey(partId) || !occupiedNodes.Add(node.NodeId) ||
+                        !PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(partId).Contains(node.NodeId))
+                    {
+                        return false;
+                    }
+                    remainingAssignments.Add(partId, new PrototypeProtectedPartAssignmentSnapshot
+                    {
+                        PartId = partId,
+                        AssignedNodeId = node.NodeId,
+                        SourceRegionId = definition.RegionId,
+                        AssignmentPass = -1,
+                        RepairState = "legacy-snapshot"
+                    });
+                }
+            }
+
+            PrototypeProtectedPartAssignmentSnapshot[] savedAssignments =
+                snapshot.ProtectedPartAssignments ?? Array.Empty<PrototypeProtectedPartAssignmentSnapshot>();
+            if (savedAssignments.Length == 0)
+            {
+                restoredAssignments = remainingAssignments.Values
+                    .OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray();
+                return true;
+            }
+            if (savedAssignments.Length != expectedPartIds.Count ||
+                savedAssignments.Any(value => value == null || string.IsNullOrWhiteSpace(value.PartId) ||
+                                              string.IsNullOrWhiteSpace(value.AssignedNodeId) ||
+                                              string.IsNullOrWhiteSpace(value.SourceRegionId)) ||
+                savedAssignments.Select(value => value.PartId).Distinct(StringComparer.Ordinal).Count() != expectedPartIds.Count ||
+                savedAssignments.Select(value => value.AssignedNodeId).Distinct(StringComparer.Ordinal).Count() != expectedPartIds.Count ||
+                savedAssignments.Any(value => !expectedPartIds.Contains(value.PartId)))
+            {
+                return false;
+            }
+
+            foreach (PrototypeProtectedPartAssignmentSnapshot assignment in savedAssignments)
+            {
+                PrototypeSearchNodeDefinition definition = PrototypeSearchRegionCatalog.Nodes.FirstOrDefault(value =>
+                    string.Equals(value.NodeId, assignment.AssignedNodeId, StringComparison.Ordinal));
+                bool stillInNode = remainingAssignments.TryGetValue(
+                    assignment.PartId,
+                    out PrototypeProtectedPartAssignmentSnapshot remainingAssignment);
+                if (definition == null ||
+                    !string.Equals(definition.RegionId, assignment.SourceRegionId, StringComparison.Ordinal) ||
+                    !PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(assignment.PartId).Contains(assignment.AssignedNodeId) ||
+                    (!stillInNode && !acquired.Contains(assignment.PartId)) ||
+                    (stillInNode && !string.Equals(
+                        remainingAssignment.AssignedNodeId,
+                        assignment.AssignedNodeId,
+                        StringComparison.Ordinal)))
+                {
+                    return false;
+                }
+            }
+
+            string[] radioPartIds =
+            {
+                PrototypeSearchNodeLootResolver.RadioTransceiverPartId,
+                PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId,
+                PrototypeSearchNodeLootResolver.RadioTransistorPartId
+            };
+            if (savedAssignments.Where(value => radioPartIds.Contains(value.PartId))
+                    .Select(value => value.SourceRegionId).Distinct(StringComparer.Ordinal).Count() != radioPartIds.Length)
+            {
+                return false;
+            }
+
+            restoredAssignments = savedAssignments.OrderBy(value => value.PartId, StringComparer.Ordinal)
+                .Select(value => value.Clone()).ToArray();
+            return true;
+        }
+
+        private static bool TryBuildRestoredProtectedPartPity(
+            PrototypeSearchRunSnapshot snapshot,
+            IReadOnlyList<PrototypeProtectedPartAssignmentSnapshot> assignments,
+            out PrototypeProtectedPartPitySnapshot[] restoredPity)
+        {
+            restoredPity = Array.Empty<PrototypeProtectedPartPitySnapshot>();
+            var assignmentByPart = assignments.ToDictionary(value => value.PartId, StringComparer.Ordinal);
+            var acquired = new HashSet<string>(snapshot.ProtectedPartIds ?? Array.Empty<string>(), StringComparer.Ordinal);
+            PrototypeProtectedPartPitySnapshot[] saved = snapshot.ProtectedPartPity ??
+                                                          Array.Empty<PrototypeProtectedPartPitySnapshot>();
+            if (saved.Length == 0)
+            {
+                restoredPity = assignments.OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => new PrototypeProtectedPartPitySnapshot
+                    {
+                        PartId = value.PartId,
+                        AssignedNodeId = value.AssignedNodeId,
+                        Acquired = acquired.Contains(value.PartId),
+                        SourceNodeId = acquired.Contains(value.PartId) ? value.AssignedNodeId : string.Empty,
+                        RepairState = acquired.Contains(value.PartId) ? "legacy-acquired" : value.RepairState
+                    }).ToArray();
+                return true;
+            }
+
+            if (saved.Length != assignmentByPart.Count || saved.Any(value => value == null) ||
+                saved.Select(value => value.PartId).Distinct(StringComparer.Ordinal).Count() != assignmentByPart.Count)
+            {
+                return false;
+            }
+
+            foreach (PrototypeProtectedPartPitySnapshot pity in saved)
+            {
+                if (!assignmentByPart.TryGetValue(pity.PartId ?? string.Empty, out PrototypeProtectedPartAssignmentSnapshot assignment) ||
+                    !string.Equals(pity.AssignedNodeId, assignment.AssignedNodeId, StringComparison.Ordinal) ||
+                    pity.EligibleMissCount < 0 || pity.EligibleMissCount > CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount ||
+                    pity.Acquired != acquired.Contains(pity.PartId))
+                {
+                    return false;
+                }
+                string[] counted = pity.CountedNodeIds ?? Array.Empty<string>();
+                if (counted.Any(string.IsNullOrWhiteSpace) ||
+                    counted.Distinct(StringComparer.Ordinal).Count() != counted.Length ||
+                    counted.Any(nodeId => !PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(pity.PartId).Contains(nodeId)) ||
+                    pity.EligibleMissCount != counted.Length ||
+                    pity.HintRevealed != (pity.EligibleMissCount >= CampaignKeyPartPityConfig.EligibleHintSearchCount) ||
+                    pity.GuaranteeArmed != (pity.EligibleMissCount >= CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount) ||
+                    (pity.Acquired && (string.IsNullOrWhiteSpace(pity.SourceNodeId) ||
+                                       !PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(pity.PartId).Contains(pity.SourceNodeId))) ||
+                    (!pity.Acquired && !string.IsNullOrEmpty(pity.SourceNodeId)))
+                {
+                    return false;
+                }
+            }
+
+            string[] radioPartIds =
+            {
+                PrototypeSearchNodeLootResolver.RadioTransceiverPartId,
+                PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId,
+                PrototypeSearchNodeLootResolver.RadioTransistorPartId
+            };
+            string[] acquiredRadioRegions = saved.Where(value => value.Acquired && radioPartIds.Contains(value.PartId))
+                .Select(value => PrototypeSearchRegionCatalog.Nodes.First(node =>
+                    string.Equals(node.NodeId, value.SourceNodeId, StringComparison.Ordinal)).RegionId)
+                .ToArray();
+            if (acquiredRadioRegions.Distinct(StringComparer.Ordinal).Count() != acquiredRadioRegions.Length)
+            {
+                return false;
+            }
+
+            restoredPity = saved.OrderBy(value => value.PartId, StringComparer.Ordinal)
+                .Select(value => value.Clone()).ToArray();
             return true;
         }
     }
@@ -629,7 +1739,30 @@ namespace KimSurvival
             Ledger = new PrototypeSearchNodeLedger(runSeed);
         }
 
+        private PrototypeSearchNodeRuntime(PrototypeSearchNodeLedger ledger)
+        {
+            Ledger = ledger ?? throw new ArgumentNullException(nameof(ledger));
+        }
+
+        public static PrototypeSearchNodeRuntime CreateForRestore(int runSeed)
+        {
+            return new PrototypeSearchNodeRuntime(PrototypeSearchNodeLedger.CreateForRestore(runSeed));
+        }
+
+        public static bool TryCreateFromSnapshot(
+            PrototypeSearchRunSnapshot snapshot,
+            out PrototypeSearchNodeRuntime runtime)
+        {
+            runtime = null;
+            if (snapshot == null) return false;
+            PrototypeSearchNodeRuntime candidate = CreateForRestore(snapshot.RunSeed);
+            if (!candidate.RestoreSnapshot(snapshot)) return false;
+            runtime = candidate;
+            return true;
+        }
+
         public PrototypeSearchNodeLedger Ledger { get; private set; }
+        public PrototypeDiseaseRuntime Disease { get { return Ledger.Disease; } }
         public bool IsTrayOpen { get { return !string.IsNullOrEmpty(activeNodeId); } }
         public bool HasPendingBagSwap { get { return !string.IsNullOrEmpty(pendingItemId); } }
         public int FocusedIndex { get; private set; }
@@ -652,6 +1785,31 @@ namespace KimSurvival
             pendingItemId = string.Empty;
             FocusedIndex = 0;
             cycleLatched = false;
+            PrototypeProtectedPartPityRuntimeBridge.RestoreNaturalSearchPity(runSeed, Ledger.ProtectedPartPity);
+        }
+
+        public bool RestoreSnapshot(PrototypeSearchRunSnapshot snapshot)
+        {
+            if (snapshot == null) return false;
+            PrototypeSearchNodeLedger candidate = PrototypeSearchNodeLedger.CreateForRestore(snapshot.RunSeed);
+            if (candidate.StockGenerationEvents.Count != 0 || !string.IsNullOrEmpty(candidate.NewGameStockFingerprint) ||
+                !candidate.RestoreSnapshot(snapshot))
+            {
+                return false;
+            }
+
+            string previousActiveNodeId = activeNodeId;
+            Ledger = candidate;
+            activeNodeId = snapshot.Nodes != null && snapshot.Nodes.Any(node =>
+                    node != null && string.Equals(node.NodeId, previousActiveNodeId, StringComparison.Ordinal))
+                ? previousActiveNodeId
+                : string.Empty;
+            pendingItemId = string.Empty;
+            FocusedIndex = 0;
+            cycleLatched = false;
+            ClampFocus();
+            PrototypeProtectedPartPityRuntimeBridge.RestoreNaturalSearchPity(Ledger.RunSeed, Ledger.ProtectedPartPity);
+            return true;
         }
 
         public PrototypeSearchOpenResult TryOpen(PrototypeSearchNodeDefinition definition, GameSession session)
@@ -665,18 +1823,50 @@ namespace KimSurvival
             if (definition.RequiresSwimming && !session.IsSwimming) return PrototypeSearchOpenResult.NeedSwimming;
             if (snapshot.State == PrototypeSearchNodeState.Hidden)
             {
-                if (!session.TryApplySearchNodeCost(definition.EnergyCost, definition.TimeCostMinutes))
+                if (string.Equals(definition.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal))
+                {
+                    Disease.TryTelegraph(definition.RegionId, definition.NodeId);
+                }
+                int appliedEnergyCost = definition.EnergyCost + Disease.ActiveSearchEnergyPenalty;
+                if (!session.TryApplySearchNodeCost(appliedEnergyCost, definition.TimeCostMinutes))
                 {
                     return PrototypeSearchOpenResult.TooTired;
                 }
+                snapshot.EnergyCost = appliedEnergyCost;
                 Ledger.Reveal(definition);
                 session.RecordSearchNodeResult(definition.NodeId);
+                if (string.Equals(definition.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal))
+                {
+                    Disease.TryExposeFromSearch(definition);
+                }
             }
             activeNodeId = definition.NodeId;
             pendingItemId = string.Empty;
             FocusedIndex = 0;
             cycleLatched = false;
             return PrototypeSearchOpenResult.Opened;
+        }
+
+        public bool TryTelegraphDisease(PrototypeSearchNodeDefinition definition)
+        {
+            return definition != null &&
+                   string.Equals(definition.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal) &&
+                   Disease.TryTelegraph(definition.RegionId, definition.NodeId);
+        }
+
+        public bool NotifyReturnToCamp(GameSession session, bool forced)
+        {
+            return Disease.TryEnterCamp(session, forced);
+        }
+
+        public bool NotifyDaySettlement(GameSession session)
+        {
+            return Disease.TrySettleDay(session);
+        }
+
+        public bool TryTreatDisease(GameSession session, bool hasWorkbench)
+        {
+            return Disease.TryTreat(session, hasWorkbench);
         }
 
         public bool StepFocus(int direction)
@@ -724,14 +1914,13 @@ namespace KimSurvival
                 {
                     return PrototypeSearchTakeResult.Rejected;
                 }
+                ResolveCompletedNodeProtectedPartPity(node.NodeId);
                 ClampFocus();
                 return PrototypeSearchTakeResult.Protected;
             }
 
-            int bagAmount = item.Resource == ResourceKind.Wood && session.HasAxe
-                ? item.Amount + 1
-                : item.Amount;
-            GatherResult result = session.TryStoreSearchLoot(item.Resource, bagAmount);
+            int bagAmount = item.Amount;
+            GatherResult result = session.TryStoreSearchLoot(item.StableResourceId, item.Resource, bagAmount);
             if (result == GatherResult.PendingSwap)
             {
                 pendingItemId = item.StableItemId;
@@ -741,6 +1930,7 @@ namespace KimSurvival
             {
                 return PrototypeSearchTakeResult.Rejected;
             }
+            ResolveCompletedNodeProtectedPartPity(node.NodeId);
             ClampFocus();
             return ActiveNode == null || ActiveNode.State == PrototypeSearchNodeState.Depleted
                 ? PrototypeSearchTakeResult.Depleted
@@ -770,6 +1960,7 @@ namespace KimSurvival
             if (!session.ReplaceBagSlot(bagSlotIndex, out BagStack displaced)) return false;
             if (!Ledger.Consume(node.NodeId, pending.StableItemId, pending.Amount)) return false;
             Ledger.LeaveDisplacedResource(node.NodeId, displaced);
+            ResolveCompletedNodeProtectedPartPity(node.NodeId);
             pendingItemId = string.Empty;
             ClampFocus();
             return true;
@@ -798,6 +1989,54 @@ namespace KimSurvival
             int count = node == null || node.Remaining == null ? 0 : node.Remaining.Length;
             FocusedIndex = count == 0 ? 0 : Math.Min(FocusedIndex, count - 1);
         }
+
+        private void ResolveCompletedNodeProtectedPartPity(string sourceNodeId)
+        {
+            PrototypeSearchNodeSnapshot completedNode = Ledger.CaptureSnapshot().Nodes.FirstOrDefault(node =>
+                string.Equals(node.NodeId, sourceNodeId, StringComparison.Ordinal));
+            if (completedNode == null || completedNode.State != PrototypeSearchNodeState.Depleted) return;
+
+            PrototypeProtectedPartAssignmentSnapshot assignedAtNode = Ledger.ProtectedPartAssignments.FirstOrDefault(value =>
+                string.Equals(value.AssignedNodeId, sourceNodeId, StringComparison.Ordinal));
+            var acquiredRadioRegions = new HashSet<string>(
+                Ledger.ProtectedPartPity.Where(value => value.Acquired && IsRadioPart(value.PartId))
+                    .Select(value => PrototypeSearchRegionCatalog.Nodes.First(node =>
+                        string.Equals(node.NodeId, value.SourceNodeId, StringComparison.Ordinal)).RegionId),
+                StringComparer.Ordinal);
+            foreach (string partId in PrototypeSearchNodeLootResolver.ProtectedPartIds)
+            {
+                if (Ledger.HasProtectedPart(partId) ||
+                    !PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(partId).Contains(sourceNodeId))
+                {
+                    continue;
+                }
+                bool noProtectedCollision = assignedAtNode == null ||
+                                            string.Equals(assignedAtNode.PartId, partId, StringComparison.Ordinal);
+                bool distinctRadioRegion = !IsRadioPart(partId) || !acquiredRadioRegions.Contains(completedNode.RegionId);
+                bool canCommitGuarantee = noProtectedCollision && distinctRadioRegion;
+                if (!Ledger.TryRecordEligibleProtectedPartNodeResult(
+                        sourceNodeId,
+                        partId,
+                        canCommitGuarantee,
+                        out PrototypeProtectedPartPitySnapshot result))
+                {
+                    continue;
+                }
+                PrototypeProtectedPartPityRuntimeBridge.RecordNaturalSearchNodeResult(
+                    Ledger.RunSeed,
+                    sourceNodeId,
+                    result,
+                    canCommitGuarantee);
+                if (result.Acquired && IsRadioPart(partId)) acquiredRadioRegions.Add(completedNode.RegionId);
+            }
+        }
+
+        private static bool IsRadioPart(string partId)
+        {
+            return string.Equals(partId, PrototypeSearchNodeLootResolver.RadioTransceiverPartId, StringComparison.Ordinal) ||
+                   string.Equals(partId, PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId, StringComparison.Ordinal) ||
+                   string.Equals(partId, PrototypeSearchNodeLootResolver.RadioTransistorPartId, StringComparison.Ordinal);
+        }
     }
 
     public readonly struct PrototypeSearchNodeContractResult
@@ -818,18 +2057,84 @@ namespace KimSurvival
         {
             int seed = PrototypeExpeditionRegionCatalog.DefaultRunSeed;
             IReadOnlyList<PrototypeSearchRegionDefinition> regions = PrototypeSearchRegionCatalog.All;
-            bool sevenRegions = regions.Count == 7 && regions.Select(region => region.StableId).Distinct(StringComparer.Ordinal).Count() == 7;
-            bool stableNodes = regions.SelectMany(region => region.Nodes).Select(node => node.NodeId)
-                .Distinct(StringComparer.Ordinal).Count() == regions.Sum(region => region.Nodes.Count);
+            IReadOnlyList<PrototypeSearchNodeArchetypeDefinition> archetypes = PrototypeSearchRegionCatalog.Archetypes;
+            IReadOnlyList<PrototypeSearchNodeDefinition> definitions = PrototypeSearchRegionCatalog.Nodes;
+            bool sevenRegions = regions.Count == 7 &&
+                                regions.Select(region => region.StableId).Distinct(StringComparer.Ordinal).Count() == 7;
+            bool exactShape = regions.All(region => region.Archetypes.Count == 3 && region.Nodes.Count == 6) &&
+                              archetypes.Count == 21 && archetypes.All(archetype => archetype.Instances.Count == 2) &&
+                              definitions.Count == 42;
+            string[] stableIds = regions.Select(region => region.StableId)
+                .Concat(archetypes.Select(archetype => archetype.StableId))
+                .Concat(definitions.Select(node => node.NodeId)).ToArray();
+            int duplicateStableIds = stableIds.Length - stableIds.Distinct(StringComparer.Ordinal).Count();
+            bool stableNodes = duplicateStableIds == 0 && definitions.All(node =>
+                !string.IsNullOrWhiteSpace(node.RegionId) && !string.IsNullOrWhiteSpace(node.ArchetypeId) &&
+                !string.IsNullOrWhiteSpace(node.NodeId) && (node.InstanceOrdinal == 1 || node.InstanceOrdinal == 2));
+            HashSet<string> actualNodeIds = new HashSet<string>(definitions.Select(node => node.NodeId), StringComparer.Ordinal);
+            bool legacyIdsPreserved = PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.Count == 28 &&
+                                      PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.All(actualNodeIds.Contains) &&
+                                      definitions.Count(node => string.Equals(node.Origin, "existing", StringComparison.Ordinal)) == 28;
+            bool exactlyFourteenAdded = PrototypeSearchRegionCatalog.NewWaveBNodeIds.Count == 14 &&
+                                        PrototypeSearchRegionCatalog.NewWaveBNodeIds.All(actualNodeIds.Contains) &&
+                                        definitions.Count(node => string.Equals(node.Origin, "new", StringComparison.Ordinal)) == 14;
+            Dictionary<string, int> stableResourceTotals = definitions
+                .SelectMany(node => PrototypeSearchNodeLootResolver.Resolve(seed, node))
+                .Where(item => !item.IsProtectedPart)
+                .GroupBy(item => item.StableResourceId, StringComparer.Ordinal)
+                .ToDictionary(group => group.Key, group => group.Sum(item => item.Amount), StringComparer.Ordinal);
+            Dictionary<string, int> expectedStableResourceTotals = new Dictionary<string, int>(StringComparer.Ordinal)
+            {
+                { "resource.wood", 22 }, { "resource.salvage", 18 }, { "resource.food", 12 },
+                { "resource.fabric", 6 }, { "resource.fiber", 10 }, { "resource.medicine", 6 },
+                { "resource.stone", 18 }, { "resource.metal", 14 }, { "resource.wire", 12 },
+                { "resource.fuel", 8 }, { "resource.chemicals", 6 }, { "resource.electronics", 12 }
+            };
+            bool stableResourceTotalsMatch = stableResourceTotals.Count == expectedStableResourceTotals.Count &&
+                                             expectedStableResourceTotals.All(expected =>
+                                                 stableResourceTotals.TryGetValue(expected.Key, out int actual) && actual == expected.Value);
+            int generalUnits = PrototypeSearchRegionCatalog.GeneralStockUnitsForSeed(seed);
+            int protectedUnits = definitions.Sum(node => PrototypeSearchNodeLootResolver.Resolve(seed, node)
+                .Where(item => item.IsProtectedPart).Sum(item => Math.Max(0, item.Amount)));
+            PrototypeProtectedPartAssignmentSnapshot[] protectedAssignments =
+                PrototypeSearchNodeLootResolver.ResolveProtectedPartAssignments(
+                    seed,
+                    PrototypeSearchRegionCatalog.ContractRevision);
+            string[] expectedProtectedPartIds = PrototypeSearchNodeLootResolver.ProtectedPartIds.ToArray();
+            string[] radioPartIds =
+            {
+                PrototypeSearchNodeLootResolver.RadioTransceiverPartId,
+                PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId,
+                PrototypeSearchNodeLootResolver.RadioTransistorPartId
+            };
+            bool protectedAssignmentContract = protectedAssignments.Length == 5 &&
+                protectedAssignments.Select(value => value.PartId).Distinct(StringComparer.Ordinal).Count() == 5 &&
+                expectedProtectedPartIds.All(partId => protectedAssignments.Any(value =>
+                    string.Equals(value.PartId, partId, StringComparison.Ordinal))) &&
+                protectedAssignments.Select(value => value.AssignedNodeId).Distinct(StringComparer.Ordinal).Count() == 5 &&
+                protectedAssignments.All(value => PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(value.PartId)
+                    .Contains(value.AssignedNodeId)) &&
+                protectedAssignments.Where(value => radioPartIds.Contains(value.PartId))
+                    .Select(value => value.SourceRegionId).Distinct(StringComparer.Ordinal).Count() == 3;
+            bool exactFiniteBalance = generalUnits == PrototypeSearchRegionCatalog.BalanceProvisionalGeneralStockUnits &&
+                                      PrototypeSearchRegionCatalog.GeneralStockUnitsForSeed(seed + 1) ==
+                                      PrototypeSearchRegionCatalog.BalanceProvisionalGeneralStockUnits &&
+                                      protectedUnits == 5 && stableResourceTotalsMatch && protectedAssignmentContract;
+            string firstCatalogFingerprint = CatalogFingerprint(seed);
+            bool deterministic = string.Equals(firstCatalogFingerprint, CatalogFingerprint(seed), StringComparison.Ordinal);
+            bool differentSeedVaries = Enumerable.Range(seed + 1, 5)
+                .Any(otherSeed => !string.Equals(firstCatalogFingerprint, CatalogFingerprint(otherSeed), StringComparison.Ordinal));
 
-            PrototypeSearchNodeDefinition definition = regions[0].Nodes[1];
+            var protectedNodeIds = new HashSet<string>(
+                protectedAssignments.Select(value => value.AssignedNodeId),
+                StringComparer.Ordinal);
+            PrototypeSearchNodeDefinition definition = definitions.First(node =>
+                !protectedNodeIds.Contains(node.NodeId) &&
+                !string.Equals(node.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal));
             PrototypeSearchLootEntry[] first = PrototypeSearchNodeLootResolver.Resolve(seed, definition);
-            PrototypeSearchLootEntry[] repeat = PrototypeSearchNodeLootResolver.Resolve(seed, definition);
-            bool deterministic = JsonUtility.ToJson(new PrototypeSearchNodeSnapshot { Remaining = first }) ==
-                                 JsonUtility.ToJson(new PrototypeSearchNodeSnapshot { Remaining = repeat });
-
             GameSession session = new GameSession(seed);
-            bool began = session.BeginSearch(PrototypeExpeditionRegionId.Beach);
+            bool began = session.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(definition.RegionId));
+            if (definition.RequiresSwimming) session.SetSwimming(true);
             PrototypeSearchNodeRuntime runtime = new PrototypeSearchNodeRuntime(seed);
             float beforeEnergy = session.Energy;
             float beforeDaylight = session.Daylight;
@@ -842,15 +2147,60 @@ namespace KimSurvival
                             session.Daylight == beforeDaylight - definition.TimeCostMinutes &&
                             runtime.Ledger.TotalHazardExposureCount == exposureAfterOpen && exposureAfterOpen == 1;
 
+            PrototypeSearchNodeSnapshot beforeTake = runtime.ActiveNode;
+            int normalIndex = beforeTake == null ? -1 : Array.FindIndex(beforeTake.Remaining, item => !item.IsProtectedPart);
+            bool selected = normalIndex >= 0 && runtime.SetFocusedIndex(normalIndex);
+            int initialGeneral = runtime.Ledger.GeneralRemainingAmount;
+            PrototypeSearchTakeResult takeResult = selected
+                ? runtime.TryTakeFocused(session, delegate { return false; })
+                : PrototypeSearchTakeResult.Rejected;
+            int afterTakeGeneral = runtime.Ledger.GeneralRemainingAmount;
             runtime.Close(session);
+            runtime.Ledger.MarkBarrierBroken(definition.RegionId);
+            runtime.Ledger.MarkPermanentHazardRemoved(definition.RegionId, definition.HazardId);
             string json = JsonUtility.ToJson(runtime.Ledger.CaptureSnapshot());
-            PrototypeSearchNodeLedger restored = new PrototypeSearchNodeLedger(seed);
+            PrototypeSearchNodeLedger restored = PrototypeSearchNodeLedger.CreateForRestore(seed);
+            bool restoreShellStartsEmpty = restored.StockGenerationEvents.Count == 0 &&
+                                           string.IsNullOrEmpty(restored.NewGameStockFingerprint);
             bool restoredOk = restored.RestoreSnapshot(JsonUtility.FromJson<PrototypeSearchRunSnapshot>(json));
+            bool productionRestoreOk = PrototypeSearchNodeRuntime.TryCreateFromSnapshot(
+                JsonUtility.FromJson<PrototypeSearchRunSnapshot>(json),
+                out PrototypeSearchNodeRuntime restoredRuntime) &&
+                restoredRuntime.Ledger.StockGenerationEvents.SequenceEqual(runtime.Ledger.StockGenerationEvents) &&
+                string.Equals(
+                    restoredRuntime.Ledger.NewGameStockFingerprint,
+                    runtime.Ledger.NewGameStockFingerprint,
+                    StringComparison.Ordinal);
             PrototypeSearchNodeSnapshot restoredNode = restored.GetOrCreate(definition);
-            bool persistence = restoredOk && restoredNode.State == PrototypeSearchNodeState.RevealedPartial &&
-                               restoredNode.SearchCount == 1 && restoredNode.RemainingAmount == first.Sum(item => item.Amount);
+            bool persistence = restoredOk && restored.CaptureSnapshot().Nodes.Length == 42 &&
+                               restored.CaptureSnapshot().Regions.Length == 7 &&
+                               restoredNode.State == PrototypeSearchNodeState.RevealedPartial &&
+                               restoredNode.SearchCount == 1 && restored.GeneralRemainingAmount == afterTakeGeneral &&
+                               afterTakeGeneral < initialGeneral &&
+                               restored.IsBarrierBroken(definition.RegionId) &&
+                               restored.IsPermanentHazardRemoved(definition.RegionId, definition.HazardId);
+            bool stockDoesNotRegenerate = restored.GetOrCreate(definition).GeneralRemainingAmount ==
+                                          restoredNode.GeneralRemainingAmount &&
+                                          restored.GeneralRemainingAmount == afterTakeGeneral;
 
-            PrototypeSearchNodeDefinition sailclothDefinition = regions.SelectMany(region => region.Nodes).First(node =>
+            PrototypeSearchNodeDefinition depleteDefinition = definitions.First(node =>
+                !string.Equals(node.NodeId, definition.NodeId, StringComparison.Ordinal) &&
+                !protectedNodeIds.Contains(node.NodeId) &&
+                !string.Equals(node.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal));
+            GameSession depleteSession = new GameSession(seed);
+            bool depleteBegan = depleteSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(depleteDefinition.RegionId));
+            if (depleteDefinition.RequiresSwimming) depleteSession.SetSwimming(true);
+            PrototypeSearchNodeRuntime depleteRuntime = new PrototypeSearchNodeRuntime(seed);
+            bool hiddenObserved = depleteRuntime.Ledger.GetOrCreate(depleteDefinition).State == PrototypeSearchNodeState.Hidden;
+            bool depleteOpened = depleteRuntime.TryOpen(depleteDefinition, depleteSession) == PrototypeSearchOpenResult.Opened;
+            bool partialObserved = depleteRuntime.ActiveNode != null &&
+                                   depleteRuntime.ActiveNode.State == PrototypeSearchNodeState.RevealedPartial;
+            PrototypeSearchTakeResult depleteResult = depleteRuntime.TryTakeAll(depleteSession, delegate { return false; });
+            bool depletedObserved = depleteRuntime.ActiveNode != null &&
+                                    depleteRuntime.ActiveNode.State == PrototypeSearchNodeState.Depleted &&
+                                    depleteRuntime.ActiveNode.RemainingAmount == 0;
+
+            PrototypeSearchNodeDefinition sailclothDefinition = definitions.First(node =>
                 string.Equals(node.NodeId, PrototypeSearchNodeLootResolver.ResolveSailclothNodeId(seed), StringComparison.Ordinal));
             GameSession protectedSession = new GameSession(seed);
             bool protectedBegan = protectedSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(sailclothDefinition.RegionId));
@@ -859,11 +2209,13 @@ namespace KimSurvival
             bool protectedOpened = protectedRuntime.TryOpen(sailclothDefinition, protectedSession) == PrototypeSearchOpenResult.Opened;
             PrototypeSearchNodeSnapshot protectedNode = protectedRuntime.ActiveNode;
             int protectedIndex = protectedNode == null ? -1 : Array.FindIndex(protectedNode.Remaining, item => item.IsProtectedPart);
-            int grants = 0;
+            int protectedTransfers = 0;
             bool protectedTaken = protectedIndex >= 0 && protectedRuntime.SetFocusedIndex(protectedIndex) &&
-                                  protectedRuntime.TryTakeFocused(protectedSession, delegate { grants += 1; return true; }) == PrototypeSearchTakeResult.Protected;
-            bool protectedUnique = protectedRuntime.Ledger.HasProtectedPart(PrototypeRaftEscapeConfig.KeyPartId) && grants == 1 &&
-                                   protectedRuntime.ActiveNode.Remaining.All(item => !item.IsProtectedPart);
+                                  protectedRuntime.TryTakeFocused(protectedSession, delegate { protectedTransfers += 1; return true; }) == PrototypeSearchTakeResult.Protected;
+            bool protectedUnique = protectedRuntime.Ledger.HasProtectedPart(PrototypeRaftEscapeConfig.KeyPartId) &&
+                                   protectedTransfers == 1 && protectedRuntime.ActiveNode.Remaining.All(item => !item.IsProtectedPart) &&
+                                   protectedRuntime.TryTakeFocused(protectedSession, delegate { protectedTransfers += 1; return true; }) != PrototypeSearchTakeResult.Protected &&
+                                   protectedTransfers == 1;
 
             GameSession fullBagSession = new GameSession(seed);
             bool fullBagBegan = fullBagSession.BeginSearch(PrototypeExpeditionRegionId.Beach);
@@ -876,6 +2228,7 @@ namespace KimSurvival
             PrototypeSearchNodeSnapshot swapNode = swapRuntime.ActiveNode;
             int nonWoodIndex = swapNode == null ? -1 : Array.FindIndex(swapNode.Remaining, item => !item.IsProtectedPart && item.Resource != ResourceKind.Wood);
             int nodeBefore = swapNode == null ? 0 : swapNode.RemainingAmount;
+            int pendingAmount = nonWoodIndex < 0 ? 0 : swapNode.Remaining[nonWoodIndex].Amount;
             BagStack slotBefore = fullBagSession.GetBagSlot(0);
             bool pending = nonWoodIndex >= 0 && swapRuntime.SetFocusedIndex(nonWoodIndex) &&
                            swapRuntime.TryTakeFocused(fullBagSession, delegate { return false; }) == PrototypeSearchTakeResult.PendingSwap;
@@ -884,16 +2237,249 @@ namespace KimSurvival
                                 fullBagSession.GetBagSlot(0).Kind == slotBefore.Kind && fullBagSession.GetBagSlot(0).Amount == slotBefore.Amount;
             bool pendingAgain = swapRuntime.TryTakeFocused(fullBagSession, delegate { return false; }) == PrototypeSearchTakeResult.PendingSwap;
             bool replaceAtomic = pendingAgain && swapRuntime.TryReplacePending(fullBagSession, 0) &&
-                                 !fullBagSession.HasPendingLoot && swapRuntime.ActiveNode.RemainingAmount == nodeBefore -
-                                 swapNode.Remaining[nonWoodIndex].Amount + slotBefore.Amount;
+                                 !fullBagSession.HasPendingLoot && swapRuntime.ActiveNode.RemainingAmount ==
+                                 nodeBefore - pendingAmount + slotBefore.Amount;
 
-            bool passed = sevenRegions && stableNodes && deterministic && began && costOnce && persistence &&
+            PrototypeSearchNodeContractResult pityContract = VerifyProtectedPartPityNaturalResultContract(seed);
+            PrototypeSearchNodeContractResult diseaseContract = VerifyNaturalDiseaseLifecycle(seed);
+            bool passed = sevenRegions && exactShape && stableNodes && legacyIdsPreserved && exactlyFourteenAdded &&
+                          exactFiniteBalance && deterministic &&
+                          differentSeedVaries && began && costOnce && selected &&
+                          (takeResult == PrototypeSearchTakeResult.Added || takeResult == PrototypeSearchTakeResult.Depleted) &&
+                           persistence && restoreShellStartsEmpty && productionRestoreOk && stockDoesNotRegenerate &&
+                           depleteBegan && depleteOpened && hiddenObserved &&
+                          partialObserved && depletedObserved && depleteResult == PrototypeSearchTakeResult.Depleted &&
                           protectedBegan && protectedOpened && protectedTaken && protectedUnique &&
-                          fullBagBegan && filled && swapOpened && cancelAtomic && replaceAtomic;
+                          fullBagBegan && filled && swapOpened && cancelAtomic && replaceAtomic &&
+                          pityContract.Passed && diseaseContract.Passed;
             return new PrototypeSearchNodeContractResult(
                 passed,
-                "regions=7 stableNodeIds=true deterministic=true hidden-partial-depleted=true costOnce=true " +
-                "selectionHazardPaused=true cancelAtomic=true replaceAtomic=true sailclothProtectedUnique=true snapshotRestore=true");
+                "catalog=" + PrototypeSearchRegionCatalog.CatalogRevision +
+                " balance=" + PrototypeSearchRegionCatalog.BalanceStatus +
+                " regions=" + regions.Count + " archetypes=" + archetypes.Count + " instances=" + definitions.Count +
+                " generalUnits=" + generalUnits + " protectedUnits=" + protectedUnits +
+                " duplicateStableIds=" + duplicateStableIds +
+                " existing=28 new=14 removedLegacy=" +
+                PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.Count(id => !actualNodeIds.Contains(id)) +
+                " stableResources=12" +
+                " protectedAssignments=" + protectedAssignments.Length +
+                " radioRegions=" + protectedAssignments.Where(value => radioPartIds.Contains(value.PartId))
+                    .Select(value => value.SourceRegionId).Distinct(StringComparer.Ordinal).Count() +
+                " initialNodeCollisions=" + (protectedAssignments.Length - protectedAssignments
+                    .Select(value => value.AssignedNodeId).Distinct(StringComparer.Ordinal).Count()) +
+                " deterministic=" + deterministic + " differentSeedVaries=" + differentSeedVaries +
+                " restoreShellGenerationEvents=0 productionRestore=" + productionRestoreOk +
+                " stockDoesNotRegenerate=" + stockDoesNotRegenerate +
+                " hidden-partial-depleted=" + (hiddenObserved && partialObserved && depletedObserved) +
+                " barrierPersistent=" + persistence + " permanentHazardPersistent=" + persistence +
+                " costOnce=" + costOnce + " selectionHazardPaused=true cancelAtomic=" + cancelAtomic +
+                " replaceAtomic=" + replaceAtomic + " sailclothProtectedUnique=" + protectedUnique +
+                " snapshotRestore=" + restoredOk + " | " + pityContract.Detail + " | " + diseaseContract.Detail);
+        }
+
+        public static PrototypeSearchNodeContractResult VerifyProtectedPartPityNaturalResultContract(int seed)
+        {
+            const string partId = PrototypeSearchNodeLootResolver.FlintPartId;
+            PrototypeSearchNodeLedger ledger = new PrototypeSearchNodeLedger(seed);
+            PrototypeProtectedPartAssignmentSnapshot assignment = ledger.ProtectedPartAssignments.First(value =>
+                string.Equals(value.PartId, partId, StringComparison.Ordinal));
+            string[] misses = PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(partId)
+                .Where(nodeId => !string.Equals(nodeId, assignment.AssignedNodeId, StringComparison.Ordinal))
+                .OrderBy(value => value, StringComparer.Ordinal).ToArray();
+            int generalBefore = ledger.GeneralRemainingAmount;
+            bool fiveUniqueMisses = misses.Length == CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount;
+            for (int index = 0; index < misses.Length && fiveUniqueMisses; index += 1)
+            {
+                fiveUniqueMisses = ledger.TryRecordEligibleProtectedPartNodeResult(
+                    misses[index],
+                    partId,
+                    true,
+                    out PrototypeProtectedPartPitySnapshot result) &&
+                    result.EligibleMissCount == index + 1 &&
+                    result.HintRevealed == (index + 1 >= CampaignKeyPartPityConfig.EligibleHintSearchCount) &&
+                    result.GuaranteeArmed == (index + 1 >= CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount) &&
+                    !result.Acquired;
+            }
+
+            PrototypeProtectedPartPitySnapshot armed = ledger.ProtectedPartPity.First(value =>
+                string.Equals(value.PartId, partId, StringComparison.Ordinal));
+            string armedJson = JsonUtility.ToJson(ledger.CaptureSnapshot());
+            bool armedRestored = PrototypeSearchNodeRuntime.TryCreateFromSnapshot(
+                JsonUtility.FromJson<PrototypeSearchRunSnapshot>(armedJson),
+                out PrototypeSearchNodeRuntime restoredRuntime);
+            PrototypeSearchNodeLedger restored = armedRestored ? restoredRuntime.Ledger : null;
+            bool guaranteedOnNext = restored != null && restored.TryRecordEligibleProtectedPartNodeResult(
+                assignment.AssignedNodeId,
+                partId,
+                true,
+                out PrototypeProtectedPartPitySnapshot acquired) &&
+                acquired.Acquired && acquired.GuaranteeArmed &&
+                acquired.EligibleMissCount == CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount &&
+                string.Equals(acquired.SourceNodeId, assignment.AssignedNodeId, StringComparison.Ordinal) &&
+                string.Equals(acquired.RepairState, "pity-guaranteed-next-eligible-node", StringComparison.Ordinal);
+            string beforeDuplicate = restored == null ? string.Empty : JsonUtility.ToJson(restored.CaptureSnapshot());
+            bool duplicateRejected = restored != null && !restored.TryRecordEligibleProtectedPartNodeResult(
+                assignment.AssignedNodeId,
+                partId,
+                true,
+                out PrototypeProtectedPartPitySnapshot ignored);
+            string afterDuplicate = restored == null ? string.Empty : JsonUtility.ToJson(restored.CaptureSnapshot());
+            int protectedConserved = restored == null
+                ? -1
+                : restored.ProtectedRemainingAmount + restored.CaptureSnapshot().ProtectedPartIds.Length;
+            bool acquiredRestored = restored != null && PrototypeSearchNodeRuntime.TryCreateFromSnapshot(
+                JsonUtility.FromJson<PrototypeSearchRunSnapshot>(afterDuplicate),
+                out PrototypeSearchNodeRuntime acquiredRestoredRuntime) &&
+                acquiredRestoredRuntime.Ledger.HasProtectedPart(partId) &&
+                acquiredRestoredRuntime.Ledger.ProtectedPartPity.First(value =>
+                    string.Equals(value.PartId, partId, StringComparison.Ordinal)).Acquired;
+            bool stockSeparated = restored != null && generalBefore == 144 && restored.GeneralRemainingAmount == 144 &&
+                                  protectedConserved == 5 && restored.ProtectedPartPity.Count == 5;
+            bool duplicateZeroDelta = duplicateRejected && string.Equals(beforeDuplicate, afterDuplicate, StringComparison.Ordinal);
+            bool passed = fiveUniqueMisses && armed.EligibleMissCount == 5 && armed.GuaranteeArmed && !armed.Acquired &&
+                          armedRestored && guaranteedOnNext && acquiredRestored && stockSeparated && duplicateZeroDelta;
+            return new PrototypeSearchNodeContractResult(
+                passed,
+                "pityParts=5 eligibleMisses=" + armed.EligibleMissCount +
+                " hint3=" + armed.HintRevealed + " arm5=" + armed.GuaranteeArmed +
+                " nextEligibleGuaranteed=" + guaranteedOnNext + " generalUnits=" +
+                (restored == null ? -1 : restored.GeneralRemainingAmount) +
+                " protectedConserved=" + protectedConserved + " restore=" + armedRestored +
+                " acquiredRestore=" + acquiredRestored + " duplicateZeroDelta=" + duplicateZeroDelta);
+        }
+
+        public static PrototypeSearchNodeContractResult VerifyNaturalDiseaseLifecycle(int seed)
+        {
+            PrototypeSearchNodeDefinition[] diseaseNodes = PrototypeSearchRegionCatalog.Nodes.Where(node =>
+                string.Equals(node.RegionId, "region.forest.grove", StringComparison.Ordinal) &&
+                string.Equals(node.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal))
+                .OrderBy(node => node.NodeId, StringComparer.Ordinal).ToArray();
+            PrototypeSearchNodeDefinition medicineNode = PrototypeSearchRegionCatalog.Nodes.First(node =>
+                string.Equals(node.RegionId, "region.forest.grove", StringComparison.Ordinal) &&
+                node.FiniteYield.Any(item => string.Equals(
+                    item.StableResourceId, PrototypeDiseaseRuntime.MedicineResourceId, StringComparison.Ordinal)));
+
+            GameSession forcedSession = new GameSession(seed);
+            PrototypeSearchNodeRuntime forcedRuntime = new PrototypeSearchNodeRuntime(seed);
+            bool forcedBegan = forcedSession.BeginSearch(PrototypeExpeditionRegionId.Forest);
+            bool forcedOpened = diseaseNodes.All(node =>
+            {
+                bool opened = forcedRuntime.TryOpen(node, forcedSession) == PrototypeSearchOpenResult.Opened;
+                forcedRuntime.Close(forcedSession);
+                return opened;
+            });
+            bool forcedReturned = forcedSession.ReturnToCamp(true);
+            float forcedEnergy = forcedSession.Energy;
+            int forcedHealthBefore = forcedSession.Health;
+            bool forcedEffect = forcedRuntime.NotifyReturnToCamp(forcedSession, true);
+            bool duplicateEffectRejected = !forcedRuntime.NotifyReturnToCamp(forcedSession, true) &&
+                                           forcedSession.Energy == forcedEnergy &&
+                                           forcedSession.Health == forcedHealthBefore + PrototypeDiseaseRuntime.SymptomHealthDelta &&
+                                           forcedRuntime.Disease.EffectCount == 1 &&
+                                           forcedRuntime.Disease.ForcedReturnCount == 1;
+
+            GameSession treatmentSession = new GameSession(seed);
+            PrototypeSearchNodeRuntime treatmentRuntime = new PrototypeSearchNodeRuntime(seed);
+            bool began = treatmentSession.BeginSearch(PrototypeExpeditionRegionId.Forest);
+            bool medicineCollected = CollectNaturalMedicine(treatmentSession, treatmentRuntime, medicineNode);
+            bool telegraph = treatmentRuntime.TryTelegraphDisease(diseaseNodes[0]);
+            bool exposureNodesOpened = diseaseNodes.All(node =>
+            {
+                bool opened = treatmentRuntime.TryOpen(node, treatmentSession) == PrototypeSearchOpenResult.Opened;
+                treatmentRuntime.Close(treatmentSession);
+                return opened;
+            });
+            bool exposed = exposureNodesOpened && treatmentRuntime.Disease.Phase == PrototypeDiseasePhase.Exposed &&
+                           treatmentRuntime.Disease.ExposureCount == PrototypeDiseaseRuntime.RequiredUniqueExposureCount &&
+                           treatmentRuntime.Disease.EffectCount == 0;
+            bool returned = treatmentSession.ReturnToCamp(false);
+            int symptomHealthBefore = treatmentSession.Health;
+            bool effect = treatmentRuntime.NotifyReturnToCamp(treatmentSession, false) &&
+                          treatmentRuntime.Disease.Phase == PrototypeDiseasePhase.Symptomatic &&
+                          treatmentRuntime.Disease.EffectCount == 1 &&
+                          treatmentSession.Health == symptomHealthBefore + PrototypeDiseaseRuntime.SymptomHealthDelta;
+            int worsenHealthBefore = treatmentSession.Health;
+            bool worsened = treatmentSession.EndDay() && treatmentRuntime.NotifyDaySettlement(treatmentSession) &&
+                            treatmentRuntime.Disease.Phase == PrototypeDiseasePhase.Aggravated &&
+                            treatmentRuntime.Disease.WorsenCount == 1 &&
+                            treatmentSession.Health == worsenHealthBefore + PrototypeDiseaseRuntime.AggravationHealthDelta;
+            PrototypeDiseaseSnapshot cancelBefore = treatmentRuntime.Disease.CaptureSnapshot();
+            int cancelMedicineBefore = treatmentSession.GetStableStorage(PrototypeDiseaseRuntime.MedicineResourceId);
+            bool cancelAccepted = treatmentRuntime.Disease.TryCancelTreatment();
+            PrototypeDiseaseSnapshot cancelAfter = treatmentRuntime.Disease.CaptureSnapshot();
+            bool cancelAtomic = cancelAccepted && cancelBefore.Phase == cancelAfter.Phase &&
+                                cancelBefore.Severity == cancelAfter.Severity &&
+                                treatmentSession.GetStableStorage(PrototypeDiseaseRuntime.MedicineResourceId) == cancelMedicineBefore &&
+                                cancelBefore.TreatmentPaidCount == cancelAfter.TreatmentPaidCount;
+            int medicineBefore = treatmentSession.GetStableStorage(PrototypeDiseaseRuntime.MedicineResourceId);
+            bool treated = treatmentRuntime.TryTreatDisease(treatmentSession, true);
+            bool duplicateTreatRejected = !treatmentRuntime.TryTreatDisease(treatmentSession, true);
+            bool treatmentAtomic = treated && duplicateTreatRejected &&
+                                   treatmentRuntime.Disease.Phase == PrototypeDiseasePhase.Recovering &&
+                                   treatmentRuntime.Disease.TreatmentPaidCount == 1 &&
+                                   treatmentSession.GetStableStorage(PrototypeDiseaseRuntime.MedicineResourceId) ==
+                                   medicineBefore - PrototypeDiseaseRuntime.TreatmentMedicineCost;
+            string[] requiredTraceTokens =
+            {
+                "disease.telegraph", "disease.exposure", "disease.effect",
+                "disease.worsen", "disease.mitigate", "disease.treat"
+            };
+            string joinedTrace = string.Join("|", treatmentRuntime.Disease.Trace.ToArray());
+            bool orderedTrace = requiredTraceTokens.All(token => joinedTrace.Contains(token)) &&
+                                requiredTraceTokens.Select(token => joinedTrace.IndexOf(token, StringComparison.Ordinal))
+                                    .SequenceEqual(requiredTraceTokens.Select(token => joinedTrace.IndexOf(token, StringComparison.Ordinal))
+                                        .OrderBy(index => index));
+
+            bool passed = diseaseNodes.Length == 2 && forcedBegan && forcedOpened && forcedReturned && forcedEffect &&
+                          duplicateEffectRejected && began && medicineCollected && telegraph && exposed && returned &&
+                          effect && worsened &&
+                          cancelAtomic && treatmentAtomic && orderedTrace;
+            return new PrototypeSearchNodeContractResult(
+                passed,
+                "disease=" + PrototypeDiseaseRuntime.StableId +
+                " trace=telegraph>exposure>effect>worsen>mitigate>treat" +
+                " forcedReturnAtomic=" + (forcedEffect && duplicateEffectRejected) +
+                " cancelAtomic=" + cancelAtomic + " treatmentCostAtomic=" + treatmentAtomic +
+                " grant=false warp=false skip=false fixtureOnly=false");
+        }
+
+        private static bool CollectNaturalMedicine(
+            GameSession session,
+            PrototypeSearchNodeRuntime runtime,
+            PrototypeSearchNodeDefinition medicineNode)
+        {
+            if (runtime.TryOpen(medicineNode, session) != PrototypeSearchOpenResult.Opened) return false;
+            PrototypeSearchNodeSnapshot snapshot = runtime.ActiveNode;
+            int medicineIndex = snapshot == null ? -1 : Array.FindIndex(snapshot.Remaining, item =>
+                string.Equals(item.StableResourceId, PrototypeDiseaseRuntime.MedicineResourceId, StringComparison.Ordinal));
+            bool acquired = medicineIndex >= 0 && runtime.SetFocusedIndex(medicineIndex);
+            if (acquired)
+            {
+                PrototypeSearchTakeResult result = runtime.TryTakeFocused(session, delegate { return false; });
+                acquired = result == PrototypeSearchTakeResult.Added || result == PrototypeSearchTakeResult.Depleted;
+            }
+            runtime.Close(session);
+            int medicineInBag = 0;
+            for (int index = 0; index < session.ActiveBagSlotCount; index += 1)
+            {
+                BagStack stack = session.GetBagSlot(index);
+                if (!stack.IsEmpty && string.Equals(
+                        stack.StableResourceId, PrototypeDiseaseRuntime.MedicineResourceId, StringComparison.Ordinal))
+                {
+                    medicineInBag += stack.Amount;
+                }
+            }
+            return acquired && medicineInBag >= PrototypeDiseaseRuntime.TreatmentMedicineCost;
+        }
+
+        private static string CatalogFingerprint(int seed)
+        {
+            return string.Join("|", PrototypeSearchRegionCatalog.Nodes
+                .OrderBy(node => node.NodeId, StringComparer.Ordinal)
+                .Select(node => node.NodeId + "=" + string.Join(",", PrototypeSearchNodeLootResolver.Resolve(seed, node)
+                    .Select(item => item.StableItemId + ":" + item.Resource + ":" + item.Amount + ":" + item.ProtectedPartId)
+                    .ToArray()))
+                .ToArray());
         }
     }
 }

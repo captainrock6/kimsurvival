@@ -5,9 +5,13 @@ namespace KimSurvival
 {
     public enum PrototypeExpeditionRegionId
     {
-        Beach,
-        Forest,
-        Shallows
+        Beach = 0,
+        Forest = 1,
+        Shallows = 2,
+        RidgeHighland = 3,
+        CaveIsland = 4,
+        CoveWreck = 5,
+        RuinsRelay = 6
     }
 
     public readonly struct PrototypeExpeditionNodeResult
@@ -159,7 +163,7 @@ namespace KimSurvival
         {
             new PrototypeExpeditionRegionProfile(
                 PrototypeExpeditionRegionId.Beach,
-                "region.beach",
+                "region.coast.beach",
                 "expedition.region.beach.name",
                 "expedition.region.beach.summary",
                 "expedition.region.beach.resources",
@@ -172,7 +176,7 @@ namespace KimSurvival
                 ResourceKind.Salvage, ResourceKind.Food, ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Salvage),
             new PrototypeExpeditionRegionProfile(
                 PrototypeExpeditionRegionId.Forest,
-                "region.forest",
+                "region.forest.grove",
                 "expedition.region.forest.name",
                 "expedition.region.forest.summary",
                 "expedition.region.forest.resources",
@@ -185,7 +189,7 @@ namespace KimSurvival
                 ResourceKind.Wood, ResourceKind.Food, ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Wood),
             new PrototypeExpeditionRegionProfile(
                 PrototypeExpeditionRegionId.Shallows,
-                "region.shallows",
+                "region.sea.shallows",
                 "expedition.region.shallows.name",
                 "expedition.region.shallows.summary",
                 "expedition.region.shallows.resources",
@@ -195,7 +199,59 @@ namespace KimSurvival
                 "expedition.region.shallows.equipment",
                 "expedition.region.shallows.special",
                 2,
-                ResourceKind.Salvage, ResourceKind.Food, ResourceKind.Salvage, ResourceKind.Stone, ResourceKind.Wood)
+                ResourceKind.Salvage, ResourceKind.Food, ResourceKind.Salvage, ResourceKind.Stone, ResourceKind.Wood),
+            new PrototypeExpeditionRegionProfile(
+                PrototypeExpeditionRegionId.RidgeHighland,
+                "region.ridge.highland",
+                "expedition.region.ridge_highland.name",
+                "expedition.region.ridge_highland.summary",
+                "expedition.region.ridge_highland.resources",
+                45,
+                "expedition.region.ridge_highland.risk",
+                "expedition.region.ridge_highland.weather",
+                "expedition.region.ridge_highland.equipment",
+                "expedition.region.ridge_highland.special",
+                0,
+                ResourceKind.Stone, ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Salvage, ResourceKind.Wood),
+            new PrototypeExpeditionRegionProfile(
+                PrototypeExpeditionRegionId.CaveIsland,
+                "region.cave.island",
+                "expedition.region.cave_island.name",
+                "expedition.region.cave_island.summary",
+                "expedition.region.cave_island.resources",
+                40,
+                "expedition.region.cave_island.risk",
+                "expedition.region.cave_island.weather",
+                "expedition.region.cave_island.equipment",
+                "expedition.region.cave_island.special",
+                0,
+                ResourceKind.Stone, ResourceKind.Salvage, ResourceKind.Stone, ResourceKind.Food, ResourceKind.Salvage),
+            new PrototypeExpeditionRegionProfile(
+                PrototypeExpeditionRegionId.CoveWreck,
+                "region.cove.wreck",
+                "expedition.region.cove_wreck.name",
+                "expedition.region.cove_wreck.summary",
+                "expedition.region.cove_wreck.resources",
+                50,
+                "expedition.region.cove_wreck.risk",
+                "expedition.region.cove_wreck.weather",
+                "expedition.region.cove_wreck.equipment",
+                "expedition.region.cove_wreck.special",
+                2,
+                ResourceKind.Salvage, ResourceKind.Stone, ResourceKind.Salvage, ResourceKind.Wood, ResourceKind.Salvage),
+            new PrototypeExpeditionRegionProfile(
+                PrototypeExpeditionRegionId.RuinsRelay,
+                "region.ruins.relay",
+                "expedition.region.ruins_relay.name",
+                "expedition.region.ruins_relay.summary",
+                "expedition.region.ruins_relay.resources",
+                55,
+                "expedition.region.ruins_relay.risk",
+                "expedition.region.ruins_relay.weather",
+                "expedition.region.ruins_relay.equipment",
+                "expedition.region.ruins_relay.special",
+                0,
+                ResourceKind.Salvage, ResourceKind.Stone, ResourceKind.Salvage, ResourceKind.Salvage, ResourceKind.Stone)
         };
 
         private static readonly string[] EscapeRouteIds = { "escape.smoke", "escape.radio", "escape.raft" };
@@ -406,12 +462,7 @@ namespace KimSurvival
     public sealed class PrototypeExpeditionMapSelection
     {
         private bool cycleLatched;
-        private readonly PrototypeExpeditionRegionVisualState[] regionStates =
-        {
-            PrototypeExpeditionRegionVisualState.DepartureReady,
-            PrototypeExpeditionRegionVisualState.DepartureReady,
-            PrototypeExpeditionRegionVisualState.DepartureReady
-        };
+        private readonly PrototypeExpeditionRegionVisualState[] regionStates = CreateInitialRegionStates();
 
         public bool IsOpen { get; private set; }
         public int FocusedIndex { get; private set; }
@@ -498,6 +549,17 @@ namespace KimSurvival
             FocusedIndex = (FocusedIndex + (cycleDirection < 0 ? -1 : 1) + count) % count;
             cycleLatched = true;
             return true;
+        }
+
+        private static PrototypeExpeditionRegionVisualState[] CreateInitialRegionStates()
+        {
+            PrototypeExpeditionRegionVisualState[] states =
+                new PrototypeExpeditionRegionVisualState[PrototypeExpeditionRegionCatalog.All.Count];
+            for (int index = 0; index < states.Length; index += 1)
+            {
+                states[index] = PrototypeExpeditionRegionVisualState.DepartureReady;
+            }
+            return states;
         }
     }
 }

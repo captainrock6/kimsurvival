@@ -29,16 +29,29 @@ namespace KimSurvival.EditorTools
             Check(Enum.IsDefined(typeof(PrototypeCampInteractionTargetKind), "ExpeditionMap"), "camp_map_interaction_target", failures);
 
             Assembly runtimeAssembly = typeof(GameSession).Assembly;
-            Check(runtimeAssembly.GetType("KimSurvival.PrototypeExpeditionRegionCatalog") != null, "three_region_profile_catalog", failures);
+            Check(runtimeAssembly.GetType("KimSurvival.PrototypeExpeditionRegionCatalog") != null, "seven_region_profile_catalog", failures);
             Check(runtimeAssembly.GetType("KimSurvival.PrototypeExpeditionMapActions") != null, "shared_map_action_snapshot", failures);
             Check(typeof(GameSession).GetProperty("RunSeed") != null, "run_seed_state", failures);
             Check(typeof(GameSession).GetProperty("SelectedRegionId") != null, "selected_region_state", failures);
 
             string localizationSource = File.ReadAllText(LocalizationTablePath);
             Check(localizationSource.Contains("camp.target.expedition_map\t"), "localized_map_target", failures);
-            Check(localizationSource.Contains("expedition.region.beach.name\t") &&
-                  localizationSource.Contains("expedition.region.forest.name\t") &&
-                  localizationSource.Contains("expedition.region.shallows.name\t"), "localized_three_region_names", failures);
+            string[] localizedRegionNameKeys =
+            {
+                "expedition.region.beach.name\t",
+                "expedition.region.forest.name\t",
+                "expedition.region.shallows.name\t",
+                "expedition.region.ridge_highland.name\t",
+                "expedition.region.cave_island.name\t",
+                "expedition.region.cove_wreck.name\t",
+                "expedition.region.ruins_relay.name\t"
+            };
+            bool localizedSevenRegionNames = true;
+            for (int index = 0; index < localizedRegionNameKeys.Length; index += 1)
+            {
+                localizedSevenRegionNames &= localizationSource.Contains(localizedRegionNameKeys[index]);
+            }
+            Check(localizedSevenRegionNames, "localized_seven_region_names", failures);
 
             GameSession deadline = new GameSession();
             deadline.Grant(ResourceKind.Food, GameSession.FinalDay);
@@ -64,9 +77,41 @@ namespace KimSurvival.EditorTools
                 "early_rescue_precedes_deadline", failures);
 
             IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
-            Check(profiles.Count == 3 && profiles[0].Id == PrototypeExpeditionRegionId.Beach &&
-                  profiles[1].Id == PrototypeExpeditionRegionId.Forest && profiles[2].Id == PrototypeExpeditionRegionId.Shallows,
-                "three_regions_in_stable_order", failures);
+            PrototypeExpeditionRegionId[] expectedRegionEnums =
+            {
+                PrototypeExpeditionRegionId.Beach,
+                PrototypeExpeditionRegionId.Forest,
+                PrototypeExpeditionRegionId.Shallows,
+                PrototypeExpeditionRegionId.RidgeHighland,
+                PrototypeExpeditionRegionId.CaveIsland,
+                PrototypeExpeditionRegionId.CoveWreck,
+                PrototypeExpeditionRegionId.RuinsRelay
+            };
+            string[] expectedRegionIds =
+            {
+                "region.coast.beach",
+                "region.forest.grove",
+                "region.sea.shallows",
+                "region.ridge.highland",
+                "region.cave.island",
+                "region.cove.wreck",
+                "region.ruins.relay"
+            };
+            Check(profiles.Count == expectedRegionIds.Length, "seven_regions_exposed", failures);
+            for (int regionIndex = 0; regionIndex < expectedRegionIds.Length && regionIndex < profiles.Count; regionIndex += 1)
+            {
+                PrototypeExpeditionRegionProfile profile = profiles[regionIndex];
+                Check(profile.Id == expectedRegionEnums[regionIndex] &&
+                      string.Equals(profile.StableId, expectedRegionIds[regionIndex], StringComparison.Ordinal) &&
+                      ReferenceEquals(PrototypeExpeditionRegionCatalog.Get(expectedRegionEnums[regionIndex]), profile),
+                    "region_exact_id_order_roundtrip_" + regionIndex, failures);
+
+                GameSession roundtrip = new GameSession(PrototypeExpeditionRegionCatalog.DefaultRunSeed);
+                Check(roundtrip.BeginSearch(expectedRegionEnums[regionIndex]) &&
+                      roundtrip.SelectedRegionId == expectedRegionEnums[regionIndex] &&
+                      string.Equals(roundtrip.ActiveRegionProfileId, expectedRegionIds[regionIndex], StringComparison.Ordinal),
+                    "region_session_roundtrip_" + expectedRegionIds[regionIndex], failures);
+            }
             int seed = PrototypeExpeditionRegionCatalog.DefaultRunSeed;
             bool differentSeedVaries = false;
             for (int profileIndex = 0; profileIndex < profiles.Count; profileIndex += 1)
@@ -140,7 +185,7 @@ namespace KimSurvival.EditorTools
             report.AppendLine(passed ? "PASS" : "EXPECTED_RED");
             report.AppendLine("Wave: 15 campaign map foundation");
             report.AppendLine("Unity: " + Application.unityVersion);
-            report.AppendLine("Contracts: Day 49 continues, Day 50 terminal, early rescue priority, proximity map, three region profiles, deterministic seed/action, three-route softlock protection, shared input, localization");
+            report.AppendLine("Contracts: Day 49 continues, Day 50 terminal, early rescue priority, proximity map, seven exact region profiles with session roundtrip, deterministic seed/action, three-route softlock protection, shared input, localization");
             report.AppendLine("Failure count: " + failures.Count);
             for (int i = 0; i < failures.Count; i += 1)
             {

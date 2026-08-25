@@ -1823,6 +1823,218 @@ MonoBehaviour:
     m_Key: search.tray.risk
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147207225344
+    m_Key: expedition.region.ridge_highland.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974080
+    m_Key: expedition.region.ridge_highland.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974081
+    m_Key: expedition.region.ridge_highland.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974082
+    m_Key: expedition.region.ridge_highland.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974083
+    m_Key: expedition.region.ridge_highland.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974084
+    m_Key: expedition.region.ridge_highland.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974085
+    m_Key: expedition.region.ridge_highland.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974086
+    m_Key: expedition.region.cave_island.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974087
+    m_Key: expedition.region.cave_island.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974088
+    m_Key: expedition.region.cave_island.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974089
+    m_Key: expedition.region.cave_island.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974090
+    m_Key: expedition.region.cave_island.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974091
+    m_Key: expedition.region.cave_island.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974092
+    m_Key: expedition.region.cave_island.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974093
+    m_Key: expedition.region.cove_wreck.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974094
+    m_Key: expedition.region.cove_wreck.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147244974095
+    m_Key: expedition.region.cove_wreck.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168384
+    m_Key: expedition.region.cove_wreck.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168385
+    m_Key: expedition.region.cove_wreck.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168386
+    m_Key: expedition.region.cove_wreck.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168387
+    m_Key: expedition.region.cove_wreck.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168388
+    m_Key: expedition.region.ruins_relay.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168389
+    m_Key: expedition.region.ruins_relay.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168390
+    m_Key: expedition.region.ruins_relay.resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168391
+    m_Key: expedition.region.ruins_relay.risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168392
+    m_Key: expedition.region.ruins_relay.weather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168393
+    m_Key: expedition.region.ruins_relay.equipment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147249168394
+    m_Key: expedition.region.ruins_relay.special
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945600
+    m_Key: resource.fabric
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945601
+    m_Key: resource.fiber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945602
+    m_Key: resource.medicine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945603
+    m_Key: resource.metal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945604
+    m_Key: resource.wire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945605
+    m_Key: resource.fuel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945606
+    m_Key: resource.chemicals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945607
+    m_Key: resource.electronics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147265945608
+    m_Key: search.known-remaining
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139904
+    m_Key: search.barrier-broken
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139905
+    m_Key: search.hazard-removed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139906
+    m_Key: hazard-profile.disease.jungle-fever.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139907
+    m_Key: hazard-profile.disease.jungle-fever.telegraph
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139908
+    m_Key: hazard-profile.disease.jungle-fever.exposed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139909
+    m_Key: hazard-profile.disease.jungle-fever.symptomatic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139910
+    m_Key: hazard-profile.disease.jungle-fever.aggravated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139911
+    m_Key: hazard-profile.disease.jungle-fever.treatment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147270139912
+    m_Key: hazard-profile.disease.jungle-fever.recovering
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334208
+    m_Key: hazard-profile.disease.jungle-fever.cleared
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334209
+    m_Key: failure.disease.jungle-fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334210
+    m_Key: disease.telegraph.jungle-fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334211
+    m_Key: disease.exposure.jungle-fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334212
+    m_Key: disease.effect.jungle-fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334213
+    m_Key: disease.worsen.jungle-fever
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334214
+    m_Key: disease.treat.jungle-fever
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

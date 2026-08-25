@@ -483,6 +483,7 @@ namespace KimSurvival
             PrototypeCampInteraction interaction = new PrototypeCampInteraction();
             GameSession session = new GameSession();
             PrototypeEscapeProjectDirector director = new PrototypeEscapeProjectDirector();
+            PrototypeEscapeProjectDefinition definition = PrototypeEscapeProjectCatalog.Get(escapeId);
             bool prepared = radio ? PrepareRadio(session) : PrepareSmoke(session);
             int interactions = 0;
             List<string> interactionTrace = new List<string>();
@@ -499,7 +500,11 @@ namespace KimSurvival
                 progressed = confirmed && PrototypeCampInteractionCatalog.OwnsAction(
                     kind,
                     radio ? PrototypeCampInteractionAction.ProgressRadioEscape : PrototypeCampInteractionAction.ProgressSmokeEscape,
-                    true) && director.TryProgress(session, escapeId, "natural." + escapeId + "." + step);
+                    true) && director.TryProgress(
+                        session,
+                        escapeId,
+                        "natural." + escapeId + "." + step,
+                        definition.RequiredKeyPartIds);
                 interaction.ClosePopup();
                 interactionTrace.Add("camp.interaction." + escapeId + ".popup-closed." + step);
                 interactions += 1;
@@ -556,7 +561,20 @@ namespace KimSurvival
             if (!GatherAndReturn(session, new[] { new BagStack(ResourceKind.Wood, 4), new BagStack(ResourceKind.Salvage, 4) })) return false;
             if (!session.TryBuild(StructureKind.Workbench) || !session.TryResearch(TechKind.Rope) || !session.TryCraft(TechKind.Rope)) return false;
             if (!session.EndDay(false, false)) return false;
-            return GatherAndReturn(session, new[] { new BagStack(ResourceKind.Wood, 2), new BagStack(ResourceKind.Salvage, 1) });
+            if (!GatherStableAndReturn(session, new[]
+            {
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2)
+            }) || !session.EndDay(false, false)) return false;
+            return GatherStableAndReturn(session, new[]
+            {
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.fiber", ResourceKind.Wood, 2),
+                new BagStack("resource.fuel", ResourceKind.Salvage, 2)
+            });
         }
 
         private static bool PrepareRadio(GameSession session)
@@ -564,7 +582,20 @@ namespace KimSurvival
             if (!GatherAndReturn(session, new[] { new BagStack(ResourceKind.Wood, 4), new BagStack(ResourceKind.Stone, 2), new BagStack(ResourceKind.Salvage, 2) })) return false;
             if (!session.TryBuild(StructureKind.Workbench) || !session.TryResearch(TechKind.StoneAxe) || !session.TryCraft(TechKind.StoneAxe)) return false;
             if (!session.EndDay(false, false)) return false;
-            return GatherAndReturn(session, new[] { new BagStack(ResourceKind.Salvage, 4) });
+            if (!GatherStableAndReturn(session, new[]
+            {
+                new BagStack("resource.electronics", ResourceKind.Salvage, 2),
+                new BagStack("resource.electronics", ResourceKind.Salvage, 2),
+                new BagStack("resource.electronics", ResourceKind.Salvage, 2),
+                new BagStack("resource.wire", ResourceKind.Salvage, 2)
+            }) || !session.EndDay(false, false)) return false;
+            return GatherStableAndReturn(session, new[]
+            {
+                new BagStack("resource.wire", ResourceKind.Salvage, 2),
+                new BagStack("resource.wire", ResourceKind.Salvage, 2),
+                new BagStack("resource.metal", ResourceKind.Stone, 2),
+                new BagStack("resource.metal", ResourceKind.Stone, 2)
+            });
         }
 
         private static bool GatherAndReturn(GameSession session, IEnumerable<BagStack> resources)
@@ -573,6 +604,19 @@ namespace KimSurvival
             foreach (BagStack resource in resources)
             {
                 if (session.TryGather(resource.Kind, resource.Amount) != GatherResult.Added) return false;
+            }
+            return session.ReturnToCamp(false);
+        }
+
+        private static bool GatherStableAndReturn(GameSession session, IEnumerable<BagStack> resources)
+        {
+            if (!session.BeginSearch(PrototypeExpeditionRegionId.Beach)) return false;
+            foreach (BagStack resource in resources)
+            {
+                if (session.TryStoreSearchLoot(resource.StableResourceId, resource.Kind, resource.Amount) != GatherResult.Added)
+                {
+                    return false;
+                }
             }
             return session.ReturnToCamp(false);
         }

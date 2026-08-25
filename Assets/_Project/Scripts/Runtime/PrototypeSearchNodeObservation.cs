@@ -7,6 +7,8 @@ namespace KimSurvival
     {
         public string Locale = string.Empty;
         public string Screenshot = string.Empty;
+        public string RenderedTextFingerprint = string.Empty;
+        public string StateFingerprint = string.Empty;
         public float X;
         public float Y;
         public float Width;

@@ -313,6 +313,19 @@ namespace KimSurvival
     }
 
     [Serializable]
+    public sealed class PrototypeStableResourceCost
+    {
+        public PrototypeStableResourceCost(string stableResourceId, int amount)
+        {
+            StableResourceId = stableResourceId ?? string.Empty;
+            Amount = Math.Max(0, amount);
+        }
+
+        public string StableResourceId { get; }
+        public int Amount { get; }
+    }
+
+    [Serializable]
     public sealed class PrototypeEscapeProjectDefinition
     {
         public PrototypeEscapeProjectDefinition(
@@ -329,7 +342,9 @@ namespace KimSurvival
             bool playable,
             int woodCost,
             int salvageCost,
-            int requiredProgress)
+            int requiredProgress,
+            PrototypeStableResourceCost[] stableCosts = null,
+            string[] requiredKeyPartIds = null)
         {
             StableId = stableId;
             RegionIds = regionIds;
@@ -345,6 +360,10 @@ namespace KimSurvival
             WoodCost = woodCost;
             SalvageCost = salvageCost;
             RequiredProgress = requiredProgress;
+            StableCosts = stableCosts ?? Array.Empty<PrototypeStableResourceCost>();
+            RequiredKeyPartIds = requiredKeyPartIds == null || requiredKeyPartIds.Length == 0
+                ? new[] { keyPartId }
+                : requiredKeyPartIds.ToArray();
         }
 
         public string StableId { get; }
@@ -361,6 +380,8 @@ namespace KimSurvival
         public int WoodCost { get; }
         public int SalvageCost { get; }
         public int RequiredProgress { get; }
+        public PrototypeStableResourceCost[] StableCosts { get; }
+        public string[] RequiredKeyPartIds { get; }
         public bool DataOnly { get { return !PlayableState.StartsWith("playable", StringComparison.Ordinal); } }
         public string PrimaryRegionId { get { return RegionIds.Length == 0 ? string.Empty : RegionIds[0]; } }
         public string AlternativeRegionId { get { return RegionIds.Length < 2 ? PrimaryRegionId : RegionIds[1]; } }
@@ -373,8 +394,8 @@ namespace KimSurvival
         private static readonly PrototypeEscapeProjectDefinition[] Entries =
         {
             new PrototypeEscapeProjectDefinition("escape.raft", new[] { "region.coast.beach", "region.sea.shallows" }, new[] { "research.ropework", "research.coastal-navigation" }, "facility.shore-launch", "part.raft.sailcloth", new[] { "resource.wood", "resource.fiber", "resource.fabric", "resource.food", "resource.water" }, 8, new[] { "hazard.disaster", "hazard.injury" }, "allowed sea-weather and outbound-current launch window", "completed hull, protected sailcloth and voyage supplies; confirm launch exactly once", true, 0, 0, PrototypeRaftEscapeConfig.StageCount),
-            new PrototypeEscapeProjectDefinition("escape.smoke", new[] { "region.forest.grove", "region.ridge.highland" }, new[] { "research.signal-combustion", "research.wind-reading" }, "facility.smoke-beacon", "part.smoke.catalyst", new[] { "resource.wood", "resource.fuel", "resource.fabric" }, 4, new[] { "hazard.disaster", "hazard.camp-damage" }, "dry multi-day wind visibility window", "playable progress commit completes a sustained visible smoke signal", true, 2, 1, 2),
-            new PrototypeEscapeProjectDefinition("escape.radio", new[] { "region.cove.wreck", "region.ruins.relay" }, new[] { "research.electronics", "research.radio-frequency" }, "facility.radio-bench", "part.radio.transceiver", new[] { "resource.electronics", "resource.wire", "resource.battery" }, 11, new[] { "hazard.disease", "hazard.camp-damage" }, "powered dry broadcast timing window", "playable progress commit completes a confirmed frequency reply", true, 1, 2, 2),
+            new PrototypeEscapeProjectDefinition("escape.smoke", new[] { "region.forest.grove", "region.ridge.highland" }, new[] { "research.signal-combustion", "research.wind-reading" }, "facility.smoke-beacon", "part.smoke.flint", new[] { "resource.wood", "resource.fiber", "resource.fuel" }, 4, new[] { "hazard.disaster", "hazard.camp-damage" }, "dry multi-day wind visibility window", "playable progress commit completes a sustained visible smoke signal", true, 0, 0, 2, new[] { new PrototypeStableResourceCost("resource.wood", 12), new PrototypeStableResourceCost("resource.fiber", 2), new PrototypeStableResourceCost("resource.fuel", 2) }, new[] { "part.smoke.flint" }),
+            new PrototypeEscapeProjectDefinition("escape.radio", new[] { "region.cove.wreck", "region.ruins.relay", "region.ridge.highland" }, new[] { "research.electronics", "research.radio-frequency" }, "facility.radio-bench", "part.radio.transceiver", new[] { "resource.electronics", "resource.wire", "resource.metal" }, 11, new[] { "hazard.disease", "hazard.camp-damage" }, "powered dry broadcast timing window", "playable progress commit completes a confirmed frequency reply", true, 0, 0, 2, new[] { new PrototypeStableResourceCost("resource.electronics", 6), new PrototypeStableResourceCost("resource.wire", 6), new PrototypeStableResourceCost("resource.metal", 4) }, new[] { "part.radio.transceiver", "part.radio.circuit-board", "part.radio.transistor" }),
             new PrototypeEscapeProjectDefinition("escape.flare", new[] { "region.coast.beach", "region.cove.wreck" }, new[] { "research.pyrotechnics", "research.signal-timing" }, "facility.flare-launcher", "part.flare.cartridge", new[] { "resource.chemicals", "resource.metal" }, 6, new[] { "hazard.injury", "hazard.disaster" }, "single witnessed daylight timing window", "prepared launcher and cartridge complete only on witnessed shot", false, 0, 0, 0),
             new PrototypeEscapeProjectDefinition("escape.beacon", new[] { "region.ridge.highland", "region.ruins.relay" }, new[] { "research.power-grid", "research.relay-restoration" }, "facility.ridge-beacon", "part.beacon.lens", new[] { "resource.electronics", "resource.metal", "resource.fuel" }, 15, new[] { "hazard.disaster", "hazard.injury", "hazard.camp-damage" }, "clear ridge night weather window", "restored power, lens and relay circuit complete the ridge light", false, 0, 0, 0)
         };
@@ -435,6 +456,15 @@ namespace KimSurvival
 
         public bool TryProgress(GameSession session, string escapeId, string eventKey)
         {
+            return TryProgress(session, escapeId, eventKey, Array.Empty<string>());
+        }
+
+        public bool TryProgress(
+            GameSession session,
+            string escapeId,
+            string eventKey,
+            IReadOnlyCollection<string> protectedPartIds)
+        {
             if (session == null || session.Phase != GamePhase.Camp || session.Result != RunResult.None) return false;
             PrototypeEscapeProjectDefinition definition = PrototypeEscapeProjectCatalog.Get(escapeId);
             if (!definition.PlayableState.StartsWith("playable", StringComparison.Ordinal)) return false;
@@ -445,19 +475,47 @@ namespace KimSurvival
                 return TryHandleRaftAction(session, session.RunSeed, session.Day, eventKey);
             }
             if (committedEventKeys.Contains(eventKey)) return true;
+            IReadOnlyCollection<string> ownedParts = protectedPartIds ?? Array.Empty<string>();
+            if (definition.RequiredKeyPartIds.Any(partId => !ownedParts.Contains(partId)))
+            {
+                state.LastResultCode = "escape.requirement.key-parts";
+                return false;
+            }
             bool researchReady = escapeId == "escape.smoke" ? session.HasRope : session.HasAxe;
-            if (!researchReady || !session.CanAffordResources(definition.WoodCost, 0, 0, definition.SalvageCost))
+            PrototypeStableResourceCost[] stageCosts = definition.StableCosts
+                .Select(cost => new PrototypeStableResourceCost(
+                    cost.StableResourceId,
+                    CostForProgressStage(cost.Amount, state.Progress, definition.RequiredProgress)))
+                .Where(cost => cost.Amount > 0).ToArray();
+            if (!researchReady || stageCosts.Any(cost =>
+                    !session.CanAffordStableResource(cost.StableResourceId, cost.Amount)))
             {
                 state.LastResultCode = !researchReady ? "escape.requirement.research" : "escape.requirement.resources";
                 return false;
             }
-            if (!session.TrySpendResources(definition.WoodCost, 0, 0, definition.SalvageCost)) return false;
+            GameSessionStableState stableStateBefore = session.CaptureStableState();
+            foreach (PrototypeStableResourceCost cost in stageCosts)
+            {
+                if (session.TrySpendStableResource(cost.StableResourceId, cost.Amount)) continue;
+                session.RestoreStableState(stableStateBefore);
+                state.LastResultCode = "escape.requirement.resources.atomic-rejected";
+                return false;
+            }
             committedEventKeys.Add(eventKey);
             state.Progress += 1;
             state.Complete = state.Progress >= state.RequiredProgress;
             state.LastResultCode = state.Complete ? "escape.project.complete" : "escape.project.progress";
             if (state.Complete) session.TryCompleteEscapeProject(escapeId);
             return true;
+        }
+
+        private static int CostForProgressStage(int totalCost, int completedProgress, int requiredProgress)
+        {
+            int stageCount = Math.Max(1, requiredProgress);
+            int stageIndex = Math.Max(0, Math.Min(stageCount - 1, completedProgress));
+            int baseCost = Math.Max(0, totalCost) / stageCount;
+            int remainder = Math.Max(0, totalCost) % stageCount;
+            return baseCost + (stageIndex < remainder ? 1 : 0);
         }
 
         public static PrototypeContractProbe VerifyEscapeSmokeProgressCompleteFixture()
@@ -479,13 +537,39 @@ namespace KimSurvival
             bool prepared = escapeId == "escape.smoke"
                 ? PrepareSmokeProjectThroughNaturalActions(session)
                 : PrepareRadioProjectThroughNaturalActions(session);
-            bool first = prepared && director.TryProgress(session, escapeId, "fixture." + escapeId + ".step.1");
-            bool second = first && director.TryProgress(session, escapeId, "fixture." + escapeId + ".step.2");
+            Dictionary<string, int> before = definition.StableCosts.ToDictionary(
+                cost => cost.StableResourceId,
+                cost => session.GetStableStorage(cost.StableResourceId),
+                StringComparer.Ordinal);
+            bool first = prepared && director.TryProgress(
+                session,
+                escapeId,
+                "fixture." + escapeId + ".step.1",
+                definition.RequiredKeyPartIds);
+            bool second = first && director.TryProgress(
+                session,
+                escapeId,
+                "fixture." + escapeId + ".step.2",
+                definition.RequiredKeyPartIds);
             PrototypeEscapeProjectState state = director.GetState(escapeId);
+            Dictionary<string, int> after = definition.StableCosts.ToDictionary(
+                cost => cost.StableResourceId,
+                cost => session.GetStableStorage(cost.StableResourceId),
+                StringComparer.Ordinal);
+            bool exactStableCost = definition.StableCosts.All(cost =>
+                before[cost.StableResourceId] - after[cost.StableResourceId] == cost.Amount);
+            bool duplicateRejected = !director.TryProgress(
+                session,
+                escapeId,
+                "fixture." + escapeId + ".step.2",
+                definition.RequiredKeyPartIds);
+            bool duplicateCostZero = definition.StableCosts.All(cost =>
+                session.GetStableStorage(cost.StableResourceId) == after[cost.StableResourceId]);
             bool success = definition.PlayableState.Contains("playable") && second && state.Progress == definition.RequiredProgress &&
-                           state.Complete && session.Result == RunResult.Rescued && session.CompletedEscapeId == escapeId;
+                           state.Complete && session.Result == RunResult.Rescued && session.CompletedEscapeId == escapeId &&
+                           exactStableCost && duplicateRejected && duplicateCostZero;
             return new PrototypeContractProbe(success,
-                success ? escapeId + " natural no-grant no-warp progress commit complete" : "natural route contract mismatch");
+                success ? escapeId + " stable-cost atomic protected-parts duplicate-cost-zero" : "stable route contract mismatch");
         }
 
         private static bool PrepareSmokeProjectThroughNaturalActions(GameSession session)
@@ -497,10 +581,19 @@ namespace KimSurvival
             })) return false;
             if (!session.TryBuild(StructureKind.Workbench) || !session.TryResearch(TechKind.Rope) || !session.TryCraft(TechKind.Rope)) return false;
             if (!session.EndDay(false, false)) return false;
-            return GatherAndReturn(session, new[]
+            if (!GatherStableAndReturn(session, new[]
             {
-                new BagStack(ResourceKind.Wood, 2),
-                new BagStack(ResourceKind.Salvage, 1)
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2)
+            }) || !session.EndDay(false, false)) return false;
+            return GatherStableAndReturn(session, new[]
+            {
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.wood", ResourceKind.Wood, 2),
+                new BagStack("resource.fiber", ResourceKind.Wood, 2),
+                new BagStack("resource.fuel", ResourceKind.Salvage, 2)
             });
         }
 
@@ -514,7 +607,20 @@ namespace KimSurvival
             })) return false;
             if (!session.TryBuild(StructureKind.Workbench) || !session.TryResearch(TechKind.StoneAxe) || !session.TryCraft(TechKind.StoneAxe)) return false;
             if (!session.EndDay(false, false)) return false;
-            return GatherAndReturn(session, new[] { new BagStack(ResourceKind.Salvage, 4) });
+            if (!GatherStableAndReturn(session, new[]
+            {
+                new BagStack("resource.electronics", ResourceKind.Salvage, 2),
+                new BagStack("resource.electronics", ResourceKind.Salvage, 2),
+                new BagStack("resource.electronics", ResourceKind.Salvage, 2),
+                new BagStack("resource.wire", ResourceKind.Salvage, 2)
+            }) || !session.EndDay(false, false)) return false;
+            return GatherStableAndReturn(session, new[]
+            {
+                new BagStack("resource.wire", ResourceKind.Salvage, 2),
+                new BagStack("resource.wire", ResourceKind.Salvage, 2),
+                new BagStack("resource.metal", ResourceKind.Stone, 2),
+                new BagStack("resource.metal", ResourceKind.Stone, 2)
+            });
         }
 
         private static bool GatherAndReturn(GameSession session, IEnumerable<BagStack> resources)
@@ -523,6 +629,19 @@ namespace KimSurvival
             foreach (BagStack resource in resources)
             {
                 if (session.TryGather(resource.Kind, resource.Amount) != GatherResult.Added) return false;
+            }
+            return session.ReturnToCamp(false);
+        }
+
+        private static bool GatherStableAndReturn(GameSession session, IEnumerable<BagStack> resources)
+        {
+            if (!session.BeginSearch(PrototypeExpeditionRegionId.Beach)) return false;
+            foreach (BagStack resource in resources)
+            {
+                if (session.TryStoreSearchLoot(resource.StableResourceId, resource.Kind, resource.Amount) != GatherResult.Added)
+                {
+                    return false;
+                }
             }
             return session.ReturnToCamp(false);
         }
@@ -546,6 +665,8 @@ namespace KimSurvival
         public string[] hazard_ids = Array.Empty<string>();
         public string[] project_ids = Array.Empty<string>();
         public string[] key_part_state_ids = Array.Empty<string>();
+        public PrototypeProtectedPartPitySnapshot[] protected_part_pity =
+            Array.Empty<PrototypeProtectedPartPitySnapshot>();
         public PrototypeBehaviorScore[] behavior_scores = Array.Empty<PrototypeBehaviorScore>();
         public string escape_id = string.Empty;
         public string ending_id = string.Empty;
@@ -750,6 +871,46 @@ namespace KimSurvival
         public string CurrentEndingStableId = string.Empty;
     }
 
+    internal static class PrototypeProtectedPartPityRuntimeBridge
+    {
+        private static PrototypeWaveRuntime activeRuntime;
+
+        public static void Register(PrototypeWaveRuntime runtime)
+        {
+            activeRuntime = runtime;
+        }
+
+        public static void Unregister(PrototypeWaveRuntime runtime)
+        {
+            if (ReferenceEquals(activeRuntime, runtime)) activeRuntime = null;
+        }
+
+        public static void RecordNaturalSearchNodeResult(
+            int runSeed,
+            string sourceNodeId,
+            PrototypeProtectedPartPitySnapshot result,
+            bool canCommitGuarantee)
+        {
+            if (activeRuntime == null || result == null || !activeRuntime.MatchesRunSeed(runSeed)) return;
+            activeRuntime.RecordEligibleProtectedPartNodeResult(
+                sourceNodeId,
+                result.PartId,
+                true,
+                false,
+                false,
+                canCommitGuarantee);
+            activeRuntime.SynchronizeProtectedPartPityState(result);
+        }
+
+        public static void RestoreNaturalSearchPity(
+            int runSeed,
+            IReadOnlyList<PrototypeProtectedPartPitySnapshot> snapshots)
+        {
+            if (activeRuntime == null || !activeRuntime.MatchesRunSeed(runSeed)) return;
+            activeRuntime.RestoreProtectedPartPitySnapshots(snapshots);
+        }
+    }
+
     internal sealed class PrototypeWaveRuntime : MonoBehaviour
     {
         private const string PresentationAssetsResource = "Wave18PresentationAssets";
@@ -760,6 +921,8 @@ namespace KimSurvival
         private readonly PrototypeHazardCadenceState hazardCadence = new PrototypeHazardCadenceState();
         private readonly PrototypeBehaviorIdentityTracker behaviorTracker = new PrototypeBehaviorIdentityTracker();
         private readonly Dictionary<string, PrototypeKeyPartPityState> pityStates = new Dictionary<string, PrototypeKeyPartPityState>(StringComparer.Ordinal);
+        private readonly Dictionary<string, PrototypeProtectedPartPitySnapshot> pitySnapshots =
+            new Dictionary<string, PrototypeProtectedPartPitySnapshot>(StringComparer.Ordinal);
         private readonly Dictionary<string, Sprite> hazardPhaseSprites = new Dictionary<string, Sprite>(StringComparer.Ordinal);
         private GameSession session;
         private PrototypeLocalization localization;
@@ -793,6 +956,7 @@ namespace KimSurvival
         public Sprite EscapeProjectPresentationFrame { get { return presentationAssets == null ? null : presentationAssets.EscapeProjectFrame; } }
         public bool SelectedPresentationAssetsConnected { get { return presentationAssets != null && presentationAssets.IsSelectedOnlyComplete; } }
         public IReadOnlyList<PrototypeCampaignEventRecord> CampaignEvents { get { return campaignEvents; } }
+        internal bool MatchesRunSeed(int runSeed) { return session != null && session.RunSeed == runSeed; }
         public bool IsRaftShoreLaunchDiscovered
         {
             get
@@ -818,6 +982,7 @@ namespace KimSurvival
             endingAlbumCollection = albumCollection;
             presentationAssets = Resources.Load<PrototypeWave18PresentationAssets>(PresentationAssetsResource);
             EnsurePityStates();
+            PrototypeProtectedPartPityRuntimeBridge.Register(this);
             GameObject surfaceObject = new GameObject("Wave Stable Contract Surface");
             surfaceObject.transform.SetParent(transform, false);
             semanticSurface = surfaceObject.AddComponent<PrototypeWaveSemanticSurface>();
@@ -835,6 +1000,7 @@ namespace KimSurvival
             escapeDirector.Reset();
             behaviorTracker.Reset();
             pityStates.Clear();
+            pitySnapshots.Clear();
             EnsurePityStates();
             hazardLedger.Health = 100;
             hazardLedger.Food = 6;
@@ -886,10 +1052,6 @@ namespace KimSurvival
             {
                 GamePhase previousPhase = observedCampaignPhase;
                 observedCampaignPhase = session.Phase;
-                if (previousPhase == GamePhase.Exploring && session.Phase == GamePhase.Camp && session.ExpeditionCompleted)
-                {
-                    RecordCompletedExpeditionForKeyParts();
-                }
                 if (session.Phase == GamePhase.Exploring)
                 {
                     PrototypeHazardState telegraphed = hazardDirector.States
@@ -915,6 +1077,11 @@ namespace KimSurvival
             {
                 return false;
             }
+            if (!PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(partId).Contains(sourceNodeId))
+            {
+                pity.LastResultCode = "key-part.acquired.ineligible-node-rejected";
+                return false;
+            }
             if (pity.ProtectedOwned)
             {
                 return true;
@@ -922,13 +1089,132 @@ namespace KimSurvival
 
             pity.ProtectedOwned = true;
             pity.Guaranteed = true;
-            pity.LastResultCode = "key-part.acquired.search-node";
+            bool pityGuarantee = pitySnapshots.TryGetValue(partId, out PrototypeProtectedPartPitySnapshot snapshot) &&
+                                 snapshot.GuaranteeArmed;
+            pity.LastResultCode = pityGuarantee
+                ? "pity.guaranteed.next-eligible-node"
+                : "key-part.acquired.search-node";
+            if (snapshot != null)
+            {
+                snapshot.Acquired = true;
+                snapshot.SourceNodeId = sourceNodeId;
+                snapshot.RepairState = pityGuarantee
+                    ? "pity-guaranteed-next-eligible-node"
+                    : "assigned-node-acquired";
+            }
             if (string.Equals(partId, PrototypeRaftEscapeConfig.KeyPartId, StringComparison.Ordinal))
             {
                 escapeDirector.SynchronizeRaftSailcloth(true);
             }
             RecordCampaignEvent("key-part.acquired", string.Empty, string.Empty, string.Empty, pity.LastResultCode);
             return true;
+        }
+
+        public bool RecordEligibleProtectedPartNodeResult(
+            string sourceNodeId,
+            string partId,
+            bool completed,
+            bool cancelled,
+            bool failed)
+        {
+            return RecordEligibleProtectedPartNodeResult(
+                sourceNodeId,
+                partId,
+                completed,
+                cancelled,
+                failed,
+                true);
+        }
+
+        internal bool RecordEligibleProtectedPartNodeResult(
+            string sourceNodeId,
+            string partId,
+            bool completed,
+            bool cancelled,
+            bool failed,
+            bool canCommitGuarantee)
+        {
+            if (session == null || string.IsNullOrWhiteSpace(sourceNodeId) || string.IsNullOrWhiteSpace(partId))
+            {
+                return false;
+            }
+            EnsurePityStates();
+            if (!pityStates.TryGetValue(partId, out PrototypeKeyPartPityState pity) ||
+                !pitySnapshots.TryGetValue(partId, out PrototypeProtectedPartPitySnapshot snapshot) ||
+                !PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(partId).Contains(sourceNodeId) ||
+                pity.ProtectedOwned || !completed || cancelled || failed)
+            {
+                return false;
+            }
+
+            HashSet<string> counted = new HashSet<string>(snapshot.CountedNodeIds ?? Array.Empty<string>(), StringComparer.Ordinal);
+            if (counted.Contains(sourceNodeId)) return false;
+            if (snapshot.GuaranteeArmed)
+            {
+                if (!canCommitGuarantee) return false;
+                snapshot.Acquired = true;
+                snapshot.SourceNodeId = sourceNodeId;
+                snapshot.RepairState = "pity-guaranteed-next-eligible-node";
+                pity.ProtectedOwned = true;
+                pity.Guaranteed = true;
+                pity.LastResultCode = "pity.guaranteed.next-eligible-node";
+                if (string.Equals(partId, PrototypeRaftEscapeConfig.KeyPartId, StringComparison.Ordinal))
+                {
+                    escapeDirector.SynchronizeRaftSailcloth(true);
+                }
+                RecordCampaignEvent("key-part.acquired", string.Empty, string.Empty, string.Empty, pity.LastResultCode);
+            }
+            else
+            {
+                counted.Add(sourceNodeId);
+                snapshot.CountedNodeIds = counted.OrderBy(value => value, StringComparer.Ordinal).ToArray();
+                snapshot.EligibleMissCount = Math.Min(
+                    CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount,
+                    snapshot.CountedNodeIds.Length);
+                snapshot.HintRevealed = snapshot.EligibleMissCount >= CampaignKeyPartPityConfig.EligibleHintSearchCount;
+                snapshot.GuaranteeArmed = snapshot.EligibleMissCount >= CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount;
+                snapshot.RepairState = snapshot.GuaranteeArmed ? "pity-guarantee-armed" : snapshot.HintRevealed ? "pity-hint" : "pity-miss";
+                pity.EligibleSearchCount = snapshot.EligibleMissCount;
+                pity.HintVisible = snapshot.HintRevealed;
+                pity.Guaranteed = snapshot.GuaranteeArmed;
+                pity.ProtectedOwned = false;
+                pity.LastResultCode = snapshot.GuaranteeArmed
+                    ? "pity.guarantee-armed.next-eligible-node"
+                    : snapshot.HintRevealed ? "pity.hint" : "pity.eligible";
+            }
+            return true;
+        }
+
+        internal void SynchronizeProtectedPartPityState(PrototypeProtectedPartPitySnapshot source)
+        {
+            if (source == null || string.IsNullOrWhiteSpace(source.PartId)) return;
+            EnsurePityStates();
+            pitySnapshots[source.PartId] = source.Clone();
+            PrototypeKeyPartPityState pity = pityStates[source.PartId];
+            pity.EligibleSearchCount = source.EligibleMissCount;
+            pity.HintVisible = source.HintRevealed;
+            pity.Guaranteed = source.GuaranteeArmed;
+            pity.ProtectedOwned = source.Acquired;
+            pity.LastResultCode = source.Acquired
+                ? source.RepairState == "pity-guaranteed-next-eligible-node"
+                    ? "pity.guaranteed.next-eligible-node"
+                    : "key-part.acquired.search-node"
+                : source.GuaranteeArmed
+                    ? "pity.guarantee-armed.next-eligible-node"
+                    : source.HintRevealed ? "pity.hint" : "pity.eligible";
+            if (source.Acquired && string.Equals(source.PartId, PrototypeRaftEscapeConfig.KeyPartId, StringComparison.Ordinal))
+            {
+                escapeDirector.SynchronizeRaftSailcloth(true);
+            }
+        }
+
+        internal void RestoreProtectedPartPitySnapshots(IReadOnlyList<PrototypeProtectedPartPitySnapshot> snapshots)
+        {
+            if (snapshots == null) return;
+            foreach (PrototypeProtectedPartPitySnapshot snapshot in snapshots)
+            {
+                SynchronizeProtectedPartPityState(snapshot);
+            }
         }
 
         public bool HasProtectedSearchPart(string partId)
@@ -979,7 +1265,9 @@ namespace KimSurvival
         {
             PrototypeEscapeProjectState state = escapeDirector.GetState(escapeId);
             string eventKey = "run." + session.RunSeed + "." + escapeId + ".progress." + (state.Progress + 1);
-            bool success = escapeDirector.TryProgress(session, escapeId, eventKey);
+            string[] ownedProtectedPartIds = pityStates.Values.Where(value => value.ProtectedOwned)
+                .Select(value => value.KeyPartId).OrderBy(value => value, StringComparer.Ordinal).ToArray();
+            bool success = escapeDirector.TryProgress(session, escapeId, eventKey, ownedProtectedPartIds);
             if (success)
             {
                 behaviorTracker.Record(escapeId == "escape.radio" ? "stat.mechanics" : "stat.building", 2, session.Day);
@@ -1070,6 +1358,8 @@ namespace KimSurvival
                 project_ids = escapeDirector.States.Select(value => value.StableId).OrderBy(value => value, StringComparer.Ordinal).ToArray(),
                 key_part_state_ids = pityStates.Values.Where(value => value.ProtectedOwned).Select(value => value.KeyPartId)
                     .OrderBy(value => value, StringComparer.Ordinal).ToArray(),
+                protected_part_pity = pitySnapshots.Values.OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray(),
                 behavior_scores = behaviorTracker.Scores.ToArray(),
                 escape_id = session == null ? string.Empty : session.CompletedEscapeId,
                 ending_id = currentEndingId,
@@ -1131,6 +1421,7 @@ namespace KimSurvival
 
         private void OnDestroy()
         {
+            PrototypeProtectedPartPityRuntimeBridge.Unregister(this);
             if (localization != null) localization.LocaleChanged -= RefreshComicText;
             if (semanticSurface != null) Destroy(semanticSurface.gameObject);
             if (endingComicRoot != null) Destroy(endingComicRoot);
@@ -1186,31 +1477,37 @@ namespace KimSurvival
 
         private void EnsurePityStates()
         {
-            foreach (string keyPartId in new[] { "part.smoke.catalyst", "part.radio.transceiver", "part.raft.sailcloth", "part.flare.cartridge", "part.beacon.generator-coil" })
+            Dictionary<string, PrototypeProtectedPartAssignmentSnapshot> assignments = session == null
+                ? new Dictionary<string, PrototypeProtectedPartAssignmentSnapshot>(StringComparer.Ordinal)
+                : PrototypeSearchNodeLootResolver.ResolveProtectedPartAssignments(
+                        session.RunSeed,
+                        PrototypeSearchRegionCatalog.ContractRevision)
+                    .ToDictionary(value => value.PartId, StringComparer.Ordinal);
+            foreach (string keyPartId in new[]
+                     {
+                         PrototypeRaftEscapeConfig.KeyPartId,
+                         PrototypeSearchNodeLootResolver.FlintPartId,
+                         PrototypeSearchNodeLootResolver.RadioTransceiverPartId,
+                         PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId,
+                         PrototypeSearchNodeLootResolver.RadioTransistorPartId
+                     })
             {
                 if (!pityStates.ContainsKey(keyPartId))
                 {
                     pityStates.Add(keyPartId, new PrototypeKeyPartPityState { StableId = "part.pity." + keyPartId, KeyPartId = keyPartId });
                 }
-            }
-        }
-
-        private void RecordCompletedExpeditionForKeyParts()
-        {
-            string regionId = CanonicalRegionId(session.ActiveRegionProfileId);
-            string searchId = "search." + session.RunSeed + "." + session.Day + "." + regionId;
-            foreach (PrototypeEscapeProjectDefinition definition in PrototypeEscapeProjectCatalog.All)
-            {
-                if (!pityStates.TryGetValue(definition.KeyPartId, out PrototypeKeyPartPityState pity)) continue;
-                bool eligible = definition.RegionIds.Contains(regionId, StringComparer.Ordinal);
-                bool changed = pity.RecordSearch(searchId, true, eligible, false, false, pity.ProtectedOwned);
-                if (changed)
+                if (!pitySnapshots.ContainsKey(keyPartId))
                 {
-                    RecordCampaignEvent("key-part.search-recorded", string.Empty, definition.StableId, string.Empty, pity.LastResultCode);
-                }
-                if (string.Equals(definition.KeyPartId, PrototypeRaftEscapeConfig.KeyPartId, StringComparison.Ordinal))
-                {
-                    escapeDirector.SynchronizeRaftSailcloth(pity.ProtectedOwned);
+                    pitySnapshots.Add(keyPartId, new PrototypeProtectedPartPitySnapshot
+                    {
+                        PartId = keyPartId,
+                        AssignedNodeId = assignments.TryGetValue(keyPartId, out PrototypeProtectedPartAssignmentSnapshot assignment)
+                            ? assignment.AssignedNodeId
+                            : string.Empty,
+                        RepairState = assignments.TryGetValue(keyPartId, out PrototypeProtectedPartAssignmentSnapshot repair)
+                            ? repair.RepairState
+                            : string.Empty
+                    });
                 }
             }
         }

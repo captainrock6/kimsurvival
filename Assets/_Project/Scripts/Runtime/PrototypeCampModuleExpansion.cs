@@ -101,7 +101,8 @@ namespace KimSurvival
     public sealed class PrototypeCampModuleExpansionConfig
     {
         public const string BalanceStatus = "WAVE9_V0_2";
-        public const int MaxCommittedExpansion = 1;
+        public const int LegacyMaxCommittedExpansion = 1;
+        public const int MaxCommittedExpansion = 3;
 
         private readonly Dictionary<CampModuleArchetype, CampModuleResourceCost> costs;
 
@@ -393,12 +394,72 @@ namespace KimSurvival
         public string RoomId { get; }
     }
 
+    [Serializable]
+    public sealed class CampModuleCommittedRoomSnapshot
+    {
+        public CampModuleArchetype Archetype;
+        public string RoomId = string.Empty;
+        public string StartSlotId = string.Empty;
+        public string ReciprocalSlotId = string.Empty;
+        public CampModuleConnectorKind ConnectorKind;
+        public int CommitSequence;
+
+        public CampModuleCommittedRoomSnapshot Clone()
+        {
+            return new CampModuleCommittedRoomSnapshot
+            {
+                Archetype = Archetype,
+                RoomId = RoomId,
+                StartSlotId = StartSlotId,
+                ReciprocalSlotId = ReciprocalSlotId,
+                ConnectorKind = ConnectorKind,
+                CommitSequence = CommitSequence
+            };
+        }
+    }
+
+    [Serializable]
+    public sealed class PrototypeCampModuleExpansionSnapshot
+    {
+        public const int CurrentSchemaVersion = 2;
+
+        public int SchemaVersion = CurrentSchemaVersion;
+
+        // Legacy singular surface. Old saves restore this into the first committed room.
+        public bool HasCommittedModule;
+        public CampModuleArchetype CommittedArchetype;
+        public string CommittedRoomId = string.Empty;
+
+        public CampModuleCommittedRoomSnapshot[] CommittedRooms = Array.Empty<CampModuleCommittedRoomSnapshot>();
+
+        public PrototypeCampModuleExpansionSnapshot Clone()
+        {
+            CampModuleCommittedRoomSnapshot[] source = CommittedRooms ?? Array.Empty<CampModuleCommittedRoomSnapshot>();
+            CampModuleCommittedRoomSnapshot[] rooms = new CampModuleCommittedRoomSnapshot[source.Length];
+            for (int index = 0; index < source.Length; index += 1)
+            {
+                rooms[index] = source[index] == null ? null : source[index].Clone();
+            }
+            return new PrototypeCampModuleExpansionSnapshot
+            {
+                SchemaVersion = SchemaVersion,
+                HasCommittedModule = HasCommittedModule,
+                CommittedArchetype = CommittedArchetype,
+                CommittedRoomId = CommittedRoomId,
+                CommittedRooms = rooms
+            };
+        }
+    }
+
     public sealed class PrototypeCampModuleExpansion
     {
         private readonly PrototypeCampModuleExpansionConfig config;
         private readonly bool[] seenCandidates = new bool[3];
+        private readonly List<CampModuleCommittedRoomSnapshot> committedRooms =
+            new List<CampModuleCommittedRoomSnapshot>();
         private CampModuleReturnSnapshot returnSnapshot;
         private CampModuleArchetype selectedArchetype;
+        // Kept as the first committed module for legacy singular callers and saves.
         private CampModuleArchetype? committedArchetype;
 
         public PrototypeCampModuleExpansion(PrototypeCampModuleExpansionConfig config)
@@ -415,9 +476,26 @@ namespace KimSurvival
         public bool IsPreviewActive { get; private set; }
         public CampModuleTransactionGuard TransactionGuard { get; private set; }
         public CampModuleArchetype SelectedArchetype { get { return selectedArchetype; } }
-        public bool HasCommittedModule { get { return committedArchetype.HasValue; } }
+        public bool HasCommittedModule { get { return committedRooms.Count > 0; } }
         public CampModuleArchetype CommittedArchetype { get { return committedArchetype.GetValueOrDefault(); } }
         public string CommittedRoomId { get { return HasCommittedModule ? PrototypeCampModuleCatalog.Get(CommittedArchetype).RoomId : string.Empty; } }
+        public int CommittedModuleCount { get { return committedRooms.Count; } }
+        public bool HasUpperAndBasementCommitted
+        {
+            get { return IsCommitted(CampModuleArchetype.Upper) && IsCommitted(CampModuleArchetype.Basement); }
+        }
+        public IReadOnlyList<CampModuleCommittedRoomSnapshot> CommittedRooms
+        {
+            get
+            {
+                CampModuleCommittedRoomSnapshot[] result = new CampModuleCommittedRoomSnapshot[committedRooms.Count];
+                for (int index = 0; index < committedRooms.Count; index += 1)
+                {
+                    result[index] = committedRooms[index].Clone();
+                }
+                return result;
+            }
+        }
         public CampModuleReturnSnapshot ReturnSnapshot { get { return returnSnapshot; } }
 
         public void Reset()
@@ -425,9 +503,131 @@ namespace KimSurvival
             Array.Clear(seenCandidates, 0, seenCandidates.Length);
             selectedArchetype = CampModuleArchetype.Upper;
             committedArchetype = null;
+            committedRooms.Clear();
             returnSnapshot = default(CampModuleReturnSnapshot);
             IsPreviewActive = false;
             TransactionGuard = CampModuleTransactionGuard.Idle;
+        }
+
+        public bool IsCommitted(CampModuleArchetype archetype)
+        {
+            for (int index = 0; index < committedRooms.Count; index += 1)
+            {
+                if (committedRooms[index].Archetype == archetype) return true;
+            }
+            return false;
+        }
+
+        public bool IsRoomCommitted(string roomId)
+        {
+            if (string.IsNullOrWhiteSpace(roomId)) return false;
+            for (int index = 0; index < committedRooms.Count; index += 1)
+            {
+                if (string.Equals(committedRooms[index].RoomId, roomId, StringComparison.Ordinal)) return true;
+            }
+            return false;
+        }
+
+        public bool IsConnectorCommitted(string connectorId)
+        {
+            if (string.IsNullOrWhiteSpace(connectorId)) return false;
+            for (int index = 0; index < committedRooms.Count; index += 1)
+            {
+                CampModuleCommittedRoomSnapshot room = committedRooms[index];
+                if (string.Equals(room.StartSlotId, connectorId, StringComparison.Ordinal) ||
+                    string.Equals(room.ReciprocalSlotId, connectorId, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool TryGetCommittedRoom(
+            CampModuleArchetype archetype,
+            out CampModuleCommittedRoomSnapshot committedRoom)
+        {
+            for (int index = 0; index < committedRooms.Count; index += 1)
+            {
+                if (committedRooms[index].Archetype != archetype) continue;
+                committedRoom = committedRooms[index].Clone();
+                return true;
+            }
+            committedRoom = null;
+            return false;
+        }
+
+        public bool TryGetCommittedRoom(
+            string stableRoomId,
+            out CampModuleCommittedRoomSnapshot committedRoom)
+        {
+            if (!string.IsNullOrWhiteSpace(stableRoomId))
+            {
+                for (int index = 0; index < committedRooms.Count; index += 1)
+                {
+                    if (!string.Equals(committedRooms[index].RoomId, stableRoomId, StringComparison.Ordinal)) continue;
+                    committedRoom = committedRooms[index].Clone();
+                    return true;
+                }
+            }
+
+            committedRoom = null;
+            return false;
+        }
+
+        public bool TryGetCommittedRoomByConnector(
+            string stableConnectorId,
+            out CampModuleCommittedRoomSnapshot committedRoom)
+        {
+            if (!string.IsNullOrWhiteSpace(stableConnectorId))
+            {
+                for (int index = 0; index < committedRooms.Count; index += 1)
+                {
+                    CampModuleCommittedRoomSnapshot room = committedRooms[index];
+                    if (!string.Equals(room.StartSlotId, stableConnectorId, StringComparison.Ordinal) &&
+                        !string.Equals(room.ReciprocalSlotId, stableConnectorId, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    committedRoom = room.Clone();
+                    return true;
+                }
+            }
+
+            committedRoom = null;
+            return false;
+        }
+
+        public bool TryResolveConnectionDestination(
+            string currentRoomId,
+            string stableConnectorId,
+            out string destinationRoomId)
+        {
+            destinationRoomId = string.Empty;
+            if (string.IsNullOrWhiteSpace(currentRoomId) || string.IsNullOrWhiteSpace(stableConnectorId))
+            {
+                return false;
+            }
+
+            for (int index = 0; index < committedRooms.Count; index += 1)
+            {
+                CampModuleCommittedRoomSnapshot room = committedRooms[index];
+                if (string.Equals(currentRoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal) &&
+                    string.Equals(stableConnectorId, room.StartSlotId, StringComparison.Ordinal))
+                {
+                    destinationRoomId = room.RoomId;
+                    return true;
+                }
+                if (string.Equals(currentRoomId, room.RoomId, StringComparison.Ordinal) &&
+                    string.Equals(stableConnectorId, room.ReciprocalSlotId, StringComparison.Ordinal))
+                {
+                    destinationRoomId = PrototypeCampModuleCatalog.StartRoomId;
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool BeginPreview(CampModuleReturnSnapshot snapshot)
@@ -501,7 +701,8 @@ namespace KimSurvival
             CampModuleGeometryStatus geometry = EvaluateGeometry(definition, context);
             CampModuleResourceCost cost = config.GetCost(selectedArchetype);
             CampModuleEconomyStatus economy;
-            if (HasCommittedModule)
+            if (IsCommitted(selectedArchetype) ||
+                committedRooms.Count >= PrototypeCampModuleExpansionConfig.MaxCommittedExpansion)
             {
                 economy = CampModuleEconomyStatus.PrototypeLimit;
             }
@@ -558,10 +759,147 @@ namespace KimSurvival
                 return CampModuleCommitStatus.Short;
             }
 
-            committedArchetype = selectedArchetype;
+            CampModuleCommittedRoomSnapshot committedRoom = CreateCommittedRoom(
+                evaluation.Definition,
+                committedRooms.Count);
+            committedRooms.Add(committedRoom);
+            if (!committedArchetype.HasValue) committedArchetype = selectedArchetype;
             IsPreviewActive = false;
             TransactionGuard = CampModuleTransactionGuard.Committed;
             return CampModuleCommitStatus.Succeeded;
+        }
+
+        public PrototypeCampModuleExpansionSnapshot CaptureSnapshot()
+        {
+            CampModuleCommittedRoomSnapshot[] rooms = new CampModuleCommittedRoomSnapshot[committedRooms.Count];
+            for (int index = 0; index < committedRooms.Count; index += 1)
+            {
+                rooms[index] = committedRooms[index].Clone();
+            }
+            return new PrototypeCampModuleExpansionSnapshot
+            {
+                SchemaVersion = PrototypeCampModuleExpansionSnapshot.CurrentSchemaVersion,
+                HasCommittedModule = HasCommittedModule,
+                CommittedArchetype = CommittedArchetype,
+                CommittedRoomId = CommittedRoomId,
+                CommittedRooms = rooms
+            };
+        }
+
+        public bool RestoreSnapshot(PrototypeCampModuleExpansionSnapshot snapshot)
+        {
+            if (snapshot == null || snapshot.SchemaVersion < 1 ||
+                snapshot.SchemaVersion > PrototypeCampModuleExpansionSnapshot.CurrentSchemaVersion)
+            {
+                return false;
+            }
+
+            CampModuleCommittedRoomSnapshot[] source = snapshot.CommittedRooms ??
+                                                       Array.Empty<CampModuleCommittedRoomSnapshot>();
+            var candidateRooms = new List<CampModuleCommittedRoomSnapshot>();
+            if (source.Length == 0 && snapshot.HasCommittedModule)
+            {
+                if (!Enum.IsDefined(typeof(CampModuleArchetype), snapshot.CommittedArchetype)) return false;
+                CampModuleDefinition legacyDefinition = PrototypeCampModuleCatalog.Get(snapshot.CommittedArchetype);
+                if (!string.IsNullOrWhiteSpace(snapshot.CommittedRoomId) &&
+                    !string.Equals(snapshot.CommittedRoomId, legacyDefinition.RoomId, StringComparison.Ordinal))
+                {
+                    return false;
+                }
+                candidateRooms.Add(CreateCommittedRoom(legacyDefinition, 0));
+            }
+            else
+            {
+                if (source.Length > PrototypeCampModuleExpansionConfig.MaxCommittedExpansion) return false;
+                var seenArchetypes = new HashSet<CampModuleArchetype>();
+                var seenRoomIds = new HashSet<string>(StringComparer.Ordinal);
+                var seenStartSlotIds = new HashSet<string>(StringComparer.Ordinal);
+                var seenReciprocalSlotIds = new HashSet<string>(StringComparer.Ordinal);
+                for (int index = 0; index < source.Length; index += 1)
+                {
+                    CampModuleCommittedRoomSnapshot room = source[index];
+                    if (!IsValidCommittedRoom(
+                            room,
+                            index,
+                            seenArchetypes,
+                            seenRoomIds,
+                            seenStartSlotIds,
+                            seenReciprocalSlotIds))
+                    {
+                        return false;
+                    }
+                    candidateRooms.Add(room.Clone());
+                }
+            }
+
+            if (candidateRooms.Count == 0 && snapshot.HasCommittedModule) return false;
+            if (candidateRooms.Count > 0)
+            {
+                CampModuleCommittedRoomSnapshot first = candidateRooms[0];
+                if (!snapshot.HasCommittedModule ||
+                    snapshot.CommittedArchetype != first.Archetype ||
+                    (!string.IsNullOrWhiteSpace(snapshot.CommittedRoomId) &&
+                     !string.Equals(snapshot.CommittedRoomId, first.RoomId, StringComparison.Ordinal)))
+                {
+                    return false;
+                }
+            }
+
+            committedRooms.Clear();
+            for (int index = 0; index < candidateRooms.Count; index += 1)
+            {
+                committedRooms.Add(candidateRooms[index].Clone());
+            }
+            committedArchetype = candidateRooms.Count == 0
+                ? (CampModuleArchetype?)null
+                : candidateRooms[0].Archetype;
+            Array.Clear(seenCandidates, 0, seenCandidates.Length);
+            selectedArchetype = committedArchetype.GetValueOrDefault(CampModuleArchetype.Upper);
+            returnSnapshot = default(CampModuleReturnSnapshot);
+            IsPreviewActive = false;
+            TransactionGuard = CampModuleTransactionGuard.Idle;
+            return true;
+        }
+
+        private static CampModuleCommittedRoomSnapshot CreateCommittedRoom(
+            CampModuleDefinition definition,
+            int commitSequence)
+        {
+            return new CampModuleCommittedRoomSnapshot
+            {
+                Archetype = definition.Archetype,
+                RoomId = definition.RoomId,
+                StartSlotId = definition.StartSlotId,
+                ReciprocalSlotId = definition.ReciprocalSlotId,
+                ConnectorKind = definition.ConnectorKind,
+                CommitSequence = commitSequence
+            };
+        }
+
+        private static bool IsValidCommittedRoom(
+            CampModuleCommittedRoomSnapshot room,
+            int expectedSequence,
+            ISet<CampModuleArchetype> seenArchetypes,
+            ISet<string> seenRoomIds,
+            ISet<string> seenStartSlotIds,
+            ISet<string> seenReciprocalSlotIds)
+        {
+            if (room == null ||
+                !Enum.IsDefined(typeof(CampModuleArchetype), room.Archetype) ||
+                room.CommitSequence != expectedSequence)
+            {
+                return false;
+            }
+
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(room.Archetype);
+            return string.Equals(room.RoomId, definition.RoomId, StringComparison.Ordinal) &&
+                   string.Equals(room.StartSlotId, definition.StartSlotId, StringComparison.Ordinal) &&
+                   string.Equals(room.ReciprocalSlotId, definition.ReciprocalSlotId, StringComparison.Ordinal) &&
+                   room.ConnectorKind == definition.ConnectorKind &&
+                   seenArchetypes.Add(room.Archetype) &&
+                   seenRoomIds.Add(room.RoomId) &&
+                   seenStartSlotIds.Add(room.StartSlotId) &&
+                   seenReciprocalSlotIds.Add(room.ReciprocalSlotId);
         }
 
         public static CampModuleGeometryStatus EvaluateGeometry(CampModuleDefinition definition, CampModuleValidationContext context)
