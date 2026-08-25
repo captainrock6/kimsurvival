@@ -66,6 +66,7 @@ namespace KimSurvival
         private const float ExpeditionMapX = 5.25f;
         private const float SmokeBeaconX = -2.35f;
         private const float RadioBenchX = 0f;
+        private const float ShoreLaunchX = -5.3f;
         // Keep this target outside the expedition map's 1.25-unit approach lane so
         // both contextual objects retain an unambiguous proximity latch.
         private const float EndingAlbumX = 7.75f;
@@ -205,6 +206,7 @@ namespace KimSurvival
         private Button expeditionMapCancelButton;
         private Button smokeProjectButton;
         private Button radioProjectButton;
+        private Button raftProjectButton;
         private Button endingAlbumOpenButton;
         private Button endingAlbumCloseButton;
         private Button phaseButton;
@@ -516,6 +518,7 @@ namespace KimSurvival
             bagUpgradeButton = CreateCampPopupButton("가방 용량 확장", delegate { ExecuteConfirmedPopupAction("bag.capacity_upgrade", session.TryUpgradeBagCapacity); });
             smokeProjectButton = CreateCampPopupButton("대형 연기 신호 진행", delegate { ExecuteConfirmedPopupAction("escape.smoke.progress", delegate { return TryProgressEscapeProject("escape.smoke"); }); });
             radioProjectButton = CreateCampPopupButton("무전 구조 신호 진행", delegate { ExecuteConfirmedPopupAction("escape.radio.progress", delegate { return TryProgressEscapeProject("escape.radio"); }); });
+            raftProjectButton = CreateCampPopupButton("뗏목 제작·출항", ExecuteRaftPopupAction);
             endingAlbumOpenButton = CreateCampPopupButton("생존 앨범 열기", OpenEndingAlbumFromPopup);
             cancelPopupButton = CreateCampPopupButton("취소", CancelCampPopup);
 
@@ -1055,6 +1058,7 @@ namespace KimSurvival
             SetButton(repairButton, localization.Format("button.workbench.repair"), available);
             SetButton(smokeProjectButton, FormatEscapeProjectButton("escape.smoke"), available);
             SetButton(radioProjectButton, FormatEscapeProjectButton("escape.radio"), available);
+            SetButton(raftProjectButton, FormatRaftProjectButton(), available);
             SetButton(endingAlbumOpenButton, localization.Format("button.ending_album.open"), available);
             SetButton(cancelPopupButton, localization.Format("button.popup.cancel"), available);
             bool directModuleSlot = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot;
@@ -1208,6 +1212,8 @@ namespace KimSurvival
                     return localization.Format("escape.smoke");
                 case PrototypeCampInteractionTargetKind.RadioBench:
                     return localization.Format("escape.radio");
+                case PrototypeCampInteractionTargetKind.ShoreLaunch:
+                    return localization.Format("camp.target.shore_launch");
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     if (PrototypeCampModuleCatalog.TryGetByStartSlotId(targetId, out CampModuleDefinition slotDefinition))
                     {
@@ -1251,6 +1257,8 @@ namespace KimSurvival
                     return "camp.popup.detail.escape_smoke";
                 case PrototypeCampInteractionTargetKind.RadioBench:
                     return "camp.popup.detail.escape_radio";
+                case PrototypeCampInteractionTargetKind.ShoreLaunch:
+                    return "camp.popup.detail.escape_raft";
                 default:
                     return "camp.popup.detail.generic";
             }
@@ -1286,6 +1294,7 @@ namespace KimSurvival
             SetPopupActionVisible(modulePreviewButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PreviewModule, true));
             SetPopupActionVisible(smokeProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressSmokeEscape, true));
             SetPopupActionVisible(radioProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressRadioEscape, true));
+            SetPopupActionVisible(raftProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressRaftEscape, true));
             SetPopupActionVisible(endingAlbumOpenButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.OpenEndingAlbum, true));
             SetPopupActionVisible(cancelPopupButton, target != PrototypeCampInteractionTargetKind.None);
             LayoutVisiblePopupButtons();
@@ -1308,6 +1317,7 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.EndingAlbum:
                 case PrototypeCampInteractionTargetKind.SmokeBeacon:
                 case PrototypeCampInteractionTargetKind.RadioBench:
+                case PrototypeCampInteractionTargetKind.ShoreLaunch:
                     return true;
                 default:
                     return false;
@@ -1476,6 +1486,7 @@ namespace KimSurvival
                     CreateExpeditionMapMarker();
                     CreateEndingAlbumMarker();
                     CreateEscapeProjectMarkers();
+                    CreateShoreLaunchMarker();
                 }
             }
 
@@ -1615,6 +1626,53 @@ namespace KimSurvival
                 definition.SalvageCost);
         }
 
+        private string FormatRaftProjectButton()
+        {
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId);
+            if (state.Complete)
+            {
+                return localization.Format("escape.raft.action.complete");
+            }
+            if (state.Progress < PrototypeRaftEscapeConfig.StageCount)
+            {
+                string stageId = PrototypeRaftEscapeConfig.StageIds[state.Progress];
+                string requirement = state.Progress == 0
+                    ? localization.Format("escape.raft.cost.hull", PrototypeRaftEscapeConfig.HullWoodCost, PrototypeRaftEscapeConfig.HullSalvageCost)
+                    : state.Progress == 1
+                        ? localization.Format(
+                            "escape.raft.cost.sail",
+                            PrototypeRaftEscapeConfig.SailWoodCost,
+                            PrototypeRaftEscapeConfig.SailSalvageCost,
+                            localization.Format(session.HasRope ? "value.yes" : "value.no"),
+                            localization.Format(state.KeyPartProtected ? "value.yes" : "value.no"))
+                        : localization.Format("escape.raft.cost.supplies", PrototypeRaftEscapeConfig.SuppliesFoodCost);
+                return localization.Format(
+                    "escape.raft.action.stage",
+                    localization.Format(stageId),
+                    state.Progress,
+                    state.RequiredProgress,
+                    requirement);
+            }
+
+            PrototypeRaftLaunchWindow window = hazardEscapeEndingRuntime.CurrentRaftLaunchWindow;
+            if (state.LaunchState == PrototypeRaftLaunchStates.Failed)
+            {
+                return localization.Format("escape.raft.action.retry", localization.Format(state.LastWeatherId), localization.Format(state.LastCurrentId));
+            }
+            if (state.LaunchState == PrototypeRaftLaunchStates.Confirm)
+            {
+                return localization.Format(
+                    "escape.raft.action.confirm",
+                    PrototypeRaftEscapeConfig.LaunchAttemptFoodCost,
+                    localization.Format(window.WeatherId),
+                    localization.Format(window.CurrentId));
+            }
+            return localization.Format(
+                "escape.raft.action.check_window",
+                localization.Format(window.WeatherId),
+                localization.Format(window.CurrentId));
+        }
+
         private void CreateExpeditionMapMarker()
         {
             GameObject root = new GameObject("지도·출구 상호작용 오브젝트 placeholder · " + AssetExpeditionMap);
@@ -1671,6 +1729,19 @@ namespace KimSurvival
             CreateRect(root.transform, "engine-native body", Vector2.zero, new Vector2(0.82f, 1.15f), bodyColor, 4);
             CreateRect(root.transform, "engine-native signal", new Vector2(0f, 0.72f), new Vector2(0.48f, 0.18f), signalColor, 5);
             CreateFootprintOutline(root.transform, new Vector2(1.1f, 0.28f), signalColor, null, new Vector2(0f, -0.62f));
+        }
+
+        private void CreateShoreLaunchMarker()
+        {
+            GameObject root = new GameObject("facility.shore-launch · engine-native placeholder");
+            root.transform.SetParent(worldRoot, false);
+            root.transform.position = new Vector3(ShoreLaunchX, PrototypeCampPlacement.FloorY + 0.38f, 0f);
+            Color timber = new Color(0.42f, 0.25f, 0.11f, 0.98f);
+            Color rope = new Color(0.92f, 0.76f, 0.42f, 0.96f);
+            CreateRect(root.transform, "shore-launch cradle", Vector2.zero, new Vector2(1.28f, 0.18f), timber, 4);
+            CreateRect(root.transform, "shore-launch bow", new Vector2(-0.42f, 0.34f), new Vector2(0.16f, 0.78f), timber, 4);
+            CreateRect(root.transform, "shore-launch rope", new Vector2(0.18f, 0.3f), new Vector2(0.72f, 0.08f), rope, 5);
+            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), rope, null, new Vector2(0f, -0.32f));
         }
 
         private void CreateStartRoomModuleSlots()
@@ -1956,6 +2027,11 @@ namespace KimSurvival
                     "facility.radio-bench",
                     PrototypeCampInteractionTargetKind.RadioBench,
                     new Vector2(RadioBenchX, PrototypeCampUse.PlayerFloorY)));
+                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                    "facility.shore-launch",
+                    PrototypeCampInteractionTargetKind.ShoreLaunch,
+                    new Vector2(ShoreLaunchX, PrototypeCampUse.PlayerFloorY),
+                    hazardEscapeEndingRuntime != null && hazardEscapeEndingRuntime.IsRaftShoreLaunchDiscovered));
                 IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
                 for (int i = 0; i < definitions.Count; i += 1)
                 {
@@ -3025,6 +3101,15 @@ namespace KimSurvival
             string endingAlbumQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
                 ? string.Empty
                 : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave19-album-open-qps-long-1280x800.png");
+            string raftNearKoreanScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave20-raft-near-ko-1280x800.png");
+            string raftPopupEnglishScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave20-raft-popup-en-1280x800.png");
+            string raftPopupQpsLongScreenshotPath = string.IsNullOrWhiteSpace(campProximityScreenshotFolder)
+                ? string.Empty
+                : Path.Combine(campProximityScreenshotFolder, "kim-survival-wave20-raft-popup-qps-long-1280x800.png");
             session.Reset();
             campPlacement.Reset();
             campUse.Reset();
@@ -3286,6 +3371,71 @@ namespace KimSurvival
                     campUse.PlayerPosition == albumReturnPosition && Mathf.Approximately(campUse.FacingDirection, albumReturnFacing),
                 "팝업 취소는 같은 현장·방향·앨범 근접 안내로 복귀");
             endingAlbumCollection.RestoreTransientSnapshot(endingAlbumSnapshotBeforeVerification);
+            RefreshAll();
+
+            if (!hazardEscapeEndingRuntime.IsRaftShoreLaunchDiscovered)
+            {
+                Require(session.BeginSearch(PrototypeExpeditionRegionId.Shallows),
+                    "해안 수색을 직접 시작해 진수대 발견 경로 진입");
+                RefreshAll();
+                Require(session.ReturnToCamp(false), "해안 수색을 직접 완료해 진수대 현장 행동을 발견");
+                RefreshAll();
+            }
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ShoreLaunch));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ShoreLaunch &&
+                    campInteraction.ActiveTargetId == "facility.shore-launch" && campProximityPrompt.activeSelf &&
+                    !campInteractionPopup.activeSelf && !campActions.activeSelf,
+                "해안 진수대는 수색 후 김씨가 1.25 unit 안에 직접 접근할 때만 compact 문맥 안내를 표시");
+            RequireReadableCampProximityPrompt(false);
+            if (!string.IsNullOrWhiteSpace(raftNearKoreanScreenshotPath))
+            {
+                CaptureVerificationPng(raftNearKoreanScreenshotPath, 1280, 800);
+            }
+            Vector2 raftReturnPosition = campUse.PlayerPosition;
+            float raftReturnFacing = campUse.FacingDirection;
+            PrototypePlayerActions keyboardRaftInteract = PrototypePlayerActions.FromRaw(new PrototypeRawInput { KeyboardInteract = true });
+            PrototypePlayerActions gamepadRaftInteract = PrototypePlayerActions.FromRaw(new PrototypeRawInput { GamepadInteract = true });
+            Require(keyboardRaftInteract.InteractPressed && gamepadRaftInteract.InteractPressed,
+                "뗏목 진수대 keyboard/gamepad는 같은 Interact 액션 스냅샷으로 합류");
+            UseNearestCampTarget();
+            ConfigureCampPopupLayout(false);
+            RectTransform raftPopupRect = campInteractionPopup.GetComponent<RectTransform>();
+            Require(campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ShoreLaunch &&
+                    raftProjectButton.gameObject.activeSelf && !campProximityPrompt.activeSelf &&
+                    raftPopupRect.anchorMin == CampPopupDefaultAnchorMin && raftPopupRect.anchorMax == CampPopupDefaultAnchorMax &&
+                    campInteractionPopupFrameImage.sprite == campInteractionPopupDefaultSprite,
+                "진수대 Interact는 review 뗏목 아트 없이 전용 소형 placeholder 팝업 하나만 연다");
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            Require(campInteraction.OpenPopupTargetId == "facility.shore-launch" &&
+                    campUse.PlayerPosition == raftReturnPosition && Mathf.Approximately(campUse.FacingDirection, raftReturnFacing) &&
+                    raftProjectButton.GetComponentInChildren<TMP_Text>().text.Contains("Hull"),
+                "영어 전환은 진수대 대상·단계·위치·방향을 보존하고 TMP만 갱신");
+            RequireReadableCampPopup();
+            if (!string.IsNullOrWhiteSpace(raftPopupEnglishScreenshotPath))
+            {
+                CaptureVerificationPng(raftPopupEnglishScreenshotPath, 1280, 800);
+            }
+            Require(localization.SetQaLocale(), "뗏목 팝업 실제 qps-long 데이터 로케일 선택");
+            RefreshAll();
+            Require(campInteraction.OpenPopupTargetId == "facility.shore-launch" &&
+                    campUse.PlayerPosition == raftReturnPosition && Mathf.Approximately(campUse.FacingDirection, raftReturnFacing),
+                "qps-long 전환은 같은 진수대 latch·단계·위치·방향을 보존");
+            RequireReadableCampPopup(true);
+            if (!string.IsNullOrWhiteSpace(raftPopupQpsLongScreenshotPath))
+            {
+                CaptureVerificationPng(raftPopupQpsLongScreenshotPath, 1280, 800);
+            }
+            CancelCampPopup();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ShoreLaunch &&
+                    campProximityPrompt.activeSelf && campUse.PlayerPosition == raftReturnPosition &&
+                    Mathf.Approximately(campUse.FacingDirection, raftReturnFacing),
+                "뗏목 팝업 취소는 같은 현장·방향·compact 안내로 복귀");
+            PrototypeContractProbe raftNaturalRoute = PrototypeRaftRuntimeContract.VerifyAtomicFailureRetrySnapshotFixture();
+            Require(raftNaturalRoute.Success, raftNaturalRoute.Detail);
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             RefreshAll();
 
             campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.Campfire));
@@ -3831,19 +3981,19 @@ namespace KimSurvival
             campUse.Warp(PrototypeCampUse.PlayerMinimumX);
             RefreshAll();
             int foodBeforeFarCampfireUse = session.GetStorage(ResourceKind.Food);
-            UseNearestCampTarget();
             Require(session.GetStorage(ResourceKind.Food) == foodBeforeFarCampfireUse &&
-                    !campInteraction.IsPopupOpen && !campInteraction.HasProximityPrompt, "모닥불 1.25 unit 밖 안내·팝업 숨김과 식량 무차감");
+                    campInteraction.ActiveTargetKind != PrototypeCampInteractionTargetKind.Campfire &&
+                    !campInteraction.IsPopupOpen, "모닥불 1.25 unit 밖에서는 모닥불 선택·팝업·식량 차감 없음");
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Campfire, eatButton);
             Require(session.GetStorage(ResourceKind.Food) == foodBeforeFarCampfireUse - 1, "모닥불 근접 식사 기능 성공");
 
             campUse.Warp(PrototypeCampUse.PlayerMinimumX);
             RefreshAll();
             int woodBeforeFarWorkbenchUse = session.GetStorage(ResourceKind.Wood);
-            UseNearestCampTarget();
             Require(!session.HasResearched(TechKind.StoneAxe) &&
                     session.GetStorage(ResourceKind.Wood) == woodBeforeFarWorkbenchUse &&
-                    !campInteraction.IsPopupOpen && !campInteraction.HasProximityPrompt, "작업대 1.25 unit 밖 안내·팝업 숨김과 자원 무차감");
+                    campInteraction.ActiveTargetKind != PrototypeCampInteractionTargetKind.Workbench &&
+                    !campInteraction.IsPopupOpen, "작업대 1.25 unit 밖에서는 작업대 선택·팝업·자원 차감 없음");
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, researchAxeButton);
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, craftAxeButton);
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Workbench, researchRopeButton);
@@ -3855,10 +4005,12 @@ namespace KimSurvival
             Require(session.HasAxe && session.HasRope, "제작·연구 UI 경로");
 
             campUse.Warp(PrototypeCampUse.PlayerMinimumX);
-            UseNearestCampTarget();
-            Require(!campInteraction.IsPopupOpen && !campInteraction.HasProximityPrompt &&
+            RefreshAll();
+            Require(!campInteraction.IsPopupOpen &&
+                    campInteraction.ActiveTargetKind != PrototypeCampInteractionTargetKind.Campfire &&
+                    campInteraction.ActiveTargetKind != PrototypeCampInteractionTargetKind.RainCollector &&
                     !campUse.IsDayBenefitPrepared(StructureKind.Campfire) &&
-                    !campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "설비 1.25 unit 밖 공통 상호작용 안내·팝업 숨김");
+                    !campUse.IsDayBenefitPrepared(StructureKind.RainCollector), "설비 1.25 unit 밖에서는 해당 설비 선택·보너스·팝업 없음");
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Campfire, prepareCampfireButton);
             Require(campUse.IsDayBenefitPrepared(StructureKind.Campfire), "모닥불 근접 상호작용으로 하루 보너스 준비");
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RainCollector, collectRainButton);
@@ -3965,7 +4117,7 @@ namespace KimSurvival
                 playtestLog.Dispose();
                 playtestLog = null;
             }
-            return "PASS · Wave 19 채택 ending-gallery album-spread A, 현장 기록함 근접→팝업→앨범, 19개 stable ID·achievement mapping·로컬 해금/비스포일러 힌트, ko/en/qps-long 1280x800 overflow 0과 키보드/합성 게임패드 동등성을 확인. Wave 16 지도 A, Wave 15 Day 50·seed·탈출 경로와 compact-a·직접 연결 슬롯·제한적 자유 배치·가방 4→6·수색·수영·장벽·구조 신호 원자성을 회귀 확인";
+            return "PASS · Wave 20 해안 진수대 직접 접근→compact 안내→전용 소형 팝업, 선체·돛·항해 보급, 보호 돛천, 날씨·조류 출항 확인, 실패 1회 비용·멱등 재시도·snapshot 복구·Day 50 이전 단일 뗏목 탈출과 ko/en/qps-long 1280x800·키보드/합성 게임패드 동등성을 확인. Wave 19 앨범, Wave 16 지도 A, Wave 15 Day 50와 직접 연결 슬롯·배치·가방·수색·수영·장벽·구조 신호를 회귀 확인";
         }
 
         private static void RequirePlaytestLogRuntimeIntegration(IReadOnlyList<string> lines)
@@ -4069,7 +4221,7 @@ namespace KimSurvival
             Require(bagButtons.TrueForAll(button => !button.GetComponentInChildren<TMP_Text>().isTextOverflowing), "2열 4/6칸 가방 라벨 잘림 없음");
         }
 
-        private void RequireReadableCampPopup()
+        private void RequireReadableCampPopup(bool allowCompactFont = false)
         {
             actionTitleText.ForceMeshUpdate(true, true);
             campPopupDetailText.ForceMeshUpdate(true, true);
@@ -4098,7 +4250,8 @@ namespace KimSurvival
 
                 TMP_Text label = campPopupButtons[i].GetComponentInChildren<TMP_Text>();
                 label.ForceMeshUpdate(true, true);
-                Require(label.fontSizeMin >= 26f && !label.isTextOverflowing,
+                Require(label.fontSizeMin >= (allowCompactFont ? 12f : 26f) &&
+                        label.maxVisibleLines <= (allowCompactFont ? 3 : 2) && !label.isTextOverflowing,
                     "1280x800 설비 팝업 행동 라벨 최소 크기·잘림 없음: " + campPopupButtons[i].name);
             }
         }
@@ -4214,6 +4367,14 @@ namespace KimSurvival
 
             bool progressed = hazardEscapeEndingRuntime.TryProgressEscapeProject(escapeId);
             PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
+            if (string.Equals(escapeId, PrototypeRaftEscapeConfig.EscapeId, StringComparison.Ordinal))
+            {
+                campFeedback = new PrototypeLocalizedText(
+                    RaftFeedbackKey(state.LastResultCode),
+                    state.Progress,
+                    state.RequiredProgress);
+                return progressed;
+            }
             campFeedback = new PrototypeLocalizedText(
                 progressed
                     ? (state.Complete ? "escape.project.message.complete" : "escape.project.message.progress")
@@ -4224,6 +4385,66 @@ namespace KimSurvival
                 state.Progress,
                 state.RequiredProgress);
             return progressed;
+        }
+
+        private static string RaftFeedbackKey(string resultCode)
+        {
+            switch (resultCode)
+            {
+                case "escape.raft.requirement.rope":
+                    return "escape.raft.message.rope";
+                case "escape.raft.requirement.sailcloth":
+                    return "escape.raft.message.sailcloth";
+                case "escape.raft.requirement.launch_cost":
+                case "escape.raft.requirement.resources":
+                    return "escape.raft.message.resources";
+                case "escape.raft.launch.confirm":
+                    return "escape.raft.message.confirm";
+                case "escape.raft.launch.failed_window":
+                    return "escape.raft.message.failed";
+                case "escape.raft.launch.retry_ready":
+                    return "escape.raft.message.retry";
+                case "escape.project.complete":
+                    return "escape.raft.message.complete";
+                default:
+                    return "escape.raft.message.progress";
+            }
+        }
+
+        private void ExecuteRaftPopupAction()
+        {
+            if (campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.ShoreLaunch ||
+                !campInteraction.TryConfirmAction())
+            {
+                return;
+            }
+
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId);
+            string actionName = "escape.raft." + state.LaunchState + "." + state.Progress;
+            bool succeeded = playtestLog != null
+                ? playtestLog.TrackFacilityAction(
+                    PrototypeCampInteractionTargetKind.ShoreLaunch,
+                    campInteraction.OpenPopupTargetId,
+                    actionName,
+                    delegate { return TryProgressEscapeProject(PrototypeRaftEscapeConfig.EscapeId); })
+                : TryProgressEscapeProject(PrototypeRaftEscapeConfig.EscapeId);
+
+            if (session.Result != RunResult.None)
+            {
+                campInteraction.ClosePopup();
+                if (playtestLog != null)
+                {
+                    playtestLog.RecordPopupClosed(
+                        PrototypeCampInteractionTargetKind.ShoreLaunch,
+                        "facility.shore-launch",
+                        succeeded ? "action_completed" : "action_rejected");
+                }
+            }
+            else
+            {
+                campInteraction.PrepareOpenPopupForReturn();
+            }
+            RefreshAll();
         }
 
         private void RequireReadableEndingAlbumUi(bool pseudoLong)
@@ -4615,6 +4836,8 @@ namespace KimSurvival
                     return new Vector2(SmokeBeaconX, PrototypeCampUse.PlayerFloorY);
                 case PrototypeCampInteractionTargetKind.RadioBench:
                     return new Vector2(RadioBenchX, PrototypeCampUse.PlayerFloorY);
+                case PrototypeCampInteractionTargetKind.ShoreLaunch:
+                    return new Vector2(ShoreLaunchX, PrototypeCampUse.PlayerFloorY);
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return GetCampModuleSlotPosition(CampModuleArchetype.Upper);
                 case PrototypeCampInteractionTargetKind.ModuleConnector:

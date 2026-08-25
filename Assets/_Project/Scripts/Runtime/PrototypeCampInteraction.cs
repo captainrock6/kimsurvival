@@ -17,7 +17,8 @@ namespace KimSurvival
         ModuleExpansionSlot,
         ModuleConnector,
         SmokeBeacon,
-        RadioBench
+        RadioBench,
+        ShoreLaunch
     }
 
     public enum PrototypeCampInteractionAction
@@ -37,7 +38,8 @@ namespace KimSurvival
         OpenEndingAlbum,
         PreviewModule,
         ProgressSmokeEscape,
-        ProgressRadioEscape
+        ProgressRadioEscape,
+        ProgressRaftEscape
     }
 
     public interface IPrototypeCampInteractionTarget
@@ -96,6 +98,8 @@ namespace KimSurvival
                     return action == PrototypeCampInteractionAction.ProgressSmokeEscape;
                 case PrototypeCampInteractionTargetKind.RadioBench:
                     return action == PrototypeCampInteractionAction.ProgressRadioEscape;
+                case PrototypeCampInteractionTargetKind.ShoreLaunch:
+                    return action == PrototypeCampInteractionAction.ProgressRaftEscape;
                 case PrototypeCampInteractionTargetKind.Campfire:
                     return action == PrototypeCampInteractionAction.BuildOrRelocate ||
                            action == PrototypeCampInteractionAction.Eat ||
