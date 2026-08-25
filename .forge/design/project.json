@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-25T16:20:57.895Z",
+    "updatedAt": "2026-08-25T17:29:45.040Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -5041,6 +5041,1070 @@
         "Do not fabricate first-user or physical-gamepad results.",
         "Do not use automated timing to close human comprehension or fun gates.",
         "Steam App ID, store title and official English title remain outside this game-jam gate and TBD."
+      ]
+    },
+    "gameJamWaveBCContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.wave-bc.catalog-disease-parts.v1",
+      "sourceBaseline": "00e0d5a9df597ab4a9f54bff665291f367d40c92",
+      "humanDocument": "Docs/Design/gamejam-wave-bc-design.md",
+      "machinePacket": ".forge/packets/gamejam-wave-bc-design.json",
+      "validationSchema": ".forge/packets/gamejam-wave-bc-design.schema.json",
+      "balanceStatus": "BALANCE_PROVISIONAL",
+      "finalPromotionGate": "HUMAN_NATURAL_25_35_MINUTE_PLAYTEST_REQUIRED",
+      "liveBaseline": {
+        "regionCount": 7,
+        "nodeCount": 28,
+        "searchNodeGreen": "15/15",
+        "wave19Green": "21/21",
+        "wave20Green": "16/16",
+        "evidence": "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+      },
+      "targetCatalog": {
+        "regionCount": 7,
+        "archetypeCount": 21,
+        "instanceCount": 42,
+        "existingInstanceCount": 28,
+        "newInstanceCount": 14,
+        "finiteGeneralResourceUnits": 144,
+        "instancesPerRegion": 6,
+        "archetypesPerRegion": 3,
+        "instancesPerArchetype": 2
+      },
+      "stableIdContract": {
+        "regionPattern": "region.{domain}.{slug}",
+        "archetypePattern": "node.archetype.{region-slug}.{economic-role}",
+        "instancePattern": "node.{region-with-dots}.{visual-kind}.{ordinal02}",
+        "existingInstanceRule": "All 28 live node IDs remain canonical and unchanged.",
+        "newInstanceRule": "Add exactly two ordinal-02 IDs per region; never rename an existing ID.",
+        "archetypeSeparationRule": "Archetype is an economic and hazard role; visual kind is an independent placeholder carrier.",
+        "resourceRule": "Store stable resource IDs in loot, bag and snapshots. Never reorder legacy ResourceKind ordinals Wood=0, Stone=1, Food=2, Salvage=3.",
+        "snapshotMigrationRule": "If an old snapshot lacks StableResourceId, map the legacy enum once; new writes use stable IDs and preserve known remainder and depletion."
+      },
+      "finiteResourceTotals": {
+        "resource.wood": 22,
+        "resource.salvage": 18,
+        "resource.food": 12,
+        "resource.fabric": 6,
+        "resource.fiber": 10,
+        "resource.medicine": 6,
+        "resource.stone": 18,
+        "resource.metal": 14,
+        "resource.wire": 12,
+        "resource.fuel": 8,
+        "resource.chemicals": 6,
+        "resource.electronics": 12,
+        "total": 144
+      },
+      "regions": [
+        {
+          "id": "region.coast.beach",
+          "finiteUnits": 18,
+          "archetypes": [
+            {
+              "id": "node.archetype.coast-beach.driftline",
+              "searchCostBand": "low",
+              "instances": [
+                {
+                  "id": "node.coast.beach.drift-pile.01",
+                  "origin": "existing",
+                  "visualKind": "DriftPile",
+                  "finiteYield": {
+                    "resource.salvage": 2,
+                    "resource.wood": 1
+                  }
+                },
+                {
+                  "id": "node.coast.beach.tree-hollow.01",
+                  "origin": "existing",
+                  "visualKind": "TreeHollow",
+                  "finiteYield": {
+                    "resource.salvage": 2,
+                    "resource.wood": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.coast-beach.tide-cache",
+              "searchCostBand": "low",
+              "instances": [
+                {
+                  "id": "node.coast.beach.grass-patch.01",
+                  "origin": "existing",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.food": 2,
+                    "resource.fabric": 1
+                  }
+                },
+                {
+                  "id": "node.coast.beach.grass-patch.02",
+                  "origin": "new",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.food": 2,
+                    "resource.fabric": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.coast-beach.storm-wrack",
+              "searchCostBand": "medium",
+              "instances": [
+                {
+                  "id": "node.coast.beach.rock-crevice.01",
+                  "origin": "existing",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.wood": 2,
+                    "resource.salvage": 1
+                  }
+                },
+                {
+                  "id": "node.coast.beach.rock-crevice.02",
+                  "origin": "new",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.wood": 2,
+                    "resource.salvage": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.sea.shallows",
+          "finiteUnits": 18,
+          "archetypes": [
+            {
+              "id": "node.archetype.sea-shallows.reef-pocket",
+              "searchCostBand": "medium",
+              "instances": [
+                {
+                  "id": "node.sea.shallows.rock-crevice.01",
+                  "origin": "existing",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.food": 2,
+                    "resource.stone": 1
+                  }
+                },
+                {
+                  "id": "node.sea.shallows.grass-patch.01",
+                  "origin": "existing",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.food": 2,
+                    "resource.stone": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.sea-shallows.submerged-crate",
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.radio.transceiver"
+              ],
+              "instances": [
+                {
+                  "id": "node.sea.shallows.drift-pile.01",
+                  "origin": "existing",
+                  "visualKind": "DriftPile",
+                  "finiteYield": {
+                    "resource.salvage": 2,
+                    "resource.metal": 1
+                  }
+                },
+                {
+                  "id": "node.sea.shallows.drift-pile.02",
+                  "origin": "new",
+                  "visualKind": "DriftPile",
+                  "finiteYield": {
+                    "resource.salvage": 2,
+                    "resource.metal": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.sea-shallows.wreck-scatter",
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.circuit-board"
+              ],
+              "instances": [
+                {
+                  "id": "node.sea.shallows.wreck-locker.01",
+                  "origin": "existing",
+                  "visualKind": "WreckLocker",
+                  "finiteYield": {
+                    "resource.wire": 2,
+                    "resource.salvage": 1
+                  }
+                },
+                {
+                  "id": "node.sea.shallows.wreck-locker.02",
+                  "origin": "new",
+                  "visualKind": "WreckLocker",
+                  "finiteYield": {
+                    "resource.wire": 2,
+                    "resource.salvage": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.forest.grove",
+          "finiteUnits": 22,
+          "archetypes": [
+            {
+              "id": "node.archetype.forest-grove.deadfall",
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.smoke.flint"
+              ],
+              "diseaseExposureId": "hazard-profile.disease.jungle-fever",
+              "instances": [
+                {
+                  "id": "node.forest.grove.tree-hollow.01",
+                  "origin": "existing",
+                  "visualKind": "TreeHollow",
+                  "diseaseExposurePoints": 1,
+                  "finiteYield": {
+                    "resource.wood": 4
+                  }
+                },
+                {
+                  "id": "node.forest.grove.drift-pile.01",
+                  "origin": "existing",
+                  "visualKind": "DriftPile",
+                  "diseaseExposurePoints": 1,
+                  "finiteYield": {
+                    "resource.wood": 4
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.forest-grove.forage-patch",
+              "searchCostBand": "low",
+              "instances": [
+                {
+                  "id": "node.forest.grove.grass-patch.01",
+                  "origin": "existing",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.food": 2,
+                    "resource.medicine": 1
+                  }
+                },
+                {
+                  "id": "node.forest.grove.grass-patch.02",
+                  "origin": "new",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.food": 2,
+                    "resource.medicine": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.forest-grove.vine-hollow",
+              "searchCostBand": "medium",
+              "instances": [
+                {
+                  "id": "node.forest.grove.rock-crevice.01",
+                  "origin": "existing",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.fiber": 3,
+                    "resource.wood": 1
+                  }
+                },
+                {
+                  "id": "node.forest.grove.rock-crevice.02",
+                  "origin": "new",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.fiber": 3,
+                    "resource.wood": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.ridge.highland",
+          "finiteUnits": 22,
+          "archetypes": [
+            {
+              "id": "node.archetype.ridge-highland.rockfall",
+              "searchCostBand": "high",
+              "instances": [
+                {
+                  "id": "node.ridge.highland.rock-crevice.01",
+                  "origin": "existing",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.stone": 4,
+                    "resource.metal": 1
+                  }
+                },
+                {
+                  "id": "node.ridge.highland.rock-crevice.02",
+                  "origin": "new",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.stone": 4,
+                    "resource.metal": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.ridge-highland.windfall",
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.smoke.flint"
+              ],
+              "instances": [
+                {
+                  "id": "node.ridge.highland.grass-patch.01",
+                  "origin": "existing",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.wood": 3,
+                    "resource.fiber": 1
+                  }
+                },
+                {
+                  "id": "node.ridge.highland.tree-hollow.01",
+                  "origin": "existing",
+                  "visualKind": "TreeHollow",
+                  "finiteYield": {
+                    "resource.wood": 3,
+                    "resource.fiber": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.ridge-highland.signal-overlook",
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.transistor"
+              ],
+              "instances": [
+                {
+                  "id": "node.ridge.highland.facility-cabinet.01",
+                  "origin": "existing",
+                  "visualKind": "FacilityCabinet",
+                  "finiteYield": {
+                    "resource.fuel": 1,
+                    "resource.medicine": 1
+                  }
+                },
+                {
+                  "id": "node.ridge.highland.facility-cabinet.02",
+                  "origin": "new",
+                  "visualKind": "FacilityCabinet",
+                  "finiteYield": {
+                    "resource.fuel": 1,
+                    "resource.medicine": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.cave.island",
+          "finiteUnits": 18,
+          "archetypes": [
+            {
+              "id": "node.archetype.cave-island.mineral-seam",
+              "searchCostBand": "high",
+              "instances": [
+                {
+                  "id": "node.cave.island.rock-crevice.01",
+                  "origin": "existing",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.stone": 3,
+                    "resource.metal": 1
+                  }
+                },
+                {
+                  "id": "node.cave.island.rock-crevice.02",
+                  "origin": "new",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.stone": 3,
+                    "resource.metal": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.cave-island.dry-cache",
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.smoke.flint",
+                "part.radio.transistor"
+              ],
+              "instances": [
+                {
+                  "id": "node.cave.island.drift-pile.01",
+                  "origin": "existing",
+                  "visualKind": "DriftPile",
+                  "finiteYield": {
+                    "resource.chemicals": 2,
+                    "resource.fuel": 1
+                  }
+                },
+                {
+                  "id": "node.cave.island.facility-cabinet.01",
+                  "origin": "existing",
+                  "visualKind": "FacilityCabinet",
+                  "finiteYield": {
+                    "resource.chemicals": 2,
+                    "resource.fuel": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.cave-island.fungus-ledge",
+              "searchCostBand": "high",
+              "instances": [
+                {
+                  "id": "node.cave.island.tree-hollow.01",
+                  "origin": "existing",
+                  "visualKind": "TreeHollow",
+                  "finiteYield": {
+                    "resource.stone": 1,
+                    "resource.medicine": 1
+                  }
+                },
+                {
+                  "id": "node.cave.island.tree-hollow.02",
+                  "origin": "new",
+                  "visualKind": "TreeHollow",
+                  "finiteYield": {
+                    "resource.stone": 1,
+                    "resource.medicine": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.cove.wreck",
+          "finiteUnits": 22,
+          "archetypes": [
+            {
+              "id": "node.archetype.cove-wreck.cargo-locker",
+              "searchCostBand": "medium",
+              "instances": [
+                {
+                  "id": "node.cove.wreck.wreck-locker.01",
+                  "origin": "existing",
+                  "visualKind": "WreckLocker",
+                  "finiteYield": {
+                    "resource.salvage": 3,
+                    "resource.metal": 2
+                  }
+                },
+                {
+                  "id": "node.cove.wreck.drift-pile.01",
+                  "origin": "existing",
+                  "visualKind": "DriftPile",
+                  "finiteYield": {
+                    "resource.salvage": 3,
+                    "resource.metal": 2
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.cove-wreck.rigging-locker",
+              "searchCostBand": "medium",
+              "instances": [
+                {
+                  "id": "node.cove.wreck.grass-patch.01",
+                  "origin": "existing",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.fabric": 2,
+                    "resource.fiber": 1
+                  }
+                },
+                {
+                  "id": "node.cove.wreck.grass-patch.02",
+                  "origin": "new",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.fabric": 2,
+                    "resource.fiber": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.cove-wreck.engine-bay",
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.transceiver",
+                "part.radio.circuit-board"
+              ],
+              "instances": [
+                {
+                  "id": "node.cove.wreck.rock-crevice.01",
+                  "origin": "existing",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.electronics": 2,
+                    "resource.chemicals": 1
+                  }
+                },
+                {
+                  "id": "node.cove.wreck.rock-crevice.02",
+                  "origin": "new",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.electronics": 2,
+                    "resource.chemicals": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.ruins.relay",
+          "finiteUnits": 24,
+          "archetypes": [
+            {
+              "id": "node.archetype.ruins-relay.control-cabinet",
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.circuit-board"
+              ],
+              "instances": [
+                {
+                  "id": "node.ruins.relay.facility-cabinet.01",
+                  "origin": "existing",
+                  "visualKind": "FacilityCabinet",
+                  "finiteYield": {
+                    "resource.electronics": 3,
+                    "resource.wire": 1
+                  }
+                },
+                {
+                  "id": "node.ruins.relay.facility-cabinet.02",
+                  "origin": "existing",
+                  "visualKind": "FacilityCabinet",
+                  "finiteYield": {
+                    "resource.electronics": 3,
+                    "resource.wire": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.ruins-relay.cable-duct",
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.transistor"
+              ],
+              "instances": [
+                {
+                  "id": "node.ruins.relay.rock-crevice.01",
+                  "origin": "existing",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.wire": 3,
+                    "resource.metal": 1
+                  }
+                },
+                {
+                  "id": "node.ruins.relay.rock-crevice.02",
+                  "origin": "new",
+                  "visualKind": "RockCrevice",
+                  "finiteYield": {
+                    "resource.wire": 3,
+                    "resource.metal": 1
+                  }
+                }
+              ]
+            },
+            {
+              "id": "node.archetype.ruins-relay.generator-room",
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.transceiver"
+              ],
+              "instances": [
+                {
+                  "id": "node.ruins.relay.grass-patch.01",
+                  "origin": "existing",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.fuel": 2,
+                    "resource.metal": 1,
+                    "resource.electronics": 1
+                  }
+                },
+                {
+                  "id": "node.ruins.relay.grass-patch.02",
+                  "origin": "new",
+                  "visualKind": "GrassPatch",
+                  "finiteYield": {
+                    "resource.fuel": 2,
+                    "resource.metal": 1,
+                    "resource.electronics": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "diseaseContract": {
+        "familyId": "hazard.disease",
+        "conditionId": "hazard-profile.disease.jungle-fever",
+        "regionId": "region.forest.grove",
+        "hazardBudgetCost": 2,
+        "major": false,
+        "recoveryReserve": 1,
+        "exposureThreshold": 2,
+        "exposureNodeIds": [
+          "node.forest.grove.tree-hollow.01",
+          "node.forest.grove.drift-pile.01"
+        ],
+        "medicineSourceNodeIds": [
+          "node.forest.grove.grass-patch.01",
+          "node.forest.grove.grass-patch.02"
+        ],
+        "stages": [
+          {
+            "id": "disease.stage.clear",
+            "trigger": "new run or completed recovery",
+            "healthDelta": 0,
+            "medicineDelta": 0
+          },
+          {
+            "id": "disease.stage.telegraphed",
+            "trigger": "forest map selection or deadfall proximity",
+            "healthDelta": 0,
+            "medicineDelta": 0
+          },
+          {
+            "id": "disease.stage.exposed",
+            "trigger": "second unique deadfall search commit",
+            "healthDelta": 0,
+            "medicineDelta": 0
+          },
+          {
+            "id": "disease.stage.symptomatic",
+            "trigger": "first camp entry after exposure",
+            "healthDelta": -10,
+            "medicineDelta": 0
+          },
+          {
+            "id": "disease.stage.aggravated",
+            "trigger": "next untreated day settlement and each later untreated settlement",
+            "healthDelta": -15,
+            "medicineDelta": 0
+          },
+          {
+            "id": "disease.stage.recovering",
+            "trigger": "atomic camp treatment",
+            "healthDelta": 0,
+            "medicineDelta": -1
+          },
+          {
+            "id": "disease.stage.cleared",
+            "trigger": "next settlement without new exposure",
+            "healthDelta": 5,
+            "medicineDelta": 0
+          }
+        ],
+        "partialExposureDecayRule": "One exposure point returns to zero at the next settlement if the threshold was not reached.",
+        "atomicityRule": "Validate stage, camp phase and medicine before mutating; commit medicine, stage and one log together. Rejection, cancel and duplicate transaction have zero delta.",
+        "idempotencyKey": "disease.tx.{runSeed}.{conditionId}.{stageId}.{day}",
+        "snapshotFields": [
+          "conditionId",
+          "stageId",
+          "uniqueExposureNodeIds",
+          "lastTransitionDay",
+          "treatmentCommitted",
+          "newExposureSinceTreatment",
+          "lastResultCode"
+        ],
+        "failureResultCode": "failure.disease.jungle-fever",
+        "naturalProbe": {
+          "runSeed": 15000501,
+          "grant": false,
+          "warp": false,
+          "skip": false,
+          "path": [
+            "forest forage-patch search and take medicine",
+            "forest deadfall unique search one",
+            "forest deadfall unique search two",
+            "return to camp",
+            "symptom",
+            "snapshot treatment and untreated branches"
+          ]
+        },
+        "localizationKeys": [
+          "hazard-profile.disease.jungle-fever.name",
+          "hazard-profile.disease.jungle-fever.telegraph",
+          "hazard-profile.disease.jungle-fever.exposed",
+          "hazard-profile.disease.jungle-fever.symptomatic",
+          "hazard-profile.disease.jungle-fever.aggravated",
+          "hazard-profile.disease.jungle-fever.treatment",
+          "hazard-profile.disease.jungle-fever.recovering",
+          "hazard-profile.disease.jungle-fever.cleared",
+          "failure.disease.jungle-fever"
+        ]
+      },
+      "protectedPartContract": {
+        "assignmentHash": "Hash64(runSeed, contractRevision, partId, passIndex, 'protected-part')",
+        "assignmentPasses": 16,
+        "maxInitialProtectedPartsPerNode": 1,
+        "radioDistinctRegionRule": true,
+        "protectedInventoryRule": "Protected parts bypass bag stacks and cannot be discarded, replaced, stolen or deleted by generic camp damage.",
+        "parts": [
+          {
+            "id": "part.smoke.flint",
+            "primaryRegionId": "region.cave.island",
+            "alternativeRegionIds": [
+              "region.ridge.highland",
+              "region.forest.grove"
+            ],
+            "eligibleNodeIds": [
+              "node.cave.island.drift-pile.01",
+              "node.cave.island.facility-cabinet.01",
+              "node.ridge.highland.grass-patch.01",
+              "node.ridge.highland.tree-hollow.01",
+              "node.forest.grove.tree-hollow.01",
+              "node.forest.grove.drift-pile.01"
+            ]
+          },
+          {
+            "id": "part.radio.transceiver",
+            "primaryRegionId": "region.cove.wreck",
+            "alternativeRegionIds": [
+              "region.sea.shallows",
+              "region.ruins.relay"
+            ],
+            "eligibleNodeIds": [
+              "node.cove.wreck.rock-crevice.01",
+              "node.cove.wreck.rock-crevice.02",
+              "node.sea.shallows.drift-pile.01",
+              "node.sea.shallows.drift-pile.02",
+              "node.ruins.relay.grass-patch.01",
+              "node.ruins.relay.grass-patch.02"
+            ]
+          },
+          {
+            "id": "part.radio.circuit-board",
+            "primaryRegionId": "region.ruins.relay",
+            "alternativeRegionIds": [
+              "region.cove.wreck",
+              "region.sea.shallows"
+            ],
+            "eligibleNodeIds": [
+              "node.ruins.relay.facility-cabinet.01",
+              "node.ruins.relay.facility-cabinet.02",
+              "node.cove.wreck.rock-crevice.01",
+              "node.cove.wreck.rock-crevice.02",
+              "node.sea.shallows.wreck-locker.01",
+              "node.sea.shallows.wreck-locker.02"
+            ]
+          },
+          {
+            "id": "part.radio.transistor",
+            "primaryRegionId": "region.ridge.highland",
+            "alternativeRegionIds": [
+              "region.cave.island",
+              "region.ruins.relay"
+            ],
+            "eligibleNodeIds": [
+              "node.ridge.highland.facility-cabinet.01",
+              "node.ridge.highland.facility-cabinet.02",
+              "node.cave.island.drift-pile.01",
+              "node.cave.island.facility-cabinet.01",
+              "node.ruins.relay.rock-crevice.01",
+              "node.ruins.relay.rock-crevice.02"
+            ]
+          }
+        ],
+        "pity": {
+          "hintAfterEligibleMisses": 3,
+          "guaranteeAfterEligibleMisses": 5,
+          "guaranteeTarget": "next eligible uncommitted node result",
+          "countOncePerNode": true,
+          "ignored": [
+            "cancel",
+            "cost-rejected",
+            "unrelated-node",
+            "depleted-reopen",
+            "already-owned"
+          ],
+          "neverOverwrite": [
+            "known general loot",
+            "another protected part"
+          ],
+          "radioGuaranteeRule": "The guarantee candidate region must differ from regions of already acquired radio parts.",
+          "snapshotFields": [
+            "partId",
+            "assignedNodeId",
+            "eligibleMissCount",
+            "countedNodeIds",
+            "hintRevealed",
+            "guaranteeArmed",
+            "acquired",
+            "sourceNodeId",
+            "repairState"
+          ]
+        },
+        "seedAudit": {
+          "profileId": "GAMEJAM_25_35",
+          "requiredPlayableEscapeIds": [
+            "escape.raft",
+            "escape.smoke",
+            "escape.radio"
+          ],
+          "minimumCompletable": 3,
+          "checkpoints": [
+            "new-run-generation",
+            "expansion-region-unlock"
+          ],
+          "feasibilityMode": "independent branch from the same pre-spend snapshot",
+          "repairRule": "Repair only unrevealed protected-part assignments. Never reroll known loot, regenerate depleted nodes or refund a committed player choice."
+        }
+      },
+      "pacingBudget": {
+        "coreLoop": {
+          "targetMinutesMin": 5,
+          "targetMinutesMax": 10,
+          "nodesCompletedMin": 2,
+          "generalUnitsRevealedMin": 6,
+          "generalUnitsRevealedMax": 10,
+          "returnCount": 1,
+          "investmentCount": 1,
+          "bagFixtureNodeIds": [
+            "node.forest.grove.rock-crevice.01",
+            "node.forest.grove.grass-patch.01"
+          ],
+          "bagFixtureUnits": 7,
+          "bagFixtureStackCountAtCapTwo": 5
+        },
+        "representativeSmoke": {
+          "targetMinutesMin": 25,
+          "targetMinutesMax": 35,
+          "expeditionsMin": 4,
+          "expeditionsMax": 6,
+          "searchesMin": 10,
+          "searchesMax": 14,
+          "uniqueRegionsMin": 2,
+          "generalUnitsMovedMin": 22,
+          "generalUnitsMovedMax": 30,
+          "cost": {
+            "resource.wood": 12,
+            "resource.fiber": 2,
+            "resource.fuel": 2
+          },
+          "protectedPartIds": [
+            "part.smoke.flint"
+          ]
+        },
+        "radioSample": {
+          "cost": {
+            "resource.electronics": 6,
+            "resource.wire": 6,
+            "resource.metal": 4
+          },
+          "protectedPartIds": [
+            "part.radio.transceiver",
+            "part.radio.circuit-board",
+            "part.radio.transistor"
+          ],
+          "status": "BALANCE_PROVISIONAL"
+        },
+        "diseaseTreatment": {
+          "resource.medicine": 1
+        },
+        "postSmokeReserve": {
+          "resource.wood": 10,
+          "resource.fiber": 8,
+          "resource.fuel": 6,
+          "resource.food": 12,
+          "resource.medicine": 6
+        },
+        "routeSafetyRule": "After representative smoke commit, one survival/recovery choice and raft plus radio remain independently completable.",
+        "nonIncreaseRule": "Adding 14 nodes increases choice, not required searches; keep the representative target at 10-14 searches."
+      },
+      "completionMatrixDelta": {
+        "waveAGreenEvidence": "GSN 15/15 at 00e0d5a",
+        "stillPartialRequirementIds": [
+          "gamejam.req.seven-regions",
+          "gamejam.req.disease-lifecycle",
+          "gamejam.req.escape-smoke",
+          "gamejam.req.escape-radio"
+        ],
+        "scaleRegressionRequirementIds": [
+          "gamejam.req.finite-revisit-persistence",
+          "gamejam.req.barrier-hazard-persistence"
+        ],
+        "rule": "Do not reinterpret 7x28 GREEN as 7x21x42x144 implementation proof."
+      },
+      "acceptanceMatrix": [
+        {
+          "id": "GWB-CAT-01",
+          "ownerTaskId": "task.gamejam.seven-region-catalog",
+          "probe": "catalog.exact-counts",
+          "acceptance": "Exactly 7 regions, 21 archetypes, 42 instances and 144 finite general units."
+        },
+        {
+          "id": "GWB-CAT-02",
+          "ownerTaskId": "task.gamejam.seven-region-catalog",
+          "probe": "catalog.stable-id-preservation",
+          "acceptance": "All 28 live node IDs remain, exactly 14 are new, and region/archetype/node duplicate counts are zero."
+        },
+        {
+          "id": "GWB-CAT-03",
+          "ownerTaskId": "task.gamejam.seven-region-catalog",
+          "probe": "catalog.resource-ledger",
+          "acceptance": "Twelve stable resource totals and every instance-to-archetype-to-region-to-global sum match 144."
+        },
+        {
+          "id": "GWB-CAT-04",
+          "ownerTaskId": "task.gamejam.seven-region-catalog",
+          "probe": "catalog.seed-and-snapshot",
+          "acceptance": "All 42 nodes repeat content for the same seed and restore remaining state; protected assignment varies across audited seeds."
+        },
+        {
+          "id": "GWB-DIS-01",
+          "ownerTaskId": "task.gamejam.insect-plant-wildlife-disease",
+          "probe": "disease.natural-telegraph-exposure",
+          "acceptance": "Natural forest path shows telegraph and reaches exposure through two unique deadfall commits without debug aid."
+        },
+        {
+          "id": "GWB-DIS-02",
+          "ownerTaskId": "task.gamejam.insect-plant-wildlife-disease",
+          "probe": "disease.symptom-aggravation",
+          "acceptance": "Symptom -10 and untreated settlement -15 apply once per declared stage transaction."
+        },
+        {
+          "id": "GWB-DIS-03",
+          "ownerTaskId": "task.gamejam.insect-plant-wildlife-disease",
+          "probe": "disease.treatment-atomicity",
+          "acceptance": "Medicine one, stage and log commit atomically; cancel and duplicate deltas are zero."
+        },
+        {
+          "id": "GWB-DIS-04",
+          "ownerTaskId": "task.gamejam.insect-plant-wildlife-disease",
+          "probe": "disease.snapshot-localization",
+          "acceptance": "Disease state restores and KO/EN meanings and qps-long required actions match."
+        },
+        {
+          "id": "GWB-PART-01",
+          "ownerTaskId": "task.gamejam.smoke-radio-material-routes",
+          "probe": "part.eligible-node-catalog",
+          "acceptance": "Each of four parts has six valid eligible nodes with zero dangling IDs."
+        },
+        {
+          "id": "GWB-PART-02",
+          "ownerTaskId": "task.gamejam.smoke-radio-material-routes",
+          "probe": "part.radio-distinct-placement",
+          "acceptance": "Radio parts occupy pairwise-distinct regions and initial node collisions are zero."
+        },
+        {
+          "id": "GWB-PITY-01",
+          "ownerTaskId": "task.gamejam.smoke-radio-material-routes",
+          "probe": "part.eligible-pity-3-5",
+          "acceptance": "Only unique eligible misses count; miss three hints, miss five arms and the next eligible result guarantees."
+        },
+        {
+          "id": "GWB-SEED-01",
+          "ownerTaskId": "task.gamejam.smoke-radio-material-routes",
+          "probe": "seed.minimum-three-playable",
+          "acceptance": "Raft, smoke and radio are independently completable at generation and region unlock."
+        },
+        {
+          "id": "GWB-PACE-01",
+          "ownerTaskId": "task.gamejam.qa-thirty-minute-seven-region-slice",
+          "probe": "pacing.gamejam-25-35",
+          "acceptance": "Representative target remains 10-14 searches with grant, warp and skip false."
+        },
+        {
+          "id": "GWB-PACE-02",
+          "ownerTaskId": "task.gamejam.qa-thirty-minute-seven-region-slice",
+          "probe": "pacing.post-smoke-reserve",
+          "acceptance": "After smoke commit, one survival choice and two other playable routes remain independently completable."
+        },
+        {
+          "id": "GWB-REG-01",
+          "ownerTaskId": "task.gamejam.qa-thirty-minute-seven-region-slice",
+          "probe": "regression.integrated-green-locks",
+          "acceptance": "GSN 15/15, Wave19 21/21, Wave20 16/16 and build/smoke locks remain green."
+        }
+      ],
+      "fileOwnership": [
+        {
+          "sequence": 1,
+          "taskId": "task.gamejam.seven-region-catalog",
+          "futurePaths": [
+            "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
+            "Assets/_Project/Scripts/Runtime/GameSession.cs"
+          ],
+          "scope": "42-node catalog, fixed finite yields and stable-resource adapter"
+        },
+        {
+          "sequence": 2,
+          "taskId": "task.gamejam.insect-plant-wildlife-disease",
+          "futurePaths": [
+            "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs",
+            "Assets/_Project/Scripts/Runtime/GameSession.cs"
+          ],
+          "scope": "jungle-fever condition transactions only"
+        },
+        {
+          "sequence": 3,
+          "taskId": "task.gamejam.smoke-radio-material-routes",
+          "futurePaths": [
+            "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
+            "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
+          ],
+          "scope": "eligible parts, protected inventory, pity and seed audit"
+        },
+        {
+          "sequence": 4,
+          "taskId": "task.gamejam.qa-thirty-minute-seven-region-slice",
+          "futurePaths": [
+            "Assets/Editor/ParallelQA",
+            "Artifacts/ParallelQA"
+          ],
+          "scope": "new red-first probes and fresh evidence only"
+        }
+      ],
+      "nonClaims": [
+        "This design branch does not modify runtime, scenes, localization tables, art status or QA runners.",
+        "The 144 units, disease deltas and smoke/radio costs remain BALANCE_PROVISIONAL.",
+        "The 7x28 GREEN evidence is preserved but does not prove the 42-node target.",
+        "Human 25-to-35-minute play and physical gamepad remain unverified."
       ]
     }
   },

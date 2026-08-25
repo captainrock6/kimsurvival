@@ -2621,13 +2621,15 @@
     {
       "id": "task.gamejam.seven-region-catalog",
       "lane": "implementation",
-      "title": "게임잼 7지역 카탈로그·지도 전환",
-      "description": "기존 6지역 캠페인 계약을 시작 해변, 밀림 숲, 맹그로브 얕은물, 바위 절벽, 섬 동굴, 난파선 만, 폐기상 관측소의 7지역 데이터와 지도 노드로 전환한다.",
+      "title": "게임잼 7지역 42-node 카탈로그 확장",
+      "description": "현재 GREEN의 7지역·28 stable node를 유지하고 신규 14개를 추가해 21 archetype·42 instance·12종 일반 자원 144단위와 stable-resource snapshot adapter를 구현한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.expedition-map",
-        "feature.resource-randomization"
+        "feature.resource-randomization",
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence"
       ],
       "assetIds": [
         "ui.expedition-map",
@@ -2636,17 +2638,26 @@
       "acceptanceCriteria": [
         "일곱 안정 region ID가 지도, 로드, 출발, 귀환과 상태 요약에서 동일하게 사용된다.",
         "각 지역은 위험도, 대표 위험, 유한 자원 범주, 필요 장비, 고갈·장벽 상태와 핵심 부품 단서를 색상 외 정보로 보여준다.",
-        "잠긴 지역도 지도에서 위치와 우선 해금 이유를 확인할 수 있다."
+        "잠긴 지역도 지도에서 위치와 우선 해금 이유를 확인할 수 있다.",
+        "GWB-CAT-01: 정확히 7지역·21 archetype·42 instance·일반 자원 144를 로드한다.",
+        "GWB-CAT-02: 현재 28 node ID를 모두 보존하고 신규 14개만 추가하며 stable ID 중복은 0이다.",
+        "GWB-CAT-03: 12 resource의 instance→archetype→region→global 합이 정본과 일치하고 기존 enum ordinal을 바꾸지 않는다.",
+        "GWB-CAT-04: 42 node 결정론과 hidden/partial/depleted·잔량 snapshot 회귀를 통과한다."
       ],
-      "paths": [],
+      "paths": [
+        "Docs/Design/gamejam-wave-bc-design.md",
+        "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
+        "Assets/_Project/Scripts/Runtime/GameSession.cs"
+      ],
       "evidence": [
-        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json"
+        "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json",
+        "Docs/Design/gamejam-wave-bc-design.md"
       ],
       "blockedReason": "",
-      "status": "done",
+      "status": "ready",
       "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated catalog exposed exactly seven stable regions with finite structured environmental nodes and deterministic contents.",
-      "completedAt": "2026-08-26T05:30:00.000Z"
+      "completedAt": null
     },
     {
       "id": "task.gamejam.persistent-region-runtime",
@@ -2682,16 +2693,18 @@
     {
       "id": "task.gamejam.smoke-radio-material-routes",
       "lane": "implementation",
-      "title": "게임잼 연기·무전 재료 수색 경로",
-      "description": "부싯돌과 막대한 나무가 필요한 대형 연기 신호, 서로 다른 세 지역의 망가진 무전기·전자기판·트랜지스터가 필요한 무전 구조를 완전 플레이 가능하게 만든다.",
+      "title": "게임잼 부싯돌·무전 3부품·pity·seed 감사",
+      "description": "42-node 카탈로그에 부싯돌과 무전기·전자기판·트랜지스터를 각각 6개 적격 node로 분산하고 보호 획득, radio distinct region, 3/5 pity와 raft/smoke/radio 최소 3경로 seed 감사를 구현한다.",
       "priority": "critical",
       "dependencies": [
-        "task.gamejam.persistent-region-runtime"
+        "task.gamejam.persistent-region-runtime",
+        "task.gamejam.seven-region-catalog"
       ],
       "featureIds": [
         "feature.escape-outcome",
         "feature.resource-randomization",
-        "feature.region-persistence"
+        "feature.region-persistence",
+        "feature.searchable-resource-nodes"
       ],
       "assetIds": [
         "icon.resource-tool-set",
@@ -2700,18 +2713,28 @@
       "acceptanceCriteria": [
         "세 무전 부품은 세 개의 서로 다른 지역에 배치되고 모두 회수하기 전 송신할 수 없다.",
         "부싯돌과 PROVISIONAL 대량 나무를 모두 투입하고 기상 창을 만족해야 연기 신호가 완료된다.",
-        "모든 seed에서 핵심 부품 보호, pity, 환급 또는 대체 경로로 최소 한 탈출법이 남는다."
+        "모든 seed에서 핵심 부품 보호, pity, 환급 또는 대체 경로로 최소 한 탈출법이 남는다.",
+        "GWB-PART-01: 네 부품 각각 정확한 eligible node 6개와 dangling ID 0을 확인한다.",
+        "GWB-PART-02: 무전 3부품의 region은 pairwise distinct이고 초기 node collision은 0이다.",
+        "GWB-PITY-01: unique eligible miss만 3 hint, 5 arm, 다음 eligible guarantee를 발생시킨다.",
+        "GWB-SEED-01: GAMEJAM_25_35 생성·해금 감사에서 raft/smoke/radio가 각각 독립 completable이다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/gamejam-wave-bc-design.md",
+        "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-wave-bc-design.md"
+      ],
       "blockedReason": "",
       "status": "planned"
     },
     {
       "id": "task.gamejam.insect-plant-wildlife-disease",
       "lane": "implementation",
-      "title": "게임잼 벌레·식물·야생동물·질병 위험",
-      "description": "지역 위험도와 벌레, 위험 식물, 야생동물, 질병 노출을 예고하고 회피·완화·치료 및 영구 제거 상태로 연결한다.",
+      "title": "게임잼 jungle-fever 질병 lifecycle",
+      "description": "기존 hazard.disease family 아래 jungle-fever 한 종류를 자연 forest 수색에서 예고·노출·증상·악화·원자 치료·회복으로 연결한다.",
       "priority": "critical",
       "dependencies": [
         "task.gamejam.seven-region-catalog",
@@ -2729,10 +2752,20 @@
       "acceptanceCriteria": [
         "벌레, 위험 식물과 야생동물은 서로 다른 시각·소리 예고와 준비·회피 수단을 가진다.",
         "질병은 노출, 잠복, 증상, 악화와 치료를 표시하고 무예고 즉사를 만들지 않는다.",
-        "영구 제거 위험과 일시 노출을 구분해 지역 snapshot과 일일 위험 예산에 정확히 반영한다."
+        "영구 제거 위험과 일시 노출을 구분해 지역 snapshot과 일일 위험 예산에 정확히 반영한다.",
+        "GWB-DIS-01: default seed 자연 forest 경로에서 예고와 두 unique deadfall exposure를 관찰한다.",
+        "GWB-DIS-02: symptom -10과 untreated settlement -15가 stage별 한 번만 적용된다.",
+        "GWB-DIS-03: medicine 1, stage와 로그가 원자 commit되고 cancel/duplicate delta는 0이다.",
+        "GWB-DIS-04: disease snapshot과 KO/EN/qps 상태·실패 원인이 동일 의미를 보존한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/gamejam-wave-bc-design.md",
+        "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs",
+        "Assets/_Project/Scripts/Runtime/GameSession.cs"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-wave-bc-design.md"
+      ],
       "blockedReason": "",
       "status": "planned"
     },
@@ -2767,8 +2800,8 @@
     {
       "id": "task.gamejam.qa-thirty-minute-seven-region-slice",
       "lane": "qa",
-      "title": "게임잼 30분 7지역 수직 슬라이스 검증",
-      "description": "fresh run에서 5~10분 핵심 루프 학습, 25~35분 연기 또는 무전 탈출, 지역 상태 재방문, 다층 캠프와 장기 체류 가속 fixture를 검증한다.",
+      "title": "게임잼 Wave B/C 42-node·30분 통합 검증",
+      "description": "42-node·144-unit schema, jungle-fever 자연/원자 경로, 보호 부품·3/5 pity·세 탈출 seed와 기존 25~35분 profile·통합 GREEN lock을 red-first로 검증한다.",
       "priority": "critical",
       "dependencies": [
         "task.gamejam.smoke-radio-material-routes",
@@ -2788,10 +2821,21 @@
       "acceptanceCriteria": [
         "첫 사용자는 10분 안에 캠프→지도→수색→귀환→투자 루프를 완주한다.",
         "fresh run의 70퍼센트 이상이 25~35분 안에 대표 탈출에 도달하고 진행 불가능 seed가 없다.",
-        "ko/en 1280x800과 키보드·게임패드에서 7지역 지도, 질병 HUD, 3층 캠프와 엔딩 근거가 플레이 공간을 가리지 않는다."
+        "ko/en 1280x800과 키보드·게임패드에서 7지역 지도, 질병 HUD, 3층 캠프와 엔딩 근거가 플레이 공간을 가리지 않는다.",
+        "GWB-CAT-01~04와 GWB-DIS-01~04, GWB-PART-01~02, GWB-PITY-01, GWB-SEED-01이 fresh evidence에서 GREEN이다.",
+        "GWB-PACE-01: 10~14 자연 수색 목표를 늘리지 않고 grant/warp/skip은 false다.",
+        "GWB-PACE-02: smoke 비용 뒤 생존 선택과 다른 두 playable escape가 독립 가능하다.",
+        "GWB-REG-01: GSN 15/15, Wave19 21/21, Wave20 16/16, compile/build/smoke lock을 보존한다.",
+        "인간 25~35분과 물리 gamepad는 실제 수행 전 UNVERIFIED다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/gamejam-wave-bc-design.md",
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-wave-bc-design.md"
+      ],
       "blockedReason": "",
       "status": "planned"
     },
