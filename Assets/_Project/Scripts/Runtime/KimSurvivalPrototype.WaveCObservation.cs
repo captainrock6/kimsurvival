@@ -76,7 +76,9 @@ namespace KimSurvival
 
                 PrototypeSearchNodeDefinition[] easyNodes = PrototypeSearchRegionCatalog.Nodes
                     .Where(value => !value.RequiresSwimming &&
-                                    (value.RegionId == "region.coast.beach" || value.RegionId == "region.forest.grove") &&
+                                    (value.RegionId == "region.coast.beach" ||
+                                     value.RegionId == "region.forest.grove" ||
+                                     value.RegionId == "region.sea.shallows") &&
                                     value.FiniteYield.Any(item => item.Resource == ResourceKind.Wood ||
                                                                   item.Resource == ResourceKind.Stone ||
                                                                   item.Resource == ResourceKind.Salvage ||

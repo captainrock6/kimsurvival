@@ -1075,6 +1075,26 @@ namespace KimSurvival
         public bool SelectedPresentationAssetsConnected { get { return presentationAssets != null && presentationAssets.IsSelectedOnlyComplete; } }
         public IReadOnlyList<PrototypeCampaignEventRecord> CampaignEvents { get { return campaignEvents; } }
         internal bool MatchesRunSeed(int runSeed) { return session != null && session.RunSeed == runSeed; }
+
+        public PrototypeWaveCAtomicSnapshot CaptureWaveCFailCancelWaitRetryEndingAlbumSnapshot()
+        {
+            PrototypeEscapeProjectSaveSnapshot projectSnapshot = escapeDirector.CaptureSnapshot();
+            return new PrototypeWaveCAtomicSnapshot
+            {
+                Projects = projectSnapshot.Projects,
+                FailedResultCount = projectSnapshot.Projects.Count(value =>
+                    value.LastResultCode.IndexOf("fail", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    value.LastResultCode.IndexOf("requirement", StringComparison.OrdinalIgnoreCase) >= 0),
+                WaitResultCount = projectSnapshot.Projects.Count(value =>
+                    value.LastResultCode.IndexOf("wait", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    value.LastResultCode.IndexOf("window.closed", StringComparison.OrdinalIgnoreCase) >= 0),
+                RetryResultCount = projectSnapshot.Projects.Count(value =>
+                    value.LastResultCode.IndexOf("retry", StringComparison.OrdinalIgnoreCase) >= 0),
+                EndingCommitCount = terminalEndingCommitCount,
+                EndingAlbumRecordCount = terminalAlbumRecordCount
+            };
+        }
+
         public bool IsRaftShoreLaunchDiscovered
         {
             get

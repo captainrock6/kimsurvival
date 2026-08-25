@@ -753,6 +753,7 @@ namespace ParallelQA
 
         private static void CopyObservation(object observed, PlayEvidence evidence)
         {
+            evidence.observationError = ReadString(observed, "ObservationError", "Error", "FailureReason");
             evidence.evidenceSource = ReadString(observed, "EvidenceSource", "Source", "ObservationSource");
             evidence.protectedPartIds = ReadStrings(observed, "ProtectedPartIds", "OwnedProtectedPartIds");
             evidence.protectedAssignmentPairs = ReadStrings(observed, "ProtectedAssignmentPairs", "AssignmentPairs");

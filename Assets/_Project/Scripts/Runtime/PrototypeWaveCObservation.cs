@@ -76,6 +76,17 @@ namespace KimSurvival
         public string HumanGateStatus = "HUMAN_REQUIRED";
     }
 
+    [Serializable]
+    public sealed class PrototypeWaveCAtomicSnapshot
+    {
+        public PrototypeEscapeProjectState[] Projects = Array.Empty<PrototypeEscapeProjectState>();
+        public int FailedResultCount;
+        public int WaitResultCount;
+        public int RetryResultCount;
+        public int EndingCommitCount;
+        public int EndingAlbumRecordCount;
+    }
+
     internal sealed class PrototypeWaveCTransactionState
     {
         public string Fingerprint = string.Empty;
