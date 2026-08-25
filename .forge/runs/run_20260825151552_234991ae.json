@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260825151552_234991ae",
+  "createdAt": "2026-08-25T15:15:52.430Z",
+  "updatedAt": "2026-08-25T15:15:52.430Z",
+  "sourceRequest": "7지역 환경 수색 node·유한 자원·위험·핵심 부품 계약을 최신 정본으로 구체화하고 모든 수치를 BALANCE_PROVISIONAL로 유지한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-25T15:15:52.430Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T15:15:52.430Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T15:15:52.430Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T15:15:52.430Z"
+    }
+  }
+}

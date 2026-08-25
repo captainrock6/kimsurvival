@@ -2972,6 +2972,37 @@
       "updatedAt": "2026-08-25T14:59:52.657Z"
     },
     {
+      "id": "task.design.gamejam-seven-region-search-node-contract",
+      "lane": "design",
+      "title": "게임잼 7지역 수색 node·유한 자원 계약",
+      "description": "기존 7지역과 5탈출 안정 ID를 보존하면서 21 archetype·42 node, 유한 자원 총량, 지역 위험 조합, 재방문 snapshot, 보호 핵심 부품과 3/5 pity·최소 3경로 seed 감사를 구현 가능한 정본으로 고정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.expedition-map",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "Docs/Design/gamejam-seven-region-search-node-contract.md와 project.sevenRegionSearchNodeContract가 같은 7/21/42/144 카탈로그를 사용한다.",
+        "미확인·부분 잔류·고갈·부순 장벽·제거 위험과 발견물 선별 transaction이 stable ID·snapshot 필드로 정의된다.",
+        "돛천·부싯돌·무전 3부품·조명탄·generator coil의 분산, eligible-search 3/5 pity와 seed당 최소 3탈출 경로 감사가 정의된다.",
+        "5~10분·25~35분 수치와 모든 node 총량은 BALANCE_PROVISIONAL이며 인간 자연 플레이테스트 전 final로 승격되지 않는다.",
+        "KO 정본·EN·qps-long·향후 언어 토큰과 구현/QA acceptance matrix가 안정 키로 존재한다."
+      ],
+      "paths": [],
+      "evidence": [
+        "Docs/Design/gamejam-seven-region-search-node-contract.md",
+        ".forge/packets/gamejam-seven-region-search-node-contract.json"
+      ],
+      "blockedReason": "",
+      "status": "done"
+    },
+    {
       "id": "task.art.background.island-camp",
       "lane": "art",
       "title": "무인도 베이스캠프 배경 제작",
@@ -4295,5 +4326,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-25T14:59:52.657Z"
+  "updatedAt": "2026-08-25T15:15:52.430Z"
 }
