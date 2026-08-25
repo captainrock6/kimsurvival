@@ -1994,7 +1994,7 @@ namespace KimSurvival
                     "facility.shore-launch",
                     PrototypeCampInteractionTargetKind.ShoreLaunch,
                     new Vector2(ShoreLaunchX, PrototypeCampUse.PlayerFloorY),
-                    true));
+                    hazardEscapeEndingRuntime.IsRaftShoreLaunchDiscovered));
                 IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
                 for (int i = 0; i < definitions.Count; i += 1)
                 {
