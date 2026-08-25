@@ -1,0 +1,113 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 12 five-day compact-a RED-first gate",
+    "runId":  "20260825T040000Z_09ae2a6_wave20_hardened",
+    "baselineCommit":  "09ae2a6d578eb4dcbf11b9c571f57f640b88d969",
+    "unityVersionExpected":  "6000.4.9f1",
+    "unityExecutable":  "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+    "startedUtc":  "2026-08-25T12:06:35.8251317Z",
+    "completedUtc":  "2026-08-25T12:08:31.2451790Z",
+    "executionPolicy":  "All Unity Editor/build and Windows Player processes ran outside the Codex sandbox; no -noUpm.",
+    "evidencePolicy":  "Fresh run ID only. A fresh Wave 3 visual report is generated before the asset/release contracts.",
+    "powershell":  {
+                       "schemaVersion":  1,
+                       "runId":  "20260825T040000Z_09ae2a6_wave20_hardened",
+                       "baselineCommit":  "09ae2a6d578eb4dcbf11b9c571f57f640b88d969",
+                       "observedUtc":  "2026-08-25T12:06:36.1271446Z",
+                       "entryPoint":  "Invoke-Wave12FiveDayUiGate.ps1",
+                       "mode":  "Full",
+                       "psEdition":  "Desktop",
+                       "psVersion":  "5.1.26100.9168",
+                       "preflightExitCode":  0,
+                       "preflightJsonUtf8NoBom":  true,
+                       "preflightTextUtf8NoBom":  true,
+                       "evidenceFormat":  "UTF-8 without BOM; existing Wave 5 JSON/TXT names and schemas preserved",
+                       "overall":  "PASS"
+                   },
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u002709ae2a6d578eb4dcbf11b9c571f57f640b88d969\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "preflight",
+                       "executeMethod":  "Capture-Wave5Preflight.ps1",
+                       "startedUtc":  "2026-08-25T12:06:35.8251317Z",
+                       "completedUtc":  "2026-08-25T12:06:36.1099092Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\wave5-preflight.txt",
+                       "command":  "Capture-Wave5Preflight.ps1 -RunId \u002720260825T040000Z_09ae2a6_wave20_hardened\u0027 -BaselineCommit \u002709ae2a6d578eb4dcbf11b9c571f57f640b88d969\u0027",
+                       "output":  "PREFLIGHT=PASS | CANONICAL_ADDRESSABLES_LINK=ABSENT | EVIDENCE=C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\wave5-preflight.json"
+                   },
+                   {
+                       "name":  "compile",
+                       "executeMethod":  "ParallelQA.ParallelQaRunner.RecordCompilePass",
+                       "startedUtc":  "2026-08-25T12:06:36.1452783Z",
+                       "completedUtc":  "2026-08-25T12:06:50.2240712Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-compile.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-compile.log\""
+                   },
+                   {
+                       "name":  "wave11-slot-edit",
+                       "executeMethod":  "ParallelQA.Wave11SlotDiscoveryGateRunner.RunEditContracts",
+                       "startedUtc":  "2026-08-25T12:06:50.2240712Z",
+                       "completedUtc":  "2026-08-25T12:06:58.3117552Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave11-edit.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave11SlotDiscoveryGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave11-edit.log\""
+                   },
+                   {
+                       "name":  "wave11-slot-play",
+                       "executeMethod":  "ParallelQA.Wave11SlotDiscoveryGateRunner.RunPlayContracts",
+                       "startedUtc":  "2026-08-25T12:06:58.3117552Z",
+                       "completedUtc":  "2026-08-25T12:07:30.5128839Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave11-play.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave11SlotDiscoveryGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave11-play.log\""
+                   },
+                   {
+                       "name":  "wave12-five-day-ui-edit",
+                       "executeMethod":  "ParallelQA.Wave12FiveDayCompactUiGateRunner.RunEditContracts",
+                       "startedUtc":  "2026-08-25T12:07:30.5128839Z",
+                       "completedUtc":  "2026-08-25T12:07:39.5466595Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave12-edit.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave12-edit.log\""
+                   },
+                   {
+                       "name":  "wave12-five-day-ui-play",
+                       "executeMethod":  "ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts",
+                       "startedUtc":  "2026-08-25T12:07:39.5470012Z",
+                       "completedUtc":  "2026-08-25T12:07:53.6405630Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave12-play.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave12-play.log\""
+                   },
+                   {
+                       "name":  "asset-release-contracts",
+                       "executeMethod":  "ParallelQA.Wave4AssetReleaseGate.RunAssetContracts",
+                       "startedUtc":  "2026-08-25T12:07:53.6405630Z",
+                       "completedUtc":  "2026-08-25T12:08:01.6884648Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-asset-contracts.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.RunAssetContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-asset-contracts.log\""
+                   },
+                   {
+                       "name":  "windows-development-build",
+                       "executeMethod":  "ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer",
+                       "startedUtc":  "2026-08-25T12:08:01.6884648Z",
+                       "completedUtc":  "2026-08-25T12:08:24.8450793Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-windows-build.log",
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave4AssetReleaseGate.BuildWindowsDevelopmentPlayer -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-windows-build.log\""
+                   },
+                   {
+                       "name":  "windows-hidden-smoke",
+                       "executeMethod":  "Invoke-Wave5WindowsSmoke.ps1",
+                       "startedUtc":  "2026-08-25T12:08:24.8450793Z",
+                       "completedUtc":  "2026-08-25T12:08:31.2451790Z",
+                       "exitCode":  0,
+                       "log":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\windows-player.log",
+                       "command":  "Invoke-Wave5WindowsSmoke.ps1 -RunId \u002720260825T040000Z_09ae2a6_wave20_hardened\u0027 -BaselineCommit \u002709ae2a6d578eb4dcbf11b9c571f57f640b88d969\u0027 -MinimumSeconds 6",
+                       "error":  ""
+                   }
+               ]
+}

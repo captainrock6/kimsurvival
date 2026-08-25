@@ -1,0 +1,46 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 14 qps-long global 1280x800 layout gate command result",
+    "runId":  "20260825T040000Z_09ae2a6_wave20_hardened",
+    "baselineCommit":  "09ae2a6d578eb4dcbf11b9c571f57f640b88d969",
+    "startedUtc":  "2026-08-25T12:06:35.5278849Z",
+    "completedUtc":  "2026-08-25T12:08:40.2176203Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "GREEN",
+    "productOverall":  "PASS",
+    "infrastructureOverall":  "PASS",
+    "infrastructureFailures":  [
+
+                               ],
+    "exactReportedBaselineReproduced":  false,
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "exitCode":  0,
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave14QpsGlobalLayoutGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u002709ae2a6d578eb4dcbf11b9c571f57f640b88d969\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave12-prerequisite-full-gate",
+                       "startedUtc":  "2026-08-25T12:06:35.5461527Z",
+                       "completedUtc":  "2026-08-25T12:08:32.1214153Z",
+                       "exitCode":  2,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1\" -RunId 20260825T040000Z_09ae2a6_wave20_hardened -BaselineCommit 09ae2a6d578eb4dcbf11b9c571f57f640b88d969 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\wave14-wave12-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\wave14-wave12-stderr.log"
+                   },
+                   {
+                       "name":  "wave14-qps-global-layout-contracts",
+                       "startedUtc":  "2026-08-25T12:08:32.1276793Z",
+                       "completedUtc":  "2026-08-25T12:08:40.1680946Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave14QpsGlobalLayoutGateRunner.RunEvidenceContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\unity-wave14-qps-global-layout.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\wave14-unity-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260825T040000Z_09ae2a6_wave20_hardened\\wave14-unity-stderr.log"
+                   }
+               ]
+}

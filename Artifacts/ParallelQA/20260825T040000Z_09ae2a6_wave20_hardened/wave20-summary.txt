@@ -1,0 +1,14 @@
+Wave 20 independent raft escape RED-first regression gate
+Run ID: 20260825T040000Z_09ae2a6_wave20_hardened
+Baseline: 09ae2a6d578eb4dcbf11b9c571f57f640b88d969
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+Wave 18 GREEN lock: 23/23
+Wave 19 GREEN lock: 21/21
+Wave 20 PASS/EXPECTED_GAP/FAIL: 2/14/0
+Expected gap IDs: W20-E02.playable_three_stage_transition, W20-E03.atomic_save_window_contract, W20-E04.ko_en_qps_localization_surface, W20-P01.shore_launch_proximity_popup, W20-P02.hull_sail_supplies_stages, W20-P03.weather_current_launch_window, W20-P04.failure_cancel_atomicity, W20-P05.duplicate_cost_terminal_zero, W20-P06.early_escape_priority, W20-P07.save_restore_progress, W20-P08.ending_album_unlock_once, W20-P09.natural_trace_no_cheats, W20-P10.ko_en_qps_1280_layout, W20-P11.keyboard_mouse_synthetic_gamepad_parity
+Unexpected failure IDs: 
+Compile/build/smoke/Addressables/firewall: PASS 0/0/PASS/PASS 6.275s/PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave20RaftRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '09ae2a6d578eb4dcbf11b9c571f57f640b88d969' -MinimumSmokeSeconds 6
+Exit code: 2 (0 GREEN, 2 product RED, 1 infrastructure FAIL)

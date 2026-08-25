@@ -1,0 +1,10 @@
+{
+    "schemaVersion":  1,
+    "runId":  "20260825T040000Z_09ae2a6_wave20_hardened",
+    "shellEdition":  "Desktop",
+    "shellVersion":  "5.1.26100.9168",
+    "summaryUtf8NoBom":  true,
+    "firewallUtf8NoBom":  true,
+    "rawPlayerLogQuarantined":  true,
+    "result":  "PASS"
+}
