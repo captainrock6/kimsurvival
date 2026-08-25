@@ -128,6 +128,8 @@ foreach ($definition in @(
 }
 
 $wave19Summary = Read-Json (Join-Path $evidenceRoot 'wave19-summary.json')
+$wave18Edit = Read-Json (Join-Path $evidenceRoot 'wave18-edit-contracts.json')
+$wave14Qps = Read-Json (Join-Path $evidenceRoot 'wave14-qps-global-layout-gate.json')
 $wave20Edit = Read-Json (Join-Path $evidenceRoot 'wave20-edit-contracts.json')
 $wave20Play = Read-Json (Join-Path $evidenceRoot 'wave20-play-contracts.json')
 $wave20Evidence = Read-Json (Join-Path $evidenceRoot 'wave20-play-observation-evidence.json')
@@ -138,18 +140,56 @@ $addressables = Read-Json (Join-Path $evidenceRoot 'addressables-link-post-smoke
 $compilePath = Join-Path $evidenceRoot 'compile-result.txt'
 $compileText = if (Test-Path -LiteralPath $compilePath -PathType Leaf) { Get-Content -LiteralPath $compilePath -Raw -Encoding UTF8 } else { '' }
 
+# Wave 20 intentionally supersedes two legacy locks: raft is no longer data-only,
+# and the oversized world badges removed by the camp-declutter hotfix no longer
+# belong to the current layout contract. Accept only those exact, inspectable
+# legacy deltas; every current Wave 19/Wave 20 and infrastructure check must pass.
+$wave18Failures = if ($null -eq $wave18Edit) { @() } else { @($wave18Edit.checks | Where-Object { [string]$_.status -eq 'FAIL' }) }
+$wave18RaftSuperseded = $wave18Failures.Count -eq 1 -and [string]$wave18Failures[0].id -eq 'W17-E03.raft_flare_beacon_data_only'
+$expectedSupersededQpsIds = @(
+    'W14-QPS-05.world_entrance',
+    'W14-QPS-06.world_required_path',
+    'W14-QPS-07.world_signal_anchor',
+    'W14-QPS-08.placement_status',
+    'W14-QPS-09.world_expansion_planning',
+    'W14-QPS-10.world_general_floor'
+)
+$actualSupersededQpsIds = if ($null -eq $wave14Qps) { @() } else {
+    @($wave14Qps.targets | Where-Object { [string]$_.status -ne 'PASS' } | ForEach-Object { [string]$_.id })
+}
+$legacyQpsSuperseded = $actualSupersededQpsIds.Count -eq $expectedSupersededQpsIds.Count -and
+    @($actualSupersededQpsIds | Where-Object { $expectedSupersededQpsIds -notcontains $_ }).Count -eq 0
+$allowedLegacyInfrastructureTokens = @(
+    'Wave 17 prerequisite exited',
+    'fresh Wave 17 prerequisite',
+    'current Wave 18 GREEN matrix',
+    'qps-long global layout lock'
+)
+$unexpectedWave19Infrastructure = if ($null -eq $wave19Summary) { @('missing Wave 19 summary') } else {
+    @($wave19Summary.infrastructureFailures | Where-Object {
+        $message = [string]$_
+        @($allowedLegacyInfrastructureTokens | Where-Object { $message -like "*$_*" }).Count -eq 0
+    })
+}
+$legacySupersessionAccepted = $wave18RaftSuperseded -and $legacyQpsSuperseded -and
+    $unexpectedWave19Infrastructure.Count -eq 0 -and $null -ne $wave19Summary -and
+    [int]$wave19Summary.wave19.passed -eq 21 -and [int]$wave19Summary.wave19.failed -eq 0
+
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
-if ([int]$wave19Stage.exitCode -ne 0) { $infrastructureFailures.Add("Wave 19 prerequisite exited $($wave19Stage.exitCode)") }
+if ([int]$wave19Stage.exitCode -ne 0 -and -not $legacySupersessionAccepted) { $infrastructureFailures.Add("Wave 19 prerequisite exited $($wave19Stage.exitCode)") }
 foreach ($stage in @($stages | Select-Object -Skip 1)) {
     if ([int]$stage.exitCode -ne 0) { $infrastructureFailures.Add("$($stage.name) exited $($stage.exitCode)") }
 }
-if ($null -eq $wave19Summary -or [string]$wave19Summary.overall -ne 'GREEN' -or
-    [string]$wave19Summary.productOverall -ne 'PASS' -or [string]$wave19Summary.infrastructureOverall -ne 'PASS') {
+if ($null -eq $wave19Summary -or
+    (([string]$wave19Summary.overall -ne 'GREEN' -or [string]$wave19Summary.productOverall -ne 'PASS' -or
+      [string]$wave19Summary.infrastructureOverall -ne 'PASS') -and -not $legacySupersessionAccepted)) {
     $infrastructureFailures.Add('fresh Wave 19 prerequisite is missing or not GREEN/PASS')
 }
 if ($null -eq $wave19Summary -or [int]$wave19Summary.wave18GreenLock.passed -ne 23 -or
     [int]$wave19Summary.wave18GreenLock.failed -ne 0) {
+    if (-not $legacySupersessionAccepted) {
     $infrastructureFailures.Add('Wave 18 GREEN lock is not exactly 23/23 PASS')
+    }
 }
 if ($null -eq $wave19Summary -or [int]$wave19Summary.wave19.passed -ne 21 -or
     [int]$wave19Summary.wave19.failed -ne 0) {
@@ -219,6 +259,12 @@ $summary = [ordered]@{
     productOverall = $productOverall
     infrastructureOverall = $infrastructureOverall
     wave18GreenLock = if ($null -eq $wave19Summary) { [ordered]@{ passed = 0; total = 23 } } else { $wave19Summary.wave18GreenLock }
+    legacySupersession = [ordered]@{
+        accepted = $legacySupersessionAccepted
+        raftDataOnlyLock = if ($wave18RaftSuperseded) { 'SUPERSEDED_BY_PLAYABLE_WAVE20' } else { 'NOT_SUPERSEDED' }
+        removedWorldBadgeLayoutLock = if ($legacyQpsSuperseded) { 'SUPERSEDED_BY_COMPACT_CONTEXT_UI' } else { 'NOT_SUPERSEDED' }
+        ids = @('W17-E03.raft_flare_beacon_data_only') + $actualSupersededQpsIds
+    }
     wave19GreenLock = if ($null -eq $wave19Summary) { [ordered]@{ passed = 0; total = 21 } } else { [ordered]@{ passed = [int]$wave19Summary.wave19.passed; total = 21; failed = [int]$wave19Summary.wave19.failed } }
     wave20 = [ordered]@{
         passed = $productPasses.Count
@@ -246,7 +292,7 @@ $summary = [ordered]@{
         'grant=false, warp=false, skip=false are observed on a real Play interaction trace',
         'ko/en/qps-long near/popup captures are 1280x800 with overflow/offscreen zero and prompt <=512x50',
         'keyboard/mouse and synthetic gamepad target/action semantics match',
-        'fresh Wave 19 21/21, Wave 18 23/23, compile/build/smoke/Addressables/firewall remain PASS'
+        'fresh Wave 19 21/21 plus current Wave 20 contracts pass; legacy raft-data-only and removed-world-badge locks are explicitly superseded; compile/build/smoke/Addressables/firewall remain PASS'
     )
     infrastructureFailures = $infrastructureFailureSnapshot
     physicalGamepad = 'UNVERIFIED'
@@ -264,7 +310,7 @@ $text = @(
     "Run ID: $RunId"
     "Baseline: $BaselineCommit"
     "Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall"
-    "Wave 18 GREEN lock: $($summary.wave18GreenLock.passed)/23"
+    "Wave 18 legacy lock: $($summary.wave18GreenLock.passed)/23 · superseded=$legacySupersessionAccepted"
     "Wave 19 GREEN lock: $($summary.wave19GreenLock.passed)/21"
     "Wave 20 PASS/EXPECTED_GAP/FAIL: $($productPasses.Count)/$($expectedGaps.Count)/$($productFailures.Count)"
     "Expected gap IDs: $([string]::Join(', ', $gapIds))"
@@ -292,7 +338,7 @@ if ($compatibility.result -ne 'PASS') { exit 1 }
 Write-Output "OVERALL=$overall"
 Write-Output "PRODUCT=$productOverall"
 Write-Output "INFRASTRUCTURE=$infrastructureOverall"
-Write-Output "WAVE18_GREEN=$($summary.wave18GreenLock.passed)/23"
+Write-Output "WAVE18_LEGACY=$($summary.wave18GreenLock.passed)/23;SUPERSEDED=$legacySupersessionAccepted"
 Write-Output "WAVE19_GREEN=$($summary.wave19GreenLock.passed)/21"
 Write-Output "WAVE20_PASS=$($productPasses.Count)"
 Write-Output "WAVE20_EXPECTED_GAP=$($expectedGaps.Count)"
