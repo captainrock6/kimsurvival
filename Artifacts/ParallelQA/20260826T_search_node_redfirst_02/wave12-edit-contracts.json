@@ -1,0 +1,52 @@
+{
+    "schemaVersion": 1,
+    "title": "Wave 12 five-day/compact-a Edit contracts",
+    "runId": "20260826T_search_node_redfirst_02",
+    "baselineCommit": "5248809018ce934fe328328f194686d8c287734f",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-25T15:50:52.2821318Z",
+    "completedUtc": "2026-08-25T15:50:52.3471670Z",
+    "overall": "RED",
+    "productOverall": "RED_EXPECTED_FAIL",
+    "infrastructureOverall": "PASS",
+    "passed": 2,
+    "expectedFailed": 1,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "checks": [
+        {
+            "id": "W12-D01.five_day_deadline",
+            "matrix": "deadline",
+            "status": "EXPECTED_FAIL",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "FinalDay is 5; Day 3 and Day 4 remain playable; ending Day 5 fails by deadline; signal completion rescues immediately before the deadline",
+            "actual": "FinalDay=50; day3Playable=True; day4Playable=True; day5Deadline=False; earlyDay1Rescue=True; states=start=D1>D2/Camp/None>D3/Camp/None>D4/Camp/None>D5/Camp/None>D6/Camp/None",
+            "reproduction": "Advance fresh GameSession instances without Grant/warp through Day 5 and independently complete the signal early.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+        },
+        {
+            "id": "W12-A01.compact_a_adopted_package",
+            "matrix": "adopted art contract",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The engine-ready contextual prompt resolves to compact-a GUID 070048..., manifest border L70/R30/T12/B12, and B/C have no runtime reference",
+            "actual": "ledgerEngineReady=True; adoptedCompactA=True; fileGuid=True(070048b5b443d5d4a9c757c871873eb3); border=L70/R30/T12/B12:True; B/C runtime refs=False",
+            "reproduction": "Audit Forge's adopted package read-only, the compact-a meta GUID, the 9-slice manifest, and enabled runtime dependency text.",
+            "recommendedFiles": ".forge/assets.json; .forge/feedback.json; Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/**"
+        },
+        {
+            "id": "W12-A02.compact_a_static_runtime_reference",
+            "matrix": "runtime art connection",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Runtime/scene dependencies reference compact-a by its stable GUID/path and do not reference compact-b or compact-c",
+            "actual": "compactAReferenced=True; compactBReferenced=False; compactCReferenced=False",
+            "reproduction": "Search the enabled scene, Runtime source, Resources, and Addressables settings for the adopted A GUID/path and B/C GUIDs.",
+            "recommendedFiles": "Assets/_Project/Scripts/Runtime/**; Assets/_Project/Scenes/**; Assets/AddressableAssetsData/**"
+        }
+    ]
+}

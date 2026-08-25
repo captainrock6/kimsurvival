@@ -1,0 +1,15 @@
+GameJam searchable resource node RED-first independent regression gate
+Run ID: 20260826T_search_node_redfirst_02
+Baseline: 5248809018ce934fe328328f194686d8c287734f
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+Wave 20 GREEN lock: 16/16
+Wave 19 GREEN lock: 21/21
+Search node PASS/EXPECTED_GAP/FAIL: 0/15/0
+Expected gap IDs: GSN-E01.seven_region_node_catalog, GSN-E02.seed_node_content_determinism, GSN-E03.persistent_snapshot_schema, GSN-E04.ko_en_qps_search_surface, GSN-E05.protected_part_raft_link, GSN-P01.actual_node_prompt_tray, GSN-P02.no_reroll_cancel_transition_revisit, GSN-P03.hidden_partial_depleted_restore, GSN-P04.loot_bag_transaction_atomicity, GSN-P05.protected_parts_and_sailcloth, GSN-P06.seven_region_finite_persistence, GSN-P07.search_cost_hazard_pause, GSN-P08.ko_en_qps_compact_tray_1280, GSN-P09.keyboard_mouse_synthetic_gamepad_parity, GSN-P10.natural_trace_no_fixture_cheats
+Unexpected failure IDs: 
+Camp/module/map and same-day notice: PASS/PASS
+Compile/build/smoke/Addressables/firewall: PASS 0/0/PASS/PASS 6.255s/PASS/PASS
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-GameJamSearchNodeRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '5248809018ce934fe328328f194686d8c287734f' -MinimumSmokeSeconds 6
+Exit code: 2 (0 GREEN, 2 product RED, 1 infrastructure FAIL)

@@ -1,0 +1,10 @@
+Wave 14 qps-long global layout gate command result
+Run ID: 20260826T_search_node_redfirst_02
+Baseline: 5248809018ce934fe328328f194686d8c287734f
+PowerShell: Core 7.6.4
+Overall/Product/Infrastructure: FAIL/FAIL/FAIL
+Exact reported 6/10 baseline reproduced: False
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Exit code: 1 (0 GREEN, 2 RED_EXPECTED_GAP, 1 unexpected/infrastructure failure)
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave14QpsGlobalLayoutGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '5248809018ce934fe328328f194686d8c287734f' -MinimumSmokeSeconds 6

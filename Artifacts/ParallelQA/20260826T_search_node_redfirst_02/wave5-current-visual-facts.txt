@@ -1,0 +1,8 @@
+Wave 5 current integrated 1280x800 visual facts
+Run ID: 20260826T_search_node_redfirst_02
+Baseline: 5248809018ce934fe328328f194686d8c287734f
+Normal ko/en: FAIL
+Placement: PLACEMENT_GATE: FAIL · targets=8 · failures=6
+Exploration/swimming: EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+qps-long: PSEUDO_LONG_GATE: FAIL · targets=6 · failures=1
+qps-long classification: FAIL · retained as Unity system-work input

@@ -1,0 +1,24 @@
+{
+    "runId": "20260826T_search_node_redfirst_02",
+    "baselineCommit": "5248809018ce934fe328328f194686d8c287734f",
+    "discoveryPolicy": "Public stable IDs and structured data shape; no source-file/class-name allowlist and no assertion-string acceptance.",
+    "regionIds": [
+        "region.coast.beach",
+        "region.forest.grove",
+        "region.sea.shallows",
+        "region.ridge.highland",
+        "region.cove.wreck",
+        "region.ruins.relay"
+    ],
+    "regionCatalogOwner": "KimSurvival.PrototypeCampaignRegionCatalog.All",
+    "nodeCatalogCount": 0,
+    "nodeCatalogOwner": "",
+    "generatorOwner": "KimSurvival.PrototypeRegionLootRng.Generate",
+    "generatorSurface": "ActionId,AlternativeAcquisitionAvailable,Amount,CriticalPartGuaranteed,LongMissingProtectionActive,MaximumAmount,MinimumAmount,RegionId,Resource,ResultId,RunSeed,ViableEscapeRouteCount,WithinDeclaredBounds (rejected: no structured contents collection)",
+    "sameSeedSameNodeDeterministic": false,
+    "differentSeedVaries": false,
+    "structuredContents": false,
+    "snapshotSurface": "kimsurvival.prototypecampaignpersistenceschema{behaviorscorefield,dayfield,endingfield,escapefield,freetextallowed,hazardfield,pacingbandfield,personallyidentifyingfieldsallowed,projectfield,regionfield,resultcodefield,seedfield,stableid,stableidsonly} | kimsurvival.prototypeescapeprojectdefinition{alternativeregionid,atomicresolvercontract,completionrule,dataonly,facilityid,keypartid,materialids,playablestate,preparationdays,primaryregionid,regionids,requiredprogress,researchids,riskids,salvagecost,snapshotstagecontract,stableid,timingrule,woodcost} | kimsurvival.prototypeexpeditionregionprofile{equipmentkey,id,namekey,nodecount,relativeabundancekey,resourcecategorykey,resourceforecastkey,riskkey,specialdiscoverykey,stableid,summarykey,travelminutes,unknowndiscoverystatekey,waternodecount,weatherkey} | kimsurvival.prototypeexpeditionregionvisualpresentation{borderweight,candepart,localizationkey,marker,pattern,state} | kimsurvival.prototypeexpeditionregionvisualstate{default,departureready,equipmentmissing,locked,riskwarning,selected,unknown,value__} | kimsurvival.prototypeforecastresult{abundanceband,day,forecastid,hazardid,pacingbandid,pitystateid,regionid,seed} | kimsurvival.prototypekeypartpitystate{eligiblesearchcount,guaranteed,hintvisible,keypartid,lastresultcode,protectedowned,stableid} | kimsurvival.prototypeplaytesteventrecord{action,behavior_score_ids,delta,ending_id,escape_id,event_name,hazard_id,input_device,locale,outcome,pacing_band_id,profile_id,project_id,region_id,resource,resource_location,result_code,result_id,run_id,run_seed,schema_version,sequence,stable_event_id,state_after,state_before,target_id,target_kind,utc} | kimsurvival.prototypeplayteststatefingerprint{active_bag_slots,bag_food,bag_salvage,bag_stone,bag_wood,campfire,completed_escape_id,crafted_rope,crafted_stone_axe,day,daylight,energy,expedition_completed,expedition_result_id,fingerprint,hunger,pending_amount,pending_resource,phase,profile_id,rain_collector,region_id,research_rope,research_stone_axe,result,run_seed,signal_stage,storage_food,storage_salvage,storage_stone,storage_wood,swimming,workbench} | kimsurvival.prototyperunsnapshot{behavior_scores,day,ending_id,escape_id,escape_project_snapshot,forecast_id,hazard_ids,key_part_state_ids,pacing_band_id,project_ids,region_id,result_code,seed,special_event_day,special_event_id}",
+    "localizationDetail": "rows=23; missingTokens=reveal,take,all,leave,replace,cancel,remaining,depleted,protected,cost,risk; allLocales=True; qps/en=1.42; keys=button.research.axe.done,button.research.axe,button.research.rope.done,button.research.rope,button.search.start,message.research.workbench,message.research.unavailable,message.research.axe,message.research.rope,message.search.finished,message.search.unavailable,message.search.begin,message.gather.need_swim,message.gather.water,message.gather.axe,message.gather.land,message.endday.search,expedition.map.node,expedition.map.node.focused,message.search.choose_region,message.search.begin_region,expedition.map.node.state,escape.project.message.research",
+    "protectionDetail": "sailcloth=False; semantic=False; surface= | kimsurvival.prototypeprotectedprojectinventory{completedstageids,facilitydamagecount,lossapplications,protectedkeypartids,stableid,transactioncount} | kimsurvival.prototypeexpeditionnoderesult{actionid,amount,resource,resultid,water} | kimsurvival.prototyperegionlootroll{actionid,alternativeacquisitionavailable,amount,criticalpartguaranteed,longmissingprotectionactive,maximumamount,minimumamount,regionid,resource,resultid,runseed,viableescaperoutecount,withindeclaredbounds} | kimsurvival.prototyperegionlootrng{} | kimsurvival.kimsurvivalprototype+nodeview{actionid,amount,collected,kind,label,labelbackground,labelroot,resultid,root,water,x}"
+}

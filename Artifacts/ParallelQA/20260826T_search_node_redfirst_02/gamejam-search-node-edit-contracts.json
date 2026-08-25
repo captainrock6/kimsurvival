@@ -1,0 +1,89 @@
+{
+    "schemaVersion": 1,
+    "title": "GameJam searchable resource node RED-first Edit contracts",
+    "runId": "20260826T_search_node_redfirst_02",
+    "baselineCommit": "5248809018ce934fe328328f194686d8c287734f",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-25T15:53:44.5616268Z",
+    "completedUtc": "2026-08-25T15:53:44.5951878Z",
+    "overall": "RED",
+    "productOverall": "RED_EXPECTED_GAP",
+    "infrastructureOverall": "PASS",
+    "passed": 1,
+    "expectedGaps": 5,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "unverified": 0,
+    "notReady": 0,
+    "greenCompletionCondition": "All GSN product checks pass from structured actual Edit/Play observations; fresh Wave 20 is 16/16, Wave 19 is 21/21, and compile/build/smoke/Addressables/firewall remain PASS. Physical hardware and Steam stay separate.",
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "checks": [
+        {
+            "id": "GSN-I01.exact_baseline",
+            "matrix": "Edit infrastructure",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The runner records a fresh RunId and the exact requested 40-character baseline SHA",
+            "actual": "runId=20260826T_search_node_redfirst_02; baseline=5248809018ce934fe328328f194686d8c287734f; redBaseline=True",
+            "reproduction": "Run the PowerShell entry point at the exact requested HEAD with a fresh RunId.",
+            "recommendedFiles": "Assets/Editor/ParallelQA/Invoke-GameJamSearchNodeRedFirstGate.ps1"
+        },
+        {
+            "id": "GSN-E01.seven_region_node_catalog",
+            "matrix": "catalog",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "A public seven-region catalog and non-empty finite node catalog expose stable region/node IDs and ownership",
+            "actual": "InvalidOperationException: expected 7 unique region IDs, observed 6: region.coast.beach,region.forest.grove,region.sea.shallows,region.ridge.highland,region.cove.wreck,region.ruins.relay",
+            "reproduction": "Enumerate public static catalogs and inspect stable IDs plus finite item quantities.",
+            "recommendedFiles": "runtime region/search-node catalog owners selected by public data shape"
+        },
+        {
+            "id": "GSN-E02.seed_node_content_determinism",
+            "matrix": "deterministic contents",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Same seed+region+node returns the same structured item/count contents while multiple alternate seeds produce at least one valid variation",
+            "actual": "InvalidOperationException: no generator returning stable node ID plus structured contents was discovered: ActionId,AlternativeAcquisitionAvailable,Amount,CriticalPartGuaranteed,LongMissingProtectionActive,MaximumAmount,MinimumAmount,RegionId,Resource,ResultId,RunSeed,ViableEscapeRouteCount,WithinDeclaredBounds (rejected: no structured contents collection)",
+            "reproduction": "Generate one public node twice with the same inputs, then with five alternate seeds, and compare normalized structured fingerprints.",
+            "recommendedFiles": "runtime deterministic search-node content generator selected by signature and return shape"
+        },
+        {
+            "id": "GSN-E03.persistent_snapshot_schema",
+            "matrix": "persistent public state",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Public snapshots expose node/region IDs, hidden-partial-depleted state, remaining items/counts, search count, barrier, and permanent-hazard state",
+            "actual": "InvalidOperationException: persistent snapshot surface is incomplete: kimsurvival.prototypecampaignpersistenceschema{behaviorscorefield,dayfield,endingfield,escapefield,freetextallowed,hazardfield,pacingbandfield,personallyidentifyingfieldsallowed,projectfield,regionfield,resultcodefield,seedfield,stableid,stableidsonly} | kimsurvival.prototypeescapeprojectdefinition{alternativeregionid,atomicresolvercontract,completionrule,dataonly,facilityid,keypartid,materialids,playablestate,preparationdays,primaryregionid,regionids,requiredprogress,researchids,riskids,salvagecost,snapshotstagecontract,stableid,timingrule,woodcost} | kimsurvival.prototypeexpeditionregionprofile{equipmentkey,id,namekey,nodecount,relativeabundancekey,resourcecategorykey,resourceforecastkey,riskkey,specialdiscoverykey,stableid,summarykey,travelminutes,unknowndiscoverystatekey,waternodecount,weatherkey} | kimsurvival.prototypeexpeditionregionvisualpresentation{borderweight,candepart,localizationkey,marker,pattern,state} | kimsurvival.prototypeexpeditionregionvisualstate{default,departureready,equipmentmissing,locked,riskwarning,selected,unknown,value__} | kimsurvival.prototypeforecastresult{abundanceband,day,forecastid,hazardid,pacingbandid,pitystateid,regionid,seed} | kimsurvival.prototypekeypartpitystate{eligiblesearchcount,guaranteed,hintvisible,keypartid,lastresultcode,protectedowned,stableid} | kimsurvival.prototypeplaytesteventrecord{action,behavior_score_ids,delta,ending_id,escape_id,event_name,hazard_id,input_device,locale,outcome,pacing_band_id,profile_id,project_id,region_id,resource,resource_location,result_code,result_id,run_id,run_seed,schema_version,sequence,stable_event_id,state_after,state_before,target_id,target_kind,utc} | kimsurvival.prototypeplayteststatefingerprint{active_bag_slots,bag_food,bag_salvage,bag_stone,bag_wood,campfire,completed_escape_id,crafted_rope,crafted_stone_axe,day,daylight,energy,expedition_completed,expedition_result_id,fingerprint,hunger,pending_amount,pending_resource,phase,profile_id,rain_collector,region_id,research_rope,research_stone_axe,result,run_seed,signal_stage,storage_food,storage_salvage,storage_stone,storage_wood,swimming,workbench} | kimsurvival.prototyperunsnapshot{behavior_scores,day,ending_id,escape_id,escape_project_snapshot,forecast_id,hazard_ids,key_part_state_ids,pacing_band_id,project_ids,region_id,result_code,seed,special_event_day,special_event_id}",
+            "reproduction": "Enumerate public snapshot/state members; do not accept a bool assertion or text-only description.",
+            "recommendedFiles": "runtime node/region snapshot owners selected by structured member shape"
+        },
+        {
+            "id": "GSN-E04.ko_en_qps_search_surface",
+            "matrix": "localization data",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P1",
+            "expected": "Canonical search/tray rows cover search, reveal, take, take-all, leave, replace, cancel, remaining, depleted, protected, cost, and risk in ko/en/qps-long",
+            "actual": "InvalidOperationException: rows=23; missingTokens=reveal,take,all,leave,replace,cancel,remaining,depleted,protected,cost,risk; allLocales=True; qps/en=1.42; keys=button.research.axe.done,button.research.axe,button.research.rope.done,button.research.rope,button.search.start,message.research.workbench,message.research.unavailable,message.research.axe,message.research.rope,message.search.finished,message.search.unavailable,message.search.begin,message.gather.need_swim,message.gather.water,message.gather.axe,message.gather.land,message.endday.search,expedition.map.node,expedition.map.node.focused,message.search.choose_region,message.search.begin_region,expedition.map.node.state,escape.project.message.research",
+            "reproduction": "Parse the canonical localization TSV and require all three locale columns plus qps-long expansion.",
+            "recommendedFiles": "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+        },
+        {
+            "id": "GSN-E05.protected_part_raft_link",
+            "matrix": "protected key parts",
+            "status": "EXPECTED_GAP",
+            "classification": "PRODUCT_EXPECTED_GAP",
+            "severity": "P0",
+            "expected": "Search-node public data links protected key parts, including part.raft.sailcloth, to a non-discardable exactly-once project inventory flow",
+            "actual": "InvalidOperationException: sailcloth=False; semantic=False; surface= | kimsurvival.prototypeprotectedprojectinventory{completedstageids,facilitydamagecount,lossapplications,protectedkeypartids,stableid,transactioncount} | kimsurvival.prototypeexpeditionnoderesult{actionid,amount,resource,resultid,water} | kimsurvival.prototyperegionlootroll{actionid,alternativeacquisitionavailable,amount,criticalpartguaranteed,longmissingprotectionactive,maximumamount,minimumamount,regionid,resource,resultid,runseed,viableescaperoutecount,withindeclaredbounds} | kimsurvival.prototyperegionlootrng{} | kimsurvival.kimsurvivalprototype+nodeview{actionid,amount,collected,kind,label,labelbackground,labelroot,resultid,root,water,x}",
+            "reproduction": "Inspect public node/catalog values and protected-part transaction members by stable IDs.",
+            "recommendedFiles": "runtime search-node/protected-project-inventory owners selected by stable IDs"
+        }
+    ]
+}
