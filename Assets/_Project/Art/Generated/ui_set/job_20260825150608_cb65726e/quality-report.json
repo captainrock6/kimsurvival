@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "grade": "fail",
+  "score": 70,
+  "summary": {
+    "files": 11,
+    "errors": 1,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "search-loot-tray-actual-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 55.64,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-search-loot-tray-actual-1280x800.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "search-loot-tray-components-editable.svg",
+      "kind": "svg",
+      "viewBox": "0 0 1200 700",
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-components.png",
+      "kind": "raster",
+      "width": 1200,
+      "height": 700,
+      "hasAlpha": true,
+      "transparentRatio": 0.4794,
+      "contrastStdDev": 56.22,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 40,
+        "top": 40,
+        "right": 39,
+        "bottom": 109
+      },
+      "previewFile": "qa-preview-search-loot-tray-components.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-icon-readability.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 192,
+      "hasAlpha": true,
+      "transparentRatio": 0.1698,
+      "contrastStdDev": 49.04,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 12,
+        "top": 12,
+        "right": 11,
+        "bottom": 11
+      },
+      "previewFile": "qa-preview-search-loot-tray-icon-readability.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-localization-focus-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.1305,
+      "contrastStdDev": 48.91,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 18,
+        "top": 18,
+        "right": 17,
+        "bottom": 17
+      },
+      "previewFile": "qa-preview-search-loot-tray-localization-focus-1280x800.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-manifest.json",
+      "kind": "editable-source",
+      "bytes": 2361,
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-review-board-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.0619,
+      "contrastStdDev": 41.95,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 18,
+        "top": 18,
+        "right": 17,
+        "bottom": 17
+      },
+      "previewFile": "qa-preview-search-loot-tray-review-board-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-status-icons-64.png",
+      "kind": "raster",
+      "width": 192,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.3767,
+      "contrastStdDev": 86.95,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 4,
+        "top": 4,
+        "right": 3,
+        "bottom": 3
+      },
+      "previewFile": "qa-preview-search-loot-tray-status-icons-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-status-icons-editable.svg",
+      "kind": "svg",
+      "viewBox": "0 0 192 64",
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-unity-handoff.txt",
+      "kind": "file",
+      "bytes": 713,
+      "issues": []
+    },
+    {
+      "fileName": "search-loot-tray-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 2441,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-25T15:19:19.735Z",
+  "jobId": "job_20260825150608_cb65726e",
+  "assetType": "ui_set"
+}

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.search-loot-tray",
+  "jobId": "job_20260825150608_cb65726e",
+  "candidateId": "ui.search-loot-tray.compact-bottom-a",
+  "decision": "review",
+  "selectedCandidate": null,
+  "layout": {
+    "referenceResolution": [
+      1280,
+      800
+    ],
+    "actualRect": [
+      176,
+      485,
+      928,
+      199
+    ],
+    "worldUncoveredRect": [
+      0,
+      132,
+      1280,
+      345
+    ],
+    "nineSlice": {
+      "left": 24,
+      "right": 24,
+      "top": 24,
+      "bottom": 24
+    }
+  },
+  "components": {
+    "raster": "search-loot-tray-components.png",
+    "editable": "search-loot-tray-components-editable.svg",
+    "families": [
+      "tray-nine-slice",
+      "loot-card-normal",
+      "loot-card-focus",
+      "loot-card-disabled",
+      "bag-summary-4-6",
+      "action-button-normal-focus-disabled",
+      "full-bag-pattern",
+      "protected-part-shield",
+      "hazard-exposed-triangle",
+      "known-remainder-notch"
+    ]
+  },
+  "localization": {
+    "rasterBodyText": "none",
+    "tmpSafeWidthPx": {
+      "ko": 300,
+      "en": 380,
+      "qpsLong": 520
+    },
+    "qpsExpansion": 1.5,
+    "minimumBodyPx": 18,
+    "wrap": true
+  },
+  "input": {
+    "focusRectPx": [
+      44,
+      44
+    ],
+    "glyphSlots": [
+      "keyboard-mouse",
+      "gamepad"
+    ],
+    "focusUses": [
+      "orange-outline",
+      "raised-corner-silhouette",
+      "double-notch"
+    ]
+  },
+  "statusIcons": {
+    "raster": "search-loot-tray-status-icons-64.png",
+    "editable": "search-loot-tray-status-icons-editable.svg",
+    "cellSize": [
+      64,
+      64
+    ],
+    "order": [
+      "hazard-exposed",
+      "protected-part",
+      "known-remainder"
+    ]
+  },
+  "unityImport": {
+    "textureType": "Sprite",
+    "spriteMode": "Multiple",
+    "alphaIsTransparency": true,
+    "colorSpace": "sRGB",
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "mipmaps": false,
+    "wrapMode": "Clamp"
+  },
+  "runtime": {
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false
+  },
+  "generation": {
+    "method": "local deterministic editable SVG and raster composition; no UI ImageGen call",
+    "paidExternalApiCalled": false
+  }
+}

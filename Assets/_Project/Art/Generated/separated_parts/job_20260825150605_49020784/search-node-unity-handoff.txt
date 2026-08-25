@@ -1,0 +1,7 @@
+REVIEW ONLY — object.searchable-resource-node-kit.state-language-a
+Six 1152x384 RGBA strips; slice each horizontally into three 384x384 cells: unknown, known-partial, depleted.
+Import Sprite/Multiple, PPU 100, pivot (0.5,0.0625), sRGB, alpha transparency, Bilinear, Uncompressed, mipmaps off, Clamp.
+Target world height at 1280x800: 128–190px. Keep identical scale and bottom baseline when swapping state.
+Layer: region background -> search node -> optional state icon slot -> character -> contextual UI.
+No loot item or quantity is baked into a node. Known remainder, protected part and hazard exposure are engine-owned overlays.
+Gate: decision=review, selectedCandidate=null, runtimeAllowlist=[], package/runtime/scene/Addressables forbidden.
