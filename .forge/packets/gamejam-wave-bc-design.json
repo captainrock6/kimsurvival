@@ -59,7 +59,7 @@
       "regions": [
         {
           "id": "region.coast.beach",
-          "finiteUnits": 18,
+          "finiteUnits": 16,
           "archetypes": [
             {
               "id": "node.archetype.coast-beach.driftline",
@@ -73,8 +73,8 @@
               "id": "node.archetype.coast-beach.tide-cache",
               "searchCostBand": "low",
               "instances": [
-                {"id": "node.coast.beach.grass-patch.01", "origin": "existing", "visualKind": "GrassPatch", "finiteYield": {"resource.food": 2, "resource.fabric": 1}},
-                {"id": "node.coast.beach.grass-patch.02", "origin": "new", "visualKind": "GrassPatch", "finiteYield": {"resource.food": 2, "resource.fabric": 1}}
+                {"id": "node.coast.beach.grass-patch.01", "origin": "existing", "visualKind": "GrassPatch", "finiteYield": {"resource.food": 1, "resource.fabric": 1}},
+                {"id": "node.coast.beach.grass-patch.02", "origin": "new", "visualKind": "GrassPatch", "finiteYield": {"resource.food": 1, "resource.fabric": 1}}
               ]
             },
             {
@@ -145,8 +145,8 @@
               "id": "node.archetype.forest-grove.vine-hollow",
               "searchCostBand": "medium",
               "instances": [
-                {"id": "node.forest.grove.rock-crevice.01", "origin": "existing", "visualKind": "RockCrevice", "finiteYield": {"resource.fiber": 3, "resource.wood": 1}},
-                {"id": "node.forest.grove.rock-crevice.02", "origin": "new", "visualKind": "RockCrevice", "finiteYield": {"resource.fiber": 3, "resource.wood": 1}}
+                {"id": "node.forest.grove.rock-crevice.01", "origin": "existing", "visualKind": "RockCrevice", "finiteYield": {"resource.fiber": 3, "resource.medicine": 1}},
+                {"id": "node.forest.grove.rock-crevice.02", "origin": "new", "visualKind": "RockCrevice", "finiteYield": {"resource.fiber": 3, "resource.medicine": 1}}
               ]
             }
           ]
@@ -177,8 +177,8 @@
               "searchCostBand": "high",
               "eligiblePartIds": ["part.radio.transistor"],
               "instances": [
-                {"id": "node.ridge.highland.facility-cabinet.01", "origin": "existing", "visualKind": "FacilityCabinet", "finiteYield": {"resource.fuel": 1, "resource.medicine": 1}},
-                {"id": "node.ridge.highland.facility-cabinet.02", "origin": "new", "visualKind": "FacilityCabinet", "finiteYield": {"resource.fuel": 1, "resource.medicine": 1}}
+                {"id": "node.ridge.highland.facility-cabinet.01", "origin": "existing", "visualKind": "FacilityCabinet", "finiteYield": {"resource.fuel": 1, "resource.food": 1}},
+                {"id": "node.ridge.highland.facility-cabinet.02", "origin": "new", "visualKind": "FacilityCabinet", "finiteYield": {"resource.fuel": 1, "resource.food": 1}}
               ]
             }
           ]
@@ -216,7 +216,7 @@
         },
         {
           "id": "region.cove.wreck",
-          "finiteUnits": 22,
+          "finiteUnits": 24,
           "archetypes": [
             {
               "id": "node.archetype.cove-wreck.cargo-locker",
@@ -230,8 +230,8 @@
               "id": "node.archetype.cove-wreck.rigging-locker",
               "searchCostBand": "medium",
               "instances": [
-                {"id": "node.cove.wreck.grass-patch.01", "origin": "existing", "visualKind": "GrassPatch", "finiteYield": {"resource.fabric": 2, "resource.fiber": 1}},
-                {"id": "node.cove.wreck.grass-patch.02", "origin": "new", "visualKind": "GrassPatch", "finiteYield": {"resource.fabric": 2, "resource.fiber": 1}}
+                {"id": "node.cove.wreck.grass-patch.01", "origin": "existing", "visualKind": "GrassPatch", "finiteYield": {"resource.fabric": 2, "resource.fiber": 1, "resource.chemicals": 1}},
+                {"id": "node.cove.wreck.grass-patch.02", "origin": "new", "visualKind": "GrassPatch", "finiteYield": {"resource.fabric": 2, "resource.fiber": 1, "resource.chemicals": 1}}
               ]
             },
             {
@@ -239,8 +239,8 @@
               "searchCostBand": "high",
               "eligiblePartIds": ["part.radio.transceiver", "part.radio.circuit-board"],
               "instances": [
-                {"id": "node.cove.wreck.rock-crevice.01", "origin": "existing", "visualKind": "RockCrevice", "finiteYield": {"resource.electronics": 2, "resource.chemicals": 1}},
-                {"id": "node.cove.wreck.rock-crevice.02", "origin": "new", "visualKind": "RockCrevice", "finiteYield": {"resource.electronics": 2, "resource.chemicals": 1}}
+                {"id": "node.cove.wreck.rock-crevice.01", "origin": "existing", "visualKind": "RockCrevice", "finiteYield": {"resource.electronics": 2, "resource.wood": 1}},
+                {"id": "node.cove.wreck.rock-crevice.02", "origin": "new", "visualKind": "RockCrevice", "finiteYield": {"resource.electronics": 2, "resource.wood": 1}}
               ]
             }
           ]
@@ -428,13 +428,53 @@
           "protectedPartIds": ["part.smoke.flint"]
         },
         "radioSample": {
-          "cost": {"resource.electronics": 6, "resource.wire": 6, "resource.metal": 4},
+          "cost": {"resource.electronics": 2, "resource.wire": 2, "resource.metal": 1},
           "protectedPartIds": ["part.radio.transceiver", "part.radio.circuit-board", "part.radio.transistor"],
           "status": "BALANCE_PROVISIONAL"
         },
+        "sameRunCampModules": {
+          "status": "BALANCE_PROVISIONAL",
+          "costs": {
+            "room.upper.standard": {"resource.wood": 1, "resource.salvage": 0},
+            "room.basement.standard": {"resource.wood": 1, "resource.salvage": 0},
+            "room.side.standard": {"resource.wood": 2, "resource.salvage": 1}
+          },
+          "rule": "Upper and Basement are independently committed in the same GAME JAM run; Side preserves the long-campaign price."
+        },
+        "representativeSameRun": {
+          "status": "BALANCE_PROVISIONAL",
+          "seed": 15000501,
+          "searchCount": 14,
+          "starterNodeIds": [
+            "node.sea.shallows.grass-patch.01",
+            "node.coast.beach.drift-pile.01",
+            "node.coast.beach.rock-crevice.01",
+            "node.coast.beach.rock-crevice.02"
+          ],
+          "pityMissNodeIds": [
+            "node.cave.island.drift-pile.01",
+            "node.cave.island.facility-cabinet.01",
+            "node.forest.grove.tree-hollow.01",
+            "node.ridge.highland.grass-patch.01",
+            "node.ridge.highland.tree-hollow.01"
+          ],
+          "protectedAssignments": {
+            "part.raft.sailcloth": "node.sea.shallows.drift-pile.01",
+            "part.smoke.flint": "node.forest.grove.drift-pile.01",
+            "part.radio.transceiver": "node.cove.wreck.rock-crevice.01",
+            "part.radio.circuit-board": "node.sea.shallows.wreck-locker.01",
+            "part.radio.transistor": "node.ridge.highland.facility-cabinet.02"
+          },
+          "grossIncludingNewRunStock": {"resource.wood": 22, "resource.stone": 2, "resource.salvage": 7, "resource.food": 3, "resource.fiber": 2, "resource.fuel": 3, "resource.chemicals": 4, "resource.electronics": 2, "resource.wire": 2, "resource.metal": 1},
+          "prerequisiteSpend": {"resource.wood": 4, "resource.stone": 2, "resource.salvage": 4},
+          "verticalModuleSpend": {"resource.wood": 2, "resource.salvage": 0},
+          "combinedEscapeSpend": {"resource.wood": 15, "resource.salvage": 2, "resource.food": 3, "resource.fiber": 2, "resource.fuel": 2, "resource.electronics": 2, "resource.wire": 2, "resource.metal": 1},
+          "reserve": {"resource.wood": 1, "resource.salvage": 1, "resource.fuel": 1, "resource.chemicals": 4},
+          "choice": "The representative ledger does not consume food before the three escape routes are simultaneously affordable."
+        },
         "diseaseTreatment": {"resource.medicine": 1},
         "postSmokeReserve": {"resource.wood": 10, "resource.fiber": 8, "resource.fuel": 6, "resource.food": 12, "resource.medicine": 6},
-        "routeSafetyRule": "After representative smoke commit, one survival/recovery choice and raft plus radio remain independently completable.",
+        "routeSafetyRule": "Before any terminal route commit, the representative run simultaneously affords raft, smoke and radio from one shared resource ledger.",
         "nonIncreaseRule": "Adding 14 nodes increases choice, not required searches; keep the representative target at 10-14 searches."
       },
       "completionMatrixDelta": {

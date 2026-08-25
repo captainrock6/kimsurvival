@@ -74,28 +74,15 @@ namespace KimSurvival
                     events,
                     ref eventSequence);
 
-                PrototypeSearchNodeDefinition[] easyNodes = PrototypeSearchRegionCatalog.Nodes
-                    .Where(value => !value.RequiresSwimming &&
-                                    (value.RegionId == "region.coast.beach" ||
-                                     value.RegionId == "region.forest.grove" ||
-                                     value.RegionId == "region.sea.shallows") &&
-                                    value.FiniteYield.Any(item => item.Resource == ResourceKind.Wood ||
-                                                                  item.Resource == ResourceKind.Stone ||
-                                                                  item.Resource == ResourceKind.Salvage ||
-                                                                  item.Resource == ResourceKind.Food))
-                    .OrderBy(value => string.Equals(
-                            value.NodeId,
-                            "node.coast.beach.drift-pile.01",
-                            StringComparison.Ordinal)
-                        ? 0
-                        : string.Equals(
-                            value.NodeId,
-                            "node.sea.shallows.grass-patch.01",
-                            StringComparison.Ordinal)
-                            ? 1
-                            : 2)
-                    .ThenBy(value => value.InstanceOrdinal)
-                    .ThenBy(value => value.NodeId, StringComparer.Ordinal)
+                string[] starterNodeIds =
+                {
+                    "node.sea.shallows.grass-patch.01",
+                    "node.coast.beach.drift-pile.01",
+                    "node.coast.beach.rock-crevice.01",
+                    "node.coast.beach.rock-crevice.02"
+                };
+                PrototypeSearchNodeDefinition[] easyNodes = starterNodeIds
+                    .Select(nodeId => PrototypeSearchRegionCatalog.Nodes.First(value => value.NodeId == nodeId))
                     .ToArray();
                 for (int index = 0; index < easyNodes.Length && (!session.HasAxe || !session.HasRope); index += 1)
                 {
@@ -172,6 +159,8 @@ namespace KimSurvival
                 }
                 Require(PrototypeSearchNodeLootResolver.ProtectedPartIds.All(searchNodeRuntime.Ledger.HasProtectedPart),
                     "All five protected parts must be acquired through live searchable nodes.");
+                observation.ProtectedPartIds = searchNodeRuntime.Ledger.CaptureSnapshot().ProtectedPartIds;
+                observation.PityEligibleCountSequence = pitySequence.Distinct().OrderBy(value => value).ToArray();
 
                 CommitWaveCCampModule(CampModuleArchetype.Upper);
                 CommitWaveCCampModule(CampModuleArchetype.Basement);
@@ -191,29 +180,46 @@ namespace KimSurvival
                     if (!CanCompleteAllWaveCRoutes()) AdvanceWaveCProductionDay();
                 }
                 Require(CanCompleteAllWaveCRoutes(),
-                    "Representative seed must expose raft, smoke, and radio as simultaneously completable in at most 14 searches.");
-                observation.CompletableEscapeIds = new[] { "escape.raft", "escape.smoke", "escape.radio" };
+                    "Representative seed must expose raft, smoke, and radio as simultaneously completable in at most 14 searches. " +
+                    DescribeWaveCRouteBudget(expeditionCount));
+                string[] representativeEscapeIds = { "escape.raft", "escape.smoke", "escape.radio" };
+                observation.CompletableEscapeIds = representativeEscapeIds
+                    .Where(CanCompleteWaveCRoute)
+                    .ToArray();
+                Require(observation.CompletableEscapeIds.Length == representativeEscapeIds.Length,
+                    "Completable escape IDs must be derived from live route predicates, not a fixed pass list.");
 
                 string knownBefore = searchNodeRuntime.Ledger.NewGameStockFingerprint;
                 string protectedBefore = WaveCProtectedFingerprint();
                 string resourceBefore = WaveCEscapeResourceFingerprint();
-                string saveBefore = CaptureCampSpaceSaveJson();
+                string saveJson = CaptureWaveCSaveJson();
+                string saveBefore = CaptureWaveCSaveFingerprint();
                 PrototypeWaveCTransactionState saveStateBefore = CaptureWaveCTransactionState();
-                Require(RestoreCampSpaceSaveJson(saveBefore), "Camp-space save restore must succeed atomically.");
-                string saveAfter = CaptureCampSpaceSaveJson();
+                Require(TryRestoreWaveCSaveJson(saveJson), "Composite Wave C save restore must succeed atomically.");
+                string saveAfter = CaptureWaveCSaveFingerprint();
                 string resourceAfterRestore = WaveCEscapeResourceFingerprint();
                 PrototypeWaveCTransactionState saveStateAfter = CaptureWaveCTransactionState();
                 events.Add(PrototypeWaveCObservationRecorder.Event(
                     eventSequence++,
                     "camp.snapshot.restored",
                     string.Empty,
-                    "camp-space.save-root",
+                    "wave-c.composite-save-root",
                     "save-restore",
                     "snapshot-restored",
                     saveStateBefore,
                     saveStateAfter));
                 TraverseWaveCCampRoom(CampModuleArchetype.Upper, reenteredRooms);
                 TraverseWaveCCampRoom(CampModuleArchetype.Basement, reenteredRooms);
+                observation.KnownLootBeforeFingerprint = knownBefore;
+                observation.KnownLootAfterFingerprint = searchNodeRuntime.Ledger.NewGameStockFingerprint;
+                observation.ProtectedBeforeFingerprint = protectedBefore;
+                observation.ProtectedAfterFingerprint = WaveCProtectedFingerprint();
+                observation.CommittedRoomIds = committedRoomIds;
+                observation.ReenteredRoomIds = reenteredRooms.Distinct(StringComparer.Ordinal).ToArray();
+                observation.EscapeResourcesBeforeFingerprint = resourceBefore;
+                observation.EscapeResourcesAfterFingerprint = resourceAfterRestore;
+                observation.SaveBeforeFingerprint = saveBefore;
+                observation.SaveAfterFingerprint = saveAfter;
 
                 EnsureWaveCWaitEvents(events, ref eventSequence, visitedNodeIds, ref expeditionCount, seed);
                 RecordWaveCRouteProgress(
@@ -225,12 +231,6 @@ namespace KimSurvival
                 RecordWaveCRouteProgress(
                     "escape.raft", PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
                     "facility.shore-launch", "shore-retry-hull", events, ref eventSequence);
-                RecordWaveCRouteProgress(
-                    "escape.raft", PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
-                    "facility.shore-launch", "sail-stage", events, ref eventSequence);
-                RecordWaveCRouteProgress(
-                    "escape.raft", PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
-                    "facility.shore-launch", "supplies-stage", events, ref eventSequence);
 
                 if (!PrototypeSignalEscapeWindowResolver.Resolve("escape.smoke", session.RunSeed, session.Day).Allowed)
                 {
@@ -254,6 +254,18 @@ namespace KimSurvival
                     "album-unlocked-once",
                     endingBefore,
                     endingAfter));
+                PrototypeWaveCTransactionState duplicateBefore = CaptureWaveCTransactionState();
+                smokeProjectButton.onClick.Invoke();
+                PrototypeWaveCTransactionState duplicateAfter = CaptureWaveCTransactionState();
+                events.Add(PrototypeWaveCObservationRecorder.Event(
+                    eventSequence++,
+                    "ending.terminal.duplicate",
+                    "escape.smoke",
+                    "facility.smoke-beacon",
+                    "terminal-control-reactuated",
+                    "duplicate-terminal-noop",
+                    duplicateBefore,
+                    duplicateAfter));
 
                 string evidenceFolder = Path.GetFullPath(Path.Combine(
                     Application.dataPath,
@@ -263,8 +275,6 @@ namespace KimSurvival
                     runId));
                 Directory.CreateDirectory(evidenceFolder);
                 observation.Layouts = hazardEscapeEndingRuntime.CaptureWaveCComicLayoutObservations(evidenceFolder);
-                observation.ProtectedPartIds = searchNodeRuntime.Ledger.CaptureSnapshot().ProtectedPartIds;
-                observation.PityEligibleCountSequence = pitySequence.Distinct().OrderBy(value => value).ToArray();
                 observation.KnownLootBeforeFingerprint = knownBefore;
                 observation.KnownLootAfterFingerprint = searchNodeRuntime.Ledger.NewGameStockFingerprint;
                 observation.ProtectedBeforeFingerprint = protectedBefore;
@@ -441,10 +451,6 @@ namespace KimSurvival
 
         private void AdvanceWaveCProductionDay()
         {
-            if (session.Hunger <= 65f && session.GetStorage(ResourceKind.Food) > 0)
-            {
-                session.UseFood();
-            }
             int day = session.Day;
             Require(session.ExpeditionCompleted, "A completed expedition is required before production day settlement.");
             phaseButton.onClick.Invoke();
@@ -533,36 +539,80 @@ namespace KimSurvival
 
         private bool CanCompleteAllWaveCRoutes()
         {
-            PrototypeEscapeProjectDefinition smoke = PrototypeEscapeProjectCatalog.Get("escape.smoke");
-            PrototypeEscapeProjectDefinition radio = PrototypeEscapeProjectCatalog.Get("escape.radio");
-            bool stable = smoke.StableCosts.Concat(radio.StableCosts)
-                .GroupBy(value => value.StableResourceId, StringComparer.Ordinal)
+            string[] escapeIds = { "escape.raft", "escape.smoke", "escape.radio" };
+            bool simultaneousResources = GetWaveCCombinedRouteCosts()
                 .All(group => session.GetStableStorage(group.Key) >= group.Sum(value => value.Amount));
-            bool raft = session.GetStorage(ResourceKind.Wood) >=
-                        PrototypeRaftEscapeConfig.HullWoodCost + PrototypeRaftEscapeConfig.SailWoodCost &&
-                        session.GetStorage(ResourceKind.Salvage) >=
-                        PrototypeRaftEscapeConfig.HullSalvageCost + PrototypeRaftEscapeConfig.SailSalvageCost &&
-                        session.GetStorage(ResourceKind.Food) >=
-                        PrototypeRaftEscapeConfig.SuppliesFoodCost + PrototypeRaftEscapeConfig.LaunchAttemptFoodCost;
-            return stable && raft && session.HasAxe && session.HasRope &&
-                   PrototypeSearchNodeLootResolver.ProtectedPartIds.All(searchNodeRuntime.Ledger.HasProtectedPart);
+            return simultaneousResources && escapeIds.All(CanCompleteWaveCRoute);
+        }
+
+        private bool CanCompleteWaveCRoute(string escapeId)
+        {
+            PrototypeEscapeProjectDefinition definition = PrototypeEscapeProjectCatalog.Get(escapeId);
+            if (definition.RequiredKeyPartIds.Any(partId => !searchNodeRuntime.Ledger.HasProtectedPart(partId)))
+            {
+                return false;
+            }
+            if (string.Equals(escapeId, PrototypeRaftEscapeConfig.EscapeId, StringComparison.Ordinal))
+            {
+                return session.HasRope &&
+                       session.GetStorage(ResourceKind.Wood) >=
+                       PrototypeRaftEscapeConfig.HullWoodCost + PrototypeRaftEscapeConfig.SailWoodCost &&
+                       session.GetStorage(ResourceKind.Salvage) >=
+                       PrototypeRaftEscapeConfig.HullSalvageCost + PrototypeRaftEscapeConfig.SailSalvageCost &&
+                       session.GetStorage(ResourceKind.Food) >=
+                       PrototypeRaftEscapeConfig.SuppliesFoodCost + PrototypeRaftEscapeConfig.LaunchAttemptFoodCost;
+            }
+            bool researchReady = string.Equals(escapeId, "escape.smoke", StringComparison.Ordinal)
+                ? session.HasRope
+                : session.HasAxe;
+            return researchReady && definition.StableCosts.All(cost =>
+                session.GetStableStorage(cost.StableResourceId) >= cost.Amount);
+        }
+
+        private IEnumerable<IGrouping<string, PrototypeStableResourceCost>> GetWaveCCombinedRouteCosts()
+        {
+            PrototypeStableResourceCost[] raftCosts =
+            {
+                new PrototypeStableResourceCost(
+                    PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(ResourceKind.Wood),
+                    PrototypeRaftEscapeConfig.HullWoodCost + PrototypeRaftEscapeConfig.SailWoodCost),
+                new PrototypeStableResourceCost(
+                    PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(ResourceKind.Salvage),
+                    PrototypeRaftEscapeConfig.HullSalvageCost + PrototypeRaftEscapeConfig.SailSalvageCost),
+                new PrototypeStableResourceCost(
+                    PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(ResourceKind.Food),
+                    PrototypeRaftEscapeConfig.SuppliesFoodCost + PrototypeRaftEscapeConfig.LaunchAttemptFoodCost)
+            };
+            return PrototypeEscapeProjectCatalog.Get("escape.smoke").StableCosts
+                .Concat(PrototypeEscapeProjectCatalog.Get("escape.radio").StableCosts)
+                .Concat(raftCosts)
+                .GroupBy(value => value.StableResourceId, StringComparer.Ordinal);
+        }
+
+        private string DescribeWaveCRouteBudget(int expeditionCount)
+        {
+            var budget = new List<string> { "searches=" + expeditionCount };
+            foreach (IGrouping<string, PrototypeStableResourceCost> group in GetWaveCCombinedRouteCosts()
+                         .OrderBy(value => value.Key, StringComparer.Ordinal))
+            {
+                budget.Add(group.Key + "=" + session.GetStableStorage(group.Key) + "/" + group.Sum(value => value.Amount));
+            }
+            budget.Add("axe=" + session.HasAxe);
+            budget.Add("rope=" + session.HasRope);
+            budget.Add("completable=" + string.Join(",", new[] { "escape.raft", "escape.smoke", "escape.radio" }
+                .Where(CanCompleteWaveCRoute).ToArray()));
+            budget.Add("missing.parts=" + string.Join(",", PrototypeSearchNodeLootResolver.ProtectedPartIds
+                .Where(value => !searchNodeRuntime.Ledger.HasProtectedPart(value)).ToArray()));
+            return string.Join("; ", budget.ToArray());
         }
 
         private PrototypeSearchNodeDefinition SelectWaveCResourceNode(ISet<string> visitedNodeIds, int seed)
         {
             var deficits = new Dictionary<string, int>(StringComparer.Ordinal);
-            foreach (PrototypeStableResourceCost cost in PrototypeEscapeProjectCatalog.Get("escape.smoke").StableCosts
-                         .Concat(PrototypeEscapeProjectCatalog.Get("escape.radio").StableCosts))
+            foreach (IGrouping<string, PrototypeStableResourceCost> group in GetWaveCCombinedRouteCosts())
             {
-                if (!deficits.ContainsKey(cost.StableResourceId)) deficits[cost.StableResourceId] = 0;
-                deficits[cost.StableResourceId] += cost.Amount;
+                deficits[group.Key] = group.Sum(value => value.Amount);
             }
-            AddWaveCDeficit(deficits, PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(ResourceKind.Wood),
-                PrototypeRaftEscapeConfig.HullWoodCost + PrototypeRaftEscapeConfig.SailWoodCost);
-            AddWaveCDeficit(deficits, PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(ResourceKind.Salvage),
-                PrototypeRaftEscapeConfig.HullSalvageCost + PrototypeRaftEscapeConfig.SailSalvageCost);
-            AddWaveCDeficit(deficits, PrototypeSearchNodeLootResolver.StableResourceIdForLegacy(ResourceKind.Food),
-                PrototypeRaftEscapeConfig.SuppliesFoodCost + PrototypeRaftEscapeConfig.LaunchAttemptFoodCost);
             foreach (string key in deficits.Keys.ToArray())
             {
                 deficits[key] = Math.Max(0, deficits[key] - session.GetStableStorage(key));
@@ -580,12 +630,6 @@ namespace KimSurvival
                 .ThenBy(value => value.Definition.NodeId, StringComparer.Ordinal)
                 .Select(value => value.Definition)
                 .FirstOrDefault();
-        }
-
-        private static void AddWaveCDeficit(IDictionary<string, int> deficits, string id, int amount)
-        {
-            if (!deficits.ContainsKey(id)) deficits[id] = 0;
-            deficits[id] += amount;
         }
 
         private string WaveCProtectedFingerprint()

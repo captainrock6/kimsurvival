@@ -143,9 +143,9 @@ namespace ParallelQA
                 "W10-M02.locked_short_ready",
                 "unlock/economy",
                 "P0",
-                "Without a workbench the module is LOCKED; after the workbench W2/D1 shortage is SHORT and exact W2/D1 is READY",
+                "Without a workbench Upper is LOCKED; after the workbench W0/D0 is SHORT and exact GAME JAM W1/D0 is READY",
                 VerifyLockedShortReady,
-                "Evaluate a fresh upper-room preview before building the workbench, after normalizing below W2/D1, and after normalizing to exact W2/D1.",
+                "Evaluate a fresh upper-room preview before building the workbench, at W0/D0, and at exact GAME JAM W1/D0.",
                 "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/GameSession.cs");
 
             evidence.transactionAtomicity = Product(
@@ -153,7 +153,7 @@ namespace ParallelQA
                 "W10-M03.atomic_commit_and_limit",
                 "transaction atomicity",
                 "P0",
-                "Cancel, invalid, short, and duplicate submits spend nothing; success spends W2/D1 once; a second room reports PROTOTYPE_LIMIT",
+                "Cancel, invalid, short, and duplicate submits spend nothing; Upper success spends W1/D0 once; a second room reports PROTOTYPE_LIMIT",
                 VerifyAtomicCommitAndPrototypeLimit,
                 "Compare all resource counters around cancel, invalid geometry, SHORT, successful commit, duplicate submit, and a second preview.",
                 "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/GameSession.cs");
@@ -293,7 +293,7 @@ namespace ParallelQA
                     "W10-L02.ko_en_module_meaning",
                     "localization/input prompts",
                     "P0",
-                    "KO and EN expose the same module names, geometry/economy reasons, W2/D1 cost, and keyboard/gamepad confirm/cancel semantics",
+                    "KO and EN expose the same module names, geometry/economy reasons, dynamic cost, and keyboard/gamepad confirm/cancel semantics",
                     () => VerifyModuleLocalization(localization),
                     "Format the same canonical module keys in ko and en, including all invalid reasons and both device prompt keys.",
                     "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs");
@@ -464,29 +464,29 @@ namespace ParallelQA
             GameSession session = new GameSession();
             CampModuleValidationContext context = new CampModuleValidationContext();
             Require(expansion.BeginPreview(DefaultSnapshot()), "begin locked preview");
-            SetStorage(session, ResourceKind.Wood, 2);
-            SetStorage(session, ResourceKind.Salvage, 1);
+            SetStorage(session, ResourceKind.Wood, 1);
+            SetStorage(session, ResourceKind.Salvage, 0);
             CampModuleEvaluation locked = expansion.Evaluate(session, context);
             Require(locked.Geometry == CampModuleGeometryStatus.Valid && locked.Economy == CampModuleEconomyStatus.Locked, "pre-workbench LOCKED");
             expansion.CancelPreview();
 
             BuildWorkbench(session);
-            SetStorage(session, ResourceKind.Wood, 1);
-            SetStorage(session, ResourceKind.Salvage, 1);
+            SetStorage(session, ResourceKind.Wood, 0);
+            SetStorage(session, ResourceKind.Salvage, 0);
             Require(expansion.BeginPreview(DefaultSnapshot()), "begin short preview");
             CampModuleEvaluation shortage = expansion.Evaluate(session, context);
-            Require(shortage.Economy == CampModuleEconomyStatus.Short, "post-workbench W1/D1 SHORT");
-            SetStorage(session, ResourceKind.Wood, 2);
-            SetStorage(session, ResourceKind.Salvage, 1);
+            Require(shortage.Economy == CampModuleEconomyStatus.Short, "post-workbench W0/D0 SHORT");
+            SetStorage(session, ResourceKind.Wood, 1);
+            SetStorage(session, ResourceKind.Salvage, 0);
             CampModuleEvaluation ready = expansion.Evaluate(session, context);
-            Require(ready.Economy == CampModuleEconomyStatus.Ready && ready.CanCommit, "exact W2/D1 READY");
-            Require(ready.Cost.Wood == 2 && ready.Cost.Stone == 0 && ready.Cost.Food == 0 && ready.Cost.Salvage == 1, "locked W2/D1 cost");
-            return "beforeWorkbench=" + locked.Economy + " afterWorkbenchW1D1=" + shortage.Economy + " exactW2D1=" + ready.Economy + " cost=W2/S0/F0/D1";
+            Require(ready.Economy == CampModuleEconomyStatus.Ready && ready.CanCommit, "exact W1/D0 READY");
+            Require(ready.Cost.Wood == 1 && ready.Cost.Stone == 0 && ready.Cost.Food == 0 && ready.Cost.Salvage == 0, "GAME JAM Upper W1/D0 cost");
+            return "beforeWorkbench=" + locked.Economy + " afterWorkbenchW0D0=" + shortage.Economy + " exactW1D0=" + ready.Economy + " cost=W1/S0/F0/D0";
         }
 
         private static string VerifyAtomicCommitAndPrototypeLimit()
         {
-            GameSession session = NewWorkbenchSession(2, 1);
+            GameSession session = NewWorkbenchSession(1, 0);
             PrototypeCampModuleExpansion expansion = NewExpansion();
             CampModuleValidationContext valid = new CampModuleValidationContext();
             string initial = StorageFingerprint(session);
@@ -502,21 +502,22 @@ namespace ParallelQA
             Require(invalidStatus == CampModuleCommitStatus.InvalidGeometry && StorageFingerprint(session) == initial, "invalid geometry is neutral");
             expansion.CancelPreview();
 
-            SetStorage(session, ResourceKind.Wood, 1);
+            SetStorage(session, ResourceKind.Wood, 0);
+            SetStorage(session, ResourceKind.Salvage, 0);
             string shortBefore = StorageFingerprint(session);
             Require(expansion.BeginPreview(DefaultSnapshot()), "begin short preview");
             CampModuleCommitStatus shortStatus = expansion.TryCommit(session, valid);
             Require(shortStatus == CampModuleCommitStatus.Short && StorageFingerprint(session) == shortBefore, "short submit is neutral");
             expansion.CancelPreview();
 
-            SetStorage(session, ResourceKind.Wood, 2);
-            SetStorage(session, ResourceKind.Salvage, 1);
+            SetStorage(session, ResourceKind.Wood, 1);
+            SetStorage(session, ResourceKind.Salvage, 0);
             string commitBefore = StorageFingerprint(session);
             Require(expansion.BeginPreview(DefaultSnapshot()), "begin funded preview");
             CampModuleCommitStatus success = expansion.TryCommit(session, valid);
             string commitAfter = StorageFingerprint(session);
             Require(success == CampModuleCommitStatus.Succeeded, "funded commit succeeds");
-            Require(session.GetStorage(ResourceKind.Wood) == 0 && session.GetStorage(ResourceKind.Salvage) == 0, "exact W2/D1 charged once");
+            Require(session.GetStorage(ResourceKind.Wood) == 0 && session.GetStorage(ResourceKind.Salvage) == 0, "exact W1/D0 charged once");
             CampModuleCommitStatus duplicate = expansion.TryCommit(session, valid);
             Require(duplicate == CampModuleCommitStatus.NotPreviewing || duplicate == CampModuleCommitStatus.DuplicateSubmit, "duplicate submit rejected");
             Require(StorageFingerprint(session) == commitAfter, "duplicate submit is neutral");
@@ -626,21 +627,21 @@ namespace ParallelQA
             };
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             string[] ko = keys.Select(key => localization.Format(key)).ToArray();
-            string koShort = localization.Format("module.economy.short", 2, 0, 1);
-            string koReady = localization.Format("module.economy.ready", 2, 0, 1);
+            string koShort = localization.Format("module.economy.short", 1, 0, 0);
+            string koReady = localization.Format("module.economy.ready", 1, 0, 0);
             string koKeyboard = localization.Format(PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.KeyboardMouse), localization.DeviceName(PrototypeInputDevice.KeyboardMouse));
             string koGamepad = localization.Format(PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.Gamepad), localization.DeviceName(PrototypeInputDevice.Gamepad));
 
             localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
             string[] en = keys.Select(key => localization.Format(key)).ToArray();
-            string enShort = localization.Format("module.economy.short", 2, 0, 1);
-            string enReady = localization.Format("module.economy.ready", 2, 0, 1);
+            string enShort = localization.Format("module.economy.short", 1, 0, 0);
+            string enReady = localization.Format("module.economy.ready", 1, 0, 0);
             string enKeyboard = localization.Format(PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.KeyboardMouse), localization.DeviceName(PrototypeInputDevice.KeyboardMouse));
             string enGamepad = localization.Format(PrototypeInputPromptKeys.CampModulePreview(PrototypeInputDevice.Gamepad), localization.DeviceName(PrototypeInputDevice.Gamepad));
 
             Require(ko.All(IsLocalized) && en.All(IsLocalized), "all canonical module keys localize in ko/en");
             Require(IsLocalized(koShort) && IsLocalized(koReady) && IsLocalized(enShort) && IsLocalized(enReady), "cost placeholders format in ko/en");
-            Require(koShort.Contains("2") && koShort.Contains("1") && enShort.Contains("2") && enShort.Contains("1"), "W2/D1 placeholders preserved");
+            Require(koShort.Contains("1") && koShort.Contains("0") && enShort.Contains("1") && enShort.Contains("0"), "W1/D0 placeholders preserved");
             Require(koKeyboard.Contains("확정") && koKeyboard.Contains("취소") && koGamepad.Contains("확정") && koGamepad.Contains("취소"), "Korean device prompts preserve confirm/cancel meaning");
             Require(enKeyboard.IndexOf("confirm", StringComparison.OrdinalIgnoreCase) >= 0 && enKeyboard.IndexOf("cancel", StringComparison.OrdinalIgnoreCase) >= 0 &&
                     enGamepad.IndexOf("confirm", StringComparison.OrdinalIgnoreCase) >= 0 && enGamepad.IndexOf("cancel", StringComparison.OrdinalIgnoreCase) >= 0,

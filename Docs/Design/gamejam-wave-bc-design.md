@@ -41,8 +41,8 @@
 |---|---|---|---|---|---|---|---|
 | coast.beach | driftline | node.coast.beach.drift-pile.01 | 기존 | DriftPile | salvage 2, wood 1 | low | - |
 | coast.beach | driftline | node.coast.beach.tree-hollow.01 | 기존 | TreeHollow | salvage 2, wood 1 | low | - |
-| coast.beach | tide-cache | node.coast.beach.grass-patch.01 | 기존 | GrassPatch | food 2, fabric 1 | low | - |
-| coast.beach | tide-cache | node.coast.beach.grass-patch.02 | 신규 | GrassPatch | food 2, fabric 1 | low | - |
+| coast.beach | tide-cache | node.coast.beach.grass-patch.01 | 기존 | GrassPatch | food 1, fabric 1 | low | - |
+| coast.beach | tide-cache | node.coast.beach.grass-patch.02 | 신규 | GrassPatch | food 1, fabric 1 | low | - |
 | coast.beach | storm-wrack | node.coast.beach.rock-crevice.01 | 기존 | RockCrevice | wood 2, salvage 1 | medium | - |
 | coast.beach | storm-wrack | node.coast.beach.rock-crevice.02 | 신규 | RockCrevice | wood 2, salvage 1 | medium | - |
 | sea.shallows | reef-pocket | node.sea.shallows.rock-crevice.01 | 기존 | RockCrevice | food 2, stone 1 | medium | - |
@@ -55,14 +55,14 @@
 | forest.grove | deadfall | node.forest.grove.drift-pile.01 | 기존 | DriftPile | wood 4 | medium | exposure +1, flint |
 | forest.grove | forage-patch | node.forest.grove.grass-patch.01 | 기존 | GrassPatch | food 2, medicine 1 | low | treatment source |
 | forest.grove | forage-patch | node.forest.grove.grass-patch.02 | 신규 | GrassPatch | food 2, medicine 1 | low | treatment source |
-| forest.grove | vine-hollow | node.forest.grove.rock-crevice.01 | 기존 | RockCrevice | fiber 3, wood 1 | medium | - |
-| forest.grove | vine-hollow | node.forest.grove.rock-crevice.02 | 신규 | RockCrevice | fiber 3, wood 1 | medium | - |
+| forest.grove | vine-hollow | node.forest.grove.rock-crevice.01 | 기존 | RockCrevice | fiber 3, medicine 1 | medium | - |
+| forest.grove | vine-hollow | node.forest.grove.rock-crevice.02 | 신규 | RockCrevice | fiber 3, medicine 1 | medium | - |
 | ridge.highland | rockfall | node.ridge.highland.rock-crevice.01 | 기존 | RockCrevice | stone 4, metal 1 | high | - |
 | ridge.highland | rockfall | node.ridge.highland.rock-crevice.02 | 신규 | RockCrevice | stone 4, metal 1 | high | - |
 | ridge.highland | windfall | node.ridge.highland.grass-patch.01 | 기존 | GrassPatch | wood 3, fiber 1 | medium | flint |
 | ridge.highland | windfall | node.ridge.highland.tree-hollow.01 | 기존 | TreeHollow | wood 3, fiber 1 | medium | flint |
-| ridge.highland | signal-overlook | node.ridge.highland.facility-cabinet.01 | 기존 | FacilityCabinet | fuel 1, medicine 1 | high | transistor |
-| ridge.highland | signal-overlook | node.ridge.highland.facility-cabinet.02 | 신규 | FacilityCabinet | fuel 1, medicine 1 | high | transistor |
+| ridge.highland | signal-overlook | node.ridge.highland.facility-cabinet.01 | 기존 | FacilityCabinet | fuel 1, food 1 | high | transistor |
+| ridge.highland | signal-overlook | node.ridge.highland.facility-cabinet.02 | 신규 | FacilityCabinet | fuel 1, food 1 | high | transistor |
 | cave.island | mineral-seam | node.cave.island.rock-crevice.01 | 기존 | RockCrevice | stone 3, metal 1 | high | - |
 | cave.island | mineral-seam | node.cave.island.rock-crevice.02 | 신규 | RockCrevice | stone 3, metal 1 | high | - |
 | cave.island | dry-cache | node.cave.island.drift-pile.01 | 기존 | DriftPile | chemicals 2, fuel 1 | medium | flint, transistor |
@@ -71,10 +71,10 @@
 | cave.island | fungus-ledge | node.cave.island.tree-hollow.02 | 신규 | TreeHollow | stone 1, medicine 1 | high | - |
 | cove.wreck | cargo-locker | node.cove.wreck.wreck-locker.01 | 기존 | WreckLocker | salvage 3, metal 2 | medium | - |
 | cove.wreck | cargo-locker | node.cove.wreck.drift-pile.01 | 기존 | DriftPile | salvage 3, metal 2 | medium | - |
-| cove.wreck | rigging-locker | node.cove.wreck.grass-patch.01 | 기존 | GrassPatch | fabric 2, fiber 1 | medium | - |
-| cove.wreck | rigging-locker | node.cove.wreck.grass-patch.02 | 신규 | GrassPatch | fabric 2, fiber 1 | medium | - |
-| cove.wreck | engine-bay | node.cove.wreck.rock-crevice.01 | 기존 | RockCrevice | electronics 2, chemicals 1 | high | transceiver, circuit-board |
-| cove.wreck | engine-bay | node.cove.wreck.rock-crevice.02 | 신규 | RockCrevice | electronics 2, chemicals 1 | high | transceiver, circuit-board |
+| cove.wreck | rigging-locker | node.cove.wreck.grass-patch.01 | 기존 | GrassPatch | fabric 2, fiber 1, chemicals 1 | medium | - |
+| cove.wreck | rigging-locker | node.cove.wreck.grass-patch.02 | 신규 | GrassPatch | fabric 2, fiber 1, chemicals 1 | medium | - |
+| cove.wreck | engine-bay | node.cove.wreck.rock-crevice.01 | 기존 | RockCrevice | electronics 2, wood 1 | high | transceiver, circuit-board |
+| cove.wreck | engine-bay | node.cove.wreck.rock-crevice.02 | 신규 | RockCrevice | electronics 2, wood 1 | high | transceiver, circuit-board |
 | ruins.relay | control-cabinet | node.ruins.relay.facility-cabinet.01 | 기존 | FacilityCabinet | electronics 3, wire 1 | high | circuit-board |
 | ruins.relay | control-cabinet | node.ruins.relay.facility-cabinet.02 | 기존 | FacilityCabinet | electronics 3, wire 1 | high | circuit-board |
 | ruins.relay | cable-duct | node.ruins.relay.rock-crevice.01 | 기존 | RockCrevice | wire 3, metal 1 | high | transistor |
@@ -86,12 +86,12 @@
 
 | region ID | archetype | instance | 일반 자원 |
 |---|---:|---:|---:|
-| region.coast.beach | 3 | 6 | 18 |
+| region.coast.beach | 3 | 6 | 16 |
 | region.sea.shallows | 3 | 6 | 18 |
 | region.forest.grove | 3 | 6 | 22 |
 | region.ridge.highland | 3 | 6 | 22 |
 | region.cave.island | 3 | 6 | 18 |
-| region.cove.wreck | 3 | 6 | 22 |
+| region.cove.wreck | 3 | 6 | 24 |
 | region.ruins.relay | 3 | 6 | 24 |
 | 합계 | 21 | 42 | 144 |
 
@@ -168,11 +168,12 @@ GAMEJAM_25_35 profile에서 seed 생성과 확장 지역 해금 직후 escape.ra
 | bag 압박 fixture | forest rock-crevice.01 + grass-patch.01 = 7단위, stack cap 2에서 5 stack | 4칸 가방이 한 선택을 요구하지만 귀환은 가능 |
 | 대표 smoke | 4~6원정, 10~14수색, 2지역 이상, 22~30단위 이동 | 기존 25~35분 목표 유지 |
 | smoke 비용 | wood 12 + fiber 2 + fuel 2 + part.smoke.flint 1 | 이전 정본 그대로, final 아님 |
-| radio 표본 비용 | electronics 6 + wire 6 + metal 4 + radio 부품 3 | 두 stage 표본, final 아님 |
+| radio 표본 비용 | electronics 2 + wire 2 + metal 1 + radio 부품 3 | 14수색 same-run profile의 두 stage 표본, final 아님 |
+| GAME JAM 수직 증축 | Upper W1/D0 + Basement W1/D0, Side W2/D1 | 30분 안에 위층·지하를 같은 run에서 체험; Side 장기 비용 유지 |
 | raft GREEN 회귀 | 현행 stage 비용과 rope·sailcloth 계약 | Wave 20 16/16 값을 이 작업에서 변경하지 않음 |
 | disease 치료 | medicine 1 | 같은 forest에서 총 2를 얻을 수 있어 별도 강제 원정 없음 |
 
-smoke 비용 commit 뒤 전역 finite stock에는 wood 10, fiber 8, fuel 6, food 12, medicine 6이 남는다. raft와 radio의 재료 범주는 겹침이 제한적이므로 선택 seed는 생존·회복 선택 하나와 다른 두 playable escape의 독립 가능성을 유지해야 한다. 42 node를 전부 수색하게 만들지 않으며 대표 탈출의 목표 수색 수는 10~14에서 늘리지 않는다.
+대표 seed `15000501`은 자연 지도 선택과 유한 node 수색만으로 14회째에 Upper+Basement를 확정한 뒤 세 경로 비용을 동시에 보유한다. 시작 보유량을 포함한 총 수입은 wood 22, stone 2, salvage 7, food 3, fiber 2, fuel 3, electronics 2, wire 2, metal 1이다. 작업대·도끼·밧줄에 wood 4/stone 2/salvage 4, GAME JAM 수직 모듈 두 개에 wood 2/salvage 0을 지출하고 식사를 선택하지 않으면, raft+smoke+radio 합산 비용 wood 15/salvage 2/food 3/fiber 2/fuel 2/electronics 2/wire 2/metal 1을 한 번에 지불하고 wood 1/salvage 1/fuel 1을 남긴다. Side는 장기 성장 선택으로 기존 wood 2/salvage 1을 유지한다. 42 node를 전부 수색하게 만들지 않으며 대표 탈출의 목표 수색 수는 10~14에서 늘리지 않는다.
 
 ## 7. red-first acceptance와 소유권
 

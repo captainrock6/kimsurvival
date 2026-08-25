@@ -126,7 +126,7 @@ namespace KimSurvival
         public string[] AppliedHealthTransactionIds = Array.Empty<string>();
     }
 
-    public sealed class GameSession
+    public sealed partial class GameSession
     {
         public const int DefaultBagSlotCount = 4;
         public const int MaximumBagSlotCount = 6;

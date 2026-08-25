@@ -31,7 +31,7 @@ camp.popup.detail.campfire	먹거나 오늘의 생존 준비를 하고, 설치 �
 camp.popup.detail.workbench	제작·연구·수리·가방 확장은 이 작업대에서만 한다.	Craft, research, repair, and upgrade the bag at this workbench.	⟦Cráft, réséárch, répáír, áñd úpgrádé thé bág át thís wórkbéñch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.rain	탁 트인 하늘 아래에서 빗물을 받아 오늘의 회복을 준비한다.	Collect rain under open sky to prepare today's recovery.	⟦Cólléct ráíñ úñdér ópéñ sky tó prépáré tódáy's récóvéry.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 camp.popup.detail.signal	전용 앵커의 구조 신호대에 단계별 자원을 투입한다.	Invest stage resources in the rescue signal at its dedicated anchor.	⟦Íñvést stágé résóúrcés íñ thé réscúé sígñál át íts dédícátéd áñchór.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
-camp.popup.detail.module_slot	이 연결 슬롯에서 방 확장 후보를 미리 본다. 확정 비용은 나무 2와 표류물 1이다.	Preview room expansion from this connection slot. Commit cost is Wood 2 and Salvage 1.	⟦Prévíéw róóm éxpáñsíóñ fróm thís cóññéctíóñ slót. Cómmít cóst ís Wóód 2 áñd Sálvágé 1.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüáé⟧
+camp.popup.detail.module_slot	이 연결 슬롯에서 방 확장 후보를 미리 본다. 위층·지하실은 나무 1, 옆방은 나무 2와 표류물 1이다.	Preview room expansion here. Upper and basement cost 1 wood; side costs 2 wood and 1 salvage.	⟦Prévíéw róóm éxpáñsíóñ héré. Úppér áñd báséméñt cóst 1 wóód; sídé cósts 2 wóód áñd 1 sálvágé.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.generic	이 설비의 행동을 선택한다.	Choose an action owned by this facility.	⟦Chóósé áñ áctíóñ ówñéd by thís fácílíty.áéíóúüñ¿¡áéíóúü⟧
 controls.explore	{0} · A/D 또는 스틱 이동 · 해안에서 자동 수영 · Space/A 점프 · E/X 수색 · R/B 귀환 · F1/Y 언어	{0} · A/D or stick move · Auto-swim at shore · Space/A jump · E/X search · R/B return · F1/Y language	⟦{0} · A/D ór stíck móvé · Áútó-swím át shóré · Space/A júmp · E/X séárch · R/B rétúrñ · F1/Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 controls.explore.keyboard_mouse	{0} · A/D 이동 · 해안 자동 수영 · Space 점프 · E 수색 · R 귀환\n가방 교체 1–{1} · Esc 포기 · F1 언어	{0} · A/D move · Auto-swim · Space jump · E search · R return\nReplace bag 1–{1} · Esc discard · F1 language	⟦{0} · A/D móvé · Áútó-swím · Space júmp · E séárch · R rétúrñ\nRéplácé bág 1–{1} · Esc díscárd · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
@@ -267,14 +267,14 @@ expedition.map.depart	{0}(으)로 출발	Depart for {0}	⟦Dépárt fór {0}áé
 expedition.map.cancel	캠프로 돌아가기	Return to Camp	⟦Rétúrñ tó Cámpáéí⟧
 expedition.region.beach.name	해변	Beach	⟦Béách⟧
 expedition.region.beach.summary	표류물이 밀려오는 넓은 모래 해안.	A broad sandy coast where useful debris washes ashore.	⟦Á bróád sáñdy cóást whéré úséfúl débrís wáshés áshóré.áéíóúüñ¿¡áéíóúüñ¿¡⟧
-expedition.region.beach.resources	표류물 풍부 · 식량 보통 · 나무 보통	Salvage abundant · Food common · Wood common	⟦Sálvágé ábúñdáñt · Fóód cómmóñ · Wóód cómmóñáéíóúüñ¿¡áéíóúüñ¿¡⟧
+expedition.region.beach.resources	나무·표류물 풍부 · 식량·천 희귀	Wood and salvage abundant · Food and fabric scarce	⟦Wóód áñd sálvágé ábúñdáñt · Fóód áñd fábríc scárcéáéíóúüñ¿¡áéíóúüñ¿¡⟧
 expedition.region.beach.risk	낮음 · 파도에 떠밀린 잔해	Low · Wave-driven debris	⟦Lów · Wávé-drívéñ débrísáéíóúü⟧
 expedition.region.beach.weather	맑음 · 바닷바람	Clear · Sea breeze	⟦Cléár · Séá bréézéáéíó⟧
 expedition.region.beach.equipment	필수 없음 · 여유 가방 권장	None required · Spare bag space advised	⟦Ñóñé réqúíréd · Spáré bág spácé ádvísédáéíóúüñ¿¡áéíóúüñ¿⟧
 expedition.region.beach.special	? 표류 상자 가능성	? Possible drift crate	⟦? Póssíblé dríft crátéáéíóúü⟧
 expedition.region.forest.name	숲	Forest	⟦Fórést⟧
 expedition.region.forest.summary	나무와 먹거리가 많지만 덩굴 길이 좁다.	Dense trees and food sources, with narrow vine-choked paths.	⟦Déñsé tréés áñd fóód sóúrcés, wíth ñárrów víñé-chókéd páths.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
-expedition.region.forest.resources	나무 풍부 · 식량 보통 · 돌 희귀	Wood abundant · Food common · Stone scarce	⟦Wóód ábúñdáñt · Fóód cómmóñ · Stóñé scárcéáéíóúüñ¿¡áéíóúüñ¿¡⟧
+expedition.region.forest.resources	나무·섬유 풍부 · 식량·약품 보통	Wood and fiber abundant · Food and medicine common	⟦Wóód áñd fíbér ábúñdáñt · Fóód áñd médícíñé cómmóñáéíóúüñ¿¡áéíóúüñ¿¡⟧
 expedition.region.forest.risk	보통 · 덩굴·낙하 가지	Medium · Vines and falling branches	⟦Médíúm · Víñés áñd fállíñg bráñchésáéíóúüñ¿¡á⟧
 expedition.region.forest.weather	습함 · 약한 소나기 가능	Humid · Light showers possible	⟦Húmíd · Líght shówérs póssíbléáéíóúüñ¿⟧
 expedition.region.forest.equipment	돌도끼 권장	Stone axe recommended	⟦Stóñé áxé récómméñdédáéíóú⟧
@@ -288,7 +288,7 @@ expedition.region.shallows.equipment	수영 체력 필요 · 밧줄 권장	Swimm
 expedition.region.shallows.special	? 가라앉은 부품 가능성	? Possible sunken component	⟦? Póssíblé súñkéñ cómpóñéñtáéíóúüá⟧
 expedition.region.ridge_highland.name	바람 절벽	Windy Highland Ridge	⟦Wíñdy Híghláñd Rídgéáéíóú⟧
 expedition.region.ridge_highland.summary	강풍이 부는 능선과 무너진 바위틈. 고지대 신호 흔적이 보인다.	A wind-beaten ridge of collapsed rock with traces of old signal work.	⟦Á wíñd-béátéñ rídgé óf cóllápséd róck wíth trácés óf óld sígñál wórkáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
-expedition.region.ridge_highland.resources	돌·나무 풍부 · 금속·섬유 보통 · 연료 희귀	Stone and wood abundant · Metal and fiber common · Fuel scarce	⟦Stóñé áñd wóód ábúñdáñt · Métál áñd fíbér cómmóñ · Fúél scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+expedition.region.ridge_highland.resources	돌·나무 풍부 · 금속·섬유 보통 · 연료·식량 희귀	Stone and wood abundant · Metal and fiber common · Fuel and food scarce	⟦Stóñé áñd wóód ábúñdáñt · Métál áñd fíbér cómmóñ · Fúél áñd fóód scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 expedition.region.ridge_highland.risk	높음 · 낙석·말벌·절벽 강풍	High · Rockfalls, wasps, and cliff winds	⟦Hígh · Róckfálls, wásps, áñd clíff wíñdsáéíóúüñ¿¡áéíóú⟧
 expedition.region.ridge_highland.weather	강풍 · 대체로 맑음 · 번개 가능	Strong wind · Mostly clear · Lightning possible	⟦Stróñg wíñd · Móstly cléár · Líghtñíñg póssíbléáéíóúüñ¿¡áéíóúüñ⟧
 expedition.region.ridge_highland.equipment	밧줄 필수 · 방수 장비 권장	Rope required · Weatherproof gear advised	⟦Rópé réqúíréd · Wéáthérpróóf géár ádvísédáéíóúüñ¿¡áéíóú⟧
@@ -302,7 +302,7 @@ expedition.region.cave_island.equipment	돌도끼·광원 필요	Stone axe and l
 expedition.region.cave_island.special	? 부싯돌 광맥·부품 은닉처 가능성	? Possible flint seam and hidden parts cache	⟦? Póssíblé flíñt séám áñd híddéñ párts cáchéáéíóúüñ¿¡áéíóúü⟧
 expedition.region.cove_wreck.name	난파선 만	Wreck Cove	⟦Wréck Cóvéáé⟧
 expedition.region.cove_wreck.summary	부서진 선체와 침수된 화물칸이 좁은 만에 겹쳐 있다.	Broken hulls and flooded cargo holds crowd a narrow cove.	⟦Brókéñ húlls áñd flóódéd cárgó hólds crówd á ñárrów cóvéáéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
-expedition.region.cove_wreck.resources	금속·표류물 풍부 · 천·전자 부품 보통 · 식량 희귀	Metal and salvage abundant · Fabric and electronics common · Food scarce	⟦Métál áñd sálvágé ábúñdáñt · Fábríc áñd éléctróñícs cómmóñ · Fóód scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
+expedition.region.cove_wreck.resources	금속·표류물 풍부 · 천·전자 부품 보통 · 화학재·나무 희귀	Metal and salvage abundant · Fabric and electronics common · Chemicals and wood scarce	⟦Métál áñd sálvágé ábúñdáñt · Fábríc áñd éléctróñícs cómmóñ · Chémícáls áñd wóód scárcéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
 expedition.region.cove_wreck.risk	높음 · 날카로운 잔해·쥐 떼·침수	High · Sharp wreckage, rats, and flooding	⟦Hígh · Shárp wréckágé, ráts, áñd flóódíñgáéíóúüñ¿¡áéíóú⟧
 expedition.region.cove_wreck.weather	거센 조류 · 높은 파도 · 비 가능	Strong currents · High surf · Rain possible	⟦Stróñg cúrréñts · Hígh súrf · Ráíñ póssíbléáéíóúüñ¿¡áéíóúü⟧
 expedition.region.cove_wreck.equipment	수영 준비·밧줄 필수	Swimming gear and rope required	⟦Swímmíñg géár áñd rópé réqúírédáéíóúüñ¿¡⟧
@@ -371,7 +371,7 @@ escape.project.message.complete	{0} 완성. 구조 신호가 응답을 받았다
 escape.project.message.research	{0}에 필요한 연구·도구가 아직 없다.	The research or tool required by {0} is missing.	⟦Thé réséárch ór tóól réqúíréd by {0} ís míssíñg.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 escape.project.message.resources	{0}에 투입할 자원이 부족하다.	Not enough resources for {0}.	⟦Ñót éñóúgh résóúrcés fór {0}.áéíóúüñ¿¡á⟧
 camp.popup.detail.escape_smoke	부싯돌과 나무 12·섬유 2·연료 2를 두 단계로 넣고, 맑은 바람에 가시성을 확인한다.	Commit flint plus 12 wood, 2 fiber, and 2 fuel in two stages, then verify visibility in clear wind.	⟦Cómmít flíñt plús 12 wóód, 2 fíbér, áñd 2 fúél íñ twó stágés, théñ vérífy vísíbílíty íñ cléár wíñd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
-camp.popup.detail.escape_radio	무전기·전자기판·트랜지스터와 전자 6·전선 6·금속 4로 수리한 뒤 깨끗한 주파수를 찾는다.	Repair with the transceiver, circuit board, transistor, 6 electronics, 6 wire, and 4 metal, then find a clear frequency.	⟦Répáír wíth thé tráñscéívér, círcúít bóárd, tráñsístór, 6 éléctróñícs, 6 wíré, áñd 4 métál, théñ fíñd á cléár fréqúéñcy.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+camp.popup.detail.escape_radio	무전기·전자기판·트랜지스터와 전자 2·전선 2·금속 1로 수리한 뒤 깨끗한 주파수를 찾는다.	Repair with the transceiver, circuit board, transistor, 2 electronics, 2 wire, and 1 metal, then find a clear frequency.	⟦Répáír wíth thé tráñscéívér, círcúít bóárd, tráñsístór, 2 éléctróñícs, 2 wíré, áñd 1 métál, théñ fíñd á cléár fréqúéñcy.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 ending.escape.raft.open-water.title	수평선 너머로	Beyond the Horizon	⟦Béyóñd thé Hórízóñáéíóúü⟧
 ending.escape.raft.open-water.summary	직접 엮은 뗏목으로 조류를 타고 섬을 벗어났다.	He rides the current off the island on his own raft.	⟦Hé rídés thé cúrréñt óff thé ísláñd óñ hís ówñ ráft.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 ending.escape.raft.open-water.hint	바다는 벽이 아니라 길일지도 모른다.	The sea may be a road, not a wall.	⟦Thé séá máy bé á róád, ñót á wáll.áéíóúüñ¿¡áéí⟧

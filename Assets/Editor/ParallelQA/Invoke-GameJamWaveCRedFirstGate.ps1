@@ -5,7 +5,10 @@ param(
 
     [string]$BaselineCommit = 'da7919ed7314b97865a7c8cebb738d420cfeb512',
 
-    [string]$UnityPath = 'C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe'
+    [string]$UnityPath = 'C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe',
+
+    [ValidateRange(6, 60)]
+    [int]$MinimumSmokeSeconds = 6
 )
 
 $ErrorActionPreference = 'Stop'
@@ -16,13 +19,20 @@ if ($PSVersionTable.PSVersion.Major -lt 5) {
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
 $workRoot = Join-Path $projectRoot (Join-Path 'work\ParallelQA' $RunId)
+$searchNodeEntry = Join-Path $PSScriptRoot 'Invoke-GameJamSearchNodeRedFirstGate.ps1'
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 if (-not (Test-Path -LiteralPath $UnityPath -PathType Leaf)) {
     throw "Unity Editor not found: $UnityPath"
 }
+if (-not (Test-Path -LiteralPath $searchNodeEntry -PathType Leaf)) {
+    throw "GameJam search-node prerequisite entry point is missing: $searchNodeEntry"
+}
 if (Test-Path -LiteralPath $evidenceRoot) {
     throw "Evidence directory already exists; choose a fresh RunId: $evidenceRoot"
+}
+if (Test-Path -LiteralPath $workRoot) {
+    throw "Work directory already exists; choose a fresh RunId: $workRoot"
 }
 
 $head = (& git -C $projectRoot rev-parse HEAD).Trim()
@@ -84,16 +94,60 @@ function Test-Utf8NoBom([string]$Path) {
     return $bytes.Length -lt 3 -or -not ($bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF)
 }
 
+function Test-ReportPassPrefix($Report, [string]$IdPrefix) {
+    if ($null -eq $Report) { return $false }
+    return @($Report.checks | Where-Object {
+        [string]$_.id -like "$IdPrefix*" -and [string]$_.status -eq 'PASS'
+    }).Count -gt 0
+}
+
 $runStarted = [DateTime]::UtcNow
 $shellEdition = if ([string]::IsNullOrWhiteSpace([string]$PSVersionTable.PSEdition)) { 'Desktop' } else { [string]$PSVersionTable.PSEdition }
 $shellVersion = [string]$PSVersionTable.PSVersion
+$shellExecutable = [Diagnostics.Process]::GetCurrentProcess().MainModule.FileName
 $stages = New-Object System.Collections.Generic.List[object]
+
+# P08 consumes the two reports emitted by this fresh prerequisite. Passing the
+# same RunId and baseline writes them directly into this run's evidence folder;
+# no report from an older run is copied or accepted.
+$searchArguments = @(
+    '-NoLogo', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', $searchNodeEntry,
+    '-RunId', $RunId, '-BaselineCommit', $BaselineCommit, '-UnityPath', $UnityPath,
+    '-MinimumSmokeSeconds', [string]$MinimumSmokeSeconds
+)
+$searchStage = Invoke-HiddenProcess 'fresh-gsn-green-prerequisite' $shellExecutable $searchArguments `
+    (Join-Path $workRoot 'wave-c-gsn-stdout.log') (Join-Path $workRoot 'wave-c-gsn-stderr.log')
+$stages.Add($searchStage)
+
+if (-not (Test-Path -LiteralPath $evidenceRoot)) {
+    New-Item -ItemType Directory -Path $evidenceRoot -Force | Out-Null
+}
+$prerequisiteFileNames = @(
+    'gamejam-search-node-edit-contracts.json',
+    'gamejam-search-node-play-contracts.json'
+)
+$prerequisiteCopyRoot = Join-Path $workRoot 'fresh-gsn-prerequisites'
+New-Item -ItemType Directory -Path $prerequisiteCopyRoot -Force | Out-Null
+foreach ($fileName in $prerequisiteFileNames) {
+    $generatedPath = Join-Path $evidenceRoot $fileName
+    if (Test-Path -LiteralPath $generatedPath -PathType Leaf) {
+        Copy-Item -LiteralPath $generatedPath -Destination (Join-Path $prerequisiteCopyRoot $fileName) -Force
+    }
+}
 
 foreach ($definition in @(
     [ordered]@{ name = 'wave-c-edit-contracts'; method = 'ParallelQA.GameJamWaveCRedFirstGateRunner.RunEditContracts'; play = $false },
     [ordered]@{ name = 'wave-c-play-contracts'; method = 'ParallelQA.GameJamWaveCRedFirstGateRunner.RunPlayContracts'; play = $true }
 )) {
     $logName = $definition.name.Replace('-', '_')
+    if ([bool]$definition.play) {
+        foreach ($fileName in $prerequisiteFileNames) {
+            $freshCopyPath = Join-Path $prerequisiteCopyRoot $fileName
+            if (Test-Path -LiteralPath $freshCopyPath -PathType Leaf) {
+                Copy-Item -LiteralPath $freshCopyPath -Destination (Join-Path $evidenceRoot $fileName) -Force
+            }
+        }
+    }
     $arguments = @('-batchmode')
     if ([bool]$definition.play) {
         $arguments += '-force-d3d11'
@@ -108,10 +162,6 @@ foreach ($definition in @(
     $stage = Invoke-HiddenProcess ([string]$definition.name) $UnityPath $arguments `
         (Join-Path $workRoot ("$logName-stdout.log")) (Join-Path $workRoot ("$logName-stderr.log"))
     $stages.Add($stage)
-}
-
-if (-not (Test-Path -LiteralPath $evidenceRoot)) {
-    New-Item -ItemType Directory -Path $evidenceRoot -Force | Out-Null
 }
 
 $commandResults = [ordered]@{
@@ -136,11 +186,33 @@ $editReport = Read-Json (Join-Path $evidenceRoot 'gamejam-wave-c-edit-contracts.
 $playReport = Read-Json (Join-Path $evidenceRoot 'gamejam-wave-c-play-contracts.json')
 $editEvidence = Read-Json (Join-Path $evidenceRoot 'gamejam-wave-c-edit-observation-evidence.json')
 $playEvidence = Read-Json (Join-Path $evidenceRoot 'gamejam-wave-c-play-observation-evidence.json')
+$searchEditReport = Read-Json (Join-Path $evidenceRoot 'gamejam-search-node-edit-contracts.json')
+$searchPlayReport = Read-Json (Join-Path $evidenceRoot 'gamejam-search-node-play-contracts.json')
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
 foreach ($stage in $stages) {
     if ([int]$stage.exitCode -ne 0) {
         $infrastructureFailures.Add("$($stage.name) exited $($stage.exitCode)")
+    }
+}
+foreach ($report in @($searchEditReport, $searchPlayReport)) {
+    if ($null -eq $report -or [string]$report.infrastructureOverall -ne 'PASS' -or
+        [string]$report.runId -ne $RunId -or [string]$report.baselineCommit -ne $BaselineCommit) {
+        $infrastructureFailures.Add('a fresh same-run GSN prerequisite report is missing, identity-mismatched, or infrastructure FAIL')
+    }
+}
+foreach ($fileName in $prerequisiteFileNames) {
+    if (-not (Test-Path -LiteralPath (Join-Path $prerequisiteCopyRoot $fileName) -PathType Leaf)) {
+        $infrastructureFailures.Add("fresh prerequisite copy is missing: $fileName")
+    }
+}
+foreach ($required in @(
+    [ordered]@{ report = $searchEditReport; id = 'GSN-E05' },
+    [ordered]@{ report = $searchPlayReport; id = 'GSN-P05' },
+    [ordered]@{ report = $searchPlayReport; id = 'GSN-P10' }
+)) {
+    if (-not (Test-ReportPassPrefix $required.report ([string]$required.id))) {
+        $infrastructureFailures.Add("fresh same-run prerequisite $($required.id) is not PASS")
     }
 }
 foreach ($report in @($editReport, $playReport)) {
@@ -168,7 +240,7 @@ $exitCode = if ($overall -eq 'GREEN') { 0 } elseif ($overall -eq 'RED') { 2 } el
 $passIds = @($passes | ForEach-Object { [string]$_.id })
 $gapIds = @($expectedGaps | ForEach-Object { [string]$_.id })
 $failureIds = @($productFailures | ForEach-Object { [string]$_.id })
-$exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamWaveCRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '$BaselineCommit'"
+$exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamWaveCRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '$BaselineCommit' -MinimumSmokeSeconds $MinimumSmokeSeconds"
 
 $summary = [ordered]@{
     schemaVersion = 1
@@ -189,6 +261,19 @@ $summary = [ordered]@{
         passIds = $passIds
         expectedGapIds = $gapIds
         failureIds = $failureIds
+    }
+    prerequisites = [ordered]@{
+        searchEditReport = if ($null -eq $searchEditReport) { 'MISSING' } elseif (
+            [string]$searchEditReport.runId -eq $RunId -and
+            [string]$searchEditReport.baselineCommit -eq $BaselineCommit -and
+            (Test-ReportPassPrefix $searchEditReport 'GSN-E05')) { 'PASS same-run GSN-E05' } else { 'FAIL' }
+        searchPlayReport = if ($null -eq $searchPlayReport) { 'MISSING' } elseif (
+            [string]$searchPlayReport.runId -eq $RunId -and
+            [string]$searchPlayReport.baselineCommit -eq $BaselineCommit -and
+            (Test-ReportPassPrefix $searchPlayReport 'GSN-P05') -and
+            (Test-ReportPassPrefix $searchPlayReport 'GSN-P10')) { 'PASS same-run GSN-P05/P10' } else { 'FAIL' }
+        copiedFreshFiles = $prerequisiteFileNames
+        requiredPassIds = @('GSN-E05', 'GSN-P05', 'GSN-P10')
     }
     greenTransitionConditions = @(
         'protected sailcloth, flint, and radio parts are eligible-only, survive loss pressures, and count only eligible completed misses for 3/5 pity',
@@ -251,6 +336,7 @@ Write-Output "INFRASTRUCTURE=$infrastructureOverall"
 Write-Output "WAVE_C_PASS=$($passes.Count)"
 Write-Output "WAVE_C_EXPECTED_GAP=$($expectedGaps.Count)"
 Write-Output "WAVE_C_FAIL=$($productFailures.Count)"
+Write-Output "GSN_PREREQUISITES=$($summary.prerequisites.searchEditReport)/$($summary.prerequisites.searchPlayReport)"
 Write-Output "HUMAN_REQUIRED=$($humanRequired.Count)"
 Write-Output "EVIDENCE=$evidenceRoot"
 exit $exitCode

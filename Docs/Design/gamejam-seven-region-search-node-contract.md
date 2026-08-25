@@ -44,12 +44,12 @@
 
 | 지역 안정 ID / KO · EN | 해금 / 위험 | node archetype ×2 | 지역 유한 일반 자원 총량 | 위험 조합 |
 |---|---:|---|---|---|
-| `region.coast.beach` / 시작 해변 · Starting Beach | 시작 / 1·5 | `node.archetype.coast-beach.driftline`, `.tide-cache`, `.storm-wrack` | 나무 6, 표류물 6, 식량 4, 천 2 = **18** | 모래날벌레, 해안 게, 높은 파도 |
+| `region.coast.beach` / 시작 해변 · Starting Beach | 시작 / 1·5 | `node.archetype.coast-beach.driftline`, `.tide-cache`, `.storm-wrack` | 나무 6, 표류물 6, 식량 2, 천 2 = **16** | 모래날벌레, 해안 게, 높은 파도 |
 | `region.sea.shallows` / 맹그로브 얕은물 · Mangrove Shallows | 시작 / 2·5 | `node.archetype.sea-shallows.reef-pocket`, `.submerged-crate`, `.wreck-scatter` | 식량 4, 돌 2, 표류물 6, 금속 2, 전선 4 = **18** | 깔따구, 가오리, 쏘는 해조, 수인성 질병, 조수 |
-| `region.forest.grove` / 밀림 숲 · Jungle Grove | 시작 / 3·5 | `node.archetype.forest-grove.deadfall`, `.forage-patch`, `.vine-hollow` | 나무 10, 섬유 6, 식량 4, 약품 2 = **22** | 모기떼, 멧돼지, 독성 덩굴, 밀림열, 폭염·비 |
-| `region.ridge.highland` / 바위 절벽 · Rocky Highland | 확장 / 4·5 | `node.archetype.ridge-highland.rockfall`, `.windfall`, `.signal-overlook` | 돌 8, 금속 2, 나무 6, 섬유 2, 연료 2, 약품 2 = **22** | 말벌집, 둥지 새, 가시덤불, 상처 감염, 절벽·강풍 |
+| `region.forest.grove` / 밀림 숲 · Jungle Grove | 시작 / 3·5 | `node.archetype.forest-grove.deadfall`, `.forage-patch`, `.vine-hollow` | 나무 8, 섬유 6, 식량 4, 약품 4 = **22** | 모기떼, 멧돼지, 독성 덩굴, 밀림열, 폭염·비 |
+| `region.ridge.highland` / 바위 절벽 · Rocky Highland | 확장 / 4·5 | `node.archetype.ridge-highland.rockfall`, `.windfall`, `.signal-overlook` | 돌 8, 금속 2, 나무 6, 섬유 2, 연료 2, 식량 2 = **22** | 말벌집, 둥지 새, 가시덤불, 상처 감염, 절벽·강풍 |
 | `region.cave.island` / 섬 동굴 · Island Cave | 확장 / 4·5 | `node.archetype.cave-island.mineral-seam`, `.dry-cache`, `.fungus-ledge` | 돌 8, 금속 2, 화학재 4, 연료 2, 약품 2 = **18** | 동굴진드기, 박쥐떼, 독성 균류, 포자열, 어둠·낙석 |
-| `region.cove.wreck` / 난파선 만 · Wreck Cove | 확장 / 4·5 | `node.archetype.cove-wreck.cargo-locker`, `.rigging-locker`, `.engine-bay` | 표류물 6, 금속 4, 천 4, 섬유 2, 전자부품 4, 화학재 2 = **22** | 바퀴, 쥐떼, 녹슨 덩굴, 녹슨 상처, 날카로운 잔해·침수 |
+| `region.cove.wreck` / 난파선 만 · Wreck Cove | 확장 / 4·5 | `node.archetype.cove-wreck.cargo-locker`, `.rigging-locker`, `.engine-bay` | 표류물 6, 금속 4, 천 4, 섬유 2, 화학재 2, 전자부품 4, 나무 2 = **24** | 바퀴, 쥐떼, 녹슨 덩굴, 녹슨 상처, 날카로운 잔해·침수 |
 | `region.ruins.relay` / 폐기상 관측소 · Abandoned Weather Station | 확장 / 5·5 | `node.archetype.ruins-relay.control-cabinet`, `.cable-duct`, `.generator-room` | 전자부품 8, 전선 8, 금속 4, 연료 4 = **24** | 말벌, 뱀 둥지, 전기 덩굴, 곰팡이열, 낙뢰·불안정 계단 |
 
 합계는 **7지역 / 21 archetype / 42 instance / 일반 자원 144단위**다.
@@ -59,23 +59,23 @@
 | Archetype | instance | 두 instance 전체 유한 발견물 | 수색 비용 band | 핵심 부품 적격 후보 |
 |---|---:|---|---|---|
 | `node.archetype.coast-beach.driftline` | 2 | 표류물 4, 나무 2 | low | 없음 |
-| `node.archetype.coast-beach.tide-cache` | 2 | 식량 4, 천 2 | low | 없음 |
+| `node.archetype.coast-beach.tide-cache` | 2 | 식량 2, 천 2 | low | 없음 |
 | `node.archetype.coast-beach.storm-wrack` | 2 | 나무 4, 표류물 2 | medium | 돛천, 조명탄 탄약 |
 | `node.archetype.sea-shallows.reef-pocket` | 2 | 식량 4, 돌 2 | medium | 없음 |
 | `node.archetype.sea-shallows.submerged-crate` | 2 | 표류물 4, 금속 2 | medium | 망가진 무전기, 조명탄 탄약 |
 | `node.archetype.sea-shallows.wreck-scatter` | 2 | 전선 4, 표류물 2 | high | 발전기 코일 |
 | `node.archetype.forest-grove.deadfall` | 2 | 나무 8 | medium | 부싯돌, 연기 촉매 |
 | `node.archetype.forest-grove.forage-patch` | 2 | 식량 4, 약품 2 | low | 없음 |
-| `node.archetype.forest-grove.vine-hollow` | 2 | 섬유 6, 나무 2 | medium | 돛천 |
+| `node.archetype.forest-grove.vine-hollow` | 2 | 섬유 6, 약품 2 | medium | 돛천 |
 | `node.archetype.ridge-highland.rockfall` | 2 | 돌 8, 금속 2 | high | 없음 |
 | `node.archetype.ridge-highland.windfall` | 2 | 나무 6, 섬유 2 | medium | 부싯돌, 연기 촉매 |
-| `node.archetype.ridge-highland.signal-overlook` | 2 | 연료 2, 약품 2 | high | 트랜지스터, 발전기 코일 |
+| `node.archetype.ridge-highland.signal-overlook` | 2 | 연료 2, 식량 2 | high | 트랜지스터, 발전기 코일 |
 | `node.archetype.cave-island.mineral-seam` | 2 | 돌 6, 금속 2 | high | 없음 |
 | `node.archetype.cave-island.dry-cache` | 2 | 화학재 4, 연료 2 | medium | 부싯돌, 트랜지스터 |
 | `node.archetype.cave-island.fungus-ledge` | 2 | 돌 2, 약품 2 | high | 없음 |
 | `node.archetype.cove-wreck.cargo-locker` | 2 | 표류물 6, 금속 4 | medium | 조명탄 탄약 |
-| `node.archetype.cove-wreck.rigging-locker` | 2 | 천 4, 섬유 2 | medium | 돛천 |
-| `node.archetype.cove-wreck.engine-bay` | 2 | 전자부품 4, 화학재 2 | high | 망가진 무전기, 전자기판, 연기 촉매 |
+| `node.archetype.cove-wreck.rigging-locker` | 2 | 천 4, 섬유 2, 화학재 2 | medium | 돛천 |
+| `node.archetype.cove-wreck.engine-bay` | 2 | 전자부품 4, 나무 2 | high | 망가진 무전기, 전자기판, 연기 촉매 |
 | `node.archetype.ruins-relay.control-cabinet` | 2 | 전자부품 6, 전선 2 | high | 전자기판 |
 | `node.archetype.ruins-relay.cable-duct` | 2 | 전선 6, 금속 2 | high | 없음 |
 | `node.archetype.ruins-relay.generator-room` | 2 | 연료 4, 금속 2, 전자부품 2 | high | 발전기 코일 |

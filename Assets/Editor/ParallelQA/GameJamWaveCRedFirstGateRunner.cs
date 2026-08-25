@@ -129,6 +129,7 @@ namespace ParallelQA
         private sealed class EventEvidence
         {
             public int sequence = -1;
+            public string eventType = string.Empty;
             public string stableEventId = string.Empty;
             public string escapeId = string.Empty;
             public string targetId = string.Empty;
@@ -140,6 +141,8 @@ namespace ParallelQA
             public int costDelta = int.MinValue;
             public int inventoryDelta = int.MinValue;
             public int healthDelta = int.MinValue;
+            public int projectProgressDelta = int.MinValue;
+            public int completedStageDelta = int.MinValue;
             public int endingDelta = int.MinValue;
             public int albumDelta = int.MinValue;
         }
@@ -487,17 +490,17 @@ namespace ParallelQA
                     "active production escape route runtime observation surface");
 
                 Product(checks, "GWC-P03.distinct_natural_escape_interactions", "matrix 137 criterion 4", "P0",
-                    "Raft shore launcher ordered stages, smoke ignition+visibility, and radio repair+frequency are distinct ordered production interactions",
+                    "Raft hull+sail+supplies, smoke ignition+visibility, and radio repair+frequency are distinct ordered production interactions with positive route stage/resource deltas",
                     delegate
                     {
                         RequireLive(evidence);
                         Require(EventsAreProduction(evidence.events), "production-live ordered event records are missing");
-                        Require(HasOrderedRouteActions(evidence.events, "escape.raft", new[] { "shore", "hull", "sail", "supplies" }),
-                            "raft shore launcher ordered stages are absent");
-                        Require(HasOrderedRouteActions(evidence.events, "escape.smoke", new[] { "ignit", "visib" }),
-                            "smoke ignition/visibility interactions are absent");
-                        Require(HasOrderedRouteActions(evidence.events, "escape.radio", new[] { "repair", "frequen" }),
-                            "radio repair/frequency interactions are absent");
+                        RequireOrderedPositiveRouteActions(evidence.events, "escape.raft", "facility.shore-launch",
+                            new[] { "hull", "sail", "supplies" });
+                        RequireOrderedPositiveRouteActions(evidence.events, "escape.smoke", "facility.smoke-beacon",
+                            new[] { "ignit", "visib" });
+                        RequireOrderedPositiveRouteActions(evidence.events, "escape.radio", "facility.radio-bench",
+                            new[] { "repair", "frequen" });
                         Require(ZeroCheatCalls(evidence), DescribeCounters(evidence));
                         return "ordered production events=" + evidence.events.Length;
                     },
@@ -505,21 +508,19 @@ namespace ParallelQA
                     "active production escape interaction owners and event recorder");
 
                 Product(checks, "GWC-P04.atomic_fail_cancel_wait_retry_ending_once", "matrix 138 criterion 5", "P0",
-                    "Each route observes atomic fail/cancel/weather-wait/retry, then exactly one ending and one album record",
+                    "Each route has exact zero-delta fail/cancel/wait and a positive retry/progress delta; terminal duplicate actuation is zero-delta; ending.resolved and ending.album.unlocked each occur once as distinct event types",
                     delegate
                     {
                         RequireLive(evidence);
                         Require(EventsAreProduction(evidence.events), "production-live ordered event records are missing");
                         foreach (string escapeId in CoreEscapeIds)
                         {
-                            Require(HasAtomicRouteCycle(evidence.events, escapeId),
-                                "atomic fail/cancel/weather-wait/retry cycle missing for " + escapeId);
+                            RequireAtomicRouteCycle(evidence.events, escapeId);
                         }
-                        Require(evidence.events.Count(IsEndingRecord) == 1, "ending record count=" + evidence.events.Count(IsEndingRecord));
-                        Require(evidence.events.Count(IsAlbumRecord) == 1, "album record count=" + evidence.events.Count(IsAlbumRecord));
-                        return "atomic routes=3; ending=1; album=1";
+                        RequireTerminalEndingContract(evidence.events);
+                        return "atomic routes=3; terminal duplicate=zero; ending.resolved=1; ending.album.unlocked=1";
                     },
-                    "For each live route, attempt fail, cancel, weather wait, and retry; compare before/after fingerprints and finish once.",
+                    "For each live route, attempt fail, cancel, weather wait, and positive retry/progress; resolve once, actuate the terminal control again, and record exact ending/album event types.",
                     "active production escape transaction and ending album recorders");
 
                 Product(checks, "GWC-P05.same_run_upper_basement_save", "matrix 139 criterion 6", "P0",
@@ -795,6 +796,7 @@ namespace ParallelQA
                 EventEvidence record = new EventEvidence
                 {
                     sequence = ReadInt(item, -1, "Sequence", "sequence"),
+                    eventType = ReadString(item, "EventType", "event_type", "Type"),
                     stableEventId = ReadString(item, "StableEventId", "stable_event_id", "EventId"),
                     escapeId = ReadString(item, "EscapeId", "escape_id", "ProjectId"),
                     targetId = ReadString(item, "TargetId", "target_id"),
@@ -806,6 +808,8 @@ namespace ParallelQA
                     costDelta = ReadInt(item, int.MinValue, "CostDelta", "cost_delta"),
                     inventoryDelta = ReadInt(item, int.MinValue, "InventoryDelta", "inventory_delta"),
                     healthDelta = ReadInt(item, int.MinValue, "HealthDelta", "health_delta"),
+                    projectProgressDelta = ReadInt(item, int.MinValue, "ProjectProgressDelta", "project_progress_delta"),
+                    completedStageDelta = ReadInt(item, int.MinValue, "CompletedStageDelta", "completed_stage_delta"),
                     endingDelta = ReadInt(item, int.MinValue, "EndingDelta", "ending_delta"),
                     albumDelta = ReadInt(item, int.MinValue, "AlbumDelta", "album_delta")
                 };
@@ -846,7 +850,9 @@ namespace ParallelQA
         private static bool EventsAreProduction(EventEvidence[] events)
         {
             if (events == null || events.Length == 0 || events.Any(value => value == null || value.sequence < 0 ||
+                string.IsNullOrWhiteSpace(value.eventType) ||
                 string.IsNullOrWhiteSpace(value.stableEventId) ||
+                !string.Equals(value.eventType, value.stableEventId, StringComparison.Ordinal) ||
                 value.source.IndexOf("production", StringComparison.OrdinalIgnoreCase) < 0)) return false;
             for (int index = 1; index < events.Length; index += 1)
             {
@@ -855,50 +861,119 @@ namespace ParallelQA
             return true;
         }
 
-        private static bool HasOrderedRouteActions(EventEvidence[] events, string escapeId, string[] tokens)
+        private static void RequireOrderedPositiveRouteActions(
+            EventEvidence[] events,
+            string escapeId,
+            string targetId,
+            string[] tokens)
         {
             int cursor = -1;
             foreach (string token in tokens)
             {
                 int next = Array.FindIndex(events, cursor + 1, value => value != null &&
-                    string.Equals(value.escapeId, escapeId, StringComparison.Ordinal) && EventText(value)
-                        .IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0);
-                if (next < 0) return false;
+                    string.Equals(value.escapeId, escapeId, StringComparison.Ordinal) &&
+                    string.Equals(value.targetId, targetId, StringComparison.Ordinal) &&
+                    EventText(value).IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                    IsRouteProgressEventType(value) &&
+                    IsPositiveRouteDelta(value));
+                Require(next >= 0,
+                    escapeId + " missing ordered positive route action '" + token + "' after sequence " + cursor +
+                    "; observed=" + DescribeRouteEvents(events, escapeId));
                 cursor = next;
             }
-            return true;
         }
 
-        private static bool HasAtomicRouteCycle(EventEvidence[] events, string escapeId)
+        private static void RequireAtomicRouteCycle(EventEvidence[] events, string escapeId)
         {
-            EventEvidence fail = FindRouteResult(events, escapeId, "fail");
-            EventEvidence cancel = FindRouteResult(events, escapeId, "cancel");
-            EventEvidence wait = FindRouteResult(events, escapeId, "wait");
-            EventEvidence retry = FindRouteResult(events, escapeId, "retry");
-            return IsZeroDelta(fail) && IsZeroDelta(cancel) && IsZeroDelta(wait) && retry != null &&
-                   fail.sequence < cancel.sequence && cancel.sequence < wait.sequence && wait.sequence < retry.sequence;
+            EventEvidence fail = FindRouteEvent(events, escapeId, "escape.interaction.failed");
+            EventEvidence cancel = FindRouteEvent(events, escapeId, "escape.interaction.cancelled");
+            EventEvidence wait = FindRouteEvent(events, escapeId, "escape.forecast.wait");
+            EventEvidence retry = events.FirstOrDefault(value => value != null &&
+                string.Equals(value.escapeId, escapeId, StringComparison.Ordinal) &&
+                EventText(value).IndexOf("retry", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                IsRouteProgressEventType(value) &&
+                IsPositiveRouteDelta(value) && wait != null && value.sequence > wait.sequence);
+
+            Require(IsZeroDelta(fail), escapeId + " exact fail event is missing or non-zero: " + DescribeEvent(fail));
+            Require(IsZeroDelta(cancel), escapeId + " exact cancel event is missing or non-zero: " + DescribeEvent(cancel));
+            Require(IsZeroDelta(wait), escapeId + " exact wait event is missing or non-zero: " + DescribeEvent(wait));
+            Require(retry != null, escapeId + " retry lacks a positive project-stage/resource delta after wait; observed=" +
+                                   DescribeRouteEvents(events, escapeId));
+            Require(fail.sequence < cancel.sequence && cancel.sequence < wait.sequence && wait.sequence < retry.sequence,
+                escapeId + " atomic event order must be fail<cancel<wait<positive retry; observed=" +
+                DescribeRouteEvents(events, escapeId));
         }
 
-        private static EventEvidence FindRouteResult(EventEvidence[] events, string escapeId, string token)
+        private static EventEvidence FindRouteEvent(EventEvidence[] events, string escapeId, string eventType)
         {
             return events.FirstOrDefault(value => value != null && string.Equals(value.escapeId, escapeId, StringComparison.Ordinal) &&
-                EventText(value).IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0);
+                string.Equals(value.eventType, eventType, StringComparison.Ordinal));
         }
 
         private static bool IsZeroDelta(EventEvidence value)
         {
             return value != null && value.costDelta == 0 && value.inventoryDelta == 0 && value.healthDelta == 0 &&
+                   value.projectProgressDelta == 0 && value.completedStageDelta == 0 &&
+                   value.endingDelta == 0 && value.albumDelta == 0 &&
                    SameNonEmpty(value.beforeFingerprint, value.afterFingerprint);
         }
 
-        private static bool IsEndingRecord(EventEvidence value)
+        private static bool IsPositiveRouteDelta(EventEvidence value)
         {
-            return value != null && value.stableEventId.IndexOf("ending", StringComparison.OrdinalIgnoreCase) >= 0 && value.endingDelta == 1;
+            return value != null &&
+                   (value.projectProgressDelta > 0 || value.completedStageDelta > 0 ||
+                    value.costDelta > 0 || value.inventoryDelta < 0) &&
+                   !SameNonEmpty(value.beforeFingerprint, value.afterFingerprint);
         }
 
-        private static bool IsAlbumRecord(EventEvidence value)
+        private static bool IsRouteProgressEventType(EventEvidence value)
         {
-            return value != null && value.stableEventId.IndexOf("album", StringComparison.OrdinalIgnoreCase) >= 0 && value.albumDelta == 1;
+            return value != null &&
+                   (string.Equals(value.eventType, "escape.interaction.progressed", StringComparison.Ordinal) ||
+                    string.Equals(value.eventType, "ending.resolved", StringComparison.Ordinal));
+        }
+
+        private static void RequireTerminalEndingContract(EventEvidence[] events)
+        {
+            EventEvidence[] endings = events.Where(value => value != null &&
+                string.Equals(value.eventType, "ending.resolved", StringComparison.Ordinal)).ToArray();
+            EventEvidence[] albums = events.Where(value => value != null &&
+                string.Equals(value.eventType, "ending.album.unlocked", StringComparison.Ordinal)).ToArray();
+            EventEvidence[] duplicates = events.Where(value => value != null &&
+                string.Equals(value.eventType, "ending.terminal.duplicate", StringComparison.Ordinal)).ToArray();
+
+            Require(endings.Length == 1, "exact event type ending.resolved count=" + endings.Length);
+            Require(albums.Length == 1, "exact event type ending.album.unlocked count=" + albums.Length);
+            Require(duplicates.Length == 1,
+                "exact event type ending.terminal.duplicate count=" + duplicates.Length +
+                "; root observation must actuate the terminal control twice and record the duplicate attempt");
+            Require(endings[0].endingDelta == 1,
+                "ending.resolved must have endingDelta=1: " + DescribeEvent(endings[0]));
+            Require(albums[0].albumDelta == 1,
+                "ending.album.unlocked must have albumDelta=1: " + DescribeEvent(albums[0]));
+            Require(endings[0].sequence != albums[0].sequence,
+                "ending.resolved and ending.album.unlocked must be distinct event records");
+            Require(IsZeroDelta(duplicates[0]),
+                "terminal duplicate actuation must be zero-delta: " + DescribeEvent(duplicates[0]));
+            Require(duplicates[0].sequence > endings[0].sequence && duplicates[0].sequence > albums[0].sequence,
+                "terminal duplicate actuation must occur after ending and album records: " + DescribeEvent(duplicates[0]));
+        }
+
+        private static string DescribeRouteEvents(IEnumerable<EventEvidence> events, string escapeId)
+        {
+            return string.Join(" || ", (events ?? Array.Empty<EventEvidence>())
+                .Where(value => value != null && string.Equals(value.escapeId, escapeId, StringComparison.Ordinal))
+                .Select(DescribeEvent).ToArray());
+        }
+
+        private static string DescribeEvent(EventEvidence value)
+        {
+            if (value == null) return "missing";
+            return "seq=" + value.sequence + "; type=" + value.eventType + "; action=" + value.actionId +
+                   "; result=" + value.resultCode + "; cost=" + value.costDelta +
+                   "; inventory=" + value.inventoryDelta + "; health=" + value.healthDelta +
+                   "; progress=" + value.projectProgressDelta + "; stages=" + value.completedStageDelta +
+                   "; ending=" + value.endingDelta + "; album=" + value.albumDelta;
         }
 
         private static bool HasEventToken(IEnumerable<EventEvidence> events, string first, string second)
@@ -911,7 +986,7 @@ namespace ParallelQA
         private static string EventText(EventEvidence value)
         {
             if (value == null) return string.Empty;
-            return value.stableEventId + "|" + value.actionId + "|" + value.resultCode + "|" + value.targetId;
+            return value.eventType + "|" + value.stableEventId + "|" + value.actionId + "|" + value.resultCode + "|" + value.targetId;
         }
 
         private static bool ContainsUpperAndBasement(IEnumerable<string> values)

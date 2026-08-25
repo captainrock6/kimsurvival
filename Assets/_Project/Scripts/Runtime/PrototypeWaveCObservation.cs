@@ -15,6 +15,7 @@ namespace KimSurvival
     public sealed class PrototypeWaveCProductionEvent
     {
         public int Sequence = -1;
+        public string EventType = string.Empty;
         public string StableEventId = string.Empty;
         public string EscapeId = string.Empty;
         public string TargetId = string.Empty;
@@ -26,6 +27,8 @@ namespace KimSurvival
         public int CostDelta;
         public int InventoryDelta;
         public int HealthDelta;
+        public int ProjectProgressDelta;
+        public int CompletedStageDelta;
         public int EndingDelta;
         public int AlbumDelta;
     }
@@ -92,6 +95,8 @@ namespace KimSurvival
         public string Fingerprint = string.Empty;
         public int ResourceUnits;
         public int Health;
+        public Dictionary<string, int> ProjectProgressByEscapeId = new Dictionary<string, int>(StringComparer.Ordinal);
+        public Dictionary<string, int> CompletedStagesByEscapeId = new Dictionary<string, int>(StringComparer.Ordinal);
         public int EndingCount;
         public int AlbumCount;
     }
@@ -119,11 +124,22 @@ namespace KimSurvival
             string waveState = CaptureCanonicalWaveState(waveRuntime);
             string searchState = searchRuntime == null ? string.Empty : JsonUtility.ToJson(searchRuntime.Ledger.CaptureSnapshot());
             string albumState = album == null ? string.Empty : JsonUtility.ToJson(album.CaptureSnapshot());
+            PrototypeEscapeProjectState[] projectStates = waveRuntime == null
+                ? Array.Empty<PrototypeEscapeProjectState>()
+                : waveRuntime.EscapeDirector.States.ToArray();
             return new PrototypeWaveCTransactionState
             {
                 Fingerprint = Hash128.Compute(stableState + "|" + waveState + "|" + searchState + "|" + albumState).ToString(),
                 ResourceUnits = resourceUnits,
                 Health = session == null ? 0 : session.Health,
+                ProjectProgressByEscapeId = projectStates.ToDictionary(
+                    value => value.StableId,
+                    value => Math.Max(0, value.Progress),
+                    StringComparer.Ordinal),
+                CompletedStagesByEscapeId = projectStates.ToDictionary(
+                    value => value.StableId,
+                    value => (value.CompletedStageIds ?? Array.Empty<string>()).Length,
+                    StringComparer.Ordinal),
                 EndingCount = waveRuntime == null || string.IsNullOrEmpty(waveRuntime.CurrentEndingStableId) ? 0 : 1,
                 AlbumCount = album == null ? 0 : album.UnlockedCount
             };
@@ -213,6 +229,7 @@ namespace KimSurvival
             return new PrototypeWaveCProductionEvent
             {
                 Sequence = sequence,
+                EventType = stableEventId ?? string.Empty,
                 StableEventId = stableEventId ?? string.Empty,
                 EscapeId = escapeId ?? string.Empty,
                 TargetId = targetId ?? string.Empty,
@@ -223,9 +240,20 @@ namespace KimSurvival
                 CostDelta = Math.Max(0, before.ResourceUnits - after.ResourceUnits),
                 InventoryDelta = after.ResourceUnits - before.ResourceUnits,
                 HealthDelta = after.Health - before.Health,
+                ProjectProgressDelta = Metric(after.ProjectProgressByEscapeId, escapeId) -
+                                       Metric(before.ProjectProgressByEscapeId, escapeId),
+                CompletedStageDelta = Metric(after.CompletedStagesByEscapeId, escapeId) -
+                                      Metric(before.CompletedStagesByEscapeId, escapeId),
                 EndingDelta = after.EndingCount - before.EndingCount,
                 AlbumDelta = after.AlbumCount - before.AlbumCount
             };
+        }
+
+        private static int Metric(IDictionary<string, int> values, string stableId)
+        {
+            return values != null && !string.IsNullOrWhiteSpace(stableId) && values.TryGetValue(stableId, out int value)
+                ? value
+                : 0;
         }
     }
 }

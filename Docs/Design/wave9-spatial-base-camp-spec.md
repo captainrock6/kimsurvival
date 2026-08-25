@@ -7,6 +7,8 @@
 > 화면 증거: 사용자 제공 1280×800 캡처 (`evidence-only`, 저장소 정본 아트·지시문 아님)
 > 공식 영문 게임 제목: `TBD`
 
+> GAME JAM Wave C 우선 override (`BALANCE_PROVISIONAL`): `Upper=W1/D0`, `Basement=W1/D0`, `Side=W2/D1`이다. 두 수직 모듈은 같은 run에서 각각 확정 가능하며, 아래 공통 `W2/D1`·모듈 1개 한도 문장은 Wave 9 장기 캠페인 기록으로만 읽는다.
+
 > Wave 12 시간축 정정: 아래 Day 3 구조 경로는 숙련자 조기 성공 증거다. 첫 플레이어 목표는 Day 4~5이며 Day 5 종료 미탈출만 기한 실패다. 비용과 획득량은 바꾸지 않는다.
 
 이 문서는 승인된 방향 목업과 Wave 9 rebaseline을 구현자가 추가 해석 없이 상태 기계와 배치 데이터로 옮길 수 있게 만든 canonical addendum다. 기존 자원 경제·생존 수치·연구·가방·구조 신호 계약은 `vertical-slice-balance.md`, `wave6-progression-clarity.md`, `wave7-bag-capacity-upgrade.md`를 상속한다. 이 문서와 충돌하는 기존의 상시 대형 캠프 대시보드·원거리 버튼 사용 전제는 폐기한다.

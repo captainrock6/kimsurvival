@@ -1085,9 +1085,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 349680612655104
-    m_Localized: "\uC774 \uC5F0\uACB0 \uC2AC\uB86F\uC5D0\uC11C \uBC29 \uD655\uC7A5
-      \uD6C4\uBCF4\uB97C \uBBF8\uB9AC \uBCF8\uB2E4. \uD655\uC815 \uBE44\uC6A9\uC740
-      \uB098\uBB34 2\uC640 \uD45C\uB958\uBB3C 1\uC774\uB2E4."
+    m_Localized: "\uC774 \uC5F0\uACB0 \uC2AC\uB86F\uC5D0\uC11C \uBC29 \uD655\uC7A5 \uD6C4\uBCF4\uB97C \uBBF8\uB9AC \uBCF8\uB2E4. \uC704\uCE35\xB7\uC9C0\uD558\uC2E4\uC740 \uB098\uBB34 1, \uC606\uBC29\uC740 \uB098\uBB34 2\uC640 \uD45C\uB958\uBB3C 1\uC774\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 349680625238016
@@ -1239,8 +1237,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 427966646697994
-    m_Localized: "\uD45C\uB958\uBB3C \uD48D\uBD80 \xB7 \uC2DD\uB7C9 \uBCF4\uD1B5
-      \xB7 \uB098\uBB34 \uBCF4\uD1B5"
+    m_Localized: "\uB098\uBB34\xB7\uD45C\uB958\uBB3C \uD48D\uBD80 \xB7 \uC2DD\uB7C9\xB7\uCC9C \uD76C\uADC0"
     m_Metadata:
       m_Items: []
   - m_Id: 427966646697995
@@ -1269,8 +1266,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 427966646698001
-    m_Localized: "\uB098\uBB34 \uD48D\uBD80 \xB7 \uC2DD\uB7C9 \uBCF4\uD1B5 \xB7 \uB3CC
-      \uD76C\uADC0"
+    m_Localized: "\uB098\uBB34\xB7\uC12C\uC720 \uD48D\uBD80 \xB7 \uC2DD\uB7C9\xB7\uC57D\uD488 \uBCF4\uD1B5"
     m_Metadata:
       m_Items: []
   - m_Id: 427966646698002
@@ -1471,7 +1467,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931654
-    m_Localized: 무전기·전자기판·트랜지스터와 전자 6·전선 6·금속 4로 수리한 뒤 깨끗한 주파수를 찾는다.
+    m_Localized: 무전기·전자기판·트랜지스터와 전자 2·전선 2·금속 1로 수리한 뒤 깨끗한 주파수를 찾는다.
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931655
@@ -2165,8 +2161,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147244974081
-    m_Localized: "\uB3CC\xB7\uB098\uBB34 \uD48D\uBD80 \xB7 \uAE08\uC18D\xB7\uC12C\uC720
-      \uBCF4\uD1B5 \xB7 \uC5F0\uB8CC \uD76C\uADC0"
+    m_Localized: "\uB3CC\xB7\uB098\uBB34 \uD48D\uBD80 \xB7 \uAE08\uC18D\xB7\uC12C\uC720 \uBCF4\uD1B5 \xB7 \uC5F0\uB8CC\xB7\uC2DD\uB7C9 \uD76C\uADC0"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147244974082
@@ -2231,7 +2226,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1212147244974095
     m_Localized: "\uAE08\uC18D\xB7\uD45C\uB958\uBB3C \uD48D\uBD80 \xB7 \uCC9C\xB7\uC804\uC790
-      \uBD80\uD488 \uBCF4\uD1B5 \xB7 \uC2DD\uB7C9 \uD76C\uADC0"
+      \uBD80\uD488 \uBCF4\uD1B5 \xB7 \uD654\uD559\uC7AC\xB7\uB098\uBB34 \uD76C\uADC0"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147249168384

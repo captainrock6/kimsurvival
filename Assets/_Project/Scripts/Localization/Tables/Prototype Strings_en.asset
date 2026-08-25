@@ -1017,8 +1017,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 349680612655104
-    m_Localized: Preview room expansion from this connection slot. Commit cost is
-      Wood 2 and Salvage 1.
+    m_Localized: Preview room expansion here. Upper and basement cost 1 wood; side costs 2 wood and 1 salvage.
     m_Metadata:
       m_Items: []
   - m_Id: 349680625238016
@@ -1180,7 +1179,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 427966646697994
-    m_Localized: "Salvage abundant \xB7 Food common \xB7 Wood common"
+    m_Localized: "Wood and salvage abundant \xB7 Food and fabric scarce"
     m_Metadata:
       m_Items: []
   - m_Id: 427966646697995
@@ -1208,7 +1207,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 427966646698001
-    m_Localized: "Wood abundant \xB7 Food common \xB7 Stone scarce"
+    m_Localized: "Wood and fiber abundant \xB7 Food and medicine common"
     m_Metadata:
       m_Items: []
   - m_Id: 427966646698002
@@ -1406,7 +1405,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931654
-    m_Localized: Repair with the transceiver, circuit board, transistor, 6 electronics, 6 wire, and 4 metal, then find a clear frequency.
+    m_Localized: Repair with the transceiver, circuit board, transistor, 2 electronics, 2 wire, and 1 metal, then find a clear frequency.
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931655
@@ -2055,7 +2054,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147244974081
-    m_Localized: "Stone and wood abundant \xB7 Metal and fiber common \xB7 Fuel scarce"
+    m_Localized: "Stone and wood abundant \xB7 Metal and fiber common \xB7 Fuel and food scarce"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147244974082
@@ -2113,7 +2112,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1212147244974095
     m_Localized: "Metal and salvage abundant \xB7 Fabric and electronics common \xB7
-      Food scarce"
+      Chemicals and wood scarce"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147249168384

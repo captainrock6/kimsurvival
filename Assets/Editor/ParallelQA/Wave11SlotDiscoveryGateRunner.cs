@@ -197,13 +197,13 @@ namespace ParallelQA
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs; Assets/_Project/Scripts/Localization/**");
 
             evidence.candidatesReasonsEconomy = Product(checks, "W11-E03.candidates_reasons_economy", "candidate/geometry/economy", "P0",
-                "All three candidates cycle and expose canonical geometry/economy reason IDs, workbench LOCKED, W2/D1 SHORT, and exact READY",
+                "All three candidates cycle and expose canonical geometry/economy reason IDs; Upper/Basement use W1/D0 while Side preserves W2/D1",
                 VerifyCandidatesReasonsAndEconomy,
                 "Cycle Upper/Side/Basement, evaluate each geometry reason, then evaluate before/after workbench with normalized resources.",
                 "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Localization/PrototypeStrings.tsv");
 
             evidence.transactionAtomicity = Product(checks, "W11-E04.same_run_atomicity_and_duplicate", "transaction", "P0",
-                "Cancel and failed submits spend nothing; Upper and Basement commit in one run for W2/D1 each; duplicate Upper spends zero",
+                "Cancel and failed submits spend nothing; Upper and Basement commit in one run for W1/D0 each; duplicate Upper spends zero",
                 VerifyTransactionAtomicity,
                 "Fingerprint storage before/after cancel, invalid, short, Upper success, duplicate Upper, and Basement success.",
                 "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs; Assets/_Project/Scripts/Runtime/GameSession.cs");
@@ -677,17 +677,23 @@ namespace ParallelQA
             GameSession locked = new GameSession();
             SetStorage(locked, ResourceKind.Wood, 2); SetStorage(locked, ResourceKind.Salvage, 1);
             Require(economy.Evaluate(locked, new CampModuleValidationContext()).Economy == CampModuleEconomyStatus.Locked, "LOCKED before workbench");
-            GameSession shortSession = NewWorkbenchSession(1, 1);
-            Require(economy.Evaluate(shortSession, new CampModuleValidationContext()).Economy == CampModuleEconomyStatus.Short, "SHORT at W1/D1");
-            GameSession ready = NewWorkbenchSession(2, 1);
-            Require(economy.Evaluate(ready, new CampModuleValidationContext()).Economy == CampModuleEconomyStatus.Ready, "READY at W2/D1");
-            return "cycle=Upper>Side>Basement; reasonIds=9; economy=LOCKED>SHORT(W1/D1)>READY(W2/D1)";
+            GameSession shortSession = NewWorkbenchSession(0, 0);
+            Require(economy.Evaluate(shortSession, new CampModuleValidationContext()).Economy == CampModuleEconomyStatus.Short, "Upper SHORT at W0/D0");
+            GameSession ready = NewWorkbenchSession(1, 0);
+            CampModuleEvaluation upperReady = economy.Evaluate(ready, new CampModuleValidationContext());
+            Require(upperReady.Economy == CampModuleEconomyStatus.Ready && upperReady.Cost.Wood == 1 && upperReady.Cost.Salvage == 0,
+                "Upper READY at W1/D0");
+            while (economy.SelectedArchetype != CampModuleArchetype.Side) economy.Cycle(1);
+            CampModuleEvaluation sideShort = economy.Evaluate(ready, new CampModuleValidationContext());
+            Require(sideShort.Economy == CampModuleEconomyStatus.Short && sideShort.Cost.Wood == 2 && sideShort.Cost.Salvage == 1,
+                "Side preserves W2/D1");
+            return "cycle=Upper>Side>Basement; reasonIds=9; Upper=SHORT(W0/D0)>READY(W1/D0); Side=W2/D1";
         }
 
         private static string VerifyTransactionAtomicity()
         {
             PrototypeCampModuleExpansion expansion = NewExpansion();
-            GameSession session = NewWorkbenchSession(2, 1);
+            GameSession session = NewWorkbenchSession(2, 0);
             string initial = StorageFingerprint(session);
             expansion.BeginPreview(DefaultSnapshot());
             expansion.CancelPreview();
@@ -698,18 +704,19 @@ namespace ParallelQA
             Require(expansion.TryCommit(session, invalid) == CampModuleCommitStatus.InvalidGeometry && StorageFingerprint(session) == initial, "invalid neutral");
             expansion.CancelPreview();
 
-            SetStorage(session, ResourceKind.Wood, 1);
+            SetStorage(session, ResourceKind.Wood, 0);
+            SetStorage(session, ResourceKind.Salvage, 0);
             string shortBefore = StorageFingerprint(session);
             expansion.BeginPreview(DefaultSnapshot());
             Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Short && StorageFingerprint(session) == shortBefore, "short neutral");
             expansion.CancelPreview();
 
-            SetStorage(session, ResourceKind.Wood, 4); SetStorage(session, ResourceKind.Salvage, 2);
+            SetStorage(session, ResourceKind.Wood, 2); SetStorage(session, ResourceKind.Salvage, 0);
             Require(expansion.BeginPreview(DefaultSnapshot(), CampModuleArchetype.Upper), "begin Upper");
             Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.Succeeded, "Upper commit succeeds");
-            Require(session.GetStorage(ResourceKind.Wood) == 2 && session.GetStorage(ResourceKind.Salvage) == 1 &&
+            Require(session.GetStorage(ResourceKind.Wood) == 1 && session.GetStorage(ResourceKind.Salvage) == 0 &&
                     expansion.CommittedModuleCount == 1 && expansion.IsCommitted(CampModuleArchetype.Upper),
-                "Upper spends W2/D1 exactly once");
+                "Upper spends W1/D0 exactly once");
             string afterUpper = StorageFingerprint(session);
             Require(expansion.TryCommit(session, new CampModuleValidationContext()) == CampModuleCommitStatus.NotPreviewing &&
                     StorageFingerprint(session) == afterUpper,
@@ -727,7 +734,7 @@ namespace ParallelQA
                 "Basement commits in the same run");
             Require(session.GetStorage(ResourceKind.Wood) == 0 && session.GetStorage(ResourceKind.Salvage) == 0 &&
                     expansion.CommittedModuleCount == 2 && expansion.HasUpperAndBasementCommitted,
-                "Upper+Basement spend W4/D2 total and coexist");
+                "Upper+Basement spend W2/D0 total and coexist");
             return "cancel/invalid/short neutral; Upper+Basement committed same-run; duplicate Upper delta W0/D0";
         }
 

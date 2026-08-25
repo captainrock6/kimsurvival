@@ -349,7 +349,7 @@ namespace KimSurvival
     public static class PrototypeSearchRegionCatalog
     {
         public const string ContractRevision = "gamejam.wave-bc.catalog-disease-parts.v1";
-        public const string LootTableRevision = "gamejam.wave-b.loot.144.v1";
+        public const string LootTableRevision = "gamejam.wave-c.loot.same-run-144.v2";
         public const string CatalogRevision = "gamejam.wave-b.7r21a42i.v1";
         public const string NewGameStockGenerationEvent = "new-game-stock-generation";
         public const string BalanceStatus = "BALANCE_PROVISIONAL";
@@ -488,7 +488,7 @@ namespace KimSurvival
                 Pair("region.coast.beach", "tide-cache", "low",
                     "node.coast.beach.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects",
                     "node.coast.beach.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects",
-                    Yield("resource.food", 2), Yield("resource.fabric", 1)),
+                    Yield("resource.food", 1), Yield("resource.fabric", 1)),
                 Pair("region.coast.beach", "storm-wrack", "medium",
                     "node.coast.beach.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
                     "node.coast.beach.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
@@ -520,7 +520,7 @@ namespace KimSurvival
                 Pair("region.forest.grove", "vine-hollow", "medium",
                     "node.forest.grove.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.wildlife",
                     "node.forest.grove.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.wildlife",
-                    Yield("resource.fiber", 3), Yield("resource.wood", 1))),
+                    Yield("resource.fiber", 3), Yield("resource.medicine", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.ridge.highland",
                 Pair("region.ridge.highland", "rockfall", "high",
@@ -534,7 +534,7 @@ namespace KimSurvival
                 Pair("region.ridge.highland", "signal-overlook", "high",
                     "node.ridge.highland.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
                     "node.ridge.highland.facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
-                    Yield("resource.fuel", 1), Yield("resource.medicine", 1))),
+                    Yield("resource.fuel", 1), Yield("resource.food", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.cave.island",
                 Pair("region.cave.island", "mineral-seam", "high",
@@ -558,11 +558,11 @@ namespace KimSurvival
                 Pair("region.cove.wreck", "rigging-locker", "medium",
                     "node.cove.wreck.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.injury",
                     "node.cove.wreck.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.injury",
-                    Yield("resource.fabric", 2), Yield("resource.fiber", 1)),
+                    Yield("resource.fabric", 2), Yield("resource.fiber", 1), Yield("resource.chemicals", 1)),
                 Pair("region.cove.wreck", "engine-bay", "high",
                     "node.cove.wreck.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster",
                     "node.cove.wreck.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster",
-                    Yield("resource.electronics", 2), Yield("resource.chemicals", 1))),
+                    Yield("resource.electronics", 2), Yield("resource.wood", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.ruins.relay",
                 Pair("region.ruins.relay", "control-cabinet", "high",

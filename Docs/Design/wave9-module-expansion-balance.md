@@ -6,6 +6,8 @@
 > 공간 정본: `Docs/Design/wave9-spatial-base-camp-spec.md`
 > 공식 영문 게임 제목: `TBD`
 
+> GAME JAM Wave C 우선 override (`BALANCE_PROVISIONAL`): 같은 30분 run에서 수직 공간을 모두 체험하도록 `Upper=W1/D0`, `Basement=W1/D0`을 사용한다. `Side=W2/D1`과 아래 Wave 9 장기 캠페인 산술은 그대로다. 런타임 정본은 `PrototypeCampModuleExpansionConfig.CreateVerticalSliceBalance()`, same-run 수지는 `gamejam-wave-bc-design.md` 6절이다.
+
 이 문서는 첫 수직 슬라이스의 위층·옆방·지하실 모듈에 남아 있던 `TBD_BALANCE`만 확정한다. `W/S/F/D`는 나무/돌/식량/표류물, `E/H/L`은 체력/허기/일광이다. 기존 v0.2 경제, 4→6칸 가방, 도구, 신호 2단계와 공간 좌표는 바꾸지 않는다.
 
 > Wave 12 시간축 정정: 비용·원장 산술은 그대로지만 최종일은 Day 5다. 아래 Day 3 성공은 숙련 조기 성공 증거이며, 종전 5.3의 Day 3 `Deadline`은 더 이상 발생하지 않고 Day 4~5 복구 경로로 이어진다. 최신 결말 계약은 `Docs/Design/wave12-five-day-rebaseline.md`가 우선한다.

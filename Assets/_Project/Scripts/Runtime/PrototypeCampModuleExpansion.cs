@@ -130,14 +130,15 @@ namespace KimSurvival
 
         public static PrototypeCampModuleExpansionConfig CreateVerticalSliceBalance()
         {
-            CampModuleResourceCost verticalSliceCost = new CampModuleResourceCost(2, 0, 0, 1, true);
+            CampModuleResourceCost verticalExpansionCost = new CampModuleResourceCost(1, 0, 0, 0, true);
+            CampModuleResourceCost sideExpansionCost = new CampModuleResourceCost(2, 0, 0, 1, true);
             return new PrototypeCampModuleExpansionConfig(
                 new CampModuleUnlockRequirement(true, true, 1),
                 new Dictionary<CampModuleArchetype, CampModuleResourceCost>
                 {
-                    { CampModuleArchetype.Upper, verticalSliceCost },
-                    { CampModuleArchetype.Side, verticalSliceCost },
-                    { CampModuleArchetype.Basement, verticalSliceCost }
+                    { CampModuleArchetype.Upper, verticalExpansionCost },
+                    { CampModuleArchetype.Side, sideExpansionCost },
+                    { CampModuleArchetype.Basement, verticalExpansionCost }
                 },
                 false);
         }

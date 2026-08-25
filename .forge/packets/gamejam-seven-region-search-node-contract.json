@@ -57,13 +57,13 @@
           "unlockTier": "start",
           "dangerRatingFive": 1,
           "nodeCount": 6,
-          "finiteGeneralUnits": 18,
+          "finiteGeneralUnits": 16,
           "representativeResources": ["resource.wood", "resource.salvage", "resource.food", "resource.fabric"],
           "hazardProfileIds": ["hazard-profile.insects.sandfly", "hazard-profile.wildlife.shore-crab", "hazard-profile.environment.high-surf"],
           "persistentRemovableHazardIds": ["hazard-profile.insects.sandfly-nest"],
           "archetypes": [
             {"id": "node.archetype.coast-beach.driftline", "instances": 2, "finiteYield": {"resource.salvage": 4, "resource.wood": 2}, "searchCostBand": "low", "eligiblePartIds": []},
-            {"id": "node.archetype.coast-beach.tide-cache", "instances": 2, "finiteYield": {"resource.food": 4, "resource.fabric": 2}, "searchCostBand": "low", "eligiblePartIds": []},
+            {"id": "node.archetype.coast-beach.tide-cache", "instances": 2, "finiteYield": {"resource.food": 2, "resource.fabric": 2}, "searchCostBand": "low", "eligiblePartIds": []},
             {"id": "node.archetype.coast-beach.storm-wrack", "instances": 2, "finiteYield": {"resource.wood": 4, "resource.salvage": 2}, "searchCostBand": "medium", "eligiblePartIds": ["part.raft.sailcloth", "part.flare.cartridge"]}
           ]
         },
@@ -98,7 +98,7 @@
           "archetypes": [
             {"id": "node.archetype.forest-grove.deadfall", "instances": 2, "finiteYield": {"resource.wood": 8}, "searchCostBand": "medium", "eligiblePartIds": ["part.smoke.flint", "part.smoke.catalyst"]},
             {"id": "node.archetype.forest-grove.forage-patch", "instances": 2, "finiteYield": {"resource.food": 4, "resource.medicine": 2}, "searchCostBand": "low", "eligiblePartIds": []},
-            {"id": "node.archetype.forest-grove.vine-hollow", "instances": 2, "finiteYield": {"resource.fiber": 6, "resource.wood": 2}, "searchCostBand": "medium", "eligiblePartIds": ["part.raft.sailcloth"]}
+            {"id": "node.archetype.forest-grove.vine-hollow", "instances": 2, "finiteYield": {"resource.fiber": 6, "resource.medicine": 2}, "searchCostBand": "medium", "eligiblePartIds": ["part.raft.sailcloth"]}
           ]
         },
         {
@@ -109,13 +109,13 @@
           "dangerRatingFive": 4,
           "nodeCount": 6,
           "finiteGeneralUnits": 22,
-          "representativeResources": ["resource.stone", "resource.metal", "resource.wood", "resource.fiber", "resource.fuel", "resource.medicine"],
+          "representativeResources": ["resource.stone", "resource.metal", "resource.wood", "resource.fiber", "resource.fuel", "resource.food"],
           "hazardProfileIds": ["hazard-profile.insects.wasp-nest", "hazard-profile.wildlife.nesting-bird", "hazard-profile.dangerous-plants.thorn-scrub", "hazard-profile.disease.infected-cut", "hazard-profile.environment.cliff-wind"],
           "persistentRemovableHazardIds": ["hazard-profile.insects.wasp-nest"],
           "archetypes": [
             {"id": "node.archetype.ridge-highland.rockfall", "instances": 2, "finiteYield": {"resource.stone": 8, "resource.metal": 2}, "searchCostBand": "high", "eligiblePartIds": []},
             {"id": "node.archetype.ridge-highland.windfall", "instances": 2, "finiteYield": {"resource.wood": 6, "resource.fiber": 2}, "searchCostBand": "medium", "eligiblePartIds": ["part.smoke.flint", "part.smoke.catalyst"]},
-            {"id": "node.archetype.ridge-highland.signal-overlook", "instances": 2, "finiteYield": {"resource.fuel": 2, "resource.medicine": 2}, "searchCostBand": "high", "eligiblePartIds": ["part.radio.transistor", "part.beacon.generator-coil"]}
+            {"id": "node.archetype.ridge-highland.signal-overlook", "instances": 2, "finiteYield": {"resource.fuel": 2, "resource.food": 2}, "searchCostBand": "high", "eligiblePartIds": ["part.radio.transistor", "part.beacon.generator-coil"]}
           ]
         },
         {
@@ -142,14 +142,14 @@
           "unlockTier": "expansion",
           "dangerRatingFive": 4,
           "nodeCount": 6,
-          "finiteGeneralUnits": 22,
-          "representativeResources": ["resource.salvage", "resource.metal", "resource.fabric", "resource.fiber", "resource.electronics", "resource.chemicals"],
+          "finiteGeneralUnits": 24,
+          "representativeResources": ["resource.salvage", "resource.metal", "resource.fabric", "resource.fiber", "resource.electronics", "resource.chemicals", "resource.wood"],
           "hazardProfileIds": ["hazard-profile.insects.wreck-roach", "hazard-profile.wildlife.rat-pack", "hazard-profile.dangerous-plants.rust-vine", "hazard-profile.disease.rust-wound", "hazard-profile.environment.sharp-metal-flood"],
           "persistentRemovableHazardIds": ["hazard-profile.wildlife.rat-nest"],
           "archetypes": [
             {"id": "node.archetype.cove-wreck.cargo-locker", "instances": 2, "finiteYield": {"resource.salvage": 6, "resource.metal": 4}, "searchCostBand": "medium", "eligiblePartIds": ["part.flare.cartridge"]},
-            {"id": "node.archetype.cove-wreck.rigging-locker", "instances": 2, "finiteYield": {"resource.fabric": 4, "resource.fiber": 2}, "searchCostBand": "medium", "eligiblePartIds": ["part.raft.sailcloth"]},
-            {"id": "node.archetype.cove-wreck.engine-bay", "instances": 2, "finiteYield": {"resource.electronics": 4, "resource.chemicals": 2}, "searchCostBand": "high", "eligiblePartIds": ["part.radio.transceiver", "part.radio.circuit-board", "part.smoke.catalyst"]}
+            {"id": "node.archetype.cove-wreck.rigging-locker", "instances": 2, "finiteYield": {"resource.fabric": 4, "resource.fiber": 2, "resource.chemicals": 2}, "searchCostBand": "medium", "eligiblePartIds": ["part.raft.sailcloth"]},
+            {"id": "node.archetype.cove-wreck.engine-bay", "instances": 2, "finiteYield": {"resource.electronics": 4, "resource.wood": 2}, "searchCostBand": "high", "eligiblePartIds": ["part.radio.transceiver", "part.radio.circuit-board", "part.smoke.catalyst"]}
           ]
         },
         {
