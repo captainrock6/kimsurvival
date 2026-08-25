@@ -2035,6 +2035,70 @@ MonoBehaviour:
     m_Key: disease.treat.jungle-fever
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147274334215
+    m_Key: ending.panel.setup.label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334216
+    m_Key: ending.panel.escalation.label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334217
+    m_Key: ending.panel.punchline.label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334218
+    m_Key: ending.panel.punchline.suffix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334219
+    m_Key: modifier.ending.farming.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334220
+    m_Key: modifier.ending.farming.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334221
+    m_Key: modifier.ending.building.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334222
+    m_Key: modifier.ending.building.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334223
+    m_Key: modifier.ending.mechanics.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334224
+    m_Key: modifier.ending.mechanics.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334225
+    m_Key: modifier.ending.swimming.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334226
+    m_Key: modifier.ending.swimming.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334227
+    m_Key: modifier.ending.hazard-response.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334228
+    m_Key: modifier.ending.hazard-response.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334229
+    m_Key: modifier.ending.balanced.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334230
+    m_Key: modifier.ending.balanced.body
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

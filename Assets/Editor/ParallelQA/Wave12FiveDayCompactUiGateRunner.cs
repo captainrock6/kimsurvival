@@ -776,10 +776,30 @@ namespace ParallelQA
 
         private static object Invoke(object target, string name, params object[] arguments)
         {
-            MethodInfo method = target.GetType().GetMethod(name, InstanceFlags);
+            object[] supplied = arguments ?? Array.Empty<object>();
+            MethodInfo method = target.GetType().GetMethods(InstanceFlags)
+                .Where(candidate => candidate.Name == name)
+                .FirstOrDefault(candidate => ParametersAccept(candidate.GetParameters(), supplied));
             if (method == null) throw new MissingMethodException(target.GetType().FullName, name);
-            try { return method.Invoke(target, arguments); }
+            try { return method.Invoke(target, supplied); }
             catch (TargetInvocationException exception) { throw exception.InnerException ?? exception; }
+        }
+
+        private static bool ParametersAccept(ParameterInfo[] parameters, object[] arguments)
+        {
+            if (parameters.Length != arguments.Length) return false;
+            for (int index = 0; index < parameters.Length; index += 1)
+            {
+                object value = arguments[index];
+                Type parameterType = parameters[index].ParameterType;
+                if (value == null)
+                {
+                    if (parameterType.IsValueType && Nullable.GetUnderlyingType(parameterType) == null) return false;
+                    continue;
+                }
+                if (!parameterType.IsInstanceOfType(value)) return false;
+            }
+            return true;
         }
 
         private static string RequireDetail(bool condition, string detail)

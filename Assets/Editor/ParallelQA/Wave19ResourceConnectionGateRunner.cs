@@ -126,8 +126,15 @@ namespace ParallelQA
             public string expectedGuid;
             public string[] observedGuids;
             public string[] rendererNames;
+            public string screenshot;
             public int fallbackCount;
             public string result;
+        }
+
+        private sealed class ResourceNodeCandidate
+        {
+            public PrototypeExpeditionRegionId RegionId;
+            public string NodeId;
         }
 
         [Serializable]
@@ -535,47 +542,71 @@ namespace ParallelQA
         private static string ObserveResourceNodes(KimSurvivalPrototype prototype, List<ResourceObservation> output)
         {
             EnsureEndingComicHidden();
-            object nodesObject = GetField(prototype, "nodes");
-            IEnumerable nodes = nodesObject as IEnumerable;
-            Require(nodes != null, "runtime node collection is unavailable");
-            Dictionary<string, List<object>> byKind = new Dictionary<string, List<object>>(StringComparer.OrdinalIgnoreCase);
-            foreach (object node in nodes)
-            {
-                string kind = Convert.ToString(GetField(node, "Kind"));
-                if (!string.IsNullOrWhiteSpace(kind))
-                {
-                    if (!byKind.ContainsKey(kind)) byKind.Add(kind, new List<object>());
-                    byKind[kind].Add(node);
-                    continue;
-                }
-
-                PrototypeSearchNodeDefinition definition = GetField(node, "Definition") as PrototypeSearchNodeDefinition;
-                if (definition == null) continue;
-                PrototypeSearchLootEntry[] contents = PrototypeSearchNodeLootResolver.Resolve(prototype.Session.RunSeed, definition);
-                foreach (string resourceKind in contents.Where(item => !item.IsProtectedPart)
-                             .Select(item => item.Resource.ToString()).Distinct(StringComparer.OrdinalIgnoreCase))
-                {
-                    if (!byKind.ContainsKey(resourceKind)) byKind.Add(resourceKind, new List<object>());
-                    byKind[resourceKind].Add(node);
-                }
-            }
-
             string[] kinds = { "Wood", "Stone", "Food", "Salvage" };
             PrototypeSearchNodeRuntime runtime = GetPrivateField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
             IEnumerable trayButtons = GetField(prototype, "searchLootItemButtons") as IEnumerable;
             Require(runtime != null && trayButtons != null, "live environmental search runtime or compact tray buttons are unavailable");
+            PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            Dictionary<string, List<ResourceNodeCandidate>> byKind = kinds.ToDictionary(
+                kind => kind,
+                kind => new List<ResourceNodeCandidate>(),
+                StringComparer.OrdinalIgnoreCase);
+
+            foreach (PrototypeExpeditionRegionProfile profile in PrototypeExpeditionRegionCatalog.All)
+            {
+                if (runtime.IsTrayOpen) runtime.Close(prototype.Session);
+                prototype.Session.Reset();
+                Require(prototype.Session.BeginSearch(profile.Id), "could not enter live region " + profile.StableId);
+                InvokePrivate(prototype, "RefreshAll");
+                IEnumerable liveNodes = GetField(prototype, "nodes") as IEnumerable;
+                Require(liveNodes != null, "runtime node collection is unavailable for " + profile.StableId);
+                foreach (object node in liveNodes)
+                {
+                    PrototypeSearchNodeDefinition definition = GetField(node, "Definition") as PrototypeSearchNodeDefinition;
+                    if (definition == null) continue;
+                    PrototypeSearchNodeSnapshot snapshot = runtime.Ledger.GetOrCreate(definition);
+                    foreach (string resourceKind in (snapshot.Remaining ?? Array.Empty<PrototypeSearchLootEntry>())
+                                 .Where(item => item != null && !item.IsProtectedPart)
+                                 .Select(item => item.Resource.ToString())
+                                 .Where(byKind.ContainsKey)
+                                 .Distinct(StringComparer.OrdinalIgnoreCase))
+                    {
+                        byKind[resourceKind].Add(new ResourceNodeCandidate
+                        {
+                            RegionId = profile.Id,
+                            NodeId = definition.NodeId
+                        });
+                    }
+                }
+            }
+
             foreach (string kind in kinds)
             {
                 string expectedStableId = "resource." + kind.ToLowerInvariant();
                 string expectedGuid = ExpectedGuid(expectedStableId);
-                List<object> matching;
+                List<ResourceNodeCandidate> matching;
                 Require(byKind.TryGetValue(kind, out matching) && matching.Count > 0,
-                    "no live environmental node resolves finite " + kind + " contents");
+                    "no live 7-region environmental node resolves finite " + kind + " contents");
                 List<string> guids = new List<string>();
                 List<string> rendererNames = new List<string>();
                 int fallbackCount = 0;
-                foreach (object node in matching)
+                string screenshot = "wave19-resource-node-" + kind.ToLowerInvariant() + "-ko-1280x800.png";
+                bool captured = false;
+                foreach (ResourceNodeCandidate candidate in matching)
                 {
+                    if (runtime.IsTrayOpen) runtime.Close(prototype.Session);
+                    prototype.Session.Reset();
+                    Require(prototype.Session.BeginSearch(candidate.RegionId),
+                        kind + " candidate region could not open: " + candidate.RegionId);
+                    InvokePrivate(prototype, "RefreshAll");
+                    IEnumerable liveNodes = GetField(prototype, "nodes") as IEnumerable;
+                    object node = liveNodes == null ? null : liveNodes.Cast<object>().FirstOrDefault(value =>
+                    {
+                        PrototypeSearchNodeDefinition valueDefinition = GetField(value, "Definition") as PrototypeSearchNodeDefinition;
+                        return valueDefinition != null && string.Equals(valueDefinition.NodeId, candidate.NodeId, StringComparison.Ordinal);
+                    });
+                    Require(node != null, kind + " live environmental node is missing after entering " + candidate.RegionId + ": " + candidate.NodeId);
                     GameObject root = GetField(node, "Root") as GameObject;
                     Require(root != null, kind + " environmental node root is missing");
                     SpriteRenderer renderer = root.GetComponentsInChildren<SpriteRenderer>(true)
@@ -584,6 +615,11 @@ namespace ParallelQA
                     {
                         guids.Add(SourceGuid(renderer.sprite));
                         rendererNames.Add(renderer.gameObject.name);
+                        if (!captured)
+                        {
+                            prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, screenshot), 1280, 800);
+                            captured = true;
+                        }
                         continue;
                     }
 
@@ -603,6 +639,11 @@ namespace ParallelQA
                     {
                         guids.Add(SourceGuid(trayIcon.sprite));
                         rendererNames.Add("compact-tray/" + trayIcon.gameObject.name);
+                        if (!captured)
+                        {
+                            prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, screenshot), 1280, 800);
+                            captured = true;
+                        }
                     }
                     else
                     {
@@ -610,7 +651,12 @@ namespace ParallelQA
                     }
                     runtime.Close(prototype.Session);
                 }
-                bool passed = fallbackCount == 0 && guids.Count == matching.Count && guids.All(value => value == expectedGuid);
+                string screenshotPath = Path.Combine(EvidenceFolder, screenshot);
+                bool passed = fallbackCount == 0 &&
+                              guids.Count == matching.Count &&
+                              guids.All(value => value == expectedGuid) &&
+                              captured &&
+                              VerifyPng(screenshotPath, 1280, 800);
                 output.Add(new ResourceObservation
                 {
                     kind = kind,
@@ -618,18 +664,35 @@ namespace ParallelQA
                     expectedGuid = expectedGuid,
                     observedGuids = guids.ToArray(),
                     rendererNames = rendererNames.ToArray(),
+                    screenshot = screenshot,
                     fallbackCount = fallbackCount,
                     result = passed ? "PASS" : "FAIL"
                 });
             }
             ResourceObservation[] failures = output.Where(value => value.result == "FAIL").ToArray();
             Require(failures.Length == 0, string.Join(" | ", failures.Select(value =>
-                value.kind + " environmental node/compact tray omits adopted icon GUID " + value.expectedGuid +
+                value.kind + " environmental node/compact tray omits adopted icon GUID or live 1280x800 capture " + value.expectedGuid +
                 "; nodes=" + value.nodeCount + "; adoptedRenderers=" + value.observedGuids.Length +
                 "; unresolved=" + value.fallbackCount).ToArray()));
             InvokePrivate(prototype, "RefreshAll");
             prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, "wave19-resource-nodes-ko-1280x800.png"), 1280, 800);
             return string.Join(" | ", output.Select(value => value.kind + "=" + value.nodeCount + "@" + value.expectedGuid + "/fallback=" + value.fallbackCount).ToArray());
+        }
+
+        private static bool VerifyPng(string path, int expectedWidth, int expectedHeight)
+        {
+            if (!File.Exists(path)) return false;
+            Texture2D texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                return texture.LoadImage(File.ReadAllBytes(path), false) &&
+                       texture.width == expectedWidth &&
+                       texture.height == expectedHeight;
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
         }
 
         private static string ObserveStructures(KimSurvivalPrototype prototype, List<StructureObservation> output)

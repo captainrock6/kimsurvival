@@ -2101,13 +2101,15 @@
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json",
+        "Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-edit-contracts.json",
+        "Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-play-contracts.json",
         "Docs/Design/gamejam-wave-bc-design.md"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-26T05:30:00.000Z",
-      "note": "Integrated catalog exposed exactly seven stable regions with finite structured environmental nodes and deterministic contents.",
-      "completedAt": null
+      "status": "done",
+      "updatedAt": "2026-08-26T08:20:00.000Z",
+      "note": "Committed Wave B product gate passed exact 7/21/42/144, legacy 28 plus new 14 IDs, seed/revision determinism, new-game-only stock generation, and KO/EN/qps live surfaces.",
+      "completedAt": "2026-08-26T08:20:00.000Z"
     },
     {
       "id": "task.gamejam.persistent-region-runtime",
@@ -2175,10 +2177,14 @@
         "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
       ],
       "evidence": [
+        "Artifacts/ParallelQA/20260826T081500Z_wavec_red_dirty/gamejam-wave-c-edit-contracts.json",
         "Docs/Design/gamejam-wave-bc-design.md"
       ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "ready",
+      "updatedAt": "2026-08-26T08:20:00.000Z",
+      "note": "Protected assignments, distinct radio regions, natural-node pity bridge, stable costs, and RED-first gate foundations are implemented; three live natural route traces and signal timing interactions remain open.",
+      "completedAt": null
     },
     {
       "id": "task.gamejam.insect-plant-wildlife-disease",
@@ -2214,10 +2220,14 @@
         "Assets/_Project/Scripts/Runtime/GameSession.cs"
       ],
       "evidence": [
+        "Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-play-contracts.json",
         "Docs/Design/gamejam-wave-bc-design.md"
       ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T08:20:00.000Z",
+      "note": "Committed production trace passed jungle-fever telegraph, unique exposure, -10 symptom, -15 worsen, medicine-one atomic treatment, +5 recovery, snapshot, KO/EN/qps, and zero-delta cancel/duplicate/forced-return contracts.",
+      "completedAt": "2026-08-26T08:20:00.000Z"
     },
     {
       "id": "task.gamejam.upper-basement-both",

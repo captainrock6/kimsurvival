@@ -9,7 +9,29 @@ using UnityEngine.UI;
 
 namespace KimSurvival
 {
-    public sealed class KimSurvivalPrototype : MonoBehaviour
+    [Serializable]
+    public sealed class PrototypeCampSpaceSnapshot
+    {
+        public const int CurrentSchemaVersion = 1;
+
+        public int SchemaVersion = CurrentSchemaVersion;
+        public PrototypeCampModuleExpansionSnapshot ModuleExpansion = new PrototypeCampModuleExpansionSnapshot();
+        public PrototypeCampPlacementSnapshot Placement = new PrototypeCampPlacementSnapshot();
+        public PrototypeCampUseSnapshot CampUse = new PrototypeCampUseSnapshot();
+
+        public PrototypeCampSpaceSnapshot Clone()
+        {
+            return new PrototypeCampSpaceSnapshot
+            {
+                SchemaVersion = SchemaVersion,
+                ModuleExpansion = ModuleExpansion == null ? null : ModuleExpansion.Clone(),
+                Placement = Placement == null ? null : Placement.Clone(),
+                CampUse = CampUse == null ? null : CampUse.Clone()
+            };
+        }
+    }
+
+    public sealed partial class KimSurvivalPrototype : MonoBehaviour
     {
         private const int UnbuiltBlueprintInteractionPriority = 0;
         private const int ModuleInteractionPriority = 1;
@@ -222,6 +244,178 @@ namespace KimSurvival
         public GameSession Session
         {
             get { return session; }
+        }
+
+        public string CurrentCampRoomId
+        {
+            get { return campUse.CurrentRoomId; }
+        }
+
+        public string[] GetCommittedCampRoomIds()
+        {
+            IReadOnlyList<CampModuleCommittedRoomSnapshot> rooms = campModuleExpansion.CommittedRooms;
+            string[] roomIds = new string[rooms.Count];
+            for (int index = 0; index < rooms.Count; index += 1)
+            {
+                roomIds[index] = rooms[index].RoomId;
+            }
+            return roomIds;
+        }
+
+        public string GetInstalledCampFacilityRoomId(StructureKind kind)
+        {
+            return campPlacement.GetInstalledRoomId(kind);
+        }
+
+        public PrototypeCampSpaceSnapshot CaptureCampSpaceSnapshot()
+        {
+            return new PrototypeCampSpaceSnapshot
+            {
+                SchemaVersion = PrototypeCampSpaceSnapshot.CurrentSchemaVersion,
+                ModuleExpansion = campModuleExpansion.CaptureSnapshot(),
+                Placement = campPlacement.CaptureSnapshot(),
+                CampUse = campUse.CaptureSnapshot()
+            };
+        }
+
+        public string CaptureCampSpaceSaveJson()
+        {
+            return JsonUtility.ToJson(CaptureCampSpaceSnapshot());
+        }
+
+        public bool RestoreCampSpaceSaveJson(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return false;
+            }
+
+            try
+            {
+                return RestoreCampSpaceSnapshot(JsonUtility.FromJson<PrototypeCampSpaceSnapshot>(json));
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        public bool RestoreCampSpaceSnapshot(PrototypeCampSpaceSnapshot snapshot)
+        {
+            string failureReason = session == null ? "runtime is not initialized" : string.Empty;
+            if (session == null || !TryStageCampSpaceSnapshot(snapshot, out failureReason))
+            {
+                if (!string.IsNullOrEmpty(failureReason))
+                {
+                    Debug.LogWarning("[Kim Survival] Camp-space restore rejected: " + failureReason);
+                }
+                return false;
+            }
+
+            PrototypeCampSpaceSnapshot previous = CaptureCampSpaceSnapshot();
+            if (!campModuleExpansion.RestoreSnapshot(snapshot.ModuleExpansion.Clone()))
+            {
+                return false;
+            }
+
+            if (!HasCommittedPlacementMembership(snapshot.Placement, campModuleExpansion) ||
+                !HasCommittedRoomMembership(snapshot.CampUse.StableRoomId, campModuleExpansion) ||
+                !campPlacement.RestoreSnapshot(snapshot.Placement.Clone()) ||
+                !campUse.RestoreSnapshot(snapshot.CampUse.Clone()))
+            {
+                RestoreCampSpaceModels(previous);
+                return false;
+            }
+
+            campInteraction.Reset();
+            ResetModulePreviewReturnRoute();
+            campFeedback = PrototypeLocalizedText.Empty;
+            RefreshAll();
+            return true;
+        }
+
+        private bool TryStageCampSpaceSnapshot(PrototypeCampSpaceSnapshot snapshot, out string failureReason)
+        {
+            failureReason = string.Empty;
+            if (snapshot == null ||
+                snapshot.SchemaVersion != PrototypeCampSpaceSnapshot.CurrentSchemaVersion ||
+                snapshot.ModuleExpansion == null ||
+                snapshot.Placement == null ||
+                snapshot.CampUse == null)
+            {
+                failureReason = "missing or unsupported camp-space v1 state";
+                return false;
+            }
+
+            PrototypeCampModuleExpansion stagedModules = new PrototypeCampModuleExpansion(campModuleExpansion.Config);
+            if (!stagedModules.RestoreSnapshot(snapshot.ModuleExpansion.Clone()))
+            {
+                failureReason = "module expansion snapshot is invalid";
+                return false;
+            }
+            if (!HasCommittedPlacementMembership(snapshot.Placement, stagedModules))
+            {
+                failureReason = "a facility placement references an uncommitted room";
+                return false;
+            }
+
+            PrototypeCampPlacement stagedPlacement = new PrototypeCampPlacement();
+            if (!stagedPlacement.RestoreSnapshot(snapshot.Placement.Clone()))
+            {
+                failureReason = "facility placement snapshot is invalid";
+                return false;
+            }
+            if (!HasCommittedRoomMembership(snapshot.CampUse.StableRoomId, stagedModules))
+            {
+                failureReason = "Mr. Kim references an uncommitted room";
+                return false;
+            }
+
+            PrototypeCampUse stagedUse = new PrototypeCampUse();
+            if (!stagedUse.RestoreSnapshot(snapshot.CampUse.Clone()))
+            {
+                failureReason = "camp-use snapshot is invalid";
+                return false;
+            }
+            return true;
+        }
+
+        private static bool HasCommittedPlacementMembership(
+            PrototypeCampPlacementSnapshot placementSnapshot,
+            PrototypeCampModuleExpansion expansion)
+        {
+            if (placementSnapshot == null || placementSnapshot.Installed == null)
+            {
+                return false;
+            }
+
+            for (int index = 0; index < placementSnapshot.Installed.Length; index += 1)
+            {
+                CampInstalledStructurePlacementSnapshot installed = placementSnapshot.Installed[index];
+                if (installed == null || !HasCommittedRoomMembership(installed.StableRoomId, expansion))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool HasCommittedRoomMembership(string stableRoomId, PrototypeCampModuleExpansion expansion)
+        {
+            return string.Equals(stableRoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal) ||
+                   expansion.IsRoomCommitted(stableRoomId);
+        }
+
+        private void RestoreCampSpaceModels(PrototypeCampSpaceSnapshot snapshot)
+        {
+            if (snapshot == null)
+            {
+                return;
+            }
+
+            campModuleExpansion.RestoreSnapshot(snapshot.ModuleExpansion);
+            campPlacement.RestoreSnapshot(snapshot.Placement);
+            campUse.RestoreSnapshot(snapshot.CampUse);
         }
 
         private void Awake()
@@ -594,8 +788,8 @@ namespace KimSurvival
                     expeditionNodeAnchors[i],
                     string.Empty,
                     delegate { FocusExpeditionRegion(capturedRegion); },
-                    new Vector2(-88f, -50f),
-                    new Vector2(88f, 50f));
+                    new Vector2(-98f, -50f),
+                    new Vector2(98f, 50f));
                 regionButton.GetComponent<Image>().color = new Color(0.025f, 0.16f, 0.18f, 0.94f);
                 TMP_Text regionLabel = regionButton.GetComponentInChildren<TMP_Text>();
                 regionLabel.fontStyle = FontStyles.Bold;
@@ -1470,6 +1664,12 @@ namespace KimSurvival
                     }
                     return localization.Format("structure.module_connector", localization.Format("structure.generic"));
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
+                    if (campModuleExpansion.TryGetCommittedRoomByConnector(targetId, out CampModuleCommittedRoomSnapshot connectorRoom))
+                    {
+                        return localization.Format(
+                            "structure.module_connector",
+                            localization.Format(ModuleNameKey(connectorRoom.Archetype)));
+                    }
                     return localization.Format(
                         "structure.module_connector",
                         campModuleExpansion.HasCommittedModule
@@ -1838,13 +2038,18 @@ namespace KimSurvival
                 escapeId == "escape.smoke"
                     ? (session.HasRope ? "value.yes" : "value.no")
                     : (session.HasAxe ? "value.yes" : "value.no"));
+            bool partsReady = definition.RequiredKeyPartIds.All(hazardEscapeEndingRuntime.HasProtectedSearchPart);
+            PrototypeSignalEscapeWindow window = PrototypeSignalEscapeWindowResolver.Resolve(
+                escapeId,
+                session.RunSeed,
+                session.Day);
             return localization.Format(
                 escapeId == "escape.smoke" ? "escape.project.action.smoke" : "escape.project.action.radio",
                 state.Progress,
                 state.RequiredProgress,
                 researchState,
-                definition.WoodCost,
-                definition.SalvageCost);
+                localization.Format(partsReady ? "value.yes" : "value.no"),
+                localization.Format(window.Allowed ? "value.yes" : "value.no"));
         }
 
         private string FormatRaftProjectButton()
@@ -1960,7 +2165,7 @@ namespace KimSurvival
             for (int i = 0; i < definitions.Count; i += 1)
             {
                 CampModuleDefinition definition = definitions[i];
-                if (campModuleExpansion.HasCommittedModule && campModuleExpansion.CommittedArchetype == definition.Archetype)
+                if (campModuleExpansion.IsCommitted(definition.Archetype))
                 {
                     continue;
                 }
@@ -1996,24 +2201,31 @@ namespace KimSurvival
 
         private void CreateCommittedModuleExterior()
         {
-            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
-            Vector2 center = GetModulePreviewCenter(definition.Archetype);
-            GameObject root = new GameObject("확정 방 모듈 exterior placeholder · " + definition.RoomId);
-            root.transform.SetParent(worldRoot, false);
-            root.transform.position = center;
-            CreateRect(root.transform, "모듈 반투명 면", Vector2.zero, new Vector2(5.8f, 2.35f), new Color(0.18f, 0.31f, 0.25f, 0.72f), -2);
-            CreateFootprintOutline(root.transform, new Vector2(5.8f, 2.35f), new Color(0.82f, 0.94f, 0.78f, 0.95f), null);
-            CreateModuleConnectorVisual(root.transform, definition.ConnectorKind, Vector2.zero, true);
+            IReadOnlyList<CampModuleCommittedRoomSnapshot> committedRooms = campModuleExpansion.CommittedRooms;
+            for (int index = 0; index < committedRooms.Count; index += 1)
+            {
+                CampModuleCommittedRoomSnapshot committed = committedRooms[index];
+                CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(committed.Archetype);
+                Vector2 center = GetModulePreviewCenter(definition.Archetype);
+                GameObject root = new GameObject("확정 방 모듈 exterior placeholder · " + definition.RoomId);
+                root.transform.SetParent(worldRoot, false);
+                root.transform.position = center;
+                CreateRect(root.transform, "모듈 반투명 면", Vector2.zero, new Vector2(5.8f, 2.35f), new Color(0.18f, 0.31f, 0.25f, 0.72f), -2);
+                CreateFootprintOutline(root.transform, new Vector2(5.8f, 2.35f), new Color(0.82f, 0.94f, 0.78f, 0.95f), null);
+                CreateModuleConnectorVisual(root.transform, definition.ConnectorKind, Vector2.zero, true);
+            }
         }
 
         private void CreateCommittedModuleInterior()
         {
-            if (!campModuleExpansion.HasCommittedModule || campUse.CurrentRoomId != campModuleExpansion.CommittedRoomId)
+            if (!campModuleExpansion.TryGetCommittedRoom(
+                    campUse.CurrentRoomId,
+                    out CampModuleCommittedRoomSnapshot committedRoom))
             {
                 return;
             }
 
-            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(committedRoom.Archetype);
             GameObject root = new GameObject("확정 방 모듈 interior placeholder · " + definition.RoomId);
             root.transform.SetParent(worldRoot, false);
             CreateRect(root.transform, "실내 placeholder 배경", new Vector2(0f, 0.25f), new Vector2(12f, 6.2f), new Color(0.18f, 0.23f, 0.2f, 0.94f), -18);
@@ -2256,8 +2468,7 @@ namespace KimSurvival
                 for (int i = 0; i < definitions.Count; i += 1)
                 {
                     CampModuleDefinition definition = definitions[i];
-                    bool committedSlot = campModuleExpansion.HasCommittedModule &&
-                                         campModuleExpansion.CommittedArchetype == definition.Archetype;
+                    bool committedSlot = campModuleExpansion.IsCommitted(definition.Archetype);
                     if (!committedSlot)
                     {
                         campInteractionTargets.Add(new PrototypeCampInteractionTarget(
@@ -2274,14 +2485,30 @@ namespace KimSurvival
                     PrototypeCampInteractionTargetKind.RescueSignal,
                     GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)));
             }
-            if (campModuleExpansion.HasCommittedModule &&
-                (startRoom || campUse.CurrentRoomId == campModuleExpansion.CommittedRoomId))
+            if (startRoom)
             {
-                CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
+                IReadOnlyList<CampModuleCommittedRoomSnapshot> committedRooms = campModuleExpansion.CommittedRooms;
+                for (int index = 0; index < committedRooms.Count; index += 1)
+                {
+                    CampModuleCommittedRoomSnapshot committed = committedRooms[index];
+                    CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(committed.Archetype);
+                    campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                        committed.StartSlotId,
+                        PrototypeCampInteractionTargetKind.ModuleConnector,
+                        new Vector2(definition.StartConnectorDisplayX, PrototypeCampUse.PlayerFloorY),
+                        true,
+                        ModuleInteractionPriority));
+                }
+            }
+            else if (campModuleExpansion.TryGetCommittedRoom(
+                         campUse.CurrentRoomId,
+                         out CampModuleCommittedRoomSnapshot currentRoom))
+            {
+                CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(currentRoom.Archetype);
                 campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                    "camp.module-connector." + definition.RoomId,
+                    currentRoom.ReciprocalSlotId,
                     PrototypeCampInteractionTargetKind.ModuleConnector,
-                    new Vector2(startRoom ? definition.StartConnectorDisplayX : definition.ModuleConnectorDisplayX, PrototypeCampUse.PlayerFloorY),
+                    new Vector2(definition.ModuleConnectorDisplayX, PrototypeCampUse.PlayerFloorY),
                     true,
                     ModuleInteractionPriority));
             }
@@ -2863,16 +3090,26 @@ namespace KimSurvival
 
         private void TraverseCommittedModule()
         {
-            if (!campModuleExpansion.HasCommittedModule)
+            string connectorId = campInteraction.ActiveTargetId;
+            if (!campModuleExpansion.TryResolveConnectionDestination(
+                    campUse.CurrentRoomId,
+                    connectorId,
+                    out string destinationRoomId) ||
+                !campModuleExpansion.TryGetCommittedRoomByConnector(
+                    connectorId,
+                    out CampModuleCommittedRoomSnapshot committedRoom))
             {
                 return;
             }
 
-            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
-            bool leavingStart = campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId;
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(committedRoom.Archetype);
+            bool leavingStart = string.Equals(
+                campUse.CurrentRoomId,
+                PrototypeCampModuleCatalog.StartRoomId,
+                StringComparison.Ordinal);
             campInteraction.Reset();
             campUse.EnterRoom(
-                leavingStart ? definition.RoomId : PrototypeCampModuleCatalog.StartRoomId,
+                destinationRoomId,
                 (leavingStart ? definition.ModuleConnectorDisplayX : definition.StartConnectorDisplayX) + (leavingStart ? 0.85f : -0.85f));
             campFeedback = new PrototypeLocalizedText(
                 leavingStart ? "module.message.entered" : "module.message.returned",
@@ -2945,24 +3182,15 @@ namespace KimSurvival
 
         private CampPlacementRoomZone GetCurrentPlacementZone()
         {
-            if (campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId || !campModuleExpansion.HasCommittedModule)
+            if (string.Equals(campUse.CurrentRoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal))
             {
                 return CampPlacementRoomZone.StartRoom;
             }
 
-            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
-            float connectorX = definition.ModuleConnectorDisplayX;
-            return new CampPlacementRoomZone(
-                definition.RoomId,
-                definition.GeneralFloorDisplayMinimumX,
-                definition.GeneralFloorDisplayMaximumX,
-                false,
-                0f,
-                0f,
-                connectorX - 0.8f,
-                connectorX + 0.8f,
-                connectorX - 1.1f,
-                connectorX + 1.1f);
+            return campModuleExpansion.IsRoomCommitted(campUse.CurrentRoomId) &&
+                   PrototypeCampPlacement.TryGetRoomZone(campUse.CurrentRoomId, out CampPlacementRoomZone roomZone)
+                ? roomZone
+                : CampPlacementRoomZone.StartRoom;
         }
 
         private static string ModuleNameKey(CampModuleArchetype archetype)
@@ -5196,20 +5424,33 @@ namespace KimSurvival
 
             OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Side);
             modulePreviewButton.onClick.Invoke();
-            Require(campModuleExpansion.Evaluate(session, campModuleValidation).Economy == CampModuleEconomyStatus.PrototypeLimit &&
-                    campModuleReasonText.text.Contains(localization.Format("interaction.module.prototype_limit")) &&
-                    !ConfirmCampModulePreview() && session.GetStorage(ResourceKind.Wood) == woodAfterModule,
-                "다른 연결 슬롯은 run당 하나 한도를 canonical 사유로 보여 주고 추가 자원을 쓰지 않음");
+            Require(campModuleExpansion.Evaluate(session, campModuleValidation).Economy == CampModuleEconomyStatus.Ready,
+                "위층 확정 뒤에도 미확정 옆방 슬롯은 같은 run에서 READY");
             CancelCampModulePreview(true);
             CancelCampPopup();
 
-            campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ModuleConnector));
+            OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Basement);
+            modulePreviewButton.onClick.Invoke();
+            int woodBeforeBasement = session.GetStorage(ResourceKind.Wood);
+            int salvageBeforeBasement = session.GetStorage(ResourceKind.Salvage);
+            Require(ConfirmCampModulePreview() &&
+                    campModuleExpansion.HasUpperAndBasementCommitted &&
+                    campModuleExpansion.CommittedModuleCount == 2 &&
+                    session.GetStorage(ResourceKind.Wood) == woodBeforeBasement - 2 &&
+                    session.GetStorage(ResourceKind.Salvage) == salvageBeforeBasement - 1,
+                "위층+지하실은 같은 run에서 각 W2/D1을 한 번씩 내고 함께 확정");
+
+            CampModuleDefinition upperDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Upper);
+            CampModuleDefinition basementDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Basement);
+            campUse.Warp(GetCampModuleSlotPosition(CampModuleArchetype.Upper));
             RefreshAll();
-            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleConnector && campInteraction.HasProximityPrompt,
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleConnector &&
+                    campInteraction.ActiveTargetId == upperDefinition.StartSlotId &&
+                    campInteraction.HasProximityPrompt,
                 "확정된 위층 방의 명시적 사다리 연결부에 근접 안내 표시");
             UseNearestCampTarget();
-            Require(campUse.CurrentRoomId == campModuleExpansion.CommittedRoomId && !campInteraction.IsPopupOpen,
-                "연결부 직접 상호작용으로만 확정 모듈 실내 이동");
+            Require(campUse.CurrentRoomId == upperDefinition.RoomId && !campInteraction.IsPopupOpen,
+                "위층 stable connector 직접 상호작용으로 위층 실내 이동");
             if (!string.IsNullOrWhiteSpace(moduleInteriorKoreanScreenshotPath))
             {
                 CaptureVerificationPng(moduleInteriorKoreanScreenshotPath, 1280, 800);
@@ -5217,16 +5458,70 @@ namespace KimSurvival
 
             OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
             workbenchButton.onClick.Invoke();
-            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == campModuleExpansion.CommittedRoomId &&
+            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == upperDefinition.RoomId &&
                     campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
-                    campPlacement.IsInstalledInRoom(StructureKind.Workbench, campModuleExpansion.CommittedRoomId),
-                "모듈 내부 일반 구역에서 작업대 제한적 자유 배치");
-            CampModuleDefinition committedDefinition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
-            campUse.Warp(new Vector2(committedDefinition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY));
+                    campPlacement.IsInstalledInRoom(StructureKind.Workbench, upperDefinition.RoomId),
+                "위층 일반 구역에서 작업대 제한적 자유 배치");
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Workbench);
+            repairButton.onClick.Invoke();
+            Require(campFeedback.Key == "message.workbench.repair.ready",
+                "위층에 설치한 작업대를 그 방에서 직접 사용");
+
+            campUse.Warp(new Vector2(upperDefinition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY));
             RefreshAll();
             UseNearestCampTarget();
             Require(campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId,
-                "명시적 사다리 경로로 모듈에서 시작 방 복귀");
+                "위층 reciprocal connector로 시작 방 복귀");
+
+            campUse.Warp(GetCampModuleSlotPosition(CampModuleArchetype.Basement));
+            RefreshAll();
+            Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleConnector &&
+                    campInteraction.ActiveTargetId == basementDefinition.StartSlotId,
+                "확정된 지하실 stable connector가 시작층에 독립 target으로 노출");
+            UseNearestCampTarget();
+            Require(campUse.CurrentRoomId == basementDefinition.RoomId,
+                "지하실 connector 직접 상호작용으로 지하실 이동");
+
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
+            campfireButton.onClick.Invoke();
+            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == basementDefinition.RoomId &&
+                    campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
+                    campPlacement.IsInstalledInRoom(StructureKind.Campfire, basementDefinition.RoomId),
+                "지하실 일반 구역에서 모닥불 제한적 자유 배치");
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Campfire);
+            prepareCampfireButton.onClick.Invoke();
+            Require(campUse.IsDayBenefitPrepared(StructureKind.Campfire),
+                "지하실에 설치한 모닥불을 그 방에서 직접 사용");
+
+            string campSpaceBeforeRestore = CaptureCampSpaceSaveJson();
+            string[] committedRoomIdsBeforeRestore = GetCommittedCampRoomIds();
+            campModuleExpansion.Reset();
+            campPlacement.Reset();
+            campUse.Reset();
+            Require(RestoreCampSpaceSaveJson(campSpaceBeforeRestore) &&
+                    CaptureCampSpaceSaveJson() == campSpaceBeforeRestore &&
+                    committedRoomIdsBeforeRestore.SequenceEqual(GetCommittedCampRoomIds()) &&
+                    campUse.CurrentRoomId == basementDefinition.RoomId &&
+                    campPlacement.IsInstalledInRoom(StructureKind.Workbench, upperDefinition.RoomId) &&
+                    campPlacement.IsInstalledInRoom(StructureKind.Campfire, basementDefinition.RoomId),
+                "통합 save root는 module→membership→placement/use→RefreshAll 순서로 위층+지하실과 설비를 exact 복원");
+
+            PrototypeCampSpaceSnapshot invalidCampSpace = CaptureCampSpaceSnapshot();
+            invalidCampSpace.Placement.Installed[0].StableRoomId = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Side).RoomId;
+            string campSpaceBeforeRejectedRestore = CaptureCampSpaceSaveJson();
+            Require(!RestoreCampSpaceSnapshot(invalidCampSpace) &&
+                    CaptureCampSpaceSaveJson() == campSpaceBeforeRejectedRestore,
+                "미확정 방을 참조하는 placement save는 전체 camp-space 상태를 원자적으로 보존하며 거부");
+
+            campUse.Warp(new Vector2(basementDefinition.ModuleConnectorDisplayX, PrototypeCampPlacement.FloorY));
+            RefreshAll();
+            UseNearestCampTarget();
+            campUse.Warp(GetCampModuleSlotPosition(CampModuleArchetype.Upper));
+            RefreshAll();
+            UseNearestCampTarget();
+            Require(campUse.CurrentRoomId == upperDefinition.RoomId &&
+                    structureViews.ContainsKey(StructureKind.Workbench),
+                "save 복원 뒤 시작층을 거쳐 위층 재진입 시 위층 설비를 다시 시각화");
 
             session.Reset();
             campPlacement.Reset();
@@ -6458,14 +6753,27 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.ModuleExpansionSlot:
                     return GetCampModuleSlotPosition(CampModuleArchetype.Upper);
                 case PrototypeCampInteractionTargetKind.ModuleConnector:
-                    if (campModuleExpansion.HasCommittedModule)
+                    CampModuleCommittedRoomSnapshot connectorRoom = null;
+                    if (string.Equals(campUse.CurrentRoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal))
                     {
-                        CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(campModuleExpansion.CommittedArchetype);
-                        return new Vector2(
-                            campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId
-                                ? definition.StartConnectorDisplayX
-                                : definition.ModuleConnectorDisplayX,
-                            PrototypeCampUse.PlayerFloorY);
+                        IReadOnlyList<CampModuleCommittedRoomSnapshot> rooms = campModuleExpansion.CommittedRooms;
+                        if (rooms.Count > 0)
+                        {
+                            connectorRoom = rooms[0];
+                        }
+                    }
+                    else
+                    {
+                        campModuleExpansion.TryGetCommittedRoom(campUse.CurrentRoomId, out connectorRoom);
+                    }
+
+                    if (connectorRoom != null)
+                    {
+                        CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(connectorRoom.Archetype);
+                        float connectorX = string.Equals(campUse.CurrentRoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal)
+                            ? definition.StartConnectorDisplayX
+                            : definition.ModuleConnectorDisplayX;
+                        return new Vector2(connectorX, PrototypeCampUse.PlayerFloorY);
                     }
                     return campUse.PlayerPosition;
                 default:

@@ -228,6 +228,12 @@ namespace ParallelQA
                 "Commit Upper+Basement, capture/restore v2, restore a v1 singular fixture, reject a corrupted room identity, then Reset.",
                 "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs");
 
+            Product(checks, "W11-E08.multi_room_placement_use_snapshots", "camp-space persistence", "P0",
+                "Placement v1 preserves Upper+Basement facility room/zone IDs atomically and camp-use v1 preserves the active room and day benefits",
+                VerifyCampSpaceModelSnapshots,
+                "Run the placement contract probe, then JSON roundtrip a Basement camp-use state and reject an invalid room atomically.",
+                "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs");
+
             WriteJson("wave11-slot-edit-evidence.json", evidence);
             WriteReport("wave11-slot-edit-contracts", "Wave 11 direct slot Edit contracts", started, checks);
         }
@@ -337,7 +343,7 @@ namespace ParallelQA
                     "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
 
                 evidence.fullRegression = Product(checks, "W11-P04.full_survival_regression", "full playable regression", "P0",
-                    "Prompt, placement, bag, signal, search, swim, land return, room module, and natural three-day survival/rescue regression remains PASS",
+                    "Prompt, placement, bag, signal, search, swim, land return, same-run Upper+Basement traversal/facility use/save restore, and natural three-day survival/rescue regression remains PASS",
                     () => RunFullRegression(prototype),
                     "Run KimSurvivalPrototype.RunAutomatedVerification from a fresh Play scene.",
                     "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
@@ -786,6 +792,38 @@ namespace ParallelQA
             return "v2=Upper+Basement exact; v1=Basement migrated; failedRestore=atomic; reset=clean";
         }
 
+        private static string VerifyCampSpaceModelSnapshots()
+        {
+            Require(PrototypeCampPlacement.RunSnapshotContractProbe(out string placementDetail), placementDetail);
+
+            PrototypeCampUse sourceUse = new PrototypeCampUse();
+            sourceUse.EnterRoom("room.basement.standard", -2f);
+            Require(sourceUse.TryPrepareDayBenefit(StructureKind.Campfire, sourceUse.PlayerPosition),
+                "Basement campfire day benefit fixture");
+            PrototypeCampUseSnapshot captured = sourceUse.CaptureSnapshot();
+            string capturedJson = JsonUtility.ToJson(captured);
+            PrototypeCampUse restoredUse = new PrototypeCampUse();
+            Require(restoredUse.RestoreSnapshot(JsonUtility.FromJson<PrototypeCampUseSnapshot>(capturedJson)) &&
+                    restoredUse.CurrentRoomId == "room.basement.standard" &&
+                    restoredUse.PlayerPosition == sourceUse.PlayerPosition &&
+                    restoredUse.IsDayBenefitPrepared(StructureKind.Campfire),
+                "camp-use v1 JSON roundtrip preserves room, position, and benefit");
+
+            PrototypeCampUseSnapshot invalid = captured.Clone();
+            invalid.StableRoomId = "room.invalid";
+            string beforeRejectedRestore = JsonUtility.ToJson(restoredUse.CaptureSnapshot());
+            Require(!restoredUse.RestoreSnapshot(invalid) &&
+                    JsonUtility.ToJson(restoredUse.CaptureSnapshot()) == beforeRejectedRestore,
+                "invalid camp-use room is rejected atomically");
+
+            restoredUse.Reset();
+            Require(restoredUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId &&
+                    !restoredUse.IsDayBenefitPrepared(StructureKind.Campfire) &&
+                    !restoredUse.IsDayBenefitPrepared(StructureKind.RainCollector),
+                "camp-use Reset restores new-game room and benefits");
+            return placementDetail + " campUse=v1 JSON exact; invalid room atomic; reset=clean";
+        }
+
         private static string VerifyInputParity()
         {
             PrototypePlayerActions keyboardInteract = PrototypePlayerActions.FromRaw(new PrototypeRawInput { KeyboardInteract = true });
@@ -1046,10 +1084,30 @@ namespace ParallelQA
 
         private static object Invoke(object target, string name, params object[] arguments)
         {
-            MethodInfo method = target.GetType().GetMethod(name, InstanceFlags);
+            object[] supplied = arguments ?? Array.Empty<object>();
+            MethodInfo method = target.GetType().GetMethods(InstanceFlags)
+                .Where(candidate => candidate.Name == name)
+                .FirstOrDefault(candidate => ParametersAccept(candidate.GetParameters(), supplied));
             if (method == null) { throw new MissingMethodException(target.GetType().FullName, name); }
-            try { return method.Invoke(target, arguments); }
+            try { return method.Invoke(target, supplied); }
             catch (TargetInvocationException exception) { throw exception.InnerException ?? exception; }
+        }
+
+        private static bool ParametersAccept(ParameterInfo[] parameters, object[] arguments)
+        {
+            if (parameters.Length != arguments.Length) return false;
+            for (int index = 0; index < parameters.Length; index += 1)
+            {
+                object value = arguments[index];
+                Type parameterType = parameters[index].ParameterType;
+                if (value == null)
+                {
+                    if (parameterType.IsValueType && Nullable.GetUnderlyingType(parameterType) == null) return false;
+                    continue;
+                }
+                if (!parameterType.IsInstanceOfType(value)) return false;
+            }
+            return true;
         }
 
         private static string RequireDetail(bool condition, string detail)

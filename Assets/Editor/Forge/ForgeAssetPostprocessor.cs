@@ -1,8 +1,9 @@
 // Forge 0.4 - generated project adapter. Safe to customize after installation.
-#pragma warning disable 0618
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEditor.U2D.Sprites;
 using UnityEngine;
 
 namespace Forge.Editor
@@ -69,22 +70,56 @@ namespace Forge.Editor
 
         private static void ApplyGrid(TextureImporter importer, ForgeSliceGrid grid)
         {
+            SpriteDataProviderFactories factories = new SpriteDataProviderFactories();
+            factories.Init();
+            ISpriteEditorDataProvider provider = factories.GetSpriteEditorDataProviderFromObject(importer);
+            if (provider == null)
+            {
+                throw new InvalidOperationException("Sprite editor data provider is unavailable for " + importer.assetPath);
+            }
+            provider.InitSpriteEditorDataProvider();
+
+            Dictionary<string, GUID> existingIds = new Dictionary<string, GUID>(StringComparer.Ordinal);
+            foreach (SpriteRect existing in provider.GetSpriteRects())
+            {
+                if (existing != null && !string.IsNullOrEmpty(existing.name))
+                {
+                    existingIds[existing.name] = existing.spriteID;
+                }
+            }
+
             int count = Mathf.Min(grid.frameCount, grid.columns * grid.rows);
-            SpriteMetaData[] sprites = new SpriteMetaData[count];
+            SpriteRect[] sprites = new SpriteRect[count];
+            List<SpriteNameFileIdPair> nameFileIdPairs = new List<SpriteNameFileIdPair>(count);
             int textureHeight = grid.rows * grid.frameHeight;
             for (int index = 0; index < count; index++)
             {
                 int column = index % grid.columns;
                 int row = index / grid.columns;
-                sprites[index] = new SpriteMetaData
+                string name = "frame-" + (index + 1).ToString("D4");
+                GUID spriteId;
+                if (!existingIds.TryGetValue(name, out spriteId) || spriteId.Empty())
                 {
-                    name = "frame-" + (index + 1).ToString("D4"),
-                    alignment = (int)SpriteAlignment.Center,
+                    spriteId = GUID.Generate();
+                }
+                sprites[index] = new SpriteRect
+                {
+                    name = name,
+                    spriteID = spriteId,
+                    alignment = SpriteAlignment.Center,
                     pivot = new Vector2(0.5f, 0.5f),
                     rect = new Rect(column * grid.frameWidth, textureHeight - (row + 1) * grid.frameHeight, grid.frameWidth, grid.frameHeight)
                 };
+                nameFileIdPairs.Add(new SpriteNameFileIdPair(name, spriteId));
             }
-            importer.spritesheet = sprites;
+
+            provider.SetSpriteRects(sprites);
+            ISpriteNameFileIdDataProvider nameProvider = provider.GetDataProvider<ISpriteNameFileIdDataProvider>();
+            if (nameProvider != null)
+            {
+                nameProvider.SetNameFileIdPairs(nameFileIdPairs);
+            }
+            provider.Apply();
         }
 
         private static bool ContainsFile(ForgeImportManifest manifest, string candidate)
@@ -114,4 +149,3 @@ namespace Forge.Editor
         }
     }
 }
-#pragma warning restore 0618

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -482,6 +483,21 @@ namespace KimSurvival
                 return false;
             }
             bool researchReady = escapeId == "escape.smoke" ? session.HasRope : session.HasAxe;
+            bool needsSignalWindow = state.Progress == 1 &&
+                                     (string.Equals(escapeId, "escape.smoke", StringComparison.Ordinal) ||
+                                      string.Equals(escapeId, "escape.radio", StringComparison.Ordinal));
+            if (needsSignalWindow)
+            {
+                PrototypeSignalEscapeWindow window = PrototypeSignalEscapeWindowResolver.Resolve(
+                    escapeId,
+                    session.RunSeed,
+                    session.Day);
+                if (!window.Allowed)
+                {
+                    state.LastResultCode = window.ResultCode;
+                    return false;
+                }
+            }
             PrototypeStableResourceCost[] stageCosts = definition.StableCosts
                 .Select(cost => new PrototypeStableResourceCost(
                     cost.StableResourceId,
@@ -546,6 +562,11 @@ namespace KimSurvival
                 escapeId,
                 "fixture." + escapeId + ".step.1",
                 definition.RequiredKeyPartIds);
+            if (first && !PrototypeSignalEscapeWindowResolver.Resolve(escapeId, session.RunSeed, session.Day).Allowed)
+            {
+                session.UseFood();
+                first = session.EndDay(false, false);
+            }
             bool second = first && director.TryProgress(
                 session,
                 escapeId,
@@ -707,6 +728,8 @@ namespace KimSurvival
             RequiredBehaviorId = behaviorId;
             Sample = sample;
             PanelKeys = new[] { stableId + ".title", stableId + ".summary", stableId + ".hint" };
+            ComicPanelKeys = new[] { stableId + ".summary", stableId + ".hint", stableId + ".title" };
+            ComicPanelRoleIds = new[] { "ending.panel.setup", "ending.panel.escalation", "ending.panel.punchline" };
             AchievementMappingId = "achievement." + stableId.Substring("ending.".Length);
         }
 
@@ -719,6 +742,8 @@ namespace KimSurvival
         public string RequiredBehaviorId { get; }
         public bool Sample { get; }
         public string[] PanelKeys { get; }
+        public string[] ComicPanelKeys { get; }
+        public string[] ComicPanelRoleIds { get; }
         public string AchievementMappingId { get; }
     }
 
@@ -771,6 +796,89 @@ namespace KimSurvival
         public string AsciiStableIdTieBreaker = string.Empty;
         public string[] PanelKeys = Array.Empty<string>();
         public string AchievementMappingId = string.Empty;
+    }
+
+    [Serializable]
+    public sealed class PrototypeEndingModifierDefinition
+    {
+        public PrototypeEndingModifierDefinition(string stableId, string behaviorId)
+        {
+            StableId = stableId ?? string.Empty;
+            RequiredBehaviorId = behaviorId ?? string.Empty;
+            TitleKey = StableId + ".title";
+            BodyKey = StableId + ".body";
+        }
+
+        public string StableId { get; }
+        public string RequiredBehaviorId { get; }
+        public string TitleKey { get; }
+        public string BodyKey { get; }
+    }
+
+    public static class PrototypeEndingModifierCatalog
+    {
+        private static readonly PrototypeEndingModifierDefinition[] Entries =
+        {
+            new PrototypeEndingModifierDefinition("modifier.ending.farming", "stat.farming"),
+            new PrototypeEndingModifierDefinition("modifier.ending.building", "stat.building"),
+            new PrototypeEndingModifierDefinition("modifier.ending.mechanics", "stat.mechanics"),
+            new PrototypeEndingModifierDefinition("modifier.ending.swimming", "stat.swimming"),
+            new PrototypeEndingModifierDefinition("modifier.ending.hazard-response", "stat.hazard-response"),
+            new PrototypeEndingModifierDefinition("modifier.ending.balanced", string.Empty)
+        };
+
+        public static IReadOnlyList<PrototypeEndingModifierDefinition> All { get { return Entries; } }
+
+        public static PrototypeEndingModifierDefinition Resolve(IEnumerable<PrototypeBehaviorScore> behaviorScores)
+        {
+            Dictionary<string, int> scores = (behaviorScores ?? Array.Empty<PrototypeBehaviorScore>())
+                .Where(value => value != null && !string.IsNullOrWhiteSpace(value.StableId))
+                .GroupBy(value => value.StableId, StringComparer.Ordinal)
+                .ToDictionary(group => group.Key, group => group.Max(value => value.Value), StringComparer.Ordinal);
+            PrototypeEndingModifierDefinition selected = Entries
+                .Where(value => !string.IsNullOrEmpty(value.RequiredBehaviorId) &&
+                                scores.TryGetValue(value.RequiredBehaviorId, out int score) && score > 0)
+                .OrderByDescending(value => scores[value.RequiredBehaviorId])
+                .ThenBy(value => value.StableId, StringComparer.Ordinal)
+                .FirstOrDefault();
+            return selected ?? Entries.First(value => value.StableId == "modifier.ending.balanced");
+        }
+    }
+
+    [Serializable]
+    public sealed class PrototypeTerminalEndingPanelObservation
+    {
+        public string RoleId = string.Empty;
+        public string LocalizationKey = string.Empty;
+        public string RenderedText = string.Empty;
+        public bool Modifier;
+        public bool Active;
+        public bool Overflow;
+        public bool Offscreen;
+    }
+
+    [Serializable]
+    public sealed class PrototypeTerminalEndingObservation
+    {
+        public string EvidenceSource = "production-live terminal ending runtime";
+        public bool Terminal;
+        public string Locale = string.Empty;
+        public string EndingId = string.Empty;
+        public string CoreEndingId = string.Empty;
+        public string ModifierId = string.Empty;
+        public string StateFingerprint = string.Empty;
+        public string RenderedTextFingerprint = string.Empty;
+        public PrototypeTerminalEndingPanelObservation[] Panels = Array.Empty<PrototypeTerminalEndingPanelObservation>();
+        public int CorePanelCount;
+        public int ModifierPanelCount;
+        public int OverflowCount;
+        public int OffscreenCount;
+        public int ClippedRequiredActionCount;
+        public int EndingRecordCount;
+        public int AlbumRecordCount;
+        public int CommitCount;
+        public int DuplicateAttemptCount;
+        public bool ExactlyOnce;
     }
 
     public static class PrototypeEndingResolver
@@ -934,7 +1042,15 @@ namespace KimSurvival
         private Image hazardPresentationIcon;
         private TMP_Text endingTitle;
         private readonly TMP_Text[] endingContents = new TMP_Text[3];
+        private GameObject endingModifierPanel;
+        private TMP_Text endingModifierText;
         private string currentEndingId = string.Empty;
+        private string currentCoreEndingId = string.Empty;
+        private string currentEndingModifierId = string.Empty;
+        private bool terminalEndingCommitted;
+        private int terminalEndingCommitCount;
+        private int terminalAlbumRecordCount;
+        private int terminalDuplicateAttemptCount;
         private string currentPacingBandId = "pacing.band.onboarding";
         private PrototypeForecastResult currentForecast;
         private int observedCampaignDay = -1;
@@ -947,6 +1063,8 @@ namespace KimSurvival
         public string EscapeProjectStableIds { get { return "escape.raft progress complete escape.smoke progress complete escape.radio progress complete escape.flare escape.beacon"; } }
         public string EndingStableIds { get { return string.Join(" ", PrototypeEndingCatalog.All.Select(value => value.StableId).ToArray()); } }
         public string CurrentEndingStableId { get { return currentEndingId; } }
+        public string CurrentCoreEndingStableId { get { return currentCoreEndingId; } }
+        public string CurrentEndingModifierStableId { get { return currentEndingModifierId; } }
         public string CurrentPacingBandStableId { get { return currentPacingBandId; } }
         public string CurrentForecastStableId { get { return currentForecast == null ? string.Empty : currentForecast.ForecastId; } }
         public string LiveContractSurface { get { return HazardStableIds + " | " + EscapeProjectStableIds + " | pacing=" + currentPacingBandId + " | ending=" + currentEndingId; } }
@@ -962,7 +1080,8 @@ namespace KimSurvival
             get
             {
                 return pityStates.TryGetValue(PrototypeRaftEscapeConfig.KeyPartId, out PrototypeKeyPartPityState pity) &&
-                       (pity.EligibleSearchCount > 0 || escapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId).Progress > 0);
+                       (pity.ProtectedOwned || pity.EligibleSearchCount > 0 ||
+                        escapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId).Progress > 0);
             }
         }
 
@@ -994,6 +1113,12 @@ namespace KimSurvival
         public void ResetRuntime()
         {
             currentEndingId = string.Empty;
+            currentCoreEndingId = string.Empty;
+            currentEndingModifierId = string.Empty;
+            terminalEndingCommitted = false;
+            terminalEndingCommitCount = 0;
+            terminalAlbumRecordCount = 0;
+            terminalDuplicateAttemptCount = 0;
             if (semanticSurface != null) semanticSurface.CurrentEndingStableId = string.Empty;
             campaignEvents.Clear();
             hazardDirector.Reset();
@@ -1277,8 +1402,7 @@ namespace KimSurvival
             {
                 PrototypeEndingResolution resolution = ChooseTerminalOutcome();
                 RecordCampaignEvent("escape.completed", string.Empty, escapeId, resolution.StableId, "escape.complete");
-                RecordEndingUnlock(resolution.StableId);
-                ShowEndingForVerification(resolution.StableId);
+                ActivateTerminalComic();
             }
             return success;
         }
@@ -1378,14 +1502,25 @@ namespace KimSurvival
         public void ActivateTerminalComic()
         {
             if (session == null || session.Result == RunResult.None) return;
-            PrototypeEndingResolution resolution = ChooseTerminalOutcome();
-            bool firstPresentation = !string.Equals(currentEndingId, resolution.StableId, StringComparison.Ordinal);
-            RecordEndingUnlock(resolution.StableId);
-            ShowEndingForVerification(resolution.StableId);
-            if (firstPresentation)
+            if (terminalEndingCommitted)
             {
-                RecordCampaignEvent("ending.resolved", string.Empty, session.CompletedEscapeId, resolution.StableId, "ending.resolved");
+                terminalDuplicateAttemptCount += 1;
+                ShowEndingForVerification(currentEndingId);
+                return;
             }
+            PrototypeEndingResolution resolution = ChooseTerminalOutcome();
+            ShowEndingForVerification(resolution.StableId);
+            terminalEndingCommitted = true;
+            terminalEndingCommitCount += 1;
+            bool newlyUnlocked = RecordEndingUnlock(resolution.StableId);
+            terminalAlbumRecordCount += 1;
+            RecordCampaignEvent("ending.resolved", string.Empty, session.CompletedEscapeId, resolution.StableId, "ending.resolved.once");
+            RecordCampaignEvent(
+                "ending.album-recorded",
+                string.Empty,
+                session.CompletedEscapeId,
+                resolution.StableId,
+                newlyUnlocked ? "ending.album-recorded.new" : "ending.album-recorded.known");
         }
 
         public void ShowEndingForVerification(string stableId)
@@ -1395,6 +1530,8 @@ namespace KimSurvival
             try { definition = PrototypeEndingCatalog.Get(stableId); }
             catch { definition = PrototypeEndingCatalog.Get("ending.stay.just-kim"); }
             currentEndingId = definition.StableId;
+            currentCoreEndingId = definition.StableId;
+            currentEndingModifierId = PrototypeEndingModifierCatalog.Resolve(behaviorTracker.Scores).StableId;
             if (semanticSurface != null) semanticSurface.CurrentEndingStableId = currentEndingId;
             endingComicRoot.SetActive(true);
             RefreshComicText();
@@ -1403,7 +1540,193 @@ namespace KimSurvival
             {
                 RebuildComicText(endingContents[index]);
             }
+            RebuildComicText(endingModifierText);
             Canvas.ForceUpdateCanvases();
+        }
+
+        public PrototypeTerminalEndingObservation CaptureTerminalEndingObservation()
+        {
+            bool terminal = terminalEndingCommitted && session != null && session.Result != RunResult.None &&
+                            endingComicRoot != null && endingComicRoot.activeInHierarchy;
+            PrototypeEndingDefinition definition = PrototypeEndingCatalog.All.FirstOrDefault(value =>
+                string.Equals(value.StableId, currentCoreEndingId, StringComparison.Ordinal));
+            PrototypeEndingModifierDefinition modifier = PrototypeEndingModifierCatalog.All.FirstOrDefault(value =>
+                string.Equals(value.StableId, currentEndingModifierId, StringComparison.Ordinal));
+            var panels = new List<PrototypeTerminalEndingPanelObservation>();
+            for (int index = 0; index < endingContents.Length; index += 1)
+            {
+                TMP_Text text = endingContents[index];
+                panels.Add(new PrototypeTerminalEndingPanelObservation
+                {
+                    RoleId = definition == null || index >= definition.ComicPanelRoleIds.Length
+                        ? string.Empty
+                        : definition.ComicPanelRoleIds[index],
+                    LocalizationKey = definition == null || index >= definition.ComicPanelKeys.Length
+                        ? string.Empty
+                        : definition.ComicPanelKeys[index],
+                    RenderedText = text == null ? string.Empty : text.text,
+                    Modifier = false,
+                    Active = terminal && text != null && text.gameObject.activeInHierarchy,
+                    Overflow = text != null && text.isTextOverflowing,
+                    Offscreen = text != null && IsRectOutsideRoot(text.rectTransform, endingComicRoot)
+                });
+            }
+            panels.Add(new PrototypeTerminalEndingPanelObservation
+            {
+                RoleId = "ending.panel.modifier",
+                LocalizationKey = modifier == null ? string.Empty : modifier.TitleKey + "+" + modifier.BodyKey,
+                RenderedText = endingModifierText == null ? string.Empty : endingModifierText.text,
+                Modifier = true,
+                Active = terminal && endingModifierPanel != null && endingModifierPanel.activeInHierarchy,
+                Overflow = endingModifierText != null && endingModifierText.isTextOverflowing,
+                Offscreen = endingModifierText != null && IsRectOutsideRoot(endingModifierText.rectTransform, endingComicRoot)
+            });
+            string scoreFingerprint = string.Join(",", behaviorTracker.Scores.OrderBy(value => value.StableId, StringComparer.Ordinal)
+                .Select(value => value.StableId + "=" + value.Value).ToArray());
+            string stateFingerprint = (session == null ? 0 : session.RunSeed) + "|" +
+                                      (session == null ? 0 : session.Day) + "|" +
+                                      (session == null ? RunResult.None : session.Result) + "|" +
+                                      currentEndingId + "|" + currentCoreEndingId + "|" + currentEndingModifierId + "|" +
+                                      scoreFingerprint + "|commit=" + terminalEndingCommitCount + "|album=" + terminalAlbumRecordCount;
+            int endingRecords = campaignEvents.Count(value =>
+                string.Equals(value.stable_event_id, "ending.resolved", StringComparison.Ordinal));
+            int albumRecords = campaignEvents.Count(value =>
+                string.Equals(value.stable_event_id, "ending.album-recorded", StringComparison.Ordinal));
+            return new PrototypeTerminalEndingObservation
+            {
+                Terminal = terminal,
+                Locale = localization == null ? string.Empty : localization.CurrentLocaleCode,
+                EndingId = currentEndingId,
+                CoreEndingId = currentCoreEndingId,
+                ModifierId = currentEndingModifierId,
+                StateFingerprint = stateFingerprint,
+                RenderedTextFingerprint = string.Join("|", panels.Select(value => value.RoleId + "=" + value.RenderedText).ToArray()),
+                Panels = panels.ToArray(),
+                CorePanelCount = panels.Count(value => !value.Modifier && value.Active),
+                ModifierPanelCount = panels.Count(value => value.Modifier && value.Active),
+                OverflowCount = panels.Count(value => value.Active && value.Overflow) +
+                                (endingTitle != null && endingTitle.isTextOverflowing ? 1 : 0),
+                OffscreenCount = panels.Count(value => value.Active && value.Offscreen) +
+                                 (endingTitle != null && IsRectOutsideRoot(endingTitle.rectTransform, endingComicRoot) ? 1 : 0),
+                ClippedRequiredActionCount = endingComicRoot == null ? 0 : endingComicRoot
+                    .GetComponentsInChildren<Button>(true)
+                    .Count(button => button.GetComponentInChildren<TMP_Text>(true) is TMP_Text label && label.isTextOverflowing),
+                EndingRecordCount = endingRecords,
+                AlbumRecordCount = albumRecords,
+                CommitCount = terminalEndingCommitCount,
+                DuplicateAttemptCount = terminalDuplicateAttemptCount,
+                ExactlyOnce = terminal && terminalEndingCommitCount == 1 && terminalAlbumRecordCount == 1 &&
+                              endingRecords == 1 && albumRecords == 1
+            };
+        }
+
+        public PrototypeWaveCComicLayoutObservation[] CaptureWaveCComicLayoutObservations()
+        {
+            return CaptureWaveCComicLayoutObservations(Path.Combine(Application.temporaryCachePath, "kim-survival-wave-c-ending"));
+        }
+
+        public PrototypeWaveCComicLayoutObservation[] CaptureWaveCComicLayoutObservations(string evidenceFolder)
+        {
+            PrototypeTerminalEndingObservation terminal = CaptureTerminalEndingObservation();
+            if (!terminal.Terminal || !terminal.ExactlyOnce || localization == null || endingComicRoot == null)
+            {
+                return Array.Empty<PrototypeWaveCComicLayoutObservation>();
+            }
+
+            string destination = string.IsNullOrWhiteSpace(evidenceFolder)
+                ? Path.Combine(Application.temporaryCachePath, "kim-survival-wave-c-ending")
+                : evidenceFolder;
+            Directory.CreateDirectory(destination);
+            string originalLocale = localization.CurrentLocaleCode;
+            var observations = new List<PrototypeWaveCComicLayoutObservation>();
+            string[] locales =
+            {
+                PrototypeLocalization.KoreanLocaleCode,
+                PrototypeLocalization.EnglishLocaleCode,
+                PrototypeLocalization.QpsLongLocaleCode
+            };
+
+            try
+            {
+                foreach (string locale in locales)
+                {
+                    bool changed = string.Equals(locale, PrototypeLocalization.QpsLongLocaleCode, StringComparison.Ordinal)
+                        ? localization.SetQaLocale(locale)
+                        : localization.SetLocale(locale, false);
+                    if (!changed || !string.Equals(localization.CurrentLocaleCode, locale, StringComparison.Ordinal)) continue;
+                    RefreshComicText();
+                    RebuildComicText(endingTitle);
+                    foreach (TMP_Text content in endingContents) RebuildComicText(content);
+                    RebuildComicText(endingModifierText);
+                    Canvas.ForceUpdateCanvases();
+
+                    PrototypeTerminalEndingObservation rendered = CaptureTerminalEndingObservation();
+                    string screenshot = Path.Combine(destination, "terminal-ending-" + locale + "-1280x800.png");
+                    if (!CaptureEndingPng(screenshot, 1280, 800)) screenshot = string.Empty;
+                    observations.Add(new PrototypeWaveCComicLayoutObservation
+                    {
+                        Locale = locale,
+                        Screenshot = screenshot,
+                        RenderedTextFingerprint = rendered.RenderedTextFingerprint,
+                        StateFingerprint = rendered.StateFingerprint,
+                        CorePanelCount = rendered.CorePanelCount,
+                        ModifierPanelCount = rendered.ModifierPanelCount,
+                        OverflowCount = rendered.OverflowCount,
+                        OffscreenCount = rendered.OffscreenCount,
+                        ClippedRequiredActionCount = rendered.ClippedRequiredActionCount
+                    });
+                }
+            }
+            finally
+            {
+                if (string.Equals(originalLocale, PrototypeLocalization.QpsLongLocaleCode, StringComparison.Ordinal))
+                {
+                    localization.SetQaLocale(originalLocale);
+                }
+                else
+                {
+                    localization.SetLocale(originalLocale, false);
+                }
+                RefreshComicText();
+                RebuildComicText(endingTitle);
+                foreach (TMP_Text content in endingContents) RebuildComicText(content);
+                RebuildComicText(endingModifierText);
+                Canvas.ForceUpdateCanvases();
+            }
+
+            return observations.ToArray();
+        }
+
+        private bool CaptureEndingPng(string absolutePath, int width, int height)
+        {
+            Canvas comicCanvas = endingComicRoot == null ? null : endingComicRoot.GetComponent<Canvas>();
+            Camera captureCamera = comicCanvas == null ? null : comicCanvas.worldCamera;
+            if (captureCamera == null && canvas != null) captureCamera = canvas.worldCamera;
+            if (captureCamera == null) return false;
+
+            Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
+            RenderTexture target = new RenderTexture(width, height, 24, RenderTextureFormat.ARGB32);
+            RenderTexture previousTarget = captureCamera.targetTexture;
+            RenderTexture previousActive = RenderTexture.active;
+            Texture2D image = null;
+            try
+            {
+                captureCamera.targetTexture = target;
+                RenderTexture.active = target;
+                captureCamera.Render();
+                image = new Texture2D(width, height, TextureFormat.RGB24, false);
+                image.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+                image.Apply();
+                File.WriteAllBytes(absolutePath, image.EncodeToPNG());
+                return File.Exists(absolutePath) && new FileInfo(absolutePath).Length > 0;
+            }
+            finally
+            {
+                captureCamera.targetTexture = previousTarget;
+                RenderTexture.active = previousActive;
+                if (target != null) Destroy(target);
+                if (image != null) Destroy(image);
+            }
         }
 
         public void DeactivateComic()
@@ -1411,12 +1734,13 @@ namespace KimSurvival
             if (endingComicRoot != null) endingComicRoot.SetActive(false);
         }
 
-        private void RecordEndingUnlock(string stableId)
+        private bool RecordEndingUnlock(string stableId)
         {
             if (endingAlbumCollection != null && session != null)
             {
-                endingAlbumCollection.Unlock(stableId, session.Day);
+                return endingAlbumCollection.Unlock(stableId, session.Day);
             }
+            return false;
         }
 
         private void OnDestroy()
@@ -1669,16 +1993,40 @@ namespace KimSurvival
                 Vector2 copyMin = selectedTriptych ? new Vector2(0.04f, 0.02f) : new Vector2(0.07f, 0.09f);
                 Vector2 copyMax = selectedTriptych ? new Vector2(0.96f, 0.34f) : new Vector2(0.93f, 0.91f);
                 endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, copyMin, copyMax, selectedTriptych ? 18 : 22, TextAlignmentOptions.Center);
-                if (selectedTriptych)
-                {
-                    endingContents[index].enableAutoSizing = true;
-                    endingContents[index].fontSizeMin = 18f;
-                    endingContents[index].fontSizeMax = 18f;
-                    endingContents[index].maxVisibleLines = 3;
-                    endingContents[index].overflowMode = TextOverflowModes.Ellipsis;
-                    endingContents[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
-                }
+                endingContents[index].enableAutoSizing = true;
+                endingContents[index].fontSizeMin = selectedTriptych ? 12f : 14f;
+                endingContents[index].fontSizeMax = selectedTriptych ? 18f : 22f;
+                endingContents[index].maxVisibleLines = 5;
+                endingContents[index].overflowMode = TextOverflowModes.Ellipsis;
+                if (selectedTriptych) endingContents[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
             }
+
+            endingModifierPanel = new GameObject("Survival Behavior Modifier");
+            endingModifierPanel.transform.SetParent(frame.transform, false);
+            RectTransform modifierRect = endingModifierPanel.AddComponent<RectTransform>();
+            modifierRect.anchorMin = selectedTriptych ? new Vector2(0.065f, 0.075f) : new Vector2(0.08f, 0.055f);
+            modifierRect.anchorMax = selectedTriptych ? new Vector2(0.78f, 0.265f) : new Vector2(0.92f, 0.255f);
+            modifierRect.offsetMin = Vector2.zero;
+            modifierRect.offsetMax = Vector2.zero;
+            Image modifierImage = endingModifierPanel.AddComponent<Image>();
+            modifierImage.color = new Color(0.025f, 0.16f, 0.18f, selectedTriptych ? 0.92f : 1f);
+            modifierImage.raycastTarget = false;
+            Outline modifierOutline = endingModifierPanel.AddComponent<Outline>();
+            modifierOutline.effectColor = new Color(1f, 0.82f, 0.28f, 0.96f);
+            modifierOutline.effectDistance = new Vector2(2f, -2f);
+            endingModifierText = CreateEndingText(
+                "Survival Behavior Copy",
+                endingModifierPanel.transform,
+                new Vector2(0.04f, 0.10f),
+                new Vector2(0.96f, 0.90f),
+                selectedTriptych ? 18 : 20,
+                TextAlignmentOptions.Center);
+            endingModifierText.enableAutoSizing = true;
+            endingModifierText.fontSizeMin = selectedTriptych ? 13f : 14f;
+            endingModifierText.fontSizeMax = selectedTriptych ? 18f : 20f;
+            endingModifierText.maxVisibleLines = 4;
+            endingModifierText.overflowMode = TextOverflowModes.Ellipsis;
+            endingModifierText.color = Color.white;
             endingComicRoot.SetActive(false);
         }
 
@@ -1735,6 +2083,18 @@ namespace KimSurvival
             text.Rebuild(CanvasUpdate.PreRender);
         }
 
+        private static bool IsRectOutsideRoot(RectTransform rect, GameObject root)
+        {
+            if (rect == null || root == null) return false;
+            RectTransform rootRect = root.GetComponent<RectTransform>();
+            if (rootRect == null) return false;
+            Bounds bounds = RectTransformUtility.CalculateRelativeRectTransformBounds(rootRect, rect);
+            Rect safe = rootRect.rect;
+            const float tolerance = 0.5f;
+            return bounds.min.x < safe.xMin - tolerance || bounds.max.x > safe.xMax + tolerance ||
+                   bounds.min.y < safe.yMin - tolerance || bounds.max.y > safe.yMax + tolerance;
+        }
+
         private void RefreshComicText()
         {
             if (string.IsNullOrEmpty(currentEndingId) || endingTitle == null || localization == null) return;
@@ -1742,7 +2102,16 @@ namespace KimSurvival
             endingTitle.text = localization.Format(definition.StableId + ".title");
             for (int index = 0; index < endingContents.Length; index += 1)
             {
-                endingContents[index].text = localization.Format(definition.PanelKeys[index]);
+                string role = localization.Format(definition.ComicPanelRoleIds[index] + ".label");
+                string content = localization.Format(definition.ComicPanelKeys[index]);
+                if (index == 2) content += "\n" + localization.Format("ending.panel.punchline.suffix");
+                endingContents[index].text = role + "\n" + content;
+            }
+            PrototypeEndingModifierDefinition modifier = PrototypeEndingModifierCatalog.Resolve(behaviorTracker.Scores);
+            currentEndingModifierId = modifier.StableId;
+            if (endingModifierText != null)
+            {
+                endingModifierText.text = localization.Format(modifier.TitleKey) + " · " + localization.Format(modifier.BodyKey);
             }
         }
     }

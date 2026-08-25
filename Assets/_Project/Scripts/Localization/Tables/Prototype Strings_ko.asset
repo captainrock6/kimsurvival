@@ -1432,14 +1432,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 747417795543047
-    m_Localized: "\uC5F0\uAE30 \uC2E0\uD638 {0}/{1} \xB7 \uBC27\uC904 {2} \xB7 \uB098\uBB34
-      {3} / \uD45C\uB958\uBB3C {4}"
+    m_Localized: "\uC5F0\uAE30 {0}/{1} \xB7 \uBC27\uC904 {2} \xB7 \uBD80\uC2EF\uB3CC
+      {3} \xB7 \uBC14\uB78C {4}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219866
   - m_Id: 747417803931648
-    m_Localized: "\uBB34\uC804 \uC2E0\uD638 {0}/{1} \xB7 \uB3CC\uB3C4\uB07C {2} \xB7
-      \uB098\uBB34 {3} / \uD45C\uB958\uBB3C {4}"
+    m_Localized: "\uBB34\uC804 {0}/{1} \xB7 \uB3CC\uB3C4\uB07C {2} \xB7 \uBD80\uD488
+      3\uC885 {3} \xB7 \uC8FC\uD30C\uC218 {4}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219866
@@ -1467,15 +1467,11 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219866
   - m_Id: 747417803931653
-    m_Localized: "\uACE0\uC9C0\uB300 \uC5F0\uAE30 \uC124\uBE44\uC5D0 \uC9C1\uC811
-      \uC790\uC6D0\uC744 \uB123\uB294\uB2E4. \uBC27\uC904\uACFC \uAC74\uC870\uD55C
-      \uBC14\uB78C \uCC3D\uC774 \uD544\uC694\uD558\uB2E4."
+    m_Localized: 부싯돌과 나무 12·섬유 2·연료 2를 두 단계로 넣고, 맑은 바람에 가시성을 확인한다.
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931654
-    m_Localized: "\uBB34\uC804 \uC791\uC5C5\uB300\uC5D0\uC11C \uD68C\uB85C\uB97C
-      \uBCF5\uAD6C\uD55C\uB2E4. \uB3CC\uB3C4\uB07C\uC640 \uC804\uC790 \uBD80\uD488\uC6A9
-      \uD45C\uB958\uBB3C\uC774 \uD544\uC694\uD558\uB2E4."
+    m_Localized: 무전기·전자기판·트랜지스터와 전자 6·전선 6·금속 4로 수리한 뒤 깨끗한 주파수를 찾는다.
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931655
@@ -2397,6 +2393,70 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1212147274334214
     m_Localized: "\uC57D\uD488 \uCE58\uB8CC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334215
+    m_Localized: "1막 · 그날"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334216
+    m_Localized: "2막 · 일이 커졌다"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334217
+    m_Localized: "3막 · 그 뒤로"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334218
+    m_Localized: "김씨는 전부 계획대로였다고 주장했다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334219
+    m_Localized: "후일담 · 땅을 읽는 사람"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334220
+    m_Localized: "섬에서 익힌 농사 감각은 어디서든 굶지 않는 재주가 되었다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334221
+    m_Localized: "후일담 · 어디서든 증축"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334222
+    m_Localized: "김씨는 새 집을 볼 때마다 2층과 지하부터 계산하게 되었다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334223
+    m_Localized: "후일담 · 고치면 내 것"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334224
+    m_Localized: "망가진 기계는 더 이상 고철이 아니라 설명서 없는 퍼즐이었다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334225
+    m_Localized: "후일담 · 물길 전문가"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334226
+    m_Localized: "파도를 오래 읽은 끝에 김씨는 물만 보면 지름길부터 찾았다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334227
+    m_Localized: "후일담 · 위기 대응반장"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334228
+    m_Localized: "위험 신호를 먼저 알아챈 습관 덕에 평범한 경보에도 지나치게 준비한다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334229
+    m_Localized: "후일담 · 그냥 김씨답게"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334230
+    m_Localized: "한 가지만 고집하지 않은 것이 결국 김씨만의 생존 기술이 되었다."
     m_Metadata:
       m_Items: []
   references:

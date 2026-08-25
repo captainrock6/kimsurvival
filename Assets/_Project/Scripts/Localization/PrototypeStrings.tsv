@@ -364,14 +364,14 @@ escape.smoke	대형 연기 신호	Smoke beacon escape	⟦Smóké béácóñ ésc
 escape.radio	무전 구조 신호	Radio rescue escape	⟦Rádíó réscúé éscápéáéíóúü⟧
 escape.flare	조명탄 탈출	Flare escape	⟦Fláré éscápéáéí⟧
 escape.beacon	고지대 신호탑 탈출	Ridge beacon escape	⟦Rídgé béácóñ éscápéáéíóúü⟧
-escape.project.action.smoke	연기 신호 {0}/{1} · 밧줄 {2} · 나무 {3} / 표류물 {4}	Smoke {0}/{1} · Rope {2} · Wood {3} / Salvage {4}	⟦Smóké {0}/{1} · Rópé {2} · Wóód {3} / Sálvágé {4}áéíóúüñ¿¡áéíóúüñ¿¡⟧
-escape.project.action.radio	무전 신호 {0}/{1} · 돌도끼 {2} · 나무 {3} / 표류물 {4}	Radio {0}/{1} · Axe {2} · Wood {3} / Salvage {4}	⟦Rádíó {0}/{1} · Áxé {2} · Wóód {3} / Sálvágé {4}áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.project.action.smoke	연기 {0}/{1} · 밧줄 {2} · 부싯돌 {3} · 바람 {4}	Smoke {0}/{1} · Rope {2} · Flint {3} · Wind {4}	⟦Smóké {0}/{1} · Rópé {2} · Flíñt {3} · Wíñd {4}áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.project.action.radio	무전 {0}/{1} · 돌도끼 {2} · 부품 3종 {3} · 주파수 {4}	Radio {0}/{1} · Axe {2} · 3 parts {3} · Frequency {4}	⟦Rádíó {0}/{1} · Áxé {2} · 3 párts {3} · Fréqúéñcy {4}áéíóúüñ¿¡áéíóúüñ¿¡⟧
 escape.project.message.progress	{0} 진행 {1}/{2}. 다음 투입도 현장에서 해야 한다.	{0} progressed to {1}/{2}. Return here for the next commit.	⟦{0} prógrésséd tó {1}/{2}. Rétúrñ héré fór thé ñéxt cómmít.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 escape.project.message.complete	{0} 완성. 구조 신호가 응답을 받았다.	{0} complete. The rescue signal received a response.	⟦{0} cómplété. Thé réscúé sígñál récéívéd á réspóñsé.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 escape.project.message.research	{0}에 필요한 연구·도구가 아직 없다.	The research or tool required by {0} is missing.	⟦Thé réséárch ór tóól réqúíréd by {0} ís míssíñg.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 escape.project.message.resources	{0}에 투입할 자원이 부족하다.	Not enough resources for {0}.	⟦Ñót éñóúgh résóúrcés fór {0}.áéíóúüñ¿¡á⟧
-camp.popup.detail.escape_smoke	고지대 연기 설비에 직접 자원을 넣는다. 밧줄과 건조한 바람 창이 필요하다.	Commit resources at the smoke beacon. Rope and a dry wind window are required.	⟦Cómmít résóúrcés át thé smóké béácóñ. Rópé áñd á dry wíñd wíñdów áré réqúíréd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
-camp.popup.detail.escape_radio	무전 작업대에서 회로를 복구한다. 돌도끼와 전자 부품용 표류물이 필요하다.	Repair the radio circuit here. An axe and electronics salvage are required.	⟦Répáír thé rádíó círcúít héré. Áñ áxé áñd éléctróñícs sálvágé áré réqúíréd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+camp.popup.detail.escape_smoke	부싯돌과 나무 12·섬유 2·연료 2를 두 단계로 넣고, 맑은 바람에 가시성을 확인한다.	Commit flint plus 12 wood, 2 fiber, and 2 fuel in two stages, then verify visibility in clear wind.	⟦Cómmít flíñt plús 12 wóód, 2 fíbér, áñd 2 fúél íñ twó stágés, théñ vérífy vísíbílíty íñ cléár wíñd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+camp.popup.detail.escape_radio	무전기·전자기판·트랜지스터와 전자 6·전선 6·금속 4로 수리한 뒤 깨끗한 주파수를 찾는다.	Repair with the transceiver, circuit board, transistor, 6 electronics, 6 wire, and 4 metal, then find a clear frequency.	⟦Répáír wíth thé tráñscéívér, círcúít bóárd, tráñsístór, 6 éléctróñícs, 6 wíré, áñd 4 métál, théñ fíñd á cléár fréqúéñcy.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 ending.escape.raft.open-water.title	수평선 너머로	Beyond the Horizon	⟦Béyóñd thé Hórízóñáéíóúü⟧
 ending.escape.raft.open-water.summary	직접 엮은 뗏목으로 조류를 타고 섬을 벗어났다.	He rides the current off the island on his own raft.	⟦Hé rídés thé cúrréñt óff thé ísláñd óñ hís ówñ ráft.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 ending.escape.raft.open-water.hint	바다는 벽이 아니라 길일지도 모른다.	The sea may be a road, not a wall.	⟦Thé séá máy bé á róád, ñót á wáll.áéíóúüñ¿¡áéí⟧
@@ -429,6 +429,22 @@ ending.stay.island-ranger.hint	섬의 길을 사람보다 먼저 외워 보자.	
 ending.stay.just-kim.title	그냥 잘 사는 김씨	Mr. Kim, Doing Fine	⟦Mr. Kím, Dóíñg Fíñéáéíóúü⟧
 ending.stay.just-kim.summary	한 전문가가 아니어도 자기 방식으로 살아남았다.	He masters no single lifestyle but survives in his own way.	⟦Hé mástérs ñó síñglé líféstylé bút súrvívés íñ hís ówñ wáy.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 ending.stay.just-kim.hint	한 가지만 잘할 필요는 없다.	You do not need to master only one thing.	⟦Yóú dó ñót ñééd tó mástér óñly óñé thíñg.áéíóúüñ¿¡áéíóúü⟧
+ending.panel.setup.label	1막 · 그날	ACT I · THAT DAY	⟦ÁCT Í · THÁT DÁYáéíá⟧
+ending.panel.escalation.label	2막 · 일이 커졌다	ACT II · THINGS ESCALATE	⟦ÁCT ÍÍ · THÍÑGS ÉSCÁLÁTÉáéíóúá⟧
+ending.panel.punchline.label	3막 · 그 뒤로	ACT III · AFTER THAT	⟦ÁCT ÍÍÍ · ÁFTÉR THÁTáéíóú⟧
+ending.panel.punchline.suffix	김씨는 전부 계획대로였다고 주장했다.	Mr. Kim insists this was the plan all along.	⟦Mr. Kím íñsísts thís wás thé pláñ áll álóñgáéíóúüñ¿¡áéíóú⟧
+modifier.ending.farming.title	후일담 · 땅을 읽는 사람	EPILOGUE · SOIL READER	⟦ÉPÍLÓGÚÉ · SÓÍL RÉÁDÉRáéíóáé⟧
+modifier.ending.farming.body	섬에서 익힌 농사 감각은 어디서든 굶지 않는 재주가 되었다.	Island farming became a talent for never going hungry again.	⟦Ísláñd fármíñg bécámé á rémárkáblé táléñt fór ñévér góíñg húñgry ágáíñáéíóúüñ¿¡áéíóúüñ¿¡⟧
+modifier.ending.building.title	후일담 · 어디서든 증축	EPILOGUE · ALWAYS ADD A FLOOR	⟦ÉPÍLÓGÚÉ · ÁLWÁYS ÁDD Á FLÓÓRáéíóúáéí⟧
+modifier.ending.building.body	김씨는 새 집을 볼 때마다 2층과 지하부터 계산하게 되었다.	Every new home now makes Mr. Kim calculate the upper floor and basement first.	⟦Évéry ñéw hómé ñów mákés Mr. Kím cálcúláté thé úppér flóór áñd báséméñt fírstáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
+modifier.ending.mechanics.title	후일담 · 고치면 내 것	EPILOGUE · FIXED MEANS MINE	⟦ÉPÍLÓGÚÉ · FÍXÉD MÉÁÑS MÍÑÉáéíóáéí⟧
+modifier.ending.mechanics.body	망가진 기계는 더 이상 고철이 아니라 설명서 없는 퍼즐이었다.	Broken machines stopped being scrap and became puzzles without manuals.	⟦Brókéñ máchíñés stóppéd béíñg scríáp áñd bécámé élábóráté púzzlés wíthóút máñúálsáéíóúüñ¿¡áéíóúüñ¿¡⟧
+modifier.ending.swimming.title	후일담 · 물길 전문가	EPILOGUE · CURRENT SPECIALIST	⟦ÉPÍLÓGÚÉ · CÚRRÉÑT SPÉCÍÁLÍSTáéíóáéíó⟧
+modifier.ending.swimming.body	파도를 오래 읽은 끝에 김씨는 물만 보면 지름길부터 찾았다.	After reading waves for so long, Mr. Kim sees shortcuts in every stretch of water.	⟦Áftér réádíñg wávés fór só lóñg, Mr. Kím séés úñréásóñábly éffícíéñt shórtcúts íñ évéry strétch óf wátéráéíóúüñ¿¡⟧
+modifier.ending.hazard-response.title	후일담 · 위기 대응반장	EPILOGUE · CRISIS FOREMAN	⟦ÉPÍLÓGÚÉ · CRÍSÍS FÓRÉMÁÑáéíóúá⟧
+modifier.ending.hazard-response.body	위험 신호를 먼저 알아챈 습관 덕에 평범한 경보에도 지나치게 준비한다.	Spotting danger early left him comically overprepared for ordinary alarms.	⟦Spóttíñg dáñgér éárly léft hím cómícálly áñd spéctácúlárly óvérprépáréd fór órdíñáry álármsáéíóúüñ¿¡⟧
+modifier.ending.balanced.title	후일담 · 그냥 김씨답게	EPILOGUE · THE KIM METHOD	⟦ÉPÍLÓGÚÉ · THÉ KÍM MÉTHÓDáéíóúá⟧
+modifier.ending.balanced.body	한 가지만 고집하지 않은 것이 결국 김씨만의 생존 기술이 되었다.	Refusing to specialize became Mr. Kim's very own survival technique.	⟦Réfúsíñg tó spécíálízé íñ áñy óñé thíñg bécámé Mr. Kím's véry ówñ súrvívál téchñíqúéáéíóúüñ¿¡⟧
 escape.raft.launch.prompt	해안 진수대 사용	Use shore launch	⟦Úsé shóré láúñcháéíóú⟧
 escape.raft.launch.popup	뗏목 제작·출항	Build and launch raft	⟦Búíld áñd láúñch ráftáéíóúü⟧
 escape.raft.launch.cancel	출항 취소 · 진행 보존	Cancel launch · progress preserved	⟦Cáñcél láúñch · prógréss présérvédáéíóúüñ¿¡⟧

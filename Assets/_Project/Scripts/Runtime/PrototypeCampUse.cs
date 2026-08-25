@@ -1,7 +1,36 @@
+using System;
 using UnityEngine;
 
 namespace KimSurvival
 {
+    [Serializable]
+    public sealed class PrototypeCampUseSnapshot
+    {
+        public const int CurrentSchemaVersion = 1;
+
+        public int SchemaVersion = CurrentSchemaVersion;
+        public string StableRoomId = PrototypeCampModuleCatalog.StartRoomId;
+        public float PlayerX = PrototypeCampUse.PlayerStartX;
+        public float PlayerY = PrototypeCampUse.PlayerFloorY;
+        public float FacingDirection = 1f;
+        public bool CampfirePrepared;
+        public bool RainCollectorPrepared;
+
+        public PrototypeCampUseSnapshot Clone()
+        {
+            return new PrototypeCampUseSnapshot
+            {
+                SchemaVersion = SchemaVersion,
+                StableRoomId = StableRoomId,
+                PlayerX = PlayerX,
+                PlayerY = PlayerY,
+                FacingDirection = FacingDirection,
+                CampfirePrepared = CampfirePrepared,
+                RainCollectorPrepared = RainCollectorPrepared
+            };
+        }
+    }
+
     public sealed class PrototypeCampUse
     {
         public const float UseRange = 1.25f;
@@ -75,6 +104,43 @@ namespace KimSurvival
                 snapshot.Position.y);
         }
 
+        public PrototypeCampUseSnapshot CaptureSnapshot()
+        {
+            return new PrototypeCampUseSnapshot
+            {
+                SchemaVersion = PrototypeCampUseSnapshot.CurrentSchemaVersion,
+                StableRoomId = CurrentRoomId,
+                PlayerX = PlayerPosition.x,
+                PlayerY = PlayerPosition.y,
+                FacingDirection = FacingDirection,
+                CampfirePrepared = campfirePrepared,
+                RainCollectorPrepared = rainCollectorPrepared
+            };
+        }
+
+        public bool RestoreSnapshot(PrototypeCampUseSnapshot snapshot)
+        {
+            if (snapshot == null ||
+                snapshot.SchemaVersion != PrototypeCampUseSnapshot.CurrentSchemaVersion ||
+                !PrototypeCampPlacement.TryGetRoomZone(snapshot.StableRoomId, out _) ||
+                !IsFinite(snapshot.PlayerX) ||
+                !IsFinite(snapshot.PlayerY) ||
+                !IsFinite(snapshot.FacingDirection) ||
+                snapshot.PlayerX < PlayerMinimumX ||
+                snapshot.PlayerX > PlayerMaximumX ||
+                !Mathf.Approximately(Mathf.Abs(snapshot.FacingDirection), 1f))
+            {
+                return false;
+            }
+
+            CurrentRoomId = snapshot.StableRoomId;
+            PlayerPosition = new Vector2(snapshot.PlayerX, snapshot.PlayerY);
+            FacingDirection = snapshot.FacingDirection;
+            campfirePrepared = snapshot.CampfirePrepared;
+            rainCollectorPrepared = snapshot.RainCollectorPrepared;
+            return true;
+        }
+
         public bool IsWithinUseRange(Vector2 targetPosition)
         {
             return Vector2.Distance(PlayerPosition, targetPosition) <= UseRange + 0.0001f;
@@ -117,6 +183,11 @@ namespace KimSurvival
         {
             campfirePrepared = false;
             rainCollectorPrepared = false;
+        }
+
+        private static bool IsFinite(float value)
+        {
+            return !float.IsNaN(value) && !float.IsInfinity(value);
         }
     }
 }

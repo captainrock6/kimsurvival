@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using KimSurvival;
 using UnityEditor;
+using UnityEditor.U2D.Sprites;
 using UnityEngine;
 
 namespace KimSurvival.EditorTools
@@ -81,6 +82,7 @@ namespace KimSurvival.EditorTools
         {
             TextureImporter importer = RequireImporter(HazardAtlasPath);
             importer.textureType = TextureImporterType.Sprite;
+            ClearSpriteRects(importer);
             importer.spriteImportMode = SpriteImportMode.Single;
             importer.spritePixelsPerUnit = 100f;
             importer.mipmapEnabled = false;
@@ -89,10 +91,24 @@ namespace KimSurvival.EditorTools
             importer.wrapMode = TextureWrapMode.Clamp;
             importer.maxTextureSize = 1024;
             importer.textureCompression = TextureImporterCompression.CompressedHQ;
-#pragma warning disable 618
-            importer.spritesheet = Array.Empty<SpriteMetaData>();
-#pragma warning restore 618
             importer.SaveAndReimport();
+        }
+
+        private static void ClearSpriteRects(TextureImporter importer)
+        {
+            importer.spriteImportMode = SpriteImportMode.Multiple;
+            SpriteDataProviderFactories factories = new SpriteDataProviderFactories();
+            factories.Init();
+            ISpriteEditorDataProvider provider = factories.GetSpriteEditorDataProviderFromObject(importer);
+            Require(provider != null, "sprite editor data provider is unavailable for " + importer.assetPath);
+            provider.InitSpriteEditorDataProvider();
+            provider.SetSpriteRects(Array.Empty<SpriteRect>());
+            ISpriteNameFileIdDataProvider nameProvider = provider.GetDataProvider<ISpriteNameFileIdDataProvider>();
+            if (nameProvider != null)
+            {
+                nameProvider.SetNameFileIdPairs(Array.Empty<SpriteNameFileIdPair>());
+            }
+            provider.Apply();
         }
 
         private static void ConfigureSingleSprite(string path)

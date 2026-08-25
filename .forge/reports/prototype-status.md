@@ -4,24 +4,24 @@
 
 ## 버티컬 슬라이스
 
-실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 서로 다른 세 수집 지역 중 하나를 고르고, 표시된 자원·위험 정보에 맞춰 준비·수색·귀환한 뒤 예고 가능한 위험 하나를 완화하고 서로 다른 두 탈출 프로젝트 중 하나를 진전시키며, 행동 통계가 엔딩 판정 입력으로 누적되는 30분 이내의 대표 루프를 검증한다.
+실제 기본 데드라인이 Day 50인 빌드에서 김씨가 캠프 지도 오브젝트를 직접 사용해 7개 수집 지역의 42개 유한 node를 수색하고, 귀환·제작·위험 대응·다층 캠프 확장·세 탈출 준비를 거쳐 행동 기반 코믹 엔딩에 도달하는 25~35분 GAME JAM 대표 루프를 검증한다.
 
 ## 실행 단계
 
 | 단계 | 상태 | 메모 |
 |---|---|---|
-| design | complete |  |
-| art | skipped | Wave 17 is a design-only playtest protocol and introduces no art work. |
-| implementation | skipped | No runtime or implementation task is registered by Wave 17. |
-| verification | skipped | Human sessions remain UNRUN; this run records protocol design only. |
+| design | complete | 통합 GDD와 GAME JAM 완료 매트릭스가 7/21/42/144, 질병, 다층 캠프, 세 탈출과 코믹 엔딩을 정본으로 고정한다. |
+| art | in progress | 기존 채택 runtime 리소스는 유지하고 Wave C hazard/part 후보는 review-only로 분리한다. |
+| implementation | in progress | Wave B 카탈로그·영속성·질병 product gate 9/9 PASS. Wave C 다층 캠프·연기/무전 timing·실제 세 탈출·modifier ending을 통합 중이다. |
+| verification | in progress | compile/build/hidden smoke는 PASS. 기존 GSN/W19/W20 회귀 가정과 qps overflow를 복구한 뒤 Wave C GREEN과 인간 6세션·물리 gamepad를 수행한다. |
 
 ## 다음 작업
 
-- **행동 기반 엔딩 판정 구현** (implementation, critical) — task.system.system.ending-resolution
-- **다섯 탈출 프로젝트 구현** (implementation, critical) — task.system.system.escape-projects
-- **위험 예고·발생·완화 디렉터 구현** (implementation, critical) — task.system.system.hazard-director
-- **지역 loot seed와 softlock 보호 구현** (implementation, critical) — task.system.system.region-loot-rng
-- **50일 run·행동 기록 상태 구현** (implementation, critical) — task.system.system.run-state
+- **부싯돌·무전 3부품과 세 탈출 자연 trace 연결** (implementation, critical) — task.gamejam.smoke-radio-material-routes
+- **같은 run 2층·지하실 왕복·설비·save 연결** (implementation, critical) — task.gamejam.upper-basement-both
+- **core 3장+행동 modifier 코믹 엔딩 연결** (implementation, critical) — task.system.system.ending-resolution
+- **25~35분 zero-cheat Wave C 통합 검증** (qa, critical) — task.gamejam.qa-thirty-minute-seven-region-slice
+- **실제 게임패드와 KO 3명·EN 3명 플레이테스트** (qa, critical, HUMAN_REQUIRED)
 
 ## 작업
 

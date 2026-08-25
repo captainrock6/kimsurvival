@@ -1449,14 +1449,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 747417795543047
-    m_Localized: "\u27E6Sm\xF3k\xE9 {0}/{1} \xB7 R\xF3p\xE9 {2} \xB7 W\xF3\xF3d {3}
-      / S\xE1lv\xE1g\xE9 {4}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Localized: "\u27E6Sm\xF3k\xE9 {0}/{1} \xB7 R\xF3p\xE9 {2} \xB7 Fl\xED\xF1t {3}
+      \xB7 W\xED\xF1d {4}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 747417803931648
-    m_Localized: "\u27E6R\xE1d\xED\xF3 {0}/{1} \xB7 \xC1x\xE9 {2} \xB7 W\xF3\xF3d
-      {3} / S\xE1lv\xE1g\xE9 {4}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Localized: "\u27E6R\xE1d\xED\xF3 {0}/{1} \xB7 \xC1x\xE9 {2} \xB7 3 p\xE1rts
+      {3} \xB7 Fr\xE9q\xFA\xE9\xF1cy {4}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
@@ -1485,15 +1485,11 @@ MonoBehaviour:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 747417803931653
-    m_Localized: "\u27E6C\xF3mm\xEDt r\xE9s\xF3\xFArc\xE9s \xE1t th\xE9 sm\xF3k\xE9
-      b\xE9\xE1c\xF3\xF1. R\xF3p\xE9 \xE1\xF1d \xE1 dry w\xED\xF1d w\xED\xF1d\xF3w
-      \xE1r\xE9 r\xE9q\xFA\xEDr\xE9d.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\u27E7"
+    m_Localized: ⟦Cómmít flíñt plús 12 wóód, 2 fíbér, áñd 2 fúél íñ twó stágés, théñ vérífy vísíbílíty íñ cléár wíñd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931654
-    m_Localized: "\u27E6R\xE9p\xE1\xEDr th\xE9 r\xE1d\xED\xF3 c\xEDrc\xFA\xEDt h\xE9r\xE9.
-      \xC1\xF1 \xE1x\xE9 \xE1\xF1d \xE9l\xE9ctr\xF3\xF1\xEDcs s\xE1lv\xE1g\xE9 \xE1r\xE9
-      r\xE9q\xFA\xEDr\xE9d.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+    m_Localized: ⟦Répáír wíth thé tráñscéívér, círcúít bóárd, tráñsístór, 6 éléctróñícs, 6 wíré, áñd 4 métál, théñ fíñd á cléár fréqúéñcy.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931655
@@ -2417,6 +2413,70 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1212147274334214
     m_Localized: "\u27E6M\xE9d\xEDc\xED\xF1\xE9 tr\xE9\xE1tm\xE9\xF1t\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334215
+    m_Localized: "⟦ÁCT Í · THÁT DÁYáéíá⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334216
+    m_Localized: "⟦ÁCT ÍÍ · THÍÑGS ÉSCÁLÁTÉáéíóúá⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334217
+    m_Localized: "⟦ÁCT ÍÍÍ · ÁFTÉR THÁTáéíóú⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334218
+    m_Localized: "⟦Mr. Kím íñsísts thís wás thé pláñ áll álóñgáéíóúüñ¿¡áéíóú⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334219
+    m_Localized: "⟦ÉPÍLÓGÚÉ · SÓÍL RÉÁDÉRáéíóáé⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334220
+    m_Localized: "⟦Ísláñd fármíñg bécámé á rémárkáblé táléñt fór ñévér góíñg húñgry ágáíñáéíóúüñ¿¡áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334221
+    m_Localized: "⟦ÉPÍLÓGÚÉ · ÁLWÁYS ÁDD Á FLÓÓRáéíóúáéí⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334222
+    m_Localized: "⟦Évéry ñéw hómé ñów mákés Mr. Kím cálcúláté thé úppér flóór áñd báséméñt fírstáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334223
+    m_Localized: "⟦ÉPÍLÓGÚÉ · FÍXÉD MÉÁÑS MÍÑÉáéíóáéí⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334224
+    m_Localized: "⟦Brókéñ máchíñés stóppéd béíñg scríáp áñd bécámé élábóráté púzzlés wíthóút máñúálsáéíóúüñ¿¡áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334225
+    m_Localized: "⟦ÉPÍLÓGÚÉ · CÚRRÉÑT SPÉCÍÁLÍSTáéíóáéíó⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334226
+    m_Localized: "⟦Áftér réádíñg wávés fór só lóñg, Mr. Kím séés úñréásóñábly éffícíéñt shórtcúts íñ évéry strétch óf wátéráéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334227
+    m_Localized: "⟦ÉPÍLÓGÚÉ · CRÍSÍS FÓRÉMÁÑáéíóúá⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334228
+    m_Localized: "⟦Spóttíñg dáñgér éárly léft hím cómícálly áñd spéctácúlárly óvérprépáréd fór órdíñáry álármsáéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334229
+    m_Localized: "⟦ÉPÍLÓGÚÉ · THÉ KÍM MÉTHÓDáéíóúá⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334230
+    m_Localized: "⟦Réfúsíñg tó spécíálízé íñ áñy óñé thíñg bécámé Mr. Kím's véry ówñ súrvívál téchñíqúéáéíóúüñ¿¡⟧"
     m_Metadata:
       m_Items: []
   references:

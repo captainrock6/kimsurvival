@@ -1,6 +1,6 @@
 # GAME JAM 제출 완료 기준 감사
 
-> 정본 기준: 078661e653851802aa97d86fd691337411ac345c
+> 정본 기준: 5b21c2dfd090bccf41be1ac051fe15b349aa9528
 >
 > 감사 계약: gamejam.completion-matrix.v1
 >
@@ -21,6 +21,9 @@
 현재 통합 증거:
 
 - Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json
+- Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-edit-contracts.json
+- Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-play-contracts.json
+- Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-summary.json
 - 같은 폴더의 gamejam-search-node-edit-observation-evidence.json
 - 같은 폴더의 gamejam-search-node-play-observation-evidence.json
 - 같은 폴더의 wave19-summary.json, wave20-summary.json, wave16-summary.json
@@ -47,12 +50,12 @@
 | GJC-03 | 일반 설비 제한적 자유 배치·특수 anchor | DONE | 캠프/모듈 통합 lock이 PASS이고 기존 배치 계약이 현재 정본에 유지된다. | 이동 통로·anchor·취소 무변경 회귀 0건을 유지한다. |
 | GJC-04 | 수영 수색·복귀 | DONE | 현행 통합 회귀에서 수영과 생존 loop가 기존 녹색 lock으로 보존된다. | 자연 trace에서 grant/warp 없이 입수·복귀가 가능해야 한다. |
 | GJC-05 | 행동 기반 ending resolver·album 기록 | DONE | Wave 19에서 resolver·album·저장·KO/EN/qps 표면이 통과했다. comic panel 렌더는 GJC-21로 분리한다. | 동일 ending을 한 번만 해금·기록하고 stable ID를 보존한다. |
-| GJC-06 | 안정 ID를 가진 7개 지역 | PARTIAL | 정확한 7 region ID와 28개 live 유한 node가 로드된다. 다만 동결된 BALANCE_PROVISIONAL 표본의 21 archetype·42 instance·일반 자원 144 총량은 아직 충족하지 않는다. | 7 region, 21 archetype, 42 instance, 유한 일반 자원 144가 같은 카탈로그에서 로드된다. |
+| GJC-06 | 안정 ID를 가진 7개 지역 | DONE | committed Wave B Edit/Play에서 정확히 7 region·21 archetype·42 instance(기존 28+신규 14)·12종 일반 자원 144, stable ID 중복 0, seed/revision 결정성과 새 게임 전용 stock 생성이 5/5 PASS다. | 이 카탈로그와 기존 enum ordinal을 이후 통합에서 회귀시키지 않는다. |
 | GJC-07 | 환경 수색 node의 live 오브젝트·tray | DONE | 실제 Scene에서 월드 node 접근, 근접 prompt, 발견물 tray, 취소와 현장 복귀가 grant·warp·skip 없이 관찰됐고 GSN-P01/P10이 PASS다. | 현재 15/15 GREEN을 이후 통합에서 유지한다. |
 | GJC-08 | 최초 정보 은폐·take/leave/swap·원자 가방 거래 | DONE | hidden→partial→depleted와 take/leave/replace/cancel이 실제 ledger와 4칸 가방에서 총량 보존·원자 rollback을 통과했다. | 6칸 업그레이드 자연 경로에서도 같은 계약을 유지한다. |
 | GJC-09 | 유한 자원·부분 잔류·고갈·재방문 보존 | DONE | 동일 seed 결정성, 취소·화면 전환·재방문 무재추첨과 snapshot 직렬화 복원이 모두 PASS다. | 새 run에서만 seed와 stock을 초기화한다. |
 | GJC-10 | 부순 장벽·제거 위험의 지속 | DONE | region snapshot이 부순 장벽과 persistent 제거 위험 ID를 저장·복원하고 새 run 초기화 표면을 제공한다. | transient 위험만 계약대로 재발할 수 있게 유지한다. |
-| GJC-11 | 질병의 예고→노출→효과→완화/치료 | PARTIAL | hazard catalog/director 데이터는 있으나 survival-hazards feature와 QA가 계획 상태이며 같은 빌드의 완전한 질병 lifecycle 증거가 없다. | 한 질병이 실제 자연 경로에서 네 단계를 모두 보이고 취소·강제 귀환·회복 원자성을 통과한다. |
+| GJC-11 | 질병의 예고→노출→효과→완화/치료 | DONE | committed Wave B Play에서 forest 자연 수색으로 예고→노출→증상 -10→미치료 정산 악화 -15→약품 1개 치료→회복 +5를 관찰했고, 취소·중복·강제 귀환은 비용·Health·노출 0 delta로 1회성 transaction을 보존했다. | disease snapshot·KO/EN/qps 의미와 KO 실패 원인을 이후 통합에서 회귀시키지 않는다. |
 | GJC-12 | 가방 4→6·중첩 2 | HUMAN_REQUIRED | 기능과 자동화 계약은 기존 녹색이나 자연 grant/warp 없는 구매→수색→구조 경로와 실제 선택 긴장은 아직 사람이 검증하지 않았다. 수색 tray 거래는 GJC-08과 별도다. | fresh save 자연 trace와 사용자 관찰에서 업그레이드·날짜 지속·새 게임 4칸 초기화를 확인한다. |
 | GJC-13 | 같은 run의 위층·지하실 확장 | PARTIAL | 위/옆/지하 direct slot 3/3, prompt/popup/cancel은 확인됐지만 gamejam.upper-basement-both는 ready이며 같은 run에서 위층과 지하실을 모두 확정·사용한 증거가 없다. | fresh run에서 위층 1개와 지하실 1개를 각각 확정하고 통로·저장·재진입을 보존한다. |
 | GJC-14 | 뗏목 탈출 | PARTIAL | 보호 돛천은 적격 live node에서 보호 inventory로 연결되고 Wave 20 상태기계도 16/16 PASS다. 아직 node 획득부터 ending까지 하나로 이어진 no-grant 통합 trace가 없다. | node 돛천→보호 inventory→선체/돛/보급→날씨 창→ending을 grant 없이 한 trace로 통과한다. |
@@ -66,7 +69,7 @@
 | GJC-22 | 수색 node 시각 리소스의 런타임 채택 | DONE | 기존 채택 Wood/Stone/Food/Salvage source GUID가 실제 compact tray Image에 연결되어 Wave 19 21/21을 통과했다. 신규 node/tray 후보는 review 상태를 유지하며 이 판정에 사용하지 않았다. | 채택되지 않은 review 후보를 자동 연결하지 않고 현재 adopted GUID 회귀를 유지한다. |
 | GJC-23 | 첫 사용자 30분 검증 | HUMAN_REQUIRED | KO 3명·EN 3명의 자연 세션은 실행되지 않았다. 결과를 만들어낼 수 없다. | 자동화 P0가 모두 GREEN인 동일 빌드에서 6세션을 수행하고 성공률·막힘·이해도를 기록한다. |
 
-집계는 DONE 10, PARTIAL 10, MISSING 0, HUMAN_REQUIRED 3이다. live 수색 경로 부재는 해소됐고, 다음 자동화 우선순위는 7/21/42/144 카탈로그, 질병 lifecycle, 같은 run 위층+지하실, 연기·무전과 세 탈출 통합 trace, 30분 profile과 3장 이상 ending comic이다. 따라서 아직 제출 가능한 완성 빌드로 판정하지 않는다.
+집계는 DONE 12, PARTIAL 8, MISSING 0, HUMAN_REQUIRED 3이다. Wave B의 7/21/42/144 카탈로그와 질병 lifecycle은 committed product gate 9/9로 닫혔다. 다만 같은 실행의 선행 회귀 게이트는 7지역 확장 뒤의 오래된 관찰 가정과 qps 지도 overflow를 드러내 overall FAIL이며 현재 복구 중이다. 다음 자동화 우선순위는 같은 run 위층+지하실, 연기·무전·뗏목의 실제 세 탈출 통합 trace, 25~35분 profile과 core 3장+modifier ending comic이다. 따라서 아직 제출 가능한 완성 빌드로 판정하지 않는다.
 
 ## 3. 다음 3개 구현 wave
 
