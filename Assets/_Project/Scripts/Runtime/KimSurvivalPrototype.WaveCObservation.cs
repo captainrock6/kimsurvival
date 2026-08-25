@@ -132,18 +132,20 @@ namespace KimSurvival
                     .ToArray();
                 foreach (string nodeId in pityEligibleIds)
                 {
+                    bool completedNow = false;
                     if (!visitedNodeIds.Contains(nodeId))
                     {
                         SearchWaveCNodeAndReturn(
                             PrototypeSearchRegionCatalog.Nodes.First(value => value.NodeId == nodeId),
                             visitedNodeIds,
                             ref expeditionCount);
+                        completedNow = true;
                     }
                     PrototypeProtectedPartPitySnapshot pity = searchNodeRuntime.Ledger.ProtectedPartPity
                         .First(value => value.PartId == pityAssignment.PartId);
                     pitySequence.Add(pity.EligibleMissCount);
                     RecordWaveCWaitForecasts(events, ref eventSequence);
-                    AdvanceWaveCProductionDay();
+                    if (completedNow) AdvanceWaveCProductionDay();
                 }
                 PrototypeProtectedPartPitySnapshot armedPity = searchNodeRuntime.Ledger.ProtectedPartPity
                     .First(value => value.PartId == pityAssignment.PartId);
