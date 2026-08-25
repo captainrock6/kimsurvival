@@ -1010,7 +1010,12 @@ namespace KimSurvival
             RefreshAll();
         }
 
-        private void RefreshAll(bool preserveExplorationPosition = false)
+        private void RefreshAll()
+        {
+            RefreshAll(false);
+        }
+
+        private void RefreshAll(bool preserveExplorationPosition)
         {
             bool restoreTraversal = preserveExplorationPosition && session.Phase == GamePhase.Exploring && playerRoot != null;
             float restoredPlayerX = restoreTraversal ? playerTraversal.X : 0f;
