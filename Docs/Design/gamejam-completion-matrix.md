@@ -1,12 +1,12 @@
 # GAME JAM 제출 완료 기준 감사
 
-> 정본 기준: 5b21c2dfd090bccf41be1ac051fe15b349aa9528
+> 정본 기준: e4bbc03531d54e023f7a90f7a608871a47d26d55
 >
 > 감사 계약: gamejam.completion-matrix.v1
 >
 > 판정일: 2026-08-26
 >
-> 제출 판정: PARTIAL
+> 제출 판정: AUTOMATED_GREEN · HUMAN_REQUIRED
 
 이 문서는 통합 GDD와 Forge 수직 슬라이스가 요구하는 기능을 현재 실행 증거와 대조한 제출 게이트다. backlog의 done 표시는 작업 이력을 뜻할 뿐, 이 표의 DONE을 자동으로 보장하지 않는다. 현재 통합 게이트의 독립 probe가 과거 개별 PASS와 충돌하면 현재 통합 게이트를 우선한다.
 
@@ -24,6 +24,10 @@
 - Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-edit-contracts.json
 - Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-play-contracts.json
 - Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-summary.json
+- Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-summary.json
+- Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-edit-contracts.json
+- Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-play-contracts.json
+- Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json
 - 같은 폴더의 gamejam-search-node-edit-observation-evidence.json
 - 같은 폴더의 gamejam-search-node-play-observation-evidence.json
 - 같은 폴더의 wave19-summary.json, wave20-summary.json, wave16-summary.json
@@ -57,23 +61,24 @@
 | GJC-10 | 부순 장벽·제거 위험의 지속 | DONE | region snapshot이 부순 장벽과 persistent 제거 위험 ID를 저장·복원하고 새 run 초기화 표면을 제공한다. | transient 위험만 계약대로 재발할 수 있게 유지한다. |
 | GJC-11 | 질병의 예고→노출→효과→완화/치료 | DONE | committed Wave B Play에서 forest 자연 수색으로 예고→노출→증상 -10→미치료 정산 악화 -15→약품 1개 치료→회복 +5를 관찰했고, 취소·중복·강제 귀환은 비용·Health·노출 0 delta로 1회성 transaction을 보존했다. | disease snapshot·KO/EN/qps 의미와 KO 실패 원인을 이후 통합에서 회귀시키지 않는다. |
 | GJC-12 | 가방 4→6·중첩 2 | HUMAN_REQUIRED | 기능과 자동화 계약은 기존 녹색이나 자연 grant/warp 없는 구매→수색→구조 경로와 실제 선택 긴장은 아직 사람이 검증하지 않았다. 수색 tray 거래는 GJC-08과 별도다. | fresh save 자연 trace와 사용자 관찰에서 업그레이드·날짜 지속·새 게임 4칸 초기화를 확인한다. |
-| GJC-13 | 같은 run의 위층·지하실 확장 | PARTIAL | 위/옆/지하 direct slot 3/3, prompt/popup/cancel은 확인됐지만 gamejam.upper-basement-both는 ready이며 같은 run에서 위층과 지하실을 모두 확정·사용한 증거가 없다. | fresh run에서 위층 1개와 지하실 1개를 각각 확정하고 통로·저장·재진입을 보존한다. |
-| GJC-14 | 뗏목 탈출 | PARTIAL | 보호 돛천은 적격 live node에서 보호 inventory로 연결되고 Wave 20 상태기계도 16/16 PASS다. 아직 node 획득부터 ending까지 하나로 이어진 no-grant 통합 trace가 없다. | node 돛천→보호 inventory→선체/돛/보급→날씨 창→ending을 grant 없이 한 trace로 통과한다. |
-| GJC-15 | 대형 연기 탈출 | PARTIAL | 기존 smoke 직접 상호작용은 개별 회귀가 있으나 부싯돌의 실제 유한 node 획득과 보호·pity 연결이 없다. | node 부싯돌과 기존 재료→점화 설비→유효 날씨/가시성→ending을 grant 없이 통과한다. |
-| GJC-16 | 무전 탈출 | PARTIAL | radio 경로 기반은 있으나 전자기판·트랜지스터 등 3부품의 서로 다른 지역 분산과 live node 거래가 없다. | 세 보호 부품을 서로 다른 지역에서 확보하고 수리·주파수 조작·응답→ending을 자연 trace로 통과한다. |
-| GJC-17 | 5–10분 loop·25–35분 대표 탈출·30분 profile | PARTIAL | 수색 node의 grant·warp·skip 없는 자연 이동·상호작용 trace는 PASS로 전환됐다. 하지만 첫 loop와 대표 탈출을 실제 분 단위로 잰 cheat-free 통합 trace가 없다. | debug 보조 없이 첫 loop 5–10분, 대표 탈출 25–35분의 기계 trace를 먼저 만들고 이후 6명 사용자가 검증한다. |
-| GJC-18 | KO 기본·EN 지원·qps-long QA | PARTIAL | 수색 의미와 compact tray는 KO/EN/qps-long 1280×800에서 overflow 0으로 PASS다. 질병·연기·무전·최종 다중 패널 ending까지 같은 빌드의 전체 표면 검증이 남았다. | 수색·질병·세 탈출·ending에서 KO/EN 의미가 같고 qps-long 1280×800 overflow 0건이다. |
-| GJC-19 | 키보드/마우스·synthetic gamepad 의미 동등 | PARTIAL | live 수색 node/action/focus는 GSN-P09 PASS다. 연기·무전 자연 경로와 최종 ending 탐색까지 동일 stable action 증거에 포함해야 한다. | node·가방 교체·세 탈출·ending에서 동일 stable action과 결과 코드를 낸다. |
+| GJC-13 | 같은 run의 위층·지하실 확장 | DONE | GWC-P05가 같은 run에서 위층과 지하실을 모두 확정·재진입하고 composite save v2로 복원했으며 탈출 자원 delta 0을 확인했다. | 현재 save/re-entry 계약을 이후 후보 빌드에서 회귀시키지 않는다. |
+| GJC-14 | 뗏목 탈출 | DONE | GSN-E05/P05와 GWC-P03/P04가 실제 적격 node 돛천→보호 inventory→해안 launcher→ordered stage→날씨 대기→ending을 grant·warp·skip 0으로 통과했다. | 독립 뗏목 상호작용과 ending 1회 기록을 유지한다. |
+| GJC-15 | 대형 연기 탈출 | DONE | GWC-P01/P03/P04가 적격 node 부싯돌·3/5 pity·보호 획득과 점화·가시성·대기·재시도·ending을 자연 입력으로 통과했다. | 연기 비용·원자 대기·ending 1회 기록을 유지한다. |
+| GJC-16 | 무전 탈출 | DONE | GWC-E01~03/P01~04가 서로 다른 지역의 무전 3부품, 보호 획득, 수리·주파수 조정·응답·ending의 독립 경로를 통과했다. | 세 부품 지역 분산과 독립 무전 상호작용을 유지한다. |
+| GJC-17 | 5–10분 loop·25–35분 대표 탈출·30분 profile | HUMAN_REQUIRED | GWC-P07이 grant·warp·skip 0인 대표 seed의 합성 플레이 프로필 28.98분을 PASS했다. 실제 사람이 첫 loop를 5–10분 안에 이해하고 대표 탈출을 25–35분에 끝내는지는 아직 측정하지 않았다. | 동일 Windows 후보에서 실제 사용자 세션 시간을 기록한다. |
+| GJC-18 | KO 기본·EN 지원·qps-long QA | DONE | GSN-E04/P08과 GWC-E06/P06이 수색·질병·세 탈출·core comic 3장+modifier를 KO/EN/qps-long 1280×800에서 필수 clipping·overflow·offscreen 0으로 통과했다. | 후보 빌드의 locale 의미와 레이아웃을 회귀시키지 않는다. |
+| GJC-19 | 키보드/마우스·synthetic gamepad 의미 동등 | DONE | GSN-P09와 GWC-P03/P04가 수색·가방 거래·세 독립 탈출·ending에서 동일 stable action/result를 확인했다. 물리 장치는 GJC-20으로 분리한다. | synthetic 입력 의미 동등을 보존한다. |
 | GJC-20 | 물리 게임패드 실기 | HUMAN_REQUIRED | 자동화와 섞지 않기로 한 실제 장치 결과가 UNVERIFIED다. | 동일 Windows 후보 빌드에서 실제 게임패드로 별도 체크리스트를 수행한다. |
-| GJC-21 | ending 3–5장 코믹북 panel | PARTIAL | 채택된 shell/capture는 있으나 current Wave 16 probe가 panels=0으로 P0 FAIL이다. | live ending에서 core panel 3장 이상, modifier panel, KO/EN/qps 캡처와 album 재진입을 확인한다. |
+| GJC-21 | ending 3–5장 코믹북 panel | DONE | GWC-E06/P06이 live core panel 3장과 행동 modifier 1장, KO/EN/qps-long 레이아웃, album 재진입과 ending/album exactly-once 기록을 통과했다. | core 3장+modifier와 stable ending ID를 유지한다. |
 | GJC-22 | 수색 node 시각 리소스의 런타임 채택 | DONE | 기존 채택 Wood/Stone/Food/Salvage source GUID가 실제 compact tray Image에 연결되어 Wave 19 21/21을 통과했다. 신규 node/tray 후보는 review 상태를 유지하며 이 판정에 사용하지 않았다. | 채택되지 않은 review 후보를 자동 연결하지 않고 현재 adopted GUID 회귀를 유지한다. |
 | GJC-23 | 첫 사용자 30분 검증 | HUMAN_REQUIRED | KO 3명·EN 3명의 자연 세션은 실행되지 않았다. 결과를 만들어낼 수 없다. | 자동화 P0가 모두 GREEN인 동일 빌드에서 6세션을 수행하고 성공률·막힘·이해도를 기록한다. |
+| GJC-24 | Day 20 게임잼 장기 체류 엔딩 2종 | DONE | live 카탈로그 21개에 `ending.gamejam.stay.natural-kim`과 `ending.gamejam.stay.island-engineer`를 추가했다. 독립 GameJam long-stay Edit/Play 게이트 15/15가 자연 수색 우세·건설 우세의 서로 다른 Day 20 terminal, 조기 탈출 우선, 결정론, terminal·album exactly-once, KO/EN/qps 2종 comic clipping 0, 기존 Day 50 보존, grant·warp·skip 0을 PASS했다. | 후속 후보 빌드에서 21개 카탈로그와 session save v2 회귀를 유지한다. |
 
-집계는 DONE 12, PARTIAL 8, MISSING 0, HUMAN_REQUIRED 3이다. Wave B의 7/21/42/144 카탈로그와 질병 lifecycle은 committed product gate 9/9로 닫혔다. 다만 같은 실행의 선행 회귀 게이트는 7지역 확장 뒤의 오래된 관찰 가정과 qps 지도 overflow를 드러내 overall FAIL이며 현재 복구 중이다. 다음 자동화 우선순위는 같은 run 위층+지하실, 연기·무전·뗏목의 실제 세 탈출 통합 trace, 25~35분 profile과 core 3장+modifier ending comic이다. 따라서 아직 제출 가능한 완성 빌드로 판정하지 않는다.
+집계는 DONE 20, PARTIAL 0, MISSING 0, HUMAN_REQUIRED 4이다. 최신 같은-run Wave C 게이트는 14/14 PASS, product PASS, infrastructure PASS, overall GREEN이며 선행 GSN 15/15, Wave 19 21/21, Wave 20 16/16과 Windows 빌드·hidden smoke·Addressables·방화벽을 함께 보존했다. 추가로 Day 20 장기 체류 독립 게이트가 15/15 GREEN이므로 자동화 가능한 GAME JAM 기능 범위는 닫혔다. 남은 GJC-12 가방 선택 체감, GJC-17 실제 시간, GJC-20 물리 게임패드, GJC-23 첫 사용자 6세션은 동일 Windows 후보 빌드에서 사람이 수행해야 한다.
 
-## 3. 다음 3개 구현 wave
+## 3. 완료된 3개 구현 wave 기록
 
-세 wave는 새 기능 목록이 아니라 기존 task를 닫는 의존 순서다. 각 wave는 probe를 먼저 실패시키고, 지정된 acceptance가 모두 GREEN일 때만 다음 wave로 넘어간다. 과거 task의 done 표시는 되돌리지 않되 현재 통합 게이트의 실패는 별도 제출 매트릭스에 남긴다.
+세 wave는 기존 task를 닫은 의존 순서다. 각 wave는 RED-first probe 뒤 GREEN으로 전환됐고, Wave C는 `20260826T160000Z_gamejam_wave_c_committed`에서 전체 회귀와 함께 닫혔다.
 
 ### Wave A — live 수색 node 세로 골격
 
@@ -145,7 +150,7 @@ red-first 수용 기준:
 7. ending은 live core panel 3장 이상과 modifier panel을 렌더하고 KO/EN/qps-long에서 필수 행동이 잘리지 않는다.
 8. grant/warp/skip 없이 대표 seed가 25–35분 synthetic profile을 통과한다. 이 수치는 인간 6세션 전 HUMAN_REQUIRED를 DONE으로 바꾸지 않는다.
 
-Wave C 종료에는 GSN-E05/P05/P10, 세 escape 자연 trace, live comic panel, same-run upper+basement가 GREEN이어야 한다. 그 뒤에만 GJC-12·20·23의 사용자/물리 장치 게이트를 실행한다.
+Wave C 종료 조건인 GSN-E05/P05/P10, 세 escape 자연 trace, live comic panel, same-run upper+basement는 최신 실행에서 모두 GREEN이다. 다만 별도 GDD 감사에서 Wave C 범위 밖으로 빠져 있던 GJC-24를 먼저 닫고, 그 뒤 GJC-12·17·20·23의 사용자/물리 장치 게이트를 실행한다.
 
 ## 4. 회귀·중단 규칙
 
@@ -157,4 +162,4 @@ Wave C 종료에는 GSN-E05/P05/P10, 세 escape 자연 trace, live comic panel, 
 
 ## 5. 구현·QA 인계 요약
 
-가장 짧은 경로는 수색 node 골격을 먼저 실제 scene에 노출하고, 그 snapshot을 7지역과 위험 지속에 확장한 뒤, 보호 부품과 세 탈출·ending을 자연 trace로 묶는 것이다. 세 단계를 병렬로 섞으면 fixture 기반 과거 PASS가 다시 live 경로 부재를 가릴 수 있으므로 Wave A→B→C 순서를 바꾸지 않는다. 사람 플레이테스트와 물리 게임패드는 Wave C 자동화 GREEN 이후의 독립 증거다.
+Wave A→B→C와 GJC-24 Day 20 장기 체류 엔딩 2종의 자동화 가능 구현·QA는 GREEN으로 닫혔다. 이제 같은 Windows 후보 빌드로 인간 시간 측정·가방 선택 체감·물리 게임패드·KO 3명/EN 3명 첫 사용자 세션을 수행한다. 자동화 결과로 인간 검증 네 항목을 대신하지 않는다.

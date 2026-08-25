@@ -271,12 +271,13 @@ namespace KimSurvival
         public static PrototypeContractProbe VerifyCatalogUnlockAndSelectionFixture()
         {
             IReadOnlyList<PrototypeEndingDefinition> definitions = PrototypeEndingCatalog.All;
-            bool catalog = definitions.Count == 19 &&
-                           definitions.Select(value => value.StableId).Distinct(StringComparer.Ordinal).Count() == 19 &&
-                           definitions.Select(value => value.AchievementMappingId).Distinct(StringComparer.Ordinal).Count() == 19 &&
+            bool catalog = definitions.Count == 21 &&
+                           definitions.Select(value => value.StableId).Distinct(StringComparer.Ordinal).Count() == 21 &&
+                           definitions.Select(value => value.AchievementMappingId).Distinct(StringComparer.Ordinal).Count() == 21 &&
                            definitions.Count(value => value.Category == "escape") == 5 &&
                            definitions.Count(value => value.Category == "comic") == 5 &&
                            definitions.Count(value => value.Category == "rare") == 4 &&
+                           definitions.Count(value => value.Category == "gamejam-stay") == 2 &&
                            definitions.Count(value => value.Category == "day50") == 5;
 
             PrototypeEndingAlbumCollection collection = PrototypeEndingAlbumCollection.CreateTransient();
@@ -292,7 +293,7 @@ namespace KimSurvival
             PrototypeEndingAlbumSelection selection = new PrototypeEndingAlbumSelection();
             selection.Open(0);
             selection.StepFocus(-1);
-            bool wrapped = selection.FocusedIndex == 18;
+            bool wrapped = selection.FocusedIndex == 20;
             selection.StepFocus(1);
             bool success = catalog && firstUnlock && duplicateRejected && collection.UnlockedCount == 1 &&
                            unlocked.Unlocked && unlocked.FirstUnlockedDay == 12 &&

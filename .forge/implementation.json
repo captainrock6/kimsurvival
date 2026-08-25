@@ -2178,13 +2178,15 @@
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260826T081500Z_wavec_red_dirty/gamejam-wave-c-edit-contracts.json",
-        "Docs/Design/gamejam-wave-bc-design.md"
+        "Docs/Design/gamejam-wave-bc-design.md",
+        "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-play-contracts.json"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-26T08:20:00.000Z",
-      "note": "Protected assignments, distinct radio regions, natural-node pity bridge, stable costs, and RED-first gate foundations are implemented; three live natural route traces and signal timing interactions remain open.",
-      "completedAt": null
+      "status": "done",
+      "updatedAt": "2026-08-25T22:43:17.158Z",
+      "note": "Committed Wave C GREEN proves protected flint/radio parts, distinct regions, 3/5 pity, independent natural raft/smoke/radio interactions, atomic wait/retry and exactly-once ending/album records.",
+      "completedAt": "2026-08-25T22:43:17.158Z"
     },
     {
       "id": "task.gamejam.insect-plant-wildlife-disease",
@@ -2251,11 +2253,19 @@
         "각 층에 일반 설비를 하나 이상 제한적 자유 배치하고 직접 접근해 사용할 수 있다.",
         "연결부, 출입구, 작업대 상호작용 우선순위와 필수 통로가 배치·미리보기 때문에 막히지 않는다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeCompositeRunSave.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-play-contracts.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T13:46:05.434Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T22:43:17.158Z",
+      "note": "Committed Wave C GWC-P05 proves upper and basement commit, re-entry, composite-save restore and zero escape-resource delta in one run.",
+      "completedAt": "2026-08-25T22:43:17.158Z"
     },
     {
       "id": "task.gamejam.qa-thirty-minute-seven-region-slice",
@@ -2294,10 +2304,15 @@
         "Artifacts/ParallelQA"
       ],
       "evidence": [
-        "Docs/Design/gamejam-wave-bc-design.md"
+        "Docs/Design/gamejam-wave-bc-design.md",
+        "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json",
+        "Docs/QA/gamejam-wave-c-integrated-green-e4bbc03.md"
       ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "ready",
+      "updatedAt": "2026-08-25T22:43:17.158Z",
+      "note": "Machine Wave C is 14/14, Day 20 long-stay is 15/15 and both are overall GREEN with a 28.98-minute no-cheat profile. Human timing, bag-choice, physical-gamepad and first-user gates remain."
     },
     {
       "id": "task.system.system.search-node-loot",
@@ -3125,10 +3140,20 @@
         "조기 탈출 완료는 같은 정산의 장기 체류 판정보다 우선한다.",
         "Day 20 값은 데이터로 조정 가능하고 Day 15~20 플레이테스트에서 한 축만 변경한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
+      ],
+      "evidence": [
+        "Docs/Design/kim-survival-island-gdd.md#17-게임잼-범위",
+        "Docs/Design/gamejam-completion-matrix.md#2-제출-완료-매트릭스",
+        "Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-25T23:11:52.230Z",
+      "note": "Catalog 21, two stable Day 20 endings, early-escape priority, deterministic terminal and album exactly-once, KO/EN/qps comic layout, standard Day 50 preservation and no-cheat observation passed 15/15.",
+      "completedAt": "2026-08-25T23:11:52.230Z"
     },
     {
       "id": "task.system.system.ending-gallery",

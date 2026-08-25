@@ -2454,6 +2454,38 @@ MonoBehaviour:
     m_Localized: "한 가지만 고집하지 않은 것이 결국 김씨만의 생존 기술이 되었다."
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147274334231
+    m_Localized: "무인도 자연인 김씨"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334232
+    m_Localized: "스무 날째, 김씨는 구조 일정보다 먹을 것과 짐승 길을 먼저 확인했다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334233
+    m_Localized: "수색·농사·사냥 기록은 어느새 섬 생활 달력이 되었다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334234
+    m_Localized: "무인도 건물주 김씨"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334235
+    m_Localized: "스무 날째, 김씨는 구조선보다 다음 증축 도면을 기다렸다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334236
+    m_Localized: "만들고 고친 시설이 늘자 섬 전체가 공사 현장이 되었다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334237
+    m_Localized: "GAME JAM · 스무 날의 결산"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334238
+    m_Localized: "스무 날 동안의 생존 행동이 김씨의 다음 삶을 결정했다."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

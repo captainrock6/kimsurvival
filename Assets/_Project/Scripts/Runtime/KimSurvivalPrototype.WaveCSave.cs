@@ -130,9 +130,14 @@ namespace KimSurvival
                 return false;
             }
 
-            if (!TryParseCanonical(root.SessionJson, out PrototypeGameSessionWaveCSnapshot sessionSnapshot) ||
+            if (!TryParseGameSessionSnapshot(root.SessionJson, out PrototypeGameSessionWaveCSnapshot sessionSnapshot) ||
+                (legacy && sessionSnapshot.SchemaVersion != PrototypeGameSessionWaveCSnapshot.LegacySchemaVersion) ||
+                (current && sessionSnapshot.SchemaVersion != PrototypeGameSessionWaveCSnapshot.CurrentSchemaVersion) ||
                 !GameSession.TryCreateFromWaveCSnapshot(sessionSnapshot, out GameSession stagedSession) ||
-                !string.Equals(root.SessionJson, JsonUtility.ToJson(stagedSession.CaptureWaveCSnapshot()), StringComparison.Ordinal))
+                (current && !string.Equals(
+                    root.SessionJson,
+                    JsonUtility.ToJson(stagedSession.CaptureWaveCSnapshot()),
+                    StringComparison.Ordinal)))
             {
                 return false;
             }
@@ -250,9 +255,44 @@ namespace KimSurvival
             }
 
             actual.SchemaVersion = PrototypeWaveCSaveRoot.LegacySchemaVersion;
+            actual.SessionJson = JsonUtility.ToJson(session.CaptureLegacyWaveCSnapshot());
             actual.WaveRuntimeJson = string.Empty;
             actual.PayloadFingerprint = PrototypeWaveCSaveFingerprint.Compute(actual);
             return string.Equals(actual.PayloadFingerprint, desired.Root.PayloadFingerprint, StringComparison.Ordinal);
+        }
+
+        private static bool TryParseGameSessionSnapshot(
+            string json,
+            out PrototypeGameSessionWaveCSnapshot snapshot)
+        {
+            snapshot = null;
+            if (string.IsNullOrWhiteSpace(json)) return false;
+            try
+            {
+                PrototypeGameSessionWaveCSnapshot envelope =
+                    JsonUtility.FromJson<PrototypeGameSessionWaveCSnapshot>(json);
+                if (envelope == null) return false;
+                if (envelope.SchemaVersion == PrototypeGameSessionWaveCSnapshot.CurrentSchemaVersion)
+                {
+                    if (!string.Equals(json, JsonUtility.ToJson(envelope), StringComparison.Ordinal)) return false;
+                    snapshot = envelope;
+                    return true;
+                }
+
+                if (envelope.SchemaVersion != PrototypeGameSessionWaveCSnapshot.LegacySchemaVersion ||
+                    !TryParseCanonical(json, out PrototypeGameSessionWaveCLegacySnapshot legacy))
+                {
+                    return false;
+                }
+
+                snapshot = GameSession.MigrateLegacyWaveCSnapshot(legacy);
+                return snapshot != null;
+            }
+            catch (Exception)
+            {
+                snapshot = null;
+                return false;
+            }
         }
 
         private static bool TryParseCanonical<T>(string json, out T value) where T : class

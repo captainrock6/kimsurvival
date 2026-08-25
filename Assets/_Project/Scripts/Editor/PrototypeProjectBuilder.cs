@@ -1097,14 +1097,15 @@ namespace KimSurvival.EditorTools
                    PrototypeEscapeProjectCatalog.All.Select(value => value.TimingRule).Distinct(StringComparer.Ordinal).Count() == 5,
                 "Every escape method has distinct facility, core-part, and timing axes");
 
-            Assert(PrototypeEndingCatalog.All.Count == 19 &&
+            Assert(PrototypeEndingCatalog.All.Count == 21 &&
                    PrototypeEndingCatalog.All.Count(value => value.Sample) == 4 &&
-                   PrototypeEndingCatalog.All.Select(value => value.StableId).Distinct(StringComparer.Ordinal).Count() == 19,
-                "Nineteen stable endings and four sample endings are unique");
+                   PrototypeEndingCatalog.All.Select(value => value.StableId).Distinct(StringComparer.Ordinal).Count() == 21,
+                "Twenty-one stable endings and four sample endings are unique");
             Assert(PrototypeEndingResolver.VerifyEndingDeterministicSingleFixture().Success &&
+                   PrototypeEndingResolver.VerifyGameJamLongStayEndingFixture().Success &&
                    PrototypeEndingResolver.VerifyEndingDay50BehaviorFixture().Success &&
                    PrototypeTerminalContract.VerifyTerminalEscapeDay50PriorityFixture().Success,
-                "Ending resolution is deterministic and early escape precedes Day 50 behavior resolution");
+                "Ending resolution is deterministic and early escape precedes Game Jam Day 20 and Day 50 behavior resolution");
 
             PrototypeRunSnapshot snapshot = new PrototypeRunSnapshot
             {

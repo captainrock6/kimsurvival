@@ -178,6 +178,8 @@ result.title.deadline	구조 신호 미완성	Rescue Signal Incomplete	⟦Résc�
 result.detail.rescued	급조 안테나가 기적처럼 작동했다. 김씨는 구조대보다 먼저 사진부터 찍었다.	The improvised antenna worked by a miracle. Mr. Kim took a photo before the rescuers arrived.	⟦Thé ímpróvíséd áñtéññá wórkéd by á míráclé. Mr. Kím tóók á phótó béfóré thé réscúérs árrívéd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 result.detail.exhausted	체력을 모두 소진했다. 다음에는 먹고 쉬고, 해 지기 전에 돌아오자.	All energy is gone. Next time, eat, rest, and return before sunset.	⟦Áll éñérgy ís góñé. Ñéxt tímé, éát, rést, áñd rétúrñ béfóré súñsét.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
 result.detail.deadline	50일째 정산까지 탈출하지 못했다. 지금까지의 생존 기록으로 장기 잔류 결과를 판정한다.	Day 50 ended without an escape. The campaign now resolves a long-term survival outcome from this run.	⟦Dáy 50 éñdéd wíthóút áñ éscápé. Thé cámpáígñ ñów résólvés á lóñg-térm súrvívál óútcómé fróm thís rúñ.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+result.title.gamejam_long_stay	GAME JAM · 스무 날의 결산	GAME JAM · DAY TWENTY	⟦GÁMÉ JÁM · DÁY TWÉÑTY · LÓÑG-STÁY SÚRVÍVÁL SÉTTLÉMÉÑTáéíóúüñ¿¡⟧
+result.detail.gamejam_long_stay	스무 날 동안의 생존 행동이 김씨의 다음 삶을 결정했다.	Twenty days of survival choices decided Mr. Kim's next life.	⟦Twéñty dáys óf ísláñd súrvívál chóícés hávé décídéd Mr. Kím's ñéxt lífé áñd cómíc éñdíñgáéíóúüñ¿¡áéíóúüñ¿¡⟧
 dev.fallback_probe	한국어 폴백 확인		
 controls.module_preview.keyboard_mouse	{0} · A/D 또는 ←/→ 후보 순환 · Enter/클릭 확정 · Esc/우클릭 취소	{0} · A/D or ←/→ cycle · Enter/click confirm · Esc/right-click cancel	⟦{0} · A/D ór ←/→ cyclé · Enter/clíck cóñfírm · Esc/ríght-clíck cáñcéláéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.module_preview.gamepad	{0} · 왼쪽 스틱 후보 순환 · A 확정 · B 취소	{0} · Left stick cycle · A confirm · B cancel	⟦{0} · Léft stíck cyclé · A cóñfírm · B cáñcéláéíóúüñ¿¡áéíóúüñ¿⟧
@@ -414,6 +416,12 @@ ending.rare.radio.forecast-rescue.hint	낡은 기록에는 아직 듣는 귀가 
 ending.rare.beacon.storm-eye.title	폭풍의 눈에서	Inside the Eye	⟦Íñsídé thé Éyéáéíó⟧
 ending.rare.beacon.storm-eye.summary	폭풍의 고요 속에서 중계소를 켰다.	He lights the relay inside the storm's calm eye.	⟦Hé líghts thé réláy íñsídé thé stórm's cálm éyé.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 ending.rare.beacon.storm-eye.hint	가장 거센 날 모든 대비가 답한다.	Every preparation answers on the fiercest day.	⟦Évéry prépárátíóñ áñswérs óñ thé fíércést dáy.áéíóúüñ¿¡áéíóúüñ¿⟧
+ending.gamejam.stay.natural-kim.title	무인도 자연인 김씨	Mr. Kim, Island Naturalist	⟦Mr. Kím, thé Ísláñd Ñátúrálíst óf Évérdáy Súrvíváláéíóúüñ¿¡⟧
+ending.gamejam.stay.natural-kim.summary	스무 날째, 김씨는 구조 일정보다 먹을 것과 짐승 길을 먼저 확인했다.	On day twenty, Mr. Kim checked food and animal trails before the rescue schedule.	⟦Óñ dáy twéñty, Mr. Kím chéckéd fóód súpplíés áñd áñímál tráíls béfóré thé réscúé schédúléáéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.gamejam.stay.natural-kim.hint	수색·농사·사냥 기록은 어느새 섬 생활 달력이 되었다.	His search, farming, and hunting notes quietly became an island-life calendar.	⟦Hís séárch, fármíñg, áñd húñtíñg ñótés qúíétly bécámé á fúll ísláñd-lífé cáléñdáráéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.gamejam.stay.island-engineer.title	무인도 건물주 김씨	Mr. Kim, Island Landlord	⟦Mr. Kím, thé Ísláñd Láñdlórd áñd Chíéf Éñgíñééráéíóúüñ¿¡⟧
+ending.gamejam.stay.island-engineer.summary	스무 날째, 김씨는 구조선보다 다음 증축 도면을 기다렸다.	On day twenty, Mr. Kim awaited the next expansion plan more than a rescue boat.	⟦Óñ dáy twéñty, Mr. Kím áwáítéd thé ñéxt éxpáñsióñ pláñ móré tháñ á réscúé bóátáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+ending.gamejam.stay.island-engineer.hint	만들고 고친 시설이 늘자 섬 전체가 공사 현장이 되었다.	As built and repaired facilities multiplied, the whole island became a construction site.	⟦Ás búílt áñd répáíréd fácílítíés múltíplíéd, thé whólé ísláñd bécámé á gránd cóñstrúctíóñ sítéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 ending.stay.green-king.title	김씨 농장 50일째	Kim Farm, Day 50	⟦Kím Fárm, Dáy 50áéíóú⟧
 ending.stay.green-king.summary	탈출 대신 계절표가 필요한 밭을 만들었다.	His farm grows large enough to need a calendar.	⟦Hís fárm gróws lárgé éñóúgh tó ñééd á cáléñdár.áéíóúüñ¿¡áéíóúüñ¿⟧
 ending.stay.green-king.hint	심는 계획이 떠나는 계획보다 많아진다면.	When planting plans outnumber departure plans.	⟦Whéñ pláñtíñg pláñs óútñúmbér dépártúré pláñs.áéíóúüñ¿¡áéíóúüñ¿⟧

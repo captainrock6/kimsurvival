@@ -2099,6 +2099,38 @@ MonoBehaviour:
     m_Key: modifier.ending.balanced.body
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147274334231
+    m_Key: ending.gamejam.stay.natural-kim.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334232
+    m_Key: ending.gamejam.stay.natural-kim.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334233
+    m_Key: ending.gamejam.stay.natural-kim.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334234
+    m_Key: ending.gamejam.stay.island-engineer.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334235
+    m_Key: ending.gamejam.stay.island-engineer.summary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334236
+    m_Key: ending.gamejam.stay.island-engineer.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334237
+    m_Key: result.title.gamejam_long_stay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334238
+    m_Key: result.detail.gamejam_long_stay
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

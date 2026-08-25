@@ -19,6 +19,201 @@ namespace KimSurvival
         Deadline
     }
 
+    public enum PrototypeSessionSettlementOutcome
+    {
+        Continue,
+        EarlyEscape,
+        Exhausted,
+        LongStay
+    }
+
+    [Serializable]
+    public sealed class PrototypeSessionFlowProfile
+    {
+        public string StableId;
+        public int SettlementDay;
+        public int TunableMinimumDay;
+        public int TunableMaximumDay;
+        public bool IsProvisional;
+        public string LongStayResultCode;
+        public string LongStayTitleKey;
+        public string LongStayDetailKey;
+
+        public PrototypeSessionFlowProfile()
+        {
+            StableId = string.Empty;
+            LongStayResultCode = string.Empty;
+            LongStayTitleKey = string.Empty;
+            LongStayDetailKey = string.Empty;
+        }
+
+        public PrototypeSessionFlowProfile(
+            string stableId,
+            int settlementDay,
+            int tunableMinimumDay,
+            int tunableMaximumDay,
+            bool isProvisional,
+            string longStayResultCode,
+            string longStayTitleKey,
+            string longStayDetailKey)
+        {
+            StableId = stableId;
+            SettlementDay = settlementDay;
+            TunableMinimumDay = tunableMinimumDay;
+            TunableMaximumDay = tunableMaximumDay;
+            IsProvisional = isProvisional;
+            LongStayResultCode = longStayResultCode;
+            LongStayTitleKey = longStayTitleKey;
+            LongStayDetailKey = longStayDetailKey;
+        }
+    }
+
+    [Serializable]
+    public sealed class PrototypeSessionFlowVerification
+    {
+        public string StandardProfileId;
+        public int StandardSettlementDay;
+        public string GameJamProfileId;
+        public int GameJamSettlementDay;
+        public int GameJamTunableMinimumDay;
+        public int GameJamTunableMaximumDay;
+        public PrototypeSessionSettlementOutcome StandardDayTwentyOutcome;
+        public PrototypeSessionSettlementOutcome StandardDayFiftyOutcome;
+        public PrototypeSessionSettlementOutcome GameJamDayNineteenOutcome;
+        public PrototypeSessionSettlementOutcome GameJamDayTwentyOutcome;
+        public PrototypeSessionSettlementOutcome GameJamDayTwentyEscapeOutcome;
+        public bool ContractSatisfied;
+    }
+
+    public static class PrototypeSessionFlowProfileCatalog
+    {
+        public const string StandardProfileId = "session.profile.standard.day50";
+        public const string GameJamProvisionalProfileId = "session.profile.gamejam.provisional-day20";
+        public const int GameJamProvisionalSettlementDay = 20;
+        public const int GameJamTunableMinimumDay = 15;
+        public const int GameJamTunableMaximumDay = 20;
+        public const string StandardLongStayResultCode = "settlement.standard.day50";
+        public const string GameJamLongStayResultCode = "settlement.gamejam.long-stay.provisional";
+
+        private static readonly PrototypeSessionFlowProfile StandardProfile = new PrototypeSessionFlowProfile(
+            StandardProfileId,
+            GameSession.FinalDay,
+            GameSession.FinalDay,
+            GameSession.FinalDay,
+            false,
+            StandardLongStayResultCode,
+            "result.title.deadline",
+            "result.detail.deadline");
+
+        private static readonly PrototypeSessionFlowProfile GameJamProfile = new PrototypeSessionFlowProfile(
+            GameJamProvisionalProfileId,
+            GameJamProvisionalSettlementDay,
+            GameJamTunableMinimumDay,
+            GameJamTunableMaximumDay,
+            true,
+            GameJamLongStayResultCode,
+            "result.title.gamejam_long_stay",
+            "result.detail.gamejam_long_stay");
+
+        private static readonly PrototypeSessionFlowProfile[] Profiles =
+        {
+            StandardProfile,
+            GameJamProfile
+        };
+
+        public static IReadOnlyList<PrototypeSessionFlowProfile> All
+        {
+            get { return Profiles.Select(Clone).ToArray(); }
+        }
+
+        public static PrototypeSessionFlowProfile Standard
+        {
+            get { return Clone(StandardProfile); }
+        }
+
+        public static PrototypeSessionFlowProfile GameJamProvisional
+        {
+            get { return Clone(GameJamProfile); }
+        }
+
+        public static bool TryGet(string stableId, out PrototypeSessionFlowProfile profile)
+        {
+            PrototypeSessionFlowProfile definition = Profiles.FirstOrDefault(candidate =>
+                string.Equals(candidate.StableId, stableId, StringComparison.Ordinal));
+            profile = definition == null ? null : Clone(definition);
+            return definition != null;
+        }
+
+        private static PrototypeSessionFlowProfile Clone(PrototypeSessionFlowProfile source)
+        {
+            return new PrototypeSessionFlowProfile(
+                source.StableId,
+                source.SettlementDay,
+                source.TunableMinimumDay,
+                source.TunableMaximumDay,
+                source.IsProvisional,
+                source.LongStayResultCode,
+                source.LongStayTitleKey,
+                source.LongStayDetailKey);
+        }
+
+        public static PrototypeSessionSettlementOutcome ResolveSettlement(
+            string profileId,
+            int day,
+            bool earlyEscapeCompleted,
+            bool exhausted)
+        {
+            if (!TryGet(profileId, out PrototypeSessionFlowProfile profile))
+            {
+                throw new ArgumentException("Unknown session profile: " + profileId, nameof(profileId));
+            }
+
+            if (earlyEscapeCompleted) return PrototypeSessionSettlementOutcome.EarlyEscape;
+            if (exhausted) return PrototypeSessionSettlementOutcome.Exhausted;
+            return day >= profile.SettlementDay
+                ? PrototypeSessionSettlementOutcome.LongStay
+                : PrototypeSessionSettlementOutcome.Continue;
+        }
+
+        public static PrototypeSessionFlowVerification CaptureVerification()
+        {
+            PrototypeSessionSettlementOutcome standardDayTwenty = ResolveSettlement(
+                StandardProfileId, GameJamProvisionalSettlementDay, false, false);
+            PrototypeSessionSettlementOutcome standardDayFifty = ResolveSettlement(
+                StandardProfileId, GameSession.FinalDay, false, false);
+            PrototypeSessionSettlementOutcome gameJamDayNineteen = ResolveSettlement(
+                GameJamProvisionalProfileId, GameJamProvisionalSettlementDay - 1, false, false);
+            PrototypeSessionSettlementOutcome gameJamDayTwenty = ResolveSettlement(
+                GameJamProvisionalProfileId, GameJamProvisionalSettlementDay, false, false);
+            PrototypeSessionSettlementOutcome gameJamDayTwentyEscape = ResolveSettlement(
+                GameJamProvisionalProfileId, GameJamProvisionalSettlementDay, true, true);
+
+            return new PrototypeSessionFlowVerification
+            {
+                StandardProfileId = StandardProfileId,
+                StandardSettlementDay = StandardProfile.SettlementDay,
+                GameJamProfileId = GameJamProvisionalProfileId,
+                GameJamSettlementDay = GameJamProfile.SettlementDay,
+                GameJamTunableMinimumDay = GameJamProfile.TunableMinimumDay,
+                GameJamTunableMaximumDay = GameJamProfile.TunableMaximumDay,
+                StandardDayTwentyOutcome = standardDayTwenty,
+                StandardDayFiftyOutcome = standardDayFifty,
+                GameJamDayNineteenOutcome = gameJamDayNineteen,
+                GameJamDayTwentyOutcome = gameJamDayTwenty,
+                GameJamDayTwentyEscapeOutcome = gameJamDayTwentyEscape,
+                ContractSatisfied = StandardProfile.SettlementDay == GameSession.FinalDay &&
+                                    GameJamProfile.SettlementDay == GameJamProvisionalSettlementDay &&
+                                    GameJamProfile.TunableMinimumDay == GameJamTunableMinimumDay &&
+                                    GameJamProfile.TunableMaximumDay == GameJamTunableMaximumDay &&
+                                    standardDayTwenty == PrototypeSessionSettlementOutcome.Continue &&
+                                    standardDayFifty == PrototypeSessionSettlementOutcome.LongStay &&
+                                    gameJamDayNineteen == PrototypeSessionSettlementOutcome.Continue &&
+                                    gameJamDayTwenty == PrototypeSessionSettlementOutcome.LongStay &&
+                                    gameJamDayTwentyEscape == PrototypeSessionSettlementOutcome.EarlyEscape
+            };
+        }
+    }
+
     public enum ResourceKind
     {
         Wood = 0,
@@ -159,6 +354,7 @@ namespace KimSurvival
         private readonly bool[] researched = new bool[2];
         private readonly bool[] craftedTools = new bool[2];
         private readonly HashSet<string> appliedHealthTransactionIds = new HashSet<string>(StringComparer.Ordinal);
+        private PrototypeSessionFlowProfile sessionProfile;
 
         public int Day { get; private set; }
         public float Hunger { get; private set; }
@@ -180,6 +376,11 @@ namespace KimSurvival
         public string ActiveRegionProfileId { get; private set; }
         public string LastExpeditionResultId { get; private set; }
         public string CompletedEscapeId { get; private set; }
+        public string SessionProfileId { get { return sessionProfile.StableId; } }
+        public int SettlementDay { get { return sessionProfile.SettlementDay; } }
+        public bool IsProvisionalSessionProfile { get { return sessionProfile.IsProvisional; } }
+        public string TerminalSettlementCode { get; private set; }
+        public int TerminalCommitCount { get; private set; }
 
         public bool HasPendingLoot
         {
@@ -197,7 +398,16 @@ namespace KimSurvival
         }
 
         public GameSession(int runSeed = PrototypeExpeditionRegionCatalog.DefaultRunSeed)
+            : this(runSeed, PrototypeSessionFlowProfileCatalog.StandardProfileId)
         {
+        }
+
+        public GameSession(int runSeed, string sessionProfileId)
+        {
+            if (!PrototypeSessionFlowProfileCatalog.TryGet(sessionProfileId, out sessionProfile))
+            {
+                throw new ArgumentException("Unknown session profile: " + sessionProfileId, nameof(sessionProfileId));
+            }
             RunSeed = runSeed;
             Reset();
         }
@@ -233,6 +443,8 @@ namespace KimSurvival
             ActiveRegionProfileId = string.Empty;
             LastExpeditionResultId = string.Empty;
             CompletedEscapeId = string.Empty;
+            TerminalSettlementCode = string.Empty;
+            TerminalCommitCount = 0;
             LastMessage = Text("message.reset");
         }
 
@@ -240,6 +452,29 @@ namespace KimSurvival
         {
             RunSeed = runSeed;
             Reset();
+        }
+
+        public void Reset(int runSeed, string sessionProfileId)
+        {
+            if (!PrototypeSessionFlowProfileCatalog.TryGet(sessionProfileId, out PrototypeSessionFlowProfile profile))
+            {
+                throw new ArgumentException("Unknown session profile: " + sessionProfileId, nameof(sessionProfileId));
+            }
+
+            sessionProfile = profile;
+            RunSeed = runSeed;
+            Reset();
+        }
+
+        public PrototypeSessionSettlementOutcome EvaluateSettlement(
+            bool earlyEscapeCompleted,
+            bool exhausted)
+        {
+            return PrototypeSessionFlowProfileCatalog.ResolveSettlement(
+                SessionProfileId,
+                Day,
+                earlyEscapeCompleted,
+                exhausted);
         }
 
         public int GetStorage(ResourceKind kind)
@@ -1173,13 +1408,22 @@ namespace KimSurvival
 
             Energy = Math.Min(100f, Energy + rest);
 
-            if (Energy <= 0f)
+            PrototypeSessionSettlementOutcome settlement = EvaluateSettlement(
+                !string.IsNullOrEmpty(CompletedEscapeId),
+                Energy <= 0f);
+            if (settlement == PrototypeSessionSettlementOutcome.EarlyEscape)
+            {
+                Finish(RunResult.Rescued);
+                return true;
+            }
+
+            if (settlement == PrototypeSessionSettlementOutcome.Exhausted)
             {
                 Finish(RunResult.Exhausted);
                 return true;
             }
 
-            if (Day >= FinalDay)
+            if (settlement == PrototypeSessionSettlementOutcome.LongStay)
             {
                 Finish(RunResult.Deadline);
                 return true;
@@ -1216,7 +1460,7 @@ namespace KimSurvival
                 case RunResult.Exhausted:
                     return Text("result.title.exhausted");
                 case RunResult.Deadline:
-                    return Text("result.title.deadline");
+                    return Text(sessionProfile.LongStayTitleKey);
                 default:
                     return PrototypeLocalizedText.Empty;
             }
@@ -1231,18 +1475,28 @@ namespace KimSurvival
                 case RunResult.Exhausted:
                     return Text("result.detail.exhausted");
                 case RunResult.Deadline:
-                    return Text("result.detail.deadline");
+                    return Text(sessionProfile.LongStayDetailKey);
                 default:
                     return PrototypeLocalizedText.Empty;
             }
         }
 
-        private void Finish(RunResult result)
+        private bool Finish(RunResult result)
         {
+            if (result == RunResult.None || Result != RunResult.None)
+            {
+                return false;
+            }
+
             IsSwimming = false;
             Result = result;
             Phase = GamePhase.Result;
+            TerminalSettlementCode = result == RunResult.Deadline
+                ? sessionProfile.LongStayResultCode
+                : string.Empty;
+            TerminalCommitCount = 1;
             LastMessage = ResultDetail();
+            return true;
         }
 
         private bool CanAfford(int wood, int stone, int food, int salvage)

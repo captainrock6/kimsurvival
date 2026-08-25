@@ -755,6 +755,9 @@ namespace KimSurvival
     {
         public int seed;
         public int day;
+        public string session_profile_id = string.Empty;
+        public int settlement_day;
+        public string settlement_result_code = string.Empty;
         public string pacing_band_id = string.Empty;
         public string region_id = string.Empty;
         public string forecast_id = string.Empty;
@@ -852,6 +855,9 @@ namespace KimSurvival
 
     public static class PrototypeEndingCatalog
     {
+        public const string GameJamNaturalKimEndingId = "ending.gamejam.stay.natural-kim";
+        public const string GameJamIslandEngineerEndingId = "ending.gamejam.stay.island-engineer";
+
         private static readonly PrototypeEndingDefinition[] Entries =
         {
             E("ending.escape.raft.open-water", 100, 1, "escape", "escape.raft"),
@@ -868,6 +874,8 @@ namespace KimSurvival
             E("ending.rare.smoke.cloud-letter", 300, 2, "rare", "escape.smoke", "event.smoke.cloud-letter"),
             E("ending.rare.radio.forecast-rescue", 300, 3, "rare", "escape.radio", "event.radio.repeated-reply", "stat.mechanics"),
             E("ending.rare.beacon.storm-eye", 300, 3, "rare", "escape.beacon", "event.beacon.storm-eye", "stat.hazard-response"),
+            E(GameJamNaturalKimEndingId, 40, 2, "gamejam-stay"),
+            E(GameJamIslandEngineerEndingId, 40, 2, "gamejam-stay"),
             E("ending.stay.green-king", 50, 2, "day50", behaviorId: "stat.farming"),
             E("ending.stay.fortress-manager", 50, 2, "day50", behaviorId: "stat.building"),
             E("ending.stay.scrap-professor", 50, 2, "day50", behaviorId: "stat.mechanics"),
@@ -986,6 +994,24 @@ namespace KimSurvival
 
     public static class PrototypeEndingResolver
     {
+        public const string GameJamSessionProfileId = PrototypeSessionFlowProfileCatalog.GameJamProvisionalProfileId;
+        public const string GameJamSettlementResultCode = PrototypeSessionFlowProfileCatalog.GameJamLongStayResultCode;
+        public const int GameJamSettlementDay = PrototypeSessionFlowProfileCatalog.GameJamProvisionalSettlementDay;
+
+        private static readonly string[] NaturalKimBehaviorIds =
+        {
+            "stat.search",
+            "stat.farming",
+            "stat.hunting-trapping",
+            "stat.hazard-response"
+        };
+
+        private static readonly string[] IslandEngineerBehaviorIds =
+        {
+            "stat.building",
+            "stat.mechanics"
+        };
+
         public static PrototypeEndingResolution ResolveEndingDeterministicSingle(PrototypeRunSnapshot snapshot)
         {
             if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
@@ -1032,6 +1058,53 @@ namespace KimSurvival
             return new PrototypeContractProbe(success, success ? "day50 behavior ending" : "contract mismatch");
         }
 
+        public static PrototypeContractProbe VerifyGameJamLongStayEndingFixture()
+        {
+            PrototypeRunSnapshot natural = GameJamLongStaySnapshot(
+                2020,
+                new PrototypeBehaviorScore { StableId = "stat.search", Value = 4 },
+                new PrototypeBehaviorScore { StableId = "stat.farming", Value = 7 },
+                new PrototypeBehaviorScore { StableId = "stat.building", Value = 5 });
+            PrototypeRunSnapshot engineer = GameJamLongStaySnapshot(
+                2021,
+                new PrototypeBehaviorScore { StableId = "stat.search", Value = 3 },
+                new PrototypeBehaviorScore { StableId = "stat.building", Value = 6 },
+                new PrototypeBehaviorScore { StableId = "stat.mechanics", Value = 5 });
+            PrototypeRunSnapshot earlyEscape = GameJamLongStaySnapshot(
+                2022,
+                new PrototypeBehaviorScore { StableId = "stat.building", Value = 20 });
+            earlyEscape.escape_id = "escape.raft";
+            earlyEscape.result_code = "escape.complete";
+
+            PrototypeEndingResolution naturalFirst = ResolveEndingDeterministicSingle(natural);
+            PrototypeEndingResolution naturalSecond = ResolveEndingDeterministicSingle(natural);
+            PrototypeEndingResolution engineerResult = ResolveEndingDeterministicSingle(engineer);
+            PrototypeEndingResolution escapeResult = ResolveEndingDeterministicSingle(earlyEscape);
+            PrototypeEndingDefinition naturalDefinition = PrototypeEndingCatalog.Get(naturalFirst.StableId);
+            PrototypeEndingDefinition engineerDefinition = PrototypeEndingCatalog.Get(engineerResult.StableId);
+            PrototypeEndingModifierDefinition naturalModifier = PrototypeEndingModifierCatalog.Resolve(natural.behavior_scores);
+            PrototypeEndingModifierDefinition engineerModifier = PrototypeEndingModifierCatalog.Resolve(engineer.behavior_scores);
+            bool success = PrototypeEndingCatalog.All.Count == 21 &&
+                           PrototypeEndingCatalog.All.Count(definition => Matches(definition, natural)) == 1 &&
+                           PrototypeEndingCatalog.All.Count(definition => Matches(definition, engineer)) == 1 &&
+                           naturalFirst.StableId == PrototypeEndingCatalog.GameJamNaturalKimEndingId &&
+                           naturalSecond.StableId == naturalFirst.StableId &&
+                           naturalSecond.PanelKeys.SequenceEqual(naturalFirst.PanelKeys) &&
+                           engineerResult.StableId == PrototypeEndingCatalog.GameJamIslandEngineerEndingId &&
+                           escapeResult.StableId == "ending.escape.raft.open-water" &&
+                           naturalDefinition.ComicPanelKeys.Length == 3 &&
+                           engineerDefinition.ComicPanelKeys.Length == 3 &&
+                           naturalDefinition.ComicPanelRoleIds.SequenceEqual(
+                               new[] { "ending.panel.setup", "ending.panel.escalation", "ending.panel.punchline" }) &&
+                           engineerDefinition.ComicPanelRoleIds.SequenceEqual(naturalDefinition.ComicPanelRoleIds) &&
+                           naturalModifier.StableId == "modifier.ending.farming" &&
+                           engineerModifier.StableId == "modifier.ending.building";
+            return new PrototypeContractProbe(success,
+                success
+                    ? "gamejam day20 natural/engineer deterministic single; early escape priority; catalog 21"
+                    : "gamejam long-stay contract mismatch");
+        }
+
         private static bool Matches(PrototypeEndingDefinition definition, PrototypeRunSnapshot snapshot)
         {
             if (!string.IsNullOrEmpty(definition.RequiredEscapeId) && definition.RequiredEscapeId != snapshot.escape_id) return false;
@@ -1043,9 +1116,55 @@ namespace KimSurvival
                     .Select(value => value.Value).DefaultIfEmpty(0).Max();
                 if (score < 8) return false;
             }
+            if (definition.Category == "gamejam-stay")
+            {
+                return IsGameJamLongStaySettlement(snapshot) &&
+                       string.Equals(definition.StableId, ResolveGameJamLongStayStableId(snapshot), StringComparison.Ordinal);
+            }
             if (definition.Category == "day50" && (!string.IsNullOrEmpty(snapshot.escape_id) || snapshot.day < GameSession.FinalDay)) return false;
             if (definition.Category != "day50" && string.IsNullOrEmpty(snapshot.escape_id)) return false;
             return true;
+        }
+
+        private static bool IsGameJamLongStaySettlement(PrototypeRunSnapshot snapshot)
+        {
+            return string.IsNullOrEmpty(snapshot.escape_id) &&
+                   snapshot.day == GameJamSettlementDay &&
+                   snapshot.settlement_day == GameJamSettlementDay &&
+                   string.Equals(snapshot.session_profile_id, GameJamSessionProfileId, StringComparison.Ordinal) &&
+                   string.Equals(snapshot.settlement_result_code, GameJamSettlementResultCode, StringComparison.Ordinal);
+        }
+
+        private static string ResolveGameJamLongStayStableId(PrototypeRunSnapshot snapshot)
+        {
+            int naturalScore = ScoreBehaviorGroup(snapshot, NaturalKimBehaviorIds);
+            int engineerScore = ScoreBehaviorGroup(snapshot, IslandEngineerBehaviorIds);
+            return engineerScore > naturalScore
+                ? PrototypeEndingCatalog.GameJamIslandEngineerEndingId
+                : PrototypeEndingCatalog.GameJamNaturalKimEndingId;
+        }
+
+        private static int ScoreBehaviorGroup(PrototypeRunSnapshot snapshot, IEnumerable<string> behaviorIds)
+        {
+            HashSet<string> accepted = new HashSet<string>(behaviorIds ?? Array.Empty<string>(), StringComparer.Ordinal);
+            return (snapshot.behavior_scores ?? Array.Empty<PrototypeBehaviorScore>())
+                .Where(value => value != null && accepted.Contains(value.StableId))
+                .GroupBy(value => value.StableId, StringComparer.Ordinal)
+                .Sum(group => Math.Max(0, group.Max(value => value.Value)));
+        }
+
+        private static PrototypeRunSnapshot GameJamLongStaySnapshot(int seed, params PrototypeBehaviorScore[] scores)
+        {
+            return new PrototypeRunSnapshot
+            {
+                seed = seed,
+                day = GameJamSettlementDay,
+                session_profile_id = GameJamSessionProfileId,
+                settlement_day = GameJamSettlementDay,
+                settlement_result_code = GameJamSettlementResultCode,
+                behavior_scores = scores ?? Array.Empty<PrototypeBehaviorScore>(),
+                result_code = GameJamSettlementResultCode
+            };
         }
 
         private static int EventDay(PrototypeEndingDefinition definition, PrototypeRunSnapshot snapshot)
@@ -1184,6 +1303,43 @@ namespace KimSurvival
             bool previous = suppressExternalEventRecording;
             suppressExternalEventRecording = active;
             return previous;
+        }
+
+        public bool RecordMeaningfulBehavior(string stableBehaviorId, int points)
+        {
+            if (session == null || session.Result != RunResult.None || points <= 0 ||
+                string.IsNullOrWhiteSpace(stableBehaviorId))
+            {
+                return false;
+            }
+
+            string[] supported =
+            {
+                "stat.swimming",
+                "stat.farming",
+                "stat.hunting-trapping",
+                "stat.mechanics",
+                "stat.building",
+                "stat.search",
+                "stat.hazard-response"
+            };
+            if (!supported.Contains(stableBehaviorId, StringComparer.Ordinal))
+            {
+                return false;
+            }
+
+            int before = behaviorTracker.Scores
+                .Where(value => string.Equals(value.StableId, stableBehaviorId, StringComparison.Ordinal))
+                .Select(value => value.Value)
+                .DefaultIfEmpty(0)
+                .Max();
+            behaviorTracker.Record(stableBehaviorId, points, session.Day);
+            int after = behaviorTracker.Scores
+                .Where(value => string.Equals(value.StableId, stableBehaviorId, StringComparison.Ordinal))
+                .Select(value => value.Value)
+                .DefaultIfEmpty(0)
+                .Max();
+            return after > before;
         }
 
         public PrototypeWaveCAtomicSnapshot CaptureWaveCFailCancelWaitRetryEndingAlbumSnapshot()
@@ -1605,6 +1761,9 @@ namespace KimSurvival
             {
                 seed = session == null ? 0 : session.RunSeed,
                 day = session == null ? 1 : session.Day,
+                session_profile_id = session == null ? string.Empty : session.SessionProfileId,
+                settlement_day = session == null ? 0 : session.SettlementDay,
+                settlement_result_code = session == null ? string.Empty : session.TerminalSettlementCode,
                 pacing_band_id = currentPacingBandId,
                 region_id = session == null ? string.Empty : CanonicalRegionId(session.ActiveRegionProfileId),
                 forecast_id = currentForecast == null ? string.Empty : currentForecast.ForecastId,

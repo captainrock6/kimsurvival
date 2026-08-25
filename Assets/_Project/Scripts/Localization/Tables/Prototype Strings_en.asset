@@ -2326,6 +2326,38 @@ MonoBehaviour:
     m_Localized: Refusing to specialize became Mr. Kim's very own survival technique.
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147274334231
+    m_Localized: Mr. Kim, Island Naturalist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334232
+    m_Localized: On day twenty, Mr. Kim checked food and animal trails before the rescue schedule.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334233
+    m_Localized: His search, farming, and hunting notes quietly became an island-life calendar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334234
+    m_Localized: Mr. Kim, Island Landlord
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334235
+    m_Localized: On day twenty, Mr. Kim awaited the next expansion plan more than a rescue boat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334236
+    m_Localized: As built and repaired facilities multiplied, the whole island became a construction site.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334237
+    m_Localized: GAME JAM · DAY TWENTY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334238
+    m_Localized: Twenty days of survival choices decided Mr. Kim's next life.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

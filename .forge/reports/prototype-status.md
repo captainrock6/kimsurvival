@@ -11,16 +11,15 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete | 통합 GDD와 GAME JAM 완료 매트릭스가 7/21/42/144, 질병, 다층 캠프, 세 탈출과 코믹 엔딩을 정본으로 고정한다. |
-| art | in progress | 기존 채택 runtime 리소스는 유지하고 Wave C hazard/part 후보는 review-only로 분리한다. |
-| implementation | in progress | Wave B 카탈로그·영속성·질병 product gate 9/9 PASS. Wave C 다층 캠프·연기/무전 timing·실제 세 탈출·modifier ending을 통합 중이다. |
-| verification | in progress | compile/build/hidden smoke는 PASS. 기존 GSN/W19/W20 회귀 가정과 qps overflow를 복구한 뒤 Wave C GREEN과 인간 6세션·물리 gamepad를 수행한다. |
+| art | complete | 현재 채택 runtime 리소스는 유지하며 미채택 Wave C 후보는 review-only다. |
+| implementation | complete | Wave A~C의 7/21/42/144, 질병, 다층 캠프, 보호 부품, 실제 세 탈출, 21개 ending catalog, Day 20 장기 체류 2종, modifier comic ending과 composite save v2가 통합됐다. |
+| verification | human required | e4bbc03의 Wave C 14/14와 Day 20 장기 체류 독립 게이트 15/15가 product/infrastructure GREEN이다. 동일 Windows 후보에서 인간 시간·가방 체감·물리 gamepad·KO 3명/EN 3명 세션만 남았다. |
 
 ## 다음 작업
 
-- **부싯돌·무전 3부품과 세 탈출 자연 trace 연결** (implementation, critical) — task.gamejam.smoke-radio-material-routes
-- **같은 run 2층·지하실 왕복·설비·save 연결** (implementation, critical) — task.gamejam.upper-basement-both
-- **core 3장+행동 modifier 코믹 엔딩 연결** (implementation, critical) — task.system.system.ending-resolution
-- **25~35분 zero-cheat Wave C 통합 검증** (qa, critical) — task.gamejam.qa-thirty-minute-seven-region-slice
+- **커밋 기준 전체 Wave C·Day 20 장기 체류 회귀와 Windows 후보 빌드 고정** (qa, critical)
+- **동일 Windows 후보로 실제 5~10분 첫 loop·25~35분 대표 탈출 측정** (qa, critical, HUMAN_REQUIRED)
+- **가방 4→6 투자 선택 체감 기록** (qa, critical, HUMAN_REQUIRED)
 - **실제 게임패드와 KO 3명·EN 3명 플레이테스트** (qa, critical, HUMAN_REQUIRED)
 
 ## 작업

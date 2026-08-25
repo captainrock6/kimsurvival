@@ -421,7 +421,9 @@ namespace KimSurvival
         private void Awake()
         {
             Application.targetFrameRate = 60;
-            session = new GameSession(PrototypeExpeditionRegionCatalog.CreateRuntimeSeed());
+            session = new GameSession(
+                PrototypeExpeditionRegionCatalog.CreateRuntimeSeed(),
+                PrototypeSessionFlowProfileCatalog.GameJamProvisionalProfileId);
             searchNodeRuntime = new PrototypeSearchNodeRuntime(session.RunSeed);
             endingAlbumCollection = PrototypeEndingAlbumCollection.LoadDefault();
             localization = new PrototypeLocalization();
@@ -1339,8 +1341,8 @@ namespace KimSurvival
                     : "phase.result";
             string phaseName = localization.Format(phaseKey);
             statusText.text = session.Phase == GamePhase.Exploring
-                ? localization.Format("hud.status.exploring", session.Day, GameSession.FinalDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), Mathf.RoundToInt(session.Daylight), session.Health)
-                : localization.Format("hud.status.camp", session.Day, GameSession.FinalDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), session.Health);
+                ? localization.Format("hud.status.exploring", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), Mathf.RoundToInt(session.Daylight), session.Health)
+                : localization.Format("hud.status.camp", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), session.Health);
             resourceText.text = localization.Format(
                 "hud.resources",
                 session.GetStorage(ResourceKind.Wood),
@@ -1501,7 +1503,7 @@ namespace KimSurvival
                 modulePreviewButton,
                 localization.Format(directModuleSlot ? "ui.module.expand" : campModuleExpansion.HasCommittedModule ? "button.module.preview.complete" : "button.module.preview"),
                 available && (directModuleSlot || !campModuleExpansion.HasCommittedModule));
-            string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= GameSession.FinalDay ? "button.day.final" : "button.day.next") : "button.search.start";
+            string phaseButtonKey = session.ExpeditionCompleted ? (session.Day >= session.SettlementDay ? "button.day.final" : "button.day.next") : "button.search.start";
             SetButton(phaseButton, localization.Format(phaseButtonKey), !campPlacement.IsActive && !campModuleExpansion.IsPreviewActive && !campInteraction.IsPopupOpen);
             UpdatePopupActionVisibility();
         }
@@ -2799,7 +2801,7 @@ namespace KimSurvival
             expeditionMapTitleText.text = localization.Format(
                 "expedition.map.title_region",
                 session.Day,
-                GameSession.FinalDay,
+                session.SettlementDay,
                 localization.Format(focused.NameKey));
             IReadOnlyList<PrototypeExpeditionRegionProfile> profiles = PrototypeExpeditionRegionCatalog.All;
             for (int i = 0; i < profiles.Count; i += 1)
@@ -3074,6 +3076,10 @@ namespace KimSurvival
             campUse.Restore(campModuleExpansion.ReturnSnapshot);
             campInteraction.Reset();
             ResetModulePreviewReturnRoute();
+            if (hazardEscapeEndingRuntime != null)
+            {
+                hazardEscapeEndingRuntime.RecordMeaningfulBehavior("stat.building", 4);
+            }
             campFeedback = new PrototypeLocalizedText(
                 "module.message.committed",
                 localization.Format(ModuleNameKey(evaluation.Definition.Archetype)));
@@ -3270,6 +3276,13 @@ namespace KimSurvival
             bool succeeded = playtestLog != null
                 ? playtestLog.TrackFacilityAction(kind, targetId, actionName, action)
                 : action();
+            if (succeeded && hazardEscapeEndingRuntime != null &&
+                (actionName.StartsWith("research.", StringComparison.Ordinal) ||
+                 actionName.StartsWith("craft.", StringComparison.Ordinal) ||
+                 string.Equals(actionName, "workbench.repair", StringComparison.Ordinal)))
+            {
+                hazardEscapeEndingRuntime.RecordMeaningfulBehavior("stat.mechanics", 1);
+            }
             campInteraction.ClosePopup();
             if (playtestLog != null)
             {
@@ -3377,6 +3390,11 @@ namespace KimSurvival
             if (!campPlacement.Commit())
             {
                 throw new InvalidOperationException("유효한 캠프 배치를 확정하지 못했습니다.");
+            }
+
+            if (!relocating && hazardEscapeEndingRuntime != null)
+            {
+                hazardEscapeEndingRuntime.RecordMeaningfulBehavior("stat.building", 2);
             }
 
             campFeedback = PrototypeLocalizedText.Empty;
@@ -3608,6 +3626,10 @@ namespace KimSurvival
             }
             if (result == PrototypeSearchOpenResult.Opened)
             {
+                if (!revisited && hazardEscapeEndingRuntime != null)
+                {
+                    hazardEscapeEndingRuntime.RecordMeaningfulBehavior("stat.search", 1);
+                }
                 RefreshAll(true);
                 return;
             }
@@ -6144,6 +6166,8 @@ namespace KimSurvival
 
         private void RequireFiftyDayRuntimeContract()
         {
+            int runtimeSeed = session.RunSeed;
+            string runtimeProfileId = session.SessionProfileId;
             GameSession earlyRescue = new GameSession();
             earlyRescue.Grant(ResourceKind.Wood, 20);
             earlyRescue.Grant(ResourceKind.Salvage, 20);
@@ -6153,7 +6177,7 @@ namespace KimSurvival
                     earlyRescue.Result == RunResult.Rescued && earlyRescue.Phase == GamePhase.Result && earlyRescue.Day == 1,
                 "Play Mode 조기 구조 신호 완성은 Day 50을 기다리지 않고 즉시 성공");
 
-            session.Reset();
+            session.Reset(runtimeSeed, PrototypeSessionFlowProfileCatalog.StandardProfileId);
             campPlacement.Reset();
             campUse.Reset();
             campInteraction.Reset();
@@ -6183,7 +6207,7 @@ namespace KimSurvival
                     resultDetailText.text.Contains("50일"),
                 "terminal 결과에서는 compact prompt·팝업·지도를 숨기고 한국어 50일 결과 사유 표시");
 
-            session.Reset();
+            session.Reset(runtimeSeed, runtimeProfileId);
             campPlacement.Reset();
             campUse.Reset();
             campInteraction.Reset();
@@ -6466,8 +6490,9 @@ namespace KimSurvival
                     Mathf.Approximately(endingAlbumLayoutSprite.rect.width, 1280f) &&
                     Mathf.Approximately(endingAlbumLayoutSprite.rect.height, 800f),
                 "런타임 앨범 프레임은 채택된 album-spread-a 1280x800 원화만 사용");
-            Require(endingAlbumCardButtons.Count == 19 && CountRectOverlaps(cardRects) == 0,
-                "정본 19개 엔딩 카드는 normal 5·comic 5·rare 4·day50 5 행에서 겹치지 않음");
+            Require(endingAlbumCardButtons.Count == PrototypeEndingCatalog.All.Count &&
+                    PrototypeEndingCatalog.All.Count == 21 && CountRectOverlaps(cardRects) == 0,
+                "정본 21개 엔딩 카드는 normal 5·comic 5·rare 4·gamejam-stay 2·day50 5 행에서 겹치지 않음");
             Require(endingAlbumHeaderText.enableAutoSizing && endingAlbumHeaderText.fontSizeMin >= 18f &&
                     endingAlbumDetailTitleText.enableAutoSizing && endingAlbumDetailTitleText.fontSizeMin >= 18f &&
                     endingAlbumSummaryText.enableAutoSizing && endingAlbumSummaryText.fontSizeMin >= 18f &&
