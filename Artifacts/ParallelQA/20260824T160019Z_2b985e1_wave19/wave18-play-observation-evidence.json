@@ -1,0 +1,106 @@
+{
+    "runId": "20260824T160019Z_2b985e1_wave19",
+    "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+    "discoveryPolicy": "Active KimSurvival Scene objects, public method/result shape, stable IDs, and observed state only. Static Edit fixtures cannot satisfy P01-P03.",
+    "hazardTraces": [
+        {
+            "ownerEntityId": "-2538",
+            "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+            "ownerType": "KimSurvival.PrototypeWaveRuntime",
+            "hazardId": "hazard.injury",
+            "eventKey": "qa.wave18.hazard.injury",
+            "phases": [
+                "Telegraph",
+                "Occurrence",
+                "Mitigation",
+                "Recovery"
+            ],
+            "resultCodes": [
+                "hazard.telegraphed",
+                "hazard.exposure.applied",
+                "hazard.mitigation.applied",
+                "hazard.recovery.completed"
+            ],
+            "retryIdempotent": true,
+            "result": "PASS"
+        },
+        {
+            "ownerEntityId": "-2538",
+            "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+            "ownerType": "KimSurvival.PrototypeWaveRuntime",
+            "hazardId": "hazard.disaster",
+            "eventKey": "qa.wave18.hazard.disaster",
+            "phases": [
+                "Telegraph",
+                "Occurrence",
+                "Mitigation",
+                "Recovery"
+            ],
+            "resultCodes": [
+                "hazard.telegraphed",
+                "hazard.exposure.applied",
+                "hazard.mitigation.applied",
+                "hazard.recovery.completed"
+            ],
+            "retryIdempotent": true,
+            "result": "PASS"
+        },
+        {
+            "ownerEntityId": "-2538",
+            "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+            "ownerType": "KimSurvival.PrototypeWaveRuntime",
+            "hazardId": "hazard.food-theft",
+            "eventKey": "qa.wave18.hazard.food-theft",
+            "phases": [
+                "Telegraph",
+                "Occurrence",
+                "Mitigation",
+                "Recovery"
+            ],
+            "resultCodes": [
+                "hazard.telegraphed",
+                "hazard.exposure.applied",
+                "hazard.mitigation.applied",
+                "hazard.recovery.completed"
+            ],
+            "retryIdempotent": true,
+            "result": "PASS"
+        }
+    ],
+    "smoke": {
+        "routeId": "escape.smoke",
+        "ownerEntityId": "-2538",
+        "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+        "ownerType": "KimSurvival.PrototypeWaveRuntime",
+        "method": "ObserveLiveEscapeNaturalRoute",
+        "interactionCount": 6,
+        "grantFlagFound": true,
+        "grantUsed": false,
+        "warpFlagFound": true,
+        "warpUsed": false,
+        "completed": true,
+        "traceFingerprint": "escape.smoke|camp.interaction.escape.smoke.popup-opened.0|camp.interaction.escape.smoke.action-confirmed.0|camp.interaction.escape.smoke.popup-closed.0|camp.interaction.escape.smoke.popup-opened.1|camp.interaction.escape.smoke.action-confirmed.1|camp.interaction.escape.smoke.popup-closed.1",
+        "result": "PASS"
+    },
+    "radio": {
+        "routeId": "escape.radio",
+        "ownerEntityId": "-2538",
+        "ownerScene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+        "ownerType": "KimSurvival.PrototypeWaveRuntime",
+        "method": "ObserveLiveEscapeNaturalRoute",
+        "interactionCount": 6,
+        "grantFlagFound": true,
+        "grantUsed": false,
+        "warpFlagFound": true,
+        "warpUsed": false,
+        "completed": true,
+        "traceFingerprint": "escape.radio|camp.interaction.escape.radio.popup-opened.0|camp.interaction.escape.radio.action-confirmed.0|camp.interaction.escape.radio.popup-closed.0|camp.interaction.escape.radio.popup-opened.1|camp.interaction.escape.radio.action-confirmed.1|camp.interaction.escape.radio.popup-closed.1",
+        "result": "PASS"
+    },
+    "ignoredStaticRouteFixtures": 8,
+    "liveEndingObservations": [
+        "entity=-2538;scene=Assets/_Project/Scenes/KimSurvivalPrototype.unity;type=KimSurvival.PrototypeWaveRuntime;method=VerifyLiveEndingTerminalProbe;result=PrototypeContractProbe{Success=True;Detail=live ending PASS escape_complete; earlyEscapePriorityTrue; day50 noEscape; deterministic tieBreak; panelCount3; ending.escape.smoke.seen-from-afar; ending.stay.just-kim}",
+        "entity=-2538;scene=Assets/_Project/Scenes/KimSurvivalPrototype.unity;type=KimSurvival.PrototypeWaveRuntime;method=ChooseTerminalOutcome;result=PrototypeEndingResolution{StableId=ending.stay.just-kim;DeterministicSingleReason=priority > condition specificity > event day > ASCII stable ID;Priority=0;MatchedConditions=1;EventDay=2147483647;AsciiStableIdTieBreaker=ending.stay.just-kim;PanelKeys=[ending.stay.just-kim.title,ending.stay.just-kim.summary,ending.stay.just-kim.hint];AchievementMappingId=achievement.stay.just-kim}"
+    ],
+    "joystickNames": []
+}

@@ -1,0 +1,29 @@
+Wave 14 qps-long global 1280x800 layout RED-first gate
+Run ID: 20260824T160019Z_2b985e1_wave19
+Baseline: 2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: GREEN/PASS/PASS
+Targets PASS/EXPECTED_GAP/FAIL: 10/0/0
+Exact reported baseline 6/10 reproduced: False
+Projection correction: Legacy post-capture 4:3 projection reported the language button outside bounds. Exact 1280x800 projection puts it inside the 4px safe area and separately detects facilities/expansion-planning player occlusion above 5%; current exact gate remains six RED targets.
+GREEN condition: GREEN requires infrastructure PASS, ko/en normal visual lock PASS, all 10 canonical qps-long targets PASS, and zero EXPECTED_GAP/FAIL targets.
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+W14-QPS-01.hud_day_status | PASS | glyph=17.100px block=54.800/64.000px lines=2/2 bounds=[130.800,727.100 -> 558.700,781.900] player=0.000% walking=0.000% failures=none
+W14-QPS-02.hud_resources | PASS | glyph=17.100px block=51.000/64.000px lines=2/2 bounds=[390.500,667.300 -> 1149.900,718.400] player=0.000% walking=0.000% failures=none
+W14-QPS-03.language_button | PASS | glyph=17.100px block=25.500/32.000px lines=1/1 bounds=[899.100,50.600 -> 1152.400,76.200] player=0.000% walking=0.000% failures=none
+W14-QPS-04.bottom_help | PASS | glyph=17.000px block=78.200/96.000px lines=3/3 bounds=[285.000,22.400 -> 667.100,100.600] player=0.000% walking=0.000% failures=none
+W14-QPS-05.world_entrance | PASS | glyph=23.500px block=105.900/120.000px lines=3/3 bounds=[296.200,143.800 -> 498.800,249.700] player=3.570% walking=12.890% failures=none
+W14-QPS-06.world_required_path | PASS | glyph=23.400px block=70.300/80.000px lines=2/2 bounds=[485.100,136.700 -> 639.200,207.000] player=0.000% walking=3.520% failures=none
+W14-QPS-07.world_signal_anchor | PASS | glyph=18.200px block=60.100/108.000px lines=2/3 bounds=[837.200,220.000 -> 1168.800,280.000] player=0.000% walking=14.230% failures=none
+W14-QPS-08.placement_status | PASS | glyph=23.500px block=106.100/108.000px lines=3/3 bounds=[391.600,412.800 -> 674.400,519.000] player=0.000% walking=0.000% failures=none
+W14-QPS-09.world_expansion_planning | PASS | glyph=17.000px block=52.500/64.000px lines=2/2 bounds=[258.800,277.800 -> 480.400,330.300] player=2.850% walking=0.000% failures=none
+W14-QPS-10.world_general_floor | PASS | glyph=23.400px block=107.700/144.000px lines=3/4 bounds=[776.200,323.600 -> 1165.900,431.300] player=0.000% walking=0.000% failures=none
+W14-I01.fresh_identity | PASS | NONE | report=wave3-visual-gate.txt; runId/baselineMatch=True
+W14-I02.metric_schema | PASS | NONE | rows=108; missingHeaders=none
+W14-I03.capture_1280x800 | PASS | NONE | playmode-qps-long-placement-valid-1280x800.png exact1280x800=True
+W14-N01.ko_en_visual_lock | PASS | NONE | placement=PLACEMENT_GATE: PASS · targets=24 · failures=0; exploration=EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+W14-I04.exact_capture_projection | PASS | NONE | qpsRows=10; exactWalkingBandAndPlayer=True
+W14-I05.target_discovery | PASS | NONE | qpsRows=10; canonicalResults=10; unmatched=0
+W14-HW01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | No physical-device human actuation evidence was collected by this automated gate.
+W14-S01.steam_release | UNVERIFIED | EXTERNAL_RELEASE_GAP | Steam readiness is outside this gate and remains NOT_READY.

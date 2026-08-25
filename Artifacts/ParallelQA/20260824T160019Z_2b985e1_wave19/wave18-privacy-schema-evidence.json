@@ -1,0 +1,15 @@
+{
+    "runId": "20260824T160019Z_2b985e1_wave19",
+    "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+    "policy": "Only fields serialized by non-Unity [Serializable] snapshot/log schemas are checked. UnityEngine.Object.name and generic event_name are not PII.",
+    "snapshotSchemas": [
+        "KimSurvival.PrototypePlaytestStateFingerprint{active_bag_slots,bag_food,bag_salvage,bag_stone,bag_wood,campfire,completed_escape_id,crafted_rope,crafted_stone_axe,day,daylight,energy,expedition_completed,expedition_result_id,fingerprint,hunger,pending_amount,pending_resource,phase,profile_id,rain_collector,region_id,research_rope,research_stone_axe,result,run_seed,signal_stage,storage_food,storage_salvage,storage_stone,storage_wood,swimming,workbench}",
+        "KimSurvival.PrototypeRunSnapshot{behavior_scores,day,ending_id,escape_id,forecast_id,hazard_ids,key_part_state_ids,pacing_band_id,project_ids,region_id,result_code,seed,special_event_day,special_event_id}"
+    ],
+    "logSchemas": [
+        "KimSurvival.PrototypeCampaignEventRecord{behavior_score_ids,day,ending_id,escape_id,forecast_id,hazard_id,pacing_band_id,project_id,region_id,result_code,seed,stable_event_id}",
+        "KimSurvival.PrototypePlaytestEventRecord{action,behavior_score_ids,delta,ending_id,escape_id,event_name,hazard_id,input_device,locale,outcome,pacing_band_id,profile_id,project_id,region_id,resource,resource_location,result_code,result_id,run_id,run_seed,schema_version,sequence,stable_event_id,state_after,state_before,target_id,target_kind,utc}"
+    ],
+    "forbiddenFields": [],
+    "result": "PASS"
+}

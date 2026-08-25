@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 19 independent resource connection visual regression gate",
+  "runId": "20260824T160019Z_2b985e1_wave19",
+  "baselineCommit": "2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f",
+  "startedUtc": "2026-08-24T16:00:19.7360968Z",
+  "completedUtc": "2026-08-24T16:03:39.9771753Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe"
+  },
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "wave18GreenLock": {
+    "total": 23,
+    "passed": 23,
+    "failed": 0
+  },
+  "wave19": {
+    "passed": 21,
+    "failed": 0,
+    "failureIds": [],
+    "unverified": 1,
+    "notReady": 1,
+    "layoutObservations": 12
+  },
+  "greenLocks": {
+    "compile": "PASS 0/0",
+    "qpsLong": "10/10",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS 6.356s",
+    "addressables": "PASS",
+    "firewallInboundBlock": "PASS",
+    "rawPlayerLog": "PASS_QUARANTINED"
+  },
+  "stableWindowsBuild": {
+    "executable": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d"
+  },
+  "infrastructureFailures": [],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave19ResourceConnectionGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "fresh-wave17-green-prerequisite",
+      "startedUtc": "2026-08-24T16:00:19.7522889Z",
+      "completedUtc": "2026-08-24T16:02:51.5275549Z",
+      "exitCode": 0,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave17PacingHazardGate.ps1\" -RunId 20260824T160019Z_2b985e1_wave19 -BaselineCommit 2b985e1cbd08c82661bf71a4f82cbf6d63b4a97f -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave19-wave17-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave19-wave17-stderr.log"
+    },
+    {
+      "name": "wave18-edit-green-lock",
+      "startedUtc": "2026-08-24T16:02:51.5517799Z",
+      "completedUtc": "2026-08-24T16:02:59.0638068Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave18GreenTransitionHardeningRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\unity-wave18_edit_green_lock.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave18_edit_green_lock-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave18_edit_green_lock-stderr.log"
+    },
+    {
+      "name": "wave18-play-green-lock",
+      "startedUtc": "2026-08-24T16:02:59.0704738Z",
+      "completedUtc": "2026-08-24T16:03:09.6645495Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave18GreenTransitionHardeningRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\unity-wave18_play_green_lock.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave18_play_green_lock-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave18_play_green_lock-stderr.log"
+    },
+    {
+      "name": "wave19-edit-resource-contracts",
+      "startedUtc": "2026-08-24T16:03:09.6699141Z",
+      "completedUtc": "2026-08-24T16:03:17.1484062Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave19ResourceConnectionGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\unity-wave19_edit_resource_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave19_edit_resource_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave19_edit_resource_contracts-stderr.log"
+    },
+    {
+      "name": "wave19-play-resource-contracts",
+      "startedUtc": "2026-08-24T16:03:17.1505968Z",
+      "completedUtc": "2026-08-24T16:03:33.8034232Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave19ResourceConnectionGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\unity-wave19_play_resource_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave19_play_resource_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260824T160019Z_2b985e1_wave19\\wave19_play_resource_contracts-stderr.log"
+    }
+  ],
+  "exitCode": 0
+}
