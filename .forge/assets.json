@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-24T15:37:37.506Z",
+  "updatedAt": "2026-08-25T11:48:13.289Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -4940,6 +4940,314 @@
       "engine": {},
       "createdAt": "2026-08-24T15:24:58.822Z",
       "updatedAt": "2026-08-24T15:37:37.506Z"
+    },
+    {
+      "id": "escape.raft",
+      "name": "뗏목 탈출 아트 키트",
+      "assetType": "separated_parts",
+      "request": "Wave 20 review-only 안정 후보 escape.raft.shore-launch-a. 1536x1024 true-alpha RGBA의 정확한 3열x2행 512x512 제작 원본을 만든다. 셀 순서는 좌상부터 1) facility.shore-launch: 해안 모래/얕은 물 경계에 배치하는 낮은 통나무 경사로와 두세 개의 굴림목, 밧줄 고정 말뚝, 빈 cradle, 2) raft.stage.frame: 대나무·통나무를 밧줄로 묶은 낮은 골조만 있고 돛대·돛·보급품 없음, 3) raft.stage.sail-installed: 같은 골조에 돛대와 바랜 크림 sailcloth를 달았지만 보급품 없음, 4) raft.stage.voyage-ready: 같은 뗏목에 물통·작은 식량 꾸러미·조타 노·밧줄 안전선을 추가한 완성 상태, 5) raft.departure-silhouette: 오른쪽을 향해 얕은 물을 떠나는 완성 뗏목의 선명한 측면 실루엣과 작은 포말만, 6) part.raft.sailcloth: 수선 자국과 밧줄 고리 네 개가 있는 접힌 독립 돛천 부품. 각 셀은 독립 true alpha, 사방 20px 이상 투명 여백, 셀 침범 없음, 바닥 중심 피벗이 읽혀야 한다. 세 제작 단계는 같은 선체 비율과 방향을 유지하고 형태 추가로 구분한다. 작은 상태 아이콘은 이 원본을 기준으로 로컬 제작하며 이 그림에 글자나 UI를 넣지 않는다. 사용자 승인 전 decision=review, selectedCandidate=null, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "wave20",
+        "review-only",
+        "shore-launch"
+      ],
+      "dependencies": [
+        "ui.escape-project-progress"
+      ],
+      "jobIds": [
+        "job_20260825114105_2b02a9e1"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260825114105_2b02a9e1",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-25T11:41:05.514Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260825114105_2b02a9e1",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-25T11:48:13.286Z",
+          "qualityScore": 24
+        }
+      ],
+      "currentJobId": "job_20260825114105_2b02a9e1",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 72567,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 65040,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "escape-raft-shore-launch-a-atlas.png",
+          "contentType": "image/png",
+          "bytes": 1216541,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/escape-raft-shore-launch-a-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "facility-shore-launch.png",
+          "contentType": "image/png",
+          "bytes": 151166,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/facility-shore-launch.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-stage-frame.png",
+          "contentType": "image/png",
+          "bytes": 106529,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-stage-frame.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-stage-sail-installed.png",
+          "contentType": "image/png",
+          "bytes": 246702,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-stage-sail-installed.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-stage-voyage-ready.png",
+          "contentType": "image/png",
+          "bytes": 252487,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-stage-voyage-ready.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-departure-silhouette.png",
+          "contentType": "image/png",
+          "bytes": 240624,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-departure-silhouette.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "part-raft-sailcloth.png",
+          "contentType": "image/png",
+          "bytes": 182371,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/part-raft-sailcloth.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-state-frame-complete-64.png",
+          "contentType": "image/png",
+          "bytes": 1464,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-state-frame-complete-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-state-sailcloth-required-64.png",
+          "contentType": "image/png",
+          "bytes": 2506,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-state-sailcloth-required-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-state-weather-blocked-64.png",
+          "contentType": "image/png",
+          "bytes": 765,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-state-weather-blocked-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-state-launch-ready-64.png",
+          "contentType": "image/png",
+          "bytes": 2890,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-state-launch-ready-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-state-icons-64-atlas.png",
+          "contentType": "image/png",
+          "bytes": 6612,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-state-icons-64-atlas.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-state-icons-editable.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 1089,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-state-icons-editable.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "raft-state-icons-readability-32-64.png",
+          "contentType": "image/png",
+          "bytes": 13571,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/raft-state-icons-readability-32-64.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "escape-raft-camp-composite-1280x800.png",
+          "contentType": "image/png",
+          "bytes": 942984,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/escape-raft-camp-composite-1280x800.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "escape-raft-review-board-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 982093,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/escape-raft-review-board-1920x1080.png"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "escape-raft-manifest.json",
+          "contentType": "application/json",
+          "bytes": 4888,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/escape-raft-manifest.json"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "escape-raft-visual-qa.json",
+          "contentType": "application/json",
+          "bytes": 8727,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/escape-raft-visual-qa.json"
+        },
+        {
+          "kind": "file",
+          "fileName": "escape-raft-unity-handoff.txt",
+          "contentType": "text/plain",
+          "bytes": 1016,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/escape-raft-unity-handoff.txt"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 8329,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 5588,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-escape-raft-shore-launch-a-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7335,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-escape-raft-shore-launch-a-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-facility-shore-launch.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6241,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-facility-shore-launch.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-stage-frame.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 4624,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-stage-frame.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-stage-sail-installed.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7980,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-stage-sail-installed.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-stage-voyage-ready.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8365,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-stage-voyage-ready.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-departure-silhouette.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8431,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-departure-silhouette.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-part-raft-sailcloth.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6423,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-part-raft-sailcloth.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-state-frame-complete-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6227,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-state-frame-complete-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-state-sailcloth-required-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7110,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-state-sailcloth-required-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-state-weather-blocked-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7698,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-state-weather-blocked-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-state-launch-ready-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7136,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-state-launch-ready-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-state-icons-64-atlas.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 6493,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-state-icons-64-atlas.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-raft-state-icons-readability-32-64.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 5957,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-raft-state-icons-readability-32-64.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-escape-raft-camp-composite-1280x800.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 10100,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-escape-raft-camp-composite-1280x800.jpg"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-escape-raft-review-board-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 7820,
+          "url": "/outputs/jobs/job_20260825114105_2b02a9e1/qa-preview-escape-raft-review-board-1920x1080.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-25T11:40:11.983Z",
+      "updatedAt": "2026-08-25T11:48:13.289Z"
     }
   ]
 }

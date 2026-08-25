@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "assetId": "escape.raft",
+  "jobId": "job_20260825114105_2b02a9e1",
+  "candidateId": "escape.raft.shore-launch-a",
+  "decision": "review",
+  "selectedCandidate": null,
+  "source": {
+    "file": "escape-raft-shore-launch-a-atlas.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "layout": [
+      3,
+      2
+    ]
+  },
+  "parts": [
+    {
+      "id": "facility.shore-launch",
+      "file": "facility-shore-launch.png",
+      "sourceRect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.05
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "id": "raft.stage.frame",
+      "file": "raft-stage-frame.png",
+      "sourceRect": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.08
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "id": "raft.stage.sail-installed",
+      "file": "raft-stage-sail-installed.png",
+      "sourceRect": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.08
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "id": "raft.stage.voyage-ready",
+      "file": "raft-stage-voyage-ready.png",
+      "sourceRect": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.08
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "id": "raft.departure-silhouette",
+      "file": "raft-departure-silhouette.png",
+      "sourceRect": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.1
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "id": "part.raft.sailcloth",
+      "file": "part-raft-sailcloth.png",
+      "sourceRect": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pixelsPerUnit": 100
+    }
+  ],
+  "stageOrder": [
+    "raft.stage.frame",
+    "raft.stage.sail-installed",
+    "raft.stage.voyage-ready"
+  ],
+  "stateIcons": [
+    {
+      "id": "raft.state.frame-complete",
+      "file": "raft-state-frame-complete-64.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "raft.state.sailcloth-required",
+      "file": "raft-state-sailcloth-required-64.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "raft.state.weather-blocked",
+      "file": "raft-state-weather-blocked-64.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "raft.state.launch-ready",
+      "file": "raft-state-launch-ready-64.png",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ]
+    }
+  ],
+  "unityImport": {
+    "worldSprites": {
+      "textureType": "Sprite",
+      "spriteMode": "Single",
+      "pixelsPerUnit": 100,
+      "filterMode": "Bilinear",
+      "compression": "Uncompressed",
+      "maxSize": 1024,
+      "mipmaps": false,
+      "alphaIsTransparency": true,
+      "colorSpace": "sRGB",
+      "wrapMode": "Clamp"
+    },
+    "uiIcons": {
+      "textureType": "Sprite",
+      "spriteMode": "Single",
+      "filterMode": "Bilinear",
+      "compression": "Uncompressed",
+      "maxSize": 64,
+      "mipmaps": false,
+      "alphaIsTransparency": true,
+      "colorSpace": "sRGB",
+      "wrapMode": "Clamp"
+    }
+  },
+  "screenScale": {
+    "referenceResolution": [
+      1280,
+      800
+    ],
+    "raftTargetWidthPx": [
+      330,
+      390
+    ],
+    "shoreLaunchTargetWidthPx": [
+      230,
+      290
+    ]
+  },
+  "layerOrder": [
+    "camp-background",
+    "shore-launch",
+    "raft-stage",
+    "character-and-world-interactables",
+    "context-ui"
+  ],
+  "localization": {
+    "rasterText": "none",
+    "ko": "engine TMP",
+    "en": "engine TMP",
+    "qpsLong": "engine TMP"
+  },
+  "runtime": {
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false,
+    "runtimeConnected": false
+  },
+  "generation": {
+    "method": "built-in Codex ImageGen once plus deterministic checker extraction, slicing and icon derivation",
+    "paidExternalApiCalled": false,
+    "sourceSha256": "2d03b50c6319199f735942e09c1e904a0b49644ce6895f2436b3d8c53ce63be2"
+  }
+}
