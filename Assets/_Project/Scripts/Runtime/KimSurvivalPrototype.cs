@@ -1427,8 +1427,8 @@ namespace KimSurvival
 
             TMP_Text languageLabel = languageButton.GetComponentInChildren<TMP_Text>();
             languageLabel.enableAutoSizing = true;
-            languageLabel.textWrappingMode = TextWrappingModes.Normal;
-            languageLabel.maxVisibleLines = 2;
+            languageLabel.textWrappingMode = TextWrappingModes.NoWrap;
+            languageLabel.maxVisibleLines = 1;
             languageLabel.fontSizeMin = compactPseudoLong ? 18f : 30f;
             languageLabel.fontSizeMax = compactPseudoLong ? 26f : 32f;
             languageLabel.overflowMode = compactPseudoLong ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
