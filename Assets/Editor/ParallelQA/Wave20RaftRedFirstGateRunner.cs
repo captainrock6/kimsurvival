@@ -627,9 +627,9 @@ namespace ParallelQA
                 GameObject popup = GetField(prototype, "campInteractionPopup") as GameObject;
                 Require(typedCampUse != null && interaction != null && prompt != null && popup != null, "camp interaction runtime objects missing");
 
-                typedCampUse.Warp(new Vector2(-100f, position.y));
+                typedCampUse.Warp(position + Vector2.right * (PrototypeCampUse.UseRange + 0.5f));
                 InvokePrivate(prototype, "RefreshAll");
-                evidence.farPromptCount = prompt.activeSelf ? 1 : 0;
+                evidence.farPromptCount = prompt.activeSelf && ReadString(interaction, "ActiveTargetId") == LaunchId ? 1 : 0;
 
                 typedCampUse.Warp(position + Vector2.left * 0.35f);
                 InvokePrivate(prototype, "RefreshAll");

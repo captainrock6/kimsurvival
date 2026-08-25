@@ -41,8 +41,8 @@ namespace KimSurvival
         private const float ResourceLabelViewportPadding = 0.22f;
         private const float ResourceLabelSafeViewportRight = 0.74f;
         private const float MinimumSupportedAspect = 1.6f;
-        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.595f);
-        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.665f);
+        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.60f);
+        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.66f);
         private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.59f);
         private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.67f);
         private static readonly Vector2 CampPopupDefaultAnchorMin = new Vector2(0.56f, 0.2f);
