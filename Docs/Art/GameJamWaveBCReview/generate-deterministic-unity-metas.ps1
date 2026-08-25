@@ -23,15 +23,12 @@ function Get-RelativeAssetPath([string]$AbsolutePath) {
     return [System.IO.Path]::GetRelativePath($ProjectRoot, $AbsolutePath).Replace('\', '/')
 }
 
-function Read-Template([string]$RelativePath, [bool]$PreserveTrailingWhitespace = $false) {
+function Read-Template([string]$RelativePath) {
     $path = Join-Path $ProjectRoot $RelativePath
     if (!(Test-Path -LiteralPath $path)) {
         throw "Unity meta template is missing: $RelativePath"
     }
     $content = Get-Content -Raw -LiteralPath $path
-    if ($PreserveTrailingWhitespace) {
-        return $content
-    }
     return [regex]::Replace($content, '(?m)[ \t]+(?=\r?$)', '')
 }
 
@@ -52,7 +49,7 @@ if (!$jobPath.StartsWith($resolvedRoot, [System.StringComparison]::OrdinalIgnore
 $templates = @{
     folder = Read-Template 'Assets/_Project/Art/Generated/ui_set/job_20260823145302_c4c41491.meta'
     texture = Read-Template 'Assets/_Project/Art/Generated/ui_set/job_20260823145302_c4c41491/expedition-icons-atlas.png.meta'
-    svg = Read-Template 'Assets/_Project/Art/Generated/ui_set/job_20260823145302_c4c41491/expedition-icons-atlas.svg.meta' $true
+    svg = Read-Template 'Assets/_Project/Art/Generated/ui_set/job_20260823145302_c4c41491/expedition-icons-atlas.svg.meta'
     text = Read-Template 'Assets/_Project/Art/Generated/ui_set/job_20260823145302_c4c41491/job.json.meta'
 }
 
