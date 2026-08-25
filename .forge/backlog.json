@@ -2762,6 +2762,96 @@
       "status": "planned"
     },
     {
+      "id": "task.system.system.search-node-loot",
+      "lane": "implementation",
+      "title": "결정론적 수색 오브젝트·발견물 transaction 구현",
+      "description": "run seed, region ID와 stable node ID로 각 수색 오브젝트의 유한 내용물·수색 비용·위험·공개 상태·남은 발견물을 결정하고 발견물 트레이와 가방 transaction을 원자적으로 처리한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.resource-randomization",
+        "feature.inventory-choice",
+        "feature.survival-hazards"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "같은 run seed·region ID·node ID는 언제 열어도 같은 초기 내용물과 수량을 만들고 다른 node의 상태를 변경하지 않는다.",
+        "node snapshot은 hidden, revealed-partial, depleted 상태와 알려진 잔여물, 수색 횟수, 제거 위험을 저장한다.",
+        "담기·교체·남겨두기는 가방과 node 잔여물을 한 transaction으로 갱신해 복제·분실·중복 위험 적용을 만들지 않는다.",
+        "보호 핵심 부품은 적격 node의 발견물로 공개되고 획득 즉시 보호 프로젝트 인벤토리로 이동하며 일반 폐기 대상이 되지 않는다.",
+        "수색 비용과 위험은 뒤지기 완료 때 한 번만 적용되고 발견물 선별 중에는 새 위험 판정을 진행하지 않는다.",
+        "고갈 node, 가방 부족, 장비 부족과 취소는 ko/en 이유 코드와 입력 장치에 무관한 동일 결과를 낸다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-25T13:55:37.810Z"
+    },
+    {
+      "id": "task.feature.feature.searchable-resource-nodes",
+      "lane": "implementation",
+      "title": "환경 수색 오브젝트·발견물 선별 구현",
+      "description": "풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함과 폐시설 캐비닛을 직접 뒤져 숨겨진 유한 물품을 공개하고 가방에 담을 것과 남길 것을 고른다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.island-exploration",
+        "task.feature.feature.inventory-choice",
+        "task.feature.feature.region-persistence",
+        "task.feature.feature.resource-randomization",
+        "task.feature.feature.survival-hazards",
+        "task.feature.feature.dual-input"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes"
+      ],
+      "assetIds": [
+        "object.searchable-resource-node-kit",
+        "ui.search-loot-tray",
+        "icon.resource-tool-set"
+      ],
+      "acceptanceCriteria": [
+        "일반 자원과 탈출 핵심 부품은 바닥의 개별 줍기 오브젝트가 아니라 환경 수색 오브젝트의 발견물로 나온다.",
+        "미수색 오브젝트는 정확한 내용물과 수량을 숨기고 상호작용 이름, 수색 상태와 위험 단서만 보여준다.",
+        "뒤지기 완료 후 발견물, 수량, 현재 가방과 남은 칸을 한 화면에서 비교해 담기·모두 담기·교체·남겨두기를 할 수 있다.",
+        "뒤지기 완료 전 취소는 시간·위험·내용물 공개를 중복 적용하지 않고 완료 transaction만 한 번 반영한다.",
+        "두고 간 물건은 같은 오브젝트에 그대로 남고 고갈된 오브젝트는 보상 없이 고갈 상태를 명확히 표시한다.",
+        "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.qa.feature.searchable-resource-nodes",
+      "lane": "qa",
+      "title": "환경 수색 오브젝트·발견물 선별 검증",
+      "description": "환경 수색 오브젝트·발견물 선별의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.searchable-resource-nodes"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "일반 자원과 탈출 핵심 부품은 바닥의 개별 줍기 오브젝트가 아니라 환경 수색 오브젝트의 발견물로 나온다.",
+        "미수색 오브젝트는 정확한 내용물과 수량을 숨기고 상호작용 이름, 수색 상태와 위험 단서만 보여준다.",
+        "뒤지기 완료 후 발견물, 수량, 현재 가방과 남은 칸을 한 화면에서 비교해 담기·모두 담기·교체·남겨두기를 할 수 있다.",
+        "뒤지기 완료 전 취소는 시간·위험·내용물 공개를 중복 적용하지 않고 완료 transaction만 한 번 반영한다.",
+        "두고 간 물건은 같은 오브젝트에 그대로 남고 고갈된 오브젝트는 보상 없이 고갈 상태를 명확히 표시한다.",
+        "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
       "id": "task.art.background.island-camp",
       "lane": "art",
       "title": "무인도 베이스캠프 배경 제작",
@@ -3758,6 +3848,55 @@
       "status": "planned"
     },
     {
+      "id": "task.art.object.searchable-resource-node-kit",
+      "lane": "art",
+      "title": "7지역 환경 수색 오브젝트 키트 제작",
+      "description": "김씨 생존기: 무인도의 2D 측면 수색용 오브젝트 키트. 풀숲, 바위틈, 표류물 더미, 속 빈 나무, 조개·해초 웅덩이, 동굴 잔해, 난파선 수납함, 폐기상 관측소 캐비닛을 같은 열대 코믹 생존 화풍으로 제작한다. 각 오브젝트는 미수색, 뒤지는 중 피드백용 분리 파츠, 부분 수색, 고갈, 위험 단서 상태를 엔진에서 전환할 수 있게 분리하고 실제 개별 loot 아이템은 배경에 굽지 않는다. true-alpha, bottom-center pivot, 명확한 상호작용 실루엣, 1280x800 가독성, 한국어·영어 텍스트 미포함, 배경·충돌·위험·발견물 아이콘 분리를 지킨다. 기존 환경 키트와 후보는 사용자 채택 전 runtime에 연결하지 않는다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.survival-hazards"
+      ],
+      "assetIds": [
+        "object.searchable-resource-node-kit"
+      ],
+      "acceptanceCriteria": [
+        "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-25T13:55:37.810Z"
+    },
+    {
+      "id": "task.art.ui.search-loot-tray",
+      "lane": "art",
+      "title": "발견물 선별 트레이 UI 제작",
+      "description": "환경 수색 오브젝트를 뒤진 직후 사용하는 작고 빠른 발견물 선별 UI. 발견물 아이콘·이름·수량, 현재 4칸 이상 가방, 남은 칸, 담기·모두 담기·교체·남겨두기, 보호 핵심 부품, 위험 결과와 고갈 상태를 1280x800 하단 또는 측면의 compact tray로 보여준다. 월드와 김씨를 과도하게 가리지 않고 ko/en 장문, 키보드·마우스와 게임패드 포커스, qps-long 검증을 고려한다. 버튼 본문은 엔진 텍스트로 분리하고 normal, focus, disabled, full-bag, protected-part 상태를 별도 파츠로 제공한다. 사용자 채택 전 runtime에 연결하지 않는다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.inventory-choice",
+        "feature.dual-input",
+        "feature.localization"
+      ],
+      "assetIds": [
+        "ui.search-loot-tray"
+      ],
+      "acceptanceCriteria": [
+        "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-25T13:55:37.810Z"
+    },
+    {
       "id": "task.art.icon.resource-tool-set",
       "lane": "art",
       "title": "자원·도구 아이콘 세트 제작",
@@ -4036,5 +4175,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-25T13:46:05.433Z"
+  "updatedAt": "2026-08-25T13:55:37.808Z"
 }

@@ -406,7 +406,28 @@
       "rationale": "",
       "source": "user-and-codex",
       "createdAt": "2026-08-25T13:36:42.251Z"
+    },
+    {
+      "id": "decision.gamejam.searchable-environment-over-loose-pickups",
+      "summary": "일반 자원과 탈출 핵심 부품은 바닥에 보이는 아이템을 하나씩 줍는 방식 대신 풀숲·바위틈·잔해·수납함 등 환경 수색 오브젝트를 직접 뒤져 발견한다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:55:37.808Z"
+    },
+    {
+      "id": "decision.gamejam.search-node-content-persists-without-reroll",
+      "summary": "수색 오브젝트 내용물은 run seed와 stable node ID로 고정하고, 한 번 공개된 내용과 두고 간 물건은 재방문에도 유지하며 고갈 뒤 재생성하지 않는다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:55:37.808Z"
+    },
+    {
+      "id": "decision.gamejam.player-selects-revealed-loot",
+      "summary": "뒤지기 완료 후 플레이어가 발견물과 가방을 비교해 원하는 물건만 담고 교체하거나 남겨두며, 발견물 선별 중에는 새 위험 판정을 진행하지 않는다.",
+      "rationale": "",
+      "source": "user-and-codex",
+      "createdAt": "2026-08-25T13:55:37.808Z"
     }
   ],
-  "updatedAt": "2026-08-25T13:46:05.433Z"
+  "updatedAt": "2026-08-25T13:55:37.808Z"
 }

@@ -42,7 +42,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.810Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.908Z",
       "createdAt": "2026-08-22T08:24:41.805Z"
@@ -83,7 +83,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "중복 정산 없이 Day 50 흐름과 같은 날 조기 구조 우선순위 PASS.",
       "completedAt": "2026-08-23T15:55:25.412Z",
       "createdAt": "2026-08-22T08:24:41.917Z"
@@ -117,7 +117,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.034Z",
       "createdAt": "2026-08-22T08:24:42.034Z"
@@ -149,7 +149,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.154Z",
       "createdAt": "2026-08-22T08:24:42.155Z"
@@ -190,7 +190,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.262Z",
       "createdAt": "2026-08-22T08:24:42.263Z"
@@ -232,7 +232,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "선택 지역만 실제 수색 노드·보상 profile에 반영되고 기존 일광·귀환 회귀 PASS.",
       "completedAt": "2026-08-23T15:55:25.605Z",
       "createdAt": "2026-08-22T08:24:42.368Z"
@@ -276,7 +276,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Day 1/50, Day 49 계속, Day 50 terminal, 조기 탈출 우선순위를 통합 검증.",
       "completedAt": "2026-08-23T15:55:25.315Z",
       "createdAt": "2026-08-22T08:24:42.913Z"
@@ -315,7 +315,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.446Z",
       "createdAt": "2026-08-22T08:24:43.778Z"
@@ -351,7 +351,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.031Z",
       "createdAt": "2026-08-22T08:24:43.031Z"
@@ -385,7 +385,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.893Z",
       "createdAt": "2026-08-22T08:24:43.893Z"
@@ -424,7 +424,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.138Z",
       "createdAt": "2026-08-22T08:24:43.138Z"
@@ -458,7 +458,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.006Z",
       "createdAt": "2026-08-22T08:24:44.007Z"
@@ -506,7 +506,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.248Z",
       "createdAt": "2026-08-22T08:24:43.249Z"
@@ -553,7 +553,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "최종 일반 ko/en 배치 24/24와 제한적 자유 배치 회귀 PASS로 자동 계약을 완료했다. 물리 패드는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T08:24:44.124Z"
@@ -604,7 +604,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.353Z"
@@ -642,7 +642,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.230Z"
@@ -679,7 +679,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:13.820Z",
       "createdAt": "2026-08-22T11:32:13.820Z"
@@ -724,7 +724,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "5일 전이와 동결 계약 회귀는 PASS다. grant·warp 없는 fresh Day 4~5 자연 경로와 완전 자원 장부가 없어 ready를 유지한다.",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "completedAt": "2026-08-23T14:17:12.251Z"
@@ -768,7 +768,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "",
       "completedAt": "2026-08-23T03:32:10.566Z"
@@ -807,7 +807,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "최종 1280×800 일반 ko/en placement 24/24 및 exploration/swimming 10/10 PASS 증거로 완료했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
@@ -869,7 +869,7 @@
       ],
       "blockedReason": "자동 5일·compact A·Windows 빌드는 PASS다. grant·warp 없는 fresh 자연 경로, 첫 사용자 6세션(ko 3, en 3), 별도 물리 게임패드 ko/en 실기가 아직 없다.",
       "status": "blocked",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Stable legacy ID is preserved. Wave 12 5일 패키지가 canonical 실행 경로이며 외부 결과는 UNRUN, 과거 3일 자동 PASS는 역사적 증거다.",
       "completedAt": null
@@ -923,7 +923,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Wave 12 P01-P03가 compact A 9-slice, 분리 glyph/TMP, far/near/popup, locale와 입력 의미를 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:35:59.187Z"
@@ -967,7 +967,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "최종 compact A와 직접 설비 상호작용 자동 계약을 통과했다. 물리 게임패드 실기는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -1010,7 +1010,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Wave 11 최종 slot edit/play가 이전 expected gap을 닫고 직접 슬롯 3/3, 보행로 3/3, 미리보기·취소·확정 원자성을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:48:19.864Z"
@@ -1048,7 +1048,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.085Z",
       "createdAt": "2026-08-22T08:24:42.476Z"
@@ -1093,7 +1093,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.457Z"
@@ -1130,7 +1130,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.342Z"
@@ -1188,7 +1188,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:43.558Z"
@@ -1230,7 +1230,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
       "completedAt": null,
       "createdAt": "2026-08-22T08:24:44.452Z"
@@ -1258,7 +1258,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "지도 확정 전 출발 차단, 취소 시 상태·위치·방향 보존 PASS.",
       "completedAt": "2026-08-23T15:55:25.503Z"
@@ -1290,7 +1290,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.740Z"
@@ -1322,7 +1322,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.557Z"
@@ -1352,7 +1352,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-23T14:16:09.804Z"
     },
     {
@@ -1381,7 +1381,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.406Z"
@@ -1422,7 +1422,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "",
       "completedAt": "2026-08-23T16:32:52.262Z"
@@ -1456,7 +1456,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.260Z"
     },
@@ -1492,7 +1492,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.qa.feature.resource-randomization",
@@ -1522,7 +1522,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.feature.feature.survival-hazards",
@@ -1559,7 +1559,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.qa.feature.survival-hazards",
@@ -1589,7 +1589,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.implementation.wave15-campaign-map-foundation",
@@ -1627,7 +1627,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "통합 master GREEN: Day 50·지도·세 지역·seed·softlock·ko/en/qps-long·Windows 회귀 PASS.",
       "completedAt": "2026-08-23T15:55:25.108Z"
     },
@@ -1675,7 +1675,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-24T12:57:44.476Z"
     },
@@ -1713,7 +1713,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "독립 RED-first 게이트를 통합 master에서 EXPECTED_GAPS=0 GREEN으로 전환.",
       "completedAt": "2026-08-23T15:55:25.219Z"
     },
@@ -1751,7 +1751,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.248Z",
       "createdAt": "2026-08-25T11:33:29.249Z"
@@ -1791,7 +1791,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:49.760Z",
       "createdAt": "2026-08-25T11:33:49.761Z"
@@ -1825,7 +1825,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.589Z",
       "createdAt": "2026-08-22T08:24:42.590Z"
@@ -1858,7 +1858,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.697Z",
       "createdAt": "2026-08-22T08:24:42.698Z"
@@ -1889,7 +1889,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.800Z",
       "createdAt": "2026-08-22T08:24:42.801Z"
@@ -1924,7 +1924,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.664Z",
       "createdAt": "2026-08-22T08:24:43.665Z"
@@ -1960,7 +1960,7 @@
       ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Wave 12 합성 입력의 prompt·locale·진행 독립성은 PASS다. 실제 게임패드는 UNVERIFIED이므로 ready를 유지한다.",
       "createdAt": "2026-08-25T13:36:42.435Z"
     },
@@ -1989,7 +1989,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
       "completedAt": "2026-08-22T09:25:36.301Z",
       "createdAt": "2026-08-22T09:25:36.302Z"
@@ -2030,7 +2030,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
       "completedAt": "2026-08-22T09:25:37.708Z",
       "createdAt": "2026-08-22T09:25:37.709Z"
@@ -2063,7 +2063,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
       "completedAt": "2026-08-22T09:25:39.001Z",
       "createdAt": "2026-08-22T09:25:39.001Z"
@@ -2098,7 +2098,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:14.998Z",
       "createdAt": "2026-08-22T11:32:14.998Z"
@@ -2134,7 +2134,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:16.130Z",
       "createdAt": "2026-08-22T11:32:16.130Z"
@@ -2182,7 +2182,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Wave 14 제품 레이아웃 수정으로 1280x800 ko/en 배치 24/24, 수색·수영 10/10, 실제 qps-long 10/10을 PASS했다. locale/device 전환의 target·진행 지문 불변과 Wave 13 로그 포함 표준 Edit/Play 회귀를 재검증했다. 물리 게임패드 실기는 별도 dual-input QA 항목에 UNVERIFIED로 유지한다.",
       "completedAt": "2026-08-23T13:34:37.659Z",
       "createdAt": "2026-08-23T13:34:37.660Z"
@@ -2225,7 +2225,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Actual non-shipping qps-long locale passes data-driven module and layout checks while the player locale cycle remains ko/en.",
       "completedAt": "2026-08-23T09:35:20.554Z"
@@ -2256,7 +2256,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "4→6칸 원자적 1회 확장, 날짜 유지, 새 게임 초기화 및 KO/EN 상태 계약 통과.",
       "completedAt": "2026-08-23T03:05:27.413Z",
       "createdAt": "2026-08-23T03:05:27.413Z"
@@ -2296,7 +2296,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "가방 기능 자체는 완료 상태를 유지한다. 기존 자연 3일 구조 경로는 조기 성공 증거이며 Wave 12 통합 경로는 새 QA 대상이다.",
       "completedAt": "2026-08-23T03:05:27.510Z",
       "createdAt": "2026-08-23T03:05:27.511Z"
@@ -2333,7 +2333,7 @@
       ],
       "blockedReason": "4→6 기능과 원자성은 최종 회귀 PASS다. 구매 후 grant·warp 없는 자연 Day 4~5 구조 경로의 독립 증거가 아직 없다.",
       "status": "blocked",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.812Z",
       "note": "기능 회귀 PASS는 보존한다. 자연 경로와 물리 게임패드 실기 결과를 자동 계약과 섞지 않는다.",
       "completedAt": null,
       "createdAt": "2026-08-23T03:05:27.603Z"
@@ -2383,7 +2383,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "모듈 기능 자체는 완료 상태를 유지한다. Day 3 증축+구조 원장은 숙련자 조기 성공 증거이고, 첫 플레이어 Day 4~5 경로는 새 통합 QA 대상이다.",
       "completedAt": "2026-08-23T08:14:57.365Z"
     },
@@ -2429,7 +2429,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Wave 11 slot 계약과 최종 5일 전체 회귀가 W2/D1, run당 1회, 실패 무변경, 연결·통로 보존을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -2469,7 +2469,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.641Z"
@@ -2505,7 +2505,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:49.922Z"
     },
@@ -2550,7 +2550,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.812Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.810Z"
     },
@@ -2577,7 +2577,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.812Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:50.254Z"
@@ -2611,7 +2611,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.436Z",
+      "updatedAt": "2026-08-25T13:55:37.812Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:50.085Z"
     },
@@ -2640,7 +2640,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.436Z",
+      "updatedAt": "2026-08-25T13:55:37.812Z",
       "note": "Integrated Wave 19 album near/popup/open, ko/en/qps-long, persistence and dual input contracts passed.",
       "completedAt": "2026-08-25T11:33:58.583Z"
     },
@@ -2670,7 +2670,7 @@
       ],
       "blockedReason": "수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.",
       "status": "blocked",
-      "updatedAt": "2026-08-25T13:46:05.436Z",
+      "updatedAt": "2026-08-25T13:55:37.812Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
     },
     {
@@ -2700,7 +2700,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.436Z"
+      "updatedAt": "2026-08-25T13:55:37.812Z"
     },
     {
       "id": "task.qa.feature.custom-run-settings",
@@ -2725,7 +2725,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:46:05.436Z"
+      "updatedAt": "2026-08-25T13:55:37.812Z"
     },
     {
       "id": "task.system.system.region-persistence",
@@ -2750,7 +2750,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-25T13:46:05.435Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z",
       "createdAt": "2026-08-25T13:46:05.435Z"
     },
     {
@@ -2781,7 +2781,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-25T13:46:05.435Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.qa.feature.region-persistence",
@@ -2806,7 +2806,7 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-25T13:46:05.435Z",
-      "updatedAt": "2026-08-25T13:46:05.435Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.gamejam.seven-region-catalog",
@@ -2832,7 +2832,8 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-25T13:46:05.434Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z",
+      "createdAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.gamejam.persistent-region-runtime",
@@ -2858,7 +2859,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "createdAt": "2026-08-25T13:55:37.811Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.gamejam.smoke-radio-material-routes",
@@ -2886,7 +2889,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "createdAt": "2026-08-25T13:55:37.811Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.gamejam.insect-plant-wildlife-disease",
@@ -2915,7 +2920,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "createdAt": "2026-08-25T13:55:37.811Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.gamejam.upper-basement-both",
@@ -2943,7 +2950,8 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-25T13:46:05.434Z"
+      "updatedAt": "2026-08-25T13:55:37.811Z",
+      "createdAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.gamejam.qa-thirty-minute-seven-region-slice",
@@ -2974,7 +2982,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned"
+      "status": "planned",
+      "createdAt": "2026-08-25T13:55:37.811Z",
+      "updatedAt": "2026-08-25T13:55:37.811Z"
     },
     {
       "id": "task.gamejam.long-stay-two-endings",
@@ -3002,8 +3012,100 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-25T13:55:37.812Z",
+      "updatedAt": "2026-08-25T13:55:37.812Z"
+    },
+    {
+      "id": "task.system.system.search-node-loot",
+      "lane": "implementation",
+      "title": "결정론적 수색 오브젝트·발견물 transaction 구현",
+      "description": "run seed, region ID와 stable node ID로 각 수색 오브젝트의 유한 내용물·수색 비용·위험·공개 상태·남은 발견물을 결정하고 발견물 트레이와 가방 transaction을 원자적으로 처리한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.resource-randomization",
+        "feature.inventory-choice",
+        "feature.survival-hazards"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "같은 run seed·region ID·node ID는 언제 열어도 같은 초기 내용물과 수량을 만들고 다른 node의 상태를 변경하지 않는다.",
+        "node snapshot은 hidden, revealed-partial, depleted 상태와 알려진 잔여물, 수색 횟수, 제거 위험을 저장한다.",
+        "담기·교체·남겨두기는 가방과 node 잔여물을 한 transaction으로 갱신해 복제·분실·중복 위험 적용을 만들지 않는다.",
+        "보호 핵심 부품은 적격 node의 발견물로 공개되고 획득 즉시 보호 프로젝트 인벤토리로 이동하며 일반 폐기 대상이 되지 않는다.",
+        "수색 비용과 위험은 뒤지기 완료 때 한 번만 적용되고 발견물 선별 중에는 새 위험 판정을 진행하지 않는다.",
+        "고갈 node, 가방 부족, 장비 부족과 취소는 ko/en 이유 코드와 입력 장치에 무관한 동일 결과를 낸다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-25T13:55:37.810Z"
+    },
+    {
+      "id": "task.feature.feature.searchable-resource-nodes",
+      "lane": "implementation",
+      "title": "환경 수색 오브젝트·발견물 선별 구현",
+      "description": "풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함과 폐시설 캐비닛을 직접 뒤져 숨겨진 유한 물품을 공개하고 가방에 담을 것과 남길 것을 고른다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.island-exploration",
+        "task.feature.feature.inventory-choice",
+        "task.feature.feature.region-persistence",
+        "task.feature.feature.resource-randomization",
+        "task.feature.feature.survival-hazards",
+        "task.feature.feature.dual-input"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes"
+      ],
+      "assetIds": [
+        "object.searchable-resource-node-kit",
+        "ui.search-loot-tray",
+        "icon.resource-tool-set"
+      ],
+      "acceptanceCriteria": [
+        "일반 자원과 탈출 핵심 부품은 바닥의 개별 줍기 오브젝트가 아니라 환경 수색 오브젝트의 발견물로 나온다.",
+        "미수색 오브젝트는 정확한 내용물과 수량을 숨기고 상호작용 이름, 수색 상태와 위험 단서만 보여준다.",
+        "뒤지기 완료 후 발견물, 수량, 현재 가방과 남은 칸을 한 화면에서 비교해 담기·모두 담기·교체·남겨두기를 할 수 있다.",
+        "뒤지기 완료 전 취소는 시간·위험·내용물 공개를 중복 적용하지 않고 완료 transaction만 한 번 반영한다.",
+        "두고 간 물건은 같은 오브젝트에 그대로 남고 고갈된 오브젝트는 보상 없이 고갈 상태를 명확히 표시한다.",
+        "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.qa.feature.searchable-resource-nodes",
+      "lane": "qa",
+      "title": "환경 수색 오브젝트·발견물 선별 검증",
+      "description": "환경 수색 오브젝트·발견물 선별의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.feature.feature.searchable-resource-nodes"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "일반 자원과 탈출 핵심 부품은 바닥의 개별 줍기 오브젝트가 아니라 환경 수색 오브젝트의 발견물로 나온다.",
+        "미수색 오브젝트는 정확한 내용물과 수량을 숨기고 상호작용 이름, 수색 상태와 위험 단서만 보여준다.",
+        "뒤지기 완료 후 발견물, 수량, 현재 가방과 남은 칸을 한 화면에서 비교해 담기·모두 담기·교체·남겨두기를 할 수 있다.",
+        "뒤지기 완료 전 취소는 시간·위험·내용물 공개를 중복 적용하지 않고 완료 transaction만 한 번 반영한다.",
+        "두고 간 물건은 같은 오브젝트에 그대로 남고 고갈된 오브젝트는 보상 없이 고갈 상태를 명확히 표시한다.",
+        "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
       "status": "planned"
     }
   ],
-  "updatedAt": "2026-08-25T13:46:05.433Z"
+  "updatedAt": "2026-08-25T13:55:37.808Z"
 }

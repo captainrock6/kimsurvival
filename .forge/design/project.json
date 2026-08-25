@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "project": {
     "title": "김씨 생존기: 무인도",
-    "oneLinePitch": "무인도에 조난된 김씨가 상태가 영구히 변하는 일곱 수색 지역에서 생존 자원과 흩어진 기계 부품을 모으고, 2층·지하 캠프를 확장해 30분 안에 연기 또는 무전 구조를 완성하거나 장기 체류 행동에 따른 코믹 엔딩을 맞는 2D 생존 게임.",
+    "oneLinePitch": "무인도에 조난된 김씨가 내용물을 알 수 없는 수색 오브젝트를 직접 뒤져 필요한 물건만 가방에 챙기고, 상태가 영구히 변하는 일곱 지역과 다층 캠프를 오가며 탈출하거나 행동 기반 코믹 엔딩을 맞는 2D 생존 게임.",
     "genre": "코믹 2D 횡스크롤 거점 생존·유한 자원 수색·제작·행동 기반 다중 엔딩 게임",
     "targetPlatform": "게임잼 Windows PC 빌드, 한국어 기본·영어 지원, 키보드·마우스와 게임패드",
     "audience": "30분 안에 직접 탐색한 섬과 확장한 거점이 눈에 남고, 다른 탈출법과 엔딩을 위해 다시 플레이하고 싶은 싱글 플레이 생존 게임 이용자",
@@ -16,8 +16,8 @@
       "접근한다",
       "상호작용한다",
       "지역을 비교한다",
-      "수색한다",
-      "채집한다",
+      "뒤진다",
+      "발견물을 선별한다",
       "수영한다",
       "장벽을 부순다",
       "위험을 피하거나 제거한다",
@@ -28,19 +28,23 @@
     "coreLoop": [
       "시작층·2층·지하실을 직접 오가며 설비와 상호작용하고 허기·체력·부상·질병·장비와 탈출 프로젝트를 점검한다.",
       "지도 오브젝트에서 최소 일곱 지역의 남은 자원 전망, 위험도, 확인된 위험, 날씨, 필요 장비와 핵심 부품 단서를 비교한다.",
-      "선택 지역을 횡스크롤로 수색하며 유한 자원을 채집하고 돌도끼 장벽, 벌레, 야생동물, 위험 식물과 환경 위험에 대응한다.",
-      "가방·체력·일광·질병 노출을 보고 귀환하며 채집 노드, 장벽, 위험 제거와 핵심 부품 획득 상태를 지역별로 저장한다.",
+      "선택 지역을 횡스크롤로 이동하며 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함과 폐시설 캐비닛 같은 수색 오브젝트를 찾는다.",
+      "수색 오브젝트를 뒤지는 시간·체력·위험을 감수해 숨겨진 유한 내용물을 공개한다.",
+      "발견된 물품 중 가방 용량과 현재 목표에 맞는 것만 담고 나머지는 그 오브젝트에 남긴다.",
+      "가방·체력·일광·질병 노출을 보고 귀환하며 수색 오브젝트 잔량, 장벽, 위험 제거와 핵심 부품 상태를 지역별로 저장한다.",
       "귀환 자원을 치료·생존·가방·2층·지하·설비 또는 대형 연기·무전 구조 프로젝트 중 어디에 쓸지 선택한다.",
       "연기는 대량의 나무와 부싯돌을 모아 여러 단계로 유지하고, 무전은 망가진 무전기·전자기판·트랜지스터 등 흩어진 부품 전부를 복구한다.",
       "조기 탈출 또는 게임잼 장기 체류 판정일에 도달하면 탈출법, 캠프 확장과 누적 생활 방식으로 하나의 코믹북 엔딩을 결정한다."
     ],
     "artDirection": "밝고 따뜻한 열대색의 오리지널 2D 측면 일러스트. 일곱 지역은 같은 섬이라는 통일감을 유지하되 해변·맹그로브·숲·절벽·동굴·난파선·폐시설의 실루엣과 전경을 즉시 구분한다. 벌레·야생동물·위험 식물·질병은 고어나 혐오 표현 없이 과장된 동작, 상태 아이콘과 코믹한 김씨 반응으로 전달한다. 캠프는 시작층 위 2층과 아래 지하가 보이는 측면 절개형이며 모든 본문은 엔진 텍스트로 분리한다.",
     "constraints": [
-      "게임잼 첫 플레이는 5~10분 안에 캠프→지도→수색→귀환→투자의 핵심 루프를 이해하고 약 30분 안에 대표 탈출 엔딩을 볼 수 있어야 한다.",
+      "게임잼 첫 플레이는 5~10분 안에 캠프→지도→수색 오브젝트 뒤지기→발견물 선별→귀환→투자의 핵심 루프를 이해하고 약 30분 안에 대표 탈출 엔딩을 볼 수 있어야 한다.",
       "본편 표준 캠페인의 Day 50 데드라인은 유지하며 게임잼 빌드는 그 전에 자연 조기 탈출이 가능하도록 별도 밸런스 프로필을 사용한다.",
       "게임잼 빌드에는 서로 구분되는 수색 지역이 최소 7개 있어야 한다.",
       "각 지역은 위험도와 벌레·야생동물·위험 식물·질병·환경 위험 중 고유 조합을 지도에서 예고한다.",
-      "지역 자원은 run마다 유한하며 방문 뒤 남은 채집량, 부순 장벽, 획득한 핵심 부품과 영구 제거 위험을 지역 안정 ID로 보존한다.",
+      "일반 자원과 탈출 핵심 부품의 주 수집 방식은 바닥의 개별 아이템 줍기가 아니라 환경 수색 오브젝트 상호작용과 발견물 선별이다.",
+      "수색 오브젝트의 내용물은 run seed와 안정 node ID로 한 번 결정되며 재방문·취소·재시작으로 재추첨되지 않는다.",
+      "지역 자원은 run마다 유한하며 방문 뒤 수색 오브젝트의 미발견·부분 잔류·고갈, 부순 장벽, 획득한 핵심 부품과 영구 제거 위험을 지역 안정 ID로 보존한다.",
       "무전 구조는 망가진 무전기, 망가진 전자기판과 트랜지스터를 포함한 고유 부품 전부를 서로 다른 지역에서 회수해야 완료된다.",
       "대형 연기 신호는 다른 경로보다 훨씬 많은 나무를 소모하고 부싯돌을 요구하며 단계별 투입과 기상 조건을 가진다.",
       "시작층·2층·지하실은 같은 run에서 모두 건설·이동 가능하고 일반 설비를 2층과 지하에 제한적 자유 배치할 수 있어야 한다.",
@@ -55,9 +59,12 @@
       "게임잼의 장기 체류 엔딩 판정일은 우선 Day 20으로 두고 인간 플레이테스트 결과에 따라 Day 15~20 사이에서 조정한다.",
       "장기 체류 엔딩 두 개는 Day 15와 Day 20에 각각 강제 종료하는 방식이 아니라 동일한 판정일에서 누적 생존·채집 우세와 건설·기계 우세 중 하나를 고르는 방식으로 가정한다.",
       "대표 탈출은 Day 4~10 사이에 가능하고 장기 체류 엔딩은 의도적으로 탈출하지 않은 반복 플레이용 목표이므로 첫 30분 완주 기준에 포함하지 않는다.",
-      "일반 자원 수치, 연기 신호의 총 나무 비용과 장기 체류 판정일은 BALANCE_PROVISIONAL이며 자연 플레이테스트 전 확정하지 않는다."
+      "일반 자원 수치, 연기 신호의 총 나무 비용과 장기 체류 판정일은 BALANCE_PROVISIONAL이며 자연 플레이테스트 전 확정하지 않는다.",
+      "일반 자원과 보호 핵심 부품은 모두 수색 결과로 발견하며, 월드에 직접 보이는 작은 물건은 비수집 장식 또는 수색 단서로만 사용한다.",
+      "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
+      "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-25T13:46:05.434Z",
+    "updatedAt": "2026-08-25T13:55:37.809Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -4363,6 +4370,37 @@
         "부순 장벽과 영구 제거 위험은 귀환 후 같은 지역에 다시 들어가도 복원되지 않는다.",
         "새 run은 모든 지역 상태를 seed에 맞게 초기화하고 이전 run 상태와 섞이지 않는다."
       ]
+    },
+    {
+      "id": "feature.searchable-resource-nodes",
+      "name": "환경 수색 오브젝트·발견물 선별",
+      "description": "풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함과 폐시설 캐비닛을 직접 뒤져 숨겨진 유한 물품을 공개하고 가방에 담을 것과 남길 것을 고른다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.island-exploration",
+        "feature.inventory-choice",
+        "feature.region-persistence",
+        "feature.resource-randomization",
+        "feature.survival-hazards",
+        "feature.dual-input"
+      ],
+      "screenIds": [
+        "screen.island"
+      ],
+      "assetIds": [
+        "object.searchable-resource-node-kit",
+        "ui.search-loot-tray",
+        "icon.resource-tool-set"
+      ],
+      "acceptanceCriteria": [
+        "일반 자원과 탈출 핵심 부품은 바닥의 개별 줍기 오브젝트가 아니라 환경 수색 오브젝트의 발견물로 나온다.",
+        "미수색 오브젝트는 정확한 내용물과 수량을 숨기고 상호작용 이름, 수색 상태와 위험 단서만 보여준다.",
+        "뒤지기 완료 후 발견물, 수량, 현재 가방과 남은 칸을 한 화면에서 비교해 담기·모두 담기·교체·남겨두기를 할 수 있다.",
+        "뒤지기 완료 전 취소는 시간·위험·내용물 공개를 중복 적용하지 않고 완료 transaction만 한 번 반영한다.",
+        "두고 간 물건은 같은 오브젝트에 그대로 남고 고갈된 오브젝트는 보상 없이 고갈 상태를 명확히 표시한다.",
+        "키보드·마우스와 게임패드가 같은 포커스, 수량, 확인·취소와 가방 결과를 만든다."
+      ]
     }
   ],
   "screens": [
@@ -4494,8 +4532,8 @@
     },
     {
       "id": "screen.island",
-      "name": "지속 변화형 선택 지역 수색",
-      "purpose": "선택한 지역에서 유한 자원과 흩어진 부품을 수색하고 장벽·벌레·야생동물·위험 식물·질병에 대응하며 변화 상태를 남긴다.",
+      "name": "환경 오브젝트 수색형 선택 지역",
+      "purpose": "선택 지역을 이동하며 내용물을 알 수 없는 환경 오브젝트를 뒤지고 발견물 중 필요한 것만 선별해 가져가며 장벽·위험·질병과 지역 변화를 남긴다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -4507,7 +4545,8 @@
         "feature.swimming",
         "feature.resource-randomization",
         "feature.survival-hazards",
-        "feature.region-persistence"
+        "feature.region-persistence",
+        "feature.searchable-resource-nodes"
       ],
       "assetIds": [
         "background.coast-forest",
@@ -4517,7 +4556,10 @@
         "effect.comedy-feedback",
         "animation.mr-kim.swim",
         "icon.expedition-resource-risk-set",
-        "effect.survival-hazards"
+        "effect.survival-hazards",
+        "environment.expedition-region-kit",
+        "object.searchable-resource-node-kit",
+        "ui.search-loot-tray"
       ],
       "entryPoints": [
         "베이스캠프에서 수색 출발",
@@ -4544,7 +4586,14 @@
         "돌도끼 장벽 파괴",
         "위험 회피·제거",
         "핵심 부품 획득",
-        "치료 아이템 사용"
+        "치료 아이템 사용",
+        "수색 오브젝트 접근",
+        "뒤지기",
+        "뒤지기 취소",
+        "발견물 담기",
+        "모두 담기",
+        "가방 물품과 교체",
+        "발견물 남겨두기"
       ],
       "states": [
         "탐색",
@@ -4571,10 +4620,18 @@
         "질병 노출",
         "부상",
         "핵심 부품 보호 획득",
-        "귀환"
+        "귀환",
+        "미수색",
+        "뒤지는 중",
+        "발견물 공개",
+        "가방 선별",
+        "부분 잔류",
+        "고갈",
+        "위험 단서",
+        "장비 부족"
       ],
       "createdAt": "2026-08-22T09:09:25.632Z",
-      "updatedAt": "2026-08-25T13:36:42.418Z"
+      "updatedAt": "2026-08-25T13:55:37.809Z"
     },
     {
       "id": "screen.result",
@@ -5255,6 +5312,34 @@
         "지도 요약과 월드 재생성은 동일한 지역 snapshot을 사용한다.",
         "새 run 초기화는 모든 지역 snapshot을 새 seed 기준으로 교체한다."
       ]
+    },
+    {
+      "id": "system.search-node-loot",
+      "name": "결정론적 수색 오브젝트·발견물 transaction",
+      "description": "run seed, region ID와 stable node ID로 각 수색 오브젝트의 유한 내용물·수색 비용·위험·공개 상태·남은 발견물을 결정하고 발견물 트레이와 가방 transaction을 원자적으로 처리한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.resource-randomization",
+        "feature.inventory-choice",
+        "feature.survival-hazards"
+      ],
+      "dependencies": [
+        "system.run-state",
+        "system.inventory",
+        "system.region-loot-rng",
+        "system.region-persistence",
+        "system.hazard-director"
+      ],
+      "acceptanceCriteria": [
+        "같은 run seed·region ID·node ID는 언제 열어도 같은 초기 내용물과 수량을 만들고 다른 node의 상태를 변경하지 않는다.",
+        "node snapshot은 hidden, revealed-partial, depleted 상태와 알려진 잔여물, 수색 횟수, 제거 위험을 저장한다.",
+        "담기·교체·남겨두기는 가방과 node 잔여물을 한 transaction으로 갱신해 복제·분실·중복 위험 적용을 만들지 않는다.",
+        "보호 핵심 부품은 적격 node의 발견물로 공개되고 획득 즉시 보호 프로젝트 인벤토리로 이동하며 일반 폐기 대상이 되지 않는다.",
+        "수색 비용과 위험은 뒤지기 완료 때 한 번만 적용되고 발견물 선별 중에는 새 위험 판정을 진행하지 않는다.",
+        "고갈 node, 가방 부족, 장비 부족과 취소는 ko/en 이유 코드와 입력 장치에 무관한 동일 결과를 낸다."
+      ]
     }
   ],
   "artAssets": [
@@ -5743,8 +5828,57 @@
       ],
       "status": "needed",
       "source": "forge-director"
+    },
+    {
+      "id": "object.searchable-resource-node-kit",
+      "name": "7지역 환경 수색 오브젝트 키트",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기: 무인도의 2D 측면 수색용 오브젝트 키트. 풀숲, 바위틈, 표류물 더미, 속 빈 나무, 조개·해초 웅덩이, 동굴 잔해, 난파선 수납함, 폐기상 관측소 캐비닛을 같은 열대 코믹 생존 화풍으로 제작한다. 각 오브젝트는 미수색, 뒤지는 중 피드백용 분리 파츠, 부분 수색, 고갈, 위험 단서 상태를 엔진에서 전환할 수 있게 분리하고 실제 개별 loot 아이템은 배경에 굽지 않는다. true-alpha, bottom-center pivot, 명확한 상호작용 실루엣, 1280x800 가독성, 한국어·영어 텍스트 미포함, 배경·충돌·위험·발견물 아이콘 분리를 지킨다. 기존 환경 키트와 후보는 사용자 채택 전 runtime에 연결하지 않는다.",
+      "priority": "high",
+      "dependencies": [
+        "environment.expedition-region-kit"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.survival-hazards"
+      ],
+      "tags": [
+        "gamejam",
+        "search-node",
+        "persistent-state",
+        "seven-regions",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
+    },
+    {
+      "id": "ui.search-loot-tray",
+      "name": "발견물 선별 트레이 UI",
+      "assetType": "ui_set",
+      "request": "환경 수색 오브젝트를 뒤진 직후 사용하는 작고 빠른 발견물 선별 UI. 발견물 아이콘·이름·수량, 현재 4칸 이상 가방, 남은 칸, 담기·모두 담기·교체·남겨두기, 보호 핵심 부품, 위험 결과와 고갈 상태를 1280x800 하단 또는 측면의 compact tray로 보여준다. 월드와 김씨를 과도하게 가리지 않고 ko/en 장문, 키보드·마우스와 게임패드 포커스, qps-long 검증을 고려한다. 버튼 본문은 엔진 텍스트로 분리하고 normal, focus, disabled, full-bag, protected-part 상태를 별도 파츠로 제공한다. 사용자 채택 전 runtime에 연결하지 않는다.",
+      "priority": "high",
+      "dependencies": [
+        "icon.resource-tool-set"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.inventory-choice",
+        "feature.dual-input",
+        "feature.localization"
+      ],
+      "tags": [
+        "gamejam",
+        "loot-selection",
+        "compact-ui",
+        "ko-en",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-25T13:46:05.433Z"
+  "updatedAt": "2026-08-25T13:55:37.808Z"
 }

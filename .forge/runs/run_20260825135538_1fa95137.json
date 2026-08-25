@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260825135538_1fa95137",
+  "createdAt": "2026-08-25T13:55:37.808Z",
+  "updatedAt": "2026-08-25T13:55:37.808Z",
+  "sourceRequest": "수색지역 파밍을 개별 아이템 줍기 대신 환경 수색 오브젝트를 뒤져 숨겨진 발견물 중 원하는 물건을 선별하는 방식으로 전환",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-25T13:55:37.808Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:55:37.808Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:55:37.808Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-25T13:55:37.808Z"
+    }
+  }
+}
