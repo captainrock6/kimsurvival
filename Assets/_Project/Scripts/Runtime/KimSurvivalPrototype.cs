@@ -770,17 +770,19 @@ namespace KimSurvival
             IReadOnlyList<PrototypeExpeditionRegionProfile> expeditionProfiles = PrototypeExpeditionRegionCatalog.All;
             Vector2[] expeditionNodeAnchors =
             {
-                new Vector2(0.09f, 0.65f),
-                new Vector2(0.26f, 0.65f),
-                new Vector2(0.43f, 0.65f),
-                new Vector2(0.60f, 0.65f),
-                new Vector2(0.15f, 0.36f),
-                new Vector2(0.36f, 0.36f),
-                new Vector2(0.57f, 0.36f)
+                new Vector2(0.12f, 0.72f),
+                new Vector2(0.32f, 0.72f),
+                new Vector2(0.52f, 0.72f),
+                new Vector2(0.19f, 0.50f),
+                new Vector2(0.46f, 0.50f),
+                new Vector2(0.19f, 0.28f),
+                new Vector2(0.46f, 0.28f)
             };
+            float[] expeditionNodeHalfWidths = { 110f, 110f, 110f, 140f, 140f, 140f, 140f };
             for (int i = 0; i < expeditionProfiles.Count; i += 1)
             {
                 PrototypeExpeditionRegionId capturedRegion = expeditionProfiles[i].Id;
+                float halfWidth = expeditionNodeHalfWidths[i];
                 Button regionButton = CreateButton(
                     "수집 지역 노드 · " + expeditionProfiles[i].StableId,
                     expeditionMapPanel.transform,
@@ -788,8 +790,8 @@ namespace KimSurvival
                     expeditionNodeAnchors[i],
                     string.Empty,
                     delegate { FocusExpeditionRegion(capturedRegion); },
-                    new Vector2(-98f, -50f),
-                    new Vector2(98f, 50f));
+                    new Vector2(-halfWidth, -52f),
+                    new Vector2(halfWidth, 52f));
                 regionButton.GetComponent<Image>().color = new Color(0.025f, 0.16f, 0.18f, 0.94f);
                 TMP_Text regionLabel = regionButton.GetComponentInChildren<TMP_Text>();
                 regionLabel.fontStyle = FontStyles.Bold;

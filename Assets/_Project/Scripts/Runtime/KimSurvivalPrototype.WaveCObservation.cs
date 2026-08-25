@@ -13,6 +13,7 @@ namespace KimSurvival
         {
             var observation = new PrototypeWaveCPlayObservation();
             var events = new List<PrototypeWaveCProductionEvent>();
+            var routeBranches = new List<PrototypeWaveCRouteBranchObservation>();
             var pitySequence = new List<int>();
             var reenteredRooms = new List<string>();
             var visitedNodeIds = new HashSet<string>(StringComparer.Ordinal);
@@ -221,6 +222,19 @@ namespace KimSurvival
                 observation.SaveBeforeFingerprint = saveBefore;
                 observation.SaveAfterFingerprint = saveAfter;
 
+                foreach (string routeId in representativeEscapeIds)
+                {
+                    routeBranches.Add(CaptureWaveCRouteBranch(
+                        routeId,
+                        saveJson,
+                        saveBefore,
+                        visitedNodeIds,
+                        seed));
+                }
+                Require(TryRestoreWaveCBranchStart(saveJson, saveBefore),
+                    "Canonical production state must be restored after all three route branches.");
+                observation.RouteBranches = routeBranches.ToArray();
+
                 EnsureWaveCWaitEvents(events, ref eventSequence, visitedNodeIds, ref expeditionCount, seed);
                 RecordWaveCRouteProgress(
                     "escape.smoke", PrototypeCampInteractionTargetKind.SmokeBeacon, smokeProjectButton,
@@ -286,6 +300,7 @@ namespace KimSurvival
                 observation.SaveBeforeFingerprint = saveBefore;
                 observation.SaveAfterFingerprint = saveAfter;
                 observation.ProductionEvents = events.ToArray();
+                observation.RouteBranches = routeBranches.ToArray();
                 observation.GrantCallCount = PrototypeProductionActionCounters.GrantCallCount;
                 observation.WarpCallCount = PrototypeProductionActionCounters.WarpCallCount;
                 observation.SkipCallCount = PrototypeProductionActionCounters.SkipCallCount;
@@ -300,6 +315,7 @@ namespace KimSurvival
             {
                 observation.ObservationError = exception.GetType().Name + ": " + exception.Message;
                 observation.ProductionEvents = events.ToArray();
+                observation.RouteBranches = routeBranches.ToArray();
                 observation.GrantCallCount = PrototypeProductionActionCounters.GrantCallCount;
                 observation.WarpCallCount = PrototypeProductionActionCounters.WarpCallCount;
                 observation.SkipCallCount = PrototypeProductionActionCounters.SkipCallCount;
@@ -321,6 +337,139 @@ namespace KimSurvival
                 hazardEscapeEndingRuntime,
                 searchNodeRuntime,
                 endingAlbumCollection);
+        }
+
+        private PrototypeWaveCRouteBranchObservation CaptureWaveCRouteBranch(
+            string escapeId,
+            string compositeSaveJson,
+            string compositeSaveFingerprint,
+            IEnumerable<string> baselineVisitedNodeIds,
+            int seed)
+        {
+            bool persistenceEnabled = endingAlbumCollection.PersistenceEnabled;
+            bool observationIsolation = hazardEscapeEndingRuntime.SetCompositeBranchObservationIsolation(true);
+            endingAlbumCollection.PersistenceEnabled = false;
+            try
+            {
+                return CaptureWaveCRouteBranchIsolated(
+                    escapeId,
+                    compositeSaveJson,
+                    compositeSaveFingerprint,
+                    baselineVisitedNodeIds,
+                    seed);
+            }
+            finally
+            {
+                hazardEscapeEndingRuntime.SetCompositeBranchObservationIsolation(observationIsolation);
+                endingAlbumCollection.PersistenceEnabled = persistenceEnabled;
+            }
+        }
+
+        private PrototypeWaveCRouteBranchObservation CaptureWaveCRouteBranchIsolated(
+            string escapeId,
+            string compositeSaveJson,
+            string compositeSaveFingerprint,
+            IEnumerable<string> baselineVisitedNodeIds,
+            int seed)
+        {
+            Require(TryRestoreWaveCBranchStart(compositeSaveJson, compositeSaveFingerprint),
+                escapeId + " composite branch restore");
+            string restoredStartFingerprint = CaptureWaveCSaveFingerprint();
+            var branchEvents = new List<PrototypeWaveCProductionEvent>();
+            var branchVisited = new HashSet<string>(baselineVisitedNodeIds ?? Array.Empty<string>(), StringComparer.Ordinal);
+            int branchExpeditionCount = 0;
+            int sequence = 0;
+            string targetId;
+
+            if (string.Equals(escapeId, "escape.raft", StringComparison.Ordinal))
+            {
+                targetId = "facility.shore-launch";
+                RecordWaveCRouteProgress(escapeId, PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
+                    targetId, "hull", branchEvents, ref sequence);
+                RecordWaveCRouteProgress(escapeId, PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
+                    targetId, "sail", branchEvents, ref sequence);
+                RecordWaveCRouteProgress(escapeId, PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
+                    targetId, "supplies", branchEvents, ref sequence);
+                AdvanceWaveCBranchToWindow(
+                    () => hazardEscapeEndingRuntime.CurrentRaftLaunchWindow.Allowed,
+                    branchVisited,
+                    ref branchExpeditionCount,
+                    seed,
+                    escapeId);
+                RecordWaveCRouteProgress(escapeId, PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
+                    targetId, "launch-confirm", branchEvents, ref sequence);
+                RecordWaveCRouteProgress(escapeId, PrototypeCampInteractionTargetKind.ShoreLaunch, raftProjectButton,
+                    targetId, "launch-terminal", branchEvents, ref sequence, "ending.resolved");
+            }
+            else
+            {
+                bool smoke = string.Equals(escapeId, "escape.smoke", StringComparison.Ordinal);
+                Require(smoke || string.Equals(escapeId, "escape.radio", StringComparison.Ordinal),
+                    "Unsupported Wave C route branch " + escapeId);
+                PrototypeCampInteractionTargetKind kind = smoke
+                    ? PrototypeCampInteractionTargetKind.SmokeBeacon
+                    : PrototypeCampInteractionTargetKind.RadioBench;
+                Button button = smoke ? smokeProjectButton : radioProjectButton;
+                targetId = smoke ? "facility.smoke-beacon" : "facility.radio-bench";
+                RecordWaveCRouteProgress(escapeId, kind, button, targetId,
+                    smoke ? "ignition" : "repair", branchEvents, ref sequence);
+                AdvanceWaveCBranchToWindow(
+                    () => PrototypeSignalEscapeWindowResolver.Resolve(escapeId, session.RunSeed, session.Day).Allowed,
+                    branchVisited,
+                    ref branchExpeditionCount,
+                    seed,
+                    escapeId);
+                RecordWaveCRouteProgress(escapeId, kind, button, targetId,
+                    smoke ? "visibility" : "frequency", branchEvents, ref sequence, "ending.resolved");
+            }
+
+            PrototypeWaveCTransactionState terminal = CaptureWaveCTransactionState();
+            PrototypeEscapeProjectState routeState = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
+            Require(routeState.Complete && session.Result == RunResult.Rescued &&
+                    string.Equals(session.CompletedEscapeId, escapeId, StringComparison.Ordinal) &&
+                    !string.IsNullOrWhiteSpace(hazardEscapeEndingRuntime.CurrentEndingStableId),
+                escapeId + " production branch must reach its own terminal ending.");
+            return new PrototypeWaveCRouteBranchObservation
+            {
+                EscapeId = escapeId,
+                CompositeSaveFingerprint = compositeSaveFingerprint,
+                RestoredStartFingerprint = restoredStartFingerprint,
+                TerminalStateFingerprint = terminal.Fingerprint,
+                CompletedEscapeId = session.CompletedEscapeId,
+                TerminalEndingId = hazardEscapeEndingRuntime.CurrentEndingStableId,
+                TerminalReached = true,
+                BranchEvents = branchEvents.ToArray()
+            };
+        }
+
+        private bool TryRestoreWaveCBranchStart(string compositeSaveJson, string expectedFingerprint)
+        {
+            campInteraction.Reset();
+            expeditionMapSelection.Close();
+            endingAlbumSelection.Close();
+            ResetModulePreviewReturnRoute();
+            if (!TryRestoreWaveCSaveJson(compositeSaveJson)) return false;
+            return string.Equals(CaptureWaveCSaveFingerprint(), expectedFingerprint, StringComparison.Ordinal);
+        }
+
+        private void AdvanceWaveCBranchToWindow(
+            Func<bool> windowIsOpen,
+            ISet<string> branchVisitedNodeIds,
+            ref int branchExpeditionCount,
+            int seed,
+            string escapeId)
+        {
+            for (int guard = 0; guard < 4 && !windowIsOpen(); guard += 1)
+            {
+                if (!session.ExpeditionCompleted)
+                {
+                    PrototypeSearchNodeDefinition next = SelectWaveCResourceNode(branchVisitedNodeIds, seed);
+                    Require(next != null, escapeId + " branch needs a finite production search to advance its forecast.");
+                    SearchWaveCNodeAndReturn(next, branchVisitedNodeIds, ref branchExpeditionCount);
+                }
+                AdvanceWaveCProductionDay();
+            }
+            Require(windowIsOpen(), escapeId + " branch did not reach its deterministic production window.");
         }
 
         private void RecordWaveCRouteFailureAndCancel(
@@ -379,11 +528,15 @@ namespace KimSurvival
             ICollection<PrototypeWaveCProductionEvent> events,
             ref int sequence)
         {
-            string[] already = events.Where(value => value.ResultCode.IndexOf("wait", StringComparison.OrdinalIgnoreCase) >= 0)
-                .Select(value => value.EscapeId).ToArray();
+            var already = new HashSet<string>(events
+                .Where(value => string.Equals(
+                    value.EventType,
+                    "escape.forecast.wait",
+                    StringComparison.Ordinal))
+                .Select(value => value.EscapeId), StringComparer.Ordinal);
             foreach (string route in new[] { "escape.smoke", "escape.radio" })
             {
-                if (already.Contains(route)) continue;
+                if (already.Contains(route) || !HasWaveCFailureCancelPrelude(events, route)) continue;
                 PrototypeSignalEscapeWindow window = PrototypeSignalEscapeWindowResolver.Resolve(route, session.RunSeed, session.Day);
                 if (window.Allowed) continue;
                 PrototypeWaveCTransactionState state = CaptureWaveCTransactionState();
@@ -395,7 +548,7 @@ namespace KimSurvival
                     state,
                     state));
             }
-            if (!already.Contains("escape.raft"))
+            if (!already.Contains("escape.raft") && HasWaveCFailureCancelPrelude(events, "escape.raft"))
             {
                 PrototypeRaftLaunchWindow raft = hazardEscapeEndingRuntime.CurrentRaftLaunchWindow;
                 if (!raft.Allowed)
@@ -420,7 +573,7 @@ namespace KimSurvival
                 RecordWaveCWaitForecasts(events, ref sequence);
                 bool complete = new[] { "escape.raft", "escape.smoke", "escape.radio" }.All(route =>
                     events.Any(value => value.EscapeId == route &&
-                                        value.ResultCode.IndexOf("wait", StringComparison.OrdinalIgnoreCase) >= 0));
+                                        string.Equals(value.EventType, "escape.forecast.wait", StringComparison.Ordinal)));
                 if (complete) return;
                 if (!session.ExpeditionCompleted)
                 {
@@ -431,6 +584,26 @@ namespace KimSurvival
                 AdvanceWaveCProductionDay();
             }
             Require(false, "All three escape routes must expose a real zero-delta wait forecast within three days.");
+        }
+
+        private static bool HasWaveCFailureCancelPrelude(
+            IEnumerable<PrototypeWaveCProductionEvent> events,
+            string escapeId)
+        {
+            int failureSequence = events
+                .Where(value => string.Equals(value.EscapeId, escapeId, StringComparison.Ordinal) &&
+                                string.Equals(value.EventType, "escape.interaction.failed", StringComparison.Ordinal))
+                .Select(value => value.Sequence)
+                .DefaultIfEmpty(-1)
+                .Min();
+            int cancelSequence = events
+                .Where(value => string.Equals(value.EscapeId, escapeId, StringComparison.Ordinal) &&
+                                string.Equals(value.EventType, "escape.interaction.cancelled", StringComparison.Ordinal) &&
+                                value.Sequence > failureSequence)
+                .Select(value => value.Sequence)
+                .DefaultIfEmpty(-1)
+                .Min();
+            return failureSequence >= 0 && cancelSequence > failureSequence;
         }
 
         private void SearchWaveCNodeAndReturn(

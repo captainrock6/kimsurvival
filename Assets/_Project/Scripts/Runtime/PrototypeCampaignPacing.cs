@@ -647,6 +647,18 @@ namespace KimSurvival
         public string TieBreaker = "ASCII stable ID";
     }
 
+    [Serializable]
+    public sealed class PrototypeBehaviorIdentityTrackerSnapshot
+    {
+        public const int CurrentSchemaVersion = 1;
+
+        public int SchemaVersion = CurrentSchemaVersion;
+        public PrototypeBehaviorScore[] Scores = Array.Empty<PrototypeBehaviorScore>();
+        public PrototypeBehaviorScore[] DailyScores = Array.Empty<PrototypeBehaviorScore>();
+        public int TrackedDay = -1;
+        public PrototypeBehaviorIdentityState Identity = new PrototypeBehaviorIdentityState();
+    }
+
     public sealed class PrototypeBehaviorIdentityTracker
     {
         private readonly Dictionary<string, int> scores = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -671,6 +683,74 @@ namespace KimSurvival
             Identity.EstablishedStatId = string.Empty;
             Identity.EstablishedScore = 0;
             Identity.EstablishedDay = 0;
+        }
+
+        public PrototypeBehaviorIdentityTrackerSnapshot CaptureSnapshot()
+        {
+            return new PrototypeBehaviorIdentityTrackerSnapshot
+            {
+                Scores = scores.OrderBy(value => value.Key, StringComparer.Ordinal)
+                    .Select(value => new PrototypeBehaviorScore { StableId = value.Key, Value = value.Value }).ToArray(),
+                DailyScores = dailyScores.OrderBy(value => value.Key, StringComparer.Ordinal)
+                    .Select(value => new PrototypeBehaviorScore { StableId = value.Key, Value = value.Value }).ToArray(),
+                TrackedDay = trackedDay,
+                Identity = new PrototypeBehaviorIdentityState
+                {
+                    StableId = Identity.StableId,
+                    EstablishedStatId = Identity.EstablishedStatId,
+                    EstablishedScore = Identity.EstablishedScore,
+                    EstablishedDay = Identity.EstablishedDay,
+                    SwitchLead = Identity.SwitchLead,
+                    TieBreaker = Identity.TieBreaker
+                }
+            };
+        }
+
+        public bool RestoreSnapshot(PrototypeBehaviorIdentityTrackerSnapshot snapshot)
+        {
+            if (snapshot == null || snapshot.SchemaVersion != PrototypeBehaviorIdentityTrackerSnapshot.CurrentSchemaVersion ||
+                snapshot.Scores == null || snapshot.DailyScores == null || snapshot.Identity == null ||
+                snapshot.TrackedDay < -1 || snapshot.Identity.StableId == null ||
+                snapshot.Identity.EstablishedStatId == null || snapshot.Identity.TieBreaker == null ||
+                snapshot.Identity.EstablishedScore < 0 || snapshot.Identity.EstablishedDay < 0 ||
+                snapshot.Identity.SwitchLead < 0 || !ValidScores(snapshot.Scores, false) ||
+                !ValidScores(snapshot.DailyScores, true))
+            {
+                return false;
+            }
+
+            var restoredScores = snapshot.Scores.ToDictionary(value => value.StableId, value => value.Value, StringComparer.Ordinal);
+            var restoredDailyScores = snapshot.DailyScores.ToDictionary(value => value.StableId, value => value.Value, StringComparer.Ordinal);
+            bool hasEstablished = !string.IsNullOrEmpty(snapshot.Identity.EstablishedStatId);
+            int establishedScore = 0;
+            if (restoredDailyScores.Keys.Any(key => !restoredScores.ContainsKey(key)) ||
+                (hasEstablished &&
+                 (!restoredScores.TryGetValue(snapshot.Identity.EstablishedStatId, out establishedScore) ||
+                  establishedScore != snapshot.Identity.EstablishedScore)))
+            {
+                return false;
+            }
+
+            scores.Clear();
+            foreach (KeyValuePair<string, int> value in restoredScores) scores.Add(value.Key, value.Value);
+            dailyScores.Clear();
+            foreach (KeyValuePair<string, int> value in restoredDailyScores) dailyScores.Add(value.Key, value.Value);
+            trackedDay = snapshot.TrackedDay;
+            Identity.StableId = snapshot.Identity.StableId;
+            Identity.EstablishedStatId = snapshot.Identity.EstablishedStatId;
+            Identity.EstablishedScore = snapshot.Identity.EstablishedScore;
+            Identity.EstablishedDay = snapshot.Identity.EstablishedDay;
+            Identity.SwitchLead = snapshot.Identity.SwitchLead;
+            Identity.TieBreaker = snapshot.Identity.TieBreaker;
+            return true;
+        }
+
+        private static bool ValidScores(IEnumerable<PrototypeBehaviorScore> values, bool daily)
+        {
+            PrototypeBehaviorScore[] source = values == null ? Array.Empty<PrototypeBehaviorScore>() : values.ToArray();
+            return source.All(value => value != null && !string.IsNullOrWhiteSpace(value.StableId) &&
+                                       value.Value >= 0 && (!daily || value.Value <= 4)) &&
+                   source.Select(value => value.StableId).Distinct(StringComparer.Ordinal).Count() == source.Length;
         }
 
         public void Record(string statId, int points, int day)

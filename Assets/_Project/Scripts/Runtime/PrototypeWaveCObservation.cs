@@ -48,6 +48,19 @@ namespace KimSurvival
     }
 
     [Serializable]
+    public sealed class PrototypeWaveCRouteBranchObservation
+    {
+        public string EscapeId = string.Empty;
+        public string CompositeSaveFingerprint = string.Empty;
+        public string RestoredStartFingerprint = string.Empty;
+        public string TerminalStateFingerprint = string.Empty;
+        public string CompletedEscapeId = string.Empty;
+        public string TerminalEndingId = string.Empty;
+        public bool TerminalReached;
+        public PrototypeWaveCProductionEvent[] BranchEvents = Array.Empty<PrototypeWaveCProductionEvent>();
+    }
+
+    [Serializable]
     public sealed class PrototypeWaveCPlayObservation
     {
         public string EvidenceSource = "production-live input, scene objects, ledgers, snapshots, and rendered UI";
@@ -62,6 +75,8 @@ namespace KimSurvival
         public string ProtectedAfterFingerprint = string.Empty;
         public string[] CompletableEscapeIds = Array.Empty<string>();
         public PrototypeWaveCProductionEvent[] ProductionEvents = Array.Empty<PrototypeWaveCProductionEvent>();
+        public PrototypeWaveCRouteBranchObservation[] RouteBranches =
+            Array.Empty<PrototypeWaveCRouteBranchObservation>();
         public string[] CommittedRoomIds = Array.Empty<string>();
         public string[] ReenteredRoomIds = Array.Empty<string>();
         public string EscapeResourcesBeforeFingerprint = string.Empty;

@@ -37,12 +37,14 @@ namespace KimSurvival
     [Serializable]
     public sealed class PrototypeWaveCSaveRoot
     {
-        public const int CurrentSchemaVersion = 1;
+        public const int LegacySchemaVersion = 1;
+        public const int CurrentSchemaVersion = 2;
 
         public int SchemaVersion;
         public string SessionJson;
         public string SearchLedgerJson;
         public string EscapeDirectorJson;
+        public string WaveRuntimeJson;
         public string EndingAlbumJson;
         public string CampSpaceJson;
         public string CurrentRoomId;
@@ -58,6 +60,9 @@ namespace KimSurvival
                                Part(root.SessionJson) + "|" +
                                Part(root.SearchLedgerJson) + "|" +
                                Part(root.EscapeDirectorJson) + "|" +
+                               (root.SchemaVersion >= PrototypeWaveCSaveRoot.CurrentSchemaVersion
+                                   ? Part(root.WaveRuntimeJson) + "|"
+                                   : string.Empty) +
                                Part(root.EndingAlbumJson) + "|" +
                                Part(root.CampSpaceJson) + "|" +
                                Part(root.CurrentRoomId);

@@ -163,6 +163,19 @@ namespace ParallelQA
         }
 
         [Serializable]
+        private sealed class RouteBranchEvidence
+        {
+            public string escapeId = string.Empty;
+            public string compositeSaveFingerprint = string.Empty;
+            public string restoredStartFingerprint = string.Empty;
+            public string terminalStateFingerprint = string.Empty;
+            public string completedEscapeId = string.Empty;
+            public string terminalEndingId = string.Empty;
+            public bool terminalReached;
+            public EventEvidence[] events = Array.Empty<EventEvidence>();
+        }
+
+        [Serializable]
         private sealed class PlayEvidence
         {
             public string runId = string.Empty;
@@ -184,6 +197,7 @@ namespace ParallelQA
             public string protectedAfterFingerprint = string.Empty;
             public string[] completableEscapeIds = Array.Empty<string>();
             public EventEvidence[] events = Array.Empty<EventEvidence>();
+            public RouteBranchEvidence[] routeBranches = Array.Empty<RouteBranchEvidence>();
             public string[] committedRoomIds = Array.Empty<string>();
             public string[] reenteredRoomIds = Array.Empty<string>();
             public string escapeResourcesBeforeFingerprint = string.Empty;
@@ -494,15 +508,23 @@ namespace ParallelQA
                     delegate
                     {
                         RequireLive(evidence);
-                        Require(EventsAreProduction(evidence.events), "production-live ordered event records are missing");
-                        RequireOrderedPositiveRouteActions(evidence.events, "escape.raft", "facility.shore-launch",
+                        Require(evidence.routeBranches.Length == CoreEscapeIds.Length &&
+                                evidence.routeBranches.Select(value => value.escapeId)
+                                    .Distinct(StringComparer.Ordinal).Count() == CoreEscapeIds.Length,
+                            "route branch IDs=" + string.Join(",", evidence.routeBranches.Select(value => value.escapeId).ToArray()));
+                        Require(evidence.routeBranches.All(value => !string.IsNullOrWhiteSpace(value.compositeSaveFingerprint)) &&
+                                evidence.routeBranches.Select(value => value.compositeSaveFingerprint)
+                                    .Distinct(StringComparer.Ordinal).Count() == 1,
+                            "all route branches must fork from one common composite save fingerprint");
+                        RequireRouteBranch(evidence, "escape.raft", "facility.shore-launch",
                             new[] { "hull", "sail", "supplies" });
-                        RequireOrderedPositiveRouteActions(evidence.events, "escape.smoke", "facility.smoke-beacon",
+                        RequireRouteBranch(evidence, "escape.smoke", "facility.smoke-beacon",
                             new[] { "ignit", "visib" });
-                        RequireOrderedPositiveRouteActions(evidence.events, "escape.radio", "facility.radio-bench",
+                        RequireRouteBranch(evidence, "escape.radio", "facility.radio-bench",
                             new[] { "repair", "frequen" });
                         Require(ZeroCheatCalls(evidence), DescribeCounters(evidence));
-                        return "ordered production events=" + evidence.events.Length;
+                        return "independent production branches=" + evidence.routeBranches.Length +
+                               "; events=" + evidence.routeBranches.Sum(value => value.events.Length);
                     },
                     "Use the live shore launcher, smoke signal, and radio controls through their distinct visible actions.",
                     "active production escape interaction owners and event recorder");
@@ -766,6 +788,7 @@ namespace ParallelQA
             evidence.protectedAfterFingerprint = ReadString(observed, "ProtectedAfterFingerprint", "ProtectedInventoryAfterFingerprint");
             evidence.completableEscapeIds = ReadStrings(observed, "CompletableEscapeIds", "LiveCompletableEscapeIds");
             evidence.events = ReadEvents(observed);
+            evidence.routeBranches = ReadRouteBranches(observed);
             evidence.committedRoomIds = ReadStrings(observed, "CommittedRoomIds", "CommittedModuleRoomIds");
             evidence.reenteredRoomIds = ReadStrings(observed, "ReenteredRoomIds", "ReenteredModuleRoomIds");
             evidence.escapeResourcesBeforeFingerprint = ReadString(observed, "EscapeResourcesBeforeFingerprint", "EscapeInventoryBeforeFingerprint");
@@ -786,6 +809,11 @@ namespace ParallelQA
         private static EventEvidence[] ReadEvents(object observed)
         {
             object value = GetMember(observed, "ProductionEvents", "InteractionEvents", "PlaytestEventRecords", "Events");
+            return ReadEventsFromValue(value);
+        }
+
+        private static EventEvidence[] ReadEventsFromValue(object value)
+        {
             if (!(value is IEnumerable enumerable) || value is string) return Array.Empty<EventEvidence>();
             List<EventEvidence> events = new List<EventEvidence>();
             foreach (object item in enumerable)
@@ -816,6 +844,29 @@ namespace ParallelQA
                 if (!string.IsNullOrWhiteSpace(record.stableEventId)) events.Add(record);
             }
             return events.OrderBy(value => value.sequence).ToArray();
+        }
+
+        private static RouteBranchEvidence[] ReadRouteBranches(object observed)
+        {
+            object value = GetMember(observed, "RouteBranches", "EscapeRouteBranches", "BranchObservations");
+            if (!(value is IEnumerable enumerable) || value is string) return Array.Empty<RouteBranchEvidence>();
+            var branches = new List<RouteBranchEvidence>();
+            foreach (object item in enumerable)
+            {
+                if (item == null || item is string) continue;
+                branches.Add(new RouteBranchEvidence
+                {
+                    escapeId = ReadString(item, "EscapeId", "escape_id"),
+                    compositeSaveFingerprint = ReadString(item, "CompositeSaveFingerprint", "SaveFingerprint"),
+                    restoredStartFingerprint = ReadString(item, "RestoredStartFingerprint", "BranchStartFingerprint"),
+                    terminalStateFingerprint = ReadString(item, "TerminalStateFingerprint", "TerminalFingerprint"),
+                    completedEscapeId = ReadString(item, "CompletedEscapeId", "TerminalEscapeId"),
+                    terminalEndingId = ReadString(item, "TerminalEndingId", "EndingId"),
+                    terminalReached = ReadBool(item, false, "TerminalReached", "Terminal"),
+                    events = ReadEventsFromValue(GetMember(item, "BranchEvents", "ProductionEvents", "Events"))
+                });
+            }
+            return branches.ToArray();
         }
 
         private static LayoutEvidence[] ReadLayouts(object observed)
@@ -881,6 +932,34 @@ namespace ParallelQA
                     "; observed=" + DescribeRouteEvents(events, escapeId));
                 cursor = next;
             }
+        }
+
+        private static void RequireRouteBranch(
+            PlayEvidence evidence,
+            string escapeId,
+            string targetId,
+            string[] orderedActionTokens)
+        {
+            RouteBranchEvidence branch = evidence.routeBranches.SingleOrDefault(value => value != null &&
+                string.Equals(value.escapeId, escapeId, StringComparison.Ordinal));
+            Require(branch != null, escapeId + " independent composite-save branch is missing");
+            Require(SameNonEmpty(branch.compositeSaveFingerprint, branch.restoredStartFingerprint),
+                escapeId + " did not start from the common composite save fingerprint");
+            Require(branch.terminalReached &&
+                    string.Equals(branch.completedEscapeId, escapeId, StringComparison.Ordinal) &&
+                    !string.IsNullOrWhiteSpace(branch.terminalEndingId) &&
+                    !string.IsNullOrWhiteSpace(branch.terminalStateFingerprint),
+                escapeId + " branch did not reach its own terminal state");
+            Require(EventsAreProduction(branch.events), escapeId + " branch production events are missing or unordered");
+            Require(branch.events.All(value => string.Equals(value.escapeId, escapeId, StringComparison.Ordinal)),
+                escapeId + " branch is contaminated by another escape route");
+            RequireOrderedPositiveRouteActions(branch.events, escapeId, targetId, orderedActionTokens);
+            EventEvidence[] terminalEvents = branch.events.Where(value => value != null &&
+                string.Equals(value.eventType, "ending.resolved", StringComparison.Ordinal)).ToArray();
+            Require(terminalEvents.Length == 1 && terminalEvents[0].endingDelta == 1 &&
+                    terminalEvents[0].sequence == branch.events.Max(value => value.sequence),
+                escapeId + " branch must end in exactly one terminal ending.resolved event: " +
+                DescribeRouteEvents(branch.events, escapeId));
         }
 
         private static void RequireAtomicRouteCycle(EventEvidence[] events, string escapeId)
@@ -1112,6 +1191,13 @@ namespace ParallelQA
             object value = GetMember(owner, names);
             if (value == null) return fallback;
             try { return Convert.ToInt32(value); } catch { return fallback; }
+        }
+
+        private static bool ReadBool(object owner, bool fallback, params string[] names)
+        {
+            object value = GetMember(owner, names);
+            if (value == null) return fallback;
+            try { return Convert.ToBoolean(value); } catch { return fallback; }
         }
 
         private static float ReadFloat(object owner, float fallback, params string[] names)

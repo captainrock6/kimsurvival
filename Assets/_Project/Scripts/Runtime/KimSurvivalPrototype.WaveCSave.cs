@@ -11,6 +11,7 @@ namespace KimSurvival
             public PrototypeGameSessionWaveCSnapshot Session;
             public PrototypeSearchRunSnapshot SearchLedger;
             public PrototypeEscapeProjectSaveSnapshot EscapeDirector;
+            public PrototypeWaveRuntimeSnapshot WaveRuntime;
             public string EndingAlbumJson;
             public PrototypeCampSpaceSnapshot CampSpace;
         }
@@ -29,6 +30,7 @@ namespace KimSurvival
                 SessionJson = JsonUtility.ToJson(session.CaptureWaveCSnapshot()),
                 SearchLedgerJson = JsonUtility.ToJson(searchNodeRuntime.Ledger.CaptureSnapshot()),
                 EscapeDirectorJson = JsonUtility.ToJson(hazardEscapeEndingRuntime.EscapeDirector.CaptureSnapshot()),
+                WaveRuntimeJson = JsonUtility.ToJson(hazardEscapeEndingRuntime.CaptureWaveRuntimeSnapshot()),
                 EndingAlbumJson = endingAlbumCollection.CaptureSnapshot(),
                 CampSpaceJson = JsonUtility.ToJson(CaptureCampSpaceSnapshot()),
                 CurrentRoomId = CurrentCampRoomId
@@ -87,11 +89,7 @@ namespace KimSurvival
             bool applied;
             try
             {
-                applied = ApplyWaveCSave(desired) &&
-                          string.Equals(
-                              CaptureWaveCSaveFingerprint(),
-                              desired.Root.PayloadFingerprint,
-                              StringComparison.Ordinal);
+                applied = ApplyWaveCSave(desired) && AppliedWaveCSaveMatches(desired);
             }
             catch (Exception)
             {
@@ -116,10 +114,13 @@ namespace KimSurvival
         private bool TryDecodeWaveCSave(PrototypeWaveCSaveRoot root, out DecodedWaveCSave decoded)
         {
             decoded = null;
-            if (root == null || root.SchemaVersion != PrototypeWaveCSaveRoot.CurrentSchemaVersion ||
+            bool legacy = root != null && root.SchemaVersion == PrototypeWaveCSaveRoot.LegacySchemaVersion;
+            bool current = root != null && root.SchemaVersion == PrototypeWaveCSaveRoot.CurrentSchemaVersion;
+            if ((!legacy && !current) ||
                 string.IsNullOrWhiteSpace(root.SessionJson) ||
                 string.IsNullOrWhiteSpace(root.SearchLedgerJson) ||
                 string.IsNullOrWhiteSpace(root.EscapeDirectorJson) ||
+                (current && string.IsNullOrWhiteSpace(root.WaveRuntimeJson)) ||
                 string.IsNullOrWhiteSpace(root.EndingAlbumJson) ||
                 string.IsNullOrWhiteSpace(root.CampSpaceJson) ||
                 string.IsNullOrWhiteSpace(root.CurrentRoomId) ||
@@ -154,6 +155,19 @@ namespace KimSurvival
             {
                 return false;
             }
+
+            PrototypeWaveRuntimeSnapshot waveRuntimeSnapshot = null;
+            if (current &&
+                (!TryParseCanonical(root.WaveRuntimeJson, out waveRuntimeSnapshot) ||
+                 waveRuntimeSnapshot.SchemaVersion != PrototypeWaveRuntimeSnapshot.CurrentSchemaVersion ||
+                 waveRuntimeSnapshot.RunSeed != sessionSnapshot.RunSeed ||
+                 !string.Equals(
+                     root.EscapeDirectorJson,
+                     JsonUtility.ToJson(waveRuntimeSnapshot.EscapeDirector),
+                     StringComparison.Ordinal)))
+            {
+                return false;
+            }
             var stagedEscape = new PrototypeEscapeProjectDirector();
             if (!stagedEscape.RestoreSnapshot(escapeSnapshot) ||
                 !string.Equals(root.EscapeDirectorJson, JsonUtility.ToJson(stagedEscape.CaptureSnapshot()), StringComparison.Ordinal))
@@ -181,6 +195,7 @@ namespace KimSurvival
                 Session = sessionSnapshot,
                 SearchLedger = searchSnapshot,
                 EscapeDirector = escapeSnapshot,
+                WaveRuntime = waveRuntimeSnapshot,
                 EndingAlbumJson = root.EndingAlbumJson,
                 CampSpace = campSnapshot
             };
@@ -191,13 +206,53 @@ namespace KimSurvival
         {
             if (decoded == null ||
                 !session.RestoreWaveCSnapshot(decoded.Session) ||
-                !searchNodeRuntime.RestoreSnapshot(decoded.SearchLedger) ||
-                !hazardEscapeEndingRuntime.EscapeDirector.RestoreSnapshot(decoded.EscapeDirector))
+                !searchNodeRuntime.RestoreSnapshot(decoded.SearchLedger))
             {
                 return false;
             }
+
+            bool persistenceEnabled = endingAlbumCollection.PersistenceEnabled;
+            bool observationIsolation = hazardEscapeEndingRuntime.SetCompositeBranchObservationIsolation(true);
+            bool campRestored;
+            endingAlbumCollection.PersistenceEnabled = false;
+            try
+            {
+                campRestored = RestoreCampSpaceSnapshot(decoded.CampSpace);
+            }
+            finally
+            {
+                hazardEscapeEndingRuntime.SetCompositeBranchObservationIsolation(observationIsolation);
+                endingAlbumCollection.PersistenceEnabled = persistenceEnabled;
+            }
+            if (!campRestored) return false;
+
+            if (decoded.WaveRuntime != null)
+            {
+                if (!hazardEscapeEndingRuntime.RestoreWaveRuntimeSnapshot(decoded.WaveRuntime)) return false;
+            }
+            else
+            {
+                hazardEscapeEndingRuntime.ResetRuntime();
+                if (!hazardEscapeEndingRuntime.EscapeDirector.RestoreSnapshot(decoded.EscapeDirector)) return false;
+                hazardEscapeEndingRuntime.RestoreProtectedPartPitySnapshots(
+                    decoded.SearchLedger.ProtectedPartPity ?? Array.Empty<PrototypeProtectedPartPitySnapshot>());
+            }
             endingAlbumCollection.RestoreTransientSnapshot(decoded.EndingAlbumJson);
-            return RestoreCampSpaceSnapshot(decoded.CampSpace);
+            return true;
+        }
+
+        private bool AppliedWaveCSaveMatches(DecodedWaveCSave desired)
+        {
+            PrototypeWaveCSaveRoot actual = CaptureWaveCSaveSnapshot();
+            if (desired.Root.SchemaVersion == PrototypeWaveCSaveRoot.CurrentSchemaVersion)
+            {
+                return string.Equals(actual.PayloadFingerprint, desired.Root.PayloadFingerprint, StringComparison.Ordinal);
+            }
+
+            actual.SchemaVersion = PrototypeWaveCSaveRoot.LegacySchemaVersion;
+            actual.WaveRuntimeJson = string.Empty;
+            actual.PayloadFingerprint = PrototypeWaveCSaveFingerprint.Compute(actual);
+            return string.Equals(actual.PayloadFingerprint, desired.Root.PayloadFingerprint, StringComparison.Ordinal);
         }
 
         private static bool TryParseCanonical<T>(string json, out T value) where T : class

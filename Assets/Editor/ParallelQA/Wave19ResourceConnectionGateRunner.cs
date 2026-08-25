@@ -626,6 +626,7 @@ namespace ParallelQA
                     PrototypeSearchNodeDefinition definition = GetField(node, "Definition") as PrototypeSearchNodeDefinition;
                     Require(definition != null, kind + " environmental node has no structured Definition");
                     if (runtime.IsTrayOpen) runtime.Close(prototype.Session);
+                    prototype.Session.SetSwimming(definition.RequiresSwimming);
                     Require(runtime.TryOpen(definition, prototype.Session) == PrototypeSearchOpenResult.Opened,
                         kind + " environmental node could not open its actual compact tray");
                     InvokePrivate(prototype, "RefreshSearchLootTrayUi");

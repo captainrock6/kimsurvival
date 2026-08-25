@@ -111,6 +111,20 @@ namespace KimSurvival
     }
 
     [Serializable]
+    public sealed class PrototypeHazardDirectorSnapshot
+    {
+        public const int CurrentSchemaVersion = 1;
+
+        public int SchemaVersion = CurrentSchemaVersion;
+        public PrototypeHazardState[] States = Array.Empty<PrototypeHazardState>();
+        public string[] ProcessedTransactions = Array.Empty<string>();
+        public int BudgetDay = -1;
+        public int SpentBudget;
+        public int NewMajorCount;
+        public int ReservedRecovery;
+    }
+
+    [Serializable]
     public sealed class PrototypeContractProbe
     {
         public PrototypeContractProbe(bool success, string detail)
@@ -147,6 +161,67 @@ namespace KimSurvival
             spentBudget = 0;
             newMajorCount = 0;
             reservedRecovery = 0;
+        }
+
+        public PrototypeHazardDirectorSnapshot CaptureSnapshot()
+        {
+            return new PrototypeHazardDirectorSnapshot
+            {
+                States = states.Values.OrderBy(value => value.EventKey, StringComparer.Ordinal)
+                    .Select(CloneState).ToArray(),
+                ProcessedTransactions = processedTransactions.OrderBy(value => value, StringComparer.Ordinal).ToArray(),
+                BudgetDay = budgetDay,
+                SpentBudget = spentBudget,
+                NewMajorCount = newMajorCount,
+                ReservedRecovery = reservedRecovery
+            };
+        }
+
+        public bool RestoreSnapshot(PrototypeHazardDirectorSnapshot snapshot)
+        {
+            PrototypeHazardState[] source = snapshot == null || snapshot.States == null
+                ? Array.Empty<PrototypeHazardState>()
+                : snapshot.States;
+            string[] transactions = snapshot == null || snapshot.ProcessedTransactions == null
+                ? Array.Empty<string>()
+                : snapshot.ProcessedTransactions;
+            if (snapshot == null || snapshot.SchemaVersion != PrototypeHazardDirectorSnapshot.CurrentSchemaVersion ||
+                snapshot.BudgetDay < -1 || snapshot.SpentBudget < 0 || snapshot.NewMajorCount < 0 ||
+                snapshot.ReservedRecovery < 0 ||
+                source.Any(value => value == null || string.IsNullOrWhiteSpace(value.EventKey) ||
+                    string.IsNullOrWhiteSpace(value.StableId) || value.ResultCode == null ||
+                    !Enum.IsDefined(typeof(PrototypeHazardPhase), value.Phase) ||
+                    !CampaignHazardCatalog.All.Any(definition => definition.StableId == value.StableId)) ||
+                source.Select(value => value.EventKey).Distinct(StringComparer.Ordinal).Count() != source.Length ||
+                transactions.Any(string.IsNullOrWhiteSpace) ||
+                transactions.Distinct(StringComparer.Ordinal).Count() != transactions.Length)
+            {
+                return false;
+            }
+
+            states.Clear();
+            foreach (PrototypeHazardState state in source) states.Add(state.EventKey, CloneState(state));
+            processedTransactions.Clear();
+            foreach (string transaction in transactions) processedTransactions.Add(transaction);
+            budgetDay = snapshot.BudgetDay;
+            spentBudget = snapshot.SpentBudget;
+            newMajorCount = snapshot.NewMajorCount;
+            reservedRecovery = snapshot.ReservedRecovery;
+            return true;
+        }
+
+        private static PrototypeHazardState CloneState(PrototypeHazardState source)
+        {
+            return new PrototypeHazardState
+            {
+                StableId = source.StableId,
+                EventKey = source.EventKey,
+                EventDay = source.EventDay,
+                Phase = source.Phase,
+                Mitigated = source.Mitigated,
+                RecoveryScheduled = source.RecoveryScheduled,
+                ResultCode = source.ResultCode
+            };
         }
 
         public bool TryTelegraph(string eventKey, string hazardId, int day, PrototypeHazardLedger ledger)
@@ -698,6 +773,34 @@ namespace KimSurvival
     }
 
     [Serializable]
+    public sealed class PrototypeWaveRuntimeSnapshot
+    {
+        public const int CurrentSchemaVersion = 1;
+
+        public int SchemaVersion = CurrentSchemaVersion;
+        public int RunSeed;
+        public PrototypeHazardDirectorSnapshot HazardDirector = new PrototypeHazardDirectorSnapshot();
+        public PrototypeHazardLedger HazardLedger = new PrototypeHazardLedger();
+        public PrototypeHazardCadenceState HazardCadence = new PrototypeHazardCadenceState();
+        public PrototypeEscapeProjectSaveSnapshot EscapeDirector = new PrototypeEscapeProjectSaveSnapshot();
+        public PrototypeProtectedPartPitySnapshot[] ProtectedPartPity =
+            Array.Empty<PrototypeProtectedPartPitySnapshot>();
+        public PrototypeBehaviorIdentityTrackerSnapshot Behavior = new PrototypeBehaviorIdentityTrackerSnapshot();
+        public PrototypeCampaignEventRecord[] CampaignEvents = Array.Empty<PrototypeCampaignEventRecord>();
+        public string CurrentEndingId = string.Empty;
+        public string CurrentCoreEndingId = string.Empty;
+        public string CurrentEndingModifierId = string.Empty;
+        public bool TerminalEndingCommitted;
+        public int TerminalEndingCommitCount;
+        public int TerminalAlbumRecordCount;
+        public int TerminalDuplicateAttemptCount;
+        public string CurrentPacingBandId = "pacing.band.onboarding";
+        public PrototypeForecastResult CurrentForecast;
+        public int ObservedCampaignDay = -1;
+        public int ObservedCampaignPhase = -1;
+    }
+
+    [Serializable]
     public sealed class PrototypeCampaignEventRecord
     {
         public string stable_event_id = string.Empty;
@@ -1058,6 +1161,7 @@ namespace KimSurvival
         private PrototypeWaveSemanticSurface semanticSurface;
         private PrototypeWave18PresentationAssets presentationAssets;
         private PrototypeEndingAlbumCollection endingAlbumCollection;
+        private bool suppressExternalEventRecording;
 
         public string HazardStableIds { get { return "hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery"; } }
         public string EscapeProjectStableIds { get { return "escape.raft progress complete escape.smoke progress complete escape.radio progress complete escape.flare escape.beacon"; } }
@@ -1075,6 +1179,12 @@ namespace KimSurvival
         public bool SelectedPresentationAssetsConnected { get { return presentationAssets != null && presentationAssets.IsSelectedOnlyComplete; } }
         public IReadOnlyList<PrototypeCampaignEventRecord> CampaignEvents { get { return campaignEvents; } }
         internal bool MatchesRunSeed(int runSeed) { return session != null && session.RunSeed == runSeed; }
+        internal bool SetCompositeBranchObservationIsolation(bool active)
+        {
+            bool previous = suppressExternalEventRecording;
+            suppressExternalEventRecording = active;
+            return previous;
+        }
 
         public PrototypeWaveCAtomicSnapshot CaptureWaveCFailCancelWaitRetryEndingAlbumSnapshot()
         {
@@ -1640,6 +1750,260 @@ namespace KimSurvival
             };
         }
 
+        public PrototypeWaveRuntimeSnapshot CaptureWaveRuntimeSnapshot()
+        {
+            return new PrototypeWaveRuntimeSnapshot
+            {
+                RunSeed = session == null ? 0 : session.RunSeed,
+                HazardDirector = hazardDirector.CaptureSnapshot(),
+                HazardLedger = CloneHazardLedger(hazardLedger),
+                HazardCadence = CloneHazardCadence(hazardCadence),
+                EscapeDirector = escapeDirector.CaptureSnapshot(),
+                ProtectedPartPity = pitySnapshots.Values.OrderBy(value => value.PartId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray(),
+                Behavior = behaviorTracker.CaptureSnapshot(),
+                CampaignEvents = campaignEvents.Select(CloneCampaignEvent).ToArray(),
+                CurrentEndingId = currentEndingId,
+                CurrentCoreEndingId = currentCoreEndingId,
+                CurrentEndingModifierId = currentEndingModifierId,
+                TerminalEndingCommitted = terminalEndingCommitted,
+                TerminalEndingCommitCount = terminalEndingCommitCount,
+                TerminalAlbumRecordCount = terminalAlbumRecordCount,
+                TerminalDuplicateAttemptCount = terminalDuplicateAttemptCount,
+                CurrentPacingBandId = currentPacingBandId,
+                CurrentForecast = CloneForecast(currentForecast),
+                ObservedCampaignDay = observedCampaignDay,
+                ObservedCampaignPhase = (int)observedCampaignPhase
+            };
+        }
+
+        public bool RestoreWaveRuntimeSnapshot(PrototypeWaveRuntimeSnapshot snapshot)
+        {
+            if (!TryStageWaveRuntimeSnapshot(
+                    snapshot,
+                    out PrototypeHazardDirector stagedHazards,
+                    out PrototypeEscapeProjectDirector stagedEscape,
+                    out PrototypeBehaviorIdentityTracker stagedBehavior,
+                    out PrototypeProtectedPartPitySnapshot[] stagedPity))
+            {
+                return false;
+            }
+
+            if (!hazardDirector.RestoreSnapshot(stagedHazards.CaptureSnapshot()) ||
+                !escapeDirector.RestoreSnapshot(stagedEscape.CaptureSnapshot()) ||
+                !behaviorTracker.RestoreSnapshot(stagedBehavior.CaptureSnapshot()))
+            {
+                return false;
+            }
+
+            CopyHazardLedger(snapshot.HazardLedger, hazardLedger);
+            CopyHazardCadence(snapshot.HazardCadence, hazardCadence);
+            pityStates.Clear();
+            pitySnapshots.Clear();
+            EnsurePityStates();
+            foreach (PrototypeProtectedPartPitySnapshot pity in stagedPity)
+            {
+                SynchronizeProtectedPartPityState(pity);
+            }
+            campaignEvents.Clear();
+            campaignEvents.AddRange(snapshot.CampaignEvents.Select(CloneCampaignEvent));
+            currentEndingId = snapshot.CurrentEndingId;
+            currentCoreEndingId = snapshot.CurrentCoreEndingId;
+            currentEndingModifierId = snapshot.CurrentEndingModifierId;
+            terminalEndingCommitted = snapshot.TerminalEndingCommitted;
+            terminalEndingCommitCount = snapshot.TerminalEndingCommitCount;
+            terminalAlbumRecordCount = snapshot.TerminalAlbumRecordCount;
+            terminalDuplicateAttemptCount = snapshot.TerminalDuplicateAttemptCount;
+            currentPacingBandId = snapshot.CurrentPacingBandId;
+            currentForecast = CloneForecast(snapshot.CurrentForecast);
+            observedCampaignDay = snapshot.ObservedCampaignDay;
+            observedCampaignPhase = (GamePhase)snapshot.ObservedCampaignPhase;
+            if (semanticSurface != null)
+            {
+                semanticSurface.CurrentEndingStableId = currentEndingId;
+                semanticSurface.PacingBandStableId = currentPacingBandId;
+                semanticSurface.ForecastStableId = currentForecast == null ? string.Empty : currentForecast.ForecastId;
+            }
+            if (string.IsNullOrEmpty(currentEndingId))
+            {
+                DeactivateComic();
+            }
+            else
+            {
+                string restoredCore = currentCoreEndingId;
+                string restoredModifier = currentEndingModifierId;
+                ShowEndingForVerification(currentEndingId);
+                currentCoreEndingId = restoredCore;
+                currentEndingModifierId = restoredModifier;
+            }
+            UpdateHazardPresentation();
+            return true;
+        }
+
+        private bool TryStageWaveRuntimeSnapshot(
+            PrototypeWaveRuntimeSnapshot snapshot,
+            out PrototypeHazardDirector stagedHazards,
+            out PrototypeEscapeProjectDirector stagedEscape,
+            out PrototypeBehaviorIdentityTracker stagedBehavior,
+            out PrototypeProtectedPartPitySnapshot[] stagedPity)
+        {
+            stagedHazards = new PrototypeHazardDirector();
+            stagedEscape = new PrototypeEscapeProjectDirector();
+            stagedBehavior = new PrototypeBehaviorIdentityTracker();
+            stagedPity = Array.Empty<PrototypeProtectedPartPitySnapshot>();
+            PrototypeCampaignEventRecord[] events = snapshot == null || snapshot.CampaignEvents == null
+                ? Array.Empty<PrototypeCampaignEventRecord>()
+                : snapshot.CampaignEvents;
+            PrototypeProtectedPartPitySnapshot[] pity = snapshot == null || snapshot.ProtectedPartPity == null
+                ? Array.Empty<PrototypeProtectedPartPitySnapshot>()
+                : snapshot.ProtectedPartPity;
+            string[] expectedPityIds =
+            {
+                PrototypeRaftEscapeConfig.KeyPartId,
+                PrototypeSearchNodeLootResolver.FlintPartId,
+                PrototypeSearchNodeLootResolver.RadioTransceiverPartId,
+                PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId,
+                PrototypeSearchNodeLootResolver.RadioTransistorPartId
+            };
+            bool validObservedPhase = snapshot != null &&
+                                      (snapshot.ObservedCampaignPhase == -1 ||
+                                       Enum.IsDefined(typeof(GamePhase), snapshot.ObservedCampaignPhase));
+            if (snapshot == null || snapshot.SchemaVersion != PrototypeWaveRuntimeSnapshot.CurrentSchemaVersion ||
+                session == null || snapshot.RunSeed != session.RunSeed || snapshot.HazardLedger == null ||
+                snapshot.HazardCadence == null || snapshot.EscapeDirector == null || snapshot.Behavior == null ||
+                snapshot.CurrentEndingId == null || snapshot.CurrentCoreEndingId == null ||
+                snapshot.CurrentEndingModifierId == null || string.IsNullOrWhiteSpace(snapshot.CurrentPacingBandId) ||
+                snapshot.ObservedCampaignDay < -1 || !validObservedPhase ||
+                snapshot.TerminalEndingCommitCount < 0 || snapshot.TerminalEndingCommitCount > 1 ||
+                snapshot.TerminalAlbumRecordCount < 0 ||
+                snapshot.TerminalAlbumRecordCount != snapshot.TerminalEndingCommitCount ||
+                snapshot.TerminalDuplicateAttemptCount < 0 ||
+                snapshot.TerminalEndingCommitted != (snapshot.TerminalEndingCommitCount == 1) ||
+                (snapshot.TerminalEndingCommitted && string.IsNullOrWhiteSpace(snapshot.CurrentEndingId)) ||
+                (!string.IsNullOrEmpty(snapshot.CurrentEndingId) &&
+                 !PrototypeEndingCatalog.All.Any(value => value.StableId == snapshot.CurrentEndingId)) ||
+                !ValidHazardLedger(snapshot.HazardLedger) || !ValidHazardCadence(snapshot.HazardCadence) ||
+                !ValidForecast(snapshot.CurrentForecast) || !ValidCampaignEvents(events) ||
+                pity.Any(value => value == null || string.IsNullOrWhiteSpace(value.PartId) ||
+                    value.AssignedNodeId == null || value.CountedNodeIds == null || value.SourceNodeId == null ||
+                    value.RepairState == null || value.EligibleMissCount < 0 ||
+                    value.CountedNodeIds.Any(string.IsNullOrWhiteSpace) ||
+                    value.CountedNodeIds.Distinct(StringComparer.Ordinal).Count() != value.CountedNodeIds.Length) ||
+                !pity.Select(value => value.PartId).OrderBy(value => value, StringComparer.Ordinal)
+                    .SequenceEqual(expectedPityIds.OrderBy(value => value, StringComparer.Ordinal)) ||
+                !stagedHazards.RestoreSnapshot(snapshot.HazardDirector) ||
+                !stagedEscape.RestoreSnapshot(snapshot.EscapeDirector) ||
+                !stagedBehavior.RestoreSnapshot(snapshot.Behavior))
+            {
+                return false;
+            }
+            stagedPity = pity.OrderBy(value => value.PartId, StringComparer.Ordinal)
+                .Select(value => value.Clone()).ToArray();
+            return true;
+        }
+
+        private static bool ValidHazardLedger(PrototypeHazardLedger value)
+        {
+            return value != null && value.Health >= 0 && value.Health <= 100 && value.Food >= 0 &&
+                   value.LogCount >= 0 && value.FacilityDamageCount >= 0 && value.LossApplications >= 0 &&
+                   value.ProtectedKeyPartIds != null && value.CompletedStageIds != null &&
+                   value.ProtectedKeyPartIds.All(id => !string.IsNullOrWhiteSpace(id)) &&
+                   value.CompletedStageIds.All(id => !string.IsNullOrWhiteSpace(id));
+        }
+
+        private static bool ValidHazardCadence(PrototypeHazardCadenceState value)
+        {
+            return value != null && value.LastMajorHazardId != null && value.LastMajorDay >= -10 &&
+                   value.RecoveryReservedDay >= -1 && value.ReservedBudget >= 0;
+        }
+
+        private static bool ValidForecast(PrototypeForecastResult value)
+        {
+            return value == null || value.Day >= 1 && value.RegionId != null && value.PacingBandId != null &&
+                   value.ForecastId != null && value.HazardId != null && value.AbundanceBand != null &&
+                   value.PityStateId != null;
+        }
+
+        private static bool ValidCampaignEvents(IEnumerable<PrototypeCampaignEventRecord> values)
+        {
+            return (values ?? Array.Empty<PrototypeCampaignEventRecord>()).All(value => value != null &&
+                value.stable_event_id != null && value.pacing_band_id != null && value.region_id != null &&
+                value.forecast_id != null && value.hazard_id != null && value.project_id != null &&
+                value.behavior_score_ids != null && value.behavior_score_ids.All(id => id != null) &&
+                value.escape_id != null && value.ending_id != null && value.result_code != null);
+        }
+
+        private static PrototypeHazardLedger CloneHazardLedger(PrototypeHazardLedger source)
+        {
+            var result = new PrototypeHazardLedger();
+            CopyHazardLedger(source, result);
+            return result;
+        }
+
+        private static void CopyHazardLedger(PrototypeHazardLedger source, PrototypeHazardLedger destination)
+        {
+            destination.Health = source.Health;
+            destination.Food = source.Food;
+            destination.LogCount = source.LogCount;
+            destination.ProtectedKeyPartIds = (source.ProtectedKeyPartIds ?? Array.Empty<string>()).ToArray();
+            destination.CompletedStageIds = (source.CompletedStageIds ?? Array.Empty<string>()).ToArray();
+            destination.FacilityDamageCount = source.FacilityDamageCount;
+            destination.LossApplications = source.LossApplications;
+        }
+
+        private static PrototypeHazardCadenceState CloneHazardCadence(PrototypeHazardCadenceState source)
+        {
+            return new PrototypeHazardCadenceState
+            {
+                LastMajorDay = source.LastMajorDay,
+                LastMajorHazardId = source.LastMajorHazardId,
+                RecoveryReservedDay = source.RecoveryReservedDay,
+                ReservedBudget = source.ReservedBudget
+            };
+        }
+
+        private static void CopyHazardCadence(PrototypeHazardCadenceState source, PrototypeHazardCadenceState destination)
+        {
+            destination.LastMajorDay = source.LastMajorDay;
+            destination.LastMajorHazardId = source.LastMajorHazardId;
+            destination.RecoveryReservedDay = source.RecoveryReservedDay;
+            destination.ReservedBudget = source.ReservedBudget;
+        }
+
+        private static PrototypeForecastResult CloneForecast(PrototypeForecastResult source)
+        {
+            return source == null ? null : new PrototypeForecastResult
+            {
+                Seed = source.Seed,
+                Day = source.Day,
+                RegionId = source.RegionId,
+                PacingBandId = source.PacingBandId,
+                ForecastId = source.ForecastId,
+                HazardId = source.HazardId,
+                AbundanceBand = source.AbundanceBand,
+                PityStateId = source.PityStateId
+            };
+        }
+
+        private static PrototypeCampaignEventRecord CloneCampaignEvent(PrototypeCampaignEventRecord source)
+        {
+            return new PrototypeCampaignEventRecord
+            {
+                stable_event_id = source.stable_event_id,
+                seed = source.seed,
+                day = source.day,
+                pacing_band_id = source.pacing_band_id,
+                region_id = source.region_id,
+                forecast_id = source.forecast_id,
+                hazard_id = source.hazard_id,
+                project_id = source.project_id,
+                behavior_score_ids = (source.behavior_score_ids ?? Array.Empty<string>()).ToArray(),
+                escape_id = source.escape_id,
+                ending_id = source.ending_id,
+                result_code = source.result_code
+            };
+        }
+
         public PrototypeWaveCComicLayoutObservation[] CaptureWaveCComicLayoutObservations()
         {
             return CaptureWaveCComicLayoutObservations(Path.Combine(Application.temporaryCachePath, "kim-survival-wave-c-ending"));
@@ -1796,7 +2160,7 @@ namespace KimSurvival
                 result_code = resultCode ?? string.Empty
             };
             campaignEvents.Add(record);
-            if (playtestLog != null)
+            if (playtestLog != null && !suppressExternalEventRecording)
             {
                 playtestLog.RecordCampaignContractEvent(eventName, hazardId, escapeId, endingId, resultCode, snapshot.pacing_band_id);
             }

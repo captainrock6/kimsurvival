@@ -599,11 +599,14 @@ namespace ParallelQA
             {
                 prototype.Session.Reset();
                 InvokePrivate(prototype, "RefreshAll");
-                Require(prototype.Session.BeginSearch(PrototypeExpeditionRegionId.Shallows),
-                    "shore-launch observation could not begin the natural shallows discovery route");
-                InvokePrivate(prototype, "RefreshAll");
+                PrototypeSearchNodePlayObservation discovery = prototype.CaptureSearchNodeVerificationObservation();
+                Require(discovery != null && string.IsNullOrEmpty(discovery.ObservationError) &&
+                        discovery.ActualNodeObserved && discovery.DepletedObserved && discovery.SailclothLinked &&
+                        !discovery.Grant && !discovery.Warp && !discovery.Skip,
+                    "shore-launch observation could not complete an actual protected-part search: " +
+                    (discovery == null ? "missing observation" : discovery.ObservationError));
                 Require(prototype.Session.ReturnToCamp(false),
-                    "shore-launch observation could not complete the natural shallows discovery route");
+                    "shore-launch observation could not return from the actual protected-part search");
                 InvokePrivate(prototype, "RefreshAll");
                 InvokePrivate(prototype, "RefreshCampInteractionSelection");
                 IEnumerable targets = GetField(prototype, "campInteractionTargets") as IEnumerable;
