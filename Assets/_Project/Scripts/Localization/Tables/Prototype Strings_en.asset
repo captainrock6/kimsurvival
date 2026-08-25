@@ -1828,6 +1828,18 @@ MonoBehaviour:
     m_Localized: The raft caught the outbound current. Escape resolved once.
     m_Metadata:
       m_Items: []
+  - m_Id: 8000000000000001
+    m_Localized: Use shore launch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8000000000000002
+    m_Localized: Build and launch raft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8000000000000003
+    m_Localized: "Cancel launch \xB7 progress preserved"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

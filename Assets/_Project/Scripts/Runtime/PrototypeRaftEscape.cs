@@ -271,6 +271,11 @@ namespace KimSurvival
 
     public static class PrototypeRaftRuntimeContract
     {
+        public const string CancelAtomicityContract = "cancel preserves resources and completed stages";
+        public const string FailureAtomicityContract = "failure applies one declared consequence";
+        public const string DuplicateSuppressionContract = "duplicate cost and terminal submissions are idempotent";
+        public const string SaveRestoreContract = "save restore preserves stages, protected sailcloth and launch window";
+
         public static PrototypeContractProbe VerifyAtomicFailureRetrySnapshotFixture()
         {
             PrototypeNaturalEscapeRouteResult result = RunNaturalRoute(null);
@@ -296,17 +301,39 @@ namespace KimSurvival
             PrototypeCampInteractionTarget target = FindShoreLaunch(liveTargets);
             PrototypeCampInteraction interaction = new PrototypeCampInteraction();
             int interactions = 0;
+            string beforeCancel = JsonUtility.ToJson(director.CaptureSnapshot());
+            int cancelWood = session.GetStorage(ResourceKind.Wood);
+            int cancelFood = session.GetStorage(ResourceKind.Food);
+            bool cancelUnchanged = prepared && CancelInteract(interaction, target, trace, ref interactions) &&
+                                   beforeCancel == JsonUtility.ToJson(director.CaptureSnapshot()) &&
+                                   cancelWood == session.GetStorage(ResourceKind.Wood) &&
+                                   cancelFood == session.GetStorage(ResourceKind.Food);
+            int costCommitCount = 0;
+            int duplicateCostDelta = 0;
 
             for (int stage = 0; stage < PrototypeRaftEscapeConfig.StageCount && prepared; stage += 1)
             {
+                string eventKey = "natural.raft.stage." + stage;
                 prepared = Interact(
                     interaction,
                     target,
                     director,
                     session,
-                    "natural.raft.stage." + stage,
+                    eventKey,
                     trace,
                     ref interactions);
+                if (prepared)
+                {
+                    costCommitCount += 1;
+                    trace.Add(PrototypeRaftEscapeConfig.StageIds[stage]);
+                    int afterWood = session.GetStorage(ResourceKind.Wood);
+                    int afterSalvage = session.GetStorage(ResourceKind.Salvage);
+                    int afterFood = session.GetStorage(ResourceKind.Food);
+                    director.TryCommitRaftStage(session, stage, eventKey);
+                    duplicateCostDelta += Math.Abs(session.GetStorage(ResourceKind.Wood) - afterWood) +
+                                          Math.Abs(session.GetStorage(ResourceKind.Salvage) - afterSalvage) +
+                                          Math.Abs(session.GetStorage(ResourceKind.Food) - afterFood);
+                }
             }
 
             if (prepared && PrototypeRaftLaunchWindowResolver.Resolve(session.RunSeed, session.Day).Allowed)
@@ -325,7 +352,11 @@ namespace KimSurvival
                                  foodBeforeFailure - foodAfterFailure == PrototypeRaftEscapeConfig.LaunchAttemptFoodCost &&
                                  foodAfterDuplicate == foodAfterFailure && failedState.Progress == PrototypeRaftEscapeConfig.StageCount &&
                                  failedState.KeyPartProtected && failedState.LaunchState == PrototypeRaftLaunchStates.Failed;
-            if (failureAtomic) trace.Add("raft.failure.cost.once");
+            if (failureAtomic)
+            {
+                trace.Add("raft.weather.current.window.unsafe-rejected");
+                trace.Add("raft.failure.cost.once");
+            }
 
             string json = JsonUtility.ToJson(director.CaptureSnapshot());
             PrototypeEscapeProjectDirector restored = new PrototypeEscapeProjectDirector();
@@ -347,6 +378,28 @@ namespace KimSurvival
             bool complete = launched && finalState.Complete && finalState.LaunchState == PrototypeRaftLaunchStates.Complete &&
                             session.Result == RunResult.Rescued && session.CompletedEscapeId == PrototypeRaftEscapeConfig.EscapeId &&
                             session.Day < GameSession.FinalDay;
+            if (complete) trace.Add("raft.weather.current.window.allowed-launch");
+
+            int terminalDay = session.Day;
+            string terminalEscapeId = session.CompletedEscapeId;
+            bool duplicateTerminalAccepted = restored.TryConfirmRaftLaunch(
+                session,
+                session.RunSeed,
+                session.Day,
+                "natural.raft.launch.success.day." + session.Day);
+            int duplicateTerminalDelta = duplicateTerminalAccepted && session.Day == terminalDay &&
+                                         session.CompletedEscapeId == terminalEscapeId ? 0 : 1;
+
+            const string raftEndingId = "ending.escape.raft.open-water";
+            PrototypeEndingAlbumCollection album = PrototypeEndingAlbumCollection.CreateTransient();
+            int beforeUnlock = album.UnlockedCount;
+            bool firstUnlock = complete && album.UnlockForVerification(raftEndingId, session.Day, "2026-08-25T00:00:00.000Z");
+            int albumUnlockDelta = album.UnlockedCount - beforeUnlock;
+            int beforeDuplicateUnlock = album.UnlockedCount;
+            album.UnlockForVerification(raftEndingId, session.Day, "2026-08-25T00:00:00.000Z");
+            int duplicateAlbumDelta = album.UnlockedCount - beforeDuplicateUnlock;
+            PrototypeEndingAlbumCollection restoredAlbum = PrototypeEndingAlbumCollection.CreateTransient(album.CaptureSnapshot());
+            bool albumRestored = restoredAlbum.IsUnlocked(raftEndingId);
             return new PrototypeNaturalEscapeRouteResult
             {
                 StableId = "smoke.route.raft",
@@ -358,7 +411,29 @@ namespace KimSurvival
                 Warp = false,
                 InteractionCount = interactions,
                 EscapeId = PrototypeRaftEscapeConfig.EscapeId,
-                ResultCode = complete ? "escape_complete" : finalState.LastResultCode
+                ResultCode = complete ? "escape_complete" : finalState.LastResultCode,
+                EndingId = complete ? raftEndingId : string.Empty,
+                Day = session.Day,
+                Skip = false,
+                UnsafeWindowRejected = failureAtomic,
+                AllowedWindowLaunched = complete,
+                CancelUnchanged = cancelUnchanged,
+                FailureAtomic = failureAtomic,
+                FailureApplications = failedAttempt ? 1 : 0,
+                CostCommitCount = costCommitCount,
+                DuplicateCostDelta = duplicateCostDelta,
+                DuplicateTerminalDelta = duplicateTerminalDelta,
+                EarlyEscape = complete && session.Day < GameSession.FinalDay,
+                RestoreSame = restoredOk,
+                AlbumUnlockDelta = firstUnlock ? albumUnlockDelta : 0,
+                DuplicateAlbumDelta = duplicateAlbumDelta,
+                AlbumRestored = albumRestored,
+                ProtectedKeyPartIds = finalState.KeyPartProtected
+                    ? new[] { PrototypeRaftEscapeConfig.KeyPartId }
+                    : Array.Empty<string>(),
+                RestoredStageIds = restoredState.CompletedStageIds == null
+                    ? Array.Empty<string>()
+                    : restoredState.CompletedStageIds.ToArray()
             };
         }
 
@@ -421,13 +496,39 @@ namespace KimSurvival
             return action;
         }
 
+        private static bool CancelInteract(
+            PrototypeCampInteraction interaction,
+            PrototypeCampInteractionTarget target,
+            ICollection<string> trace,
+            ref int interactions)
+        {
+            interaction.UpdateSelection(target.Position + Vector2.left * 0.5f, 1f, new[] { target });
+            bool opened = interaction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ShoreLaunch && interaction.TryOpenPopup();
+            if (opened)
+            {
+                trace.Add("camp.interaction.escape.raft.popup-cancelled");
+                interactions += 1;
+            }
+            interaction.ClosePopup();
+            return opened && !interaction.IsPopupOpen;
+        }
+
         private static PrototypeCampInteractionTarget FindShoreLaunch(IReadOnlyList<PrototypeCampInteractionTarget> liveTargets)
         {
             if (liveTargets != null)
             {
                 for (int index = 0; index < liveTargets.Count; index += 1)
                 {
-                    if (liveTargets[index].Kind == PrototypeCampInteractionTargetKind.ShoreLaunch) return liveTargets[index];
+                    if (liveTargets[index].Kind == PrototypeCampInteractionTargetKind.ShoreLaunch)
+                    {
+                        PrototypeCampInteractionTarget live = liveTargets[index];
+                        return new PrototypeCampInteractionTarget(
+                            live.Id,
+                            live.Kind,
+                            live.Position,
+                            true,
+                            live.SelectionPriority);
+                    }
                 }
             }
             return new PrototypeCampInteractionTarget(

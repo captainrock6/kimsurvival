@@ -432,6 +432,24 @@ namespace KimSurvival
         public int InteractionCount;
         public string EscapeId = string.Empty;
         public string ResultCode = string.Empty;
+        public string EndingId = string.Empty;
+        public int Day;
+        public bool Skip;
+        public bool UnsafeWindowRejected;
+        public bool AllowedWindowLaunched;
+        public bool CancelUnchanged;
+        public bool FailureAtomic;
+        public int FailureApplications;
+        public int CostCommitCount;
+        public int DuplicateCostDelta;
+        public int DuplicateTerminalDelta;
+        public bool EarlyEscape;
+        public bool RestoreSame;
+        public int AlbumUnlockDelta;
+        public int DuplicateAlbumDelta;
+        public bool AlbumRestored;
+        public string[] ProtectedKeyPartIds = Array.Empty<string>();
+        public string[] RestoredStageIds = Array.Empty<string>();
     }
 
     public static class PrototypeNaturalEscapeRouteContract

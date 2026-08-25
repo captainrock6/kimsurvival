@@ -1939,6 +1939,18 @@ MonoBehaviour:
       \uD0C8\uCD9C \uACB0\uACFC\uB294 \uD55C \uBC88\uB9CC \uD655\uC815\uB410\uB2E4."
     m_Metadata:
       m_Items: []
+  - m_Id: 8000000000000001
+    m_Localized: "\uD574\uC548 \uC9C4\uC218\uB300 \uC0AC\uC6A9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8000000000000002
+    m_Localized: "\uB5CF\uBAA9 \uC81C\uC791\xB7\uCD9C\uD56D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8000000000000003
+    m_Localized: "\uCD9C\uD56D \uCDE8\uC18C \xB7 \uC9C4\uD589 \uBCF4\uC874"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

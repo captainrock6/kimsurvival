@@ -1950,6 +1950,18 @@ MonoBehaviour:
     m_Localized: "\u27E6The raft caught the outbound current. Escape resolved once.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\u27E7"
     m_Metadata:
       m_Items: []
+  - m_Id: 8000000000000001
+    m_Localized: "\u27E6Use shore launch\xE1\xE9\xED\xF3\xFA\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8000000000000002
+    m_Localized: "\u27E6Build and launch raft\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8000000000000003
+    m_Localized: "\u27E6Cancel launch \xB7 progress preserved\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
