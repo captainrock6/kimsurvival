@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "title": "Search node art integration regression guard",
+  "baselineCommit": "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+  "evidence": {
+    "requestedRun": "Artifacts/ParallelQA/20260825T160510Z_gamejam_search_node_integrated",
+    "gateId": "W19-P02.resource_nodes_adopted_icons",
+    "status": "FAIL",
+    "actual": "no Wood node exists",
+    "adoptedIconGuidContractAllPass": true,
+    "diagnosis": "The searchable-node runtime replaced the legacy ResourceNodeMarker population observed by W19-P02. The adopted icon GUIDs and scene fields remained correct; this is not an art GUID replacement regression.",
+    "runtimeCSharpModified": false,
+    "qaAcceptanceModified": false
+  },
+  "protectedAdoptedResourceIcons": [
+    {
+      "stableId": "resource.wood",
+      "assetId": "icon.resource-tool-set",
+      "jobId": "job_20260822141317_caf8e11d",
+      "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png",
+      "guid": "5ba05e4e569ab6745bff72d0b9ba9151",
+      "metaSha256": "8114e1de775e51d5ac8ac662f3623329322c5f867767fbe1e5820f68f23c5930"
+    },
+    {
+      "stableId": "resource.stone",
+      "assetId": "icon.resource-tool-set",
+      "jobId": "job_20260822141317_caf8e11d",
+      "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png",
+      "guid": "c881b7198e647ad40b32c63ce18e27a2",
+      "metaSha256": "2472d7c760094a98eb4a7c4ba95f5bbee5469de2a6cb61bb21f37864f85e86a0"
+    },
+    {
+      "stableId": "resource.food",
+      "assetId": "icon.resource-tool-set",
+      "jobId": "job_20260822141317_caf8e11d",
+      "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png",
+      "guid": "59695c50812722b458c210b4cfb02c12",
+      "metaSha256": "00973be5d64f2db619c2a29e21c4a0e268452bd86fc5adf817ca1e7420c75faa"
+    },
+    {
+      "stableId": "resource.salvage",
+      "assetId": "icon.resource-tool-set",
+      "jobId": "job_20260822141317_caf8e11d",
+      "path": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png",
+      "guid": "cb8829a17d9cc9049aa16fbf4393097a",
+      "metaSha256": "f898fa22371c5d92cd48ac494bfa6b9ee0c208a2d5d3e600ce63fcc18b33a4aa"
+    }
+  ],
+  "lootSurfaceBindingManifest": "Docs/Art/GameJamSearchNodeReview/loot-surface-adopted-icon-guid-binding.json",
+  "reviewAssets": [
+    {
+      "assetId": "object.searchable-resource-node-kit",
+      "candidateId": "object.searchable-resource-node-kit.state-language-a",
+      "jobId": "job_20260825150605_49020784",
+      "status": "review",
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "packageAllowed": false,
+      "runtimeConnectAllowed": false,
+      "runtimeConnected": false,
+      "engine": {},
+      "runtimeRejectPrefix": "Assets/_Project/Art/Generated/separated_parts/job_20260825150605_49020784/"
+    },
+    {
+      "assetId": "ui.search-loot-tray",
+      "candidateId": "ui.search-loot-tray.compact-bottom-a",
+      "jobId": "job_20260825150608_cb65726e",
+      "status": "review",
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "packageAllowed": false,
+      "runtimeConnectAllowed": false,
+      "runtimeConnected": false,
+      "engine": {},
+      "runtimeRejectPrefix": "Assets/_Project/Art/Generated/ui_set/job_20260825150608_cb65726e/"
+    }
+  ],
+  "unityMetaValidation": {
+    "unityVersion": "6000.4.9f1",
+    "candidateFileMetaCount": 57,
+    "candidateJobFolderMetaCount": 2,
+    "candidateMetaChangedOnSecondImport": 0,
+    "adoptedIconMetaChecked": 13,
+    "adoptedIconMetaChangedOnSecondImport": 0
+  },
+  "representativeReviewImage": {
+    "path": "Docs/Art/GameJamSearchNodeReview/search-node-loot-tray-adopted-icon-binding-1280x800.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 142570,
+    "sha256": "5ef67fedfea516c8b85e95e0562fdf84aceb4798a12a55fcf83f65a93a121172",
+    "purpose": "Actual-size review composite only; never a runtime source or allowlisted package file. Visible locale text originates from the engine screenshot layer. Reusable candidate components remain text-free and expose TMP safe rectangles."
+  },
+  "localization": {
+    "rasterizedBodyText": false,
+    "engineText": "TMP",
+    "safeWidths": {
+      "ko": 300,
+      "en": 380,
+      "qps-long": 520
+    },
+    "minimumBodyPx": 18,
+    "glyphFocusRect": [44, 44]
+  }
+}
