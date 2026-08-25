@@ -1830,6 +1830,15 @@ MonoBehaviour:
     m_Localized: "\u27E6B\xE1ck\u27E7"
     m_Metadata:
       m_Items: []
+  - m_Id: 1106045870260224
+    m_Localized: "\u27E6\xC9xp\xE9d\xEDt\xED\xF3\xF1 c\xF3mpl\xE9t\xE9 t\xF3d\xE1y
+      \xB7 V\xED\xE9w \xF1\xF3t\xEDc\xE9\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1106045933174784
+    m_Localized: "\u27E6\xC9xp\xE9d\xEDt\xED\xF3\xF1 c\xF3mpl\xE9t\xE9 t\xF3d\xE1y\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

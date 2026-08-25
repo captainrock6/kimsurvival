@@ -1810,6 +1810,14 @@ MonoBehaviour:
     m_Localized: "\uB4A4\uB85C"
     m_Metadata:
       m_Items: []
+  - m_Id: 1106045870260224
+    m_Localized: "\uC624\uB298 \uC218\uC9D1 \uC644\uB8CC \xB7 \uC548\uB0B4 \uBCF4\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1106045933174784
+    m_Localized: "\uC624\uB298 \uC218\uC9D1 \uC644\uB8CC"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

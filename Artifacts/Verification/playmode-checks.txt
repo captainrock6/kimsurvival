@@ -1,14 +1,25 @@
 PASS
-PASS · 가방 4→6 원자적 확장·잠긴 슬롯·5/6 획득/중첩/교체/포기/귀환·키보드/마우스/게임패드 포커스·1280x800/1920x1080 ko/en UI, ko/en 신호대 1·2단계 요구조건·선택 가능한 부족 피드백, 채택 캠프 배경·구조물 아트·바닥선·전용 신호대 앵커, ko/en 즉시 전환·한국어 폴백·TMP 폰트, 배치·수영·장벽·제작·연구·가방·귀환·정산 회귀 확인
-Bag locked Korean 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-locked-ko-1280x800.png
-Bag upgraded English 1280x800: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-upgraded-en-1280x800.png
-Bag locked Korean 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-locked-ko-1920x1080.png
-Bag upgraded English 1920x1080: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-upgraded-en-1920x1080.png
-Signal stage one missing/workbench Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
-Signal stage two missing/rope English screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
-Placement Korean screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-placement-ko-invalid-1280x800.png
-Placement English/gamepad screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
-Swimming screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-swimming-en-1280x800.png
-Exploration screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-exploration-ko-1280x800.png
-Camp screenshot: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-camp-en-1280x800.png
-Completed UTC: 2026-08-23T02:15:30.5892491Z
+PASS · Wave 19 채택 ending-gallery album-spread A, 현장 기록함 근접→팝업→앨범, 19개 stable ID·achievement mapping·로컬 해금/비스포일러 힌트, ko/en/qps-long 1280x800 overflow 0과 키보드/합성 게임패드 동등성을 확인. Wave 16 지도 A, Wave 15 Day 50·seed·탈출 경로와 compact-a·직접 연결 슬롯·제한적 자유 배치·가방 4→6·수색·수영·장벽·구조 신호 원자성을 회귀 확인
+Bag locked Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-locked-ko-1280x800.png
+Bag upgraded English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-upgraded-en-1280x800.png
+Bag locked Korean 1920x1080: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-locked-ko-1920x1080.png
+Bag upgraded English 1920x1080: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-bag-upgraded-en-1920x1080.png
+Wave 12 far camp Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave12-camp-far-ko-1280x800.png
+Wave 12 facility near Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave12-facility-near-ko-1280x800.png
+Wave 12 facility near English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave12-facility-near-en-1280x800.png
+Wave 12 direct slot near qps-long 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave12-direct-slot-near-qps-long-1280x800.png
+Wave 9 workbench popup English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave9-workbench-popup-en-1280x800.png
+Wave 12 popup-open Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave12-popup-open-ko-1280x800.png
+Wave 11 upper-slot popup Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave11-upper-slot-popup-ko-1280x800.png
+Wave 11 module upper Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave11-module-upper-ko-1280x800.png
+Wave 11 module side English 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave11-module-side-en-1280x800.png
+Wave 11 module basement qps-long 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave11-module-basement-qps-long-1280x800.png
+Wave 9 module interior Korean 1280x800: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave9-module-interior-ko-1280x800.png
+Signal stage one missing/workbench Korean screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-signal-stage1-missing-ko-1280x800.png
+Signal stage two missing/rope English screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-signal-stage2-missing-en-1280x800.png
+Placement Korean screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-placement-ko-invalid-1280x800.png
+Placement English/gamepad screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-placement-en-valid-gamepad-1280x800.png
+Swimming screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-swimming-en-1280x800.png
+Exploration screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave7-exploration-ko-1280x800.png
+Camp screenshot: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\Verification\kim-survival-wave12-camp-reset-ko-1280x800.png
+Completed UTC: 2026-08-25T12:10:42.1849397Z

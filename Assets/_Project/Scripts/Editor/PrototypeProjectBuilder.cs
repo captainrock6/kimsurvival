@@ -718,6 +718,15 @@ namespace KimSurvival.EditorTools
             Assert(placement.CurrentValidity == CampPlacementValidity.Valid, "Campfire has a valid snapped location");
             Assert(placementSession.TryBuild(StructureKind.Campfire) && placement.Commit(), "Campfire placement spends build cost once");
 
+            PrototypeCampPlacement autoPlacement = new PrototypeCampPlacement();
+            autoPlacement.Begin(StructureKind.Campfire, false);
+            autoPlacement.SetCandidateX(1.5f);
+            Assert(autoPlacement.Commit(), "Auto-placement fixture reserves the workbench preferred point");
+            autoPlacement.Begin(StructureKind.Workbench, false);
+            Assert(autoPlacement.CurrentValidity == CampPlacementValidity.Valid &&
+                   !Mathf.Approximately(autoPlacement.CandidateX, 1.5f),
+                "New workbench placement automatically selects the nearest valid snapped point when its preferred point overlaps");
+
             placementSession.Grant(ResourceKind.Wood, 2);
             placementSession.Grant(ResourceKind.Salvage, 1);
             placement.Begin(StructureKind.Workbench, false);
