@@ -1643,6 +1643,170 @@ MonoBehaviour:
     m_Key: escape.raft.launch.cancel
     m_Metadata:
       m_Items: []
+  - m_Id: 1157017946537984
+    m_Key: message.search_node.too_tired
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675328
+    m_Key: message.search_node.revealed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675329
+    m_Key: message.search_node.taken
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675330
+    m_Key: message.search_node.need_swim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675331
+    m_Key: message.search_node.depleted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675332
+    m_Key: message.search_node.unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675333
+    m_Key: search.node.kind.grasspatch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675334
+    m_Key: search.node.kind.rockcrevice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675335
+    m_Key: search.node.kind.driftpile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675336
+    m_Key: search.node.kind.treehollow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675337
+    m_Key: search.node.kind.wrecklocker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675338
+    m_Key: search.node.kind.facilitycabinet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675339
+    m_Key: search.node.state.hidden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675340
+    m_Key: search.node.state.revealedpartial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675341
+    m_Key: search.node.state.depleted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675342
+    m_Key: search.hazard.high-surf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675343
+    m_Key: search.hazard.insects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675344
+    m_Key: search.hazard.injury
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675345
+    m_Key: search.hazard.wildlife
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675346
+    m_Key: search.hazard.dangerous-plants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675347
+    m_Key: search.hazard.disaster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675348
+    m_Key: search.hazard.high-wind
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675349
+    m_Key: search.hazard.disease
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675350
+    m_Key: search.node.world.hidden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675351
+    m_Key: search.node.world.partial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869632
+    m_Key: search.node.world.depleted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869633
+    m_Key: search.tray.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869634
+    m_Key: search.tray.status
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869635
+    m_Key: search.tray.item.protected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869636
+    m_Key: search.tray.item.resource
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869637
+    m_Key: search.tray.bag.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869638
+    m_Key: search.tray.bag.stack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869639
+    m_Key: search.tray.bag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869640
+    m_Key: search.tray.action.take
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869641
+    m_Key: search.tray.action.take_all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869642
+    m_Key: search.tray.action.choose_swap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869643
+    m_Key: search.tray.action.leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869644
+    m_Key: search.tray.action.cancel_swap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869645
+    m_Key: search.part.raft.sailcloth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869646
+    m_Key: controls.search_tray.keyboard_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869647
+    m_Key: controls.search_tray.gamepad
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

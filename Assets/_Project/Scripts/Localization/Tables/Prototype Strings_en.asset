@@ -1840,6 +1840,193 @@ MonoBehaviour:
     m_Localized: "Cancel launch \xB7 progress preserved"
     m_Metadata:
       m_Items: []
+  - m_Id: 1157017946537984
+    m_Localized: Not enough energy or daylight to search this node.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675328
+    m_Localized: Searched the environment. Energy -{0}, daylight -{1}.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017992675329
+    m_Localized: "Packed {0} \xD7{1} into the bag."
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017992675330
+    m_Localized: Enter the water before searching this submerged node.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675331
+    m_Localized: This search node is depleted.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675332
+    m_Localized: This node cannot be searched right now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675333
+    m_Localized: Grass patch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675334
+    m_Localized: Rock crevice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675335
+    m_Localized: Drift pile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675336
+    m_Localized: Tree hollow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675337
+    m_Localized: Wreck locker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675338
+    m_Localized: Facility cabinet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675339
+    m_Localized: Unsearched
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675340
+    m_Localized: "Known \xB7 items remain"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675341
+    m_Localized: Depleted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675342
+    m_Localized: High surf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675343
+    m_Localized: Insect exposure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675344
+    m_Localized: Injury risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675345
+    m_Localized: Wildlife signs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675346
+    m_Localized: Dangerous plants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675347
+    m_Localized: Collapse or weather risk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675348
+    m_Localized: High-wind exposure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675349
+    m_Localized: Disease exposure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017992675350
+    m_Localized: "{0} Search {1}\nUnsearched \xB7 Risk clue: {2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017992675351
+    m_Localized: '{0} Reopen {1}
+
+      {2} known finds remain'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869632
+    m_Localized: '{0}
+
+      Depleted'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869633
+    m_Localized: "{0} \xB7 {1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869634
+    m_Localized: "Cost Energy -{0} / Daylight -{1} \xB7 Exposure {2} \xB7 {3} finds
+      left"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869635
+    m_Localized: '{0} PROTECTED
+
+      {1}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869636
+    m_Localized: "{0} {1} \xD7{2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869637
+    m_Localized: '[{0}] Empty'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869638
+    m_Localized: "[{0}] {1}\xD7{2}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869639
+    m_Localized: 'Bag: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869640
+    m_Localized: Take selected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869641
+    m_Localized: Take all that fit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869642
+    m_Localized: Choose bag slot to swap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869643
+    m_Localized: Leave and close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869644
+    m_Localized: Cancel swap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869645
+    m_Localized: Raft sailcloth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157017996869646
+    m_Localized: "Finds: \u2190/\u2192 select \xB7 E/Enter take \xB7 T take all \xB7
+      1\u2013{1} swap \xB7 Esc leave ({0})"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1157017996869647
+    m_Localized: "Finds: stick select \xB7 A take \xB7 RB take all \xB7 D-pad+A swap
+      \xB7 B leave ({0})"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -1958,3 +2145,17 @@ MonoBehaviour:
         - id: 1102836460142605
         - id: 1102836460142606
         - id: 1102836460142611
+        - id: 1157017992675328
+        - id: 1157017992675329
+        - id: 1157017992675350
+        - id: 1157017992675351
+        - id: 1157017996869632
+        - id: 1157017996869633
+        - id: 1157017996869634
+        - id: 1157017996869635
+        - id: 1157017996869636
+        - id: 1157017996869637
+        - id: 1157017996869638
+        - id: 1157017996869639
+        - id: 1157017996869646
+        - id: 1157017996869647

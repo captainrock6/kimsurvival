@@ -904,6 +904,39 @@ namespace KimSurvival
             UpdateHazardPresentation();
         }
 
+        public bool TryAcquireProtectedSearchPart(string sourceNodeId, string partId)
+        {
+            if (session == null || session.Result != RunResult.None || string.IsNullOrEmpty(sourceNodeId) || string.IsNullOrEmpty(partId))
+            {
+                return false;
+            }
+            EnsurePityStates();
+            if (!pityStates.TryGetValue(partId, out PrototypeKeyPartPityState pity))
+            {
+                return false;
+            }
+            if (pity.ProtectedOwned)
+            {
+                return true;
+            }
+
+            pity.ProtectedOwned = true;
+            pity.Guaranteed = true;
+            pity.LastResultCode = "key-part.acquired.search-node";
+            if (string.Equals(partId, PrototypeRaftEscapeConfig.KeyPartId, StringComparison.Ordinal))
+            {
+                escapeDirector.SynchronizeRaftSailcloth(true);
+            }
+            RecordCampaignEvent("key-part.acquired", string.Empty, string.Empty, string.Empty, pity.LastResultCode);
+            return true;
+        }
+
+        public bool HasProtectedSearchPart(string partId)
+        {
+            return !string.IsNullOrEmpty(partId) &&
+                   pityStates.TryGetValue(partId, out PrototypeKeyPartPityState pity) && pity.ProtectedOwned;
+        }
+
         public bool TryTelegraphHazard(string eventKey, string hazardId, int day)
         {
             return ApplyHazardTransaction(
