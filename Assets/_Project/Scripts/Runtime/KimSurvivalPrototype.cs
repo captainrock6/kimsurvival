@@ -2465,7 +2465,7 @@ namespace KimSurvival
                     "facility.shore-launch",
                     PrototypeCampInteractionTargetKind.ShoreLaunch,
                     new Vector2(ShoreLaunchX, PrototypeCampUse.PlayerFloorY),
-                    hazardEscapeEndingRuntime.IsRaftShoreLaunchDiscovered));
+                    IsRaftShoreLaunchDiscoveredFromLiveSearch()));
                 IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
                 for (int i = 0; i < definitions.Count; i += 1)
                 {
@@ -2516,6 +2516,27 @@ namespace KimSurvival
             }
             campInteraction.UpdateSelection(campUse.PlayerPosition, campUse.FacingDirection, campInteractionTargets);
             ObserveCampInteractionTarget();
+        }
+
+        private bool IsRaftShoreLaunchDiscoveredFromLiveSearch()
+        {
+            if (hazardEscapeEndingRuntime == null)
+            {
+                return false;
+            }
+            if (hazardEscapeEndingRuntime.IsRaftShoreLaunchDiscovered)
+            {
+                return true;
+            }
+            if (session == null || searchNodeRuntime == null || searchNodeRuntime.Ledger == null ||
+                searchNodeRuntime.Ledger.RunSeed != session.RunSeed)
+            {
+                return false;
+            }
+
+            hazardEscapeEndingRuntime.RestoreProtectedPartPitySnapshots(
+                searchNodeRuntime.Ledger.ProtectedPartPity);
+            return hazardEscapeEndingRuntime.IsRaftShoreLaunchDiscovered;
         }
 
         private void ObserveCampInteractionTarget()
@@ -4635,6 +4656,49 @@ namespace KimSurvival
                 "production 지도 지역 버튼·확인 버튼 수색 출발");
         }
 
+        private void DiscoverRaftShoreLaunchThroughNaturalSearch()
+        {
+            int grantBefore = PrototypeProductionActionCounters.GrantCallCount;
+            int warpBefore = PrototypeProductionActionCounters.WarpCallCount;
+            int skipBefore = PrototypeProductionActionCounters.SkipCallCount;
+            string sailclothNodeId = PrototypeSearchNodeLootResolver.ResolveSailclothNodeId(session.RunSeed);
+            PrototypeSearchNodeDefinition definition = PrototypeSearchRegionCatalog.Nodes.First(node =>
+                string.Equals(node.NodeId, sailclothNodeId, StringComparison.Ordinal));
+            PrototypeExpeditionRegionId region = PrototypeSearchRegionCatalog.StartingExpeditionFor(definition.RegionId);
+
+            BeginExpeditionThroughProductionMap(region);
+            NodeView target = nodes.First(node =>
+                string.Equals(node.Definition.NodeId, definition.NodeId, StringComparison.Ordinal));
+            MoveNaturallyToSearchNode(target);
+            InteractWithNearestSearchNodeThroughRawInput();
+            Require(searchNodeRuntime.IsTrayOpen &&
+                    string.Equals(searchNodeRuntime.ActiveNodeId, definition.NodeId, StringComparison.Ordinal),
+                "보호 돛천 assigned node production 수색 열기");
+
+            PrototypeSearchNodeSnapshot revealed = searchNodeRuntime.ActiveNode;
+            int protectedIndex = revealed == null ? -1 : Array.FindIndex(
+                revealed.Remaining,
+                item => item.IsProtectedPart &&
+                        string.Equals(item.ProtectedPartId, PrototypeRaftEscapeConfig.KeyPartId, StringComparison.Ordinal));
+            Require(protectedIndex >= 0, "실제 assigned node에서 보호 돛천 발견");
+            FocusSearchLootThroughRawInput(protectedIndex);
+            ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardConfirm = true });
+            Require(searchNodeRuntime.Ledger.HasProtectedPart(PrototypeRaftEscapeConfig.KeyPartId) &&
+                    hazardEscapeEndingRuntime.HasProtectedSearchPart(PrototypeRaftEscapeConfig.KeyPartId),
+                "실제 수색 트레이 입력으로 보호 돛천 inventory 이전");
+            if (searchNodeRuntime.IsTrayOpen)
+            {
+                ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
+            }
+            Require(ReturnToCampThroughRawInput(), "보호 돛천 실제 수색 뒤 production 귀환");
+            Require(IsRaftShoreLaunchDiscoveredFromLiveSearch(),
+                "보호 돛천 실제 수색·귀환 뒤 해안 진수대 발견 상태");
+            Require(PrototypeProductionActionCounters.GrantCallCount == grantBefore &&
+                    PrototypeProductionActionCounters.WarpCallCount == warpBefore &&
+                    PrototypeProductionActionCounters.SkipCallCount == skipBefore,
+                "해안 진수대 발견은 grant·warp·skip 없이 production 수색 입력으로만 전이");
+        }
+
         private void BuildWorkbenchThroughProductionPopup()
         {
             OpenCampTargetThroughProductionInput(PrototypeCampInteractionTargetKind.StoragePlanning);
@@ -5117,14 +5181,12 @@ namespace KimSurvival
             endingAlbumCollection.RestoreTransientSnapshot(endingAlbumSnapshotBeforeVerification);
             RefreshAll();
 
-            if (!hazardEscapeEndingRuntime.IsRaftShoreLaunchDiscovered)
+            if (!IsRaftShoreLaunchDiscoveredFromLiveSearch())
             {
-                Require(session.BeginSearch(PrototypeExpeditionRegionId.Shallows),
-                    "해안 수색을 직접 시작해 진수대 발견 경로 진입");
-                RefreshAll();
-                Require(session.ReturnToCamp(false), "해안 수색을 직접 완료해 진수대 현장 행동을 발견");
-                RefreshAll();
+                DiscoverRaftShoreLaunchThroughNaturalSearch();
             }
+            Require(IsRaftShoreLaunchDiscoveredFromLiveSearch(),
+                "실제 보호 돛천 수색 상태가 해안 진수대 발견 조건에 연결");
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             campUse.Warp(GetCampInteractionTargetPosition(PrototypeCampInteractionTargetKind.ShoreLaunch));
             RefreshAll();

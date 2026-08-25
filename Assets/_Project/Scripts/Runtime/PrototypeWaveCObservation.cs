@@ -31,6 +31,7 @@ namespace KimSurvival
         public int CompletedStageDelta;
         public int EndingDelta;
         public int AlbumDelta;
+        public int AlbumRecordDelta;
     }
 
     [Serializable]
@@ -114,6 +115,7 @@ namespace KimSurvival
         public Dictionary<string, int> CompletedStagesByEscapeId = new Dictionary<string, int>(StringComparer.Ordinal);
         public int EndingCount;
         public int AlbumCount;
+        public int AlbumRecordCount;
     }
 
     internal static class PrototypeWaveCObservationRecorder
@@ -142,6 +144,9 @@ namespace KimSurvival
             PrototypeEscapeProjectState[] projectStates = waveRuntime == null
                 ? Array.Empty<PrototypeEscapeProjectState>()
                 : waveRuntime.EscapeDirector.States.ToArray();
+            PrototypeWaveCAtomicSnapshot atomicSnapshot = waveRuntime == null
+                ? new PrototypeWaveCAtomicSnapshot()
+                : waveRuntime.CaptureWaveCFailCancelWaitRetryEndingAlbumSnapshot();
             return new PrototypeWaveCTransactionState
             {
                 Fingerprint = Hash128.Compute(stableState + "|" + waveState + "|" + searchState + "|" + albumState).ToString(),
@@ -156,7 +161,8 @@ namespace KimSurvival
                     value => (value.CompletedStageIds ?? Array.Empty<string>()).Length,
                     StringComparer.Ordinal),
                 EndingCount = waveRuntime == null || string.IsNullOrEmpty(waveRuntime.CurrentEndingStableId) ? 0 : 1,
-                AlbumCount = album == null ? 0 : album.UnlockedCount
+                AlbumCount = album == null ? 0 : album.UnlockedCount,
+                AlbumRecordCount = atomicSnapshot.EndingAlbumRecordCount
             };
         }
 
@@ -260,7 +266,8 @@ namespace KimSurvival
                 CompletedStageDelta = Metric(after.CompletedStagesByEscapeId, escapeId) -
                                       Metric(before.CompletedStagesByEscapeId, escapeId),
                 EndingDelta = after.EndingCount - before.EndingCount,
-                AlbumDelta = after.AlbumCount - before.AlbumCount
+                AlbumDelta = after.AlbumCount - before.AlbumCount,
+                AlbumRecordDelta = after.AlbumRecordCount - before.AlbumRecordCount
             };
         }
 

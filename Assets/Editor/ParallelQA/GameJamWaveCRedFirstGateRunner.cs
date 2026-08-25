@@ -145,6 +145,7 @@ namespace ParallelQA
             public int completedStageDelta = int.MinValue;
             public int endingDelta = int.MinValue;
             public int albumDelta = int.MinValue;
+            public int albumRecordDelta = int.MinValue;
         }
 
         [Serializable]
@@ -530,7 +531,7 @@ namespace ParallelQA
                     "active production escape interaction owners and event recorder");
 
                 Product(checks, "GWC-P04.atomic_fail_cancel_wait_retry_ending_once", "matrix 138 criterion 5", "P0",
-                    "Each route has exact zero-delta fail/cancel/wait and a positive retry/progress delta; terminal duplicate actuation is zero-delta; ending.resolved and ending.album.unlocked each occur once as distinct event types",
+                    "Each route has exact zero-delta fail/cancel/wait and a positive retry/progress delta; terminal duplicate actuation is zero-delta; ending.resolved and the terminal album record each occur once while new/known collection semantics stay distinct",
                     delegate
                     {
                         RequireLive(evidence);
@@ -540,9 +541,9 @@ namespace ParallelQA
                             RequireAtomicRouteCycle(evidence.events, escapeId);
                         }
                         RequireTerminalEndingContract(evidence.events);
-                        return "atomic routes=3; terminal duplicate=zero; ending.resolved=1; ending.album.unlocked=1";
+                        return "atomic routes=3; terminal duplicate=zero; ending.resolved=1; albumRecordDelta=1";
                     },
-                    "For each live route, attempt fail, cancel, weather wait, and positive retry/progress; resolve once, actuate the terminal control again, and record exact ending/album event types.",
+                    "For each live route, attempt fail, cancel, weather wait, and positive retry/progress; resolve once, record terminal album new/known semantics, then actuate the terminal control again.",
                     "active production escape transaction and ending album recorders");
 
                 Product(checks, "GWC-P05.same_run_upper_basement_save", "matrix 139 criterion 6", "P0",
@@ -839,7 +840,8 @@ namespace ParallelQA
                     projectProgressDelta = ReadInt(item, int.MinValue, "ProjectProgressDelta", "project_progress_delta"),
                     completedStageDelta = ReadInt(item, int.MinValue, "CompletedStageDelta", "completed_stage_delta"),
                     endingDelta = ReadInt(item, int.MinValue, "EndingDelta", "ending_delta"),
-                    albumDelta = ReadInt(item, int.MinValue, "AlbumDelta", "album_delta")
+                    albumDelta = ReadInt(item, int.MinValue, "AlbumDelta", "album_delta"),
+                    albumRecordDelta = ReadInt(item, int.MinValue, "AlbumRecordDelta", "album_record_delta")
                 };
                 if (!string.IsNullOrWhiteSpace(record.stableEventId)) events.Add(record);
             }
@@ -993,7 +995,7 @@ namespace ParallelQA
         {
             return value != null && value.costDelta == 0 && value.inventoryDelta == 0 && value.healthDelta == 0 &&
                    value.projectProgressDelta == 0 && value.completedStageDelta == 0 &&
-                   value.endingDelta == 0 && value.albumDelta == 0 &&
+                   value.endingDelta == 0 && value.albumDelta == 0 && value.albumRecordDelta == 0 &&
                    SameNonEmpty(value.beforeFingerprint, value.afterFingerprint);
         }
 
@@ -1017,21 +1019,26 @@ namespace ParallelQA
             EventEvidence[] endings = events.Where(value => value != null &&
                 string.Equals(value.eventType, "ending.resolved", StringComparison.Ordinal)).ToArray();
             EventEvidence[] albums = events.Where(value => value != null &&
-                string.Equals(value.eventType, "ending.album.unlocked", StringComparison.Ordinal)).ToArray();
+                string.Equals(value.eventType, "ending.album.recorded", StringComparison.Ordinal)).ToArray();
             EventEvidence[] duplicates = events.Where(value => value != null &&
                 string.Equals(value.eventType, "ending.terminal.duplicate", StringComparison.Ordinal)).ToArray();
 
             Require(endings.Length == 1, "exact event type ending.resolved count=" + endings.Length);
-            Require(albums.Length == 1, "exact event type ending.album.unlocked count=" + albums.Length);
+            Require(albums.Length == 1, "exact event type ending.album.recorded count=" + albums.Length);
             Require(duplicates.Length == 1,
                 "exact event type ending.terminal.duplicate count=" + duplicates.Length +
                 "; root observation must actuate the terminal control twice and record the duplicate attempt");
             Require(endings[0].endingDelta == 1,
                 "ending.resolved must have endingDelta=1: " + DescribeEvent(endings[0]));
-            Require(albums[0].albumDelta == 1,
-                "ending.album.unlocked must have albumDelta=1: " + DescribeEvent(albums[0]));
+            Require(albums[0].albumRecordDelta == 1,
+                "ending.album.recorded must commit the terminal album record exactly once: " + DescribeEvent(albums[0]));
+            bool newlyUnlocked = albums[0].resultCode.IndexOf(".new", StringComparison.OrdinalIgnoreCase) >= 0;
+            bool alreadyKnown = albums[0].resultCode.IndexOf(".known", StringComparison.OrdinalIgnoreCase) >= 0;
+            Require((newlyUnlocked && albums[0].albumDelta == 1) ||
+                    (alreadyKnown && albums[0].albumDelta == 0),
+                "ending album result must preserve new/known collection semantics: " + DescribeEvent(albums[0]));
             Require(endings[0].sequence != albums[0].sequence,
-                "ending.resolved and ending.album.unlocked must be distinct event records");
+                "ending.resolved and ending.album.recorded must be distinct event records");
             Require(IsZeroDelta(duplicates[0]),
                 "terminal duplicate actuation must be zero-delta: " + DescribeEvent(duplicates[0]));
             Require(duplicates[0].sequence > endings[0].sequence && duplicates[0].sequence > albums[0].sequence,
@@ -1052,7 +1059,8 @@ namespace ParallelQA
                    "; result=" + value.resultCode + "; cost=" + value.costDelta +
                    "; inventory=" + value.inventoryDelta + "; health=" + value.healthDelta +
                    "; progress=" + value.projectProgressDelta + "; stages=" + value.completedStageDelta +
-                   "; ending=" + value.endingDelta + "; album=" + value.albumDelta;
+                   "; ending=" + value.endingDelta + "; album=" + value.albumDelta +
+                   "; albumRecord=" + value.albumRecordDelta;
         }
 
         private static bool HasEventToken(IEnumerable<EventEvidence> events, string first, string second)

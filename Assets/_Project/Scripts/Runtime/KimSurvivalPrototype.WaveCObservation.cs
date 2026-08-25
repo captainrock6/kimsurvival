@@ -261,11 +261,13 @@ namespace KimSurvival
                     "The production trace must finish exactly one smoke ending.");
                 events.Add(PrototypeWaveCObservationRecorder.Event(
                     eventSequence++,
-                    "ending.album.unlocked",
+                    "ending.album.recorded",
                     "escape.smoke",
                     "ui.ending-album",
                     "album-record",
-                    "album-unlocked-once",
+                    endingAfter.AlbumCount > endingBefore.AlbumCount
+                        ? "ending.album-recorded.new"
+                        : "ending.album-recorded.known",
                     endingBefore,
                     endingAfter));
                 PrototypeWaveCTransactionState duplicateBefore = CaptureWaveCTransactionState();
