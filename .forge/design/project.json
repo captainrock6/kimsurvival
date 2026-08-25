@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-25T14:19:28.852Z",
+    "updatedAt": "2026-08-25T15:15:52.430Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -3747,6 +3747,871 @@
         ]
       },
       "resultStatus": "GO_MORE_EVIDENCE"
+    },
+    "sevenRegionSearchNodeContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.seven-region-search-node.v1",
+      "sourceBaseline": "5248809018ce934fe328328f194686d8c287734f",
+      "humanDocument": "Docs/Design/gamejam-seven-region-search-node-contract.md",
+      "machinePacket": ".forge/packets/gamejam-seven-region-search-node-contract.json",
+      "balanceStatus": "BALANCE_PROVISIONAL",
+      "finalBalancePromotionGate": "HUMAN_NATURAL_PLAYTEST_REQUIRED",
+      "catalog": {
+        "regionCount": 7,
+        "nodeArchetypeCount": 21,
+        "nodeInstanceCount": 42,
+        "finiteGeneralResourceUnits": 144,
+        "protectedPartCount": 8,
+        "nodeInstancesPerArchetype": 2
+      },
+      "stableIdRules": {
+        "regionId": "Preserve the seven existing region.* IDs exactly.",
+        "archetypeId": "node.archetype.{regionSlug}.{archetypeSlug}",
+        "instanceId": "node.instance.{regionSlug}.{archetypeSlug}.{ordinal02}",
+        "instanceExample": "node.instance.coast-beach.driftline.01",
+        "placementSeed": "Hash64(runSeed, regionId, contractRevision)",
+        "lootSeed": "Hash64(runSeed, regionId, nodeInstanceId, lootTableRevision, 'loot')",
+        "hazardSeed": "Hash64(runSeed, regionId, nodeInstanceId, visitIndex, 'hazard')",
+        "protectedPartSeed": "Hash64(runSeed, contractRevision, partId, 'protected-part')",
+        "rngIsolation": "General loot, hazards and protected parts use isolated streams; resolving one node never advances another node's RNG.",
+        "revisionRule": "A run stores contractRevision and lootTableRevision. Loading uses the stored revisions; only a new run uses newer revisions.",
+        "generationAuditRule": "At new-run generation only, reroll unrevealed protected-part assignments until the minimum route audit passes; never reroll general loot or any player-known node."
+      },
+      "finiteResourceTotals": {
+        "resource.wood": 22,
+        "resource.salvage": 18,
+        "resource.food": 12,
+        "resource.fabric": 6,
+        "resource.fiber": 10,
+        "resource.medicine": 6,
+        "resource.stone": 18,
+        "resource.metal": 14,
+        "resource.wire": 12,
+        "resource.fuel": 8,
+        "resource.chemicals": 6,
+        "resource.electronics": 12,
+        "total": 144,
+        "status": "BALANCE_PROVISIONAL",
+        "countingRule": "Counts general resource units only. Protected parts use project inventory and are excluded."
+      },
+      "regions": [
+        {
+          "id": "region.coast.beach",
+          "slug": "coast-beach",
+          "nameKey": "region.coast.beach.name",
+          "unlockTier": "start",
+          "dangerRatingFive": 1,
+          "nodeCount": 6,
+          "finiteGeneralUnits": 18,
+          "representativeResources": [
+            "resource.wood",
+            "resource.salvage",
+            "resource.food",
+            "resource.fabric"
+          ],
+          "hazardProfileIds": [
+            "hazard-profile.insects.sandfly",
+            "hazard-profile.wildlife.shore-crab",
+            "hazard-profile.environment.high-surf"
+          ],
+          "persistentRemovableHazardIds": [
+            "hazard-profile.insects.sandfly-nest"
+          ],
+          "archetypes": [
+            {
+              "id": "node.archetype.coast-beach.driftline",
+              "instances": 2,
+              "finiteYield": {
+                "resource.salvage": 4,
+                "resource.wood": 2
+              },
+              "searchCostBand": "low",
+              "eligiblePartIds": []
+            },
+            {
+              "id": "node.archetype.coast-beach.tide-cache",
+              "instances": 2,
+              "finiteYield": {
+                "resource.food": 4,
+                "resource.fabric": 2
+              },
+              "searchCostBand": "low",
+              "eligiblePartIds": []
+            },
+            {
+              "id": "node.archetype.coast-beach.storm-wrack",
+              "instances": 2,
+              "finiteYield": {
+                "resource.wood": 4,
+                "resource.salvage": 2
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.raft.sailcloth",
+                "part.flare.cartridge"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.sea.shallows",
+          "slug": "sea-shallows",
+          "nameKey": "region.sea.shallows.name",
+          "unlockTier": "start",
+          "dangerRatingFive": 2,
+          "nodeCount": 6,
+          "finiteGeneralUnits": 18,
+          "representativeResources": [
+            "resource.food",
+            "resource.stone",
+            "resource.salvage",
+            "resource.metal",
+            "resource.wire"
+          ],
+          "hazardProfileIds": [
+            "hazard-profile.insects.mangrove-midge",
+            "hazard-profile.wildlife.stingray",
+            "hazard-profile.dangerous-plants.stinging-algae",
+            "hazard-profile.disease.waterborne-fever",
+            "hazard-profile.environment.tide"
+          ],
+          "persistentRemovableHazardIds": [
+            "hazard-profile.dangerous-plants.stinging-algae"
+          ],
+          "archetypes": [
+            {
+              "id": "node.archetype.sea-shallows.reef-pocket",
+              "instances": 2,
+              "finiteYield": {
+                "resource.food": 4,
+                "resource.stone": 2
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": []
+            },
+            {
+              "id": "node.archetype.sea-shallows.submerged-crate",
+              "instances": 2,
+              "finiteYield": {
+                "resource.salvage": 4,
+                "resource.metal": 2
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.radio.transceiver",
+                "part.flare.cartridge"
+              ]
+            },
+            {
+              "id": "node.archetype.sea-shallows.wreck-scatter",
+              "instances": 2,
+              "finiteYield": {
+                "resource.wire": 4,
+                "resource.salvage": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.beacon.generator-coil"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.forest.grove",
+          "slug": "forest-grove",
+          "nameKey": "region.forest.grove.name",
+          "unlockTier": "start",
+          "dangerRatingFive": 3,
+          "nodeCount": 6,
+          "finiteGeneralUnits": 22,
+          "representativeResources": [
+            "resource.wood",
+            "resource.fiber",
+            "resource.food",
+            "resource.medicine"
+          ],
+          "hazardProfileIds": [
+            "hazard-profile.insects.mosquito-swarm",
+            "hazard-profile.wildlife.boar",
+            "hazard-profile.dangerous-plants.toxic-vine",
+            "hazard-profile.disease.jungle-fever",
+            "hazard-profile.environment.heat-rain"
+          ],
+          "persistentRemovableHazardIds": [
+            "hazard-profile.dangerous-plants.toxic-vine"
+          ],
+          "archetypes": [
+            {
+              "id": "node.archetype.forest-grove.deadfall",
+              "instances": 2,
+              "finiteYield": {
+                "resource.wood": 8
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.smoke.flint",
+                "part.smoke.catalyst"
+              ]
+            },
+            {
+              "id": "node.archetype.forest-grove.forage-patch",
+              "instances": 2,
+              "finiteYield": {
+                "resource.food": 4,
+                "resource.medicine": 2
+              },
+              "searchCostBand": "low",
+              "eligiblePartIds": []
+            },
+            {
+              "id": "node.archetype.forest-grove.vine-hollow",
+              "instances": 2,
+              "finiteYield": {
+                "resource.fiber": 6,
+                "resource.wood": 2
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.raft.sailcloth"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.ridge.highland",
+          "slug": "ridge-highland",
+          "nameKey": "region.ridge.highland.name",
+          "unlockTier": "expansion",
+          "dangerRatingFive": 4,
+          "nodeCount": 6,
+          "finiteGeneralUnits": 22,
+          "representativeResources": [
+            "resource.stone",
+            "resource.metal",
+            "resource.wood",
+            "resource.fiber",
+            "resource.fuel",
+            "resource.medicine"
+          ],
+          "hazardProfileIds": [
+            "hazard-profile.insects.wasp-nest",
+            "hazard-profile.wildlife.nesting-bird",
+            "hazard-profile.dangerous-plants.thorn-scrub",
+            "hazard-profile.disease.infected-cut",
+            "hazard-profile.environment.cliff-wind"
+          ],
+          "persistentRemovableHazardIds": [
+            "hazard-profile.insects.wasp-nest"
+          ],
+          "archetypes": [
+            {
+              "id": "node.archetype.ridge-highland.rockfall",
+              "instances": 2,
+              "finiteYield": {
+                "resource.stone": 8,
+                "resource.metal": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": []
+            },
+            {
+              "id": "node.archetype.ridge-highland.windfall",
+              "instances": 2,
+              "finiteYield": {
+                "resource.wood": 6,
+                "resource.fiber": 2
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.smoke.flint",
+                "part.smoke.catalyst"
+              ]
+            },
+            {
+              "id": "node.archetype.ridge-highland.signal-overlook",
+              "instances": 2,
+              "finiteYield": {
+                "resource.fuel": 2,
+                "resource.medicine": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.transistor",
+                "part.beacon.generator-coil"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.cave.island",
+          "slug": "cave-island",
+          "nameKey": "region.cave.island.name",
+          "unlockTier": "expansion",
+          "dangerRatingFive": 4,
+          "nodeCount": 6,
+          "finiteGeneralUnits": 18,
+          "representativeResources": [
+            "resource.stone",
+            "resource.metal",
+            "resource.chemicals",
+            "resource.fuel",
+            "resource.medicine"
+          ],
+          "hazardProfileIds": [
+            "hazard-profile.insects.cave-mite",
+            "hazard-profile.wildlife.bat-colony",
+            "hazard-profile.dangerous-plants.toxic-fungus",
+            "hazard-profile.disease.spore-fever",
+            "hazard-profile.environment.dark-collapse"
+          ],
+          "persistentRemovableHazardIds": [
+            "hazard-profile.dangerous-plants.toxic-fungus"
+          ],
+          "archetypes": [
+            {
+              "id": "node.archetype.cave-island.mineral-seam",
+              "instances": 2,
+              "finiteYield": {
+                "resource.stone": 6,
+                "resource.metal": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": []
+            },
+            {
+              "id": "node.archetype.cave-island.dry-cache",
+              "instances": 2,
+              "finiteYield": {
+                "resource.chemicals": 4,
+                "resource.fuel": 2
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.smoke.flint",
+                "part.radio.transistor"
+              ]
+            },
+            {
+              "id": "node.archetype.cave-island.fungus-ledge",
+              "instances": 2,
+              "finiteYield": {
+                "resource.stone": 2,
+                "resource.medicine": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": []
+            }
+          ]
+        },
+        {
+          "id": "region.cove.wreck",
+          "slug": "cove-wreck",
+          "nameKey": "region.cove.wreck.name",
+          "unlockTier": "expansion",
+          "dangerRatingFive": 4,
+          "nodeCount": 6,
+          "finiteGeneralUnits": 22,
+          "representativeResources": [
+            "resource.salvage",
+            "resource.metal",
+            "resource.fabric",
+            "resource.fiber",
+            "resource.electronics",
+            "resource.chemicals"
+          ],
+          "hazardProfileIds": [
+            "hazard-profile.insects.wreck-roach",
+            "hazard-profile.wildlife.rat-pack",
+            "hazard-profile.dangerous-plants.rust-vine",
+            "hazard-profile.disease.rust-wound",
+            "hazard-profile.environment.sharp-metal-flood"
+          ],
+          "persistentRemovableHazardIds": [
+            "hazard-profile.wildlife.rat-nest"
+          ],
+          "archetypes": [
+            {
+              "id": "node.archetype.cove-wreck.cargo-locker",
+              "instances": 2,
+              "finiteYield": {
+                "resource.salvage": 6,
+                "resource.metal": 4
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.flare.cartridge"
+              ]
+            },
+            {
+              "id": "node.archetype.cove-wreck.rigging-locker",
+              "instances": 2,
+              "finiteYield": {
+                "resource.fabric": 4,
+                "resource.fiber": 2
+              },
+              "searchCostBand": "medium",
+              "eligiblePartIds": [
+                "part.raft.sailcloth"
+              ]
+            },
+            {
+              "id": "node.archetype.cove-wreck.engine-bay",
+              "instances": 2,
+              "finiteYield": {
+                "resource.electronics": 4,
+                "resource.chemicals": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.transceiver",
+                "part.radio.circuit-board",
+                "part.smoke.catalyst"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "region.ruins.relay",
+          "slug": "ruins-relay",
+          "nameKey": "region.ruins.relay.name",
+          "unlockTier": "expansion",
+          "dangerRatingFive": 5,
+          "nodeCount": 6,
+          "finiteGeneralUnits": 24,
+          "representativeResources": [
+            "resource.electronics",
+            "resource.wire",
+            "resource.metal",
+            "resource.fuel"
+          ],
+          "hazardProfileIds": [
+            "hazard-profile.insects.relay-wasp",
+            "hazard-profile.wildlife.nesting-snake",
+            "hazard-profile.dangerous-plants.electrical-creeper",
+            "hazard-profile.disease.mold-fever",
+            "hazard-profile.environment.lightning-stairs"
+          ],
+          "persistentRemovableHazardIds": [
+            "hazard-profile.dangerous-plants.electrical-creeper"
+          ],
+          "archetypes": [
+            {
+              "id": "node.archetype.ruins-relay.control-cabinet",
+              "instances": 2,
+              "finiteYield": {
+                "resource.electronics": 6,
+                "resource.wire": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.radio.circuit-board"
+              ]
+            },
+            {
+              "id": "node.archetype.ruins-relay.cable-duct",
+              "instances": 2,
+              "finiteYield": {
+                "resource.wire": 6,
+                "resource.metal": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": []
+            },
+            {
+              "id": "node.archetype.ruins-relay.generator-room",
+              "instances": 2,
+              "finiteYield": {
+                "resource.fuel": 4,
+                "resource.metal": 2,
+                "resource.electronics": 2
+              },
+              "searchCostBand": "high",
+              "eligiblePartIds": [
+                "part.beacon.generator-coil"
+              ]
+            }
+          ]
+        }
+      ],
+      "hazardSemantics": {
+        "profileMappingRule": "hazard-profile.* IDs are regional presentations mapped to the existing hazard.insects, hazard.wildlife, hazard.dangerous-plants, hazard.disease, hazard.injury or hazard.disaster families; they do not add new global hazard families.",
+        "telegraphRule": "The region card and world clue name the category before exposure; no untelegraphed terminal result.",
+        "persistentRemovalRule": "Only declared persistentRemovableHazardIds can become removed. Weather, roaming wildlife and disease exposure remain transient and may recur within the daily hazard budget.",
+        "removalAtomicity": "A successful remove transaction commits hazardState=removed once; cancel, failure and input-device change preserve the previous state and cannot duplicate rewards or costs."
+      },
+      "searchCostBands": {
+        "low": {
+          "daylightUnits": 1,
+          "staminaUnits": 6
+        },
+        "medium": {
+          "daylightUnits": 2,
+          "staminaUnits": 8
+        },
+        "high": {
+          "daylightUnits": 2,
+          "staminaUnits": 10
+        },
+        "status": "BALANCE_PROVISIONAL",
+        "applicationRule": "Apply exactly once when the search completion transaction commits, never while the loot tray is open."
+      },
+      "nodeStateContract": {
+        "persistentDiscoveryStates": [
+          "node.discovery.hidden",
+          "node.discovery.revealed-partial",
+          "node.discovery.depleted"
+        ],
+        "transientUiStates": [
+          "node.ui.near",
+          "node.ui.searching",
+          "node.ui.loot-open",
+          "node.ui.replacing"
+        ],
+        "barrierStates": [
+          "barrier.intact",
+          "barrier.broken"
+        ],
+        "hazardStates": [
+          "hazard.present",
+          "hazard.removed"
+        ],
+        "snapshotFields": [
+          "runId",
+          "runSeed",
+          "contractRevision",
+          "lootTableRevision",
+          "regionId",
+          "nodeInstanceId",
+          "discoveryState",
+          "searchCommitCount",
+          "remainingStacks",
+          "knownRemainingSummary",
+          "barrierState",
+          "hazardStateById",
+          "protectedPartReceiptIds",
+          "lastTransactionId"
+        ],
+        "hiddenRule": "Before the first completed search, show node name, archetype, search availability and perceived hazard clue only; never show exact item IDs, quantities or protected-part identity.",
+        "revealRule": "The first completed search fixes and reveals the node's exact stacks once. The reveal and search cost commit before selection; closing the tray leaves all general loot in the node.",
+        "partialRule": "After any take or swap, persist exact known remaining item names and quantities. Revisit shows known remaining summary without rerolling.",
+        "depletedRule": "When no general stack and no pending protected part remains, persist depleted and return no reward on revisit.",
+        "sceneTransitionRule": "Persist every completed search, take, swap, barrier break and hazard removal before return, forced return or scene unload.",
+        "newRunRule": "A new run creates new snapshots from its run seed and never imports node, barrier or hazard state from another run."
+      },
+      "lootSelectionContract": {
+        "bagContract": {
+          "initialSlots": 4,
+          "upgradedSlots": 6,
+          "stackPerSlot": 2
+        },
+        "actions": [
+          "action.search.take",
+          "action.search.take-all-fitting",
+          "action.search.swap",
+          "action.search.leave",
+          "action.search.close"
+        ],
+        "protectedPartRule": "A protected part moves directly to protected project inventory on confirmed acquisition, shows a receipt, occupies no normal bag slot and cannot be discarded, stolen or overwritten.",
+        "takeRule": "Move the selected quantity node-to-bag atomically; a capacity or stack failure changes neither side.",
+        "swapRule": "Move one selected bag stack to the node and the selected node stack to the bag in one transaction; rollback both on failure.",
+        "leaveRule": "Leaving or closing preserves remainingStacks exactly and marks them known.",
+        "cancelBeforeCompletion": "No search cost, reveal, hazard roll or content commit.",
+        "cancelAfterCompletion": "Search cost and revealed contents remain committed once; no general loot moves unless a take or swap transaction already succeeded.",
+        "idempotencyKey": "{runId}:{nodeInstanceId}:{searchEpoch}:{actionNonce}"
+      },
+      "protectedPartContract": {
+        "minimumCompletableEscapeMethodsPerSeed": 3,
+        "allMethodsBlockedAllowed": false,
+        "samplePity": {
+          "hintAfterEligibleSearches": 3,
+          "guaranteeNextEligibleSearchAfterMisses": 5,
+          "status": "BALANCE_PROVISIONAL"
+        },
+        "eligibleSearchRule": "Count only a completed search in the missing part's listed primary or alternative region and an archetype whose eligiblePartIds contains that part. Cancelled, failed, unrelated, duplicate-producing and already-owned searches do not count.",
+        "guaranteeRule": "After five eligible misses, insert the missing part before optional general loot in the next eligible uncommitted result. Never overwrite known loot or a different protected part.",
+        "radioDistinctRegionRule": "part.radio.transceiver, part.radio.circuit-board and part.radio.transistor must resolve to three pairwise-distinct regions, including when alternatives or pity are used.",
+        "parts": [
+          {
+            "id": "part.raft.sailcloth",
+            "primary": "region.coast.beach",
+            "alternatives": [
+              "region.cove.wreck",
+              "region.forest.grove"
+            ]
+          },
+          {
+            "id": "part.smoke.catalyst",
+            "primary": "region.forest.grove",
+            "alternatives": [
+              "region.ridge.highland",
+              "region.cove.wreck"
+            ],
+            "completionNote": "Protected compatibility component; it is not an extra smoke completion gate unless a separate recipe declares it."
+          },
+          {
+            "id": "part.smoke.flint",
+            "primary": "region.cave.island",
+            "alternatives": [
+              "region.ridge.highland",
+              "region.forest.grove"
+            ]
+          },
+          {
+            "id": "part.radio.transceiver",
+            "primary": "region.cove.wreck",
+            "alternatives": [
+              "region.sea.shallows"
+            ]
+          },
+          {
+            "id": "part.radio.circuit-board",
+            "primary": "region.ruins.relay",
+            "alternatives": [
+              "region.cove.wreck"
+            ]
+          },
+          {
+            "id": "part.radio.transistor",
+            "primary": "region.ridge.highland",
+            "alternatives": [
+              "region.cave.island"
+            ]
+          },
+          {
+            "id": "part.flare.cartridge",
+            "primary": "region.cove.wreck",
+            "alternatives": [
+              "region.coast.beach",
+              "region.sea.shallows"
+            ]
+          },
+          {
+            "id": "part.beacon.generator-coil",
+            "primary": "region.ruins.relay",
+            "alternatives": [
+              "region.sea.shallows",
+              "region.ridge.highland"
+            ]
+          }
+        ],
+        "auditCheckpoints": [
+          "new-run-generation",
+          "expansion-region-unlock",
+          "protected-part-spend-or-damage",
+          "day.35.settlement",
+          "day.49.settlement"
+        ],
+        "auditRule": "At every checkpoint, calculate reachable finite stock, completed milestones, refundable declared facilities, unopened eligible nodes and repair paths. PASS requires at least three completable escape methods and never all five blocked.",
+        "repairRule": "A declared part-damage event may mark a part repairable but cannot delete it. Generic theft, camp damage, discard and bag replacement cannot target protected parts."
+      },
+      "pacingProfiles": {
+        "coreLoopFiveToTenMinutes": {
+          "status": "BALANCE_PROVISIONAL",
+          "targets": {
+            "regionsEntered": 1,
+            "nodesCompletedMin": 2,
+            "generalUnitsRevealedMin": 6,
+            "generalUnitsRevealedMax": 10,
+            "returnCount": 1,
+            "investmentCount": 1
+          },
+          "bagPressureRule": "The first two nodes expose at least five distinct general-resource stacks across a maximum of eight carried units so a four-slot bag forces take, leave or swap without hiding the choice.",
+          "unlockRule": "At least two start regions and one node in each are immediately eligible; exact loot remains hidden until search."
+        },
+        "representativeEscapeTwentyFiveToThirtyFiveMinutes": {
+          "status": "BALANCE_PROVISIONAL",
+          "representativeEscapeId": "escape.smoke",
+          "targetExpeditionsMin": 4,
+          "targetExpeditionsMax": 6,
+          "targetSearchesMin": 10,
+          "targetSearchesMax": 14,
+          "targetUniqueRegionsMin": 2,
+          "targetGeneralUnitsMovedMin": 22,
+          "targetGeneralUnitsMovedMax": 30,
+          "protectedPartsRequired": [
+            "part.smoke.flint"
+          ],
+          "sampleProjectBudget": {
+            "resource.wood": 12,
+            "resource.fiber": 2,
+            "resource.fuel": 2
+          },
+          "sampleProjectBudgetStatus": "BALANCE_PROVISIONAL",
+          "budgetSafety": "The chosen seed must still leave one survival/recovery choice and at least two other completable escape methods after the representative smoke budget commits."
+        }
+      },
+      "longStayCompatibility": {
+        "finiteNodeRule": "Expedition node contents never respawn in a run; long-stay eligibility never requires exhausting every node.",
+        "maintenanceSeparationRule": "Rain collection and already-defined farming or hunting/trapping maintenance outputs are outside finite expedition node stock and use their own tunable profile; this contract does not promise a new production feature or fix its final yield.",
+        "survivalAuditRule": "Before accepting a seed, current start stock plus reachable finite food/medicine plus enabled maintenance outputs must cover the selected long-stay profile's survival and recovery formula through its decision day.",
+        "endingRule": "Choosing not to escape and preserving finite nodes must remain valid; softlock repair may relocate only unrevealed protected parts and never regenerate known or depleted general loot.",
+        "profileBoundary": "Gamejam provisional long-stay timing and the canonical Day 50 campaign remain separate data profiles."
+      },
+      "localizationContract": {
+        "meaningSource": "ko",
+        "supported": [
+          "ko",
+          "en"
+        ],
+        "qaOnly": [
+          "qps-long"
+        ],
+        "future": [
+          "ja",
+          "zh-Hans",
+          "zh-Hant",
+          "es"
+        ],
+        "officialEnglishTitle": "TBD",
+        "stableKeys": [
+          "ui.search-node.prompt",
+          "ui.search-node.state.hidden",
+          "ui.search-node.state.partial",
+          "ui.search-node.state.depleted",
+          "ui.search-node.known-remaining",
+          "ui.search-node.hazard-removed",
+          "ui.search-node.barrier-broken",
+          "ui.search-node.protected-part-received",
+          "ui.search-node.action.take",
+          "ui.search-node.action.take-all",
+          "ui.search-node.action.swap",
+          "ui.search-node.action.leave",
+          "ui.search-node.action.close",
+          "ui.search-node.error.bag-full",
+          "ui.search-node.error.equipment",
+          "ui.search-node.error.depleted",
+          "ui.search-node.error.transaction"
+        ],
+        "templates": {
+          "ui.search-node.prompt": {
+            "ko": "{inputGlyph} {nodeName} 뒤지기",
+            "en": "{inputGlyph} Search {nodeName}",
+            "qps-long": "⟦{inputGlyph} Şëårçh thrøügh {nodeName} før üsëfül şüpply ïtëmş⟧"
+          },
+          "ui.search-node.known-remaining": {
+            "ko": "남겨둔 물건: {itemList}",
+            "en": "Known items left: {itemList}",
+            "qps-long": "⟦Knøwn ïtëmş ştïll lëft hërë: {itemList}⟧"
+          },
+          "ui.search-node.protected-part-received": {
+            "ko": "핵심 부품 확보: {partName}",
+            "en": "Project part secured: {partName}",
+            "qps-long": "⟦Prøtëçtëd prøjëçt pårt şëçürëd: {partName}⟧"
+          }
+        },
+        "tokenRule": "Use named tokens and locale-owned word order. Never concatenate glyph, node name, action, quantities or status fragments in code.",
+        "idRule": "Stable IDs and save fields are locale-independent ASCII and are never translated."
+      },
+      "acceptanceMatrix": [
+        {
+          "id": "SN-CAT-01",
+          "owner": "implementation+qa",
+          "acceptance": "Exactly seven existing region IDs, 21 archetype IDs and 42 instance IDs load; all regional finite totals sum to 144.",
+          "probe": "catalog.seven-region-search-node",
+          "evidence": "Artifacts/Verification/seven-region-search-node/catalog.json"
+        },
+        {
+          "id": "SN-SEED-01",
+          "owner": "qa",
+          "acceptance": "Same run seed and revisions produce byte-equal placements and contents; changing only the run seed changes at least one node without changing IDs.",
+          "probe": "seed.determinism-and-variation",
+          "evidence": "Artifacts/Verification/seven-region-search-node/seed-audit.json"
+        },
+        {
+          "id": "SN-RNG-02",
+          "owner": "qa",
+          "acceptance": "Searching, cancelling or resolving one node does not advance any other node's loot stream.",
+          "probe": "seed.stream-isolation",
+          "evidence": "Artifacts/Verification/seven-region-search-node/rng-isolation.json"
+        },
+        {
+          "id": "SN-INFO-01",
+          "owner": "implementation+qa",
+          "acceptance": "Before first completed search, exact loot, quantity and part identity are absent; after commit they are exact and stable.",
+          "probe": "search.hidden-to-revealed",
+          "evidence": "Artifacts/Verification/seven-region-search-node/info-hiding.json"
+        },
+        {
+          "id": "SN-LOOT-01",
+          "owner": "implementation+qa",
+          "acceptance": "Take, leave and four-slot/six-slot stack-two swap conserve every item and rollback both sides on rejection.",
+          "probe": "search.selection-atomicity",
+          "evidence": "Artifacts/Verification/seven-region-search-node/loot-atomicity.json"
+        },
+        {
+          "id": "SN-PERSIST-01",
+          "owner": "implementation+qa",
+          "acceptance": "Hidden, partial, depleted, broken barrier and removed persistent hazard states survive return, forced return and revisit in the same run; a new run resets them.",
+          "probe": "search.revisit-snapshot",
+          "evidence": "Artifacts/Verification/seven-region-search-node/revisit.json"
+        },
+        {
+          "id": "SN-HAZ-01",
+          "owner": "implementation+qa",
+          "acceptance": "Each region exposes its declared category combination; telegraph precedes exposure and only declared persistent hazards stay removed.",
+          "probe": "hazard.region-profile",
+          "evidence": "Artifacts/Verification/seven-region-search-node/hazard-profile.json"
+        },
+        {
+          "id": "SN-PART-01",
+          "owner": "implementation+qa",
+          "acceptance": "Eight protected part IDs use declared eligible archetypes; radio's three parts resolve to three distinct regions and no bag, theft or generic damage action deletes them.",
+          "probe": "part.distribution-and-protection",
+          "evidence": "Artifacts/Verification/seven-region-search-node/protected-parts.json"
+        },
+        {
+          "id": "SN-PITY-01",
+          "owner": "qa",
+          "acceptance": "Only eligible completed misses count; miss 3 reveals a hint and after miss 5 the next eligible uncommitted result guarantees the part without overwriting known loot.",
+          "probe": "part.eligible-search-pity-3-5",
+          "evidence": "Artifacts/Verification/seven-region-search-node/pity.json"
+        },
+        {
+          "id": "SN-SOFTLOCK-01",
+          "owner": "qa",
+          "acceptance": "Generation, unlock, part change, Day 35 and Day 49 audits leave at least three completable escape methods and never block all five.",
+          "probe": "escape.minimum-three-route-audit",
+          "evidence": "Artifacts/Verification/seven-region-search-node/softlock.json"
+        },
+        {
+          "id": "SN-PACE-01",
+          "owner": "human-playtest",
+          "acceptance": "Without grant, warp or a solution hint, a first user completes two searches, one selection, one return and one investment in 5-10 minutes.",
+          "probe": "manual.core-loop-5-10m",
+          "evidence": "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
+          "status": "UNRUN"
+        },
+        {
+          "id": "SN-PACE-02",
+          "owner": "human-playtest",
+          "acceptance": "A valid natural representative run reaches smoke escape in 25-35 minutes while one survival choice and two other routes remain.",
+          "probe": "manual.escape-25-35m",
+          "evidence": "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
+          "status": "UNRUN"
+        },
+        {
+          "id": "SN-LONG-01",
+          "owner": "qa",
+          "acceptance": "Finite node exhaustion cannot invalidate the selected long-stay ending profile when its declared maintenance systems and survival formula pass.",
+          "probe": "ending.long-stay-finite-stock",
+          "evidence": "Artifacts/Verification/seven-region-search-node/long-stay.json"
+        },
+        {
+          "id": "SN-L10N-01",
+          "owner": "qa",
+          "acceptance": "KO and EN carry equal state, quantities and failure reasons; qps-long clips no required action; future locales can reorder named tokens without save changes.",
+          "probe": "localization.search-node-contract",
+          "evidence": "Artifacts/Verification/seven-region-search-node/localization.json"
+        },
+        {
+          "id": "SN-INPUT-01",
+          "owner": "qa",
+          "acceptance": "Keyboard/mouse and physical gamepad produce equal selection and transaction results; physical-device result remains UNVERIFIED until executed separately.",
+          "probe": "input.search-node-parity",
+          "evidence": "Artifacts/Verification/seven-region-search-node/input-parity.json",
+          "status": "PHYSICAL_GAMEPAD_UNVERIFIED"
+        }
+      ]
     }
   },
   "features": [
@@ -5966,5 +6831,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-25T14:19:28.851Z"
+  "updatedAt": "2026-08-25T15:15:52.430Z"
 }
