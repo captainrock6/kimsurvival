@@ -140,11 +140,21 @@ $compilePath = Join-Path $evidenceRoot 'compile-result.txt'
 $compileText = if (Test-Path -LiteralPath $compilePath -PathType Leaf) { Get-Content -LiteralPath $compilePath -Raw -Encoding UTF8 } else { '' }
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
-foreach ($stage in @($stages | Select-Object -Skip 1)) {
+foreach ($stage in $stages) {
     if ([int]$stage.exitCode -ne 0) { $infrastructureFailures.Add("$($stage.name) exited $($stage.exitCode)") }
 }
-if ($null -eq $wave20Summary -or [string]$wave20Summary.productOverall -ne 'PASS') {
-    $infrastructureFailures.Add('fresh Wave 20 prerequisite is missing or its own product matrix is not PASS')
+if ($null -eq $wave20Summary -or
+    [string]$wave20Summary.runId -ne $RunId -or
+    [string]$wave20Summary.baselineCommit -ne $BaselineCommit -or
+    [string]$wave20Summary.overall -ne 'GREEN' -or
+    [string]$wave20Summary.productOverall -ne 'PASS' -or
+    [string]$wave20Summary.infrastructureOverall -ne 'PASS') {
+    $infrastructureFailures.Add('fresh Wave 20 prerequisite is missing, identity-mismatched, or not GREEN/PASS/PASS')
+}
+$wave20PrerequisiteStages = if ($null -eq $wave20Summary) { @() } else { @($wave20Summary.stages) }
+if ($wave20PrerequisiteStages.Count -eq 0 -or
+    @($wave20PrerequisiteStages | Where-Object { [int]$_.exitCode -ne 0 }).Count -gt 0) {
+    $infrastructureFailures.Add('fresh Wave 20 prerequisite contains a missing or nonzero child stage')
 }
 if ($null -eq $wave20Summary -or [int]$wave20Summary.wave20.passed -ne 16 -or
     [int]$wave20Summary.wave20.expectedGaps -ne 0 -or [int]$wave20Summary.wave20.failed -ne 0) {

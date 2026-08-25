@@ -600,33 +600,36 @@ namespace ParallelQA
             GameSession session = prototype.Session;
             PrototypeLocalization localization = GetField<PrototypeLocalization>(prototype, "localization");
             PrototypeCampPlacement placement = GetField<PrototypeCampPlacement>(prototype, "campPlacement");
-            PrototypePlayerTraversal traversal = GetField<PrototypePlayerTraversal>(prototype, "playerTraversal");
-            PrototypePlayerPresentation presentation = GetField<PrototypePlayerPresentation>(prototype, "playerPresentation");
-            Camera camera = GetField<Camera>(prototype, "worldCamera");
+            PrototypeSearchNodeRuntime searchRuntime = GetField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
+            PrototypeCampUse campUse = GetField<PrototypeCampUse>(prototype, "campUse");
+            PrototypeCampInteraction interaction = GetField<PrototypeCampInteraction>(prototype, "campInteraction");
+            PrototypeExpeditionMapSelection mapSelection = GetField<PrototypeExpeditionMapSelection>(prototype, "expeditionMapSelection");
             session.Reset();
+            searchRuntime.Reset(session.RunSeed);
             placement.Reset();
+            campUse.Reset();
+            interaction.Reset();
+            mapSelection.Close();
             localization.SetLocale(localeCode, false);
-            Require(session.BeginSearch(), prefix + " fresh visual search begins");
             Invoke(prototype, "RefreshAll");
-            presentation.Apply(traversal.Warp(-1.1f, PrototypePlayerTraversal.LandY, false));
-            Invoke(prototype, "GatherNearestNode");
-            Require(session.SetSwimming(true), prefix + " fresh visual enters water");
-            presentation.Apply(traversal.Warp(-8.2f, PrototypePlayerTraversal.WaterY, true));
-            camera.transform.position = new Vector3(-5.7f, 0f, -10f);
-            Invoke(prototype, "UpdateResourceLabelLayout");
-            Invoke(prototype, "RefreshHud");
+
+            ProductionSearchNodeQaDriver.BeginExpedition(
+                prototype, PrototypeExpeditionRegionId.Shallows, prefix + " fresh visual");
+            ProductionSearchNodeQaDriver.Target firstLand = ProductionSearchNodeQaDriver.MoveToNext(
+                prototype, false, prefix + " first land node");
+            ProductionSearchNodeQaDriver.Open(prototype, firstLand, prefix + " first land node");
+            AddWave3Frame(prototype, "playmode-" + prefix + "-search-loot-tray-1280x800.png",
+                prefix + " production search loot tray", layoutAudit, frames);
+            ProductionSearchNodeQaDriver.TakeAllAndClose(prototype, prefix + " first land node");
+
+            ProductionSearchNodeQaDriver.Target water = ProductionSearchNodeQaDriver.MoveToNext(
+                prototype, true, prefix + " water node");
             AddWave3Frame(prototype, "playmode-" + prefix + "-day1-swimming-1280x800.png",
                 prefix + " day1 swimming", layoutAudit, frames);
-            Invoke(prototype, "GatherNearestNode");
-            Require(session.SetSwimming(false), prefix + " fresh visual exits water");
-            presentation.Apply(traversal.Warp(1.5f, PrototypePlayerTraversal.LandY, false));
-            Invoke(prototype, "GatherNearestNode");
-            presentation.Apply(traversal.Warp(6.8f, PrototypePlayerTraversal.LandY, false));
-            Invoke(prototype, "GatherNearestNode");
-            presentation.Apply(traversal.Warp(6.8f, PrototypePlayerTraversal.LandY, false));
-            camera.transform.position = new Vector3(9.3f, 0f, -10f);
-            Invoke(prototype, "UpdateResourceLabelLayout");
-            Invoke(prototype, "RefreshHud");
+            ProductionSearchNodeQaDriver.Open(prototype, water, prefix + " water node");
+            ProductionSearchNodeQaDriver.TakeAllAndClose(prototype, prefix + " water node");
+            ProductionSearchNodeQaDriver.SearchAndTakeAllNext(prototype, false, prefix + " second land node");
+            ProductionSearchNodeQaDriver.SearchAndTakeAllNext(prototype, false, prefix + " third land node");
             AddWave3Frame(prototype, "playmode-" + prefix + "-day2-exploration-1280x800.png",
                 prefix + " day2 exploration", layoutAudit, frames);
         }

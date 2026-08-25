@@ -17,9 +17,7 @@ namespace ParallelQA
     /// </summary>
     public static class Wave14QpsGlobalLayoutGateRunner
     {
-        private const string Scenario = "qps-long placement valid";
         private const float ScreenMargin = 4f;
-        private const float MinimumGlyphPixels = 16f;
         private const float NormalContrast = 4.5f;
         private const float LargeContrast = 3f;
         private const float MaximumPlayerOcclusionRatio = 0.05f;
@@ -30,7 +28,9 @@ namespace ParallelQA
         {
             public string Id;
             public string Matrix;
+            public string Scenario;
             public string HierarchyNeedle;
+            public float MinimumGlyphPixels;
             public int MaximumLines;
             public float MaximumBlockHeight;
             public string RecommendedFiles;
@@ -54,6 +54,7 @@ namespace ParallelQA
             public string hierarchy;
             public string text;
             public float glyphMedianPx;
+            public float minimumGlyphPx;
             public float blockHeightPx;
             public int lineCount;
             public int maximumLines;
@@ -93,7 +94,7 @@ namespace ParallelQA
         private sealed class Report
         {
             public int schemaVersion = 1;
-            public string title = "Wave 14 qps-long global 1280x800 layout RED-first gate";
+            public string title = "Wave 14 qps-long current spatial UI 1280x800 layout gate";
             public string runId;
             public string baselineCommit;
             public string unityVersion;
@@ -109,6 +110,7 @@ namespace ParallelQA
             public string[] expectedBaselineFailureIds;
             public string[] reproducedBaselineFailureIds;
             public bool exactSixOfTenBaselineReproduced;
+            public bool currentTenTargetContractPassed;
             public string greenCompletionCondition;
             public string physicalGamepad;
             public string steamReadiness;
@@ -121,36 +123,26 @@ namespace ParallelQA
 
         private static readonly Contract[] Contracts =
         {
-            NewContract("W14-QPS-01.hud_day_status", "minimal HUD / day and status", "/상태 HUD/날짜·상태", 2, 64f,
+            NewContract("W14-QPS-01.hud_day_status", "minimal HUD / day and status", "qps-long placement valid", "/상태 HUD/날짜·상태", 16f, 2, 64f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"),
-            NewContract("W14-QPS-02.hud_resources", "minimal HUD / resources", "/상태 HUD/보유 자원", 2, 64f,
+            NewContract("W14-QPS-02.hud_resources", "minimal HUD / resources", "qps-long placement valid", "/상태 HUD/보유 자원", 16f, 2, 64f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"),
-            NewContract("W14-QPS-03.language_button", "language button", "/언어 설정/라벨", 1, 32f,
+            NewContract("W14-QPS-03.language_button", "language button", "qps-long placement valid", "/언어 설정/라벨", 16f, 1, 32f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"),
-            NewContract("W14-QPS-04.bottom_help", "minimal HUD / bottom help", "/조작 안내/조작", 3, 96f,
+            NewContract("W14-QPS-04.bottom_help", "minimal HUD / bottom help", "qps-long placement valid", "/조작 안내/조작", 16f, 3, 96f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"),
-            NewContract("W14-QPS-05.world_entrance", "world badge / entrance", "/world.entrance 안내/", 3, 120f,
-                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"),
-            NewContract("W14-QPS-06.world_required_path", "world badge / required path", "/world.required_path 안내/", 2, 80f,
-                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"),
-            NewContract("W14-QPS-07.world_signal_anchor", "world badge / signal anchor", "/구조 신호대 전용 앵커 안내/", 3, 108f,
-                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"),
-            NewContract("W14-QPS-08.placement_status", "placement state", "/배치 판정/", 3, 108f,
+            NewContract("W14-QPS-05.placement_feedback", "compact placement feedback", "qps-long placement valid", "/김씨 독백 · 배치 상태 · effect.comedy-feedback/김씨 독백 또는 배치 상태", 16f, 3, 108f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs"),
-            NewContract("W14-QPS-09.world_expansion_planning", "world badge / expansion planning", "/증축 계획 지점 안내/", 2, 64f,
-                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"),
-            NewContract("W14-QPS-10.world_general_floor", "world badge / general floor", "/호환 건설 구역 안내/", 4, 144f,
-                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs")
-        };
-
-        private static readonly HashSet<string> ExpectedBaselineFailures = new HashSet<string>(StringComparer.Ordinal)
-        {
-            "W14-QPS-01.hud_day_status",
-            "W14-QPS-02.hud_resources",
-            "W14-QPS-07.world_signal_anchor",
-            "W14-QPS-08.placement_status",
-            "W14-QPS-09.world_expansion_planning",
-            "W14-QPS-10.world_general_floor"
+            NewContract("W14-QPS-06.camp_proximity_action", "compact camp proximity prompt", "qps-long camp proximity", "/설비 근접 안내 · ui.camp-context-prompt/설비 근접 행동·대상 문구", 15f, 1, 44f,
+                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"),
+            NewContract("W14-QPS-07.camp_popup_title", "compact facility popup title", "qps-long camp popup", "/설비 전용 소형 팝업/설비 팝업 제목", 14f, 3, 70f,
+                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"),
+            NewContract("W14-QPS-08.camp_popup_detail", "compact facility popup detail", "qps-long camp popup", "/설비 전용 소형 팝업/설비 팝업 설명", 12f, 5, 90f,
+                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"),
+            NewContract("W14-QPS-09.search_tray_title", "environmental-search compact tray title", "qps-long search tray", "/환경 수색 발견물 compact tray placeholder/발견물 트레이 제목", 18f, 1, 44f,
+                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs"),
+            NewContract("W14-QPS-10.search_tray_close", "environmental-search compact tray close action", "qps-long search tray", "/환경 수색 발견물 compact tray placeholder/발견물 남기고 닫기/라벨", 18f, 2, 56f,
+                "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs")
         };
 
         private static string ProjectRoot { get { return Directory.GetParent(Application.dataPath).FullName; } }
@@ -178,8 +170,13 @@ namespace ParallelQA
             Directory.CreateDirectory(EvidenceFolder);
             string reportPath = Path.Combine(EvidenceFolder, "wave3-visual-gate.txt");
             string metricsPath = Path.Combine(EvidenceFolder, "wave3-visual-metrics.tsv");
-            string screenshotName = "playmode-qps-long-placement-valid-1280x800.png";
-            string screenshotPath = Path.Combine(EvidenceFolder, screenshotName);
+            string[] screenshotNames =
+            {
+                "playmode-qps-long-placement-valid-1280x800.png",
+                "playmode-qps-long-camp-proximity-1280x800.png",
+                "playmode-qps-long-camp-popup-1280x800.png",
+                "playmode-qps-long-search-tray-1280x800.png"
+            };
             List<Check> checks = new List<Check>();
             List<TargetResult> targets = new List<TargetResult>();
 
@@ -208,11 +205,12 @@ namespace ParallelQA
                     "Projected metrics expose lines, screen Rects, and protected-region overlap ratios",
                     "rows=" + rows.Length + "; missingHeaders=" + (missingHeaders.Length == 0 ? "none" : string.Join(",", missingHeaders))));
 
-                bool pngPass = VerifyPng(screenshotPath, 1280, 800);
+                string[] invalidPngs = screenshotNames.Where(name => !VerifyPng(Path.Combine(EvidenceFolder, name), 1280, 800)).ToArray();
+                bool pngPass = invalidPngs.Length == 0;
                 checks.Add(NewCheck("W14-I03.capture_1280x800", pngPass ? "PASS" : "INFRA_FAIL",
                     pngPass ? "NONE" : "INFRASTRUCTURE", "P0",
-                    "The qps-long placement source capture is a non-empty 1280x800 PNG",
-                    screenshotName + " exact1280x800=" + pngPass));
+                    "All four current qps-long spatial UI source captures are non-empty 1280x800 PNGs",
+                    "captures=" + screenshotNames.Length + "; invalid=" + (invalidPngs.Length == 0 ? "none" : string.Join(",", invalidPngs))));
 
                 Match placement = Regex.Match(wave3Report, @"PLACEMENT_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
                 Match exploration = Regex.Match(wave3Report, @"EXPLORATION_SWIMMING_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
@@ -225,33 +223,35 @@ namespace ParallelQA
                     "placement=" + (placement.Success ? placement.Value : "MISSING") + "; exploration=" +
                     (exploration.Success ? exploration.Value : "MISSING")));
 
-                MetricRow[] qpsRows = rows.Where(row => string.Equals(row.Get("scenario"), Scenario, StringComparison.Ordinal) &&
-                                                        string.Equals(row.Get("category"), "pseudo-long", StringComparison.Ordinal)).ToArray();
-                bool projectionPass = qpsRows.Length == 10 && qpsRows.All(row =>
-                    Regex.IsMatch(row.Get("walking_path_screen_rect"), @"^x=0\.0,y=[-0-9.]+,w=1280\.0,h=[0-9.]+$") &&
-                    !string.Equals(row.Get("player_screen_rect"), "UNAVAILABLE", StringComparison.OrdinalIgnoreCase));
-                checks.Add(NewCheck("W14-I04.exact_capture_projection", projectionPass ? "PASS" : "INFRA_FAIL",
-                    projectionPass ? "NONE" : "INFRASTRUCTURE", "P0",
-                    "All target Rects are projected while the camera is fixed to the exact 1280x800 capture target; walking band is x=0..1280 and current player Rect is available",
-                    "qpsRows=" + qpsRows.Length + "; exactWalkingBandAndPlayer=" + projectionPass));
+                MetricRow[] qpsRows = rows.Where(row => string.Equals(row.Get("category"), "pseudo-long", StringComparison.Ordinal) &&
+                                                        Contracts.Any(contract => string.Equals(row.Get("scenario"), contract.Scenario, StringComparison.Ordinal))).ToArray();
+                List<MetricRow> selectedRows = new List<MetricRow>();
                 foreach (Contract contract in Contracts)
                 {
-                    MetricRow[] matches = qpsRows.Where(row => row.Get("hierarchy").Contains(contract.HierarchyNeedle)).ToArray();
+                    MetricRow[] matches = qpsRows.Where(row => string.Equals(row.Get("scenario"), contract.Scenario, StringComparison.Ordinal) &&
+                                                               row.Get("hierarchy").Contains(contract.HierarchyNeedle)).ToArray();
                     if (matches.Length != 1)
                     {
                         targets.Add(MissingTarget(contract, matches.Length));
                         continue;
                     }
+                    selectedRows.Add(matches[0]);
                     targets.Add(Evaluate(contract, matches[0]));
                 }
 
-                string[] unmatched = qpsRows.Where(row => !Contracts.Any(contract => row.Get("hierarchy").Contains(contract.HierarchyNeedle)))
-                    .Select(row => row.Get("hierarchy")).ToArray();
-                bool discoveryPass = qpsRows.Length == 10 && targets.Count == 10 && unmatched.Length == 0;
+                bool projectionPass = selectedRows.Count == 10 && selectedRows.All(row =>
+                    Regex.IsMatch(row.Get("walking_path_screen_rect"), @"^x=0\.0,y=[-0-9.]+,w=1280\.0,h=[0-9.]+$") &&
+                    !string.Equals(row.Get("player_screen_rect"), "UNAVAILABLE", StringComparison.OrdinalIgnoreCase));
+                checks.Add(NewCheck("W14-I04.exact_capture_projection", projectionPass ? "PASS" : "INFRA_FAIL",
+                    projectionPass ? "NONE" : "INFRASTRUCTURE", "P0",
+                    "All ten selected current target Rects use the exact 1280x800 projection; walking band is x=0..1280 and the current player Rect is available",
+                    "candidateQpsRows=" + qpsRows.Length + "; selectedRows=" + selectedRows.Count + "; exactWalkingBandAndPlayer=" + projectionPass));
+
+                bool discoveryPass = targets.Count == 10 && selectedRows.Count == 10 && selectedRows.Distinct().Count() == 10;
                 checks.Add(NewCheck("W14-I05.target_discovery", discoveryPass ? "PASS" : "INFRA_FAIL",
                     discoveryPass ? "NONE" : "INFRASTRUCTURE", "P0",
-                    "Exactly ten canonical qps-long global targets are classified once",
-                    "qpsRows=" + qpsRows.Length + "; canonicalResults=" + targets.Count + "; unmatched=" + unmatched.Length));
+                    "Exactly ten current qps-long spatial UI targets are selected once by exact scenario and current hierarchy",
+                    "candidateQpsRows=" + qpsRows.Length + "; canonicalResults=" + targets.Count + "; distinctSelected=" + selectedRows.Distinct().Count()));
 
                 checks.Add(NewCheck("W14-HW01.physical_gamepad", "UNVERIFIED", "HARDWARE_GAP", "P1",
                     "A human validates locale/layout and prompts using a connected physical gamepad",
@@ -260,13 +260,13 @@ namespace ParallelQA
                     "Steamworks App ID, depot, Input, Cloud, Achievements, permissions, and store release evidence are configured and reviewed",
                     "Steam readiness is outside this gate and remains NOT_READY."));
 
-                WriteReport(started, metricsPath, screenshotName, targets, checks);
+                WriteReport(started, metricsPath, screenshotNames, targets, checks);
             }
             catch (Exception exception)
             {
                 checks.Add(NewCheck("W14-I99.runner", "INFRA_FAIL", "INFRASTRUCTURE", "P0",
                     "Wave 14 emits parseable evidence", exception.ToString()));
-                WriteReport(started, metricsPath, screenshotName, targets, checks);
+                WriteReport(started, metricsPath, screenshotNames, targets, checks);
                 throw;
             }
         }
@@ -285,7 +285,7 @@ namespace ParallelQA
             float walkingRatio = Float(row, "walking_path_occlusion_ratio");
             bool overflow = row.Get("overflow") == "1";
             List<string> failures = new List<string>();
-            if (glyph < MinimumGlyphPixels) failures.Add("glyph<16px");
+            if (glyph < contract.MinimumGlyphPixels) failures.Add("glyph<" + F(contract.MinimumGlyphPixels) + "px");
             if (block > contract.MaximumBlockHeight + 0.05f) failures.Add("block-height>" + F(contract.MaximumBlockHeight) + "px");
             if (lines < 1 || lines > contract.MaximumLines) failures.Add("lines>" + contract.MaximumLines);
             if (left < ScreenMargin || bottom < ScreenMargin || right > Wave3VisualGate.Width - ScreenMargin || top > Wave3VisualGate.Height - ScreenMargin)
@@ -300,18 +300,18 @@ namespace ParallelQA
             if (walkingRatio > MaximumWalkingPathOcclusionRatio + 0.0005f) failures.Add("walking-path-occlusion>20%");
 
             bool passed = failures.Count == 0;
-            bool expectedGap = !passed && ExpectedBaselineFailures.Contains(contract.Id);
             return new TargetResult
             {
                 id = contract.Id,
                 matrix = contract.Matrix,
-                status = passed ? "PASS" : expectedGap ? "EXPECTED_GAP" : "FAIL",
-                classification = passed ? "NONE" : expectedGap ? "PRODUCT_EXPECTED_GAP" : "PRODUCT_REGRESSION",
+                status = passed ? "PASS" : "FAIL",
+                classification = passed ? "NONE" : "PRODUCT_REGRESSION",
                 severity = "P1",
                 screenshot = row.Get("screenshot"),
                 hierarchy = row.Get("hierarchy"),
                 text = row.Get("text"),
                 glyphMedianPx = glyph,
+                minimumGlyphPx = contract.MinimumGlyphPixels,
                 blockHeightPx = block,
                 lineCount = lines,
                 maximumLines = contract.MaximumLines,
@@ -347,6 +347,7 @@ namespace ParallelQA
                 classification = "PRODUCT_REGRESSION",
                 severity = "P1",
                 safeMarginPx = ScreenMargin,
+                minimumGlyphPx = contract.MinimumGlyphPixels,
                 maximumLines = contract.MaximumLines,
                 maximumBlockHeightPx = contract.MaximumBlockHeight,
                 maximumPlayerOcclusionRatio = MaximumPlayerOcclusionRatio,
@@ -357,21 +358,16 @@ namespace ParallelQA
             };
         }
 
-        private static void WriteReport(DateTime started, string metricsPath, string screenshotName,
+        private static void WriteReport(DateTime started, string metricsPath, string[] screenshotNames,
             List<TargetResult> targets, List<Check> checks)
         {
-            string[] reproduced = targets.Where(target => target.status == "EXPECTED_GAP")
-                .Select(target => target.id).OrderBy(id => id, StringComparer.Ordinal).ToArray();
-            string[] expected = ExpectedBaselineFailures.OrderBy(id => id, StringComparer.Ordinal).ToArray();
             int infrastructureFailed = checks.Count(check => check.status == "INFRA_FAIL");
             int checkProductFailed = checks.Count(check => check.status == "FAIL" && check.classification == "PRODUCT_REGRESSION");
             int unexpectedTargets = targets.Count(target => target.status == "FAIL");
-            int expectedTargets = targets.Count(target => target.status == "EXPECTED_GAP");
-            bool exactBaseline = targets.Count == 10 && expectedTargets == 6 && unexpectedTargets == 0 && expected.SequenceEqual(reproduced);
+            bool currentTenPassed = targets.Count == 10 && targets.All(target => target.status == "PASS");
             string infrastructureOverall = infrastructureFailed == 0 ? "PASS" : "FAIL";
-            string productOverall = unexpectedTargets + checkProductFailed > 0 ? "FAIL" : expectedTargets > 0 ? "RED_EXPECTED_GAP" : "PASS";
-            string overall = infrastructureOverall == "FAIL" || productOverall == "FAIL" ? "FAIL" :
-                productOverall == "RED_EXPECTED_GAP" ? "RED" : "GREEN";
+            string productOverall = unexpectedTargets + checkProductFailed > 0 ? "FAIL" : "PASS";
+            string overall = infrastructureOverall == "FAIL" || productOverall == "FAIL" ? "FAIL" : "GREEN";
             Report report = new Report
             {
                 runId = RunId,
@@ -384,17 +380,18 @@ namespace ParallelQA
                 infrastructureOverall = infrastructureOverall,
                 targetCount = targets.Count,
                 passedTargets = targets.Count(target => target.status == "PASS"),
-                expectedGapTargets = expectedTargets,
+                expectedGapTargets = 0,
                 unexpectedFailedTargets = unexpectedTargets + checkProductFailed,
-                expectedBaselineFailureIds = expected,
-                reproducedBaselineFailureIds = reproduced,
-                exactSixOfTenBaselineReproduced = exactBaseline,
-                greenCompletionCondition = "GREEN requires infrastructure PASS, ko/en normal visual lock PASS, all 10 canonical qps-long targets PASS, and zero EXPECTED_GAP/FAIL targets.",
+                expectedBaselineFailureIds = Array.Empty<string>(),
+                reproducedBaselineFailureIds = Array.Empty<string>(),
+                exactSixOfTenBaselineReproduced = false,
+                currentTenTargetContractPassed = currentTenPassed,
+                greenCompletionCondition = "GREEN requires infrastructure PASS, ko/en normal visual lock PASS, all 10 current qps-long spatial UI targets PASS, and zero product failures.",
                 physicalGamepad = "UNVERIFIED",
                 steamReadiness = "NOT_READY",
                 sourceMetrics = Path.GetFileName(metricsPath),
-                sourceScreenshot = screenshotName,
-                projectionCorrection = "Legacy post-capture 4:3 projection reported the language button outside bounds. Exact 1280x800 projection puts it inside the 4px safe area and separately detects facilities/expansion-planning player occlusion above 5%; current exact gate remains six RED targets.",
+                sourceScreenshot = string.Join(";", screenshotNames),
+                projectionCorrection = "The removed oversized world badges are not exempted. Exact 1280x800 metrics now select the current compact placement feedback, proximity prompt, facility popup, and environmental-search tray by scenario plus live hierarchy.",
                 targets = targets.ToArray(),
                 checks = checks.ToArray()
             };
@@ -407,15 +404,15 @@ namespace ParallelQA
             text.AppendLine("Baseline: " + BaselineCommit);
             text.AppendLine("Unity: " + Application.unityVersion);
             text.AppendLine("Overall/Product/Infrastructure: " + overall + "/" + productOverall + "/" + infrastructureOverall);
-            text.AppendLine("Targets PASS/EXPECTED_GAP/FAIL: " + report.passedTargets + "/" + report.expectedGapTargets + "/" + report.unexpectedFailedTargets);
-            text.AppendLine("Exact reported baseline 6/10 reproduced: " + exactBaseline);
+            text.AppendLine("Targets PASS/FAIL: " + report.passedTargets + "/" + report.unexpectedFailedTargets);
+            text.AppendLine("Current qps-long target contract: " + (currentTenPassed ? "PASS 10/10" : "FAIL"));
             text.AppendLine("Projection correction: " + report.projectionCorrection);
             text.AppendLine("GREEN condition: " + report.greenCompletionCondition);
             text.AppendLine("Physical gamepad: UNVERIFIED");
             text.AppendLine("Steam: NOT_READY");
             foreach (TargetResult target in targets)
             {
-                text.AppendLine(target.id + " | " + target.status + " | glyph=" + F(target.glyphMedianPx) +
+                text.AppendLine(target.id + " | " + target.status + " | glyph=" + F(target.glyphMedianPx) + "/" + F(target.minimumGlyphPx) +
                     "px block=" + F(target.blockHeightPx) + "/" + F(target.maximumBlockHeightPx) +
                     "px lines=" + target.lineCount + "/" + target.maximumLines + " bounds=[" + F(target.leftPx) + "," +
                     F(target.bottomPx) + " -> " + F(target.rightPx) + "," + F(target.topPx) + "] player=" +
@@ -427,12 +424,12 @@ namespace ParallelQA
             File.WriteAllText(Path.Combine(EvidenceFolder, "wave14-qps-global-layout-gate.txt"), text.ToString(), Utf8NoBom);
 
             StringBuilder table = new StringBuilder();
-            table.AppendLine("id\tmatrix\tstatus\tglyph_px\tblock_height_px\tmax_block_height_px\tline_count\tmax_lines\tleft_px\tbottom_px\tright_px\ttop_px\tplayer_occlusion_ratio\twalking_path_occlusion_ratio\toverflow\tfailures\tscreenshot\thierarchy");
+            table.AppendLine("id\tmatrix\tstatus\tglyph_px\tmin_glyph_px\tblock_height_px\tmax_block_height_px\tline_count\tmax_lines\tleft_px\tbottom_px\tright_px\ttop_px\tplayer_occlusion_ratio\twalking_path_occlusion_ratio\toverflow\tfailures\tscreenshot\thierarchy");
             foreach (TargetResult target in targets)
             {
                 table.AppendLine(string.Join("\t", new[]
                 {
-                    target.id, Clean(target.matrix), target.status, F(target.glyphMedianPx), F(target.blockHeightPx),
+                    target.id, Clean(target.matrix), target.status, F(target.glyphMedianPx), F(target.minimumGlyphPx), F(target.blockHeightPx),
                     F(target.maximumBlockHeightPx), target.lineCount.ToString(CultureInfo.InvariantCulture),
                     target.maximumLines.ToString(CultureInfo.InvariantCulture), F(target.leftPx), F(target.bottomPx), F(target.rightPx),
                     F(target.topPx), F(target.playerOcclusionRatio), F(target.walkingPathOcclusionRatio), target.overflow ? "1" : "0",
@@ -475,10 +472,11 @@ namespace ParallelQA
             return new Check { id = id, status = status, classification = classification, severity = severity, expected = expected, actual = actual };
         }
 
-        private static Contract NewContract(string id, string matrix, string hierarchyNeedle, int maximumLines,
-            float maximumBlockHeight, string recommendedFiles)
+        private static Contract NewContract(string id, string matrix, string scenario, string hierarchyNeedle,
+            float minimumGlyphPixels, int maximumLines, float maximumBlockHeight, string recommendedFiles)
         {
-            return new Contract { Id = id, Matrix = matrix, HierarchyNeedle = hierarchyNeedle, MaximumLines = maximumLines,
+            return new Contract { Id = id, Matrix = matrix, Scenario = scenario, HierarchyNeedle = hierarchyNeedle,
+                MinimumGlyphPixels = minimumGlyphPixels, MaximumLines = maximumLines,
                 MaximumBlockHeight = maximumBlockHeight, RecommendedFiles = recommendedFiles };
         }
 

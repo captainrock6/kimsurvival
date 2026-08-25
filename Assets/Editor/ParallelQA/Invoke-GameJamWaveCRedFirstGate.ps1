@@ -188,12 +188,26 @@ $editEvidence = Read-Json (Join-Path $evidenceRoot 'gamejam-wave-c-edit-observat
 $playEvidence = Read-Json (Join-Path $evidenceRoot 'gamejam-wave-c-play-observation-evidence.json')
 $searchEditReport = Read-Json (Join-Path $evidenceRoot 'gamejam-search-node-edit-contracts.json')
 $searchPlayReport = Read-Json (Join-Path $evidenceRoot 'gamejam-search-node-play-contracts.json')
+$searchSummary = Read-Json (Join-Path $evidenceRoot 'gamejam-search-node-summary.json')
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
 foreach ($stage in $stages) {
     if ([int]$stage.exitCode -ne 0) {
         $infrastructureFailures.Add("$($stage.name) exited $($stage.exitCode)")
     }
+}
+if ($null -eq $searchSummary -or
+    [string]$searchSummary.runId -ne $RunId -or
+    [string]$searchSummary.baselineCommit -ne $BaselineCommit -or
+    [string]$searchSummary.overall -ne 'GREEN' -or
+    [string]$searchSummary.productOverall -ne 'PASS' -or
+    [string]$searchSummary.infrastructureOverall -ne 'PASS') {
+    $infrastructureFailures.Add('fresh same-run GSN prerequisite summary is missing, identity-mismatched, or not GREEN/PASS/PASS')
+}
+$searchPrerequisiteStages = if ($null -eq $searchSummary) { @() } else { @($searchSummary.stages) }
+if ($searchPrerequisiteStages.Count -eq 0 -or
+    @($searchPrerequisiteStages | Where-Object { [int]$_.exitCode -ne 0 }).Count -gt 0) {
+    $infrastructureFailures.Add('fresh same-run GSN prerequisite contains a missing or nonzero child stage')
 }
 foreach ($report in @($searchEditReport, $searchPlayReport)) {
     if ($null -eq $report -or [string]$report.infrastructureOverall -ne 'PASS' -or

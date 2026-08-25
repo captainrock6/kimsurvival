@@ -149,7 +149,7 @@ $result = [ordered]@{
     productOverall = $productOverall
     infrastructureOverall = $infrastructureOverall
     infrastructureFailures = $infrastructureFailures.ToArray()
-    exactReportedBaselineReproduced = if ($null -eq $gate) { $false } else { [bool]$gate.exactSixOfTenBaselineReproduced }
+    currentTenTargetContractPassed = if ($null -eq $gate) { $false } else { [bool]$gate.currentTenTargetContractPassed }
     physicalGamepad = 'UNVERIFIED'
     steamReadiness = 'NOT_READY'
     exitCode = $exitCode
@@ -163,7 +163,7 @@ $result = [ordered]@{
     "Baseline: $BaselineCommit"
     "PowerShell: $shellEdition $shellVersion"
     "Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall"
-    "Exact reported 6/10 baseline reproduced: $($result.exactReportedBaselineReproduced)"
+    "Current qps-long spatial UI contract: $(if ($result.currentTenTargetContractPassed) { 'PASS 10/10' } else { 'FAIL' })"
     "Physical gamepad: UNVERIFIED"
     "Steam: NOT_READY"
     "Exit code: $exitCode (0 GREEN, 2 RED_EXPECTED_GAP, 1 unexpected/infrastructure failure)"
@@ -173,7 +173,7 @@ $result = [ordered]@{
 Write-Output "OVERALL=$overall"
 Write-Output "PRODUCT=$productOverall"
 Write-Output "INFRASTRUCTURE=$infrastructureOverall"
-Write-Output "EXACT_BASELINE_REPRODUCED=$($result.exactReportedBaselineReproduced)"
+Write-Output "CURRENT_QPS_TARGETS_10_OF_10=$($result.currentTenTargetContractPassed)"
 Write-Output 'PHYSICAL_GAMEPAD=UNVERIFIED'
 Write-Output 'STEAM=NOT_READY'
 Write-Output "EVIDENCE=$evidenceRoot"

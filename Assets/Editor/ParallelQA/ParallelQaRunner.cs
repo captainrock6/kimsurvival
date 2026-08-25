@@ -392,7 +392,7 @@ namespace ParallelQA
                 new UTF8Encoding(false));
 
             return Header("Play Mode natural full-loop verification", started) +
-                   "PASS · No Grant calls used by either localized natural full-loop route; resource grants are isolated to the placement-only visual fixture." + Environment.NewLine +
+                   "PASS · No Grant, Warp, or Skip calls used by either localized natural full-loop route; resource grants are isolated to the placement-only visual fixture." + Environment.NewLine +
                    "PASS · Korean and English each completed Day 1-3 camp/search/return/settlement and rescue." + Environment.NewLine +
                    "PASS · Each locale exercised limited placement, crafting/research, overflow replacement, shore entry, water gather, shore exit, and signal completion." + Environment.NewLine +
                    "PASS · UI Submit switched language and invoked camp actions, placement entry, bag replacement, and result actions." + Environment.NewLine +
@@ -461,12 +461,19 @@ namespace ParallelQA
             GameSession session = prototype.Session;
             PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
             PrototypeCampPlacement placement = GetPrivateField<PrototypeCampPlacement>(prototype, "campPlacement");
+            PrototypeCampUse campUse = GetPrivateField<PrototypeCampUse>(prototype, "campUse");
+            PrototypeCampInteraction campInteraction = GetPrivateField<PrototypeCampInteraction>(prototype, "campInteraction");
+            PrototypeSearchNodeRuntime searchRuntime = GetPrivateField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
+            PrototypeExpeditionMapSelection mapSelection = GetPrivateField<PrototypeExpeditionMapSelection>(prototype, "expeditionMapSelection");
             session.Reset();
+            searchRuntime.Reset(session.RunSeed);
             placement.Reset();
+            campUse.Reset();
+            campInteraction.Reset();
             session.Grant(ResourceKind.Wood, 10);
             session.Grant(ResourceKind.Stone, 10);
             session.Grant(ResourceKind.Salvage, 10);
-            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            Require(localization.SetQaLocale(), "canonical qps-long locale is available for Wave 3 metrics");
             InvokePrivate(prototype, "RefreshAll");
             Submit(GetButton(prototype, "campfireButton"));
             InvokePrivate(prototype, "ApplyPlacementGuidance", PrototypeInputDevice.Gamepad);
@@ -474,27 +481,48 @@ namespace ParallelQA
             InvokePrivate(prototype, "UpdatePlacementGhost");
             InvokePrivate(prototype, "RefreshHud");
             Require(placement.CurrentValidity == CampPlacementValidity.Valid, "pseudo-long placement fixture is valid");
-
-            TMP_Text[] texts = UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude);
-            Dictionary<TMP_Text, string> originals = texts.ToDictionary(text => text, text => text.text);
             try
             {
-                foreach (TMP_Text text in texts)
-                {
-                    text.text = Wave3VisualGate.ExpandPseudoLong(text.text);
-                }
-                CaptureAndAudit(prototype, "playmode-qps-long-placement-1280x800.png", "qps-long placement valid", layoutAudit, wave3Frames);
+                CaptureAndAudit(prototype, "playmode-qps-long-placement-valid-1280x800.png",
+                    "qps-long placement valid", layoutAudit, wave3Frames);
+
+                placement.Cancel();
+                InvokePrivate(prototype, "RefreshAll");
+                Require(campInteraction.HasProximityPrompt &&
+                        GetPrivateField<GameObject>(prototype, "campProximityPrompt").activeSelf,
+                    "qps-long compact camp proximity prompt is visible in the current hierarchy");
+                CaptureAndAudit(prototype, "playmode-qps-long-camp-proximity-1280x800.png",
+                    "qps-long camp proximity", layoutAudit, wave3Frames);
+
+                Require(campInteraction.TryOpenPopup(), "qps-long current camp target opens the compact popup");
+                InvokePrivate(prototype, "RefreshAll");
+                Require(GetPrivateField<GameObject>(prototype, "campInteractionPopup").activeSelf,
+                    "qps-long compact camp popup is visible in the current hierarchy");
+                CaptureAndAudit(prototype, "playmode-qps-long-camp-popup-1280x800.png",
+                    "qps-long camp popup", layoutAudit, wave3Frames);
+
+                campInteraction.ClosePopup();
+                session.Reset();
+                searchRuntime.Reset(session.RunSeed);
+                campUse.Reset();
+                campInteraction.Reset();
+                mapSelection.Close();
+                InvokePrivate(prototype, "RefreshAll");
+                ProductionSearchNodeQaDriver.BeginExpedition(
+                    prototype, PrototypeExpeditionRegionId.Beach, "qps-long environmental search");
+                ProductionSearchNodeQaDriver.Target target = ProductionSearchNodeQaDriver.MoveToNext(
+                    prototype, false, "qps-long search node");
+                ProductionSearchNodeQaDriver.Open(prototype, target, "qps-long search node");
+                Require(searchRuntime.IsTrayOpen && GetPrivateField<GameObject>(prototype, "searchLootTrayPanel").activeSelf,
+                    "qps-long production interaction opens the compact environmental-search tray");
+                CaptureAndAudit(prototype, "playmode-qps-long-search-tray-1280x800.png",
+                    "qps-long search tray", layoutAudit, wave3Frames);
             }
             finally
             {
-                foreach (KeyValuePair<TMP_Text, string> original in originals)
-                {
-                    if (original.Key != null)
-                    {
-                        original.Key.text = original.Value;
-                    }
-                }
+                if (searchRuntime.IsTrayOpen) searchRuntime.Close(session);
                 placement.Cancel();
+                campInteraction.Reset();
                 localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
                 InvokePrivate(prototype, "RefreshAll");
             }
@@ -510,61 +538,91 @@ namespace ParallelQA
             GameSession session = prototype.Session;
             PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
             PrototypeCampPlacement placement = GetPrivateField<PrototypeCampPlacement>(prototype, "campPlacement");
+            PrototypeSearchNodeRuntime searchRuntime = GetPrivateField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
+            PrototypeCampUse campUse = GetPrivateField<PrototypeCampUse>(prototype, "campUse");
+            PrototypeCampInteraction interaction = GetPrivateField<PrototypeCampInteraction>(prototype, "campInteraction");
+            PrototypeExpeditionMapSelection mapSelection = GetPrivateField<PrototypeExpeditionMapSelection>(prototype, "expeditionMapSelection");
             session.Reset();
+            searchRuntime.Reset(session.RunSeed);
             placement.Reset();
+            campUse.Reset();
+            interaction.Reset();
+            mapSelection.Close();
             localization.SetLocale(localeCode, false);
             InvokePrivate(prototype, "RefreshAll");
             Require(localization.CurrentLocaleCode == localeCode, prefix + " locale active at loop start");
+            int grantBefore = PrototypeProductionActionCounters.GrantCallCount;
+            int warpBefore = PrototypeProductionActionCounters.WarpCallCount;
+            int skipBefore = PrototypeProductionActionCounters.SkipCallCount;
 
-            Submit(GetButton(prototype, "phaseButton"));
-            Require(session.Day == 1 && session.Phase == GamePhase.Exploring, prefix + " day 1 starts");
-            float energyBeforeLandGather = session.Energy;
-            GatherAt(prototype, -1.1f, false);
-            float landGatherCost = energyBeforeLandGather - session.Energy;
-            PositionAt(prototype, -8.2f, true);
-            CaptureAndAudit(prototype, "playmode-" + prefix + "-day1-swimming-1280x800.png", prefix + " day1 swimming", layoutAudit, wave3Frames);
-            float energyBeforeWaterGather = session.Energy;
-            InvokePrivate(prototype, "GatherNearestNode");
-            float waterGatherCost = energyBeforeWaterGather - session.Energy;
-            Require(waterGatherCost > landGatherCost, prefix + " water gather costs more energy than land gather");
-            GatherAt(prototype, 6.8f, false);
-            GatherAt(prototype, 1.5f, false);
-            Require(session.ReturnToCamp(false), prefix + " day 1 returns");
+            ProductionSearchNodeQaDriver.BeginExpedition(
+                prototype, PrototypeExpeditionRegionId.Beach, prefix + " day 1 beach route");
+            ProductionSearchNodeQaDriver.Target firstBeach = ProductionSearchNodeQaDriver.MoveToNext(
+                prototype, false, prefix + " day 1 first beach node");
+            ProductionSearchNodeQaDriver.Open(prototype, firstBeach, prefix + " day 1 first beach node");
+            CaptureAndAudit(prototype, "playmode-" + prefix + "-search-loot-tray-1280x800.png",
+                prefix + " production search loot tray", layoutAudit, wave3Frames);
+            ProductionSearchNodeQaDriver.TakeAllAndClose(prototype, prefix + " day 1 first beach node");
+            for (int index = 1; index < 6; index += 1)
+            {
+                ProductionSearchNodeQaDriver.SearchAndTakeAllNext(
+                    prototype, false, prefix + " day 1 beach node " + (index + 1));
+            }
+            ProductionSearchNodeQaDriver.ReturnToCamp(prototype, prefix + " day 1");
             InvokePrivate(prototype, "RefreshAll");
             PlaceViaUi(prototype, "workbenchButton", StructureKind.Workbench, 1.5f, prefix + " workbench");
             Submit(GetButton(prototype, "researchRopeButton"));
             Submit(GetButton(prototype, "craftRopeButton"));
-            Submit(GetButton(prototype, "researchAxeButton"));
-            Submit(GetButton(prototype, "craftAxeButton"));
-            Require(session.HasAxe && session.HasRope, prefix + " both tools crafted");
+            Require(session.HasRope, prefix + " rope crafted on day 1");
             Submit(GetButton(prototype, "phaseButton"));
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, prefix + " advances to day 2");
 
-            Submit(GetButton(prototype, "phaseButton"));
-            GatherAt(prototype, -1.1f, false);
-            GatherAt(prototype, 10.2f, false);
-            GatherAt(prototype, -8.2f, true);
-            GatherAt(prototype, 6.8f, false);
-            Require(session.HasPendingLoot, prefix + " day 2 overflow pending");
-            InvokePrivate(prototype, "RefreshAll");
-            Require(EventSystem.current.currentSelectedGameObject != null, prefix + " bag replacement receives focus");
-            Submit(EventSystem.current.currentSelectedGameObject.GetComponent<Button>());
-            Require(!session.HasPendingLoot, prefix + " day 2 replacement resolved");
+            ProductionSearchNodeQaDriver.BeginExpedition(
+                prototype, PrototypeExpeditionRegionId.Shallows, prefix + " day 2 shallows route");
+            float energyBeforeLandGather = session.Energy;
+            ProductionSearchNodeQaDriver.Target firstLand = ProductionSearchNodeQaDriver.MoveToNext(
+                prototype, false, prefix + " day 2 first land node");
+            ProductionSearchNodeQaDriver.Open(prototype, firstLand, prefix + " day 2 first land node");
+            float landGatherCost = energyBeforeLandGather - session.Energy;
+            int day2ReplacementCount = ProductionSearchNodeQaDriver.TakeAllAndClose(
+                prototype, prefix + " day 2 first land node");
+            ProductionSearchNodeQaDriver.Target water = ProductionSearchNodeQaDriver.MoveToNext(
+                prototype, true, prefix + " day 2 first water node");
+            CaptureAndAudit(prototype, "playmode-" + prefix + "-day1-swimming-1280x800.png", prefix + " day2 swimming", layoutAudit, wave3Frames);
+            float energyBeforeWaterGather = session.Energy;
+            ProductionSearchNodeQaDriver.Open(prototype, water, prefix + " day 2 first water node");
+            float waterGatherCost = energyBeforeWaterGather - session.Energy;
+            Require(waterGatherCost > landGatherCost, prefix + " water gather costs more energy than land gather");
+            day2ReplacementCount += ProductionSearchNodeQaDriver.TakeAllAndClose(
+                prototype, prefix + " day 2 first water node");
+            day2ReplacementCount += ProductionSearchNodeQaDriver.SearchAndTakeAllNext(
+                prototype, false, prefix + " day 2 second land node");
+            day2ReplacementCount += ProductionSearchNodeQaDriver.SearchAndTakeAllNext(
+                prototype, false, prefix + " day 2 third land node");
+            day2ReplacementCount += ProductionSearchNodeQaDriver.SearchAndTakeAllNext(
+                prototype, true, prefix + " day 2 second water node");
+            day2ReplacementCount += ProductionSearchNodeQaDriver.SearchAndTakeAllNext(
+                prototype, true, prefix + " day 2 third water node");
+            Require(day2ReplacementCount > 0 && !session.HasPendingLoot,
+                prefix + " day 2 overflow replacement resolves through production bag controls");
             CaptureAndAudit(prototype, "playmode-" + prefix + "-day2-exploration-1280x800.png", prefix + " day2 exploration", layoutAudit, wave3Frames);
-            Require(session.ReturnToCamp(false), prefix + " day 2 returns");
+            ProductionSearchNodeQaDriver.ReturnToCamp(prototype, prefix + " day 2");
             InvokePrivate(prototype, "RefreshAll");
+            Submit(GetButton(prototype, "researchAxeButton"));
+            Submit(GetButton(prototype, "craftAxeButton"));
+            Require(session.HasAxe && session.HasRope, prefix + " both tools crafted by day 2");
             Submit(GetButton(prototype, "phaseButton"));
-            Require(session.Day == 3, prefix + " advances to day 3");
+            Require(session.Day == 3 && session.Phase == GamePhase.Camp, prefix + " advances to day 3");
 
-            Submit(GetButton(prototype, "phaseButton"));
-            GatherAt(prototype, -1.1f, false);
-            GatherAt(prototype, 10.2f, false);
-            GatherAt(prototype, 1.5f, false);
-            GatherAt(prototype, 6.8f, false);
-            Require(session.HasPendingLoot, prefix + " day 3 overflow pending");
-            InvokePrivate(prototype, "RefreshAll");
-            Submit(EventSystem.current.currentSelectedGameObject.GetComponent<Button>());
-            Require(session.ReturnToCamp(false), prefix + " day 3 returns");
+            ProductionSearchNodeQaDriver.BeginExpedition(
+                prototype, PrototypeExpeditionRegionId.Forest, prefix + " day 3 forest route");
+            for (int index = 0; index < 6; index += 1)
+            {
+                ProductionSearchNodeQaDriver.SearchAndTakeAllNext(
+                    prototype, false, prefix + " day 3 forest node " + (index + 1));
+            }
+            Require(!session.HasPendingLoot, prefix + " day 3 overflow transactions resolved");
+            ProductionSearchNodeQaDriver.ReturnToCamp(prototype, prefix + " day 3");
             InvokePrivate(prototype, "RefreshAll");
             PlaceViaUi(prototype, "campfireButton", StructureKind.Campfire, -1.5f, prefix + " campfire");
             PlaceViaUi(prototype, "rainButton", StructureKind.RainCollector, 3.5f, prefix + " rain collector");
@@ -572,10 +630,14 @@ namespace ParallelQA
             Submit(GetButton(prototype, "signalButton"));
             Require(session.Result == RunResult.Rescued && session.Phase == GamePhase.Result, prefix + " natural route reaches rescue");
             CaptureAndAudit(prototype, "playmode-" + prefix + "-rescue-result-1280x800.png", prefix + " rescue result", layoutAudit, wave3Frames);
+            Require(PrototypeProductionActionCounters.GrantCallCount == grantBefore &&
+                    PrototypeProductionActionCounters.WarpCallCount == warpBefore &&
+                    PrototypeProductionActionCounters.SkipCallCount == skipBefore,
+                prefix + " natural full-loop route used no Grant, Warp, or Skip action");
 
             TMP_Text[] activeTexts = UnityEngine.Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Exclude);
             Require(activeTexts.All(text => string.IsNullOrEmpty(text.text) || !text.text.Contains("⟦")), prefix + " exposes no raw localization key markers");
-            return "PASS · " + prefix + " full loop reached rescue without Grant; placement, tools, overflow, swimming, return, and result verified.";
+            return "PASS · " + prefix + " full loop reached rescue without Grant, Warp, or Skip; production map/search/tray, placement, tools, overflow, swimming, return, and result verified.";
         }
 
         private static void PlaceViaUi(KimSurvivalPrototype prototype, string buttonField, StructureKind kind, float x, string label)
@@ -1176,36 +1238,6 @@ namespace ParallelQA
                             "Third-locale shipping readiness: NOT READY" + Environment.NewLine +
                             "Decision: third locale requires schema, builder, cycle/selection UI, tables, and font mapping additions; the QA pseudo-locale is deliberately not a shipping locale." + Environment.NewLine;
             File.WriteAllText(Path.Combine(EvidenceFolder, "localization-expansion-readiness.txt"), report, new UTF8Encoding(false));
-        }
-
-        private static void GatherAt(KimSurvivalPrototype prototype, float x, bool swimming)
-        {
-            PositionAt(prototype, x, swimming);
-            InvokePrivate(prototype, "GatherNearestNode");
-        }
-
-        private static void PositionAt(KimSurvivalPrototype prototype, float x, bool swimming)
-        {
-            GameSession session = prototype.Session;
-            if (swimming)
-            {
-                Require(session.SetSwimming(true), "enter water at " + x);
-            }
-            else if (session.IsSwimming)
-            {
-                Require(session.SetSwimming(false), "exit water at " + x);
-            }
-
-            PrototypePlayerTraversal traversal = GetPrivateField<PrototypePlayerTraversal>(prototype, "playerTraversal");
-            PrototypePlayerPresentation presentation = GetPrivateField<PrototypePlayerPresentation>(prototype, "playerPresentation");
-            PrototypePlayerPresentationState state = traversal.Warp(
-                x,
-                swimming ? PrototypePlayerTraversal.WaterY : PrototypePlayerTraversal.LandY,
-                swimming);
-            presentation.Apply(state);
-            Camera camera = GetPrivateField<Camera>(prototype, "worldCamera");
-            camera.transform.position = new Vector3(Mathf.Clamp(x + 2.5f, -6.5f, 12.5f), 0f, -10f);
-            InvokePrivate(prototype, "RefreshHud");
         }
 
         private static void Capture(KimSurvivalPrototype prototype, string name)

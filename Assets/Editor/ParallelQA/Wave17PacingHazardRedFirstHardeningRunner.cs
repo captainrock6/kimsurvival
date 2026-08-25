@@ -279,7 +279,7 @@ namespace ParallelQA
             Observation atomicity = ObserveHazardAtomicity(catalog);
             Observation escapeCatalog = ObserveEscapeCatalogAndAxes(catalog);
             Observation naturalPaths = ObserveNaturalPaths(catalog);
-            Observation dataOnly = ObserveDataOnlyRoutes(catalog);
+            Observation mixedRouteState = ObserveRaftPlayableAndDataOnlyRoutes(catalog);
             Observation persistence = ObservePersistenceAndPrivacy(catalog);
             Observation endingCatalog = ObserveEndingCatalog(catalog);
             Observation endingResolver = ObserveEndingPriorityAndHysteresis(catalog);
@@ -339,11 +339,11 @@ namespace ParallelQA
                 naturalPaths.Passed, naturalPaths.Detail,
                 "Execute separate public smoke/radio natural-route probes and inspect interaction count, grant, warp, and terminal result.",
                 "runtime smoke/radio project fixtures and public interaction surface selected by the implementation owner");
-            Product(checks, "W17-E03.raft_flare_beacon_data_only", "data-only escape routes", "P1",
-                "Raft, flare, and beacon expose complete catalog/graph/snapshot/atomic result data while remaining explicitly data-only",
-                dataOnly.Passed, dataOnly.Detail,
-                "Inspect public entries and deterministic data validators; do not claim playable PASS.",
-                "runtime escape-project catalog/data validators selected by the implementation owner");
+            Product(checks, "W17-E03.raft_flare_beacon_data_only", "mixed playable/data-only escape routes", "P1",
+                "Raft is explicitly playable with a passing natural-route fixture, while flare and beacon remain complete explicit data-only catalog routes",
+                mixedRouteState.Passed, mixedRouteState.Detail,
+                "Inspect the public route entries plus the raft natural-route and flare/beacon data-only validation fixtures.",
+                "runtime escape-project catalog, raft runtime contract, and data-only validators selected by the implementation owner");
             Product(checks, "W17-O01.snapshot_and_private_log", "persistence and privacy", "P0",
                 "Snapshot preserves seed, region, hazard, project progress, behavior scores; logs contain stable fields but no PII/free text",
                 persistence.Passed, persistence.Detail,
@@ -684,8 +684,9 @@ namespace ParallelQA
             foreach (MethodInfo method in type.GetMethods(PublicStatic | PublicInstance))
             {
                 string name = method.Name.ToLowerInvariant();
-                if (!ContainsAny(name, "probe", "verify", "fixture", "simulate", "contract")) continue;
-                if (!ContainsAny(name, "pacing", "forecast", "hazard", "pity", "route", "escape", "ending", "identity", "softlock")) continue;
+                string semanticName = (type.Name + "." + method.Name).ToLowerInvariant();
+                if (!ContainsAny(semanticName, "probe", "verify", "fixture", "simulate", "contract")) continue;
+                if (!ContainsAny(semanticName, "pacing", "forecast", "hazard", "pity", "route", "raft", "escape", "ending", "identity", "softlock")) continue;
                 object target = method.IsStatic ? null : CreatePublicInstance(type);
                 if (!method.IsStatic && target == null) continue;
                 object[] arguments = BuildProbeArguments(method.GetParameters(), name);
@@ -886,20 +887,36 @@ namespace ParallelQA
                    Regex.IsMatch(lower, "(?:interactioncount|interactions|actioncount)=[1-9][0-9]*");
         }
 
-        private static Observation ObserveDataOnlyRoutes(CatalogProbe catalog)
+        private static Observation ObserveRaftPlayableAndDataOnlyRoutes(CatalogProbe catalog)
         {
             List<string> details = new List<string>();
-            bool passed = true;
-            foreach (string id in new[] { "escape.raft", "escape.flare", "escape.beacon" })
+            ContractEntry raft = catalog.Entries.FirstOrDefault(candidate => candidate.id == "escape.raft");
+            string raftDetail = raft == null ? string.Empty : raft.Describe().ToLowerInvariant();
+            string raftProbe = ProbeResults(catalog, "escape.raft", "natural", "shore-launch").ToLowerInvariant();
+            bool raftPlayable = raft != null && HasAny(raftDetail, "playablestate=playable", "dataonly=false") &&
+                                HasAny(raftDetail, "primary", "regionids=[") && HasAny(raftDetail, "alternative", "regionids=[") &&
+                                HasAny(raftDetail, "snapshot", "stage", "progress") &&
+                                HasAny(raftDetail, "atomic", "transaction", "resolver") &&
+                                HasPassSignal(raftProbe) && HasAny(raftProbe, "completed=true", "terminal=true", "escape_complete") &&
+                                HasAny(raftProbe, "grant=false", "usedgrant=false", "grantcount=0") &&
+                                HasAny(raftProbe, "warp=false", "usedwarp=false", "warpcount=0");
+            details.Add("escape.raft=" + (raft == null ? "missing" : raftDetail) + "; fixture=" + TrimEvidence(raftProbe));
+
+            bool dataOnlyPassed = true;
+            foreach (string id in new[] { "escape.flare", "escape.beacon" })
             {
                 ContractEntry entry = catalog.Entries.FirstOrDefault(candidate => candidate.id == id);
                 string detail = entry == null ? string.Empty : entry.Describe().ToLowerInvariant();
                 details.Add(id + "=" + (entry == null ? "missing" : detail));
-                passed &= entry != null && HasAny(detail, "dataonly=true", "validation", "catalog") &&
-                          HasAny(detail, "primary", "alternative") && HasAny(detail, "snapshot", "stage", "progress") &&
-                          HasAny(detail, "atomic", "transaction", "resolver");
+                dataOnlyPassed &= entry != null && HasAny(detail, "dataonly=true", "playablestate=data-only") &&
+                                  HasAny(detail, "primary", "regionids=[") && HasAny(detail, "alternative", "regionids=[") &&
+                                  HasAny(detail, "snapshot", "stage", "progress") &&
+                                  HasAny(detail, "atomic", "transaction", "resolver");
             }
-            return Obs(passed, TrimEvidence(string.Join("; ", details.ToArray())));
+            string dataOnlyProbe = ProbeResults(catalog, "data-only", "escape.flare", "escape.beacon").ToLowerInvariant();
+            dataOnlyPassed &= HasPassSignal(dataOnlyProbe) && dataOnlyProbe.Contains("escape.flare") && dataOnlyProbe.Contains("escape.beacon");
+            details.Add("dataOnlyFixture=" + TrimEvidence(dataOnlyProbe));
+            return Obs(raftPlayable && dataOnlyPassed, TrimEvidence(string.Join("; ", details.ToArray())));
         }
 
         private static Observation ObservePersistenceAndPrivacy(CatalogProbe catalog)

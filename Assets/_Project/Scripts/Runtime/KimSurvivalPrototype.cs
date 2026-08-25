@@ -63,7 +63,7 @@ namespace KimSurvival
         private const float ResourceLabelViewportPadding = 0.22f;
         private const float ResourceLabelSafeViewportRight = 0.74f;
         private const float MinimumSupportedAspect = 1.6f;
-        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.60f);
+        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.605f);
         private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.66f);
         private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.59f);
         private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.67f);
@@ -6294,10 +6294,11 @@ namespace KimSurvival
             float gapPixels = (messageRect.anchorMin.y - promptRect.anchorMax.y) * CampProximityPromptReferenceHeight;
             Require(campProximityPrompt.transform.parent == canvas.transform,
                 "근접 안내는 월드가 아닌 Canvas 내 독립 UI");
-            Require(widthPixels <= 512.1f && heightPixels <= 64.1f,
-                "1280x800 근접 안내는 폭 40% 이하·compact-a 64px 높이 이하");
-            Require(gapPixels >= 7.9f && gapPixels <= 16.1f && promptRect.anchorMin.y >= 0.55f,
-                "1280x800 내레이션 카드 아래 8~16px 간격·월드 보행 영역 보존");
+            Require(widthPixels >= 219.9f && widthPixels <= 440.1f &&
+                    heightPixels >= 39.9f && heightPixels <= 44.1f,
+                "1280x800 근접 안내는 220~440x40~44px compact-a 범위");
+            Require(gapPixels >= 11.9f && promptRect.anchorMin.y >= 0.55f,
+                "1280x800 내레이션 카드 아래 12px 이상 간격·월드 보행 영역 보존");
             Require(glyphRect.rect.width >= 43.9f && glyphRect.rect.height >= 43.9f &&
                     glyphRect != actionRect && campProximityGlyphText.transform != campProximityText.transform,
                 "입력 glyph는 행동명 TMP와 분리된 고정 44x44 이상 왼쪽 슬롯");
