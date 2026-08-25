@@ -1,0 +1,7 @@
+GameJam search-node PowerShell 5.1 entry-point syntax check
+Run ID: 20260826T_search_node_redfirst_02
+Baseline: 5248809018ce934fe328328f194686d8c287734f
+PowerShell: 5.1.26100.9168 Desktop
+Command: powershell.exe -NoLogo -NoProfile -Command <Parser.ParseFile Invoke-GameJamSearchNodeRedFirstGate.ps1>
+Result: PASS
+Scope: Parse/entry-point compatibility only; the full Unity/build/smoke run used PowerShell 7.6.4 Core and is recorded by gamejam-search-node-powershell-compatibility.json.

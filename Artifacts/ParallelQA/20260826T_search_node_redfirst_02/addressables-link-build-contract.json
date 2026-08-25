@@ -1,0 +1,44 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260826T_search_node_redfirst_02",
+    "baselineCommit": "5248809018ce934fe328328f194686d8c287734f",
+    "unityVersion": "6000.4.9f1",
+    "overall": "PASS",
+    "preflightToBeforeStable": true,
+    "beforeToAfterStable": true,
+    "temporaryCopyCleanupPassed": true,
+    "temporaryCopyCleanupEvidence": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260826T_search_node_redfirst_02\\addressables-generated-link-cleanup.json",
+    "preflight": {
+        "observedUtc": "2026-08-25T15:50:11.3685424Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    },
+    "beforeBuild": {
+        "observedUtc": "2026-08-25T15:51:17.8176581Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    },
+    "afterBuild": {
+        "observedUtc": "2026-08-25T15:51:21.8641083Z",
+        "linkExists": false,
+        "linkBytes": 0,
+        "linkSha256": "",
+        "metaExists": false,
+        "metaBytes": 0,
+        "metaSha256": "",
+        "metaGuid": "",
+        "assetDatabaseGuid": ""
+    }
+}

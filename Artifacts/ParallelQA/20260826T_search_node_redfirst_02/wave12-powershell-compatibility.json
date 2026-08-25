@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260826T_search_node_redfirst_02",
+  "baselineCommit": "5248809018ce934fe328328f194686d8c287734f",
+  "observedUtc": "2026-08-25T15:50:11.4429489Z",
+  "entryPoint": "Invoke-Wave12FiveDayUiGate.ps1",
+  "mode": "Full",
+  "psEdition": "Core",
+  "psVersion": "7.6.4",
+  "preflightExitCode": 0,
+  "preflightJsonUtf8NoBom": true,
+  "preflightTextUtf8NoBom": true,
+  "evidenceFormat": "UTF-8 without BOM; existing Wave 5 JSON/TXT names and schemas preserved",
+  "overall": "PASS"
+}

@@ -1,0 +1,18 @@
+GameJam searchable resource node RED-first actual Play contracts
+Run ID: 20260826T_search_node_redfirst_02
+Baseline: 5248809018ce934fe328328f194686d8c287734f
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/UNVERIFIED/NOT_READY: 0/10/0/0/1/1
+GSN-P01.actual_node_prompt_tray | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: no live stable search node was observed
+GSN-P02.no_reroll_cancel_transition_revisit | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: seed determinism/variation=False/False
+GSN-P03.hidden_partial_depleted_restore | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: hidden/partial/depleted=False/False/False
+GSN-P04.loot_bag_transaction_atomicity | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: take/leave/replace/cancel=False/False/False/False
+GSN-P05.protected_parts_and_sailcloth | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: part.raft.sailcloth not observed in protected parts
+GSN-P06.seven_region_finite_persistence | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: region IDs expected 7, observed 0: 
+GSN-P07.search_cost_hazard_pause | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: cost/hazard/pause=False/False/False
+GSN-P08.ko_en_qps_compact_tray_1280 | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: expected 3 locale captures, observed 0
+GSN-P09.keyboard_mouse_synthetic_gamepad_parity | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: structured input parity=false
+GSN-P10.natural_trace_no_fixture_cheats | EXPECTED_GAP | PRODUCT_EXPECTED_GAP | InvalidOperationException: owner=; method=; region=; node=; error=No live Scene component exposed a zero-argument structured search-node observation with node/region/contents/trace/layout state.
+GSN-U01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | Unity joystick names: 
+GSN-U02.steam_release | NOT_READY | EXTERNAL_RELEASE_GAP | No Steam partner evidence is in scope for this independent gate.
