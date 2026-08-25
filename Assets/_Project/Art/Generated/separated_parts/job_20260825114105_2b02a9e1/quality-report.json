@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "grade": "fail",
+  "score": 24,
+  "summary": {
+    "files": 19,
+    "errors": 2,
+    "warnings": 2
+  },
+  "files": [
+    {
+      "fileName": "escape-raft-shore-launch-a-atlas.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.7401,
+      "contrastStdDev": 66.94,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 50,
+        "right": 18,
+        "bottom": 84
+      },
+      "previewFile": "qa-preview-escape-raft-shore-launch-a-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "facility-shore-launch.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.8191,
+      "contrastStdDev": 49.59,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 39,
+        "top": 238,
+        "right": 39,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-facility-shore-launch.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-stage-frame.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.8535,
+      "contrastStdDev": 35.61,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 25,
+        "top": 391,
+        "right": 26,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-raft-stage-frame.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-stage-sail-installed.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6611,
+      "contrastStdDev": 77.6,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 20,
+        "top": 106,
+        "right": 20,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-raft-stage-sail-installed.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-stage-voyage-ready.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6603,
+      "contrastStdDev": 75.4,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 20,
+        "top": 111,
+        "right": 20,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-raft-stage-voyage-ready.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-departure-silhouette.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.6891,
+      "contrastStdDev": 74.76,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 20,
+        "top": 123,
+        "right": 20,
+        "bottom": 16
+      },
+      "previewFile": "qa-preview-raft-departure-silhouette.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "part-raft-sailcloth.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 512,
+      "hasAlpha": true,
+      "transparentRatio": 0.7736,
+      "contrastStdDev": 72.69,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 31,
+        "top": 136,
+        "right": 31,
+        "bottom": 136
+      },
+      "previewFile": "qa-preview-part-raft-sailcloth.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-state-frame-complete-64.png",
+      "kind": "raster",
+      "width": 64,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.7686,
+      "contrastStdDev": 70.69,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 4,
+        "top": 4,
+        "right": 3,
+        "bottom": 3
+      },
+      "previewFile": "qa-preview-raft-state-frame-complete-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-state-sailcloth-required-64.png",
+      "kind": "raster",
+      "width": 64,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.7476,
+      "contrastStdDev": 78.77,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 4,
+        "top": 4,
+        "right": 3,
+        "bottom": 3
+      },
+      "previewFile": "qa-preview-raft-state-sailcloth-required-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-state-weather-blocked-64.png",
+      "kind": "raster",
+      "width": 64,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.6609,
+      "contrastStdDev": 83.12,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "previewFile": "qa-preview-raft-state-weather-blocked-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-state-launch-ready-64.png",
+      "kind": "raster",
+      "width": 64,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.6902,
+      "contrastStdDev": 78.7,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 4,
+        "top": 4,
+        "right": 3,
+        "bottom": 3
+      },
+      "previewFile": "qa-preview-raft-state-launch-ready-64.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-state-icons-64-atlas.png",
+      "kind": "raster",
+      "width": 256,
+      "height": 64,
+      "hasAlpha": true,
+      "transparentRatio": 0.7488,
+      "contrastStdDev": 75.66,
+      "powerOfTwo": true,
+      "padding": {
+        "left": 4,
+        "top": 4,
+        "right": 3,
+        "bottom": 3
+      },
+      "previewFile": "qa-preview-raft-state-icons-64-atlas.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "raft-state-icons-editable.svg",
+      "kind": "svg",
+      "viewBox": "0 0 256 64",
+      "issues": []
+    },
+    {
+      "fileName": "raft-state-icons-readability-32-64.png",
+      "kind": "raster",
+      "width": 512,
+      "height": 192,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 37.99,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-raft-state-icons-readability-32-64.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        },
+        {
+          "code": "edge-touch",
+          "severity": "warning",
+          "message": "�ֿ� ������Ʈ�� ĵ���� �����ڸ��� ��� �߸� ������ �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "escape-raft-camp-composite-1280x800.png",
+      "kind": "raster",
+      "width": 1280,
+      "height": 800,
+      "hasAlpha": true,
+      "transparentRatio": 0.0004,
+      "contrastStdDev": 70.93,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-escape-raft-camp-composite-1280x800.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        },
+        {
+          "code": "edge-touch",
+          "severity": "warning",
+          "message": "�ֿ� ������Ʈ�� ĵ���� �����ڸ��� ��� �߸� ������ �ֽ��ϴ�."
+        }
+      ]
+    },
+    {
+      "fileName": "escape-raft-review-board-1920x1080.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.1191,
+      "contrastStdDev": 51.64,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 18,
+        "top": 18,
+        "right": 18,
+        "bottom": 18
+      },
+      "previewFile": "qa-preview-escape-raft-review-board-1920x1080.jpg",
+      "issues": []
+    },
+    {
+      "fileName": "escape-raft-manifest.json",
+      "kind": "editable-source",
+      "bytes": 4888,
+      "issues": []
+    },
+    {
+      "fileName": "escape-raft-visual-qa.json",
+      "kind": "editable-source",
+      "bytes": 7719,
+      "issues": []
+    },
+    {
+      "fileName": "escape-raft-unity-handoff.txt",
+      "kind": "file",
+      "bytes": 1016,
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-25T11:48:13.183Z",
+  "jobId": "job_20260825114105_2b02a9e1",
+  "assetType": "separated_parts"
+}

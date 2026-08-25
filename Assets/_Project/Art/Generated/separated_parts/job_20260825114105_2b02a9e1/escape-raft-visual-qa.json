@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 1,
+  "assetId": "escape.raft",
+  "jobId": "job_20260825114105_2b02a9e1",
+  "candidateId": "escape.raft.shore-launch-a",
+  "result": "review",
+  "automated": {
+    "sourceHadBakedCheckerboard": true,
+    "checkerboardRemovedDeterministically": true,
+    "atlas": {
+      "width": 1536,
+      "height": 1024,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 1128558,
+      "opaquePixels": 443082,
+      "partialAlphaPixels": 1224,
+      "transparentRatio": 0.717518,
+      "contentBounds": [
+        8,
+        50,
+        1518,
+        940
+      ],
+      "padding": {
+        "left": 8,
+        "top": 50,
+        "right": 18,
+        "bottom": 84
+      },
+      "edgeTouch": false
+    },
+    "parts": {
+      "facility-shore-launch.png": {
+        "width": 512,
+        "height": 512,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 212233,
+        "opaquePixels": 49742,
+        "partialAlphaPixels": 169,
+        "transparentRatio": 0.809605,
+        "contentBounds": [
+          39,
+          238,
+          473,
+          496
+        ],
+        "padding": {
+          "left": 39,
+          "top": 238,
+          "right": 39,
+          "bottom": 16
+        },
+        "edgeTouch": false
+      },
+      "raft-stage-frame.png": {
+        "width": 512,
+        "height": 512,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 221947,
+        "opaquePixels": 40047,
+        "partialAlphaPixels": 150,
+        "transparentRatio": 0.846661,
+        "contentBounds": [
+          25,
+          391,
+          486,
+          496
+        ],
+        "padding": {
+          "left": 25,
+          "top": 391,
+          "right": 26,
+          "bottom": 16
+        },
+        "edgeTouch": false
+      },
+      "raft-stage-sail-installed.png": {
+        "width": 512,
+        "height": 512,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 167312,
+        "opaquePixels": 89511,
+        "partialAlphaPixels": 5321,
+        "transparentRatio": 0.638245,
+        "contentBounds": [
+          20,
+          106,
+          492,
+          496
+        ],
+        "padding": {
+          "left": 20,
+          "top": 106,
+          "right": 20,
+          "bottom": 16
+        },
+        "edgeTouch": false
+      },
+      "raft-stage-voyage-ready.png": {
+        "width": 512,
+        "height": 512,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 167487,
+        "opaquePixels": 89471,
+        "partialAlphaPixels": 5186,
+        "transparentRatio": 0.638912,
+        "contentBounds": [
+          20,
+          111,
+          492,
+          496
+        ],
+        "padding": {
+          "left": 20,
+          "top": 111,
+          "right": 20,
+          "bottom": 16
+        },
+        "edgeTouch": false
+      },
+      "raft-departure-silhouette.png": {
+        "width": 512,
+        "height": 512,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 174034,
+        "opaquePixels": 82158,
+        "partialAlphaPixels": 5952,
+        "transparentRatio": 0.663887,
+        "contentBounds": [
+          20,
+          123,
+          492,
+          496
+        ],
+        "padding": {
+          "left": 20,
+          "top": 123,
+          "right": 20,
+          "bottom": 16
+        },
+        "edgeTouch": false
+      },
+      "part-raft-sailcloth.png": {
+        "width": 512,
+        "height": 512,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 200957,
+        "opaquePixels": 61064,
+        "partialAlphaPixels": 123,
+        "transparentRatio": 0.76659,
+        "contentBounds": [
+          31,
+          136,
+          481,
+          376
+        ],
+        "padding": {
+          "left": 31,
+          "top": 136,
+          "right": 31,
+          "bottom": 136
+        },
+        "edgeTouch": false
+      }
+    },
+    "icons": {
+      "raft-state-frame-complete-64.png": {
+        "width": 64,
+        "height": 64,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1493,
+        "opaquePixels": 925,
+        "partialAlphaPixels": 1678,
+        "transparentRatio": 0.364502,
+        "contentBounds": [
+          4,
+          4,
+          61,
+          61
+        ],
+        "padding": {
+          "left": 4,
+          "top": 4,
+          "right": 3,
+          "bottom": 3
+        },
+        "edgeTouch": false
+      },
+      "raft-state-sailcloth-required-64.png": {
+        "width": 64,
+        "height": 64,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1558,
+        "opaquePixels": 1009,
+        "partialAlphaPixels": 1529,
+        "transparentRatio": 0.380371,
+        "contentBounds": [
+          4,
+          4,
+          61,
+          61
+        ],
+        "padding": {
+          "left": 4,
+          "top": 4,
+          "right": 3,
+          "bottom": 3
+        },
+        "edgeTouch": false
+      },
+      "raft-state-weather-blocked-64.png": {
+        "width": 64,
+        "height": 64,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1648,
+        "opaquePixels": 1389,
+        "partialAlphaPixels": 1059,
+        "transparentRatio": 0.402344,
+        "contentBounds": [
+          4,
+          4,
+          60,
+          60
+        ],
+        "padding": {
+          "left": 4,
+          "top": 4,
+          "right": 4,
+          "bottom": 4
+        },
+        "edgeTouch": false
+      },
+      "raft-state-launch-ready-64.png": {
+        "width": 64,
+        "height": 64,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1491,
+        "opaquePixels": 1230,
+        "partialAlphaPixels": 1375,
+        "transparentRatio": 0.364014,
+        "contentBounds": [
+          4,
+          4,
+          61,
+          61
+        ],
+        "padding": {
+          "left": 4,
+          "top": 4,
+          "right": 3,
+          "bottom": 3
+        },
+        "edgeTouch": false
+      }
+    },
+    "allPartsTrueAlpha": true,
+    "allPartsEdgeClear": true,
+    "allIconsTrueAlpha": true,
+    "actualCompositeSize": [
+      1280,
+      800
+    ],
+    "reviewBoardSize": [
+      1920,
+      1080
+    ]
+  },
+  "forgeAutomaticGate": {
+    "grade": "fail",
+    "score": 24,
+    "errors": 2,
+    "warnings": 2,
+    "runtimeArtAssessment": "pass",
+    "runtimeArtNotes": "The transparent source atlas, six separated world parts, four state icons and the icon atlas have no Forge issues. All have true alpha and edge-clear bounds.",
+    "evidenceOnlyExceptions": [
+      {
+        "file": "raft-state-icons-readability-32-64.png",
+        "forgeIssues": [
+          "missing-alpha",
+          "edge-touch"
+        ],
+        "classification": "intentional opaque QA board; not a runtime sprite"
+      },
+      {
+        "file": "escape-raft-camp-composite-1280x800.png",
+        "forgeIssues": [
+          "missing-alpha",
+          "edge-touch"
+        ],
+        "classification": "intentional full-frame 1280x800 placement evidence; not a runtime sprite"
+      }
+    ],
+    "policy": "The automatic result is preserved without retry. Evidence-only exceptions do not authorize adoption, packaging or runtime connection."
+  },
+  "manualReview": {
+    "passed": [
+      "shore-launch, three additive build stages, departure and sailcloth are visually distinct",
+      "three build stages preserve a consistent right-facing hull and baseline",
+      "world art contains no raster text, character, gameplay collision ground or opaque scene backdrop",
+      "64px and 32px icon silhouettes remain distinct without relying on color alone",
+      "1280x800 composite keeps HUD/narration untouched and demonstrates shore-scale placement"
+    ],
+    "warnings": [
+      "the current camp capture still contains prototype geometry; the composite is placement evidence, not runtime proof",
+      "departure motion is a single silhouette with foam, not an animation",
+      "weather window, launch collision and final build timing remain engine-owned data after adoption"
+    ]
+  },
+  "gate": {
+    "decision": "review",
+    "selectedCandidate": null,
+    "runtimeAllowlist": [],
+    "packageAllowed": false,
+    "runtimeConnectAllowed": false
+  }
+}

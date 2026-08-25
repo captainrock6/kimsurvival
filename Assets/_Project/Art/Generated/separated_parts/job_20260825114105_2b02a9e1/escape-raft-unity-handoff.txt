@@ -1,0 +1,9 @@
+Wave 20 REVIEW ONLY — escape.raft.shore-launch-a
+World source: six individual 512x512 RGBA PNGs at PPU 100. Use individual files, not equal-cell slicing at runtime.
+Pivots: shore-launch (0.5,0.05); raft stages (0.5,0.08); departure (0.5,0.10); sailcloth (0.5,0.5); icons (0.5,0.5).
+Import: Sprite/Single, sRGB, alpha transparency on, Bilinear, Uncompressed, mipmaps off, Clamp; max 1024 world, 64 icons.
+1280x800 target: raft width 330–390px, shore-launch width 230–290px. Keep the same bottom baseline when swapping frame/sail/ready.
+Layer order: camp background -> shore-launch -> current raft stage -> character/world interactables -> contextual UI.
+facility.shore-launch is the dedicated camp shore anchor; it is not a freely placed general facility.
+part.raft.sailcloth remains a protected project-inventory part. Text, costs, weather and input glyphs are engine TMP/UI only.
+Gate: decision=review, selectedCandidate=null, runtimeAllowlist=[], no adopt/package/prefab/scene/runtime/Addressables.
