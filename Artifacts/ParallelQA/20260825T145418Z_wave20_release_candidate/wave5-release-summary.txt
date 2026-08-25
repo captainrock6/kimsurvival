@@ -1,0 +1,15 @@
+Wave 5 release evidence summary
+Run ID: 20260825T145418Z_wave20_release_candidate
+Baseline: 8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2
+QA/build infrastructure gate: PASS
+Release overall: FAIL
+Unity compile: PASS
+Addressables load/build/post-smoke: PASS/PASS/PASS
+Generated temporary cleanup: PASS
+Windows Development build: Succeeded
+Hidden smoke: PASS
+Normal ko/en visual gate: FAIL
+qps-long visual gate: FAIL
+Background reachability: PASS
+Steam readiness: NOT_READY
+Physical gamepad: UNVERIFIED

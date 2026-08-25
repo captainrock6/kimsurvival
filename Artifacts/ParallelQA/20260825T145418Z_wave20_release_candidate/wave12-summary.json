@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 12 five-day compact-a RED-first gate",
+  "runId": "20260825T145418Z_wave20_release_candidate",
+  "baselineCommit": "8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2",
+  "observedUtc": "2026-08-25T14:55:51.4389803Z",
+  "overall": "FAIL",
+  "productOverall": "FAIL",
+  "infrastructureOverall": "PASS",
+  "freshWave3Visual": "PASS",
+  "wave11WalkingPath": "PASS 3/3 actual screen rects",
+  "expectedProductGapIds": [
+    "W12-D01.five_day_deadline",
+    "W12-P03.compact_a_locale_capture_layout"
+  ],
+  "expectedProductGaps": [
+    {
+      "id": "W12-D01.five_day_deadline",
+      "severity": "P0",
+      "actual": "FinalDay=50; day3Playable=True; day4Playable=True; day5Deadline=False; earlyDay1Rescue=True; states=start=D1>D2/Camp/None>D3/Camp/None>D4/Camp/None>D5/Camp/None>D6/Camp/None",
+      "reproduction": "Advance fresh GameSession instances without Grant/warp through Day 5 and independently complete the signal early.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    },
+    {
+      "id": "W12-P03.compact_a_locale_capture_layout",
+      "severity": "P1",
+      "actual": "captures=12/12; png1280x800=True; wave11WorldClear=True; ko{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=480.0,w=440.0,h=48.0,narration=x=320.0,y=544.0,w=640.0,h=96.0,gap=16.0,overflow=0/0/0,compact=False} | en{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=480.0,w=440.0,h=48.0,narration=x=320.0,y=544.0,w=640.0,h=96.0,gap=16.0,overflow=0/0/0,compact=False} | qps-long{far=True,near=True,popup=True,preview=True,prompt=x=420.0,y=480.0,w=440.0,h=48.0,narration=x=320.0,y=544.0,w=640.0,h=96.0,gap=16.0,overflow=0/0/0,compact=False}",
+      "reproduction": "Open all twelve Wave 12 captures at 1:1 and compare the recorded prompt/narration Rects and overflow counts.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+    }
+  ],
+  "unexpectedProductFailures": [
+    {
+      "id": "W12-P04.current_normal_wave3_visual",
+      "severity": "P1",
+      "actual": "InvalidOperationException: placement=PLACEMENT_GATE: FAIL · targets=8 · failures=6; exploration=EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0; source=wave3-visual-gate.txt",
+      "reproduction": "Open the fresh Wave 3 TSV/PNGs at 1:1 and inspect every normal placement/exploration failure row.",
+      "recommendedFiles": "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs"
+    }
+  ],
+  "compile": "PASS 0 errors",
+  "windowsDevelopmentBuild": "PASS",
+  "windowsBuildWarnings": 0,
+  "hiddenSmoke": "PASS",
+  "addressables": "PASS load/build/post-smoke",
+  "physicalGamepad": "UNVERIFIED",
+  "powershellCompatibility": "PASS",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "infrastructureFailures": [],
+  "greenTransition": "FinalDay=5; compact-a stable reference is connected as sliced UI with exact borders; glyph and TMP action are separate; all twelve locale/state captures satisfy geometry and overflow=0.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2' -MinimumSmokeSeconds 6",
+  "evidenceRoot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260825T145418Z_wave20_release_candidate"
+}

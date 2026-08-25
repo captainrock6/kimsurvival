@@ -1,0 +1,14 @@
+Wave 19 independent resource connection visual regression gate
+Run ID: 20260825T145418Z_wave20_release_candidate
+Baseline: 8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2
+Overall/Product/Infrastructure: FAIL/PASS/FAIL
+Wave 18 GREEN lock: 22/23
+Wave 19 PASS/FAIL: 21/0
+Failure IDs: 
+Compile/qps/build/smoke/Addressables/firewall: PASS 0/0/4/10/PASS/PASS 6.241s/PASS/PASS
+Stable executable: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\StableWindowsBuild\KimSurvivalIsland.exe
+Stable executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\Invoke-Wave19ResourceConnectionGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2' -MinimumSmokeSeconds 6
+Exit code: 1 (0 GREEN, 2 product RED, 1 infrastructure FAIL)

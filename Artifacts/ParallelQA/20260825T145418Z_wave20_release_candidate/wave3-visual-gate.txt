@@ -1,0 +1,29 @@
+Wave 3 1280x800 projected-text visual gate
+Run ID: 20260825T145418Z_wave20_release_candidate
+Started UTC: 2026-08-25T14:55:16.9180544Z
+Completed UTC: 2026-08-25T14:55:17.8965310Z
+Unity: 6000.4.9f1
+Baseline commit: 8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2
+Command: C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe -batchmode -force-d3d11 -projectPath C:\Users\dev\Documents\ChatGPT\신규 개발 본부 -executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts -logFile C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260825T145418Z_wave20_release_candidate\unity-wave12-play.log
+Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample. Line count plus actual player-renderer and full-width camp walking-band Rect overlap are serialized for Wave 14 without changing the legacy Wave 3 pass/fail thresholds.
+Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.
+PLACEMENT_GATE: FAIL · targets=8 · failures=6
+EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0
+PSEUDO_LONG_GATE: FAIL · targets=6 · failures=1
+OVERALL: FAIL
+FAIL · ko placement valid · gated=2 · screenshot=playmode-ko-placement-valid-1280x800.png
+FAIL · ko placement invalid · gated=2 · screenshot=playmode-ko-placement-invalid-1280x800.png
+FAIL · en placement valid · gated=2 · screenshot=playmode-en-placement-valid-1280x800.png
+FAIL · en placement invalid · gated=2 · screenshot=playmode-en-placement-invalid-1280x800.png
+FAIL · qps-long placement valid · gated=6 · screenshot=playmode-qps-long-placement-valid-1280x800.png
+PASS · ko day1 swimming · gated=2 · screenshot=playmode-ko-day1-swimming-1280x800.png
+PASS · ko day2 exploration · gated=3 · screenshot=playmode-ko-day2-exploration-1280x800.png
+PASS · en day1 swimming · gated=2 · screenshot=playmode-en-day1-swimming-1280x800.png
+PASS · en day2 exploration · gated=3 · screenshot=playmode-en-day2-exploration-1280x800.png
+  FAIL · placement-world · ko placement valid · ✓ · glyph=7.4px · block=7.4px · bounds=[529.9,378.3 -> 536.8,385.7] · contrast=8.8:1 · failures=height
+  FAIL · placement-world · ko placement invalid · × · glyph=4.4px · block=4.4px · bounds=[282.1,379.1 -> 286.8,383.4] · contrast=10.7:1 · failures=height
+  FAIL · placement-world · en placement valid · ✓ · glyph=12.0px · block=12.0px · bounds=[527.7,375.7 -> 538.9,387.7] · contrast=8.8:1 · failures=height
+  FAIL · placement-status · en placement valid · [ VALID ]/Place Campfire · 0.5m floor snap · glyph=16.7px · block=47.0px · bounds=[452.3,566.5 -> 828.6,613.5] · contrast=11.1:1 · failures=height
+  FAIL · placement-world · en placement invalid · × · glyph=7.0px · block=7.0px · bounds=[280.6,379.0 -> 288.2,386.1] · contrast=10.7:1 · failures=height
+  FAIL · placement-status · en placement invalid · [ INVALID ]/Keep it inside the compatible camp build area. · glyph=16.7px · block=47.0px · bounds=[375.5,566.5 -> 904.2,613.5] · contrast=13.0:1 · failures=height
+  FAIL · pseudo-long · qps-long placement valid · ✓ · glyph=12.0px · block=12.0px · bounds=[527.7,375.7 -> 538.9,387.7] · contrast=8.8:1 · failures=height

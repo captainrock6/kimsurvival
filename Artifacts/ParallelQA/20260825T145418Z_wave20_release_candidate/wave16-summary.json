@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "title": "Wave 16 hazard, multi-escape, and behavioral-ending RED-first gate",
+  "runId": "20260825T145418Z_wave20_release_candidate",
+  "baselineCommit": "8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2",
+  "startedUtc": "2026-08-25T14:54:20.4540966Z",
+  "completedUtc": "2026-08-25T14:56:38.3465890Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "compatibility": "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+  },
+  "executionPolicy": "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+  "overall": "FAIL",
+  "productOverall": "FAIL",
+  "infrastructureOverall": "FAIL",
+  "wave15Prerequisite": "FAIL",
+  "currentGreenLocks": {
+    "wave15CampaignMap": "FAIL",
+    "qpsLong": "4/10 FAIL",
+    "compile": "PASS 0 errors",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS",
+    "addressables": "PASS load/build/post-smoke"
+  },
+  "expectedGapIds": [],
+  "expectedGaps": [],
+  "productFailures": [
+    {
+      "id": "W16-P03.three_panel_comic",
+      "severity": "P0",
+      "actual": "panels=0; GameObject:hazard.injury hazard.disaster hazard.food-theft warning occurrence mitigation recovery | escape.raft progress complete escape.smoke progress complete escape.radio progress complete escape.flare escape.beacon | ending.escape.raft.open-water ending.escape.smoke.seen-from-afar ending.escape.radio.clear-signal ending.escape.flare.one-shot ending.escape.beacon.ridge-light ending.comic.raft.coconut-navy ending.comic.smoke.island-barbecue ending.comic.radio.island-dj ending.comic.flare.daylight-fireworks ending.comic.beacon.brightest-address ending.rare.raft.current-reader ending.rare.smoke.cloud-letter ending.rare.radio.forecast-rescue ending.rare.beacon.storm-eye ending.stay.green-king ending.stay.fortress-manager ending.stay.scrap-professor ending.stay.island-ranger ending.stay.just-kim:active=False",
+      "reproduction": "Resolve a sample ending, inspect the active presentation root, and count visible core panels.",
+      "recommendedFiles": "runtime ending presentation selected by the implementation owner"
+    },
+    {
+      "id": "W16-P04.ko_en_qps_1280",
+      "severity": "P1",
+      "actual": "captures=3/3; panels=0; locales=ko->ko,en->en,qps-long->qps-long; overflow=0; offscreen=0; overlap=0",
+      "reproduction": "Open all wave16-*-ending-state-1280x800.png at 1:1 and compare the recorded TMP rectangles.",
+      "recommendedFiles": "runtime ending presentation and localization tables selected by the implementation owner"
+    }
+  ],
+  "infrastructureFailures": [
+    "fresh Wave 15 campaign/map prerequisite did not remain full GREEN",
+    "qps-long global layout lock is not a fresh 10/10 PASS"
+  ],
+  "unverifiedIds": [
+    "W16-HW01.physical_gamepad",
+    "W16-S01.steam_release"
+  ],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "steamReadyClaim": false,
+  "greenTransition": "On a post-implementation baseline, the same command must keep fresh Wave 15 GREEN and report zero Wave 16 EXPECTED_GAP/FAIL checks with infrastructure PASS.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-Wave16HazardEndingGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "wave15-full-green-prerequisite",
+      "startedUtc": "2026-08-25T14:54:20.4754362Z",
+      "completedUtc": "2026-08-25T14:56:20.2247777Z",
+      "exitCode": 1,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave15CampaignMapGate.ps1\" -RunId 20260825T145418Z_wave20_release_candidate -BaselineCommit 8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\wave16-wave15-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\wave16-wave15-stderr.log"
+    },
+    {
+      "name": "wave16-hazard-ending-edit",
+      "startedUtc": "2026-08-25T14:56:20.2294133Z",
+      "completedUtc": "2026-08-25T14:56:27.6615149Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\unity-wave16-edit.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\wave16-edit-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\wave16-edit-stderr.log"
+    },
+    {
+      "name": "wave16-hazard-ending-play",
+      "startedUtc": "2026-08-25T14:56:27.6638629Z",
+      "completedUtc": "2026-08-25T14:56:38.3036413Z",
+      "exitCode": 1,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.Wave16HazardEndingRedFirstRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\unity-wave16-play.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\wave16-play-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\wave16-play-stderr.log"
+    }
+  ],
+  "exitCode": 1
+}

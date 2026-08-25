@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260825T145418Z_wave20_release_candidate",
+  "shellEdition": "Core",
+  "shellVersion": "7.6.4",
+  "summaryUtf8NoBom": true,
+  "firewallUtf8NoBom": true,
+  "rawPlayerLogQuarantined": true,
+  "result": "PASS"
+}

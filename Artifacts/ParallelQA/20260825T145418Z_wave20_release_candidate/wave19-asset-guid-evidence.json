@@ -1,0 +1,114 @@
+{
+    "runId": "20260825T145418Z_wave20_release_candidate",
+    "baselineCommit": "8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2",
+    "assets": [
+        {
+            "stableId": "character.mr-kim.atlas",
+            "expectedGuid": "cd48411681ba6264c9093f8b1cb1759a",
+            "expectedPath": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+            "sceneField": "kimAtlasSprite",
+            "sceneGuid": "cd48411681ba6264c9093f8b1cb1759a",
+            "result": "PASS"
+        },
+        {
+            "stableId": "resource.wood",
+            "expectedGuid": "5ba05e4e569ab6745bff72d0b9ba9151",
+            "expectedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/wood.png",
+            "sceneField": "woodIconSprite",
+            "sceneGuid": "5ba05e4e569ab6745bff72d0b9ba9151",
+            "result": "PASS"
+        },
+        {
+            "stableId": "resource.stone",
+            "expectedGuid": "c881b7198e647ad40b32c63ce18e27a2",
+            "expectedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/stone.png",
+            "sceneField": "stoneIconSprite",
+            "sceneGuid": "c881b7198e647ad40b32c63ce18e27a2",
+            "result": "PASS"
+        },
+        {
+            "stableId": "resource.food",
+            "expectedGuid": "59695c50812722b458c210b4cfb02c12",
+            "expectedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/food.png",
+            "sceneField": "foodIconSprite",
+            "sceneGuid": "59695c50812722b458c210b4cfb02c12",
+            "result": "PASS"
+        },
+        {
+            "stableId": "resource.salvage",
+            "expectedGuid": "cb8829a17d9cc9049aa16fbf4393097a",
+            "expectedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/logo_icon/job_20260822141317_caf8e11d/scrap.png",
+            "sceneField": "salvageIconSprite",
+            "sceneGuid": "cb8829a17d9cc9049aa16fbf4393097a",
+            "result": "PASS"
+        },
+        {
+            "stableId": "structure.campfire",
+            "expectedGuid": "aefba80bf6c588847ba3b66d017616cc",
+            "expectedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/campfire.png",
+            "sceneField": "campfireSprite",
+            "sceneGuid": "aefba80bf6c588847ba3b66d017616cc",
+            "result": "PASS"
+        },
+        {
+            "stableId": "structure.workbench",
+            "expectedGuid": "f1920158f3a3ba14f8999ead8f869e30",
+            "expectedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/workbench.png",
+            "sceneField": "workbenchSprite",
+            "sceneGuid": "f1920158f3a3ba14f8999ead8f869e30",
+            "result": "PASS"
+        },
+        {
+            "stableId": "structure.rain_collector",
+            "expectedGuid": "0af1d92982f80ce4a89462c076305386",
+            "expectedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rain_collector.png",
+            "sceneField": "rainCollectorSprite",
+            "sceneGuid": "0af1d92982f80ce4a89462c076305386",
+            "result": "PASS"
+        },
+        {
+            "stableId": "structure.rescue_signal",
+            "expectedGuid": "00ff5be74a04dbe48a49fe2e1a673eec",
+            "expectedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/separated_parts/job_20260822130400_6d786a69/rescue_signal.png",
+            "sceneField": "rescueSignalSprite",
+            "sceneGuid": "00ff5be74a04dbe48a49fe2e1a673eec",
+            "result": "PASS"
+        },
+        {
+            "stableId": "ui.camp-contextual-interaction.compact-a",
+            "expectedGuid": "070048b5b443d5d4a9c757c871873eb3",
+            "expectedPath": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/compact-a.png",
+            "sceneField": "",
+            "sceneGuid": "",
+            "result": "PASS"
+        },
+        {
+            "stableId": "ui.expedition-map.right-rail-a",
+            "expectedGuid": "ae09637f2b24aa14295b1f9a5b4fde1c",
+            "expectedPath": "Assets/_Project/Art/Generated/ui_set/job_20260823150636_e3b39abc/candidate-a-right-rail-1280x800.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/ui_set/job_20260823150636_e3b39abc/candidate-a-right-rail-1280x800.png",
+            "sceneField": "expeditionMapLayoutSprite",
+            "sceneGuid": "ae09637f2b24aa14295b1f9a5b4fde1c",
+            "result": "PASS"
+        },
+        {
+            "stableId": "ui.ending-comic.triptych-a",
+            "expectedGuid": "ba9091d85a3bddd4a8c8b90aa07d1b7c",
+            "expectedPath": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/ending-comic-triptych-a-1280x800.png",
+            "resolvedPath": "Assets/_Project/Art/Generated/ui_set/job_20260823160342_eceb3933/ending-comic-triptych-a-1280x800.png",
+            "sceneField": "",
+            "sceneGuid": "",
+            "result": "PASS"
+        }
+    ]
+}

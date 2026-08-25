@@ -1,0 +1,11 @@
+Wave 11 direct slot Play contracts
+Run ID: 20260825T145418Z_wave20_release_candidate
+Baseline: 8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: PASS/PASS/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 4/0/0/0/1
+W11-P01.direct_slot_discovery_popup_and_cancel | PASS | NONE | farZero=True; registered=3/3; near=3/3; popup/action/first/cancel=3/3; slot.start.upper{active=slot.start.upper, prompt=True, popup=True, action=True, first=Upper, cancel=True} | slot.start.side{active=slot.start.side, prompt=True, popup=True, action=True, first=Side, cancel=True} | slot.start.basement{active=slot.start.basement, prompt=True, popup=True, action=True, first=Basement, cancel=True}
+W11-P02.direct_slot_1280_layout | PASS | NONE | directScreens=6/6; clear=3/3; slot.start.upper{prompt=x=420.0,y=480.0,w=440.0,h=48.0, player=x=290.2,y=235.4,w=130.7,h=174.2, target=x=316.4,y=193.8,w=78.2,h=103.1, walking=x=0.0,y=183.1,w=1280.0,h=81.8, capture=x=0.0,y=0.0,w=1280.0,h=800.0, scale=0.703, failures=none} | slot.start.side{prompt=x=420.0,y=480.0,w=440.0,h=48.0, player=x=1150.7,y=235.4,w=130.7,h=174.2, target=x=1176.9,y=193.8,w=78.2,h=103.1, walking=x=0.0,y=183.1,w=1280.0,h=81.8, capture=x=0.0,y=0.0,w=1280.0,h=800.0, scale=0.703, failures=none} | slot.start.basement{prompt=x=420.0,y=480.0,w=440.0,h=48.0, player=x=752.4,y=235.4,w=130.7,h=174.2, target=x=778.7,y=193.8,w=78.2,h=103.1, walking=x=0.0,y=183.1,w=1280.0,h=81.8, capture=x=0.0,y=0.0,w=1280.0,h=800.0, scale=0.703, failures=none}
+W11-P03.storage_planning_auxiliary_regression | PASS | NONE | PASS · storage.planning retained; three candidates cycled; cancel restored; explicitly excluded from direct-slot numerator
+W11-P04.full_survival_regression | PASS | NONE | PASS · Wave 20 해안 진수대 직접 접근→compact 안내→전용 소형 팝업, 선체·돛·항해 보급, 보호 돛천, 날씨·조류 출항 확인, 실패 1회 비용·멱등 재시도·snapshot 복구·Day 50 이전 단일 뗏목 탈출과 ko/en/qps-long 1280x800·키보드/합성 게임패드 동등성을 확인. Wave 19 앨범, Wave 16 지도 A, Wave 15 Day 50와 직접 연결 슬롯·배치·가방·수색·수영·장벽·구조 신호를 회귀 확인
+W11-HW01.physical_gamepad | UNVERIFIED | HARDWARE_GAP | no non-empty joystick name exposed to Unity batch Play Mode

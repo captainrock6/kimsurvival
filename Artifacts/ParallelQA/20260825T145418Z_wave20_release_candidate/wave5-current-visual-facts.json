@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260825T145418Z_wave20_release_candidate",
+    "baselineCommit": "8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-25T14:55:25.0109665Z",
+    "source": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260825T145418Z_wave20_release_candidate\\wave3-visual-gate.txt",
+    "standardKoEnOverall": "FAIL",
+    "qpsLongOverall": "FAIL",
+    "overall": "FAIL",
+    "placement": {
+        "status": "FAIL",
+        "targets": 8,
+        "failures": 6,
+        "evidenceLine": "PLACEMENT_GATE: FAIL · targets=8 · failures=6"
+    },
+    "explorationSwimming": {
+        "status": "PASS",
+        "targets": 10,
+        "failures": 0,
+        "evidenceLine": "EXPLORATION_SWIMMING_GATE: PASS · targets=10 · failures=0"
+    },
+    "qpsLong": {
+        "status": "FAIL",
+        "targets": 6,
+        "failures": 1,
+        "evidenceLine": "PSEUDO_LONG_GATE: FAIL · targets=6 · failures=1"
+    }
+}

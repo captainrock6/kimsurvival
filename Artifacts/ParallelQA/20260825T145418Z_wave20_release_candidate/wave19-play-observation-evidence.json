@@ -1,0 +1,412 @@
+{
+    "runId": "20260825T145418Z_wave20_release_candidate",
+    "baselineCommit": "8ecb3fff1c7e8b28c68510d69cb83aa5251e41d2",
+    "scene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+    "discoveryPolicy": "Actual active Play-scene SpriteRenderer/Image/TMP/RectTransform observations. Product assertion strings alone cannot satisfy P01-P04.",
+    "prerequisiteResult": "PASS · Wave 20 해안 진수대 직접 접근→compact 안내→전용 소형 팝업, 선체·돛·항해 보급, 보호 돛천, 날씨·조류 출항 확인, 실패 1회 비용·멱등 재시도·snapshot 복구·Day 50 이전 단일 뗏목 탈출과 ko/en/qps-long 1280x800·키보드/합성 게임패드 동등성을 확인. Wave 19 앨범, Wave 16 지도 A, Wave 15 Day 50와 직접 연결 슬롯·배치·가방·수색·수영·장벽·구조 신호를 회귀 확인",
+    "playerStates": [
+        {
+            "state": "idle",
+            "spriteName": "kim-idle-adopted",
+            "sourceGuid": "cd48411681ba6264c9093f8b1cb1759a",
+            "sourcePath": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+            "rect": "(x:0.00, y:512.00, width:384.00, height:512.00)",
+            "screenshot": "wave19-kim-idle-ko-1280x800.png"
+        },
+        {
+            "state": "move",
+            "spriteName": "kim-walk-adopted",
+            "sourceGuid": "cd48411681ba6264c9093f8b1cb1759a",
+            "sourcePath": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+            "rect": "(x:384.00, y:512.00, width:384.00, height:512.00)",
+            "screenshot": "wave19-kim-move-ko-1280x800.png"
+        },
+        {
+            "state": "water",
+            "spriteName": "kim-swim-readable-adopted",
+            "sourceGuid": "cd48411681ba6264c9093f8b1cb1759a",
+            "sourcePath": "Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png",
+            "rect": "(x:768.00, y:512.00, width:384.00, height:512.00)",
+            "screenshot": "wave19-kim-water-ko-1280x800.png"
+        }
+    ],
+    "resources": [
+        {
+            "kind": "Wood",
+            "nodeCount": 2,
+            "expectedGuid": "5ba05e4e569ab6745bff72d0b9ba9151",
+            "observedGuids": [
+                "5ba05e4e569ab6745bff72d0b9ba9151",
+                "5ba05e4e569ab6745bff72d0b9ba9151"
+            ],
+            "rendererNames": [
+                "채택 자원 아이콘 · icon.resource-tool-set · Wood",
+                "채택 자원 아이콘 · icon.resource-tool-set · Wood"
+            ],
+            "fallbackCount": 0,
+            "result": "PASS"
+        },
+        {
+            "kind": "Stone",
+            "nodeCount": 2,
+            "expectedGuid": "c881b7198e647ad40b32c63ce18e27a2",
+            "observedGuids": [
+                "c881b7198e647ad40b32c63ce18e27a2",
+                "c881b7198e647ad40b32c63ce18e27a2"
+            ],
+            "rendererNames": [
+                "채택 자원 아이콘 · icon.resource-tool-set · Stone",
+                "채택 자원 아이콘 · icon.resource-tool-set · Stone"
+            ],
+            "fallbackCount": 0,
+            "result": "PASS"
+        },
+        {
+            "kind": "Food",
+            "nodeCount": 2,
+            "expectedGuid": "59695c50812722b458c210b4cfb02c12",
+            "observedGuids": [
+                "59695c50812722b458c210b4cfb02c12",
+                "59695c50812722b458c210b4cfb02c12"
+            ],
+            "rendererNames": [
+                "채택 자원 아이콘 · icon.resource-tool-set · Food",
+                "채택 자원 아이콘 · icon.resource-tool-set · Food"
+            ],
+            "fallbackCount": 0,
+            "result": "PASS"
+        },
+        {
+            "kind": "Salvage",
+            "nodeCount": 4,
+            "expectedGuid": "cb8829a17d9cc9049aa16fbf4393097a",
+            "observedGuids": [
+                "cb8829a17d9cc9049aa16fbf4393097a",
+                "cb8829a17d9cc9049aa16fbf4393097a",
+                "cb8829a17d9cc9049aa16fbf4393097a",
+                "cb8829a17d9cc9049aa16fbf4393097a"
+            ],
+            "rendererNames": [
+                "채택 자원 아이콘 · icon.resource-tool-set · Salvage",
+                "채택 자원 아이콘 · icon.resource-tool-set · Salvage",
+                "채택 자원 아이콘 · icon.resource-tool-set · Salvage",
+                "채택 자원 아이콘 · icon.resource-tool-set · Salvage"
+            ],
+            "fallbackCount": 0,
+            "result": "PASS"
+        }
+    ],
+    "structures": [
+        {
+            "kind": "Campfire",
+            "expectedGuid": "aefba80bf6c588847ba3b66d017616cc",
+            "observedGuid": "aefba80bf6c588847ba3b66d017616cc",
+            "rendererName": "채택 구조물 아트 · Campfire",
+            "fallbackCount": 0,
+            "result": "PASS"
+        },
+        {
+            "kind": "Workbench",
+            "expectedGuid": "f1920158f3a3ba14f8999ead8f869e30",
+            "observedGuid": "f1920158f3a3ba14f8999ead8f869e30",
+            "rendererName": "채택 구조물 아트 · Workbench",
+            "fallbackCount": 0,
+            "result": "PASS"
+        },
+        {
+            "kind": "RainCollector",
+            "expectedGuid": "0af1d92982f80ce4a89462c076305386",
+            "observedGuid": "0af1d92982f80ce4a89462c076305386",
+            "rendererName": "채택 구조물 아트 · RainCollector",
+            "fallbackCount": 0,
+            "result": "PASS"
+        },
+        {
+            "kind": "RescueSignal",
+            "expectedGuid": "00ff5be74a04dbe48a49fe2e1a673eec",
+            "observedGuid": "00ff5be74a04dbe48a49fe2e1a673eec",
+            "rendererName": "채택 구조 신호대 아트 · object.camp-structures",
+            "fallbackCount": 0,
+            "result": "PASS"
+        }
+    ],
+    "layouts": [
+        {
+            "surface": "camp-prompt",
+            "locale": "ko",
+            "screenshot": "wave19-camp-prompt-ko-1280x800.png",
+            "rect": {
+                "x": 420.0,
+                "y": 480.0000305175781,
+                "width": 440.0,
+                "height": 47.999969482421878
+            },
+            "activeTextCount": 2,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.020624985918402673,
+            "playerOcclusionRatio": 0.0,
+            "walkingPathOcclusionRatio": 0.0,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": false,
+            "sourceGuid": "070048b5b443d5d4a9c757c871873eb3",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "camp-popup",
+            "locale": "ko",
+            "screenshot": "wave19-camp-popup-ko-1280x800.png",
+            "rect": {
+                "x": 716.7999877929688,
+                "y": 160.00001525878907,
+                "width": 512.0000610351563,
+                "height": 495.99993896484377
+            },
+            "activeTextCount": 4,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.24799999594688416,
+            "playerOcclusionRatio": 0.0,
+            "walkingPathOcclusionRatio": 0.40000006556510928,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": false,
+            "sourceGuid": "",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "expedition-map-a",
+            "locale": "ko",
+            "screenshot": "wave19-expedition-map-a-ko-1280x800.png",
+            "rect": {
+                "x": 31.999969482421876,
+                "y": 20.000028610229493,
+                "width": 1216.0,
+                "height": 760.0
+            },
+            "activeTextCount": 11,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.9024999737739563,
+            "playerOcclusionRatio": 0.9999999403953552,
+            "walkingPathOcclusionRatio": 0.9500001072883606,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": true,
+            "sourceGuid": "ae09637f2b24aa14295b1f9a5b4fde1c",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "ending-comic",
+            "locale": "ko",
+            "screenshot": "wave19-ending-comic-ko-1280x800.png",
+            "rect": {
+                "x": 51.199989318847659,
+                "y": 31.999969482421876,
+                "width": 1177.60009765625,
+                "height": 736.0
+            },
+            "activeTextCount": 4,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.8464000821113586,
+            "playerOcclusionRatio": 0.9999999403953552,
+            "walkingPathOcclusionRatio": 0.9200001358985901,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": true,
+            "sourceGuid": "ba9091d85a3bddd4a8c8b90aa07d1b7c",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "camp-prompt",
+            "locale": "en",
+            "screenshot": "wave19-camp-prompt-en-1280x800.png",
+            "rect": {
+                "x": 420.0,
+                "y": 480.0000305175781,
+                "width": 440.0,
+                "height": 47.999969482421878
+            },
+            "activeTextCount": 2,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.020624985918402673,
+            "playerOcclusionRatio": 0.0,
+            "walkingPathOcclusionRatio": 0.0,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": false,
+            "sourceGuid": "070048b5b443d5d4a9c757c871873eb3",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "camp-popup",
+            "locale": "en",
+            "screenshot": "wave19-camp-popup-en-1280x800.png",
+            "rect": {
+                "x": 716.7999877929688,
+                "y": 160.00001525878907,
+                "width": 512.0000610351563,
+                "height": 495.99993896484377
+            },
+            "activeTextCount": 4,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.24799999594688416,
+            "playerOcclusionRatio": 0.0,
+            "walkingPathOcclusionRatio": 0.40000006556510928,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": false,
+            "sourceGuid": "",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "expedition-map-a",
+            "locale": "en",
+            "screenshot": "wave19-expedition-map-a-en-1280x800.png",
+            "rect": {
+                "x": 31.999969482421876,
+                "y": 20.000028610229493,
+                "width": 1216.0,
+                "height": 760.0
+            },
+            "activeTextCount": 11,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.9024999737739563,
+            "playerOcclusionRatio": 0.9999999403953552,
+            "walkingPathOcclusionRatio": 0.9500001072883606,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": true,
+            "sourceGuid": "ae09637f2b24aa14295b1f9a5b4fde1c",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "ending-comic",
+            "locale": "en",
+            "screenshot": "wave19-ending-comic-en-1280x800.png",
+            "rect": {
+                "x": 51.199989318847659,
+                "y": 31.999969482421876,
+                "width": 1177.60009765625,
+                "height": 736.0
+            },
+            "activeTextCount": 4,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.8464000821113586,
+            "playerOcclusionRatio": 0.9999999403953552,
+            "walkingPathOcclusionRatio": 0.9200001358985901,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": true,
+            "sourceGuid": "ba9091d85a3bddd4a8c8b90aa07d1b7c",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "camp-prompt",
+            "locale": "qps-long",
+            "screenshot": "wave19-camp-prompt-qps-long-1280x800.png",
+            "rect": {
+                "x": 420.0,
+                "y": 480.0000305175781,
+                "width": 440.0,
+                "height": 47.999969482421878
+            },
+            "activeTextCount": 2,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.020624985918402673,
+            "playerOcclusionRatio": 0.0,
+            "walkingPathOcclusionRatio": 0.0,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": false,
+            "sourceGuid": "070048b5b443d5d4a9c757c871873eb3",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "camp-popup",
+            "locale": "qps-long",
+            "screenshot": "wave19-camp-popup-qps-long-1280x800.png",
+            "rect": {
+                "x": 716.7999877929688,
+                "y": 160.00001525878907,
+                "width": 512.0000610351563,
+                "height": 495.99993896484377
+            },
+            "activeTextCount": 4,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.24799999594688416,
+            "playerOcclusionRatio": 0.0,
+            "walkingPathOcclusionRatio": 0.40000006556510928,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": false,
+            "sourceGuid": "",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "expedition-map-a",
+            "locale": "qps-long",
+            "screenshot": "wave19-expedition-map-a-qps-long-1280x800.png",
+            "rect": {
+                "x": 31.999969482421876,
+                "y": 20.000028610229493,
+                "width": 1216.0,
+                "height": 760.0
+            },
+            "activeTextCount": 11,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.9024999737739563,
+            "playerOcclusionRatio": 0.9999999403953552,
+            "walkingPathOcclusionRatio": 0.9500001072883606,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": true,
+            "sourceGuid": "ae09637f2b24aa14295b1f9a5b4fde1c",
+            "result": "PASS",
+            "failureReason": ""
+        },
+        {
+            "surface": "ending-comic",
+            "locale": "qps-long",
+            "screenshot": "wave19-ending-comic-qps-long-1280x800.png",
+            "rect": {
+                "x": 51.199989318847659,
+                "y": 31.999969482421876,
+                "width": 1177.60009765625,
+                "height": 736.0
+            },
+            "activeTextCount": 4,
+            "overflowCount": 0,
+            "offscreenTextCount": 0,
+            "screenCoverage": 0.8464000821113586,
+            "playerOcclusionRatio": 0.9999999403953552,
+            "walkingPathOcclusionRatio": 0.9200001358985901,
+            "hiddenBefore": true,
+            "hiddenAfter": true,
+            "modal": true,
+            "sourceGuid": "ba9091d85a3bddd4a8c8b90aa07d1b7c",
+            "result": "PASS",
+            "failureReason": ""
+        }
+    ],
+    "joystickNames": []
+}

@@ -2879,11 +2879,19 @@
         "저장·복원 뒤 완료 단계, 보호 돛천, 재시도와 terminal 결과가 보존된다.",
         "성공은 escape.raft를 정확히 한 번 해결하고 엔딩 앨범에 기록한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeRaftEscape.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260825T145418Z_wave20_release_candidate/wave20-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T14:19:28.853Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T14:59:52.461Z",
+      "note": "Wave 20 16/16 GREEN: atomic stages, failure retry, save/restore, terminal ending and album idempotency verified.",
+      "completedAt": "2026-08-25T14:59:52.461Z",
+      "createdAt": "2026-08-25T14:59:52.461Z"
     },
     {
       "id": "task.feature.feature.raft-escape",
@@ -2915,10 +2923,19 @@
         "안전한 날씨·외해 조류의 출항은 escape.raft를 한 번만 해결하고 뗏목 엔딩·앨범을 해금한다.",
         "ko/en/qps-long, 키보드·마우스와 합성 게임패드가 같은 상태·비용·결과를 만든다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeRaftEscape.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260825T145418Z_wave20_release_candidate/wave20-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "in_progress",
+      "note": "Playable shore-launch route is GREEN; remains in progress until protected sailcloth is acquired through the forthcoming persistent environmental search-node UI/runtime.",
+      "completedAt": null,
+      "createdAt": "2026-08-25T14:59:52.564Z",
+      "updatedAt": "2026-08-25T14:59:52.564Z"
     },
     {
       "id": "task.qa.feature.raft-escape",
@@ -2941,10 +2958,18 @@
         "안전한 날씨·외해 조류의 출항은 escape.raft를 한 번만 해결하고 뗏목 엔딩·앨범을 해금한다.",
         "ko/en/qps-long, 키보드·마우스와 합성 게임패드가 같은 상태·비용·결과를 만든다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/Editor/ParallelQA/Wave20RaftRedFirstGateRunner.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260825T145418Z_wave20_release_candidate/wave20-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "in_progress",
+      "note": "Current raft gate is 16/16 GREEN; re-run after persistent environmental search-node acquisition is connected.",
+      "completedAt": null,
+      "createdAt": "2026-08-25T14:59:52.656Z",
+      "updatedAt": "2026-08-25T14:59:52.657Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -4270,5 +4295,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-25T14:19:28.851Z"
+  "updatedAt": "2026-08-25T14:59:52.657Z"
 }
