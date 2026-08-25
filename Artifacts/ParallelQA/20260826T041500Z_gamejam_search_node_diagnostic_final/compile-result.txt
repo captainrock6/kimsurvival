@@ -1,0 +1,13 @@
+Unity script compilation
+Run ID: 20260826T041500Z_gamejam_search_node_diagnostic_final
+Started UTC: 2026-08-25T16:50:37.9187811Z
+Completed UTC: 2026-08-25T16:50:37.9449314Z
+Unity: 6000.4.9f1
+Baseline commit: 2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260826T041500Z_gamejam_search_node_diagnostic_final\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Raw logs: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\ParallelQA\20260826T041500Z_gamejam_search_node_diagnostic_final\unity-compile.log
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

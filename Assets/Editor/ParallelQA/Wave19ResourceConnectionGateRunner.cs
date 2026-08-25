@@ -427,10 +427,10 @@ namespace ParallelQA
                     "runtime player presentation owner selected from the active Scene");
 
                 Product(checks, "W19-P02.resource_nodes_adopted_icons", "actual Play resources", "P0",
-                    "Every wood, stone, food, and salvage node renders the matching adopted icon and no geometric resource fallback exists",
+                    "Finite environmental nodes resolve wood/stone/food/salvage and the live node or compact loot tray renders each matching adopted resource icon GUID; review-only search-node candidates do not count",
                     delegate { return ObserveResourceNodes(prototype, resources); },
-                    "Inspect every live/inactive node root created by the exploration scene and its icon renderer.",
-                    "runtime resource node owner selected from the active Scene");
+                    "Inspect structured contents from every live environmental node, open its actual compact tray, and read active SpriteRenderer/Image source GUIDs.",
+                    "runtime environmental node and compact loot tray owners selected from the active Scene");
 
                 string[] locales = { PrototypeLocalization.KoreanLocaleCode, PrototypeLocalization.EnglishLocaleCode, PrototypeLocalization.QpsLongLocaleCode };
                 for (int index = 0; index < locales.Length; index += 1)
@@ -542,33 +542,75 @@ namespace ParallelQA
             foreach (object node in nodes)
             {
                 string kind = Convert.ToString(GetField(node, "Kind"));
-                if (!byKind.ContainsKey(kind)) byKind.Add(kind, new List<object>());
-                byKind[kind].Add(node);
+                if (!string.IsNullOrWhiteSpace(kind))
+                {
+                    if (!byKind.ContainsKey(kind)) byKind.Add(kind, new List<object>());
+                    byKind[kind].Add(node);
+                    continue;
+                }
+
+                PrototypeSearchNodeDefinition definition = GetField(node, "Definition") as PrototypeSearchNodeDefinition;
+                if (definition == null) continue;
+                PrototypeSearchLootEntry[] contents = PrototypeSearchNodeLootResolver.Resolve(prototype.Session.RunSeed, definition);
+                foreach (string resourceKind in contents.Where(item => !item.IsProtectedPart)
+                             .Select(item => item.Resource.ToString()).Distinct(StringComparer.OrdinalIgnoreCase))
+                {
+                    if (!byKind.ContainsKey(resourceKind)) byKind.Add(resourceKind, new List<object>());
+                    byKind[resourceKind].Add(node);
+                }
             }
 
             string[] kinds = { "Wood", "Stone", "Food", "Salvage" };
+            PrototypeSearchNodeRuntime runtime = GetPrivateField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
+            IEnumerable trayButtons = GetField(prototype, "searchLootItemButtons") as IEnumerable;
+            Require(runtime != null && trayButtons != null, "live environmental search runtime or compact tray buttons are unavailable");
             foreach (string kind in kinds)
             {
                 string expectedStableId = "resource." + kind.ToLowerInvariant();
                 string expectedGuid = ExpectedGuid(expectedStableId);
                 List<object> matching;
-                Require(byKind.TryGetValue(kind, out matching) && matching.Count > 0, "no " + kind + " node exists");
+                Require(byKind.TryGetValue(kind, out matching) && matching.Count > 0,
+                    "no live environmental node resolves finite " + kind + " contents");
                 List<string> guids = new List<string>();
                 List<string> rendererNames = new List<string>();
                 int fallbackCount = 0;
                 foreach (object node in matching)
                 {
                     GameObject root = GetField(node, "Root") as GameObject;
-                    Require(root != null, kind + " node root is missing");
-                    fallbackCount += root.GetComponentsInChildren<Transform>(true)
-                        .Count(value => value.name.IndexOf("placeholder", StringComparison.OrdinalIgnoreCase) >= 0 || value.name.Contains("자원 placeholder"));
+                    Require(root != null, kind + " environmental node root is missing");
                     SpriteRenderer renderer = root.GetComponentsInChildren<SpriteRenderer>(true)
                         .FirstOrDefault(value => SourceGuid(value.sprite) == expectedGuid);
-                    Require(renderer != null, kind + " node has no renderer using " + expectedGuid);
-                    guids.Add(SourceGuid(renderer.sprite));
-                    rendererNames.Add(renderer.gameObject.name);
+                    if (renderer != null)
+                    {
+                        guids.Add(SourceGuid(renderer.sprite));
+                        rendererNames.Add(renderer.gameObject.name);
+                        continue;
+                    }
+
+                    PrototypeSearchNodeDefinition definition = GetField(node, "Definition") as PrototypeSearchNodeDefinition;
+                    Require(definition != null, kind + " environmental node has no structured Definition");
+                    if (runtime.IsTrayOpen) runtime.Close(prototype.Session);
+                    Require(runtime.TryOpen(definition, prototype.Session) == PrototypeSearchOpenResult.Opened,
+                        kind + " environmental node could not open its actual compact tray");
+                    InvokePrivate(prototype, "RefreshSearchLootTrayUi");
+                    PrototypeSearchNodeSnapshot active = runtime.ActiveNode;
+                    int itemIndex = active == null ? -1 : Array.FindIndex(active.Remaining,
+                        item => !item.IsProtectedPart && string.Equals(item.Resource.ToString(), kind, StringComparison.OrdinalIgnoreCase));
+                    List<Button> buttons = trayButtons.Cast<object>().OfType<Button>().ToList();
+                    Image trayIcon = itemIndex < 0 || itemIndex >= buttons.Count ? null :
+                        buttons[itemIndex].GetComponentsInChildren<Image>(true).FirstOrDefault(image => SourceGuid(image.sprite) == expectedGuid);
+                    if (trayIcon != null)
+                    {
+                        guids.Add(SourceGuid(trayIcon.sprite));
+                        rendererNames.Add("compact-tray/" + trayIcon.gameObject.name);
+                    }
+                    else
+                    {
+                        fallbackCount += 1;
+                    }
+                    runtime.Close(prototype.Session);
                 }
-                bool passed = fallbackCount == 0 && guids.All(value => value == expectedGuid);
+                bool passed = fallbackCount == 0 && guids.Count == matching.Count && guids.All(value => value == expectedGuid);
                 output.Add(new ResourceObservation
                 {
                     kind = kind,
@@ -579,8 +621,13 @@ namespace ParallelQA
                     fallbackCount = fallbackCount,
                     result = passed ? "PASS" : "FAIL"
                 });
-                Require(passed, kind + " fallback/GUID contract failed");
             }
+            ResourceObservation[] failures = output.Where(value => value.result == "FAIL").ToArray();
+            Require(failures.Length == 0, string.Join(" | ", failures.Select(value =>
+                value.kind + " environmental node/compact tray omits adopted icon GUID " + value.expectedGuid +
+                "; nodes=" + value.nodeCount + "; adoptedRenderers=" + value.observedGuids.Length +
+                "; unresolved=" + value.fallbackCount).ToArray()));
+            InvokePrivate(prototype, "RefreshAll");
             prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, "wave19-resource-nodes-ko-1280x800.png"), 1280, 800);
             return string.Join(" | ", output.Select(value => value.kind + "=" + value.nodeCount + "@" + value.expectedGuid + "/fallback=" + value.fallbackCount).ToArray());
         }

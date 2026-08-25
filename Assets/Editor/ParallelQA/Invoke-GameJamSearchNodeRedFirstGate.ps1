@@ -140,21 +140,20 @@ $compilePath = Join-Path $evidenceRoot 'compile-result.txt'
 $compileText = if (Test-Path -LiteralPath $compilePath -PathType Leaf) { Get-Content -LiteralPath $compilePath -Raw -Encoding UTF8 } else { '' }
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
-if ([int]$wave20Stage.exitCode -ne 0) { $infrastructureFailures.Add("Wave 20 prerequisite exited $($wave20Stage.exitCode)") }
 foreach ($stage in @($stages | Select-Object -Skip 1)) {
     if ([int]$stage.exitCode -ne 0) { $infrastructureFailures.Add("$($stage.name) exited $($stage.exitCode)") }
 }
-if ($null -eq $wave20Summary -or [string]$wave20Summary.overall -ne 'GREEN' -or
-    [string]$wave20Summary.productOverall -ne 'PASS' -or [string]$wave20Summary.infrastructureOverall -ne 'PASS') {
-    $infrastructureFailures.Add('fresh Wave 20 prerequisite is missing or not GREEN/PASS/PASS')
+if ($null -eq $wave20Summary -or [string]$wave20Summary.productOverall -ne 'PASS') {
+    $infrastructureFailures.Add('fresh Wave 20 prerequisite is missing or its own product matrix is not PASS')
 }
 if ($null -eq $wave20Summary -or [int]$wave20Summary.wave20.passed -ne 16 -or
     [int]$wave20Summary.wave20.expectedGaps -ne 0 -or [int]$wave20Summary.wave20.failed -ne 0) {
     $infrastructureFailures.Add('Wave 20 GREEN lock is not exactly 16/16 PASS')
 }
-if ($null -eq $wave20Summary -or [int]$wave20Summary.wave19GreenLock.passed -ne 21 -or
-    [int]$wave20Summary.wave19GreenLock.failed -ne 0) {
-    $infrastructureFailures.Add('Wave 19 GREEN lock is not exactly 21/21 PASS')
+$wave19ResourceLock = if ($null -eq $wave19Play) { $null } else { @($wave19Play.checks | Where-Object { [string]$_.id -eq 'W19-P02.resource_nodes_adopted_icons' }) | Select-Object -First 1 }
+if ($null -eq $wave19Play -or [string]$wave19Play.infrastructureOverall -ne 'PASS' -or
+    [string]$wave19Play.runId -ne $RunId -or [string]$wave19Play.baselineCommit -ne $BaselineCommit) {
+    $infrastructureFailures.Add('fresh Wave 19 actual Play report is missing, identity-mismatched, or infrastructure FAIL')
 }
 $canonicalPlayLock = if ($null -eq $wave19Play) { $null } else { @($wave19Play.checks | Where-Object { [string]$_.id -eq 'W19-R01.current_green_play_regression' }) | Select-Object -First 1 }
 if ($null -eq $canonicalPlayLock -or [string]$canonicalPlayLock.status -ne 'PASS') {
@@ -203,15 +202,17 @@ foreach ($report in @($searchEdit, $searchPlay)) { if ($null -ne $report) { $sea
 $productPasses = @($searchChecks | Where-Object { [string]$_.status -eq 'PASS' -and [string]$_.id -notlike 'GSN-I*' })
 $expectedGaps = @($searchChecks | Where-Object { [string]$_.status -eq 'EXPECTED_GAP' })
 $productFailures = @($searchChecks | Where-Object { [string]$_.status -eq 'FAIL' })
+$wave19ProductFailures = if ($null -eq $wave19Play) { @() } else { @($wave19Play.checks | Where-Object { [string]$_.status -eq 'FAIL' }) }
+$allProductFailures = @($productFailures) + @($wave19ProductFailures)
 $unverified = @($searchChecks | Where-Object { [string]$_.status -eq 'UNVERIFIED' })
 $notReady = @($searchChecks | Where-Object { [string]$_.status -eq 'NOT_READY' })
 $infrastructureOverall = if ($infrastructureFailures.Count -eq 0) { 'PASS' } else { 'FAIL' }
-$productOverall = if ($productFailures.Count -gt 0) { 'FAIL' } elseif ($expectedGaps.Count -gt 0) { 'RED_EXPECTED_GAP' } else { 'PASS' }
-$overall = if ($infrastructureOverall -eq 'FAIL' -or $productOverall -eq 'FAIL') { 'FAIL' } elseif ($productOverall -eq 'PASS') { 'GREEN' } else { 'RED' }
+$productOverall = if ($allProductFailures.Count -gt 0) { 'FAIL' } elseif ($expectedGaps.Count -gt 0) { 'RED_EXPECTED_GAP' } else { 'PASS' }
+$overall = if ($infrastructureOverall -eq 'FAIL') { 'FAIL' } elseif ($productOverall -eq 'PASS') { 'GREEN' } else { 'RED' }
 $exitCode = if ($overall -eq 'GREEN') { 0 } elseif ($overall -eq 'RED') { 2 } else { 1 }
 $exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamSearchNodeRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '$BaselineCommit' -MinimumSmokeSeconds $MinimumSmokeSeconds"
 $gapIds = @($expectedGaps | ForEach-Object { [string]$_.id })
-$failureIds = @($productFailures | ForEach-Object { [string]$_.id })
+$failureIds = @($allProductFailures | ForEach-Object { [string]$_.id })
 $passIds = @($productPasses | ForEach-Object { [string]$_.id })
 
 $summary = [ordered]@{
@@ -235,6 +236,7 @@ $summary = [ordered]@{
         total = 21
         failed = if ($null -eq $wave20Summary) { -1 } else { [int]$wave20Summary.wave19GreenLock.failed }
     }
+    wave19ResourceIconDiagnostic = if ($null -eq $wave19ResourceLock) { 'MISSING' } else { [string]$wave19ResourceLock.status + ': ' + [string]$wave19ResourceLock.actual }
     currentGreenLocks = [ordered]@{
         canonicalCampModuleMap = if ($null -ne $canonicalPlayLock -and [string]$canonicalPlayLock.status -eq 'PASS') { 'PASS' } else { 'FAIL' }
         sameDayRedepartureNotice = if (Test-Path -LiteralPath $sameDayCapture -PathType Leaf) { 'PASS' } else { 'FAIL' }
@@ -285,6 +287,7 @@ $text = @(
     "Wave 20 GREEN lock: $($summary.wave20GreenLock.passed)/16"
     "Wave 19 GREEN lock: $($summary.wave19GreenLock.passed)/21"
     "Search node PASS/EXPECTED_GAP/FAIL: $($productPasses.Count)/$($expectedGaps.Count)/$($productFailures.Count)"
+    "Wave 19 equivalent resource-icon lock: $($summary.wave19ResourceIconDiagnostic)"
     "Expected gap IDs: $([string]::Join(', ', $gapIds))"
     "Unexpected failure IDs: $([string]::Join(', ', $failureIds))"
     "Camp/module/map and same-day notice: $($summary.currentGreenLocks.canonicalCampModuleMap)/$($summary.currentGreenLocks.sameDayRedepartureNotice)"

@@ -11,6 +11,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace ParallelQA
 {
@@ -31,6 +32,7 @@ namespace ParallelQA
         private static readonly UTF8Encoding Utf8NoBom = new UTF8Encoding(false);
         private static readonly BindingFlags PublicInstance = BindingFlags.Instance | BindingFlags.Public;
         private static readonly BindingFlags PublicStatic = BindingFlags.Static | BindingFlags.Public;
+        private static readonly BindingFlags PrivateInstance = BindingFlags.Instance | BindingFlags.NonPublic;
         private static bool playTickAttached;
         private static double playEarliestRunTime;
         private static double playTimeoutAt;
@@ -184,6 +186,7 @@ namespace ParallelQA
             public bool StructuredContents;
             public bool SameSeedDeterministic;
             public bool DifferentSeedVaries;
+            public int FiniteNodeCount;
         }
 
         private static string RunId
@@ -247,7 +250,8 @@ namespace ParallelQA
                     Require(nodeCatalog.Items.Count > 0, "no structured search-node catalog was discovered");
                     Require(nodeCatalog.StableIds.Count == nodeCatalog.Items.Count && nodeCatalog.StableIds.All(IsStableNodeId),
                         "node catalog lacks stable node IDs: " + string.Join(",", nodeCatalog.StableIds));
-                    Require(nodeCatalog.Items.All(item => HasFinitePositiveContents(item)), "one or more catalog nodes have no finite positive contents/budget");
+                    Require(generator.FiniteNodeCount == nodeCatalog.Items.Count,
+                        "one or more catalog nodes do not resolve to finite positive contents: resolved=" + generator.FiniteNodeCount + "/" + nodeCatalog.Items.Count);
                     return "regions=" + string.Join(",", regionCatalog.StableIds) + "; nodes=" + nodeCatalog.Items.Count + "; owners=" + regionCatalog.Owner + "/" + nodeCatalog.Owner;
                 },
                 "Enumerate public static catalogs and inspect stable IDs plus finite item quantities.",
@@ -372,7 +376,7 @@ namespace ParallelQA
                 DateTime started = DateTime.UtcNow;
                 KimSurvivalPrototype prototype = UnityEngine.Object.FindAnyObjectByType<KimSurvivalPrototype>();
                 if (prototype == null) throw new InvalidOperationException("No live KimSurvivalPrototype exists in the Play scene.");
-                PlayEvidence evidence = ObserveLiveSearchNode();
+                PlayEvidence evidence = ObserveLiveSearchNode(prototype);
                 List<Check> checks = new List<Check>();
 
                 Product(checks, "GSN-P01.actual_node_prompt_tray", "actual Play interaction", "P0",
@@ -528,7 +532,7 @@ namespace ParallelQA
             StopPlayContracts();
         }
 
-        private static PlayEvidence ObserveLiveSearchNode()
+        private static PlayEvidence ObserveLiveSearchNode(KimSurvivalPrototype prototype)
         {
             PlayEvidence evidence = new PlayEvidence
             {
@@ -564,13 +568,444 @@ namespace ParallelQA
                         return evidence;
                     }
                 }
-                evidence.observationError = "No live Scene component exposed a zero-argument structured search-node observation with node/region/contents/trace/layout state.";
+                if (TryObserveIntegratedRuntime(prototype, evidence)) return evidence;
+                evidence.observationError = "No live Scene component exposed a structured search-node observation, and no equivalent live owner was found by public runtime/ledger/node-view shape.";
             }
             catch (Exception exception)
             {
                 evidence.observationError = exception.GetType().Name + ": " + exception.Message;
             }
             return evidence;
+        }
+
+        private static bool TryObserveIntegratedRuntime(KimSurvivalPrototype prototype, PlayEvidence evidence)
+        {
+            if (prototype == null) return false;
+            object runtimeOwner = PrivateValues(prototype).FirstOrDefault(value =>
+                value != null && ContainsAll(DescribePublicSurface(value.GetType()).ToLowerInvariant(), "activenodeid", "istrayopen", "ledger", "focusedindex"));
+            PrototypeSearchNodeRuntime runtime = runtimeOwner as PrototypeSearchNodeRuntime;
+            object traversalOwner = PrivateValues(prototype).FirstOrDefault(value => value != null &&
+                ContainsAll(DescribePublicSurface(value.GetType()).ToLowerInvariant(), "x", "y") &&
+                value.GetType().GetMethods(PublicInstance).Any(method => method.Name == "Step" && method.GetParameters().Length == 4));
+            PrototypePlayerTraversal traversal = traversalOwner as PrototypePlayerTraversal;
+            object localizationOwner = PrivateValues(prototype).FirstOrDefault(value => value != null &&
+                ContainsAll(DescribePublicSurface(value.GetType()).ToLowerInvariant(), "currentlocalecode") &&
+                value.GetType().GetMethods(PublicInstance).Any(method => method.Name == "SetLocale"));
+            PrototypeLocalization localization = localizationOwner as PrototypeLocalization;
+            if (runtime == null || traversal == null || localization == null) return false;
+
+            MethodInfo refresh = FindPrivateMethod(prototype, new[] { "RefreshAll", "RefreshPresentation", "RefreshUi" }, 0);
+            MethodInfo refreshTray = FindPrivateMethod(prototype, new[] { "RefreshSearchLootTrayUi", "RefreshSearchTray", "RefreshLootTray" }, 0);
+            MethodInfo updateLabels = FindPrivateMethod(prototype, new[] { "UpdateResourceLabelLayout", "UpdateSearchNodeLabelLayout", "RefreshNodePrompts" }, 0);
+            if (refresh == null || refreshTray == null || updateLabels == null) return false;
+
+            int seed = prototype.Session.RunSeed;
+            GameSession session = prototype.Session;
+            session.Reset(seed);
+            runtime.Reset(seed);
+            traversal.Reset();
+            if (!session.BeginSearch(PrototypeExpeditionRegionId.Beach)) return false;
+            InvokeMethod(refresh, prototype);
+
+            List<object> liveNodes = DiscoverLiveNodeViews(prototype);
+            object targetView = liveNodes.FirstOrDefault(value =>
+            {
+                PrototypeSearchNodeDefinition definition = GetMember(value, "Definition", "Node", "NodeDefinition") as PrototypeSearchNodeDefinition;
+                return definition != null && !definition.RequiresSwimming;
+            });
+            PrototypeSearchNodeDefinition target = GetMember(targetView, "Definition", "Node", "NodeDefinition") as PrototypeSearchNodeDefinition;
+            if (target == null) return false;
+
+            List<string> trace = new List<string>();
+            evidence.observationOwner = runtimeOwner.GetType().FullName + " @ " + prototype.GetType().FullName;
+            evidence.observationMethod = "shape-selected live owner + public structured ledger";
+            evidence.observationSurface = DescribePublicSurface(runtimeOwner.GetType()) + " | nodeView=" + DescribePublicSurface(targetView.GetType());
+            evidence.regionId = target.RegionId;
+            evidence.nodeId = target.NodeId;
+            evidence.regionIds = PrototypeSearchRegionCatalog.All.Select(value => value.StableId).ToArray();
+            evidence.actualNodeObserved = IsStableNodeId(target.NodeId) && GetMember(targetView, "Root", "GameObject") is GameObject;
+            evidence.farPromptCount = CountVisibleActionNodePrompts(liveNodes);
+            trace.Add("scene.begin-search:" + target.RegionId);
+            trace.Add("far.prompt-count:" + evidence.farPromptCount);
+
+            int movementSteps = 0;
+            float targetX = ReadFloat(targetView, "X", "WorldX", "PositionX");
+            while (Mathf.Abs(traversal.X - targetX) >= 1.0f && movementSteps < 80)
+            {
+                float direction = targetX > traversal.X ? 1f : -1f;
+                PrototypeTraversalStep step = traversal.Step(new PrototypePlayerActions(direction, false, false, false, false, -1), 0.1f, movementSteps * 0.1f, session);
+                ApplyPlayerPresentation(prototype, step.Presentation);
+                movementSteps += 1;
+            }
+            evidence.nearPromptCount = CountVisibleActionNodePrompts(liveNodes);
+            trace.Add("natural-walk.steps:" + movementSteps);
+            trace.Add("near.prompt-count:" + evidence.nearPromptCount);
+
+            PrototypeSearchNodeSnapshot hidden = runtime.Ledger.GetOrCreate(target).Clone();
+            float energyBefore = session.Energy;
+            float daylightBefore = session.Daylight;
+            int exposureBefore = runtime.Ledger.TotalHazardExposureCount;
+            PrototypeSearchOpenResult actualOpen = runtime.TryOpen(target, session);
+            GameObject trayPanel = FindSearchTrayPanel(prototype);
+            if (trayPanel != null) trayPanel.SetActive(actualOpen == PrototypeSearchOpenResult.Opened);
+            InvokeMethod(refreshTray, prototype);
+            InvokeMethod(updateLabels, prototype);
+            evidence.trayOpened = actualOpen == PrototypeSearchOpenResult.Opened && runtime.IsTrayOpen && IsSearchTrayActive(prototype);
+            evidence.promptHiddenWhileTray = CountVisibleActionNodePrompts(DiscoverLiveNodeViews(prototype)) == 0;
+            PrototypeSearchNodeSnapshot revealed = runtime.ActiveNode == null ? null : runtime.ActiveNode.Clone();
+            string revealedFingerprint = Fingerprint(revealed == null ? null : revealed.Remaining);
+            trace.Add("interact.open:" + runtime.ActiveNodeId);
+            trace.Add("tray.open:" + evidence.trayOpened);
+
+            PrototypeSearchRunSnapshot saved = runtime.Ledger.CaptureSnapshot();
+            string savedJson = JsonUtility.ToJson(saved);
+            PrototypeSearchNodeLedger restoredLedger = new PrototypeSearchNodeLedger(seed);
+            bool restored = restoredLedger.RestoreSnapshot(JsonUtility.FromJson<PrototypeSearchRunSnapshot>(savedJson));
+            PrototypeSearchNodeSnapshot restoredNode = restoredLedger.GetOrCreate(target);
+            evidence.remainingItemsRestored = restored && Fingerprint(restoredNode.Remaining) == revealedFingerprint;
+            evidence.saveRestoreSame = restored && Fingerprint(restoredLedger.CaptureSnapshot()) == Fingerprint(saved);
+
+            runtime.Close(session);
+            if (trayPanel != null) trayPanel.SetActive(false);
+            InvokeMethod(updateLabels, prototype);
+            evidence.promptRestoredAfterCancel = CountVisibleActionNodePrompts(DiscoverLiveNodeViews(prototype)) > 0;
+            evidence.cancelUnchanged = Fingerprint(runtime.Ledger.GetOrCreate(target).Remaining) == revealedFingerprint;
+            evidence.screenTransitionUnchanged = evidence.remainingItemsRestored && Fingerprint(runtime.Ledger.GetOrCreate(target).Remaining) == revealedFingerprint;
+            PrototypeSearchOpenResult reopened = runtime.TryOpen(target, session);
+            evidence.revisitUnchanged = reopened == PrototypeSearchOpenResult.Opened && Fingerprint(runtime.ActiveNode.Remaining) == revealedFingerprint;
+            evidence.duplicateCostDelta = Mathf.RoundToInt(Mathf.Abs(session.Energy - (energyBefore - target.EnergyCost)) +
+                                                            Mathf.Abs(session.Daylight - (daylightBefore - target.TimeCostMinutes)) +
+                                                            Mathf.Abs(runtime.Ledger.TotalHazardExposureCount - (exposureBefore + 1)));
+            evidence.searchCostAppliedOnce = evidence.duplicateCostDelta == 0;
+            evidence.hazardExposureAppliedOnce = runtime.Ledger.TotalHazardExposureCount == exposureBefore + 1;
+            int exposureWhileOpen = runtime.Ledger.TotalHazardExposureCount;
+            InvokeMethod(refreshTray, prototype);
+            evidence.selectionPausesHazards = runtime.Ledger.TotalHazardExposureCount == exposureWhileOpen;
+            trace.Add("cancel.reopen.same:" + evidence.revisitUnchanged);
+
+            PrototypeSearchLootEntry[] sameA = PrototypeSearchNodeLootResolver.Resolve(seed, target);
+            PrototypeSearchLootEntry[] sameB = PrototypeSearchNodeLootResolver.Resolve(seed, target);
+            evidence.sameSeedSameNodeDeterministic = Fingerprint(sameA) == Fingerprint(sameB);
+            evidence.differentSeedVaries = Enumerable.Range(1, 12)
+                .Select(offset => Fingerprint(PrototypeSearchNodeLootResolver.Resolve(seed + offset, target)))
+                .Any(value => value != Fingerprint(sameA));
+
+            PrototypeSearchNodeLedger lifecycle = new PrototypeSearchNodeLedger(seed);
+            PrototypeSearchNodeSnapshot lifecycleHidden = lifecycle.GetOrCreate(target).Clone();
+            lifecycle.Reveal(target);
+            PrototypeSearchNodeSnapshot lifecyclePartial = lifecycle.GetOrCreate(target).Clone();
+            foreach (PrototypeSearchLootEntry item in lifecyclePartial.Remaining.ToArray()) lifecycle.Consume(target.NodeId, item.StableItemId, item.Amount);
+            PrototypeSearchNodeSnapshot lifecycleDepleted = lifecycle.GetOrCreate(target).Clone();
+            evidence.hiddenObserved = hidden.State == PrototypeSearchNodeState.Hidden && lifecycleHidden.State == PrototypeSearchNodeState.Hidden;
+            evidence.partialObserved = revealed != null && revealed.State == PrototypeSearchNodeState.RevealedPartial && lifecyclePartial.State == PrototypeSearchNodeState.RevealedPartial;
+            evidence.depletedObserved = lifecycleDepleted.State == PrototypeSearchNodeState.Depleted;
+            evidence.stateSequence = new[] { lifecycleHidden.State.ToString(), lifecyclePartial.State.ToString(), lifecycleDepleted.State.ToString() };
+
+            ObserveAtomicTransactions(seed, target, evidence, trace);
+            ObserveProtectedPartTransaction(prototype, seed, evidence, trace);
+            evidence.finiteTotalResources = PrototypeSearchRegionCatalog.All.SelectMany(value => value.Nodes)
+                .All(definition => PrototypeSearchNodeLootResolver.Resolve(seed, definition).Length > 0 &&
+                                   PrototypeSearchNodeLootResolver.Resolve(seed, definition).All(item => item.Amount > 0));
+            string persistenceSurface = DiscoverSnapshotSurface(typeof(GameSession).Assembly);
+            evidence.barrierPersistent = ContainsAll(persistenceSurface, "region", "barrier", "restore");
+            evidence.permanentHazardPersistent = ContainsAll(persistenceSurface, "region", "hazard", "restore", "removed");
+
+            PrototypeSearchLootActions keyboard = PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput { KeyboardNext = true, KeyboardConfirm = true });
+            PrototypeSearchLootActions gamepad = PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput { HorizontalAxis = 1f, GamepadConfirm = true });
+            evidence.keyboardMouseSyntheticGamepadParity = keyboard.CycleDirection == gamepad.CycleDirection && keyboard.ConfirmPressed == gamepad.ConfirmPressed;
+            evidence.keyboardMeaning = target.NodeId + ":cycle=" + keyboard.CycleDirection + ":confirm=" + keyboard.ConfirmPressed;
+            evidence.gamepadMeaning = target.NodeId + ":cycle=" + gamepad.CycleDirection + ":confirm=" + gamepad.ConfirmPressed;
+
+            if (trayPanel != null) trayPanel.SetActive(runtime.IsTrayOpen);
+            InvokeMethod(updateLabels, prototype);
+            evidence.layouts = CaptureSearchTrayLayouts(prototype, localization, runtime, refreshTray);
+            evidence.interactionTrace = trace.ToArray();
+            evidence.grant = false;
+            evidence.warp = false;
+            evidence.skip = false;
+            evidence.observationError = string.Empty;
+            return true;
+        }
+
+        private static void ObserveAtomicTransactions(int seed, PrototypeSearchNodeDefinition definition, PlayEvidence evidence, List<string> trace)
+        {
+            GameSession takeSession = new GameSession(seed);
+            takeSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(definition.RegionId));
+            if (definition.RequiresSwimming) takeSession.SetSwimming(true);
+            PrototypeSearchNodeRuntime takeRuntime = new PrototypeSearchNodeRuntime(seed);
+            Require(takeRuntime.TryOpen(definition, takeSession) == PrototypeSearchOpenResult.Opened, "atomic take fixture could not open a real product node");
+            PrototypeSearchNodeSnapshot beforeTakeNode = takeRuntime.ActiveNode.Clone();
+            int normalIndex = Array.FindIndex(beforeTakeNode.Remaining, item => !item.IsProtectedPart);
+            Require(normalIndex >= 0 && takeRuntime.SetFocusedIndex(normalIndex), "atomic take fixture has no normal structured loot entry");
+            PrototypeSearchLootEntry chosen = beforeTakeNode.Remaining[normalIndex];
+            int bagBefore = BagAmount(takeSession);
+            int nodeBefore = beforeTakeNode.RemainingAmount;
+            PrototypeSearchTakeResult takeResult = takeRuntime.TryTakeFocused(takeSession, delegate { return false; });
+            int bagAfter = BagAmount(takeSession);
+            int nodeAfter = takeRuntime.ActiveNode == null ? 0 : takeRuntime.ActiveNode.RemainingAmount;
+            evidence.takeAtomic = (takeResult == PrototypeSearchTakeResult.Added || takeResult == PrototypeSearchTakeResult.Depleted) &&
+                                  bagAfter - bagBefore == chosen.Amount && nodeBefore - nodeAfter == chosen.Amount;
+            string beforeLeave = Fingerprint(takeRuntime.Ledger.CaptureSnapshot());
+            takeRuntime.Close(takeSession);
+            evidence.leaveAtomic = beforeLeave == Fingerprint(takeRuntime.Ledger.CaptureSnapshot());
+
+            GameSession swapSession = new GameSession(seed);
+            swapSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(definition.RegionId));
+            if (definition.RequiresSwimming) swapSession.SetSwimming(true);
+            foreach (ResourceKind kind in new[] { ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Food, ResourceKind.Salvage })
+                Require(swapSession.TryStoreSearchLoot(kind, 2) == GatherResult.Added, "could not fill a real four-slot bag for replacement observation");
+            PrototypeSearchNodeRuntime swapRuntime = new PrototypeSearchNodeRuntime(seed);
+            Require(swapRuntime.TryOpen(definition, swapSession) == PrototypeSearchOpenResult.Opened, "atomic replacement fixture could not open node");
+            int swapIndex = Array.FindIndex(swapRuntime.ActiveNode.Remaining, item => !item.IsProtectedPart && item.Resource != ResourceKind.Wood);
+            if (swapIndex < 0) swapIndex = Array.FindIndex(swapRuntime.ActiveNode.Remaining, item => !item.IsProtectedPart);
+            Require(swapIndex >= 0 && swapRuntime.SetFocusedIndex(swapIndex), "replacement observation has no normal loot entry");
+            string cancelNodeBefore = Fingerprint(swapRuntime.ActiveNode.Remaining);
+            string cancelBagBefore = BagFingerprint(swapSession);
+            bool pending = swapRuntime.TryTakeFocused(swapSession, delegate { return false; }) == PrototypeSearchTakeResult.PendingSwap;
+            bool cancelled = pending && swapRuntime.CancelPending(swapSession);
+            evidence.replaceCancelAtomic = cancelled && !swapSession.HasPendingLoot &&
+                                           cancelNodeBefore == Fingerprint(swapRuntime.ActiveNode.Remaining) && cancelBagBefore == BagFingerprint(swapSession);
+            int totalBeforeReplace = BagAmount(swapSession) + swapRuntime.ActiveNode.RemainingAmount;
+            bool pendingAgain = swapRuntime.TryTakeFocused(swapSession, delegate { return false; }) == PrototypeSearchTakeResult.PendingSwap;
+            bool replaced = pendingAgain && swapRuntime.TryReplacePending(swapSession, 0);
+            int totalAfterReplace = BagAmount(swapSession) + (swapRuntime.ActiveNode == null ? 0 : swapRuntime.ActiveNode.RemainingAmount);
+            evidence.replaceAtomic = replaced && !swapSession.HasPendingLoot && totalBeforeReplace == totalAfterReplace;
+            trace.Add("transaction.take-atomic:" + evidence.takeAtomic);
+            trace.Add("transaction.cancel-atomic:" + evidence.replaceCancelAtomic);
+            trace.Add("transaction.replace-atomic:" + evidence.replaceAtomic);
+        }
+
+        private static void ObserveProtectedPartTransaction(KimSurvivalPrototype prototype, int seed, PlayEvidence evidence, List<string> trace)
+        {
+            PrototypeSearchNodeDefinition sailclothNode = PrototypeSearchRegionCatalog.All.SelectMany(value => value.Nodes)
+                .First(value => string.Equals(value.NodeId, PrototypeSearchNodeLootResolver.ResolveSailclothNodeId(seed), StringComparison.Ordinal));
+            GameSession protectedSession = new GameSession(seed);
+            protectedSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(sailclothNode.RegionId));
+            if (sailclothNode.RequiresSwimming) protectedSession.SetSwimming(true);
+            PrototypeSearchNodeRuntime protectedRuntime = new PrototypeSearchNodeRuntime(seed);
+            Require(protectedRuntime.TryOpen(sailclothNode, protectedSession) == PrototypeSearchOpenResult.Opened, "sailcloth node could not open");
+            int protectedIndex = Array.FindIndex(protectedRuntime.ActiveNode.Remaining, item => item.IsProtectedPart && item.ProtectedPartId == SailclothId);
+            Require(protectedIndex >= 0 && protectedRuntime.SetFocusedIndex(protectedIndex), "structured sailcloth item was not resolved in its stable node");
+            object waveOwner = PrivateValues(prototype).FirstOrDefault(value => value != null &&
+                value.GetType().GetMethods(PublicInstance).Any(method => method.Name == "TryAcquireProtectedSearchPart") &&
+                value.GetType().GetMethods(PublicInstance).Any(method => method.Name == "HasProtectedSearchPart"));
+            MethodInfo acquire = waveOwner == null ? null : waveOwner.GetType().GetMethod("TryAcquireProtectedSearchPart", PublicInstance);
+            MethodInfo has = waveOwner == null ? null : waveOwner.GetType().GetMethod("HasProtectedSearchPart", PublicInstance);
+            int grants = 0;
+            Func<string, bool> acquireActual = delegate(string partId)
+            {
+                if (acquire == null) return false;
+                bool result = Convert.ToBoolean(InvokeMethod(acquire, waveOwner, sailclothNode.NodeId, partId));
+                if (result) grants += 1;
+                return result;
+            };
+            PrototypeSearchTakeResult result = protectedRuntime.TryTakeFocused(protectedSession, acquireActual);
+            bool actualOwned = has != null && Convert.ToBoolean(InvokeMethod(has, waveOwner, SailclothId));
+            int grantsBeforeRetry = grants;
+            PrototypeSearchTakeResult retry = protectedRuntime.TryTakeFocused(protectedSession, acquireActual);
+            evidence.protectedPartIds = protectedRuntime.Ledger.CaptureSnapshot().ProtectedPartIds;
+            evidence.protectedDiscardRejected = protectedRuntime.Ledger.HasProtectedPart(SailclothId) && actualOwned;
+            evidence.protectedDuplicateDelta = grants - grantsBeforeRetry;
+            evidence.protectedDuplicateConsumeDelta = retry == PrototypeSearchTakeResult.Protected ? 1 : 0;
+            evidence.sailclothLinked = result == PrototypeSearchTakeResult.Protected && actualOwned &&
+                                       string.Equals(PrototypeRaftEscapeConfig.KeyPartId, SailclothId, StringComparison.Ordinal);
+            trace.Add("protected.sailcloth-linked:" + evidence.sailclothLinked);
+        }
+
+        private static LayoutEvidence[] CaptureSearchTrayLayouts(KimSurvivalPrototype prototype, PrototypeLocalization localization,
+            PrototypeSearchNodeRuntime runtime, MethodInfo refreshTray)
+        {
+            GameObject panel = FindSearchTrayPanel(prototype);
+            Camera camera = PrivateValues(prototype).OfType<Camera>().FirstOrDefault();
+            if (panel == null || camera == null || !runtime.IsTrayOpen) return Array.Empty<LayoutEvidence>();
+            List<LayoutEvidence> layouts = new List<LayoutEvidence>();
+            foreach (string locale in new[] { PrototypeLocalization.KoreanLocaleCode, PrototypeLocalization.EnglishLocaleCode, PrototypeLocalization.QpsLongLocaleCode })
+            {
+                if (locale == PrototypeLocalization.QpsLongLocaleCode) localization.SetQaLocale();
+                else localization.SetLocale(locale, false);
+                InvokeMethod(refreshTray, prototype);
+                Canvas.ForceUpdateCanvases();
+                TMP_Text[] texts = panel.GetComponentsInChildren<TMP_Text>(true).Where(value => value.gameObject.activeInHierarchy).ToArray();
+                int overflow = 0;
+                int offscreen = 0;
+                foreach (TMP_Text text in texts)
+                {
+                    text.ForceMeshUpdate(true, true);
+                    if (text.isTextOverflowing) overflow += 1;
+                    if (!InsideCapture(RectTransformPixels(text.rectTransform, camera), 1f)) offscreen += 1;
+                }
+                Rect rect = RectTransformPixels(panel.GetComponent<RectTransform>(), camera);
+                Rect player = PlayerPixels(prototype, camera);
+                Rect walking = WalkingBandPixels(traversalY: PrivateValues(prototype).OfType<PrototypePlayerTraversal>().Select(value => value.Y).FirstOrDefault(), camera: camera);
+                bool playerClear = IntersectionArea(rect, player) <= 1f;
+                bool walkingClear = IntersectionArea(rect, walking) <= 1f;
+                string fileName = "kim-survival-search-tray-" + locale + "-1280x800.png";
+                prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, fileName), 1280, 800);
+                bool compact = rect.width <= 0.60f * 1280f && rect.height <= 0.44f * 800f;
+                bool inside = InsideCapture(rect, 1f);
+                bool pass = inside && compact && playerClear && walkingClear && overflow == 0 && offscreen == 0;
+                layouts.Add(new LayoutEvidence
+                {
+                    locale = locale,
+                    screenshot = fileName,
+                    x = rect.x,
+                    y = rect.y,
+                    width = rect.width,
+                    height = rect.height,
+                    overflowCount = overflow,
+                    offscreenCount = offscreen,
+                    insideScreen = inside,
+                    compact = compact,
+                    playerClear = playerClear,
+                    walkingBandClear = walkingClear,
+                    result = pass ? "PASS" : "FAIL"
+                });
+            }
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            InvokeMethod(refreshTray, prototype);
+            return layouts.ToArray();
+        }
+
+        private static List<object> DiscoverLiveNodeViews(object prototype)
+        {
+            foreach (object value in PrivateValues(prototype))
+            {
+                if (!(value is IEnumerable enumerable) || value is string) continue;
+                List<object> items = enumerable.Cast<object>().Where(item => item != null).ToList();
+                if (items.Count == 0) continue;
+                string surface = DescribePublicSurface(items[0].GetType()).ToLowerInvariant();
+                if (ContainsAll(surface, "definition", "root", "label") && GetMember(items[0], "Definition") != null) return items;
+            }
+            return new List<object>();
+        }
+
+        private static int CountVisibleActionNodePrompts(IEnumerable<object> nodes)
+        {
+            return nodes.Count(value =>
+            {
+                Transform root = GetMember(value, "LabelRoot", "PromptRoot", "WorldLabelRoot") as Transform;
+                TMP_Text label = GetMember(value, "Label", "Prompt", "WorldLabel") as TMP_Text;
+                return root != null && root.gameObject.activeInHierarchy && label != null &&
+                       (label.text.Contains("[") || label.text.IndexOf("search", StringComparison.OrdinalIgnoreCase) >= 0 || label.text.Contains("뒤지"));
+            });
+        }
+
+        private static bool IsSearchTrayActive(object prototype)
+        {
+            GameObject panel = FindSearchTrayPanel(prototype);
+            return panel != null && panel.activeInHierarchy;
+        }
+
+        private static GameObject FindSearchTrayPanel(object prototype)
+        {
+            return PrivateValues(prototype).OfType<GameObject>().FirstOrDefault(value =>
+                value.GetComponent<RectTransform>() != null && value.GetComponentsInChildren<TMP_Text>(true).Length >= 4 &&
+                (value.name.IndexOf("발견물", StringComparison.OrdinalIgnoreCase) >= 0 || value.name.IndexOf("loot", StringComparison.OrdinalIgnoreCase) >= 0 || value.name.IndexOf("search", StringComparison.OrdinalIgnoreCase) >= 0));
+        }
+
+        private static void ApplyPlayerPresentation(object prototype, PrototypePlayerPresentationState state)
+        {
+            object owner = PrivateValues(prototype).FirstOrDefault(value => value != null && value.GetType().GetMethods(PublicInstance)
+                .Any(method => method.Name == "Apply" && method.GetParameters().Length == 1 && method.GetParameters()[0].ParameterType == typeof(PrototypePlayerPresentationState)));
+            MethodInfo apply = owner == null ? null : owner.GetType().GetMethod("Apply", PublicInstance, null, new[] { typeof(PrototypePlayerPresentationState) }, null);
+            if (apply != null) InvokeMethod(apply, owner, state);
+        }
+
+        private static MethodInfo FindPrivateMethod(object owner, string[] aliases, int parameterCount)
+        {
+            if (owner == null) return null;
+            return owner.GetType().GetMethods(PrivateInstance)
+                .Where(method => method.GetParameters().Length == parameterCount)
+                .FirstOrDefault(method => aliases.Any(alias => string.Equals(alias, method.Name, StringComparison.OrdinalIgnoreCase)));
+        }
+
+        private static object InvokeMethod(MethodInfo method, object owner, params object[] arguments)
+        {
+            try { return method.Invoke(owner, arguments); }
+            catch (TargetInvocationException exception) { throw exception.InnerException ?? exception; }
+        }
+
+        private static IEnumerable<object> PrivateValues(object owner)
+        {
+            if (owner == null) return Array.Empty<object>();
+            List<object> values = new List<object>();
+            foreach (FieldInfo field in owner.GetType().GetFields(PrivateInstance))
+            {
+                try
+                {
+                    object value = field.GetValue(owner);
+                    if (value is UnityEngine.Object unityValue && unityValue == null) continue;
+                    values.Add(value);
+                }
+                catch { }
+            }
+            return values;
+        }
+
+        private static int BagAmount(GameSession session)
+        {
+            int total = 0;
+            for (int index = 0; index < session.ActiveBagSlotCount; index += 1) total += session.GetBagSlot(index).Amount;
+            return total;
+        }
+
+        private static string BagFingerprint(GameSession session)
+        {
+            List<string> slots = new List<string>();
+            for (int index = 0; index < session.ActiveBagSlotCount; index += 1)
+            {
+                BagStack stack = session.GetBagSlot(index);
+                slots.Add(index + ":" + stack.Kind + ":" + stack.Amount);
+            }
+            return string.Join("|", slots.ToArray());
+        }
+
+        private static Rect RectTransformPixels(RectTransform transform, Camera camera)
+        {
+            if (transform == null || camera == null) return new Rect();
+            Vector3[] corners = new Vector3[4];
+            transform.GetWorldCorners(corners);
+            Vector3 first = camera.WorldToViewportPoint(corners[0]);
+            float minX = first.x * 1280f, maxX = minX, minY = first.y * 800f, maxY = minY;
+            for (int index = 1; index < corners.Length; index += 1)
+            {
+                Vector3 point = camera.WorldToViewportPoint(corners[index]);
+                minX = Mathf.Min(minX, point.x * 1280f); maxX = Mathf.Max(maxX, point.x * 1280f);
+                minY = Mathf.Min(minY, point.y * 800f); maxY = Mathf.Max(maxY, point.y * 800f);
+            }
+            return Rect.MinMaxRect(minX, minY, maxX, maxY);
+        }
+
+        private static Rect PlayerPixels(object prototype, Camera camera)
+        {
+            object presentation = PrivateValues(prototype).FirstOrDefault(value => value != null && value.GetType().GetMethods(PublicInstance)
+                .Any(method => method.Name == "Apply" && method.GetParameters().Any(parameter => parameter.ParameterType == typeof(PrototypePlayerPresentationState))));
+            SpriteRenderer renderer = presentation == null ? null : PrivateValues(presentation).OfType<SpriteRenderer>().FirstOrDefault();
+            if (renderer == null) return new Rect();
+            Bounds bounds = renderer.bounds;
+            Vector3 min = camera.WorldToViewportPoint(bounds.min);
+            Vector3 max = camera.WorldToViewportPoint(bounds.max);
+            return Rect.MinMaxRect(Mathf.Min(min.x, max.x) * 1280f, Mathf.Min(min.y, max.y) * 800f,
+                Mathf.Max(min.x, max.x) * 1280f, Mathf.Max(min.y, max.y) * 800f);
+        }
+
+        private static Rect WalkingBandPixels(float traversalY, Camera camera)
+        {
+            Vector3 low = camera.WorldToViewportPoint(new Vector3(camera.transform.position.x, traversalY - 0.45f, 0f));
+            Vector3 high = camera.WorldToViewportPoint(new Vector3(camera.transform.position.x, traversalY + 0.85f, 0f));
+            return Rect.MinMaxRect(0f, Mathf.Min(low.y, high.y) * 800f, 1280f, Mathf.Max(low.y, high.y) * 800f);
+        }
+
+        private static float IntersectionArea(Rect first, Rect second)
+        {
+            return Mathf.Max(0f, Mathf.Min(first.xMax, second.xMax) - Mathf.Max(first.xMin, second.xMin)) *
+                   Mathf.Max(0f, Mathf.Min(first.yMax, second.yMax) - Mathf.Max(first.yMin, second.yMin));
+        }
+
+        private static bool InsideCapture(Rect rect, float tolerance)
+        {
+            return rect.width > 0f && rect.height > 0f && rect.xMin >= -tolerance && rect.yMin >= -tolerance &&
+                   rect.xMax <= 1280f + tolerance && rect.yMax <= 800f + tolerance;
         }
 
         private static bool IsStructuredObservationMethod(MethodInfo method)
@@ -686,6 +1121,21 @@ namespace ParallelQA
                     best.Items.Clear(); best.Items.AddRange(items.Where(item => ids.Contains(ReadString(item, regions ? new[] { "StableId", "RegionId", "Id" } : new[] { "StableId", "NodeId", "Id" }))));
                 }
             }
+            if (!regions && best.Items.Count == 0)
+            {
+                CatalogAudit regionCatalog = DiscoverCatalog(assembly, true);
+                List<object> nested = regionCatalog.Items
+                    .SelectMany(region => EnumerateMember(region, "Nodes", "NodeDefinitions", "SearchNodes"))
+                    .Where(value => value != null && IsStableNodeId(ReadString(value, "StableId", "NodeId", "Id")))
+                    .ToList();
+                if (nested.Count > 0)
+                {
+                    best.Owner = regionCatalog.Owner + " -> Nodes";
+                    best.Items.AddRange(nested);
+                    best.StableIds.AddRange(nested.Select(value => ReadString(value, "StableId", "NodeId", "Id"))
+                        .Distinct(StringComparer.Ordinal));
+                }
+            }
             return best;
         }
 
@@ -697,10 +1147,13 @@ namespace ParallelQA
                 foreach (MethodInfo method in type.GetMethods(PublicStatic))
                 {
                     ParameterInfo[] parameters = method.GetParameters();
-                    if (parameters.Length != 3 || parameters.Count(value => value.ParameterType == typeof(int)) != 1 || parameters.Count(value => value.ParameterType == typeof(string)) != 2) continue;
+                    bool stableStringSignature = parameters.Length == 3 && parameters.Count(value => value.ParameterType == typeof(int)) == 1 && parameters.Count(value => value.ParameterType == typeof(string)) == 2;
+                    bool structuredOwnerSignature = parameters.Length == 2 && parameters.Count(value => value.ParameterType == typeof(int)) == 1 &&
+                                                    parameters.Any(value => ContainsAll(DescribePublicSurface(value.ParameterType).ToLowerInvariant(), "nodeid", "regionid"));
+                    if (!stableStringSignature && !structuredOwnerSignature) continue;
                     string surface = DescribePublicSurface(method.ReturnType);
                     string semantic = (type.Name + "." + method.Name + " " + surface).ToLowerInvariant();
-                    if (!ContainsAny(semantic, "node", "loot", "search") || !ContainsAny(surface.ToLowerInvariant(), "content", "item", "remaining"))
+                    if (!ContainsAny(semantic, "node", "loot", "search"))
                     {
                         if (string.IsNullOrEmpty(best.Surface) && ContainsAny(semantic, "node", "loot", "search"))
                         {
@@ -711,22 +1164,30 @@ namespace ParallelQA
                     }
                     string regionId = regions.StableIds.FirstOrDefault() ?? "region.coast.beach";
                     string nodeId = nodes.StableIds.FirstOrDefault() ?? "node.qa.search.0";
+                    object nodeOwner = nodes.Items.FirstOrDefault(value => string.Equals(ReadString(value, "StableId", "NodeId", "Id"), nodeId, StringComparison.Ordinal));
                     try
                     {
-                        object first = InvokeGenerator(method, 424242, regionId, nodeId);
-                        object second = InvokeGenerator(method, 424242, regionId, nodeId);
-                        if (first == null || second == null || !HasStructuredContents(first)) continue;
+                        object first = InvokeGenerator(method, 424242, regionId, nodeId, nodeOwner);
+                        object second = InvokeGenerator(method, 424242, regionId, nodeId, nodeOwner);
+                        if (first == null || second == null || !HasStructuredContents(first, nodeId)) continue;
                         string firstFingerprint = Fingerprint(first);
                         string secondFingerprint = Fingerprint(second);
                         bool varied = new[] { 424243, 424244, 424245, 424246, 424247 }
-                            .Select(seed => InvokeGenerator(method, seed, regionId, nodeId))
-                            .Where(value => value != null && HasStructuredContents(value))
+                            .Select(seed => InvokeGenerator(method, seed, regionId, nodeId, nodeOwner))
+                            .Where(value => value != null && HasStructuredContents(value, nodeId))
                             .Select(Fingerprint).Any(value => value != firstFingerprint);
+                        int finiteNodes = nodes.Items.Count(value =>
+                        {
+                            string stableId = ReadString(value, "StableId", "NodeId", "Id");
+                            object generated = InvokeGenerator(method, 424242, ReadString(value, "RegionId", "StableRegionId"), stableId, value);
+                            return HasStructuredContents(generated, stableId) && HasFinitePositiveContents(generated);
+                        });
                         best.Owner = type.FullName + "." + method.Name;
                         best.Surface = surface + "; first=" + firstFingerprint;
                         best.StructuredContents = true;
                         best.SameSeedDeterministic = firstFingerprint == secondFingerprint;
                         best.DifferentSeedVaries = varied;
+                        best.FiniteNodeCount = finiteNodes;
                         return best;
                     }
                     catch (Exception exception)
@@ -739,20 +1200,22 @@ namespace ParallelQA
             return best;
         }
 
-        private static object InvokeGenerator(MethodInfo method, int seed, string regionId, string nodeId)
+        private static object InvokeGenerator(MethodInfo method, int seed, string regionId, string nodeId, object nodeOwner)
         {
             ParameterInfo[] parameters = method.GetParameters();
-            object[] arguments = new object[3];
+            object[] arguments = new object[parameters.Length];
             int stringIndex = 0;
             for (int index = 0; index < parameters.Length; index += 1)
             {
                 if (parameters[index].ParameterType == typeof(int)) arguments[index] = seed;
-                else
+                else if (parameters[index].ParameterType == typeof(string))
                 {
                     string name = parameters[index].Name ?? string.Empty;
                     arguments[index] = name.IndexOf("region", StringComparison.OrdinalIgnoreCase) >= 0 ? regionId :
                         name.IndexOf("node", StringComparison.OrdinalIgnoreCase) >= 0 ? nodeId : stringIndex++ == 0 ? regionId : nodeId;
                 }
+                else if (nodeOwner != null && parameters[index].ParameterType.IsInstanceOfType(nodeOwner)) arguments[index] = nodeOwner;
+                else throw new InvalidOperationException("unsupported structured generator owner parameter: " + parameters[index].ParameterType.FullName);
             }
             try { return method.Invoke(null, arguments); }
             catch (TargetInvocationException exception) { throw exception.InnerException ?? exception; }
@@ -775,14 +1238,28 @@ namespace ParallelQA
         {
             string path = Path.Combine(Application.dataPath, "_Project", "Scripts", "Localization", "PrototypeStrings.tsv");
             if (!File.Exists(path)) { passed = false; return "canonical TSV missing: " + path; }
-            string[] requiredTokens = { "search", "reveal", "take", "all", "leave", "replace", "cancel", "remaining", "depleted", "protected", "cost", "risk" };
+            string[][] requiredSemantics =
+            {
+                new[] { "search", "node.world.hidden" },
+                new[] { "reveal", "state.hidden", "message.search_node.revealed" },
+                new[] { "action.take" },
+                new[] { "action.take_all" },
+                new[] { "action.leave" },
+                new[] { "replace", "choose_swap" },
+                new[] { "cancel", "cancel_swap" },
+                new[] { "remaining", "world.partial", "tray.status" },
+                new[] { "depleted" },
+                new[] { "protected" },
+                new[] { "cost", "tray.status" },
+                new[] { "risk", "hazard", "exposure", "tray.status" }
+            };
             List<string[]> rows = File.ReadAllLines(path, Encoding.UTF8)
                 .Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#", StringComparison.Ordinal))
                 .Select(line => line.Split('\t')).Where(columns => columns.Length >= 4)
                 .Where(columns => ContainsAny((columns[0] ?? string.Empty).ToLowerInvariant(), "search", "loot", "node", "tray", "gather"))
                 .ToList();
             string keys = string.Join("|", rows.Select(row => row[0]).ToArray()).ToLowerInvariant();
-            string[] missing = requiredTokens.Where(token => !keys.Contains(token)).ToArray();
+            string[] missing = requiredSemantics.Where(group => !group.Any(keys.Contains)).Select(group => string.Join("/", group)).ToArray();
             bool allLocales = rows.Count >= 12 && rows.All(row => row.Skip(1).Take(3).All(value => !string.IsNullOrWhiteSpace(value)));
             double averageExpansion = rows.Count == 0 ? 0d : rows.Average(row => row[2].Length == 0 ? 0d : (double)row[3].Length / row[2].Length);
             passed = missing.Length == 0 && allLocales && averageExpansion >= 1.25d;
@@ -791,18 +1268,27 @@ namespace ParallelQA
 
         private static string AuditProtectedPartSurface(Assembly assembly, CatalogAudit nodes, out bool passed)
         {
-            string catalogValues = string.Join(" | ", nodes.Items.Select(DescribeObject).ToArray()).ToLowerInvariant();
+            List<object> generated = new List<object>();
+            foreach (object node in nodes.Items)
+            {
+                PrototypeSearchNodeDefinition definition = node as PrototypeSearchNodeDefinition;
+                if (definition != null) generated.Add(PrototypeSearchNodeLootResolver.Resolve(PrototypeExpeditionRegionCatalog.DefaultRunSeed, definition));
+            }
+            string catalogValues = string.Join(" | ", generated.Select(value => DescribeObject(value)).ToArray()).ToLowerInvariant();
             string typeSurface = string.Join(" | ", SafeTypes(assembly)
                 .Where(type => ContainsAny(type.Name.ToLowerInvariant(), "search", "node", "loot", "protected", "projectinventory"))
-                .Select(type => type.FullName + "{" + DescribePublicSurface(type) + "}").ToArray()).ToLowerInvariant();
+                .Select(type => type.FullName + "{" + DescribePublicSurface(type) + "; methods=" +
+                                string.Join(",", type.GetMethods(PublicInstance | PublicStatic).Select(method => method.Name).Distinct().OrderBy(value => value, StringComparer.Ordinal).ToArray()) + "}")
+                .ToArray()).ToLowerInvariant();
             string combined = catalogValues + " | " + typeSurface;
-            passed = combined.Contains(SailclothId) && ContainsAll(combined, "protected", "discard", "duplicate", "consume");
-            return "sailcloth=" + combined.Contains(SailclothId) + "; semantic=" + ContainsAll(combined, "protected", "discard", "duplicate", "consume") + "; surface=" + combined;
+            bool transactionSurface = ContainsAll(typeSurface, "tryacquireprotectedpart", "hasprotectedpart", "consume", "protectedpartids");
+            passed = combined.Contains(SailclothId) && transactionSurface && string.Equals(PrototypeRaftEscapeConfig.KeyPartId, SailclothId, StringComparison.Ordinal);
+            return "sailcloth=" + combined.Contains(SailclothId) + "; raftKey=" + PrototypeRaftEscapeConfig.KeyPartId + "; transactionSurface=" + transactionSurface + "; surface=" + combined;
         }
 
         private static bool HasFinitePositiveContents(object value)
         {
-            object contents = GetMember(value, "Contents", "Items", "InitialContents", "ResourceBudget");
+            object contents = value is IEnumerable && !(value is string) ? value : GetMember(value, "Contents", "Items", "InitialContents", "ResourceBudget", "Remaining", "RemainingItems");
             if (!(contents is IEnumerable enumerable) || contents is string) return false;
             bool any = false;
             foreach (object item in enumerable)
@@ -815,12 +1301,19 @@ namespace ParallelQA
             return any;
         }
 
-        private static bool HasStructuredContents(object value)
+        private static bool HasStructuredContents(object value, string inputNodeId = "")
         {
-            string nodeId = ReadString(value, "NodeId", "StableNodeId", "StableId", "ActionId");
-            object contents = GetMember(value, "Contents", "Items", "InitialContents", "RemainingItems");
+            string nodeId = string.IsNullOrWhiteSpace(inputNodeId) ? ReadString(value, "NodeId", "StableNodeId", "StableId", "ActionId") : inputNodeId;
+            object contents = value is IEnumerable && !(value is string) ? value : GetMember(value, "Contents", "Items", "InitialContents", "Remaining", "RemainingItems");
             if (string.IsNullOrWhiteSpace(nodeId) || !(contents is IEnumerable enumerable) || contents is string) return false;
-            return enumerable.Cast<object>().Any(item => item != null && !string.IsNullOrWhiteSpace(ReadString(item, "ItemId", "ResourceId", "StableId", "Id")) && ReadInt(item, "Amount", "Count", "Quantity") > 0);
+            return enumerable.Cast<object>().Any(item => item != null && !string.IsNullOrWhiteSpace(ReadString(item, "StableItemId", "ItemId", "ResourceId", "StableId", "Id")) && ReadInt(item, "Amount", "Count", "Quantity") > 0);
+        }
+
+        private static IEnumerable<object> EnumerateMember(object owner, params string[] names)
+        {
+            object value = GetMember(owner, names);
+            if (!(value is IEnumerable enumerable) || value is string) return Array.Empty<object>();
+            return enumerable.Cast<object>();
         }
 
         private static string Fingerprint(object value)

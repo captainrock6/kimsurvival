@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "runId": "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit": "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "unityVersion": "6000.4.9f1",
+    "observedUtc": "2026-08-25T16:51:42.8870094Z",
+    "source": "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Artifacts\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave3-visual-gate.txt",
+    "standardKoEnOverall": "FAIL",
+    "qpsLongOverall": "FAIL",
+    "overall": "FAIL",
+    "placement": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "explorationSwimming": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    },
+    "qpsLong": {
+        "status": "MISSING",
+        "targets": -1,
+        "failures": -1,
+        "evidenceLine": "MISSING"
+    }
+}

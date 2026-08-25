@@ -1,0 +1,48 @@
+{
+    "schemaVersion":  1,
+    "title":  "Wave 14 qps-long global 1280x800 layout gate command result",
+    "runId":  "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit":  "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "startedUtc":  "2026-08-25T16:50:29.6122985Z",
+    "completedUtc":  "2026-08-25T16:52:11.1121003Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168",
+                       "executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                       "compatibility":  "Windows PowerShell 5.1 and PowerShell 7; UTF-8 without BOM evidence writes"
+                   },
+    "executionPolicy":  "All Unity Editor/build and Windows Player stages inherit this outside-sandbox process; no -noUpm.",
+    "overall":  "FAIL",
+    "productOverall":  "FAIL",
+    "infrastructureOverall":  "FAIL",
+    "infrastructureFailures":  [
+                                   "Wave 12 prerequisite exited 1",
+                                   "Wave 12 prerequisite did not report infrastructure PASS",
+                                   "Wave 14 runner reported infrastructure FAIL"
+                               ],
+    "exactReportedBaselineReproduced":  false,
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "exitCode":  1,
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\Invoke-Wave14QpsGlobalLayoutGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u00272a89e53000f7a5e8d19ad0ecec519fd29bfb38f7\u0027 -MinimumSmokeSeconds 6",
+    "stages":  [
+                   {
+                       "name":  "wave12-prerequisite-full-gate",
+                       "startedUtc":  "2026-08-25T16:50:29.6297519Z",
+                       "completedUtc":  "2026-08-25T16:52:03.0074417Z",
+                       "exitCode":  1,
+                       "command":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave12FiveDayUiGate.ps1\" -RunId 20260826T041500Z_gamejam_search_node_diagnostic_final -BaselineCommit 2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave14-wave12-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave14-wave12-stderr.log"
+                   },
+                   {
+                       "name":  "wave14-qps-global-layout-contracts",
+                       "startedUtc":  "2026-08-25T16:52:03.0074417Z",
+                       "completedUtc":  "2026-08-25T16:52:11.0697140Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\" -executeMethod ParallelQA.Wave14QpsGlobalLayoutGateRunner.RunEvidenceContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\unity-wave14-qps-global-layout.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave14-unity-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\20260826T041500Z_gamejam_search_node_diagnostic_final\\wave14-unity-stderr.log"
+                   }
+               ]
+}

@@ -1,0 +1,20 @@
+{
+    "schemaVersion":  1,
+    "runId":  "20260826T041500Z_gamejam_search_node_diagnostic_final",
+    "baselineCommit":  "2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7",
+    "expectedStableExecutable":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+    "executableSha256":  "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "buildIdentity":  "PASS",
+    "smokeIdentity":  "PASS",
+    "matchingRules":  [
+                          {
+                              "name":  "KimSurvivalQaBlock-285F1427D754",
+                              "displayName":  "Kim Survival QA Player - Block Inbound 285F1427D754",
+                              "enabled":  "True",
+                              "direction":  "Inbound",
+                              "action":  "Block",
+                              "program":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe"
+                          }
+                      ],
+    "result":  "PASS"
+}

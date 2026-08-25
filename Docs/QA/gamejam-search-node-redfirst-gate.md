@@ -53,7 +53,7 @@ Unity Editor/build/Windows Player smoke는 `Docs/QA/unity-codex-sandbox-licensin
   -MinimumSmokeSeconds 6
 ```
 
-종료 코드는 `0=GREEN`, `2=제품 RED_EXPECTED_GAP`, `1=인프라 또는 예상 밖 제품 FAIL`이다. 기준선 재현은 제품 공백 때문에 종료 코드 2가 정상이다. 증거 디렉터리가 이미 존재하면 러너는 시작 전에 중단하므로 항상 fresh RunId를 사용한다.
+종료 코드는 `0=GREEN`, `2=제품 RED(예상 공백 또는 구현 통합 뒤 남은 제품 실패)`, `1=인프라 FAIL`이다. 제품 실패와 컴파일·실행·증거 실패를 종료 코드로도 섞지 않는다. 증거 디렉터리가 이미 존재하면 러너는 시작 전에 중단하므로 항상 fresh RunId를 사용한다.
 
 기준선 명령은 다음과 같다.
 

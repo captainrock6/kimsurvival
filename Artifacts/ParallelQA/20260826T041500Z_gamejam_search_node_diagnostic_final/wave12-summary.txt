@@ -1,0 +1,17 @@
+Wave 12 five-day compact-a RED-first gate
+Run ID: 20260826T041500Z_gamejam_search_node_diagnostic_final
+Baseline: 2a89e53000f7a5e8d19ad0ecec519fd29bfb38f7
+Overall/Product/Infrastructure: FAIL/FAIL/FAIL
+Fresh Wave3 visual: FAIL
+Wave11 walking path: PASS 3/3 actual screen rects
+Compile: PASS 0 errors
+Windows build: PASS, warnings=0
+Hidden smoke: PASS
+Addressables: PASS load/build/post-smoke
+PowerShell compatibility: PASS (Desktop 5.1.26100.9168)
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY (READY claim=false)
+Expected product gaps: 2 [W12-D01.five_day_deadline, W12-P03.compact_a_locale_capture_layout]
+Unexpected product failures: 1
+Infrastructure failures: 3
+Evidence: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\Artifacts\ParallelQA\20260826T041500Z_gamejam_search_node_diagnostic_final
