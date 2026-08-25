@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "runId": "20260825T2030Z_96af07d_integrated",
+  "baselineCommit": "96af07d2469b843d59b88aa995684a9e345215fe",
+  "expectedStableExecutable": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe",
+  "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "buildIdentity": "PASS",
+  "smokeIdentity": "PASS",
+  "matchingRules": [
+    {
+      "name": "KimSurvivalQaBlock-165FBE1AE6FC",
+      "displayName": "Kim Survival QA Player - Block Inbound 165FBE1AE6FC",
+      "enabled": "True",
+      "direction": "Inbound",
+      "action": "Block",
+      "program": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\StableWindowsBuild\\KimSurvivalIsland.exe"
+    }
+  ],
+  "result": "PASS"
+}

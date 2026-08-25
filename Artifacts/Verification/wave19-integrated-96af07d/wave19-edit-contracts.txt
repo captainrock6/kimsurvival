@@ -1,0 +1,10 @@
+Wave 19 resource connection Edit contracts
+Run ID: 20260825T2030Z_96af07d_integrated
+Baseline: 96af07d2469b843d59b88aa995684a9e345215fe
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: GREEN/PASS/PASS
+PASS/FAIL/INFRA_FAIL/UNVERIFIED: 4/0/0/0
+W19-E01.kim_adopted_atlas_guid | PASS | character.mr-kim.atlas=Assets/_Project/Art/Generated/sprite_animation/job_20260822085926_374033c5/exec-7c1f46d8-3b4f-4350-abc3-de6be9ebab6d.png@cd48411681ba6264c9093f8b1cb1759a; scene=cd48411681ba6264c9093f8b1cb1759a
+W19-E02.resource_icon_guids | PASS | resource.wood@5ba05e4e569ab6745bff72d0b9ba9151 | resource.stone@c881b7198e647ad40b32c63ce18e27a2 | resource.food@59695c50812722b458c210b4cfb02c12 | resource.salvage@cb8829a17d9cc9049aa16fbf4393097a
+W19-E03.structure_sprite_guids | PASS | structure.campfire@aefba80bf6c588847ba3b66d017616cc | structure.workbench@f1920158f3a3ba14f8999ead8f869e30 | structure.rain_collector@0af1d92982f80ce4a89462c076305386 | structure.rescue_signal@00ff5be74a04dbe48a49fe2e1a673eec
+W19-E04.selected_ui_guid_contracts | PASS | compact-a/map-a/ending-triptych-a GUIDs resolve and Resources assets reference the selected sources

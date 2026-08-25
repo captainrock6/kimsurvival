@@ -33,13 +33,14 @@
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:29.909Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:29.908Z",
       "createdAt": "2026-08-22T08:24:41.805Z"
     },
     {
@@ -292,13 +293,14 @@
         "Artifacts/Verification/kim-survival-exploration-1280x800.png",
         "Artifacts/Verification/kim-survival-playmode-1280x800.png",
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt",
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T15:55:25.316Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:30.447Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:30.446Z",
       "createdAt": "2026-08-22T08:24:43.778Z"
     },
     {
@@ -1017,13 +1019,14 @@
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
       ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:30.086Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:30.085Z",
       "createdAt": "2026-08-22T08:24:42.476Z"
     },
     {
@@ -1245,11 +1248,15 @@
         "동일 seed 재현, 다른 seed 변동, 최소 세 탈출 경로 보장, protected part와 3/5 eligible-search SAMPLE pity 추적이 자동 검증된다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:29.740Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:29.740Z"
     },
     {
       "id": "task.system.system.hazard-director",
@@ -1269,11 +1276,15 @@
         "배고픔·질병·부상·재해·야생동물·도난·파손이 무예고 치명 결과 없이 동일 seed, 중첩 예산, 평온일과 원자 transaction 규칙을 지킨다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:29.559Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:29.557Z"
     },
     {
       "id": "task.system.system.escape-projects",
@@ -1316,11 +1327,15 @@
         "19개 ending catalog에서 같은 run snapshot은 같은 하나의 ending ID를 내고 priority, 조건 수, 사건 시점, ASCII ID tie-breaker와 희귀 조건을 설명 가능한 순서로 적용한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:29.406Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:29.406Z"
     },
     {
       "id": "task.feature.feature.expedition-map",
@@ -1379,11 +1394,15 @@
         "키보드·마우스와 게임패드가 같은 지역 포커스·확정·취소 상태를 사용한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T16:32:52.263Z"
+      "updatedAt": "2026-08-25T11:33:30.261Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:30.260Z"
     },
     {
       "id": "task.feature.feature.resource-randomization",
@@ -1658,10 +1677,15 @@
         ".forge/packets/wave18-green-transition-contract.json",
         "Docs/Design/wave18-green-transition-contract.md"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-24T13:47:39.751Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:29.249Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:29.248Z",
+      "createdAt": "2026-08-25T11:33:29.249Z"
     },
     {
       "id": "task.qa.wave18-green-transition",
@@ -1693,9 +1717,15 @@
         "Docs/Design/wave18-green-transition-contract.md",
         "Docs/QA/wave17-pacing-hazard-redfirst-hardening-a540317.md"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:49.761Z",
+      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
+      "completedAt": "2026-08-25T11:33:49.760Z",
+      "createdAt": "2026-08-25T11:33:49.761Z"
     },
     {
       "id": "task.system.system.comedy-feedback",
@@ -2350,11 +2380,15 @@
         "rare→comic→normal→Day50 lifestyle→fallback과 명시적 tie-breaker가 같은 snapshot에서 하나의 ending만 고른다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:30.641Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:30.641Z"
     },
     {
       "id": "task.qa.feature.behavioral-endings",
@@ -2378,11 +2412,15 @@
         "rare→comic→normal→Day50 lifestyle→fallback과 명시적 tie-breaker가 같은 snapshot에서 하나의 ending만 고른다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:52:07.112Z"
+      "updatedAt": "2026-08-25T11:33:49.922Z",
+      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
+      "completedAt": "2026-08-25T11:33:49.922Z"
     },
     {
       "id": "task.qa.wave15-hazard-ending-redfirst",
@@ -2419,11 +2457,15 @@
         ".forge/design/vertical-slice.json",
         "Docs/Design/wave16-fifty-day-pacing.md"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T16:10:09.721Z"
+      "updatedAt": "2026-08-25T11:33:30.810Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:30.810Z"
     },
     {
       "id": "task.system.system.ending-gallery",
@@ -2443,11 +2485,15 @@
         "게임 내 해금·힌트·modifier panel은 Steam 연결 없이 동작하며 achievementMappingId는 future-only이고 외부 업적 키 부재가 플레이를 막지 않는다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "createdAt": "2026-08-23T14:16:09.804Z"
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:50.254Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
+      "completedAt": "2026-08-25T11:33:50.254Z"
     },
     {
       "id": "task.feature.feature.ending-gallery",
@@ -2472,11 +2518,15 @@
         "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:52:07.112Z"
+      "updatedAt": "2026-08-25T11:33:50.086Z",
+      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
+      "completedAt": "2026-08-25T11:33:50.085Z"
     },
     {
       "id": "task.qa.feature.ending-gallery",
@@ -2497,11 +2547,15 @@
         "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:52:07.112Z"
+      "updatedAt": "2026-08-25T11:33:58.584Z",
+      "note": "Integrated Wave 19 album near/popup/open, ko/en/qps-long, persistence and dual input contracts passed.",
+      "completedAt": "2026-08-25T11:33:58.583Z"
     },
     {
       "id": "task.postslice.steam-release-readiness",
@@ -2587,5 +2641,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-24T13:47:39.751Z"
+  "updatedAt": "2026-08-25T11:33:58.584Z"
 }
