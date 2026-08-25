@@ -3277,6 +3277,49 @@
       "updatedAt": "2026-08-23T16:10:09.721Z"
     },
     {
+      "id": "task.design.wave19-resource-playtest-contract",
+      "lane": "design",
+      "title": "Wave 19 리소스 통합 첫 사용자 플레이테스트 계약",
+      "description": "자동 GREEN Windows 빌드에서 30~45분 Day 1~10 자연 플레이로 직접 캠프, 지역 비교, 수색·귀환, 배치, 수영, 가방 성장, 위험, 장기 캠페인·조기 탈출·엔딩 동기를 관찰하는 무힌트 계약을 고정한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.design.wave17-natural-fifty-day-playtest-protocol",
+        "task.design.wave18-green-transition-contract"
+      ],
+      "featureIds": [
+        "feature.camp-building",
+        "feature.camp-object-interaction",
+        "feature.expedition-map",
+        "feature.inventory-capacity-upgrade",
+        "feature.swimming",
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "30~45분, fresh save, Day 1~10, grant/warp/day skip/정답 힌트 금지 조건이 고정된다.",
+        "직접 캠프 상호작용, 제한적 자유 배치와 고정 앵커, 6지역 비교, 수영, 가방 4→6, 7위험, Day 50와 5탈출, 19엔딩 동기를 관찰한다.",
+        "연기·무전 PLAYABLE과 뗏목·조명탄·고지대 신호 DATA_ONLY를 분리하고 앨범·Steam·물리 게임패드 미검증을 과장하지 않는다.",
+        "수기 임계값, 안정 JSONL event, P0/P1/P2, NOT_OBSERVED, 기능 유지·수정·보류 규칙이 구현 가능한 수준으로 정의된다.",
+        "KO 기본, EN 별도 첫 사용자, qps-long QA 전용과 개인정보 없는 집계 계약을 유지한다.",
+        "문서·JSON 참조가 유효하며 인간 세션 결과는 UNRUN으로 남는다."
+      ],
+      "paths": [
+        "Docs/Design/Playtest/wave19-resource-integrated-first-user-playtest.md",
+        ".forge/packets/wave19-resource-playtest-contract.json",
+        ".forge/design/project.json"
+      ],
+      "evidence": [
+        "Artifacts/Verification/resource-integrated-playtest/README.md",
+        "Artifacts/Verification/resource-integrated-playtest/wave18-summary.json",
+        "Artifacts/Verification/resource-integrated-playtest/wave14-qps-global-layout-gate.json"
+      ],
+      "blockedReason": "",
+      "status": "done"
+    },
+    {
       "id": "task.art.icon.resource-tool-set",
       "lane": "art",
       "title": "자원·도구 아이콘 세트 제작",
@@ -3543,5 +3586,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-24T14:37:06.920Z"
+  "updatedAt": "2026-08-24T15:31:50.790Z"
 }
