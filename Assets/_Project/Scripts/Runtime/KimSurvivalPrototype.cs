@@ -82,17 +82,12 @@ namespace KimSurvival
 
         private sealed class NodeView
         {
-            public ResourceKind Kind;
-            public int Amount;
+            public PrototypeSearchNodeDefinition Definition;
             public float X;
-            public bool Water;
-            public string ActionId;
-            public string ResultId;
             public GameObject Root;
             public Transform LabelRoot;
             public TMP_Text Label;
             public SpriteRenderer LabelBackground;
-            public bool Collected;
         }
 
         private readonly List<NodeView> nodes = new List<NodeView>();
@@ -100,6 +95,7 @@ namespace KimSurvival
         private readonly List<Button> campPopupButtons = new List<Button>();
         private readonly List<Button> expeditionRegionButtons = new List<Button>();
         private readonly List<Button> endingAlbumCardButtons = new List<Button>();
+        private readonly List<Button> searchLootItemButtons = new List<Button>();
         private readonly List<PrototypeCampInteractionTarget> campInteractionTargets = new List<PrototypeCampInteractionTarget>();
         private readonly List<SpriteRenderer> placementGhostOutlineRenderers = new List<SpriteRenderer>();
         private readonly Dictionary<StructureKind, GameObject> structureViews = new Dictionary<StructureKind, GameObject>();
@@ -118,6 +114,7 @@ namespace KimSurvival
         private PrototypeLocalization localization;
         private PrototypePlaytestEventRecorder playtestLog;
         private PrototypeWaveRuntime hazardEscapeEndingRuntime;
+        private PrototypeSearchNodeRuntime searchNodeRuntime;
         private PrototypeEndingAlbumCollection endingAlbumCollection;
         private Camera worldCamera;
         private Canvas canvas;
@@ -161,6 +158,9 @@ namespace KimSurvival
         private TMP_Text endingAlbumSummaryText;
         private TMP_Text endingAlbumStatusText;
         private TMP_Text endingAlbumControlsText;
+        private TMP_Text searchLootTitleText;
+        private TMP_Text searchLootStatusText;
+        private TMP_Text searchLootBagText;
         private GameObject campActions;
         private GameObject campInteractionPopup;
         private Image campInteractionPopupFrameImage;
@@ -170,6 +170,7 @@ namespace KimSurvival
         private GameObject expeditionMapPanel;
         private Image expeditionMapFrameImage;
         private GameObject endingAlbumPanel;
+        private GameObject searchLootTrayPanel;
         private Image endingAlbumFrameImage;
         private GameObject campModuleReasonChip;
         private TMP_Text campModuleReasonText;
@@ -199,6 +200,9 @@ namespace KimSurvival
         private Button raftProjectButton;
         private Button endingAlbumOpenButton;
         private Button endingAlbumCloseButton;
+        private Button searchLootTakeButton;
+        private Button searchLootTakeAllButton;
+        private Button searchLootLeaveButton;
         private Button phaseButton;
         private Button restartButton;
         private Button languageButton;
@@ -221,6 +225,7 @@ namespace KimSurvival
         {
             Application.targetFrameRate = 60;
             session = new GameSession(PrototypeExpeditionRegionCatalog.CreateRuntimeSeed());
+            searchNodeRuntime = new PrototypeSearchNodeRuntime(session.RunSeed);
             endingAlbumCollection = PrototypeEndingAlbumCollection.LoadDefault();
             localization = new PrototypeLocalization();
             localization.LocaleChanged += HandleLocaleChanged;
@@ -653,15 +658,140 @@ namespace KimSurvival
             for (int i = 0; i < GameSession.MaximumBagSlotCount; i += 1)
             {
                 int capturedIndex = i;
-                Button slot = CreateBagButton(bagPanel.transform, i, delegate { session.ReplaceBagSlot(capturedIndex); RefreshAll(); });
+                Button slot = CreateBagButton(bagPanel.transform, i, delegate { ReplaceBagSlotFromActiveContext(capturedIndex); });
                 slot.GetComponentInChildren<TMP_Text>().fontSize = 34f;
                 bagButtons.Add(slot);
             }
+
+            BuildSearchLootTrayUi();
 
             resultPanel = CreatePanel("결과", canvas.transform, new Vector2(0.24f, 0.22f), new Vector2(0.76f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.04f, 0.08f, 0.09f, 0.96f)).gameObject;
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
             restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, RestartSession);
+        }
+
+        private void BuildSearchLootTrayUi()
+        {
+            searchLootTrayPanel = CreatePanel(
+                "환경 수색 발견물 compact tray placeholder",
+                canvas.transform,
+                new Vector2(0.025f, 0.045f),
+                new Vector2(0.59f, 0.43f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.035f, 0.09f, 0.095f, 0.97f)).gameObject;
+            Image surface = searchLootTrayPanel.GetComponent<Image>();
+            Outline outline = surface.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0.96f, 0.76f, 0.3f, 0.95f);
+            outline.effectDistance = new Vector2(3f, -3f);
+            outline.useGraphicAlpha = false;
+
+            searchLootTitleText = CreateText(
+                "발견물 트레이 제목",
+                searchLootTrayPanel.transform,
+                new Vector2(0.035f, 0.79f),
+                new Vector2(0.64f, 0.97f),
+                Vector2.zero,
+                Vector2.zero,
+                26,
+                TextAnchor.MiddleLeft,
+                new Color(1f, 0.86f, 0.38f));
+            searchLootTitleText.fontStyle = FontStyles.Bold;
+            searchLootTitleText.enableAutoSizing = true;
+            searchLootTitleText.fontSizeMin = 18f;
+            searchLootTitleText.fontSizeMax = 26f;
+            searchLootTitleText.maxVisibleLines = 1;
+            searchLootTitleText.overflowMode = TextOverflowModes.Ellipsis;
+
+            searchLootStatusText = CreateText(
+                "수색 비용·위험·잔량 상태",
+                searchLootTrayPanel.transform,
+                new Vector2(0.035f, 0.61f),
+                new Vector2(0.965f, 0.8f),
+                Vector2.zero,
+                Vector2.zero,
+                20,
+                TextAnchor.MiddleLeft,
+                Color.white);
+            searchLootStatusText.enableAutoSizing = true;
+            searchLootStatusText.fontSizeMin = 15f;
+            searchLootStatusText.fontSizeMax = 20f;
+            searchLootStatusText.textWrappingMode = TextWrappingModes.Normal;
+            searchLootStatusText.maxVisibleLines = 2;
+            searchLootStatusText.overflowMode = TextOverflowModes.Ellipsis;
+
+            Vector2[] itemMin =
+            {
+                new Vector2(0.035f, 0.36f), new Vector2(0.27f, 0.36f),
+                new Vector2(0.505f, 0.36f), new Vector2(0.74f, 0.36f)
+            };
+            Vector2[] itemMax =
+            {
+                new Vector2(0.255f, 0.60f), new Vector2(0.49f, 0.60f),
+                new Vector2(0.725f, 0.60f), new Vector2(0.965f, 0.60f)
+            };
+            for (int index = 0; index < 4; index += 1)
+            {
+                int capturedIndex = index;
+                Button itemButton = CreateButton(
+                    "발견물 " + (index + 1),
+                    searchLootTrayPanel.transform,
+                    itemMin[index],
+                    itemMax[index],
+                    string.Empty,
+                    delegate { FocusSearchLoot(capturedIndex); });
+                TMP_Text label = itemButton.GetComponentInChildren<TMP_Text>();
+                label.enableAutoSizing = true;
+                label.fontSizeMin = 13f;
+                label.fontSizeMax = 19f;
+                label.textWrappingMode = TextWrappingModes.Normal;
+                label.maxVisibleLines = 3;
+                label.overflowMode = TextOverflowModes.Ellipsis;
+                searchLootItemButtons.Add(itemButton);
+            }
+
+            searchLootBagText = CreateText(
+                "현재 가방 요약",
+                searchLootTrayPanel.transform,
+                new Vector2(0.035f, 0.2f),
+                new Vector2(0.965f, 0.35f),
+                Vector2.zero,
+                Vector2.zero,
+                18,
+                TextAnchor.MiddleLeft,
+                new Color(0.77f, 0.94f, 0.94f));
+            searchLootBagText.enableAutoSizing = true;
+            searchLootBagText.fontSizeMin = 13f;
+            searchLootBagText.fontSizeMax = 18f;
+            searchLootBagText.textWrappingMode = TextWrappingModes.Normal;
+            searchLootBagText.maxVisibleLines = 2;
+            searchLootBagText.overflowMode = TextOverflowModes.Ellipsis;
+
+            searchLootTakeButton = CreateButton(
+                "선택 발견물 담기",
+                searchLootTrayPanel.transform,
+                new Vector2(0.035f, 0.035f),
+                new Vector2(0.32f, 0.19f),
+                string.Empty,
+                TakeFocusedSearchLoot);
+            searchLootTakeAllButton = CreateButton(
+                "담을 수 있는 발견물 모두 담기",
+                searchLootTrayPanel.transform,
+                new Vector2(0.335f, 0.035f),
+                new Vector2(0.66f, 0.19f),
+                string.Empty,
+                TakeAllSearchLoot);
+            searchLootLeaveButton = CreateButton(
+                "발견물 남기고 닫기",
+                searchLootTrayPanel.transform,
+                new Vector2(0.675f, 0.035f),
+                new Vector2(0.965f, 0.19f),
+                string.Empty,
+                CloseSearchLootTray);
+            ConfigureExpeditionMapButton(searchLootTakeButton);
+            ConfigureExpeditionMapButton(searchLootTakeAllButton);
+            ConfigureExpeditionMapButton(searchLootLeaveButton);
         }
 
         private void BuildEndingAlbumUi()
@@ -853,6 +983,7 @@ namespace KimSurvival
         private void RestartSession()
         {
             session.Reset(PrototypeExpeditionRegionCatalog.CreateRuntimeSeed());
+            searchNodeRuntime.Reset(session.RunSeed);
             campPlacement.Reset();
             campUse.Reset();
             campInteraction.Reset();
@@ -891,12 +1022,14 @@ namespace KimSurvival
             bool placing = camp && campPlacement.IsActive;
             bool modulePreview = camp && campModuleExpansion.IsPreviewActive;
             bool popup = camp && !placing && !modulePreview && campInteraction.IsPopupOpen;
+            bool searchTray = session.Phase == GamePhase.Exploring && searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen;
             bool expeditionMapPopup = popup && campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap;
             bool endingAlbumPopup = popup && campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.EndingAlbum && endingAlbumSelection.IsOpen;
             campActions.SetActive(false);
             campInteractionPopup.SetActive(popup && !expeditionMapPopup && !endingAlbumPopup);
             expeditionMapPanel.SetActive(expeditionMapPopup);
             endingAlbumPanel.SetActive(endingAlbumPopup);
+            searchLootTrayPanel.SetActive(searchTray);
             campProximityPrompt.SetActive(camp && !placing && !modulePreview && !popup && campInteraction.HasProximityPrompt);
             campModuleReasonChip.SetActive(modulePreview);
             bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
@@ -931,6 +1064,14 @@ namespace KimSurvival
                 {
                     EventSystem.current.SetSelectedGameObject(popup ? FirstVisiblePopupButton() : campPlacement.IsActive || modulePreview ? null : session.ExpeditionCompleted ? phaseButton.gameObject : null);
                 }
+            }
+            else if (searchTray)
+            {
+                RefreshSearchLootTrayUi();
+                GameObject selected = session.HasPendingLoot && bagButtons.Count > 0
+                    ? bagButtons[0].gameObject
+                    : FirstVisibleSearchLootButton();
+                EventSystem.current.SetSelectedGameObject(selected);
             }
             else if (session.HasPendingLoot && bagButtons.Count > 0)
             {
@@ -1012,8 +1153,14 @@ namespace KimSurvival
             }
             else if (session.Phase == GamePhase.Exploring)
             {
-                controlsText.text = localization.Format(PrototypeInputPromptKeys.Explore(playerInput.ActiveDevice), device, session.ActiveBagSlotCount);
+                controlsText.text = searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen
+                    ? localization.Format(PrototypeInputPromptKeys.SearchTray(playerInput.ActiveDevice), device, session.ActiveBagSlotCount)
+                    : localization.Format(PrototypeInputPromptKeys.Explore(playerInput.ActiveDevice), device, session.ActiveBagSlotCount);
                 bagTitleText.text = localization.Format(session.HasPendingLoot ? "bag.pending" : "bag.exploring", session.ActiveBagSlotCount, GameSession.MaximumBagSlotCount);
+                if (searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen)
+                {
+                    RefreshSearchLootTrayUi();
+                }
             }
 
             RefreshBagButtons();
@@ -2886,13 +3033,19 @@ namespace KimSurvival
                 36f,
                 36f);
 
-            float[] nodePositions = { -8.2f, -5.8f, -1.1f, 1.5f, 4.1f, 6.8f, 10.2f, 12.8f, 15.2f, 17.7f };
-            PrototypeExpeditionRegionProfile profile = PrototypeExpeditionRegionCatalog.Get(
+            PrototypeSearchRegionDefinition searchRegion = PrototypeSearchRegionCatalog.Get(
                 session.SelectedRegionId ?? PrototypeExpeditionRegionId.Beach);
-            for (int i = 0; i < nodePositions.Length; i += 1)
+            float[] waterPositions = { -8.2f, -5.55f };
+            float[] landPositions = { -1.1f, 4.2f, 11.2f, 15.2f };
+            int waterIndex = 0;
+            int landIndex = 0;
+            for (int index = 0; index < searchRegion.Nodes.Count; index += 1)
             {
-                PrototypeExpeditionNodeResult node = profile.ResolveNode(session.RunSeed, i);
-                SpawnNode(nodePositions[i], node.Resource, node.Amount, node.Water, node.ActionId, node.ResultId);
+                PrototypeSearchNodeDefinition definition = searchRegion.Nodes[index];
+                float position = definition.RequiresSwimming
+                    ? waterPositions[Math.Min(waterIndex++, waterPositions.Length - 1)]
+                    : landPositions[Math.Min(landIndex++, landPositions.Length - 1)];
+                SpawnSearchNode(position, definition);
             }
             CreateKim(new Vector2(playerTraversal.X, playerTraversal.Y));
             CreateSwimWake();
@@ -2900,6 +3053,12 @@ namespace KimSurvival
 
         private void UpdateExploration()
         {
+            if (searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen)
+            {
+                ProcessSearchLootTrayActions();
+                return;
+            }
+
             PrototypePlayerActions actions = playerInput.ReadActions(session.HasPendingLoot, session.ActiveBagSlotCount);
             if (session.HasPendingLoot)
             {
@@ -2950,7 +3109,7 @@ namespace KimSurvival
 
             if (actions.InteractPressed)
             {
-                GatherNearestNode();
+                SearchNearestNode();
             }
 
             if (actions.ReturnPressed)
@@ -2971,17 +3130,12 @@ namespace KimSurvival
             }
         }
 
-        private void GatherNearestNode()
+        private void SearchNearestNode()
         {
             NodeView nearest = null;
             float nearestDistance = float.MaxValue;
             for (int i = 0; i < nodes.Count; i += 1)
             {
-                if (nodes[i].Collected)
-                {
-                    continue;
-                }
-
                 float distance = Mathf.Abs(nodes[i].X - playerTraversal.X);
                 if (distance < 1.35f && distance < nearestDistance)
                 {
@@ -2996,24 +3150,176 @@ namespace KimSurvival
                 return;
             }
 
-            GatherResult result = session.TryGather(nearest.Kind, nearest.Amount, nearest.Water, nearest.ActionId, nearest.ResultId);
+            PrototypeSearchOpenResult result = searchNodeRuntime.TryOpen(nearest.Definition, session);
             if (playtestLog != null)
             {
-                playtestLog.ObserveState("gather." + nearest.Kind.ToString().ToLowerInvariant());
+                playtestLog.ObserveState("search.node." + nearest.Definition.NodeId);
             }
-            if (result != GatherResult.Rejected)
+            if (result == PrototypeSearchOpenResult.Opened)
             {
-                nearest.Collected = true;
-                nearest.Root.SetActive(false);
-                if (result == GatherResult.PendingSwap)
+                RefreshAll();
+                return;
+            }
+            string reasonKey = result == PrototypeSearchOpenResult.NeedSwimming
+                ? "message.search_node.need_swim"
+                : result == PrototypeSearchOpenResult.Depleted
+                    ? "message.search_node.depleted"
+                    : result == PrototypeSearchOpenResult.TooTired
+                        ? "message.search_node.too_tired"
+                        : "message.search_node.unavailable";
+            messageText.text = localization.Format(reasonKey);
+        }
+
+        private void ProcessSearchLootTrayActions()
+        {
+            PrototypeSearchLootActions trayActions = playerInput.ReadSearchLootActions();
+            PrototypePlayerActions bagActions = playerInput.ReadActions(session.HasPendingLoot, session.ActiveBagSlotCount);
+            if (searchNodeRuntime.HasPendingBagSwap)
+            {
+                if (bagActions.BagSlotIndex >= 0)
                 {
+                    ReplaceBagSlotFromActiveContext(bagActions.BagSlotIndex);
+                }
+                else if (trayActions.CancelPressed)
+                {
+                    searchNodeRuntime.CancelPending(session);
                     RefreshAll();
                 }
-                else
-                {
-                    RefreshHud();
-                }
+                return;
             }
+
+            if (searchNodeRuntime.StepFocus(trayActions.CycleDirection))
+            {
+                RefreshSearchLootTrayUi();
+                EventSystem.current.SetSelectedGameObject(FirstVisibleSearchLootButton());
+            }
+            if (trayActions.ConfirmPressed)
+            {
+                TakeFocusedSearchLoot();
+                return;
+            }
+            if (trayActions.TakeAllPressed)
+            {
+                TakeAllSearchLoot();
+                return;
+            }
+            if (trayActions.CancelPressed)
+            {
+                CloseSearchLootTray();
+            }
+        }
+
+        private void FocusSearchLoot(int index)
+        {
+            if (!searchNodeRuntime.SetFocusedIndex(index)) return;
+            RefreshSearchLootTrayUi();
+            EventSystem.current.SetSelectedGameObject(searchLootItemButtons[index].gameObject);
+        }
+
+        private void TakeFocusedSearchLoot()
+        {
+            PrototypeSearchTakeResult result = searchNodeRuntime.TryTakeFocused(session, AcquireProtectedSearchPart);
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("search.loot." + result.ToString().ToLowerInvariant());
+            }
+            RefreshAll();
+        }
+
+        private void TakeAllSearchLoot()
+        {
+            PrototypeSearchTakeResult result = searchNodeRuntime.TryTakeAll(session, AcquireProtectedSearchPart);
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("search.loot.take-all." + result.ToString().ToLowerInvariant());
+            }
+            RefreshAll();
+        }
+
+        private bool AcquireProtectedSearchPart(string partId)
+        {
+            return hazardEscapeEndingRuntime != null &&
+                   hazardEscapeEndingRuntime.TryAcquireProtectedSearchPart(searchNodeRuntime.ActiveNodeId, partId);
+        }
+
+        private void CloseSearchLootTray()
+        {
+            searchNodeRuntime.Close(session);
+            if (playtestLog != null)
+            {
+                playtestLog.ObserveState("search.loot.leave");
+            }
+            RefreshAll();
+        }
+
+        private void ReplaceBagSlotFromActiveContext(int index)
+        {
+            bool replaced = searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen && searchNodeRuntime.HasPendingBagSwap
+                ? searchNodeRuntime.TryReplacePending(session, index)
+                : session.ReplaceBagSlot(index);
+            if (replaced && playtestLog != null)
+            {
+                playtestLog.ObserveState("search.loot.replace." + index);
+            }
+            RefreshAll();
+        }
+
+        private GameObject FirstVisibleSearchLootButton()
+        {
+            int index = searchNodeRuntime == null ? 0 : searchNodeRuntime.FocusedIndex;
+            if (index >= 0 && index < searchLootItemButtons.Count && searchLootItemButtons[index].gameObject.activeSelf)
+            {
+                return searchLootItemButtons[index].gameObject;
+            }
+            return searchLootLeaveButton == null ? null : searchLootLeaveButton.gameObject;
+        }
+
+        private void RefreshSearchLootTrayUi()
+        {
+            if (searchNodeRuntime == null || !searchNodeRuntime.IsTrayOpen || searchLootTrayPanel == null) return;
+            PrototypeSearchNodeSnapshot node = searchNodeRuntime.ActiveNode;
+            if (node == null) return;
+            searchLootTitleText.text = localization.Format(
+                "search.tray.title",
+                localization.Format(SearchNodeKindKey(node.NodeKind)),
+                localization.Format("search.node.state." + node.State.ToString().ToLowerInvariant()));
+            searchLootStatusText.text = localization.Format(
+                "search.tray.status",
+                node.EnergyCost,
+                node.TimeCostMinutes,
+                localization.Format("search." + node.HazardId),
+                node.Remaining.Length);
+
+            for (int index = 0; index < searchLootItemButtons.Count; index += 1)
+            {
+                bool visible = node.Remaining != null && index < node.Remaining.Length;
+                searchLootItemButtons[index].gameObject.SetActive(visible);
+                if (!visible) continue;
+                PrototypeSearchLootEntry item = node.Remaining[index];
+                string marker = index == searchNodeRuntime.FocusedIndex ? "◆" : "◇";
+                string label = item.IsProtectedPart
+                    ? localization.Format("search.tray.item.protected", marker, localization.Format("search." + item.ProtectedPartId))
+                    : localization.Format("search.tray.item.resource", marker, item.Resource, item.Amount);
+                SetButton(searchLootItemButtons[index], label, !searchNodeRuntime.HasPendingBagSwap);
+                searchLootItemButtons[index].GetComponent<Image>().color = item.IsProtectedPart
+                    ? new Color(0.52f, 0.29f, 0.06f, 0.98f)
+                    : ResourceColor(item.Resource, index == searchNodeRuntime.FocusedIndex ? 0.98f : 0.72f);
+            }
+
+            List<string> bagSlots = new List<string>();
+            for (int index = 0; index < session.ActiveBagSlotCount; index += 1)
+            {
+                BagStack stack = session.GetBagSlot(index);
+                bagSlots.Add(stack.IsEmpty
+                    ? localization.Format("search.tray.bag.empty", index + 1)
+                    : localization.Format("search.tray.bag.stack", index + 1, stack.Kind, stack.Amount));
+            }
+            searchLootBagText.text = localization.Format("search.tray.bag", string.Join(" · ", bagSlots.ToArray()));
+            bool hasItems = node.Remaining != null && node.Remaining.Length > 0;
+            bool pending = searchNodeRuntime.HasPendingBagSwap;
+            SetButton(searchLootTakeButton, localization.Format(pending ? "search.tray.action.choose_swap" : "search.tray.action.take"), hasItems && !pending);
+            SetButton(searchLootTakeAllButton, localization.Format("search.tray.action.take_all"), hasItems && !pending);
+            SetButton(searchLootLeaveButton, localization.Format(pending ? "search.tray.action.cancel_swap" : "search.tray.action.leave"), true);
         }
 
         public string RunAutomatedVerification(
@@ -4015,9 +4321,12 @@ namespace KimSurvival
             BeginExpeditionThroughMapForVerification(PrototypeExpeditionRegionId.Shallows);
             Require(session.Phase == GamePhase.Exploring && session.SelectedRegionId == PrototypeExpeditionRegionId.Shallows,
                 "지도 근접 상호작용·얕은 바다 선택·출발 UI 경로");
-            Require(nodes.Count >= 10, "10개 이상 채집 지점");
-            Require(nodes.TrueForAll(node => node.ActionId.StartsWith("region.shallows.node.", StringComparison.Ordinal)),
-                "선택한 얕은 바다 region profile만 실제 수색 노드에 반영");
+            PrototypeSearchNodeContractResult searchNodeContract = PrototypeSearchNodeRuntimeContract.Verify();
+            Require(searchNodeContract.Passed, "7지역 결정론적 수색 노드·잔량·원자 거래 계약 · " + searchNodeContract.Detail);
+            Require(nodes.Count == PrototypeSearchRegionCatalog.Get(PrototypeExpeditionRegionId.Shallows).Nodes.Count,
+                "선택 지역의 환경 수색 오브젝트만 실제 월드에 생성");
+            Require(nodes.TrueForAll(node => node.Definition.NodeId.StartsWith("node.sea.shallows.", StringComparison.Ordinal)),
+                "선택한 얕은 바다 stable region/node ID만 실제 수색 오브젝트에 반영");
             RequireExplorationBarrierArt();
             UpdateResourceLabelLayout();
             RequireReadableResourceLabels(PrototypeLocalization.KoreanLocaleCode);
@@ -4026,17 +4335,8 @@ namespace KimSurvival
                 CaptureVerificationPng(explorationScreenshotPath, 1280, 800);
             }
 
-            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
-            Require(session.Phase == GamePhase.Exploring && nodes.Count >= 10, "수색 중 영어 즉시 전환");
-            RequireReadableResourceLabels(PrototypeLocalization.EnglishLocaleCode);
-            string keyboardExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.KeyboardMouse), localization.DeviceName(PrototypeInputDevice.KeyboardMouse), session.ActiveBagSlotCount);
-            string gamepadExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.Gamepad), localization.DeviceName(PrototypeInputDevice.Gamepad), session.ActiveBagSlotCount);
-            Require(keyboardExplorePrompt.Contains(localization.DeviceName(PrototypeInputDevice.KeyboardMouse)) &&
-                    keyboardExplorePrompt.Contains("1–4") &&
-                    gamepadExplorePrompt.Contains(localization.DeviceName(PrototypeInputDevice.Gamepad)) &&
-                    gamepadExplorePrompt.Contains("D-pad+A"), "수색 키보드·게임패드 가방 조작 안내");
-            NodeView waterNode = nodes.Find(node => node.Water);
-            Require(waterNode != null && nodes.FindAll(node => node.Water).Count >= 2, "얕은 연안 수색 지점 2개");
+            NodeView waterNode = nodes.Find(node => node.Definition.RequiresSwimming);
+            Require(waterNode != null && nodes.FindAll(node => node.Definition.RequiresSwimming).Count >= 2, "얕은 연안 환경 수색 오브젝트 2개");
             playerTraversal.Warp(PrototypePlayerTraversal.CoastlineX + 0.05f, PrototypePlayerTraversal.LandY, false);
             PrototypePlayerActions enterWater = new PrototypePlayerActions(-1f, false, false, false, false, -1);
             PrototypeTraversalStep waterEntryStep = playerTraversal.Step(enterWater, 0.1f, 0f, session);
@@ -4054,38 +4354,128 @@ namespace KimSurvival
             worldCamera.transform.position = new Vector3(Mathf.Clamp(playerTraversal.X + 2.5f, -6.5f, 12.5f), 0f, -10f);
             UpdateResourceLabelLayout();
             RefreshHud();
+
+            int hazardExposureBeforeTray = searchNodeRuntime.Ledger.TotalHazardExposureCount;
+            SearchNearestNode();
+            Require(searchNodeRuntime.IsTrayOpen && searchLootTrayPanel.activeSelf &&
+                    searchNodeRuntime.Ledger.TotalHazardExposureCount == hazardExposureBeforeTray + 1,
+                "수영 중 직접 뒤지기 완료 시 비용·위험 노출을 한 번 적용하고 compact 발견물 트레이 표시");
+            string verificationFolder = string.IsNullOrWhiteSpace(explorationScreenshotPath)
+                ? string.Empty
+                : Path.GetDirectoryName(explorationScreenshotPath);
+            if (!string.IsNullOrEmpty(verificationFolder))
+            {
+                CaptureVerificationPng(Path.Combine(verificationFolder, "kim-survival-search-tray-ko-1280x800.png"), 1280, 800);
+            }
+
+            string activeNodeBeforeLocale = searchNodeRuntime.ActiveNodeId;
+            int focusBeforeLocale = searchNodeRuntime.FocusedIndex;
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            Require(searchNodeRuntime.IsTrayOpen && searchNodeRuntime.ActiveNodeId == activeNodeBeforeLocale &&
+                    searchNodeRuntime.FocusedIndex == focusBeforeLocale &&
+                    searchNodeRuntime.Ledger.TotalHazardExposureCount == hazardExposureBeforeTray + 1,
+                "영어 전환은 수색 대상·포커스·선별 중 위험 정지를 보존");
+            RequireReadableSearchLootTray(PrototypeLocalization.EnglishLocaleCode);
+            if (!string.IsNullOrEmpty(verificationFolder))
+            {
+                CaptureVerificationPng(Path.Combine(verificationFolder, "kim-survival-search-tray-en-1280x800.png"), 1280, 800);
+            }
+
+            Require(localization.SetQaLocale(), "실제 qps-long 수색 트레이 전환");
+            RefreshAll();
+            Require(searchNodeRuntime.ActiveNodeId == activeNodeBeforeLocale && searchNodeRuntime.FocusedIndex == focusBeforeLocale,
+                "qps-long 전환도 같은 node와 발견물 포커스를 보존");
+            RequireReadableSearchLootTray(PrototypeLocalization.QpsLongLocaleCode);
+            if (!string.IsNullOrEmpty(verificationFolder))
+            {
+                CaptureVerificationPng(Path.Combine(verificationFolder, "kim-survival-search-tray-qps-long-1280x800.png"), 1280, 800);
+            }
+
+            PrototypeSearchLootActions keyboardLootActions = PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput
+            {
+                KeyboardNext = true,
+                KeyboardConfirm = true
+            });
+            PrototypeSearchLootActions gamepadLootActions = PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput
+            {
+                HorizontalAxis = 1f,
+                GamepadConfirm = true
+            });
+            Require(keyboardLootActions.CycleDirection == gamepadLootActions.CycleDirection &&
+                    keyboardLootActions.ConfirmPressed == gamepadLootActions.ConfirmPressed,
+                "키보드·마우스와 합성 게임패드는 동일한 발견물 선택 action snapshot으로 합류");
+            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+            RefreshAll();
+            int remainingBeforeTake = searchNodeRuntime.ActiveNode.RemainingAmount;
+            TakeFocusedSearchLoot();
+            Require(searchNodeRuntime.IsTrayOpen && searchNodeRuntime.ActiveNode.RemainingAmount < remainingBeforeTake,
+                "발견물 담기는 node 잔량과 가방을 한 번만 갱신");
+            int exposureDuringSelection = searchNodeRuntime.Ledger.TotalHazardExposureCount;
+            RefreshSearchLootTrayUi();
+            Require(searchNodeRuntime.Ledger.TotalHazardExposureCount == exposureDuringSelection,
+                "발견물 선별 중 추가 위험 판정 정지");
+            CloseSearchLootTray();
+
+            Require(session.Phase == GamePhase.Exploring && nodes.Count == 4, "수색 중 영어 즉시 전환과 node 상태 재구성");
+            RequireReadableResourceLabels(PrototypeLocalization.EnglishLocaleCode);
+            string keyboardExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.KeyboardMouse), localization.DeviceName(PrototypeInputDevice.KeyboardMouse), session.ActiveBagSlotCount);
+            string gamepadExplorePrompt = localization.Format(PrototypeInputPromptKeys.Explore(PrototypeInputDevice.Gamepad), localization.DeviceName(PrototypeInputDevice.Gamepad), session.ActiveBagSlotCount);
+            Require(keyboardExplorePrompt.Contains(localization.DeviceName(PrototypeInputDevice.KeyboardMouse)) &&
+                    keyboardExplorePrompt.Contains("1–4") &&
+                    gamepadExplorePrompt.Contains(localization.DeviceName(PrototypeInputDevice.Gamepad)) &&
+                    gamepadExplorePrompt.Contains("D-pad+A"), "수색 키보드·게임패드 가방 조작 안내");
             if (!string.IsNullOrWhiteSpace(swimmingScreenshotPath))
             {
                 RequireReadableResourceLabels(PrototypeLocalization.EnglishLocaleCode);
                 CaptureVerificationPng(swimmingScreenshotPath, 1280, 800);
             }
 
-            GatherNearestNode();
-            Require(waterNode.Collected, "수영 중 연안 자원 수색");
-            HashSet<ResourceKind> gatheredKinds = new HashSet<ResourceKind> { waterNode.Kind };
             playerTraversal.Warp(PrototypePlayerTraversal.CoastlineX - 0.05f, PrototypePlayerTraversal.WaterY, true);
             PrototypePlayerActions leaveWater = new PrototypePlayerActions(1f, false, false, false, false, -1);
             PrototypeTraversalStep shoreReturnStep = playerTraversal.Step(leaveWater, 0.1f, 1f, session);
             Require(!session.IsSwimming && !shoreReturnStep.Presentation.IsSwimming && Mathf.Approximately(playerTraversal.Y, PrototypePlayerTraversal.LandY), "해안 이탈 전환과 육지 높이 복귀");
             playerPresentation.Apply(playerTraversal.Warp(-1.1f, PrototypePlayerTraversal.LandY, false));
-            for (int i = 0; i < nodes.Count && gatheredKinds.Count < 4; i += 1)
+            NodeView landNode = nodes.Find(node => !node.Definition.RequiresSwimming);
+            Require(landNode != null, "육상 환경 수색 오브젝트 존재");
+            playerPresentation.Apply(playerTraversal.Warp(landNode.X, PrototypePlayerTraversal.LandY, false));
+            SearchNearestNode();
+            Require(searchNodeRuntime.IsTrayOpen, "육상 수색 오브젝트도 같은 발견물 트레이 상태 머신 사용");
+            PrototypeSearchNodeSnapshot landBeforeLeave = searchNodeRuntime.ActiveNode.Clone();
+            CloseSearchLootTray();
+            playerPresentation.Apply(playerTraversal.Warp(waterNode.X, PrototypePlayerTraversal.WaterY, true));
+            session.SetSwimming(true);
+            SearchNearestNode();
+            Require(searchNodeRuntime.IsTrayOpen && searchNodeRuntime.ActiveNode.State == PrototypeSearchNodeState.RevealedPartial &&
+                    searchNodeRuntime.ActiveNode.SearchCount == 1,
+                "재방문한 부분 잔류 node는 재추첨·추가 수색 비용 없이 동일 잔량 복원");
+            CloseSearchLootTray();
+            playerPresentation.Apply(playerTraversal.Warp(landNode.X, PrototypePlayerTraversal.LandY, false));
+            session.SetSwimming(false);
+            SearchNearestNode();
+            Require(searchNodeRuntime.IsTrayOpen && searchNodeRuntime.ActiveNode.RemainingAmount == landBeforeLeave.RemainingAmount,
+                "남긴 발견물은 같은 run의 같은 stable node에 유지");
+            CloseSearchLootTray();
+
+            for (int i = 0; i < nodes.Count; i += 1)
             {
                 NodeView node = nodes[i];
-                if (node.Water || gatheredKinds.Contains(node.Kind))
+                if (node.Definition.RequiresSwimming)
                 {
                     continue;
                 }
 
                 playerPresentation.Apply(playerTraversal.Warp(node.X, PrototypePlayerTraversal.LandY, false));
-                GatherNearestNode();
-                gatheredKinds.Add(node.Kind);
-                if (session.HasPendingLoot)
+                SearchNearestNode();
+                if (!searchNodeRuntime.IsTrayOpen) continue;
+                TakeAllSearchLoot();
+                if (searchNodeRuntime.HasPendingBagSwap)
                 {
                     bagButtons[0].onClick.Invoke();
                 }
+                CloseSearchLootTray();
             }
-
-            Require(gatheredKinds.Count == 4, "수색 월드의 네 자원 채집");
+            Require(session.GetBagSlot(0).Amount > 0, "환경 수색 발견물 선별이 실제 가방 획득의 주 경로");
             float daylightBeforeMovement = session.Daylight;
             float energyBeforeMovement = session.Energy;
             session.TickSearch(1f, true);
@@ -4130,7 +4520,7 @@ namespace KimSurvival
                 playtestLog.Dispose();
                 playtestLog = null;
             }
-            return "PASS · Wave 20 해안 진수대 직접 접근→compact 안내→전용 소형 팝업, 선체·돛·항해 보급, 보호 돛천, 날씨·조류 출항 확인, 실패 1회 비용·멱등 재시도·snapshot 복구·Day 50 이전 단일 뗏목 탈출과 ko/en/qps-long 1280x800·키보드/합성 게임패드 동등성을 확인. Wave 19 앨범, Wave 16 지도 A, Wave 15 Day 50와 직접 연결 슬롯·배치·가방·수색·수영·장벽·구조 신호를 회귀 확인";
+            return "PASS · 7지역 stable ID와 환경 수색 노드의 seed 결정론, 미확인→부분 잔류→고갈, 1회 비용·위험 정지, 원자적 담기·교체·취소, 보호 돛천, snapshot 재방문, ko/en/qps-long 1280x800 및 키보드/합성 게임패드 동등성을 확인. Wave 20 뗏목, Wave 19 앨범, Wave 16 지도 A, Wave 15 Day 50와 캠프·배치·가방·수영·장벽·연기·무전을 회귀 확인";
         }
 
         private static void RequirePlaytestLogRuntimeIntegration(IReadOnlyList<string> lines)
@@ -5016,27 +5406,49 @@ namespace KimSurvival
             for (int i = 0; i < nodes.Count; i += 1)
             {
                 NodeView node = nodes[i];
-                if (node.Collected || node.LabelRoot == null || !node.LabelRoot.gameObject.activeSelf || node.X < left || node.X > right)
+                if (node.LabelRoot == null || !node.LabelRoot.gameObject.activeSelf || node.X < left || node.X > right)
                 {
                     continue;
                 }
 
                 node.Label.ForceMeshUpdate(true, true);
                 Bounds bounds = node.LabelBackground.bounds;
-                Require(node.Label.font != null && node.Label.fontSizeMin >= 36f, localeCode + " 자원 라벨 18px 대응·폰트");
-                Require(node.LabelBackground.color.a >= 0.95f && node.Label.color.grayscale >= 0.9f, localeCode + " 자원 라벨 배경 대비");
-                Require(bounds.min.x >= left - 0.01f && bounds.max.x <= safeRight + 0.01f, localeCode + " 화면 가장자리·가방 패널 자원 라벨 클램프");
+                Require(node.Label.font != null && node.Label.fontSizeMin >= 28f, localeCode + " 수색 오브젝트 라벨 18px 대응·폰트");
+                Require(node.LabelBackground.color.a >= 0.95f && node.Label.color.grayscale >= 0.9f, localeCode + " 수색 오브젝트 라벨 배경 대비");
+                Require(bounds.min.x >= left - 0.01f && bounds.max.x <= safeRight + 0.01f, localeCode + " 화면 가장자리·가방 패널 수색 라벨 클램프");
                 visible.Add(node);
             }
 
-            Require(visible.Count >= 2, localeCode + " 화면 내 자원 라벨 표본");
+            Require(visible.Count >= 2, localeCode + " 화면 내 환경 수색 라벨 표본");
             for (int first = 0; first < visible.Count; first += 1)
             {
                 for (int second = first + 1; second < visible.Count; second += 1)
                 {
-                    Require(!visible[first].LabelBackground.bounds.Intersects(visible[second].LabelBackground.bounds), localeCode + " 자원 라벨 겹침 방지");
+                    Require(!visible[first].LabelBackground.bounds.Intersects(visible[second].LabelBackground.bounds), localeCode + " 환경 수색 라벨 겹침 방지");
                 }
             }
+        }
+
+        private void RequireReadableSearchLootTray(string localeCode)
+        {
+            RefreshSearchLootTrayUi();
+            Canvas.ForceUpdateCanvases();
+            RectTransform trayRect = searchLootTrayPanel.GetComponent<RectTransform>();
+            Require(trayRect.anchorMin.x >= 0.02f && trayRect.anchorMax.x <= 0.60f &&
+                    trayRect.anchorMin.y >= 0.04f && trayRect.anchorMax.y <= 0.44f,
+                localeCode + " compact 발견물 트레이 1280×800 안전영역·월드 보존");
+            TMP_Text[] trayTexts = searchLootTrayPanel.GetComponentsInChildren<TMP_Text>(true);
+            for (int index = 0; index < trayTexts.Length; index += 1)
+            {
+                TMP_Text text = trayTexts[index];
+                if (!text.gameObject.activeInHierarchy) continue;
+                text.ForceMeshUpdate(true, true);
+                Require(text.font != null && text.fontSize >= 12.5f, localeCode + " 발견물 트레이 TMP 폰트·최소 가독 크기");
+                Require(!text.isTextOverflowing, localeCode + " 발견물 트레이 TMP overflow=0 · " + text.name);
+            }
+            RectTransform bagRect = bagPanel.GetComponent<RectTransform>();
+            Require(trayRect.anchorMax.x < 0.61f && bagRect.offsetMin.x <= -455f,
+                localeCode + " 발견물 트레이와 기존 가방 비교 영역 비중첩");
         }
 
         public void CaptureVerificationPng(string absolutePath, int width, int height)
@@ -5067,63 +5479,113 @@ namespace KimSurvival
             Destroy(image);
         }
 
-        private void SpawnNode(
-            float x,
-            ResourceKind kind,
-            int amount,
-            bool water = false,
-            string actionId = "",
-            string resultId = "")
+        private void SpawnSearchNode(float x, PrototypeSearchNodeDefinition definition)
         {
-            GameObject root = new GameObject((water ? "Water Search · " : "Gather · ") + kind);
+            PrototypeSearchNodeSnapshot snapshot = searchNodeRuntime.Ledger.GetOrCreate(definition);
+            bool water = definition.RequiresSwimming;
+            GameObject root = new GameObject("환경 수색 오브젝트 · " + definition.NodeId);
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, water ? -1.72f : -2.25f, 0f);
-            Sprite icon = GetResourceIconSprite(kind);
-            if (icon == null || icon.bounds.size.x <= 0f || icon.bounds.size.y <= 0f)
-            {
-                GameObject marker = CreateRect(root.transform, "자원 placeholder", Vector2.zero, new Vector2(0.95f, 0.95f), ResourceColor(kind, 1f), 4);
-                marker.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
-            }
-            else
-            {
-                GameObject iconObject = new GameObject("채택 자원 아이콘 · " + AssetIcons + " · " + kind);
-                iconObject.transform.SetParent(root.transform, false);
-                SpriteRenderer iconRenderer = iconObject.AddComponent<SpriteRenderer>();
-                iconRenderer.sprite = icon;
-                iconRenderer.color = Color.white;
-                iconRenderer.sortingOrder = 4;
-                float iconScale = 1.15f / Mathf.Max(icon.bounds.size.x, icon.bounds.size.y);
-                iconObject.transform.localScale = new Vector3(iconScale, iconScale, 1f);
-            }
+            CreateSearchNodePlaceholder(root.transform, definition.Kind, snapshot.State, water);
             float laneY = (water ? 1.18f : 1.25f) + (nodes.Count % 2) * 1.65f;
             SpriteRenderer labelBackground;
             TMP_Text label = CreateWorldBadge(
                 root.transform,
-                "자원 안내",
-                localization.Format(water ? "world.resource.water" : "world.resource.land", kind, amount),
+                "환경 수색 안내",
+                FormatSearchNodeWorldBadge(definition, snapshot),
                 new Vector2(0f, laneY),
                 new Vector2(ResourceLabelWidth, ResourceLabelHeight),
-                water ? new Color(0.02f, 0.16f, 0.28f, 0.96f) : new Color(0.12f, 0.1f, 0.06f, 0.96f),
+                snapshot.State == PrototypeSearchNodeState.Depleted
+                    ? new Color(0.11f, 0.12f, 0.12f, 0.96f)
+                    : water ? new Color(0.02f, 0.16f, 0.28f, 0.96f) : new Color(0.12f, 0.1f, 0.06f, 0.96f),
                 Color.white,
                 out labelBackground,
-                localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? 0.095f : 0.085f,
-                36f,
-                36f);
+                localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? 0.072f : 0.066f,
+                28f,
+                30f);
             nodes.Add(new NodeView
             {
-                Kind = kind,
-                Amount = amount,
+                Definition = definition,
                 X = x,
-                Water = water,
-                ActionId = actionId ?? string.Empty,
-                ResultId = resultId ?? string.Empty,
                 Root = root,
                 LabelRoot = label.transform.parent,
                 Label = label,
-                LabelBackground = labelBackground,
-                Collected = false
+                LabelBackground = labelBackground
             });
             UpdateResourceLabelLayout();
+        }
+
+        private void CreateSearchNodePlaceholder(
+            Transform parent,
+            PrototypeSearchNodeKind kind,
+            PrototypeSearchNodeState state,
+            bool water)
+        {
+            float alpha = state == PrototypeSearchNodeState.Depleted ? 0.36f : 0.96f;
+            Color green = new Color(0.18f, 0.48f, 0.2f, alpha);
+            Color stone = new Color(0.36f, 0.4f, 0.4f, alpha);
+            Color timber = new Color(0.36f, 0.22f, 0.1f, alpha);
+            Color metal = new Color(0.24f, 0.36f, 0.4f, alpha);
+            switch (kind)
+            {
+                case PrototypeSearchNodeKind.GrassPatch:
+                    CreateRect(parent, "풀숲 placeholder A", new Vector2(-0.3f, 0.2f), new Vector2(0.55f, 1.15f), green, 4).transform.localRotation = Quaternion.Euler(0f, 0f, -24f);
+                    CreateRect(parent, "풀숲 placeholder B", new Vector2(0.25f, 0.18f), new Vector2(0.62f, 1.3f), green, 4).transform.localRotation = Quaternion.Euler(0f, 0f, 20f);
+                    break;
+                case PrototypeSearchNodeKind.RockCrevice:
+                    CreateRect(parent, "바위틈 placeholder A", new Vector2(-0.35f, 0.05f), new Vector2(0.95f, 0.8f), stone, 4).transform.localRotation = Quaternion.Euler(0f, 0f, 18f);
+                    CreateRect(parent, "바위틈 placeholder B", new Vector2(0.38f, 0.08f), new Vector2(0.82f, 1.05f), stone, 4).transform.localRotation = Quaternion.Euler(0f, 0f, -16f);
+                    break;
+                case PrototypeSearchNodeKind.DriftPile:
+                    CreateRect(parent, "표류물 더미 placeholder A", new Vector2(0f, 0.08f), new Vector2(1.65f, 0.34f), timber, 4).transform.localRotation = Quaternion.Euler(0f, 0f, 12f);
+                    CreateRect(parent, "표류물 더미 placeholder B", new Vector2(0.1f, 0.36f), new Vector2(1.35f, 0.28f), timber, 4).transform.localRotation = Quaternion.Euler(0f, 0f, -11f);
+                    break;
+                case PrototypeSearchNodeKind.TreeHollow:
+                    CreateRect(parent, "나무 구멍 placeholder", new Vector2(0f, 0.42f), new Vector2(0.95f, 1.5f), timber, 4);
+                    CreateRect(parent, "나무 구멍 입구", new Vector2(0f, 0.42f), new Vector2(0.36f, 0.52f), new Color(0.04f, 0.025f, 0.015f, alpha), 5);
+                    break;
+                case PrototypeSearchNodeKind.WreckLocker:
+                    CreateRect(parent, "난파선 수납함 placeholder", new Vector2(0f, 0.24f), new Vector2(1.45f, 0.9f), timber, 4);
+                    CreateRect(parent, "난파선 수납함 금속띠", new Vector2(0f, 0.24f), new Vector2(0.12f, 0.9f), metal, 5);
+                    break;
+                case PrototypeSearchNodeKind.FacilityCabinet:
+                    CreateRect(parent, "폐시설 캐비닛 placeholder", new Vector2(0f, 0.55f), new Vector2(1.15f, 1.75f), metal, 4);
+                    CreateRect(parent, "캐비닛 손잡이", new Vector2(0.35f, 0.55f), new Vector2(0.09f, 0.32f), Color.white, 5);
+                    break;
+            }
+            if (water)
+            {
+                CreateRect(parent, "수중 수색 물결", new Vector2(0f, -0.35f), new Vector2(2f, 0.1f), new Color(0.75f, 0.94f, 1f, 0.88f), 6);
+            }
+            string marker = state == PrototypeSearchNodeState.Hidden ? "?" : state == PrototypeSearchNodeState.Depleted ? "×" : "•";
+            CreateWorldLabel(parent, marker, new Vector3(0f, 0.62f, -0.1f), 34, Color.white);
+        }
+
+        private string FormatSearchNodeWorldBadge(PrototypeSearchNodeDefinition definition, PrototypeSearchNodeSnapshot snapshot)
+        {
+            string kindName = localization.Format(SearchNodeKindKey(definition.Kind));
+            if (snapshot.State == PrototypeSearchNodeState.Hidden)
+            {
+                return localization.Format(
+                    "search.node.world.hidden",
+                    localization.Format(PrototypeInputPromptKeys.InteractGlyph(playerInput.ActiveDevice)),
+                    kindName,
+                    localization.Format("search." + definition.HazardId));
+            }
+            if (snapshot.State == PrototypeSearchNodeState.Depleted)
+            {
+                return localization.Format("search.node.world.depleted", kindName);
+            }
+            return localization.Format(
+                "search.node.world.partial",
+                localization.Format(PrototypeInputPromptKeys.InteractGlyph(playerInput.ActiveDevice)),
+                kindName,
+                snapshot.Remaining.Length);
+        }
+
+        private static string SearchNodeKindKey(PrototypeSearchNodeKind kind)
+        {
+            return "search.node.kind." + kind.ToString().ToLowerInvariant();
         }
 
         private void UpdateResourceLabelLayout()
@@ -5133,6 +5595,7 @@ namespace KimSurvival
                 return;
             }
 
+            bool suppressLabels = searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen;
             float halfWidth = worldCamera.orthographicSize * MinimumSupportedAspect;
             float left = worldCamera.transform.position.x - halfWidth;
             float right = worldCamera.transform.position.x + halfWidth;
@@ -5146,7 +5609,7 @@ namespace KimSurvival
                     continue;
                 }
 
-                bool labelVisible = !node.Collected && node.X <= safeRight;
+                bool labelVisible = !suppressLabels && node.X <= safeRight;
                 node.LabelRoot.gameObject.SetActive(labelVisible);
                 if (!labelVisible)
                 {

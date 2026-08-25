@@ -599,6 +599,74 @@ namespace KimSurvival
             }
         }
 
+        public bool TryApplySearchNodeCost(int energyCost, int daylightCostMinutes)
+        {
+            if (Phase != GamePhase.Exploring || Result != RunResult.None || HasPendingLoot ||
+                energyCost <= 0 || daylightCostMinutes <= 0 || Energy <= energyCost || Daylight <= daylightCostMinutes)
+            {
+                LastMessage = Text("message.search_node.too_tired");
+                return false;
+            }
+
+            Energy = Math.Max(0f, Energy - energyCost);
+            Daylight = Math.Max(0f, Daylight - daylightCostMinutes);
+            LastMessage = Text("message.search_node.revealed", energyCost, daylightCostMinutes);
+            return true;
+        }
+
+        public bool RecordSearchNodeResult(string stableNodeId)
+        {
+            if (Phase != GamePhase.Exploring || Result != RunResult.None ||
+                string.IsNullOrWhiteSpace(stableNodeId) || string.IsNullOrWhiteSpace(ActiveRegionProfileId))
+            {
+                return false;
+            }
+            int variant = PrototypeExpeditionRegionCatalog.PositiveModulo(
+                PrototypeExpeditionRegionCatalog.StableHash(RunSeed, ActiveRegionProfileId, stableNodeId), 4);
+            LastExpeditionResultId = "result.search-node." + variant;
+            return true;
+        }
+
+        public int GetBagRemainingCapacity(ResourceKind kind)
+        {
+            int capacity = 0;
+            for (int index = 0; index < ActiveBagSlotCount; index += 1)
+            {
+                if (bag[index].IsEmpty)
+                {
+                    capacity += StackLimit;
+                }
+                else if (bag[index].Kind == kind)
+                {
+                    capacity += Math.Max(0, StackLimit - bag[index].Amount);
+                }
+            }
+            return capacity;
+        }
+
+        public GatherResult TryStoreSearchLoot(ResourceKind kind, int amount)
+        {
+            if (Phase != GamePhase.Exploring || Result != RunResult.None || HasPendingLoot || amount <= 0)
+            {
+                return GatherResult.Rejected;
+            }
+
+            if (GetBagRemainingCapacity(kind) < amount)
+            {
+                PendingKind = kind;
+                PendingAmount = amount;
+                LastMessage = Text("message.bag.full");
+                return GatherResult.PendingSwap;
+            }
+
+            if (AddToBag(kind, amount) != 0)
+            {
+                throw new InvalidOperationException("Atomic search loot preflight did not match bag insertion.");
+            }
+            LastMessage = Text("message.search_node.taken", kind, amount);
+            return GatherResult.Added;
+        }
+
         public GatherResult TryGather(
             ResourceKind kind,
             int baseAmount,
@@ -651,16 +719,22 @@ namespace KimSurvival
 
         public bool ReplaceBagSlot(int index)
         {
+            return ReplaceBagSlot(index, out _);
+        }
+
+        public bool ReplaceBagSlot(int index, out BagStack displaced)
+        {
+            displaced = default(BagStack);
             if (!HasPendingLoot || !IsBagSlotActive(index))
             {
                 return false;
             }
 
-            BagStack discarded = bag[index];
+            displaced = bag[index];
             bag[index] = new BagStack(PendingKind.Value, Math.Min(StackLimit, PendingAmount));
             PendingKind = null;
             PendingAmount = 0;
-            LastMessage = discarded.IsEmpty ? Text("message.bag.empty_fill") : Text("message.bag.replace", discarded.Kind);
+            LastMessage = displaced.IsEmpty ? Text("message.bag.empty_fill") : Text("message.bag.replace", displaced.Kind);
             return true;
         }
 

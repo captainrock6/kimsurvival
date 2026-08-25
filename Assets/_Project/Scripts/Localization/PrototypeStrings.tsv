@@ -404,3 +404,44 @@ ending.stay.just-kim.hint	한 가지만 잘할 필요는 없다.	You do not need
 escape.raft.launch.prompt	해안 진수대 사용	Use shore launch	⟦Úsé shóré láúñcháéíóú⟧
 escape.raft.launch.popup	뗏목 제작·출항	Build and launch raft	⟦Búíld áñd láúñch ráftáéíóúü⟧
 escape.raft.launch.cancel	출항 취소 · 진행 보존	Cancel launch · progress preserved	⟦Cáñcél láúñch · prógréss présérvédáéíóúüñ¿¡⟧
+message.search_node.too_tired	지금은 뒤질 체력이나 일광이 부족하다.	Not enough energy or daylight to search this node.	⟦Ñót éñóúgh éñérgy ór dáylíght tó séárch thís ñódé.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+message.search_node.revealed	환경을 뒤졌다. 체력 -{0}, 일광 -{1}.	Searched the environment. Energy -{0}, daylight -{1}.	⟦Séárchéd thé éñvíróñméñt. Éñérgy -{0}, dáylíght -{1}.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+message.search_node.taken	{0} ×{1}을(를) 가방에 담았다.	Packed {0} ×{1} into the bag.	⟦Páckéd {0} ×{1} íñtó thé bág.áéíóúüñ¿¡áé⟧
+message.search_node.need_swim	물속 수색 오브젝트는 수영 상태에서 뒤질 수 있다.	Enter the water before searching this submerged node.	⟦Éñtér thé wátér béfóré séárchíñg thís súbmérgéd ñódé.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+message.search_node.depleted	이미 고갈된 수색 오브젝트다.	This search node is depleted.	⟦Thís séárch ñódé ís déplétéd.áéíóúüñ¿¡áé⟧
+message.search_node.unavailable	지금은 이곳을 뒤질 수 없다.	This node cannot be searched right now.	⟦Thís ñódé cáññót bé séárchéd ríght ñów.áéíóúüñ¿¡áéíóú⟧
+search.node.kind.grasspatch	풀숲	Grass patch	⟦Gráss pátcháé⟧
+search.node.kind.rockcrevice	바위틈	Rock crevice	⟦Róck crévícéáé⟧
+search.node.kind.driftpile	표류물 더미	Drift pile	⟦Dríft píléáé⟧
+search.node.kind.treehollow	나무 구멍	Tree hollow	⟦Tréé hóllówáé⟧
+search.node.kind.wrecklocker	난파선 수납함	Wreck locker	⟦Wréck lóckéráéí⟧
+search.node.kind.facilitycabinet	폐시설 캐비닛	Facility cabinet	⟦Fácílíty cábíñétáéíóúü⟧
+search.node.state.hidden	미확인	Unsearched	⟦Úñséárchédáé⟧
+search.node.state.revealedpartial	확인·부분 잔류	Known · items remain	⟦Kñówñ · ítéms rémáíñáéíóúüñ¿⟧
+search.node.state.depleted	고갈	Depleted	⟦Déplétédáé⟧
+search.hazard.high-surf	높은 파도	High surf	⟦Hígh súrfá⟧
+search.hazard.insects	벌레 노출	Insect exposure	⟦Íñséct éxpósúréáéíó⟧
+search.hazard.injury	부상 위험	Injury risk	⟦Íñjúry rískáé⟧
+search.hazard.wildlife	야생동물 흔적	Wildlife signs	⟦Wíldlífé sígñsáéí⟧
+search.hazard.dangerous-plants	위험 식물	Dangerous plants	⟦Dáñgéróús pláñtsáéíóú⟧
+search.hazard.disaster	붕괴·기상 위험	Collapse or weather risk	⟦Cóllápsé ór wéáthér rískáéíóúüñ¿¡⟧
+search.hazard.high-wind	강풍 노출	High-wind exposure	⟦Hígh-wíñd éxpósúréáéíóúü⟧
+search.hazard.disease	질병 노출	Disease exposure	⟦Díséásé éxpósúréáéíóú⟧
+search.node.world.hidden	{0} {1} 뒤지기\n미확인 · 위험 단서: {2}	{0} Search {1}\nUnsearched · Risk clue: {2}	⟦{0} Séárch {1}\nÚñséárchéd · Rísk clúé: {2}.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+search.node.world.partial	{0} {1} 다시 열기\n알려진 발견물 {2}종	{0} Reopen {1}\n{2} known finds remain	⟦{0} Réópéñ {1}\n{2} kñówñ fíñds rémáíñ.áéíóúüñ¿¡áéíóú⟧
+search.node.world.depleted	{0}\n고갈	{0}\nDepleted	⟦{0}\nDéplétédáéí⟧
+search.tray.title	{0} · {1}	{0} · {1}	⟦{0} · {1}áé⟧
+search.tray.status	수색 비용 체력 -{0} / 일광 -{1} · 노출 {2} · 남음 {3}종	Cost Energy -{0} / Daylight -{1} · Exposure {2} · {3} finds left	⟦Cóst Éñérgy -{0} / Dáylíght -{1} · Éxpósúré {2} · {3} fíñds léft.áéíóúüñ¿¡áéíóúüñ¿¡⟧
+search.tray.item.protected	{0} 보호 부품\n{1}	{0} PROTECTED\n{1}	⟦{0} PRÓTÉCTÉD\n{1}áéíó⟧
+search.tray.item.resource	{0} {1} ×{2}	{0} {1} ×{2}	⟦{0} {1} ×{2}áéí⟧
+search.tray.bag.empty	[{0}] 빈칸	[{0}] Empty	⟦[{0}] Émptyáé⟧
+search.tray.bag.stack	[{0}] {1}×{2}	[{0}] {1}×{2}	⟦[{0}] {1}×{2}áéí⟧
+search.tray.bag	가방: {0}	Bag: {0}	⟦Bág: {0}á⟧
+search.tray.action.take	선택 담기	Take selected	⟦Táké séléctédáéí⟧
+search.tray.action.take_all	모두 담기	Take all that fit	⟦Táké áll thát fítáéíó⟧
+search.tray.action.choose_swap	교체할 가방 칸 선택	Choose bag slot to swap	⟦Chóósé á bág slót tó swápáéíóúüñ⟧
+search.tray.action.leave	남기고 닫기	Leave and close	⟦Léávé áñd clóséáéí⟧
+search.tray.action.cancel_swap	교체 취소	Cancel swap	⟦Cáñcél swápáé⟧
+search.part.raft.sailcloth	뗏목 돛천	Raft sailcloth	⟦Ráft sáílclótháéí⟧
+controls.search_tray.keyboard_mouse	발견물: ←/→ 선택 · E/Enter 담기 · T 모두 담기 · 1–{1} 교체 · Esc 남기기 ({0})	Finds: ←/→ select · E/Enter take · T take all · 1–{1} swap · Esc leave ({0})	⟦Fíñds: ←/→ séléct ítém · É/Éñtér táké · T táké áll · 1–{1} swáp slót · Ésc léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧
+controls.search_tray.gamepad	발견물: 스틱 선택 · A 담기 · RB 모두 담기 · D-pad+A 교체 · B 남기기 ({0})	Finds: stick select · A take · RB take all · D-pad+A swap · B leave ({0})	⟦Fíñds: stíck séléct ítém · Á táké · RB táké áll · D-pád+Á swáp slót · B léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧

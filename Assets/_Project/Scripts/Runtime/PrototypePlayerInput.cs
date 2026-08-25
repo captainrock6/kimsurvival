@@ -83,6 +83,11 @@ namespace KimSurvival
         {
             return device == PrototypeInputDevice.Gamepad ? "controls.explore.gamepad" : "controls.explore.keyboard_mouse";
         }
+
+        public static string SearchTray(PrototypeInputDevice device)
+        {
+            return device == PrototypeInputDevice.Gamepad ? "controls.search_tray.gamepad" : "controls.search_tray.keyboard_mouse";
+        }
     }
 
     public struct PrototypeRawInput
@@ -285,6 +290,47 @@ namespace KimSurvival
         public bool GamepadLanguage;
     }
 
+    public struct PrototypeRawSearchLootInput
+    {
+        public float HorizontalAxis;
+        public bool KeyboardPrevious;
+        public bool KeyboardNext;
+        public bool KeyboardConfirm;
+        public bool GamepadConfirm;
+        public bool KeyboardTakeAll;
+        public bool GamepadTakeAll;
+        public bool KeyboardCancel;
+        public bool GamepadCancel;
+    }
+
+    public readonly struct PrototypeSearchLootActions
+    {
+        public PrototypeSearchLootActions(int cycleDirection, bool confirmPressed, bool takeAllPressed, bool cancelPressed)
+        {
+            CycleDirection = cycleDirection;
+            ConfirmPressed = confirmPressed;
+            TakeAllPressed = takeAllPressed;
+            CancelPressed = cancelPressed;
+        }
+
+        public int CycleDirection { get; }
+        public bool ConfirmPressed { get; }
+        public bool TakeAllPressed { get; }
+        public bool CancelPressed { get; }
+
+        public static PrototypeSearchLootActions FromRaw(PrototypeRawSearchLootInput raw)
+        {
+            float horizontal = raw.HorizontalAxis;
+            if (raw.KeyboardPrevious) horizontal = -1f;
+            else if (raw.KeyboardNext) horizontal = 1f;
+            return new PrototypeSearchLootActions(
+                horizontal < -0.5f ? -1 : horizontal > 0.5f ? 1 : 0,
+                raw.KeyboardConfirm || raw.GamepadConfirm,
+                raw.KeyboardTakeAll || raw.GamepadTakeAll,
+                raw.KeyboardCancel || raw.GamepadCancel);
+        }
+    }
+
     public readonly struct PrototypeSystemActions
     {
         public PrototypeSystemActions(bool languagePressed)
@@ -422,6 +468,22 @@ namespace KimSurvival
                 KeyboardNext = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S),
                 KeyboardConfirm = Input.GetKeyDown(KeyCode.Return),
                 GamepadConfirm = Input.GetKeyDown(KeyCode.JoystickButton0),
+                KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
+                GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
+            });
+        }
+
+        public PrototypeSearchLootActions ReadSearchLootActions()
+        {
+            return PrototypeSearchLootActions.FromRaw(new PrototypeRawSearchLootInput
+            {
+                HorizontalAxis = Input.GetAxisRaw("Horizontal"),
+                KeyboardPrevious = Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A),
+                KeyboardNext = Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D),
+                KeyboardConfirm = Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F),
+                GamepadConfirm = Input.GetKeyDown(KeyCode.JoystickButton0),
+                KeyboardTakeAll = Input.GetKeyDown(KeyCode.T),
+                GamepadTakeAll = Input.GetKeyDown(KeyCode.JoystickButton5),
                 KeyboardCancel = Input.GetKeyDown(KeyCode.Escape),
                 GamepadCancel = Input.GetKeyDown(KeyCode.JoystickButton1)
             });
