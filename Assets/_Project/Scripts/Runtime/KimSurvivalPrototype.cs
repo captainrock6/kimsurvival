@@ -5478,16 +5478,19 @@ namespace KimSurvival
             Require(campModuleExpansion.IsPreviewActive && campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper &&
                     campModuleExpansion.Evaluate(session, campModuleValidation).Economy == CampModuleEconomyStatus.Ready,
                 "작업대 건설 후 같은 직접 슬롯으로 돌아오면 접근 후보가 READY가 됨");
+            CampModuleResourceCost upperCommitCost = campModuleExpansion.Evaluate(session, campModuleValidation).Cost;
             int commitWoodBefore = session.GetStorage(ResourceKind.Wood);
             int commitStoneBefore = session.GetStorage(ResourceKind.Stone);
+            int commitFoodBefore = session.GetStorage(ResourceKind.Food);
             int commitSalvageBefore = session.GetStorage(ResourceKind.Salvage);
             int activeSlotsBeforeModule = session.ActiveBagSlotCount;
             int signalBeforeModule = session.SignalStage;
             Require(ConfirmCampModulePreview() && campModuleExpansion.HasCommittedModule &&
-                    session.GetStorage(ResourceKind.Wood) == commitWoodBefore - 2 &&
-                    session.GetStorage(ResourceKind.Stone) == commitStoneBefore &&
-                    session.GetStorage(ResourceKind.Salvage) == commitSalvageBefore - 1,
-                "유효한 위층 방 확정은 Wave 9 v0.2 비용 W2/D1을 원자적으로 한 번만 사용");
+                    session.GetStorage(ResourceKind.Wood) == commitWoodBefore - upperCommitCost.Wood &&
+                    session.GetStorage(ResourceKind.Stone) == commitStoneBefore - upperCommitCost.Stone &&
+                    session.GetStorage(ResourceKind.Food) == commitFoodBefore - upperCommitCost.Food &&
+                    session.GetStorage(ResourceKind.Salvage) == commitSalvageBefore - upperCommitCost.Salvage,
+                "유효한 위층 방 확정은 현재 게임잼 비용을 원자적으로 한 번만 사용");
             int woodAfterModule = session.GetStorage(ResourceKind.Wood);
             Require(!ConfirmCampModulePreview() && session.GetStorage(ResourceKind.Wood) == woodAfterModule &&
                     session.ActiveBagSlotCount == activeSlotsBeforeModule && session.SignalStage == signalBeforeModule,
@@ -5502,14 +5505,19 @@ namespace KimSurvival
 
             OpenCampModuleSlotPopupForVerification(CampModuleArchetype.Basement);
             modulePreviewButton.onClick.Invoke();
+            CampModuleResourceCost basementCommitCost = campModuleExpansion.Evaluate(session, campModuleValidation).Cost;
             int woodBeforeBasement = session.GetStorage(ResourceKind.Wood);
+            int stoneBeforeBasement = session.GetStorage(ResourceKind.Stone);
+            int foodBeforeBasement = session.GetStorage(ResourceKind.Food);
             int salvageBeforeBasement = session.GetStorage(ResourceKind.Salvage);
             Require(ConfirmCampModulePreview() &&
                     campModuleExpansion.HasUpperAndBasementCommitted &&
                     campModuleExpansion.CommittedModuleCount == 2 &&
-                    session.GetStorage(ResourceKind.Wood) == woodBeforeBasement - 2 &&
-                    session.GetStorage(ResourceKind.Salvage) == salvageBeforeBasement - 1,
-                "위층+지하실은 같은 run에서 각 W2/D1을 한 번씩 내고 함께 확정");
+                    session.GetStorage(ResourceKind.Wood) == woodBeforeBasement - basementCommitCost.Wood &&
+                    session.GetStorage(ResourceKind.Stone) == stoneBeforeBasement - basementCommitCost.Stone &&
+                    session.GetStorage(ResourceKind.Food) == foodBeforeBasement - basementCommitCost.Food &&
+                    session.GetStorage(ResourceKind.Salvage) == salvageBeforeBasement - basementCommitCost.Salvage,
+                "위층+지하실은 같은 run에서 각 현재 게임잼 비용을 한 번씩 내고 함께 확정");
 
             CampModuleDefinition upperDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Upper);
             CampModuleDefinition basementDefinition = PrototypeCampModuleCatalog.Get(CampModuleArchetype.Basement);
