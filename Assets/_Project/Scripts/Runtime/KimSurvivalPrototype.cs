@@ -5380,8 +5380,9 @@ namespace KimSurvival
             Require(lockedEvaluation.Geometry == CampModuleGeometryStatus.Valid &&
                     lockedEvaluation.Economy == CampModuleEconomyStatus.Locked &&
                     campModuleReasonText.text.Contains(localization.Format("interaction.module.locked_workbench")) &&
-                    campModuleReasonText.text.Contains("나무 2") && campModuleReasonText.text.Contains("표류물 1"),
-                "작업대 전 preview는 geometry/economy를 분리하고 canonical 잠금 사유와 W2/D1을 함께 표시");
+                    campModuleReasonText.text.Contains("나무 " + lockedEvaluation.Cost.Wood) &&
+                    campModuleReasonText.text.Contains("표류물 " + lockedEvaluation.Cost.Salvage),
+                "작업대 전 preview는 geometry/economy를 분리하고 canonical 잠금 사유와 실제 위층 비용을 함께 표시");
             Require(!ConfirmCampModulePreview() && campModuleExpansion.IsPreviewActive &&
                     campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper &&
                     session.GetStorage(ResourceKind.Wood) == previewWoodBefore &&
@@ -5413,8 +5414,11 @@ namespace KimSurvival
                 "위층·옆방·지하실 세 후보를 같은 미리보기 상태에서 순회");
             Require(localization.SetQaLocale(), "증축 미리보기에서도 qps-long 데이터 로케일 선택");
             RefreshAll();
+            CampModuleEvaluation basementEvaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
             Require(campModuleExpansion.SelectedArchetype == CampModuleArchetype.Basement && campModuleExpansion.HasSeenAllCandidates &&
-                    campInteraction.OpenPopupTargetId == moduleReturnTargetId && campModuleReasonText.text.Contains("2") && campModuleReasonText.text.Contains("1"),
+                    campInteraction.OpenPopupTargetId == moduleReturnTargetId &&
+                    campModuleReasonText.text.Contains(basementEvaluation.Cost.Wood.ToString()) &&
+                    campModuleReasonText.text.Contains(basementEvaluation.Cost.Salvage.ToString()),
                 "qps-long 전환은 슬롯 target·지하실 후보·비용 숫자와 action 의미를 보존");
             RequireReadableCampModulePreview(true);
             if (!string.IsNullOrWhiteSpace(modulePreviewQpsLongScreenshotPath))
