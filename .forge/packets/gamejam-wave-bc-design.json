@@ -498,7 +498,7 @@
         {"id": "GWB-SEED-01", "ownerTaskId": "task.gamejam.smoke-radio-material-routes", "probe": "seed.minimum-three-playable", "acceptance": "Raft, smoke and radio are independently completable at generation and region unlock."},
         {"id": "GWB-PACE-01", "ownerTaskId": "task.gamejam.qa-thirty-minute-seven-region-slice", "probe": "pacing.gamejam-25-35", "acceptance": "Representative target remains 10-14 searches with grant, warp and skip false."},
         {"id": "GWB-PACE-02", "ownerTaskId": "task.gamejam.qa-thirty-minute-seven-region-slice", "probe": "pacing.post-smoke-reserve", "acceptance": "After smoke commit, one survival choice and two other playable routes remain independently completable."},
-        {"id": "GWB-REG-01", "ownerTaskId": "task.gamejam.qa-thirty-minute-seven-region-slice", "probe": "regression.integrated-green-locks", "acceptance": "GSN 15/15, Wave19 21/21, Wave20 16/16 and build/smoke locks remain green."}
+        {"id": "GWB-REG-01", "ownerTaskId": "task.gamejam.qa-thirty-minute-seven-region-slice", "probe": "regression.integrated-green-locks", "acceptance": "GSN 15/15, Wave19 22/22, Wave20 16/16 and build/smoke locks remain green."}
       ],
       "fileOwnership": [
         {"sequence": 1, "taskId": "task.gamejam.seven-region-catalog", "futurePaths": ["Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs", "Assets/_Project/Scripts/Runtime/GameSession.cs"], "scope": "42-node catalog, fixed finite yields and stable-resource adapter"},
@@ -599,7 +599,7 @@
         "GWB-CAT-01~04와 GWB-DIS-01~04, GWB-PART-01~02, GWB-PITY-01, GWB-SEED-01이 fresh evidence에서 GREEN이다.",
         "GWB-PACE-01: 10~14 자연 수색 목표를 늘리지 않고 grant/warp/skip은 false다.",
         "GWB-PACE-02: smoke 비용 뒤 생존 선택과 다른 두 playable escape가 독립 가능하다.",
-        "GWB-REG-01: GSN 15/15, Wave19 21/21, Wave20 16/16, compile/build/smoke lock을 보존한다.",
+        "GWB-REG-01: GSN 15/15, Wave19 22/22, Wave20 16/16, compile/build/smoke lock을 보존한다.",
         "인간 25~35분과 물리 gamepad는 실제 수행 전 UNVERIFIED다."
       ],
       "status": "planned",

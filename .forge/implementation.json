@@ -1340,11 +1340,11 @@
         "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
       ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-25T13:36:42.419Z",
+      "status": "done",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "note": "The 96af07d evidence is a historical baseline. Current uncommitted non-disease search-hazard changes require fresh integrated Play and release verification.",
-      "completedAt": null
+      "note": "Wave B at 2bdea61 proves the non-disease search-hazard lifecycle, persistence, localization and atomicity; Release and package gates are GREEN.",
+      "completedAt": "2026-08-26T08:25:00.000Z"
     },
     {
       "id": "task.system.system.escape-projects",
@@ -1600,11 +1600,11 @@
         "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json"
       ],
       "blockedReason": "",
-      "status": "review",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T05:18:08.018Z",
-      "note": "The 3d64403 evidence is a historical baseline. Current uncommitted insect and dangerous-plant production lifecycles require fresh integrated Play and release verification.",
-      "completedAt": null
+      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "note": "Wave B at 2bdea61 proves insect, dangerous-plant and disease production lifecycles with persistence and atomicity.",
+      "completedAt": "2026-08-26T08:25:00.000Z"
     },
     {
       "id": "task.qa.feature.survival-hazards",
@@ -1635,11 +1635,11 @@
         "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json"
       ],
       "blockedReason": "",
-      "status": "review",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T05:18:08.135Z",
-      "note": "Disease is GREEN only on the 3d64403 historical baseline. Current environmental-hazard and regression coverage is EVIDENCE_PENDING.",
-      "completedAt": null
+      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "note": "Wave B/C at 2bdea61 are GREEN for environmental hazards, disease, persistence, KO/EN/qps and regressions.",
+      "completedAt": "2026-08-26T08:25:00.000Z"
     },
     {
       "id": "task.implementation.wave15-campaign-map-foundation",
@@ -2265,10 +2265,10 @@
         "Docs/Design/gamejam-wave-bc-design.md"
       ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-26T08:20:00.000Z",
-      "note": "The committed trace proves the jungle-fever baseline only. Current uncommitted insect and dangerous-plant lifecycles have standalone compile/probe evidence but await the integrated Wave B Play and release gates.",
-      "completedAt": null
+      "status": "done",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "note": "Wave B at 2bdea61 proves jungle-fever, insect and dangerous-plant lifecycles; integrated Release and package gates are GREEN.",
+      "completedAt": "2026-08-26T08:25:00.000Z"
     },
     {
       "id": "task.gamejam.upper-basement-both",
@@ -2334,7 +2334,7 @@
         "GWB-CAT-01~04와 GWB-DIS-01~04, GWB-PART-01~02, GWB-PITY-01, GWB-SEED-01이 fresh evidence에서 GREEN이다.",
         "GWB-PACE-01: 10~14 자연 수색 목표를 늘리지 않고 grant/warp/skip은 false다.",
         "GWB-PACE-02: smoke 비용 뒤 생존 선택과 다른 두 playable escape가 독립 가능하다.",
-        "GWB-REG-01: GSN 15/15, Wave19 21/21, Wave20 16/16, compile/build/smoke lock을 보존한다.",
+        "GWB-REG-01: GSN 15/15, Wave19 22/22, Wave20 16/16, compile/build/smoke lock을 보존한다.",
         "인간 25~35분과 물리 gamepad는 실제 수행 전 UNVERIFIED다."
       ],
       "paths": [
@@ -2355,10 +2355,10 @@
         "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
         "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
       ],
-      "blockedReason": "Current uncommitted worktree first requires fresh integrated gates, Windows build/smoke, package integrity and release-manifest evidence. After those are GREEN, GJC-12, GJC-17, GJC-20 and GJC-23 still require people or a physical device on the exact new candidate.",
+      "blockedReason": "Automated gates are GREEN. GJC-12, GJC-17, GJC-20 and GJC-23 still require people or a physical device on the exact final Release candidate.",
       "status": "blocked",
-      "updatedAt": "2026-08-26T05:07:17.122Z",
-      "note": "Wave C 14/14, long-stay 15/15, Wave 17 17/17 and PKG-I01-I06 are historical 3d64403 baseline evidence, not current-worktree release evidence.",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "note": "At 2bdea61 Wave B/C are overall GREEN, GSN is 15/15, Wave 19 is 22/22, Wave 20 is 16/16, Release is PASS and PKG-I01-I07 are PASS. Only the four human gates remain.",
       "completedAt": null,
       "createdAt": "2026-08-26T05:07:17.121Z"
     },
@@ -2463,7 +2463,7 @@
       "blockedReason": "",
       "status": "done",
       "updatedAt": "2026-08-26T05:30:00.000Z",
-      "note": "All 15 search-node product checks passed with Wave 19 21/21 and Wave 20 16/16 regression locks.",
+      "note": "All 15 search-node product checks passed with Wave 19 22/22 and Wave 20 16/16 regression locks.",
       "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
@@ -2745,10 +2745,10 @@
         "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
         "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
       ],
-      "blockedReason": "After the current worktree receives fresh automated and release evidence, GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact new candidate.",
+      "blockedReason": "GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.",
       "status": "blocked",
-      "updatedAt": "2026-08-26T05:07:17.231Z",
-      "note": "Synthetic keyboard/gamepad semantic parity is GREEN on the 3d64403 historical baseline. Current-candidate parity evidence is pending and physical device evidence is intentionally not inferred.",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "note": "Synthetic keyboard/gamepad semantic parity is GREEN at 2bdea61. Physical device evidence remains intentionally uninferred.",
       "completedAt": null,
       "createdAt": "2026-08-26T05:07:17.231Z"
     },
@@ -3123,10 +3123,10 @@
         "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
         "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
       ],
-      "blockedReason": "After the current worktree receives fresh automated and release evidence, GJC-12 requires fresh-user observation that the 4-to-6 slot purchase creates useful expedition choice pressure on the exact new candidate.",
+      "blockedReason": "GJC-12 requires fresh-user observation that the 4-to-6 slot purchase creates useful expedition choice pressure on the exact final Release candidate.",
       "status": "blocked",
-      "updatedAt": "2026-08-26T05:07:17.342Z",
-      "note": "The 4-to-6 function, atomicity and persistence contracts are GREEN on the 3d64403 historical baseline. Current-candidate automated evidence and human feel/choice evidence remain.",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "note": "The 4-to-6 function, atomicity and persistence contracts are GREEN at 2bdea61. Only human feel and choice-pressure evidence remains.",
       "completedAt": null,
       "createdAt": "2026-08-23T03:05:27.603Z"
     },

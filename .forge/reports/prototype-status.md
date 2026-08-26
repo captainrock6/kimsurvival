@@ -11,13 +11,13 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | in_progress | 3d64403의 adopted/runtime art lock은 과거 GREEN 기준선이다. 현재 art/meta·presentation 변경은 새 통합·release 검증 대기이며 review 후보는 계속 미채택이다. |
-| implementation | in_progress | 현재 미커밋 작업 트리는 자동 요구 DONE 0/24, PARTIAL 20/24이다. 전체 통합 게이트·Windows build/smoke·package integrity·release manifest가 아직 없다. |
-| verification | blocked | 현재 후보 자동 증거가 먼저 필요하다. 그 뒤에도 HUMAN_REQUIRED는 GJC-12, GJC-17, GJC-20, GJC-23 네 항목이다. |
+| art | complete | `2bdea61`에서 adopted/runtime 리소스와 실제 accent pixel이 Wave 19 22/22를 통과했다. review-only 후보는 계속 미채택이다. |
+| implementation | complete | 자동 제출 요구 DONE 20/24, PARTIAL 0/24이며 Wave B/C·Release build·PKG-I01~I07이 GREEN이다. |
+| verification | blocked | 자동 검증은 완료됐다. HUMAN_REQUIRED GJC-12, GJC-17, GJC-20, GJC-23만 동일 최종 Release 빌드의 수기 세션을 기다린다. |
 
 ## 다음 작업
 
-- **현재 GAME JAM 작업 트리 통합·release 재검증** (qa, critical) — task.gamejam.qa-thirty-minute-seven-region-slice
+- **최종 Release 후보 30분 수기 플레이테스트** (qa, critical) — task.gamejam.qa-thirty-minute-seven-region-slice
 
 ## 작업
 
@@ -502,9 +502,9 @@
 
 ## 차단 요소
 
-- task.gamejam.qa-thirty-minute-seven-region-slice: 현재 미커밋 작업 트리의 전체 통합 게이트·Windows build/smoke·package integrity·release manifest가 먼저 필요하다. 이후 정확한 새 후보에서 GJC-17 실제 시간과 GJC-23 KO 3명+EN 3명 세션을 수행한다.
-- task.qa.feature.dual-input: 새 후보의 자동 선행 게이트 뒤 GJC-20 물리 XInput 또는 Steam Input 호환 게임패드 실기가 필요하다.
-- task.qa.feature.inventory-capacity-upgrade: 새 후보의 자동 선행 게이트 뒤 GJC-12 fresh-user 4→6칸 선택 압박 관찰이 필요하다.
+- task.gamejam.qa-thirty-minute-seven-region-slice: 자동 선행 게이트는 `2bdea61`에서 GREEN이다. 최종 Release 패키지에서 GJC-17 실제 시간과 GJC-23 KO 3명+EN 3명 세션을 수행한다.
+- task.qa.feature.dual-input: synthetic 입력은 GREEN이며 GJC-20 물리 XInput 또는 Steam Input 호환 게임패드 실기만 남았다.
+- task.qa.feature.inventory-capacity-upgrade: 기능·자동 계약은 GREEN이며 GJC-12 fresh-user 4→6칸 선택 압박 관찰만 남았다.
 
 ## 미결 질문
 

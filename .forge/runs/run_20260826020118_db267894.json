@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "run_20260826020118_db267894",
   "createdAt": "2026-08-26T02:01:18.201Z",
-  "updatedAt": "2026-08-26T05:05:19.833Z",
-  "sourceRequest": "Preserve source 3d64403 as a historical verified GAME JAM baseline, mark the current uncommitted worktree as automated-evidence pending, and preserve GJC-12, GJC-17, GJC-20 and GJC-23 as human-required gates.",
+  "updatedAt": "2026-08-26T08:25:00.000Z",
+  "sourceRequest": "Complete the integrated GDD GAME JAM scope through an automated-green Release candidate, while preserving GJC-12, GJC-17, GJC-20 and GJC-23 as human-required gates.",
   "state": "in_progress",
   "stages": {
     "design": {
@@ -11,35 +11,38 @@
       "updatedAt": "2026-08-26T02:01:18.201Z"
     },
     "art": {
-      "status": "in_progress",
-      "note": "The adopted/runtime art lock is GREEN only for the 3d64403 historical baseline. Current worktree art/meta and presentation changes await fresh integrated and release verification; review-only candidates remain unadopted.",
+      "status": "complete",
+      "note": "The adopted/runtime art and actual accent pixels pass Wave 19 22/22 at 2bdea61; review-only candidates remain unadopted.",
       "evidence": [
         ".forge/assets.json",
-        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/wave19-asset-guid-evidence.json"
+        "Artifacts/ParallelQA/20260826T223000Z_gamejam_waveb_2bdea61/wave19-asset-guid-evidence.json"
       ],
-      "updatedAt": "2026-08-26T05:05:19.658Z"
+      "updatedAt": "2026-08-26T08:25:00.000Z"
     },
     "implementation": {
-      "status": "in_progress",
-      "note": "3d64403 remains a historical GREEN baseline. The current uncommitted worktree is PARTIAL 20/24 with no current integrated gate, Windows build/smoke, package-integrity or release-manifest evidence.",
+      "status": "complete",
+      "note": "Automated GAME JAM requirements are DONE 20/24 and PARTIAL 0/24 at 2bdea61; Wave B/C, Release build and PKG-I01 through PKG-I07 are GREEN.",
       "evidence": [
-        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
-        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json",
-        "Artifacts/ParallelQA/finalqa_9263705_longstay/gamejam-long-stay-summary.json"
+        "Artifacts/ParallelQA/20260826T223000Z_gamejam_waveb_2bdea61/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260826T220000Z_gamejam_wavec_2bdea61/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/20260826T230000Z_gamejam_release_2bdea61/gamejam-release-build.json",
+        "Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61/gamejam-package-integrity-summary.json"
       ],
-      "updatedAt": "2026-08-26T05:05:19.747Z"
+      "updatedAt": "2026-08-26T08:25:00.000Z"
     },
     "verification": {
       "status": "blocked",
-      "note": "Current-worktree automated evidence is pending. After a new exact candidate passes full integrated and release gates, HUMAN_REQUIRED GJC-12, GJC-17, GJC-20 and GJC-23 still remain.",
+      "note": "Automated prerequisites are GREEN. Verification remains blocked only on HUMAN_REQUIRED GJC-12, GJC-17, GJC-20 and GJC-23 on the exact final Release package.",
       "evidence": [
-        "Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json",
-        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
+        "Artifacts/ParallelQA/20260826T223000Z_gamejam_waveb_2bdea61/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260826T220000Z_gamejam_wavec_2bdea61/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/20260826T230000Z_gamejam_release_2bdea61/gamejam-release-build.json",
+        "Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61/gamejam-package-integrity-summary.json",
         "Docs/Design/gamejam-completion-matrix.md",
         "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
         "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
       ],
-      "updatedAt": "2026-08-26T05:05:19.833Z"
+      "updatedAt": "2026-08-26T08:25:00.000Z"
     }
   }
 }
