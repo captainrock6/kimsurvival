@@ -51,7 +51,7 @@ namespace ParallelQA
         {
             "W17-H01.three_hazard_four_phase_lifecycle",
             "W17-E01.five_escape_ids_and_two_axes",
-            "W17-N01.ending_catalog_19_and_samples",
+            "W17-N01.ending_catalog_21_and_categories",
             "W17-A01.selection_gate_not_runtime_referenced",
             "W17-A02.selection_gate_not_runtime_referenced",
             "W17-A03.selection_gate_not_runtime_referenced",
@@ -67,7 +67,7 @@ namespace ParallelQA
         {
             "W17-H01.three_hazard_four_phase_lifecycle",
             "W17-E01.five_escape_ids_and_two_axes",
-            "W17-N01.ending_catalog_19_and_samples"
+            "W17-N01.ending_catalog_21_and_categories"
         };
 
         private static readonly ArtCandidate[] ArtCandidates =
