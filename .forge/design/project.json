@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "project": {
     "title": "김씨 생존기: 무인도",
-    "oneLinePitch": "무인도에 조난된 김씨가 환경 수색물을 뒤져 필요한 것만 챙기고, 지붕이 있는 절개형 다층 쉘터의 고정 설치 지점을 채우며 여러 방식으로 탈출하거나 행동 기반 코믹 엔딩을 맞는 2D 생존 게임.",
+    "oneLinePitch": "무인도에 조난된 김씨가 유한 수색물을 선별해 세 가지 탈출 경로를 완성하고, 지붕이 있는 절개형 다층 쉘터의 사다리를 직접 오르내리며 생활 공간을 확장하는 코믹 2D 생존 게임.",
     "genre": "코믹 2D 횡스크롤 거점 생존·유한 자원 수색·제작·행동 기반 다중 엔딩 게임",
     "targetPlatform": "게임잼 Windows PC 빌드, 한국어 기본·영어 지원, 키보드·마우스와 게임패드",
     "audience": "30분 안에 직접 탐색한 섬과 확장한 거점이 눈에 남고, 다른 탈출법과 엔딩을 위해 다시 플레이하고 싶은 싱글 플레이 생존 게임 이용자",
@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-26T14:30:22.468Z",
+    "updatedAt": "2026-08-26T15:11:08.747Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -6063,6 +6063,27 @@
       "automatedEvidence": "Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt",
       "releaseEvidence": "work/ParallelQA/20260826T233000Z_o3_release_13c116d/KimSurvivalIsland-gamejam-win64-o3-13c116d.zip",
       "releaseSha256": "395ca4f29be914ae08398abae996de9fc87fdf388a77a182b6e179b5130937f7"
+    },
+    "o4CandidateContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o4-escape-ladder-art.v1",
+      "rejectedCandidate": "13c116db3085a715436fe7b0d13cb58efc8da299",
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O3-2026-08-26.md",
+      "openDefects": [
+        "O3-P0-001",
+        "O3-P0-002",
+        "O3-P0-003",
+        "O3-P1-001"
+      ],
+      "playableEscapeRoutes": [
+        "escape.raft",
+        "escape.smoke",
+        "escape.radio"
+      ],
+      "verticalTraversal": "김씨가 설치된 사다리의 등반 구역에 들어가 위·아래 입력을 유지하면 실제 월드 좌표를 따라 층 사이를 이동한다. 즉시 순간이동 팝업은 사용하지 않는다.",
+      "cameraRule": "카메라는 김씨의 수직 위치를 부드럽게 따라 시작층·2층·지하실을 보여주고, 현재 건설된 쉘터 범위에서 clamp한다.",
+      "artRule": "기존 engine_ready 아트를 우선 연결하고 신규 사다리 아트는 오리지널 후보 한 세트를 제작·검토하되 사용자 채택 전 review-only로 유지한다.",
+      "candidateStatus": "IMPLEMENTATION_REQUIRED"
     }
   },
   "features": [
@@ -6440,8 +6461,8 @@
     },
     {
       "id": "feature.camp-module-expansion",
-      "name": "2층·지하실 다층 캠프 확장",
-      "description": "지붕이 있는 시작층에 2층과 지하실을 모두 연결·건설하고 사다리·계단으로 이동해 각 층의 호환 고정 설치 지점에 설비와 생활 가구를 배치한다.",
+      "name": "2층·지하실 사다리형 다층 캠프 확장",
+      "description": "지붕이 있는 시작층에 2층과 지하실을 연결·건설하고, 설치된 사다리를 직접 등반해 각 층의 호환 고정 설치 지점에 설비와 생활 가구를 배치한다.",
       "priority": "critical",
       "status": "planned",
       "dependencies": [
@@ -6455,7 +6476,8 @@
       "assetIds": [
         "background.modular-island-camp",
         "ui.camp-module-expansion",
-        "object.camp-structures"
+        "object.camp-structures",
+        "object.camp-ladder"
       ],
       "acceptanceCriteria": [
         "시작 방에서 위층·옆방·지하실 후보를 선택하고 유효·무효 원인을 구분할 수 있다.",
@@ -6477,10 +6499,14 @@
         "같은 run에서 2층과 지하실을 모두 확정할 수 있고 하나의 모듈 제한이 적용되지 않는다.",
         "고정 연결부를 통해 시작층·2층·지하실을 양방향 이동할 수 있다.",
         "2층과 지하실 각각에 일반 설비 하나 이상을 배치·재배치하고 직접 접근해 사용할 수 있다.",
-        "모든 층의 필수 통로, 연결부와 설비 상호작용 지점이 배치 때문에 막히지 않는다."
+        "모든 층의 필수 통로, 연결부와 설비 상호작용 지점이 배치 때문에 막히지 않는다.",
+        "시작층·2층·지하실이 같은 절개 화면의 실제 월드 높이를 사용한다.",
+        "설치된 사다리의 등반 영역에서 위·아래 입력을 유지하면 김씨가 순간이동 없이 층 사이를 이동한다.",
+        "등반 중 카메라가 김씨를 부드럽게 상하 추적하고 건설된 층 범위에서 clamp한다.",
+        "사다리보다 가까운 일반 설비가 있으면 명시적 입력 문맥과 거리 규칙으로 올바른 대상만 실행한다."
       ],
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-25T13:36:42.418Z"
+      "updatedAt": "2026-08-26T15:11:08.747Z"
     },
     {
       "id": "feature.expedition-map",
@@ -6760,8 +6786,8 @@
   "screens": [
     {
       "id": "screen.camp",
-      "name": "시작층·2층·지하실 베이스캠프",
-      "purpose": "세 층을 직접 이동하며 설비를 배치·사용하고 질병을 치료하며 뗏목·연기·무전 탈출 프로젝트와 공간 성장을 관리한다.",
+      "name": "사다리로 연결된 시작층·2층·지하실 베이스캠프",
+      "purpose": "세 층을 사다리로 직접 오르내리며 설비를 배치·사용하고 세 탈출 프로젝트와 공간 성장을 관리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.phase-cycle",
@@ -6785,7 +6811,8 @@
         "background.modular-island-camp",
         "ui.camp-contextual-interaction",
         "ui.camp-module-expansion",
-        "ui.escape-project-progress"
+        "ui.escape-project-progress",
+        "object.camp-ladder"
       ],
       "entryPoints": [
         "새 게임 시작",
@@ -6796,7 +6823,9 @@
         "새 게임 시작층",
         "수색 귀환",
         "2층·지하실 연결부",
-        "해안 진수대 근접"
+        "해안 진수대 근접",
+        "게임 시작",
+        "원정 귀환"
       ],
       "actions": [
         "설비 선택",
@@ -6834,7 +6863,11 @@
         "해안 진수대 상호작용",
         "뗏목 단계 진행",
         "날씨·조류 확인",
-        "출항 확인 또는 재시도"
+        "출항 확인 또는 재시도",
+        "좌우 이동",
+        "사다리 등반·하강",
+        "탈출 경로 비교",
+        "팝업 행동 확정"
       ],
       "states": [
         "준비",
@@ -6893,10 +6926,16 @@
         "보급 완료",
         "출항 확인",
         "출항 실패 보존",
-        "뗏목 탈출 완료"
+        "뗏목 탈출 완료",
+        "2층 완공·등반",
+        "지하실 완공·하강",
+        "사다리 미완공",
+        "탈출 재료 부족",
+        "탈출 단계 진행",
+        "탈출 가능"
       ],
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-25T14:19:28.852Z"
+      "updatedAt": "2026-08-26T15:11:08.747Z"
     },
     {
       "id": "screen.island",
@@ -7304,8 +7343,8 @@
     },
     {
       "id": "system.camp-structures",
-      "name": "다층 캠프 설비·연결부",
-      "description": "시작층·2층·지하실, 고정 연결부, 모닥불·작업대·빗물받이·치료 설비와 연기·무전 특수 설비의 방·위치·기능을 관리한다.",
+      "name": "다층 캠프 설비·사다리·수직 카메라",
+      "description": "시작층·2층·지하실, 고정 사다리 등반 구역, 카메라 수직 추적 범위와 각 방의 설비·생활 가구·탈출 설비를 관리한다.",
       "priority": "critical",
       "featureIds": [
         "feature.camp-building",
@@ -7313,11 +7352,14 @@
         "feature.survival-pressure",
         "feature.escape-outcome",
         "feature.camp-module-expansion",
-        "feature.survival-hazards"
+        "feature.survival-hazards",
+        "feature.camp-object-interaction"
       ],
       "dependencies": [
         "system.run-state",
-        "system.inventory"
+        "system.inventory",
+        "system.camp-placement",
+        "system.input-actions"
       ],
       "acceptanceCriteria": [
         "조건을 충족한 설비만 한 번 건설되고 기능과 외형이 즉시 갱신된다.",
@@ -7325,10 +7367,13 @@
         "재배치해도 건설 상태와 열린 기능이 유지되며 자원이 추가로 소비되거나 복제되지 않는다.",
         "2층과 지하실이 동시에 존재하고 각 방의 설비 상태가 이동 뒤에도 유지된다.",
         "모든 설비와 생활 가구는 호환 StableAnchorId에서만 작동하고 방별 점유 상태를 보존한다.",
-        "층 또는 설비 해체 환급은 유한 자원 softlock 규칙을 지키고 중복 환급되지 않는다."
+        "층 또는 설비 해체 환급은 유한 자원 softlock 규칙을 지키고 중복 환급되지 않는다.",
+        "방 상태와 캐릭터 월드 Y가 등반 시작·중간·종료에서 일관된다.",
+        "카메라의 월드 루트만 이동하고 HUD·팝업은 화면 좌표를 유지한다.",
+        "사다리 입력과 설비 상호작용이 같은 프레임에 중복 실행되지 않는다."
       ],
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-25T13:36:42.418Z"
+      "updatedAt": "2026-08-26T15:11:08.747Z"
     },
     {
       "id": "system.island-search",
@@ -8294,8 +8339,30 @@
       ],
       "status": "needed",
       "source": "forge-director"
+    },
+    {
+      "id": "object.camp-ladder",
+      "name": "표류물 사다리와 지하 해치 세트",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기 무인도 캠프용 오리지널 2D 측면 오브젝트 세트. 위층으로 이어지는 표류목 수직 사다리, 지하실로 내려가는 해치와 짧은 사다리, 등반 가능 상태를 보여주는 작은 로프 매듭 표식으로 구성한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 실루엣, 비뚤지만 기능적인 표류목·밧줄 재질, 1280x800 게임 화면에서 캐릭터 뒤에 묻히지 않는 대비, 각 부품 분리·무겹침·동일 여백·투명 배경, 본문 텍스트와 타사 고유 디자인 없음.",
+      "priority": "high",
+      "dependencies": [
+        "object.camp-structures"
+      ],
+      "featureIds": [
+        "feature.camp-module-expansion"
+      ],
+      "tags": [
+        "o4",
+        "ladder",
+        "basement-hatch",
+        "cutaway-camp",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-26T14:30:22.467Z"
+  "updatedAt": "2026-08-26T15:11:08.746Z"
 }

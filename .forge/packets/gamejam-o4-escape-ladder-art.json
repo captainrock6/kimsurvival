@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에 조난된 김씨가 유한 수색물을 선별해 세 가지 탈출 경로를 완성하고, 지붕이 있는 절개형 다층 쉘터의 사다리를 직접 오르내리며 생활 공간을 확장하는 코믹 2D 생존 게임.",
+    "o4CandidateContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o4-escape-ladder-art.v1",
+      "rejectedCandidate": "13c116db3085a715436fe7b0d13cb58efc8da299",
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O3-2026-08-26.md",
+      "openDefects": ["O3-P0-001", "O3-P0-002", "O3-P0-003", "O3-P1-001"],
+      "playableEscapeRoutes": ["escape.raft", "escape.smoke", "escape.radio"],
+      "verticalTraversal": "김씨가 설치된 사다리의 등반 구역에 들어가 위·아래 입력을 유지하면 실제 월드 좌표를 따라 층 사이를 이동한다. 즉시 순간이동 팝업은 사용하지 않는다.",
+      "cameraRule": "카메라는 김씨의 수직 위치를 부드럽게 따라 시작층·2층·지하실을 보여주고, 현재 건설된 쉘터 범위에서 clamp한다.",
+      "artRule": "기존 engine_ready 아트를 우선 연결하고 신규 사다리 아트는 오리지널 후보 한 세트를 제작·검토하되 사용자 채택 전 review-only로 유지한다.",
+      "candidateStatus": "IMPLEMENTATION_REQUIRED"
+    }
+  },
+  "verticalSlice": {
+    "goal": "처음 10분 안에 유한 수색과 다층 캠프 투자를 이해시키고, 약 30분 안에 뗏목·대형 연기·무전 구조 중 하나를 softlock 없이 완성해 엔딩을 보게 한다.",
+    "playerPromise": "무엇이 들었는지 모르는 섬의 흔적을 직접 뒤지고 필요한 것만 챙겨, 직접 확장하고 오르내리는 쉘터에서 서로 다른 탈출법을 완성한다.",
+    "inScope": [
+      "O3 표시 자원과 실제 stable 자원 소모 판정의 단일 원장화",
+      "뗏목·대형 연기·무전 구조 세 경로의 상시 이름·목표·진행·부족분 발견성",
+      "고정 seed 및 대표 seed 묶음에서 최소 한 탈출 경로가 보장되는 유한 총자원 예산",
+      "해안 진수대의 현재 단계·다음 단계·필요/보유 자원 분리 UI와 무잘림 KO/EN",
+      "시작층과 2층·지하실 사이의 사다리 직접 등반",
+      "김씨의 수직 이동을 따르는 부드러운 상하 카메라와 쉘터 경계 clamp",
+      "기존 engine_ready 캠프·캐릭터·UI·자원 아트 연결 유지와 신규 사다리 아트 후보 제작",
+      "Windows O4 후보와 자연 플레이·자동 회귀 증거"
+    ],
+    "outOfScope": [
+      "O4에서 조명탄·능선 표지를 플레이 가능한 탈출 경로로 확장",
+      "사다리 물리 파괴·낙하·스태미나 미니게임",
+      "신규 아트 후보의 사용자 확인 없는 자동 채택",
+      "게임잼 범위를 넘는 Day 50 최종 밸런스 확정"
+    ],
+    "successCriteria": [
+      "모든 HUD·창고·가방·수색·비용 판정이 같은 stable resource ID의 이름·아이콘·수량을 사용한다.",
+      "O3 run과 동등한 상태에서 식량 보유량이 비용 이상이면 뗏목 보급과 식사가 성공하고, 부족하면 정확한 stable 자원 부족분을 표시한다.",
+      "세 탈출 설비가 캠프에서 서로 다른 이름표·실루엣·경로 요약·현재 진행도로 발견되고 키보드·마우스와 게임패드로 접근 가능하다.",
+      "대표 seed 묶음의 유한 수색 자원만으로 세 경로 각각 또는 최소 한 경로가 자연 진행에서 완료 가능하며 진행 불가능 seed가 없다.",
+      "해안 진수대 KO/EN 1280x800 팝업 본문과 버튼이 잘리지 않고 단계·진척·비용·보유량이 분리된다.",
+      "2층과 지하실 완공 뒤 김씨가 사다리에서 위·아래 입력으로 직접 등반하고 내려오며 월드 위치와 현재 방이 일치한다.",
+      "등반 중 카메라가 상하로 따라가고 건설된 쉘터 범위를 벗어나거나 급격히 점프하지 않는다.",
+      "O4 Windows 후보는 compile 0 errors, 핵심 회귀 GREEN, 세 탈출 경로 자연 자원 예산 GREEN과 시각 증거를 가진다."
+    ],
+    "risks": [
+      "legacy 자원 합계를 제거하면서 기존 저장·로그·통계 호환성이 깨질 수 있다.",
+      "사다리 입력과 인접 설비 상호작용 우선순위가 다시 충돌할 수 있다.",
+      "수직 카메라가 HUD·팝업이 아닌 월드만 이동하도록 계층을 분리해야 한다.",
+      "한 경로 보장을 위해 자원을 과도하게 늘리면 30분 선택 압박이 사라질 수 있다."
+    ]
+  },
+  "features": [
+    {
+      "id": "feature.camp-module-expansion",
+      "name": "2층·지하실 사다리형 다층 캠프 확장",
+      "description": "지붕이 있는 시작층에 2층과 지하실을 연결·건설하고, 설치된 사다리를 직접 등반해 각 층의 호환 고정 설치 지점에 설비와 생활 가구를 배치한다.",
+      "priority": "critical",
+      "dependencies": ["feature.camp-building", "feature.camp-object-interaction"],
+      "screenIds": ["screen.camp"],
+      "assetIds": ["background.modular-island-camp", "object.camp-structures", "object.camp-ladder"],
+      "acceptanceCriteria": [
+        "시작층·2층·지하실이 같은 절개 화면의 실제 월드 높이를 사용한다.",
+        "설치된 사다리의 등반 영역에서 위·아래 입력을 유지하면 김씨가 순간이동 없이 층 사이를 이동한다.",
+        "등반 중 카메라가 김씨를 부드럽게 상하 추적하고 건설된 층 범위에서 clamp한다.",
+        "사다리보다 가까운 일반 설비가 있으면 명시적 입력 문맥과 거리 규칙으로 올바른 대상만 실행한다."
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "id": "screen.camp",
+      "name": "사다리로 연결된 시작층·2층·지하실 베이스캠프",
+      "purpose": "세 층을 사다리로 직접 오르내리며 설비를 배치·사용하고 세 탈출 프로젝트와 공간 성장을 관리한다.",
+      "priority": "critical",
+      "featureIds": ["feature.camp-module-expansion", "feature.escape-outcome"],
+      "assetIds": ["background.modular-island-camp", "object.camp-structures", "object.camp-ladder", "ui.escape-project-progress"],
+      "entryPoints": ["게임 시작", "원정 귀환"],
+      "actions": ["좌우 이동", "사다리 등반·하강", "설비 상호작용", "탈출 경로 비교", "팝업 행동 확정"],
+      "states": ["시작층", "2층 완공·등반", "지하실 완공·하강", "사다리 미완공", "탈출 재료 부족", "탈출 단계 진행", "탈출 가능"]
+    }
+  ],
+  "systems": [
+    {
+      "id": "system.camp-structures",
+      "name": "다층 캠프 설비·사다리·수직 카메라",
+      "description": "시작층·2층·지하실, 고정 사다리 등반 구역, 카메라 수직 추적 범위와 각 방의 설비·생활 가구·탈출 설비를 관리한다.",
+      "priority": "critical",
+      "featureIds": ["feature.camp-module-expansion", "feature.camp-building", "feature.camp-object-interaction"],
+      "dependencies": ["system.camp-placement", "system.input-actions"],
+      "acceptanceCriteria": [
+        "방 상태와 캐릭터 월드 Y가 등반 시작·중간·종료에서 일관된다.",
+        "카메라의 월드 루트만 이동하고 HUD·팝업은 화면 좌표를 유지한다.",
+        "사다리 입력과 설비 상호작용이 같은 프레임에 중복 실행되지 않는다."
+      ]
+    }
+  ],
+  "artAssets": [
+    {
+      "id": "object.camp-ladder",
+      "name": "표류물 사다리와 지하 해치 세트",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기 무인도 캠프용 오리지널 2D 측면 오브젝트 세트. 위층으로 이어지는 표류목 수직 사다리, 지하실로 내려가는 해치와 짧은 사다리, 등반 가능 상태를 보여주는 작은 로프 매듭 표식으로 구성한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 실루엣, 비뚤지만 기능적인 표류목·밧줄 재질, 1280x800 게임 화면에서 캐릭터 뒤에 묻히지 않는 대비, 각 부품 분리·무겹침·동일 여백·투명 배경, 본문 텍스트와 타사 고유 디자인 없음.",
+      "priority": "high",
+      "dependencies": ["object.camp-structures"],
+      "featureIds": ["feature.camp-module-expansion"],
+      "tags": ["o4", "ladder", "basement-hatch", "cutaway-camp", "review-only"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task.gamejam.o4-stable-resource-ledger-p0",
+      "lane": "implementation",
+      "title": "O3 표시·소모 자원 단일 원장화",
+      "description": "legacy 묶음 합계와 stable 소모 판정의 불일치를 제거하고 모든 UI와 비용 판정을 stable resource ID 기준으로 통일한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.inventory-choice", "feature.escape-outcome"],
+      "assetIds": ["icon.resource-tool-set"],
+      "paths": ["Assets/_Project/Scripts/Runtime/GameSession.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"],
+      "acceptanceCriteria": ["O3-P0-001 재현이 GREEN이다.", "표시 보유량과 CanAfford·TrySpend 결과가 모든 stable 재료에서 일치한다.", "이전 저장과 로그의 legacy 필드는 호환용 파생값으로만 유지된다."]
+    },
+    {
+      "id": "task.gamejam.o4-three-route-discoverability-p0",
+      "lane": "implementation",
+      "title": "세 탈출 경로 발견성과 상태 안내",
+      "description": "뗏목·연기·무전 설비를 캠프에서 이름·실루엣·경로 요약·진행·부족분으로 구분하고 무전 경로가 누락되지 않게 한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o4-stable-resource-ledger-p0"],
+      "featureIds": ["feature.escape-outcome", "feature.raft-escape"],
+      "assetIds": ["ui.escape-project-progress", "object.camp-structures"],
+      "paths": ["Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs", "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"],
+      "acceptanceCriteria": ["O3-P0-003 재현이 GREEN이다.", "세 설비 모두 현재 단계와 정확한 보유/필요 stable 재료를 표시한다.", "키보드·마우스와 게임패드의 접근·포커스·행동 결과가 같다."]
+    },
+    {
+      "id": "task.gamejam.o4-natural-resource-budget-p0",
+      "lane": "qa",
+      "title": "유한 수색 자원·세 탈출 경로 가능성 검증",
+      "description": "대표 seed 묶음에서 자연 수색으로 얻는 정확한 stable 재료와 보호 부품을 집계해 진행 불가 seed를 제거한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o4-stable-resource-ledger-p0", "task.gamejam.o4-three-route-discoverability-p0"],
+      "featureIds": ["feature.searchable-resource-nodes", "feature.escape-outcome"],
+      "assetIds": [],
+      "paths": ["Assets/Editor/ParallelQA", "Artifacts/ParallelQA"],
+      "acceptanceCriteria": ["O3-P0-002 재현이 GREEN이다.", "대표 seed마다 수색 가능한 stable 재료와 각 경로 비용·부품의 수지가 양수다.", "최소 한 경로 보장과 세 경로별 목표 seed의 자연 완료 증거가 있다."]
+    },
+    {
+      "id": "task.gamejam.o4-shore-launch-popup-p1",
+      "lane": "implementation",
+      "title": "해안 진수대 단계·진척·비용 UI 재구성",
+      "description": "진수대 팝업을 상세 탈출 레이아웃에 포함하고 현재 완료 단계, 다음 단계, 필요·보유 수량과 행동을 분리한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o4-stable-resource-ledger-p0"],
+      "featureIds": ["feature.raft-escape"],
+      "assetIds": ["ui.escape-project-progress"],
+      "paths": ["Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.GameJamSubmissionHardening.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"],
+      "acceptanceCriteria": ["O3-P1-001 재현이 GREEN이다.", "KO/EN/qps-long 1280x800에서 본문·버튼 overflow가 없다.", "2/3이 현재 진행도임을 설명 없이 이해할 수 있다."]
+    },
+    {
+      "id": "task.gamejam.o4-ladder-camera",
+      "lane": "implementation",
+      "title": "사다리 직접 등반과 수직 카메라",
+      "description": "2층·지하실 고정 연결부를 직접 등반하는 사다리로 교체하고 캐릭터를 따르는 수직 카메라를 구현한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.camp-module-expansion"],
+      "assetIds": ["object.camp-ladder", "object.camp-structures"],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"],
+      "acceptanceCriteria": ["위·아래 입력을 유지하는 동안 캐릭터가 사다리 월드 경로를 따라 이동한다.", "등반 종료 시 정확한 층 바닥과 현재 방이 일치한다.", "카메라가 부드럽게 상하 추적하고 HUD는 고정된다.", "사다리와 작업대 등 인접 대상의 입력 우선순위 회귀가 없다."]
+    },
+    {
+      "id": "task.gamejam.o4-ladder-art-review",
+      "lane": "art",
+      "title": "사다리·지하 해치 오리지널 아트 후보",
+      "description": "기존 캠프 아트와 연결되는 사다리·지하 해치 separated-parts 한 세트를 no-extra-API Codex 경로로 제작·검토·import한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": ["feature.camp-module-expansion"],
+      "assetIds": ["object.camp-ladder"],
+      "paths": ["Assets/_Project/Art/Generated"],
+      "acceptanceCriteria": ["투명 배경·무겹침·작은 화면 실루엣 품질 게이트를 통과한다.", "타사 고유 디자인을 복제하지 않는다.", "사용자 채택 전 review-only이며 런타임은 안전한 placeholder 또는 기존 engine_ready 아트를 사용한다."]
+    },
+    {
+      "id": "task.gamejam.o4-integration-release",
+      "lane": "qa",
+      "title": "O4 통합·Windows 후보 동결",
+      "description": "O3 결함, 사다리·카메라와 아트 연결 상태를 통합해 자동 회귀·시각 검토·Windows 빌드·해시를 고정한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o4-natural-resource-budget-p0", "task.gamejam.o4-shore-launch-popup-p1", "task.gamejam.o4-ladder-camera"],
+      "featureIds": [],
+      "assetIds": [],
+      "paths": ["Assets/Editor/ParallelQA", "Artifacts/ParallelQA", "Builds/Windows", "Docs/Design/Playtest"],
+      "acceptanceCriteria": ["compile 0 errors와 핵심 수색·가방·캠프·세 탈출·엔딩 회귀가 GREEN이다.", "KO/EN 1280x800 진수대·세 탈출·사다리·2층·지하 시각 증거가 있다.", "O4 commit, EXE, managed DLL, ZIP SHA-256과 수기 체크리스트를 기록한다."]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.o4.direct-ladder-traversal",
+      "title": "층 이동은 사다리 직접 등반으로 한다",
+      "status": "accepted",
+      "rationale": "사용자는 2층과 지하층을 팝업이나 순간이동으로 바꾸는 대신 김씨가 사다리에 붙어 직접 오르내리는 공간적 이동을 원한다."
+    },
+    {
+      "id": "decision.o4.vertical-camera-follow",
+      "title": "카메라는 다층 이동을 부드럽게 상하 추적한다",
+      "status": "accepted",
+      "rationale": "절개형 쉘터의 층 관계와 직접 등반 감각을 유지하면서 현재 층의 설비를 읽을 수 있어야 한다."
+    },
+    {
+      "id": "decision.o4.art-production-parallel-review-gate",
+      "title": "O4부터 기존 채택 아트를 우선 연결하고 신규 아트는 병렬 제작한다",
+      "status": "accepted",
+      "rationale": "시스템 구현을 막지 않으면서 실제 리소스 비중을 높이되, 신규 결과는 사용자 확인 전까지 review-only로 보존한다."
+    }
+  ],
+  "openQuestions": []
+}

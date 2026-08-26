@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -103,6 +104,7 @@ namespace KimSurvival
         public int storage_stone;
         public int storage_food;
         public int storage_salvage;
+        public StableResourceAmount[] stable_storage = Array.Empty<StableResourceAmount>();
         public int bag_wood;
         public int bag_stone;
         public int bag_food;
@@ -136,10 +138,13 @@ namespace KimSurvival
                 swimming = session.IsSwimming,
                 signal_stage = session.SignalStage,
                 active_bag_slots = session.ActiveBagSlotCount,
-                storage_wood = session.GetStorage(ResourceKind.Wood),
-                storage_stone = session.GetStorage(ResourceKind.Stone),
-                storage_food = session.GetStorage(ResourceKind.Food),
-                storage_salvage = session.GetStorage(ResourceKind.Salvage),
+                // These four fields remain for old log readers. They are derived summaries,
+                // never a second spendable ledger.
+                storage_wood = session.GetLegacyAggregateStorage(ResourceKind.Wood),
+                storage_stone = session.GetLegacyAggregateStorage(ResourceKind.Stone),
+                storage_food = session.GetLegacyAggregateStorage(ResourceKind.Food),
+                storage_salvage = session.GetLegacyAggregateStorage(ResourceKind.Salvage),
+                stable_storage = session.GetStableStorageEntries(),
                 campfire = session.HasStructure(StructureKind.Campfire),
                 workbench = session.HasStructure(StructureKind.Workbench),
                 rain_collector = session.HasStructure(StructureKind.RainCollector),
@@ -210,8 +215,16 @@ namespace KimSurvival
                 research_stone_axe ? "1" : "0", research_rope ? "1" : "0",
                 crafted_stone_axe ? "1" : "0", crafted_rope ? "1" : "0",
                 pending_resource, pending_amount.ToString(CultureInfo.InvariantCulture),
-                run_seed.ToString(CultureInfo.InvariantCulture), region_id, profile_id, expedition_result_id, completed_escape_id
+                run_seed.ToString(CultureInfo.InvariantCulture), region_id, profile_id, expedition_result_id, completed_escape_id,
+                StableStorageCanonicalValue()
             });
+        }
+
+        private string StableStorageCanonicalValue()
+        {
+            return string.Join(",", (stable_storage ?? Array.Empty<StableResourceAmount>())
+                .OrderBy(entry => entry.StableResourceId, StringComparer.Ordinal)
+                .Select(entry => entry.StableResourceId + "=" + entry.Amount.ToString(CultureInfo.InvariantCulture)));
         }
 
         private static string ComputeFingerprint(string canonical)
@@ -764,6 +777,7 @@ namespace KimSurvival
             EmitResourceDelta(before, after, "stone", "storage", before.storage_stone, after.storage_stone, action);
             EmitResourceDelta(before, after, "food", "storage", before.storage_food, after.storage_food, action);
             EmitResourceDelta(before, after, "salvage", "storage", before.storage_salvage, after.storage_salvage, action);
+            EmitStableStorageDeltas(before, after, action);
             EmitResourceDelta(before, after, "wood", "bag", before.bag_wood, after.bag_wood, action);
             EmitResourceDelta(before, after, "stone", "bag", before.bag_stone, after.bag_stone, action);
             EmitResourceDelta(before, after, "food", "bag", before.bag_food, after.bag_food, action);
@@ -827,6 +841,24 @@ namespace KimSurvival
                 resource: resource,
                 resourceLocation: location,
                 delta: change);
+        }
+
+        private void EmitStableStorageDeltas(
+            PrototypePlaytestStateFingerprint before,
+            PrototypePlaytestStateFingerprint after,
+            string action)
+        {
+            Dictionary<string, int> beforeAmounts = (before.stable_storage ?? Array.Empty<StableResourceAmount>())
+                .ToDictionary(entry => entry.StableResourceId, entry => entry.Amount, StringComparer.Ordinal);
+            Dictionary<string, int> afterAmounts = (after.stable_storage ?? Array.Empty<StableResourceAmount>())
+                .ToDictionary(entry => entry.StableResourceId, entry => entry.Amount, StringComparer.Ordinal);
+            foreach (string stableResourceId in beforeAmounts.Keys.Concat(afterAmounts.Keys)
+                         .Distinct(StringComparer.Ordinal).OrderBy(value => value, StringComparer.Ordinal))
+            {
+                int beforeAmount = beforeAmounts.TryGetValue(stableResourceId, out int oldAmount) ? oldAmount : 0;
+                int afterAmount = afterAmounts.TryGetValue(stableResourceId, out int newAmount) ? newAmount : 0;
+                EmitResourceDelta(before, after, stableResourceId, "storage.stable", beforeAmount, afterAmount, action);
+            }
         }
 
         private void Write(

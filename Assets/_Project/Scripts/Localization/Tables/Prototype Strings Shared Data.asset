@@ -2339,6 +2339,42 @@ MonoBehaviour:
     m_Key: message.camp.use.sofa
     m_Metadata:
       m_Items: []
+  - m_Id: 9100000000000001
+    m_Key: escape.ui.route
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000002
+    m_Key: escape.ui.progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000003
+    m_Key: escape.ui.next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000004
+    m_Key: escape.ui.need
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000005
+    m_Key: escape.ui.owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000006
+    m_Key: escape.ui.complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000007
+    m_Key: escape.ui.parts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000008
+    m_Key: escape.ui.window
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000009
+    m_Key: item.rope
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

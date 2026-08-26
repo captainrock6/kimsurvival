@@ -2376,6 +2376,262 @@ namespace KimSurvival
         public string Detail { get; }
     }
 
+    [Serializable]
+    public sealed class PrototypeSeedStableResourceAmount
+    {
+        public string StableResourceId = string.Empty;
+        public int SearchStock;
+        public int StartingStorage;
+        public int TotalAvailable;
+    }
+
+    [Serializable]
+    public sealed class PrototypeEscapeRouteSeedAudit
+    {
+        public string EscapeId = string.Empty;
+        public int Seed;
+        public bool ResourceAffordable;
+        public bool ProtectedPartsAvailable;
+        public bool NaturallyCompletable;
+        public int RequiredGeneralUnits;
+        public int RemainingAvailableUnits;
+        public StableResourceAmount[] RequiredResources = Array.Empty<StableResourceAmount>();
+        public string[] RequiredProtectedPartIds = Array.Empty<string>();
+        public string[] ProtectedPartNodeIds = Array.Empty<string>();
+        public string[] ProtectedPartRegionIds = Array.Empty<string>();
+    }
+
+    [Serializable]
+    public sealed class PrototypeEscapeResourceSeedAuditResult
+    {
+        public int Seed;
+        public int RegionCount;
+        public int NodeCount;
+        public int GeneralStockUnits;
+        public int ProtectedPartUnits;
+        public bool ExactStableStock;
+        public bool StableCatalogComplete;
+        public bool ProtectedAssignmentsValid;
+        public bool RadioPartsUseDistinctRegions;
+        public bool AtLeastOneRouteCompletable;
+        public bool AllPlayableRoutesCompletable;
+        public bool NoSoftlock;
+        public PrototypeSeedStableResourceAmount[] StableResources = Array.Empty<PrototypeSeedStableResourceAmount>();
+        public PrototypeProtectedPartAssignmentSnapshot[] ProtectedAssignments =
+            Array.Empty<PrototypeProtectedPartAssignmentSnapshot>();
+        public PrototypeEscapeRouteSeedAudit[] Routes = Array.Empty<PrototypeEscapeRouteSeedAudit>();
+    }
+
+    /// <summary>
+    /// Audits route affordability against the finite node catalog, rather than synthetic
+    /// fixture grants. Each route includes its current workbench/research/crafting setup
+    /// and the protected parts actually placed into this seed's search nodes.
+    /// </summary>
+    public static class PrototypeEscapeResourceSeedAuditor
+    {
+        private sealed class RouteRequirement
+        {
+            public RouteRequirement(string escapeId, StableResourceAmount[] costs, params string[] protectedPartIds)
+            {
+                EscapeId = escapeId;
+                Costs = costs ?? Array.Empty<StableResourceAmount>();
+                ProtectedPartIds = protectedPartIds ?? Array.Empty<string>();
+            }
+
+            public string EscapeId { get; }
+            public StableResourceAmount[] Costs { get; }
+            public string[] ProtectedPartIds { get; }
+        }
+
+        private static readonly int[] AuditSeeds =
+        {
+            PrototypeExpeditionRegionCatalog.DefaultRunSeed,
+            170017,
+            180018,
+            220026,
+            420042
+        };
+
+        private static readonly Dictionary<string, int> ExactSearchStock =
+            new Dictionary<string, int>(StringComparer.Ordinal)
+            {
+                { "resource.wood", 22 }, { "resource.salvage", 18 }, { "resource.food", 12 },
+                { "resource.fabric", 6 }, { "resource.fiber", 10 }, { "resource.medicine", 6 },
+                { "resource.stone", 18 }, { "resource.metal", 14 }, { "resource.wire", 12 },
+                { "resource.fuel", 8 }, { "resource.chemicals", 6 }, { "resource.electronics", 12 }
+            };
+
+        private static readonly RouteRequirement[] Routes =
+        {
+            // Workbench + rope research/craft + hull/sail/supplies + one launch attempt.
+            new RouteRequirement(
+                PrototypeRaftEscapeConfig.EscapeId,
+                Costs(("resource.wood", 6), ("resource.salvage", 5), ("resource.food", 3)),
+                PrototypeRaftEscapeConfig.KeyPartId),
+            // Workbench + rope research/craft + the complete two-stage smoke project.
+            new RouteRequirement(
+                "escape.smoke",
+                Costs(("resource.wood", 15), ("resource.salvage", 3), ("resource.fiber", 2), ("resource.fuel", 2)),
+                PrototypeSearchNodeLootResolver.FlintPartId),
+            // Workbench + axe research/craft + the complete two-stage radio project.
+            new RouteRequirement(
+                "escape.radio",
+                Costs(("resource.wood", 3), ("resource.stone", 2), ("resource.salvage", 2),
+                    ("resource.electronics", 2), ("resource.wire", 2), ("resource.metal", 1)),
+                PrototypeSearchNodeLootResolver.RadioTransceiverPartId,
+                PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId,
+                PrototypeSearchNodeLootResolver.RadioTransistorPartId)
+        };
+
+        public static IReadOnlyList<int> RepresentativeSeeds
+        {
+            get { return AuditSeeds.ToArray(); }
+        }
+
+        public static Dictionary<string, int> ExpectedStableTotals()
+        {
+            return new Dictionary<string, int>(ExactSearchStock, StringComparer.Ordinal);
+        }
+
+        public static PrototypeEscapeResourceSeedAuditResult[] AuditRepresentativeSeeds()
+        {
+            return AuditSeeds.Select(Audit).ToArray();
+        }
+
+        public static PrototypeEscapeResourceSeedAuditResult Audit(int seed)
+        {
+            IReadOnlyList<PrototypeSearchNodeDefinition> nodes = PrototypeSearchRegionCatalog.Nodes;
+            var resolvedByNode = nodes.ToDictionary(
+                node => node.NodeId,
+                node => PrototypeSearchNodeLootResolver.Resolve(seed, node),
+                StringComparer.Ordinal);
+            Dictionary<string, int> searchStock = resolvedByNode.Values.SelectMany(value => value)
+                .Where(item => !item.IsProtectedPart)
+                .GroupBy(item => item.StableResourceId, StringComparer.Ordinal)
+                .ToDictionary(group => group.Key, group => group.Sum(item => Math.Max(0, item.Amount)), StringComparer.Ordinal);
+            GameSession initialSession = new GameSession(seed);
+            Dictionary<string, int> startingStorage = initialSession.GetStableStorageEntries()
+                .ToDictionary(entry => entry.StableResourceId, entry => entry.Amount, StringComparer.Ordinal);
+            string[] catalogIds = GameSession.GetStableResourceCatalog()
+                .Select(entry => entry.StableResourceId).OrderBy(value => value, StringComparer.Ordinal).ToArray();
+            PrototypeSeedStableResourceAmount[] stableAmounts = catalogIds.Select(stableResourceId =>
+            {
+                int stock = searchStock.TryGetValue(stableResourceId, out int amount) ? amount : 0;
+                int start = startingStorage.TryGetValue(stableResourceId, out int initial) ? initial : 0;
+                return new PrototypeSeedStableResourceAmount
+                {
+                    StableResourceId = stableResourceId,
+                    SearchStock = stock,
+                    StartingStorage = start,
+                    TotalAvailable = stock + start
+                };
+            }).ToArray();
+            Dictionary<string, int> totalAvailable = stableAmounts.ToDictionary(
+                entry => entry.StableResourceId,
+                entry => entry.TotalAvailable,
+                StringComparer.Ordinal);
+
+            PrototypeProtectedPartAssignmentSnapshot[] assignments =
+                PrototypeSearchNodeLootResolver.ResolveProtectedPartAssignments(
+                    seed,
+                    PrototypeSearchRegionCatalog.ContractRevision);
+            bool assignmentsValid = assignments.Length == PrototypeSearchNodeLootResolver.ProtectedPartIds.Count &&
+                                    assignments.Select(value => value.PartId).Distinct(StringComparer.Ordinal).Count() == assignments.Length &&
+                                    assignments.Select(value => value.AssignedNodeId).Distinct(StringComparer.Ordinal).Count() == assignments.Length &&
+                                    assignments.All(value =>
+                                        resolvedByNode.TryGetValue(value.AssignedNodeId, out PrototypeSearchLootEntry[] loot) &&
+                                        PrototypeSearchNodeLootResolver.EligibleNodeIdsFor(value.PartId).Contains(value.AssignedNodeId) &&
+                                        loot.Count(item => item.IsProtectedPart &&
+                                                           string.Equals(item.ProtectedPartId, value.PartId, StringComparison.Ordinal) &&
+                                                           item.Amount == 1) == 1);
+            string[] radioPartIds =
+            {
+                PrototypeSearchNodeLootResolver.RadioTransceiverPartId,
+                PrototypeSearchNodeLootResolver.RadioCircuitBoardPartId,
+                PrototypeSearchNodeLootResolver.RadioTransistorPartId
+            };
+            bool radioDistinctRegions = assignments.Where(value => radioPartIds.Contains(value.PartId))
+                .Select(value => value.SourceRegionId).Distinct(StringComparer.Ordinal).Count() == radioPartIds.Length;
+
+            PrototypeEscapeRouteSeedAudit[] routeAudits = Routes.Select(route =>
+            {
+                PrototypeProtectedPartAssignmentSnapshot[] routeAssignments = route.ProtectedPartIds.Select(partId =>
+                    assignments.FirstOrDefault(value => string.Equals(value.PartId, partId, StringComparison.Ordinal))).ToArray();
+                bool affordable = route.Costs.All(cost =>
+                    totalAvailable.TryGetValue(cost.StableResourceId, out int available) && available >= cost.Amount);
+                bool partsAvailable = routeAssignments.All(value => value != null) && routeAssignments.All(value =>
+                    resolvedByNode[value.AssignedNodeId].Any(item => item.IsProtectedPart &&
+                        string.Equals(item.ProtectedPartId, value.PartId, StringComparison.Ordinal)));
+                int requiredUnits = route.Costs.Sum(cost => cost.Amount);
+                int remainingUnits = totalAvailable.Values.Sum() - requiredUnits;
+                return new PrototypeEscapeRouteSeedAudit
+                {
+                    EscapeId = route.EscapeId,
+                    Seed = seed,
+                    ResourceAffordable = affordable,
+                    ProtectedPartsAvailable = partsAvailable,
+                    NaturallyCompletable = affordable && partsAvailable,
+                    RequiredGeneralUnits = requiredUnits,
+                    RemainingAvailableUnits = remainingUnits,
+                    RequiredResources = route.Costs.Select(cost => new StableResourceAmount(
+                        cost.StableResourceId,
+                        cost.LegacyKind,
+                        cost.Amount)).ToArray(),
+                    RequiredProtectedPartIds = route.ProtectedPartIds.ToArray(),
+                    ProtectedPartNodeIds = routeAssignments.Where(value => value != null)
+                        .Select(value => value.AssignedNodeId).ToArray(),
+                    ProtectedPartRegionIds = routeAssignments.Where(value => value != null)
+                        .Select(value => value.SourceRegionId).ToArray()
+                };
+            }).ToArray();
+
+            int generalUnits = searchStock.Values.Sum();
+            int protectedUnits = resolvedByNode.Values.SelectMany(value => value)
+                .Where(item => item.IsProtectedPart).Sum(item => Math.Max(0, item.Amount));
+            bool exactStableStock = searchStock.Count == ExactSearchStock.Count &&
+                                    ExactSearchStock.All(expected =>
+                                        searchStock.TryGetValue(expected.Key, out int actual) && actual == expected.Value);
+            bool stableCatalogComplete = catalogIds.SequenceEqual(
+                searchStock.Keys.OrderBy(value => value, StringComparer.Ordinal));
+            bool atLeastOneRoute = routeAudits.Any(route => route.NaturallyCompletable);
+            bool allRoutes = routeAudits.Length == Routes.Length && routeAudits.All(route => route.NaturallyCompletable);
+            bool exactFiniteShape = PrototypeSearchRegionCatalog.All.Count == 7 && nodes.Count == 42 &&
+                                    generalUnits == PrototypeSearchRegionCatalog.BalanceProvisionalGeneralStockUnits &&
+                                    protectedUnits == PrototypeSearchNodeLootResolver.ProtectedPartIds.Count;
+            return new PrototypeEscapeResourceSeedAuditResult
+            {
+                Seed = seed,
+                RegionCount = PrototypeSearchRegionCatalog.All.Count,
+                NodeCount = nodes.Count,
+                GeneralStockUnits = generalUnits,
+                ProtectedPartUnits = protectedUnits,
+                ExactStableStock = exactStableStock,
+                StableCatalogComplete = stableCatalogComplete,
+                ProtectedAssignmentsValid = assignmentsValid,
+                RadioPartsUseDistinctRegions = radioDistinctRegions,
+                AtLeastOneRouteCompletable = atLeastOneRoute,
+                AllPlayableRoutesCompletable = allRoutes,
+                NoSoftlock = exactFiniteShape && exactStableStock && stableCatalogComplete && assignmentsValid &&
+                             radioDistinctRegions && atLeastOneRoute,
+                StableResources = stableAmounts,
+                ProtectedAssignments = assignments.Select(value => value.Clone()).ToArray(),
+                Routes = routeAudits
+            };
+        }
+
+        private static StableResourceAmount[] Costs(params (string stableResourceId, int amount)[] costs)
+        {
+            return costs.Select(cost =>
+            {
+                if (!GameSession.TryGetLegacyResourceKind(cost.stableResourceId, out ResourceKind legacyKind))
+                {
+                    throw new InvalidOperationException("Unknown route audit resource: " + cost.stableResourceId);
+                }
+                return new StableResourceAmount(cost.stableResourceId, legacyKind, cost.amount);
+            }).ToArray();
+        }
+    }
+
     public static class PrototypeSearchNodeRuntimeContract
     {
         public static PrototypeSearchNodeContractResult Verify()
@@ -2408,13 +2664,8 @@ namespace KimSurvival
                 .Where(item => !item.IsProtectedPart)
                 .GroupBy(item => item.StableResourceId, StringComparer.Ordinal)
                 .ToDictionary(group => group.Key, group => group.Sum(item => item.Amount), StringComparer.Ordinal);
-            Dictionary<string, int> expectedStableResourceTotals = new Dictionary<string, int>(StringComparer.Ordinal)
-            {
-                { "resource.wood", 22 }, { "resource.salvage", 18 }, { "resource.food", 12 },
-                { "resource.fabric", 6 }, { "resource.fiber", 10 }, { "resource.medicine", 6 },
-                { "resource.stone", 18 }, { "resource.metal", 14 }, { "resource.wire", 12 },
-                { "resource.fuel", 8 }, { "resource.chemicals", 6 }, { "resource.electronics", 12 }
-            };
+            Dictionary<string, int> expectedStableResourceTotals =
+                PrototypeEscapeResourceSeedAuditor.ExpectedStableTotals();
             bool stableResourceTotalsMatch = stableResourceTotals.Count == expectedStableResourceTotals.Count &&
                                              expectedStableResourceTotals.All(expected =>
                                                  stableResourceTotals.TryGetValue(expected.Key, out int actual) && actual == expected.Value);

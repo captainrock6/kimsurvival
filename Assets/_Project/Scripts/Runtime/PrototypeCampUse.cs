@@ -59,6 +59,7 @@ namespace KimSurvival
         public Vector2 PlayerPosition { get; private set; }
         public float FacingDirection { get; private set; }
         public string CurrentRoomId { get; private set; }
+        public float CurrentFloorY { get { return PrototypeCampVerticalLayout.FloorY(CurrentRoomId); } }
 
         public void Reset()
         {
@@ -79,25 +80,42 @@ namespace KimSurvival
                 PlayerPosition.x + actions.Horizontal * MovementSpeed * Mathf.Max(0f, deltaTime),
                 PlayerMinimumX,
                 PlayerMaximumX);
-            PlayerPosition = new Vector2(x, PlayerFloorY);
+            PlayerPosition = new Vector2(x, CurrentFloorY);
         }
 
         public void Warp(float worldX)
         {
             PrototypeProductionActionCounters.RecordWarp();
-            PlayerPosition = new Vector2(Mathf.Clamp(worldX, PlayerMinimumX, PlayerMaximumX), PlayerFloorY);
+            PlayerPosition = new Vector2(Mathf.Clamp(worldX, PlayerMinimumX, PlayerMaximumX), CurrentFloorY);
         }
 
         public void Warp(Vector2 position)
         {
             PrototypeProductionActionCounters.RecordWarp();
-            PlayerPosition = new Vector2(Mathf.Clamp(position.x, PlayerMinimumX, PlayerMaximumX), PlayerFloorY);
+            PlayerPosition = new Vector2(Mathf.Clamp(position.x, PlayerMinimumX, PlayerMaximumX), CurrentFloorY);
         }
 
         public void EnterRoom(string roomId, float landingX)
         {
             CurrentRoomId = string.IsNullOrWhiteSpace(roomId) ? PrototypeCampModuleCatalog.StartRoomId : roomId;
-            PlayerPosition = new Vector2(Mathf.Clamp(landingX, PlayerMinimumX, PlayerMaximumX), PlayerFloorY);
+            PlayerPosition = new Vector2(Mathf.Clamp(landingX, PlayerMinimumX, PlayerMaximumX), CurrentFloorY);
+        }
+
+        public void SetVerticalTraversalPosition(float worldX, float worldY)
+        {
+            PlayerPosition = new Vector2(
+                Mathf.Clamp(worldX, PlayerMinimumX, PlayerMaximumX),
+                worldY);
+        }
+
+        public void CompleteVerticalTraversal(string stableRoomId, float worldX, float floorY)
+        {
+            CurrentRoomId = string.IsNullOrWhiteSpace(stableRoomId)
+                ? PrototypeCampModuleCatalog.StartRoomId
+                : stableRoomId;
+            PlayerPosition = new Vector2(
+                Mathf.Clamp(worldX, PlayerMinimumX, PlayerMaximumX),
+                floorY);
         }
 
         public void Restore(CampModuleReturnSnapshot snapshot)
@@ -108,7 +126,7 @@ namespace KimSurvival
             FacingDirection = snapshot.FacingDirection < 0f ? -1f : 1f;
             PlayerPosition = new Vector2(
                 Mathf.Clamp(snapshot.Position.x, PlayerMinimumX, PlayerMaximumX),
-                PlayerFloorY);
+                CurrentFloorY);
         }
 
         public PrototypeCampUseSnapshot CaptureSnapshot()
@@ -144,7 +162,7 @@ namespace KimSurvival
             }
 
             CurrentRoomId = snapshot.StableRoomId;
-            PlayerPosition = new Vector2(snapshot.PlayerX, PlayerFloorY);
+            PlayerPosition = new Vector2(snapshot.PlayerX, CurrentFloorY);
             FacingDirection = snapshot.FacingDirection;
             campfirePrepared = snapshot.CampfirePrepared;
             rainCollectorPrepared = snapshot.RainCollectorPrepared;

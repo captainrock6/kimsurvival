@@ -93,8 +93,11 @@ namespace KimSurvival
     public struct PrototypeRawInput
     {
         public float HorizontalAxis;
+        public float VerticalAxis;
         public bool KeyboardLeft;
         public bool KeyboardRight;
+        public bool KeyboardUp;
+        public bool KeyboardDown;
         public bool MappedJump;
         public bool KeyboardJump;
         public bool GamepadJump;
@@ -110,8 +113,14 @@ namespace KimSurvival
     public readonly struct PrototypePlayerActions
     {
         public PrototypePlayerActions(float horizontal, bool jumpPressed, bool interactPressed, bool returnPressed, bool cancelPressed, int bagSlotIndex)
+            : this(horizontal, 0f, jumpPressed, interactPressed, returnPressed, cancelPressed, bagSlotIndex)
+        {
+        }
+
+        public PrototypePlayerActions(float horizontal, float vertical, bool jumpPressed, bool interactPressed, bool returnPressed, bool cancelPressed, int bagSlotIndex)
         {
             Horizontal = horizontal;
+            Vertical = vertical;
             JumpPressed = jumpPressed;
             InteractPressed = interactPressed;
             ReturnPressed = returnPressed;
@@ -120,6 +129,7 @@ namespace KimSurvival
         }
 
         public float Horizontal { get; }
+        public float Vertical { get; }
         public bool JumpPressed { get; }
         public bool InteractPressed { get; }
         public bool ReturnPressed { get; }
@@ -129,6 +139,7 @@ namespace KimSurvival
         public static PrototypePlayerActions FromRaw(PrototypeRawInput raw)
         {
             float horizontal = raw.HorizontalAxis;
+            float vertical = raw.VerticalAxis;
             if (Mathf.Abs(horizontal) < 0.01f)
             {
                 if (raw.KeyboardLeft)
@@ -142,8 +153,15 @@ namespace KimSurvival
                 }
             }
 
+            if (Mathf.Abs(vertical) < 0.01f)
+            {
+                if (raw.KeyboardUp) vertical = 1f;
+                if (raw.KeyboardDown) vertical = -1f;
+            }
+
             return new PrototypePlayerActions(
                 Mathf.Clamp(horizontal, -1f, 1f),
+                Mathf.Clamp(vertical, -1f, 1f),
                 raw.MappedJump || raw.KeyboardJump || raw.GamepadJump,
                 raw.KeyboardInteract || raw.GamepadInteract,
                 raw.KeyboardReturn || raw.GamepadReturn,
@@ -408,8 +426,11 @@ namespace KimSurvival
             {
                 // The legacy Horizontal mapping combines keyboard and joystick axes.
                 HorizontalAxis = Input.GetAxisRaw("Horizontal"),
+                VerticalAxis = Input.GetAxisRaw("Vertical"),
                 KeyboardLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow),
                 KeyboardRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow),
+                KeyboardUp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow),
+                KeyboardDown = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow),
                 MappedJump = Input.GetButtonDown("Jump"),
                 KeyboardJump = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow),
                 GamepadJump = Input.GetKeyDown(KeyCode.JoystickButton0),
@@ -426,7 +447,7 @@ namespace KimSurvival
 
         public PrototypePlayerActions MapRawActions(PrototypeRawInput raw)
         {
-            bool keyboardMouse = raw.KeyboardLeft || raw.KeyboardRight || raw.KeyboardJump ||
+            bool keyboardMouse = raw.KeyboardLeft || raw.KeyboardRight || raw.KeyboardUp || raw.KeyboardDown || raw.KeyboardJump ||
                                  raw.KeyboardInteract || raw.KeyboardReturn || raw.KeyboardCancel ||
                                  raw.BagSlotIndex >= 0;
             bool gamepad = raw.GamepadJump || raw.GamepadInteract || raw.GamepadReturn || raw.GamepadCancel;

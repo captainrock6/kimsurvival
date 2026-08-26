@@ -573,22 +573,18 @@ namespace KimSurvival
                     return false;
                 }
             }
-            PrototypeStableResourceCost[] stageCosts = definition.StableCosts
-                .Select(cost => new PrototypeStableResourceCost(
+            StableResourceAmount[] stageCosts = definition.StableCosts
+                .Select(cost => ToStableResourceAmount(
                     cost.StableResourceId,
                     CostForProgressStage(cost.Amount, state.Progress, definition.RequiredProgress)))
                 .Where(cost => cost.Amount > 0).ToArray();
-            if (!researchReady || stageCosts.Any(cost =>
-                    !session.CanAffordStableResource(cost.StableResourceId, cost.Amount)))
+            if (!researchReady || !session.CanAffordStableResources(stageCosts))
             {
                 state.LastResultCode = !researchReady ? "escape.requirement.research" : "escape.requirement.resources";
                 return false;
             }
-            GameSessionStableState stableStateBefore = session.CaptureStableState();
-            foreach (PrototypeStableResourceCost cost in stageCosts)
+            if (!session.TrySpendStableResources(stageCosts))
             {
-                if (session.TrySpendStableResource(cost.StableResourceId, cost.Amount)) continue;
-                session.RestoreStableState(stableStateBefore);
                 state.LastResultCode = "escape.requirement.resources.atomic-rejected";
                 return false;
             }
@@ -598,6 +594,15 @@ namespace KimSurvival
             state.LastResultCode = state.Complete ? "escape.project.complete" : "escape.project.progress";
             if (state.Complete) session.TryCompleteEscapeProject(escapeId);
             return true;
+        }
+
+        private static StableResourceAmount ToStableResourceAmount(string stableResourceId, int amount)
+        {
+            if (!GameSession.TryGetLegacyResourceKind(stableResourceId, out ResourceKind legacyKind))
+            {
+                throw new InvalidOperationException("Escape cost references an unknown stable resource: " + stableResourceId);
+            }
+            return new StableResourceAmount(stableResourceId, legacyKind, amount);
         }
 
         private static int CostForProgressStage(int totalCost, int completedProgress, int requiredProgress)

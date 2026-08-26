@@ -157,8 +157,8 @@
     {
       "id": "task.system.system.camp-structures",
       "lane": "implementation",
-      "title": "다층 캠프 설비·연결부 구현",
-      "description": "시작층·2층·지하실, 고정 연결부, 모닥불·작업대·빗물받이·치료 설비와 연기·무전 특수 설비의 방·위치·기능을 관리한다.",
+      "title": "다층 캠프 설비·사다리·수직 카메라 구현",
+      "description": "시작층·2층·지하실, 고정 사다리 등반 구역, 카메라 수직 추적 범위와 각 방의 설비·생활 가구·탈출 설비를 관리한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
@@ -167,7 +167,8 @@
         "feature.survival-pressure",
         "feature.escape-outcome",
         "feature.camp-module-expansion",
-        "feature.survival-hazards"
+        "feature.survival-hazards",
+        "feature.camp-object-interaction"
       ],
       "assetIds": [],
       "acceptanceCriteria": [
@@ -176,7 +177,10 @@
         "재배치해도 건설 상태와 열린 기능이 유지되며 자원이 추가로 소비되거나 복제되지 않는다.",
         "2층과 지하실이 동시에 존재하고 각 방의 설비 상태가 이동 뒤에도 유지된다.",
         "특수 설비는 호환 앵커에서만 작동하고 일반 설비는 방별 자유 배치 위치를 보존한다.",
-        "층 또는 설비 해체 환급은 유한 자원 softlock 규칙을 지키고 중복 환급되지 않는다."
+        "층 또는 설비 해체 환급은 유한 자원 softlock 규칙을 지키고 중복 환급되지 않는다.",
+        "방 상태와 캐릭터 월드 Y가 등반 시작·중간·종료에서 일관된다.",
+        "카메라의 월드 루트만 이동하고 HUD·팝업은 화면 좌표를 유지한다.",
+        "사다리 입력과 설비 상호작용이 같은 프레임에 중복 실행되지 않는다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
@@ -190,7 +194,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-25T13:36:42.419Z",
+      "updatedAt": "2026-08-26T15:11:08.748Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.262Z",
       "createdAt": "2026-08-22T08:24:42.263Z"
@@ -2399,8 +2403,8 @@
     {
       "id": "task.feature.feature.camp-module-expansion",
       "lane": "implementation",
-      "title": "2층·지하실 다층 캠프 확장 구현",
-      "description": "시작층에 2층과 지하실을 모두 연결·건설하고 사다리·계단으로 이동해 각 층의 일반 구역에 설비를 제한적 자유 배치한다.",
+      "title": "2층·지하실 사다리형 다층 캠프 확장 구현",
+      "description": "지붕이 있는 시작층에 2층과 지하실을 연결·건설하고, 설치된 사다리를 직접 등반해 각 층의 호환 고정 설치 지점에 설비와 생활 가구를 배치한다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.camp-building",
@@ -2413,7 +2417,8 @@
       "assetIds": [
         "background.modular-island-camp",
         "ui.camp-module-expansion",
-        "object.camp-structures"
+        "object.camp-structures",
+        "object.camp-ladder"
       ],
       "acceptanceCriteria": [
         "시작 방에서 위층·옆방·지하실 후보를 선택하고 유효·무효 원인을 구분할 수 있다.",
@@ -2430,7 +2435,11 @@
         "같은 run에서 2층과 지하실을 모두 확정할 수 있고 하나의 모듈 제한이 적용되지 않는다.",
         "고정 연결부를 통해 시작층·2층·지하실을 양방향 이동할 수 있다.",
         "2층과 지하실 각각에 일반 설비 하나 이상을 배치·재배치하고 직접 접근해 사용할 수 있다.",
-        "모든 층의 필수 통로, 연결부와 설비 상호작용 지점이 배치 때문에 막히지 않는다."
+        "모든 층의 필수 통로, 연결부와 설비 상호작용 지점이 배치 때문에 막히지 않는다.",
+        "시작층·2층·지하실이 같은 절개 화면의 실제 월드 높이를 사용한다.",
+        "설치된 사다리의 등반 영역에서 위·아래 입력을 유지하면 김씨가 순간이동 없이 층 사이를 이동한다.",
+        "등반 중 카메라가 김씨를 부드럽게 상하 추적하고 건설된 층 범위에서 clamp한다.",
+        "사다리보다 가까운 일반 설비가 있으면 명시적 입력 문맥과 거리 규칙으로 올바른 대상만 실행한다."
       ],
       "paths": [
         "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"
@@ -2441,15 +2450,15 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-25T13:36:42.419Z",
+      "updatedAt": "2026-08-26T15:11:08.748Z",
       "note": "모듈 기능 자체는 완료 상태를 유지한다. Day 3 증축+구조 원장은 숙련자 조기 성공 증거이고, 첫 플레이어 Day 4~5 경로는 새 통합 QA 대상이다.",
       "completedAt": "2026-08-23T08:14:57.365Z"
     },
     {
       "id": "task.qa.feature.camp-module-expansion",
       "lane": "qa",
-      "title": "2층·지하실 다층 캠프 확장 검증",
-      "description": "2층·지하실 다층 캠프 확장의 수용 조건을 실행 환경에서 검증한다.",
+      "title": "2층·지하실 사다리형 다층 캠프 확장 검증",
+      "description": "2층·지하실 사다리형 다층 캠프 확장의 수용 조건을 실행 환경에서 검증한다.",
       "priority": "critical",
       "dependencies": [
         "task.feature.feature.camp-module-expansion"
@@ -2473,7 +2482,11 @@
         "같은 run에서 2층과 지하실을 모두 확정할 수 있고 하나의 모듈 제한이 적용되지 않는다.",
         "고정 연결부를 통해 시작층·2층·지하실을 양방향 이동할 수 있다.",
         "2층과 지하실 각각에 일반 설비 하나 이상을 배치·재배치하고 직접 접근해 사용할 수 있다.",
-        "모든 층의 필수 통로, 연결부와 설비 상호작용 지점이 배치 때문에 막히지 않는다."
+        "모든 층의 필수 통로, 연결부와 설비 상호작용 지점이 배치 때문에 막히지 않는다.",
+        "시작층·2층·지하실이 같은 절개 화면의 실제 월드 높이를 사용한다.",
+        "설치된 사다리의 등반 영역에서 위·아래 입력을 유지하면 김씨가 순간이동 없이 층 사이를 이동한다.",
+        "등반 중 카메라가 김씨를 부드럽게 상하 추적하고 건설된 층 범위에서 clamp한다.",
+        "사다리보다 가까운 일반 설비가 있으면 명시적 입력 문맥과 거리 규칙으로 올바른 대상만 실행한다."
       ],
       "paths": [
         "Assets/Editor/ParallelQA/Wave10ModuleGateRunner.cs"
@@ -2487,7 +2500,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-25T13:36:42.419Z",
+      "updatedAt": "2026-08-26T15:11:08.748Z",
       "note": "Wave 11 slot 계약과 최종 5일 전체 회귀가 W2/D1, run당 1회, 실패 무변경, 연결·통로 보존을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -3489,6 +3502,177 @@
       "status": "review",
       "createdAt": "2026-08-26T14:27:19.204Z",
       "updatedAt": "2026-08-26T14:30:22.468Z"
+    },
+    {
+      "id": "task.gamejam.o4-stable-resource-ledger-p0",
+      "lane": "implementation",
+      "title": "O3 표시·소모 자원 단일 원장화",
+      "description": "legacy 묶음 합계와 stable 소모 판정의 불일치를 제거하고 모든 UI와 비용 판정을 stable resource ID 기준으로 통일한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-choice",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [
+        "icon.resource-tool-set"
+      ],
+      "acceptanceCriteria": [
+        "O3-P0-001 재현이 GREEN이다.",
+        "표시 보유량과 CanAfford·TrySpend 결과가 모든 stable 재료에서 일치한다.",
+        "이전 저장과 로그의 legacy 필드는 호환용 파생값으로만 유지된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-26T15:11:08.748Z"
+    },
+    {
+      "id": "task.gamejam.o4-three-route-discoverability-p0",
+      "lane": "implementation",
+      "title": "세 탈출 경로 발견성과 상태 안내",
+      "description": "뗏목·연기·무전 설비를 캠프에서 이름·실루엣·경로 요약·진행·부족분으로 구분하고 무전 경로가 누락되지 않게 한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o4-stable-resource-ledger-p0"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.raft-escape"
+      ],
+      "assetIds": [
+        "ui.escape-project-progress",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "O3-P0-003 재현이 GREEN이다.",
+        "세 설비 모두 현재 단계와 정확한 보유/필요 stable 재료를 표시한다.",
+        "키보드·마우스와 게임패드의 접근·포커스·행동 결과가 같다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.o4-natural-resource-budget-p0",
+      "lane": "qa",
+      "title": "유한 수색 자원·세 탈출 경로 가능성 검증",
+      "description": "대표 seed 묶음에서 자연 수색으로 얻는 정확한 stable 재료와 보호 부품을 집계해 진행 불가 seed를 제거한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o4-stable-resource-ledger-p0",
+        "task.gamejam.o4-three-route-discoverability-p0"
+      ],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "O3-P0-002 재현이 GREEN이다.",
+        "대표 seed마다 수색 가능한 stable 재료와 각 경로 비용·부품의 수지가 양수다.",
+        "최소 한 경로 보장과 세 경로별 목표 seed의 자연 완료 증거가 있다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.o4-shore-launch-popup-p1",
+      "lane": "implementation",
+      "title": "해안 진수대 단계·진척·비용 UI 재구성",
+      "description": "진수대 팝업을 상세 탈출 레이아웃에 포함하고 현재 완료 단계, 다음 단계, 필요·보유 수량과 행동을 분리한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o4-stable-resource-ledger-p0"
+      ],
+      "featureIds": [
+        "feature.raft-escape"
+      ],
+      "assetIds": [
+        "ui.escape-project-progress"
+      ],
+      "acceptanceCriteria": [
+        "O3-P1-001 재현이 GREEN이다.",
+        "KO/EN/qps-long 1280x800에서 본문·버튼 overflow가 없다.",
+        "2/3이 현재 진행도임을 설명 없이 이해할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.GameJamSubmissionHardening.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
+    },
+    {
+      "id": "task.gamejam.o4-ladder-camera",
+      "lane": "implementation",
+      "title": "사다리 직접 등반과 수직 카메라",
+      "description": "2층·지하실 고정 연결부를 직접 등반하는 사다리로 교체하고 캐릭터를 따르는 수직 카메라를 구현한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "object.camp-ladder",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "위·아래 입력을 유지하는 동안 캐릭터가 사다리 월드 경로를 따라 이동한다.",
+        "등반 종료 시 정확한 층 바닥과 현재 방이 일치한다.",
+        "카메라가 부드럽게 상하 추적하고 HUD는 고정된다.",
+        "사다리와 작업대 등 인접 대상의 입력 우선순위 회귀가 없다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-26T15:11:08.748Z"
+    },
+    {
+      "id": "task.gamejam.o4-integration-release",
+      "lane": "qa",
+      "title": "O4 통합·Windows 후보 동결",
+      "description": "O3 결함, 사다리·카메라와 아트 연결 상태를 통합해 자동 회귀·시각 검토·Windows 빌드·해시를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o4-natural-resource-budget-p0",
+        "task.gamejam.o4-shore-launch-popup-p1",
+        "task.gamejam.o4-ladder-camera"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "compile 0 errors와 핵심 수색·가방·캠프·세 탈출·엔딩 회귀가 GREEN이다.",
+        "KO/EN 1280x800 진수대·세 탈출·사다리·2층·지하 시각 증거가 있다.",
+        "O4 commit, EXE, managed DLL, ZIP SHA-256과 수기 체크리스트를 기록한다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA",
+        "Builds/Windows",
+        "Docs/Design/Playtest"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned"
     },
     {
       "id": "task.art.background.island-camp",
@@ -4562,6 +4746,54 @@
       "completedAt": null
     },
     {
+      "id": "task.art.object.camp-ladder",
+      "lane": "art",
+      "title": "표류물 사다리와 지하 해치 세트 제작",
+      "description": "김씨 생존기 무인도 캠프용 오리지널 2D 측면 오브젝트 세트. 위층으로 이어지는 표류목 수직 사다리, 지하실로 내려가는 해치와 짧은 사다리, 등반 가능 상태를 보여주는 작은 로프 매듭 표식으로 구성한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 실루엣, 비뚤지만 기능적인 표류목·밧줄 재질, 1280x800 게임 화면에서 캐릭터 뒤에 묻히지 않는 대비, 각 부품 분리·무겹침·동일 여백·투명 배경, 본문 텍스트와 타사 고유 디자인 없음.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "object.camp-ladder"
+      ],
+      "acceptanceCriteria": [
+        "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-26T15:11:08.748Z"
+    },
+    {
+      "id": "task.gamejam.o4-ladder-art-review",
+      "lane": "art",
+      "title": "사다리·지하 해치 오리지널 아트 후보",
+      "description": "기존 캠프 아트와 연결되는 사다리·지하 해치 separated-parts 한 세트를 no-extra-API Codex 경로로 제작·검토·import한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "object.camp-ladder"
+      ],
+      "acceptanceCriteria": [
+        "투명 배경·무겹침·작은 화면 실루엣 품질 게이트를 통과한다.",
+        "타사 고유 디자인을 복제하지 않는다.",
+        "사용자 채택 전 review-only이며 런타임은 안전한 placeholder 또는 기존 engine_ready 아트를 사용한다."
+      ],
+      "paths": [
+        "Assets/_Project/Art/Generated"
+      ],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "updatedAt": "2026-08-26T15:11:08.748Z"
+    },
+    {
       "id": "task.art.icon.resource-tool-set",
       "lane": "art",
       "title": "자원·도구 아이콘 세트 제작",
@@ -4842,5 +5074,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-26T14:30:22.467Z"
+  "updatedAt": "2026-08-26T15:11:08.746Z"
 }

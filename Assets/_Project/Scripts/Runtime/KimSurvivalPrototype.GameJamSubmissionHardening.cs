@@ -17,6 +17,8 @@ namespace KimSurvival
         private GraphicRaycaster gameJamTerminalControlRaycaster;
         private Button gameJamTerminalRestartButton;
         private Button gameJamTerminalBackButton;
+        private readonly Dictionary<string, TMP_Text> escapeRouteWorldLabels =
+            new Dictionary<string, TMP_Text>(StringComparer.Ordinal);
 
         private bool IsGameJamLiveEscapeProfile
         {
@@ -146,6 +148,8 @@ namespace KimSurvival
                     return baseDetail + "\n" + FormatGameJamEscapeRequirements("escape.smoke");
                 case PrototypeCampInteractionTargetKind.RadioBench:
                     return baseDetail + "\n" + FormatGameJamEscapeRequirements("escape.radio");
+                case PrototypeCampInteractionTargetKind.ShoreLaunch:
+                    return baseDetail + "\n" + FormatGameJamRaftRequirements();
                 default:
                     return baseDetail;
             }
@@ -155,20 +159,37 @@ namespace KimSurvival
         {
             if (!IsGameJamLiveEscapeProfile || campPopupDetailText == null) return;
             bool detailed = target == PrototypeCampInteractionTargetKind.StoragePlanning ||
-                            target == PrototypeCampInteractionTargetKind.SmokeBeacon ||
-                            target == PrototypeCampInteractionTargetKind.RadioBench;
-            if (!detailed) return;
+                             target == PrototypeCampInteractionTargetKind.SmokeBeacon ||
+                             target == PrototypeCampInteractionTargetKind.RadioBench ||
+                             target == PrototypeCampInteractionTargetKind.ShoreLaunch;
             bool qpsLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
+            RectTransform detailRect = campPopupDetailText.rectTransform;
+            if (!detailed)
+            {
+                detailRect.offsetMin = new Vector2(24f, -154f);
+                detailRect.offsetMax = new Vector2(-24f, -76f);
+                campPopupDetailText.enableAutoSizing = true;
+                campPopupDetailText.fontSizeMin = qpsLong ? 12f : 20f;
+                campPopupDetailText.fontSizeMax = 28f;
+                campPopupDetailText.maxVisibleLines = qpsLong ? 5 : 3;
+                campPopupDetailText.textWrappingMode = TextWrappingModes.Normal;
+                campPopupDetailText.overflowMode = TextOverflowModes.Overflow;
+                return;
+            }
             if (target == PrototypeCampInteractionTargetKind.StoragePlanning)
             {
-                RectTransform detailRect = campPopupDetailText.rectTransform;
                 detailRect.offsetMin = new Vector2(24f, -222f);
+                detailRect.offsetMax = new Vector2(-24f, -76f);
+            }
+            else
+            {
+                detailRect.offsetMin = new Vector2(24f, -344f);
                 detailRect.offsetMax = new Vector2(-24f, -76f);
             }
             campPopupDetailText.enableAutoSizing = true;
             campPopupDetailText.fontSizeMin = qpsLong ? 12f : 18f;
             campPopupDetailText.fontSizeMax = qpsLong ? 20f : 24f;
-            campPopupDetailText.maxVisibleLines = target == PrototypeCampInteractionTargetKind.StoragePlanning ? 7 : 5;
+            campPopupDetailText.maxVisibleLines = target == PrototypeCampInteractionTargetKind.StoragePlanning ? 7 : 8;
             campPopupDetailText.textWrappingMode = TextWrappingModes.Normal;
             campPopupDetailText.overflowMode = TextOverflowModes.Overflow;
         }
@@ -201,24 +222,94 @@ namespace KimSurvival
         private string FormatGameJamEscapeRequirements(string escapeId)
         {
             PrototypeEscapeProjectDefinition definition = PrototypeEscapeProjectCatalog.Get(escapeId);
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
             string[] resourceStatus = definition.StableCosts
                 .Select(value => localization.Format(value.StableResourceId) + " " +
                                  session.GetStableStorage(value.StableResourceId) + "/" + value.Amount)
                 .ToArray();
-            string[] missingParts = definition.RequiredKeyPartIds
-                .Where(value => !hazardEscapeEndingRuntime.HasProtectedSearchPart(value))
-                .Select(value => localization.Format("search." + value))
-                .ToArray();
-            string[] missingResources = definition.StableCosts
-                .Where(value => session.GetStableStorage(value.StableResourceId) < value.Amount)
-                .Select(value => localization.Format(value.StableResourceId) + " " +
-                                 (value.Amount - session.GetStableStorage(value.StableResourceId)))
-                .ToArray();
-            string missing = string.Join(" · ", missingResources.Concat(missingParts).ToArray());
             string status = string.Join(" · ", resourceStatus);
-            return string.IsNullOrEmpty(missing)
-                ? localization.Format("value.yes") + " · " + status
-                : localization.Format("interaction.module.missing", localization.Format(escapeId), missing) + "\n" + status;
+            PrototypeSignalEscapeWindow window = PrototypeSignalEscapeWindowResolver.Resolve(
+                escapeId,
+                session.RunSeed,
+                session.Day);
+            string parts = definition.RequiredKeyPartIds.Length == 0
+                ? localization.Format("value.yes")
+                : string.Join(" · ", definition.RequiredKeyPartIds.Select(value =>
+                    localization.Format("search." + value) + " " +
+                    localization.Format(hazardEscapeEndingRuntime.HasProtectedSearchPart(value) ? "value.yes" : "value.no")).ToArray());
+            return localization.Format("escape.ui.progress") + " " + state.Progress + "/" + state.RequiredProgress + "\n" +
+                   localization.Format("escape.ui.owned") + "/" + localization.Format("escape.ui.need") + " · " + status + "\n" +
+                   localization.Format("escape.ui.parts") + " · " + parts + "\n" +
+                   localization.Format("escape.ui.window") + " · " +
+                   localization.Format(window.Allowed ? "value.yes" : "value.no");
+        }
+
+        private string FormatGameJamRaftRequirements()
+        {
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId);
+            if (state.Complete)
+            {
+                return localization.Format("escape.ui.progress") + " " + localization.Format("escape.ui.complete");
+            }
+
+            if (state.Progress < PrototypeRaftEscapeConfig.StageCount)
+            {
+                string stage = localization.Format(PrototypeRaftEscapeConfig.StageIds[state.Progress]);
+                return localization.Format("escape.ui.progress") + " " + state.Progress + "/" + state.RequiredProgress + "\n" +
+                       localization.Format("escape.ui.next") + " · " + stage + "\n" +
+                       localization.Format("escape.ui.owned") + "/" + localization.Format("escape.ui.need") + " · " + FormatRaftStageResourceStatus(state.Progress);
+            }
+
+            PrototypeRaftLaunchWindow window = hazardEscapeEndingRuntime.CurrentRaftLaunchWindow;
+            return localization.Format("escape.ui.progress") + " " + state.Progress + "/" + state.RequiredProgress + "\n" +
+                   localization.Format("escape.ui.next") + " · " + localization.Format("escape.raft.stage.launch") + "\n" +
+                   localization.Format("escape.ui.window") + " · " + localization.Format(window.WeatherId) + " · " +
+                   localization.Format(window.CurrentId);
+        }
+
+        private void RegisterEscapeRouteWorldLabel(string escapeId, Transform parent, Vector2 localPosition)
+        {
+            SpriteRenderer background;
+            TMP_Text label = CreateWorldBadge(
+                parent,
+                "탈출 경로 이름표 · " + escapeId,
+                FormatEscapeRouteWorldLabel(escapeId),
+                localPosition,
+                new Vector2(1.78f, 0.48f),
+                new Color(0.02f, 0.10f, 0.12f, 0.92f),
+                new Color(1f, 0.86f, 0.32f, 1f),
+                out background,
+                0.058f,
+                20f,
+                25f);
+            label.maxVisibleLines = 2;
+            label.textWrappingMode = TextWrappingModes.Normal;
+            escapeRouteWorldLabels[escapeId] = label;
+        }
+
+        private void RefreshEscapeRouteWorldLabels()
+        {
+            foreach (KeyValuePair<string, TMP_Text> entry in escapeRouteWorldLabels)
+            {
+                if (entry.Value != null)
+                {
+                    entry.Value.text = FormatEscapeRouteWorldLabel(entry.Key);
+                }
+            }
+        }
+
+        private string FormatEscapeRouteWorldLabel(string escapeId)
+        {
+            string title = localization.Format("escape.ui.route") + " · " + localization.Format(escapeId);
+            if (hazardEscapeEndingRuntime == null)
+            {
+                return title;
+            }
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
+            string progress = state.Complete
+                ? localization.Format("escape.ui.complete")
+                : state.Progress + "/" + state.RequiredProgress;
+            return title + "\n" + localization.Format("escape.ui.progress") + " " + progress;
         }
 
         private string[] CaptureGameJamStableResourceLocaleEvidence()

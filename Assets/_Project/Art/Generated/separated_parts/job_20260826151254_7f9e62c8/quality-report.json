@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 1,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "camp_ladder_hatch_parts_alpha.png",
+      "kind": "raster",
+      "width": 1682,
+      "height": 1088,
+      "hasAlpha": true,
+      "transparentRatio": 0.9151,
+      "contrastStdDev": 27.52,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 226,
+        "top": 71,
+        "right": 239,
+        "bottom": 74
+      },
+      "previewFile": "qa-preview-camp_ladder_hatch_parts_alpha.jpg",
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-26T15:16:13.002Z",
+  "jobId": "job_20260826151254_7f9e62c8",
+  "assetType": "separated_parts"
+}

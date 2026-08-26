@@ -349,7 +349,6 @@ namespace KimSurvival
             new StableResourceAmount("resource.electronics", ResourceKind.Salvage, 0)
         };
 
-        private readonly int[] storage = new int[4];
         private readonly Dictionary<string, int> stableStorage = new Dictionary<string, int>(StringComparer.Ordinal);
         private readonly BagStack[] bag = new BagStack[BagSlotCount];
         private readonly bool[] structures = new bool[Enum.GetValues(typeof(StructureKind)).Length];
@@ -416,7 +415,6 @@ namespace KimSurvival
 
         public void Reset()
         {
-            Array.Clear(storage, 0, storage.Length);
             ResetStableStorage();
             Array.Clear(bag, 0, bag.Length);
             Array.Clear(structures, 0, structures.Length);
@@ -481,12 +479,26 @@ namespace KimSurvival
 
         public int GetStorage(ResourceKind kind)
         {
-            return storage[(int)kind];
+            return GetStableStorage(StableResourceIdForLegacy(kind));
         }
 
         public int GetSpendableLegacyStorage(ResourceKind kind)
         {
-            return GetStableStorage(StableResourceIdForLegacy(kind));
+            return GetStorage(kind);
+        }
+
+        public int GetLegacyAggregateStorage(ResourceKind kind)
+        {
+            long total = 0;
+            for (int index = 0; index < StableResourceCatalog.Length; index += 1)
+            {
+                StableResourceAmount definition = StableResourceCatalog[index];
+                if (definition.LegacyKind == kind)
+                {
+                    total += GetStableStorage(definition.StableResourceId);
+                }
+            }
+            return total > int.MaxValue ? int.MaxValue : (int)total;
         }
 
         public int GetStableStorage(string stableResourceId)
@@ -511,6 +523,16 @@ namespace KimSurvival
             return entries;
         }
 
+        public static StableResourceAmount[] GetStableResourceCatalog()
+        {
+            return StableResourceCatalog
+                .Select(definition => new StableResourceAmount(
+                    definition.StableResourceId,
+                    definition.LegacyKind,
+                    0))
+                .ToArray();
+        }
+
         public bool IsStableStorageSynchronized()
         {
             if (stableStorage.Count != StableResourceCatalog.Length)
@@ -518,24 +540,17 @@ namespace KimSurvival
                 return false;
             }
 
-            long[] stableTotals = new long[storage.Length];
+            var seenIds = new HashSet<string>(StringComparer.Ordinal);
             foreach (StableResourceAmount definition in StableResourceCatalog)
             {
-                if (!stableStorage.TryGetValue(definition.StableResourceId, out int amount) || amount < 0)
-                {
-                    return false;
-                }
-                stableTotals[(int)definition.LegacyKind] += amount;
-            }
-
-            for (int index = 0; index < storage.Length; index += 1)
-            {
-                if (storage[index] < 0 || stableTotals[index] != storage[index])
+                if (string.IsNullOrWhiteSpace(definition.StableResourceId) ||
+                    !seenIds.Add(definition.StableResourceId) ||
+                    !stableStorage.TryGetValue(definition.StableResourceId, out int amount) || amount < 0)
                 {
                     return false;
                 }
             }
-            return true;
+            return stableStorage.Keys.All(seenIds.Contains);
         }
 
         public static string StableResourceIdForLegacy(ResourceKind kind)
@@ -577,6 +592,33 @@ namespace KimSurvival
                    GetStableStorage(stableResourceId) >= amount;
         }
 
+        public bool CanAffordStableResources(IEnumerable<StableResourceAmount> costs)
+        {
+            return TryNormalizeStableCosts(costs, out Dictionary<string, int> normalized) &&
+                   normalized.All(cost => GetStableStorage(cost.Key) >= cost.Value);
+        }
+
+        public bool TrySpendStableResources(IEnumerable<StableResourceAmount> costs)
+        {
+            if (Phase != GamePhase.Camp || Result != RunResult.None ||
+                !IsStableStorageSynchronized() ||
+                !TryNormalizeStableCosts(costs, out Dictionary<string, int> normalized) ||
+                normalized.Any(cost => GetStableStorage(cost.Key) < cost.Value))
+            {
+                return false;
+            }
+
+            foreach (KeyValuePair<string, int> cost in normalized)
+            {
+                stableStorage[cost.Key] -= cost.Value;
+            }
+            if (!IsStableStorageSynchronized())
+            {
+                throw new InvalidOperationException("Stable resource ledger became invalid.");
+            }
+            return true;
+        }
+
         public bool TrySpendStableResource(string stableResourceId, int amount)
         {
             if (Phase != GamePhase.Camp || Result != RunResult.None ||
@@ -591,17 +633,10 @@ namespace KimSurvival
                 return true;
             }
 
-            ResourceKind legacyKind;
-            if (!TryGetLegacyResourceKind(stableResourceId, out legacyKind))
-            {
-                return false;
-            }
-
             stableStorage[stableResourceId] -= amount;
-            storage[(int)legacyKind] -= amount;
             if (!IsStableStorageSynchronized())
             {
-                throw new InvalidOperationException("Stable and legacy storage ledgers diverged.");
+                throw new InvalidOperationException("Stable resource ledger became invalid.");
             }
             return true;
         }
@@ -723,13 +758,11 @@ namespace KimSurvival
                 }
             }
 
-            Array.Clear(storage, 0, storage.Length);
             stableStorage.Clear();
             foreach (StableResourceAmount definition in StableResourceCatalog)
             {
                 int amount = restoredStorage[definition.StableResourceId];
                 stableStorage.Add(definition.StableResourceId, amount);
-                storage[(int)definition.LegacyKind] += amount;
             }
 
             Array.Clear(bag, 0, bag.Length);
@@ -1600,6 +1633,38 @@ namespace KimSurvival
             return result;
         }
 
+        private static bool TryNormalizeStableCosts(
+            IEnumerable<StableResourceAmount> costs,
+            out Dictionary<string, int> normalized)
+        {
+            normalized = new Dictionary<string, int>(StringComparer.Ordinal);
+            if (costs == null)
+            {
+                return false;
+            }
+
+            foreach (StableResourceAmount cost in costs)
+            {
+                if (cost.Amount < 0 || !IsValidStableResource(cost.StableResourceId, cost.LegacyKind))
+                {
+                    return false;
+                }
+                if (cost.Amount == 0)
+                {
+                    continue;
+                }
+
+                int previous = normalized.TryGetValue(cost.StableResourceId, out int amount) ? amount : 0;
+                long combined = (long)previous + cost.Amount;
+                if (combined > int.MaxValue)
+                {
+                    return false;
+                }
+                normalized[cost.StableResourceId] = (int)combined;
+            }
+            return true;
+        }
+
         private void ResetStableStorage()
         {
             stableStorage.Clear();
@@ -1617,7 +1682,6 @@ namespace KimSurvival
             }
 
             stableStorage[stableResourceId] += amount;
-            storage[(int)legacyKind] += amount;
         }
 
         private void ConsumeLegacyStorage(ResourceKind legacyKind, int amount)
@@ -1628,7 +1692,7 @@ namespace KimSurvival
             }
             if (!IsStableStorageSynchronized())
             {
-                throw new InvalidOperationException("Stable and legacy storage ledgers diverged.");
+                throw new InvalidOperationException("Stable resource ledger is invalid.");
             }
             string canonicalId = StableResourceIdForLegacy(legacyKind);
             if (GetStableStorage(canonicalId) < amount)
@@ -1637,10 +1701,9 @@ namespace KimSurvival
             }
 
             stableStorage[canonicalId] -= amount;
-            storage[(int)legacyKind] -= amount;
             if (!IsStableStorageSynchronized())
             {
-                throw new InvalidOperationException("Stable and legacy storage ledgers diverged.");
+                throw new InvalidOperationException("Stable resource ledger became invalid.");
             }
         }
 

@@ -182,16 +182,12 @@ MonoBehaviour:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 14658219261953
-    m_Localized: "\u27E6{0} \xB7 A/D m\xF3v\xE9 \xB7 E \xFAs\xE9 \xF1\xE9\xE1rby
-      f\xE1c\xEDl\xEDty (1.25m)\nCl\xEDck \xF3r \xE1rr\xF3ws+Enter \xE1ct\xED\xF3\xF1
-      \xB7 B\xFA\xEDlt f\xE1c\xEDl\xEDt\xED\xE9s m\xF3v\xE9 fr\xE9\xE9 \xB7 F1 l\xE1\xF1g\xFA\xE1g\xE9\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\u27E7"
+    m_Localized: "⟦{0} · A/D móvé · Láddér W/S ór ↑↓ hóld · E úsé ñéárby fácílíty (1.25m)\nClíck/árróws+Enter áctíóñ · Búílt fácílítíés móvé fréé · F1 láñgúágéáéíóúüñ¿¡⟧"
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 14658219261954
-    m_Localized: "\u27E6{0} \xB7 L\xE9ft st\xEDck m\xF3v\xE9 \xB7 X \xFAs\xE9 \xF1\xE9\xE1rby
-      f\xE1c\xEDl\xEDty (1.25m)\nD-p\xE1d+A \xE1ct\xED\xF3\xF1 \xB7 B\xFA\xEDlt f\xE1c\xEDl\xEDt\xED\xE9s
-      m\xF3v\xE9 fr\xE9\xE9 \xB7 Y l\xE1\xF1g\xFA\xE1g\xE9\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Localized: "⟦{0} · Léft stíck móvé · Láddér stíck ↑↓ hóld · X úsé ñéárby fácílíty (1.25m)\nD-pád+A áctíóñ · Búílt fácílítíés móvé fréé · Y láñgúágéáéíóúüñ¿¡⟧"
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
@@ -2764,6 +2760,42 @@ MonoBehaviour:
   - m_Id: 1497942522576905
     m_Localized: "\u27E6S\xF3f\xE1 r\xE9st pr\xE9p\xE1r\xE9d. \xC1 sm\xE1ll \xE9\xF1\xE9rgy
       r\xE9c\xF3v\xE9ry w\xEDll \xE1pply \xE1t s\xE9ttl\xE9m\xE9\xF1t.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000001
+    m_Localized: "⟦Escape route áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000002
+    m_Localized: "⟦Current progress áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000003
+    m_Localized: "⟦Next step áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000004
+    m_Localized: "⟦Need áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000005
+    m_Localized: "⟦Owned áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000006
+    m_Localized: "⟦Complete áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000007
+    m_Localized: "⟦Key parts áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000008
+    m_Localized: "⟦Rescue window áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9100000000000009
+    m_Localized: "⟦Rope áéíóúüñ¿¡⟧"
     m_Metadata:
       m_Items: []
   references:

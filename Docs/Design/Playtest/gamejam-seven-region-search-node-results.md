@@ -2,7 +2,7 @@
 
 > 대상: 《김씨 생존기: 무인도》 최종 Windows 후보
 >
-> 상태: `O2_READY / AUTOMATED_GREEN / HUMAN_RETEST_PENDING`
+> 상태: `O4_CANDIDATE / AUTOMATED_GREEN / OWNER_RETEST_PENDING`
 >
 > 실행 절차 정본: `Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md`
 >
@@ -10,16 +10,25 @@
 
 이 파일은 실제 관찰 결과만 누적하는 원장이다. 자동화 시간, synthetic gamepad, 개발자 추정 또는 이전 후보 결과로 빈칸을 채우지 않는다. 후보가 바뀌면 기존 행은 보존하되 새 SHA 아래에서 fresh session을 다시 시작한다.
 
+## O4 자동 후보 동결 전 상태
+
+- O3 P0 3건과 P1 1건은 O4 코드에서 수정되었고 자동 계약을 통과했다.
+- stable resource/seed gate는 `10/10 PASS`, 전체 Play 회귀는 `18 PASS / 0 FAIL / 물리 게임패드 1 UNVERIFIED`다.
+- 7지역·42노드의 대표 seed 5개에서 뗏목·연기·라디오 세 경로가 모두 유한 자원으로 완료 가능하다.
+- 사다리 직접 이동과 상하 월드 카메라는 Edit/Play 계약을 통과했다.
+- 자동 결과는 사람 세션을 대체하지 않는다. O4 Windows SHA로 새 사용자 재테스트를 해야 한다.
+- 상세 기록: `Docs/Design/Playtest/Sessions/O4-2026-08-27.md`
+
 ## 후보 동결
 
 | 항목 | 값 |
 |---|---|
-| 게임 소스 commit | `b3f980ff14db0075ed4a290038f518d658783425` |
-| EXE SHA-256 | `a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423` |
-| `Assembly-CSharp.dll` SHA-256 | `dfff3680c5e41440555226c0a1dc9309fad516e5c00adc5483fd2f27016789ef` |
-| ZIP SHA-256 | `293a123d5fbbea721bb5ee798ed9879f48a6fe022987646349fadf71e1340830` |
-| 후보 폴더 | `work/ParallelQA/20260826T221000Z_o2_release_b3f980f/KimSurvivalIsland-gamejam-win64-release-b3f980f` |
-| 패키지 자동 게이트 | `Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f/gamejam-package-integrity-summary.json` — PASS 7/7 |
+| 게임 소스 commit | `13c116db3085a715436fe7b0d13cb58efc8da299` |
+| EXE SHA-256 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
+| `Assembly-CSharp.dll` SHA-256 | `2062bc93318836f2b74755ef3a5a6208b355e79f33c80fa0ffca40a35a5bd3b0` |
+| ZIP SHA-256 | `395ca4f29be914ae08398abae996de9fc87fdf388a77a182b6e179b5130937f7` |
+| 후보 폴더 | `work/ParallelQA/20260826T233000Z_o3_release_13c116d` |
+| 패키지 자동 게이트 | `BUILD PASS · 0 errors · 0 warnings · hidden smoke PASS · 핵심 통합 회귀 PASS` |
 
 ## 공식 게이트 현황
 
@@ -39,6 +48,7 @@
 |---|---|---|---|---|---|---:|---:|---:|---|---|---|---|
 | `O1` | `owner-01` | 기존 사용자 | KO 기본 | 키보드·마우스 | 굶주림 사망·탈출 확인 | `<01:00` | `21:50 내 확인` | 미기록 | 업그레이드가 필수로 느껴짐 | `H-001~H-005 P1` | `RETEST` | `Docs/Design/Playtest/Sessions/O1-2026-08-26.md` |
 | `O2` | `owner-01` | 기존 사용자·새 save | KO 기본 | 키보드·마우스 | 가방 full 뒤 새 발견물 담기 | `진행 불가` | `미도달` | `미관찰` | `미관찰` | `O2-P0-001 교체 가방 UI 숨김` | `REJECT` | `Docs/Design/Playtest/Sessions/O2-2026-08-26.md` |
+| `O3` | `owner-01` | 기존 사용자·새 save | KO 기본 | 키보드·마우스 | 7개 지역 수집·뗏목 2/3·연기 신호 | `미측정` | `21:29 진행 불가 종료` | `미기록` | `6칸 업그레이드 완료` | `O3-P0-001~003 · O3-P1-001` | `REJECT` | `Docs/Design/Playtest/Sessions/O3-2026-08-26.md` |
 | `K1` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
 | `K2` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
 | `K3` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
@@ -117,6 +127,10 @@
 | `H-003` | `P1` | `O1 · 캠프` | `KO · 키보드/마우스` | 방 증축 | 증축 안내를 읽고 실행 상태를 확인 | 비용·선택·유효 상태·완료 결과가 이해된다 | O1 목적이 불명확했다. 새 후보는 잠금/가능/진행/완료, 목적·추천 용도·용량·비용·부족분·선행 조건을 문구로 구분 | `849ca34 · wave11-slot-play-contracts` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
 | `H-004` | `P1` | `O1 · 이동` | `KO · 키보드/마우스` | 김씨 캐릭터 | 평지에서 좌우 이동 | 발이 지면에 붙고 이동 애니메이션이 재생된다 | O1에서 떠다녔다. 새 후보는 foot anchor/collider, 지면 idle, 7fps walk key pose, facing을 사용하고 수영 상태를 보존 | `9d07203 · wave19-play-contracts` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
 | `H-005` | `P1` | `O1 · 전 구간` | `KO · 키보드/마우스` | UI·리소스 | 자원·설비·상태를 시각적으로 비교 | 제작·채택된 리소스로 작은 화면에서도 구분된다 | O1은 임시 표면이었다. 새 후보는 engine_ready/adopted 캐릭터·구조물·네 자원 아이콘 계열을 live surface에 연결하고 review-only는 제외 | `77fe685 · 9d07203 · wave19-play-contracts` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O3-P0-001` | `P0` | `O3 · Day 16` | `KO · 키보드/마우스` | 해안 진수대·식사 | 표시 식량 5에서 식량 2 보급 또는 식사 | 표시 수량과 실제 소모 판정이 일치 | O3에서는 원장이 달랐고, O4는 stable ID 단일 원장과 파생 legacy 로그로 교정 | `O4 stable-resource gate O4-L01~L04` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O3-P0-002` | `P0` | `O3 · 21:29 · Day 16` | `KO · 키보드/마우스` | 7개 지역·탈출 설비 | 전 지역의 유한 자원을 수집하고 대표 경로 진행 | 최소 한 경로 완료 또는 정확한 회복 목표 표시 | O4 대표 seed 5개에서 세 경로 모두 완료 가능·softlock 없음 | `O4 stable-resource gate O4-S01~R03` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O3-P0-003` | `P0` | `O3 · 전 구간` | `KO · 키보드/마우스` | 베이스캠프 | 세 대표 탈출 설비를 찾아 비교 | 뗏목·연기·라디오가 이름과 목표로 구분 | O4는 세 설비에 상시 경로명과 현재 진행도를 표시 | `O4 ladder capture · Wave19 Play GREEN` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O3-P1-001` | `P1` | `O3 · Day 16` | `KO · 키보드/마우스` | 해안 진수대 팝업 | 진행도·다음 단계·보유/필요 자원을 읽음 | 정보가 분리되고 본문이 잘리지 않음 | O4는 불투명 compact 패널에서 설명·진행·다음 단계·보유/필요를 분리 | `O4 KO/EN/qps-long popup layout PASS` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
 
 P0는 즉시 후보 `REJECT`, P1은 후보 `RETEST`다. 수정 뒤에는 같은 행을 지우지 않고 수정 commit과 새 후보 세션을 연결한다.
 
@@ -129,10 +143,12 @@ P0는 즉시 후보 `REJECT`, P1은 후보 `RETEST`다. 수정 뒤에는 같은 
 | 실제 대표 탈출 25~35분 확인 | `RETEST — 정확 시각 미기록, 21:50에 UI 문제로 종료` |
 | 가방 4→6 선택 체감 확인 | `RETEST — 선택이 아니라 필수로 느낌` |
 | 물리 게임패드 핵심 흐름 확인 | `UNRUN` |
-| 미해결 P0/P1 0건 | `O2_PENDING — 제품 교정·자동 검증 GREEN, 사람 재확인 필요` |
+| 미해결 P0/P1 0건 | `AUTOMATED PASS — O3 4건 수정, O4 사람 재현 확인 대기` |
 
-최종 후보 판정: `O2_REJECTED · P0_OPEN · NOT_SUBMISSION_READY`
+최종 후보 판정: `O3_REJECTED · P0_OPEN · NOT_SUBMISSION_READY`
 
-판정자·일시: `owner-01 · 2026-08-26 20:49 KST`
+판정자·일시: `owner-01 · 2026-08-26 23:57 KST`
 
-한 줄 결론: `O2에서 가방 full 교체 UI가 숨는 진행 불가 결함이 발견되어 b3f980f 후보를 폐기한다. 새 후보는 P0 교정과 고정 설치 지점형 다층 쉘터 리베이스를 함께 통과해야 한다.`
+한 줄 결론: `O3에서 7개 지역 수색 뒤에도 표시 자원과 실제 소모 판정이 달라 탈출이 막혔고 라디오 경로도 발견되지 않아 13c116d 후보를 폐기한다.`
+
+O4 자동 후보 판정: `AUTOMATED_GREEN · OWNER_RETEST_PENDING · PHYSICAL_GAMEPAD_UNVERIFIED`
