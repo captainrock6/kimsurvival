@@ -4622,6 +4622,9 @@
       "candidateExecutableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
       "candidateManagedAssemblyPath": "KimSurvivalIsland_Data/Managed/Assembly-CSharp.dll",
       "candidateManagedAssemblySha256": "b7e216c2892ee952905ccc2cbb37caa7050c355da38d6582e2d4c5d1b762f7e6",
+      "candidateArchivePath": "work/ParallelQA/KimSurvivalIsland-gamejam-win64-3d64403.zip",
+      "candidateArchiveSha256": "68f639c10f74982ba2b2fd813d158de61217242252baed436286fa322433b5f4",
+      "packagedDocumentationCommit": "7678ab25ddb67af8087faecfb224d61c440459e0",
       "humanDocument": "Docs/Design/gamejam-completion-matrix.md",
       "designSources": [
         "Docs/Design/kim-survival-island-gdd.md",

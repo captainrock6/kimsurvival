@@ -13,6 +13,10 @@
 > EXE SHA-256: `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d`
 >
 > 게임 코드 DLL SHA-256: `b7e216c2892ee952905ccc2cbb37caa7050c355da38d6582e2d4c5d1b762f7e6`
+>
+> 배포 ZIP SHA-256: `68f639c10f74982ba2b2fd813d158de61217242252baed436286fa322433b5f4`
+>
+> 배포 매니페스트: `Docs/QA/gamejam-final-windows-candidate-release-manifest-3d64403.md`
 
 이 문서는 통합 GDD와 Forge 수직 슬라이스가 요구하는 기능을 현재 실행 증거와 대조한 제출 게이트다. backlog의 done 표시는 작업 이력을 뜻할 뿐, 이 표의 DONE을 자동으로 보장하지 않는다. 현재 통합 게이트의 독립 probe가 과거 개별 PASS와 충돌하면 현재 통합 게이트를 우선한다.
 
