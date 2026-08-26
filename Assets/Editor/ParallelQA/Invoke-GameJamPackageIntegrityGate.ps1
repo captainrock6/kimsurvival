@@ -483,7 +483,29 @@ function Invoke-ExtractedHiddenSmoke(
     $residualPackageProcessIds = @()
     $developmentPlaytestLog = ''
     $developmentPlaytestLogCaptured = $false
+    $developmentPlaytestLogValidated = $false
+    $developmentPlaytestLogAllowedRoot = ''
+    $developmentPlaytestLogWasNew = $false
+    $developmentPlaytestLogTimestampValid = $false
+    $developmentPlaytestLogJsonLineCount = 0
+    $developmentPlaytestLogInvalidJsonLines = @()
+    $developmentPlaytestLogSourceBytes = 0
+    $developmentPlaytestLogCapturedBytes = 0
+    $developmentPlaytestLogSourceSha256 = ''
+    $developmentPlaytestLogCapturedSha256 = ''
+    $developmentPlaytestLogHashesMatch = $false
     $observedSeconds = 0.0
+    $localApplicationData = [Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData)
+    $localLowRoot = Join-Path (Split-Path -Parent $localApplicationData) 'LocalLow'
+    $allowedCompanyRoot = [IO.Path]::GetFullPath((Join-Path $localLowRoot 'Kim Survival Studio'))
+    $preexistingPlaytestLogs = @{}
+    if (Test-Path -LiteralPath $allowedCompanyRoot -PathType Container) {
+        foreach ($existingLog in @(Get-ChildItem -LiteralPath $allowedCompanyRoot -Recurse -File -Filter '*.jsonl' -ErrorAction SilentlyContinue | Where-Object {
+            (Split-Path -Leaf (Split-Path -Parent $_.FullName)).Equals('PlaytestLogs', [StringComparison]::OrdinalIgnoreCase)
+        })) {
+            $preexistingPlaytestLogs[[IO.Path]::GetFullPath($existingLog.FullName).ToLowerInvariant()] = $true
+        }
+    }
     try {
         $safeExecutableRelative = ConvertTo-SafeRelativePath $ExecutablePathRelative
         $executable = Resolve-ContainedPath $Root $safeExecutableRelative
@@ -569,10 +591,56 @@ function Invoke-ExtractedHiddenSmoke(
             $playerLogText = Get-Content -LiteralPath $LogPath -Raw -Encoding UTF8
             $playtestLogMatch = [regex]::Match($playerLogText, '(?m)^\[Kim Survival Playtest\] Development-only local JSONL:\s*(?<path>.+?)\s*$')
             if ($playtestLogMatch.Success) {
-                $developmentPlaytestLog = $playtestLogMatch.Groups['path'].Value.Trim()
-                if (Test-Path -LiteralPath $developmentPlaytestLog -PathType Leaf) {
+                $developmentPlaytestLog = [IO.Path]::GetFullPath($playtestLogMatch.Groups['path'].Value.Trim())
+                $developmentPlaytestLogAllowedRoot = Test-SameOrUnderPath $allowedCompanyRoot $developmentPlaytestLog
+                $playtestLogParentLeaf = Split-Path -Leaf (Split-Path -Parent $developmentPlaytestLog)
+                $developmentPlaytestLogAllowedRoot = $developmentPlaytestLogAllowedRoot -and
+                    $playtestLogParentLeaf.Equals('PlaytestLogs', [StringComparison]::OrdinalIgnoreCase) -and
+                    [IO.Path]::GetExtension($developmentPlaytestLog).Equals('.jsonl', [StringComparison]::OrdinalIgnoreCase)
+                $developmentPlaytestLogWasNew = -not $preexistingPlaytestLogs.ContainsKey($developmentPlaytestLog.ToLowerInvariant())
+                if ($developmentPlaytestLogAllowedRoot -and $developmentPlaytestLogWasNew -and
+                    (Test-Path -LiteralPath $developmentPlaytestLog -PathType Leaf)) {
+                    $sourceLogItem = Get-Item -LiteralPath $developmentPlaytestLog -Force
+                    $captureUtc = [DateTime]::UtcNow
+                    $developmentPlaytestLogTimestampValid =
+                        $sourceLogItem.CreationTimeUtc -ge $startedUtc.AddSeconds(-1) -and
+                        $sourceLogItem.CreationTimeUtc -le $captureUtc.AddSeconds(2) -and
+                        $sourceLogItem.LastWriteTimeUtc -ge $startedUtc.AddSeconds(-1) -and
+                        $sourceLogItem.LastWriteTimeUtc -le $captureUtc.AddSeconds(2)
+                    if (($sourceLogItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+                        throw "Development playtest log must not be a reparse point: $developmentPlaytestLog"
+                    }
+                    $invalidJsonLines = New-Object Collections.Generic.List[int]
+                    $sourceLines = [IO.File]::ReadAllLines($developmentPlaytestLog, [Text.Encoding]::UTF8)
+                    for ($lineIndex = 0; $lineIndex -lt $sourceLines.Length; $lineIndex++) {
+                        if ([string]::IsNullOrWhiteSpace($sourceLines[$lineIndex])) {
+                            $invalidJsonLines.Add($lineIndex + 1)
+                            continue
+                        }
+                        try {
+                            $sourceLines[$lineIndex] | ConvertFrom-Json -ErrorAction Stop | Out-Null
+                        } catch {
+                            $invalidJsonLines.Add($lineIndex + 1)
+                        }
+                    }
+                    $developmentPlaytestLogJsonLineCount = $sourceLines.Length
+                    $developmentPlaytestLogInvalidJsonLines = $invalidJsonLines.ToArray()
+                    $developmentPlaytestLogSourceBytes = [long]$sourceLogItem.Length
+                    $developmentPlaytestLogSourceSha256 = Get-Sha256 $developmentPlaytestLog
                     [IO.File]::Copy($developmentPlaytestLog, $CapturedPlaytestLogPath, $false)
                     $developmentPlaytestLogCaptured = Test-Path -LiteralPath $CapturedPlaytestLogPath -PathType Leaf
+                    if ($developmentPlaytestLogCaptured) {
+                        $capturedLogItem = Get-Item -LiteralPath $CapturedPlaytestLogPath -Force
+                        $developmentPlaytestLogCapturedBytes = [long]$capturedLogItem.Length
+                        $developmentPlaytestLogCapturedSha256 = Get-Sha256 $CapturedPlaytestLogPath
+                        $developmentPlaytestLogHashesMatch =
+                            $developmentPlaytestLogSourceBytes -eq $developmentPlaytestLogCapturedBytes -and
+                            $developmentPlaytestLogSourceSha256 -eq $developmentPlaytestLogCapturedSha256
+                    }
+                    $developmentPlaytestLogValidated = $developmentPlaytestLogTimestampValid -and
+                        $developmentPlaytestLogJsonLineCount -gt 0 -and
+                        @($developmentPlaytestLogInvalidJsonLines).Count -eq 0 -and
+                        $developmentPlaytestLogCaptured -and $developmentPlaytestLogHashesMatch
                 }
             }
         }
@@ -583,7 +651,7 @@ function Invoke-ExtractedHiddenSmoke(
     }
     $status = if ([string]::IsNullOrWhiteSpace($launchError) -and -not $earlyExit -and
         $aliveAtMinimum -and $respondingByGraceDeadline -and $cleanupSucceeded -and
-        $developmentPlaytestLogCaptured) { 'PASS' } else { 'FAIL' }
+        $developmentPlaytestLogValidated) { 'PASS' } else { 'FAIL' }
     return [pscustomobject][ordered]@{
         schemaVersion = 1
         startedUtc = $startedUtc.ToString('O')
@@ -610,6 +678,17 @@ function Invoke-ExtractedHiddenSmoke(
         residualPackageProcessIds = @($residualPackageProcessIds)
         developmentPlaytestLog = $developmentPlaytestLog
         developmentPlaytestLogCaptured = $developmentPlaytestLogCaptured
+        developmentPlaytestLogValidated = $developmentPlaytestLogValidated
+        developmentPlaytestLogAllowedRoot = $developmentPlaytestLogAllowedRoot
+        developmentPlaytestLogWasNew = $developmentPlaytestLogWasNew
+        developmentPlaytestLogTimestampValid = $developmentPlaytestLogTimestampValid
+        developmentPlaytestLogJsonLineCount = $developmentPlaytestLogJsonLineCount
+        developmentPlaytestLogInvalidJsonLines = @($developmentPlaytestLogInvalidJsonLines)
+        developmentPlaytestLogSourceBytes = $developmentPlaytestLogSourceBytes
+        developmentPlaytestLogCapturedBytes = $developmentPlaytestLogCapturedBytes
+        developmentPlaytestLogSourceSha256 = $developmentPlaytestLogSourceSha256
+        developmentPlaytestLogCapturedSha256 = $developmentPlaytestLogCapturedSha256
+        developmentPlaytestLogHashesMatch = $developmentPlaytestLogHashesMatch
         capturedPlaytestLog = $CapturedPlaytestLogPath
         launchError = $launchError
         status = $status
@@ -786,6 +865,17 @@ $smoke = if ($folderManifestAudit.status -eq 'PASS' -and $zipComparisonOverall -
         residualPackageProcessIds = @()
         developmentPlaytestLog = ''
         developmentPlaytestLogCaptured = $false
+        developmentPlaytestLogValidated = $false
+        developmentPlaytestLogAllowedRoot = $false
+        developmentPlaytestLogWasNew = $false
+        developmentPlaytestLogTimestampValid = $false
+        developmentPlaytestLogJsonLineCount = 0
+        developmentPlaytestLogInvalidJsonLines = @()
+        developmentPlaytestLogSourceBytes = 0
+        developmentPlaytestLogCapturedBytes = 0
+        developmentPlaytestLogSourceSha256 = ''
+        developmentPlaytestLogCapturedSha256 = ''
+        developmentPlaytestLogHashesMatch = $false
         capturedPlaytestLog = $capturedPlaytestLog
         launchError = 'SKIPPED: package manifest or ZIP/folder integrity did not pass.'
         status = 'FAIL'
@@ -815,7 +905,11 @@ Write-Utf8Lines (Join-Path $evidenceRoot 'gamejam-package-extracted-hidden-smoke
     "Early exit: $($smoke.earlyExit)"
     "Process cleanup / residual PIDs: $($smoke.cleanupSucceeded) / $([string]::Join(',', @($smoke.residualPackageProcessIds)))"
     "Development LocalLow JSONL: $($smoke.developmentPlaytestLog)"
-    "Captured evidence JSONL: $($smoke.capturedPlaytestLog) / $($smoke.developmentPlaytestLogCaptured)"
+    "Allowed root / new this smoke / timestamp valid: $($smoke.developmentPlaytestLogAllowedRoot) / $($smoke.developmentPlaytestLogWasNew) / $($smoke.developmentPlaytestLogTimestampValid)"
+    "JSONL lines / invalid lines: $($smoke.developmentPlaytestLogJsonLineCount) / $([string]::Join(',', @($smoke.developmentPlaytestLogInvalidJsonLines)))"
+    "Source/captured bytes: $($smoke.developmentPlaytestLogSourceBytes) / $($smoke.developmentPlaytestLogCapturedBytes)"
+    "Source/captured SHA-256: $($smoke.developmentPlaytestLogSourceSha256) / $($smoke.developmentPlaytestLogCapturedSha256)"
+    "Captured evidence JSONL / validated: $($smoke.capturedPlaytestLog) / $($smoke.developmentPlaytestLogValidated)"
     "Launch error: $($smoke.launchError)"
     "Result: $($smoke.status)"
 )
@@ -861,7 +955,7 @@ $checks = @(
     [ordered]@{ id = 'PKG-I03.extracted-hidden-smoke'; status = $smoke.status },
     [ordered]@{ id = 'PKG-I04.source-package-immutable'; status = if ($sourceImmutable) { 'PASS' } else { 'FAIL' } },
     [ordered]@{ id = 'PKG-I05.tested-extracted-payload-immutable'; status = if ($testedPayloadImmutable) { 'PASS' } else { 'FAIL' } },
-    [ordered]@{ id = 'PKG-I06.development-playtest-log-captured'; status = if ($smoke.developmentPlaytestLogCaptured) { 'PASS' } else { 'FAIL' } }
+    [ordered]@{ id = 'PKG-I06.development-playtest-log-validated-and-captured'; status = if ($smoke.developmentPlaytestLogValidated) { 'PASS' } else { 'FAIL' } }
 )
 $overall = if (@($checks | Where-Object { $_.status -ne 'PASS' }).Count -eq 0) { 'PASS' } else { 'FAIL' }
 $aggregateExitCode = if ($overall -eq 'PASS') { 0 } else { 1 }
@@ -884,7 +978,7 @@ $summary = [ordered]@{
     testedExtractedPayloadImmutable = $testedPayloadImmutable
     postSmokeComparison = $postSmokeComparison
     exitCode = $aggregateExitCode
-    outputPolicy = 'The runner writes repo files only below fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId>. The Development player also creates one timestamped JSONL below its normal LocalLow PlaytestLogs path; that path is disclosed and a copy is captured as evidence without deleting user data.'
+    outputPolicy = 'The runner writes repo files only below fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId>. The Development player also creates one timestamped JSONL below Kim Survival Studio/.../PlaytestLogs in LocalLow; the runner proves it is new in this smoke, time-bounded, valid non-empty JSONL, and byte/SHA-identical to the captured evidence copy without deleting user data.'
     evidenceRoot = $evidenceRoot
     workRoot = $workRoot
     checks = $checks
@@ -912,7 +1006,8 @@ Write-Utf8Lines $summaryTextPath @(
     "Extracted hidden smoke: $($smoke.status)"
     "Source package unchanged: $sourceImmutable"
     "Tested extracted payload unchanged: $testedPayloadImmutable"
-    "Development LocalLow JSONL disclosed/captured: $($smoke.developmentPlaytestLog) / $($smoke.developmentPlaytestLogCaptured)"
+    "Development LocalLow JSONL validated/captured: $($smoke.developmentPlaytestLog) / $($smoke.developmentPlaytestLogValidated)"
+    "JSONL source/captured SHA-256: $($smoke.developmentPlaytestLogSourceSha256) / $($smoke.developmentPlaytestLogCapturedSha256)"
     "ZIP SHA-256: $zipSha256Before"
     "Evidence: $evidenceRoot"
     "Work: $workRoot"
