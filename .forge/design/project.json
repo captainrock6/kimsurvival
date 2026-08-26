@@ -3436,7 +3436,8 @@
       "humanDocument": "Docs/Design/Playtest/wave19-resource-integrated-first-user-playtest.md",
       "machinePacket": ".forge/packets/wave19-resource-playtest-contract.json",
       "automationEvidence": "Artifacts/Verification/resource-integrated-playtest/README.md",
-      "status": "READY_TO_RUN_HUMAN_RESULT_UNRUN",
+      "status": "LEGACY_OPTIONAL_REGRESSION_PROTOCOL",
+      "supersededBy": "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md and project.gameJamCompletionMatrixContract",
       "session": {
         "playMinutesMinimum": 30,
         "playMinutesMaximum": 45,
@@ -4617,7 +4618,7 @@
       "schemaVersion": 2,
       "contractId": "gamejam.completion-matrix.v2",
       "sourceBaseline": "e4bbc03531d54e023f7a90f7a608871a47d26d55",
-      "currentIntegratedCommit": "2fa17c0adec9ae6c11958e3b70b74bc8e286a098",
+      "currentIntegratedCommit": "27902030d6e4fb8e9ac7c0a231ce34bf68a9c6ad",
       "humanDocument": "Docs/Design/gamejam-completion-matrix.md",
       "designSources": [
         "Docs/Design/kim-survival-island-gdd.md",
@@ -4625,8 +4626,9 @@
         ".forge/design/project.json#project.sevenRegionSearchNodeContract"
       ],
       "integratedEvidenceRoots": [
-        "Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0",
-        "Artifacts/ParallelQA/20260827T050000Z_gamejam_longstay_2fa17c0"
+        "Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203",
+        "Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203",
+        "Artifacts/ParallelQA/20260827T141500Z_gamejam_longstay_2790203"
       ],
       "evidencePrecedence": [
         "current_integrated_probe",

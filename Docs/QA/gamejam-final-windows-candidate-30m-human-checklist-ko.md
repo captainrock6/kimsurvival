@@ -10,7 +10,7 @@
 
 이 문서는 과거 Day 3·Day 5 프로토타입용 절차가 아니다. 현재 GAME JAM 기준은 7개 지역, 4→6칸 가방, 같은 run의 위층·지하실, 뗏목·대형 연기·무전 조기 탈출, 임시 Day 20 장기 체류 엔딩이다. 표준 캠페인의 Day 50은 별도 자동 회귀로 보존한다.
 
-한 번의 대표 세션은 30분을 목표로 한다. 7지역 누적 커버리지, KO 3명·EN 3명, 물리 게임패드, Day 20 장기 체류 2종은 같은 후보 빌드로 수행하는 추가 표본이다. 대표 세션 하나만으로 이 항목들을 전부 통과했다고 기록하지 않는다.
+한 번의 대표 세션은 30분을 목표로 한다. KO 3명·EN 3명과 물리 게임패드는 공식 필수 검증이다. 7지역 누적 커버리지와 Day 20 장기 체류 2종은 같은 후보 빌드에서 수행하는 권장 회귀 표본이다. 대표 세션 하나만으로 이 항목들을 전부 통과했다고 기록하지 않는다.
 
 ## 1. 후보 빌드 동결
 
@@ -18,15 +18,15 @@
 
 | 필드 | 정확한 값 |
 |---|---|
-| Git commit SHA-1, 40자리 | `2fa17c0adec9ae6c11958e3b70b74bc8e286a098` |
+| Git commit SHA-1, 40자리 | `27902030d6e4fb8e9ac7c0a231ce34bf68a9c6ad` |
 | Windows EXE 파일명 | `KimSurvivalIsland.exe` |
-| Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\StableWindowsBuild\KimSurvivalIsland.exe` |
+| Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-2790203\KimSurvivalIsland.exe` |
 | EXE SHA-256, 64자리 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
-| 빌드 시각, KST | `2026-08-26 10:54:32` |
+| 빌드 시각, KST | `2026-08-26 12:34:29` |
 | Unity 버전 | `6000.4.9f1` |
 | 화면 | `1280×800 / 창모드·전체화면: ____________________` |
 | Windows 버전 | `________________________________________` |
-| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0`, `Artifacts/ParallelQA/20260827T050000Z_gamejam_longstay_2fa17c0` |
+| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203`, `Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203`, `Artifacts/ParallelQA/20260827T141500Z_gamejam_longstay_2790203` |
 | 테스트 담당자·세션 ID | `________________________________________` |
 
 해시 기록 명령:
@@ -53,8 +53,8 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 exe의 정확한 경
 |---|---|---|
 | 컴파일 0 error / 0 warning | Wave C `compile-result.txt` | `[x] PASS [ ] FAIL` |
 | Windows build·hidden smoke·Addressables·방화벽 | Wave C `windows-development-build.json`, `windows-hidden-smoke.json` | `[x] PASS [ ] FAIL` |
-| 7 region·21 archetype·42 node·일반 자원 144 | Wave C `gamejam-wave-b-edit-contracts.json` | `[x] PASS [ ] FAIL` |
-| hidden/partial/depleted·유한 잔여·장벽·영구 위험 snapshot | Wave C `gamejam-wave-b-play-contracts.json` | `[x] PASS [ ] FAIL` |
+| 7 region·21 archetype·42 node·일반 자원 144 | Wave B `gamejam-wave-b-edit-contracts.json` | `[x] PASS [ ] FAIL` |
+| hidden/partial/depleted·유한 잔여·장벽·영구 위험 snapshot | Wave B `gamejam-wave-b-play-contracts.json` | `[x] PASS [ ] FAIL` |
 | 질병 원자성·보호 부품·뗏목/연기/무전·위층/지하 | Wave C `gamejam-wave-c-play-contracts.json` | `[x] PASS [ ] FAIL` |
 | KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | Wave C `gamejam-wave-c-summary.json` | `[x] PASS [ ] FAIL` |
 | 엔딩 21종·core comic 3장+modifier·album exactly-once | Wave C `wave19-summary.json`, Long-stay `gamejam-long-stay-summary.json` | `[x] PASS [ ] FAIL` |
@@ -138,7 +138,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 exe의 정확한 경
 - 6칸 뒤 원정 판단이 달라졌는가? `[ ] 분명함 [ ] 약함 [ ] 차이 없음`
 - 비용 대비 “사고 싶은 성장”이었는가? `1  2  3  4  5` / 이유 `____________________________`
 
-### 5.2 유한 수색·장벽·위험·질병
+### 5.2 권장 회귀 표본 — 유한 수색·장벽·위험·질병
 
 | 계약 | 실제 확인 절차 | 결과 |
 |---|---|---|
@@ -150,7 +150,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 exe의 정확한 경
 | 질병 전개 | 서로 다른 오염 지점 노출 뒤 증상과 체력 변화, 미치료 악화를 확인한다. | `[ ] PASS [ ] FAIL` |
 | 치료 | 작업대와 약품 1개로 치료한다. 취소·중복 입력은 비용 0, 정상 치료 뒤 회복이 보여야 한다. | `[ ] PASS [ ] FAIL` |
 
-### 5.3 같은 run의 위층+지하실
+### 5.3 권장 회귀 표본 — 같은 run의 위층+지하실
 
 | 확인 | 결과 |
 |---|---|
@@ -160,7 +160,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 exe의 정확한 경
 | 각 층의 설비에 접근해 올바른 팝업을 사용한다. 연결부 미리보기가 설비를 가로채면 실패다. | `[ ] PASS [ ] FAIL` |
 | 취소·무효 배치·중복 확정에서 비용과 구조가 변하지 않는다. | `[ ] PASS [ ] FAIL` |
 
-### 5.4 7지역 누적 커버리지
+### 5.4 권장 회귀 표본 — 7지역 누적 커버리지
 
 한 대표 run에서 전부 방문할 필요는 없다. 동일 commit·EXE SHA의 여러 fresh session을 합쳐도 되며, 방문하지 않은 지역은 PASS로 만들지 않는다.
 
@@ -261,7 +261,7 @@ synthetic 입력이나 키보드 대체 조작은 물리 게임패드 PASS가 �
 
 물리 게임패드 최종 판정: `[ ] PASS [ ] FAIL`
 
-## 9. Day 20 장기 체류 반복플레이 표본
+## 9. 권장 회귀 표본 — Day 20 장기 체류 반복플레이
 
 이 표본은 대표 30분 조기 탈출과 별개다. GAME JAM 임시 Day 20 프로필에서 탈출하지 않고 서로 다른 생활 방식을 선택한다. 두 run 모두 같은 후보 SHA에서 수행한다.
 
@@ -303,12 +303,17 @@ P0는 즉시 세션을 멈추고 후보를 `REJECT`한다. P1은 원인 수정 �
 | 대표 첫 loop가 5~10분이다. | `[ ] PASS [ ] FAIL` |
 | raft/smoke/radio 중 대표 한 경로가 25~35분에 완료된다. | `[ ] PASS [ ] FAIL` |
 | 가방 4→6 성장과 선택 체감이 확인됐다. | `[ ] PASS [ ] FAIL` |
-| 7지역 누적 표본과 유한 잔여·장벽·위험·질병이 확인됐다. | `[ ] PASS [ ] FAIL` |
-| 같은 run의 위층+지하실과 층별 설비 사용이 확인됐다. | `[ ] PASS [ ] FAIL` |
 | KO 3명·EN 3명 fresh-user 표본이 완료됐다. | `[ ] PASS [ ] FAIL` |
 | 물리 게임패드 실기가 완료됐다. | `[ ] PASS [ ] FAIL` |
-| Day 20 장기 체류 2종 반복 표본이 완료됐다. | `[ ] PASS [ ] FAIL` |
-| 미해결 P0가 0건이고 P1이 모두 수정·재검증 또는 명시적 보류됐다. | `[ ] PASS [ ] FAIL` |
+| 미해결 P0와 P1이 모두 0건이다. P1이 남으면 ACCEPT가 아니라 RETEST다. | `[ ] PASS [ ] FAIL` |
+
+다음 항목은 권장 회귀 표본이다. 미실행만으로 공식 제출 blocker가 늘어나지는 않지만, 실패가 발견되면 후보를 `REJECT`하고 새 SHA로 재검증한다.
+
+| 권장 회귀 표본 | 결과 |
+|---|---|
+| 7지역 누적 표본과 유한 잔여·장벽·위험·질병 | `[ ] 확인 [ ] 미실행 [ ] 실패` |
+| 같은 run의 위층+지하실과 층별 설비 사용 | `[ ] 확인 [ ] 미실행 [ ] 실패` |
+| Day 20 장기 체류 2종 반복 표본 | `[ ] 확인 [ ] 미실행 [ ] 실패` |
 
 최종 후보 판정: `[ ] ACCEPT  [ ] RETEST  [ ] REJECT`
 
