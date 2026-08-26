@@ -698,11 +698,19 @@ namespace KimSurvival
 
         public CampModuleEvaluation Evaluate(GameSession session, CampModuleValidationContext context)
         {
-            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(selectedArchetype);
+            return Evaluate(session, context, selectedArchetype);
+        }
+
+        public CampModuleEvaluation Evaluate(
+            GameSession session,
+            CampModuleValidationContext context,
+            CampModuleArchetype archetype)
+        {
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(archetype);
             CampModuleGeometryStatus geometry = EvaluateGeometry(definition, context);
-            CampModuleResourceCost cost = config.GetCost(selectedArchetype);
+            CampModuleResourceCost cost = config.GetCost(archetype);
             CampModuleEconomyStatus economy;
-            if (IsCommitted(selectedArchetype) ||
+            if (IsCommitted(archetype) ||
                 committedRooms.Count >= PrototypeCampModuleExpansionConfig.MaxCommittedExpansion)
             {
                 economy = CampModuleEconomyStatus.PrototypeLimit;
