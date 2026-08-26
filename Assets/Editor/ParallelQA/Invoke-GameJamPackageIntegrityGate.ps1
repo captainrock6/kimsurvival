@@ -21,6 +21,11 @@ param(
     [ValidateRange(6, 60)]
     [int]$MinimumSmokeSeconds = 6,
 
+    [ValidateSet('Development', 'Release')]
+    [string]$BuildFlavor = 'Development',
+
+    [string]$ReleaseBuildEvidencePath = '',
+
     [ValidateNotNullOrEmpty()]
     [string]$ManifestRelativePath = 'SHA256SUMS.txt',
 
@@ -269,6 +274,13 @@ function Get-InternalManifestAudit(
     if ($buildInfoExists -and [string]::IsNullOrWhiteSpace($buildInfoParseError) -and -not $buildInfoSourceMatches) {
         $issues.Add("Package source commit mismatch. Expected $ExpectedSourceCommit, observed $buildInfoSourceCommit")
     }
+    $packagedDocumentationCommitMatches = $buildInfoExists -and
+        [string]::IsNullOrWhiteSpace($buildInfoParseError) -and
+        $packagedDocumentationCommit.Equals($ExpectedSourceCommit, [StringComparison]::OrdinalIgnoreCase)
+    if ($buildInfoExists -and [string]::IsNullOrWhiteSpace($buildInfoParseError) -and
+        -not $packagedDocumentationCommitMatches) {
+        $issues.Add("Packaged documentation commit mismatch. Expected $ExpectedSourceCommit, observed $packagedDocumentationCommit")
+    }
     $expectedExecutableNormalized = ConvertTo-SafeRelativePath $ExpectedExecutableRelative
     $executablePath = Resolve-ContainedPath $Root $expectedExecutableNormalized
     $executableSha256 = Get-Sha256 $executablePath
@@ -305,6 +317,7 @@ function Get-InternalManifestAudit(
             sourceCommit = $buildInfoSourceCommit
             sourceCommitMatches = $buildInfoSourceMatches
             packagedDocumentationCommit = $packagedDocumentationCommit
+            packagedDocumentationCommitMatches = $packagedDocumentationCommitMatches
             executableRelativePath = $declaredExecutableRelative
             executableSha256 = $executableSha256
             executableSha256Matches = $executableSha256 -eq $declaredExecutableSha256
@@ -464,7 +477,8 @@ function Invoke-ExtractedHiddenSmoke(
     [string]$ExecutablePathRelative,
     [int]$RequiredSeconds,
     [string]$LogPath,
-    [string]$CapturedPlaytestLogPath
+    [string]$CapturedPlaytestLogPath,
+    [bool]$RequireDevelopmentPlaytestLog
 ) {
     $startedUtc = [DateTime]::UtcNow
     $safeExecutableRelative = ''
@@ -499,7 +513,7 @@ function Invoke-ExtractedHiddenSmoke(
     $localLowRoot = Join-Path (Split-Path -Parent $localApplicationData) 'LocalLow'
     $allowedCompanyRoot = [IO.Path]::GetFullPath((Join-Path $localLowRoot 'Kim Survival Studio'))
     $preexistingPlaytestLogs = @{}
-    if (Test-Path -LiteralPath $allowedCompanyRoot -PathType Container) {
+    if ($RequireDevelopmentPlaytestLog -and (Test-Path -LiteralPath $allowedCompanyRoot -PathType Container)) {
         foreach ($existingLog in @(Get-ChildItem -LiteralPath $allowedCompanyRoot -Recurse -File -Filter '*.jsonl' -ErrorAction SilentlyContinue | Where-Object {
             (Split-Path -Leaf (Split-Path -Parent $_.FullName)).Equals('PlaytestLogs', [StringComparison]::OrdinalIgnoreCase)
         })) {
@@ -587,6 +601,10 @@ function Invoke-ExtractedHiddenSmoke(
         }
     }
     try {
+        if (-not $RequireDevelopmentPlaytestLog) {
+            $developmentPlaytestLogValidated = $true
+        }
+        else {
         if (Test-Path -LiteralPath $LogPath -PathType Leaf) {
             $playerLogText = Get-Content -LiteralPath $LogPath -Raw -Encoding UTF8
             $playtestLogMatch = [regex]::Match($playerLogText, '(?m)^\[Kim Survival Playtest\] Development-only local JSONL:\s*(?<path>.+?)\s*$')
@@ -644,6 +662,7 @@ function Invoke-ExtractedHiddenSmoke(
                 }
             }
         }
+        }
     } catch {
         if ([string]::IsNullOrWhiteSpace($launchError)) {
             $launchError = "Development playtest log capture failed: $($_.Exception.Message)"
@@ -689,8 +708,186 @@ function Invoke-ExtractedHiddenSmoke(
         developmentPlaytestLogSourceSha256 = $developmentPlaytestLogSourceSha256
         developmentPlaytestLogCapturedSha256 = $developmentPlaytestLogCapturedSha256
         developmentPlaytestLogHashesMatch = $developmentPlaytestLogHashesMatch
+        developmentPlaytestLogRequired = $RequireDevelopmentPlaytestLog
         capturedPlaytestLog = $CapturedPlaytestLogPath
         launchError = $launchError
+        status = $status
+    }
+}
+
+function Test-ExactPath([string]$Left, [string]$Right) {
+    if ([string]::IsNullOrWhiteSpace($Left) -or [string]::IsNullOrWhiteSpace($Right)) { return $false }
+    try {
+        return [IO.Path]::GetFullPath($Left).TrimEnd('\', '/').Equals(
+            [IO.Path]::GetFullPath($Right).TrimEnd('\', '/'),
+            [StringComparison]::OrdinalIgnoreCase)
+    } catch {
+        return $false
+    }
+}
+
+function Resolve-ReleaseBuildEvidenceFile([string]$RequestedPath, [string]$ResolvedPackageFolder) {
+    $artifactsRoot = [IO.Path]::GetFullPath((Join-Path $projectRoot 'Artifacts\ParallelQA'))
+    $candidate = ''
+    if (-not [string]::IsNullOrWhiteSpace($RequestedPath)) {
+        $candidate = Resolve-InputPath $RequestedPath $false
+    }
+    else {
+        $workQaRoot = [IO.Path]::GetFullPath((Join-Path $projectRoot 'work\ParallelQA'))
+        if (-not (Test-SameOrUnderPath $workQaRoot $ResolvedPackageFolder)) {
+            throw 'ReleaseBuildEvidencePath is required when PackageFolder is outside work/ParallelQA/<release-run-id>.'
+        }
+        $relative = Get-RelativePath $workQaRoot $ResolvedPackageFolder
+        $segments = @($relative.Split('/'))
+        if ($segments.Count -lt 2 -or [string]::IsNullOrWhiteSpace($segments[0])) {
+            throw 'PackageFolder does not identify its release run under work/ParallelQA.'
+        }
+        $candidate = Join-Path (Join-Path $artifactsRoot $segments[0]) 'gamejam-release-build.json'
+        if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+            throw "Release build evidence is missing for package run $($segments[0]): $candidate"
+        }
+        $candidate = (Resolve-Path -LiteralPath $candidate).Path
+    }
+    if (-not (Test-SameOrUnderPath $artifactsRoot $candidate) -or
+        -not (Split-Path -Leaf $candidate).Equals('gamejam-release-build.json', [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Release build evidence must be the exact gamejam-release-build.json below Artifacts/ParallelQA: $candidate"
+    }
+    $item = Get-Item -LiteralPath $candidate -Force
+    if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+        throw "A reparse-point release evidence file is not accepted: $candidate"
+    }
+    return [IO.Path]::GetFullPath($candidate)
+}
+
+function Get-ReleaseBuildEvidenceAudit(
+    [string]$EvidencePath,
+    [string]$ExpectedCommit,
+    [string]$ExpectedPackageFolder,
+    [string]$ExpectedFolderAggregateSha256,
+    [string]$ExpectedPackageZip,
+    [string]$ExpectedZipSha256,
+    [object]$ManifestAudit,
+    [int]$ExpectedPayloadFileCount
+) {
+    $issues = New-Object Collections.Generic.List[string]
+    $evidence = $null
+    try {
+        $evidence = Get-Content -LiteralPath $EvidencePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    } catch {
+        $issues.Add("Release build evidence is not valid JSON: $($_.Exception.Message)")
+    }
+    $sourceCommit = if ($null -eq $evidence) { '' } else { [string]$evidence.baselineCommit }
+    $observedHead = if ($null -eq $evidence) { '' } else { [string]$evidence.observedHead }
+    $buildOptions = if ($null -eq $evidence) { '' } else { [string]$evidence.buildOptions }
+    $overall = if ($null -eq $evidence) { '' } else { [string]$evidence.overall }
+    $sourceCleanBeforeUnity = $null -ne $evidence -and $evidence.sourceCleanBeforeUnity -eq $true
+    $sourceCleanAfterUnity = $null -ne $evidence -and $evidence.sourceCleanAfterUnity -eq $true
+    $packageFolder = if ($null -eq $evidence) { '' } else { [string]$evidence.packageFolder }
+    $packageFolderAggregateSha256 = if ($null -eq $evidence) { '' } else { [string]$evidence.packageFolderAggregateSha256 }
+    $packageZip = if ($null -eq $evidence) { '' } else { [string]$evidence.packageZip }
+    $zipSha256 = if ($null -eq $evidence) { '' } else { [string]$evidence.packageZipSha256 }
+    $executableSha256 = if ($null -eq $evidence) { '' } else { [string]$evidence.executableSha256 }
+    $managedAssemblySha256 = if ($null -eq $evidence) { '' } else { [string]$evidence.managedAssemblySha256 }
+    $payloadFileCount = if ($null -eq $evidence -or $null -eq $evidence.payloadFileCount) { -1 } else { [int]$evidence.payloadFileCount }
+
+    if (-not $sourceCommit.Equals($ExpectedCommit, [StringComparison]::OrdinalIgnoreCase) -or
+        -not $observedHead.Equals($ExpectedCommit, [StringComparison]::OrdinalIgnoreCase)) {
+        $issues.Add("Release evidence source/HEAD mismatch: $sourceCommit / $observedHead / expected $ExpectedCommit")
+    }
+    if ($buildOptions -ne 'None' -or $overall -ne 'PASS') {
+        $issues.Add("Release evidence is not a successful BuildOptions.None result: $buildOptions / $overall")
+    }
+    if (-not $sourceCleanBeforeUnity -or -not $sourceCleanAfterUnity) {
+        $issues.Add("Release evidence does not prove clean source before/after Unity: $sourceCleanBeforeUnity / $sourceCleanAfterUnity")
+    }
+    if (-not (Test-ExactPath $packageFolder $ExpectedPackageFolder) -or
+        -not (Test-ExactPath $packageZip $ExpectedPackageZip)) {
+        $issues.Add('Release evidence package folder/ZIP paths do not match the supplied candidate paths.')
+    }
+    if (-not $packageFolderAggregateSha256.Equals($ExpectedFolderAggregateSha256, [StringComparison]::OrdinalIgnoreCase)) {
+        $issues.Add("Release evidence package folder aggregate SHA-256 mismatch: $packageFolderAggregateSha256 / $ExpectedFolderAggregateSha256")
+    }
+    if (-not $zipSha256.Equals($ExpectedZipSha256, [StringComparison]::OrdinalIgnoreCase)) {
+        $issues.Add("Release evidence ZIP SHA-256 mismatch: $zipSha256 / $ExpectedZipSha256")
+    }
+    if (-not $executableSha256.Equals([string]$ManifestAudit.buildInfo.executableSha256, [StringComparison]::OrdinalIgnoreCase) -or
+        -not $managedAssemblySha256.Equals([string]$ManifestAudit.buildInfo.managedAssemblySha256, [StringComparison]::OrdinalIgnoreCase)) {
+        $issues.Add('Release evidence executable or managed assembly SHA-256 does not match the packaged payload.')
+    }
+    if ($payloadFileCount -ne $ExpectedPayloadFileCount) {
+        $issues.Add("Release evidence payload file count mismatch: $payloadFileCount / $ExpectedPayloadFileCount")
+    }
+    return [pscustomobject][ordered]@{
+        schemaVersion = 1
+        path = $EvidencePath
+        sha256 = Get-Sha256 $EvidencePath
+        sourceCommit = $sourceCommit
+        observedHead = $observedHead
+        buildOptions = $buildOptions
+        sourceCleanBeforeUnity = $sourceCleanBeforeUnity
+        sourceCleanAfterUnity = $sourceCleanAfterUnity
+        packageFolder = $packageFolder
+        packageFolderAggregateSha256 = $packageFolderAggregateSha256
+        packageZip = $packageZip
+        packageZipSha256 = $zipSha256
+        executableSha256 = $executableSha256
+        managedAssemblySha256 = $managedAssemblySha256
+        payloadFileCount = $payloadFileCount
+        issues = $issues.ToArray()
+        status = if ($issues.Count -eq 0) { 'PASS' } else { 'FAIL' }
+    }
+}
+
+function Get-ReleaseHygieneAudit([string]$Root, [string]$BuildInfoRelativePath) {
+    $forbiddenFiles = @()
+    $forbiddenDebugPathPattern = '(?i)(?:^|[\\/])(?:[^\\/]*_)?(?:BackUpThisFolder_ButDontShipItWithYourGame|BurstDebugInformation_DoNotShip)(?:[\\/]|$)'
+    foreach ($file in @(Get-ChildItem -LiteralPath $Root -Recurse -File -Force)) {
+        $relative = Get-RelativePath $Root $file.FullName
+        if ($file.Extension -match '^\.(pdb|mdb|dbg)$' -or
+            $file.Name.Equals('WinPixEventRuntime.dll', [StringComparison]::OrdinalIgnoreCase) -or
+            $relative -match $forbiddenDebugPathPattern) {
+            $forbiddenFiles += $relative
+        }
+    }
+    $forbiddenDirectories = @(Get-ChildItem -LiteralPath $Root -Recurse -Directory -Force |
+        ForEach-Object { Get-RelativePath $Root $_.FullName } |
+        Where-Object { $_ -match $forbiddenDebugPathPattern })
+
+    $bootConfigs = @(Get-ChildItem -LiteralPath $Root -Recurse -File -Filter 'boot.config' -Force)
+    $bootConfig = if ($bootConfigs.Count -eq 1) { $bootConfigs[0].FullName } else { '' }
+    $bootText = if ([string]::IsNullOrWhiteSpace($bootConfig)) { '' } else { Get-Content -LiteralPath $bootConfig -Raw -Encoding UTF8 }
+    $forbiddenBootSettings = @()
+    foreach ($line in @($bootText -split "`r?`n")) {
+        if ($line -match '(?i)^\s*(development-player\s*=\s*1|player-connection-|profiler-|managed-debugger|wait-for-managed-debugger|wait-for-native-debugger\s*=\s*1|debugging-enabled\s*=\s*1)') {
+            $forbiddenBootSettings += $line.Trim()
+        }
+    }
+    $privateAddressMatches = @([regex]::Matches(
+        $bootText,
+        '(?<!\d)(127\.0\.0\.1|10(?:\.\d{1,3}){3}|192\.168(?:\.\d{1,3}){2}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2})(?!\d)') |
+        ForEach-Object { $_.Value } | Sort-Object -Unique)
+    $buildInfoPath = Resolve-ContainedPath $Root $BuildInfoRelativePath
+    $buildInfoText = if (Test-Path -LiteralPath $buildInfoPath -PathType Leaf) {
+        Get-Content -LiteralPath $buildInfoPath -Raw -Encoding UTF8
+    } else { '' }
+    $releaseLabelMatches = $buildInfoText -match '(?im)^Build flavor:\s*Release\s*$'
+    $buildOptionsMatch = $buildInfoText -match '(?im)^Build options:\s*None\s*$'
+    $status = if ($bootConfigs.Count -eq 1 -and $forbiddenFiles.Count -eq 0 -and
+        $forbiddenDirectories.Count -eq 0 -and
+        $forbiddenBootSettings.Count -eq 0 -and $privateAddressMatches.Count -eq 0 -and
+        $releaseLabelMatches -and $buildOptionsMatch) { 'PASS' } else { 'FAIL' }
+    return [pscustomobject][ordered]@{
+        schemaVersion = 1
+        root = $Root
+        bootConfig = $bootConfig
+        bootConfigCount = $bootConfigs.Count
+        forbiddenFiles = @($forbiddenFiles)
+        forbiddenDirectories = @($forbiddenDirectories)
+        forbiddenBootSettings = @($forbiddenBootSettings)
+        privateAddressMatches = @($privateAddressMatches)
+        buildInfoPath = $buildInfoPath
+        releaseLabelMatches = $releaseLabelMatches
+        buildOptionsMatch = $buildOptionsMatch
         status = $status
     }
 }
@@ -727,6 +924,26 @@ $head = (& git -C $projectRoot rev-parse HEAD).Trim().ToLowerInvariant()
 if ($LASTEXITCODE -ne 0 -or $head -ne $baselineCommitNormalized) {
     throw "QA baseline commit mismatch. Expected $baselineCommitNormalized, observed $head"
 }
+if ($packageSourceCommitNormalized -ne $head) {
+    throw "Package source commit must equal the current exact HEAD. Expected $head, observed $packageSourceCommitNormalized"
+}
+$packageCommitObject = $packageSourceCommitNormalized + '^{commit}'
+& git -C $projectRoot cat-file -e $packageCommitObject 2>$null
+if ($LASTEXITCODE -ne 0) {
+    throw "Package source is not an existing Git commit: $packageSourceCommitNormalized"
+}
+$resolvedPackageCommit = (& git -C $projectRoot rev-parse $packageCommitObject).Trim().ToLowerInvariant()
+if ($LASTEXITCODE -ne 0 -or $resolvedPackageCommit -ne $packageSourceCommitNormalized) {
+    throw "Package source commit did not resolve exactly: $packageSourceCommitNormalized / $resolvedPackageCommit"
+}
+$runnerStatus = @(& git -C $projectRoot status --porcelain=v1 --untracked-files=no -- `
+    Assets/Editor/ParallelQA/Invoke-GameJamPackageIntegrityGate.ps1)
+if ($LASTEXITCODE -ne 0) {
+    throw 'Unable to verify package-integrity runner provenance.'
+}
+if ($runnerStatus.Count -gt 0) {
+    throw "Package-integrity runner differs from the declared QA baseline: $([string]::Join(' | ', $runnerStatus))"
+}
 
 New-Item -ItemType Directory -Path $evidenceRoot | Out-Null
 New-Item -ItemType Directory -Path $workRoot | Out-Null
@@ -735,6 +952,84 @@ $folderBefore = Get-DirectorySnapshot $packageFolderPath
 $zipSha256Before = Get-Sha256 $packageZipPath
 $folderManifestAudit = Get-InternalManifestAudit $packageFolderPath $manifestRelativeNormalized `
     $buildInfoRelativeNormalized $executableRelativeNormalized $packageSourceCommitNormalized
+$releaseBuildEvidenceResolved = ''
+$releaseBuildEvidenceAudit = $null
+if ($BuildFlavor -eq 'Release') {
+    try {
+        $releaseBuildEvidenceResolved = Resolve-ReleaseBuildEvidenceFile `
+            $ReleaseBuildEvidencePath $packageFolderPath
+        $releaseBuildEvidenceAudit = Get-ReleaseBuildEvidenceAudit `
+            $releaseBuildEvidenceResolved `
+            $packageSourceCommitNormalized `
+            $packageFolderPath `
+            $folderBefore.aggregateSha256 `
+            $packageZipPath `
+            $zipSha256Before `
+            $folderManifestAudit `
+            $folderBefore.fileCount
+    } catch {
+        $releaseBuildEvidenceAudit = [pscustomobject][ordered]@{
+            schemaVersion = 1
+            path = $releaseBuildEvidenceResolved
+            sha256 = Get-Sha256 $releaseBuildEvidenceResolved
+            sourceCommit = ''
+            observedHead = ''
+            buildOptions = ''
+            sourceCleanBeforeUnity = $false
+            sourceCleanAfterUnity = $false
+            packageFolder = ''
+            packageFolderAggregateSha256 = ''
+            packageZip = ''
+            packageZipSha256 = ''
+            executableSha256 = ''
+            managedAssemblySha256 = ''
+            payloadFileCount = -1
+            issues = @($_.Exception.Message)
+            status = 'FAIL'
+        }
+    }
+    Write-Utf8NoBom (Join-Path $evidenceRoot 'gamejam-release-build-provenance.json') `
+        (($releaseBuildEvidenceAudit | ConvertTo-Json -Depth 8) + [Environment]::NewLine)
+    Write-Utf8Lines (Join-Path $evidenceRoot 'gamejam-release-build-provenance.txt') @(
+        'Game Jam release build evidence provenance audit'
+        "Run ID: $RunId"
+        "Evidence: $($releaseBuildEvidenceAudit.path)"
+        "Evidence SHA-256: $($releaseBuildEvidenceAudit.sha256)"
+        "Source / observed HEAD: $($releaseBuildEvidenceAudit.sourceCommit) / $($releaseBuildEvidenceAudit.observedHead)"
+        "Build options: $($releaseBuildEvidenceAudit.buildOptions)"
+        "Source clean before/after Unity: $($releaseBuildEvidenceAudit.sourceCleanBeforeUnity) / $($releaseBuildEvidenceAudit.sourceCleanAfterUnity)"
+        "Package folder aggregate SHA-256: $($releaseBuildEvidenceAudit.packageFolderAggregateSha256)"
+        "Package ZIP SHA-256: $($releaseBuildEvidenceAudit.packageZipSha256)"
+        "Executable SHA-256: $($releaseBuildEvidenceAudit.executableSha256)"
+        "Managed assembly SHA-256: $($releaseBuildEvidenceAudit.managedAssemblySha256)"
+        "Payload files: $($releaseBuildEvidenceAudit.payloadFileCount)"
+        "Issues: $([string]::Join(' | ', @($releaseBuildEvidenceAudit.issues)))"
+        "Result: $($releaseBuildEvidenceAudit.status)"
+    )
+}
+$releaseBuildEvidenceStatus = if ($BuildFlavor -eq 'Release') {
+    $releaseBuildEvidenceAudit.status
+} else { 'PASS' }
+$releaseHygiene = if ($BuildFlavor -eq 'Release') {
+    Get-ReleaseHygieneAudit $packageFolderPath $buildInfoRelativeNormalized
+} else { $null }
+if ($null -ne $releaseHygiene) {
+    Write-Utf8NoBom (Join-Path $evidenceRoot 'gamejam-release-hygiene.json') `
+        (($releaseHygiene | ConvertTo-Json -Depth 8) + [Environment]::NewLine)
+    Write-Utf8Lines (Join-Path $evidenceRoot 'gamejam-release-hygiene.txt') @(
+        'Game Jam release package hygiene audit'
+        "Run ID: $RunId"
+        "Boot config: $($releaseHygiene.bootConfig)"
+        "Boot config count: $($releaseHygiene.bootConfigCount)"
+        "Forbidden files: $([string]::Join(' | ', @($releaseHygiene.forbiddenFiles)))"
+        "Forbidden directories: $([string]::Join(' | ', @($releaseHygiene.forbiddenDirectories)))"
+        "Forbidden boot settings: $([string]::Join(' | ', @($releaseHygiene.forbiddenBootSettings)))"
+        "Private/local addresses: $([string]::Join(' | ', @($releaseHygiene.privateAddressMatches)))"
+        "BUILD-INFO release label: $($releaseHygiene.releaseLabelMatches)"
+        "BUILD-INFO BuildOptions.None: $($releaseHygiene.buildOptionsMatch)"
+        "Result: $($releaseHygiene.status)"
+    )
+}
 
 $folderManifestReport = [ordered]@{
     schemaVersion = 1
@@ -761,6 +1056,7 @@ Write-Utf8Lines (Join-Path $evidenceRoot 'gamejam-package-folder-manifest.txt') 
     "Manifest entries: $($folderManifestAudit.manifestEntryCount)"
     "Exact manifest file set: $($folderManifestAudit.exactFileSet)"
     "BUILD-INFO source commit matches: $($folderManifestAudit.buildInfo.sourceCommitMatches)"
+    "BUILD-INFO documentation commit matches: $($folderManifestAudit.buildInfo.packagedDocumentationCommitMatches)"
     "Executable / managed assembly identity matches: $($folderManifestAudit.buildInfo.identityMatches)"
     "Result: $($folderManifestAudit.status)"
     "Issues: $([string]::Join(' | ', @($folderManifestAudit.issues)))"
@@ -835,9 +1131,10 @@ Write-Utf8Lines (Join-Path $evidenceRoot 'gamejam-package-zip-folder-comparison.
     "Result: $zipComparisonOverall"
 )
 
-$smoke = if ($folderManifestAudit.status -eq 'PASS' -and $zipComparisonOverall -eq 'PASS') {
+$smoke = if ($folderManifestAudit.status -eq 'PASS' -and $zipComparisonOverall -eq 'PASS' -and
+    $releaseBuildEvidenceStatus -eq 'PASS') {
     Invoke-ExtractedHiddenSmoke $extractedPackageRoot $executableRelativeNormalized $MinimumSmokeSeconds `
-        $playerLog $capturedPlaytestLog
+        $playerLog $capturedPlaytestLog ($BuildFlavor -eq 'Development')
 } else {
     [pscustomobject][ordered]@{
         schemaVersion = 1
@@ -876,8 +1173,9 @@ $smoke = if ($folderManifestAudit.status -eq 'PASS' -and $zipComparisonOverall -
         developmentPlaytestLogSourceSha256 = ''
         developmentPlaytestLogCapturedSha256 = ''
         developmentPlaytestLogHashesMatch = $false
+        developmentPlaytestLogRequired = $BuildFlavor -eq 'Development'
         capturedPlaytestLog = $capturedPlaytestLog
-        launchError = 'SKIPPED: package manifest or ZIP/folder integrity did not pass.'
+        launchError = 'SKIPPED: package manifest, ZIP/folder integrity, or release provenance did not pass.'
         status = 'FAIL'
     }
 }
@@ -955,18 +1253,29 @@ $checks = @(
     [ordered]@{ id = 'PKG-I03.extracted-hidden-smoke'; status = $smoke.status },
     [ordered]@{ id = 'PKG-I04.source-package-immutable'; status = if ($sourceImmutable) { 'PASS' } else { 'FAIL' } },
     [ordered]@{ id = 'PKG-I05.tested-extracted-payload-immutable'; status = if ($testedPayloadImmutable) { 'PASS' } else { 'FAIL' } },
-    [ordered]@{ id = 'PKG-I06.development-playtest-log-validated-and-captured'; status = if ($smoke.developmentPlaytestLogValidated) { 'PASS' } else { 'FAIL' } }
+    [ordered]@{
+        id = if ($BuildFlavor -eq 'Release') { 'PKG-I06.release-build-hygiene' } else { 'PKG-I06.development-playtest-log-validated-and-captured' }
+        status = if ($BuildFlavor -eq 'Release') { $releaseHygiene.status } elseif ($smoke.developmentPlaytestLogValidated) { 'PASS' } else { 'FAIL' }
+    },
+    [ordered]@{
+        id = if ($BuildFlavor -eq 'Release') { 'PKG-I07.release-build-provenance' } else { 'PKG-I07.package-source-current-head' }
+        status = $releaseBuildEvidenceStatus
+    }
 )
 $overall = if (@($checks | Where-Object { $_.status -ne 'PASS' }).Count -eq 0) { 'PASS' } else { 'FAIL' }
 $aggregateExitCode = if ($overall -eq 'PASS') { 0 } else { 1 }
 $summaryPath = Join-Path $evidenceRoot 'gamejam-package-integrity-summary.json'
 $summaryTextPath = Join-Path $evidenceRoot 'gamejam-package-integrity-summary.txt'
+$releaseEvidenceRerunArgument = if ($BuildFlavor -eq 'Release') {
+    " -ReleaseBuildEvidencePath '$releaseBuildEvidenceResolved'"
+} else { '' }
 $summary = [ordered]@{
     schemaVersion = 1
     title = 'Game Jam final package integrity and extracted smoke gate'
     runId = $RunId
     baselineCommit = $baselineCommitNormalized
     packageSourceCommit = $packageSourceCommitNormalized
+    buildFlavor = $BuildFlavor
     observedHead = $head
     startedUtc = $startedUtc.ToString('O')
     completedUtc = [DateTime]::UtcNow.ToString('O')
@@ -978,7 +1287,9 @@ $summary = [ordered]@{
     testedExtractedPayloadImmutable = $testedPayloadImmutable
     postSmokeComparison = $postSmokeComparison
     exitCode = $aggregateExitCode
-    outputPolicy = 'The runner writes repo files only below fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId>. The Development player also creates one timestamped JSONL below Kim Survival Studio/.../PlaytestLogs in LocalLow; the runner proves it is new in this smoke, time-bounded, valid non-empty JSONL, and byte/SHA-identical to the captured evidence copy without deleting user data.'
+    outputPolicy = if ($BuildFlavor -eq 'Release') { 'The runner writes repo files only below fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId>. A release hidden smoke is required, and the package must contain no debug symbols, WinPix runtime, player connection settings, profiler settings, or private/local addresses in boot.config.' } else { 'The runner writes repo files only below fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId>. The Development player also creates one timestamped JSONL below Kim Survival Studio/.../PlaytestLogs in LocalLow; the runner proves it is new in this smoke, time-bounded, valid non-empty JSONL, and byte/SHA-identical to the captured evidence copy without deleting user data.' }
+    releaseHygiene = $releaseHygiene
+    releaseBuildEvidence = $releaseBuildEvidenceAudit
     evidenceRoot = $evidenceRoot
     workRoot = $workRoot
     checks = $checks
@@ -989,9 +1300,11 @@ $summary = [ordered]@{
         zipFolderComparisonText = Join-Path $evidenceRoot 'gamejam-package-zip-folder-comparison.txt'
         extractedSmokeJson = Join-Path $evidenceRoot 'gamejam-package-extracted-hidden-smoke.json'
         extractedSmokeText = Join-Path $evidenceRoot 'gamejam-package-extracted-hidden-smoke.txt'
+        releaseBuildProvenanceJson = if ($BuildFlavor -eq 'Release') { Join-Path $evidenceRoot 'gamejam-release-build-provenance.json' } else { '' }
+        releaseBuildProvenanceText = if ($BuildFlavor -eq 'Release') { Join-Path $evidenceRoot 'gamejam-release-build-provenance.txt' } else { '' }
         capturedDevelopmentPlaytestLog = $capturedPlaytestLog
     }
-    exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamPackageIntegrityGate.ps1' -RunId '<FRESH_RUN_ID>' -BaselineCommit '$baselineCommitNormalized' -PackageSourceCommit '$packageSourceCommitNormalized' -PackageFolder '$packageFolderPath' -PackageZip '$packageZipPath' -MinimumSmokeSeconds $MinimumSmokeSeconds"
+    exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamPackageIntegrityGate.ps1' -RunId '<FRESH_RUN_ID>' -BaselineCommit '$baselineCommitNormalized' -PackageSourceCommit '$packageSourceCommitNormalized' -PackageFolder '$packageFolderPath' -PackageZip '$packageZipPath' -MinimumSmokeSeconds $MinimumSmokeSeconds -BuildFlavor $BuildFlavor$releaseEvidenceRerunArgument"
 }
 Write-Utf8NoBom $summaryPath (($summary | ConvertTo-Json -Depth 12) + [Environment]::NewLine)
 Write-Utf8Lines $summaryTextPath @(
@@ -999,6 +1312,7 @@ Write-Utf8Lines $summaryTextPath @(
     "Run ID: $RunId"
     "QA baseline / observed HEAD: $baselineCommitNormalized / $head"
     "Package source commit: $packageSourceCommitNormalized"
+    "Build flavor: $BuildFlavor"
     "Result: $overall"
     "Exit code: $aggregateExitCode"
     "Folder manifest: $($folderManifestAudit.status)"
@@ -1007,6 +1321,8 @@ Write-Utf8Lines $summaryTextPath @(
     "Source package unchanged: $sourceImmutable"
     "Tested extracted payload unchanged: $testedPayloadImmutable"
     "Development LocalLow JSONL validated/captured: $($smoke.developmentPlaytestLog) / $($smoke.developmentPlaytestLogValidated)"
+    "Release hygiene: $(if ($null -eq $releaseHygiene) { 'N/A' } else { $releaseHygiene.status })"
+    "Release build provenance: $releaseBuildEvidenceStatus"
     "JSONL source/captured SHA-256: $($smoke.developmentPlaytestLogSourceSha256) / $($smoke.developmentPlaytestLogCapturedSha256)"
     "ZIP SHA-256: $zipSha256Before"
     "Evidence: $evidenceRoot"
@@ -1019,5 +1335,8 @@ Write-Output "ZIP_FOLDER_COMPARISON=$zipComparisonOverall"
 Write-Output "EXTRACTED_HIDDEN_SMOKE=$($smoke.status)"
 Write-Output "SOURCE_PACKAGE_IMMUTABLE=$sourceImmutable"
 Write-Output "TESTED_EXTRACTED_PAYLOAD_IMMUTABLE=$testedPayloadImmutable"
+Write-Output "BUILD_FLAVOR=$BuildFlavor"
+Write-Output "RELEASE_HYGIENE=$(if ($null -eq $releaseHygiene) { 'N/A' } else { $releaseHygiene.status })"
+Write-Output "RELEASE_BUILD_PROVENANCE=$releaseBuildEvidenceStatus"
 Write-Output "EVIDENCE=$evidenceRoot"
 exit $aggregateExitCode

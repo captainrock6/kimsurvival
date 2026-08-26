@@ -379,13 +379,16 @@ namespace ParallelQA
                 "Reset the camp, warp to PlayerStartX, refresh, and enumerate active prompt/popup roots.",
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs");
 
-            PrototypeCampInteractionTargetKind[] kinds =
+            List<PrototypeCampInteractionTargetKind> kinds = new List<PrototypeCampInteractionTargetKind>
             {
                 PrototypeCampInteractionTargetKind.Campfire,
                 PrototypeCampInteractionTargetKind.Workbench,
-                PrototypeCampInteractionTargetKind.RainCollector,
-                PrototypeCampInteractionTargetKind.RescueSignal
+                PrototypeCampInteractionTargetKind.RainCollector
             };
+            if (!prototype.Session.IsProvisionalSessionProfile)
+            {
+                kinds.Add(PrototypeCampInteractionTargetKind.RescueSignal);
+            }
             List<TargetStateEvidence> targets = new List<TargetStateEvidence>();
             foreach (PrototypeCampInteractionTargetKind kind in kinds)
             {
@@ -422,7 +425,9 @@ namespace ParallelQA
             bool allPopup = targets.All(item => item.popupOpenPromptCount == 0 && item.popupCount == 1);
             bool allRestore = targets.All(item => item.restoredPromptCount == 1 && item.restoredTargetKind == item.target);
             Product(checks, "W9P-P02.four_single_near_prompts", "near", "P0",
-                "Campfire, workbench, rain collector, and rescue signal each expose exactly one same-target prompt only when near",
+                prototype.Session.IsProvisionalSessionProfile
+                    ? "GAME JAM campfire, workbench, and rain collector each expose one same-target prompt; legacy fixed rescue signal stays absent"
+                    : "Standard campfire, workbench, rain collector, and rescue signal each expose exactly one same-target prompt only when near",
                 allNear,
                 Join(targets.Select(item => item.target + " far=" + item.farPromptCount + " near=" + item.nearPromptCount + " kind=" + item.nearTargetKind)),
                 "Approach each facility separately and count active prompt roots before interacting.",

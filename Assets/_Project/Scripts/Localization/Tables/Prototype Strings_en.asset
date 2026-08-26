@@ -1017,7 +1017,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 349680612655104
-    m_Localized: Preview room expansion here. Upper and basement cost 1 wood; side costs 2 wood and 1 salvage.
+    m_Localized: Preview room expansion here. Upper and basement cost 1 wood; side
+      costs 2 wood and 1 salvage.
     m_Metadata:
       m_Items: []
   - m_Id: 349680625238016
@@ -1401,11 +1402,13 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 747417803931653
-    m_Localized: Commit flint plus 12 wood, 2 fiber, and 2 fuel in two stages, then verify visibility in clear wind.
+    m_Localized: Commit flint plus 12 wood, 2 fiber, and 2 fuel in two stages, then
+      verify visibility in clear wind.
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931654
-    m_Localized: Repair with the transceiver, circuit board, transistor, 2 electronics, 2 wire, and 1 metal, then find a clear frequency.
+    m_Localized: Repair with the transceiver, circuit board, transistor, 2 electronics,
+      2 wire, and 1 metal, then find a clear frequency.
     m_Metadata:
       m_Items: []
   - m_Id: 747417803931655
@@ -2054,7 +2057,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147244974081
-    m_Localized: "Stone and wood abundant \xB7 Metal and fiber common \xB7 Fuel and food scarce"
+    m_Localized: "Stone and wood abundant \xB7 Metal and fiber common \xB7 Fuel and
+      food scarce"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147244974082
@@ -2263,15 +2267,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334215
-    m_Localized: ACT I · THAT DAY
+    m_Localized: "ACT I \xB7 THAT DAY"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334216
-    m_Localized: ACT II · THINGS ESCALATE
+    m_Localized: "ACT II \xB7 THINGS ESCALATE"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334217
-    m_Localized: ACT III · AFTER THAT
+    m_Localized: "ACT III \xB7 AFTER THAT"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334218
@@ -2279,7 +2283,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334219
-    m_Localized: EPILOGUE · SOIL READER
+    m_Localized: "EPILOGUE \xB7 SOIL READER"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334220
@@ -2287,15 +2291,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334221
-    m_Localized: EPILOGUE · ALWAYS ADD A FLOOR
+    m_Localized: "EPILOGUE \xB7 ALWAYS ADD A FLOOR"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334222
-    m_Localized: Every new home now makes Mr. Kim calculate the upper floor and basement first.
+    m_Localized: Every new home now makes Mr. Kim calculate the upper floor and basement
+      first.
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334223
-    m_Localized: EPILOGUE · FIXED MEANS MINE
+    m_Localized: "EPILOGUE \xB7 FIXED MEANS MINE"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334224
@@ -2303,23 +2308,25 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334225
-    m_Localized: EPILOGUE · CURRENT SPECIALIST
+    m_Localized: "EPILOGUE \xB7 CURRENT SPECIALIST"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334226
-    m_Localized: After reading waves for so long, Mr. Kim sees shortcuts in every stretch of water.
+    m_Localized: After reading waves for so long, Mr. Kim sees shortcuts in every
+      stretch of water.
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334227
-    m_Localized: EPILOGUE · CRISIS FOREMAN
+    m_Localized: "EPILOGUE \xB7 CRISIS FOREMAN"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334228
-    m_Localized: Spotting danger early left him comically overprepared for ordinary alarms.
+    m_Localized: Spotting danger early left him comically overprepared for ordinary
+      alarms.
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334229
-    m_Localized: EPILOGUE · THE KIM METHOD
+    m_Localized: "EPILOGUE \xB7 THE KIM METHOD"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334230
@@ -2331,11 +2338,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334232
-    m_Localized: On day twenty, Mr. Kim checked food and animal trails before the rescue schedule.
+    m_Localized: On day twenty, Mr. Kim checked food and animal trails before the
+      rescue schedule.
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334233
-    m_Localized: His search, farming, and hunting notes quietly became an island-life calendar.
+    m_Localized: His search, farming, and hunting notes quietly became an island-life
+      calendar.
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334234
@@ -2343,15 +2352,17 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334235
-    m_Localized: On day twenty, Mr. Kim awaited the next expansion plan more than a rescue boat.
+    m_Localized: On day twenty, Mr. Kim awaited the next expansion plan more than
+      a rescue boat.
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334236
-    m_Localized: As built and repaired facilities multiplied, the whole island became a construction site.
+    m_Localized: As built and repaired facilities multiplied, the whole island became
+      a construction site.
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334237
-    m_Localized: GAME JAM · DAY TWENTY
+    m_Localized: "GAME JAM \xB7 DAY TWENTY"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334238
@@ -2376,6 +2387,48 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1212147274334243
     m_Localized: Radio transistor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250521210880
+    m_Localized: Insects are stirring. Searching now risks bites.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250558959616
+    m_Localized: A swarm bit you. Close the finds tray and retreat to limit the harm.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250558959617
+    m_Localized: You retreated from the swarm. Return to camp to soothe the bites.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153920
+    m_Localized: Cleaning the bites at camp eased the harm.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153921
+    m_Localized: Irritating sap and thorns are visible. Searching now risks injury.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153922
+    m_Localized: Toxic sap touched you. Close the finds tray and back away from the
+      plant.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153923
+    m_Localized: You backed away from the dangerous plant. Return to camp to wash
+      the sap off.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153924
+    m_Localized: Washing the sap off at camp eased the harm.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153925
+    m_Localized: Retreat from swarm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153926
+    m_Localized: Back away from plant
     m_Metadata:
       m_Items: []
   references:

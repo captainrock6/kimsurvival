@@ -16,6 +16,8 @@ namespace KimSurvival
             var routeBranches = new List<PrototypeWaveCRouteBranchObservation>();
             var pitySequence = new List<int>();
             var reenteredRooms = new List<string>();
+            var facilityPlacementRooms = new List<string>();
+            var facilityUseRooms = new List<string>();
             var visitedNodeIds = new HashSet<string>(StringComparer.Ordinal);
             int expeditionCount = 0;
             int eventSequence = 0;
@@ -74,6 +76,8 @@ namespace KimSurvival
                     "repair-fail",
                     events,
                     ref eventSequence);
+                observation.StableResourceStockLocales = CaptureGameJamStableResourceLocaleEvidence();
+                observation.EscapeShortageLocales = CaptureGameJamEscapeShortageLocaleEvidence();
 
                 string[] starterNodeIds =
                 {
@@ -171,6 +175,20 @@ namespace KimSurvival
                     "Upper and basement must both be committed in the same production run.");
                 TraverseWaveCCampRoom(CampModuleArchetype.Upper, reenteredRooms);
                 TraverseWaveCCampRoom(CampModuleArchetype.Basement, reenteredRooms);
+                PlaceAndUseWaveCWorkbenchInRoom(
+                    CampModuleArchetype.Upper,
+                    facilityPlacementRooms,
+                    facilityUseRooms,
+                    false);
+                PlaceAndUseWaveCWorkbenchInRoom(
+                    CampModuleArchetype.Basement,
+                    facilityPlacementRooms,
+                    facilityUseRooms,
+                    true);
+                observation.FacilityPlacementRoomIds = facilityPlacementRooms.Distinct(StringComparer.Ordinal).ToArray();
+                observation.FacilityUseRoomIds = facilityUseRooms.Distinct(StringComparer.Ordinal).ToArray();
+                observation.LegacyRescueSignalAvailable = campInteractionTargets.Any(value =>
+                    value.Kind == PrototypeCampInteractionTargetKind.RescueSignal);
 
                 while (expeditionCount < 14 && !CanCompleteAllWaveCRoutes())
                 {
@@ -189,7 +207,6 @@ namespace KimSurvival
                     .ToArray();
                 Require(observation.CompletableEscapeIds.Length == representativeEscapeIds.Length,
                     "Completable escape IDs must be derived from live route predicates, not a fixed pass list.");
-
                 string knownBefore = searchNodeRuntime.Ledger.NewGameStockFingerprint;
                 string protectedBefore = WaveCProtectedFingerprint();
                 string resourceBefore = WaveCEscapeResourceFingerprint();
@@ -312,6 +329,7 @@ namespace KimSurvival
                                             observation.SkipCallCount == 0 ? "PASS" : "FAIL";
                 observation.HumanSessionCount = 0;
                 observation.HumanGateStatus = "HUMAN_REQUIRED";
+                observation.TerminalControls = CaptureAndExerciseGameJamTerminalControls();
             }
             catch (Exception exception)
             {
@@ -688,6 +706,53 @@ namespace KimSurvival
             OpenWaveCCampTargetIdThroughProductionInput(definition.ReciprocalSlotId);
             Require(CurrentCampRoomId == PrototypeCampModuleCatalog.StartRoomId,
                 archetype + " production reciprocal connector return");
+        }
+
+        private void PlaceAndUseWaveCWorkbenchInRoom(
+            CampModuleArchetype archetype,
+            ICollection<string> placementRooms,
+            ICollection<string> useRooms,
+            bool gamepad)
+        {
+            CampModuleDefinition definition = PrototypeCampModuleCatalog.Get(archetype);
+            Require(CurrentCampRoomId == PrototypeCampModuleCatalog.StartRoomId,
+                archetype + " facility placement must start in the start room.");
+            OpenWaveCCampTargetIdThroughProductionInput(definition.StartSlotId);
+            Require(CurrentCampRoomId == definition.RoomId,
+                archetype + " facility placement connector entry");
+
+            OpenWaveCCampTargetIdThroughProductionInput("storage.planning." + definition.RoomId);
+            ActuateCampPopupButtonThroughRawInput(
+                workbenchButton,
+                gamepad
+                    ? new PrototypeRawInput { GamepadInteract = true, BagSlotIndex = -1 }
+                    : new PrototypeRawInput { KeyboardInteract = true, BagSlotIndex = -1 });
+            Require(campPlacement.IsActive && campPlacement.CandidateRoomId == definition.RoomId &&
+                    campPlacement.CurrentValidity == CampPlacementValidity.Valid,
+                archetype + " production workbench placement start");
+            ProcessCampPlacementActions(
+                PrototypeCampPlacementActions.FromRaw(
+                    gamepad
+                        ? new PrototypeRawCampPlacementInput { GamepadConfirm = true }
+                        : new PrototypeRawCampPlacementInput { KeyboardConfirm = true }),
+                0f);
+            Require(campPlacement.IsInstalledInRoom(StructureKind.Workbench, definition.RoomId),
+                archetype + " production workbench placement commit");
+            placementRooms.Add(definition.RoomId);
+
+            OpenWaveCCampTargetIdThroughProductionInput("camp." + StructureKind.Workbench);
+            ActuateCampPopupButtonThroughRawInput(
+                repairButton,
+                gamepad
+                    ? new PrototypeRawInput { GamepadInteract = true, BagSlotIndex = -1 }
+                    : new PrototypeRawInput { KeyboardInteract = true, BagSlotIndex = -1 });
+            Require(campFeedback.Key == "message.workbench.repair.ready",
+                archetype + " production workbench interaction");
+            useRooms.Add(definition.RoomId);
+
+            OpenWaveCCampTargetIdThroughProductionInput(definition.ReciprocalSlotId);
+            Require(CurrentCampRoomId == PrototypeCampModuleCatalog.StartRoomId,
+                archetype + " facility use reciprocal connector return");
         }
 
         private void OpenWaveCCampTargetIdThroughProductionInput(string targetId)

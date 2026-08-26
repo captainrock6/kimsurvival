@@ -1516,7 +1516,12 @@ namespace KimSurvival.EditorTools
                 CreateProject();
             }
 
-            Directory.CreateDirectory("Builds/WindowsReleaseVerification");
+            const string releaseBuildFolder = "Builds/WindowsReleaseVerification";
+            if (Directory.Exists(releaseBuildFolder))
+            {
+                Directory.Delete(releaseBuildFolder, true);
+            }
+            Directory.CreateDirectory(releaseBuildFolder);
             Directory.CreateDirectory(VerificationFolder);
             BuildPlayerOptions options = new BuildPlayerOptions
             {
@@ -1531,6 +1536,7 @@ namespace KimSurvival.EditorTools
             string text =
                 "Result: " + summary.result + "\n" +
                 "Output: " + options.locationPathName + "\n" +
+                "BuildOptions: " + options.options + "\n" +
                 "Development: false\n" +
                 "Size: " + summary.totalSize + " bytes\n" +
                 "Duration: " + summary.totalTime + "\n" +

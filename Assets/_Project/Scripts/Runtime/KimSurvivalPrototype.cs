@@ -50,7 +50,7 @@ namespace KimSurvival
         private const int ModuleInteractionPriority = 1;
         private const int InstalledFacilityInteractionPriority = 2;
         private const string AssetCampBackground = "background.island-camp";
-        private const string AssetSearchBackground = "background.coast-forest";
+        private const string AssetSearchBackground = "engine-native.expedition-region-layers.v1";
         private const string AssetKim = "character.mr-kim";
         private const string AssetSwim = "animation.mr-kim.swim";
         private const string AssetStructures = "object.camp-structures";
@@ -612,9 +612,7 @@ namespace KimSurvival
                     {
                         text.ForceMeshUpdate(false, true);
                         Rect glyph = RenderedTextWorldRect(text);
-                        RectTransform owner = string.Equals(text.gameObject.name, "Finale Title", StringComparison.Ordinal)
-                            ? text.rectTransform
-                            : text.transform.parent as RectTransform;
+                        RectTransform owner = text.transform.parent as RectTransform;
                         Rect boundary = RectTransformWorldRect(owner);
                         rendered.Add(new TerminalComicTextGeometry(text.gameObject.name, glyph, boundary));
                         if (!RectContains(boundary, glyph, 0.5f))
@@ -690,10 +688,12 @@ namespace KimSurvival
             if (frame == null || frameImage == null || frameImage.sprite == null) return;
 
             TMP_Text title = FindTerminalComicText("Finale Title");
+            bool titleHasDedicatedSurface = title != null && title.transform.parent != null &&
+                                            string.Equals(title.transform.parent.name, "Finale Title Surface", StringComparison.Ordinal);
             ConfigureTerminalComicText(
                 title,
-                new Vector2(0.055f, 0.825f),
-                new Vector2(0.92f, 0.965f),
+                titleHasDedicatedSurface ? new Vector2(0.025f, 0.08f) : new Vector2(0.055f, 0.825f),
+                titleHasDedicatedSurface ? new Vector2(0.975f, 0.92f) : new Vector2(0.92f, 0.965f),
                 18f,
                 24f,
                 2);
@@ -701,21 +701,25 @@ namespace KimSurvival
             for (int index = 0; index < 3; index += 1)
             {
                 TMP_Text badge = FindTerminalComicText("Act Badge " + (index + 1));
+                bool badgeHasDedicatedCard = badge != null && badge.transform.parent != null &&
+                                             badge.transform.parent.name.StartsWith("Act Badge Card ", StringComparison.Ordinal);
                 ConfigureTerminalComicText(
                     badge,
-                    new Vector2(0.055f, 0.70f),
-                    new Vector2(0.945f, 0.93f),
-                    15f,
-                    22f,
+                    badgeHasDedicatedCard ? new Vector2(0.035f, 0.08f) : new Vector2(0.055f, 0.70f),
+                    badgeHasDedicatedCard ? new Vector2(0.965f, 0.92f) : new Vector2(0.945f, 0.93f),
+                    badgeHasDedicatedCard ? 12f : 15f,
+                    badgeHasDedicatedCard ? 18f : 22f,
                     3);
                 TMP_Text content = FindTerminalComicText("Copy " + (index + 1));
+                bool copyHasDedicatedCard = content != null && content.transform.parent != null &&
+                                            content.transform.parent.name.StartsWith("Copy Card ", StringComparison.Ordinal);
                 ConfigureTerminalComicText(
                     content,
-                    new Vector2(0.055f, 0.055f),
-                    new Vector2(0.945f, 0.385f),
-                    14f,
+                    copyHasDedicatedCard ? new Vector2(0.035f, 0.08f) : new Vector2(0.055f, 0.055f),
+                    copyHasDedicatedCard ? new Vector2(0.965f, 0.92f) : new Vector2(0.945f, 0.385f),
+                    copyHasDedicatedCard ? 12f : 14f,
                     16f,
-                    5);
+                    copyHasDedicatedCard ? 4 : 5);
             }
 
             TMP_Text modifier = FindTerminalComicText("Survival Behavior Copy");
@@ -1059,7 +1063,7 @@ namespace KimSurvival
                 new Vector2(0.19f, 0.28f),
                 new Vector2(0.46f, 0.28f)
             };
-            float[] expeditionNodeHalfWidths = { 110f, 110f, 110f, 140f, 140f, 140f, 140f };
+            float[] expeditionNodeHalfWidths = { 140f, 140f, 140f, 150f, 150f, 150f, 150f };
             for (int i = 0; i < expeditionProfiles.Count; i += 1)
             {
                 PrototypeExpeditionRegionId capturedRegion = expeditionProfiles[i].Id;
@@ -1071,8 +1075,8 @@ namespace KimSurvival
                     expeditionNodeAnchors[i],
                     string.Empty,
                     delegate { FocusExpeditionRegion(capturedRegion); },
-                    new Vector2(-halfWidth, -52f),
-                    new Vector2(halfWidth, 52f));
+                    new Vector2(-halfWidth, -58f),
+                    new Vector2(halfWidth, 58f));
                 regionButton.GetComponent<Image>().color = new Color(0.025f, 0.16f, 0.18f, 0.94f);
                 TMP_Text regionLabel = regionButton.GetComponentInChildren<TMP_Text>();
                 regionLabel.fontStyle = FontStyles.Bold;
@@ -1082,6 +1086,7 @@ namespace KimSurvival
                 regionLabel.textWrappingMode = TextWrappingModes.Normal;
                 regionLabel.maxVisibleLines = 3;
                 regionLabel.overflowMode = TextOverflowModes.Overflow;
+                regionLabel.margin = new Vector4(6f, 4f, 6f, 4f);
                 Outline outline = regionButton.gameObject.AddComponent<Outline>();
                 outline.effectColor = new Color(0.02f, 0.16f, 0.2f, 1f);
                 outline.effectDistance = new Vector2(2f, -2f);
@@ -1167,6 +1172,7 @@ namespace KimSurvival
             resultTitleText = CreateText("결과 제목", resultPanel.transform, new Vector2(0.08f, 0.64f), new Vector2(0.92f, 0.9f), Vector2.zero, Vector2.zero, 56, TextAnchor.MiddleCenter, new Color(1f, 0.84f, 0.35f));
             resultDetailText = CreateText("결과 설명", resultPanel.transform, new Vector2(0.1f, 0.28f), new Vector2(0.9f, 0.66f), Vector2.zero, Vector2.zero, 30, TextAnchor.MiddleCenter, Color.white);
             restartButton = CreateButton("다시 시작", resultPanel.transform, new Vector2(0.32f, 0.08f), new Vector2(0.68f, 0.24f), string.Empty, RestartSession);
+            BuildGameJamSubmissionControls();
         }
 
         private void BuildSearchLootTrayUi()
@@ -1356,17 +1362,41 @@ namespace KimSurvival
                 22,
                 TextAlignmentOptions.Center,
                 4);
+            RectTransform statusSurface = CreatePanel(
+                "생존 앨범 상태 라벨 전용 바탕",
+                endingAlbumPanel.transform,
+                new Vector2(0.535f, 0.255f),
+                new Vector2(0.915f, 0.365f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.965f, 0.91f, 0.72f, 0.985f));
+            statusSurface.GetComponent<Image>().raycastTarget = false;
+            Outline statusOutline = statusSurface.gameObject.AddComponent<Outline>();
+            statusOutline.effectColor = new Color(0.04f, 0.28f, 0.29f, 0.88f);
+            statusOutline.effectDistance = new Vector2(2f, -2f);
             endingAlbumStatusText = CreateEndingAlbumText(
                 "생존 앨범 해금·범주 상태",
-                new Vector2(0.535f, 0.265f),
-                new Vector2(0.915f, 0.365f),
+                new Vector2(0.55f, 0.267f),
+                new Vector2(0.90f, 0.353f),
                 20,
                 TextAlignmentOptions.Center,
                 3);
+            RectTransform controlsSurface = CreatePanel(
+                "생존 앨범 조작 안내 안전 바탕",
+                endingAlbumPanel.transform,
+                new Vector2(0.035f, 0.027f),
+                new Vector2(0.52f, 0.18f),
+                Vector2.zero,
+                Vector2.zero,
+                new Color(0.015f, 0.10f, 0.12f, 0.94f));
+            controlsSurface.GetComponent<Image>().raycastTarget = false;
+            Outline controlsOutline = controlsSurface.gameObject.AddComponent<Outline>();
+            controlsOutline.effectColor = new Color(0.22f, 0.86f, 0.82f, 0.72f);
+            controlsOutline.effectDistance = new Vector2(1f, -1f);
             endingAlbumControlsText = CreateEndingAlbumText(
                 "생존 앨범 조작 안내",
-                new Vector2(0.09f, 0.025f),
-                new Vector2(0.48f, 0.13f),
+                new Vector2(0.075f, 0.05f),
+                new Vector2(0.48f, 0.16f),
                 20,
                 TextAlignmentOptions.Left,
                 3);
@@ -1389,16 +1419,16 @@ namespace KimSurvival
                         new Vector2(cardX[column], cardY[row]),
                         string.Empty,
                         delegate { FocusEndingAlbumEntry(capturedIndex); },
-                        new Vector2(-36f, -42f),
-                        new Vector2(36f, 42f));
+                        new Vector2(-28f, -28f),
+                        new Vector2(28f, 28f));
                     TMP_Text label = card.GetComponentInChildren<TMP_Text>();
                     label.fontStyle = FontStyles.Bold;
                     label.enableAutoSizing = true;
                     label.fontSizeMin = 18f;
-                    label.fontSizeMax = 22f;
+                    label.fontSizeMax = 20f;
                     label.textWrappingMode = TextWrappingModes.NoWrap;
                     label.maxVisibleLines = 1;
-                    label.overflowMode = TextOverflowModes.Overflow;
+                    label.overflowMode = TextOverflowModes.Ellipsis;
                     Outline outline = card.gameObject.AddComponent<Outline>();
                     outline.effectDistance = new Vector2(2f, -2f);
                     outline.useGraphicAlpha = false;
@@ -1572,6 +1602,7 @@ namespace KimSurvival
             phaseButton.gameObject.SetActive(camp && session.ExpeditionCompleted && !placing && !modulePreview && !popup);
             messagePanelImage.gameObject.SetActive(!popup && !result && !searchTray);
             resultPanel.SetActive(result);
+            RefreshGameJamSubmissionControls(result);
             if (result)
             {
                 resultTitleText.text = localization.Format(session.ResultTitle());
@@ -1581,7 +1612,7 @@ namespace KimSurvival
                     hazardEscapeEndingRuntime.ActivateTerminalComic();
                     ApplyTerminalComicLayoutPolicy();
                 }
-                EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
+                EventSystem.current.SetSelectedGameObject(GameJamTerminalDefaultSelection);
             }
             else if (camp)
             {
@@ -1634,15 +1665,17 @@ namespace KimSurvival
             statusText.text = session.Phase == GamePhase.Exploring
                 ? localization.Format("hud.status.exploring", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), Mathf.RoundToInt(session.Daylight), session.Health)
                 : localization.Format("hud.status.camp", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), session.Health);
-            resourceText.text = localization.Format(
-                "hud.resources",
-                session.GetStorage(ResourceKind.Wood),
-                session.GetStorage(ResourceKind.Stone),
-                session.GetStorage(ResourceKind.Food),
-                session.GetStorage(ResourceKind.Salvage),
-                session.SignalStage,
-                localization.Format(session.HasAxe ? "value.yes" : "value.no"),
-                localization.Format(session.HasRope ? "value.yes" : "value.no"));
+            resourceText.text = IsGameJamLiveEscapeProfile
+                ? FormatGameJamEscapeResourceHud()
+                : localization.Format(
+                    "hud.resources",
+                    session.GetStorage(ResourceKind.Wood),
+                    session.GetStorage(ResourceKind.Stone),
+                    session.GetStorage(ResourceKind.Food),
+                    session.GetStorage(ResourceKind.Salvage),
+                    session.SignalStage,
+                    localization.Format(session.HasAxe ? "value.yes" : "value.no"),
+                    localization.Format(session.HasRope ? "value.yes" : "value.no"));
             PrototypeLocalizedText activeMessage = session.Phase == GamePhase.Camp && !campFeedback.IsEmpty
                 ? campFeedback
                 : session.LastMessage;
@@ -1890,7 +1923,10 @@ namespace KimSurvival
             ConfigureCampPopupLayout(campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot);
             string openTargetName = FormatCampInteractionTarget(campInteraction.OpenPopupKind, campInteraction.OpenPopupTargetId);
             actionTitleText.text = localization.Format("camp.popup.title", openTargetName);
-            campPopupDetailText.text = localization.Format(CampPopupDetailKey(campInteraction.OpenPopupKind));
+            campPopupDetailText.text = FormatGameJamCampPopupDetail(
+                campInteraction.OpenPopupKind,
+                localization.Format(CampPopupDetailKey(campInteraction.OpenPopupKind)));
+            ConfigureGameJamCampPopupDetailLayout(campInteraction.OpenPopupKind);
         }
 
         private void ApplyCampProximityPresentation(
@@ -2141,7 +2177,7 @@ namespace KimSurvival
                 Destroy(worldRoot.gameObject);
             }
 
-            GameObject root = new GameObject("Runtime Placeholder World");
+            GameObject root = new GameObject("Runtime Survival World");
             root.transform.SetParent(transform, false);
             worldRoot = root.transform;
             nodes.Clear();
@@ -2228,7 +2264,7 @@ namespace KimSurvival
                 }
             }
 
-            if (startRoom)
+            if (startRoom && !IsGameJamLiveEscapeProfile)
             {
                 Vector2 signalAnchor = GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY);
                 CreateRescueSignal(signalAnchor);
@@ -2316,13 +2352,10 @@ namespace KimSurvival
 
         private void CreateStoragePlanningMarker(float x)
         {
-            GameObject root = new GameObject("현장형 창고·증축 계획 지점 placeholder");
+            GameObject root = new GameObject("현장형 창고·증축 계획 지점 · engine-native crate");
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.34f, 0f);
-            CreateRect(root.transform, "placeholder crate", Vector2.zero, new Vector2(0.58f, 0.5f), new Color(0.32f, 0.22f, 0.12f, 0.82f), 3);
-            CreateFootprintOutline(root.transform, new Vector2(0.76f, 0.16f), new Color(1f, 0.82f, 0.35f, 0.16f), null, new Vector2(0f, -0.25f));
-            GameObject planningMark = CreateRect(root.transform, "계획 표식", new Vector2(0f, 0.08f), new Vector2(0.18f, 0.18f), new Color(1f, 0.82f, 0.35f, 0.38f), 4);
-            planningMark.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+            CreateStoragePlanningSilhouette(root.transform);
         }
 
         private string FormatEscapeProjectButton(string escapeId)
@@ -2396,12 +2429,10 @@ namespace KimSurvival
 
         private void CreateExpeditionMapMarker()
         {
-            GameObject root = new GameObject("지도·출구 상호작용 오브젝트 placeholder · " + AssetExpeditionMap);
+            GameObject root = new GameObject("지도·출구 상호작용 표지판 · " + AssetExpeditionMap);
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(ExpeditionMapX, PrototypeCampPlacement.FloorY + 0.62f, 0f);
-            CreateRect(root.transform, "지도 게시판 기둥", new Vector2(0f, -0.32f), new Vector2(0.16f, 1.2f), new Color(0.28f, 0.18f, 0.1f, 0.98f), 3);
-            CreateRect(root.transform, "지도 게시판", new Vector2(0f, 0.35f), new Vector2(1.45f, 0.92f), new Color(0.9f, 0.78f, 0.46f, 0.98f), 4);
-            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), new Color(0.94f, 0.77f, 0.28f, 0.16f), null, new Vector2(0f, -0.62f));
+            CreateExpeditionSignSilhouette(root.transform);
         }
 
         private void CreateEndingAlbumMarker()
@@ -2431,28 +2462,20 @@ namespace KimSurvival
 
         private void CreateEscapeProjectMarker(string escapeId, float x, Color bodyColor, Color signalColor)
         {
-            GameObject root = new GameObject(escapeId == "escape.smoke" ? "Camp Signal Stack Placeholder" : "Camp Radio Bench Placeholder");
+            GameObject root = new GameObject(escapeId == "escape.smoke" ? "Camp Signal Stack · engine-native tripod" : "Camp Radio Bench · engine-native table");
             root.transform.SetParent(worldRoot, false);
             bodyColor.a = Mathf.Min(bodyColor.a, 0.7f);
             signalColor.a = Mathf.Min(signalColor.a, 0.62f);
             root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.39f, 0f);
-            CreateRect(root.transform, "engine-native body", Vector2.zero, new Vector2(0.48f, 0.68f), bodyColor, 4);
-            CreateRect(root.transform, "engine-native signal", new Vector2(0f, 0.42f), new Vector2(0.3f, 0.1f), signalColor, 5);
-            Color footprintColor = new Color(signalColor.r, signalColor.g, signalColor.b, 0.16f);
-            CreateFootprintOutline(root.transform, new Vector2(0.66f, 0.16f), footprintColor, null, new Vector2(0f, -0.36f));
+            CreateEscapeProjectSilhouette(root.transform, escapeId, bodyColor, signalColor);
         }
 
         private void CreateShoreLaunchMarker()
         {
-            GameObject root = new GameObject("facility.shore-launch · engine-native placeholder");
+            GameObject root = new GameObject("facility.shore-launch · engine-native timber cradle");
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(ShoreLaunchX, PrototypeCampPlacement.FloorY + 0.38f, 0f);
-            Color timber = new Color(0.42f, 0.25f, 0.11f, 0.98f);
-            Color rope = new Color(0.92f, 0.76f, 0.42f, 0.96f);
-            CreateRect(root.transform, "shore-launch cradle", Vector2.zero, new Vector2(1.28f, 0.18f), timber, 4);
-            CreateRect(root.transform, "shore-launch bow", new Vector2(-0.42f, 0.34f), new Vector2(0.16f, 0.78f), timber, 4);
-            CreateRect(root.transform, "shore-launch rope", new Vector2(0.18f, 0.3f), new Vector2(0.72f, 0.08f), rope, 5);
-            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), new Color(rope.r, rope.g, rope.b, 0.16f), null, new Vector2(0f, -0.32f));
+            CreateShoreLaunchSilhouette(root.transform);
         }
 
         private void CreateStartRoomModuleSlots()
@@ -2466,25 +2489,12 @@ namespace KimSurvival
                     continue;
                 }
 
-                GameObject root = new GameObject("연결 슬롯 placeholder · " + definition.StartSlotId);
+                GameObject root = new GameObject("연결 슬롯 기초 말뚝 · " + definition.StartSlotId);
                 root.transform.SetParent(worldRoot, false);
                 root.transform.position = new Vector3(definition.StartConnectorDisplayX, PrototypeCampPlacement.FloorY + 0.44f, 0f);
                 float guideAlpha = campModuleExpansion.IsPreviewActive ? 0.82f : 0.16f;
                 Color outline = new Color(1f, 0.83f, 0.28f, guideAlpha);
-                if (definition.Archetype == CampModuleArchetype.Side)
-                {
-                    CreateFootprintOutline(root.transform, new Vector2(0.42f, 0.78f), outline, null, Vector2.zero);
-                    CreateModuleSlotChevron(root.transform, new Vector2(0.38f, 0f), 0f, outline);
-                }
-                else
-                {
-                    CreateRect(root.transform, "연결 슬롯 hatch", Vector2.zero, new Vector2(0.72f, 0.1f), outline, 5);
-                    CreateModuleSlotChevron(
-                        root.transform,
-                        new Vector2(0f, definition.Archetype == CampModuleArchetype.Upper ? 0.3f : -0.3f),
-                        definition.Archetype == CampModuleArchetype.Upper ? 90f : -90f,
-                        outline);
-                }
+                CreateModuleFoundationStakeSilhouette(root.transform, definition.Archetype, outline);
             }
         }
 
@@ -2777,10 +2787,13 @@ namespace KimSurvival
                     }
                 }
 
-                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                    "camp.signal-anchor",
-                    PrototypeCampInteractionTargetKind.RescueSignal,
-                    GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)));
+                if (!IsGameJamLiveEscapeProfile)
+                {
+                    campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                        "camp.signal-anchor",
+                        PrototypeCampInteractionTargetKind.RescueSignal,
+                        GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)));
+                }
             }
             if (startRoom)
             {
@@ -3706,17 +3719,8 @@ namespace KimSurvival
             playerTraversal.Reset();
             vineBarrierClearLogged = false;
             worldCamera.transform.position = new Vector3(-3.8f, 0f, -10f);
-            worldCamera.backgroundColor = new Color(0.35f, 0.74f, 0.9f);
-            CreateRect("하늘 · " + AssetSearchBackground, new Vector2(4f, 1.5f), new Vector2(36f, 8.2f), new Color(0.35f, 0.74f, 0.9f), -20);
-            CreateRect("얕은 연안", new Vector2(-8f, -1.15f), new Vector2(10f, 3f), new Color(0.12f, 0.55f, 0.76f), -15);
-            CreateRect("연안 모래 바닥", new Vector2(-8f, -3.55f), new Vector2(10f, 1.3f), new Color(0.66f, 0.57f, 0.34f), -12);
-            CreateRect("해변과 숲 바닥", new Vector2(8.5f, -3.25f), new Vector2(25f, 1.9f), new Color(0.87f, 0.68f, 0.34f), -10);
-            CreateRect("해안선", new Vector2(PrototypePlayerTraversal.CoastlineX, -2.35f), new Vector2(0.28f, 1.25f), new Color(0.86f, 0.94f, 0.86f), -4);
-            CreateSun(new Vector2(-1f, 3.6f));
-            for (int i = 0; i < 7; i += 1)
-            {
-                CreatePalm(new Vector2(2.8f + i * 2.35f, -2.28f), 0.75f + (i % 2) * 0.14f);
-            }
+            PrototypeExpeditionRegionId regionId = session.SelectedRegionId ?? PrototypeExpeditionRegionId.Beach;
+            CreateSearchRegionPresentation(regionId);
 
             GameObject returnFlag = CreateRect("귀환 지점", new Vector2(-2.7f, -1.25f), new Vector2(0.18f, 2.6f), new Color(0.35f, 0.2f, 0.08f), 2);
             CreateRect("귀환 깃발", new Vector2(-2.15f, -0.35f), new Vector2(1.1f, 0.65f), new Color(1f, 0.48f, 0.16f), 3);
@@ -3743,8 +3747,7 @@ namespace KimSurvival
                 36f);
             searchWorldContextLabels.Add(barrierLabel.transform.parent.gameObject);
 
-            PrototypeSearchRegionDefinition searchRegion = PrototypeSearchRegionCatalog.Get(
-                session.SelectedRegionId ?? PrototypeExpeditionRegionId.Beach);
+            PrototypeSearchRegionDefinition searchRegion = PrototypeSearchRegionCatalog.Get(regionId);
             float[] waterPositions = { -9.4f, -7.2f, -5f, -2.8f, -0.6f, 1.6f };
             float[] landPositions = { -1.2f, 2.1f, 5.25f, 8.8f, 12f, 15.2f };
             int waterIndex = 0;
@@ -3851,10 +3854,12 @@ namespace KimSurvival
 
         private bool CompleteForcedReturnAfterProductionTick()
         {
+            PrototypeSearchEnvironmentalHazardExposureSnapshot[] environmentalBefore =
+                searchNodeRuntime.EnvironmentalHazards.Exposures.ToArray();
             bool applied = searchNodeRuntime.NotifyReturnToCamp(session, true);
             if (applied)
             {
-                campFeedback = new PrototypeLocalizedText(searchNodeRuntime.Disease.FeedbackLocalizationKey);
+                campFeedback = new PrototypeLocalizedText(searchNodeRuntime.LastFeedbackLocalizationKey);
             }
             else if (playtestLog != null && searchNodeRuntime.Disease.EffectCount > 0)
             {
@@ -3864,6 +3869,7 @@ namespace KimSurvival
             {
                 playtestLog.ObserveState("expedition.forced-return");
                 playtestLog.RecordExpeditionReturned(true);
+                RecordEnvironmentalHazardRecoveries(environmentalBefore);
             }
             RefreshAll();
             return applied;
@@ -3871,6 +3877,8 @@ namespace KimSurvival
 
         private bool ReturnToCampThroughProductionInput()
         {
+            PrototypeSearchEnvironmentalHazardExposureSnapshot[] environmentalBefore =
+                searchNodeRuntime.EnvironmentalHazards.Exposures.ToArray();
             bool returned = session.ReturnToCamp(false);
             if (!returned)
             {
@@ -3878,15 +3886,41 @@ namespace KimSurvival
             }
             if (searchNodeRuntime.NotifyReturnToCamp(session, false))
             {
-                campFeedback = new PrototypeLocalizedText(searchNodeRuntime.Disease.FeedbackLocalizationKey);
+                campFeedback = new PrototypeLocalizedText(searchNodeRuntime.LastFeedbackLocalizationKey);
             }
             if (playtestLog != null)
             {
                 playtestLog.ObserveState("expedition.return");
                 playtestLog.RecordExpeditionReturned(false);
+                RecordEnvironmentalHazardRecoveries(environmentalBefore);
             }
             RefreshAll();
             return true;
+        }
+
+        private void RecordEnvironmentalHazardRecoveries(
+            IEnumerable<PrototypeSearchEnvironmentalHazardExposureSnapshot> before)
+        {
+            if (playtestLog == null) return;
+            Dictionary<string, PrototypeSearchEnvironmentalHazardExposureSnapshot> previous =
+                (before ?? Array.Empty<PrototypeSearchEnvironmentalHazardExposureSnapshot>())
+                .Where(value => value != null)
+                .ToDictionary(value => value.NodeId, value => value, StringComparer.Ordinal);
+            foreach (PrototypeSearchEnvironmentalHazardExposureSnapshot current in
+                     searchNodeRuntime.EnvironmentalHazards.Exposures)
+            {
+                if (!previous.TryGetValue(current.NodeId, out PrototypeSearchEnvironmentalHazardExposureSnapshot prior) ||
+                    prior.Phase != PrototypeSearchEnvironmentalHazardPhase.Mitigated ||
+                    current.Phase != PrototypeSearchEnvironmentalHazardPhase.Recovered) continue;
+                playtestLog.RecordSearchEnvironmentalHazard(
+                    PrototypePlaytestEventNames.HazardRecovered,
+                    current.RegionId,
+                    current.NodeId,
+                    current.HazardId,
+                    "expedition.return",
+                    "recovered",
+                    current.HealthDeltaTotal - prior.HealthDeltaTotal);
+            }
         }
 
         private void SearchNearestNode()
@@ -3900,12 +3934,39 @@ namespace KimSurvival
             }
 
             bool revisited = searchNodeRuntime.Ledger.GetOrCreate(nearest.Definition).State != PrototypeSearchNodeState.Hidden;
+            bool environmentalTelegraphed = !revisited &&
+                searchNodeRuntime.TryTelegraphEnvironmentalHazard(nearest.Definition);
+            if (environmentalTelegraphed && playtestLog != null)
+            {
+                playtestLog.RecordSearchEnvironmentalHazard(
+                    PrototypePlaytestEventNames.HazardTelegraphed,
+                    nearest.Definition.RegionId,
+                    nearest.Definition.NodeId,
+                    nearest.Definition.HazardId,
+                    "search.world-warning",
+                    "telegraphed",
+                    0);
+            }
             PrototypeSearchOpenResult result = searchNodeRuntime.TryOpen(nearest.Definition, session);
             if (playtestLog != null)
             {
                 playtestLog.ObserveState("search.node." + nearest.Definition.NodeId);
                 if (result == PrototypeSearchOpenResult.Opened)
                 {
+                    PrototypeSearchEnvironmentalHazardExposureSnapshot exposure =
+                        searchNodeRuntime.EnvironmentalHazards.Find(nearest.Definition.NodeId);
+                    if (!revisited && exposure != null &&
+                        exposure.Phase == PrototypeSearchEnvironmentalHazardPhase.Exposed)
+                    {
+                        playtestLog.RecordSearchEnvironmentalHazard(
+                            PrototypePlaytestEventNames.HazardOccurred,
+                            exposure.RegionId,
+                            exposure.NodeId,
+                            exposure.HazardId,
+                            "search.interact",
+                            "health-effect-applied",
+                            exposure.HealthDeltaTotal);
+                    }
                     playtestLog.RecordSearchNodeOpened(nearest.Definition.RegionId, nearest.Definition.NodeId, revisited);
                 }
             }
@@ -4033,9 +4094,27 @@ namespace KimSurvival
 
         private void CloseSearchLootTray()
         {
+            string activeNodeId = searchNodeRuntime.ActiveNodeId;
+            PrototypeSearchEnvironmentalHazardExposureSnapshot environmentalBefore =
+                searchNodeRuntime.EnvironmentalHazards.Find(activeNodeId);
             searchNodeRuntime.Close(session);
             if (playtestLog != null)
             {
+                PrototypeSearchEnvironmentalHazardExposureSnapshot environmentalAfter =
+                    searchNodeRuntime.EnvironmentalHazards.Find(activeNodeId);
+                if (environmentalBefore != null && environmentalAfter != null &&
+                    environmentalBefore.Phase == PrototypeSearchEnvironmentalHazardPhase.Exposed &&
+                    environmentalAfter.Phase == PrototypeSearchEnvironmentalHazardPhase.Mitigated)
+                {
+                    playtestLog.RecordSearchEnvironmentalHazard(
+                        PrototypePlaytestEventNames.HazardMitigated,
+                        environmentalAfter.RegionId,
+                        environmentalAfter.NodeId,
+                        environmentalAfter.HazardId,
+                        "search.loot.leave",
+                        "retreat-mitigated",
+                        0);
+                }
                 playtestLog.ObserveState("search.loot.leave");
             }
             RefreshAll(true);
@@ -4078,6 +4157,8 @@ namespace KimSurvival
                 node.TimeCostMinutes,
                 localization.Format("search." + node.HazardId),
                 node.Remaining.Length);
+            PrototypeSearchEnvironmentalHazardExposureSnapshot environmentalExposure =
+                searchNodeRuntime.EnvironmentalHazards.Find(node.NodeId);
 
             for (int index = 0; index < searchLootItemButtons.Count; index += 1)
             {
@@ -4126,7 +4207,15 @@ namespace KimSurvival
             bool pending = searchNodeRuntime.HasPendingBagSwap;
             SetButton(searchLootTakeButton, localization.Format(pending ? "search.tray.action.replace" : "search.tray.action.take"), hasItems && !pending);
             SetButton(searchLootTakeAllButton, localization.Format("search.tray.action.take_all"), hasItems && !pending);
-            SetButton(searchLootLeaveButton, localization.Format(pending ? "search.tray.action.cancel_swap" : "search.tray.action.leave"), true);
+            string leaveActionKey = pending
+                ? "search.tray.action.cancel_swap"
+                : environmentalExposure != null && environmentalExposure.Phase == PrototypeSearchEnvironmentalHazardPhase.Exposed
+                    ? string.Equals(environmentalExposure.HazardId,
+                        PrototypeSearchEnvironmentalHazardRuntime.InsectsHazardId, StringComparison.Ordinal)
+                        ? "search.hazard.action.retreat.insects"
+                        : "search.hazard.action.retreat.dangerous-plants"
+                    : "search.tray.action.leave";
+            SetButton(searchLootLeaveButton, localization.Format(leaveActionKey), true);
         }
 
         public PrototypeSearchNodePlayObservation CaptureSearchNodeVerificationObservation()
@@ -4396,6 +4485,10 @@ namespace KimSurvival
                 string repeatedFingerprint = JsonUtility.ToJson(repeatedManifest);
                 string alternateFingerprint = JsonUtility.ToJson(alternateManifest);
                 List<string> observedStockFingerprints = new List<string>();
+                List<string> environmentalHazardStates = new List<string>();
+                List<string> environmentalHazardTrace = new List<string>();
+                List<string> environmentalHazardWarningTexts = new List<string>();
+                int environmentalDuplicateDelta = 0;
                 session.Reset(seed);
                 searchNodeRuntime.Reset(seed);
                 campPlacement.Reset();
@@ -4445,7 +4538,61 @@ namespace KimSurvival
                 playtestLog.RecordSearchSnapshotRestored(preparationNode.NodeId);
                 observedStockFingerprints.Add(searchNodeRuntime.Ledger.NewGameStockFingerprint);
                 ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
+                PrototypeSearchNodeDefinition insectsNode = PrototypeSearchRegionCatalog.Nodes.First(node =>
+                    string.Equals(node.RegionId, "region.coast.beach", StringComparison.Ordinal) &&
+                    string.Equals(node.HazardId, PrototypeSearchEnvironmentalHazardRuntime.InsectsHazardId,
+                        StringComparison.Ordinal));
+                NodeView insectsView = nodes.First(node =>
+                    string.Equals(node.Definition.NodeId, insectsNode.NodeId, StringComparison.Ordinal));
+                string insectsWarningLocale = localization.CurrentLocaleCode;
+                localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+                environmentalHazardWarningTexts.Add(FormatSearchNodeWorldBadge(
+                    insectsNode, searchNodeRuntime.Ledger.GetOrCreate(insectsNode)));
+                localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+                environmentalHazardWarningTexts.Add(FormatSearchNodeWorldBadge(
+                    insectsNode, searchNodeRuntime.Ledger.GetOrCreate(insectsNode)));
+                localization.SetLocale(insectsWarningLocale, false);
+                MoveNaturallyToSearchNode(insectsView);
+                int insectsHealthBefore = session.Health;
+                InteractWithNearestSearchNodeThroughRawInput();
+                PrototypeSearchEnvironmentalHazardExposureSnapshot insectsExposed =
+                    searchNodeRuntime.EnvironmentalHazards.Find(insectsNode.NodeId);
+                Require(searchNodeRuntime.IsTrayOpen && insectsExposed != null &&
+                        insectsExposed.Phase == PrototypeSearchEnvironmentalHazardPhase.Exposed &&
+                        insectsExposed.WarningCount == 1 && insectsExposed.ExposureApplyCount == 1 &&
+                        insectsExposed.EffectApplyCount == 1 &&
+                        session.Health - insectsHealthBefore == PrototypeSearchEnvironmentalHazardRuntime.InsectsEffectHealthDelta,
+                    "벌레 production 수색 예고→노출/Health 효과");
+                environmentalHazardStates.Add(JsonUtility.ToJson(insectsExposed));
+                environmentalHazardTrace.AddRange(insectsExposed.Trace);
+                ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
+                PrototypeSearchEnvironmentalHazardExposureSnapshot insectsMitigated =
+                    searchNodeRuntime.EnvironmentalHazards.Find(insectsNode.NodeId);
+                Require(insectsMitigated != null &&
+                        insectsMitigated.Phase == PrototypeSearchEnvironmentalHazardPhase.Mitigated &&
+                        insectsMitigated.ResponseApplyCount == 1,
+                    "벌레 production tray leave 대응→회피 완화");
+                environmentalHazardStates.Add(JsonUtility.ToJson(insectsMitigated));
+                string insectsBeforeDuplicate = JsonUtility.ToJson(insectsMitigated);
+                int insectsDuplicateHealthBefore = session.Health;
+                ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
+                PrototypeSearchEnvironmentalHazardExposureSnapshot insectsAfterDuplicate =
+                    searchNodeRuntime.EnvironmentalHazards.Find(insectsNode.NodeId);
+                environmentalDuplicateDelta += string.Equals(
+                    insectsBeforeDuplicate, JsonUtility.ToJson(insectsAfterDuplicate), StringComparison.Ordinal) &&
+                    session.Health == insectsDuplicateHealthBefore ? 0 : 1;
                 Require(ReturnToCampThroughRawInput(), "준비 수색 귀환");
+                PrototypeSearchEnvironmentalHazardExposureSnapshot insectsRecovered =
+                    searchNodeRuntime.EnvironmentalHazards.Find(insectsNode.NodeId);
+                Require(insectsRecovered != null &&
+                        insectsRecovered.Phase == PrototypeSearchEnvironmentalHazardPhase.Recovered &&
+                        insectsRecovered.RecoveryApplyCount == 1 &&
+                        insectsRecovered.HealthDeltaTotal ==
+                        PrototypeSearchEnvironmentalHazardRuntime.InsectsEffectHealthDelta +
+                        PrototypeSearchEnvironmentalHazardRuntime.InsectsRecoveryHealthDelta,
+                    "벌레 production 귀환 회복 1회");
+                environmentalHazardStates.Add(JsonUtility.ToJson(insectsRecovered));
+                environmentalHazardTrace.AddRange(insectsRecovered.Trace.Skip(insectsExposed.Trace.Length));
                 observedStockFingerprints.Add(searchNodeRuntime.Ledger.NewGameStockFingerprint);
                 BuildWorkbenchThroughProductionPopup();
                 CaptureProductionInputParityAtWorkbench();
@@ -4460,6 +4607,8 @@ namespace KimSurvival
                     .OrderBy(node => node.NodeId, StringComparer.Ordinal).ToArray();
                 PrototypeSearchNodeDefinition medicineNode = PrototypeSearchRegionCatalog.Nodes.First(node =>
                     string.Equals(node.RegionId, "region.forest.grove", StringComparison.Ordinal) &&
+                    string.Equals(node.HazardId, PrototypeSearchEnvironmentalHazardRuntime.DangerousPlantsHazardId,
+                        StringComparison.Ordinal) &&
                     node.FiniteYield.Any(item => string.Equals(
                         item.StableResourceId, PrototypeDiseaseRuntime.MedicineResourceId, StringComparison.Ordinal)));
                 List<string> phases = new List<string>();
@@ -4513,7 +4662,61 @@ namespace KimSurvival
                 ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
                 observedStockFingerprints.Add(searchNodeRuntime.Ledger.NewGameStockFingerprint);
 
+                NodeView dangerousPlantView = nodes.First(node =>
+                    string.Equals(node.Definition.NodeId, medicineNode.NodeId, StringComparison.Ordinal));
+                string dangerousPlantWarningLocale = localization.CurrentLocaleCode;
+                localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+                environmentalHazardWarningTexts.Add(FormatSearchNodeWorldBadge(
+                    medicineNode, searchNodeRuntime.Ledger.GetOrCreate(medicineNode)));
+                localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+                environmentalHazardWarningTexts.Add(FormatSearchNodeWorldBadge(
+                    medicineNode, searchNodeRuntime.Ledger.GetOrCreate(medicineNode)));
+                localization.SetLocale(dangerousPlantWarningLocale, false);
+                MoveNaturallyToSearchNode(dangerousPlantView);
+                int dangerousPlantHealthBefore = diseaseSession.Health;
+                InteractWithNearestSearchNodeThroughRawInput();
+                PrototypeSearchEnvironmentalHazardExposureSnapshot dangerousPlantExposed =
+                    searchNodeRuntime.EnvironmentalHazards.Find(medicineNode.NodeId);
+                Require(searchNodeRuntime.IsTrayOpen && dangerousPlantExposed != null &&
+                        dangerousPlantExposed.Phase == PrototypeSearchEnvironmentalHazardPhase.Exposed &&
+                        dangerousPlantExposed.WarningCount == 1 && dangerousPlantExposed.ExposureApplyCount == 1 &&
+                        dangerousPlantExposed.EffectApplyCount == 1 &&
+                        diseaseSession.Health - dangerousPlantHealthBefore ==
+                        PrototypeSearchEnvironmentalHazardRuntime.DangerousPlantsEffectHealthDelta,
+                    "위험 식물 production 수색 예고→노출/Health 효과");
+                environmentalHazardStates.Add(JsonUtility.ToJson(dangerousPlantExposed));
+                environmentalHazardTrace.AddRange(dangerousPlantExposed.Trace);
+                ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
+                PrototypeSearchEnvironmentalHazardExposureSnapshot dangerousPlantMitigated =
+                    searchNodeRuntime.EnvironmentalHazards.Find(medicineNode.NodeId);
+                Require(dangerousPlantMitigated != null &&
+                        dangerousPlantMitigated.Phase == PrototypeSearchEnvironmentalHazardPhase.Mitigated &&
+                        dangerousPlantMitigated.ResponseApplyCount == 1,
+                    "위험 식물 production tray leave 대응→회피 완화");
+                environmentalHazardStates.Add(JsonUtility.ToJson(dangerousPlantMitigated));
+                string dangerousPlantBeforeDuplicate = JsonUtility.ToJson(dangerousPlantMitigated);
+                int dangerousPlantDuplicateHealthBefore = diseaseSession.Health;
+                ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
+                PrototypeSearchEnvironmentalHazardExposureSnapshot dangerousPlantAfterDuplicate =
+                    searchNodeRuntime.EnvironmentalHazards.Find(medicineNode.NodeId);
+                environmentalDuplicateDelta += string.Equals(
+                    dangerousPlantBeforeDuplicate, JsonUtility.ToJson(dangerousPlantAfterDuplicate), StringComparison.Ordinal) &&
+                    diseaseSession.Health == dangerousPlantDuplicateHealthBefore ? 0 : 1;
+
                 Require(ReturnToCampThroughRawInput(), "질병 관찰 production 귀환");
+                PrototypeSearchEnvironmentalHazardExposureSnapshot dangerousPlantRecovered =
+                    searchNodeRuntime.EnvironmentalHazards.Find(medicineNode.NodeId);
+                Require(dangerousPlantRecovered != null &&
+                        dangerousPlantRecovered.Phase == PrototypeSearchEnvironmentalHazardPhase.Recovered &&
+                        dangerousPlantRecovered.RecoveryApplyCount == 1 &&
+                        dangerousPlantRecovered.HealthDeltaTotal ==
+                        PrototypeSearchEnvironmentalHazardRuntime.DangerousPlantsEffectHealthDelta +
+                        PrototypeSearchEnvironmentalHazardRuntime.DangerousPlantsRecoveryHealthDelta,
+                    "위험 식물 production 귀환 회복 1회");
+                environmentalHazardStates.Add(JsonUtility.ToJson(dangerousPlantRecovered));
+                environmentalHazardTrace.AddRange(dangerousPlantRecovered.Trace.Skip(dangerousPlantExposed.Trace.Length));
+                PrototypeSearchEnvironmentalHazardSnapshot environmentalAcceptanceSnapshot =
+                    searchNodeRuntime.EnvironmentalHazards.CaptureSnapshot();
                 Require(diseaseRuntime.Disease.EffectCount == 1, "첫 캠프 진입 증상");
                 phases.Add("effect-symptomatic");
                 interactions.Add("return to camp effect symptom");
@@ -4678,6 +4881,12 @@ namespace KimSurvival
                 Require(searchNodeRuntime.RestoreSnapshot(JsonUtility.FromJson<PrototypeSearchRunSnapshot>(
                         JsonUtility.ToJson(orderedPersistenceSnapshot))),
                     "revisit 뒤 production snapshot restore");
+                bool environmentalSnapshotPersistent = string.Equals(
+                    JsonUtility.ToJson(environmentalAcceptanceSnapshot),
+                    JsonUtility.ToJson(searchNodeRuntime.EnvironmentalHazards.CaptureSnapshot()),
+                    StringComparison.Ordinal);
+                Require(environmentalSnapshotPersistent,
+                    "벌레·위험 식물 lifecycle은 production snapshot restore 뒤 동일");
                 playtestLog.RecordSearchSnapshotRestored(deadfalls[1].NodeId);
                 ActuateSearchTrayThroughRawInput(new PrototypeRawSearchLootInput { KeyboardCancel = true });
 
@@ -4685,7 +4894,7 @@ namespace KimSurvival
                 Require(searchNodeRuntime.Ledger.IsBarrierBroken("region.forest.grove"),
                     "돌도끼 보유 raw traversal forest barrier 파괴");
                 NodeView persistentHazardView = nodes.First(node =>
-                    node.X > 8.2f && !string.IsNullOrEmpty(node.Definition.HazardId) &&
+                    node.X > 8.2f && string.Equals(node.Definition.HazardId, "hazard.wildlife", StringComparison.Ordinal) &&
                     searchNodeRuntime.Ledger.GetOrCreate(node.Definition).State == PrototypeSearchNodeState.Hidden);
                 PrototypeSearchNodeDefinition persistentHazardNode = persistentHazardView.Definition;
                 SearchAndTakeAllNodeThroughProductionInput(persistentHazardNode);
@@ -4722,6 +4931,19 @@ namespace KimSurvival
                 observation.DiseaseInteractionTrace = interactions.ToArray();
                 observation.DiseaseStateFingerprints = states.ToArray();
                 observation.DiseaseTrace = diseaseRuntime.Disease.Trace.ToArray();
+                observation.EnvironmentalHazardIds = environmentalAcceptanceSnapshot.Exposures
+                    .Select(value => value.HazardId).Distinct(StringComparer.Ordinal)
+                    .OrderBy(value => value, StringComparer.Ordinal).ToArray();
+                observation.EnvironmentalHazardStateFingerprints = environmentalHazardStates.ToArray();
+                observation.EnvironmentalHazardInteractionTrace = environmentalHazardTrace.ToArray();
+                observation.EnvironmentalHazardWarningTexts = environmentalHazardWarningTexts.ToArray();
+                observation.EnvironmentalWarningCount = environmentalAcceptanceSnapshot.Exposures.Sum(value => value.WarningCount);
+                observation.EnvironmentalExposureApplyCount = environmentalAcceptanceSnapshot.Exposures.Sum(value => value.ExposureApplyCount);
+                observation.EnvironmentalEffectApplyCount = environmentalAcceptanceSnapshot.Exposures.Sum(value => value.EffectApplyCount);
+                observation.EnvironmentalResponseApplyCount = environmentalAcceptanceSnapshot.Exposures.Sum(value => value.ResponseApplyCount);
+                observation.EnvironmentalRecoveryApplyCount = environmentalAcceptanceSnapshot.Exposures.Sum(value => value.RecoveryApplyCount);
+                observation.EnvironmentalDuplicateDelta = environmentalDuplicateDelta;
+                observation.EnvironmentalSnapshotPersistent = environmentalSnapshotPersistent;
                 observation.ExposureApplyCount = diseaseRuntime.Disease.ExposureApplyCount;
                 observation.EffectApplyCount = diseaseRuntime.Disease.EffectCount;
                 observation.WorsenApplyCount = diseaseRuntime.Disease.WorsenCount;
@@ -4794,6 +5016,19 @@ namespace KimSurvival
                     hazardEscapeEndingRuntime != null &&
                     hazardEscapeEndingRuntime.HasProtectedSearchPart(PrototypeRaftEscapeConfig.KeyPartId);
                 observation.BagTransactionAtomic = preparationDepleted.RemainingAmount == 0 && !session.HasPendingLoot;
+                observation.LocalizationKeys = new[]
+                {
+                    "search.hazard.insects",
+                    "search.hazard.dangerous-plants",
+                    "search.hazard.lifecycle.insects.exposed",
+                    "search.hazard.lifecycle.insects.mitigated",
+                    "search.hazard.lifecycle.insects.recovered",
+                    "search.hazard.lifecycle.dangerous-plants.exposed",
+                    "search.hazard.lifecycle.dangerous-plants.mitigated",
+                    "search.hazard.lifecycle.dangerous-plants.recovered",
+                    "search.hazard.action.retreat.insects",
+                    "search.hazard.action.retreat.dangerous-plants"
+                };
                 observation.GrantCallCount = PrototypeProductionActionCounters.GrantCallCount;
                 observation.WarpCallCount = PrototypeProductionActionCounters.WarpCallCount;
                 observation.SkipCallCount = PrototypeProductionActionCounters.SkipCallCount;
@@ -5630,15 +5865,18 @@ namespace KimSurvival
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             RefreshAll();
 
-            PrototypeCampInteractionTargetKind[] promptTargets =
+            List<PrototypeCampInteractionTargetKind> promptTargets = new List<PrototypeCampInteractionTargetKind>
             {
                 PrototypeCampInteractionTargetKind.Campfire,
                 PrototypeCampInteractionTargetKind.Workbench,
                 PrototypeCampInteractionTargetKind.RainCollector,
-                PrototypeCampInteractionTargetKind.RescueSignal,
                 PrototypeCampInteractionTargetKind.StoragePlanning
             };
-            for (int promptIndex = 0; promptIndex < promptTargets.Length; promptIndex += 1)
+            if (!IsGameJamLiveEscapeProfile)
+            {
+                promptTargets.Insert(3, PrototypeCampInteractionTargetKind.RescueSignal);
+            }
+            for (int promptIndex = 0; promptIndex < promptTargets.Count; promptIndex += 1)
             {
                 PrototypeCampInteractionTargetKind promptTarget = promptTargets[promptIndex];
                 campUse.Warp(GetCampInteractionTargetPosition(promptTarget));
@@ -5959,45 +6197,48 @@ namespace KimSurvival
             Require(campUse.PlayerPosition == popupLockedPosition && campInteraction.HasProximityPrompt && !campInteraction.IsPopupOpen,
                 "팝업 취소 뒤 같은 위치의 직접 조작과 근접 안내 복귀");
 
-            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
-            TMP_Text signalLabel = signalButton.GetComponentInChildren<TMP_Text>();
-            Require(signalButton.interactable && signalLabel.text.Contains("작업대") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 1단계 작업대 요구 표시");
-            signalButton.onClick.Invoke();
-            Require(session.SignalStage == 0 && session.LastMessage.Key == "message.signal.workbench" && messageText.text.Contains("작업대가 없다"), "1단계 작업대 없음 실패 피드백");
-            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
-            RequireReadableSignalFeedback();
-            if (!string.IsNullOrWhiteSpace(signalKoreanScreenshotPath))
+            if (!IsGameJamLiveEscapeProfile)
             {
-                CaptureVerificationPng(signalKoreanScreenshotPath, 1280, 800);
-            }
-            CancelCampPopup();
+                OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
+                TMP_Text signalLabel = signalButton.GetComponentInChildren<TMP_Text>();
+                Require(signalButton.interactable && signalLabel.text.Contains("작업대") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 1단계 작업대 요구 표시");
+                signalButton.onClick.Invoke();
+                Require(session.SignalStage == 0 && session.LastMessage.Key == "message.signal.workbench" && messageText.text.Contains("작업대가 없다"), "1단계 작업대 없음 실패 피드백");
+                OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
+                RequireReadableSignalFeedback();
+                if (!string.IsNullOrWhiteSpace(signalKoreanScreenshotPath))
+                {
+                    CaptureVerificationPng(signalKoreanScreenshotPath, 1280, 800);
+                }
+                CancelCampPopup();
 
-            Require(session.TryBuild(StructureKind.Workbench), "신호대 단계 검증용 작업대 건설");
-            RefreshAll();
-            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RescueSignal, signalButton);
-            Require(session.SignalStage == 1 && !session.HasRope, "밧줄 없이 가능한 구조 신호대 1단계 UI 경로");
-            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
-            Require(signalButton.interactable && signalLabel.text.Contains("밧줄") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 2단계 밧줄 요구 표시");
-            signalButton.onClick.Invoke();
-            Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.rope", "밧줄 없는 구조 신호대 2단계의 명확한 거절");
-            localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
-            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
-            Require(signalLabel.text.Contains("Rope") && signalLabel.text.Contains("None") && messageText.text.Contains("No rope"), "영어 2단계 요구조건과 부족 사유 즉시 전환");
-            RequireReadableSignalFeedback();
-            if (!string.IsNullOrWhiteSpace(signalEnglishScreenshotPath))
-            {
-                CaptureVerificationPng(signalEnglishScreenshotPath, 1280, 800);
-            }
-            CancelCampPopup();
+                Require(session.TryBuild(StructureKind.Workbench), "신호대 단계 검증용 작업대 건설");
+                RefreshAll();
+                InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RescueSignal, signalButton);
+                Require(session.SignalStage == 1 && !session.HasRope, "밧줄 없이 가능한 구조 신호대 1단계 UI 경로");
+                OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
+                Require(signalButton.interactable && signalLabel.text.Contains("밧줄") && signalLabel.text.Contains("없음"), "재료가 부족해도 선택 가능한 2단계 밧줄 요구 표시");
+                signalButton.onClick.Invoke();
+                Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.rope", "밧줄 없는 구조 신호대 2단계의 명확한 거절");
+                localization.SetLocale(PrototypeLocalization.EnglishLocaleCode, false);
+                OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
+                Require(signalLabel.text.Contains("Rope") && signalLabel.text.Contains("None") && messageText.text.Contains("No rope"), "영어 2단계 요구조건과 부족 사유 즉시 전환");
+                RequireReadableSignalFeedback();
+                if (!string.IsNullOrWhiteSpace(signalEnglishScreenshotPath))
+                {
+                    CaptureVerificationPng(signalEnglishScreenshotPath, 1280, 800);
+                }
+                CancelCampPopup();
 
-            Require(session.TryResearch(TechKind.Rope) && session.TryCraft(TechKind.Rope), "재료 부족 UI 검증용 밧줄 제작");
-            session.Grant(ResourceKind.Wood, -999);
-            session.Grant(ResourceKind.Salvage, -999);
-            RefreshAll();
-            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
-            Require(signalButton.interactable, "나무·표류물 부족 상태에서도 구조 신호대 행동 선택 가능");
-            signalButton.onClick.Invoke();
-            Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.materials" && messageText.text.Contains("Wood and salvage are short"), "나무·표류물 동시 부족 UI 피드백");
+                Require(session.TryResearch(TechKind.Rope) && session.TryCraft(TechKind.Rope), "재료 부족 UI 검증용 밧줄 제작");
+                session.Grant(ResourceKind.Wood, -999);
+                session.Grant(ResourceKind.Salvage, -999);
+                RefreshAll();
+                OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.RescueSignal);
+                Require(signalButton.interactable, "나무·표류물 부족 상태에서도 구조 신호대 행동 선택 가능");
+                signalButton.onClick.Invoke();
+                Require(session.SignalStage == 1 && session.LastMessage.Key == "message.signal.materials" && messageText.text.Contains("Wood and salvage are short"), "나무·표류물 동시 부족 UI 피드백");
+            }
 
             session.Reset();
             campPlacement.Reset();
@@ -6414,9 +6655,11 @@ namespace KimSurvival
             }
             phaseButton.onClick.Invoke();
             Require(session.Day == 2, "하루 정산 UI 경로");
-            campUse.Warp(GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY));
-            InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.RescueSignal, signalButton);
-            Require(session.SignalStage == 1, "구조 신호대 1단계 UI 경로");
+            RefreshCampInteractionSelection();
+            Require(IsGameJamLiveEscapeProfile &&
+                    !campInteractionTargets.Any(value => value.Kind == PrototypeCampInteractionTargetKind.RescueSignal) &&
+                    session.SignalStage == 0,
+                "게임잼 프로필은 legacy 구조 신호대 상호작용을 노출하지 않고 3개 정식 탈출 경로만 사용");
             Require(session.Day == 2 && session.Phase == GamePhase.Camp, "2일차 캠프 상태");
             RefreshAll();
             RequireFiftyDayRuntimeContract();
@@ -6787,6 +7030,21 @@ namespace KimSurvival
             Canvas.ForceUpdateCanvases();
 
             RectTransform panelRect = endingAlbumPanel.GetComponent<RectTransform>();
+            Transform statusSurfaceObject = endingAlbumPanel.transform.Find("생존 앨범 상태 라벨 전용 바탕");
+            RectTransform statusSurface = statusSurfaceObject == null ? null : statusSurfaceObject.GetComponent<RectTransform>();
+            Image statusSurfaceImage = statusSurfaceObject == null ? null : statusSurfaceObject.GetComponent<Image>();
+            Transform controlsSurfaceObject = endingAlbumPanel.transform.Find("생존 앨범 조작 안내 안전 바탕");
+            RectTransform controlsSurface = controlsSurfaceObject == null ? null : controlsSurfaceObject.GetComponent<RectTransform>();
+            Image controlsSurfaceImage = controlsSurfaceObject == null ? null : controlsSurfaceObject.GetComponent<Image>();
+            int cardLabelBoundaryViolations = endingAlbumCardButtons.Count(value =>
+            {
+                TMP_Text label = value.GetComponentInChildren<TMP_Text>();
+                return label == null || !RectContains(
+                    WorldRect(value.GetComponent<RectTransform>()),
+                    RenderedTextWorldRect(label),
+                    0.5f);
+            });
+            float minimumCardGap = MinimumScreenRectGap(cardRects);
             Require(panelRect.anchorMin.x >= 0.025f && panelRect.anchorMax.x <= 0.975f &&
                     panelRect.anchorMin.y >= 0.025f && panelRect.anchorMax.y <= 0.975f &&
                     Mathf.Abs((panelRect.anchorMax.x - panelRect.anchorMin.x) * 1280f /
@@ -6797,9 +7055,27 @@ namespace KimSurvival
                     Mathf.Approximately(endingAlbumLayoutSprite.rect.width, 1280f) &&
                     Mathf.Approximately(endingAlbumLayoutSprite.rect.height, 800f),
                 "런타임 앨범 프레임은 채택된 album-spread-a 1280x800 원화만 사용");
+            Require(statusSurface != null && statusSurfaceImage != null && statusSurfaceImage.color.a >= 0.98f &&
+                    RectContains(WorldRect(statusSurface), WorldRect(endingAlbumStatusText.rectTransform), 0.5f) &&
+                    !WorldRect(statusSurface).Overlaps(WorldRect(endingAlbumCloseButton.GetComponent<RectTransform>())),
+                "ko/en/qps-long 해금 상태 라벨은 원화 하단 장식 라벨을 가리는 전용 불투명 바탕 안에 있고 닫기 버튼과 겹치지 않음");
+            Rect controlsScreenRect = UiScreenRect(controlsSurface);
+            Rect controlsWorldRect = controlsSurface == null ? default(Rect) : WorldRect(controlsSurface);
+            Rect controlsTextWorldRect = RenderedTextWorldRect(endingAlbumControlsText);
+            bool controlsContained = controlsSurface != null &&
+                                     RectContains(controlsWorldRect, controlsTextWorldRect, 0.5f);
+            Require(controlsSurface != null && controlsSurfaceImage != null && controlsSurfaceImage.color.a >= 0.90f &&
+                    controlsContained && controlsScreenRect.yMin >= 40f && controlsScreenRect.yMax <= 160f,
+                "ko/en/qps-long 앨범 조작 안내는 하단 40px 안전 영역 위의 전용 고대비 바탕 안에 완전히 표시" +
+                "; surfaceWorld=" + controlsWorldRect +
+                "; textWorld=" + controlsTextWorldRect +
+                "; screen=" + controlsScreenRect +
+                "; contained=" + controlsContained +
+                "; alpha=" + (controlsSurfaceImage == null ? -1f : controlsSurfaceImage.color.a));
             Require(endingAlbumCardButtons.Count == PrototypeEndingCatalog.All.Count &&
-                    PrototypeEndingCatalog.All.Count == 21 && CountRectOverlaps(cardRects) == 0,
-                "정본 21개 엔딩 카드는 normal 5·comic 5·rare 4·gamejam-stay 2·day50 5 행에서 겹치지 않음");
+                    PrototypeEndingCatalog.All.Count == 21 && CountRectOverlaps(cardRects) == 0 &&
+                    minimumCardGap >= 24f && cardLabelBoundaryViolations == 0,
+                "정본 21개 엔딩 카드는 normal 5·comic 5·rare 4·gamejam-stay 2·day50 5 행에서 24px 이상 분리되고 각 라벨이 소유 카드 안에 있음");
             Require(endingAlbumHeaderText.enableAutoSizing && endingAlbumHeaderText.fontSizeMin >= 18f &&
                     endingAlbumDetailTitleText.enableAutoSizing && endingAlbumDetailTitleText.fontSizeMin >= 18f &&
                     endingAlbumSummaryText.enableAutoSizing && endingAlbumSummaryText.fontSizeMin >= 18f &&
@@ -6868,6 +7144,14 @@ namespace KimSurvival
                 "TMP overflow count: " + overflowCount + "\n" +
                 "Panel offscreen count: " + offscreenCount + "\n" +
                 "Ending card overlap count: " + CountRectOverlaps(cardRects) + "\n" +
+                "Ending card minimum visual gap px: " + MinimumScreenRectGap(cardRects).ToString("F1") + "\n" +
+                "Ending card label boundary violations: " + endingAlbumCardButtons.Count(value =>
+                {
+                    TMP_Text label = value.GetComponentInChildren<TMP_Text>();
+                    return label == null || !RectContains(WorldRect(value.GetComponent<RectTransform>()), RenderedTextWorldRect(label), 0.5f);
+                }) + "\n" +
+                "Status label dedicated surface: PASS · opaque>=0.98 · close overlap=0\n" +
+                "Controls safe surface: PASS · opaque>=0.90 · screen y=40..160\n" +
                 "Locales: ko PASS, en PASS, qps-long PASS\n" +
                 "Input paths: keyboard/mouse PASS, synthetic gamepad PASS\n";
             File.WriteAllText(Path.Combine(evidenceFolder, "wave19-ending-album-layout-metrics.txt"), evidence);
@@ -6926,8 +7210,9 @@ namespace KimSurvival
                 TMP_Text label = expeditionRegionButtons[i].GetComponentInChildren<TMP_Text>();
                 Outline outline = expeditionRegionButtons[i].GetComponent<Outline>();
                 Require(label.enableAutoSizing && label.fontSizeMin >= 18f && label.maxVisibleLines == 3 && !label.isTextOverflowing &&
+                        RectContains(WorldRect(expeditionRegionButtons[i].GetComponent<RectTransform>()), RenderedTextWorldRect(label), 0.5f) &&
                         outline != null && Mathf.Abs(outline.effectDistance.x) >= 1f,
-                    "수집 지역 노드 " + i + "는 문양·상태 문구·테두리와 함께 세 줄 이내에서 읽을 수 있음");
+                    "수집 지역 노드 " + i + "는 문양·상태 문구·테두리와 함께 세 줄 이내이며 텍스트가 소유 카드 안에 있음");
             }
             Require(expeditionRegionButtons.Count == PrototypeExpeditionRegionCatalog.All.Count &&
                     CountRectOverlaps(expeditionRegionButtons
@@ -7014,6 +7299,40 @@ namespace KimSurvival
                 }
             }
             return count;
+        }
+
+        private float MinimumScreenRectGap(IReadOnlyList<RectTransform> rectTransforms)
+        {
+            float minimum = float.MaxValue;
+            for (int first = 0; first < rectTransforms.Count; first += 1)
+            {
+                Rect firstRect = UiScreenRect(rectTransforms[first]);
+                for (int second = first + 1; second < rectTransforms.Count; second += 1)
+                {
+                    Rect secondRect = UiScreenRect(rectTransforms[second]);
+                    float horizontal = Mathf.Max(0f, Mathf.Max(secondRect.xMin - firstRect.xMax, firstRect.xMin - secondRect.xMax));
+                    float vertical = Mathf.Max(0f, Mathf.Max(secondRect.yMin - firstRect.yMax, firstRect.yMin - secondRect.yMax));
+                    float gap = Mathf.Sqrt(horizontal * horizontal + vertical * vertical);
+                    minimum = Mathf.Min(minimum, gap);
+                }
+            }
+            return minimum == float.MaxValue ? 0f : minimum;
+        }
+
+        private Rect UiScreenRect(RectTransform rectTransform)
+        {
+            if (rectTransform == null) return default(Rect);
+            Vector3[] corners = new Vector3[4];
+            rectTransform.GetWorldCorners(corners);
+            Vector2 minimum = RectTransformUtility.WorldToScreenPoint(worldCamera, corners[0]);
+            Vector2 maximum = RectTransformUtility.WorldToScreenPoint(worldCamera, corners[2]);
+            float scaleX = CampProximityPromptReferenceWidth / Mathf.Max(1f, Screen.width);
+            float scaleY = CampProximityPromptReferenceHeight / Mathf.Max(1f, Screen.height);
+            return Rect.MinMaxRect(
+                minimum.x * scaleX,
+                minimum.y * scaleY,
+                maximum.x * scaleX,
+                maximum.y * scaleY);
         }
 
         private static Rect WorldRect(RectTransform rectTransform)
@@ -7291,7 +7610,14 @@ namespace KimSurvival
         private void RequireCampStructureArt()
         {
             Require(campfireSprite != null && workbenchSprite != null && rainCollectorSprite != null && rescueSignalSprite != null, "채택 구조물 패키지 4종 직렬화");
-            Require(rescueSignalRenderer != null && rescueSignalRenderer.sprite == rescueSignalSprite, "고정 앵커 구조 신호대 아트 연결");
+            if (IsGameJamLiveEscapeProfile)
+            {
+                Require(rescueSignalRenderer == null, "GAME JAM 프로필은 구형 고정 구조 신호대 월드 표시 제거");
+            }
+            else
+            {
+                Require(rescueSignalRenderer != null && rescueSignalRenderer.sprite == rescueSignalSprite, "고정 앵커 구조 신호대 아트 연결");
+            }
             Require(vineBarrierBlockedSprite != null && vineBarrierInteractableSprite != null && vineBarrierClearedSprite != null, "채택 덩굴·나무 장벽 3상태 직렬화");
             Require(kimAtlasSprite != null && kimIdleSprite != null && kimWalkSprite != null && kimSwimSprite != null,
                 "채택 김씨 아틀라스의 대기·이동·수면 가독 포즈 런타임 연결");
@@ -7401,6 +7727,10 @@ namespace KimSurvival
                         ColorContrastRatio(Color.white, SearchLootButtonBackground(kind, true)) >= 4.5f,
                     localeCode + " " + kind + " 발견물 비선택·선택 버튼의 흰 글자 대비 4.5:1 이상");
             }
+            Require(nodes.All(node => node.Root.GetComponentsInChildren<TextMeshPro>(true)
+                    .Where(marker => marker != null && marker != node.Label)
+                    .All(marker => !marker.gameObject.activeSelf)),
+                localeCode + " 발견물 트레이가 열리면 ?/×/◆ 월드 marker를 모두 숨김");
         }
 
         public void CaptureVerificationPng(string absolutePath, int width, int height)
@@ -7421,6 +7751,12 @@ namespace KimSurvival
             worldCamera.targetTexture = target;
             RenderTexture.active = target;
             worldCamera.Render();
+            Canvas.ForceUpdateCanvases();
+            for (int i = 0; i < texts.Length; i += 1)
+            {
+                texts[i].ForceMeshUpdate(true, true);
+            }
+            worldCamera.Render();
             Texture2D image = new Texture2D(width, height, TextureFormat.RGB24, false);
             image.ReadPixels(new Rect(0, 0, width, height), 0, 0);
             image.Apply();
@@ -7438,7 +7774,7 @@ namespace KimSurvival
             GameObject root = new GameObject("환경 수색 오브젝트 · " + definition.NodeId);
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, water ? -1.72f : -2.25f, 0f);
-            CreateSearchNodePlaceholder(root.transform, definition.Kind, snapshot.State, water);
+            CreateSearchNodeArt(root.transform, definition, snapshot, water);
             float laneY = (water ? 1.18f : 1.25f) + (nodes.Count % 2) * 1.65f;
             SpriteRenderer labelBackground;
             TMP_Text label = CreateWorldBadge(
@@ -7465,52 +7801,6 @@ namespace KimSurvival
                 LabelBackground = labelBackground
             });
             UpdateResourceLabelLayout();
-        }
-
-        private void CreateSearchNodePlaceholder(
-            Transform parent,
-            PrototypeSearchNodeKind kind,
-            PrototypeSearchNodeState state,
-            bool water)
-        {
-            float alpha = state == PrototypeSearchNodeState.Depleted ? 0.36f : 0.96f;
-            Color green = new Color(0.18f, 0.48f, 0.2f, alpha);
-            Color stone = new Color(0.36f, 0.4f, 0.4f, alpha);
-            Color timber = new Color(0.36f, 0.22f, 0.1f, alpha);
-            Color metal = new Color(0.24f, 0.36f, 0.4f, alpha);
-            switch (kind)
-            {
-                case PrototypeSearchNodeKind.GrassPatch:
-                    CreateRect(parent, "풀숲 placeholder A", new Vector2(-0.3f, 0.2f), new Vector2(0.55f, 1.15f), green, 4).transform.localRotation = Quaternion.Euler(0f, 0f, -24f);
-                    CreateRect(parent, "풀숲 placeholder B", new Vector2(0.25f, 0.18f), new Vector2(0.62f, 1.3f), green, 4).transform.localRotation = Quaternion.Euler(0f, 0f, 20f);
-                    break;
-                case PrototypeSearchNodeKind.RockCrevice:
-                    CreateRect(parent, "바위틈 placeholder A", new Vector2(-0.35f, 0.05f), new Vector2(0.95f, 0.8f), stone, 4).transform.localRotation = Quaternion.Euler(0f, 0f, 18f);
-                    CreateRect(parent, "바위틈 placeholder B", new Vector2(0.38f, 0.08f), new Vector2(0.82f, 1.05f), stone, 4).transform.localRotation = Quaternion.Euler(0f, 0f, -16f);
-                    break;
-                case PrototypeSearchNodeKind.DriftPile:
-                    CreateRect(parent, "표류물 더미 placeholder A", new Vector2(0f, 0.08f), new Vector2(1.65f, 0.34f), timber, 4).transform.localRotation = Quaternion.Euler(0f, 0f, 12f);
-                    CreateRect(parent, "표류물 더미 placeholder B", new Vector2(0.1f, 0.36f), new Vector2(1.35f, 0.28f), timber, 4).transform.localRotation = Quaternion.Euler(0f, 0f, -11f);
-                    break;
-                case PrototypeSearchNodeKind.TreeHollow:
-                    CreateRect(parent, "나무 구멍 placeholder", new Vector2(0f, 0.42f), new Vector2(0.95f, 1.5f), timber, 4);
-                    CreateRect(parent, "나무 구멍 입구", new Vector2(0f, 0.42f), new Vector2(0.36f, 0.52f), new Color(0.04f, 0.025f, 0.015f, alpha), 5);
-                    break;
-                case PrototypeSearchNodeKind.WreckLocker:
-                    CreateRect(parent, "난파선 수납함 placeholder", new Vector2(0f, 0.24f), new Vector2(1.45f, 0.9f), timber, 4);
-                    CreateRect(parent, "난파선 수납함 금속띠", new Vector2(0f, 0.24f), new Vector2(0.12f, 0.9f), metal, 5);
-                    break;
-                case PrototypeSearchNodeKind.FacilityCabinet:
-                    CreateRect(parent, "폐시설 캐비닛 placeholder", new Vector2(0f, 0.55f), new Vector2(1.15f, 1.75f), metal, 4);
-                    CreateRect(parent, "캐비닛 손잡이", new Vector2(0.35f, 0.55f), new Vector2(0.09f, 0.32f), Color.white, 5);
-                    break;
-            }
-            if (water)
-            {
-                CreateRect(parent, "수중 수색 물결", new Vector2(0f, -0.35f), new Vector2(2f, 0.1f), new Color(0.75f, 0.94f, 1f, 0.88f), 6);
-            }
-            string marker = state == PrototypeSearchNodeState.Hidden ? "?" : state == PrototypeSearchNodeState.Depleted ? "×" : "•";
-            CreateWorldLabel(parent, marker, new Vector3(0f, 0.62f, -0.1f), 34, Color.white);
         }
 
         private string FormatSearchNodeWorldBadge(PrototypeSearchNodeDefinition definition, PrototypeSearchNodeSnapshot snapshot)
@@ -7568,6 +7858,14 @@ namespace KimSurvival
                 if (node.LabelRoot == null)
                 {
                     continue;
+                }
+
+                foreach (TextMeshPro worldMarker in node.Root.GetComponentsInChildren<TextMeshPro>(true))
+                {
+                    if (worldMarker != null && worldMarker != node.Label)
+                    {
+                        worldMarker.gameObject.SetActive(!suppressLabels);
+                    }
                 }
 
                 bool labelVisible = ReferenceEquals(node, nearest);
@@ -7863,15 +8161,39 @@ namespace KimSurvival
 
         private void CreatePalm(Vector2 position, float scale)
         {
-            GameObject root = new GameObject("야자수");
+            GameObject root = new GameObject("해변 야자수 실루엣");
             root.transform.SetParent(worldRoot, false);
             root.transform.position = position;
-            CreateRect(root.transform, "줄기", new Vector2(0f, 1.25f * scale), new Vector2(0.38f * scale, 3f * scale), new Color(0.43f, 0.25f, 0.1f), -1);
-            for (int i = 0; i < 5; i += 1)
+            Color trunk = new Color(0.34f, 0.19f, 0.075f);
+            Color leafDark = new Color(0.055f, 0.34f, 0.16f);
+            Color leafLight = new Color(0.18f, 0.56f, 0.24f);
+            for (int segment = 0; segment < 4; segment += 1)
             {
-                GameObject leaf = CreateRect(root.transform, "잎", new Vector2(0f, 2.65f * scale), new Vector2(2.3f * scale, 0.34f * scale), new Color(0.14f, 0.55f, 0.22f), 0);
-                leaf.transform.localRotation = Quaternion.Euler(0f, 0f, i * 36f);
+                GameObject trunkSegment = CreateRect(
+                    root.transform,
+                    "야자수 줄기 마디 " + segment,
+                    new Vector2((-0.10f + segment * 0.06f) * scale, (0.42f + segment * 0.70f) * scale),
+                    new Vector2((0.43f - segment * 0.035f) * scale, 0.82f * scale),
+                    trunk,
+                    -1);
+                trunkSegment.transform.localRotation = Quaternion.Euler(0f, 0f, -5f);
             }
+            float[] angles = { 66f, 34f, 8f, -20f, -48f, -78f };
+            for (int index = 0; index < angles.Length; index += 1)
+            {
+                float direction = angles[index] * Mathf.Deg2Rad;
+                Vector2 crown = new Vector2(0.14f * scale, 2.98f * scale);
+                Vector2 offset = new Vector2(Mathf.Cos(direction), Mathf.Sin(direction)) * 0.72f * scale;
+                GameObject leaf = CreateRect(
+                    root.transform,
+                    "야자수 겹잎 " + index,
+                    crown + offset,
+                    new Vector2(1.75f * scale, 0.26f * scale),
+                    index % 2 == 0 ? leafDark : leafLight,
+                    0);
+                leaf.transform.localRotation = Quaternion.Euler(0f, 0f, angles[index]);
+            }
+            CreateRect(root.transform, "야자수 잎관 중심", new Vector2(0.14f * scale, 2.98f * scale), new Vector2(0.48f * scale, 0.48f * scale), leafDark, 1).transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
         }
 
         private void CreateSun(Vector2 position)

@@ -159,6 +159,7 @@ namespace ParallelQA
             public string targetKind = string.Empty;
             public string targetId = string.Empty;
             public string regionId = string.Empty;
+            public string hazardId = string.Empty;
             public string resourceId = string.Empty;
             public int delta;
             public string stateBeforeFingerprint = string.Empty;
@@ -177,6 +178,23 @@ namespace ParallelQA
             public int WorsenCount;
             public int TreatmentPaidCount;
             public int HealthDeltaTotal;
+        }
+
+        [Serializable]
+        private sealed class EnvironmentalHazardSnapshotEvidence
+        {
+            public int RunSeed;
+            public string HazardId = string.Empty;
+            public string RegionId = string.Empty;
+            public string NodeId = string.Empty;
+            public int Phase;
+            public int WarningCount;
+            public int ExposureApplyCount;
+            public int EffectApplyCount;
+            public int ResponseApplyCount;
+            public int RecoveryApplyCount;
+            public int HealthDeltaTotal;
+            public string[] Trace = Array.Empty<string>();
         }
 
         [Serializable]
@@ -229,6 +247,17 @@ namespace ParallelQA
             public int duplicateCostDelta = int.MinValue;
             public int duplicateHazardDelta = int.MinValue;
             public int cancelContaminationDelta = int.MinValue;
+            public string[] environmentalHazardIds = Array.Empty<string>();
+            public string[] environmentalHazardStateFingerprints = Array.Empty<string>();
+            public string[] environmentalHazardInteractionTrace = Array.Empty<string>();
+            public string[] environmentalHazardWarningTexts = Array.Empty<string>();
+            public int environmentalWarningCount = -1;
+            public int environmentalExposureApplyCount = -1;
+            public int environmentalEffectApplyCount = -1;
+            public int environmentalResponseApplyCount = -1;
+            public int environmentalRecoveryApplyCount = -1;
+            public int environmentalDuplicateDelta = int.MinValue;
+            public bool environmentalSnapshotPersistent;
             public bool grant;
             public bool warp;
             public bool skip;
@@ -380,7 +409,7 @@ namespace ParallelQA
                 "runtime run snapshot and new-game generation transition owners selected by structured surface");
 
             Product(checks, "GWB-E04.ko_en_qps_wave_b_surface", "localization data", "P1",
-                "ko/en/qps-long canonical rows cover known remainder, broken barrier, removed hazard, and disease telegraph/exposure/effect/worsen/mitigate-or-treat semantics",
+                "ko/en/qps-long canonical rows cover known remainder, persistence, disease, and insects/dangerous-plants telegraph→effect→mitigation→recovery semantics",
                 delegate
                 {
                     Require(localizationPass, localizationDetail);
@@ -572,6 +601,37 @@ namespace ParallelQA
                     "Independently discover an active Scene component by returned structured surface and inspect actual trace/state values; never accept a bool result or fixture text.",
                     "runtime live Wave B observation owner selected by returned member shape, not class name");
 
+                Product(checks, "GWB-P06.environmental_hazard_response_lifecycle", "non-disease search hazards", "P1",
+                    "Insects and dangerous plants each proceed through a localized world warning, actual search exposure/health effect, tray-leave response, camp-return recovery, snapshot persistence, and duplicate-input zero delta",
+                    delegate
+                    {
+                        Require(EnvironmentalHazardSnapshotSequencePasses(evidence),
+                            "structured insects/dangerous-plants exposed→mitigated→recovered snapshots are absent or invalid");
+                        Require(HasNaturalEnvironmentalHazardProductionPath(evidence.productionInteractionEvents),
+                            "ordered production warning/search/effect/leave/return/recovery records are absent");
+                        Require(EnvironmentalHazardWarningsAreLocalized(evidence.environmentalHazardWarningTexts),
+                            "KO/EN world-warning text is missing or not independently rendered");
+                        Require(evidence.environmentalWarningCount == 2 &&
+                                evidence.environmentalExposureApplyCount == 2 &&
+                                evidence.environmentalEffectApplyCount == 2 &&
+                                evidence.environmentalResponseApplyCount == 2 &&
+                                evidence.environmentalRecoveryApplyCount == 2,
+                            "warning/exposure/effect/response/recovery=" + evidence.environmentalWarningCount + "/" +
+                            evidence.environmentalExposureApplyCount + "/" + evidence.environmentalEffectApplyCount + "/" +
+                            evidence.environmentalResponseApplyCount + "/" + evidence.environmentalRecoveryApplyCount);
+                        Require(evidence.environmentalDuplicateDelta == 0 && evidence.environmentalSnapshotPersistent,
+                            "duplicateDelta/snapshotPersistent=" + evidence.environmentalDuplicateDelta + "/" +
+                            evidence.environmentalSnapshotPersistent);
+                        Require(ZeroCheatCallsObserved(evidence),
+                            "grant/warp/skip call counters are missing or non-zero");
+                        return "hazards=" + string.Join(",", evidence.environmentalHazardIds) +
+                               "; snapshots=" + evidence.environmentalHazardStateFingerprints.Length +
+                               "; events=" + evidence.productionInteractionEvents.Count(value => value != null &&
+                                   value.stableEventId.StartsWith("hazard.", StringComparison.Ordinal));
+                    },
+                    "From fresh state, walk to hidden insect and dangerous-plant nodes, use production search/tray/return inputs, and inspect health plus versioned runtime snapshots.",
+                    "runtime search-node environmental hazard lifecycle, canonical localization, and structured playtest events");
+
                 WriteJson("gamejam-wave-b-play-observation-evidence.json", evidence);
                 Report report = WriteReport("gamejam-wave-b-play-contracts", "GameJam Wave B RED-first actual Play contracts", started, checks);
                 SessionState.SetBool(PlayExitPassKey, report.infrastructureOverall == "PASS");
@@ -702,6 +762,21 @@ namespace ParallelQA
             evidence.duplicateCostDelta = ReadInt(observed, int.MinValue, "DuplicateCostDelta");
             evidence.duplicateHazardDelta = ReadInt(observed, int.MinValue, "DuplicateHazardDelta", "DuplicateExposureDelta");
             evidence.cancelContaminationDelta = ReadInt(observed, int.MinValue, "CancelContaminationDelta", "CancelStateDelta");
+            evidence.environmentalHazardIds = ReadStrings(
+                observed, "EnvironmentalHazardIds", "SearchEnvironmentalHazardIds");
+            evidence.environmentalHazardStateFingerprints = ReadStrings(
+                observed, "EnvironmentalHazardStateFingerprints", "EnvironmentalHazardSnapshots");
+            evidence.environmentalHazardInteractionTrace = ReadStrings(
+                observed, "EnvironmentalHazardInteractionTrace", "EnvironmentalHazardTrace");
+            evidence.environmentalHazardWarningTexts = ReadStrings(
+                observed, "EnvironmentalHazardWarningTexts", "EnvironmentalWarningTexts");
+            evidence.environmentalWarningCount = ReadInt(observed, -1, "EnvironmentalWarningCount");
+            evidence.environmentalExposureApplyCount = ReadInt(observed, -1, "EnvironmentalExposureApplyCount");
+            evidence.environmentalEffectApplyCount = ReadInt(observed, -1, "EnvironmentalEffectApplyCount");
+            evidence.environmentalResponseApplyCount = ReadInt(observed, -1, "EnvironmentalResponseApplyCount");
+            evidence.environmentalRecoveryApplyCount = ReadInt(observed, -1, "EnvironmentalRecoveryApplyCount");
+            evidence.environmentalDuplicateDelta = ReadInt(observed, int.MinValue, "EnvironmentalDuplicateDelta");
+            evidence.environmentalSnapshotPersistent = ReadBool(observed, "EnvironmentalSnapshotPersistent");
             evidence.grant = ReadBool(observed, "Grant", "UsedGrant");
             evidence.warp = ReadBool(observed, "Warp", "UsedWarp");
             evidence.skip = ReadBool(observed, "Skip", "UsedSkip");
@@ -776,6 +851,7 @@ namespace ParallelQA
                     targetKind = ReadString(item, "TargetKind", "target_kind"),
                     targetId = ReadString(item, "TargetId", "target_id", "NodeId"),
                     regionId = ReadString(item, "RegionId", "region_id"),
+                    hazardId = ReadString(item, "HazardId", "hazard_id"),
                     resourceId = ReadString(item, "ResourceId", "Resource", "resource"),
                     delta = ReadInt(item, int.MinValue, "Delta", "delta"),
                     stateBeforeFingerprint = ReadString(before, "Fingerprint", "fingerprint"),
@@ -887,6 +963,58 @@ namespace ParallelQA
             };
             return zeroDeltaIds.All(stableEventId => values.Any(value => value != null &&
                 string.Equals(value.stableEventId, stableEventId, StringComparison.Ordinal) && value.delta == 0));
+        }
+
+        private static bool HasNaturalEnvironmentalHazardProductionPath(ProductionInteractionEvidence[] events)
+        {
+            if (!ProductionEventsAreOrdered(events)) return false;
+            string[] hazardIds = { "hazard.insects", "hazard.dangerous-plants" };
+            foreach (string hazardId in hazardIds)
+            {
+                int telegraphed = ProductionEventIndex(events, value =>
+                    string.Equals(value.stableEventId, "hazard.telegraphed", StringComparison.Ordinal) &&
+                    string.Equals(value.hazardId, hazardId, StringComparison.Ordinal));
+                if (telegraphed < 0 || events[telegraphed].delta != 0) return false;
+                string nodeId = events[telegraphed].targetId;
+                string regionId = events[telegraphed].regionId;
+                int occurred = ProductionEventIndex(events, value =>
+                    string.Equals(value.stableEventId, "hazard.occurred", StringComparison.Ordinal) &&
+                    string.Equals(value.hazardId, hazardId, StringComparison.Ordinal) &&
+                    string.Equals(value.targetId, nodeId, StringComparison.Ordinal), telegraphed);
+                int opened = ProductionEventIndex(events, value =>
+                    string.Equals(value.stableEventId, "search.node.opened", StringComparison.Ordinal) &&
+                    string.Equals(value.targetId, nodeId, StringComparison.Ordinal), occurred);
+                int mitigated = ProductionEventIndex(events, value =>
+                    string.Equals(value.stableEventId, "hazard.mitigated", StringComparison.Ordinal) &&
+                    string.Equals(value.hazardId, hazardId, StringComparison.Ordinal) &&
+                    string.Equals(value.targetId, nodeId, StringComparison.Ordinal), opened);
+                int returned = ProductionEventIndex(events, value =>
+                    string.Equals(value.stableEventId, "expedition.returned", StringComparison.Ordinal) &&
+                    string.Equals(value.regionId, regionId, StringComparison.Ordinal), mitigated);
+                int recovered = ProductionEventIndex(events, value =>
+                    string.Equals(value.stableEventId, "hazard.recovered", StringComparison.Ordinal) &&
+                    string.Equals(value.hazardId, hazardId, StringComparison.Ordinal) &&
+                    string.Equals(value.targetId, nodeId, StringComparison.Ordinal), returned);
+                if (occurred < 0 || opened < 0 || mitigated < 0 || returned < 0 || recovered < 0 ||
+                    events[occurred].delta >= 0 || events[mitigated].delta != 0 || events[recovered].delta <= 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static int ProductionEventIndex(
+            IReadOnlyList<ProductionInteractionEvidence> events,
+            Func<ProductionInteractionEvidence, bool> predicate,
+            int afterIndex = -1)
+        {
+            if (events == null || predicate == null) return -1;
+            for (int index = Math.Max(0, afterIndex + 1); index < events.Count; index += 1)
+            {
+                if (events[index] != null && predicate(events[index])) return index;
+            }
+            return -1;
         }
 
         private static bool HasProductionInputParity(ProductionInteractionEvidence[] events)
@@ -1238,7 +1366,17 @@ namespace ParallelQA
                 new[] { "disease.exposure", "disease_exposure", "disease.exposed" },
                 new[] { "disease.effect", "disease_effect", "disease.symptom" },
                 new[] { "disease.worsen", "disease_worsen", "disease.severity" },
-                new[] { "disease.mitigat", "disease.treat", "disease_treat" }
+                new[] { "disease.mitigat", "disease.treat", "disease_treat" },
+                new[] { "search.hazard.lifecycle.insects.telegraphed" },
+                new[] { "search.hazard.lifecycle.insects.exposed" },
+                new[] { "search.hazard.lifecycle.insects.mitigated" },
+                new[] { "search.hazard.lifecycle.insects.recovered" },
+                new[] { "search.hazard.lifecycle.dangerous-plants.telegraphed" },
+                new[] { "search.hazard.lifecycle.dangerous-plants.exposed" },
+                new[] { "search.hazard.lifecycle.dangerous-plants.mitigated" },
+                new[] { "search.hazard.lifecycle.dangerous-plants.recovered" },
+                new[] { "search.hazard.action.retreat.insects" },
+                new[] { "search.hazard.action.retreat.dangerous-plants" }
             };
             List<string> missing = new List<string>();
             foreach (string[] group in groups)
@@ -1408,6 +1546,72 @@ namespace ParallelQA
                    ordered[2].EffectCount == 1 && ordered[2].HealthDeltaTotal == -10 &&
                    ordered[3].WorsenCount == 1 && ordered[3].HealthDeltaTotal == -25 &&
                    ordered[4].TreatmentPaidCount == 1 && ordered[4].HealthDeltaTotal == -25;
+        }
+
+        private static bool EnvironmentalHazardSnapshotSequencePasses(PlayEvidence evidence)
+        {
+            string[] expectedHazards = { "hazard.dangerous-plants", "hazard.insects" };
+            if (evidence == null || !evidence.environmentalHazardIds.OrderBy(value => value, StringComparer.Ordinal)
+                    .SequenceEqual(expectedHazards)) return false;
+            EnvironmentalHazardSnapshotEvidence[] values = evidence.environmentalHazardStateFingerprints
+                .Select(ParseEnvironmentalHazardSnapshot).Where(value => value != null).ToArray();
+            if (values.Length != 6) return false;
+
+            foreach (string hazardId in expectedHazards)
+            {
+                EnvironmentalHazardSnapshotEvidence[] sequence = values.Where(value =>
+                    string.Equals(value.HazardId, hazardId, StringComparison.Ordinal)).ToArray();
+                if (sequence.Length != 3 || sequence.Select(value => value.NodeId)
+                        .Distinct(StringComparer.Ordinal).Count() != 1 ||
+                    !sequence.Select(value => value.Phase).SequenceEqual(new[] { 2, 3, 4 }) ||
+                    sequence.Any(value => value.RunSeed <= 0 || string.IsNullOrWhiteSpace(value.RegionId) ||
+                                          value.WarningCount != 1 || value.ExposureApplyCount != 1 ||
+                                          value.EffectApplyCount != 1)) return false;
+                if (sequence[0].ResponseApplyCount != 0 || sequence[0].RecoveryApplyCount != 0 ||
+                    sequence[1].ResponseApplyCount != 1 || sequence[1].RecoveryApplyCount != 0 ||
+                    sequence[2].ResponseApplyCount != 1 || sequence[2].RecoveryApplyCount != 1) return false;
+                int effectDelta = string.Equals(hazardId, "hazard.insects", StringComparison.Ordinal) ? -4 : -6;
+                int recoveredDelta = string.Equals(hazardId, "hazard.insects", StringComparison.Ordinal) ? -2 : -3;
+                if (sequence[0].HealthDeltaTotal != effectDelta || sequence[1].HealthDeltaTotal != effectDelta ||
+                    sequence[2].HealthDeltaTotal != recoveredDelta ||
+                    !TraceTokensOrdered(sequence[2].Trace, new[]
+                    {
+                        "search-hazard.telegraph", "search-hazard.exposure", "search-hazard.effect",
+                        "search-hazard.response", "search-hazard.mitigated", "search-hazard.recovery"
+                    })) return false;
+            }
+            return evidence.environmentalHazardInteractionTrace.Length >= 12;
+        }
+
+        private static EnvironmentalHazardSnapshotEvidence ParseEnvironmentalHazardSnapshot(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json) || json[0] != '{') return null;
+            try { return JsonUtility.FromJson<EnvironmentalHazardSnapshotEvidence>(json); }
+            catch { return null; }
+        }
+
+        private static bool TraceTokensOrdered(IEnumerable<string> trace, IEnumerable<string> tokens)
+        {
+            string joined = string.Join("|", trace ?? Array.Empty<string>());
+            int cursor = -1;
+            foreach (string token in tokens ?? Array.Empty<string>())
+            {
+                cursor = joined.IndexOf(token, cursor + 1, StringComparison.Ordinal);
+                if (cursor < 0) return false;
+            }
+            return true;
+        }
+
+        private static bool EnvironmentalHazardWarningsAreLocalized(string[] warningTexts)
+        {
+            return warningTexts != null && warningTexts.Length == 4 &&
+                   warningTexts.All(value => !string.IsNullOrWhiteSpace(value)) &&
+                   warningTexts[0].Contains("벌레") &&
+                   warningTexts[1].IndexOf("insect", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                   warningTexts[2].Contains("식물") &&
+                   warningTexts[3].IndexOf("plant", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                   !string.Equals(warningTexts[0], warningTexts[1], StringComparison.Ordinal) &&
+                   !string.Equals(warningTexts[2], warningTexts[3], StringComparison.Ordinal);
         }
 
         private static DiseaseSnapshotEvidence ParseDiseaseSnapshot(string json)

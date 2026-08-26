@@ -11,13 +11,13 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | complete | Current adopted/runtime art is complete; review-only candidates and legacy hold assets remain explicitly unadopted. |
-| implementation | complete | 3d64403 automated GAME JAM implementation is GREEN; completion matrix is DONE 20/24 with no PARTIAL or MISSING requirements. |
-| verification | blocked | Automated gates are GREEN. HUMAN_REQUIRED only: GJC-12, GJC-17, GJC-20 and GJC-23 on exact candidate source 3d64403. |
+| art | in_progress | 3d64403의 adopted/runtime art lock은 과거 GREEN 기준선이다. 현재 art/meta·presentation 변경은 새 통합·release 검증 대기이며 review 후보는 계속 미채택이다. |
+| implementation | in_progress | 현재 미커밋 작업 트리는 자동 요구 DONE 0/24, PARTIAL 20/24이다. 전체 통합 게이트·Windows build/smoke·package integrity·release manifest가 아직 없다. |
+| verification | blocked | 현재 후보 자동 증거가 먼저 필요하다. 그 뒤에도 HUMAN_REQUIRED는 GJC-12, GJC-17, GJC-20, GJC-23 네 항목이다. |
 
 ## 다음 작업
 
-- **사용자 설정 생존 플레이 구현** (implementation, low) — task.feature.feature.custom-run-settings
+- **현재 GAME JAM 작업 트리 통합·release 재검증** (qa, critical) — task.gamejam.qa-thirty-minute-seven-region-slice
 
 ## 작업
 
@@ -63,15 +63,15 @@
 | task.art.icon.expedition-resource-risk-set | art | critical | review | 수집 자원·위험·날씨 아이콘 세트 제작 |
 | task.system.system.expedition-selection | implementation | critical | done | 수집 지도와 지역 선택 구현 |
 | task.system.system.region-loot-rng | implementation | critical | done | 7지역 유한 loot·부품 softlock 보호 구현 |
-| task.system.system.hazard-director | implementation | critical | done | 벌레·야생동물·위험 식물·질병 디렉터 구현 |
+| task.system.system.hazard-director | implementation | critical | review | 벌레·야생동물·위험 식물·질병 디렉터 구현 |
 | task.system.system.escape-projects | implementation | critical | done | 유한 재료형 뗏목·연기·무전 프로젝트 구현 |
 | task.system.system.ending-resolution | implementation | critical | done | 탈출·Day 20 장기 체류 판정 구현 |
 | task.feature.feature.expedition-map | implementation | critical | done | 7지역 상태형 수집 지도 구현 |
 | task.qa.feature.expedition-map | qa | critical | done | 7지역 상태형 수집 지도 검증 |
 | task.feature.feature.resource-randomization | implementation | critical | done | 7지역 유한 자원·핵심 부품 분배 구현 |
 | task.qa.feature.resource-randomization | qa | critical | done | 7지역 유한 자원·핵심 부품 분배 검증 |
-| task.feature.feature.survival-hazards | implementation | critical | done | 지역 위험도·질병 생존 위험 구현 |
-| task.qa.feature.survival-hazards | qa | critical | done | 지역 위험도·질병 생존 위험 검증 |
+| task.feature.feature.survival-hazards | implementation | critical | review | 지역 위험도·질병 생존 위험 구현 |
+| task.qa.feature.survival-hazards | qa | critical | review | 지역 위험도·질병 생존 위험 검증 |
 | task.design.wave15-fifty-day-campaign-rebaseline | design | critical | done | Wave 15 50일 캠페인·수집 지도·위험·다중 엔딩 재기준선 |
 | task.design.wave15-escape-hazard-ending-matrix | design | critical | done | Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스 |
 | task.implementation.wave15-campaign-map-foundation | implementation | critical | done | Wave 15 Day 50·수집 지도·시드형 지역 선택 기반 |
@@ -92,7 +92,7 @@
 | task.gamejam.seven-region-catalog | implementation | critical | done | 게임잼 7지역 42-node 카탈로그 확장 |
 | task.gamejam.persistent-region-runtime | implementation | critical | done | 게임잼 지역 영속 상태·유한 자원 런타임 |
 | task.gamejam.smoke-radio-material-routes | implementation | critical | done | 게임잼 부싯돌·무전 3부품·pity·seed 감사 |
-| task.gamejam.insect-plant-wildlife-disease | implementation | critical | done | 게임잼 jungle-fever 질병 lifecycle |
+| task.gamejam.insect-plant-wildlife-disease | implementation | critical | review | 게임잼 환경 위험·jungle-fever lifecycle |
 | task.gamejam.upper-basement-both | implementation | critical | done | 게임잼 2층·지하실 동시 확장 |
 | task.gamejam.qa-thirty-minute-seven-region-slice | qa | critical | blocked | 게임잼 Wave B/C 42-node·30분 통합 검증 |
 | task.system.system.search-node-loot | implementation | critical | done | 결정론적 수색 오브젝트·발견물 transaction 구현 |
@@ -102,7 +102,7 @@
 | task.feature.feature.raft-escape | implementation | critical | done | 뗏목 제작·해안 진수 탈출 구현 |
 | task.qa.feature.raft-escape | qa | critical | done | 뗏목 제작·해안 진수 탈출 검증 |
 | task.design.gamejam-seven-region-search-node-contract | design | critical | done | 게임잼 7지역 수색 node·유한 자원 계약 |
-| task.design.gamejam-completion-matrix | design | critical | done | GAME JAM 제출 완료 기준 감사 |
+| task.design.gamejam-completion-matrix | design | critical | review | GAME JAM 제출 완료 기준 감사 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
@@ -395,6 +395,7 @@
 - task.gamejam.qa-thirty-minute-seven-region-slice: Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json
 - task.gamejam.qa-thirty-minute-seven-region-slice: Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json
 - task.gamejam.qa-thirty-minute-seven-region-slice: Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md
+- task.gamejam.qa-thirty-minute-seven-region-slice: Docs/Design/Playtest/gamejam-seven-region-search-node-results.md
 - task.system.system.search-node-loot: Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json
 - task.feature.feature.searchable-resource-nodes: Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json
 - task.qa.feature.searchable-resource-nodes: Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json
@@ -432,6 +433,7 @@
 - task.qa.feature.dual-input: Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json
 - task.qa.feature.dual-input: Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json
 - task.qa.feature.dual-input: Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md
+- task.qa.feature.dual-input: Docs/Design/Playtest/gamejam-seven-region-search-node-results.md
 - task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json
 - task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/quality-report.json
 - task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/mr-kim-swim-visual-qa.json
@@ -475,6 +477,7 @@
 - task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json
 - task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json
 - task.qa.feature.inventory-capacity-upgrade: Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md
+- task.qa.feature.inventory-capacity-upgrade: Docs/Design/Playtest/gamejam-seven-region-search-node-results.md
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#4-업그레이드-전-가방-선택-보존-검증
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#6-w2d1-구매-포함-자연-3일-구조-장부
 - task.design.wave7-bag-capacity-balance: Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-edit-contracts.txt
@@ -499,9 +502,9 @@
 
 ## 차단 요소
 
-- task.gamejam.qa-thirty-minute-seven-region-slice: GJC-17 actual 5-10/25-35 minute timing and GJC-23 KO 3 plus EN 3 fresh-user sessions require people on the exact 3d64403 candidate.
-- task.qa.feature.dual-input: GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact 3d64403 candidate.
-- task.qa.feature.inventory-capacity-upgrade: GJC-12 requires fresh-user observation that the 4-to-6 slot purchase creates useful expedition choice pressure on the exact candidate.
+- task.gamejam.qa-thirty-minute-seven-region-slice: 현재 미커밋 작업 트리의 전체 통합 게이트·Windows build/smoke·package integrity·release manifest가 먼저 필요하다. 이후 정확한 새 후보에서 GJC-17 실제 시간과 GJC-23 KO 3명+EN 3명 세션을 수행한다.
+- task.qa.feature.dual-input: 새 후보의 자동 선행 게이트 뒤 GJC-20 물리 XInput 또는 Steam Input 호환 게임패드 실기가 필요하다.
+- task.qa.feature.inventory-capacity-upgrade: 새 후보의 자동 선행 게이트 뒤 GJC-12 fresh-user 4→6칸 선택 압박 관찰이 필요하다.
 
 ## 미결 질문
 

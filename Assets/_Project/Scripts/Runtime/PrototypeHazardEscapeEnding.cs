@@ -2517,6 +2517,7 @@ namespace KimSurvival
                 outline.effectDistance = new Vector2(3f, -3f);
             }
 
+            Transform titleParent = frame.transform;
             if (selectedTriptych)
             {
                 GameObject titleSurface = new GameObject("Finale Title Surface");
@@ -2527,7 +2528,7 @@ namespace KimSurvival
                 titleSurfaceRect.offsetMin = Vector2.zero;
                 titleSurfaceRect.offsetMax = Vector2.zero;
                 Image titleSurfaceImage = titleSurface.AddComponent<Image>();
-                titleSurfaceImage.color = new Color(0.025f, 0.16f, 0.18f, 0.98f);
+                titleSurfaceImage.color = new Color(0.025f, 0.16f, 0.18f, 0.90f);
                 titleSurfaceImage.raycastTarget = false;
                 Outline titleSurfaceOutline = titleSurface.AddComponent<Outline>();
                 titleSurfaceOutline.effectColor = new Color(0.96f, 0.76f, 0.30f, 0.95f);
@@ -2541,13 +2542,14 @@ namespace KimSurvival
                 storySurfaceRect.offsetMin = Vector2.zero;
                 storySurfaceRect.offsetMax = Vector2.zero;
                 Image storySurfaceImage = storySurface.AddComponent<Image>();
-                storySurfaceImage.color = new Color(0.035f, 0.14f, 0.16f, 1f);
+                storySurfaceImage.color = new Color(0.035f, 0.14f, 0.16f, 0.025f);
                 storySurfaceImage.raycastTarget = false;
+                titleParent = titleSurface.transform;
             }
 
-            endingTitle = CreateEndingText("Finale Title", frame.transform,
-                selectedTriptych ? new Vector2(0.065f, 0.835f) : new Vector2(0.04f, 0.84f),
-                selectedTriptych ? new Vector2(0.72f, 0.955f) : new Vector2(0.96f, 0.965f),
+            endingTitle = CreateEndingText("Finale Title", titleParent,
+                selectedTriptych ? new Vector2(0.025f, 0.08f) : new Vector2(0.04f, 0.84f),
+                selectedTriptych ? new Vector2(0.975f, 0.92f) : new Vector2(0.96f, 0.965f),
                 30, TextAlignmentOptions.Center);
             if (selectedTriptych)
             {
@@ -2556,29 +2558,32 @@ namespace KimSurvival
                 endingTitle.fontSizeMax = 30f;
                 endingTitle.overflowMode = TextOverflowModes.Ellipsis;
             }
+            float[] selectedPanelMinimumX = { 0.048f, 0.462f, 0.692f };
+            float[] selectedPanelMaximumX = { 0.442f, 0.678f, 0.952f };
             for (int index = 0; index < 3; index += 1)
             {
                 float minimum = selectedTriptych
-                    ? 0.045f + index * 0.305f
+                    ? selectedPanelMinimumX[index]
                     : 0.025f + index * 0.325f;
                 float maximum = selectedTriptych
-                    ? minimum + 0.285f
+                    ? selectedPanelMaximumX[index]
                     : minimum + 0.30f;
                 GameObject panel = new GameObject("Panel " + (index + 1));
                 panel.transform.SetParent(frame.transform, false);
                 RectTransform panelRect = panel.AddComponent<RectTransform>();
-                panelRect.anchorMin = new Vector2(minimum, selectedTriptych ? 0.25f : 0.06f);
-                panelRect.anchorMax = new Vector2(maximum, selectedTriptych ? 0.80f : 0.80f);
+                panelRect.anchorMin = new Vector2(minimum, selectedTriptych ? 0.374f : 0.06f);
+                panelRect.anchorMax = new Vector2(maximum, selectedTriptych ? 0.812f : 0.80f);
                 panelRect.offsetMin = Vector2.zero;
                 panelRect.offsetMax = Vector2.zero;
                 Image panelImage = panel.AddComponent<Image>();
-                panelImage.color = selectedTriptych ? new Color(0.90f, 0.84f, 0.66f, 0.99f) :
+                panelImage.color = selectedTriptych ? new Color(0.90f, 0.84f, 0.66f, 0.025f) :
                     index == 1 ? new Color(0.12f, 0.28f, 0.30f, 1f) : new Color(0.16f, 0.20f, 0.22f, 1f);
                 panelImage.raycastTarget = false;
                 endingPanelSurfaces[index] = panelImage;
-                if (selectedTriptych)
+                if (!selectedTriptych)
                 {
-                    // Keep decorative-only objects out of semantic ending state scans.
+                    // The selected triptych already contains the authored story art.
+                    // Runtime shapes remain a fallback only when that adopted frame is unavailable.
                     GameObject illustration = new GameObject("Story Art " + (index + 1));
                     illustration.transform.SetParent(panel.transform, false);
                     RectTransform illustrationRect = illustration.AddComponent<RectTransform>();
@@ -2606,9 +2611,9 @@ namespace KimSurvival
                 {
                     Outline panelOutline = panel.AddComponent<Outline>();
                     panelOutline.effectColor = index == 1
-                        ? new Color(0.91f, 0.41f, 0.16f, 1f)
-                        : new Color(0.08f, 0.33f, 0.35f, 1f);
-                    panelOutline.effectDistance = new Vector2(3f, -3f);
+                        ? new Color(0.91f, 0.41f, 0.16f, 0.24f)
+                        : new Color(0.08f, 0.33f, 0.35f, 0.22f);
+                    panelOutline.effectDistance = new Vector2(1f, -1f);
                 }
                 else
                 {
@@ -2618,27 +2623,44 @@ namespace KimSurvival
                 }
                 if (selectedTriptych)
                 {
+                    GameObject badgeCard = CreateEndingTextCard(
+                        panel.transform,
+                        "Act Badge Card " + (index + 1),
+                        new Vector2(0.045f, 0.70f),
+                        new Vector2(0.955f, 0.94f));
                     endingPanelBadges[index] = CreateEndingText(
                         "Act Badge " + (index + 1),
-                        panel.transform,
-                        new Vector2(0.055f, 0.70f),
-                        new Vector2(0.945f, 0.93f),
+                        badgeCard.transform,
+                        new Vector2(0.035f, 0.08f),
+                        new Vector2(0.965f, 0.92f),
                         22,
                         TextAlignmentOptions.Center);
                     endingPanelBadges[index].enableAutoSizing = true;
-                    endingPanelBadges[index].fontSizeMin = 15f;
-                    endingPanelBadges[index].fontSizeMax = 22f;
+                    endingPanelBadges[index].fontSizeMin = 12f;
+                    endingPanelBadges[index].fontSizeMax = 18f;
                     endingPanelBadges[index].maxVisibleLines = 3;
                     endingPanelBadges[index].overflowMode = TextOverflowModes.Ellipsis;
                     endingPanelBadges[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
                 }
-                Vector2 copyMin = selectedTriptych ? new Vector2(0.055f, 0.055f) : new Vector2(0.07f, 0.09f);
-                Vector2 copyMax = selectedTriptych ? new Vector2(0.945f, 0.385f) : new Vector2(0.93f, 0.91f);
-                endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, copyMin, copyMax, selectedTriptych ? 18 : 22, TextAlignmentOptions.Center);
+                Transform copyParent = panel.transform;
+                Vector2 copyMin = new Vector2(0.07f, 0.09f);
+                Vector2 copyMax = new Vector2(0.93f, 0.91f);
+                if (selectedTriptych)
+                {
+                    GameObject copyCard = CreateEndingTextCard(
+                        panel.transform,
+                        "Copy Card " + (index + 1),
+                        new Vector2(0.045f, 0.025f),
+                        new Vector2(0.955f, 0.275f));
+                    copyParent = copyCard.transform;
+                    copyMin = new Vector2(0.035f, 0.08f);
+                    copyMax = new Vector2(0.965f, 0.92f);
+                }
+                endingContents[index] = CreateEndingText("Copy " + (index + 1), copyParent, copyMin, copyMax, selectedTriptych ? 16 : 22, TextAlignmentOptions.Center);
                 endingContents[index].enableAutoSizing = true;
-                endingContents[index].fontSizeMin = selectedTriptych ? 14f : 14f;
-                endingContents[index].fontSizeMax = selectedTriptych ? 18f : 22f;
-                endingContents[index].maxVisibleLines = 5;
+                endingContents[index].fontSizeMin = selectedTriptych ? 12f : 14f;
+                endingContents[index].fontSizeMax = selectedTriptych ? 16f : 22f;
+                endingContents[index].maxVisibleLines = selectedTriptych ? 4 : 5;
                 endingContents[index].overflowMode = TextOverflowModes.Ellipsis;
                 if (selectedTriptych) endingContents[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
             }
@@ -2646,12 +2668,12 @@ namespace KimSurvival
             endingModifierPanel = new GameObject("Survival Behavior Modifier");
             endingModifierPanel.transform.SetParent(frame.transform, false);
             RectTransform modifierRect = endingModifierPanel.AddComponent<RectTransform>();
-            modifierRect.anchorMin = selectedTriptych ? new Vector2(0.055f, 0.055f) : new Vector2(0.08f, 0.055f);
-            modifierRect.anchorMax = selectedTriptych ? new Vector2(0.945f, 0.235f) : new Vector2(0.92f, 0.255f);
+            modifierRect.anchorMin = selectedTriptych ? new Vector2(0.065f, 0.07f) : new Vector2(0.08f, 0.055f);
+            modifierRect.anchorMax = selectedTriptych ? new Vector2(0.58f, 0.19f) : new Vector2(0.92f, 0.255f);
             modifierRect.offsetMin = Vector2.zero;
             modifierRect.offsetMax = Vector2.zero;
             Image modifierImage = endingModifierPanel.AddComponent<Image>();
-            modifierImage.color = new Color(0.025f, 0.16f, 0.18f, selectedTriptych ? 0.92f : 1f);
+            modifierImage.color = new Color(0.025f, 0.16f, 0.18f, selectedTriptych ? 0.84f : 1f);
             modifierImage.raycastTarget = false;
             Outline modifierOutline = endingModifierPanel.AddComponent<Outline>();
             modifierOutline.effectColor = new Color(1f, 0.82f, 0.28f, 0.96f);
@@ -2670,6 +2692,28 @@ namespace KimSurvival
             endingModifierText.overflowMode = TextOverflowModes.Ellipsis;
             endingModifierText.color = Color.white;
             endingComicRoot.SetActive(false);
+        }
+
+        private static GameObject CreateEndingTextCard(
+            Transform parent,
+            string name,
+            Vector2 anchorMin,
+            Vector2 anchorMax)
+        {
+            GameObject card = new GameObject(name);
+            card.transform.SetParent(parent, false);
+            RectTransform rect = card.AddComponent<RectTransform>();
+            rect.anchorMin = anchorMin;
+            rect.anchorMax = anchorMax;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            Image image = card.AddComponent<Image>();
+            image.color = new Color(0.965f, 0.91f, 0.72f, 0.96f);
+            image.raycastTarget = false;
+            Outline outline = card.AddComponent<Outline>();
+            outline.effectColor = new Color(0.04f, 0.28f, 0.29f, 0.88f);
+            outline.effectDistance = new Vector2(1f, -1f);
+            return card;
         }
 
         private TMP_Text CreateEndingText(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, int fontSize, TextAlignmentOptions alignment)
@@ -2765,6 +2809,7 @@ namespace KimSurvival
         private void ApplyEndingPanelTheme(PrototypeEndingDefinition definition)
         {
             if (definition == null) return;
+            bool selectedTriptych = presentationAssets != null && presentationAssets.EndingComicFrame != null;
             Color[] colors;
             if (string.Equals(definition.StableId, PrototypeEndingCatalog.GameJamNaturalKimEndingId, StringComparison.Ordinal))
             {
@@ -2805,9 +2850,15 @@ namespace KimSurvival
 
             for (int index = 0; index < endingPanelSurfaces.Length; index += 1)
             {
-                if (endingPanelSurfaces[index] != null) endingPanelSurfaces[index].color = colors[index];
+                if (endingPanelSurfaces[index] != null)
+                {
+                    Color color = colors[index];
+                    endingPanelSurfaces[index].color = selectedTriptych
+                        ? new Color(color.r, color.g, color.b, 0.025f)
+                        : color;
+                }
             }
-            ApplyEndingPanelIllustrations(definition);
+            if (!selectedTriptych) ApplyEndingPanelIllustrations(definition);
         }
 
         private void ApplyEndingPanelIllustrations(PrototypeEndingDefinition definition)

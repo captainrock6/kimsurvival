@@ -450,10 +450,13 @@ namespace ParallelQA
             observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "Campfire", placement.GetInstalledPosition(StructureKind.Campfire)));
             observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "Workbench", placement.GetInstalledPosition(StructureKind.Workbench)));
             observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "RainCollector", placement.GetInstalledPosition(StructureKind.RainCollector)));
-            Vector2 signalPosition = InvokeResult<Vector2>(prototype, "GetCampArtPoint",
-                GetStatic<float>(typeof(KimSurvivalPrototype), "CampSignalAnchorNormalizedX"),
-                GetStatic<float>(typeof(KimSurvivalPrototype), "CampSignalAnchorNormalizedY"));
-            observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "RescueSignal", signalPosition));
+            if (!session.IsProvisionalSessionProfile)
+            {
+                Vector2 signalPosition = InvokeResult<Vector2>(prototype, "GetCampArtPoint",
+                    GetStatic<float>(typeof(KimSurvivalPrototype), "CampSignalAnchorNormalizedX"),
+                    GetStatic<float>(typeof(KimSurvivalPrototype), "CampSignalAnchorNormalizedY"));
+                observations.Add(ObserveTarget(prototype, localization, campUse, campInteraction, "RescueSignal", signalPosition));
+            }
 
             bool oneNearPrompt = observations.All(item => item.nearPromptCount == 1);
             bool correctPopup = observations.All(item => item.popupCountAfterInteract == 1 &&

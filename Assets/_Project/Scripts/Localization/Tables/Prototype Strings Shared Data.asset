@@ -2151,6 +2151,46 @@ MonoBehaviour:
     m_Key: search.part.radio.transistor
     m_Metadata:
       m_Items: []
+  - m_Id: 1383250521210880
+    m_Key: search.hazard.lifecycle.insects.telegraphed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250558959616
+    m_Key: search.hazard.lifecycle.insects.exposed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250558959617
+    m_Key: search.hazard.lifecycle.insects.mitigated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153920
+    m_Key: search.hazard.lifecycle.insects.recovered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153921
+    m_Key: search.hazard.lifecycle.dangerous-plants.telegraphed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153922
+    m_Key: search.hazard.lifecycle.dangerous-plants.exposed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153923
+    m_Key: search.hazard.lifecycle.dangerous-plants.mitigated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153924
+    m_Key: search.hazard.lifecycle.dangerous-plants.recovered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153925
+    m_Key: search.hazard.action.retreat.insects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1383250563153926
+    m_Key: search.hazard.action.retreat.dangerous-plants
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -184,6 +184,21 @@ namespace ParallelQA
         }
 
         [Serializable]
+        private sealed class TerminalControlEvidence
+        {
+            public string[] actionIds = Array.Empty<string>();
+            public string[] localizedLabels = Array.Empty<string>();
+            public int sortingOrder = -1;
+            public bool activeAboveComic;
+            public bool mouseRaycastReady;
+            public bool explicitNavigationReady;
+            public bool keyboardSubmitObserved;
+            public bool gamepadSubmitObserved;
+            public bool backTransitionObserved;
+            public bool restartTransitionObserved;
+        }
+
+        [Serializable]
         private sealed class PlayEvidence
         {
             public string runId = string.Empty;
@@ -208,6 +223,12 @@ namespace ParallelQA
             public RouteBranchEvidence[] routeBranches = Array.Empty<RouteBranchEvidence>();
             public string[] committedRoomIds = Array.Empty<string>();
             public string[] reenteredRoomIds = Array.Empty<string>();
+            public string[] facilityPlacementRoomIds = Array.Empty<string>();
+            public string[] facilityUseRoomIds = Array.Empty<string>();
+            public string[] stableResourceStockLocales = Array.Empty<string>();
+            public string[] escapeShortageLocales = Array.Empty<string>();
+            public bool legacyRescueSignalAvailable;
+            public TerminalControlEvidence terminalControls = new TerminalControlEvidence();
             public string escapeResourcesBeforeFingerprint = string.Empty;
             public string escapeResourcesAfterFingerprint = string.Empty;
             public string saveBeforeFingerprint = string.Empty;
@@ -505,6 +526,13 @@ namespace ParallelQA
                         Require(CoreEscapeIds.All(id => evidence.completableEscapeIds.Contains(id)) &&
                                 evidence.completableEscapeIds.Distinct(StringComparer.Ordinal).Count() >= 3,
                             "live completable routes=" + string.Join(",", evidence.completableEscapeIds));
+                        Require(!evidence.legacyRescueSignalAvailable,
+                            "GAME JAM live camp still exposes the legacy rescue-signal interaction path");
+                        Require(evidence.stableResourceStockLocales.Length == 2 &&
+                                evidence.escapeShortageLocales.Length == 4 &&
+                                evidence.stableResourceStockLocales.All(IsLocalizedResourceEvidence) &&
+                                evidence.escapeShortageLocales.All(IsLocalizedShortageEvidence),
+                            "KO/EN exact stable stock or smoke/radio shortage evidence is incomplete");
                         Require(ZeroCheatCalls(evidence), DescribeCounters(evidence));
                         return "routes=" + string.Join(",", evidence.completableEscapeIds);
                     },
@@ -548,7 +576,8 @@ namespace ParallelQA
                             RequireAtomicRouteCycle(evidence.events, escapeId);
                         }
                         RequireTerminalEndingContract(evidence.events);
-                        return "atomic routes=3; terminal duplicate=zero; ending.resolved=1; albumRecordDelta=1";
+                        RequireTerminalControls(evidence.terminalControls);
+                        return "atomic routes=3; terminal duplicate=zero; ending.resolved=1; albumRecordDelta=1; terminal controls=mouse+keyboard+gamepad";
                     },
                     "For each live route, attempt fail, cancel, weather wait, and positive retry/progress; resolve once, record terminal album new/known semantics, then actuate the terminal control again.",
                     "active production escape transaction and ending album recorders");
@@ -562,6 +591,11 @@ namespace ParallelQA
                             "committed rooms=" + string.Join(",", evidence.committedRoomIds));
                         Require(ContainsUpperAndBasement(evidence.reenteredRoomIds),
                             "reentered rooms=" + string.Join(",", evidence.reenteredRoomIds));
+                        Require(ContainsUpperAndBasement(evidence.facilityPlacementRoomIds) &&
+                                ContainsUpperAndBasement(evidence.facilityUseRoomIds),
+                            "production facility placement/use rooms=" +
+                            string.Join(",", evidence.facilityPlacementRoomIds) + " / " +
+                            string.Join(",", evidence.facilityUseRoomIds));
                         Require(SameNonEmpty(evidence.escapeResourcesBeforeFingerprint, evidence.escapeResourcesAfterFingerprint),
                             "escape resource fingerprint changed");
                         Require(SameNonEmpty(evidence.saveBeforeFingerprint, evidence.saveAfterFingerprint),
@@ -806,6 +840,12 @@ namespace ParallelQA
             evidence.routeBranches = ReadRouteBranches(observed);
             evidence.committedRoomIds = ReadStrings(observed, "CommittedRoomIds", "CommittedModuleRoomIds");
             evidence.reenteredRoomIds = ReadStrings(observed, "ReenteredRoomIds", "ReenteredModuleRoomIds");
+            evidence.facilityPlacementRoomIds = ReadStrings(observed, "FacilityPlacementRoomIds");
+            evidence.facilityUseRoomIds = ReadStrings(observed, "FacilityUseRoomIds");
+            evidence.stableResourceStockLocales = ReadStrings(observed, "StableResourceStockLocales");
+            evidence.escapeShortageLocales = ReadStrings(observed, "EscapeShortageLocales");
+            evidence.legacyRescueSignalAvailable = ReadBool(observed, true, "LegacyRescueSignalAvailable");
+            evidence.terminalControls = ReadTerminalControls(GetMember(observed, "TerminalControls"));
             evidence.escapeResourcesBeforeFingerprint = ReadString(observed, "EscapeResourcesBeforeFingerprint", "EscapeInventoryBeforeFingerprint");
             evidence.escapeResourcesAfterFingerprint = ReadString(observed, "EscapeResourcesAfterFingerprint", "EscapeInventoryAfterFingerprint");
             evidence.saveBeforeFingerprint = ReadString(observed, "SaveBeforeFingerprint", "SaveStateBeforeFingerprint");
@@ -883,6 +923,24 @@ namespace ParallelQA
                 });
             }
             return branches.ToArray();
+        }
+
+        private static TerminalControlEvidence ReadTerminalControls(object observed)
+        {
+            if (observed == null) return new TerminalControlEvidence();
+            return new TerminalControlEvidence
+            {
+                actionIds = ReadStrings(observed, "ActionIds"),
+                localizedLabels = ReadStrings(observed, "LocalizedLabels"),
+                sortingOrder = ReadInt(observed, -1, "SortingOrder"),
+                activeAboveComic = ReadBool(observed, false, "ActiveAboveComic"),
+                mouseRaycastReady = ReadBool(observed, false, "MouseRaycastReady"),
+                explicitNavigationReady = ReadBool(observed, false, "ExplicitNavigationReady"),
+                keyboardSubmitObserved = ReadBool(observed, false, "KeyboardSubmitObserved"),
+                gamepadSubmitObserved = ReadBool(observed, false, "GamepadSubmitObserved"),
+                backTransitionObserved = ReadBool(observed, false, "BackTransitionObserved"),
+                restartTransitionObserved = ReadBool(observed, false, "RestartTransitionObserved")
+            };
         }
 
         private static LayoutEvidence[] ReadLayouts(object observed)
@@ -997,9 +1055,10 @@ namespace ParallelQA
                 escapeId + " did not start from the common composite save fingerprint");
             Require(branch.terminalReached &&
                     string.Equals(branch.completedEscapeId, escapeId, StringComparison.Ordinal) &&
-                    !string.IsNullOrWhiteSpace(branch.terminalEndingId) &&
+                    string.Equals(branch.terminalEndingId, ExpectedEndingForEscape(escapeId), StringComparison.Ordinal) &&
                     !string.IsNullOrWhiteSpace(branch.terminalStateFingerprint),
-                escapeId + " branch did not reach its own terminal state");
+                escapeId + " branch did not reach its exact terminal state: completed=" +
+                branch.completedEscapeId + "; ending=" + branch.terminalEndingId);
             Require(EventsAreProduction(branch.events), escapeId + " branch production events are missing or unordered");
             Require(branch.events.All(value => string.Equals(value.escapeId, escapeId, StringComparison.Ordinal)),
                 escapeId + " branch is contaminated by another escape route");
@@ -1010,6 +1069,57 @@ namespace ParallelQA
                     terminalEvents[0].sequence == branch.events.Max(value => value.sequence),
                 escapeId + " branch must end in exactly one terminal ending.resolved event: " +
                 DescribeRouteEvents(branch.events, escapeId));
+        }
+
+        private static string ExpectedEndingForEscape(string escapeId)
+        {
+            switch (escapeId)
+            {
+                case "escape.raft":
+                    return "ending.escape.raft.open-water";
+                case "escape.smoke":
+                    return "ending.escape.smoke.seen-from-afar";
+                case "escape.radio":
+                    return "ending.escape.radio.clear-signal";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        private static bool IsLocalizedResourceEvidence(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value) &&
+                   value.IndexOf("⟦", StringComparison.Ordinal) < 0 &&
+                   value.IndexOf("resource.", StringComparison.Ordinal) < 0 &&
+                   value.Contains("=") && value.Any(char.IsDigit);
+        }
+
+        private static bool IsLocalizedShortageEvidence(string value)
+        {
+            return IsLocalizedResourceEvidence(value) &&
+                   (value.IndexOf("부족", StringComparison.Ordinal) >= 0 ||
+                    value.IndexOf("Missing", StringComparison.OrdinalIgnoreCase) >= 0) &&
+                   (value.IndexOf("smoke", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    value.IndexOf("radio", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    value.IndexOf("연기", StringComparison.Ordinal) >= 0 ||
+                    value.IndexOf("무전", StringComparison.Ordinal) >= 0);
+        }
+
+        private static void RequireTerminalControls(TerminalControlEvidence controls)
+        {
+            Require(controls != null && controls.actionIds.Length == 2 &&
+                    controls.actionIds.Contains("ending.back") && controls.actionIds.Contains("session.restart"),
+                "terminal back/restart action IDs are missing");
+            Require(controls.localizedLabels.Length == 2 &&
+                    controls.localizedLabels.All(value => !string.IsNullOrWhiteSpace(value) &&
+                                                          value.IndexOf("⟦", StringComparison.Ordinal) < 0),
+                "terminal control labels are missing or unlocalized");
+            Require(controls.sortingOrder > 120 && controls.activeAboveComic &&
+                    controls.mouseRaycastReady && controls.explicitNavigationReady,
+                "terminal controls are not visible above the comic with mouse raycast and explicit navigation");
+            Require(controls.keyboardSubmitObserved && controls.gamepadSubmitObserved &&
+                    controls.backTransitionObserved && controls.restartTransitionObserved,
+                "terminal keyboard/gamepad submit did not execute real back and restart transitions");
         }
 
         private static void RequireAtomicRouteCycle(EventEvidence[] events, string escapeId)
@@ -1126,9 +1236,11 @@ namespace ParallelQA
 
         private static bool ContainsUpperAndBasement(IEnumerable<string> values)
         {
-            string[] source = values == null ? Array.Empty<string>() : values.ToArray();
-            return source.Any(value => value.IndexOf("upper", StringComparison.OrdinalIgnoreCase) >= 0) &&
-                   source.Any(value => value.IndexOf("basement", StringComparison.OrdinalIgnoreCase) >= 0);
+            var source = new HashSet<string>(
+                values ?? Array.Empty<string>(),
+                StringComparer.Ordinal);
+            return source.Contains(PrototypeCampModuleCatalog.Get(CampModuleArchetype.Upper).RoomId) &&
+                   source.Contains(PrototypeCampModuleCatalog.Get(CampModuleArchetype.Basement).RoomId);
         }
 
         private static void RequireLive(PlayEvidence evidence)

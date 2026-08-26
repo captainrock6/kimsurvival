@@ -1,6 +1,10 @@
 # GAME JAM Windows 후보 배포 매니페스트
 
-## 후보 식별자
+> **보존 상태: HISTORICAL_VERIFIED_BASELINE_ONLY**
+>
+> 이 매니페스트와 모든 해시는 소스 `3d64403` 패키지에만 적용된다. 현재 작업 트리에는 이후 런타임·아트·현지화·QA 변경이 있으며 아직 새 source commit, 전체 통합 게이트, Windows build·smoke, package integrity, release manifest가 없다. 따라서 이 문서는 현재 작업 트리의 제출 승인이나 자동 GREEN 근거가 아니다. 기존 해시를 새 후보에 복사하지 않는다.
+
+## 과거 기준선 후보 식별자
 
 - 게임 소스 커밋: `3d64403813493d8de8e05f0844a5e616e164c6d4`
 - 패키지에 포함된 체크리스트 커밋: `7678ab25ddb67af8087faecfb224d61c440459e0`
@@ -37,7 +41,7 @@ Unity 런처 EXE 해시만으로는 게임 코드 변경을 구분할 수 없으
 
 검증 러너 커밋은 게임 후보 소스 이후 QA 러너·Forge·문서만 변경한다. `3d64403..2c9f36a` 사이에는 `Assets/_Project` 런타임·아트 파일 변경이 없으며, 패키지 게이트가 BUILD-INFO의 게임 소스와 현재 QA HEAD를 분리해 기록했다.
 
-## 자동 증거
+## 과거 기준선 자동 증거
 
 - Wave B: `Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403` — GREEN, 9/9
 - Wave C: `Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403` — GREEN, 14/14
@@ -49,4 +53,6 @@ Unity 런처 EXE 해시만으로는 게임 코드 변경을 구분할 수 없으
 
 문서가 직접 인용하는 핵심 구조화 증거와 최종 패키지 게이트 9개 파일은 Git에 보존한다. 중복 용량이 큰 PNG 스크린샷과 원시 실행 출력은 로컬 QA 산출물이며 후보 ZIP과 함께 운영 PC에 보존한다. 따라서 새 checkout에서는 아래 수기 검증 전 자동 요약·계약·해시를 확인할 수 있지만, 모든 과거 시각 캡처가 복제된다고 가정하지 않는다.
 
-제출 최종 승인은 `GJC-12`, `GJC-17`, `GJC-20`, `GJC-23` 수기 검증 후에만 가능하다. Steam 출시 준비 상태는 이 게임잼 후보가 주장하지 않는다.
+현재 작업 트리는 먼저 새 자동 증거와 release manifest를 생성해야 한다. 그 새 후보의 자동 게이트가 GREEN이 된 뒤에도 제출 최종 승인은 `GJC-12`, `GJC-17`, `GJC-20`, `GJC-23` 수기 검증 후에만 가능하다. Steam 출시 준비 상태는 이 게임잼 후보가 주장하지 않는다.
+
+수기 실행 절차는 `Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md`, 누적 결과는 `Docs/Design/Playtest/gamejam-seven-region-search-node-results.md`에 기록한다.

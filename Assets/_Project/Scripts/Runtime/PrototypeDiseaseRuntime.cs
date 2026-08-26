@@ -672,6 +672,17 @@ namespace KimSurvival
         public int DuplicateCostDelta;
         public int DuplicateHazardDelta;
         public int CancelContaminationDelta;
+        public string[] EnvironmentalHazardIds = Array.Empty<string>();
+        public string[] EnvironmentalHazardStateFingerprints = Array.Empty<string>();
+        public string[] EnvironmentalHazardInteractionTrace = Array.Empty<string>();
+        public string[] EnvironmentalHazardWarningTexts = Array.Empty<string>();
+        public int EnvironmentalWarningCount;
+        public int EnvironmentalExposureApplyCount;
+        public int EnvironmentalEffectApplyCount;
+        public int EnvironmentalResponseApplyCount;
+        public int EnvironmentalRecoveryApplyCount;
+        public int EnvironmentalDuplicateDelta;
+        public bool EnvironmentalSnapshotPersistent;
         public bool Grant;
         public bool Warp;
         public bool Skip;

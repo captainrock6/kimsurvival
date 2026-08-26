@@ -1,5 +1,9 @@
 # GAME JAM 최종 Windows 후보 30분 수기 플레이테스트 체크리스트
 
+> **현재 상태: PAUSED · RELEASE_REVALIDATION_REQUIRED**
+>
+> 아래 `3d64403` 값은 과거 검증 패키지의 동결 이력이다. 현재 작업 트리에는 아직 커밋·전체 통합 게이트·Windows 재빌드·패키지 무결성·release manifest가 없으므로 이 체크리스트로 새 수기 세션을 시작하지 않는다. 새 후보의 정확한 source/EXE/DLL/ZIP 해시와 자동 GREEN 증거가 채워진 뒤에만 재개한다.
+
 > 대상: 《김씨 생존기: 무인도》 GAME JAM 최종 Windows 후보
 >
 > 기준일: 2026-08-26
@@ -8,7 +12,9 @@
 >
 > 목적: 자동화로 대신할 수 없는 `GJC-12`, `GJC-17`, `GJC-20`, `GJC-23`을 동일한 최종 후보 빌드에서 사람이 검증한다.
 
-> 운영용 정본은 이 파일이다. ZIP 안의 체크리스트는 패키징 당시 문서 커밋 `7678ab25` 사본이며, 후보 바이트를 보존하기 위해 자동 증거 갱신만으로 ZIP을 다시 만들지 않는다.
+> 누적 결과 원장: `Docs/Design/Playtest/gamejam-seven-region-search-node-results.md`
+
+> 운영용 정본은 이 파일이다. ZIP 안의 체크리스트는 과거 `3d64403` 패키징 당시 문서 커밋 `7678ab25` 사본이며, 현재 작업 트리의 후보 체크리스트가 아니다.
 
 이 문서는 과거 Day 3·Day 5 프로토타입용 절차가 아니다. 현재 GAME JAM 기준은 7개 지역, 4→6칸 가방, 같은 run의 위층·지하실, 뗏목·대형 연기·무전 조기 탈출, 임시 Day 20 장기 체류 엔딩이다. 표준 캠페인의 Day 50은 별도 자동 회귀로 보존한다.
 
@@ -18,20 +24,26 @@
 
 아래 소스·EXE·게임 코드 DLL 해시가 비어 있거나 세션마다 다르면 테스트를 시작하지 않는다. Unity의 EXE는 런처이므로 실제 게임 코드 변경 여부는 `Assembly-CSharp.dll` 해시까지 함께 확인해야 한다.
 
-| 필드 | 정확한 값 |
+| 필드 | 과거 검증 기준선 값 / 현재 상태 |
 |---|---|
-| 패키지 게임 소스 commit SHA-1, 40자리 | `3d64403813493d8de8e05f0844a5e616e164c6d4` |
-| QA 검증 러너 commit SHA-1, 40자리 | `2c9f36a200032d821992234788ef372747b8b925` |
+| 현재 후보 게임 소스 commit SHA-1, 40자리 | `EVIDENCE_PENDING` |
+| 현재 후보 QA 검증 러너 commit SHA-1, 40자리 | `EVIDENCE_PENDING` |
+| 과거 패키지 게임 소스 commit SHA-1, 40자리 | `3d64403813493d8de8e05f0844a5e616e164c6d4` |
+| 과거 QA 검증 러너 commit SHA-1, 40자리 | `2c9f36a200032d821992234788ef372747b8b925` |
 | Windows EXE 파일명 | `KimSurvivalIsland.exe` |
-| Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-3d64403\KimSurvivalIsland.exe` |
-| EXE SHA-256, 64자리 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
+| 과거 Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-3d64403\KimSurvivalIsland.exe` |
+| 현재 후보 EXE SHA-256, 64자리 | `EVIDENCE_PENDING` |
+| 과거 EXE SHA-256, 64자리 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
 | 게임 코드 DLL 상대 경로 | `KimSurvivalIsland_Data\Managed\Assembly-CSharp.dll` |
-| 게임 코드 DLL SHA-256, 64자리 | `b7e216c2892ee952905ccc2cbb37caa7050c355da38d6582e2d4c5d1b762f7e6` |
-| 빌드 완료 시각, KST | `2026-08-26 13:14:51` |
+| 현재 후보 게임 코드 DLL SHA-256, 64자리 | `EVIDENCE_PENDING` |
+| 과거 게임 코드 DLL SHA-256, 64자리 | `b7e216c2892ee952905ccc2cbb37caa7050c355da38d6582e2d4c5d1b762f7e6` |
+| 현재 후보 빌드 완료 시각, KST | `EVIDENCE_PENDING` |
+| 과거 빌드 완료 시각, KST | `2026-08-26 13:14:51` |
 | Unity 버전 | `6000.4.9f1` |
 | 화면 | `1280×800 / 창모드·전체화면: ____________________` |
 | Windows 버전 | `________________________________________` |
-| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403`, `Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403`, `Artifacts/ParallelQA/finalqa_9263705_wave17`, `Artifacts/ParallelQA/finalqa_9263705_longstay`, `Artifacts/ParallelQA/pkg_2c9f36a_verified` |
+| 현재 후보 자동화 증거 Run ID/경로 | `EVIDENCE_PENDING` |
+| 과거 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403`, `Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403`, `Artifacts/ParallelQA/finalqa_9263705_wave17`, `Artifacts/ParallelQA/finalqa_9263705_longstay`, `Artifacts/ParallelQA/pkg_2c9f36a_verified` |
 | 테스트 담당자·세션 ID | `________________________________________` |
 
 해시 기록 명령:
@@ -54,20 +66,20 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 ZIP의 정확한 경
 
 ### 2.1 자동화 결과 — 후보 사전 조건
 
-다음은 사람이 느낌으로 재판정할 항목이 아니다. 다만 위의 정확한 패키지 게임 소스·EXE·DLL·ZIP에서 생성된 최신 증거가 모두 PASS인지 확인한다.
+다음은 사람이 느낌으로 재판정할 항목이 아니다. 현재 후보 source·EXE·DLL·ZIP에서 생성된 최신 증거가 모두 PASS여야 한다. 과거 `3d64403` PASS는 현재 작업 트리의 체크 상자를 채우지 않는다.
 
 | 자동 게이트 | 최신 증거 | 판정 |
 |---|---|---|
-| 컴파일 0 error / 0 warning | Wave C `compile-result.txt` | `[x] PASS [ ] FAIL` |
-| Windows build·hidden smoke·Addressables·방화벽 | Wave C `windows-development-build.json`, `windows-hidden-smoke.json` | `[x] PASS [ ] FAIL` |
-| 7 region·21 archetype·42 node·일반 자원 144 | Wave B `gamejam-wave-b-edit-contracts.json` | `[x] PASS [ ] FAIL` |
-| hidden/partial/depleted·유한 잔여·장벽·영구 위험 snapshot | Wave B `gamejam-wave-b-play-contracts.json` | `[x] PASS [ ] FAIL` |
-| 질병 원자성·보호 부품·뗏목/연기/무전·위층/지하 | Wave C `gamejam-wave-c-play-contracts.json` | `[x] PASS [ ] FAIL` |
-| KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | Wave C `gamejam-wave-c-summary.json` | `[x] PASS [ ] FAIL` |
-| 엔딩 21종·core comic 3장+modifier·album exactly-once | Wave C `wave19-summary.json`, Long-stay `gamejam-long-stay-summary.json` | `[x] PASS [ ] FAIL` |
-| 내부 SHA manifest·ZIP/folder exact·압축 해제 hidden smoke·원본/해제본 불변·LocalLow 신규/시간/JSONL/SHA 검증 | `pkg_2c9f36a_verified/gamejam-package-integrity-summary.json`의 `PKG-I01~I06` | `[x] PASS [ ] FAIL` |
+| 컴파일 0 error / 0 warning | 새 Wave C `compile-result.txt` | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
+| Windows build·hidden smoke·Addressables·방화벽 | 새 Wave C `windows-development-build.json`, `windows-hidden-smoke.json` | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
+| 7 region·21 archetype·42 node·일반 자원 144 | 새 Wave B `gamejam-wave-b-edit-contracts.json` | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
+| hidden/partial/depleted·유한 잔여·장벽·영구 위험 snapshot | 새 Wave B `gamejam-wave-b-play-contracts.json` | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
+| 환경 위험·질병 원자성·보호 부품·뗏목/연기/무전·위층/지하 | 새 Wave B/C Play 계약 | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
+| KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | 새 Wave C summary | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
+| 엔딩 21종·core comic 3장+modifier·album exactly-once | 새 Wave C/Wave 19/Long-stay summary | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
+| 내부 SHA manifest·ZIP/folder exact·압축 해제 hidden smoke·원본/해제본 불변·LocalLow 신규/시간/JSONL/SHA 검증 | 새 package integrity summary의 `PKG-I01~I06` | `[ ] PASS [ ] FAIL [x] EVIDENCE_PENDING` |
 
-하나라도 FAIL이면 수기 테스트 결과와 무관하게 후보는 `REJECT`다.
+하나라도 FAIL이거나 EVIDENCE_PENDING이면 수기 테스트를 시작하지 않는다. FAIL이면 후보는 `REJECT`, EVIDENCE_PENDING이면 `PAUSED`다.
 
 ### 2.2 HUMAN_REQUIRED — 이번 문서가 닫는 항목
 

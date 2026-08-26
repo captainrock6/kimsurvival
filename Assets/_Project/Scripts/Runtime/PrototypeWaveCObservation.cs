@@ -49,6 +49,21 @@ namespace KimSurvival
     }
 
     [Serializable]
+    public sealed class PrototypeGameJamTerminalControlObservation
+    {
+        public string[] ActionIds = Array.Empty<string>();
+        public string[] LocalizedLabels = Array.Empty<string>();
+        public int SortingOrder;
+        public bool ActiveAboveComic;
+        public bool MouseRaycastReady;
+        public bool ExplicitNavigationReady;
+        public bool KeyboardSubmitObserved;
+        public bool GamepadSubmitObserved;
+        public bool BackTransitionObserved;
+        public bool RestartTransitionObserved;
+    }
+
+    [Serializable]
     public sealed class PrototypeWaveCRouteBranchObservation
     {
         public string EscapeId = string.Empty;
@@ -80,6 +95,13 @@ namespace KimSurvival
             Array.Empty<PrototypeWaveCRouteBranchObservation>();
         public string[] CommittedRoomIds = Array.Empty<string>();
         public string[] ReenteredRoomIds = Array.Empty<string>();
+        public string[] FacilityPlacementRoomIds = Array.Empty<string>();
+        public string[] FacilityUseRoomIds = Array.Empty<string>();
+        public string[] StableResourceStockLocales = Array.Empty<string>();
+        public string[] EscapeShortageLocales = Array.Empty<string>();
+        public bool LegacyRescueSignalAvailable;
+        public PrototypeGameJamTerminalControlObservation TerminalControls =
+            new PrototypeGameJamTerminalControlObservation();
         public string EscapeResourcesBeforeFingerprint = string.Empty;
         public string EscapeResourcesAfterFingerprint = string.Empty;
         public string SaveBeforeFingerprint = string.Empty;

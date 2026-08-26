@@ -3,16 +3,16 @@
   "id": "run_20260826020118_db267894",
   "createdAt": "2026-08-26T02:01:18.201Z",
   "updatedAt": "2026-08-26T05:05:19.833Z",
-  "sourceRequest": "Update canonical Forge design with verified GAME JAM candidate source 3d64403 and final automated QA evidence; preserve GJC-12, GJC-17, GJC-20 and GJC-23 as human-required gates.",
-  "state": "blocked",
+  "sourceRequest": "Preserve source 3d64403 as a historical verified GAME JAM baseline, mark the current uncommitted worktree as automated-evidence pending, and preserve GJC-12, GJC-17, GJC-20 and GJC-23 as human-required gates.",
+  "state": "in_progress",
   "stages": {
     "design": {
       "status": "complete",
       "updatedAt": "2026-08-26T02:01:18.201Z"
     },
     "art": {
-      "status": "complete",
-      "note": "Current adopted/runtime art is complete; review-only candidates and legacy hold assets remain explicitly unadopted.",
+      "status": "in_progress",
+      "note": "The adopted/runtime art lock is GREEN only for the 3d64403 historical baseline. Current worktree art/meta and presentation changes await fresh integrated and release verification; review-only candidates remain unadopted.",
       "evidence": [
         ".forge/assets.json",
         "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/wave19-asset-guid-evidence.json"
@@ -20,8 +20,8 @@
       "updatedAt": "2026-08-26T05:05:19.658Z"
     },
     "implementation": {
-      "status": "complete",
-      "note": "3d64403 automated GAME JAM implementation is GREEN; completion matrix is DONE 20/24 with no PARTIAL or MISSING requirements.",
+      "status": "in_progress",
+      "note": "3d64403 remains a historical GREEN baseline. The current uncommitted worktree is PARTIAL 20/24 with no current integrated gate, Windows build/smoke, package-integrity or release-manifest evidence.",
       "evidence": [
         "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
         "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json",
@@ -31,12 +31,13 @@
     },
     "verification": {
       "status": "blocked",
-      "note": "Automated gates are GREEN. HUMAN_REQUIRED only: GJC-12, GJC-17, GJC-20 and GJC-23 on exact candidate source 3d64403.",
+      "note": "Current-worktree automated evidence is pending. After a new exact candidate passes full integrated and release gates, HUMAN_REQUIRED GJC-12, GJC-17, GJC-20 and GJC-23 still remain.",
       "evidence": [
         "Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json",
         "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
         "Docs/Design/gamejam-completion-matrix.md",
-        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md"
+        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
+        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
       ],
       "updatedAt": "2026-08-26T05:05:19.833Z"
     }

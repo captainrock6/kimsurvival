@@ -4619,6 +4619,11 @@
       "contractId": "gamejam.completion-matrix.v2",
       "sourceBaseline": "e4bbc03531d54e023f7a90f7a608871a47d26d55",
       "currentIntegratedCommit": "3d64403813493d8de8e05f0844a5e616e164c6d4",
+      "currentIntegratedCommitScope": "HISTORICAL_VERIFIED_BASELINE_ONLY",
+      "currentWorktreeState": "UNCOMMITTED_AUTOMATED_EVIDENCE_PENDING",
+      "currentWorktreeCandidateCommit": null,
+      "currentWorktreeEvidenceRoots": [],
+      "releaseRevalidationRequired": true,
       "candidateExecutableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
       "candidateManagedAssemblyPath": "KimSurvivalIsland_Data/Managed/Assembly-CSharp.dll",
       "candidateManagedAssemblySha256": "b7e216c2892ee952905ccc2cbb37caa7050c355da38d6582e2d4c5d1b762f7e6",
@@ -4627,6 +4632,7 @@
       "packagedDocumentationCommit": "7678ab25ddb67af8087faecfb224d61c440459e0",
       "qaVerifierCommit": "2c9f36a200032d821992234788ef372747b8b925",
       "humanDocument": "Docs/Design/gamejam-completion-matrix.md",
+      "humanResultsDocument": "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
       "designSources": [
         "Docs/Design/kim-survival-island-gdd.md",
         ".forge/design/vertical-slice.json",
@@ -4651,9 +4657,9 @@
         "DONE": "Current build and current evidence satisfy the submission requirement without a remaining human-only decision.",
         "PARTIAL": "A base implementation or evidence exists, but a required connection, state, surface or current probe remains.",
         "MISSING": "The live player path or structured observable required for submission is absent.",
-        "HUMAN_REQUIRED": "Automatable acceptance is green and only a human or physical-device result remains."
+        "HUMAN_REQUIRED": "The requirement inherently needs a human or physical-device result; it remains open, and execution must wait until the current candidate's automated prerequisites are green."
       },
-      "submissionVerdict": "AUTOMATED_GREEN_HUMAN_REQUIRED",
+      "submissionVerdict": "PARTIAL_AUTOMATED_EVIDENCE_PENDING_HUMAN_REQUIRED",
       "submissionBlockerIds": [
         "gamejam.req.bag-four-to-six",
         "gamejam.req.thirty-minute-profile",
@@ -4662,8 +4668,8 @@
       ],
       "summary": {
         "requirementCount": 24,
-        "DONE": 20,
-        "PARTIAL": 0,
+        "DONE": 0,
+        "PARTIAL": 20,
         "MISSING": 0,
         "HUMAN_REQUIRED": 4
       },
@@ -4671,7 +4677,7 @@
         {
           "id": "gamejam.req.build-infrastructure",
           "label": "Compile, Windows build, hidden smoke, Addressables and firewall",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-summary.json",
             "windows-development-build.json",
@@ -4682,7 +4688,7 @@
         {
           "id": "gamejam.req.camp-direct-interaction",
           "label": "Direct movement and proximity facility interaction",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-summary.json#currentLocks",
             "wave11-slot-play-evidence.json"
@@ -4691,7 +4697,7 @@
         {
           "id": "gamejam.req.limited-free-placement",
           "label": "Limited free placement and dedicated anchors",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-summary.json#currentLocks"
           ]
@@ -4699,7 +4705,7 @@
         {
           "id": "gamejam.req.swimming",
           "label": "Swimming search and return",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-summary.json#currentLocks"
           ]
@@ -4707,7 +4713,7 @@
         {
           "id": "gamejam.req.behavior-ending-resolver-album",
           "label": "Behavioral ending resolver and album persistence",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "wave19-summary.json",
             "gamejam-long-stay-summary.json"
@@ -4716,7 +4722,7 @@
         {
           "id": "gamejam.req.seven-regions",
           "label": "Seven stable-ID regions",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-b-edit-contracts.json",
             "gamejam-wave-b-play-contracts.json"
@@ -4725,7 +4731,7 @@
         {
           "id": "gamejam.req.search-node-live",
           "label": "Live environmental search object and loot tray",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-search-node-summary.json"
           ]
@@ -4733,7 +4739,7 @@
         {
           "id": "gamejam.req.loot-selection-atomicity",
           "label": "Hidden loot, take, leave, swap and atomic bag transaction",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-search-node-play-observation-evidence.json"
           ]
@@ -4741,7 +4747,7 @@
         {
           "id": "gamejam.req.finite-revisit-persistence",
           "label": "Finite resources, partial remainder, depletion and revisit persistence",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-b-play-contracts.json"
           ]
@@ -4749,7 +4755,7 @@
         {
           "id": "gamejam.req.barrier-hazard-persistence",
           "label": "Broken barrier and removed hazard persistence",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-b-play-contracts.json"
           ]
@@ -4757,7 +4763,7 @@
         {
           "id": "gamejam.req.disease-lifecycle",
           "label": "Disease telegraph, exposure, effect and mitigation/treatment",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-b-play-contracts.json"
           ]
@@ -4766,12 +4772,15 @@
           "id": "gamejam.req.bag-four-to-six",
           "label": "Bag four to six, stack two",
           "status": "HUMAN_REQUIRED",
+          "evidence": [
+            "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md#bag-four-to-six"
+          ],
           "closeCondition": "Observe the investment choice and tension in a fresh human session on the candidate build."
         },
         {
           "id": "gamejam.req.upper-and-basement",
           "label": "Upper floor and basement in the same run",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P05"
           ]
@@ -4779,7 +4788,7 @@
         {
           "id": "gamejam.req.escape-raft",
           "label": "Raft escape",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P03",
             "wave20-summary.json"
@@ -4788,7 +4797,7 @@
         {
           "id": "gamejam.req.escape-smoke",
           "label": "Large smoke escape",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P01"
           ]
@@ -4796,7 +4805,7 @@
         {
           "id": "gamejam.req.escape-radio",
           "label": "Radio escape",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P03"
           ]
@@ -4806,14 +4815,15 @@
           "label": "Five-to-ten-minute core loop and 25-to-35-minute representative escape",
           "status": "HUMAN_REQUIRED",
           "evidence": [
-            "gamejam-wave-c-play-contracts.json#GWC-P07"
+            "gamejam-wave-c-play-contracts.json#GWC-P07",
+            "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md#actual-timing"
           ],
           "closeCondition": "Measure one actual 5-10 minute first loop and one actual 25-35 minute full run on the candidate build."
         },
         {
           "id": "gamejam.req.ko-en-qps",
           "label": "Korean source, English support and qps-long QA",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P06",
             "gamejam-long-stay-summary.json#GJLS-P07"
@@ -4822,7 +4832,7 @@
         {
           "id": "gamejam.req.input-semantic-parity",
           "label": "Keyboard/mouse and synthetic gamepad semantic parity",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P03",
             "gamejam-search-node-summary.json#GSN-P09"
@@ -4832,12 +4842,15 @@
           "id": "gamejam.req.physical-gamepad",
           "label": "Physical gamepad hands-on verification",
           "status": "HUMAN_REQUIRED",
+          "evidence": [
+            "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md#physical-gamepad"
+          ],
           "closeCondition": "Run the physical-device checklist on the exact candidate build."
         },
         {
           "id": "gamejam.req.ending-comic-panels",
           "label": "Three-to-five-panel ending comic",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P06",
             "gamejam-long-stay-summary.json#GJLS-P07"
@@ -4846,7 +4859,7 @@
         {
           "id": "gamejam.req.search-node-runtime-art",
           "label": "Runtime adoption of search-node visual resources",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "wave19-asset-guid-evidence.json"
           ]
@@ -4855,12 +4868,15 @@
           "id": "gamejam.req.first-user-cohort",
           "label": "Six first-user sessions, Korean three and English three",
           "status": "HUMAN_REQUIRED",
+          "evidence": [
+            "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md#session-ledger"
+          ],
           "closeCondition": "Run KO 3 and EN 3 fresh-user sessions on the exact candidate build."
         },
         {
           "id": "gamejam.req.day20-long-stay-two-endings",
           "label": "Two Game Jam Day 20 long-stay endings",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-long-stay-summary.json#GJLS-E01-GJLS-P09"
           ],
@@ -4870,7 +4886,7 @@
       "completedAutomationWaves": [
         {
           "id": "gamejam.wave.a-search-spine",
-          "status": "DONE",
+          "status": "PARTIAL",
           "requiredGreenIds": [
             "GSN-P01",
             "GSN-P02",
@@ -4883,7 +4899,7 @@
         },
         {
           "id": "gamejam.wave.b-seven-region-persistence",
-          "status": "DONE",
+          "status": "PARTIAL",
           "requiredGreenIds": [
             "GWB-CAT-01",
             "GWB-DIS-01",
@@ -4893,7 +4909,7 @@
         },
         {
           "id": "gamejam.wave.c-three-escape-integration",
-          "status": "DONE",
+          "status": "PARTIAL",
           "requiredGreenIds": [
             "GWC-P01",
             "GWC-P03",
@@ -4905,7 +4921,7 @@
         },
         {
           "id": "gamejam.wave.followup-day20-long-stay",
-          "status": "DONE",
+          "status": "PARTIAL",
           "requiredGreenIds": [
             "GJLS-E01",
             "GJLS-E06",

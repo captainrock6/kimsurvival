@@ -599,6 +599,40 @@ namespace KimSurvival
             WriteRecord(record);
         }
 
+        public void RecordSearchEnvironmentalHazard(
+            string eventName,
+            string regionId,
+            string nodeId,
+            string hazardId,
+            string action,
+            string outcome,
+            int healthDelta)
+        {
+            if (!string.Equals(eventName, PrototypePlaytestEventNames.HazardTelegraphed, StringComparison.Ordinal) &&
+                !string.Equals(eventName, PrototypePlaytestEventNames.HazardOccurred, StringComparison.Ordinal) &&
+                !string.Equals(eventName, PrototypePlaytestEventNames.HazardMitigated, StringComparison.Ordinal) &&
+                !string.Equals(eventName, PrototypePlaytestEventNames.HazardRecovered, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);
+            PrototypePlaytestEventRecord record = CreateRecord(
+                eventName,
+                current,
+                current,
+                "search_hazard",
+                nodeId,
+                action,
+                outcome,
+                resource: string.Empty,
+                resourceLocation: string.Empty,
+                delta: healthDelta);
+            record.region_id = regionId ?? string.Empty;
+            record.hazard_id = hazardId ?? string.Empty;
+            WriteRecord(record);
+        }
+
         public void RecordDiseaseTreatment(string outcome, int medicineDelta)
         {
             PrototypePlaytestStateFingerprint current = PrototypePlaytestStateFingerprint.Capture(session);

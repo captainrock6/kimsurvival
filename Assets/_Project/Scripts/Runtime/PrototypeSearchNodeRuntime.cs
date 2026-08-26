@@ -213,6 +213,294 @@ namespace KimSurvival
         }
     }
 
+    public enum PrototypeSearchEnvironmentalHazardPhase
+    {
+        Clear,
+        Telegraphed,
+        Exposed,
+        Mitigated,
+        Recovered
+    }
+
+    [Serializable]
+    public sealed class PrototypeSearchEnvironmentalHazardExposureSnapshot
+    {
+        public int RunSeed;
+        public string HazardId = string.Empty;
+        public string RegionId = string.Empty;
+        public string NodeId = string.Empty;
+        public PrototypeSearchEnvironmentalHazardPhase Phase;
+        public int WarningCount;
+        public int ExposureApplyCount;
+        public int EffectApplyCount;
+        public int ResponseApplyCount;
+        public int RecoveryApplyCount;
+        public int HealthDeltaTotal;
+        public string LastResultCode = string.Empty;
+        public string LastTransactionId = string.Empty;
+        public string[] Trace = Array.Empty<string>();
+
+        public PrototypeSearchEnvironmentalHazardExposureSnapshot Clone()
+        {
+            return new PrototypeSearchEnvironmentalHazardExposureSnapshot
+            {
+                RunSeed = RunSeed,
+                HazardId = HazardId,
+                RegionId = RegionId,
+                NodeId = NodeId,
+                Phase = Phase,
+                WarningCount = WarningCount,
+                ExposureApplyCount = ExposureApplyCount,
+                EffectApplyCount = EffectApplyCount,
+                ResponseApplyCount = ResponseApplyCount,
+                RecoveryApplyCount = RecoveryApplyCount,
+                HealthDeltaTotal = HealthDeltaTotal,
+                LastResultCode = LastResultCode,
+                LastTransactionId = LastTransactionId,
+                Trace = Trace == null ? Array.Empty<string>() : Trace.ToArray()
+            };
+        }
+    }
+
+    [Serializable]
+    public sealed class PrototypeSearchEnvironmentalHazardSnapshot
+    {
+        public int RunSeed;
+        public PrototypeSearchEnvironmentalHazardExposureSnapshot[] Exposures =
+            Array.Empty<PrototypeSearchEnvironmentalHazardExposureSnapshot>();
+    }
+
+    /// <summary>
+    /// Non-disease search hazards with a production-input lifecycle. Hidden-node
+    /// labels telegraph the hazard, opening commits one health effect, leaving the
+    /// tray records the player's retreat/avoidance, and camp return applies one
+    /// bounded recovery. Every health mutation uses GameSession transaction IDs.
+    /// </summary>
+    public sealed class PrototypeSearchEnvironmentalHazardRuntime
+    {
+        public const string InsectsHazardId = "hazard.insects";
+        public const string DangerousPlantsHazardId = "hazard.dangerous-plants";
+        public const int InsectsEffectHealthDelta = -4;
+        public const int DangerousPlantsEffectHealthDelta = -6;
+        public const int InsectsRecoveryHealthDelta = 2;
+        public const int DangerousPlantsRecoveryHealthDelta = 3;
+
+        private readonly Dictionary<string, PrototypeSearchEnvironmentalHazardExposureSnapshot> exposures =
+            new Dictionary<string, PrototypeSearchEnvironmentalHazardExposureSnapshot>(StringComparer.Ordinal);
+
+        public PrototypeSearchEnvironmentalHazardRuntime(int runSeed)
+        {
+            RunSeed = runSeed;
+        }
+
+        public int RunSeed { get; private set; }
+        public IReadOnlyList<PrototypeSearchEnvironmentalHazardExposureSnapshot> Exposures
+        {
+            get
+            {
+                return exposures.Values.OrderBy(value => value.NodeId, StringComparer.Ordinal)
+                    .Select(value => value.Clone()).ToArray();
+            }
+        }
+        public int WarningCount { get { return exposures.Values.Sum(value => value.WarningCount); } }
+        public int ExposureApplyCount { get { return exposures.Values.Sum(value => value.ExposureApplyCount); } }
+        public int EffectApplyCount { get { return exposures.Values.Sum(value => value.EffectApplyCount); } }
+        public int ResponseApplyCount { get { return exposures.Values.Sum(value => value.ResponseApplyCount); } }
+        public int RecoveryApplyCount { get { return exposures.Values.Sum(value => value.RecoveryApplyCount); } }
+        public string LastFeedbackLocalizationKey { get; private set; } = string.Empty;
+
+        public static bool Supports(string hazardId)
+        {
+            return string.Equals(hazardId, InsectsHazardId, StringComparison.Ordinal) ||
+                   string.Equals(hazardId, DangerousPlantsHazardId, StringComparison.Ordinal);
+        }
+
+        public PrototypeSearchEnvironmentalHazardExposureSnapshot Find(string nodeId)
+        {
+            return exposures.TryGetValue(nodeId ?? string.Empty, out PrototypeSearchEnvironmentalHazardExposureSnapshot value)
+                ? value.Clone()
+                : null;
+        }
+
+        public bool TryTelegraph(PrototypeSearchNodeDefinition definition)
+        {
+            if (definition == null || !Supports(definition.HazardId) ||
+                exposures.ContainsKey(definition.NodeId)) return false;
+
+            var exposure = new PrototypeSearchEnvironmentalHazardExposureSnapshot
+            {
+                RunSeed = RunSeed,
+                HazardId = definition.HazardId,
+                RegionId = definition.RegionId,
+                NodeId = definition.NodeId,
+                Phase = PrototypeSearchEnvironmentalHazardPhase.Telegraphed,
+                WarningCount = 1,
+                LastResultCode = "search-hazard.result.telegraphed",
+                Trace = new[] { "search-hazard.telegraph:" + definition.HazardId + ":" + definition.NodeId }
+            };
+            exposures.Add(exposure.NodeId, exposure);
+            LastFeedbackLocalizationKey = FeedbackKey(exposure);
+            return true;
+        }
+
+        public bool TryExpose(PrototypeSearchNodeDefinition definition, GameSession session)
+        {
+            if (definition == null || session == null || !Supports(definition.HazardId)) return false;
+            if (!exposures.TryGetValue(definition.NodeId, out PrototypeSearchEnvironmentalHazardExposureSnapshot exposure))
+            {
+                if (!TryTelegraph(definition) || !exposures.TryGetValue(
+                        definition.NodeId, out exposure)) return false;
+            }
+            if (exposure.Phase != PrototypeSearchEnvironmentalHazardPhase.Telegraphed) return false;
+
+            int healthDelta = EffectHealthDelta(definition.HazardId);
+            string transactionId = TransactionId("effect", definition.NodeId);
+            int healthBefore = session.Health;
+            if (!session.ApplyHealthDelta(transactionId, healthDelta)) return false;
+
+            exposure.Phase = PrototypeSearchEnvironmentalHazardPhase.Exposed;
+            exposure.ExposureApplyCount = 1;
+            exposure.EffectApplyCount = 1;
+            exposure.HealthDeltaTotal += session.Health - healthBefore;
+            exposure.LastResultCode = "search-hazard.result.exposed";
+            exposure.LastTransactionId = transactionId;
+            exposure.Trace = exposure.Trace.Concat(new[]
+            {
+                "search-hazard.exposure:" + definition.HazardId + ":" + definition.NodeId,
+                "search-hazard.effect:" + healthDelta + ":" + transactionId
+            }).ToArray();
+            LastFeedbackLocalizationKey = FeedbackKey(exposure);
+            return true;
+        }
+
+        public bool TryMitigateByLeaving(string nodeId)
+        {
+            if (!exposures.TryGetValue(nodeId ?? string.Empty, out PrototypeSearchEnvironmentalHazardExposureSnapshot exposure) ||
+                exposure.Phase != PrototypeSearchEnvironmentalHazardPhase.Exposed) return false;
+
+            exposure.Phase = PrototypeSearchEnvironmentalHazardPhase.Mitigated;
+            exposure.ResponseApplyCount = 1;
+            exposure.LastResultCode = "search-hazard.result.mitigated-retreat";
+            exposure.Trace = exposure.Trace.Concat(new[]
+            {
+                "search-hazard.response:leave-and-retreat:" + exposure.NodeId,
+                "search-hazard.mitigated:" + exposure.HazardId
+            }).ToArray();
+            LastFeedbackLocalizationKey = FeedbackKey(exposure);
+            return true;
+        }
+
+        public bool TryRecoverOnCampReturn(GameSession session)
+        {
+            if (session == null || session.Phase != GamePhase.Camp) return false;
+            bool changed = false;
+            foreach (PrototypeSearchEnvironmentalHazardExposureSnapshot exposure in exposures.Values
+                         .Where(value => value.Phase == PrototypeSearchEnvironmentalHazardPhase.Mitigated)
+                         .OrderBy(value => value.NodeId, StringComparer.Ordinal))
+            {
+                int healthDelta = RecoveryHealthDelta(exposure.HazardId);
+                string transactionId = TransactionId("recovery", exposure.NodeId);
+                int healthBefore = session.Health;
+                if (!session.ApplyHealthDelta(transactionId, healthDelta)) continue;
+
+                exposure.Phase = PrototypeSearchEnvironmentalHazardPhase.Recovered;
+                exposure.RecoveryApplyCount = 1;
+                exposure.HealthDeltaTotal += session.Health - healthBefore;
+                exposure.LastResultCode = "search-hazard.result.recovered";
+                exposure.LastTransactionId = transactionId;
+                exposure.Trace = exposure.Trace.Concat(new[]
+                {
+                    "search-hazard.recovery:" + healthDelta + ":" + transactionId
+                }).ToArray();
+                LastFeedbackLocalizationKey = FeedbackKey(exposure);
+                changed = true;
+            }
+            return changed;
+        }
+
+        public PrototypeSearchEnvironmentalHazardSnapshot CaptureSnapshot()
+        {
+            return new PrototypeSearchEnvironmentalHazardSnapshot
+            {
+                RunSeed = RunSeed,
+                Exposures = Exposures.ToArray()
+            };
+        }
+
+        public bool RestoreSnapshot(PrototypeSearchEnvironmentalHazardSnapshot snapshot)
+        {
+            if (snapshot == null) return true;
+            if (snapshot.RunSeed != RunSeed) return false;
+            PrototypeSearchEnvironmentalHazardExposureSnapshot[] source =
+                (snapshot.Exposures ?? Array.Empty<PrototypeSearchEnvironmentalHazardExposureSnapshot>())
+                .Select(value => value == null ? null : value.Clone()).ToArray();
+            if (source.Any(value => !IsValid(value)) ||
+                source.Select(value => value.NodeId).Distinct(StringComparer.Ordinal).Count() != source.Length)
+            {
+                return false;
+            }
+
+            exposures.Clear();
+            foreach (PrototypeSearchEnvironmentalHazardExposureSnapshot value in source)
+            {
+                exposures.Add(value.NodeId, value.Clone());
+            }
+            LastFeedbackLocalizationKey = source.Length == 0
+                ? string.Empty
+                : FeedbackKey(source.OrderBy(value => value.NodeId, StringComparer.Ordinal).Last());
+            return true;
+        }
+
+        private bool IsValid(PrototypeSearchEnvironmentalHazardExposureSnapshot value)
+        {
+            if (value == null || value.RunSeed != RunSeed || !Supports(value.HazardId) ||
+                string.IsNullOrWhiteSpace(value.RegionId) || string.IsNullOrWhiteSpace(value.NodeId) ||
+                value.Phase == PrototypeSearchEnvironmentalHazardPhase.Clear || value.WarningCount != 1)
+            {
+                return false;
+            }
+            PrototypeSearchNodeDefinition definition = PrototypeSearchRegionCatalog.Nodes.FirstOrDefault(node =>
+                string.Equals(node.NodeId, value.NodeId, StringComparison.Ordinal));
+            if (definition == null || !string.Equals(definition.RegionId, value.RegionId, StringComparison.Ordinal) ||
+                !string.Equals(definition.HazardId, value.HazardId, StringComparison.Ordinal)) return false;
+
+            int phase = (int)value.Phase;
+            return value.ExposureApplyCount == (phase >= (int)PrototypeSearchEnvironmentalHazardPhase.Exposed ? 1 : 0) &&
+                   value.EffectApplyCount == value.ExposureApplyCount &&
+                   value.ResponseApplyCount == (phase >= (int)PrototypeSearchEnvironmentalHazardPhase.Mitigated ? 1 : 0) &&
+                   value.RecoveryApplyCount == (phase >= (int)PrototypeSearchEnvironmentalHazardPhase.Recovered ? 1 : 0) &&
+                   (value.Trace ?? Array.Empty<string>()).Length >= phase;
+        }
+
+        private string TransactionId(string stage, string nodeId)
+        {
+            return "search-hazard." + stage + "." + RunSeed + "." + (nodeId ?? string.Empty);
+        }
+
+        private static int EffectHealthDelta(string hazardId)
+        {
+            return string.Equals(hazardId, InsectsHazardId, StringComparison.Ordinal)
+                ? InsectsEffectHealthDelta
+                : DangerousPlantsEffectHealthDelta;
+        }
+
+        private static int RecoveryHealthDelta(string hazardId)
+        {
+            return string.Equals(hazardId, InsectsHazardId, StringComparison.Ordinal)
+                ? InsectsRecoveryHealthDelta
+                : DangerousPlantsRecoveryHealthDelta;
+        }
+
+        private static string FeedbackKey(PrototypeSearchEnvironmentalHazardExposureSnapshot exposure)
+        {
+            if (exposure == null || !Supports(exposure.HazardId)) return string.Empty;
+            string profile = string.Equals(exposure.HazardId, InsectsHazardId, StringComparison.Ordinal)
+                ? "insects"
+                : "dangerous-plants";
+            return "search.hazard.lifecycle." + profile + "." + exposure.Phase.ToString().ToLowerInvariant();
+        }
+    }
+
     [Serializable]
     public sealed class PrototypeSearchRunSnapshot
     {
@@ -231,6 +519,7 @@ namespace KimSurvival
         public PrototypeProtectedPartPitySnapshot[] ProtectedPartPity =
             Array.Empty<PrototypeProtectedPartPitySnapshot>();
         public PrototypeDiseaseSnapshot Disease;
+        public PrototypeSearchEnvironmentalHazardSnapshot EnvironmentalHazards;
     }
 
     public sealed class PrototypeSearchNodeDefinition
@@ -1101,6 +1390,7 @@ namespace KimSurvival
         {
             RunSeed = runSeed;
             Disease = new PrototypeDiseaseRuntime(runSeed);
+            EnvironmentalHazards = new PrototypeSearchEnvironmentalHazardRuntime(runSeed);
             allowNewGameStockGeneration = initializeNewGameStock;
             if (!initializeNewGameStock) return;
             PrototypeSearchNewGameStockManifest manifest = PrototypeSearchNewGameStockGenerator.GenerateNewGameStock(
@@ -1131,6 +1421,7 @@ namespace KimSurvival
 
         public int RunSeed { get; private set; }
         public PrototypeDiseaseRuntime Disease { get; private set; }
+        public PrototypeSearchEnvironmentalHazardRuntime EnvironmentalHazards { get; private set; }
         public int TotalHazardExposureCount { get { return nodes.Values.Sum(node => node.HazardExposureCount); } }
         public int GeneralRemainingAmount { get { return nodes.Values.Sum(node => node.GeneralRemainingAmount); } }
         public int ProtectedRemainingAmount { get { return nodes.Values.Sum(node => node.ProtectedRemainingAmount); } }
@@ -1404,7 +1695,8 @@ namespace KimSurvival
                 ProtectedPartPity = protectedPartPity.Values
                     .OrderBy(value => value.PartId, StringComparer.Ordinal)
                     .Select(value => value.Clone()).ToArray(),
-                Disease = Disease.CaptureSnapshot()
+                Disease = Disease.CaptureSnapshot(),
+                EnvironmentalHazards = EnvironmentalHazards.CaptureSnapshot()
             };
         }
 
@@ -1458,6 +1750,8 @@ namespace KimSurvival
             }
             var restoredDisease = new PrototypeDiseaseRuntime(RunSeed);
             if (!restoredDisease.RestoreSnapshot(snapshot.Disease)) return false;
+            var restoredEnvironmentalHazards = new PrototypeSearchEnvironmentalHazardRuntime(RunSeed);
+            if (!restoredEnvironmentalHazards.RestoreSnapshot(snapshot.EnvironmentalHazards)) return false;
 
             nodes.Clear();
             foreach (PrototypeSearchNodeSnapshot node in source)
@@ -1517,6 +1811,7 @@ namespace KimSurvival
                 protectedPartPity.Add(pity.PartId, pity.Clone());
             }
             Disease = restoredDisease;
+            EnvironmentalHazards = restoredEnvironmentalHazards;
             stockGenerationEvents.Clear();
             stockGenerationEvents.AddRange(snapshot.StockGenerationEvents ?? Array.Empty<string>());
             newGameStockFingerprint = snapshot.NewGameStockFingerprint ?? string.Empty;
@@ -1733,6 +2028,7 @@ namespace KimSurvival
         private string activeNodeId = string.Empty;
         private string pendingItemId = string.Empty;
         private bool cycleLatched;
+        private string lastFeedbackLocalizationKey = string.Empty;
 
         public PrototypeSearchNodeRuntime(int runSeed)
         {
@@ -1763,6 +2059,8 @@ namespace KimSurvival
 
         public PrototypeSearchNodeLedger Ledger { get; private set; }
         public PrototypeDiseaseRuntime Disease { get { return Ledger.Disease; } }
+        public PrototypeSearchEnvironmentalHazardRuntime EnvironmentalHazards { get { return Ledger.EnvironmentalHazards; } }
+        public string LastFeedbackLocalizationKey { get { return lastFeedbackLocalizationKey; } }
         public bool IsTrayOpen { get { return !string.IsNullOrEmpty(activeNodeId); } }
         public bool HasPendingBagSwap { get { return !string.IsNullOrEmpty(pendingItemId); } }
         public int FocusedIndex { get; private set; }
@@ -1785,6 +2083,7 @@ namespace KimSurvival
             pendingItemId = string.Empty;
             FocusedIndex = 0;
             cycleLatched = false;
+            lastFeedbackLocalizationKey = string.Empty;
             PrototypeProtectedPartPityRuntimeBridge.RestoreNaturalSearchPity(runSeed, Ledger.ProtectedPartPity);
         }
 
@@ -1807,6 +2106,7 @@ namespace KimSurvival
             pendingItemId = string.Empty;
             FocusedIndex = 0;
             cycleLatched = false;
+            lastFeedbackLocalizationKey = string.Empty;
             ClampFocus();
             PrototypeProtectedPartPityRuntimeBridge.RestoreNaturalSearchPity(Ledger.RunSeed, Ledger.ProtectedPartPity);
             return true;
@@ -1827,6 +2127,10 @@ namespace KimSurvival
                 {
                     Disease.TryTelegraph(definition.RegionId, definition.NodeId);
                 }
+                else if (PrototypeSearchEnvironmentalHazardRuntime.Supports(definition.HazardId))
+                {
+                    EnvironmentalHazards.TryTelegraph(definition);
+                }
                 int appliedEnergyCost = definition.EnergyCost + Disease.ActiveSearchEnergyPenalty;
                 if (!session.TryApplySearchNodeCost(appliedEnergyCost, definition.TimeCostMinutes))
                 {
@@ -1838,6 +2142,11 @@ namespace KimSurvival
                 if (string.Equals(definition.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal))
                 {
                     Disease.TryExposeFromSearch(definition);
+                }
+                else if (PrototypeSearchEnvironmentalHazardRuntime.Supports(definition.HazardId))
+                {
+                    EnvironmentalHazards.TryExpose(definition, session);
+                    lastFeedbackLocalizationKey = EnvironmentalHazards.LastFeedbackLocalizationKey;
                 }
             }
             activeNodeId = definition.NodeId;
@@ -1854,9 +2163,21 @@ namespace KimSurvival
                    Disease.TryTelegraph(definition.RegionId, definition.NodeId);
         }
 
+        public bool TryTelegraphEnvironmentalHazard(PrototypeSearchNodeDefinition definition)
+        {
+            return definition != null && EnvironmentalHazards.TryTelegraph(definition);
+        }
+
         public bool NotifyReturnToCamp(GameSession session, bool forced)
         {
-            return Disease.TryEnterCamp(session, forced);
+            bool diseaseApplied = Disease.TryEnterCamp(session, forced);
+            bool environmentalRecoveryApplied = EnvironmentalHazards.TryRecoverOnCampReturn(session);
+            lastFeedbackLocalizationKey = diseaseApplied
+                ? Disease.FeedbackLocalizationKey
+                : environmentalRecoveryApplied
+                    ? EnvironmentalHazards.LastFeedbackLocalizationKey
+                    : string.Empty;
+            return diseaseApplied || environmentalRecoveryApplied;
         }
 
         public bool NotifyDaySettlement(GameSession session)
@@ -1977,6 +2298,10 @@ namespace KimSurvival
         public void Close(GameSession session)
         {
             if (HasPendingBagSwap) CancelPending(session);
+            if (EnvironmentalHazards.TryMitigateByLeaving(activeNodeId))
+            {
+                lastFeedbackLocalizationKey = EnvironmentalHazards.LastFeedbackLocalizationKey;
+            }
             activeNodeId = string.Empty;
             pendingItemId = string.Empty;
             FocusedIndex = 0;
@@ -2272,9 +2597,17 @@ namespace KimSurvival
                 " stockDoesNotRegenerate=" + stockDoesNotRegenerate +
                 " hidden-partial-depleted=" + (hiddenObserved && partialObserved && depletedObserved) +
                 " barrierPersistent=" + persistence + " permanentHazardPersistent=" + persistence +
+                " core=" + sevenRegions + "/" + exactShape + "/" + stableNodes + "/" +
+                legacyIdsPreserved + "/" + exactlyFourteenAdded + "/" + exactFiniteBalance +
+                " traversal=" + began + "/" + selected + "/" + takeResult +
+                " deplete=" + depleteBegan + "/" + depleteOpened + "/" + depleteResult +
+                " protected=" + protectedBegan + "/" + protectedOpened + "/" + protectedTaken +
+                " swap=" + fullBagBegan + "/" + filled + "/" + swapOpened +
                 " costOnce=" + costOnce + " selectionHazardPaused=true cancelAtomic=" + cancelAtomic +
                 " replaceAtomic=" + replaceAtomic + " sailclothProtectedUnique=" + protectedUnique +
-                " snapshotRestore=" + restoredOk + " | " + pityContract.Detail + " | " + diseaseContract.Detail);
+                " snapshotRestore=" + restoredOk +
+                " pityPassed=" + pityContract.Passed + " diseasePassed=" + diseaseContract.Passed +
+                " | " + pityContract.Detail + " | " + diseaseContract.Detail);
         }
 
         public static PrototypeSearchNodeContractResult VerifyProtectedPartPityNaturalResultContract(int seed)
@@ -2345,7 +2678,9 @@ namespace KimSurvival
                 " nextEligibleGuaranteed=" + guaranteedOnNext + " generalUnits=" +
                 (restored == null ? -1 : restored.GeneralRemainingAmount) +
                 " protectedConserved=" + protectedConserved + " restore=" + armedRestored +
-                " acquiredRestore=" + acquiredRestored + " duplicateZeroDelta=" + duplicateZeroDelta);
+                " acquiredRestore=" + acquiredRestored + " duplicateZeroDelta=" + duplicateZeroDelta +
+                " fiveUniqueMisses=" + fiveUniqueMisses + " armedUnacquired=" + (!armed.Acquired) +
+                " stockSeparated=" + stockSeparated);
         }
 
         public static PrototypeSearchNodeContractResult VerifyNaturalDiseaseLifecycle(int seed)
@@ -2394,10 +2729,19 @@ namespace KimSurvival
                            treatmentRuntime.Disease.EffectCount == 0;
             bool returned = treatmentSession.ReturnToCamp(false);
             int symptomHealthBefore = treatmentSession.Health;
+            int environmentalRecoveryDelta = treatmentRuntime.EnvironmentalHazards.Exposures
+                .Where(value => value.Phase == PrototypeSearchEnvironmentalHazardPhase.Mitigated)
+                .Sum(value => string.Equals(
+                    value.HazardId,
+                    PrototypeSearchEnvironmentalHazardRuntime.InsectsHazardId,
+                    StringComparison.Ordinal)
+                    ? PrototypeSearchEnvironmentalHazardRuntime.InsectsRecoveryHealthDelta
+                    : PrototypeSearchEnvironmentalHazardRuntime.DangerousPlantsRecoveryHealthDelta);
             bool effect = treatmentRuntime.NotifyReturnToCamp(treatmentSession, false) &&
                           treatmentRuntime.Disease.Phase == PrototypeDiseasePhase.Symptomatic &&
                           treatmentRuntime.Disease.EffectCount == 1 &&
-                          treatmentSession.Health == symptomHealthBefore + PrototypeDiseaseRuntime.SymptomHealthDelta;
+                          treatmentSession.Health == symptomHealthBefore + PrototypeDiseaseRuntime.SymptomHealthDelta +
+                                                     environmentalRecoveryDelta;
             int worsenHealthBefore = treatmentSession.Health;
             bool worsened = treatmentSession.EndDay() && treatmentRuntime.NotifyDaySettlement(treatmentSession) &&
                             treatmentRuntime.Disease.Phase == PrototypeDiseasePhase.Aggravated &&
@@ -2440,6 +2784,10 @@ namespace KimSurvival
                 " trace=telegraph>exposure>effect>worsen>mitigate>treat" +
                 " forcedReturnAtomic=" + (forcedEffect && duplicateEffectRejected) +
                 " cancelAtomic=" + cancelAtomic + " treatmentCostAtomic=" + treatmentAtomic +
+                " setup=" + (diseaseNodes.Length == 2) + "/" + forcedBegan + "/" + forcedOpened + "/" + forcedReturned +
+                "/" + began + "/" + medicineCollected + "/" + telegraph + "/" + exposed + "/" + returned +
+                "/" + effect + "/" + worsened + "/" + orderedTrace +
+                " environmentalRecoveryDelta=" + environmentalRecoveryDelta +
                 " grant=false warp=false skip=false fixtureOnly=false");
         }
 

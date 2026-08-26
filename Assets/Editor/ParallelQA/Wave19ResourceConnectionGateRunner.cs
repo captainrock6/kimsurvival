@@ -149,6 +149,20 @@ namespace ParallelQA
         }
 
         [Serializable]
+        private sealed class RegionArtObservation
+        {
+            public string stableId;
+            public string locale;
+            public string hierarchyRoot;
+            public int authoredLayerCount;
+            public string visualSignature;
+            public string kimSourceGuid;
+            public int placeholderNameCount;
+            public string screenshot;
+            public string result;
+        }
+
+        [Serializable]
         private sealed class PixelRectEvidence
         {
             public float x;
@@ -189,6 +203,7 @@ namespace ParallelQA
             public PlayerStateObservation[] playerStates;
             public ResourceObservation[] resources;
             public StructureObservation[] structures;
+            public RegionArtObservation[] regionArt;
             public LayoutObservation[] layouts;
             public string[] joystickNames;
         }
@@ -394,6 +409,7 @@ namespace ParallelQA
                 List<PlayerStateObservation> playerStates = new List<PlayerStateObservation>();
                 List<ResourceObservation> resources = new List<ResourceObservation>();
                 List<StructureObservation> structures = new List<StructureObservation>();
+                List<RegionArtObservation> regionArt = new List<RegionArtObservation>();
                 List<LayoutObservation> layouts = new List<LayoutObservation>();
                 string prerequisiteResult = string.Empty;
 
@@ -422,7 +438,7 @@ namespace ParallelQA
                     "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
 
                 Product(checks, "W19-P03.camp_structures_adopted_sprites", "actual Play structures", "P0",
-                    "Campfire, workbench, rain collector, and rescue signal render adopted sprites without structure fallbacks",
+                    "Campfire, workbench, and rain collector render adopted sprites; GAME JAM omits the legacy fixed rescue signal while retaining its serialized standard-profile art",
                     delegate { return ObserveStructures(prototype, structures); },
                     "After the full Play setup, inspect structureViews and rescueSignalRenderer on the active Scene instance.",
                     "runtime structure connection owner selected from the active Scene");
@@ -438,6 +454,12 @@ namespace ParallelQA
                     delegate { return ObserveResourceNodes(prototype, resources); },
                     "Inspect structured contents from every live environmental node, open its actual compact tray, and read active SpriteRenderer/Image source GUIDs.",
                     "runtime environmental node and compact loot tray owners selected from the active Scene");
+
+                Product(checks, "W19-P05.seven_region_authored_presentation", "actual Play expedition art", "P1",
+                    "All seven production search regions render exact stable-ID native layer compositions, remain visually distinct in ko/en/qps-long, retain the adopted Mr. Kim atlas, and expose no placeholder-named carrier",
+                    delegate { return ObserveRegionArt(prototype, regionArt); },
+                    "Enter each of the seven production regions in each supported locale and retain a 1280x800 frame plus the exact active art hierarchy.",
+                    "KimSurvivalPrototype.ArtPresentation.cs; active Play Expedition Region Art hierarchy");
 
                 string[] locales = { PrototypeLocalization.KoreanLocaleCode, PrototypeLocalization.EnglishLocaleCode, PrototypeLocalization.QpsLongLocaleCode };
                 for (int index = 0; index < locales.Length; index += 1)
@@ -482,6 +504,7 @@ namespace ParallelQA
                     playerStates = playerStates.ToArray(),
                     resources = resources.ToArray(),
                     structures = structures.ToArray(),
+                    regionArt = regionArt.ToArray(),
                     layouts = layouts.ToArray(),
                     joystickNames = Input.GetJoystickNames() ?? Array.Empty<string>()
                 });
@@ -696,6 +719,72 @@ namespace ParallelQA
             }
         }
 
+        private static string ObserveRegionArt(KimSurvivalPrototype prototype, List<RegionArtObservation> output)
+        {
+            EnsureEndingComicHidden();
+            PrototypeLocalization localization = GetPrivateField<PrototypeLocalization>(prototype, "localization");
+            string[] locales =
+            {
+                PrototypeLocalization.KoreanLocaleCode,
+                PrototypeLocalization.EnglishLocaleCode,
+                PrototypeLocalization.QpsLongLocaleCode
+            };
+            foreach (string locale in locales)
+            {
+                SetLocale(localization, locale);
+                HashSet<string> localeSignatures = new HashSet<string>(StringComparer.Ordinal);
+                foreach (PrototypeExpeditionRegionProfile profile in PrototypeExpeditionRegionCatalog.All)
+                {
+                    prototype.Session.Reset();
+                    Require(prototype.Session.BeginSearch(profile.Id), "could not enter region art fixture " + profile.StableId);
+                    InvokePrivate(prototype, "RefreshAll");
+                    Transform worldRoot = GetPrivateField<Transform>(prototype, "worldRoot");
+                    Require(worldRoot != null, "search world root is missing for " + profile.StableId);
+                    string expectedRootName = "Expedition Region Art · " + profile.StableId + " · engine-native.expedition-region-layers.v1";
+                    Transform artRoot = worldRoot.GetComponentsInChildren<Transform>(true)
+                        .FirstOrDefault(value => string.Equals(value.name, expectedRootName, StringComparison.Ordinal));
+                    Require(artRoot != null, "exact stable-ID region art root is missing: " + expectedRootName);
+                    SpriteRenderer[] authored = artRoot.GetComponentsInChildren<SpriteRenderer>(true)
+                        .Where(value => value != null && value.gameObject.activeInHierarchy)
+                        .ToArray();
+                    string signature = string.Join("|", authored.Select(value => value.gameObject.name).OrderBy(value => value, StringComparer.Ordinal).ToArray());
+                    localeSignatures.Add(signature);
+                    int placeholders = worldRoot.GetComponentsInChildren<Transform>(true)
+                        .Count(value => value != null && value.gameObject.activeInHierarchy &&
+                                        value.name.IndexOf("placeholder", StringComparison.OrdinalIgnoreCase) >= 0);
+                    SpriteRenderer kim = worldRoot.GetComponentsInChildren<SpriteRenderer>(true)
+                        .FirstOrDefault(value => SourceGuid(value.sprite) == ExpectedGuid("character.mr-kim.atlas"));
+                    string safeRegion = profile.StableId.Replace('.', '-');
+                    string screenshot = "wave19-region-" + safeRegion + "-" + locale + "-1280x800.png";
+                    string screenshotPath = Path.Combine(EvidenceFolder, screenshot);
+                    prototype.CaptureVerificationPng(screenshotPath, 1280, 800);
+                    bool passed = authored.Length >= 12 && placeholders == 0 && kim != null &&
+                                  VerifyPng(screenshotPath, 1280, 800);
+                    output.Add(new RegionArtObservation
+                    {
+                        stableId = profile.StableId,
+                        locale = locale,
+                        hierarchyRoot = expectedRootName,
+                        authoredLayerCount = authored.Length,
+                        visualSignature = signature,
+                        kimSourceGuid = kim == null ? string.Empty : SourceGuid(kim.sprite),
+                        placeholderNameCount = placeholders,
+                        screenshot = screenshot,
+                        result = passed ? "PASS" : "FAIL"
+                    });
+                    Require(passed, profile.StableId + "/" + locale +
+                        " region art failed: layers=" + authored.Length + ", placeholders=" + placeholders +
+                        ", kim=" + (kim == null ? "missing" : SourceGuid(kim.sprite)));
+                }
+                Require(localeSignatures.Count == PrototypeExpeditionRegionCatalog.All.Count,
+                    locale + " seven-region visual signatures are not all distinct: " + localeSignatures.Count);
+            }
+            Require(output.Count == PrototypeExpeditionRegionCatalog.All.Count * locales.Length,
+                "seven-region ko/en/qps-long observation count mismatch: " + output.Count);
+            return "21/21 1280x800 frames; exact roots=7; distinct signatures=7 per locale; placeholders=0; adopted Kim GUID=" +
+                   ExpectedGuid("character.mr-kim.atlas");
+        }
+
         private static string ObserveStructures(KimSurvivalPrototype prototype, List<StructureObservation> output)
         {
             GameSession session = prototype.Session;
@@ -748,20 +837,24 @@ namespace ParallelQA
                 });
             }
 
-            SpriteRenderer signal = GetPrivateField<SpriteRenderer>(prototype, "rescueSignalRenderer");
+            bool gameJamProfile = prototype.Session != null && prototype.Session.IsProvisionalSessionProfile;
+            SpriteRenderer signal = GetField(prototype, "rescueSignalRenderer") as SpriteRenderer;
             string signalGuid = signal == null ? string.Empty : SourceGuid(signal.sprite);
-            int signalFallbacks = signal == null ? 1 : signal.transform.root.GetComponentsInChildren<Transform>(true).Count(value => value.name.Contains("구조 신호대 아트 누락"));
+            int signalFallbacks = signal == null ? 0 : signal.transform.root.GetComponentsInChildren<Transform>(true).Count(value => value.name.Contains("구조 신호대 아트 누락"));
             output.Add(new StructureObservation
             {
-                kind = "RescueSignal",
+                kind = gameJamProfile ? "RescueSignalLegacyAbsent" : "RescueSignal",
                 expectedGuid = ExpectedGuid("structure.rescue_signal"),
                 observedGuid = signalGuid,
                 rendererName = signal == null ? string.Empty : signal.gameObject.name,
                 fallbackCount = signalFallbacks,
-                result = signalGuid == ExpectedGuid("structure.rescue_signal") && signalFallbacks == 0 ? "PASS" : "FAIL"
+                result = gameJamProfile
+                    ? signal == null && signalFallbacks == 0 ? "PASS" : "FAIL"
+                    : signalGuid == ExpectedGuid("structure.rescue_signal") && signalFallbacks == 0 ? "PASS" : "FAIL"
             });
             Require(expected.Keys.All(kind => output.Any(value => value.kind == kind && value.result == "PASS")), "one or more installed structures are missing adopted renderers");
-            Require(output.Any(value => value.kind == "RescueSignal" && value.result == "PASS"), "rescue signal adopted renderer is missing");
+            Require(output.Any(value => value.kind == (gameJamProfile ? "RescueSignalLegacyAbsent" : "RescueSignal") && value.result == "PASS"),
+                gameJamProfile ? "legacy fixed rescue signal leaked into GAME JAM world" : "rescue signal adopted renderer is missing");
             return string.Join(" | ", output.Select(value => value.kind + "=" + value.observedGuid + "/fallback=" + value.fallbackCount).ToArray());
         }
 
@@ -815,6 +908,20 @@ namespace ParallelQA
                 Image frame = target.GetComponent<Image>();
                 observation.sourceGuid = frame == null ? string.Empty : SourceGuid(frame.sprite);
                 Require(observation.sourceGuid == ExpectedGuid("ui.camp-contextual-interaction.compact-a"), "compact A prompt GUID mismatch");
+                Transform world = GetPrivateField<Transform>(prototype, "worldRoot");
+                Transform[] semanticRoots = world.Cast<Transform>().Where(value =>
+                    value.name.StartsWith("현장형 창고·증축 계획 지점 · engine-native crate", StringComparison.Ordinal) ||
+                    value.name.StartsWith("지도·출구 상호작용 표지판", StringComparison.Ordinal) ||
+                    value.name.StartsWith("Camp Signal Stack · engine-native tripod", StringComparison.Ordinal) ||
+                    value.name.StartsWith("Camp Radio Bench · engine-native table", StringComparison.Ordinal) ||
+                    value.name.StartsWith("facility.shore-launch · engine-native timber cradle", StringComparison.Ordinal) ||
+                    value.name.StartsWith("연결 슬롯 기초 말뚝", StringComparison.Ordinal)).ToArray();
+                int placeholderNames = semanticRoots.Sum(value => value.GetComponentsInChildren<Transform>(true)
+                    .Count(child => child.name.IndexOf("placeholder", StringComparison.OrdinalIgnoreCase) >= 0));
+                int oversizedCarriers = semanticRoots.Sum(value => value.GetComponentsInChildren<SpriteRenderer>(true)
+                    .Count(renderer => renderer.bounds.size.x >= 1f && renderer.bounds.size.y >= 0.75f));
+                Require(semanticRoots.Length >= 8 && placeholderNames == 0 && oversizedCarriers == 0,
+                    "camp interaction landmarks must be exact sign/crate/tripod/table/stake silhouettes without placeholder names or large rectangular carriers");
             }
             prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, file), 1280, 800);
 
@@ -846,6 +953,16 @@ namespace ParallelQA
             Image frame = GetPrivateField<Image>(prototype, "expeditionMapFrameImage");
             observation.sourceGuid = frame == null ? string.Empty : SourceGuid(frame.sprite);
             Require(observation.sourceGuid == ExpectedGuid("ui.expedition-map.right-rail-a"), "map A GUID mismatch");
+            Camera camera = GetPrivateField<Camera>(prototype, "worldCamera");
+            List<Button> regionButtons = GetPrivateField<List<Button>>(prototype, "expeditionRegionButtons");
+            Canvas.ForceUpdateCanvases();
+            Require(regionButtons.Count == 7 && regionButtons.All(value =>
+            {
+                TMP_Text label = value.GetComponentInChildren<TMP_Text>();
+                label.ForceMeshUpdate(false, true);
+                return !label.isTextOverflowing &&
+                       Contains(RectTransformPixels(value.GetComponent<RectTransform>(), camera), RenderedTextPixels(label, camera), 1f);
+            }), "map region text escaped its owned node card");
             prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, file), 1280, 800);
             InvokePrivate(prototype, "CancelCampPopup");
             observation.hiddenAfter = !map.activeSelf;
@@ -866,6 +983,7 @@ namespace ParallelQA
             InvokePublic(runtime, "ShowEndingForVerification", "ending.stay.just-kim");
             root = GetField(runtime, "endingComicRoot") as GameObject;
             Require(root != null && root.activeSelf, "ending comic did not activate");
+            InvokePrivate(prototype, "RefreshGameJamSubmissionControls", true);
             Transform frameTransform = root.GetComponentsInChildren<Transform>(true).FirstOrDefault(value => value.name == "Finale Surface");
             Require(frameTransform != null, "Finale Surface is missing");
             string file = "wave19-ending-comic-" + locale + "-1280x800.png";
@@ -873,13 +991,106 @@ namespace ParallelQA
             Image frame = frameTransform.GetComponent<Image>();
             observation.sourceGuid = frame == null ? string.Empty : SourceGuid(frame.sprite);
             Require(observation.sourceGuid == ExpectedGuid("ui.ending-comic.triptych-a"), "ending triptych A GUID mismatch");
-            prototype.CaptureVerificationPng(Path.Combine(EvidenceFolder, file), 1280, 800);
+            Image storyVeil = frameTransform.GetComponentsInChildren<Image>(true)
+                .FirstOrDefault(value => value.gameObject.name == "Finale Story Surface");
+            Image[] panelVeils = frameTransform.GetComponentsInChildren<Image>(true)
+                .Where(value => value.gameObject.name.StartsWith("Panel ", StringComparison.Ordinal))
+                .ToArray();
+            int activeFallbackArt = frameTransform.GetComponentsInChildren<Transform>(true)
+                .Count(value => value.gameObject.activeInHierarchy &&
+                                value.gameObject.name.StartsWith("Story Art ", StringComparison.Ordinal));
+            Require(storyVeil != null && storyVeil.color.a <= 0.05f,
+                "ending triptych authored story panels are obscured by the runtime story veil");
+            Require(panelVeils.Length == 3 && panelVeils.All(value => value.color.a <= 0.05f),
+                "ending triptych authored panels are obscured by opaque runtime carriers");
+            Require(activeFallbackArt == 0,
+                "engine-native fallback illustrations must not replace the selected ending triptych art");
+            Camera camera = GetPrivateField<Camera>(prototype, "worldCamera");
+            Image[] textCards = frameTransform.GetComponentsInChildren<Image>(true)
+                .Where(value => value.gameObject.name.StartsWith("Act Badge Card ", StringComparison.Ordinal) ||
+                                value.gameObject.name.StartsWith("Copy Card ", StringComparison.Ordinal))
+                .ToArray();
+            TMP_Text[] ownedCardTexts = frameTransform.GetComponentsInChildren<TMP_Text>(true)
+                .Where(value => value.gameObject.name.StartsWith("Act Badge ", StringComparison.Ordinal) ||
+                                value.gameObject.name.StartsWith("Copy ", StringComparison.Ordinal))
+                .ToArray();
+            Require(textCards.Length == 6 && textCards.All(value => value.color.a >= 0.90f),
+                "ending triptych requires six dedicated high-contrast title/body cards");
+            Require(ownedCardTexts.Length == 6 && ownedCardTexts.All(value =>
+            {
+                Image owner = value.transform.parent == null ? null : value.transform.parent.GetComponent<Image>();
+                value.ForceMeshUpdate(false, true);
+                return owner != null && textCards.Contains(owner) &&
+                       Contains(RectTransformPixels(owner.rectTransform, camera), RenderedTextPixels(value, camera), 1f) &&
+                       ContrastRatio(value.color, owner.color) >= 4.5f;
+            }), "ending triptych title/body text escaped its owned card or contrast fell below 4.5:1");
+            TMP_Text finaleTitle = frameTransform.GetComponentsInChildren<TMP_Text>(true)
+                .FirstOrDefault(value => value.gameObject.name == "Finale Title");
+            Image finaleTitleSurface = finaleTitle == null || finaleTitle.transform.parent == null
+                ? null
+                : finaleTitle.transform.parent.GetComponent<Image>();
+            Require(finaleTitle != null && finaleTitleSurface != null && finaleTitleSurface.color.a >= 0.90f &&
+                    Contains(RectTransformPixels(finaleTitleSurface.rectTransform, camera), RenderedTextPixels(finaleTitle, camera), 1f) &&
+                    ContrastRatio(finaleTitle.color, finaleTitleSurface.color) >= 4.5f,
+                "ending title escaped its high-contrast title surface");
+
+            GameObject controlsRoot = GetPrivateField<GameObject>(prototype, "gameJamTerminalControlRoot");
+            Canvas controlsCanvas = GetPrivateField<Canvas>(prototype, "gameJamTerminalControlCanvas");
+            Button[] terminalButtons = controlsRoot.GetComponentsInChildren<Button>(false);
+            Require(controlsRoot.activeInHierarchy && terminalButtons.Length == 2 &&
+                    controlsCanvas.sortingOrder > root.GetComponent<Canvas>().sortingOrder,
+                "Back/Restart ending controls are not visibly active above the adopted triptych");
+            Require(terminalButtons.All(value =>
+            {
+                RectTransform rect = value.GetComponent<RectTransform>();
+                TMP_Text label = value.GetComponentInChildren<TMP_Text>();
+                Image surface = value.GetComponent<Image>();
+                PixelRect pixels = RectTransformPixels(rect, camera);
+                label.ForceMeshUpdate(false, true);
+                return pixels.Y >= 64f && pixels.Top <= CaptureHeight - 32f && InsideScreen(pixels, 1f) &&
+                       pixels.Width >= 180f && pixels.Height >= 52f &&
+                       !label.isTextOverflowing && ContrastRatio(label.color, surface.color) >= 4.5f;
+            }), "Back/Restart ending controls are clipped, undersized, overflowing, or below 4.5:1 contrast");
+            string screenshotPath = Path.Combine(EvidenceFolder, file);
+            prototype.CaptureVerificationPng(screenshotPath, 1280, 800);
+            RequireEndingArtPixels(screenshotPath);
+            InvokePrivate(prototype, "RefreshGameJamSubmissionControls", false);
             InvokePublic(runtime, "DeactivateComic");
-            observation.hiddenAfter = !root.activeSelf;
+            observation.hiddenAfter = !root.activeSelf && !controlsRoot.activeSelf;
             FinishLayout(observation);
             output.Add(observation);
             Require(observation.result == "PASS", observation.failureReason);
             return DescribeLayout(observation);
+        }
+
+        private static void RequireEndingArtPixels(string screenshotPath)
+        {
+            Texture2D texture = new Texture2D(2, 2, TextureFormat.RGB24, false);
+            try
+            {
+                Require(texture.LoadImage(File.ReadAllBytes(screenshotPath)), "ending screenshot PNG could not be decoded");
+                Color32[] pixels = texture.GetPixels32();
+                int tealAccentPixels = 0;
+                int orangeAccentPixels = 0;
+                for (int index = 0; index < pixels.Length; index += 1)
+                {
+                    Color32 pixel = pixels[index];
+                    if (pixel.g >= 82 && pixel.b >= 86 && pixel.g >= pixel.r + 24 && pixel.b >= pixel.r + 28)
+                    {
+                        tealAccentPixels += 1;
+                    }
+                    if (pixel.r >= 174 && pixel.g >= 42 && pixel.g <= 158 && pixel.b <= 92)
+                    {
+                        orangeAccentPixels += 1;
+                    }
+                }
+                Require(tealAccentPixels >= 500 && orangeAccentPixels >= 300,
+                    "ending screenshot omitted the adopted triptych pixels · teal=" + tealAccentPixels + " · orange=" + orangeAccentPixels);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
         }
 
         private static void PrepareCampTarget(KimSurvivalPrototype prototype, string locale, PrototypeCampInteractionTargetKind targetKind)
@@ -994,6 +1205,57 @@ namespace ParallelQA
                 maxY = Mathf.Max(maxY, viewport.y * CaptureHeight);
             }
             return new PixelRect { X = minX, Y = minY, Width = maxX - minX, Height = maxY - minY };
+        }
+
+        private static PixelRect RenderedTextPixels(TMP_Text text, Camera camera)
+        {
+            Bounds bounds = text.textBounds;
+            Vector3[] points =
+            {
+                text.transform.TransformPoint(new Vector3(bounds.min.x, bounds.min.y, 0f)),
+                text.transform.TransformPoint(new Vector3(bounds.max.x, bounds.min.y, 0f)),
+                text.transform.TransformPoint(new Vector3(bounds.max.x, bounds.max.y, 0f)),
+                text.transform.TransformPoint(new Vector3(bounds.min.x, bounds.max.y, 0f))
+            };
+            Vector3 first = camera.WorldToViewportPoint(points[0]);
+            float minX = first.x * CaptureWidth;
+            float maxX = minX;
+            float minY = first.y * CaptureHeight;
+            float maxY = minY;
+            for (int index = 1; index < points.Length; index += 1)
+            {
+                Vector3 viewport = camera.WorldToViewportPoint(points[index]);
+                minX = Mathf.Min(minX, viewport.x * CaptureWidth);
+                maxX = Mathf.Max(maxX, viewport.x * CaptureWidth);
+                minY = Mathf.Min(minY, viewport.y * CaptureHeight);
+                maxY = Mathf.Max(maxY, viewport.y * CaptureHeight);
+            }
+            return new PixelRect { X = minX, Y = minY, Width = maxX - minX, Height = maxY - minY };
+        }
+
+        private static bool Contains(PixelRect boundary, PixelRect content, float tolerance)
+        {
+            return content.X >= boundary.X - tolerance && content.Right <= boundary.Right + tolerance &&
+                   content.Y >= boundary.Y - tolerance && content.Top <= boundary.Top + tolerance;
+        }
+
+        private static float ContrastRatio(Color foreground, Color background)
+        {
+            float foregroundLuminance = RelativeLuminance(foreground);
+            float backgroundLuminance = RelativeLuminance(background);
+            float lighter = Mathf.Max(foregroundLuminance, backgroundLuminance);
+            float darker = Mathf.Min(foregroundLuminance, backgroundLuminance);
+            return (lighter + 0.05f) / (darker + 0.05f);
+        }
+
+        private static float RelativeLuminance(Color color)
+        {
+            return 0.2126f * LinearChannel(color.r) + 0.7152f * LinearChannel(color.g) + 0.0722f * LinearChannel(color.b);
+        }
+
+        private static float LinearChannel(float channel)
+        {
+            return channel <= 0.03928f ? channel / 12.92f : Mathf.Pow((channel + 0.055f) / 1.055f, 2.4f);
         }
 
         private static PixelRect WalkingBand(Camera camera)
