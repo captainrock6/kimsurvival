@@ -2578,7 +2578,8 @@ namespace KimSurvival
                 endingPanelSurfaces[index] = panelImage;
                 if (selectedTriptych)
                 {
-                    GameObject illustration = new GameObject("Comic Illustration " + (index + 1));
+                    // Keep decorative-only objects out of semantic ending state scans.
+                    GameObject illustration = new GameObject("Story Art " + (index + 1));
                     illustration.transform.SetParent(panel.transform, false);
                     RectTransform illustrationRect = illustration.AddComponent<RectTransform>();
                     illustrationRect.anchorMin = new Vector2(0.055f, 0.40f);
