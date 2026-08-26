@@ -2275,6 +2275,70 @@ MonoBehaviour:
     m_Key: module.recommend.resolve
     m_Metadata:
       m_Items: []
+  - m_Id: 1497942463856640
+    m_Key: camp.popup.detail.bed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993984
+    m_Key: camp.popup.detail.sofa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993985
+    m_Key: button.bed.relocate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993986
+    m_Key: button.bed.build
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993987
+    m_Key: button.sofa.relocate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993988
+    m_Key: button.sofa.build
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576896
+    m_Key: button.bed.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576897
+    m_Key: button.bed.rest.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576898
+    m_Key: button.sofa.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576899
+    m_Key: button.sofa.rest.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576900
+    m_Key: structure.bed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576901
+    m_Key: structure.sofa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576902
+    m_Key: message.build.bed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576903
+    m_Key: message.build.sofa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576904
+    m_Key: message.camp.use.bed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576905
+    m_Key: message.camp.use.sofa
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

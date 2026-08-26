@@ -3353,6 +3353,144 @@
       "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
+      "id": "task.gamejam.o2-bag-swap-visibility-p0",
+      "lane": "implementation",
+      "title": "O2 가방 교체 UI 진행 불가 교정",
+      "description": "pending swap 동안 발견물 tray와 비겹침 교체용 가방을 동시에 표시하고 모든 입력으로 실제 슬롯 교체·취소를 가능하게 한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-choice",
+        "feature.searchable-resource-nodes"
+      ],
+      "assetIds": [
+        "icon.resource-tool-set"
+      ],
+      "acceptanceCriteria": [
+        "O2-P0-001 재현에서 bag panel과 search tray가 함께 활성이고 화면상 겹치지 않는다.",
+        "활성 슬롯이 선택·클릭 가능하며 교체 또는 취소가 원자적으로 완료된다.",
+        "KO/EN 1280x800과 키보드·마우스·게임패드 계약이 GREEN이다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O2-2026-08-26.md",
+        "Artifacts/ParallelQA/manual-wave9/o2-p0-bag-swap-ko-1280x800.png",
+        "Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "createdAt": "2026-08-26T14:27:19.203Z",
+      "updatedAt": "2026-08-26T14:27:19.203Z"
+    },
+    {
+      "id": "task.gamejam.anchor-shelter-placement",
+      "lane": "implementation",
+      "title": "고정 설치 지점형 다층 쉘터 배치",
+      "description": "제한적 자유 배치를 폐기하고 방·층별 stable anchor 선택, 점유, 재배치, 저장 마이그레이션을 구현한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-building",
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "background.modular-island-camp",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "임의 X 좌표가 아닌 StableAnchorId만 확정·저장된다.",
+        "현재 방의 호환 빈 지점만 선택하며 점유·전용 지점 규칙을 위반할 수 없다.",
+        "기존 v1 좌표 저장은 가장 가까운 호환 고정 지점으로 원자 마이그레이션된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md",
+        "Artifacts/ParallelQA/manual-wave9/o2-anchor-shelter-cutaway-ko-1280x800.png",
+        "Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "createdAt": "2026-08-26T14:27:19.203Z",
+      "updatedAt": "2026-08-26T14:27:19.203Z"
+    },
+    {
+      "id": "task.gamejam.anchor-shelter-roof-living-furniture",
+      "lane": "implementation",
+      "title": "1층 지붕·위층·지하·침대·소파",
+      "description": "오리지널 절개형 쉘터 윤곽과 수직 증축 표현, 침대·소파의 제작·설치·근접 휴식·저장을 구현한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.anchor-shelter-placement"
+      ],
+      "featureIds": [
+        "feature.camp-building",
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "background.modular-island-camp",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "새 게임 시작층에 지붕과 실내 윤곽이 보인다.",
+        "2층은 위에 새 실내층·지붕, 지하실은 아래 굴착 방으로 표시된다.",
+        "침대와 소파를 빈 실내 지점에 설치·재배치하고 직접 접근해 휴식 준비한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md",
+        "Artifacts/ParallelQA/manual-wave9/o2-anchor-shelter-cutaway-ko-1280x800.png",
+        "Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "createdAt": "2026-08-26T14:27:19.203Z",
+      "updatedAt": "2026-08-26T14:27:19.203Z"
+    },
+    {
+      "id": "task.gamejam.o2-anchor-shelter-integration-retest",
+      "lane": "qa",
+      "title": "O2 P0·고정 쉘터 통합 재검증",
+      "description": "P0와 캠프 리베이스를 통합해 컴파일·저장·수색 원자성·캠프·탈출·엔딩 회귀와 KO/EN 시각 검토 뒤 새 후보를 동결한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o2-bag-swap-visibility-p0",
+        "task.gamejam.anchor-shelter-placement",
+        "task.gamejam.anchor-shelter-roof-living-furniture"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "O2-P0-001이 사람 재현과 자동 가시성 계약에서 GREEN이다.",
+        "고정 설치 지점, 지붕, 위층·지하, 침대·소파, 저장 복원 계약이 GREEN이다.",
+        "compile 0 errors와 기존 세 탈출·엔딩 회귀가 GREEN이다.",
+        "새 commit·EXE·managed DLL·ZIP SHA-256을 기록한다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA",
+        "Docs/Design/Playtest"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md",
+        "Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt",
+        "Artifacts/Verification/windows-build.txt",
+        "Builds/Windows/KimSurvivalIsland.exe"
+      ],
+      "blockedReason": "",
+      "status": "review",
+      "createdAt": "2026-08-26T14:27:19.204Z",
+      "updatedAt": "2026-08-26T14:27:19.204Z"
+    },
+    {
       "id": "task.art.background.island-camp",
       "lane": "art",
       "title": "무인도 베이스캠프 배경 제작",
@@ -3434,14 +3572,15 @@
     {
       "id": "task.art.object.camp-structures",
       "lane": "art",
-      "title": "캠프 설비 분리 파츠 제작",
-      "description": "모닥불, 작업대, 빗물받이와 구조 신호대의 건설 완료·작동 상태를 Unity에서 독립적으로 자유 배치할 수 있는 투명 배경 2D 파츠 세트. 각 파츠는 일관된 바닥 접점, 상호작용 여백과 배치 발자국을 가지며 정상, 배치 유령, 유효, 무효 표시를 엔진에서 적용할 수 있도록 깨끗한 실루엣과 마스크용 분리를 제공한다. 나뭇가지, 돌, 잎, 표류 고철을 엉뚱하지만 기능적으로 조합한 코믹한 형태이며 베이스캠프의 측면 원근과 조명을 따른다.",
+      "title": "고정 지점형 캠프 설비와 생활 가구 제작",
+      "description": "기존 채택 모닥불·작업대·빗물받이를 보존하면서 침대·소파와 고정 설치 지점 표식을 추가하는 오리지널 측면 실루엣 세트. 한국어·영어 본문을 굽지 않고 true-alpha, bottom-center pivot, 작은 화면 가독성을 지킨다. 새 후보는 사용자 채택 전 review-only로 유지한다.",
       "priority": "high",
       "dependencies": [],
       "featureIds": [
         "feature.camp-building",
         "feature.crafting-research",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.camp-module-expansion"
       ],
       "assetIds": [
         "object.camp-structures"
@@ -3455,7 +3594,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-22T13:43:02.383Z",
+      "updatedAt": "2026-08-26T14:27:19.203Z",
       "createdAt": "2026-08-22T10:15:38.551Z",
       "completedAt": "2026-08-22T13:43:02.383Z"
     },
@@ -4117,13 +4256,14 @@
     {
       "id": "task.art.background.modular-island-camp",
       "lane": "art",
-      "title": "측면 절개형 모듈 베이스캠프 제작",
-      "description": "승인된 방향 목업을 기준으로 시작 방과 좌우·위·지하 연결 슬롯을 가진 오리지널 2D 측면 절개형 무인도 캠프 비주얼 키트. 방 외곽, 바닥, 기둥, 사다리·계단 연결부, 지상·지하 배경을 교체 가능한 레이어와 반복 가능한 모듈로 제공하고 내부 설비 제한적 자유 배치 여백을 확보한다. This War of Mine의 고유 화면·아트를 복제하지 않고 밝고 코믹한 김씨 생존기 톤으로 만든다.",
+      "title": "열대 절개형 다층 쉘터 제작",
+      "description": "지붕이 있는 시작층과 위층·지하실 성장을 한눈에 읽는 오리지널 표류물 쉘터. 밝은 열대색과 표류목·천막·선체 조각을 사용하고 제3자 고유 화면 구성, 정확한 방 배치, UI, 아이콘, 아트는 복제하지 않는다.",
       "priority": "high",
       "dependencies": [],
       "featureIds": [
         "feature.camp-module-expansion",
-        "feature.camp-object-interaction"
+        "feature.camp-object-interaction",
+        "feature.camp-building"
       ],
       "assetIds": [
         "background.modular-island-camp"
@@ -4135,8 +4275,9 @@
       "evidence": [],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-23T05:00:59.139Z",
-      "completedAt": null
+      "updatedAt": "2026-08-26T14:27:19.203Z",
+      "completedAt": null,
+      "createdAt": "2026-08-26T13:36:27.870Z"
     },
     {
       "id": "task.art.ui.camp-module-expansion",
@@ -4701,5 +4842,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-26T12:03:32.259Z"
+  "updatedAt": "2026-08-26T14:27:19.202Z"
 }

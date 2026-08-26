@@ -189,7 +189,7 @@ namespace ParallelQA
             Check(results, "Bag overflow creates an explicit replace-or-discard choice", VerifyBagChoice);
             Check(results, "Swimming entry, extra cost, water gather, and land exit work", VerifySwimmingModel);
             Check(results, "Exhaustion and day-three deadline both reach explained results", VerifyFailureOutcomes);
-            Check(results, "Limited free placement enforces bounds, overlap, entrance, path, cancel, one-time cost, and free relocation", VerifyPlacementModel);
+            Check(results, "Fixed shelter anchors enforce compatibility, occupancy, cancel, one-time cost, free relocation, and v1 save migration", VerifyPlacementModel);
             Check(results, "Keyboard/mouse and gamepad raw inputs converge on shared player, placement, and language actions", VerifySharedInputModel);
             Check(results, "Korean default, immediate ko/en switching, Smart Strings, missing-key fallback/logging, and preference storage work", VerifyLocalizationModel);
             Check(results, "ko/en table parity, Smart entries, font mappings, and required glyph prerequisites are present", VerifyLocalizationAssets);
@@ -860,11 +860,13 @@ namespace ParallelQA
 
             placement.Begin(StructureKind.Campfire, false);
             placement.SetCandidateX(-5f);
-            Require(placement.CurrentValidity == CampPlacementValidity.OutsideCampBounds, "outside camp bounds rejected");
-            placement.SetCandidateX(-2.5f);
-            Require(placement.CurrentValidity == CampPlacementValidity.BlocksEntrance, "entrance reservation rejected");
+            Require(placement.CurrentValidity == CampPlacementValidity.Valid &&
+                    placement.CandidateAnchorId == "anchor.start.indoor.left",
+                "far pointer resolves to nearest fixed indoor anchor");
             placement.SetCandidateX(0f);
-            Require(placement.CurrentValidity == CampPlacementValidity.BlocksRequiredPath, "required path rejected");
+            Require(placement.CurrentValidity == CampPlacementValidity.Valid &&
+                    placement.CandidateAnchorId == "anchor.start.indoor.center",
+                "center fixed indoor anchor selected");
             placement.SetCandidateX(-1.5f);
             Require(placement.CurrentValidity == CampPlacementValidity.Valid, "campfire valid position");
             placement.Cancel();
@@ -890,8 +892,8 @@ namespace ParallelQA
             session.Grant(ResourceKind.Salvage, 1);
             placement.Begin(StructureKind.Workbench, false);
             placement.SetCandidateX(-1.5f);
-            Require(placement.CurrentValidity == CampPlacementValidity.OverlapsStructure, "installed structure overlap rejected");
-            placement.SetCandidateX(1.5f);
+            Require(placement.CurrentValidity == CampPlacementValidity.OverlapsStructure, "occupied fixed anchor rejected");
+            placement.SetCandidateX(0f);
             Require(session.TryBuild(StructureKind.Workbench) && placement.Commit(), "workbench committed at valid position");
 
             int woodBeforeMove = session.GetStorage(ResourceKind.Wood);
@@ -899,14 +901,16 @@ namespace ParallelQA
             int salvageBeforeMove = session.GetStorage(ResourceKind.Salvage);
             float workbenchBeforeMove = placement.GetInstalledPosition(StructureKind.Workbench).x;
             placement.Begin(StructureKind.Workbench, true);
-            placement.SetCandidateX(3.5f);
+            placement.SetCandidateX(1.5f);
             placement.Cancel();
             Require(Mathf.Approximately(placement.GetInstalledPosition(StructureKind.Workbench).x, workbenchBeforeMove), "relocation cancel preserves position");
 
             placement.Begin(StructureKind.Workbench, true);
-            placement.SetCandidateX(3.5f);
+            placement.SetCandidateX(1.5f);
             Require(placement.Commit(), "workbench relocation commits");
-            Require(Mathf.Approximately(placement.GetInstalledPosition(StructureKind.Workbench).x, 3.5f), "relocation changes only position");
+            Require(placement.GetInstalledAnchorId(StructureKind.Workbench) == "anchor.start.indoor.right" &&
+                    Mathf.Approximately(placement.GetInstalledPosition(StructureKind.Workbench).x, 1.5f),
+                "relocation changes only stable anchor");
             Require(session.GetStorage(ResourceKind.Wood) == woodBeforeMove &&
                     session.GetStorage(ResourceKind.Stone) == stoneBeforeMove &&
                     session.GetStorage(ResourceKind.Salvage) == salvageBeforeMove, "relocation is free");
@@ -915,13 +919,16 @@ namespace ParallelQA
             int stoneBeforeCampfireMove = session.GetStorage(ResourceKind.Stone);
             int salvageBeforeCampfireMove = session.GetStorage(ResourceKind.Salvage);
             placement.Begin(StructureKind.Campfire, true);
-            placement.SetCandidateX(1.5f);
+            placement.SetCandidateX(0f);
             Require(placement.CurrentValidity == CampPlacementValidity.Valid, "campfire second valid relocation position");
             Require(placement.Commit(), "campfire relocation commits");
-            Require(Mathf.Approximately(placement.GetInstalledPosition(StructureKind.Campfire).x, 1.5f), "campfire relocation changes only position");
+            Require(placement.GetInstalledAnchorId(StructureKind.Campfire) == "anchor.start.indoor.center" &&
+                    Mathf.Approximately(placement.GetInstalledPosition(StructureKind.Campfire).x, 0f),
+                "campfire relocation changes only fixed anchor");
             Require(session.GetStorage(ResourceKind.Wood) == woodBeforeCampfireMove &&
                     session.GetStorage(ResourceKind.Stone) == stoneBeforeCampfireMove &&
                     session.GetStorage(ResourceKind.Salvage) == salvageBeforeCampfireMove, "second general-facility relocation is free");
+            Require(PrototypeCampPlacement.RunSnapshotContractProbe(out string snapshotDetail), snapshotDetail);
         }
 
         private static void VerifySharedInputModel()
@@ -954,7 +961,7 @@ namespace ParallelQA
             PrototypeCampPlacementActions pointer = PrototypeCampPlacementActions.FromRaw(new PrototypeRawCampPlacementInput
             {
                 UsePointer = true,
-                PointerWorldX = 1.5f,
+                PointerWorldX = 0f,
                 MouseConfirm = true,
                 MouseCancel = true
             });
@@ -1024,8 +1031,10 @@ namespace ParallelQA
                         PrototypeInputPromptKeys.Placement(PrototypeInputDevice.Gamepad),
                         localization.DeviceName(PrototypeInputDevice.Gamepad));
                     Require(englishGamepadPrompt.Contains("left stick") && englishGamepadPrompt.Contains("A confirm") && englishGamepadPrompt.Contains("B cancel") && englishGamepadPrompt.Contains("Y language"), "English gamepad placement prompt renders device-specific actions");
-                    string smart = localization.Format("hud.status.camp", 1, 3, "Camp", 75, 100);
-                    Require(smart.Contains("DAY 1/3") && smart.Contains("Hunger 75") && smart.Contains("Energy 100"), "English Smart String arguments render");
+                    string smart = localization.Format("hud.status.camp", 1, 3, "Camp", 75, 100, 80);
+                    Require(smart.Contains("DAY 1/3") && smart.Contains("Hunger 75") &&
+                            smart.Contains("Energy 100") && smart.Contains("Health 80"),
+                        "English Smart String arguments render");
                     foreach (int count in new[] { 0, 1, 2, 9999 })
                     {
                         string quantity = localization.Format("world.resource.land", ResourceKind.Wood, count);
@@ -1065,13 +1074,14 @@ namespace ParallelQA
         {
             string sourcePath = Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Localization", "PrototypeStrings.tsv");
             string[] lines = File.ReadAllLines(sourcePath);
-            Require(lines.Length > 100 && lines[0] == "Key\tko\ten", "localization TSV has ko/en schema and substantial coverage");
+            Require(lines.Length > 100 && lines[0] == "Key\tko\ten\tqps-long",
+                "localization TSV has ko/en plus non-shipping qps-long schema and substantial coverage");
             HashSet<string> keys = new HashSet<string>();
             int smartRows = 0;
             for (int i = 1; i < lines.Length; i += 1)
             {
                 string[] columns = lines[i].Split(new[] { '\t' }, StringSplitOptions.None);
-                Require(columns.Length >= 3, "localization row has key, ko, and en at line " + (i + 1));
+                Require(columns.Length == 4, "localization row has key, ko, en, and qps-long at line " + (i + 1));
                 Require(keys.Add(columns[0]), "localization key is unique: " + columns[0]);
                 Require(!string.IsNullOrWhiteSpace(columns[1]), "Korean source is present: " + columns[0]);
                 if (columns[0] != "dev.fallback_probe")
@@ -1082,6 +1092,8 @@ namespace ParallelQA
                 string koreanTokens = PlaceholderSet(columns[1]);
                 string englishTokens = PlaceholderSet(columns[2]);
                 Require(columns[0] == "dev.fallback_probe" || koreanTokens == englishTokens, "format variable parity: " + columns[0]);
+                Require(columns[0] == "dev.fallback_probe" || englishTokens == PlaceholderSet(columns[3]),
+                    "qps-long format variable parity: " + columns[0]);
                 if (!string.IsNullOrEmpty(koreanTokens) || !string.IsNullOrEmpty(englishTokens))
                 {
                     smartRows += 1;
@@ -1118,14 +1130,17 @@ namespace ParallelQA
         {
             Require(!Enum.GetNames(typeof(StructureKind)).Any(name => name.IndexOf("Signal", StringComparison.OrdinalIgnoreCase) >= 0), "signal is not a general freely placed structure kind");
             string runtime = File.ReadAllText(Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Runtime", "KimSurvivalPrototype.cs"));
-            Require(runtime.Contains("world.signal_anchor"), "dedicated signal anchor has localized world feedback");
+            string localizationSource = File.ReadAllText(Path.Combine(ProjectRoot, "Assets", "_Project", "Scripts", "Localization", "PrototypeStrings.tsv"));
+            Require(localizationSource.Contains("world.signal_anchor\t"), "dedicated signal anchor has localized world feedback");
             Require(
                 runtime.Contains("private const float CampSignalAnchorNormalizedX") &&
                 runtime.Contains("private const float CampSignalAnchorNormalizedY") &&
                 runtime.Contains("GetCampArtPoint(CampSignalAnchorNormalizedX, CampSignalAnchorNormalizedY)"),
                 "signal anchor has a dedicated background-relative world position");
             Require(runtime.Contains("signalAnchor.x > PrototypeCampPlacement.BuildMaximumX"), "signal anchor remains outside general facility placement bounds");
-            Require(runtime.Contains("delegate { session.TryUpgradeSignal(); RefreshAll(); }"), "signal action upgrades the anchor rather than entering general placement");
+            Require(runtime.Contains("TryExecuteSignalAction") &&
+                    runtime.Contains("return session.TryUpgradeSignal();"),
+                "signal action upgrades the anchor rather than entering general placement");
 
             GameSession session = new GameSession();
             session.Grant(ResourceKind.Wood, 10);
@@ -1240,7 +1255,7 @@ namespace ParallelQA
             List<string> checks = new List<string>
             {
                 (localeCodes.Contains("ko") && localeCodes.Contains("en") ? "PASS" : "FAIL") + " · Unity AvailableLocales contains ko/en · observed=" + string.Join(",", localeCodes),
-                (header == "Key\tko\ten" ? "PASS" : "FAIL") + " · current localization source schema is exactly Key/ko/en · header=" + header.Replace('\t', '/'),
+                (header == "Key\tko\ten\tqps-long" ? "PASS" : "FAIL") + " · current localization source schema is Key/ko/en plus non-shipping qps-long · header=" + header.Replace('\t', '/'),
                 (localization.Contains("SetLocale(string localeCode") && localization.Contains("AvailableLocales.GetLocale(localeCode)") ? "PARTIAL" : "NOT READY") + " · runtime SetLocale can resolve a configured locale by data code",
                 (fontProfile.Contains("List<PrototypeLocaleFontMapping>") ? "PARTIAL" : "NOT READY") + " · font profile storage is list-based for future mappings",
                 (localization.Contains("CurrentLocaleCode == KoreanLocaleCode ? EnglishLocaleCode : KoreanLocaleCode") ? "NOT READY" : "PASS") + " · language cycling is not multi-locale (binary ko/en implementation detected)",

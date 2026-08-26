@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260826133628_83f62116",
+  "createdAt": "2026-08-26T13:36:27.868Z",
+  "updatedAt": "2026-08-26T13:36:27.868Z",
+  "sourceRequest": "O2 진행 불가 가방 교체 UI를 P0로 고치고, 제한적 자유 배치를 폐기해 고정 설치 지점형 오리지널 열대 다층 쉘터로 리베이스한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-26T13:36:27.868Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T13:36:27.868Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T13:36:27.868Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T13:36:27.868Z"
+    }
+  }
+}

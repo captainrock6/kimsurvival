@@ -10,6 +10,8 @@ namespace KimSurvival
         Campfire,
         Workbench,
         RainCollector,
+        Bed,
+        Sofa,
         RescueSignal,
         StoragePlanning,
         ExpeditionMap,
@@ -33,6 +35,7 @@ namespace KimSurvival
         Repair,
         UpgradeBag,
         CollectRain,
+        PrepareRest,
         UpgradeSignal,
         OpenExpeditionMap,
         OpenEndingAlbum,
@@ -123,6 +126,10 @@ namespace KimSurvival
                 case PrototypeCampInteractionTargetKind.RainCollector:
                     return action == PrototypeCampInteractionAction.BuildOrRelocate ||
                            action == PrototypeCampInteractionAction.CollectRain;
+                case PrototypeCampInteractionTargetKind.Bed:
+                case PrototypeCampInteractionTargetKind.Sofa:
+                    return action == PrototypeCampInteractionAction.BuildOrRelocate ||
+                           action == PrototypeCampInteractionAction.PrepareRest;
                 case PrototypeCampInteractionTargetKind.RescueSignal:
                     return action == PrototypeCampInteractionAction.UpgradeSignal;
                 default:

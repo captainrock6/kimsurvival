@@ -226,7 +226,9 @@ namespace KimSurvival
     {
         Campfire,
         Workbench,
-        RainCollector
+        RainCollector,
+        Bed,
+        Sofa
     }
 
     public enum TechKind
@@ -350,7 +352,7 @@ namespace KimSurvival
         private readonly int[] storage = new int[4];
         private readonly Dictionary<string, int> stableStorage = new Dictionary<string, int>(StringComparer.Ordinal);
         private readonly BagStack[] bag = new BagStack[BagSlotCount];
-        private readonly bool[] structures = new bool[3];
+        private readonly bool[] structures = new bool[Enum.GetValues(typeof(StructureKind)).Length];
         private readonly bool[] researched = new bool[2];
         private readonly bool[] craftedTools = new bool[2];
         private readonly HashSet<string> appliedHealthTransactionIds = new HashSet<string>(StringComparer.Ordinal);
@@ -820,6 +822,10 @@ namespace KimSurvival
                     return CanAfford(2, 0, 0, 1);
                 case StructureKind.RainCollector:
                     return CanAfford(2, 1, 0, 1);
+                case StructureKind.Bed:
+                    return CanAfford(3, 0, 0, 1);
+                case StructureKind.Sofa:
+                    return CanAfford(2, 0, 0, 2);
                 default:
                     return false;
             }
@@ -846,6 +852,14 @@ namespace KimSurvival
                 case StructureKind.RainCollector:
                     Spend(2, 1, 0, 1);
                     LastMessage = Text("message.build.rain");
+                    break;
+                case StructureKind.Bed:
+                    Spend(3, 0, 0, 1);
+                    LastMessage = Text("message.build.bed");
+                    break;
+                case StructureKind.Sofa:
+                    Spend(2, 0, 0, 2);
+                    LastMessage = Text("message.build.sofa");
                     break;
             }
 
@@ -1383,10 +1397,15 @@ namespace KimSurvival
 
         public bool EndDay()
         {
-            return EndDay(true, true);
+            return EndDay(true, true, true, true);
         }
 
         public bool EndDay(bool campfirePrepared, bool rainCollectorPrepared)
+        {
+            return EndDay(campfirePrepared, rainCollectorPrepared, false, false);
+        }
+
+        public bool EndDay(bool campfirePrepared, bool rainCollectorPrepared, bool bedPrepared, bool sofaPrepared)
         {
             if (Phase != GamePhase.Camp || !ExpeditionCompleted || Result != RunResult.None)
             {
@@ -1404,6 +1423,14 @@ namespace KimSurvival
             if (rainCollectorPrepared && HasStructure(StructureKind.RainCollector))
             {
                 rest += 10f;
+            }
+            if (bedPrepared && HasStructure(StructureKind.Bed))
+            {
+                rest += 20f;
+            }
+            if (sofaPrepared && HasStructure(StructureKind.Sofa))
+            {
+                rest += 8f;
             }
 
             Energy = Math.Min(100f, Energy + rest);

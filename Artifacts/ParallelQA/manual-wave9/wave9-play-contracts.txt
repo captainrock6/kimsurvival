@@ -1,0 +1,18 @@
+Wave 9 spatial camp Play contracts
+Run ID: manual-wave9
+Baseline: unknown
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: RED/RED_EXPECTED_FAIL/PASS
+PASS/EXPECTED_FAIL/FAIL/INFRA_FAIL/UNVERIFIED: 10/1/0/0/1
+PASS · NONE · P0 · W9-P01.normal_camp_world_first · campActionsActive=False largeBagActive=False bagPixelArea=0
+EXPECTED_FAIL · PRODUCT_EXPECTED_GAP · P0 · W9-P02.far_state_is_silent · farPromptCount=1 farPopupCount=0 prompts=CampProximityPrompt=위층 방 출입 연결부 미리보기 popups=<none>
+PASS · NONE · P1 · W9-P08.ko_en_1280_readability · koHeaderOverlap=False enHeaderOverlap=False koOverflow=0 enOverflow=0
+PASS · NONE · P0 · W9-P03.single_near_target_prompt · Campfire=1:CampProximityPrompt=Use Campfire | Workbench=1:CampProximityPrompt=Use Workbench | RainCollector=1:CampProximityPrompt=Use Rain Collector
+PASS · NONE · P0 · W9-P04.popup_only_after_interact · Campfire=1:Campfire | Workbench=1:Workbench | RainCollector=1:RainCollector
+PASS · NONE · P0 · W9-P05.modal_movement_lock · discoverableActiveMovementLock=True
+PASS · NONE · P0 · W9-P06.confirm_cancel_return · popupOpened=True cancelReturn=True confirmReturn=True
+PASS · NONE · P0 · W9-P07.per_target_action_ownership · correctTargetPopups=True globalDashboardActive=False
+PASS · NONE · P0 · W9-I05.far_action_resource_atomicity · farStable=Wood=26,Stone=19,Food=10,Salvage=28 nearResearched=True
+PASS · NONE · P0 · W9-I06.capture_and_layout_infrastructure · screenshots=4 activeTMP=14 overflow=0 outOfBounds=3 minPx=21.2
+UNVERIFIED · HARDWARE_GAP · P1 · W9-HW01.physical_gamepad · no non-empty joystick name exposed to Unity batch Play Mode
+PASS · NONE · P0 · W9-I04.approach_first_full_regression · PASS · 7지역 stable ID와 환경 수색 노드의 seed 결정론, 미확인→부분 잔류→고갈, 1회 비용·위험 정지, 원자적 담기·교체·취소, 보호 돛천, snapshot 재방문, ko/en/qps-long 1280x800 및 키보드/합성 게임패드 동등성을 확인. Wave 20 뗏목, Wave 19 앨범, Wave 16 지도 A, Wave 15 Day 50와 캠프·배치·가방·수영·장벽·연기·무전을 회귀 확인

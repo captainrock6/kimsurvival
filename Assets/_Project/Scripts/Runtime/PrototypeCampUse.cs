@@ -6,7 +6,8 @@ namespace KimSurvival
     [Serializable]
     public sealed class PrototypeCampUseSnapshot
     {
-        public const int CurrentSchemaVersion = 1;
+        public const int LegacySchemaVersion = 1;
+        public const int CurrentSchemaVersion = 2;
 
         public int SchemaVersion = CurrentSchemaVersion;
         public string StableRoomId = PrototypeCampModuleCatalog.StartRoomId;
@@ -15,6 +16,8 @@ namespace KimSurvival
         public float FacingDirection = 1f;
         public bool CampfirePrepared;
         public bool RainCollectorPrepared;
+        public bool BedPrepared;
+        public bool SofaPrepared;
 
         public PrototypeCampUseSnapshot Clone()
         {
@@ -26,7 +29,9 @@ namespace KimSurvival
                 PlayerY = PlayerY,
                 FacingDirection = FacingDirection,
                 CampfirePrepared = CampfirePrepared,
-                RainCollectorPrepared = RainCollectorPrepared
+                RainCollectorPrepared = RainCollectorPrepared,
+                BedPrepared = BedPrepared,
+                SofaPrepared = SofaPrepared
             };
         }
     }
@@ -43,6 +48,8 @@ namespace KimSurvival
 
         private bool campfirePrepared;
         private bool rainCollectorPrepared;
+        private bool bedPrepared;
+        private bool sofaPrepared;
 
         public PrototypeCampUse()
         {
@@ -114,14 +121,17 @@ namespace KimSurvival
                 PlayerY = PlayerPosition.y,
                 FacingDirection = FacingDirection,
                 CampfirePrepared = campfirePrepared,
-                RainCollectorPrepared = rainCollectorPrepared
+                RainCollectorPrepared = rainCollectorPrepared,
+                BedPrepared = bedPrepared,
+                SofaPrepared = sofaPrepared
             };
         }
 
         public bool RestoreSnapshot(PrototypeCampUseSnapshot snapshot)
         {
             if (snapshot == null ||
-                snapshot.SchemaVersion != PrototypeCampUseSnapshot.CurrentSchemaVersion ||
+                (snapshot.SchemaVersion != PrototypeCampUseSnapshot.LegacySchemaVersion &&
+                 snapshot.SchemaVersion != PrototypeCampUseSnapshot.CurrentSchemaVersion) ||
                 !PrototypeCampPlacement.TryGetRoomZone(snapshot.StableRoomId, out _) ||
                 !IsFinite(snapshot.PlayerX) ||
                 !IsFinite(snapshot.PlayerY) ||
@@ -138,6 +148,8 @@ namespace KimSurvival
             FacingDirection = snapshot.FacingDirection;
             campfirePrepared = snapshot.CampfirePrepared;
             rainCollectorPrepared = snapshot.RainCollectorPrepared;
+            bedPrepared = snapshot.SchemaVersion >= PrototypeCampUseSnapshot.CurrentSchemaVersion && snapshot.BedPrepared;
+            sofaPrepared = snapshot.SchemaVersion >= PrototypeCampUseSnapshot.CurrentSchemaVersion && snapshot.SofaPrepared;
             return true;
         }
 
@@ -161,6 +173,12 @@ namespace KimSurvival
                 case StructureKind.RainCollector:
                     rainCollectorPrepared = true;
                     return true;
+                case StructureKind.Bed:
+                    bedPrepared = true;
+                    return true;
+                case StructureKind.Sofa:
+                    sofaPrepared = true;
+                    return true;
                 default:
                     return false;
             }
@@ -174,6 +192,10 @@ namespace KimSurvival
                     return campfirePrepared;
                 case StructureKind.RainCollector:
                     return rainCollectorPrepared;
+                case StructureKind.Bed:
+                    return bedPrepared;
+                case StructureKind.Sofa:
+                    return sofaPrepared;
                 default:
                     return false;
             }
@@ -183,6 +205,8 @@ namespace KimSurvival
         {
             campfirePrepared = false;
             rainCollectorPrepared = false;
+            bedPrepared = false;
+            sofaPrepared = false;
         }
 
         private static bool IsFinite(float value)

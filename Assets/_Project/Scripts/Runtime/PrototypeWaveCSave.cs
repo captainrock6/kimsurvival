@@ -236,7 +236,8 @@ namespace KimSurvival
             ExpeditionCompleted = snapshot.ExpeditionCompleted;
             IsSwimming = snapshot.IsSwimming;
             SignalStage = snapshot.SignalStage;
-            Array.Copy(snapshot.Structures, structures, structures.Length);
+            Array.Clear(structures, 0, structures.Length);
+            Array.Copy(snapshot.Structures, structures, Math.Min(snapshot.Structures.Length, structures.Length));
             Array.Copy(snapshot.Researched, researched, researched.Length);
             Array.Copy(snapshot.CraftedTools, craftedTools, craftedTools.Length);
             SelectedRegionId = snapshot.HasSelectedRegion
@@ -298,7 +299,7 @@ namespace KimSurvival
                 !Enum.IsDefined(typeof(GamePhase), snapshot.Phase) ||
                 !Enum.IsDefined(typeof(RunResult), snapshot.Result) ||
                 snapshot.SignalStage < 0 || snapshot.SignalStage > 2 ||
-                snapshot.Structures == null || snapshot.Structures.Length != structureCount ||
+                snapshot.Structures == null || snapshot.Structures.Length < 3 || snapshot.Structures.Length > structureCount ||
                 snapshot.Researched == null || snapshot.Researched.Length != techCount ||
                 snapshot.CraftedTools == null || snapshot.CraftedTools.Length != techCount ||
                 snapshot.ActiveRegionProfileId == null ||

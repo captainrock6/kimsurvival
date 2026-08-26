@@ -92,7 +92,7 @@ Git에는 위 증거에서 이 매트릭스가 직접 인용하는 핵심 JSON/T
 |---|---|---|---|---|
 | GJC-01 | 컴파일·Windows 빌드·hidden smoke·Addressables·방화벽 | DONE | Release build와 source-clean, hidden smoke, Addressables, 방화벽, `PKG-I01~I07`이 PASS다. | 닫힘. |
 | GJC-02 | 김씨의 직접 이동·근접 설비 상호작용 | DONE | canonical camp/module/map lock과 직접 설비 선택·popup 복귀가 PASS다. | 닫힘. |
-| GJC-03 | 일반 설비 제한적 자유 배치·특수 anchor | DONE | 이동 통로·일반 배치·전용 anchor·취소 무변경 회귀가 PASS다. | 닫힘. |
+| GJC-03 | 방별 고정 설치 지점·전용 anchor | REVIEW | O2 피드백으로 자유 배치를 폐기했다. StableRoomId+StableAnchorId 점유·재배치·v1 저장 마이그레이션 자동 회귀는 PASS이며, 사람 O3 확인이 남았다. | O3에서 시작층·2층·지하실의 설치·재배치·직접 사용을 확인한다. |
 | GJC-04 | 수영 수색·복귀 | DONE | grant/warp 없이 수영 수색·귀환 경로가 통합 회귀에서 PASS다. | 닫힘. |
 | GJC-05 | 행동 기반 ending resolver·album 기록 | DONE | ending resolver·stable ID·album·exactly-once 저장이 PASS다. | 닫힘. |
 | GJC-06 | 안정 ID를 가진 7개 지역 | DONE | 정확히 7 region·21 archetype·42 instance·일반 자원 144와 결정성이 PASS다. | 닫힘. |

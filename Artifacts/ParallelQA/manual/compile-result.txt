@@ -1,13 +1,13 @@
 Unity script compilation
 Run ID: manual
-Started UTC: 2026-08-23T15:04:43.9810341Z
-Completed UTC: 2026-08-23T15:04:44.0010676Z
+Started UTC: 2026-08-26T14:00:54.0963065Z
+Completed UTC: 2026-08-26T14:00:54.1197951Z
 Unity: 6000.4.9f1
 Baseline commit: unknown
-Project: C:\Users\dev\.codex\worktrees\2266\신규 개발 본부
-Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\2266\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile Artifacts/Verification/wave15-compile4.log
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -force-d3d11 -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260826T145000Z_o2_anchor_compile\unity-compile.log"
 Result: PASS
 Compiler errors: 0
 Compiler warnings: 0
-Raw logs: Artifacts/Verification/wave15-compile4.log
+Raw logs: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260826T145000Z_o2_anchor_compile\unity-compile.log
 Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

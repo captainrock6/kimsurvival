@@ -192,6 +192,10 @@ namespace KimSurvival
                     return Format("structure.workbench");
                 case StructureKind.RainCollector:
                     return Format("structure.rain_collector");
+                case StructureKind.Bed:
+                    return Format("structure.bed");
+                case StructureKind.Sofa:
+                    return Format("structure.sofa");
                 default:
                     return Format("structure.generic");
             }

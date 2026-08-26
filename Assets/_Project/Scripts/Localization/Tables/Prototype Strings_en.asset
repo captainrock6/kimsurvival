@@ -250,9 +250,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972580
-    m_Localized: 'General Facilities
-
-      0.5m Floor Snap'
+    m_Localized: Fixed Install Spots
     m_Metadata:
       m_Items: []
   - m_Id: 900972581
@@ -316,21 +314,21 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972593
-    m_Localized: "Place {0} \xB7 0.5m floor snap"
+    m_Localized: Place {0} at this fixed spot
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 900972594
-    m_Localized: "Move {0} \xB7 0.5m floor snap"
+    m_Localized: Move {0} to this fixed spot
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 900972595
-    m_Localized: Keep it inside the compatible camp build area.
+    m_Localized: No compatible fixed install spot is available in this room.
     m_Metadata:
       m_Items: []
   - m_Id: 900972596
-    m_Localized: It overlaps another facility. Even Mr. Kim does not stack furniture.
+    m_Localized: Another facility already occupies this install spot.
     m_Metadata:
       m_Items: []
   - m_Id: 900972597
@@ -543,13 +541,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 14658173124608
-    m_Localized: "{0} \xB7 Move with mouse\nClick/Enter confirm \xB7 Right-click/Esc
-      cancel\nF1 language"
+    m_Localized: "{0} \xB7 Point at a fixed install spot\nClick/Enter confirm \xB7
+      Right-click/Esc cancel\nF1 language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 14658219261952
-    m_Localized: "{0} \xB7 Move with left stick\nA confirm \xB7 B cancel\nY language"
+    m_Localized: "{0} \xB7 Choose a fixed spot with the left stick\nA confirm \xB7
+      B cancel\nY language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
@@ -687,9 +686,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 250514246975488
-    m_Localized: 'General Facility Ground
-
-      0.5m Floor Snap'
+    m_Localized: Indoor Fixed Install Spots
     m_Metadata:
       m_Items: []
   - m_Id: 250514288918528
@@ -2516,6 +2513,70 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1471604172505099
     m_Localized: Resolve the blocked space condition
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942463856640
+    m_Localized: Rest in bed to prepare a large energy recovery at settlement.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993984
+    m_Localized: Relax on the sofa to prepare a small energy recovery at settlement.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993985
+    m_Localized: "\u2194 Move Bed to Another Spot"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993986
+    m_Localized: "Build Bed  Wood 3 \xB7 Salvage 1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993987
+    m_Localized: "\u2194 Move Sofa to Another Spot"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942509993988
+    m_Localized: "Build Sofa  Wood 2 \xB7 Salvage 2"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576896
+    m_Localized: Prepare Bed Rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576897
+    m_Localized: '[Done] Bed Rest Prepared'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576898
+    m_Localized: Prepare Sofa Rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576899
+    m_Localized: '[Done] Sofa Rest Prepared'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576900
+    m_Localized: Bed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576901
+    m_Localized: Sofa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576902
+    m_Localized: Bed complete. Almost level is civilized enough.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576903
+    m_Localized: Sofa complete. Salvage becomes furniture when it supports a back.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576904
+    m_Localized: Bed rest prepared. A large energy recovery will apply at settlement.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1497942522576905
+    m_Localized: Sofa rest prepared. A small energy recovery will apply at settlement.
     m_Metadata:
       m_Items: []
   references:

@@ -159,6 +159,12 @@ namespace KimSurvival
                             target == PrototypeCampInteractionTargetKind.RadioBench;
             if (!detailed) return;
             bool qpsLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
+            if (target == PrototypeCampInteractionTargetKind.StoragePlanning)
+            {
+                RectTransform detailRect = campPopupDetailText.rectTransform;
+                detailRect.offsetMin = new Vector2(24f, -222f);
+                detailRect.offsetMax = new Vector2(-24f, -76f);
+            }
             campPopupDetailText.enableAutoSizing = true;
             campPopupDetailText.fontSizeMin = qpsLong ? 12f : 18f;
             campPopupDetailText.fontSizeMax = qpsLong ? 20f : 24f;

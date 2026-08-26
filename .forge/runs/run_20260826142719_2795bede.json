@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260826142719_2795bede",
+  "createdAt": "2026-08-26T14:27:19.202Z",
+  "updatedAt": "2026-08-26T14:27:19.202Z",
+  "sourceRequest": "O2 가방 교체 UI 진행 불가를 수정하고, 베이스캠프를 지붕 있는 절개형 방과 StableRoomId+StableAnchorId 고정 설치 지점 방식으로 전환하며 2층·지하·침대·소파를 통합한 새 수동 테스트 후보로 동결한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-26T14:27:19.202Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T14:27:19.202Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T14:27:19.202Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T14:27:19.202Z"
+    }
+  }
+}

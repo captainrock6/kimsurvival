@@ -11,8 +11,8 @@ phase.result	결과	Result	⟦Résúltá⟧
 hud.status.camp	DAY {0}/{1} · {2}\n허기 {3} | 기력 {4} | 체력 {5}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Health {5}	⟦DÁY {0}/{1} · {2}\nHúñgér {3} | Éñérgy {4} | Héálth {5}áéíóúüñ¿¡áéíóúüñ⟧
 hud.status.exploring	DAY {0}/{1} · {2}\n허기 {3} | 기력 {4} | 일광 {5} | 체력 {6}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Daylight {5} | Health {6}	⟦DÁY {0}/{1} · {2}\nHúñgér {3} | Éñérgy {4} | Dáylíght {5} | Héálth {6}áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 hud.resources	나무 {0}   돌 {1}   식량 {2}   표류물 {3}\n신호대 {4}/2   도끼 {5}   밧줄 {6}	Wood {0}   Stone {1}   Food {2}   Salvage {3}\nSignal {4}/2   Axe {5}   Rope {6}	⟦Wóód {0}   Stóñé {1}   Fóód {2}   Sálvágé {3}\nSígñál {4}/2   Áxé {5}   Rópé {6}áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
-controls.placement.keyboard_mouse	{0} · 마우스로 위치 이동\n클릭/Enter 확정 · 우클릭/Esc 취소\nF1 언어	{0} · Move with mouse\nClick/Enter confirm · Right-click/Esc cancel\nF1 language	⟦{0} · Móvé wíth móúsé\nClíck/Enter cóñfírm · Ríght-clíck/Esc cáñcél\nF1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
-controls.placement.gamepad	{0} · 왼쪽 스틱으로 위치 이동\nA 확정 · B 취소\nY 언어	{0} · Move with left stick\nA confirm · B cancel\nY language	⟦{0} · Móvé wíth léft stíck\nÁ cóñfírm · B cáñcél\nY láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+controls.placement.keyboard_mouse	{0} · 포인터로 고정 설치 지점 선택\n클릭/Enter 확정 · 우클릭/Esc 취소\nF1 언어	{0} · Point at a fixed install spot\nClick/Enter confirm · Right-click/Esc cancel\nF1 language	⟦{0} · Póíñt át á fíxéd íñstáll spót\nClíck/Enter cóñfírm · Ríght-clíck/Esc cáñcél\nF1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
+controls.placement.gamepad	{0} · 왼쪽 스틱으로 설치 지점 선택\nA 확정 · B 취소\nY 언어	{0} · Choose a fixed spot with the left stick\nA confirm · B cancel\nY language	⟦{0} · Chóósé á fíxéd spót wíth thé léft stíck\nÁ cóñfírm · B cáñcél\nY láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
 controls.camp.keyboard_mouse	{0} · A/D 이동 · E 가까운 설비 사용(1.25m)\n클릭 또는 방향키+Enter 행동 · 완공 설비 무료 재배치 · F1 언어	{0} · A/D move · E use nearby facility (1.25m)\nClick or arrows+Enter action · Built facilities move free · F1 language	⟦{0} · A/D móvé · E úsé ñéárby fácílíty (1.25m)\nClíck ór árróws+Enter áctíóñ · Búílt fácílítíés móvé fréé · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
 controls.camp.gamepad	{0} · 왼쪽 스틱 이동 · X 가까운 설비 사용(1.25m)\n방향 패드+A 행동 · 완공 설비 무료 재배치 · Y 언어	{0} · Left stick move · X use nearby facility (1.25m)\nD-pad+A action · Built facilities move free · Y language	⟦{0} · Léft stíck móvé · X úsé ñéárby fácílíty (1.25m)\nD-pád+A áctíóñ · Búílt fácílítíés móvé fréé · Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.camp.popup.keyboard_mouse	{0} · 방향키로 행동 선택 · Enter 확인\nEsc 취소 · 이동 잠김 · F1 언어	{0} · Arrow keys select · Enter confirm\nEsc cancel · Movement locked · F1 language	⟦{0} · Árrów kéys séléct · Enter cóñfírm\nÉsc cáñcél · Móvéméñt lóckéd · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
@@ -30,6 +30,8 @@ camp.popup.title	{0}	{0}	{0}¿
 camp.popup.detail.campfire	먹거나 오늘의 생존 준비를 하고, 설치 위치를 다시 잡는다.	Eat, prepare today's survival bonus, or move the installation.	⟦Éát, prépáré tódáy's súrvívál bóñús, ór móvé thé íñstállátíóñ.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.workbench	제작·연구·수리·가방 확장은 이 작업대에서만 한다.	Craft, research, repair, and upgrade the bag at this workbench.	⟦Cráft, réséárch, répáír, áñd úpgrádé thé bág át thís wórkbéñch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.rain	탁 트인 하늘 아래에서 빗물을 받아 오늘의 회복을 준비한다.	Collect rain under open sky to prepare today's recovery.	⟦Cólléct ráíñ úñdér ópéñ sky tó prépáré tódáy's récóvéry.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+camp.popup.detail.bed	침대에서 쉬어 오늘 정산의 큰 기력 회복을 준비한다.	Rest in bed to prepare a large energy recovery at settlement.	⟦Rést íñ béd tó prépáré á lárgé éñérgy récóvéry át séttléméñt.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+camp.popup.detail.sofa	소파에서 잠깐 쉬어 오늘 정산의 작은 기력 회복을 준비한다.	Relax on the sofa to prepare a small energy recovery at settlement.	⟦Réláx óñ thé sófá tó prépáré á smáll éñérgy récóvéry át séttléméñt.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
 camp.popup.detail.signal	전용 앵커의 구조 신호대에 단계별 자원을 투입한다.	Invest stage resources in the rescue signal at its dedicated anchor.	⟦Íñvést stágé résóúrcés íñ thé réscúé sígñál át íts dédícátéd áñchór.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 camp.popup.detail.module_slot	이 연결 슬롯에서 방 확장 후보를 미리 본다. 위층·지하실은 나무 1, 옆방은 나무 2와 표류물 1이다.	Preview room expansion here. Upper and basement cost 1 wood; side costs 2 wood and 1 salvage.	⟦Prévíéw róóm éxpáñsíóñ héré. Úppér áñd báséméñt cóst 1 wóód; sídé cósts 2 wóód áñd 1 sálvágé.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 camp.popup.detail.generic	이 설비의 행동을 선택한다.	Choose an action owned by this facility.	⟦Chóósé áñ áctíóñ ówñéd by thís fácílíty.áéíóúüñ¿¡áéíóúü⟧
@@ -48,6 +50,10 @@ button.workbench.relocate	↔ 작업대 무료 재배치	↔ Move Workbench Free
 button.workbench.build	작업대 건설  나무2·표류물1	Build Workbench  Wood 2 · Salvage 1	⟦Búíld Wórkbéñch  Wóód 2 · Sálvágé 1áéíóúüñ¿¡áéíó⟧
 button.rain.relocate	↔ 빗물받이 무료 재배치	↔ Move Rain Collector Free	⟦↔ Móvé Ráíñ Cólléctór Frééáéíóúüñ¿¡⟧
 button.rain.build	빗물받이  나무2·돌1·표류물1	Rain Collector  Wood 2 · Stone 1 · Salvage 1	⟦Ráíñ Cólléctór  Wóód 2 · Stóñé 1 · Sálvágé 1áéíóúüñ¿¡áéíóúüñ⟧
+button.bed.relocate	↔ 침대 설치 지점 변경	↔ Move Bed to Another Spot	⟦↔ Móvé Béd tó Áñóthér Spótáéíóúüñ¿¡⟧
+button.bed.build	침대 건설  나무3·표류물1	Build Bed  Wood 3 · Salvage 1	⟦Búíld Béd  Wóód 3 · Sálvágé 1áéíóúüñ¿¡á⟧
+button.sofa.relocate	↔ 소파 설치 지점 변경	↔ Move Sofa to Another Spot	⟦↔ Móvé Sófá tó Áñóthér Spótáéíóúüñ¿¡á⟧
+button.sofa.build	소파 건설  나무2·표류물2	Build Sofa  Wood 2 · Salvage 2	⟦Búíld Sófá  Wóód 2 · Sálvágé 2áéíóúüñ¿¡á⟧
 button.research.axe.done	[완료] 돌도끼 연구	[Done] Stone Axe Researched	⟦[Done] Stóñé Áxé Réséárchédáéíóúüñ¿¡⟧
 button.research.axe	돌도끼 연구  돌1·표류물1	Research Stone Axe  Stone 1 · Salvage 1	⟦Réséárch Stóñé Áxé  Stóñé 1 · Sálvágé 1áéíóúüñ¿¡áéíóú⟧
 button.craft.axe.done	[완료] 돌도끼 보유	[Done] Stone Axe Owned	⟦[Done] Stóñé Áxé Ówñédáéíóúüñ⟧
@@ -68,6 +74,10 @@ button.campfire.prepare	오늘 생존 준비	Prepare Today's Survival	⟦Prépá
 button.campfire.prepare.done	[완료] 오늘 생존 준비	[Done] Survival Prepared	⟦[Done] Súrvívál Prépárédáéíóúüñ¿⟧
 button.rain.collect	오늘 빗물 받기	Collect Today's Rain	⟦Cólléct Tódáy's Ráíñáéíóúü⟧
 button.rain.collect.done	[완료] 오늘 빗물 받음	[Done] Rain Collected	⟦[Done] Ráíñ Cólléctédáéíóúüñ⟧
+button.bed.rest	침대에서 휴식 준비	Prepare Bed Rest	⟦Prépáré Béd Réstáéíó⟧
+button.bed.rest.done	[완료] 침대 휴식 준비	[Done] Bed Rest Prepared	⟦[Done] Béd Rést Prépárédáéíóúüñ¿¡⟧
+button.sofa.rest	소파에서 휴식 준비	Prepare Sofa Rest	⟦Prépáré Sófá Réstáéíóú⟧
+button.sofa.rest.done	[완료] 소파 휴식 준비	[Done] Sofa Rest Prepared	⟦[Done] Sófá Rést Prépárédáéíóúüñ¿¡á⟧
 button.workbench.repair	설비 수리 점검	Inspect & Repair	⟦Íñspéct & Répáíráéíóú⟧
 button.popup.cancel	닫기 · 현장 복귀	Close · Return to Camp	⟦Clósé · Rétúrñ tó Cámpáéíóúüñ⟧
 button.day.final	마지막 날 정산	Settle Final Day	⟦Séttlé Fíñál Dáyáéíóú⟧
@@ -84,10 +94,12 @@ resource.salvage	표류물	Salvage	⟦Sálvágéá⟧
 structure.campfire	모닥불	Campfire	⟦Cámpfíréá⟧
 structure.workbench	작업대	Workbench	⟦Wórkbéñcháé⟧
 structure.rain_collector	빗물받이	Rain Collector	⟦Ráíñ Cólléctóráéíó⟧
+structure.bed	침대	Bed	Bédá
+structure.sofa	소파	Sofa	⟦Sófá⟧
 structure.rescue_signal	구조 신호대	Rescue Signal	⟦Réscúé Sígñáláéí⟧
 structure.generic	설비	Facility	⟦Fácílítyá⟧
-world.build_zone	일반 설비\n0.5m 바닥 스냅	General Facilities\n0.5m Floor Snap	⟦Géñérál Fácílítíés\n0.5m Flóór Sñápáéíóúüñ¿¡áéíó⟧
-world.general_ground	일반 설비 구역\n0.5m 바닥 스냅	General Facility Ground\n0.5m Floor Snap	⟦Géñérál Fácílíty Gróúñd\n0.5m Flóór Sñápáéíóúüñ¿¡áéíóúü⟧
+world.build_zone	고정 설치 지점	Fixed Install Spots	⟦Fíxéd Íñstáll Spótsáéíóúüñ⟧
+world.general_ground	실내 고정 설치 지점	Indoor Fixed Install Spots	⟦Íñdóór Fíxéd Íñstáll Spótsáéíóúüñ¿¡á⟧
 world.open_sky_ground	빗물받이 전용\n탁 트인 하늘 구역	Rain Collector Only\nOpen-Sky Ground	⟦Ráíñ Cólléctór Óñly\nÓpéñ-Sky Gróúñdáéíóúüñ¿¡áéíó⟧
 world.entrance	출입구\n보호	Keep Entrance\nClear	⟦Kéép Éñtráñcé\nCléáráéíóúü⟧
 world.required_path	필수 통로	Required Path	⟦Réqúíréd Pátháéí⟧
@@ -103,11 +115,11 @@ world.structure.relocate	{0}\n↔ 무료 재배치	{0}\n↔ Move Free	⟦{0}\n�
 world.placement.valid	{0}\n설치 가능	{0}\nValid Placement	⟦{0}\nVálíd Plácéméñtáéíóúü⟧
 world.placement.invalid	{0}\n설치 불가	{0}\nInvalid Placement	⟦{0}\nÍñválíd Plácéméñtáéíóúüñ⟧
 world.kim	김씨	Mr. Kim	⟦Mr. Kímá⟧
-placement.valid.build	{0} 배치 가능 · 0.5m 바닥 스냅	Place {0} · 0.5m floor snap	⟦Plácé {0} · 0.5m flóór sñápáéíóúüñ¿¡⟧
-placement.valid.relocate	{0} 재배치 가능 · 0.5m 바닥 스냅	Move {0} · 0.5m floor snap	⟦Móvé {0} · 0.5m flóór sñápáéíóúüñ¿¡⟧
-placement.outside	캠프의 호환 건설 구역 밖에는 놓을 수 없다.	Keep it inside the compatible camp build area.	⟦Kéép ít íñsídé thé cómpátíblé cámp búíld áréá.áéíóúüñ¿¡áéíóúüñ¿⟧
+placement.valid.build	{0} · 이 고정 지점에 설치 가능	Place {0} at this fixed spot	⟦Plácé {0} át thís fíxéd spótáéíóúüñ¿¡áé⟧
+placement.valid.relocate	{0} · 이 고정 지점으로 이동 가능	Move {0} to this fixed spot	⟦Móvé {0} tó thís fíxéd spótáéíóúüñ¿¡á⟧
+placement.outside	이 방에는 호환되는 고정 설치 지점이 없다.	No compatible fixed install spot is available in this room.	⟦Ñó cómpátíblé fíxéd íñstáll spót ís áváíláblé íñ thís róóm.áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
 placement.wrong_zone	{0}은(는) 지정된 호환 바닥에만 놓을 수 있다.	{0} must stay on its compatible ground zone.	⟦{0} múst stáy óñ íts cómpátíblé gróúñd zóñé.áéíóúüñ¿¡áéíóúüñ⟧
-placement.overlap	다른 설비와 겹친다. 김씨도 물건을 포개 쓰지는 않는다.	It overlaps another facility. Even Mr. Kim does not stack furniture.	⟦Ít óvérláps áñóthér fácílíty. Évéñ Mr. Kím dóés ñót stáck fúrñítúré.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+placement.overlap	이미 다른 설비가 차지한 설치 지점이다.	Another facility already occupies this install spot.	⟦Áñóthér fácílíty álréády óccúpíés thís íñstáll spót.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 placement.entrance	캠프 출입구를 막을 수 없다.	The camp entrance must stay clear.	⟦Thé cámp éñtráñcé múst stáy cléár.áéíóúüñ¿¡áéí⟧
 placement.path	필수 이동 통로를 비워 둬야 한다.	The required travel path must stay clear.	⟦Thé réqúíréd trávél páth múst stáy cléár.áéíóúüñ¿¡áéíóúü⟧
 placement.invalid	배치할 수 없는 위치다.	That position is invalid.	⟦Thát pósítíóñ ís íñválíd.áéíóúüñ¿¡⟧
@@ -120,6 +132,8 @@ message.build.materials	재료가 모자란다. 주머니를 털어도 모래만
 message.build.campfire	모닥불 완성. 불은 문명이고, 연기는 눈물이다.	Campfire complete. Fire is civilization; smoke is tears.	⟦Cámpfíré cómplété. Fíré ís cívílízátíóñ; smóké ís téárs.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 message.build.workbench	작업대 완성. 수평은 아니지만 물건은 올라간다.	Workbench complete. It is not level, but things stay on it.	⟦Wórkbéñch cómplété. Ít ís ñót lévél, bút thíñgs stáy óñ ít.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
 message.build.rain	빗물받이 완성. 비가 오면 김씨가 이긴다.	Rain collector complete. If it rains, Mr. Kim wins.	⟦Ráíñ cólléctór cómplété. Íf ít ráíñs, Mr. Kím wíñs.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+message.build.bed	침대 완성. 수평에 가까운 것만으로도 문명이다.	Bed complete. Almost level is civilized enough.	⟦Béd cómplété. Álmóst lévél ís cívílízéd éñóúgh.áéíóúüñ¿¡áéíóúüñ¿⟧
+message.build.sofa	소파 완성. 표류물도 등을 받치면 가구가 된다.	Sofa complete. Salvage becomes furniture when it supports a back.	⟦Sófá cómplété. Sálvágé bécómés fúrñítúré whéñ ít súppórts á báck.áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
 message.research.workbench	연구하려면 먼저 작업대가 필요하다.	Research requires a workbench first.	⟦Réséárch réqúírés á wórkbéñch fírst.áéíóúüñ¿¡áéíó⟧
 message.research.unavailable	연구 재료가 부족하거나 이미 알아낸 방법이다.	The research lacks materials or is already known.	⟦Thé réséárch lácks mátéríáls ór ís álréády kñówñ.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 message.research.axe	연구 완료: 돌과 나무를 묶으면 제법 도끼처럼 보인다.	Research complete: tie stone to wood and it looks surprisingly axe-like.	⟦Réséárch cómplété: tíé stóñé tó wóód áñd ít lóóks súrprísíñgly áxé-líké.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
@@ -140,6 +154,8 @@ message.camp.use.signal_too_far	구조 신호 자원 투입은 신호대 {0}m �
 message.camp.use.workbench	작업대 사용 가능. 가까이 선 채 연구·제작 행동을 고르자.	Workbench in range. Choose a research or crafting action while nearby.	⟦Wórkbéñch íñ ráñgé. Chóósé á réséárch ór cráftíñg áctíóñ whílé ñéárby.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 message.camp.use.campfire	모닥불 휴식 준비 완료. 오늘 정산에 모닥불 보너스가 적용된다.	Campfire rest prepared. Its bonus will apply at today's settlement.	⟦Cámpfíré rést prépáréd. Íts bóñús wíll ápply át tódáy's séttléméñt.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
 message.camp.use.rain	빗물을 받아 두었다. 오늘 정산에 빗물받이 보너스가 적용된다.	Rainwater collected. Its bonus will apply at today's settlement.	⟦Ráíñwátér cólléctéd. Íts bóñús wíll ápply át tódáy's séttléméñt.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
+message.camp.use.bed	침대 휴식 준비 완료. 오늘 정산에 큰 기력 회복이 적용된다.	Bed rest prepared. A large energy recovery will apply at settlement.	⟦Béd rést prépáréd. Á lárgé éñérgy récóvéry wíll ápply át séttléméñt.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+message.camp.use.sofa	소파 휴식 준비 완료. 오늘 정산에 작은 기력 회복이 적용된다.	Sofa rest prepared. A small energy recovery will apply at settlement.	⟦Sófá rést prépáréd. Á smáll éñérgy récóvéry wíll ápply át séttléméñt.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 message.workbench.repair.ready	수리 점검 완료. 지금 손볼 설비는 없다.	Repair inspection complete. Nothing needs fixing right now.	⟦Répáír íñspéctíóñ cómplété. Ñóthíñg ñééds fíxíñg ríght ñów.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
 message.food.none	먹을 것이 없다. 코코넛 그림이라도 그려 볼까.	Nothing to eat. Perhaps drawing a coconut would help.	⟦Ñóthíñg tó éát. Pérháps dráwíñg á cócóñút wóúld hélp.áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
 message.food.full	지금은 배가 충분히 부르다.	He is full enough for now.	⟦Hé ís fúll éñóúgh fór ñów.áéíóúüñ¿¡⟧
