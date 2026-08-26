@@ -638,11 +638,12 @@ namespace KimSurvival
     public static class PrototypeSearchRegionCatalog
     {
         public const string ContractRevision = "gamejam.wave-bc.catalog-disease-parts.v1";
-        public const string LootTableRevision = "gamejam.o5.loot.same-run-432.v1";
-        public const string CatalogRevision = "gamejam.wave-b.7r21a42i.v1";
+        public const string LootTableRevision = "gamejam.o6.loot.84-nodes-mixed-density-432.v1";
+        public const string CatalogRevision = "gamejam.o6.7r21a84i.v1";
         public const string NewGameStockGenerationEvent = "new-game-stock-generation";
         public const string BalanceStatus = "BALANCE_PROVISIONAL";
-        public const int GameJamResourceYieldMultiplier = 3;
+        public const int SearchNodeCount = 84;
+        public const int NodesPerRegion = 12;
         public const int BalanceProvisionalGeneralStockUnits = 432;
 
         // Ordinals 0/1/2 are save-compatible with the original Beach/Forest/Shallows enum.
@@ -688,6 +689,14 @@ namespace KimSurvival
 
         public static IReadOnlyList<string> ExistingCanonicalNodeIds { get { return LegacyCanonicalIds; } }
         public static IReadOnlyList<string> NewWaveBNodeIds { get { return AddedWaveBIds; } }
+        public static IReadOnlyList<string> O6ExpandedNodeIds
+        {
+            get
+            {
+                return Nodes.Where(node => string.Equals(node.Origin, "o6-expanded", StringComparison.Ordinal))
+                    .Select(node => node.NodeId).ToArray();
+            }
+        }
 
         private static PrototypeSearchLootEntry Yield(string stableResourceId, int amount)
         {
@@ -738,8 +747,10 @@ namespace KimSurvival
                 archetypeId,
                 searchCostBand,
                 firstKind,
-                Instance(regionId, archetypeId, firstId, 1, firstKind, firstWater, firstHazard, finiteYield),
-                Instance(regionId, archetypeId, secondId, 2, secondKind, secondWater, secondHazard, finiteYield));
+                Instance(regionId, archetypeId, firstId, 1, firstKind, firstWater, firstHazard, 1, finiteYield),
+                Instance(regionId, archetypeId, secondId, 2, secondKind, secondWater, secondHazard, 1, finiteYield),
+                Instance(regionId, archetypeId, firstId + ".o6.03", 3, firstKind, firstWater, firstHazard, 2, finiteYield),
+                Instance(regionId, archetypeId, secondId + ".o6.04", 4, secondKind, secondWater, secondHazard, 2, finiteYield));
         }
 
         private static PrototypeSearchNodeDefinition Instance(
@@ -750,21 +761,28 @@ namespace KimSurvival
             PrototypeSearchNodeKind kind,
             bool water,
             string hazardId,
+            int densityMultiplier,
             PrototypeSearchLootEntry[] finiteYield)
         {
             bool legacy = LegacyCanonicalIds.Contains(nodeId, StringComparer.Ordinal);
+            bool o6Expanded = nodeId.Contains(".o6.");
             return new PrototypeSearchNodeDefinition(
                 regionId,
                 archetypeId,
                 nodeId,
                 ordinal,
-                legacy ? "existing" : "new",
+                legacy ? "existing" : o6Expanded ? "o6-expanded" : "new",
                 kind,
                 water,
                 water ? 9 : 7,
                 water ? 18 : 14,
                 hazardId,
-                finiteYield);
+                finiteYield.Select(item => new PrototypeSearchLootEntry
+                {
+                    StableResourceId = item.StableResourceId,
+                    Resource = item.Resource,
+                    Amount = Math.Max(1, item.Amount * Math.Max(1, densityMultiplier))
+                }).ToArray());
         }
 
         private static readonly PrototypeSearchRegionDefinition[] Regions =
@@ -1214,7 +1232,9 @@ namespace KimSurvival
                     ProtectedPartId = assignment.PartId
                 });
             }
-            return contents.ToArray();
+            // Protected parts lead the discovery tray. They must never be hidden behind
+            // ordinary resource rows when a node contains a route-critical component.
+            return contents.OrderByDescending(item => item.IsProtectedPart).ToArray();
         }
 
         public static PrototypeSearchLootEntry[] ResolveGeneralStock(
@@ -1238,16 +1258,13 @@ namespace KimSurvival
                 string resourceSuffix = item.StableResourceId.StartsWith("resource.", StringComparison.Ordinal)
                     ? item.StableResourceId.Substring("resource.".Length)
                     : item.StableResourceId.Replace('.', '-');
-                for (int batch = 0; batch < PrototypeSearchRegionCatalog.GameJamResourceYieldMultiplier; batch += 1)
+                contents.Add(new PrototypeSearchLootEntry
                 {
-                    contents.Add(new PrototypeSearchLootEntry
-                    {
-                        StableItemId = definition.NodeId + ".resource." + resourceSuffix + ".o5." + batch,
-                        StableResourceId = item.StableResourceId,
-                        Resource = item.Resource,
-                        Amount = item.Amount
-                    });
-                }
+                    StableItemId = definition.NodeId + ".resource." + resourceSuffix,
+                    StableResourceId = item.StableResourceId,
+                    Resource = item.Resource,
+                    Amount = item.Amount
+                });
             }
 
             return contents.ToArray();
@@ -2623,7 +2640,8 @@ namespace KimSurvival
                 searchStock.Keys.OrderBy(value => value, StringComparer.Ordinal));
             bool atLeastOneRoute = routeAudits.Any(route => route.NaturallyCompletable);
             bool allRoutes = routeAudits.Length == Routes.Length && routeAudits.All(route => route.NaturallyCompletable);
-            bool exactFiniteShape = PrototypeSearchRegionCatalog.All.Count == 7 && nodes.Count == 42 &&
+            bool exactFiniteShape = PrototypeSearchRegionCatalog.All.Count == 7 &&
+                                    nodes.Count == PrototypeSearchRegionCatalog.SearchNodeCount &&
                                     generalUnits == PrototypeSearchRegionCatalog.BalanceProvisionalGeneralStockUnits &&
                                     protectedUnits == PrototypeSearchNodeLootResolver.ProtectedPartIds.Count;
             return new PrototypeEscapeResourceSeedAuditResult
@@ -2670,16 +2688,17 @@ namespace KimSurvival
             IReadOnlyList<PrototypeSearchNodeDefinition> definitions = PrototypeSearchRegionCatalog.Nodes;
             bool sevenRegions = regions.Count == 7 &&
                                 regions.Select(region => region.StableId).Distinct(StringComparer.Ordinal).Count() == 7;
-            bool exactShape = regions.All(region => region.Archetypes.Count == 3 && region.Nodes.Count == 6) &&
-                              archetypes.Count == 21 && archetypes.All(archetype => archetype.Instances.Count == 2) &&
-                              definitions.Count == 42;
+            bool exactShape = regions.All(region => region.Archetypes.Count == 3 &&
+                                                    region.Nodes.Count == PrototypeSearchRegionCatalog.NodesPerRegion) &&
+                              archetypes.Count == 21 && archetypes.All(archetype => archetype.Instances.Count == 4) &&
+                              definitions.Count == PrototypeSearchRegionCatalog.SearchNodeCount;
             string[] stableIds = regions.Select(region => region.StableId)
                 .Concat(archetypes.Select(archetype => archetype.StableId))
                 .Concat(definitions.Select(node => node.NodeId)).ToArray();
             int duplicateStableIds = stableIds.Length - stableIds.Distinct(StringComparer.Ordinal).Count();
             bool stableNodes = duplicateStableIds == 0 && definitions.All(node =>
                 !string.IsNullOrWhiteSpace(node.RegionId) && !string.IsNullOrWhiteSpace(node.ArchetypeId) &&
-                !string.IsNullOrWhiteSpace(node.NodeId) && (node.InstanceOrdinal == 1 || node.InstanceOrdinal == 2));
+                !string.IsNullOrWhiteSpace(node.NodeId) && node.InstanceOrdinal >= 1 && node.InstanceOrdinal <= 4);
             HashSet<string> actualNodeIds = new HashSet<string>(definitions.Select(node => node.NodeId), StringComparer.Ordinal);
             bool legacyIdsPreserved = PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.Count == 28 &&
                                       PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.All(actualNodeIds.Contains) &&
@@ -2687,6 +2706,10 @@ namespace KimSurvival
             bool exactlyFourteenAdded = PrototypeSearchRegionCatalog.NewWaveBNodeIds.Count == 14 &&
                                         PrototypeSearchRegionCatalog.NewWaveBNodeIds.All(actualNodeIds.Contains) &&
                                         definitions.Count(node => string.Equals(node.Origin, "new", StringComparison.Ordinal)) == 14;
+            bool exactlyFortyTwoO6Expanded = PrototypeSearchRegionCatalog.O6ExpandedNodeIds.Count == 42 &&
+                                             PrototypeSearchRegionCatalog.O6ExpandedNodeIds.All(actualNodeIds.Contains) &&
+                                             definitions.Count(node => string.Equals(
+                                                 node.Origin, "o6-expanded", StringComparison.Ordinal)) == 42;
             Dictionary<string, int> stableResourceTotals = definitions
                 .SelectMany(node => PrototypeSearchNodeLootResolver.Resolve(seed, node))
                 .Where(item => !item.IsProtectedPart)
@@ -2776,7 +2799,8 @@ namespace KimSurvival
                     runtime.Ledger.NewGameStockFingerprint,
                     StringComparison.Ordinal);
             PrototypeSearchNodeSnapshot restoredNode = restored.GetOrCreate(definition);
-            bool persistence = restoredOk && restored.CaptureSnapshot().Nodes.Length == 42 &&
+            bool persistence = restoredOk &&
+                               restored.CaptureSnapshot().Nodes.Length == PrototypeSearchRegionCatalog.SearchNodeCount &&
                                restored.CaptureSnapshot().Regions.Length == 7 &&
                                restoredNode.State == PrototypeSearchNodeState.RevealedPartial &&
                                restoredNode.SearchCount == 1 && restored.GeneralRemainingAmount == afterTakeGeneral &&
@@ -2850,6 +2874,7 @@ namespace KimSurvival
             PrototypeSearchNodeContractResult pityContract = VerifyProtectedPartPityNaturalResultContract(seed);
             PrototypeSearchNodeContractResult diseaseContract = VerifyNaturalDiseaseLifecycle(seed);
             bool passed = sevenRegions && exactShape && stableNodes && legacyIdsPreserved && exactlyFourteenAdded &&
+                          exactlyFortyTwoO6Expanded &&
                           exactFiniteBalance && deterministic &&
                           differentSeedVaries && began && costOnce && selected &&
                           (takeResult == PrototypeSearchTakeResult.Added || takeResult == PrototypeSearchTakeResult.Depleted) &&
@@ -2866,7 +2891,7 @@ namespace KimSurvival
                 " regions=" + regions.Count + " archetypes=" + archetypes.Count + " instances=" + definitions.Count +
                 " generalUnits=" + generalUnits + " protectedUnits=" + protectedUnits +
                 " duplicateStableIds=" + duplicateStableIds +
-                " existing=28 new=14 removedLegacy=" +
+                " existing=28 waveB=14 o6=42 removedLegacy=" +
                 PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.Count(id => !actualNodeIds.Contains(id)) +
                 " stableResources=12" +
                 " protectedAssignments=" + protectedAssignments.Length +
@@ -2880,7 +2905,7 @@ namespace KimSurvival
                 " hidden-partial-depleted=" + (hiddenObserved && partialObserved && depletedObserved) +
                 " barrierPersistent=" + persistence + " permanentHazardPersistent=" + persistence +
                 " core=" + sevenRegions + "/" + exactShape + "/" + stableNodes + "/" +
-                legacyIdsPreserved + "/" + exactlyFourteenAdded + "/" + exactFiniteBalance +
+                legacyIdsPreserved + "/" + exactlyFourteenAdded + "/" + exactlyFortyTwoO6Expanded + "/" + exactFiniteBalance +
                 " traversal=" + began + "/" + selected + "/" + takeResult +
                 " deplete=" + depleteBegan + "/" + depleteOpened + "/" + depleteResult +
                 " protected=" + protectedBegan + "/" + protectedOpened + "/" + protectedTaken +
@@ -2972,7 +2997,8 @@ namespace KimSurvival
             PrototypeSearchNodeDefinition[] diseaseNodes = PrototypeSearchRegionCatalog.Nodes.Where(node =>
                 string.Equals(node.RegionId, "region.forest.grove", StringComparison.Ordinal) &&
                 string.Equals(node.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal))
-                .OrderBy(node => node.NodeId, StringComparer.Ordinal).ToArray();
+                .OrderBy(node => node.NodeId, StringComparer.Ordinal)
+                .Take(PrototypeDiseaseRuntime.RequiredUniqueExposureCount).ToArray();
             PrototypeSearchNodeDefinition medicineNode = PrototypeSearchRegionCatalog.Nodes.First(node =>
                 string.Equals(node.RegionId, "region.forest.grove", StringComparison.Ordinal) &&
                 node.FiniteYield.Any(item => string.Equals(

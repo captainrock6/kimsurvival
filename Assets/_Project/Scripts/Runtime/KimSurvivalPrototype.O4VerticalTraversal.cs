@@ -66,8 +66,8 @@ namespace KimSurvival
         private void PrepareO4CampWorldCamera(bool hasVerticalExpansion)
         {
             worldCamera.orthographicSize = hasVerticalExpansion
-                ? PrototypeCampVerticalLayout.ExpandedCameraOrthographicSize
-                : 5.625f;
+                ? PrototypeO6WorldPresentationConfig.ExpandedCampOrthographicSize
+                : PrototypeO6WorldPresentationConfig.CampOrthographicSize;
             if (!campVerticalCamera.IsInitialized)
             {
                 campVerticalCamera.Reset(campUse.PlayerPosition.y + PrototypeCampVerticalLayout.CameraFramingOffsetY);

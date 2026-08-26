@@ -679,14 +679,16 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 231960701288453
-    m_Localized: Bag upgrade complete. Mr. Kim now has six slots to worry about filling.
+    m_Localized: Bag upgrade complete. Mr. Kim now has {0} slots to worry about filling.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219867
   - m_Id: 231960701288454
-    m_Localized: The bag already has 6 slots. Stitching it twice will not make it
-      larger.
+    m_Localized: The bag already has the maximum {0} slots. Any more stitching would
+      make it a blanket.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367071277219867
   - m_Id: 250514246975488
     m_Localized: Indoor Fixed Install Spots
     m_Metadata:
@@ -1780,12 +1782,13 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 1102836460142605
-    m_Localized: "Confirm launch \xB7 Food {0} \xB7 {1} / {2}"
+    m_Localized: "Launch ready \xB7 Press again to escape now \xB7 {0} / {1}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 1102836460142606
-    m_Localized: "Retry after failed launch \xB7 preserved \xB7 {0} / {1}"
+    m_Localized: "Launch closed today \xB7 No food spent \xB7 Wait for next day \xB7
+      {0} / {1}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
@@ -1811,17 +1814,18 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 1102836460142612
-    m_Localized: Launch confirmation armed. Check the weather and current before
-      committing.
+    m_Localized: The launch window is open. Press the same button once more to escape
+      now.
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142613
-    m_Localized: The launch window failed. One attempt cost was spent; all stages
-      and sailcloth remain.
+    m_Localized: Weather and current block departure today. Food and all completed
+      stages are preserved; check again next day.
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142614
-    m_Localized: Retry is ready. Recheck the launch window.
+    m_Localized: Launch status checked. If today is closed, no food is spent; advance
+      to the next day.
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142615
@@ -2642,6 +2646,36 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 1632711877050368
+    m_Localized: "\u2194 Move {0} to This Room"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1632711927382016
+    m_Localized: "Result \xB7 {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1632711927382017
+    m_Localized: Action completed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382018
+    m_Localized: This action is not available now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382019
+    m_Localized: "Preview Upper \xB7 Basement \xB7 Side Access"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711952547840
+    m_Localized: "Launch open \xB7 Press the shore-launch action to escape"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711952547841
+    m_Localized: "Launch closed today \xB7 Wait for next day with no resource cost"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -2786,3 +2820,7 @@ MonoBehaviour:
         - id: 1544851131973632
         - id: 1544851131973633
         - id: 1544851131973634
+        - id: 1632711877050368
+        - id: 231960701288453
+        - id: 231960701288454
+        - id: 1632711927382016

@@ -17,7 +17,9 @@ namespace KimSurvival
         public const int SailWoodCost = 1;
         public const int SailSalvageCost = 1;
         public const int SuppliesFoodCost = 2;
-        public const int LaunchAttemptFoodCost = 1;
+        // Supplies are committed in stage three. Checking or retrying a launch
+        // window must never charge food again, especially on a closed day.
+        public const int LaunchAttemptFoodCost = 0;
 
         public static readonly string[] StageIds =
         {
@@ -273,7 +275,7 @@ namespace KimSurvival
     public static class PrototypeRaftRuntimeContract
     {
         public const string CancelAtomicityContract = "cancel preserves resources and completed stages";
-        public const string FailureAtomicityContract = "failure applies one declared consequence";
+        public const string FailureAtomicityContract = "closed launch window preserves supplies and completed stages";
         public const string DuplicateSuppressionContract = "duplicate cost and terminal submissions are idempotent";
         public const string SaveRestoreContract = "save restore preserves stages, protected sailcloth and launch window";
 
@@ -281,11 +283,11 @@ namespace KimSurvival
         {
             PrototypeNaturalEscapeRouteResult result = RunNaturalRoute(null);
             bool success = result.Success && result.Completed && result.Terminal && !result.Grant && !result.Warp &&
-                           result.ResultCode == "escape_complete" && result.InteractionTrace.Contains("raft.failure.cost.once") &&
+                           result.ResultCode == "escape_complete" && result.InteractionTrace.Contains("raft.closed-window.no-cost") &&
                            result.InteractionTrace.Contains("raft.snapshot.restored") && result.InteractionTrace.Contains("raft.key-part.protected");
             return new PrototypeContractProbe(success,
                 "escape.raft natural shore-launch hull sail supplies protected-sailcloth weather current " +
-                "failure-cost-once snapshot-restore retry early-terminal grant=false warp=false result=" + result.ResultCode);
+                "closed-window-no-cost snapshot-restore retry early-terminal grant=false warp=false result=" + result.ResultCode);
         }
 
         public static PrototypeNaturalEscapeRouteResult RunNaturalRoute(IReadOnlyList<PrototypeCampInteractionTarget> liveTargets)
@@ -356,7 +358,7 @@ namespace KimSurvival
             if (failureAtomic)
             {
                 trace.Add("raft.weather.current.window.unsafe-rejected");
-                trace.Add("raft.failure.cost.once");
+                trace.Add("raft.closed-window.no-cost");
             }
 
             string json = JsonUtility.ToJson(director.CaptureSnapshot());

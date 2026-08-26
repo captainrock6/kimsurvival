@@ -236,7 +236,7 @@ namespace KimSurvival
                 ? localization.Format("value.yes")
                 : string.Join(" · ", definition.RequiredKeyPartIds.Select(value =>
                     localization.Format("search." + value) + " " +
-                    localization.Format(hazardEscapeEndingRuntime.HasProtectedSearchPart(value) ? "value.yes" : "value.no")).ToArray());
+                    (hazardEscapeEndingRuntime.HasProtectedSearchPart(value) ? "1/1" : "0/1")).ToArray());
             return localization.Format("escape.ui.progress") + " " + state.Progress + "/" + state.RequiredProgress + "\n" +
                    localization.Format("escape.ui.owned") + "/" + localization.Format("escape.ui.need") + " · " + status + "\n" +
                    localization.Format("escape.ui.parts") + " · " + parts + "\n" +
@@ -262,9 +262,10 @@ namespace KimSurvival
 
             PrototypeRaftLaunchWindow window = hazardEscapeEndingRuntime.CurrentRaftLaunchWindow;
             return localization.Format("escape.ui.progress") + " " + state.Progress + "/" + state.RequiredProgress + "\n" +
-                   localization.Format("escape.ui.next") + " · " + localization.Format("escape.raft.stage.launch") + "\n" +
+                   localization.Format("escape.ui.next") + " · " +
+                   localization.Format(window.Allowed ? "escape.raft.next.launch_now" : "escape.raft.next.wait_next_day") + "\n" +
                    localization.Format("escape.ui.window") + " · " + localization.Format(window.WeatherId) + " · " +
-                   localization.Format(window.CurrentId);
+                   localization.Format(window.CurrentId) + " · " + localization.Format(window.Allowed ? "value.yes" : "value.no");
         }
 
         private void RegisterEscapeRouteWorldLabel(string escapeId, Transform parent, Vector2 localPosition)

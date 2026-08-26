@@ -872,14 +872,17 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 231960701288453
     m_Localized: "\u27E6B\xE1g \xFApgr\xE1d\xE9 c\xF3mpl\xE9t\xE9. Mr. K\xEDm \xF1\xF3w
-      h\xE1s s\xEDx sl\xF3ts t\xF3 w\xF3rry \xE1b\xF3\xFAt f\xEDll\xED\xF1g.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+      h\xE1s {0} sl\xF3ts t\xF3 w\xF3rry \xE1b\xF3\xFAt f\xEDll\xED\xF1g.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\u27E7"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367092230914048
   - m_Id: 231960701288454
-    m_Localized: "\u27E6Th\xE9 b\xE1g \xE1lr\xE9\xE1dy h\xE1s 6 sl\xF3ts. St\xEDtch\xED\xF1g
-      \xEDt tw\xEDc\xE9 w\xEDll \xF1\xF3t m\xE1k\xE9 \xEDt l\xE1rg\xE9r.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+    m_Localized: "\u27E6Th\xE9 b\xE1g \xE1lr\xE9\xE1dy h\xE1s th\xE9 m\xE1x\xEDm\xFAm
+      {0} sl\xF3ts. A\xF1y m\xF3r\xE9 st\xEDtch\xED\xF1g w\xF3\xFAld m\xE1k\xE9 \xEDt
+      \xE1 bl\xE1\xF1k\xE9t.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\u27E7"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 828367092230914048
   - m_Id: 900972633
     m_Localized: "\u27E6H\xE9 r\xE1\xF1 b\xE1ck \xE1ft\xE9r s\xFA\xF1s\xE9t. A cr\xE1b
       ch\xE9\xE9r\xE9d th\xE9 wh\xF3l\xE9 w\xE1y. Pr\xF3b\xE1bly.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\u27E7"
@@ -1904,12 +1907,13 @@ MonoBehaviour:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 1102836460142605
-    m_Localized: "\u27E6Confirm launch \xB7 Food {0} \xB7 {1} / {2}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\u27E7"
+    m_Localized: "\u27E6Launch ready \xB7 Press again to escape now \xB7 {0} / {1}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 1102836460142606
-    m_Localized: "\u27E6Retry after failed launch \xB7 preserved \xB7 {0} / {1}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Localized: "\u27E6Launch closed today \xB7 No food spent \xB7 Wait for next
+      day \xB7 {0} / {1}\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\u27E7"
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
@@ -1935,17 +1939,18 @@ MonoBehaviour:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 1102836460142612
-    m_Localized: "\u27E6Launch confirmation armed. Check the weather and current
-      before committing.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+    m_Localized: "\u27E6The launch window is open. Press the same button once more
+      to escape now.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\u27E7"
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142613
-    m_Localized: "\u27E6The launch window failed. One attempt cost was spent; all
-      stages and sailcloth remain.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Localized: "\u27E6Weather and current block departure today. Food and all completed
+      stages are preserved; check again next day.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142614
-    m_Localized: "\u27E6Retry is ready. Recheck the launch window.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Localized: "\u27E6Launch status checked. If today is closed, no food is spent;
+      advance to the next day.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\u27E7"
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142615
@@ -2832,6 +2837,39 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367092230914048
+  - m_Id: 1632711877050368
+    m_Localized: "\u27E6\u2194 M\xF3v\xE9 {0} t\xF3 Th\xEDs R\xF3\xF3m\xE1\xE9\xED\xF3\xFA\xFC\xF1\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1632711927382016
+    m_Localized: "\u27E6R\xE9s\xFAlt \xB7 {0}\xE1\xE9\xED\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1632711927382017
+    m_Localized: "\u27E6\xC1ct\xED\xF3\xF1 c\xF3mpl\xE9t\xE9d.\xE1\xE9\xED\xF3\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382018
+    m_Localized: "\u27E6Th\xEDs \xE1ct\xED\xF3\xF1 \xEDs \xF1\xF3t \xE1v\xE1\xEDl\xE1bl\xE9
+      \xF1\xF3w.\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382019
+    m_Localized: "\u27E6Pr\xE9v\xED\xE9w \xDApp\xE9r \xB7 B\xE1s\xE9m\xE9\xF1t \xB7
+      S\xEDd\xE9 \xC1cc\xE9ss\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711952547840
+    m_Localized: "\u27E6Launch open \xB7 Press the shore-launch action to escape\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711952547841
+    m_Localized: "\u27E6Launch closed today \xB7 Wait for next day with no resource
+      cost\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\xE1\xE9\xED\xF3\xFA\xFC\xF1\xBF\xA1\u27E7"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -2976,3 +3014,7 @@ MonoBehaviour:
         - id: 1544851131973632
         - id: 1544851131973633
         - id: 1544851131973634
+        - id: 1632711877050368
+        - id: 231960701288453
+        - id: 231960701288454
+        - id: 1632711927382016

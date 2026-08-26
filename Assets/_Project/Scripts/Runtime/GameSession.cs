@@ -326,7 +326,7 @@ namespace KimSurvival
     public sealed partial class GameSession
     {
         public const int DefaultBagSlotCount = 4;
-        public const int MaximumBagSlotCount = 6;
+        public const int MaximumBagSlotCount = 10;
         public const int BagSlotCount = MaximumBagSlotCount;
         public const int StackLimit = 2;
         public const int BagUpgradeWoodCost = 2;
@@ -691,7 +691,8 @@ namespace KimSurvival
         public bool RestoreStableState(GameSessionStableState state)
         {
             if (state == null || state.ActiveBagSlotCount < DefaultBagSlotCount ||
-                state.ActiveBagSlotCount > MaximumBagSlotCount)
+                state.ActiveBagSlotCount > MaximumBagSlotCount ||
+                (state.ActiveBagSlotCount - DefaultBagSlotCount) % 2 != 0)
             {
                 return false;
             }
@@ -790,6 +791,11 @@ namespace KimSurvival
         public bool HasBagCapacityUpgrade
         {
             get { return ActiveBagSlotCount >= MaximumBagSlotCount; }
+        }
+
+        public int NextBagSlotCount
+        {
+            get { return Math.Min(MaximumBagSlotCount, ActiveBagSlotCount + 2); }
         }
 
         public bool HasStructure(StructureKind kind)
@@ -943,7 +949,7 @@ namespace KimSurvival
             {
                 if ((blockers & BagCapacityUpgradeBlockers.Complete) != 0)
                 {
-                    LastMessage = Text("message.bag_upgrade.complete");
+                    LastMessage = Text("message.bag_upgrade.complete", MaximumBagSlotCount);
                 }
                 else if ((blockers & BagCapacityUpgradeBlockers.NotAtCamp) != 0)
                 {
@@ -971,8 +977,8 @@ namespace KimSurvival
             }
 
             Spend(BagUpgradeWoodCost, 0, 0, BagUpgradeSalvageCost);
-            ActiveBagSlotCount = MaximumBagSlotCount;
-            LastMessage = Text("message.bag_upgrade.success");
+            ActiveBagSlotCount = NextBagSlotCount;
+            LastMessage = Text("message.bag_upgrade.success", ActiveBagSlotCount);
             return true;
         }
 

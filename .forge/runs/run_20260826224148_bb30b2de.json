@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260826224148_bb30b2de",
+  "createdAt": "2026-08-26T22:41:48.594Z",
+  "updatedAt": "2026-08-26T22:41:48.594Z",
+  "sourceRequest": "O5-H1 수기 피드백을 근거로 캠프 팝업 연속성, 증축 발견성, 뗏목 완료 안내, 화면 밀도, 다층 가구, 수색 tray, 4→10 가방, 84 node 혼합 산출과 핵심 부품 발견성을 O6 범위로 교정한다.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-26T22:41:48.594Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T22:41:48.594Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T22:41:48.594Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-26T22:41:48.594Z"
+    }
+  }
+}

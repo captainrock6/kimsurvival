@@ -2395,6 +2395,34 @@ MonoBehaviour:
     m_Key: escape.facility.message.resources
     m_Metadata:
       m_Items: []
+  - m_Id: 1632711877050368
+    m_Key: button.furniture.move_here
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382016
+    m_Key: camp.popup.result
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382017
+    m_Key: camp.popup.result.success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382018
+    m_Key: camp.popup.result.failure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711927382019
+    m_Key: button.module.preview.all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711952547840
+    m_Key: escape.raft.next.launch_now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1632711952547841
+    m_Key: escape.raft.next.wait_next_day
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

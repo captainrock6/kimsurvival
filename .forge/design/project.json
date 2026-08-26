@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-26T16:50:01.222Z",
+    "updatedAt": "2026-08-26T22:41:48.595Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -6119,6 +6119,29 @@
       "releaseEvidence": "Artifacts/ParallelQA/20260827T033000Z_o5_release_553cbc5/gamejam-release-build.json",
       "humanRetestChecklist": "Docs/Design/Playtest/Sessions/O5-H1-2026-08-27.md",
       "packageZipSha256": "179e6e1556764dd1aec630bf6c4e56cfa3aabf3c6e2d9a20e98297149926e801"
+    },
+    "o6HumanCorrectionContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o6-continuity-density-correction.v1",
+      "rejectedCandidate": "553cbc5da5d1ccaa5ebc46d2d46d0324b0d459c6",
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O5-H1-2026-08-27.md",
+      "playerLog": "work/ParallelQA/20260827T034500Z_o5_h1_owner/o5-h1-player.log",
+      "duration": "26:41",
+      "openDefects": [
+        "O5-H1-P1-001",
+        "O5-H1-P1-002",
+        "O5-H1-P1-003",
+        "O5-H1-P0-001",
+        "O5-H1-P1-004",
+        "O5-H1-P1-005",
+        "O5-H1-P1-006",
+        "O5-H1-P1-007",
+        "O5-H1-P1-008",
+        "O5-H1-P1-009",
+        "O5-H1-P0-002",
+        "O5-H1-P1-010"
+      ],
+      "candidateStatus": "IMPLEMENTATION_REQUIRED"
     }
   },
   "features": [
@@ -8504,5 +8527,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-26T16:50:01.221Z"
+  "updatedAt": "2026-08-26T22:41:48.594Z"
 }

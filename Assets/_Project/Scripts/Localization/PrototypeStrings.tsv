@@ -54,6 +54,7 @@ button.bed.relocate	↔ 침대 설치 지점 변경	↔ Move Bed to Another Spot
 button.bed.build	침대 건설  나무3·표류물1	Build Bed  Wood 3 · Salvage 1	⟦Búíld Béd  Wóód 3 · Sálvágé 1áéíóúüñ¿¡á⟧
 button.sofa.relocate	↔ 소파 설치 지점 변경	↔ Move Sofa to Another Spot	⟦↔ Móvé Sófá tó Áñóthér Spótáéíóúüñ¿¡á⟧
 button.sofa.build	소파 건설  나무2·표류물2	Build Sofa  Wood 2 · Salvage 2	⟦Búíld Sófá  Wóód 2 · Sálvágé 2áéíóúüñ¿¡á⟧
+button.furniture.move_here	↔ {0}을(를) 이 방으로 옮기기	↔ Move {0} to This Room	⟦↔ Móvé {0} tó Thís Róómáéíóúüñ⟧
 button.research.axe.done	[완료] 돌도끼 연구	[Done] Stone Axe Researched	⟦[Done] Stóñé Áxé Réséárchédáéíóúüñ¿¡⟧
 button.research.axe	돌도끼 연구  돌1·표류물1	Research Stone Axe  Stone 1 · Salvage 1	⟦Réséárch Stóñé Áxé  Stóñé 1 · Sálvágé 1áéíóúüñ¿¡áéíóú⟧
 button.craft.axe.done	[완료] 돌도끼 보유	[Done] Stone Axe Owned	⟦[Done] Stóñé Áxé Ówñédáéíóúüñ⟧
@@ -179,8 +180,8 @@ message.bag_upgrade.workbench	가방을 확장하려면 먼저 작업대가 필�
 message.bag_upgrade.materials	나무와 표류물이 부족하다. 현재 나무 {0}/2, 표류물 {1}/1.	Wood and salvage are short. Current: Wood {0}/2, Salvage {1}/1.	⟦Wóód áñd sálvágé áré shórt. Cúrréñt: Wóód {0}/2, Sálvágé {1}/1.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 message.bag_upgrade.wood	가방 확장용 나무가 부족하다. 현재 {0}/2.	Not enough wood for the bag upgrade. Current: {0}/2.	⟦Ñót éñóúgh wóód fór thé bág úpgrádé. Cúrréñt: {0}/2.áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
 message.bag_upgrade.salvage	가방 확장용 표류물이 부족하다. 현재 {0}/1.	Not enough salvage for the bag upgrade. Current: {0}/1.	⟦Ñót éñóúgh sálvágé fór thé bág úpgrádé. Cúrréñt: {0}/1.áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
-message.bag_upgrade.success	가방 확장 완료. 이제 여섯 칸을 채울 걱정이 생겼다.	Bag upgrade complete. Mr. Kim now has six slots to worry about filling.	⟦Bág úpgrádé cómplété. Mr. Kím ñów hás síx slóts tó wórry ábóút fíllíñg.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
-message.bag_upgrade.complete	가방은 이미 6칸으로 확장했다. 두 번 꿰맨다고 더 늘지는 않는다.	The bag already has 6 slots. Stitching it twice will not make it larger.	⟦Thé bág álréády hás 6 slóts. Stítchíñg ít twícé wíll ñót máké ít lárgér.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
+message.bag_upgrade.success	가방 확장 완료. 이제 {0}칸을 채울 걱정이 생겼다.	Bag upgrade complete. Mr. Kim now has {0} slots to worry about filling.	⟦Bág úpgrádé cómplété. Mr. Kím ñów hás {0} slóts tó wórry ábóút fíllíñg.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
+message.bag_upgrade.complete	가방은 이미 최대 {0}칸이다. 더 꿰매면 가방이 아니라 이불이 된다.	The bag already has the maximum {0} slots. Any more stitching would make it a blanket.	⟦Thé bág álréády hás thé máxímúm {0} slóts. Añy móré stítchíñg wóúld máké ít á bláñkét.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
 message.return.forced	해가 져서 뛰어 돌아왔다. 게 한 마리가 끝까지 응원했다. 아마도.	He ran back after sunset. A crab cheered the whole way. Probably.	⟦Hé ráñ báck áftér súñsét. A cráb chééréd thé whólé wáy. Próbábly.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
 message.return.safe	무사 귀환. 가방은 무겁고 김씨의 표정은 가볍지 않다.	Safe return. The bag is heavy, and Mr. Kim's expression is not light.	⟦Sáfé rétúrñ. Thé bág ís héávy, áñd Mr. Kím's éxpréssíóñ ís ñót líght.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 message.endday.search	수색을 마쳐야 오늘을 정산할 수 있다.	Finish the expedition before settling the day.	⟦Fíñísh thé éxpédítíóñ béfóré séttlíñg thé dáy.áéíóúüñ¿¡áéíóúüñ¿⟧
@@ -202,7 +203,11 @@ controls.module_preview.gamepad	{0} · 왼쪽 스틱 후보 순환 · A 확정 �
 structure.storage_planning	창고·증축 계획 지점	Storage & expansion planning point	⟦Stórágé & éxpáñsíóñ pláññíñg póíñtáéíóúüñ¿¡áéí⟧
 structure.module_connector	{0} 출입 연결부	{0} entrance connector	⟦{0} éñtráñcé cóññéctóráéíóúüñ⟧
 camp.popup.detail.storage	현장의 작은 계획 지점이다. 일반 설비를 옮기거나 방 모듈 후보를 미리 본다.	A small on-site planning point. Move general facilities or preview room-module candidates.	⟦A smáll óñ-síté pláññíñg póíñt. Móvé géñérál fácílítíés ór prévíéw róóm-módúlé cáñdídátés.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
+camp.popup.result	결과 · {0}	Result · {0}	⟦Résúlt · {0}áéí⟧
+camp.popup.result.success	작업을 완료했다.	Action completed.	⟦Áctíóñ cómplétéd.áéíó⟧
+camp.popup.result.failure	지금은 이 작업을 할 수 없다.	This action is not available now.	⟦Thís áctíóñ ís ñót áváíláblé ñów.áéíóúüñ¿¡á⟧
 button.module.preview	방 모듈 증축 미리보기	Preview room expansion	⟦Prévíéw róóm éxpáñsíóñáéíóúüñ⟧
+button.module.preview.all	위층·지하실·옆방 / 출입구 미리보기	Preview Upper · Basement · Side Access	⟦Prévíéw Úppér · Báséméñt · Sídé Áccéssáéíóúüñ¿¡áéí⟧
 button.module.preview.complete	방 모듈 증축 완료	Room expansion complete	⟦Róóm éxpáñsíóñ cómplétéáéíóúüñ¿⟧
 ui.module.expand	방 확장 미리보기	Preview Room Expansion	⟦Prévíéw Róóm Éxpáñsíóñáéíóúü⟧
 module.name.upper	위층 방	Upper room	⟦Úppér róómáé⟧
@@ -391,17 +396,19 @@ escape.raft.cost.sail	나무 {0} / 표류물 {1} · 밧줄 {2} · 돛천 {3}	Woo
 escape.raft.cost.supplies	식량 {0}	Food {0}	⟦Food {0}áé⟧
 escape.raft.action.stage	{0} {1}/{2} · {3}	{0} {1}/{2} · {3}	⟦{0} {1}/{2} · {3}áéíóú⟧
 escape.raft.action.check_window	출항 창 확인 · {0} / {1}	Check launch window · {0} / {1}	⟦Check launch window · {0} / {1}áéíóúüñ¿¡áé⟧
-escape.raft.action.confirm	출항 확정 · 식량 {0} · {1} / {2}	Confirm launch · Food {0} · {1} / {2}	⟦Confirm launch · Food {0} · {1} / {2}áéíóúüñ¿¡áéíó⟧
-escape.raft.action.retry	출항 실패 재시도 · 진행 보존 · {0} / {1}	Retry after failed launch · preserved · {0} / {1}	⟦Retry after failed launch · preserved · {0} / {1}áéíóúüñ¿¡áéíóúüñ¿¡⟧
+escape.raft.action.confirm	출항 가능 · 다시 눌러 지금 탈출 · {0} / {1}	Launch ready · Press again to escape now · {0} / {1}	⟦Launch ready · Press again to escape now · {0} / {1}áéíóúüñ¿¡áéíóúü⟧
+escape.raft.action.retry	오늘 출항 불가 · 식량 소모 없음 · 다음 날 대기 · {0} / {1}	Launch closed today · No food spent · Wait for next day · {0} / {1}	⟦Launch closed today · No food spent · Wait for next day · {0} / {1}áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
 escape.raft.action.complete	뗏목 탈출 완료	Raft escape complete	⟦Raft escape completeáéíóúü⟧
 escape.raft.message.rope	돛을 달려면 밧줄이 필요하다.	A rope is required to rig the sail.	⟦A rope is required to rig the sail.áéíóúüñ¿¡áéí⟧
 escape.raft.message.sailcloth	해안 수색을 반복해 보호되는 핵심 부품 돛천을 찾아야 한다.	Find the protected sailcloth through eligible coastal searches.	⟦Find the protected sailcloth through eligible coastal searches.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
 escape.raft.message.resources	이번 뗏목 행동에 필요한 자원이 부족하다.	Not enough resources for this raft action.	⟦Not enough resources for this raft action.áéíóúüñ¿¡áéíóúü⟧
 escape.raft.message.progress	뗏목 단계가 확정됐다({0}/{1}). 완료 단계는 보존된다.	Raft stage committed ({0}/{1}). Completed stages are preserved.	⟦Raft stage committed ({0}/{1}). Completed stages are preserved.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
-escape.raft.message.confirm	출항 확인 대기. 확정 전에 날씨와 조류를 다시 확인하자.	Launch confirmation armed. Check the weather and current before committing.	⟦Launch confirmation armed. Check the weather and current before committing.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
-escape.raft.message.failed	출항 창이 맞지 않았다. 시도 비용 한 번만 썼고 모든 단계와 돛천은 남아 있다.	The launch window failed. One attempt cost was spent; all stages and sailcloth remain.	⟦The launch window failed. One attempt cost was spent; all stages and sailcloth remain.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
-escape.raft.message.retry	재시도 준비 완료. 출항 창을 다시 확인하자.	Retry is ready. Recheck the launch window.	⟦Retry is ready. Recheck the launch window.áéíóúüñ¿¡áéíóúü⟧
+escape.raft.message.confirm	출항 가능한 날이다. 같은 버튼을 한 번 더 누르면 즉시 탈출한다.	The launch window is open. Press the same button once more to escape now.	⟦The launch window is open. Press the same button once more to escape now.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+escape.raft.message.failed	오늘은 날씨·조류 때문에 출항할 수 없다. 식량과 완성 단계는 그대로이며 다음 날 다시 확인한다.	Weather and current block departure today. Food and all completed stages are preserved; check again next day.	⟦Weather and current block departure today. Food and all completed stages are preserved; check again next day.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
+escape.raft.message.retry	출항 상태를 다시 확인했다. 오늘 불가능하면 식량은 소모되지 않으니 다음 날로 넘기자.	Launch status checked. If today is closed, no food is spent; advance to the next day.	⟦Launch status checked. If today is closed, no food is spent; advance to the next day.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿⟧
 escape.raft.message.complete	뗏목이 외해 조류를 탔다. 탈출 결과는 한 번만 확정됐다.	The raft caught the outbound current. Escape resolved once.	⟦The raft caught the outbound current. Escape resolved once.áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
+escape.raft.next.launch_now	출항 가능 · 진수대 버튼을 눌러 탈출	Launch open · Press the shore-launch action to escape	⟦Launch open · Press the shore-launch action to escapeáéíóúüñ¿¡áéíóúü⟧
+escape.raft.next.wait_next_day	오늘 출항 불가 · 자원 소모 없이 다음 날 대기	Launch closed today · Wait for next day with no resource cost	⟦Launch closed today · Wait for next day with no resource costáéíóúüñ¿¡áéíóúüñ¿¡⟧
 escape.smoke	대형 연기 신호	Smoke beacon escape	⟦Smóké béácóñ éscápéáéíóúü⟧
 escape.radio	무전 구조 신호	Radio rescue escape	⟦Rádíó réscúé éscápéáéíóúü⟧
 escape.flare	조명탄 탈출	Flare escape	⟦Fláré éscápéáéí⟧
