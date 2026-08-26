@@ -1,26 +1,26 @@
 # GAME JAM 제출 완료 기준 감사
 
-> 자동 GREEN 제품 코드 소스: 2bdea6152727343c7e2c33bba340d89f8bc42d61
+> O1 교정 자동 GREEN 제품 코드 소스: b3f980ff14db0075ed4a290038f518d658783425
 >
-> 수기 테스트 후보 소스: 최종 Release 패키지의 `BUILD-INFO.txt`를 정본으로 사용
+> 수기 테스트에서 거절된 후보 소스: `0cfcc02ac661392e03a75898831fb0a89ae82bd1`
 >
 > 감사 계약: gamejam.completion-matrix.v2
 >
 > 판정일: 2026-08-26
 >
-> 제출 판정: AUTOMATED_GREEN · RELEASE_CANDIDATE_READY_FOR_MANUAL_QA · HUMAN_REQUIRED
+> 제출 판정: RETEST · O2_READY · AUTOMATED_GREEN · NOT_SUBMISSION_READY
 
-> 자동 GREEN 기준 EXE: `work/ParallelQA/20260826T230000Z_gamejam_release_2bdea61/KimSurvivalIsland-gamejam-win64-release-2bdea61/KimSurvivalIsland.exe`
+> O2 후보 EXE: `work/ParallelQA/20260826T221000Z_o2_release_b3f980f/KimSurvivalIsland-gamejam-win64-release-b3f980f/KimSurvivalIsland.exe`
 >
 > 자동 GREEN 기준 EXE SHA-256: `a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423`
 >
-> 자동 GREEN 기준 게임 코드 DLL SHA-256: `efdf3c2efdf529dd30ab27c4ff17859303a5c5f03dc176f7767222d6d9e4592f`
+> O2 후보 게임 코드 DLL SHA-256: `dfff3680c5e41440555226c0a1dc9309fad516e5c00adc5483fd2f27016789ef`
 >
-> 자동 GREEN 기준 배포 ZIP SHA-256: `35d09c931397462f9dd30362afd5ec5d14744d48cbf23b3c253263318cfa05ba`
+> O2 후보 배포 ZIP SHA-256: `293a123d5fbbea721bb5ee798ed9879f48a6fe022987646349fadf71e1340830`
 >
-> 패키지 무결성: `Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61/gamejam-package-integrity-summary.json`
+> 패키지 무결성: `Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f/gamejam-package-integrity-summary.json`
 
-이 문서는 통합 GDD와 Forge 수직 슬라이스가 요구하는 기능을 현재 실행 증거와 대조한 제출 게이트다. backlog의 done 표시는 작업 이력을 뜻할 뿐, 이 표의 DONE을 자동으로 보장하지 않는다. 현재 통합 게이트의 독립 probe가 과거 개별 PASS와 충돌하면 현재 통합 게이트를 우선한다.
+이 문서는 통합 GDD와 Forge 수직 슬라이스가 요구하는 기능을 현재 실행 증거와 대조한 제출 게이트다. backlog의 done 표시는 작업 이력을 뜻할 뿐, 이 표의 DONE을 자동으로 보장하지 않는다. O1에서 확인된 다섯 P1의 제품 교정과 자동·시각 검증은 새 후보에서 GREEN이지만, 사람이 실제로 다시 확인하기 전까지 판정은 `RETEST`다.
 
 ## 1. 범위와 증거 우선순위
 
@@ -36,6 +36,16 @@
 - Artifacts/ParallelQA/20260826T220000Z_gamejam_wavec_2bdea61
 - Artifacts/ParallelQA/20260826T230000Z_gamejam_release_2bdea61
 - Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61
+- Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11
+- Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_final
+- Artifacts/ParallelQA/20260826T221000Z_o2_release_b3f980f
+- Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f
+
+현재 사람 반증:
+
+- Docs/Design/Playtest/Sessions/O1-2026-08-26.md
+- Docs/Design/Playtest/gamejam-seven-region-search-node-results.md
+- Docs/Design/gamejam-o1-human-p1-corrective-wave.md
 
 과거 검증 기준선 증거(이력 추적용):
 
@@ -91,21 +101,21 @@ Git에는 위 증거에서 이 매트릭스가 직접 인용하는 핵심 JSON/T
 | GJC-09 | 유한 자원·부분 잔류·고갈·재방문 보존 | DONE | 유한 잔여·고갈·재방문·save 복원·새 run 초기화가 PASS다. | 닫힘. |
 | GJC-10 | 부순 장벽·제거 위험의 지속 | DONE | persistent 장벽·제거 위험과 transient 위험 계약이 PASS다. | 닫힘. |
 | GJC-11 | 벌레·위험 식물 등 환경 위험 및 질병의 예고→노출/효과→대응→완화/치료 | DONE | 최소 2종 환경 위험과 질병 lifecycle·snapshot·원자성이 PASS다. | 닫힘. |
-| GJC-12 | 가방 4→6·중첩 2 | HUMAN_REQUIRED | 기능과 자동화 계약은 기존 녹색이나 자연 grant/warp 없는 구매→수색→구조 경로와 실제 선택 긴장은 아직 사람이 검증하지 않았다. 수색 tray 거래는 GJC-08과 별도다. | fresh save 자연 trace와 사용자 관찰에서 업그레이드·날짜 지속·새 게임 4칸 초기화를 확인한다. |
-| GJC-13 | 같은 run의 위층·지하실 확장 | DONE | 같은 run 위층·지하실·재진입·save v2 복원·탈출 자원 무손실이 PASS다. | 닫힘. |
+| GJC-12 | 가방 4→6·중첩 2 | PARTIAL | 기능과 12개 canonical 재료 의미 연결은 자동 GREEN이다. O1에서 업그레이드가 필수로 느껴진 체감 판정은 아직 유효하다. | O2 fresh session에서 4칸 선별과 4→6 투자 선택을 다시 관찰한다. |
+| GJC-13 | 같은 run의 위층·지하실 확장 | PARTIAL | 목적·추천 용도·용량·정확한 비용·부족분·선행 조건·완료 공간을 구분하는 presenter와 KO/EN/qps 계약은 GREEN이다. | O2에서 설명 없이 목적·비용·잠금·완료·열린 공간을 확인한다. |
 | GJC-14 | 뗏목 탈출 | DONE | 독립 해안 launcher와 ordered stage·ending exactly-once 경로가 PASS다. | 닫힘. |
 | GJC-15 | 대형 연기 탈출 | DONE | 부싯돌·비용·점화·가시성·대기·재시도·ending 경로가 PASS다. | 닫힘. |
 | GJC-16 | 무전 탈출 | DONE | 분산된 무전 3부품·수리·주파수·응답·ending 경로가 PASS다. | 닫힘. |
-| GJC-17 | 5–10분 loop·25–35분 대표 탈출·30분 profile | HUMAN_REQUIRED | GWC-P07이 grant·warp·skip 0인 대표 seed의 합성 플레이 프로필 28.98분을 PASS했다. 실제 사람이 첫 loop를 5–10분 안에 이해하고 대표 탈출을 25–35분에 끝내는지는 아직 측정하지 않았다. | 동일 Windows 후보에서 실제 사용자 세션 시간을 기록한다. |
-| GJC-18 | KO 기본·EN 지원·qps-long QA | DONE | KO/EN/qps-long 1280×800 의미·텍스트·경계 검사가 PASS다. | 닫힘. |
+| GJC-17 | 5–10분 loop·25–35분 대표 탈출·30분 profile | PARTIAL | 새 후보의 grant/warp 없는 합성 프로필 28.98분과 전체 loop 회귀는 PASS다. 사람 O1 시간은 이해 실패 상태의 1분 미만/21분 50초이므로 대체되지 않는다. | O2에서 실제 첫 loop와 대표 탈출 시간을 다시 측정한다. |
+| GJC-18 | KO 기본·EN 지원·qps-long QA | PARTIAL | KO/EN/qps-long 1280×800에서 수색 tray, 캠프 HUD, 증축 카드 overflow와 비중첩은 GREEN이며 12개 stable ID 이름도 일치한다. | O2에서 한국어 의미·위계를 설명 없이 읽는지 확인한다. |
 | GJC-19 | 키보드/마우스·synthetic gamepad 의미 동등 | DONE | 수색·가방·세 탈출·ending stable action/result 동등성이 PASS다. | 닫힘. |
 | GJC-20 | 물리 게임패드 실기 | HUMAN_REQUIRED | 자동화와 섞지 않기로 한 실제 장치 결과가 UNVERIFIED다. | 동일 Windows 후보 빌드에서 실제 게임패드로 별도 체크리스트를 수행한다. |
 | GJC-21 | ending 3–5장 코믹북 panel | DONE | core 3장+modifier, KO/EN/qps, album 재진입과 exactly-once가 PASS다. | 닫힘. |
-| GJC-22 | 수색 node 시각 리소스의 런타임 채택 | DONE | 채택 리소스 GUID·실제 runtime accent·review-only 분리와 Wave 19 22/22가 PASS다. | 닫힘. |
+| GJC-22 | 수색 node 시각 리소스의 런타임 채택 | PARTIAL | engine_ready/adopted 캐릭터·구조물·네 자원 아이콘 계열의 live surface 연결과 1280×800 증거는 GREEN이다. review-only 리소스는 제외됐다. | O2에서 자원·설비·상태를 실제로 시각 구분하는지 확인한다. |
 | GJC-23 | 첫 사용자 30분 검증 | HUMAN_REQUIRED | KO 3명·EN 3명의 자연 세션은 실행되지 않았다. 결과를 만들어낼 수 없다. | 자동화 P0가 모두 GREEN인 동일 빌드에서 6세션을 수행하고 성공률·막힘·이해도를 기록한다. |
 | GJC-24 | Day 20 게임잼 장기 체류 엔딩 2종 | DONE | 카탈로그 21개, 두 Day 20 terminal, 조기 탈출 우선, 결정론, exactly-once, KO/EN/qps comic과 Day 50 회귀가 PASS다. | 닫힘. |
 
-현재 집계는 DONE 20, PARTIAL 0, MISSING 0, HUMAN_REQUIRED 4이다. 소스 `2bdea61`에서 Wave B·C overall GREEN, GSN 15/15, Wave 19 22/22, Wave 20 16/16, Release build와 PKG-I01~I07을 통과했다. GJC-12, GJC-17, GJC-20, GJC-23만 동일 최종 후보 빌드에서 사람이 수행한다.
+현재 집계는 DONE 17, PARTIAL 5, MISSING 0, HUMAN_REQUIRED 2이다. 후보 `0cfcc02`는 폐기됐다. 새 후보 `b3f980f`에서 H-001~H-005 제품 교정, 컴파일, 7지역·3탈출·28.98분 회귀, KO/EN/qps 시각 검토, Release build와 패키지 무결성 7/7이 GREEN이다. 다섯 결함은 `FIXED_AUTOMATED_RETEST_PENDING`이며 O2 사람 판정 전에는 제출하지 않는다.
 
 ## 3. 과거 기준선에서 완료된 3개 구현 wave 기록
 
@@ -181,7 +191,7 @@ red-first 수용 기준:
 7. ending은 live core panel 3장 이상과 modifier panel을 렌더하고 KO/EN/qps-long에서 필수 행동이 잘리지 않는다.
 8. grant/warp/skip 없이 대표 seed가 25–35분 synthetic profile을 통과한다. 이 수치는 인간 6세션 전 HUMAN_REQUIRED를 DONE으로 바꾸지 않는다.
 
-Wave C 종료 조건인 GSN-E05/P05/P10, 세 escape 자연 trace, live comic panel, same-run upper+basement는 `2bdea61`에서 GREEN이다. 자동 선행 게이트가 닫혔으므로 GJC-12·17·20·23의 사용자/물리 장치 게이트를 실행한다.
+Wave C 종료 조건인 GSN-E05/P05/P10, 세 escape 자연 trace, live comic panel, same-run upper+basement는 `b3f980f` O1 교정 후보에서도 GREEN이다. O2 소유자 재테스트를 먼저 실행하고, 통과 뒤 GJC-12·17·20·23의 확장 사용자/물리 장치 게이트를 실행한다.
 
 ## 4. 회귀·중단 규칙
 
@@ -191,6 +201,6 @@ Wave C 종료 조건인 GSN-E05/P05/P10, 세 escape 자연 trace, live comic pan
 - 30분 체감, 재미, 70% 성공 목표, 물리 게임패드는 자동화 결과로 대신하지 않는다.
 - Steam App ID·상점명·공식 영문 제목은 이 GAME JAM 제출 게이트 밖이며 계속 TBD다.
 
-## 5. 구현·QA 인계 요약
+## 5. O1 교정 인계 요약
 
-Wave A→B→C와 GJC-24 Day 20 장기 체류 엔딩 2종, Release·패키지 검증은 `2bdea61`에서 GREEN이다. 다음 단계는 문서 갱신만 포함한 최종 Release 패키지의 `BUILD-INFO.txt`를 동결하고, 같은 Windows 빌드로 인간 시간 측정·가방 선택 체감·물리 게임패드·KO 3명/EN 3명 첫 사용자 세션을 수행하는 것이다. 자동화 결과로 네 인간 검증을 대신하지 않는다.
+Wave A→B→C의 상태기계·저장·탈출 회귀는 기준선으로 보존했다. 후보 `0cfcc02`는 사람 사용성 P1 다섯 건 때문에 폐기했고, 새 후보 `b3f980f`에는 UI·재료 의미, 증축 UX, 캐릭터 접지·애니메이션, live 리소스 연결이 통합됐다. 자동·시각·Release·패키지 게이트는 GREEN이다. 다음 단일 게이트는 소유자 O2 재테스트이며, 그 뒤에만 물리 게임패드와 KO 3명·EN 3명 첫 사용자 세션을 진행한다.

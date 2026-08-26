@@ -2353,11 +2353,12 @@
         "Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json",
         "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
         "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
-        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
+        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md"
       ],
-      "blockedReason": "Automated gates are GREEN. GJC-12, GJC-17, GJC-20 and GJC-23 still require people or a physical device on the exact final Release candidate.",
+      "blockedReason": "O1 human session failed GJC-17 and opened H-001 through H-005. Correct and freeze a new candidate before timing/cohort retest.",
       "status": "blocked",
-      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "updatedAt": "2026-08-26T12:03:32.122Z",
       "note": "At 2bdea61 Wave B/C are overall GREEN, GSN is 15/15, Wave 19 is 22/22, Wave 20 is 16/16, Release is PASS and PKG-I01-I07 are PASS. Only the four human gates remain.",
       "completedAt": null,
       "createdAt": "2026-08-26T05:07:17.121Z"
@@ -2578,6 +2579,152 @@
       "completedAt": "2026-08-26T05:30:00.000Z",
       "createdAt": "2026-08-25T14:59:52.656Z",
       "updatedAt": "2026-08-26T05:30:00.000Z"
+    },
+    {
+      "id": "task.gamejam.o1-ui-resource-semantics",
+      "lane": "implementation",
+      "title": "O1 UI·재료 의미 일관성 교정",
+      "description": "수색 tray, 가방, 베이스 HUD와 제작 비용이 stable resource ID의 동일한 KO/EN 이름·아이콘·색·단위를 사용하도록 통합하고 1280×800 정보 위계를 재구성한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.inventory-choice",
+        "feature.localization"
+      ],
+      "assetIds": [
+        "icon.resource-tool-set",
+        "ui.camp-contextual-interaction"
+      ],
+      "acceptanceCriteria": [
+        "H-001: 1280x800에서 지속 HUD, 상황 안내와 행동 팝업이 겹치지 않고 현재 주 행동 하나가 명확하다.",
+        "H-002: 모든 자원 표면이 동일 stable ID의 동일 KO/EN 이름·아이콘·단위를 사용한다.",
+        "H-005: engine_ready/adopted 리소스의 실제 runtime 사용 경로와 시각 구분을 증명한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md",
+        "Docs/Design/gamejam-o1-human-p1-corrective-wave.md",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-search-node-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "note": "H-001, H-002 and H-005 are integrated: twelve canonical resource IDs now use matching KO/EN names and adopted icon families across search tray, bag and camp HUD; 1280x800 KO/EN/qps automated layout checks are GREEN. O2 human confirmation remains in the integration task.",
+      "completedAt": "2026-08-26T13:03:34.480Z",
+      "createdAt": "2026-08-26T12:03:31.713Z",
+      "updatedAt": "2026-08-26T13:03:34.480Z"
+    },
+    {
+      "id": "task.gamejam.o1-camp-expansion-ux",
+      "lane": "implementation",
+      "title": "O1 다층 캠프 증축 UX 교정",
+      "description": "2층·지하실·측면 확장의 목적, 비용, 부족분, 잠금 이유, 진행·완료 상태와 열린 설치 공간을 같은 의미 모델로 제공한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-module-expansion",
+        "feature.camp-building"
+      ],
+      "assetIds": [
+        "ui.camp-contextual-interaction",
+        "object.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "H-003: 각 확장의 결과·보유/필요 비용·부족분·LOCKED/SHORT/READY/DONE 상태를 색상 외 문구와 아이콘으로 구분한다.",
+        "완료 즉시 열린 층과 설치 가능 공간을 플레이어가 확인할 수 있다.",
+        "취소·실패·중복 입력의 자원과 room graph 무변경 계약을 보존한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md",
+        "Docs/Design/gamejam-o1-human-p1-corrective-wave.md",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave11-slot-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "note": "H-003 implementation is integrated with explicit locked/available/in-progress/completed state, purpose, capacity, exact cost, shortage and prerequisite copy; KO/EN/qps module contracts are GREEN. O2 human confirmation remains in the integration task.",
+      "completedAt": "2026-08-26T13:03:34.480Z",
+      "createdAt": "2026-08-26T12:03:31.848Z",
+      "updatedAt": "2026-08-26T13:03:34.480Z"
+    },
+    {
+      "id": "task.gamejam.o1-character-ground-animation",
+      "lane": "implementation",
+      "title": "O1 김씨 지면 접지·지상 애니메이션 교정",
+      "description": "engine_ready 김씨 캐릭터의 발 anchor와 지면·collider를 맞추고 지상 idle, walk, facing 상태를 구현한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.dual-input",
+        "feature.island-exploration"
+      ],
+      "assetIds": [
+        "character.mr-kim"
+      ],
+      "acceptanceCriteria": [
+        "H-004: 캠프와 수색 평지에서 발이 지면에 닿고 이동 중 hover/bob이 없다.",
+        "idle, walk와 좌우 facing 전환이 실제 플레이에서 구분된다.",
+        "수영 상태를 보존하고 review-only 수영 애니메이션을 사용하지 않는다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md",
+        "Docs/Design/gamejam-o1-human-p1-corrective-wave.md",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "note": "H-004 implementation is integrated with a foot anchor/collider, grounded idle breathing, 7 fps walk key poses and facing; existing swim is preserved. Automated grounding/animation checks and root visual review are GREEN; O2 human confirmation remains in the integration task.",
+      "completedAt": "2026-08-26T13:03:34.480Z",
+      "createdAt": "2026-08-26T12:03:31.990Z",
+      "updatedAt": "2026-08-26T13:03:34.480Z"
+    },
+    {
+      "id": "task.gamejam.o1-corrective-integration-retest",
+      "lane": "qa",
+      "title": "O1 P1 교정 통합·새 후보 재검증",
+      "description": "세 구현 레인을 통합하고 컴파일·핵심 회귀·KO/EN 1280×800 시각 검토 뒤 새 Windows 후보를 동결해 O2 재테스트를 준비한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o1-ui-resource-semantics",
+        "task.gamejam.o1-camp-expansion-ux",
+        "task.gamejam.o1-character-ground-animation"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "H-001~H-005 각각 수정 commit과 시각 또는 구조화 증거가 연결된다.",
+        "compile 0 errors와 기존 수색 원자성·세 탈출·ending 회귀가 GREEN이다.",
+        "KO/EN 1280x800에서 캠프, 수색 tray, 가방, 증축과 이동 캐릭터를 사람이 검토한다.",
+        "새 후보의 commit과 EXE, managed DLL, ZIP SHA-256을 기록하고 O2 수기 재테스트 전까지 제출 완료로 표시하지 않는다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA",
+        "Docs/Design/Playtest"
+      ],
+      "evidence": [
+        "Docs/Design/gamejam-o1-human-p1-corrective-wave.md",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_final/compile-result.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-wave-c-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-search-node-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave11-slot-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "in_progress",
+      "note": "Candidate b3f980f is frozen. H-001 through H-005, compile, search-node, module, art connection, character, full survival, non-development Release and package integrity 7/7 are GREEN. O2 owner retest remains before submission readiness.",
+      "completedAt": null,
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.system.system.comedy-feedback",
@@ -3121,11 +3268,12 @@
         "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
         "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
         "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
-        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
+        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md"
       ],
-      "blockedReason": "GJC-12 requires fresh-user observation that the 4-to-6 slot purchase creates useful expedition choice pressure on the exact final Release candidate.",
+      "blockedReason": "O1 found the upgrade mandatory and material identity unreadable. Fix H-002 and rebalance/retest GJC-12 on a new candidate.",
       "status": "blocked",
-      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "updatedAt": "2026-08-26T12:03:32.258Z",
       "note": "The 4-to-6 function, atomicity and persistence contracts are GREEN at 2bdea61. Only human feel and choice-pressure evidence remains.",
       "completedAt": null,
       "createdAt": "2026-08-23T03:05:27.603Z"
@@ -3389,5 +3537,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-26T05:30:00.000Z"
+  "updatedAt": "2026-08-26T12:03:32.259Z"
 }

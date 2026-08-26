@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260826120146_4c4bfb37",
+  "createdAt": "2026-08-26T12:01:46.332Z",
+  "updatedAt": "2026-08-26T13:03:34.480Z",
+  "sourceRequest": "O1 human playtest rejected candidate 0cfcc02; reopen implementation and verification for H-001 through H-005.",
+  "state": "in_progress",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-26T12:01:46.332Z"
+    },
+    "art": {
+      "status": "complete",
+      "note": "Existing engine_ready/adopted character, structure and four resource icon families are connected to live runtime surfaces; review-only assets remain unadopted.",
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt"
+      ],
+      "updatedAt": "2026-08-26T13:03:34.480Z"
+    },
+    "implementation": {
+      "status": "complete",
+      "note": "H-001 through H-005 product corrections are integrated: canonical resource semantics, readable contextual UI, camp expansion presenter and grounded idle/walk/facing animation.",
+      "evidence": [
+        "Docs/Design/gamejam-o1-human-p1-corrective-wave.md",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_final/compile-result.txt"
+      ],
+      "updatedAt": "2026-08-26T13:03:34.480Z"
+    },
+    "verification": {
+      "status": "in_progress",
+      "note": "Candidate b3f980f is frozen. Automated, root visual, non-development Release and package integrity 7/7 are GREEN; O2 owner retest is the remaining run gate before submission readiness.",
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-wave-c-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-search-node-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave11-slot-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt",
+        "Artifacts/ParallelQA/20260826T221000Z_o2_release_b3f980f/gamejam-release-build.json",
+        "Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f/gamejam-package-integrity-summary.json",
+        "Docs/Design/Playtest/Sessions/O2-2026-08-26.md"
+      ],
+      "updatedAt": "2026-08-26T13:03:34.480Z"
+    }
+  }
+}

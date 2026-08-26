@@ -11,13 +11,14 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | complete | `2bdea61`에서 adopted/runtime 리소스와 실제 accent pixel이 Wave 19 22/22를 통과했다. review-only 후보는 계속 미채택이다. |
-| implementation | complete | 자동 제출 요구 DONE 20/24, PARTIAL 0/24이며 Wave B/C·Release build·PKG-I01~I07이 GREEN이다. |
-| verification | blocked | 자동 검증은 완료됐다. HUMAN_REQUIRED GJC-12, GJC-17, GJC-20, GJC-23만 동일 최종 Release 빌드의 수기 세션을 기다린다. |
+| art | complete | Existing engine_ready/adopted character, structure and four resource icon families are connected to live runtime surfaces; review-only assets remain unadopted. |
+| implementation | complete | H-001 through H-005 product corrections are integrated: canonical resource semantics, readable contextual UI, camp expansion presenter and grounded idle/walk/facing animation. |
+| verification | in_progress | Candidate b3f980f is frozen; automated, root visual, non-development Release and package integrity 7/7 are GREEN. O2 owner retest remains before submission readiness. |
 
 ## 다음 작업
 
-- **최종 Release 후보 30분 수기 플레이테스트** (qa, critical) — task.gamejam.qa-thirty-minute-seven-region-slice
+- **O1 P1 교정 통합·새 후보 재검증** (qa, critical) — task.gamejam.o1-corrective-integration-retest
+- **사용자 설정 생존 플레이 구현** (implementation, low) — task.feature.feature.custom-run-settings
 
 ## 작업
 
@@ -63,15 +64,15 @@
 | task.art.icon.expedition-resource-risk-set | art | critical | review | 수집 자원·위험·날씨 아이콘 세트 제작 |
 | task.system.system.expedition-selection | implementation | critical | done | 수집 지도와 지역 선택 구현 |
 | task.system.system.region-loot-rng | implementation | critical | done | 7지역 유한 loot·부품 softlock 보호 구현 |
-| task.system.system.hazard-director | implementation | critical | review | 벌레·야생동물·위험 식물·질병 디렉터 구현 |
+| task.system.system.hazard-director | implementation | critical | done | 벌레·야생동물·위험 식물·질병 디렉터 구현 |
 | task.system.system.escape-projects | implementation | critical | done | 유한 재료형 뗏목·연기·무전 프로젝트 구현 |
 | task.system.system.ending-resolution | implementation | critical | done | 탈출·Day 20 장기 체류 판정 구현 |
 | task.feature.feature.expedition-map | implementation | critical | done | 7지역 상태형 수집 지도 구현 |
 | task.qa.feature.expedition-map | qa | critical | done | 7지역 상태형 수집 지도 검증 |
 | task.feature.feature.resource-randomization | implementation | critical | done | 7지역 유한 자원·핵심 부품 분배 구현 |
 | task.qa.feature.resource-randomization | qa | critical | done | 7지역 유한 자원·핵심 부품 분배 검증 |
-| task.feature.feature.survival-hazards | implementation | critical | review | 지역 위험도·질병 생존 위험 구현 |
-| task.qa.feature.survival-hazards | qa | critical | review | 지역 위험도·질병 생존 위험 검증 |
+| task.feature.feature.survival-hazards | implementation | critical | done | 지역 위험도·질병 생존 위험 구현 |
+| task.qa.feature.survival-hazards | qa | critical | done | 지역 위험도·질병 생존 위험 검증 |
 | task.design.wave15-fifty-day-campaign-rebaseline | design | critical | done | Wave 15 50일 캠페인·수집 지도·위험·다중 엔딩 재기준선 |
 | task.design.wave15-escape-hazard-ending-matrix | design | critical | done | Wave 15 탈출법·위험·18개 이상 엔딩 콘텐츠 매트릭스 |
 | task.implementation.wave15-campaign-map-foundation | implementation | critical | done | Wave 15 Day 50·수집 지도·시드형 지역 선택 기반 |
@@ -92,7 +93,7 @@
 | task.gamejam.seven-region-catalog | implementation | critical | done | 게임잼 7지역 42-node 카탈로그 확장 |
 | task.gamejam.persistent-region-runtime | implementation | critical | done | 게임잼 지역 영속 상태·유한 자원 런타임 |
 | task.gamejam.smoke-radio-material-routes | implementation | critical | done | 게임잼 부싯돌·무전 3부품·pity·seed 감사 |
-| task.gamejam.insect-plant-wildlife-disease | implementation | critical | review | 게임잼 환경 위험·jungle-fever lifecycle |
+| task.gamejam.insect-plant-wildlife-disease | implementation | critical | done | 게임잼 환경 위험·jungle-fever lifecycle |
 | task.gamejam.upper-basement-both | implementation | critical | done | 게임잼 2층·지하실 동시 확장 |
 | task.gamejam.qa-thirty-minute-seven-region-slice | qa | critical | blocked | 게임잼 Wave B/C 42-node·30분 통합 검증 |
 | task.system.system.search-node-loot | implementation | critical | done | 결정론적 수색 오브젝트·발견물 transaction 구현 |
@@ -102,7 +103,11 @@
 | task.feature.feature.raft-escape | implementation | critical | done | 뗏목 제작·해안 진수 탈출 구현 |
 | task.qa.feature.raft-escape | qa | critical | done | 뗏목 제작·해안 진수 탈출 검증 |
 | task.design.gamejam-seven-region-search-node-contract | design | critical | done | 게임잼 7지역 수색 node·유한 자원 계약 |
-| task.design.gamejam-completion-matrix | design | critical | review | GAME JAM 제출 완료 기준 감사 |
+| task.design.gamejam-completion-matrix | design | critical | done | GAME JAM 제출 완료 기준 감사 |
+| task.gamejam.o1-ui-resource-semantics | implementation | critical | done | O1 UI·재료 의미 일관성 교정 |
+| task.gamejam.o1-camp-expansion-ux | implementation | critical | done | O1 다층 캠프 증축 UX 교정 |
+| task.gamejam.o1-character-ground-animation | implementation | critical | done | O1 김씨 지면 접지·지상 애니메이션 교정 |
+| task.gamejam.o1-corrective-integration-retest | qa | critical | in_progress | O1 P1 교정 통합·새 후보 재검증 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
@@ -154,10 +159,10 @@
 - ui.bag-capacity-upgrade: review · 가방 확장 UI 상태 세트
 - background.modular-island-camp: review · 측면 절개형 모듈 베이스캠프
 - ui.camp-module-expansion: review · 방 모듈 증축 상태 UI
-- icon.expedition-resource-risk-set: review · Wave 15 icon.expedition-resource-risk-set 로컬 품질 정리 child job. 부모 job_20260823144003_552c87b1의 24개 투명 아이콘 atlas와 형태 문법을 변
-- environment.expedition-region-kit: review · 수집 지역 레이어 환경 키트
-- object.searchable-resource-node-kit: review · 환경 수색 오브젝트 상태 키트
-- ui.search-loot-tray: review · 발견물 선별 compact 트레이
+- icon.expedition-resource-risk-set: review · 수집 자원·위험·날씨 아이콘 세트
+- environment.expedition-region-kit: review · 7지역 지속 수색 환경 키트
+- object.searchable-resource-node-kit: review · 7지역 환경 수색 오브젝트 키트
+- ui.search-loot-tray: review · 발견물 선별 트레이 UI
 
 ## 검증 증거
 
@@ -410,7 +415,16 @@
 - task.design.gamejam-seven-region-search-node-contract: .forge/packets/gamejam-seven-region-search-node-contract.json
 - task.design.gamejam-completion-matrix: Docs/Design/gamejam-completion-matrix.md
 - task.design.gamejam-completion-matrix: .forge/packets/gamejam-completion-matrix-design.json
-- task.design.gamejam-completion-matrix: Artifacts/ParallelQA/20260825T160510Z_gamejam_search_node_integrated/gamejam-search-node-summary.json
+- task.design.gamejam-completion-matrix: Artifacts/ParallelQA/20260826T223000Z_gamejam_waveb_2bdea61/gamejam-wave-b-summary.json
+- task.design.gamejam-completion-matrix: Artifacts/ParallelQA/20260826T220000Z_gamejam_wavec_2bdea61/gamejam-wave-c-summary.json
+- task.design.gamejam-completion-matrix: Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61/gamejam-package-integrity-summary.json
+- task.gamejam.o1-ui-resource-semantics: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
+- task.gamejam.o1-ui-resource-semantics: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
+- task.gamejam.o1-camp-expansion-ux: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
+- task.gamejam.o1-camp-expansion-ux: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
+- task.gamejam.o1-character-ground-animation: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
+- task.gamejam.o1-character-ground-animation: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
+- task.gamejam.o1-corrective-integration-retest: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
@@ -502,9 +516,9 @@
 
 ## 차단 요소
 
-- task.gamejam.qa-thirty-minute-seven-region-slice: 자동 선행 게이트는 `2bdea61`에서 GREEN이다. 최종 Release 패키지에서 GJC-17 실제 시간과 GJC-23 KO 3명+EN 3명 세션을 수행한다.
-- task.qa.feature.dual-input: synthetic 입력은 GREEN이며 GJC-20 물리 XInput 또는 Steam Input 호환 게임패드 실기만 남았다.
-- task.qa.feature.inventory-capacity-upgrade: 기능·자동 계약은 GREEN이며 GJC-12 fresh-user 4→6칸 선택 압박 관찰만 남았다.
+- task.gamejam.qa-thirty-minute-seven-region-slice: Automated gates are GREEN. GJC-12, GJC-17, GJC-20 and GJC-23 still require people or a physical device on the exact final Release candidate.
+- task.qa.feature.dual-input: GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.
+- task.qa.feature.inventory-capacity-upgrade: GJC-12 requires fresh-user observation that the 4-to-6 slot purchase creates useful expedition choice pressure on the exact final Release candidate.
 
 ## 미결 질문
 

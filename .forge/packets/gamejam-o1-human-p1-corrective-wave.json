@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에 조난된 김씨가 내용물을 알 수 없는 수색 오브젝트를 직접 뒤져 필요한 물건만 가방에 챙기고, 상태가 영구히 변하는 일곱 지역과 다층 캠프를 오가며 여러 방법으로 탈출하거나 행동 기반 코믹 엔딩을 맞는 2D 생존 게임.",
+    "o1HumanP1CorrectiveContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o1-human-p1-corrective.v1",
+      "rejectedCandidate": "0cfcc02ac661392e03a75898831fb0a89ae82bd1",
+      "result": "RETEST",
+      "openHumanDefects": ["H-001", "H-002", "H-003", "H-004", "H-005"],
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O1-2026-08-26.md",
+      "designDocument": "Docs/Design/gamejam-o1-human-p1-corrective-wave.md",
+      "assetBoundary": "Use only engine_ready or already adopted assets. Review-only assets remain forbidden until explicit adoption.",
+      "releaseRule": "Do not freeze another candidate until all five defects have code, visual evidence and regression results."
+    }
+  },
+  "features": [],
+  "screens": [],
+  "systems": [],
+  "artAssets": [],
+  "tasks": [
+    {
+      "id": "task.gamejam.o1-ui-resource-semantics",
+      "lane": "implementation",
+      "title": "O1 UI·재료 의미 일관성 교정",
+      "description": "수색 tray, 가방, 베이스 HUD와 제작 비용이 stable resource ID의 동일한 KO/EN 이름·아이콘·색·단위를 사용하도록 통합하고 1280×800 정보 위계를 재구성한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.searchable-resource-nodes", "feature.inventory-choice", "feature.localization"],
+      "assetIds": ["icon.resource-tool-set", "ui.camp-contextual-interaction"],
+      "paths": ["Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs", "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"],
+      "acceptanceCriteria": [
+        "H-001: 1280x800에서 지속 HUD, 상황 안내와 행동 팝업이 겹치지 않고 현재 주 행동 하나가 명확하다.",
+        "H-002: 모든 자원 표면이 동일 stable ID의 동일 KO/EN 이름·아이콘·단위를 사용한다.",
+        "H-005: engine_ready/adopted 리소스의 실제 runtime 사용 경로와 시각 구분을 증명한다."
+      ],
+      "status": "ready",
+      "evidence": ["Docs/Design/Playtest/Sessions/O1-2026-08-26.md", "Docs/Design/gamejam-o1-human-p1-corrective-wave.md"]
+    },
+    {
+      "id": "task.gamejam.o1-camp-expansion-ux",
+      "lane": "implementation",
+      "title": "O1 다층 캠프 증축 UX 교정",
+      "description": "2층·지하실·측면 확장의 목적, 비용, 부족분, 잠금 이유, 진행·완료 상태와 열린 설치 공간을 같은 의미 모델로 제공한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.camp-module-expansion", "feature.camp-building"],
+      "assetIds": ["ui.camp-contextual-interaction", "object.camp-structures"],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs"],
+      "acceptanceCriteria": [
+        "H-003: 각 확장의 결과·보유/필요 비용·부족분·LOCKED/SHORT/READY/DONE 상태를 색상 외 문구와 아이콘으로 구분한다.",
+        "완료 즉시 열린 층과 설치 가능 공간을 플레이어가 확인할 수 있다.",
+        "취소·실패·중복 입력의 자원과 room graph 무변경 계약을 보존한다."
+      ],
+      "status": "ready",
+      "evidence": ["Docs/Design/Playtest/Sessions/O1-2026-08-26.md", "Docs/Design/gamejam-o1-human-p1-corrective-wave.md"]
+    },
+    {
+      "id": "task.gamejam.o1-character-ground-animation",
+      "lane": "implementation",
+      "title": "O1 김씨 지면 접지·지상 애니메이션 교정",
+      "description": "engine_ready 김씨 캐릭터의 발 anchor와 지면·collider를 맞추고 지상 idle, walk, facing 상태를 구현한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.dual-input", "feature.island-exploration"],
+      "assetIds": ["character.mr-kim"],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs", "Assets/_Project/Scripts/Runtime/PrototypePlayerTraversal.cs"],
+      "acceptanceCriteria": [
+        "H-004: 캠프와 수색 평지에서 발이 지면에 닿고 이동 중 hover/bob이 없다.",
+        "idle, walk와 좌우 facing 전환이 실제 플레이에서 구분된다.",
+        "수영 상태를 보존하고 review-only 수영 애니메이션을 사용하지 않는다."
+      ],
+      "status": "ready",
+      "evidence": ["Docs/Design/Playtest/Sessions/O1-2026-08-26.md", "Docs/Design/gamejam-o1-human-p1-corrective-wave.md"]
+    },
+    {
+      "id": "task.gamejam.o1-corrective-integration-retest",
+      "lane": "qa",
+      "title": "O1 P1 교정 통합·새 후보 재검증",
+      "description": "세 구현 레인을 통합하고 컴파일·핵심 회귀·KO/EN 1280×800 시각 검토 뒤 새 Windows 후보를 동결해 O2 재테스트를 준비한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o1-ui-resource-semantics", "task.gamejam.o1-camp-expansion-ux", "task.gamejam.o1-character-ground-animation"],
+      "featureIds": [],
+      "assetIds": [],
+      "paths": ["Assets/Editor/ParallelQA", "Artifacts/ParallelQA", "Docs/Design/Playtest"],
+      "acceptanceCriteria": [
+        "H-001~H-005 각각 수정 commit과 시각 또는 구조화 증거가 연결된다.",
+        "compile 0 errors와 기존 수색 원자성·세 탈출·ending 회귀가 GREEN이다.",
+        "KO/EN 1280x800에서 캠프, 수색 tray, 가방, 증축과 이동 캐릭터를 사람이 검토한다.",
+        "새 후보의 commit과 EXE, managed DLL, ZIP SHA-256을 기록하고 O2 수기 재테스트 전까지 제출 완료로 표시하지 않는다."
+      ],
+      "status": "planned",
+      "evidence": ["Docs/Design/gamejam-o1-human-p1-corrective-wave.md"]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.gamejam.o1-automatic-green-overridden",
+      "title": "O1 사람 관찰이 자동 가독성 GREEN을 우선한다",
+      "status": "accepted",
+      "rationale": "실행 가능성과 텍스트 경계 검사는 사람이 의미를 이해한다는 증거가 아니며 O1에서 제출 차단 P1 다섯 건이 실제로 관찰됐다."
+    }
+  ],
+  "openQuestions": []
+}

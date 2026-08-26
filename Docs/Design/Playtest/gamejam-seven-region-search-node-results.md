@@ -2,7 +2,7 @@
 
 > 대상: 《김씨 생존기: 무인도》 최종 Windows 후보
 >
-> 상태: `RETEST / HUMAN_P1`
+> 상태: `O2_READY / AUTOMATED_GREEN / HUMAN_RETEST_PENDING`
 >
 > 실행 절차 정본: `Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md`
 >
@@ -14,19 +14,19 @@
 
 | 항목 | 값 |
 |---|---|
-| 게임 소스 commit | `0cfcc02ac661392e03a75898831fb0a89ae82bd1` |
+| 게임 소스 commit | `b3f980ff14db0075ed4a290038f518d658783425` |
 | EXE SHA-256 | `a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423` |
-| `Assembly-CSharp.dll` SHA-256 | `efdf3c2efdf529dd30ab27c4ff17859303a5c5f03dc176f7767222d6d9e4592f` |
-| ZIP SHA-256 | `4e858bc2fd1904641bd9d1f3ec0a5c513c9ba3947ad4923e352bf03efcf2fc0e` |
-| 후보 폴더 | `work/ParallelQA/20260827T001500Z_gamejam_release_0cfcc02/KimSurvivalIsland-gamejam-win64-release-0cfcc02` |
-| 패키지 자동 게이트 | `Artifacts/ParallelQA/20260827T003000Z_gamejam_package_0cfcc02/gamejam-package-integrity-summary.json` — PASS 7/7 |
+| `Assembly-CSharp.dll` SHA-256 | `dfff3680c5e41440555226c0a1dc9309fad516e5c00adc5483fd2f27016789ef` |
+| ZIP SHA-256 | `293a123d5fbbea721bb5ee798ed9879f48a6fe022987646349fadf71e1340830` |
+| 후보 폴더 | `work/ParallelQA/20260826T221000Z_o2_release_b3f980f/KimSurvivalIsland-gamejam-win64-release-b3f980f` |
+| 패키지 자동 게이트 | `Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f/gamejam-package-integrity-summary.json` — PASS 7/7 |
 
 ## 공식 게이트 현황
 
 | ID | 현재 상태 | 실제 완료 증거 | 판정 |
 |---|---|---|---|
-| `GJC-12` | `RETEST` | O1에서 업그레이드는 동작했지만 선택지가 아니라 필수로 느껴짐 | `FAIL` |
-| `GJC-17` | `RETEST` | O1 첫 loop 1분 미만, UI 이해 실패로 21분 50초에 세션 종료 | `FAIL` |
+| `GJC-12` | `RETEST` | canonical 재료 의미 교정은 자동 GREEN; O1의 필수 업그레이드 체감은 O2에서 재평가 | `O2_PENDING` |
+| `GJC-17` | `RETEST` | 28.98분 자동 자연 프로필은 GREEN; 실제 첫 loop와 대표 탈출은 O2에서 재측정 | `O2_PENDING` |
 | `GJC-20` | `HUMAN_REQUIRED` | 물리 XInput 또는 Steam Input 호환 패드 전체 핵심 흐름 | `UNRUN` |
 | `GJC-23` | `HUMAN_REQUIRED` | 처음 보는 KO 3명·EN 3명의 독립 fresh session | `UNRUN` |
 
@@ -38,6 +38,7 @@
 | 세션 | 사용자 코드 | fresh user | 로케일 | 입력 장치 | 대표 경로 | 첫 loop | 탈출/종료 | 도움 횟수 | 가방 체감 | P0/P1 | 세션 판정 | 상세 기록·로그 |
 |---|---|---|---|---|---|---:|---:|---:|---|---|---|---|
 | `O1` | `owner-01` | 기존 사용자 | KO 기본 | 키보드·마우스 | 굶주림 사망·탈출 확인 | `<01:00` | `21:50 내 확인` | 미기록 | 업그레이드가 필수로 느껴짐 | `H-001~H-005 P1` | `RETEST` | `Docs/Design/Playtest/Sessions/O1-2026-08-26.md` |
+| `O2` | `owner-01` | 기존 사용자·새 save | KO 기본 | 키보드·마우스 | `________` | `__:__` | `__:__` | `__` | `________` | `H-001~H-005 재검증` | `UNRUN` | `Docs/Design/Playtest/Sessions/O2-2026-08-26.md` |
 | `K1` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
 | `K2` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
 | `K3` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
@@ -111,11 +112,11 @@
 
 | ID | 심각도 | 세션·시각·Day | locale·device | 위치 | 재현 단계 | 기대 | 실제 | 증거 | 재현율 | 상태 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `H-001` | `P1` | `O1 · 전 구간` | `KO · 키보드/마우스` | UI 전반 | 캠프·수색·귀환 UI를 순서대로 확인 | 재료·목표·행동을 구분할 수 있다 | UI가 임시 표현과 과밀 상태라 무엇이 무엇인지 알아볼 수 없다 | `O1 사용자 디브리핑` | `1/1` | `OPEN` |
-| `H-002` | `P1` | `O1 · 수색/귀환` | `KO · 키보드/마우스` | 수색 tray·가방·베이스 자원 | 수색물을 뒤지고 가방에 넣은 뒤 귀환 | 같은 재료가 모든 표면에서 같은 이름·아이콘을 사용한다 | 뒤졌을 때·가방·베이스의 이름이 서로 매치되지 않아 재료를 식별할 수 없다 | `O1 사용자 디브리핑` | `1/1` | `OPEN` |
-| `H-003` | `P1` | `O1 · 캠프` | `KO · 키보드/마우스` | 방 증축 | 증축 안내를 읽고 실행 상태를 확인 | 비용·선택·유효 상태·완료 결과가 이해된다 | 무엇을 하는 기능인지, 동작했는지조차 알 수 없다 | `O1 사용자 디브리핑` | `1/1` | `OPEN` |
-| `H-004` | `P1` | `O1 · 이동` | `KO · 키보드/마우스` | 김씨 캐릭터 | 평지에서 좌우 이동 | 발이 지면에 붙고 이동 애니메이션이 재생된다 | 캐릭터가 바닥 위를 떠다니고 애니메이션이 전혀 없다 | `O1 사용자 디브리핑` | `1/1` | `OPEN` |
-| `H-005` | `P1` | `O1 · 전 구간` | `KO · 키보드/마우스` | UI·리소스 | 자원·설비·상태를 시각적으로 비교 | 제작·채택된 리소스로 작은 화면에서도 구분된다 | 임시 UI와 미연결 리소스처럼 보여 플레이 정보를 식별할 수 없다 | `O1 사용자 디브리핑` | `1/1` | `OPEN` |
+| `H-001` | `P1` | `O1 · 전 구간` | `KO · 키보드/마우스` | UI 전반 | 캠프·수색·귀환 UI를 순서대로 확인 | 재료·목표·행동을 구분할 수 있다 | O1에서 UI가 과밀했다. 새 후보는 tray 우측 분리·중복 가방 숨김·상황 카드 반대편 배치와 1280×800 계약 GREEN | `b3f980f · gamejam-search-node-play-contracts` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `H-002` | `P1` | `O1 · 수색/귀환` | `KO · 키보드/마우스` | 수색 tray·가방·베이스 자원 | 수색물을 뒤지고 가방에 넣은 뒤 귀환 | 같은 재료가 모든 표면에서 같은 이름·아이콘을 사용한다 | O1 이름이 불일치했다. 새 후보는 12개 stable ID의 KO/EN 이름·아이콘·단위를 같은 semantic registry에서 사용 | `77fe685 · human-p1-semantic.log` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `H-003` | `P1` | `O1 · 캠프` | `KO · 키보드/마우스` | 방 증축 | 증축 안내를 읽고 실행 상태를 확인 | 비용·선택·유효 상태·완료 결과가 이해된다 | O1 목적이 불명확했다. 새 후보는 잠금/가능/진행/완료, 목적·추천 용도·용량·비용·부족분·선행 조건을 문구로 구분 | `849ca34 · wave11-slot-play-contracts` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `H-004` | `P1` | `O1 · 이동` | `KO · 키보드/마우스` | 김씨 캐릭터 | 평지에서 좌우 이동 | 발이 지면에 붙고 이동 애니메이션이 재생된다 | O1에서 떠다녔다. 새 후보는 foot anchor/collider, 지면 idle, 7fps walk key pose, facing을 사용하고 수영 상태를 보존 | `9d07203 · wave19-play-contracts` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `H-005` | `P1` | `O1 · 전 구간` | `KO · 키보드/마우스` | UI·리소스 | 자원·설비·상태를 시각적으로 비교 | 제작·채택된 리소스로 작은 화면에서도 구분된다 | O1은 임시 표면이었다. 새 후보는 engine_ready/adopted 캐릭터·구조물·네 자원 아이콘 계열을 live surface에 연결하고 review-only는 제외 | `77fe685 · 9d07203 · wave19-play-contracts` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
 
 P0는 즉시 후보 `REJECT`, P1은 후보 `RETEST`다. 수정 뒤에는 같은 행을 지우지 않고 수정 commit과 새 후보 세션을 연결한다.
 
@@ -128,10 +129,10 @@ P0는 즉시 후보 `REJECT`, P1은 후보 `RETEST`다. 수정 뒤에는 같은 
 | 실제 대표 탈출 25~35분 확인 | `RETEST — 정확 시각 미기록, 21:50에 UI 문제로 종료` |
 | 가방 4→6 선택 체감 확인 | `RETEST — 선택이 아니라 필수로 느낌` |
 | 물리 게임패드 핵심 흐름 확인 | `UNRUN` |
-| 미해결 P0/P1 0건 | `FAIL — P1 5건 OPEN` |
+| 미해결 P0/P1 0건 | `O2_PENDING — 제품 교정·자동 검증 GREEN, 사람 재확인 필요` |
 
-최종 후보 판정: `RETEST`
+최종 후보 판정: `O2_READY · NOT_SUBMISSION_READY`
 
 판정자·일시: `owner-01 · 2026-08-26 20:49 KST`
 
-한 줄 결론: `굶주림 사망과 탈출은 가능하지만 UI·재료 명칭·증축 이해·캐릭터 지면/애니메이션 문제로 현재 후보는 제출 불가이며 수정 후 새 SHA에서 RETEST한다.`
+한 줄 결론: `O1의 다섯 사용성 결함은 새 SHA에서 제품 교정과 자동·시각·Release·패키지 검증을 통과했으며, 이제 같은 후보의 O2 사람 재테스트로 실제 해결 여부를 판정한다.`

@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-26T02:01:18.202Z",
+    "updatedAt": "2026-08-26T12:01:46.333Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -4618,26 +4618,30 @@
       "schemaVersion": 2,
       "contractId": "gamejam.completion-matrix.v2",
       "sourceBaseline": "e4bbc03531d54e023f7a90f7a608871a47d26d55",
-      "currentIntegratedCommit": "2bdea6152727343c7e2c33bba340d89f8bc42d61",
+      "currentIntegratedCommit": "b3f980ff14db0075ed4a290038f518d658783425",
       "currentIntegratedCommitScope": "CURRENT_AUTOMATED_GREEN_PRODUCT_CODE",
-      "currentWorktreeState": "AUTOMATED_GREEN_RELEASE_VERIFIED_HUMAN_REQUIRED",
-      "currentWorktreeCandidateCommit": "2bdea6152727343c7e2c33bba340d89f8bc42d61",
+      "currentWorktreeState": "O2_READY_AUTOMATED_GREEN_NOT_SUBMISSION_READY",
+      "currentWorktreeCandidateCommit": "b3f980ff14db0075ed4a290038f518d658783425",
       "currentWorktreeEvidenceRoots": [
         "Artifacts/ParallelQA/20260826T223000Z_gamejam_waveb_2bdea61",
         "Artifacts/ParallelQA/20260826T220000Z_gamejam_wavec_2bdea61",
         "Artifacts/ParallelQA/20260826T230000Z_gamejam_release_2bdea61",
-        "Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61"
+        "Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_final",
+        "Artifacts/ParallelQA/20260826T221000Z_o2_release_b3f980f",
+        "Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f"
       ],
       "releaseRevalidationRequired": false,
       "candidateExecutableSha256": "a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423",
       "candidateManagedAssemblyPath": "KimSurvivalIsland_Data/Managed/Assembly-CSharp.dll",
-      "candidateManagedAssemblySha256": "efdf3c2efdf529dd30ab27c4ff17859303a5c5f03dc176f7767222d6d9e4592f",
-      "candidateArchivePath": "work/ParallelQA/20260826T230000Z_gamejam_release_2bdea61/KimSurvivalIsland-gamejam-win64-release-2bdea61.zip",
-      "candidateArchiveSha256": "35d09c931397462f9dd30362afd5ec5d14744d48cbf23b3c253263318cfa05ba",
-      "candidatePackageFolderSha256": "7cdd2614b2b47bccb67bdcb2aba59daa4bfacb8dc2f584099994e79da4bf1734",
-      "candidatePackageIntegrity": "Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61/gamejam-package-integrity-summary.json",
-      "packagedDocumentationCommit": "CURRENT_RELEASE_BUILD_INFO",
-      "qaVerifierCommit": "2bdea6152727343c7e2c33bba340d89f8bc42d61",
+      "candidateManagedAssemblySha256": "dfff3680c5e41440555226c0a1dc9309fad516e5c00adc5483fd2f27016789ef",
+      "candidateArchivePath": "work/ParallelQA/20260826T221000Z_o2_release_b3f980f/KimSurvivalIsland-gamejam-win64-release-b3f980f.zip",
+      "candidateArchiveSha256": "293a123d5fbbea721bb5ee798ed9879f48a6fe022987646349fadf71e1340830",
+      "candidatePackageFolderSha256": "d804d6e00618850054b9836d8675bbfb152d4051c5b495ed3d70f7c907893d9f",
+      "candidatePackageIntegrity": "Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f/gamejam-package-integrity-summary.json",
+      "packagedDocumentationCommit": "b3f980ff14db0075ed4a290038f518d658783425",
+      "qaVerifierCommit": "b3f980ff14db0075ed4a290038f518d658783425",
       "humanDocument": "Docs/Design/gamejam-completion-matrix.md",
       "humanResultsDocument": "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
       "designSources": [
@@ -4649,7 +4653,11 @@
         "Artifacts/ParallelQA/20260826T223000Z_gamejam_waveb_2bdea61",
         "Artifacts/ParallelQA/20260826T220000Z_gamejam_wavec_2bdea61",
         "Artifacts/ParallelQA/20260826T230000Z_gamejam_release_2bdea61",
-        "Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61"
+        "Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11",
+        "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_final",
+        "Artifacts/ParallelQA/20260826T221000Z_o2_release_b3f980f",
+        "Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f"
       ],
       "evidencePrecedence": [
         "current_integrated_probe",
@@ -4664,19 +4672,23 @@
         "MISSING": "The live player path or structured observable required for submission is absent.",
         "HUMAN_REQUIRED": "The requirement inherently needs a human or physical-device result; it remains open, and execution must wait until the current candidate's automated prerequisites are green."
       },
-      "submissionVerdict": "AUTOMATED_GREEN_HUMAN_REQUIRED",
+      "submissionVerdict": "O2_READY_AUTOMATED_GREEN_HUMAN_REQUIRED",
       "submissionBlockerIds": [
         "gamejam.req.bag-four-to-six",
+        "gamejam.req.upper-and-basement",
         "gamejam.req.thirty-minute-profile",
+        "gamejam.req.ko-en-qps",
+        "gamejam.req.search-node-runtime-art",
         "gamejam.req.physical-gamepad",
-        "gamejam.req.first-user-cohort"
+        "gamejam.req.first-user-cohort",
+        "human-defect.H-004-character-ground-animation"
       ],
       "summary": {
         "requirementCount": 24,
-        "DONE": 20,
-        "PARTIAL": 0,
+        "DONE": 17,
+        "PARTIAL": 5,
         "MISSING": 0,
-        "HUMAN_REQUIRED": 4
+        "HUMAN_REQUIRED": 2
       },
       "requirements": [
         {
@@ -4776,7 +4788,7 @@
         {
           "id": "gamejam.req.bag-four-to-six",
           "label": "Bag four to six, stack two",
-          "status": "HUMAN_REQUIRED",
+          "status": "PARTIAL",
           "evidence": [
             "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md#bag-four-to-six"
           ],
@@ -4785,7 +4797,7 @@
         {
           "id": "gamejam.req.upper-and-basement",
           "label": "Upper floor and basement in the same run",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P05"
           ]
@@ -4818,7 +4830,7 @@
         {
           "id": "gamejam.req.thirty-minute-profile",
           "label": "Five-to-ten-minute core loop and 25-to-35-minute representative escape",
-          "status": "HUMAN_REQUIRED",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P07",
             "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md#actual-timing"
@@ -4828,7 +4840,7 @@
         {
           "id": "gamejam.req.ko-en-qps",
           "label": "Korean source, English support and qps-long QA",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "gamejam-wave-c-play-contracts.json#GWC-P06",
             "gamejam-long-stay-summary.json#GJLS-P07"
@@ -4864,7 +4876,7 @@
         {
           "id": "gamejam.req.search-node-runtime-art",
           "label": "Runtime adoption of search-node visual resources",
-          "status": "DONE",
+          "status": "PARTIAL",
           "evidence": [
             "wave19-asset-guid-evidence.json"
           ]
@@ -6012,6 +6024,27 @@
         "The 7x28 GREEN evidence is preserved but does not prove the 42-node target.",
         "Human 25-to-35-minute play and physical gamepad remain unverified."
       ]
+    },
+    "o1HumanP1CorrectiveContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o1-human-p1-corrective.v1",
+      "rejectedCandidate": "0cfcc02ac661392e03a75898831fb0a89ae82bd1",
+      "result": "FIXED_AUTOMATED_RETEST_PENDING",
+      "openHumanDefects": [
+        "H-001",
+        "H-002",
+        "H-003",
+        "H-004",
+        "H-005"
+      ],
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O1-2026-08-26.md",
+      "designDocument": "Docs/Design/gamejam-o1-human-p1-corrective-wave.md",
+      "assetBoundary": "Use only engine_ready or already adopted assets. Review-only assets remain forbidden until explicit adoption.",
+      "correctedCandidate": "b3f980ff14db0075ed4a290038f518d658783425",
+      "automatedEvidence": "Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11",
+      "releaseEvidence": "Artifacts/ParallelQA/20260826T221000Z_o2_release_b3f980f",
+      "packageEvidence": "Artifacts/ParallelQA/20260826T222000Z_o2_package_b3f980f",
+      "releaseRule": "The O2 candidate is frozen and automated GREEN, but submission readiness remains false until owner O2 retest confirms all five defects."
     }
   },
   "features": [
@@ -8231,5 +8264,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-26T02:01:18.201Z"
+  "updatedAt": "2026-08-26T12:01:46.332Z"
 }
