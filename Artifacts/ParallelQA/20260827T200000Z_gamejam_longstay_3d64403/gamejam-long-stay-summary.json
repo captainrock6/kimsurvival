@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 2,
+  "title": "GameJam long-stay endings RED-first independent QA gate",
+  "runId": "20260827T200000Z_gamejam_longstay_3d64403",
+  "baselineCommit": "3d64403813493d8de8e05f0844a5e616e164c6d4",
+  "startedUtc": "2026-08-26T04:18:34.4822822Z",
+  "completedUtc": "2026-08-26T04:19:07.8332508Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4"
+  },
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "passed": 15,
+  "expectedGaps": 0,
+  "failed": 0,
+  "passIds": [
+    "GJLS-E01.catalog_21_two_stable_ids",
+    "GJLS-E02.day20_definition_schema",
+    "GJLS-E03.public_resolver_snapshot_contract",
+    "GJLS-E04.structured_live_observation_surface",
+    "GJLS-E05.localization_ko_en_qps",
+    "GJLS-E06.standard_day50_unchanged",
+    "GJLS-P01.catalog_21_live",
+    "GJLS-P02.day20_natural_kim",
+    "GJLS-P03.day20_island_engineer",
+    "GJLS-P04.early_escape_priority",
+    "GJLS-P05.same_snapshot_determinism",
+    "GJLS-P06.terminal_album_exactly_once",
+    "GJLS-P07.live_comic_ko_en_qps",
+    "GJLS-P08.standard_day50_live_unchanged",
+    "GJLS-P09.no_grant_warp_skip"
+  ],
+  "expectedGapIds": [],
+  "failureIds": [],
+  "infrastructureFailures": [],
+  "visualEvidenceCount": 6,
+  "visualEvidence": [
+    {
+      "endingId": "ending.gamejam.stay.natural-kim",
+      "locale": "ko",
+      "relativePath": "gamejam-long-stay-natural-kim-ko-1280x800.png",
+      "sha256": "aab514b4dbdd5f43721e49caec978a235447b8c4dee3e0d556081b115b5a1f20",
+      "bytes": 75398,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "endingId": "ending.gamejam.stay.natural-kim",
+      "locale": "en",
+      "relativePath": "gamejam-long-stay-natural-kim-en-1280x800.png",
+      "sha256": "798f25adb05f15a4d7d2d318d9daec68b6bb42d580da389c624adcdf5aa0dcc0",
+      "bytes": 96441,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "endingId": "ending.gamejam.stay.natural-kim",
+      "locale": "qps-long",
+      "relativePath": "gamejam-long-stay-natural-kim-qps-long-1280x800.png",
+      "sha256": "1ed6f4e4ee7fef9e6cc1f66b32d236a33fd2f7f582cf06d8653914b441fcaa5f",
+      "bytes": 139143,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "endingId": "ending.gamejam.stay.island-engineer",
+      "locale": "ko",
+      "relativePath": "gamejam-long-stay-island-engineer-ko-1280x800.png",
+      "sha256": "c251a6b3705be57113eac65b19c3136a174f40528db44ae9a864d4b162a9dcfe",
+      "bytes": 70910,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "endingId": "ending.gamejam.stay.island-engineer",
+      "locale": "en",
+      "relativePath": "gamejam-long-stay-island-engineer-en-1280x800.png",
+      "sha256": "26834e875369eb862ffa1c804cf38bddaca5f7b2181a2138983154c0230afe3b",
+      "bytes": 93763,
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "endingId": "ending.gamejam.stay.island-engineer",
+      "locale": "qps-long",
+      "relativePath": "gamejam-long-stay-island-engineer-qps-long-1280x800.png",
+      "sha256": "1a2cfe7bd95e9c5a97add77eb9eaf1c211de6d2620a4f955102ad092ef8d225e",
+      "bytes": 138129,
+      "width": 1280,
+      "height": 800
+    }
+  ],
+  "evidencePolicy": "Play PASS requires production-live structured observation. Fixture/static bool/string, grant, warp, and skip cannot satisfy product checks.",
+  "greenCompletionCondition": "Catalog 21/two stable IDs, both no-escape Day20 endings, early escape precedence, deterministic replay, terminal+album exactly once, 2x KO/EN/qps live comics with clipping 0, standard Day50 unchanged, and grant/warp/skip 0 all PASS.",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-GameJamLongStayRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '3d64403813493d8de8e05f0844a5e616e164c6d4'"
+}

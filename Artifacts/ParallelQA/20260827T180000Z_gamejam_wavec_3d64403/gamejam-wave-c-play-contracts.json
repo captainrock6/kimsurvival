@@ -1,0 +1,120 @@
+{
+    "schemaVersion": 1,
+    "title": "GameJam Wave C RED-first actual Play contracts",
+    "runId": "20260827T180000Z_gamejam_wavec_3d64403",
+    "baselineCommit": "3d64403813493d8de8e05f0844a5e616e164c6d4",
+    "unityVersion": "6000.4.9f1",
+    "startedUtc": "2026-08-26T04:13:12.3318678Z",
+    "completedUtc": "2026-08-26T04:13:15.9788225Z",
+    "overall": "GREEN",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 8,
+    "expectedGaps": 0,
+    "productFailed": 0,
+    "infrastructureFailed": 0,
+    "humanRequired": 1,
+    "greenCompletionCondition": "Fresh GSN-E05/P05/P10 plus Wave C protected/pity, three natural escape routes, atomic retry, same-run upper+basement save, live KO/EN/qps comic, and 25-35 minute zero-cheat profile all PASS. GJC-12/17/20/23 remain HUMAN_REQUIRED.",
+    "physicalGamepad": "HUMAN_REQUIRED",
+    "checks": [
+        {
+            "id": "GWC-P01.protected_eligible_pity_natural",
+            "matrix": "matrix 134-135 criteria 1-2",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "A live natural trace proves eligible-only protected discovery, 3/5 eligible-completed pity, protected survival, and known-loot preservation",
+            "actual": "parts=5; events=16",
+            "reproduction": "Play from a fresh save through eligible and ineligible completed/cancelled/failed searches, bag full, theft, and damage.",
+            "recommendedFiles": "active production search ledger and event recorder observation surface"
+        },
+        {
+            "id": "GWC-P02.three_simultaneous_completable",
+            "matrix": "matrix 136 criterion 3",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "One live run exposes raft, smoke, and radio as simultaneously completable without injected inventory",
+            "actual": "routes=escape.raft,escape.smoke,escape.radio",
+            "reproduction": "Reach one natural run state and enumerate the active route runtime's completable IDs.",
+            "recommendedFiles": "active production escape route runtime observation surface"
+        },
+        {
+            "id": "GWC-P03.distinct_natural_escape_interactions",
+            "matrix": "matrix 137 criterion 4",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Raft hull+sail+supplies, smoke ignition+visibility, and radio repair+frequency are distinct ordered production interactions with positive route stage/resource deltas",
+            "actual": "independent production branches=3; events=9",
+            "reproduction": "Use the live shore launcher, smoke signal, and radio controls through their distinct visible actions.",
+            "recommendedFiles": "active production escape interaction owners and event recorder"
+        },
+        {
+            "id": "GWC-P04.atomic_fail_cancel_wait_retry_ending_once",
+            "matrix": "matrix 138 criterion 5",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Each route has exact zero-delta fail/cancel/wait and a positive retry/progress delta; terminal duplicate actuation is zero-delta; ending.resolved and the terminal album record each occur once while new/known collection semantics stay distinct",
+            "actual": "atomic routes=3; terminal duplicate=zero; ending.resolved=1; albumRecordDelta=1",
+            "reproduction": "For each live route, attempt fail, cancel, weather wait, and positive retry/progress; resolve once, record terminal album new/known semantics, then actuate the terminal control again.",
+            "recommendedFiles": "active production escape transaction and ending album recorders"
+        },
+        {
+            "id": "GWC-P05.same_run_upper_basement_save",
+            "matrix": "matrix 139 criterion 6",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "The same live run commits and re-enters upper+basement and preserves all three escape resources and save state",
+            "actual": "committed=room.upper.standard,room.basement.standard; reentered=room.upper.standard,room.basement.standard",
+            "reproduction": "In one uninterrupted production run, commit both modules, save/restore, and re-enter each room without helper warps.",
+            "recommendedFiles": "active production module expansion, escape inventory, and save runtime observation surface"
+        },
+        {
+            "id": "GWC-P06.live_core_modifier_comic_locales",
+            "matrix": "matrix 140 criterion 7",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "KO/EN/qps-long each render at least three live core panels plus one modifier with distinct text/images, identical runtime state, no clipped required action, no rendered text overlap, and every title/body inside its owning card",
+            "actual": "ko core/modifier=3/1 overflow/offscreen/clipped=0/0/0 geometryTexts/textOverlap/cardBoundary=8/0/0 fonts(title/core/modifier)=24/16/17 | en core/modifier=3/1 overflow/offscreen/clipped=0/0/0 geometryTexts/textOverlap/cardBoundary=8/0/0 fonts(title/core/modifier)=24/16/17 | qps-long core/modifier=3/1 overflow/offscreen/clipped=0/0/0 geometryTexts/textOverlap/cardBoundary=8/0/0 fonts(title/core/modifier)=24/16/17",
+            "reproduction": "Resolve one live comic ending and capture the same runtime state in KO, EN, and qps-long at 1280x800.",
+            "recommendedFiles": "active ending renderer, localization runtime, and screenshot observation surface"
+        },
+        {
+            "id": "GWC-P07.no_cheats_25_35_profile",
+            "matrix": "matrix 141 criterion 8",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P1",
+            "expected": "A representative live-seeded synthetic profile finishes in 25-35 minutes with observed grant/warp/skip counters all zero",
+            "actual": "seed=15000501; minutes=28.98; grant/warp/skip=0/0/0",
+            "reproduction": "Run the representative seed via production input and record wall/profile time plus production action counters.",
+            "recommendedFiles": "active production profile/event/counter observation surface"
+        },
+        {
+            "id": "GWC-H01.gjc_12_17_20_23_remain_human",
+            "matrix": "matrix human gates",
+            "status": "HUMAN_REQUIRED",
+            "classification": "MANUAL_ONLY",
+            "severity": "P1",
+            "expected": "GJC-12, GJC-17, GJC-20, and GJC-23 remain HUMAN_REQUIRED; synthetic timing does not claim human comprehension, measured human timing, six human sessions, or a physical gamepad",
+            "actual": "humanSessions=0; observationStatus=HUMAN_REQUIRED",
+            "reproduction": "After Wave C automation is GREEN, run the same candidate build with KO 3 + EN 3 users and a physical gamepad.",
+            "recommendedFiles": "Docs/Design/gamejam-completion-matrix.md"
+        },
+        {
+            "id": "GWC-P08.wave_c_green_closure",
+            "matrix": "matrix 145 closure",
+            "status": "PASS",
+            "classification": "NONE",
+            "severity": "P0",
+            "expected": "Fresh same-run GSN-E05/P05/P10 plus all Wave C natural trace, live comic, and same-run upper+basement checks are PASS",
+            "actual": "fresh GSN-E05/P05/P10 and Wave C P01-P07 PASS in RunId=20260827T180000Z_gamejam_wavec_3d64403",
+            "reproduction": "Run the GSN prerequisite and Wave C gate under one fresh RunId without copying prior JSON files.",
+            "recommendedFiles": "fresh same-run GSN and Wave C reports"
+        }
+    ]
+}

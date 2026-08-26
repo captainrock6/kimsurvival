@@ -1,0 +1,12 @@
+Game Jam package ZIP versus folder exact comparison
+Run ID: pkg_2c9f36a_verified
+QA baseline: 2c9f36a200032d821992234788ef372747b8b925
+Package source commit: 3d64403813493d8de8e05f0844a5e616e164c6d4
+Package ZIP: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-3d64403.zip
+Package ZIP SHA-256: 68f639c10f74982ba2b2fd813d158de61217242252baed436286fa322433b5f4
+Safely extracted files: 266
+Folder/extracted file counts: 266/266
+Missing/extra/content mismatch: 0/0/0
+Extracted internal manifest: PASS
+Extraction error:
+Result: PASS

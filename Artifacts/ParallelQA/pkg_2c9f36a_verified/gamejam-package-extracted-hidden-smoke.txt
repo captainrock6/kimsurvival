@@ -1,0 +1,20 @@
+Game Jam extracted package hidden smoke
+Run ID: pkg_2c9f36a_verified
+QA baseline: 2c9f36a200032d821992234788ef372747b8b925
+Package source commit: 3d64403813493d8de8e05f0844a5e616e164c6d4
+Extracted root: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\pkg_2c9f36a_verified\p
+Executable: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\pkg_2c9f36a_verified\p\KimSurvivalIsland.exe
+Executable SHA-256: 93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d
+Window style: Hidden
+Required/observed seconds: 6/6.123
+Alive/responding: True/True
+Early exit: False
+Process cleanup / residual PIDs: True /
+Development LocalLow JSONL: C:\Users\dev\AppData\LocalLow\Kim Survival Studio\김씨 생존기_ 무인도\PlaytestLogs\kim-survival-playtest-20260826T052500448Z-8e94acb1.jsonl
+Allowed root / new this smoke / timestamp valid: True / True / True
+JSONL lines / invalid lines: 5 /
+Source/captured bytes: 9863 / 9863
+Source/captured SHA-256: c597f4841561acccc1aa4f4f8b690b6e2f2f405333de05ac8784ddba4f15b318 / c597f4841561acccc1aa4f4f8b690b6e2f2f405333de05ac8784ddba4f15b318
+Captured evidence JSONL / validated: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\pkg_2c9f36a_verified\extracted-development-playtest.jsonl / True
+Launch error:
+Result: PASS

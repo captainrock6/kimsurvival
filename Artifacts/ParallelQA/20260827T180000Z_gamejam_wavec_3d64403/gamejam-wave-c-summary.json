@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "title": "GameJam Wave C RED-first independent QA gate",
+  "runId": "20260827T180000Z_gamejam_wavec_3d64403",
+  "baselineCommit": "3d64403813493d8de8e05f0844a5e616e164c6d4",
+  "startedUtc": "2026-08-26T04:08:17.3354393Z",
+  "completedUtc": "2026-08-26T04:13:19.4186633Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4"
+  },
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "waveC": {
+    "passed": 14,
+    "expectedGaps": 0,
+    "failed": 0,
+    "humanRequired": 1,
+    "passIds": [
+      "GWC-E01.protected_eligible_assignment",
+      "GWC-E02.eligible_completed_miss_pity_3_5",
+      "GWC-E03.three_route_seed_audit",
+      "GWC-E04.atomic_retry_ending_schema",
+      "GWC-E05.upper_basement_save_schema",
+      "GWC-E06.comic_modifier_localization_schema",
+      "GWC-P01.protected_eligible_pity_natural",
+      "GWC-P02.three_simultaneous_completable",
+      "GWC-P03.distinct_natural_escape_interactions",
+      "GWC-P04.atomic_fail_cancel_wait_retry_ending_once",
+      "GWC-P05.same_run_upper_basement_save",
+      "GWC-P06.live_core_modifier_comic_locales",
+      "GWC-P07.no_cheats_25_35_profile",
+      "GWC-P08.wave_c_green_closure"
+    ],
+    "expectedGapIds": [],
+    "failureIds": []
+  },
+  "prerequisites": {
+    "searchEditReport": "PASS same-run GSN-E05",
+    "searchPlayReport": "PASS same-run GSN-P05/P10",
+    "copiedFreshFiles": [
+      "gamejam-search-node-edit-contracts.json",
+      "gamejam-search-node-play-contracts.json"
+    ],
+    "requiredPassIds": [
+      "GSN-E05",
+      "GSN-P05",
+      "GSN-P10"
+    ]
+  },
+  "greenTransitionConditions": [
+    "protected sailcloth, flint, and radio parts are eligible-only, survive loss pressures, and count only eligible completed misses for 3/5 pity",
+    "raft, smoke, and radio are simultaneously completable and each has a distinct ordered natural production interaction trace",
+    "fail, cancel, weather wait, and retry are atomic while ending and album record exactly once",
+    "one run commits and re-enters upper and basement through save/restore without changing escape resources",
+    "KO, EN, and qps-long render three live core comic panels plus a modifier with no required-action clipping",
+    "a representative seed produces a 25-35 minute production-input profile with grant, warp, and skip counters at zero",
+    "fresh same-run GSN-E05, GSN-P05, and GSN-P10 are PASS; GJC-12, GJC-17, GJC-20, and GJC-23 remain HUMAN_REQUIRED"
+  ],
+  "infrastructureFailures": [],
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-GameJamWaveCRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '3d64403813493d8de8e05f0844a5e616e164c6d4' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "fresh-gsn-green-prerequisite",
+      "startedUtc": "2026-08-26T04:08:17.3556953Z",
+      "completedUtc": "2026-08-26T04:12:58.0697423Z",
+      "exitCode": 0,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-GameJamSearchNodeRedFirstGate.ps1\" -RunId 20260827T180000Z_gamejam_wavec_3d64403 -BaselineCommit 3d64403813493d8de8e05f0844a5e616e164c6d4 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\wave-c-gsn-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\wave-c-gsn-stderr.log"
+    },
+    {
+      "name": "wave-c-edit-contracts",
+      "startedUtc": "2026-08-26T04:12:58.0995277Z",
+      "completedUtc": "2026-08-26T04:13:05.5738456Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.GameJamWaveCRedFirstGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\unity-wave_c_edit_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\wave_c_edit_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\wave_c_edit_contracts-stderr.log"
+    },
+    {
+      "name": "wave-c-play-contracts",
+      "startedUtc": "2026-08-26T04:13:05.5975654Z",
+      "completedUtc": "2026-08-26T04:13:19.3448390Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.GameJamWaveCRedFirstGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\unity-wave_c_play_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\wave_c_play_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T180000Z_gamejam_wavec_3d64403\\wave_c_play_contracts-stderr.log"
+    }
+  ],
+  "exitCode": 0
+}

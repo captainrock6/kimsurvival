@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "title": "GameJam searchable resource node RED-first independent regression gate",
+  "runId": "20260827T190000Z_gamejam_waveb_3d64403",
+  "baselineCommit": "3d64403813493d8de8e05f0844a5e616e164c6d4",
+  "startedUtc": "2026-08-26T04:13:32.2703006Z",
+  "completedUtc": "2026-08-26T04:17:59.8159305Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe"
+  },
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "wave20GreenLock": {
+    "passed": 16,
+    "total": 16,
+    "failed": 0
+  },
+  "wave19GreenLock": {
+    "passed": 21,
+    "total": 21,
+    "failed": 0
+  },
+  "wave19ResourceIconDiagnostic": "PASS: Wood=14@5ba05e4e569ab6745bff72d0b9ba9151/fallback=0 | Stone=15@c881b7198e647ad40b32c63ce18e27a2/fallback=0 | Food=11@59695c50812722b458c210b4cfb02c12/fallback=0 | Salvage=25@cb8829a17d9cc9049aa16fbf4393097a/fallback=0",
+  "currentGreenLocks": {
+    "canonicalCampModuleMap": "PASS",
+    "sameDayRedepartureNotice": "PASS",
+    "compile": "PASS 0/0",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS 6.254s",
+    "addressables": "PASS",
+    "firewallInboundBlock": "PASS",
+    "rawPlayerLog": "PASS_QUARANTINED"
+  },
+  "searchNode": {
+    "passed": 15,
+    "expectedGaps": 0,
+    "failed": 0,
+    "passIds": [
+      "GSN-E01.seven_region_node_catalog",
+      "GSN-E02.seed_node_content_determinism",
+      "GSN-E03.persistent_snapshot_schema",
+      "GSN-E04.ko_en_qps_search_surface",
+      "GSN-E05.protected_part_raft_link",
+      "GSN-P01.actual_node_prompt_tray",
+      "GSN-P02.no_reroll_cancel_transition_revisit",
+      "GSN-P03.hidden_partial_depleted_restore",
+      "GSN-P04.loot_bag_transaction_atomicity",
+      "GSN-P05.protected_parts_and_sailcloth",
+      "GSN-P06.seven_region_finite_persistence",
+      "GSN-P07.search_cost_hazard_pause",
+      "GSN-P08.ko_en_qps_compact_tray_1280",
+      "GSN-P09.keyboard_mouse_synthetic_gamepad_parity",
+      "GSN-P10.natural_trace_no_fixture_cheats"
+    ],
+    "expectedGapIds": [],
+    "failureIds": [],
+    "unverified": 1,
+    "notReady": 1
+  },
+  "greenTransitionConditions": [
+    "exactly seven stable region IDs and a finite structured node catalog are public and observed",
+    "same seed+region+node structured contents repeat exactly while multiple alternate seeds include a valid variation",
+    "Cancel, screen transition, revisit, and save/restore never reroll or lose remaining item IDs/counts",
+    "hidden -> revealed-partial -> depleted and take/leave/replace/cancel/duplicate transaction contracts pass",
+    "protected parts cannot be discarded/duplicated/double-consumed and part.raft.sailcloth links to escape.raft exactly once",
+    "search cost/risk apply once and new hazards pause while the actual compact tray is open",
+    "fresh ko/en/qps-long 1280x800 actual captures have zero overflow/offscreen and clear player/walking band",
+    "keyboard/mouse and synthetic gamepad structured meanings match; grant/warp/skip remain false",
+    "fresh Wave 20 16/16, Wave 19 21/21, canonical camp/module/map, same-day notice, compile/build/smoke/Addressables/firewall remain PASS"
+  ],
+  "infrastructureFailures": [],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-GameJamSearchNodeRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '3d64403813493d8de8e05f0844a5e616e164c6d4' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "fresh-wave20-green-prerequisite",
+      "startedUtc": "2026-08-26T04:13:32.2877914Z",
+      "completedUtc": "2026-08-26T04:17:41.6464101Z",
+      "exitCode": 0,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-Wave20RaftRedFirstGate.ps1\" -RunId 20260827T190000Z_gamejam_waveb_3d64403 -BaselineCommit 3d64403813493d8de8e05f0844a5e616e164c6d4 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\search-node-wave20-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\search-node-wave20-stderr.log"
+    },
+    {
+      "name": "search-node-edit-contracts",
+      "startedUtc": "2026-08-26T04:17:41.6577783Z",
+      "completedUtc": "2026-08-26T04:17:49.1180497Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.GameJamSearchNodeRedFirstGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\unity-search_node_edit_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\search_node_edit_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\search_node_edit_contracts-stderr.log"
+    },
+    {
+      "name": "search-node-play-contracts",
+      "startedUtc": "2026-08-26T04:17:49.1196953Z",
+      "completedUtc": "2026-08-26T04:17:59.7612688Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.GameJamSearchNodeRedFirstGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\unity-search_node_play_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\search_node_play_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\search_node_play_contracts-stderr.log"
+    }
+  ],
+  "exitCode": 0
+}

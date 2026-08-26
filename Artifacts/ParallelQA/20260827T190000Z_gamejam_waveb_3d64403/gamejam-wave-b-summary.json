@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "title": "GameJam Wave B RED-first independent QA gate",
+  "runId": "20260827T190000Z_gamejam_waveb_3d64403",
+  "baselineCommit": "3d64403813493d8de8e05f0844a5e616e164c6d4",
+  "startedUtc": "2026-08-26T04:13:31.5481723Z",
+  "completedUtc": "2026-08-26T04:18:24.1946293Z",
+  "powershell": {
+    "edition": "Core",
+    "version": "7.6.4",
+    "executable": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe"
+  },
+  "overall": "GREEN",
+  "productOverall": "PASS",
+  "infrastructureOverall": "PASS",
+  "prerequisites": {
+    "gsn": "15/15",
+    "wave19": "21/21",
+    "wave20": "16/16"
+  },
+  "waveB": {
+    "passed": 9,
+    "expectedGaps": 0,
+    "failed": 0,
+    "passIds": [
+      "GWB-E01.catalog_7_21_42_144",
+      "GWB-E02.seed_revision_byte_determinism",
+      "GWB-E03.revision_and_new_game_stock_schema",
+      "GWB-E04.ko_en_qps_wave_b_surface",
+      "GWB-P01.return_forced_return_snapshot_persistence",
+      "GWB-P02.stock_not_regenerated_outside_new_game",
+      "GWB-P03.natural_disease_lifecycle_atomic",
+      "GWB-P04.ko_en_qps_input_layout_parity",
+      "GWB-P05.actual_natural_trace_no_cheats"
+    ],
+    "expectedGapIds": [],
+    "failureIds": []
+  },
+  "currentLocks": {
+    "compile": "PASS 0/0",
+    "windowsDevelopmentBuild": "PASS",
+    "hiddenSmoke": "PASS 6.254s",
+    "addressables": "PASS",
+    "firewallInboundBlock": "PASS",
+    "rawPlayerLog": "PASS_QUARANTINED"
+  },
+  "greenTransitionConditions": [
+    "exact public catalog observes 7 regions, 21 stable archetypes, 42 stable instances, and 144 derived general resource units",
+    "same seed+contractRevision+lootTableRevision is byte-equal, another seed validly varies stock, and non-new-game transitions never regenerate stock",
+    "hidden/partial/depleted, known remainder, broken barrier, and removed persistent hazard survive return, forced return, revisit, and snapshot restore",
+    "one live natural disease trace completes telegraph, exposure, effect, worsen, and mitigate/treat with zero duplicate/cancel contamination",
+    "ko/en/qps-long 1280x800 and keyboard/mouse/synthetic-gamepad meanings match without overflow, offscreen, player, or walking-band occlusion",
+    "GSN 15/15, Wave 19 21/21, Wave 20 16/16, compile/build/smoke/Addressables/firewall remain PASS"
+  ],
+  "infrastructureFailures": [],
+  "physicalGamepad": "UNVERIFIED",
+  "steamReadiness": "NOT_READY",
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-GameJamWaveBRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '3d64403813493d8de8e05f0844a5e616e164c6d4' -MinimumSmokeSeconds 6",
+  "stages": [
+    {
+      "name": "fresh-gsn-green-prerequisite",
+      "startedUtc": "2026-08-26T04:13:31.5651034Z",
+      "completedUtc": "2026-08-26T04:17:59.8778833Z",
+      "exitCode": 0,
+      "command": "C:\\Users\\dev\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Assets\\Editor\\ParallelQA\\Invoke-GameJamSearchNodeRedFirstGate.ps1\" -RunId 20260827T190000Z_gamejam_waveb_3d64403 -BaselineCommit 3d64403813493d8de8e05f0844a5e616e164c6d4 -UnityPath \"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -MinimumSmokeSeconds 6",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\wave-b-gsn-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\wave-b-gsn-stderr.log"
+    },
+    {
+      "name": "wave-b-edit-contracts",
+      "startedUtc": "2026-08-26T04:17:59.9003584Z",
+      "completedUtc": "2026-08-26T04:18:10.3851619Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.GameJamWaveBRedFirstGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\unity-wave_b_edit_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\wave_b_edit_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\wave_b_edit_contracts-stderr.log"
+    },
+    {
+      "name": "wave-b-play-contracts",
+      "startedUtc": "2026-08-26T04:18:10.3868545Z",
+      "completedUtc": "2026-08-26T04:18:24.1316281Z",
+      "exitCode": 0,
+      "command": "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\" -executeMethod ParallelQA.GameJamWaveBRedFirstGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\unity-wave_b_play_contracts.log\"",
+      "standardOutput": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\wave_b_play_contracts-stdout.log",
+      "standardError": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T190000Z_gamejam_waveb_3d64403\\wave_b_play_contracts-stderr.log"
+    }
+  ],
+  "exitCode": 0
+}

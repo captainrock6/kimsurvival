@@ -1,0 +1,12 @@
+Game Jam package folder internal SHA-256 manifest audit
+Run ID: pkg_2c9f36a_verified
+QA baseline / observed HEAD: 2c9f36a200032d821992234788ef372747b8b925 / 2c9f36a200032d821992234788ef372747b8b925
+Package source commit: 3d64403813493d8de8e05f0844a5e616e164c6d4
+Package folder: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-3d64403
+Folder files: 266
+Manifest entries: 265
+Exact manifest file set: True
+BUILD-INFO source commit matches: True
+Executable / managed assembly identity matches: True
+Result: PASS
+Issues:

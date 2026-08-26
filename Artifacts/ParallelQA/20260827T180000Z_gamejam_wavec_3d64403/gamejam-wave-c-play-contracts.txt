@@ -1,0 +1,15 @@
+GameJam Wave C RED-first actual Play contracts
+Run ID: 20260827T180000Z_gamejam_wavec_3d64403
+Baseline: 3d64403813493d8de8e05f0844a5e616e164c6d4
+Unity: 6000.4.9f1
+Overall/Product/Infrastructure: GREEN/PASS/PASS
+PASS/EXPECTED_GAP/FAIL/INFRA_FAIL/HUMAN_REQUIRED: 8/0/0/0/1
+GWC-P01.protected_eligible_pity_natural | PASS | NONE | parts=5; events=16
+GWC-P02.three_simultaneous_completable | PASS | NONE | routes=escape.raft,escape.smoke,escape.radio
+GWC-P03.distinct_natural_escape_interactions | PASS | NONE | independent production branches=3; events=9
+GWC-P04.atomic_fail_cancel_wait_retry_ending_once | PASS | NONE | atomic routes=3; terminal duplicate=zero; ending.resolved=1; albumRecordDelta=1
+GWC-P05.same_run_upper_basement_save | PASS | NONE | committed=room.upper.standard,room.basement.standard; reentered=room.upper.standard,room.basement.standard
+GWC-P06.live_core_modifier_comic_locales | PASS | NONE | ko core/modifier=3/1 overflow/offscreen/clipped=0/0/0 geometryTexts/textOverlap/cardBoundary=8/0/0 fonts(title/core/modifier)=24/16/17 | en core/modifier=3/1 overflow/offscreen/clipped=0/0/0 geometryTexts/textOverlap/cardBoundary=8/0/0 fonts(title/core/modifier)=24/16/17 | qps-long core/modifier=3/1 overflow/offscreen/clipped=0/0/0 geometryTexts/textOverlap/cardBoundary=8/0/0 fonts(title/core/modifier)=24/16/17
+GWC-P07.no_cheats_25_35_profile | PASS | NONE | seed=15000501; minutes=28.98; grant/warp/skip=0/0/0
+GWC-H01.gjc_12_17_20_23_remain_human | HUMAN_REQUIRED | MANUAL_ONLY | humanSessions=0; observationStatus=HUMAN_REQUIRED
+GWC-P08.wave_c_green_closure | PASS | NONE | fresh GSN-E05/P05/P10 and Wave C P01-P07 PASS in RunId=20260827T180000Z_gamejam_wavec_3d64403
