@@ -27,7 +27,7 @@ $frozenWave16Failures = @(
     'W16-E03.smoke_radio_playable',
     'W16-E04.raft_flare_beacon_data',
     'W16-O01.snapshot_and_private_log',
-    'W16-N01.ending_catalog_19',
+    'W16-N01.ending_catalog_21',
     'W16-N02.deterministic_single_ending',
     'W16-N03.terminal_priority',
     'W16-L01.ko_en_qps_contract',
@@ -262,10 +262,16 @@ $summary = [ordered]@{
     productOverall = $productOverall
     infrastructureOverall = $infrastructureOverall
     frozenWave16Baseline = [ordered]@{
-        expectedCount = 17
-        expectedIds = $frozenWave16Failures
+        expectedCount = if ($BaselineCommit -eq $redBaseline) { 17 } else { 0 }
+        expectedIds = if ($BaselineCommit -eq $redBaseline) { $frozenWave16Failures } else { @() }
         observedIds = if ($null -eq $wave16Summary) { @() } else { @($wave16Summary.productFailures | ForEach-Object { [string]$_.id }) }
-        result = if ($null -ne $wave16Summary -and (Compare-ExactSet @($wave16Summary.productFailures | ForEach-Object { [string]$_.id }) $frozenWave16Failures)) { 'PASS 17/17' } else { 'FAIL' }
+        result = if ($BaselineCommit -eq $redBaseline) {
+            if ($null -ne $wave16Summary -and (Compare-ExactSet @($wave16Summary.productFailures | ForEach-Object { [string]$_.id }) $frozenWave16Failures)) { 'PASS 17/17' } else { 'FAIL' }
+        } elseif ($null -ne $wave16Summary -and $wave16Summary.overall -eq 'GREEN' -and $wave16Summary.productOverall -eq 'PASS') {
+            'PASS CURRENT GREEN'
+        } else {
+            'FAIL'
+        }
     }
     currentGreenLocks = [ordered]@{
         wave15CampaignMap = if ($null -ne $wave15Summary) { [string]$wave15Summary.overall } else { 'MISSING' }

@@ -161,6 +161,13 @@ namespace ParallelQA
             public int overflowCount = -1;
             public int offscreenCount = -1;
             public int clippedRequiredActionCount = -1;
+            public int activeGeometryTextCount = -1;
+            public int textTextOverlapCount = -1;
+            public int textCardBoundaryViolationCount = -1;
+            public float titleFontSize = -1f;
+            public float minimumCoreFontSize = -1f;
+            public float modifierFontSize = -1f;
+            public string[] geometryViolations = Array.Empty<string>();
         }
 
         [Serializable]
@@ -568,7 +575,7 @@ namespace ParallelQA
                     "active production module expansion, escape inventory, and save runtime observation surface");
 
                 Product(checks, "GWC-P06.live_core_modifier_comic_locales", "matrix 140 criterion 7", "P1",
-                    "KO/EN/qps-long each render at least three live core panels plus one modifier with distinct text/images, identical runtime state, and no clipped required action",
+                    "KO/EN/qps-long each render at least three live core panels plus one modifier with distinct text/images, identical runtime state, no clipped required action, no rendered text overlap, and every title/body inside its owning card",
                     delegate
                     {
                         RequireLive(evidence);
@@ -577,7 +584,13 @@ namespace ParallelQA
                             "locales=" + string.Join(",", evidence.layouts.Select(value => value.locale).ToArray()));
                         Require(evidence.layouts.All(value => value.corePanelCount >= 3 && value.modifierPanelCount >= 1 &&
                                                               value.overflowCount == 0 && value.offscreenCount == 0 &&
-                                                              value.clippedRequiredActionCount == 0),
+                                                              value.clippedRequiredActionCount == 0 &&
+                                                              value.activeGeometryTextCount >= 5 &&
+                                                              value.textTextOverlapCount == 0 &&
+                                                              value.textCardBoundaryViolationCount == 0 &&
+                                                              value.titleFontSize >= 18f &&
+                                                              value.minimumCoreFontSize >= 12f &&
+                                                              value.modifierFontSize >= 13f),
                             "panel/layout failure: " + string.Join(" | ", evidence.layouts.Select(DescribeLayout).ToArray()));
                         Require(evidence.layouts.All(value => !string.IsNullOrWhiteSpace(value.renderSha256)) &&
                                 evidence.layouts.Select(value => value.renderSha256).Distinct(StringComparer.Ordinal).Count() == 3,
@@ -739,6 +752,7 @@ namespace ParallelQA
                     evidence.liveObservationMethod = method.Name;
                     evidence.liveObservationSurface = DescribeSurface(observed.GetType());
                     CopyObservation(observed, evidence);
+                    MergeTerminalComicGeometry(owner, evidence);
                     return evidence;
                 }
                 evidence.observationError = "No active production component exposes a qualifying rich Wave C observation method.";
@@ -898,6 +912,40 @@ namespace ParallelQA
                 layouts.Add(layout);
             }
             return layouts.ToArray();
+        }
+
+        private static void MergeTerminalComicGeometry(MonoBehaviour owner, PlayEvidence evidence)
+        {
+            if (owner == null || evidence == null || evidence.layouts == null) return;
+            MethodInfo method = owner.GetType().GetMethod(
+                "CaptureTerminalComicGeometryAudit",
+                PublicInstance,
+                null,
+                Type.EmptyTypes,
+                null);
+            if (method == null || method.ReturnType == typeof(void) || method.ReturnType.IsPrimitive ||
+                method.ReturnType == typeof(string)) return;
+            object observed = method.Invoke(owner, null);
+            if (!(observed is IEnumerable values) || observed is string) return;
+            foreach (object item in values)
+            {
+                if (item == null) continue;
+                string locale = ReadString(item, "Locale", "LocaleCode").ToLowerInvariant();
+                LayoutEvidence layout = evidence.layouts.FirstOrDefault(value =>
+                    string.Equals(value.locale, locale, StringComparison.Ordinal));
+                if (layout == null) continue;
+                layout.activeGeometryTextCount = ReadInt(item, -1, "ActiveTextCount", "TextCount");
+                layout.textTextOverlapCount = ReadInt(item, -1, "TextTextOverlapCount", "TextOverlapCount");
+                layout.textCardBoundaryViolationCount = ReadInt(
+                    item,
+                    -1,
+                    "TextCardBoundaryViolationCount",
+                    "CardBoundaryViolationCount");
+                layout.titleFontSize = ReadFloat(item, -1f, "TitleFontSize");
+                layout.minimumCoreFontSize = ReadFloat(item, -1f, "MinimumCoreFontSize", "CoreFontSize");
+                layout.modifierFontSize = ReadFloat(item, -1f, "ModifierFontSize");
+                layout.geometryViolations = ReadStrings(item, "Violations", "GeometryViolations");
+            }
         }
 
         private static bool EventsAreProduction(EventEvidence[] events)
@@ -1107,7 +1155,13 @@ namespace ParallelQA
         {
             return value.locale + " core/modifier=" + value.corePanelCount + "/" + value.modifierPanelCount +
                    " overflow/offscreen/clipped=" + value.overflowCount + "/" + value.offscreenCount + "/" +
-                   value.clippedRequiredActionCount;
+                   value.clippedRequiredActionCount + " geometryTexts/textOverlap/cardBoundary=" +
+                   value.activeGeometryTextCount + "/" + value.textTextOverlapCount + "/" +
+                   value.textCardBoundaryViolationCount + " fonts(title/core/modifier)=" +
+                   value.titleFontSize + "/" + value.minimumCoreFontSize + "/" + value.modifierFontSize +
+                   (value.geometryViolations == null || value.geometryViolations.Length == 0
+                       ? string.Empty
+                       : " violations=" + string.Join(",", value.geometryViolations));
         }
 
         private static bool SameNonEmpty(string left, string right)

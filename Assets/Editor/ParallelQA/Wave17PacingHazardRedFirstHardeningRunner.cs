@@ -75,9 +75,12 @@ namespace ParallelQA
             "ending.escape.flare.one-shot", "ending.escape.beacon.ridge-light", "ending.comic.raft.coconut-navy",
             "ending.comic.smoke.island-barbecue", "ending.comic.radio.island-dj", "ending.comic.flare.daylight-fireworks",
             "ending.comic.beacon.brightest-address", "ending.rare.raft.current-reader", "ending.rare.smoke.cloud-letter",
-            "ending.rare.radio.forecast-rescue", "ending.rare.beacon.storm-eye", "ending.stay.green-king",
+            "ending.rare.radio.forecast-rescue", "ending.rare.beacon.storm-eye", "ending.gamejam.stay.natural-kim",
+            "ending.gamejam.stay.island-engineer", "ending.stay.green-king",
             "ending.stay.fortress-manager", "ending.stay.scrap-professor", "ending.stay.island-ranger", "ending.stay.just-kim"
         };
+
+        private static readonly string[] RequiredEndingCategories = { "escape", "comic", "rare", "gamejam-stay", "day50" };
 
         private static readonly ReviewAsset[] ReviewAssets =
         {
@@ -267,6 +270,13 @@ namespace ParallelQA
                 "Read the Wave 16 packet and human contract and locate the ready Forge QA task.",
                 ".forge/packets/wave16-fifty-day-pacing.json; Docs/Design/wave16-fifty-day-pacing.md; .forge/backlog.json");
 
+            Observation wave16Prerequisite = ObserveWave16Prerequisite();
+            Product(checks, "W17-I03.wave16_exact_21_prerequisite", "frozen prerequisite", "P0",
+                "The same-run Wave 16 prerequisite is GREEN on the exact 21-ending, five-category contract and the Wave 17 wrapper does not retain ending_catalog_19",
+                wave16Prerequisite.Passed, wave16Prerequisite.Detail,
+                "Inspect the same-run Wave 16 summary/edit report and the Wave 17 wrapper's frozen prerequisite ID.",
+                "Artifacts/ParallelQA/<RunId>/wave16-summary.json; Artifacts/ParallelQA/<RunId>/wave16-edit-contracts.json; Assets/Editor/ParallelQA/Invoke-Wave17PacingHazardGate.ps1");
+
             CatalogProbe catalog = DiscoverPublicContractSurface();
             Observation bands = ObservePacingBands(catalog);
             Observation earlyEscape = ObserveEarlyEscape(catalog);
@@ -349,8 +359,8 @@ namespace ParallelQA
                 persistence.Passed, persistence.Detail,
                 "Inspect public snapshot/log schemas and serialize a stable-ID-only verification record.",
                 "runtime run snapshot and development telemetry schemas selected by the implementation owner");
-            Product(checks, "W17-N01.ending_catalog_19_and_samples", "ending catalog", "P0",
-                "All 19 canonical ending IDs and four samples are unique public data",
+            Product(checks, "W17-N01.ending_catalog_21_and_categories", "ending catalog", "P0",
+                "All 21 canonical ending IDs are unique public data in five exact album categories (5/5/4/2/5), with four required samples",
                 endingCatalog.Passed, endingCatalog.Detail,
                 "Enumerate public ending catalog objects by stable ID.",
                 "runtime ending catalog selected by the implementation owner");
@@ -578,6 +588,53 @@ namespace ParallelQA
                 .Concat(new[] { "task.qa.wave15-hazard-ending-redfirst", "eligible-search", "rollingWindowDays", "sampleSwitchLead" }).ToArray();
             string[] missing = required.Where(value => canonical.IndexOf(value, StringComparison.Ordinal) < 0).ToArray();
             return RequireDetail(missing.Length == 0, "required=" + required.Length + "; missing=" + string.Join(",", missing));
+        }
+
+        private static Observation ObserveWave16Prerequisite()
+        {
+            string summaryPath = Path.Combine(EvidenceFolder, "wave16-summary.json");
+            string editPath = Path.Combine(EvidenceFolder, "wave16-edit-contracts.json");
+            string wrapperPath = Path.Combine(ProjectRoot, "Assets", "Editor", "ParallelQA", "Invoke-Wave17PacingHazardGate.ps1");
+            if (!File.Exists(summaryPath) || !File.Exists(editPath) || !File.Exists(wrapperPath))
+            {
+                return Obs(false, "missing=" + string.Join(",", new[] { summaryPath, editPath, wrapperPath }
+                    .Where(path => !File.Exists(path)).Select(path => path.Substring(ProjectRoot.Length + 1)).ToArray()));
+            }
+
+            try
+            {
+                Report summary = JsonUtility.FromJson<Report>(File.ReadAllText(summaryPath));
+                Report edit = JsonUtility.FromJson<Report>(File.ReadAllText(editPath));
+                Check[] editChecks = edit == null || edit.checks == null ? new Check[0] : edit.checks;
+                Check endingCheck = editChecks.FirstOrDefault(check =>
+                    string.Equals(check.id, "W16-N01.ending_catalog_21", StringComparison.Ordinal));
+                bool sameRun = summary != null && edit != null &&
+                               string.Equals(summary.runId, RunId, StringComparison.Ordinal) &&
+                               string.Equals(edit.runId, RunId, StringComparison.Ordinal) &&
+                               string.Equals(summary.baselineCommit, BaselineCommit, StringComparison.Ordinal) &&
+                               string.Equals(edit.baselineCommit, BaselineCommit, StringComparison.Ordinal);
+                bool reportsGreen = summary != null && edit != null &&
+                                    summary.overall == "GREEN" && summary.productOverall == "PASS" && summary.infrastructureOverall == "PASS" &&
+                                    edit.productOverall == "PASS" && edit.infrastructureOverall == "PASS";
+                bool endingContract = endingCheck != null && endingCheck.status == "PASS" &&
+                                      HasAll(endingCheck.actual, "endings=21/21", "samples=4/4", "unique=True", "exactIds=True",
+                                          "escape=5", "comic=5", "rare=4", "gamejam-stay=2", "day50=5");
+                bool legacyContractAbsent = editChecks.All(check =>
+                    !string.Equals(check.id, "W16-N01.ending_catalog_19", StringComparison.Ordinal));
+                string wrapper = File.ReadAllText(wrapperPath);
+                bool wrapperCurrent = wrapper.IndexOf("W16-N01.ending_catalog_21", StringComparison.Ordinal) >= 0 &&
+                                      wrapper.IndexOf("W16-N01.ending_catalog_19", StringComparison.Ordinal) < 0;
+                return Obs(sameRun && reportsGreen && endingContract && legacyContractAbsent && wrapperCurrent,
+                    "sameRun=" + sameRun + "; reportsGreen=" + reportsGreen + "; endingContract=" + endingContract +
+                    "; legacyContractAbsent=" + legacyContractAbsent + "; wrapperCurrent=" + wrapperCurrent +
+                    "; observedIds=" + string.Join(",", editChecks.Where(check => check.id.StartsWith("W16-N01.", StringComparison.Ordinal))
+                        .Select(check => check.id + "=" + check.status).ToArray()) +
+                    "; actual=" + (endingCheck == null ? "missing" : endingCheck.actual));
+            }
+            catch (Exception exception)
+            {
+                return Obs(false, exception.GetType().Name + ": " + exception.Message);
+            }
         }
 
         private static CatalogProbe DiscoverPublicContractSurface()
@@ -930,10 +987,37 @@ namespace ParallelQA
 
         private static Observation ObserveEndingCatalog(CatalogProbe catalog)
         {
-            string[] found = RequiredEndings.Where(id => catalog.StableIds.Contains(id)).ToArray();
-            string[] samples = RequiredSamples.Where(id => catalog.StableIds.Contains(id)).ToArray();
-            return Obs(found.Length == 19 && samples.Length == 4 && found.Distinct(StringComparer.Ordinal).Count() == 19,
-                "endings=" + found.Length + "/19; samples=" + samples.Length + "/4; ids=" + string.Join(",", found));
+            string[] found = RequiredEndings.Where(id => catalog.Entries.Any(entry => entry.id == id)).ToArray();
+            string[] samples = RequiredSamples.Where(id => found.Contains(id)).ToArray();
+            ContractEntry[] endingEntries = catalog.Entries.Where(entry =>
+                entry.id.StartsWith("ending.", StringComparison.Ordinal)).ToArray();
+            bool unique = endingEntries.GroupBy(entry => entry.id).All(group => group.Count() == 1);
+            bool exactIds = endingEntries.Length == RequiredEndings.Length &&
+                            endingEntries.Select(entry => entry.id).OrderBy(id => id, StringComparer.Ordinal)
+                                .SequenceEqual(RequiredEndings.OrderBy(id => id, StringComparer.Ordinal));
+            Dictionary<string, int> expectedCategories = new Dictionary<string, int>(StringComparer.Ordinal)
+            {
+                { "escape", 5 }, { "comic", 5 }, { "rare", 4 }, { "gamejam-stay", 2 }, { "day50", 5 }
+            };
+            Dictionary<string, int> actualCategories = endingEntries
+                .GroupBy(entry => MemberValue(entry, "Category"), StringComparer.Ordinal)
+                .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
+            bool categories = expectedCategories.All(pair =>
+                                  actualCategories.TryGetValue(pair.Key, out int count) && count == pair.Value) &&
+                              actualCategories.Keys.OrderBy(value => value, StringComparer.Ordinal)
+                                  .SequenceEqual(RequiredEndingCategories.OrderBy(value => value, StringComparer.Ordinal));
+            string categoryDetail = string.Join(",", RequiredEndingCategories.Select(category =>
+                category + "=" + (actualCategories.TryGetValue(category, out int count) ? count : 0)).ToArray());
+            return Obs(found.Length == RequiredEndings.Length && samples.Length == RequiredSamples.Length && unique && exactIds && categories,
+                "endings=" + found.Length + "/21; samples=" + samples.Length + "/4; unique=" + unique +
+                "; exactIds=" + exactIds + "; categories=" + categoryDetail);
+        }
+
+        private static string MemberValue(ContractEntry entry, string memberName)
+        {
+            MemberSnapshot member = entry == null ? null : entry.members.FirstOrDefault(value =>
+                string.Equals(value.name, memberName, StringComparison.OrdinalIgnoreCase));
+            return member == null ? string.Empty : (member.value ?? string.Empty).Trim('"');
         }
 
         private static Observation ObserveEndingPriorityAndHysteresis(CatalogProbe catalog)
@@ -1344,7 +1428,7 @@ namespace ParallelQA
                 productFailed = checks.Count(check => check.status == "FAIL"),
                 infrastructureFailed = checks.Count(check => check.status == "INFRA_FAIL"),
                 unverified = checks.Count(check => check.status == "UNVERIFIED"),
-                greenCompletionCondition = "Fresh Wave 15 GREEN, frozen Wave 16 foundation GREEN after implementation, infrastructure PASS, and zero Wave 17 EXPECTED_GAP/FAIL checks.",
+                greenCompletionCondition = "Fresh Wave 15 GREEN, same-run Wave 16 exact 21-ending/category foundation GREEN, current frozen prerequisite ID, infrastructure PASS, and zero Wave 17 EXPECTED_GAP/FAIL checks.",
                 checks = checks.ToArray()
             };
             report.productOverall = report.productFailed > 0 ? "FAIL" : report.expectedGaps > 0 ? "RED_EXPECTED_GAP" : "PASS";

@@ -31,6 +31,19 @@ namespace KimSurvival
         }
     }
 
+    [Serializable]
+    public sealed class PrototypeTerminalComicGeometryObservation
+    {
+        public string Locale = string.Empty;
+        public int ActiveTextCount;
+        public int TextTextOverlapCount;
+        public int TextCardBoundaryViolationCount;
+        public float TitleFontSize;
+        public float MinimumCoreFontSize;
+        public float ModifierFontSize;
+        public string[] Violations = Array.Empty<string>();
+    }
+
     public sealed partial class KimSurvivalPrototype : MonoBehaviour
     {
         private const int UnbuiltBlueprintInteractionPriority = 0;
@@ -450,6 +463,7 @@ namespace KimSurvival
             BuildUi();
             hazardEscapeEndingRuntime = gameObject.AddComponent<PrototypeWaveRuntime>();
             hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog, campInteractionTargets, endingAlbumCollection);
+            ApplyTerminalComicLayoutPolicy();
             renderedPhase = (GamePhase)(-1);
             RefreshAll();
         }
@@ -556,6 +570,251 @@ namespace KimSurvival
         private void HandleLocaleChanged()
         {
             RefreshAll(session != null && session.Phase == GamePhase.Exploring);
+        }
+
+        public PrototypeTerminalComicGeometryObservation[] CaptureTerminalComicGeometryAudit()
+        {
+            RectTransform frame = FindTerminalComicRect("Finale Surface");
+            GameObject comicRoot = FindTerminalComicObject("Resolution Triptych A");
+            if (frame == null || comicRoot == null || !comicRoot.activeInHierarchy || localization == null)
+            {
+                return Array.Empty<PrototypeTerminalComicGeometryObservation>();
+            }
+
+            string originalLocale = localization.CurrentLocaleCode;
+            string[] locales =
+            {
+                PrototypeLocalization.KoreanLocaleCode,
+                PrototypeLocalization.EnglishLocaleCode,
+                PrototypeLocalization.QpsLongLocaleCode
+            };
+            var observations = new List<PrototypeTerminalComicGeometryObservation>();
+            try
+            {
+                foreach (string locale in locales)
+                {
+                    bool selected = string.Equals(locale, PrototypeLocalization.QpsLongLocaleCode, StringComparison.Ordinal)
+                        ? localization.SetQaLocale(locale)
+                        : localization.SetLocale(locale, false);
+                    if (!selected || !string.Equals(localization.CurrentLocaleCode, locale, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    ApplyTerminalComicLayoutPolicy();
+                    Canvas.ForceUpdateCanvases();
+                    TMP_Text[] texts = TerminalComicTexts(frame)
+                        .Where(value => value != null && value.gameObject.activeInHierarchy && !string.IsNullOrWhiteSpace(value.text))
+                        .ToArray();
+                    var rendered = new List<TerminalComicTextGeometry>();
+                    var violations = new List<string>();
+                    foreach (TMP_Text text in texts)
+                    {
+                        text.ForceMeshUpdate(false, true);
+                        Rect glyph = RenderedTextWorldRect(text);
+                        RectTransform owner = string.Equals(text.gameObject.name, "Finale Title", StringComparison.Ordinal)
+                            ? text.rectTransform
+                            : text.transform.parent as RectTransform;
+                        Rect boundary = RectTransformWorldRect(owner);
+                        rendered.Add(new TerminalComicTextGeometry(text.gameObject.name, glyph, boundary));
+                        if (!RectContains(boundary, glyph, 0.5f))
+                        {
+                            violations.Add(text.gameObject.name + " outside " + (owner == null ? "missing owner" : owner.gameObject.name));
+                        }
+                    }
+
+                    int overlapCount = 0;
+                    for (int left = 0; left < rendered.Count; left += 1)
+                    {
+                        for (int right = left + 1; right < rendered.Count; right += 1)
+                        {
+                            if (!RectsIntersectWithArea(rendered[left].Glyph, rendered[right].Glyph, 0.5f)) continue;
+                            overlapCount += 1;
+                            violations.Add(rendered[left].Name + " overlaps " + rendered[right].Name);
+                        }
+                    }
+
+                    observations.Add(new PrototypeTerminalComicGeometryObservation
+                    {
+                        Locale = locale,
+                        ActiveTextCount = rendered.Count,
+                        TextTextOverlapCount = overlapCount,
+                        TextCardBoundaryViolationCount = rendered.Count(value =>
+                            !RectContains(value.Boundary, value.Glyph, 0.5f)),
+                        TitleFontSize = texts.Where(value => string.Equals(value.gameObject.name, "Finale Title", StringComparison.Ordinal))
+                            .Select(value => value.fontSize).DefaultIfEmpty(0f).Min(),
+                        MinimumCoreFontSize = texts.Where(value => value.gameObject.name.StartsWith("Copy ", StringComparison.Ordinal))
+                            .Select(value => value.fontSize).DefaultIfEmpty(0f).Min(),
+                        ModifierFontSize = texts.Where(value => string.Equals(value.gameObject.name, "Survival Behavior Copy", StringComparison.Ordinal))
+                            .Select(value => value.fontSize).DefaultIfEmpty(0f).Min(),
+                        Violations = violations.ToArray()
+                    });
+                }
+            }
+            finally
+            {
+                if (string.Equals(originalLocale, PrototypeLocalization.QpsLongLocaleCode, StringComparison.Ordinal))
+                {
+                    localization.SetQaLocale(originalLocale);
+                }
+                else
+                {
+                    localization.SetLocale(originalLocale, false);
+                }
+                ApplyTerminalComicLayoutPolicy();
+                Canvas.ForceUpdateCanvases();
+            }
+
+            return observations.ToArray();
+        }
+
+        private sealed class TerminalComicTextGeometry
+        {
+            public readonly string Name;
+            public readonly Rect Glyph;
+            public readonly Rect Boundary;
+
+            public TerminalComicTextGeometry(string name, Rect glyph, Rect boundary)
+            {
+                Name = name;
+                Glyph = glyph;
+                Boundary = boundary;
+            }
+        }
+
+        private void ApplyTerminalComicLayoutPolicy()
+        {
+            if (hazardEscapeEndingRuntime == null) return;
+            RectTransform frame = FindTerminalComicRect("Finale Surface");
+            Image frameImage = frame == null ? null : frame.GetComponent<Image>();
+            if (frame == null || frameImage == null || frameImage.sprite == null) return;
+
+            TMP_Text title = FindTerminalComicText("Finale Title");
+            ConfigureTerminalComicText(
+                title,
+                new Vector2(0.055f, 0.825f),
+                new Vector2(0.92f, 0.965f),
+                18f,
+                24f,
+                2);
+
+            for (int index = 0; index < 3; index += 1)
+            {
+                TMP_Text content = FindTerminalComicText("Copy " + (index + 1));
+                ConfigureTerminalComicText(
+                    content,
+                    new Vector2(index == 1 ? 0.035f : 0.045f, 0.02f),
+                    new Vector2(index == 1 ? 0.965f : 0.955f, index == 1 ? 0.56f : 0.52f),
+                    12f,
+                    16f,
+                    7);
+            }
+
+            TMP_Text modifier = FindTerminalComicText("Survival Behavior Copy");
+            ConfigureTerminalComicText(
+                modifier,
+                new Vector2(0.035f, 0.08f),
+                new Vector2(0.965f, 0.92f),
+                13f,
+                17f,
+                4);
+            Canvas.ForceUpdateCanvases();
+        }
+
+        private GameObject FindTerminalComicObject(string objectName)
+        {
+            if (hazardEscapeEndingRuntime == null) return null;
+            Transform found = FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .FirstOrDefault(value => value != null && string.Equals(value.gameObject.name, objectName, StringComparison.Ordinal));
+            return found == null ? null : found.gameObject;
+        }
+
+        private RectTransform FindTerminalComicRect(string objectName)
+        {
+            GameObject found = FindTerminalComicObject(objectName);
+            return found == null ? null : found.GetComponent<RectTransform>();
+        }
+
+        private TMP_Text FindTerminalComicText(string objectName)
+        {
+            GameObject found = FindTerminalComicObject(objectName);
+            return found == null ? null : found.GetComponent<TMP_Text>();
+        }
+
+        private static IEnumerable<TMP_Text> TerminalComicTexts(RectTransform frame)
+        {
+            if (frame == null) return Array.Empty<TMP_Text>();
+            string[] names = { "Finale Title", "Copy 1", "Copy 2", "Copy 3", "Survival Behavior Copy" };
+            return frame.GetComponentsInChildren<TMP_Text>(true)
+                .Where(value => value != null && names.Contains(value.gameObject.name, StringComparer.Ordinal));
+        }
+
+        private static void ConfigureTerminalComicText(
+            TMP_Text text,
+            Vector2 anchorMin,
+            Vector2 anchorMax,
+            float minimumFontSize,
+            float maximumFontSize,
+            int maximumVisibleLines)
+        {
+            if (text == null) return;
+            RectTransform rect = text.rectTransform;
+            rect.anchorMin = anchorMin;
+            rect.anchorMax = anchorMax;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            text.enableAutoSizing = true;
+            text.fontSizeMin = minimumFontSize;
+            text.fontSizeMax = maximumFontSize;
+            text.maxVisibleLines = maximumVisibleLines;
+            text.textWrappingMode = TextWrappingModes.Normal;
+            text.overflowMode = TextOverflowModes.Ellipsis;
+            text.margin = new Vector4(4f, 3f, 4f, 3f);
+            text.SetAllDirty();
+            text.ForceMeshUpdate(false, true);
+        }
+
+        private static Rect RenderedTextWorldRect(TMP_Text text)
+        {
+            if (text == null) return default(Rect);
+            Bounds bounds = text.textBounds;
+            Vector3[] points =
+            {
+                text.transform.TransformPoint(new Vector3(bounds.min.x, bounds.min.y, 0f)),
+                text.transform.TransformPoint(new Vector3(bounds.max.x, bounds.min.y, 0f)),
+                text.transform.TransformPoint(new Vector3(bounds.max.x, bounds.max.y, 0f)),
+                text.transform.TransformPoint(new Vector3(bounds.min.x, bounds.max.y, 0f))
+            };
+            return Rect.MinMaxRect(
+                points.Min(point => point.x),
+                points.Min(point => point.y),
+                points.Max(point => point.x),
+                points.Max(point => point.y));
+        }
+
+        private static Rect RectTransformWorldRect(RectTransform rect)
+        {
+            if (rect == null) return default(Rect);
+            Vector3[] corners = new Vector3[4];
+            rect.GetWorldCorners(corners);
+            return Rect.MinMaxRect(
+                corners.Min(point => point.x),
+                corners.Min(point => point.y),
+                corners.Max(point => point.x),
+                corners.Max(point => point.y));
+        }
+
+        private static bool RectContains(Rect boundary, Rect content, float tolerance)
+        {
+            return content.xMin >= boundary.xMin - tolerance && content.xMax <= boundary.xMax + tolerance &&
+                   content.yMin >= boundary.yMin - tolerance && content.yMax <= boundary.yMax + tolerance;
+        }
+
+        private static bool RectsIntersectWithArea(Rect left, Rect right, float tolerance)
+        {
+            float width = Mathf.Min(left.xMax, right.xMax) - Mathf.Max(left.xMin, right.xMin);
+            float height = Mathf.Min(left.yMax, right.yMax) - Mathf.Max(left.yMin, right.yMin);
+            return width > tolerance && height > tolerance;
         }
 
         private void BuildCamera()
@@ -1306,6 +1565,7 @@ namespace KimSurvival
                 if (hazardEscapeEndingRuntime != null)
                 {
                     hazardEscapeEndingRuntime.ActivateTerminalComic();
+                    ApplyTerminalComicLayoutPolicy();
                 }
                 EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
             }

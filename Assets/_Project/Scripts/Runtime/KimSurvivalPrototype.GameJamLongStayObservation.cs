@@ -44,6 +44,13 @@ namespace KimSurvival
         public int OverflowCount;
         public int OffscreenCount;
         public int ClippedRequiredActionCount;
+        public int ActiveGeometryTextCount;
+        public int TextTextOverlapCount;
+        public int TextCardBoundaryViolationCount;
+        public float TitleFontSize;
+        public float MinimumCoreFontSize;
+        public float ModifierFontSize;
+        public string[] GeometryViolations = Array.Empty<string>();
     }
 
     [Serializable]
@@ -288,8 +295,14 @@ namespace KimSurvival
             string endingId,
             string destination)
         {
-            return hazardEscapeEndingRuntime.CaptureWaveCComicLayoutObservations(destination)
-                .Select(value => new PrototypeGameJamLongStayLayoutObservation
+            PrototypeWaveCComicLayoutObservation[] layouts =
+                hazardEscapeEndingRuntime.CaptureWaveCComicLayoutObservations(destination);
+            Dictionary<string, PrototypeTerminalComicGeometryObservation> geometryByLocale =
+                CaptureTerminalComicGeometryAudit().ToDictionary(value => value.Locale, StringComparer.Ordinal);
+            return layouts.Select(value =>
+                {
+                    geometryByLocale.TryGetValue(value.Locale, out PrototypeTerminalComicGeometryObservation geometry);
+                    return new PrototypeGameJamLongStayLayoutObservation
                 {
                     EndingId = endingId,
                     Locale = value.Locale,
@@ -302,7 +315,15 @@ namespace KimSurvival
                     ModifierPanelCount = value.ModifierPanelCount,
                     OverflowCount = value.OverflowCount,
                     OffscreenCount = value.OffscreenCount,
-                    ClippedRequiredActionCount = value.ClippedRequiredActionCount
+                    ClippedRequiredActionCount = value.ClippedRequiredActionCount,
+                    ActiveGeometryTextCount = geometry == null ? -1 : geometry.ActiveTextCount,
+                    TextTextOverlapCount = geometry == null ? -1 : geometry.TextTextOverlapCount,
+                    TextCardBoundaryViolationCount = geometry == null ? -1 : geometry.TextCardBoundaryViolationCount,
+                    TitleFontSize = geometry == null ? -1f : geometry.TitleFontSize,
+                    MinimumCoreFontSize = geometry == null ? -1f : geometry.MinimumCoreFontSize,
+                    ModifierFontSize = geometry == null ? -1f : geometry.ModifierFontSize,
+                    GeometryViolations = geometry == null ? Array.Empty<string>() : geometry.Violations
+                };
                 })
                 .ToArray();
         }

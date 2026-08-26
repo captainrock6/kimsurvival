@@ -92,6 +92,108 @@ function Test-Utf8NoBom([string]$Path) {
     return $bytes.Length -lt 3 -or -not ($bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF)
 }
 
+function Get-PngDimensions([string]$Path) {
+    $bytes = [IO.File]::ReadAllBytes($Path)
+    $signature = [byte[]](0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A)
+    if ($bytes.Length -lt 24) { throw "PNG is too short: $Path" }
+    for ($index = 0; $index -lt $signature.Length; $index++) {
+        if ($bytes[$index] -ne $signature[$index]) { throw "PNG signature mismatch: $Path" }
+    }
+    return [ordered]@{
+        width = [Net.IPAddress]::NetworkToHostOrder([BitConverter]::ToInt32($bytes, 16))
+        height = [Net.IPAddress]::NetworkToHostOrder([BitConverter]::ToInt32($bytes, 20))
+    }
+}
+
+function Get-LongStayVisualEvidence([object]$PlayEvidence, [string]$EvidenceRoot) {
+    $records = New-Object System.Collections.Generic.List[object]
+    $failures = New-Object System.Collections.Generic.List[string]
+    $expected = @(
+        [ordered]@{ endingId = 'ending.gamejam.stay.natural-kim'; locale = 'ko'; fileName = 'gamejam-long-stay-natural-kim-ko-1280x800.png' },
+        [ordered]@{ endingId = 'ending.gamejam.stay.natural-kim'; locale = 'en'; fileName = 'gamejam-long-stay-natural-kim-en-1280x800.png' },
+        [ordered]@{ endingId = 'ending.gamejam.stay.natural-kim'; locale = 'qps-long'; fileName = 'gamejam-long-stay-natural-kim-qps-long-1280x800.png' },
+        [ordered]@{ endingId = 'ending.gamejam.stay.island-engineer'; locale = 'ko'; fileName = 'gamejam-long-stay-island-engineer-ko-1280x800.png' },
+        [ordered]@{ endingId = 'ending.gamejam.stay.island-engineer'; locale = 'en'; fileName = 'gamejam-long-stay-island-engineer-en-1280x800.png' },
+        [ordered]@{ endingId = 'ending.gamejam.stay.island-engineer'; locale = 'qps-long'; fileName = 'gamejam-long-stay-island-engineer-qps-long-1280x800.png' }
+    )
+
+    if ($null -eq $PlayEvidence) {
+        $failures.Add('long-stay play evidence is missing; visual evidence cannot be verified')
+        return [ordered]@{ records = @(); failures = @($failures | ForEach-Object { $_ }) }
+    }
+
+    $layouts = @($PlayEvidence.layouts)
+    if ($layouts.Count -ne $expected.Count) {
+        $failures.Add("long-stay layout count must be exactly 6, observed $($layouts.Count)")
+    }
+
+    $rootPrefix = [IO.Path]::GetFullPath($EvidenceRoot).TrimEnd([IO.Path]::DirectorySeparatorChar, [IO.Path]::AltDirectorySeparatorChar) + [IO.Path]::DirectorySeparatorChar
+    foreach ($item in $expected) {
+        $matches = @($layouts | Where-Object {
+            [string]$_.endingId -ceq [string]$item.endingId -and [string]$_.locale -ceq [string]$item.locale
+        })
+        if ($matches.Count -ne 1) {
+            $failures.Add("expected exactly one layout for $($item.endingId)/$($item.locale), observed $($matches.Count)")
+            continue
+        }
+
+        $layout = $matches[0]
+        $relativePath = [string]$layout.screenshot
+        if ([IO.Path]::IsPathRooted($relativePath) -or $relativePath -cne [string]$item.fileName) {
+            $failures.Add("layout screenshot is not the canonical evidence-relative path for $($item.endingId)/$($item.locale): $relativePath")
+            continue
+        }
+
+        $fullPath = [IO.Path]::GetFullPath((Join-Path $EvidenceRoot $relativePath))
+        if (-not $fullPath.StartsWith($rootPrefix, [StringComparison]::OrdinalIgnoreCase)) {
+            $failures.Add("layout screenshot escapes the evidence root: $relativePath")
+            continue
+        }
+        if (-not (Test-Path -LiteralPath $fullPath -PathType Leaf)) {
+            $failures.Add("preserved long-stay screenshot is missing: $relativePath")
+            continue
+        }
+
+        try {
+            $dimensions = Get-PngDimensions $fullPath
+            if ([int]$dimensions.width -ne 1280 -or [int]$dimensions.height -ne 800) {
+                $failures.Add("preserved long-stay screenshot has wrong dimensions: $relativePath=$($dimensions.width)x$($dimensions.height)")
+                continue
+            }
+            $sha = (Get-FileHash -LiteralPath $fullPath -Algorithm SHA256).Hash.ToLowerInvariant()
+            $reportedSha = ([string]$layout.screenshotSha256).ToLowerInvariant()
+            if ($reportedSha -notmatch '^[0-9a-f]{64}$' -or $sha -cne $reportedSha) {
+                $failures.Add("preserved long-stay screenshot SHA mismatch: $relativePath")
+                continue
+            }
+            $file = Get-Item -LiteralPath $fullPath
+            $records.Add([ordered]@{
+                endingId = [string]$item.endingId
+                locale = [string]$item.locale
+                relativePath = $relativePath.Replace('\', '/')
+                sha256 = $sha
+                bytes = [long]$file.Length
+                width = [int]$dimensions.width
+                height = [int]$dimensions.height
+            })
+        } catch {
+            $failures.Add("failed to verify preserved long-stay screenshot $relativePath`: $($_.Exception.Message)")
+        }
+    }
+
+    if ($records.Count -eq $expected.Count) {
+        $distinctShas = @($records | ForEach-Object { [string]$_.sha256 } | Select-Object -Unique)
+        if ($distinctShas.Count -ne $expected.Count) {
+            $failures.Add("long-stay visual evidence must contain 6 distinct captures, observed $($distinctShas.Count) distinct SHA values")
+        }
+    }
+
+    return [ordered]@{
+        records = @($records | ForEach-Object { $_ })
+        failures = @($failures | ForEach-Object { $_ })
+    }
+}
+
 $runStarted = [DateTime]::UtcNow
 $shellEdition = if ([string]::IsNullOrWhiteSpace([string]$PSVersionTable.PSEdition)) { 'Desktop' } else { [string]$PSVersionTable.PSEdition }
 $shellVersion = [string]$PSVersionTable.PSVersion
@@ -140,6 +242,7 @@ $editReport = Read-Json (Join-Path $evidenceRoot 'gamejam-long-stay-edit-contrac
 $playReport = Read-Json (Join-Path $evidenceRoot 'gamejam-long-stay-play-contracts.json')
 $editEvidence = Read-Json (Join-Path $evidenceRoot 'gamejam-long-stay-edit-observation-evidence.json')
 $playEvidence = Read-Json (Join-Path $evidenceRoot 'gamejam-long-stay-play-observation-evidence.json')
+$visualEvidenceAudit = Get-LongStayVisualEvidence $playEvidence $evidenceRoot
 
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
 foreach ($stage in $stages) {
@@ -155,6 +258,9 @@ foreach ($report in @($editReport, $playReport)) {
 }
 if ($null -eq $editEvidence -or $null -eq $playEvidence) {
     $infrastructureFailures.Add('structured long-stay Edit or Play observation evidence is missing')
+}
+foreach ($failure in @($visualEvidenceAudit.failures)) {
+    $infrastructureFailures.Add("long-stay visual evidence: $failure")
 }
 
 $checks = @()
@@ -174,7 +280,7 @@ $exitCode = if ($overall -eq 'GREEN') { 0 } elseif ($overall -eq 'RED') { 2 } el
 $exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamLongStayRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '$BaselineCommit'"
 
 $summary = [ordered]@{
-    schemaVersion = 1
+    schemaVersion = 2
     title = 'GameJam long-stay endings RED-first independent QA gate'
     runId = $RunId
     baselineCommit = $BaselineCommit
@@ -191,6 +297,8 @@ $summary = [ordered]@{
     expectedGapIds = $gapIds
     failureIds = $failureIds
     infrastructureFailures = @($infrastructureFailures | ForEach-Object { $_ })
+    visualEvidenceCount = @($visualEvidenceAudit.records).Count
+    visualEvidence = @($visualEvidenceAudit.records | ForEach-Object { $_ })
     evidencePolicy = 'Play PASS requires production-live structured observation. Fixture/static bool/string, grant, warp, and skip cannot satisfy product checks.'
     greenCompletionCondition = 'Catalog 21/two stable IDs, both no-escape Day20 endings, early escape precedence, deterministic replay, terminal+album exactly once, 2x KO/EN/qps live comics with clipping 0, standard Day50 unchanged, and grant/warp/skip 0 all PASS.'
     exactRerun = $exactRerun
@@ -208,6 +316,7 @@ $summaryLines = @(
     "EXPECTED_GAP IDs: $($gapIds -join ',')",
     "FAIL IDs: $($failureIds -join ',')",
     "Infrastructure failures: $(@($infrastructureFailures) -join ' | ')",
+    "Visual evidence: $(@($visualEvidenceAudit.records | ForEach-Object { $_.endingId + '/' + $_.locale + '=' + $_.relativePath + '@' + $_.sha256 }) -join ' | ')",
     "Exact rerun: $exactRerun"
 )
 Write-Utf8NoBom $summaryTextPath (($summaryLines -join [Environment]::NewLine) + [Environment]::NewLine)

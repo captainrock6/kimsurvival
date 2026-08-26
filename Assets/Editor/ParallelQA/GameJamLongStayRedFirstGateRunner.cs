@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using KimSurvival;
 using UnityEditor;
@@ -148,6 +149,7 @@ namespace ParallelQA
             public string endingId = string.Empty;
             public string locale = string.Empty;
             public string screenshot = string.Empty;
+            public string screenshotSha256 = string.Empty;
             public string renderedTextFingerprint = string.Empty;
             public string stateFingerprint = string.Empty;
             public int width = -1;
@@ -157,6 +159,13 @@ namespace ParallelQA
             public int overflowCount = -1;
             public int offscreenCount = -1;
             public int clippedRequiredActionCount = -1;
+            public int activeGeometryTextCount = -1;
+            public int textTextOverlapCount = -1;
+            public int textCardBoundaryViolationCount = -1;
+            public float titleFontSize = -1f;
+            public float minimumCoreFontSize = -1f;
+            public float modifierFontSize = -1f;
+            public string[] geometryViolations = Array.Empty<string>();
         }
 
         [Serializable]
@@ -451,6 +460,7 @@ namespace ParallelQA
             {
                 DateTime started = DateTime.UtcNow;
                 PlayEvidence evidence = ObservePlay();
+                PreserveLongStayLayoutScreenshots(evidence);
                 List<Check> checks = new List<Check>();
 
                 Product(checks, "GJLS-P01.catalog_21_live", "integrated GDD ending catalog", "P0",
@@ -550,7 +560,7 @@ namespace ParallelQA
                     "runtime terminal and ending album recorders");
 
                 Product(checks, "GJLS-P07.live_comic_ko_en_qps", "integrated GDD localized comic", "P1",
-                    "Both endings render 3 core panels plus at least 1 modifier in KO/EN/qps-long at 1280x800 with distinct localized text and clipping 0",
+                    "Both endings render 3 core panels plus at least 1 modifier in KO/EN/qps-long at 1280x800 with distinct localized text, clipping 0, no rendered text overlap, and every title/body inside its owning card",
                     delegate
                     {
                         RequireLive(evidence);
@@ -561,7 +571,10 @@ namespace ParallelQA
                                 endingId + " locales=" + string.Join(",", layouts.Select(value => value.locale).ToArray()));
                             Require(layouts.All(value => value.width == 1280 && value.height == 800 && value.corePanelCount == 3 &&
                                                               value.modifierPanelCount >= 1 && value.overflowCount == 0 &&
-                                                              value.offscreenCount == 0 && value.clippedRequiredActionCount == 0),
+                                                              value.offscreenCount == 0 && value.clippedRequiredActionCount == 0 &&
+                                                              value.activeGeometryTextCount >= 5 && value.textTextOverlapCount == 0 &&
+                                                              value.textCardBoundaryViolationCount == 0 && value.titleFontSize >= 18f &&
+                                                              value.minimumCoreFontSize >= 12f && value.modifierFontSize >= 13f),
                                 endingId + " layout=" + string.Join(" | ", layouts.Select(DescribeLayout).ToArray()));
                             Require(layouts.All(value => ScreenshotIs1280x800(value.screenshot)), endingId + " screenshot missing or wrong size");
                             Require(layouts.All(value => !string.IsNullOrWhiteSpace(value.renderedTextFingerprint)) &&
@@ -739,7 +752,14 @@ namespace ParallelQA
                 modifierPanelCount = ReadInt(raw, -1, "ModifierPanelCount", "modifierPanelCount"),
                 overflowCount = ReadInt(raw, -1, "OverflowCount", "overflowCount"),
                 offscreenCount = ReadInt(raw, -1, "OffscreenCount", "offscreenCount"),
-                clippedRequiredActionCount = ReadInt(raw, -1, "ClippedRequiredActionCount", "clippedRequiredActionCount")
+                clippedRequiredActionCount = ReadInt(raw, -1, "ClippedRequiredActionCount", "clippedRequiredActionCount"),
+                activeGeometryTextCount = ReadInt(raw, -1, "ActiveGeometryTextCount", "activeGeometryTextCount"),
+                textTextOverlapCount = ReadInt(raw, -1, "TextTextOverlapCount", "textTextOverlapCount"),
+                textCardBoundaryViolationCount = ReadInt(raw, -1, "TextCardBoundaryViolationCount", "textCardBoundaryViolationCount"),
+                titleFontSize = ReadFloat(raw, -1f, "TitleFontSize", "titleFontSize"),
+                minimumCoreFontSize = ReadFloat(raw, -1f, "MinimumCoreFontSize", "minimumCoreFontSize"),
+                modifierFontSize = ReadFloat(raw, -1f, "ModifierFontSize", "modifierFontSize"),
+                geometryViolations = ReadStrings(raw, "GeometryViolations", "geometryViolations", "Violations", "violations")
             };
         }
 
@@ -855,6 +875,13 @@ namespace ParallelQA
             try { return Convert.ToInt32(value); } catch { return fallback; }
         }
 
+        private static float ReadFloat(object owner, float fallback, params string[] names)
+        {
+            object value = GetMember(owner, names);
+            if (value == null) return fallback;
+            try { return Convert.ToSingle(value); } catch { return fallback; }
+        }
+
         private static bool ReadBool(object owner, bool fallback, params string[] names)
         {
             object value = GetMember(owner, names);
@@ -915,6 +942,88 @@ namespace ParallelQA
             }
         }
 
+        private static void PreserveLongStayLayoutScreenshots(PlayEvidence evidence)
+        {
+            Require(evidence != null, "long-stay play evidence is missing");
+            Require(evidence.layouts != null && evidence.layouts.Length == LongStayIds.Length * Locales.Length,
+                "long-stay layout count must be exactly 6, observed=" + (evidence.layouts == null ? -1 : evidence.layouts.Length));
+
+            Directory.CreateDirectory(EvidenceFolder);
+            var observedKeys = new HashSet<string>(StringComparer.Ordinal);
+            var observedScreenshotShas = new HashSet<string>(StringComparer.Ordinal);
+            foreach (LayoutEvidence layout in evidence.layouts)
+            {
+                Require(layout != null, "long-stay layout entry is null");
+                Require(LongStayIds.Contains(layout.endingId), "non-long-stay layout cannot satisfy visual evidence: " + layout.endingId);
+                Require(Locales.Contains(layout.locale), "unsupported long-stay layout locale: " + layout.locale);
+
+                string branch = layout.endingId == NaturalId ? "natural" : "engineer";
+                string endingSlug = layout.endingId == NaturalId ? "natural-kim" : "island-engineer";
+                string key = branch + "/" + layout.locale;
+                Require(observedKeys.Add(key), "duplicate long-stay layout evidence: " + key);
+                Require(Path.IsPathRooted(layout.screenshot),
+                    "production layout must expose its absolute staging capture before preservation: " + key);
+
+                string sourcePath = Path.GetFullPath(layout.screenshot);
+                RequireExpectedStagingCapturePath(sourcePath, branch, layout.locale);
+                Require(ScreenshotIs1280x800(sourcePath), "staging screenshot missing or wrong size: " + sourcePath);
+
+                string fileName = "gamejam-long-stay-" + endingSlug + "-" + layout.locale + "-1280x800.png";
+                string destinationPath = Path.GetFullPath(Path.Combine(EvidenceFolder, fileName));
+                Require(!File.Exists(destinationPath), "stable long-stay screenshot already exists: " + fileName);
+                File.Copy(sourcePath, destinationPath, false);
+
+                string sourceSha = ComputeSha256(sourcePath);
+                string destinationSha = ComputeSha256(destinationPath);
+                Require(string.Equals(sourceSha, destinationSha, StringComparison.Ordinal),
+                    "preserved screenshot SHA mismatch: " + key);
+                Require(ScreenshotIs1280x800(destinationPath), "preserved screenshot missing or wrong size: " + fileName);
+                Require(observedScreenshotShas.Add(destinationSha),
+                    "a long-stay screenshot was reused for more than one ending/locale: " + key);
+
+                layout.screenshot = fileName;
+                layout.screenshotSha256 = destinationSha;
+            }
+
+            string[] expectedKeys = LongStayIds.SelectMany(endingId =>
+                    Locales.Select(locale => (endingId == NaturalId ? "natural" : "engineer") + "/" + locale))
+                .OrderBy(value => value, StringComparer.Ordinal).ToArray();
+            Require(observedKeys.OrderBy(value => value, StringComparer.Ordinal).SequenceEqual(expectedKeys),
+                "long-stay visual evidence matrix is incomplete: " + string.Join(",", observedKeys.ToArray()));
+            Require(observedScreenshotShas.Count == LongStayIds.Length * Locales.Length,
+                "long-stay visual evidence must contain 6 distinct captures, observed=" + observedScreenshotShas.Count);
+        }
+
+        private static void RequireExpectedStagingCapturePath(string sourcePath, string branch, string locale)
+        {
+            FileInfo file = new FileInfo(sourcePath);
+            string expectedFileName = "terminal-ending-" + locale + "-1280x800.png";
+            Require(file.Exists, "staging screenshot is missing: " + sourcePath);
+            Require(string.Equals(file.Name, expectedFileName, StringComparison.Ordinal),
+                "unexpected staging screenshot name: " + file.Name + " expected=" + expectedFileName);
+            Require(file.Directory != null && string.Equals(file.Directory.Name, branch, StringComparison.Ordinal),
+                "staging screenshot branch does not match layout: " + sourcePath);
+            Require(file.Directory.Parent != null && string.Equals(file.Directory.Parent.Name, RunId, StringComparison.Ordinal),
+                "staging screenshot run ID does not match current run: " + sourcePath);
+            Require(file.Directory.Parent.Parent != null &&
+                    string.Equals(file.Directory.Parent.Parent.Name, "kim-survival-long-stay", StringComparison.Ordinal),
+                "staging screenshot is not from the long-stay capture root: " + sourcePath);
+
+            string evidencePrefix = Path.GetFullPath(EvidenceFolder)
+                .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+            Require(!sourcePath.StartsWith(evidencePrefix, StringComparison.OrdinalIgnoreCase),
+                "staging screenshot unexpectedly aliases the evidence destination: " + sourcePath);
+        }
+
+        private static string ComputeSha256(string path)
+        {
+            using (SHA256 sha = SHA256.Create())
+            using (FileStream stream = File.OpenRead(path))
+            {
+                return string.Concat(sha.ComputeHash(stream).Select(value => value.ToString("x2")));
+            }
+        }
+
         private static string ResolveEvidencePath(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return string.Empty;
@@ -942,7 +1051,10 @@ namespace ParallelQA
         {
             return value.endingId + "/" + value.locale + " " + value.width + "x" + value.height +
                    " core/mod=" + value.corePanelCount + "/" + value.modifierPanelCount +
-                   " overflow/offscreen/clipped=" + value.overflowCount + "/" + value.offscreenCount + "/" + value.clippedRequiredActionCount;
+                   " overflow/offscreen/clipped=" + value.overflowCount + "/" + value.offscreenCount + "/" + value.clippedRequiredActionCount +
+                   " geometryTexts/textOverlap/cardBoundary=" + value.activeGeometryTextCount + "/" +
+                   value.textTextOverlapCount + "/" + value.textCardBoundaryViolationCount +
+                   " fonts(title/core/modifier)=" + value.titleFontSize + "/" + value.minimumCoreFontSize + "/" + value.modifierFontSize;
         }
 
         private static void Product(List<Check> checks, string id, string gdd, string severity, string expected,
