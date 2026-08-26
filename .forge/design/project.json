@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-26T14:27:19.203Z",
+    "updatedAt": "2026-08-26T14:30:22.468Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -6050,14 +6050,19 @@
       "schemaVersion": 1,
       "contractId": "gamejam.o2-p0-anchor-shelter.v1",
       "rejectedCandidate": "b3f980ff14db0075ed4a290038f518d658783425",
-      "result": "REJECT",
+      "result": "FIXED_AUTOMATED_RETEST_PENDING",
       "openHumanDefects": [
         "O2-P0-001"
       ],
       "humanEvidence": "Docs/Design/Playtest/Sessions/O2-2026-08-26.md",
+      "humanRetest": "Docs/Design/Playtest/Sessions/O3-2026-08-26.md",
       "designDocument": "Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md",
       "placementRule": "StableRoomId plus StableAnchorId fixed placement points; no arbitrary coordinate placement.",
-      "artBoundary": "Original tropical cutaway shelter only; do not copy third-party proprietary UI, exact layout, icons or art."
+      "artBoundary": "Original tropical cutaway shelter only; do not copy third-party proprietary UI, exact layout, icons or art.",
+      "correctedCandidate": "13c116db3085a715436fe7b0d13cb58efc8da299",
+      "automatedEvidence": "Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt",
+      "releaseEvidence": "work/ParallelQA/20260826T233000Z_o3_release_13c116d/KimSurvivalIsland-gamejam-win64-o3-13c116d.zip",
+      "releaseSha256": "395ca4f29be914ae08398abae996de9fc87fdf388a77a182b6e179b5130937f7"
     }
   },
   "features": [
@@ -7844,7 +7849,7 @@
       "status": "needed",
       "source": "forge-director",
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-26T14:27:19.203Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -8030,7 +8035,7 @@
       "status": "needed",
       "source": "forge-director",
       "createdAt": "2026-08-26T13:36:27.869Z",
-      "updatedAt": "2026-08-26T14:27:19.203Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "ui.camp-module-expansion",
@@ -8292,5 +8297,5 @@
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-26T14:27:19.202Z"
+  "updatedAt": "2026-08-26T14:30:22.467Z"
 }

@@ -51,7 +51,7 @@
     "질병과 여러 위험을 동시에 추가하면 상태 아이콘과 치료법 안내가 과밀해질 수 있다."
   ],
   "playerPromise": "무엇이 들었는지 모르는 섬의 흔적을 직접 뒤지고, 발견한 것 중 지금 필요한 것만 골라 담아 서로 다른 탈출법을 완성한다.",
-  "updatedAt": "2026-08-26T14:27:19.203Z",
+  "updatedAt": "2026-08-26T14:30:22.468Z",
   "sampleDataContract": {
     "status": "SAMPLE_ONLY_NOT_FINAL_BALANCE",
     "source": "project.campaignContentContract.implementationSmoke",

@@ -7,12 +7,17 @@
       "schemaVersion": 1,
       "contractId": "gamejam.o2-p0-anchor-shelter.v1",
       "rejectedCandidate": "b3f980ff14db0075ed4a290038f518d658783425",
-      "result": "REJECT",
+      "result": "FIXED_AUTOMATED_RETEST_PENDING",
       "openHumanDefects": ["O2-P0-001"],
       "humanEvidence": "Docs/Design/Playtest/Sessions/O2-2026-08-26.md",
+      "humanRetest": "Docs/Design/Playtest/Sessions/O3-2026-08-26.md",
       "designDocument": "Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md",
       "placementRule": "StableRoomId plus StableAnchorId fixed placement points; no arbitrary coordinate placement.",
-      "artBoundary": "Original tropical cutaway shelter only; do not copy third-party proprietary UI, exact layout, icons or art."
+      "artBoundary": "Original tropical cutaway shelter only; do not copy third-party proprietary UI, exact layout, icons or art.",
+      "correctedCandidate": "13c116db3085a715436fe7b0d13cb58efc8da299",
+      "automatedEvidence": "Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt",
+      "releaseEvidence": "work/ParallelQA/20260826T233000Z_o3_release_13c116d/KimSurvivalIsland-gamejam-win64-o3-13c116d.zip",
+      "releaseSha256": "395ca4f29be914ae08398abae996de9fc87fdf388a77a182b6e179b5130937f7"
     }
   },
   "features": [],

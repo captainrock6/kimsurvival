@@ -3382,7 +3382,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-26T14:27:19.203Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.anchor-shelter-placement",
@@ -3416,7 +3416,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-26T14:27:19.203Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.anchor-shelter-roof-living-furniture",
@@ -3453,7 +3453,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-26T14:27:19.203Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.o2-anchor-shelter-integration-retest",
@@ -3488,7 +3488,7 @@
       "blockedReason": "",
       "status": "review",
       "createdAt": "2026-08-26T14:27:19.204Z",
-      "updatedAt": "2026-08-26T14:27:19.204Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -3594,7 +3594,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T14:27:19.203Z",
+      "updatedAt": "2026-08-26T14:30:22.468Z",
       "createdAt": "2026-08-22T10:15:38.551Z",
       "completedAt": "2026-08-22T13:43:02.383Z"
     },
@@ -4275,7 +4275,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-26T14:27:19.203Z",
+      "updatedAt": "2026-08-26T14:30:22.468Z",
       "completedAt": null,
       "createdAt": "2026-08-26T13:36:27.870Z"
     },
@@ -4842,5 +4842,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-26T14:27:19.202Z"
+  "updatedAt": "2026-08-26T14:30:22.467Z"
 }
