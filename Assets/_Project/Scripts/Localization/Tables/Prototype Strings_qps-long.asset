@@ -1803,7 +1803,7 @@ MonoBehaviour:
       m_Items:
       - rid: 828367092230914048
   - m_Id: 798776959942661
-    m_Localized: "\u27E6\xC9sc\xE1p\xE9\u27E7"
+    m_Localized: "\u27E6\xC9sc\xE1p\xE9\xE1\u27E7"
     m_Metadata:
       m_Items: []
   - m_Id: 798776959942662
@@ -1815,7 +1815,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 798776959942664
-    m_Localized: "\u27E6D\xC1Y 50\u27E7"
+    m_Localized: "\u27E6D\xC1Y 50\xE1\u27E7"
     m_Metadata:
       m_Items: []
   - m_Id: 798776959942665
@@ -2478,7 +2478,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334232
-    m_Localized: "⟦Óñ dáy twéñty, Mr. Kím chéckéd fóód súpplíés áñd áñímál tráíls béfóré thé réscúé schédúléáéíóúüñ¿¡áéíóúüñ¿¡⟧"
+    m_Localized: "⟦Óñ dáy twéñty, Mr. Kím chéckéd fóód súpplíés áñd áñímál tráíls béfóré thé réscúé schédúléáéíóúüñ¿¡áéíóúüñ¿¡á⟧"
     m_Metadata:
       m_Items: []
   - m_Id: 1212147274334233
@@ -2503,6 +2503,26 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1212147274334238
     m_Localized: "⟦Twéñty dáys óf ísláñd súrvívál chóícés hávé décídéd Mr. Kím's ñéxt lífé áñd cómíc éñdíñgáéíóúüñ¿¡áéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334239
+    m_Localized: "⟦GÁMÉ JÁM Lóñg Stáyáéíóúüñ⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334240
+    m_Localized: "⟦Smóké sígñál flíñtáéíóúüñ⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334241
+    m_Localized: "⟦Brókéñ rádíó tráñscéívéráéíóúüñ¿¡⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334242
+    m_Localized: "⟦Brókéñ círcúít bóárdáéíóúüñ⟧"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334243
+    m_Localized: "⟦Rádíó tráñsístóráéíóúüñ⟧"
     m_Metadata:
       m_Items: []
   references:

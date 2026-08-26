@@ -2486,6 +2486,26 @@ MonoBehaviour:
     m_Localized: "스무 날 동안의 생존 행동이 김씨의 다음 삶을 결정했다."
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147274334239
+    m_Localized: GAME JAM 장기 체류
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334240
+    m_Localized: 구조 신호용 부싯돌
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334241
+    m_Localized: 망가진 무전 송수신기
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334242
+    m_Localized: 망가진 전자기판
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334243
+    m_Localized: 무전용 트랜지스터
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -177,7 +177,7 @@ foreach ($report in @($edit, $play)) {
 
 $unexpectedAssetFailures = @()
 if ($null -ne $asset) {
-    $unexpectedAssetFailures = @($asset.checks | Where-Object { $_.status -eq 'FAIL' -and $_.id -ne 'visual.current_qps_long' })
+    $unexpectedAssetFailures = @($asset.checks | Where-Object { $_.status -eq 'FAIL' })
     foreach ($check in $unexpectedAssetFailures) {
         $productDefects.Add([ordered]@{
             id = $check.id
@@ -191,23 +191,24 @@ if ($null -ne $asset) {
     }
 }
 
-$placementNoRegression = $null -ne $visual -and $visual.placement.status -eq 'PASS' -and $visual.placement.targets -eq 24 -and $visual.placement.failures -eq 0
-$explorationNoRegression = $null -ne $visual -and $visual.explorationSwimming.status -eq 'PASS' -and $visual.explorationSwimming.targets -eq 10 -and $visual.explorationSwimming.failures -eq 0
-$qpsNoRegression = $null -ne $visual -and $visual.qpsLong.targets -eq 10 -and (($visual.qpsLong.status -eq 'PASS' -and $visual.qpsLong.failures -eq 0) -or ($visual.qpsLong.status -eq 'FAIL' -and $visual.qpsLong.failures -le 8))
+$placementNoRegression = $null -ne $visual -and $visual.placement.status -eq 'PASS' -and $visual.placement.targets -eq 4 -and $visual.placement.failures -eq 0
+$explorationNoRegression = $null -ne $visual -and $visual.explorationSwimming.status -eq 'PASS' -and $visual.explorationSwimming.targets -eq 4 -and $visual.explorationSwimming.failures -eq 0
+$searchTrayNoRegression = $null -ne $visual -and $visual.searchTray.status -eq 'PASS' -and $visual.searchTray.targets -eq 16 -and $visual.searchTray.failures -eq 0
+$qpsNoRegression = $null -ne $visual -and $visual.qpsLong.status -eq 'PASS' -and $visual.qpsLong.targets -eq 37 -and $visual.qpsLong.failures -eq 0
 $addressLoadPass = $null -ne $preflight -and $preflight.ownershipOverall -eq 'PASS' -and $null -ne $asset -and @($asset.checks | Where-Object { $_.id -eq 'addressables.preflight_stability' -and $_.status -eq 'PASS' }).Count -eq 1
 $addressBuildPass = $null -ne $addressBuild -and $addressBuild.overall -eq 'PASS'
 $addressSmokePass = $null -ne $addressSmoke -and $addressSmoke.overall -eq 'PASS'
 $windowsBuildPass = $null -ne $windowsBuild -and $windowsBuild.result -eq 'Succeeded' -and $windowsBuild.errors -eq 0 -and $windowsBuild.executableExists
 $windowsSmokePass = $null -ne $windowsSmoke -and $windowsSmoke.result -eq 'PASS' -and $windowsSmoke.aliveAtMinimum -and $windowsSmoke.respondingAtMinimum
-$regressionOverall = if ($placementNoRegression -and $explorationNoRegression -and $qpsNoRegression -and $addressLoadPass -and $addressBuildPass -and $addressSmokePass -and $windowsBuildPass -and $windowsSmokePass -and $unexpectedAssetFailures.Count -eq 0) { 'PASS' } else { 'FAIL' }
+$regressionOverall = if ($placementNoRegression -and $explorationNoRegression -and $searchTrayNoRegression -and $qpsNoRegression -and $addressLoadPass -and $addressBuildPass -and $addressSmokePass -and $windowsBuildPass -and $windowsSmokePass -and $unexpectedAssetFailures.Count -eq 0) { 'PASS' } else { 'FAIL' }
 
 if ($regressionOverall -eq 'FAIL') {
     $productDefects.Add([ordered]@{
         id = 'W6-10.release_regression'
         severity = 'P0'
         classification = 'PRODUCT_REGRESSION'
-        expected = 'Addressables ownership, normal visual gates, qps-long no-worse-than-baseline, Windows build, and hidden smoke remain stable'
-        actual = "placement=$placementNoRegression exploration=$explorationNoRegression qpsNoRegression=$qpsNoRegression address=$addressLoadPass/$addressBuildPass/$addressSmokePass windows=$windowsBuildPass/$windowsSmokePass unexpectedAssetFails=$($unexpectedAssetFailures.Count)"
+        expected = 'Addressables ownership, all four current visual markers, Windows build, and hidden smoke remain stable'
+        actual = "placement=$placementNoRegression exploration=$explorationNoRegression searchTray=$searchTrayNoRegression qps=$qpsNoRegression address=$addressLoadPass/$addressBuildPass/$addressSmokePass windows=$windowsBuildPass/$windowsSmokePass unexpectedAssetFails=$($unexpectedAssetFailures.Count)"
         reproduction = 'Run Invoke-Wave6ProgressionRegression.ps1 with a fresh run ID.'
         recommendedFiles = 'inspect the failing evidence path before assigning product ownership'
     })
@@ -229,9 +230,10 @@ $summary = [ordered]@{
     compile = if ($compileText -match 'Result:\s+PASS') { 'PASS' } else { 'FAIL' }
     editContracts = if ($null -ne $edit) { $edit.productOverall } else { 'MISSING' }
     playContracts = if ($null -ne $play) { $play.productOverall } else { 'MISSING' }
-    normalPlacement = if ($placementNoRegression) { 'PASS 24/24' } else { 'FAIL' }
-    explorationSwimming = if ($explorationNoRegression) { 'PASS 10/10' } else { 'FAIL' }
-    qpsLong = if ($null -eq $visual) { 'MISSING' } elseif ($visual.qpsLong.status -eq 'PASS') { 'PASS 10/10' } else { "KNOWN_FAIL_NO_REGRESSION failures=$($visual.qpsLong.failures)/10" }
+    normalPlacement = if ($placementNoRegression) { 'PASS 4/4' } else { 'FAIL' }
+    explorationSwimming = if ($explorationNoRegression) { 'PASS 4/4' } else { 'FAIL' }
+    searchTray = if ($searchTrayNoRegression) { 'PASS 16/16' } else { 'FAIL' }
+    qpsLong = if ($qpsNoRegression) { 'PASS 37/37 fresh pity; protected-part trays are Wave B' } else { 'FAIL' }
     addressables = "load=$(if($addressLoadPass){'PASS'}else{'FAIL'}) build=$(if($addressBuildPass){'PASS'}else{'FAIL'}) postSmoke=$(if($addressSmokePass){'PASS'}else{'FAIL'})"
     windowsBuild = if ($windowsBuildPass) { 'PASS' } else { 'FAIL' }
     hiddenSmoke = if ($windowsSmokePass) { 'PASS' } else { 'FAIL' }
@@ -255,6 +257,7 @@ $lines.Add("Compile: $($summary.compile)")
 $lines.Add("Edit/Play product contracts: $($summary.editContracts)/$($summary.playContracts)")
 $lines.Add("Normal placement: $($summary.normalPlacement)")
 $lines.Add("Exploration/swimming: $($summary.explorationSwimming)")
+$lines.Add("Search tray: $($summary.searchTray)")
 $lines.Add("qps-long: $($summary.qpsLong)")
 $lines.Add("Addressables: $($summary.addressables)")
 $lines.Add("Windows build/smoke: $($summary.windowsBuild)/$($summary.hiddenSmoke)")

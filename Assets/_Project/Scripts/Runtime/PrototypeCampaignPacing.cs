@@ -432,6 +432,9 @@ namespace KimSurvival
         public int InteractionCount;
         public string EscapeId = string.Empty;
         public string ResultCode = string.Empty;
+        public int Progress;
+        public int RequiredProgress;
+        public string[] CompletedStageIds = Array.Empty<string>();
         public string EndingId = string.Empty;
         public int Day;
         public bool Skip;
@@ -523,7 +526,12 @@ namespace KimSurvival
                 Warp = false,
                 InteractionCount = interactions,
                 EscapeId = escapeId,
-                ResultCode = completed ? "escape_complete" : state.LastResultCode
+                ResultCode = completed ? "escape_complete" : state.LastResultCode,
+                Progress = state.Progress,
+                RequiredProgress = state.RequiredProgress,
+                CompletedStageIds = state.CompletedStageIds == null
+                    ? Array.Empty<string>()
+                    : state.CompletedStageIds.ToArray()
             };
         }
 
@@ -533,9 +541,12 @@ namespace KimSurvival
                 result.StableId + " " + result.EscapeId +
                 " grant=" + result.Grant.ToString().ToLowerInvariant() +
                 " warp=" + result.Warp.ToString().ToLowerInvariant() +
+                " progress=" + result.Progress + "/" + result.RequiredProgress +
                 " completed=" + result.Completed.ToString().ToLowerInvariant() +
                 " terminal=" + result.Terminal.ToString().ToLowerInvariant() +
-                " interactionCount=" + result.InteractionCount + " resultCode=" + result.ResultCode);
+                " interactionCount=" + result.InteractionCount +
+                " completedStages=" + string.Join(",", result.CompletedStageIds ?? Array.Empty<string>()) +
+                " resultCode=" + result.ResultCode);
         }
 
         private static PrototypeCampInteractionTarget FindTarget(

@@ -412,6 +412,11 @@ namespace KimSurvival
                 InteractionCount = interactions,
                 EscapeId = PrototypeRaftEscapeConfig.EscapeId,
                 ResultCode = complete ? "escape_complete" : finalState.LastResultCode,
+                Progress = finalState.Progress,
+                RequiredProgress = finalState.RequiredProgress,
+                CompletedStageIds = finalState.CompletedStageIds == null
+                    ? Array.Empty<string>()
+                    : finalState.CompletedStageIds.ToArray(),
                 EndingId = complete ? raftEndingId : string.Empty,
                 Day = session.Day,
                 Skip = false,

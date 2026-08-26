@@ -241,9 +241,10 @@ if ($null -eq $wave7Summary -or $wave7Summary.productOverall -ne 'PASS') {
     })
 }
 
-$placementPass = $null -ne $visual -and $visual.placement.status -eq 'PASS' -and $visual.placement.targets -eq 24 -and $visual.placement.failures -eq 0
-$explorationPass = $null -ne $visual -and $visual.explorationSwimming.status -eq 'PASS' -and $visual.explorationSwimming.targets -eq 10 -and $visual.explorationSwimming.failures -eq 0
-$syntheticQpsPass = $null -ne $visual -and $visual.qpsLong.status -eq 'PASS' -and $visual.qpsLong.targets -eq 10 -and $visual.qpsLong.failures -eq 0
+$placementPass = $null -ne $visual -and $visual.placement.status -eq 'PASS' -and $visual.placement.targets -eq 4 -and $visual.placement.failures -eq 0
+$explorationPass = $null -ne $visual -and $visual.explorationSwimming.status -eq 'PASS' -and $visual.explorationSwimming.targets -eq 4 -and $visual.explorationSwimming.failures -eq 0
+$searchTrayPass = $null -ne $visual -and $visual.searchTray.status -eq 'PASS' -and $visual.searchTray.targets -eq 16 -and $visual.searchTray.failures -eq 0
+$qpsVisualPass = $null -ne $visual -and $visual.qpsLong.status -eq 'PASS' -and $visual.qpsLong.targets -eq 37 -and $visual.qpsLong.failures -eq 0
 $layoutPass = $null -ne $wave7Layout -and $wave7Layout.overall -eq 'PASS'
 $qpsBlockAudit = Measure-QpsWorldBlockOverlaps (Join-Path $evidenceRoot 'wave3-visual-metrics.tsv')
 [System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'wave8-qps-world-block-overlap.json'), ($qpsBlockAudit | ConvertTo-Json -Depth 10) + [Environment]::NewLine, $utf8NoBom)
@@ -264,7 +265,7 @@ if ($qpsBlockAudit.overall -eq 'FAIL') {
         severity = 'P2'
         classification = 'PRODUCT_LAYOUT_DEFECT'
         expected = 'At 1280x800, qps stress world-label text blocks remain separated with less than 5% overlap of the smaller block.'
-        actual = "Independent block gate found $(@($qpsBlockAudit.overlaps).Count) significant overlaps; the legacy 15% gate still reports 10/10 PASS."
+        actual = "Independent block gate found $(@($qpsBlockAudit.overlaps).Count) significant overlaps; the current visual gate reports qps production scenes separately."
         reproduction = 'Open playmode-qps-long-placement-1280x800.png at 1:1 and compare projected blocks in wave3-visual-metrics.tsv.'
         recommendedFiles = 'Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/Editor/ParallelQA/Wave3VisualGate.cs'
     })
@@ -294,13 +295,14 @@ $summary = [ordered]@{
     wave8Edit = if ($null -ne $wave8Edit) { $wave8Edit.productOverall } else { 'MISSING' }
     localeRelaunchEditorProcesses = if ($persistenceText -match 'PASS\s+·\s+A fresh Unity process restored') { 'PASS' } else { 'FAIL' }
     wave7FullRegression = if ($null -ne $wave7Summary -and $wave7Summary.productOverall -eq 'PASS' -and $wave7Summary.infrastructureOverall -eq 'PASS') { 'PASS' } else { 'FAIL' }
-    placement = if ($placementPass) { 'PASS 24/24' } else { 'FAIL' }
-    explorationSwimming = if ($explorationPass) { 'PASS 10/10' } else { 'FAIL' }
+    placement = if ($placementPass) { 'PASS 4/4' } else { 'FAIL' }
+    explorationSwimming = if ($explorationPass) { 'PASS 4/4' } else { 'FAIL' }
+    searchTray = if ($searchTrayPass) { 'PASS 16/16' } else { 'FAIL' }
     koEnBagLayout1280And1920 = if ($layoutPass) { 'PASS' } else { 'FAIL' }
-    syntheticPseudoVisualFixture = if ($syntheticQpsPass) { 'LEGACY PASS 10/10 · QA text mutation only' } else { 'LEGACY FAIL' }
+    qpsProductionVisual = if ($qpsVisualPass) { 'PASS 37/37 fresh pity; protected-part trays are Wave B' } else { 'FAIL' }
     independentQpsStressBlockOverlap = [string]$qpsBlockAudit.overall
     actualQpsLongLocale = if ($actualQpsReady) { 'PASS' } else { 'NOT_IMPLEMENTED' }
-    actualQpsLayout1280And1920 = if ($actualQpsReady -and $syntheticQpsPass -and $layoutPass) { 'PASS' } else { 'NOT_IMPLEMENTED · synthetic fixture cannot substitute for an actual locale' }
+    actualQpsLayout1280And1920 = if ($actualQpsReady -and $qpsVisualPass -and $layoutPass) { 'PASS' } else { 'NOT_IMPLEMENTED · actual locale registration, current visual gate, and layout evidence must all pass' }
     windowsDevelopmentBuild = if ($windowsBuildPass) { 'PASS' } else { 'FAIL' }
     windowsBuildWarnings = $warnings
     hiddenSmoke = if ($windowsSmokePass) { 'PASS' } else { 'FAIL' }
@@ -332,9 +334,9 @@ $lines.Add("Compile: $($summary.compile)")
 $lines.Add("Wave 8 Edit: $($summary.wave8Edit)")
 $lines.Add("Editor separate-process locale persistence: $($summary.localeRelaunchEditorProcesses)")
 $lines.Add("Fresh Wave 7 full regression: $($summary.wave7FullRegression)")
-$lines.Add("Placement / exploration-swimming: $($summary.placement) / $($summary.explorationSwimming)")
+$lines.Add("Placement / exploration-swimming / search tray: $($summary.placement) / $($summary.explorationSwimming) / $($summary.searchTray)")
 $lines.Add("KO/EN 1280x800+1920x1080 bag layout: $($summary.koEnBagLayout1280And1920)")
-$lines.Add("Synthetic pseudo visual fixture: $($summary.syntheticPseudoVisualFixture)")
+$lines.Add("qps production visual: $($summary.qpsProductionVisual)")
 $lines.Add("Independent qps stress world-label block overlap: $($summary.independentQpsStressBlockOverlap)")
 $lines.Add("Actual qps-long locale/layout: $($summary.actualQpsLongLocale) / $($summary.actualQpsLayout1280And1920)")
 $lines.Add("Windows Development build/smoke: $($summary.windowsDevelopmentBuild)/$($summary.hiddenSmoke) · warnings=$warnings")

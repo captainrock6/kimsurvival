@@ -176,7 +176,7 @@ $stages.Add([ordered]@{
 
 $commandResults = [ordered]@{
     schemaVersion = 1
-    title = 'Wave 12 five-day compact-a RED-first gate'
+    title = 'Wave 12 session-profile compact-a current gate'
     runId = $RunId
     baselineCommit = $BaselineCommit
     unityVersionExpected = '6000.4.9f1'
@@ -210,12 +210,15 @@ $steam = Read-Json (Join-Path $evidenceRoot 'steam-readiness.json')
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
 if ($preflightExit -ne 0 -or $null -eq $preflight -or $preflight.ownershipOverall -ne 'PASS') { $infrastructureFailures.Add('preflight/Addressables ownership did not pass') }
 if ($stageByName['compile'].exitCode -ne 0 -or $compileText -notmatch 'Result:\s+PASS' -or $compileText -notmatch 'Compiler errors:\s+0') { $infrastructureFailures.Add('Unity compile did not prove PASS with zero errors') }
-$freshWave3Pass = $wave3Text -match ('Run ID:\s+' + [regex]::Escape($RunId)) -and
-    $wave3Text -match ('Baseline commit:\s+' + [regex]::Escape($BaselineCommit)) -and
-    $wave3Text -match 'PLACEMENT_GATE:\s+(PASS|FAIL)\s+\u00B7\s+targets=\d+\s+\u00B7\s+failures=\d+' -and
-    $wave3Text -match 'EXPLORATION_SWIMMING_GATE:\s+(PASS|FAIL)\s+\u00B7\s+targets=\d+\s+\u00B7\s+failures=\d+' -and
-    $wave3Text -match 'PSEUDO_LONG_GATE:\s+(PASS|FAIL)\s+\u00B7\s+targets=\d+\s+\u00B7\s+failures=\d+'
-if (-not $freshWave3Pass) { $infrastructureFailures.Add('fresh Wave 3 visual report was not generated and parsed for the current RunId/baseline') }
+$freshWave3IdentityPass = -not [string]::IsNullOrWhiteSpace($wave3Text) -and
+    $wave3Text -match ('Run ID:\s+' + [regex]::Escape($RunId)) -and
+    $wave3Text -match ('Baseline commit:\s+' + [regex]::Escape($BaselineCommit))
+$freshWave3Pass = $freshWave3IdentityPass -and
+    $wave3Text -match 'PLACEMENT_GATE:\s+PASS\s+\u00B7\s+targets=4\s+\u00B7\s+failures=0' -and
+    $wave3Text -match 'EXPLORATION_SWIMMING_GATE:\s+PASS\s+\u00B7\s+targets=4\s+\u00B7\s+failures=0' -and
+    $wave3Text -match 'SEARCH_TRAY_GATE:\s+PASS\s+\u00B7\s+targets=16\s+\u00B7\s+failures=0' -and
+    $wave3Text -match 'PSEUDO_LONG_GATE:\s+PASS\s+\u00B7\s+targets=37\s+\u00B7\s+failures=0'
+if (-not $freshWave3IdentityPass) { $infrastructureFailures.Add('fresh Wave 3 visual report was not generated for the current RunId/baseline') }
 foreach ($name in @('wave11-slot-edit','wave11-slot-play','wave12-five-day-ui-edit','wave12-five-day-ui-play')) {
     $report = switch ($name) {
         'wave11-slot-edit' { $wave11Edit }
@@ -244,8 +247,8 @@ foreach ($report in @($wave11Edit, $wave11Play, $wave12Edit, $wave12Play)) { if 
 $unexpectedProductFailures = @($allChecks | Where-Object { $_.status -eq 'FAIL' })
 $expectedProductGaps = @($allChecks | Where-Object { $_.status -eq 'EXPECTED_FAIL' -and $_.classification -eq 'PRODUCT_EXPECTED_GAP' })
 $wave11Layout = @($allChecks | Where-Object { $_.id -eq 'W11-P02.direct_slot_1280_layout' -and $_.status -eq 'PASS' })
-$wave12ExpectedIds = @('W12-D01.five_day_deadline','W12-A02.compact_a_static_runtime_reference','W12-P01.compact_a_frame_and_glyph_split','W12-P03.compact_a_locale_capture_layout')
-$unexpectedExpectedGap = @($expectedProductGaps | Where-Object { $_.id -notin $wave12ExpectedIds })
+$approvedExpectedGapIds = @()
+$unexpectedExpectedGap = @($expectedProductGaps | Where-Object { $_.id -notin $approvedExpectedGapIds })
 if ($unexpectedExpectedGap.Count -gt 0) { $infrastructureFailures.Add('an EXPECTED_FAIL occurred outside the approved Wave 12 baseline gap list') }
 
 $infrastructureOverall = if ($infrastructureFailures.Count -eq 0) { 'PASS' } else { 'FAIL' }
@@ -256,7 +259,7 @@ $warnings = if ($null -ne $windowsBuild) { [int]$windowsBuild.warnings } else { 
 
 $summary = [ordered]@{
     schemaVersion = 1
-    title = 'Wave 12 five-day compact-a RED-first gate'
+    title = 'Wave 12 session-profile compact-a current gate'
     runId = $RunId
     baselineCommit = $BaselineCommit
     observedUtc = [DateTime]::UtcNow.ToString('O')
@@ -266,6 +269,7 @@ $summary = [ordered]@{
     freshWave3Visual = if ($freshWave3Pass) { 'PASS' } else { 'FAIL' }
     wave11WalkingPath = if ($wave11Layout.Count -eq 1) { 'PASS 3/3 actual screen rects' } else { 'FAIL' }
     expectedProductGapIds = @($expectedProductGaps | ForEach-Object { [string]$_.id })
+    approvedExpectedGapIds = $approvedExpectedGapIds
     expectedProductGaps = @($expectedProductGaps | ForEach-Object { [ordered]@{ id=[string]$_.id; severity=[string]$_.severity; actual=[string]$_.actual; reproduction=[string]$_.reproduction; recommendedFiles=[string]$_.recommendedFiles } })
     unexpectedProductFailures = @($unexpectedProductFailures | ForEach-Object { [ordered]@{ id=[string]$_.id; severity=[string]$_.severity; actual=[string]$_.actual; reproduction=[string]$_.reproduction; recommendedFiles=[string]$_.recommendedFiles } })
     compile = if ($compileText -match 'Result:\s+PASS' -and $compileText -match 'Compiler errors:\s+0') { 'PASS 0 errors' } else { 'FAIL' }
@@ -278,14 +282,14 @@ $summary = [ordered]@{
     steamReadiness = $steamReadiness
     steamReadyClaim = $false
     infrastructureFailures = $infrastructureFailures.ToArray()
-    greenTransition = 'FinalDay=5; compact-a stable reference is connected as sliced UI with exact borders; glyph and TMP action are separate; all twelve locale/state captures satisfy geometry and overflow=0.'
+    greenTransition = 'Standard profile Day 50, provisional Game Jam profile Day 20 within tune range 15..20, and Day 1/settlement early-escape priority all PASS; compact-a runtime, twelve locale/state captures, and current Wave3 4/4 + 4/4 + 16/16 + fresh-pity 37/37 markers remain PASS. Protected-part trays remain a separate Wave B contract.'
     exactRerun = $commandResults.exactRerun
     evidenceRoot = $evidenceRoot
 }
 [System.IO.File]::WriteAllText((Join-Path $evidenceRoot 'wave12-summary.json'), ($summary | ConvertTo-Json -Depth 12) + [Environment]::NewLine, $utf8NoBom)
 
 $lines = New-Object System.Collections.Generic.List[string]
-$lines.Add('Wave 12 five-day compact-a RED-first gate')
+$lines.Add('Wave 12 session-profile compact-a current gate')
 $lines.Add("Run ID: $RunId")
 $lines.Add("Baseline: $BaselineCommit")
 $lines.Add("Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall")
@@ -299,6 +303,7 @@ $lines.Add("PowerShell compatibility: $($summary.powershellCompatibility) ($shel
 $lines.Add('Physical gamepad: UNVERIFIED')
 $lines.Add("Steam: $steamReadiness (READY claim=false)")
 $lines.Add("Expected product gaps: $($expectedProductGaps.Count) [$([string]::Join(', ', @($summary.expectedProductGapIds)))]")
+$lines.Add("Approved expected-gap IDs: $([string]::Join(', ', @($summary.approvedExpectedGapIds)))")
 $lines.Add("Unexpected product failures: $($unexpectedProductFailures.Count)")
 $lines.Add("Infrastructure failures: $($infrastructureFailures.Count)")
 $lines.Add("Evidence: $evidenceRoot")

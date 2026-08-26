@@ -58,13 +58,19 @@ namespace KimSurvival
         private const float CampBackgroundGroundNormalizedY = (CampCanvasHeightPixels - CampWalkableBaselineTopPixels) / CampCanvasHeightPixels;
         private const float CampSignalAnchorNormalizedX = 0.86f;
         private const float CampSignalAnchorNormalizedY = (CampCanvasHeightPixels - CampSignalAnchorTopPixels) / CampCanvasHeightPixels;
-        private const float ResourceLabelWidth = 4.35f;
+        private const float ResourceLabelWidth = 3.9f;
         private const float ResourceLabelHeight = 1.55f;
-        private const float ResourceLabelViewportPadding = 0.22f;
+        private const float ResourceLabelViewportPadding = 0.12f;
         private const float ResourceLabelSafeViewportRight = 0.74f;
+        private const float ResourceLabelSafeWorldY = 0.8f;
+        private const float ResourceLabelHorizontalGap = 0.12f;
+        private const float ResourceLabelPlayerHalfWidth = 0.82f;
+        private const float SearchNodeInteractionDistance = 1.35f;
         private const float MinimumSupportedAspect = 1.6f;
-        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.328125f, 0.605f);
-        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.671875f, 0.66f);
+        private static readonly Color CompactPromptBodyColor = new Color(121f / 255f, 143f / 255f, 141f / 255f, 1f);
+        private static readonly Color CompactPromptTextColor = new Color(0.015f, 0.06f, 0.08f, 1f);
+        private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.3f, 0.6f);
+        private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.7f, 0.66f);
         private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.59f);
         private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.67f);
         private static readonly Vector2 CampPopupDefaultAnchorMin = new Vector2(0.56f, 0.2f);
@@ -669,10 +675,10 @@ namespace KimSurvival
             campProximityGlyphText.maxVisibleLines = 1;
             campProximityGlyphText.raycastTarget = false;
 
-            campProximityText = CreateText("설비 근접 행동·대상 문구", campProximityPrompt.transform, Vector2.zero, Vector2.one, new Vector2(78f, 4f), new Vector2(-38f, -4f), 23, TextAnchor.MiddleCenter, Color.white);
+            campProximityText = CreateText("설비 근접 행동·대상 문구", campProximityPrompt.transform, Vector2.zero, Vector2.one, new Vector2(64f, 4f), new Vector2(-24f, -4f), 23, TextAnchor.MiddleCenter, CompactPromptTextColor);
             campProximityText.fontStyle = FontStyles.Bold;
             campProximityText.enableAutoSizing = true;
-            campProximityText.fontSizeMin = 15f;
+            campProximityText.fontSizeMin = 19f;
             campProximityText.fontSizeMax = 23f;
             campProximityText.textWrappingMode = TextWrappingModes.NoWrap;
             campProximityText.overflowMode = TextOverflowModes.Overflow;
@@ -970,6 +976,13 @@ namespace KimSurvival
                 RectTransform labelRect = label.rectTransform;
                 labelRect.offsetMin = new Vector2(54f, 4f);
                 labelRect.offsetMax = new Vector2(-8f, -4f);
+                ColorBlock itemColors = itemButton.colors;
+                itemColors.normalColor = Color.white;
+                itemColors.highlightedColor = Color.white;
+                itemColors.selectedColor = Color.white;
+                itemColors.pressedColor = new Color(0.9f, 0.9f, 0.9f, 1f);
+                itemColors.disabledColor = new Color(0.62f, 0.62f, 0.62f, 1f);
+                itemButton.colors = itemColors;
                 searchLootItemIcons.Add(CreateSearchLootItemIcon(itemButton.transform, index));
                 searchLootItemButtons.Add(itemButton);
             }
@@ -1015,6 +1028,10 @@ namespace KimSurvival
             ConfigureExpeditionMapButton(searchLootTakeButton);
             ConfigureExpeditionMapButton(searchLootTakeAllButton);
             ConfigureExpeditionMapButton(searchLootLeaveButton);
+            TMP_Text searchLootLeaveLabel = searchLootLeaveButton.GetComponentInChildren<TMP_Text>();
+            searchLootLeaveLabel.fontSize = 23f;
+            searchLootLeaveLabel.fontSizeMin = 23f;
+            searchLootLeaveLabel.fontSizeMax = 23f;
         }
 
         private void BuildEndingAlbumUi()
@@ -1084,8 +1101,8 @@ namespace KimSurvival
             endingAlbumControlsText.color = new Color(0.72f, 0.96f, 0.95f);
 
             float[] cardX = { 0.125f, 0.199f, 0.273f, 0.347f, 0.421f };
-            float[] cardY = { 0.681f, 0.548f, 0.414f, 0.281f };
-            int[] rowCounts = { 5, 5, 4, 5 };
+            float[] cardY = { 0.715f, 0.592f, 0.469f, 0.346f, 0.223f };
+            int[] rowCounts = { 5, 5, 4, 2, 5 };
             int definitionIndex = 0;
             for (int row = 0; row < rowCounts.Length; row += 1)
             {
@@ -2029,8 +2046,8 @@ namespace KimSurvival
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.34f, 0f);
             CreateRect(root.transform, "placeholder crate", Vector2.zero, new Vector2(0.58f, 0.5f), new Color(0.32f, 0.22f, 0.12f, 0.82f), 3);
-            CreateFootprintOutline(root.transform, new Vector2(0.76f, 0.16f), new Color(1f, 0.82f, 0.35f, 0.52f), null, new Vector2(0f, -0.25f));
-            GameObject planningMark = CreateRect(root.transform, "계획 표식", new Vector2(0f, 0.08f), new Vector2(0.18f, 0.18f), new Color(1f, 0.82f, 0.35f, 0.72f), 4);
+            CreateFootprintOutline(root.transform, new Vector2(0.76f, 0.16f), new Color(1f, 0.82f, 0.35f, 0.16f), null, new Vector2(0f, -0.25f));
+            GameObject planningMark = CreateRect(root.transform, "계획 표식", new Vector2(0f, 0.08f), new Vector2(0.18f, 0.18f), new Color(1f, 0.82f, 0.35f, 0.38f), 4);
             planningMark.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
         }
 
@@ -2110,7 +2127,7 @@ namespace KimSurvival
             root.transform.position = new Vector3(ExpeditionMapX, PrototypeCampPlacement.FloorY + 0.62f, 0f);
             CreateRect(root.transform, "지도 게시판 기둥", new Vector2(0f, -0.32f), new Vector2(0.16f, 1.2f), new Color(0.28f, 0.18f, 0.1f, 0.98f), 3);
             CreateRect(root.transform, "지도 게시판", new Vector2(0f, 0.35f), new Vector2(1.45f, 0.92f), new Color(0.9f, 0.78f, 0.46f, 0.98f), 4);
-            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), new Color(0.94f, 0.77f, 0.28f, 0.92f), null, new Vector2(0f, -0.62f));
+            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), new Color(0.94f, 0.77f, 0.28f, 0.16f), null, new Vector2(0f, -0.62f));
         }
 
         private void CreateEndingAlbumMarker()
@@ -2121,7 +2138,7 @@ namespace KimSurvival
             CreateRect(root.transform, "기록함 몸체", Vector2.zero, new Vector2(0.36f, 1.12f), new Color(0.10f, 0.25f, 0.27f, 0.98f), 4);
             CreateRect(root.transform, "앨범 등", new Vector2(0f, 0.18f), new Vector2(0.24f, 0.62f), new Color(0.95f, 0.63f, 0.22f, 0.98f), 5);
             CreateRect(root.transform, "앨범 라벨", new Vector2(0f, 0.18f), new Vector2(0.12f, 0.2f), new Color(0.92f, 0.88f, 0.62f, 0.98f), 6);
-            CreateFootprintOutline(root.transform, new Vector2(0.72f, 0.28f), new Color(0.22f, 0.86f, 0.82f, 0.92f), null, new Vector2(0f, -0.6f));
+            CreateFootprintOutline(root.transform, new Vector2(0.72f, 0.28f), new Color(0.22f, 0.86f, 0.82f, 0.16f), null, new Vector2(0f, -0.6f));
         }
 
         private void CreateEscapeProjectMarkers()
@@ -2147,7 +2164,8 @@ namespace KimSurvival
             root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.39f, 0f);
             CreateRect(root.transform, "engine-native body", Vector2.zero, new Vector2(0.48f, 0.68f), bodyColor, 4);
             CreateRect(root.transform, "engine-native signal", new Vector2(0f, 0.42f), new Vector2(0.3f, 0.1f), signalColor, 5);
-            CreateFootprintOutline(root.transform, new Vector2(0.66f, 0.16f), signalColor, null, new Vector2(0f, -0.36f));
+            Color footprintColor = new Color(signalColor.r, signalColor.g, signalColor.b, 0.16f);
+            CreateFootprintOutline(root.transform, new Vector2(0.66f, 0.16f), footprintColor, null, new Vector2(0f, -0.36f));
         }
 
         private void CreateShoreLaunchMarker()
@@ -2160,7 +2178,7 @@ namespace KimSurvival
             CreateRect(root.transform, "shore-launch cradle", Vector2.zero, new Vector2(1.28f, 0.18f), timber, 4);
             CreateRect(root.transform, "shore-launch bow", new Vector2(-0.42f, 0.34f), new Vector2(0.16f, 0.78f), timber, 4);
             CreateRect(root.transform, "shore-launch rope", new Vector2(0.18f, 0.3f), new Vector2(0.72f, 0.08f), rope, 5);
-            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), rope, null, new Vector2(0f, -0.32f));
+            CreateFootprintOutline(root.transform, new Vector2(1.5f, 0.3f), new Color(rope.r, rope.g, rope.b, 0.16f), null, new Vector2(0f, -0.32f));
         }
 
         private void CreateStartRoomModuleSlots()
@@ -2177,7 +2195,8 @@ namespace KimSurvival
                 GameObject root = new GameObject("연결 슬롯 placeholder · " + definition.StartSlotId);
                 root.transform.SetParent(worldRoot, false);
                 root.transform.position = new Vector3(definition.StartConnectorDisplayX, PrototypeCampPlacement.FloorY + 0.44f, 0f);
-                Color outline = new Color(1f, 0.83f, 0.28f, 0.42f);
+                float guideAlpha = campModuleExpansion.IsPreviewActive ? 0.82f : 0.16f;
+                Color outline = new Color(1f, 0.83f, 0.28f, guideAlpha);
                 if (definition.Archetype == CampModuleArchetype.Side)
                 {
                     CreateFootprintOutline(root.transform, new Vector2(0.42f, 0.78f), outline, null, Vector2.zero);
@@ -2915,6 +2934,8 @@ namespace KimSurvival
                     return "!";
                 case "rare":
                     return "*";
+                case "gamejam-stay":
+                    return "G";
                 case "day50":
                     return "#";
                 default:
@@ -3596,17 +3617,7 @@ namespace KimSurvival
 
         private void SearchNearestNode()
         {
-            NodeView nearest = null;
-            float nearestDistance = float.MaxValue;
-            for (int i = 0; i < nodes.Count; i += 1)
-            {
-                float distance = Mathf.Abs(nodes[i].X - playerTraversal.X);
-                if (distance < 1.35f && distance < nearestDistance)
-                {
-                    nearest = nodes[i];
-                    nearestDistance = distance;
-                }
-            }
+            NodeView nearest = FindNearestSearchNode(SearchNodeInteractionDistance);
 
             if (nearest == null)
             {
@@ -3704,6 +3715,22 @@ namespace KimSurvival
             RefreshAll(true);
         }
 
+        private NodeView FindNearestSearchNode(float maximumDistance)
+        {
+            NodeView nearest = null;
+            float nearestDistance = float.MaxValue;
+            for (int index = 0; index < nodes.Count; index += 1)
+            {
+                float distance = Mathf.Abs(nodes[index].X - playerTraversal.X);
+                if (distance < maximumDistance && distance < nearestDistance)
+                {
+                    nearest = nodes[index];
+                    nearestDistance = distance;
+                }
+            }
+            return nearest;
+        }
+
         private void TakeAllSearchLoot()
         {
             PrototypeSearchNodeSnapshot before = searchNodeRuntime.ActiveNode == null
@@ -3797,7 +3824,7 @@ namespace KimSurvival
                 SetButton(searchLootItemButtons[index], label, !searchNodeRuntime.HasPendingBagSwap);
                 searchLootItemButtons[index].GetComponent<Image>().color = item.IsProtectedPart
                     ? new Color(0.52f, 0.29f, 0.06f, 0.98f)
-                    : ResourceColor(item.Resource, index == searchNodeRuntime.FocusedIndex ? 0.98f : 0.72f);
+                    : SearchLootButtonBackground(item.Resource, index == searchNodeRuntime.FocusedIndex);
                 Image icon = index < searchLootItemIcons.Count ? searchLootItemIcons[index] : null;
                 if (icon != null)
                 {
@@ -4526,7 +4553,7 @@ namespace KimSurvival
 
         private int CountNearbySearchNodes()
         {
-            return nodes.Count(node => Mathf.Abs(node.X - playerTraversal.X) < 1.35f);
+            return nodes.Count(node => Mathf.Abs(node.X - playerTraversal.X) < SearchNodeInteractionDistance);
         }
 
         private void MoveNaturallyToSearchNode(NodeView target)
@@ -5809,7 +5836,9 @@ namespace KimSurvival
 
             InvokeCampPopupActionForVerification(PrototypeCampInteractionTargetKind.Campfire, campfireButton);
             Require(campPlacement.IsActive && placementGhost != null, "모닥불 배치 유령 UI");
-            Require(placementGhostLabel != null && placementGhostLabel.font != null, "월드 배치 유령의 TMP 폰트 매핑");
+            Require(placementGhostLabel != null && placementGhostBadgeRenderer != null &&
+                    !placementGhostLabel.transform.parent.gameObject.activeSelf,
+                "배치 판정은 상단 상태 카드와 footprint outline만 사용하고 월드 사각 배지는 숨김");
             Require(!campActions.activeSelf && !bagPanel.activeSelf, "배치 중 관리 패널을 숨겨 월드 시야 확보");
             campPlacement.SetCandidateX(-5f);
             UpdatePlacementGhost();
@@ -6277,6 +6306,8 @@ namespace KimSurvival
                     campPromptSkin.Frame.pivot == new Vector2(192f, 32f) &&
                     campPromptSkin.Frame.border == new Vector4(70f, 12f, 30f, 12f),
                 "compact-a 원본 384x64, 중앙 pivot, L70/R30/T12/B12 border 보존");
+            Require(ColorContrastRatio(campProximityText.color, CompactPromptBodyColor) >= 4.5f,
+                "compact-a 행동 문구는 ko/en/qps-long 공통으로 본문 판과 4.5:1 이상 대비");
         }
 
         private void RequireReadableCampProximityPrompt(bool allowCompactFont)
@@ -6294,9 +6325,9 @@ namespace KimSurvival
             float gapPixels = (messageRect.anchorMin.y - promptRect.anchorMax.y) * CampProximityPromptReferenceHeight;
             Require(campProximityPrompt.transform.parent == canvas.transform,
                 "근접 안내는 월드가 아닌 Canvas 내 독립 UI");
-            Require(widthPixels >= 219.9f && widthPixels <= 440.1f &&
-                    heightPixels >= 39.9f && heightPixels <= 44.1f,
-                "1280x800 근접 안내는 220~440x40~44px compact-a 범위");
+            Require(widthPixels >= 511.9f && widthPixels <= 512.1f &&
+                    heightPixels >= 47.9f && heightPixels <= 48.1f,
+                "1280x800 근접 안내는 512x48px compact-a 범위");
             Require(gapPixels >= 11.9f && promptRect.anchorMin.y >= 0.55f,
                 "1280x800 내레이션 카드 아래 12px 이상 간격·월드 보행 영역 보존");
             Require(glyphRect.rect.width >= 43.9f && glyphRect.rect.height >= 43.9f &&
@@ -6305,11 +6336,12 @@ namespace KimSurvival
             Require(campProximityGlyphText.textWrappingMode == TextWrappingModes.NoWrap &&
                     campProximityGlyphText.textInfo.lineCount <= 1 && !campProximityGlyphText.isTextOverflowing,
                 "keyboard/gamepad glyph 한 줄 무잘림");
-            Require(campProximityText.enableAutoSizing && campProximityText.fontSizeMin >= 15f &&
+            Require(campProximityText.enableAutoSizing && campProximityText.fontSizeMin >= 19f &&
+                    campProximityText.fontSize >= 19f &&
                     campProximityText.fontSizeMax <= 23f && campProximityText.textWrappingMode == TextWrappingModes.NoWrap &&
                     campProximityText.overflowMode == TextOverflowModes.Overflow && campProximityText.textInfo.lineCount <= 1 &&
                     !campProximityText.isTextOverflowing,
-                (allowCompactFont ? "qps-long" : "ko/en") + " 행동·대상 TMP 단일행 자동 축소·말줄임 없는 무잘림 정책");
+                (allowCompactFont ? "qps-long" : "ko/en") + " 행동·대상 TMP 단일행 19px 이상·말줄임 없는 무잘림 정책");
         }
 
         private void ConfigureCampPopupLayout(bool moduleSlot)
@@ -6924,14 +6956,13 @@ namespace KimSurvival
         {
             messageText.ForceMeshUpdate(true, true);
             controlsText.ForceMeshUpdate(true, true);
-            placementGhostLabel.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
             Require(messageText.fontSizeMin >= 26f && !messageText.isTextOverflowing, "1280x800 배치 상태 카드 18px 대응·잘림 없음");
             Require(!controlsText.isTextOverflowing, "1280x800 현재 장치 조작 안내 잘림 없음");
-            Require(placementGhostLabel.fontSizeMin >= 30f && placementGhostBadgeRenderer != null &&
-                    placementGhostBadgeRenderer.bounds.size.x <= 0.83f && placementGhostBadgeRenderer.bounds.size.y <= 0.83f &&
+            Require(placementGhostLabel != null && placementGhostBadgeRenderer != null &&
+                    !placementGhostLabel.transform.parent.gameObject.activeSelf &&
                     placementGhostOutlineRenderers.Count == 4,
-                "배치 유령은 상단 상태 카드와 작은 ✓/×만 사용하고 발자국 윤곽을 유지");
+                "배치 유령은 상단 상태 카드와 발자국 윤곽만 사용하고 캐릭터를 가리는 월드 OK/× 배지를 숨김");
         }
 
         private void RequireQpsGlobalPlacementLayout()
@@ -6943,7 +6974,6 @@ namespace KimSurvival
             statusText.ForceMeshUpdate(true, true);
             resourceText.ForceMeshUpdate(true, true);
             languageLabel.ForceMeshUpdate(true, true);
-            placementGhostLabel.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
 
             Require(statusText.fontSizeMin >= 28f && resourceText.fontSizeMin >= 28f &&
@@ -6954,9 +6984,10 @@ namespace KimSurvival
                 "qps-long 언어 전환은 우측 안전 여백 안의 1줄 자동 맞춤 사용");
             Require(zoneBadge == null && signalBadge == null,
                 "건설 구역·신호 앵커의 대형 월드 텍스트 배지를 제거하고 상단 상태 카드로 일원화");
-            Require(!placementGhostLabel.isTextOverflowing &&
-                    (placementGhostLabel.text == "✓" || placementGhostLabel.text == "×"),
-                "qps-long 배치 월드 표시는 작은 언어 비의존 ✓/×만 사용");
+            Require(placementGhostLabel != null && placementGhostBadgeRenderer != null &&
+                    !placementGhostLabel.transform.parent.gameObject.activeSelf &&
+                    placementGhostOutlineRenderers.Count == 4,
+                "qps-long 배치는 월드 OK/× 사각 배지 없이 상단 상태 카드와 outline만 사용");
         }
 
         private void RequireCampBackgroundAlignment()
@@ -7025,35 +7056,43 @@ namespace KimSurvival
         private void RequireReadableResourceLabels(string localeCode)
         {
             UpdateResourceLabelLayout();
-            float halfWidth = worldCamera.orthographicSize * MinimumSupportedAspect;
-            float left = worldCamera.transform.position.x - halfWidth;
-            float right = worldCamera.transform.position.x + halfWidth;
-            float safeRight = Mathf.Lerp(left, right, ResourceLabelSafeViewportRight);
+            NodeView expected = FindNearestSearchNode(SearchNodeInteractionDistance);
             List<NodeView> visible = new List<NodeView>();
             for (int i = 0; i < nodes.Count; i += 1)
             {
                 NodeView node = nodes[i];
-                if (node.LabelRoot == null || !node.LabelRoot.gameObject.activeSelf || node.X < left || node.X > right)
+                Require(node.Root.GetComponentsInChildren<TMP_Text>(true).Any(text => text != node.Label),
+                    localeCode + " 수색 오브젝트 상태 아이콘 마커 유지 · " + node.Definition.NodeId);
+                if (node.LabelRoot == null || !node.LabelRoot.gameObject.activeSelf)
                 {
                     continue;
                 }
 
                 node.Label.ForceMeshUpdate(true, true);
                 Bounds bounds = node.LabelBackground.bounds;
-                Require(node.Label.font != null && node.Label.fontSizeMin >= 28f, localeCode + " 수색 오브젝트 라벨 18px 대응·폰트");
+                Vector3 viewportMinimum = worldCamera.WorldToViewportPoint(bounds.min);
+                Vector3 viewportMaximum = worldCamera.WorldToViewportPoint(bounds.max);
+                Require(node.Label.font != null && node.Label.fontSizeMin >= 28f && !node.Label.isTextOverflowing,
+                    localeCode + " 수색 오브젝트 라벨 18px 대응·폰트·무잘림");
                 Require(node.LabelBackground.color.a >= 0.95f && node.Label.color.grayscale >= 0.9f, localeCode + " 수색 오브젝트 라벨 배경 대비");
-                Require(bounds.min.x >= left - 0.01f && bounds.max.x <= safeRight + 0.01f, localeCode + " 화면 가장자리·가방 패널 수색 라벨 클램프");
+                Require(viewportMinimum.x >= -0.01f && viewportMaximum.x <= ResourceLabelSafeViewportRight + 0.01f,
+                    localeCode + " 화면 가장자리·가방 패널 수색 라벨 클램프");
+                float silhouetteLeft = playerRoot == null
+                    ? node.Root.transform.position.x
+                    : Mathf.Min(node.Root.transform.position.x, playerRoot.position.x - ResourceLabelPlayerHalfWidth);
+                Require(bounds.max.x <= node.Root.transform.position.x - ResourceLabelHorizontalGap + 0.01f &&
+                        bounds.max.x <= silhouetteLeft + 0.01f,
+                    localeCode + " 수색 상세는 대상·플레이어 실루엣의 왼쪽 바깥에 배치");
+                Require(viewportMinimum.y >= 0.49f && viewportMaximum.y <= 0.66f &&
+                        Mathf.Abs(node.LabelRoot.position.y - ResourceLabelSafeWorldY) <= 0.01f &&
+                        (playerRoot == null || bounds.min.y >= playerRoot.position.y + 0.8f),
+                    localeCode + " 수색 상세는 플레이어·내레이션·HUD를 피한 단일 안전 수직 레인");
                 visible.Add(node);
             }
 
-            Require(visible.Count >= 2, localeCode + " 화면 내 환경 수색 라벨 표본");
-            for (int first = 0; first < visible.Count; first += 1)
-            {
-                for (int second = first + 1; second < visible.Count; second += 1)
-                {
-                    Require(!visible[first].LabelBackground.bounds.Intersects(visible[second].LabelBackground.bounds), localeCode + " 환경 수색 라벨 겹침 방지");
-                }
-            }
+            Require(visible.Count == (expected == null ? 0 : 1) &&
+                    (expected == null || ReferenceEquals(visible[0], expected)),
+                localeCode + " 상호작용 거리 안 가장 가까운 환경 수색 상세 프롬프트 정확히 1개");
         }
 
         private void RequireReadableSearchLootTray(string localeCode)
@@ -7073,9 +7112,21 @@ namespace KimSurvival
                 Require(text.font != null && text.fontSize >= 12.5f, localeCode + " 발견물 트레이 TMP 폰트·최소 가독 크기");
                 Require(!text.isTextOverflowing, localeCode + " 발견물 트레이 TMP overflow=0 · " + text.name);
             }
+            TMP_Text leaveLabel = searchLootLeaveButton.GetComponentInChildren<TMP_Text>();
+            Require(leaveLabel.fontSizeMin >= 23f && leaveLabel.fontSizeMax >= 23f &&
+                    leaveLabel.fontSize >= 23f && !leaveLabel.isTextOverflowing,
+                localeCode + " 발견물 닫기 action은 qps-long projected glyph 12px 대응 23pt 고정·무잘림");
             RectTransform bagRect = bagPanel.GetComponent<RectTransform>();
             Require(trayRect.anchorMax.x < 0.61f && bagRect.offsetMin.x <= -455f,
                 localeCode + " 발견물 트레이와 기존 가방 비교 영역 비중첩");
+            ResourceKind[] resourceKinds = { ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Food, ResourceKind.Salvage };
+            for (int index = 0; index < resourceKinds.Length; index += 1)
+            {
+                ResourceKind kind = resourceKinds[index];
+                Require(ColorContrastRatio(Color.white, SearchLootButtonBackground(kind, false)) >= 4.5f &&
+                        ColorContrastRatio(Color.white, SearchLootButtonBackground(kind, true)) >= 4.5f,
+                    localeCode + " " + kind + " 발견물 비선택·선택 버튼의 흰 글자 대비 4.5:1 이상");
+            }
         }
 
         public void CaptureVerificationPng(string absolutePath, int width, int height)
@@ -7236,7 +7287,7 @@ namespace KimSurvival
             float right = worldCamera.transform.position.x + halfWidth;
             float safeRight = Mathf.Lerp(left, right, ResourceLabelSafeViewportRight);
             float labelHalfWidth = ResourceLabelWidth * 0.5f;
-            var visibleLabels = new List<NodeView>();
+            NodeView nearest = suppressLabels ? null : FindNearestSearchNode(SearchNodeInteractionDistance);
             for (int i = 0; i < nodes.Count; i += 1)
             {
                 NodeView node = nodes[i];
@@ -7245,44 +7296,25 @@ namespace KimSurvival
                     continue;
                 }
 
-                bool labelVisible = !suppressLabels &&
-                                    node.X >= left - labelHalfWidth &&
-                                    node.X <= safeRight + labelHalfWidth;
+                bool labelVisible = ReferenceEquals(node, nearest);
                 node.LabelRoot.gameObject.SetActive(labelVisible);
                 if (!labelVisible)
                 {
                     continue;
                 }
 
-                float labelX = node.X;
-                bool markerNearViewport = node.X >= left - labelHalfWidth && node.X <= right + labelHalfWidth;
-                if (markerNearViewport)
-                {
-                    labelX = Mathf.Clamp(
-                        labelX,
-                        left + labelHalfWidth + ResourceLabelViewportPadding,
-                        safeRight - labelHalfWidth - ResourceLabelViewportPadding);
-                }
+                float silhouetteLeft = playerRoot == null
+                    ? node.X
+                    : Mathf.Min(node.X, playerRoot.position.x - ResourceLabelPlayerHalfWidth);
+                float preferredLabelX = silhouetteLeft - labelHalfWidth - ResourceLabelHorizontalGap;
+                float labelX = Mathf.Clamp(
+                    preferredLabelX,
+                    left + labelHalfWidth + ResourceLabelViewportPadding,
+                    safeRight - labelHalfWidth - ResourceLabelViewportPadding);
 
                 Vector3 localPosition = node.LabelRoot.localPosition;
                 localPosition.x = labelX - node.X;
-                node.LabelRoot.localPosition = localPosition;
-                visibleLabels.Add(node);
-            }
-
-            const float firstSafeLaneWorldY = -1.35f;
-            const float safeLaneSpacing = 1.8f;
-            const int safeLaneCount = 4;
-            NodeView[] orderedLabels = visibleLabels
-                .OrderBy(node => node.LabelRoot.position.x)
-                .ThenBy(node => node.Definition.NodeId, StringComparer.Ordinal)
-                .ToArray();
-            for (int index = 0; index < orderedLabels.Length; index += 1)
-            {
-                NodeView node = orderedLabels[index];
-                float worldY = firstSafeLaneWorldY + index % safeLaneCount * safeLaneSpacing;
-                Vector3 localPosition = node.LabelRoot.localPosition;
-                localPosition.y = worldY - node.Root.transform.position.y;
+                localPosition.y = ResourceLabelSafeWorldY - node.Root.transform.position.y;
                 node.LabelRoot.localPosition = localPosition;
             }
         }
@@ -7341,12 +7373,14 @@ namespace KimSurvival
             GameObject root = new GameObject("미설치 설비 현장 표식 · " + kind);
             root.transform.SetParent(worldRoot, false);
             root.transform.position = position;
-            Color subtle = new Color(color.r, color.g, color.b, 0.42f);
+            float guideAlpha = campPlacement.IsActive ? 0.38f : 0.12f;
+            Color subtle = new Color(color.r, color.g, color.b, guideAlpha);
             CreateFootprintOutline(root.transform, size, subtle, null);
             Sprite blueprintSprite = GetStructureSprite(kind);
             if (blueprintSprite != null)
             {
-                CreateStructureVisual(root.transform, kind, blueprintSprite, size, new Color(0.55f, 0.88f, 0.92f, 0.3f), 2, out _);
+                float blueprintAlpha = campPlacement.IsActive ? 0.28f : 0.08f;
+                CreateStructureVisual(root.transform, kind, blueprintSprite, size, new Color(0.55f, 0.88f, 0.92f, blueprintAlpha), 2, out _);
             }
             else
             {
@@ -7385,6 +7419,7 @@ namespace KimSurvival
                 0.042f,
                 30f,
                 32f);
+            placementGhostLabel.transform.parent.gameObject.SetActive(false);
             UpdatePlacementGhost();
         }
 
@@ -7404,11 +7439,11 @@ namespace KimSurvival
             {
                 placementGhostOutlineRenderers[i].color = outlineColor;
             }
-            placementGhostBadgeRenderer.color = valid
-                ? new Color(0.03f, 0.34f, 0.15f, 0.98f)
-                : new Color(0.5f, 0.05f, 0.04f, 0.98f);
-            placementGhostLabel.text = valid ? "✓" : "×";
-            placementGhostLabel.color = Color.white;
+            if (placementGhostLabel != null)
+            {
+                placementGhostLabel.text = string.Empty;
+                placementGhostLabel.transform.parent.gameObject.SetActive(false);
+            }
         }
 
         private Sprite GetStructureSprite(StructureKind kind)
@@ -7909,6 +7944,46 @@ namespace KimSurvival
                 default:
                     return Color.white;
             }
+        }
+
+        private static Color SearchLootButtonBackground(ResourceKind kind, bool selected)
+        {
+            switch (kind)
+            {
+                case ResourceKind.Wood:
+                    return selected ? new Color(0.38f, 0.18f, 0.05f, 1f) : new Color(0.25f, 0.11f, 0.04f, 1f);
+                case ResourceKind.Stone:
+                    return selected ? new Color(0.25f, 0.3f, 0.34f, 1f) : new Color(0.16f, 0.19f, 0.22f, 1f);
+                case ResourceKind.Food:
+                    return selected ? new Color(0.11f, 0.36f, 0.14f, 1f) : new Color(0.08f, 0.25f, 0.1f, 1f);
+                case ResourceKind.Salvage:
+                    return selected ? new Color(0.4f, 0.22f, 0.04f, 1f) : new Color(0.25f, 0.14f, 0.03f, 1f);
+                default:
+                    return new Color(0.12f, 0.16f, 0.17f, 1f);
+            }
+        }
+
+        private static float ColorContrastRatio(Color first, Color second)
+        {
+            float firstLuminance = RelativeLuminance(first);
+            float secondLuminance = RelativeLuminance(second);
+            float lighter = Mathf.Max(firstLuminance, secondLuminance);
+            float darker = Mathf.Min(firstLuminance, secondLuminance);
+            return (lighter + 0.05f) / (darker + 0.05f);
+        }
+
+        private static float RelativeLuminance(Color color)
+        {
+            return 0.2126f * LinearSrgb(color.r) +
+                   0.7152f * LinearSrgb(color.g) +
+                   0.0722f * LinearSrgb(color.b);
+        }
+
+        private static float LinearSrgb(float channel)
+        {
+            return channel <= 0.03928f
+                ? channel / 12.92f
+                : Mathf.Pow((channel + 0.055f) / 1.055f, 2.4f);
         }
 
         private Sprite GetResourceIconSprite(ResourceKind kind)

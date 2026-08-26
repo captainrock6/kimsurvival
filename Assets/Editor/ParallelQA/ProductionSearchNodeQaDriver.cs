@@ -36,6 +36,23 @@ namespace ParallelQA
 
         internal static Target MoveToNext(KimSurvivalPrototype prototype, bool requiresSwimming, string context)
         {
+            return MoveToNextMatching(prototype, requiresSwimming, false, context);
+        }
+
+        internal static Target MoveToNextWithoutProtectedPart(
+            KimSurvivalPrototype prototype,
+            bool requiresSwimming,
+            string context)
+        {
+            return MoveToNextMatching(prototype, requiresSwimming, true, context);
+        }
+
+        private static Target MoveToNextMatching(
+            KimSurvivalPrototype prototype,
+            bool requiresSwimming,
+            bool excludeProtectedPart,
+            string context)
+        {
             Require(prototype != null, context + " prototype exists");
             PrototypeSearchNodeRuntime runtime = GetField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
             PrototypePlayerTraversal traversal = GetField<PrototypePlayerTraversal>(prototype, "playerTraversal");
@@ -49,8 +66,11 @@ namespace ParallelQA
                 PrototypeSearchNodeDefinition definition = GetPublicField<PrototypeSearchNodeDefinition>(view, "Definition");
                 float x = GetPublicField<float>(view, "X");
                 if (definition.RequiresSwimming != requiresSwimming) continue;
-                PrototypeSearchNodeState state = runtime.Ledger.GetOrCreate(definition).State;
+                PrototypeSearchNodeSnapshot snapshot = runtime.Ledger.GetOrCreate(definition);
+                PrototypeSearchNodeState state = snapshot.State;
                 if (state == PrototypeSearchNodeState.Depleted) continue;
+                if (excludeProtectedPart && snapshot.Remaining != null &&
+                    snapshot.Remaining.Any(item => item != null && item.IsProtectedPart)) continue;
                 candidates.Add(new Target { View = view, Definition = definition, X = x, State = state });
             }
 
@@ -59,7 +79,9 @@ namespace ParallelQA
                 .ThenBy(value => Math.Abs(value.X - traversal.X))
                 .ThenBy(value => value.Definition.NodeId, StringComparer.Ordinal)
                 .FirstOrDefault();
-            Require(target != null, context + " has an undepleted " + (requiresSwimming ? "water" : "land") + " search node");
+            Require(target != null, context + " has an undepleted " +
+                (excludeProtectedPart ? "unprotected " : string.Empty) +
+                (requiresSwimming ? "water" : "land") + " search node");
             Invoke(prototype, "MoveNaturallyToSearchNode", target.View);
             Require(Math.Abs(traversal.X - target.X) <= 0.08f,
                 context + " reached " + target.Definition.NodeId + " through production movement");

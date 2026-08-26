@@ -113,12 +113,13 @@ $wave14Stage = Invoke-HiddenProcess 'wave14-qps-global-layout-contracts' $UnityP
 $gate = Read-Json (Join-Path $evidenceRoot 'wave14-qps-global-layout-gate.json')
 $wave12Summary = Read-Json (Join-Path $evidenceRoot 'wave12-summary.json')
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
-if ($wave12Stage.exitCode -ne 0 -and $wave12Stage.exitCode -ne 2) {
+if ($wave12Stage.exitCode -ne 0) {
     $infrastructureFailures.Add("Wave 12 prerequisite exited $($wave12Stage.exitCode)")
 }
 if ($wave14Stage.exitCode -ne 0) { $infrastructureFailures.Add("Wave 14 Unity evidence stage exited $($wave14Stage.exitCode)") }
-if ($null -eq $wave12Summary -or $wave12Summary.infrastructureOverall -ne 'PASS') {
-    $infrastructureFailures.Add('Wave 12 prerequisite did not report infrastructure PASS')
+if ($null -eq $wave12Summary -or [string]$wave12Summary.overall -ne 'PASS' -or
+    [string]$wave12Summary.productOverall -ne 'PASS' -or [string]$wave12Summary.infrastructureOverall -ne 'PASS') {
+    $infrastructureFailures.Add('Wave 12 prerequisite did not report PASS/PASS/PASS')
 }
 if ($null -eq $gate) {
     $infrastructureFailures.Add('Wave 14 machine-readable report is missing')

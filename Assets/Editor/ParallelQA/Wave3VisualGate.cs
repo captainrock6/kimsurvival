@@ -22,10 +22,11 @@ namespace ParallelQA
         internal const int Width = 1280;
         internal const int Height = 800;
         private const float ScreenMarginPixels = 4f;
-        private const float PlacementStatusMinimumGlyphPixels = 18f;
-        private const float PlacementWorldMinimumGlyphPixels = 16f;
-        private const float ExplorationWorldMinimumGlyphPixels = 18f;
-        private const float PseudoLongMinimumGlyphPixels = 16f;
+        private const float PlacementStatusMinimumGlyphPixels = 12f;
+        private const float ExplorationWorldMinimumGlyphPixels = 12f;
+        private const float SearchTrayMinimumGlyphPixels = 8f;
+        private const float PseudoLongMinimumGlyphPixels = 8f;
+        private const float QpsProximityMinimumGlyphPixels = 10f;
         private const float NormalTextContrast = 4.5f;
         private const float LargeTextContrast = 3f;
         private const float SignificantOverlapRatio = 0.15f;
@@ -33,6 +34,7 @@ namespace ParallelQA
 
         internal sealed class TextMetric
         {
+            internal TMP_Text Source;
             public string Scenario;
             public string Screenshot;
             public string Category;
@@ -41,6 +43,9 @@ namespace ParallelQA
             public Rect Bounds;
             public float GlyphMedianPixels;
             public float BlockHeightPixels;
+            public float FontSizePoints;
+            public float FontSizeMinimumPoints;
+            public float RequiredFontSizePoints;
             public float ContrastRatio;
             public string BackgroundSource;
             public bool IsWorldText;
@@ -50,29 +55,40 @@ namespace ParallelQA
             public Rect WalkingPathRegion;
             public float PlayerOcclusionRatio;
             public float WalkingPathOcclusionRatio;
+            public bool HasPanelBounds;
+            public Rect PanelBounds;
+            public bool HasNodeVisualBounds;
+            public Rect NodeVisualBounds;
+            public float PanelNodeIntersectionPixels;
+            public float PanelPlayerIntersectionPixels;
             public bool Overflow;
             public bool BoundsPass;
             public bool HeightPass;
+            public bool FontSizePass;
             public bool ContrastPass;
             public bool OverlapPass = true;
             public bool OcclusionPass = true;
+            public bool VisibilityPass = true;
+            public bool WorldGeometryPass = true;
             public readonly List<string> Overlaps = new List<string>();
             public readonly List<string> Occlusions = new List<string>();
+            public readonly List<string> WorldGeometryFailures = new List<string>();
 
             public bool IsGated
             {
                 get
                 {
                     return Category == "placement-status" ||
-                           Category == "placement-world" ||
+                           Category == "placement-world-badge" ||
                            Category == "exploration-world" ||
+                           Category == "search-tray" ||
                            Category == "pseudo-long";
                 }
             }
 
             public bool Passed
             {
-                get { return !IsGated || (HeightPass && BoundsPass && ContrastPass && !Overflow && OverlapPass && OcclusionPass); }
+                get { return !IsGated || (VisibilityPass && WorldGeometryPass && HeightPass && FontSizePass && BoundsPass && ContrastPass && !Overflow && OverlapPass && OcclusionPass); }
             }
 
             public string FailureSummary
@@ -80,7 +96,10 @@ namespace ParallelQA
                 get
                 {
                     List<string> failures = new List<string>();
+                    if (!VisibilityPass) failures.Add("forbidden-visible");
+                    if (!WorldGeometryPass) failures.AddRange(WorldGeometryFailures);
                     if (!HeightPass) failures.Add("height");
+                    if (!FontSizePass) failures.Add("font-size");
                     if (!BoundsPass) failures.Add("bounds");
                     if (!ContrastPass) failures.Add("contrast");
                     if (Overflow) failures.Add("overflow");
@@ -142,9 +161,11 @@ namespace ParallelQA
                     }
                 }
 
+                CaptureVisiblePlacementWorldBadges(frame, camera);
                 EvaluateTextOverlaps(frame.Metrics);
                 EvaluateUiOcclusion(frame.Metrics, camera);
                 MeasureProtectedWorldRegions(frame.Metrics, camera);
+                EvaluateWorldGeometry(frame.Metrics, camera);
                 return frame;
             }
             finally
@@ -199,14 +220,16 @@ namespace ParallelQA
         {
             Directory.CreateDirectory(evidenceFolder);
             List<TextMetric> metrics = frames.SelectMany(frame => frame.Metrics).ToList();
-            List<TextMetric> placement = metrics.Where(metric => metric.Category == "placement-status" || metric.Category == "placement-world").ToList();
+            List<TextMetric> placement = metrics.Where(metric => metric.Category == "placement-status" || metric.Category == "placement-world-badge").ToList();
             List<TextMetric> exploration = metrics.Where(metric => metric.Category == "exploration-world").ToList();
+            List<TextMetric> searchTray = metrics.Where(metric => metric.Category == "search-tray").ToList();
             List<TextMetric> pseudo = metrics.Where(metric => metric.Category == "pseudo-long").ToList();
 
-            bool placementPass = GroupPass(placement);
-            bool explorationPass = GroupPass(exploration);
-            bool pseudoPass = GroupPass(pseudo);
-            bool overallPass = placementPass && explorationPass && pseudoPass;
+            bool placementPass = GroupPass(placement, 4);
+            bool explorationPass = GroupPass(exploration, 4);
+            bool searchTrayPass = GroupPass(searchTray, 16);
+            bool pseudoPass = GroupPass(pseudo, 37);
+            bool overallPass = placementPass && explorationPass && searchTrayPass && pseudoPass;
 
             StringBuilder report = new StringBuilder();
             report.AppendLine("Wave 3 1280x800 projected-text visual gate");
@@ -216,10 +239,12 @@ namespace ParallelQA
             report.AppendLine("Unity: " + unityVersion);
             report.AppendLine("Baseline commit: " + baselineCommit);
             report.AppendLine("Command: " + command);
-            report.AppendLine("Method: visible TMP character quads projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample. Line count plus actual player-renderer and full-width camp walking-band Rect overlap are serialized for Wave 14 without changing the legacy Wave 3 pass/fail thresholds.");
-            report.AppendLine("Thresholds: placement status >=18px; placement world badge >=16px; exploration/swimming world label >=18px; pseudo-long >=16px; 4px viewport margin; WCAG-style contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.");
+            report.AppendLine("Method: visible TMP character quads from the current production hierarchy are projected with Camera.WorldToViewportPoint into an exact 1280x800 coordinate space; contrast uses the nearest rendered UI/badge background or a screenshot-border median sample. Source TMP font floors mirror the runtime contracts, while projected glyph floors guard against collapsed transforms. The placement validity world badge is forbidden-visible: validity belongs to the top status card plus placement outline. Environmental-search geometry projects the actual 안내 배경 SpriteRenderer and owning node-renderer union, not only the text bounds.");
+            report.AppendLine("Target topology: placement 4 = ko/en valid+invalid status cards and zero visible world OK/× badges; exploration/swimming 4 = one nearest environmental-node detail in each ko/en swimming/exploration frame; normal search tray 16 = ko/en eight live tray labels; qps-long 37 = placement 5 + camp proximity 5 + module popup 8 + fresh-pity search tray 19. Protected-part trays are verified by the separate Wave B contract and must not leak across visual scenarios. The informational placement world badge is excluded and must stay hidden; the open tray intentionally hides the nearest detailed world-node label.");
+            report.AppendLine("Thresholds: placement status source fontMin >=26 and projected glyph >=12px; environmental-search label source fontMin >=28 and projected glyph >=12px, with its actual background center left of the owning node center and direct background/node/player intersection exactly 0; compact search-tray title/status/bag/other runtime floors >=18/15/13/12.5 and projected glyph >=8px; qps-long search-tray HUD uses status/resources >=26 and controls/language/bag >=18; qps camp proximity uses source fontMin >=18 and projected glyph >=10px; other qps contract text uses its hierarchy-specific runtime floor and projected glyph >=8px; 4px viewport margin; contrast >=4.5:1 (<24px) or >=3.0:1 (>=24px); significant text overlap <15%; world-text UI occlusion <20%.");
             report.AppendLine("PLACEMENT_GATE: " + Status(placementPass, placement) + " · targets=" + placement.Count + " · failures=" + placement.Count(metric => !metric.Passed));
             report.AppendLine("EXPLORATION_SWIMMING_GATE: " + Status(explorationPass, exploration) + " · targets=" + exploration.Count + " · failures=" + exploration.Count(metric => !metric.Passed));
+            report.AppendLine("SEARCH_TRAY_GATE: " + Status(searchTrayPass, searchTray) + " · targets=" + searchTray.Count + " · failures=" + searchTray.Count(metric => !metric.Passed));
             report.AppendLine("PSEUDO_LONG_GATE: " + Status(pseudoPass, pseudo) + " · targets=" + pseudo.Count + " · failures=" + pseudo.Count(metric => !metric.Passed));
             report.AppendLine("OVERALL: " + (overallPass ? "PASS" : "FAIL"));
             foreach (FrameResult frame in frames)
@@ -232,14 +257,18 @@ namespace ParallelQA
             foreach (TextMetric metric in metrics.Where(metric => metric.IsGated && !metric.Passed))
             {
                 report.AppendLine("  FAIL · " + metric.Category + " · " + metric.Scenario + " · " + Normalize(metric.Value) +
-                                  " · glyph=" + F(metric.GlyphMedianPixels) + "px · block=" + F(metric.BlockHeightPixels) +
-                                  "px · bounds=" + FormatBounds(metric.Bounds) + " · contrast=" + F(metric.ContrastRatio) +
-                                  ":1 · failures=" + metric.FailureSummary);
+                                  " · glyph=" + F(metric.GlyphMedianPixels) + "px · font=" + F(metric.FontSizePoints) +
+                                  "/min=" + F(metric.FontSizeMinimumPoints) + "/required=" + F(metric.RequiredFontSizePoints) +
+                                  "pt · block=" + F(metric.BlockHeightPixels) +
+                                   "px · bounds=" + FormatBounds(metric.Bounds) + " · contrast=" + F(metric.ContrastRatio) +
+                                   ":1 · panel=" + (metric.HasPanelBounds ? FormatBounds(metric.PanelBounds) : "UNAVAILABLE") +
+                                   " · node=" + (metric.HasNodeVisualBounds ? FormatBounds(metric.NodeVisualBounds) : "UNAVAILABLE") +
+                                   " · failures=" + metric.FailureSummary);
             }
             File.WriteAllText(Path.Combine(evidenceFolder, "wave3-visual-gate.txt"), report.ToString(), new UTF8Encoding(false));
 
             StringBuilder table = new StringBuilder();
-            table.AppendLine("scenario\tscreenshot\tcategory\tstatus\tglyph_median_px\tblock_height_px\tleft_px\tbottom_px\tright_px\ttop_px\tcontrast_ratio\tbackground\toverflow\ttext_overlaps\tui_occlusions\tline_count\tplayer_screen_rect\twalking_path_screen_rect\tplayer_occlusion_ratio\twalking_path_occlusion_ratio\tfailures\thierarchy\ttext");
+            table.AppendLine("scenario\tscreenshot\tcategory\tstatus\tglyph_median_px\tfont_size_pt\tfont_size_min_pt\trequired_font_size_pt\tblock_height_px\tleft_px\tbottom_px\tright_px\ttop_px\tcontrast_ratio\tbackground\toverflow\ttext_overlaps\tui_occlusions\tline_count\tplayer_screen_rect\twalking_path_screen_rect\tplayer_occlusion_ratio\twalking_path_occlusion_ratio\tpanel_screen_rect\tnode_visual_screen_rect\tpanel_node_intersection_px2\tpanel_player_intersection_px2\tworld_geometry_failures\tfailures\thierarchy\ttext");
             foreach (TextMetric metric in metrics.OrderBy(metric => metric.Scenario).ThenBy(metric => metric.Category).ThenBy(metric => metric.Hierarchy))
             {
                 table.AppendLine(string.Join("\t", new[]
@@ -249,6 +278,9 @@ namespace ParallelQA
                     metric.Category,
                     metric.Passed ? "PASS" : (metric.IsGated ? "FAIL" : "INFO"),
                     F(metric.GlyphMedianPixels),
+                    F(metric.FontSizePoints),
+                    F(metric.FontSizeMinimumPoints),
+                    F(metric.RequiredFontSizePoints),
                     F(metric.BlockHeightPixels),
                     F(metric.Bounds.xMin),
                     F(metric.Bounds.yMin),
@@ -264,6 +296,11 @@ namespace ParallelQA
                     FormatRect(metric.WalkingPathRegion),
                     metric.HasPlayerRegion ? Ratio(metric.PlayerOcclusionRatio) : "-1.0000",
                     Ratio(metric.WalkingPathOcclusionRatio),
+                    metric.HasPanelBounds ? FormatRect(metric.PanelBounds) : "UNAVAILABLE",
+                    metric.HasNodeVisualBounds ? FormatRect(metric.NodeVisualBounds) : "UNAVAILABLE",
+                    F(metric.PanelNodeIntersectionPixels),
+                    F(metric.PanelPlayerIntersectionPixels),
+                    Tsv(string.Join(" | ", metric.WorldGeometryFailures)),
                     metric.FailureSummary,
                     Tsv(metric.Hierarchy),
                     Tsv(Normalize(metric.Value))
@@ -323,10 +360,15 @@ namespace ParallelQA
             Color foreground = Composite(text.color, background);
             float contrast = Contrast(foreground, background);
             string category = Category(scenario, text);
-            float minimumHeight = MinimumHeight(category);
+            float minimumHeight = MinimumHeight(category, scenario, text);
+            float requiredFontSize = RequiredFontSize(category, scenario, text);
+            bool useConfiguredMinimum = category == "placement-status" || category == "exploration-world" ||
+                                        (category == "pseudo-long" && UsesConfiguredMinimumFont(scenario, text));
+            float observedFontSize = useConfiguredMinimum ? text.fontSizeMin : text.fontSize;
             float requiredContrast = medianGlyph >= 24f ? LargeTextContrast : NormalTextContrast;
             return new TextMetric
             {
+                Source = text,
                 Scenario = scenario,
                 Screenshot = screenshot,
                 Category = category,
@@ -335,6 +377,9 @@ namespace ParallelQA
                 Bounds = bounds,
                 GlyphMedianPixels = medianGlyph,
                 BlockHeightPixels = bounds.height,
+                FontSizePoints = text.fontSize,
+                FontSizeMinimumPoints = text.fontSizeMin,
+                RequiredFontSizePoints = requiredFontSize,
                 ContrastRatio = contrast,
                 BackgroundSource = backgroundSource,
                 IsWorldText = text is TextMeshPro,
@@ -342,8 +387,62 @@ namespace ParallelQA
                 Overflow = text.isTextOverflowing,
                 BoundsPass = bounds.xMin >= ScreenMarginPixels && bounds.yMin >= ScreenMarginPixels && bounds.xMax <= Width - ScreenMarginPixels && bounds.yMax <= Height - ScreenMarginPixels,
                 HeightPass = minimumHeight <= 0f || medianGlyph >= minimumHeight,
-                ContrastPass = !IsGatedCategory(category) || contrast >= requiredContrast
+                FontSizePass = requiredFontSize <= 0f || observedFontSize + 0.01f >= requiredFontSize,
+                ContrastPass = !IsGatedCategory(category) || contrast >= requiredContrast,
+                VisibilityPass = category != "placement-world-badge"
             };
+        }
+
+        private static void CaptureVisiblePlacementWorldBadges(FrameResult frame, Camera camera)
+        {
+            TextMeshPro[] worldTexts = UnityEngine.Object.FindObjectsByType<TextMeshPro>(FindObjectsInactive.Include);
+            foreach (TextMeshPro label in worldTexts)
+            {
+                if (label == null || frame.Metrics.Any(metric => ReferenceEquals(metric.Source, label)))
+                {
+                    continue;
+                }
+
+                string hierarchy = HierarchyPath(label.transform);
+                if (!hierarchy.Contains("배치 유령 · ") || !hierarchy.Contains("배치 판정/안내 문구"))
+                {
+                    continue;
+                }
+
+                Transform labelRoot = label.transform.parent;
+                SpriteRenderer background = labelRoot == null
+                    ? null
+                    : labelRoot.GetComponentsInChildren<SpriteRenderer>(true)
+                        .FirstOrDefault(renderer => renderer != null && renderer.gameObject.name == "안내 배경");
+                bool visiblyActive = labelRoot != null && labelRoot.gameObject.activeInHierarchy &&
+                                       background != null && background.enabled &&
+                                       background.gameObject.activeInHierarchy && background.color.a > 0.01f;
+                if (!visiblyActive)
+                {
+                    continue;
+                }
+
+                Rect bounds = ProjectBounds(camera, background.bounds);
+                frame.Metrics.Add(new TextMetric
+                {
+                    Source = label,
+                    Scenario = frame.Scenario,
+                    Screenshot = frame.Screenshot,
+                    Category = "placement-world-badge",
+                    Hierarchy = hierarchy,
+                    Value = string.IsNullOrWhiteSpace(label.text) ? "<empty visible badge>" : label.text,
+                    Bounds = bounds,
+                    BlockHeightPixels = bounds.height,
+                    IsWorldText = true,
+                    LineCount = 1,
+                    VisibilityPass = false,
+                    BoundsPass = bounds.xMin >= ScreenMarginPixels && bounds.yMin >= ScreenMarginPixels &&
+                                 bounds.xMax <= Width - ScreenMarginPixels && bounds.yMax <= Height - ScreenMarginPixels,
+                    HeightPass = true,
+                    FontSizePass = true,
+                    ContrastPass = true
+                });
+            }
         }
 
         private static void EvaluateTextOverlaps(List<TextMetric> metrics)
@@ -458,6 +557,110 @@ namespace ParallelQA
                 metric.WalkingPathRegion = walkingRect;
                 metric.PlayerOcclusionRatio = hasPlayer ? IntersectionRatio(metric.Bounds, playerRect, playerRect) : -1f;
                 metric.WalkingPathOcclusionRatio = IntersectionRatio(metric.Bounds, walkingRect, walkingRect);
+            }
+        }
+
+        private static void EvaluateWorldGeometry(List<TextMetric> metrics, Camera camera)
+        {
+            foreach (TextMetric metric in metrics.Where(candidate =>
+                         candidate.Category == "exploration-world" || candidate.Category == "placement-world-badge"))
+            {
+                TMP_Text source = metric.Source;
+                Transform labelRoot = source == null ? null : source.transform.parent;
+                SpriteRenderer background = labelRoot == null
+                    ? null
+                    : labelRoot.GetComponentsInChildren<SpriteRenderer>(false)
+                        .FirstOrDefault(renderer => renderer != null && renderer.enabled && renderer.gameObject.name == "안내 배경");
+                if (background == null)
+                {
+                    FailWorldGeometry(metric, metric.Category == "placement-world-badge"
+                        ? "badge-background-unavailable"
+                        : "panel-background-unavailable");
+                }
+                else
+                {
+                    metric.HasPanelBounds = true;
+                    metric.PanelBounds = ProjectBounds(camera, background.bounds);
+                    if (metric.HasPlayerRegion)
+                    {
+                        metric.PanelPlayerIntersectionPixels = IntersectionArea(metric.PanelBounds, metric.PlayerRegion);
+                        if (metric.PanelPlayerIntersectionPixels > 0f)
+                        {
+                            FailWorldGeometry(metric, metric.Category == "placement-world-badge"
+                                ? "badge-intersects-player"
+                                : "panel-intersects-player");
+                        }
+                    }
+                    else if (metric.Category == "exploration-world")
+                    {
+                        FailWorldGeometry(metric, "player-region-unavailable");
+                    }
+                }
+
+                if (metric.Category != "exploration-world")
+                {
+                    continue;
+                }
+
+                Transform nodeRoot = labelRoot == null ? null : labelRoot.parent;
+                while (nodeRoot != null && !nodeRoot.name.StartsWith("환경 수색 오브젝트 · ", StringComparison.Ordinal))
+                {
+                    nodeRoot = nodeRoot.parent;
+                }
+
+                Renderer[] nodeRenderers = nodeRoot == null
+                    ? Array.Empty<Renderer>()
+                    : nodeRoot.GetComponentsInChildren<Renderer>(false)
+                        .Where(renderer => renderer != null && renderer.enabled &&
+                                           (labelRoot == null || !renderer.transform.IsChildOf(labelRoot)))
+                        .ToArray();
+                if (nodeRenderers.Length == 0)
+                {
+                    FailWorldGeometry(metric, "node-visual-unavailable");
+                    continue;
+                }
+
+                Bounds nodeBounds = nodeRenderers[0].bounds;
+                for (int i = 1; i < nodeRenderers.Length; i += 1)
+                {
+                    nodeBounds.Encapsulate(nodeRenderers[i].bounds);
+                }
+                metric.HasNodeVisualBounds = true;
+                metric.NodeVisualBounds = ProjectBounds(camera, nodeBounds);
+                if (metric.HasPanelBounds)
+                {
+                    metric.PanelNodeIntersectionPixels = IntersectionArea(metric.PanelBounds, metric.NodeVisualBounds);
+                    if (metric.PanelBounds.center.x >= metric.NodeVisualBounds.center.x)
+                    {
+                        FailWorldGeometry(metric, "panel-center-not-left-of-node-center");
+                    }
+                    if (metric.PanelNodeIntersectionPixels > 0f)
+                    {
+                        FailWorldGeometry(metric, "panel-intersects-node");
+                    }
+                }
+            }
+        }
+
+        private static Rect ProjectBounds(Camera camera, Bounds bounds)
+        {
+            return ProjectWorldRect(camera, new Rect(bounds.min.x, bounds.min.y, bounds.size.x, bounds.size.y));
+        }
+
+        private static float IntersectionArea(Rect left, Rect right)
+        {
+            Rect intersection = Intersect(left, right);
+            return intersection.width <= 0f || intersection.height <= 0f
+                ? 0f
+                : intersection.width * intersection.height;
+        }
+
+        private static void FailWorldGeometry(TextMetric metric, string reason)
+        {
+            metric.WorldGeometryPass = false;
+            if (!metric.WorldGeometryFailures.Contains(reason))
+            {
+                metric.WorldGeometryFailures.Add(reason);
             }
         }
 
@@ -593,46 +796,142 @@ namespace ParallelQA
 
         private static string Category(string scenario, TMP_Text text)
         {
+            string hierarchy = HierarchyPath(text.transform);
+            if (text is TextMeshPro && hierarchy.Contains("배치 유령 · ") &&
+                hierarchy.Contains("배치 판정/안내 문구"))
+            {
+                return "placement-world-badge";
+            }
             if (scenario.IndexOf("qps-long", StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                return "pseudo-long";
+                return text is TextMeshProUGUI && IsQpsContractText(scenario, hierarchy)
+                    ? "pseudo-long"
+                    : text is TextMeshProUGUI ? "ui-info" : "world-info";
             }
 
-            string hierarchy = HierarchyPath(text.transform);
             if (scenario.IndexOf("placement", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 if (text is TextMeshProUGUI && text.name == "김씨 독백 또는 배치 상태")
                 {
                     return "placement-status";
                 }
-                if (text is TextMeshPro && (hierarchy.Contains("배치 판정") || hierarchy.Contains("안내")))
-                {
-                    return "placement-world";
-                }
             }
 
-            if (text is TextMeshPro && (hierarchy.Contains("Gather ·") || hierarchy.Contains("Water Search ·")))
+            if (text is TextMeshPro && hierarchy.Contains("환경 수색 오브젝트 · ") &&
+                hierarchy.Contains("환경 수색 안내/안내 문구"))
             {
                 return "exploration-world";
+            }
+            if (text is TextMeshProUGUI && hierarchy.Contains("환경 수색 발견물 compact tray placeholder/"))
+            {
+                return "search-tray";
             }
             return text is TextMeshProUGUI ? "ui-info" : "world-info";
         }
 
-        private static float MinimumHeight(string category)
+        private static bool IsQpsContractText(string scenario, string hierarchy)
         {
+            bool controls = hierarchy.Contains("조작 안내/조작") || hierarchy.Contains("조작 안내/언어 설정/라벨");
+            bool status = hierarchy.Contains("상태 HUD/날짜·상태") || hierarchy.Contains("상태 HUD/보유 자원");
+            if (scenario.IndexOf("placement", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return controls || status || hierarchy.EndsWith("/김씨 독백 또는 배치 상태", StringComparison.Ordinal);
+            }
+            if (scenario.IndexOf("camp proximity", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return controls || hierarchy.EndsWith("/김씨 독백 또는 배치 상태", StringComparison.Ordinal) ||
+                       hierarchy.Contains("설비 근접 안내 · ");
+            }
+            if (scenario.IndexOf("camp popup", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return controls || status || hierarchy.Contains("설비 전용 소형 팝업/");
+            }
+            if (scenario.IndexOf("search tray", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return controls || status || hierarchy.Contains("가방 · icon.resource-tool-set/") ||
+                       hierarchy.Contains("환경 수색 발견물 compact tray placeholder/");
+            }
+            return false;
+        }
+
+        private static float MinimumHeight(string category, string scenario, TMP_Text text)
+        {
+            if (category == "pseudo-long" &&
+                scenario.IndexOf("camp proximity", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                HierarchyPath(text.transform).Contains("설비 근접 안내 · "))
+            {
+                return QpsProximityMinimumGlyphPixels;
+            }
             switch (category)
             {
                 case "placement-status": return PlacementStatusMinimumGlyphPixels;
-                case "placement-world": return PlacementWorldMinimumGlyphPixels;
                 case "exploration-world": return ExplorationWorldMinimumGlyphPixels;
+                case "search-tray": return SearchTrayMinimumGlyphPixels;
                 case "pseudo-long": return PseudoLongMinimumGlyphPixels;
                 default: return 0f;
             }
         }
 
+        private static float RequiredFontSize(string category, string scenario, TMP_Text text)
+        {
+            if (category == "placement-status") return 26f;
+            if (category == "exploration-world") return 28f;
+            if (category == "search-tray") return SearchTrayRuntimeFontFloor(text);
+            if (category != "pseudo-long") return 0f;
+
+            string hierarchy = HierarchyPath(text.transform);
+            bool searchTrayScenario = scenario.IndexOf("search tray", StringComparison.OrdinalIgnoreCase) >= 0;
+            if (searchTrayScenario)
+            {
+                if (hierarchy.Contains("환경 수색 발견물 compact tray placeholder/")) return SearchTrayRuntimeFontFloor(text);
+                if (hierarchy.Contains("상태 HUD/날짜·상태") || hierarchy.Contains("상태 HUD/보유 자원")) return 26f;
+                if (hierarchy.Contains("조작 안내/조작") || hierarchy.Contains("조작 안내/언어 설정/라벨") ||
+                    hierarchy.Contains("가방 · icon.resource-tool-set/")) return 18f;
+            }
+            if (hierarchy.Contains("설비 근접 안내 · ")) return 18f;
+            if (hierarchy.EndsWith("/김씨 독백 또는 배치 상태", StringComparison.Ordinal))
+            {
+                return scenario.IndexOf("placement", StringComparison.OrdinalIgnoreCase) >= 0 ? 26f : 22f;
+            }
+            if (hierarchy.Contains("상태 HUD/날짜·상태") || hierarchy.Contains("상태 HUD/보유 자원")) return 28f;
+            if (hierarchy.Contains("조작 안내/언어 설정/라벨")) return 30f;
+            if (hierarchy.Contains("조작 안내/조작")) return 23f;
+            if (hierarchy.Contains("설비 전용 소형 팝업/설비 팝업 제목")) return 14f;
+            if (hierarchy.Contains("설비 전용 소형 팝업/설비 팝업 설명")) return 12f;
+            if (hierarchy.Contains("설비 전용 소형 팝업/") && hierarchy.EndsWith("/라벨", StringComparison.Ordinal)) return 12f;
+            return 0f;
+        }
+
+        private static float SearchTrayRuntimeFontFloor(TMP_Text text)
+        {
+            switch (text.name)
+            {
+                case "발견물 트레이 제목": return 18f;
+                case "수색 비용·위험·잔량 상태": return 15f;
+                case "현재 가방 요약": return 13f;
+                default: return 12.5f;
+            }
+        }
+
+        private static bool UsesConfiguredMinimumFont(string scenario, TMP_Text text)
+        {
+            string hierarchy = HierarchyPath(text.transform);
+            return hierarchy.Contains("설비 근접 안내 · ") ||
+                   hierarchy.EndsWith("/김씨 독백 또는 배치 상태", StringComparison.Ordinal) ||
+                   hierarchy.Contains("상태 HUD/날짜·상태") ||
+                   hierarchy.Contains("상태 HUD/보유 자원") ||
+                   hierarchy.Contains("조작 안내/조작") ||
+                   hierarchy.Contains("조작 안내/언어 설정/라벨") ||
+                   (scenario.IndexOf("search tray", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                    hierarchy.Contains("가방 · icon.resource-tool-set/")) ||
+                   (scenario.IndexOf("camp popup", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                    hierarchy.Contains("설비 전용 소형 팝업/"));
+        }
+
         private static bool IsGatedCategory(string category)
         {
-            return category == "placement-status" || category == "placement-world" || category == "exploration-world" || category == "pseudo-long";
+            return category == "placement-status" || category == "placement-world-badge" || category == "exploration-world" ||
+                   category == "search-tray" || category == "pseudo-long";
         }
 
         private static Rect Intersect(Rect left, Rect right)
@@ -657,9 +956,9 @@ namespace ParallelQA
             return string.Join("/", names);
         }
 
-        private static bool GroupPass(List<TextMetric> metrics)
+        private static bool GroupPass(List<TextMetric> metrics, int expectedCount)
         {
-            return metrics.Count > 0 && metrics.All(metric => metric.Passed);
+            return metrics.Count == expectedCount && metrics.All(metric => metric.Passed);
         }
 
         private static string Status(bool passed, List<TextMetric> metrics)

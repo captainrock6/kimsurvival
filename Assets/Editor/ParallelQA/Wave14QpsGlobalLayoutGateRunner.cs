@@ -123,25 +123,25 @@ namespace ParallelQA
 
         private static readonly Contract[] Contracts =
         {
-            NewContract("W14-QPS-01.hud_day_status", "minimal HUD / day and status", "qps-long placement valid", "/상태 HUD/날짜·상태", 16f, 2, 64f,
+            NewContract("W14-QPS-01.hud_day_status", "minimal HUD / day and status", "qps-long placement valid", "/Canvas · ui.survival-hud/상태 HUD/날짜·상태", 16f, 2, 64f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"),
-            NewContract("W14-QPS-02.hud_resources", "minimal HUD / resources", "qps-long placement valid", "/상태 HUD/보유 자원", 16f, 2, 64f,
+            NewContract("W14-QPS-02.hud_resources", "minimal HUD / resources", "qps-long placement valid", "/Canvas · ui.survival-hud/상태 HUD/보유 자원", 16f, 2, 64f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"),
-            NewContract("W14-QPS-03.language_button", "language button", "qps-long placement valid", "/언어 설정/라벨", 16f, 1, 32f,
+            NewContract("W14-QPS-03.language_button", "language button", "qps-long placement valid", "/Canvas · ui.survival-hud/조작 안내/언어 설정/라벨", 16f, 1, 32f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs"),
-            NewContract("W14-QPS-04.bottom_help", "minimal HUD / bottom help", "qps-long placement valid", "/조작 안내/조작", 16f, 3, 96f,
+            NewContract("W14-QPS-04.bottom_help", "minimal HUD / bottom help", "qps-long placement valid", "/Canvas · ui.survival-hud/조작 안내/조작", 16f, 3, 96f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypePlayerInput.cs"),
-            NewContract("W14-QPS-05.placement_feedback", "compact placement feedback", "qps-long placement valid", "/김씨 독백 · 배치 상태 · effect.comedy-feedback/김씨 독백 또는 배치 상태", 16f, 3, 108f,
+            NewContract("W14-QPS-05.placement_feedback", "compact placement feedback", "qps-long placement valid", "/Canvas · ui.survival-hud/김씨 독백 · 배치 상태 · effect.comedy-feedback/김씨 독백 또는 배치 상태", 16f, 3, 108f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs"),
-            NewContract("W14-QPS-06.camp_proximity_action", "compact camp proximity prompt", "qps-long camp proximity", "/설비 근접 안내 · ui.camp-context-prompt/설비 근접 행동·대상 문구", 15f, 1, 44f,
+            NewContract("W14-QPS-06.camp_proximity_action", "compact camp proximity prompt", "qps-long camp proximity", "/Canvas · ui.survival-hud/설비 근접 안내 · ui.camp-contextual-interaction.compact-a/설비 근접 행동·대상 문구", 10f, 1, 44f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"),
-            NewContract("W14-QPS-07.camp_popup_title", "compact facility popup title", "qps-long camp popup", "/설비 전용 소형 팝업/설비 팝업 제목", 14f, 3, 70f,
+            NewContract("W14-QPS-07.camp_popup_title", "compact facility popup title", "qps-long camp popup", "/Canvas · ui.survival-hud/설비 전용 소형 팝업/설비 팝업 제목", 9f, 3, 70f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"),
-            NewContract("W14-QPS-08.camp_popup_detail", "compact facility popup detail", "qps-long camp popup", "/설비 전용 소형 팝업/설비 팝업 설명", 12f, 5, 90f,
+            NewContract("W14-QPS-08.camp_popup_detail", "compact facility popup detail", "qps-long camp popup", "/Canvas · ui.survival-hud/설비 전용 소형 팝업/설비 팝업 설명", 8f, 5, 90f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampInteraction.cs"),
-            NewContract("W14-QPS-09.search_tray_title", "environmental-search compact tray title", "qps-long search tray", "/환경 수색 발견물 compact tray placeholder/발견물 트레이 제목", 18f, 1, 44f,
+            NewContract("W14-QPS-09.search_tray_title", "environmental-search compact tray title", "qps-long search tray", "/Canvas · ui.survival-hud/환경 수색 발견물 compact tray placeholder/발견물 트레이 제목", 12f, 1, 44f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs"),
-            NewContract("W14-QPS-10.search_tray_close", "environmental-search compact tray close action", "qps-long search tray", "/환경 수색 발견물 compact tray placeholder/발견물 남기고 닫기/라벨", 18f, 2, 56f,
+            NewContract("W14-QPS-10.search_tray_close", "environmental-search compact tray close action", "qps-long search tray", "/Canvas · ui.survival-hud/환경 수색 발견물 compact tray placeholder/발견물 남기고 닫기/라벨", 12f, 2, 56f,
                 "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs")
         };
 
@@ -183,12 +183,16 @@ namespace ParallelQA
             try
             {
                 string wave3Report = File.Exists(reportPath) ? File.ReadAllText(reportPath, Encoding.UTF8) : string.Empty;
+                bool producerPass = wave3Report.Contains(
+                    "-executeMethod ParallelQA.Wave12FiveDayCompactUiGateRunner.RunPlayContracts");
                 bool identityPass = wave3Report.Contains("Run ID: " + RunId) &&
-                                    wave3Report.Contains("Baseline commit: " + BaselineCommit);
+                                    wave3Report.Contains("Baseline commit: " + BaselineCommit) &&
+                                    producerPass;
                 checks.Add(NewCheck("W14-I01.fresh_identity", identityPass ? "PASS" : "INFRA_FAIL",
                     identityPass ? "NONE" : "INFRASTRUCTURE", "P0",
-                    "Fresh Wave 3 report belongs to this RunId and exact baseline",
-                    "report=" + Path.GetFileName(reportPath) + "; runId/baselineMatch=" + identityPass));
+                    "Fresh Wave 3 report belongs to this RunId and exact baseline and was produced by the Wave 12 play-contract stage",
+                    "report=" + Path.GetFileName(reportPath) + "; runId/baselineMatch=" + identityPass +
+                    "; wave12Producer=" + producerPass));
 
                 MetricRow[] rows = ReadMetrics(metricsPath, out string[] headers);
                 string[] requiredHeaders =
@@ -214,14 +218,17 @@ namespace ParallelQA
 
                 Match placement = Regex.Match(wave3Report, @"PLACEMENT_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
                 Match exploration = Regex.Match(wave3Report, @"EXPLORATION_SWIMMING_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
-                bool normalLocalesPass = placement.Success && exploration.Success &&
-                                         placement.Groups[1].Value == "PASS" && placement.Groups[2].Value == "24" && placement.Groups[3].Value == "0" &&
-                                         exploration.Groups[1].Value == "PASS" && exploration.Groups[2].Value == "10" && exploration.Groups[3].Value == "0";
-                checks.Add(NewCheck("W14-N01.ko_en_visual_lock", normalLocalesPass ? "PASS" : "FAIL",
-                    normalLocalesPass ? "NONE" : "PRODUCT_REGRESSION", "P1",
-                    "Normal ko/en placement remains 24/24 PASS and exploration/swimming remains 10/10 PASS",
+                Match searchTray = Regex.Match(wave3Report, @"SEARCH_TRAY_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
+                Match pseudoLong = Regex.Match(wave3Report, @"PSEUDO_LONG_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
+                bool wave3ContractsPass = ExactVisualFact(placement, 4) && ExactVisualFact(exploration, 4) &&
+                                          ExactVisualFact(searchTray, 16) && ExactVisualFact(pseudoLong, 37);
+                checks.Add(NewCheck("W14-N01.current_wave3_visual_lock", wave3ContractsPass ? "PASS" : "FAIL",
+                    wave3ContractsPass ? "NONE" : "PRODUCT_REGRESSION", "P1",
+                    "Current Wave 3 markers remain placement 4/4, exploration/swimming 4/4, search tray 16/16, and fresh-pity qps-long 37/37 PASS; protected-part trays remain a separate Wave B contract",
                     "placement=" + (placement.Success ? placement.Value : "MISSING") + "; exploration=" +
-                    (exploration.Success ? exploration.Value : "MISSING")));
+                    (exploration.Success ? exploration.Value : "MISSING") + "; searchTray=" +
+                    (searchTray.Success ? searchTray.Value : "MISSING") + "; qpsLong=" +
+                    (pseudoLong.Success ? pseudoLong.Value : "MISSING")));
 
                 MetricRow[] qpsRows = rows.Where(row => string.Equals(row.Get("category"), "pseudo-long", StringComparison.Ordinal) &&
                                                         Contracts.Any(contract => string.Equals(row.Get("scenario"), contract.Scenario, StringComparison.Ordinal))).ToArray();
@@ -229,7 +236,7 @@ namespace ParallelQA
                 foreach (Contract contract in Contracts)
                 {
                     MetricRow[] matches = qpsRows.Where(row => string.Equals(row.Get("scenario"), contract.Scenario, StringComparison.Ordinal) &&
-                                                               row.Get("hierarchy").Contains(contract.HierarchyNeedle)).ToArray();
+                                                               row.Get("hierarchy").EndsWith(contract.HierarchyNeedle, StringComparison.Ordinal)).ToArray();
                     if (matches.Length != 1)
                     {
                         targets.Add(MissingTarget(contract, matches.Length));
@@ -457,6 +464,13 @@ namespace ParallelQA
                 rows.Add(row);
             }
             return rows.ToArray();
+        }
+
+        private static bool ExactVisualFact(Match match, int expectedTargets)
+        {
+            return match.Success && match.Groups[1].Value == "PASS" &&
+                   match.Groups[2].Value == expectedTargets.ToString(CultureInfo.InvariantCulture) &&
+                   match.Groups[3].Value == "0";
         }
 
         private static bool VerifyPng(string path, int width, int height)

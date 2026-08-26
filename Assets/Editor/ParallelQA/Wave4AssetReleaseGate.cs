@@ -249,6 +249,7 @@ namespace ParallelQA
             public string overall;
             public VisualFact placement;
             public VisualFact explorationSwimming;
+            public VisualFact searchTray;
             public VisualFact qpsLong;
         }
 
@@ -815,21 +816,25 @@ namespace ParallelQA
             string[] lines = File.Exists(reportPath) ? File.ReadAllLines(reportPath) : Array.Empty<string>();
             VisualFact placement = ParseVisualFact(lines, "PLACEMENT_GATE");
             VisualFact exploration = ParseVisualFact(lines, "EXPLORATION_SWIMMING_GATE");
+            VisualFact searchTray = ParseVisualFact(lines, "SEARCH_TRAY_GATE");
             VisualFact qpsLong = ParseVisualFact(lines, "PSEUDO_LONG_GATE");
             bool baselineIdentity = lines.Any(line => string.Equals(line.Trim(), "Baseline commit: " + BaselineCommit, StringComparison.Ordinal));
-            bool placementPass = placement.status == "PASS" && placement.targets == 24 && placement.failures == 0;
-            bool explorationPass = exploration.status == "PASS" && exploration.targets == 10 && exploration.failures == 0;
-            bool qpsPass = qpsLong.status == "PASS" && qpsLong.targets == 10 && qpsLong.failures == 0;
+            bool placementPass = placement.status == "PASS" && placement.targets == 4 && placement.failures == 0;
+            bool explorationPass = exploration.status == "PASS" && exploration.targets == 4 && exploration.failures == 0;
+            bool searchTrayPass = searchTray.status == "PASS" && searchTray.targets == 16 && searchTray.failures == 0;
+            bool qpsPass = qpsLong.status == "PASS" && qpsLong.targets == 37 && qpsLong.failures == 0;
 
             AddCheck(checks, "visual.current_baseline_identity", "current-integrated-visual", File.Exists(reportPath) && baselineIdentity, "P1",
                 "fresh visual gate evidence identifies the current 671c4e9 baseline", File.Exists(reportPath) ? lines.FirstOrDefault(line => line.StartsWith("Baseline commit:", StringComparison.Ordinal)) ?? "baseline line missing" : "report missing", reportPath);
             AddCheck(checks, "visual.current_normal_ko_en_placement", "current-integrated-visual", placementPass, "P1",
-                "normal ko/en placement 24/24 PASS", placement.evidenceLine, reportPath);
+                "normal ko/en placement 4/4 PASS", placement.evidenceLine, reportPath);
             AddCheck(checks, "visual.current_normal_ko_en_exploration_swimming", "current-integrated-visual", explorationPass, "P1",
-                "normal ko/en exploration/swimming 10/10 PASS", exploration.evidenceLine, reportPath);
+                "normal ko/en nearest-node exploration/swimming 4/4 PASS", exploration.evidenceLine, reportPath);
+            AddCheck(checks, "visual.current_normal_ko_en_search_tray", "current-integrated-visual", searchTrayPass, "P1",
+                "normal ko/en compact search tray 16/16 PASS", searchTray.evidenceLine, reportPath);
             AddRecord(checks, "visual.current_qps_long", "current-integrated-visual", qpsPass ? "PASS" : "FAIL", "P1",
-                "qps-long 10/10 PASS is required for future-locale release readiness",
-                qpsLong.evidenceLine + (qpsLong.status == "FAIL" && qpsLong.targets == 10 && qpsLong.failures == 8 ? " · known 671c4e9 system-work input" : string.Empty), reportPath);
+                "qps-long fresh-pity production scenes 37/37 PASS are required for future-locale release readiness; protected-part trays remain a separate Wave B contract",
+                qpsLong.evidenceLine, reportPath);
 
             CurrentVisualFacts facts = new CurrentVisualFacts
             {
@@ -838,11 +843,12 @@ namespace ParallelQA
                 unityVersion = Application.unityVersion,
                 observedUtc = DateTime.UtcNow.ToString("O"),
                 source = reportPath,
-                standardKoEnOverall = placementPass && explorationPass ? "PASS" : "FAIL",
+                standardKoEnOverall = placementPass && explorationPass && searchTrayPass ? "PASS" : "FAIL",
                 qpsLongOverall = qpsPass ? "PASS" : "FAIL",
-                overall = placementPass && explorationPass && qpsPass ? "PASS" : "FAIL",
+                overall = placementPass && explorationPass && searchTrayPass && qpsPass ? "PASS" : "FAIL",
                 placement = placement,
                 explorationSwimming = exploration,
+                searchTray = searchTray,
                 qpsLong = qpsLong
             };
             WriteJson(Path.Combine(EvidenceFolder, "wave5-current-visual-facts.json"), facts);
@@ -853,6 +859,7 @@ namespace ParallelQA
             text.AppendLine("Normal ko/en: " + facts.standardKoEnOverall);
             text.AppendLine("Placement: " + placement.evidenceLine);
             text.AppendLine("Exploration/swimming: " + exploration.evidenceLine);
+            text.AppendLine("Search tray: " + searchTray.evidenceLine);
             text.AppendLine("qps-long: " + qpsLong.evidenceLine);
             text.AppendLine("qps-long classification: " + (qpsPass ? "PASS" : "FAIL · retained as Unity system-work input"));
             File.WriteAllText(Path.Combine(EvidenceFolder, "wave5-current-visual-facts.txt"), text.ToString(), new UTF8Encoding(false));

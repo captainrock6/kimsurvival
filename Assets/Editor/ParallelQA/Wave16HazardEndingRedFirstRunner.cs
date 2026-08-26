@@ -10,8 +10,10 @@ using System.Text.RegularExpressions;
 using KimSurvival;
 using TMPro;
 using UnityEditor;
+using UnityEditor.Localization;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Localization.Tables;
 
 namespace ParallelQA
 {
@@ -46,9 +48,11 @@ namespace ParallelQA
             "ending.escape.flare.one-shot", "ending.escape.beacon.ridge-light", "ending.comic.raft.coconut-navy",
             "ending.comic.smoke.island-barbecue", "ending.comic.radio.island-dj", "ending.comic.flare.daylight-fireworks",
             "ending.comic.beacon.brightest-address", "ending.rare.raft.current-reader", "ending.rare.smoke.cloud-letter",
-            "ending.rare.radio.forecast-rescue", "ending.rare.beacon.storm-eye", "ending.stay.green-king",
+            "ending.rare.radio.forecast-rescue", "ending.rare.beacon.storm-eye", "ending.gamejam.stay.natural-kim",
+            "ending.gamejam.stay.island-engineer", "ending.stay.green-king",
             "ending.stay.fortress-manager", "ending.stay.scrap-professor", "ending.stay.island-ranger", "ending.stay.just-kim"
         };
+        private static readonly string[] RequiredEndingCategories = { "escape", "comic", "rare", "gamejam-stay", "day50" };
         private static bool playTickAttached;
         private static double playEarliestRunTime;
         private static double playTimeoutAt;
@@ -272,8 +276,8 @@ namespace ParallelQA
                 snapshotAndLog.Passed, snapshotAndLog.Detail,
                 "Inspect public snapshot/log schemas and serialize a verification record containing stable IDs only.",
                 "runtime run-state and development log schemas selected by the implementation owner");
-            Product(checks, "W16-N01.ending_catalog_19", "ending catalog", "P0",
-                "All 19 canonical ending IDs are unique public runtime data with four required sample endings",
+            Product(checks, "W16-N01.ending_catalog_21", "ending catalog", "P0",
+                "All 21 canonical ending IDs are unique public runtime data in five exact album categories with four required sample endings",
                 endingCatalog.Passed, endingCatalog.Detail,
                 "Enumerate public ending entries by stable ID and compare with the canonical set.",
                 "runtime ending catalog selected by the implementation owner");
@@ -288,9 +292,9 @@ namespace ParallelQA
                 "Execute the public terminal resolver for an early escape fixture and a Day 50 no-escape behavior fixture.",
                 "runtime terminal/ending resolver selected by the implementation owner");
             Product(checks, "W16-L01.ko_en_qps_contract", "localization contract", "P1",
-                "Hazard, escape, 19 ending title/summary/hint, and panel keys have non-empty ko/en/qps-long values with expanded qps text",
+                "Hazard, escape, 21 ending title/summary/hint, and five album-category keys have synchronized non-empty ko/en/qps-long String Table values with expanded qps text",
                 localization.Passed, localization.Detail,
-                "Discover localization TSV tables by header, then validate stable keys and columns without checking Korean spelling variants.",
+                "Discover localization TSV rows by header, then compare every album key and value with the ko/en/qps-long Unity String Tables.",
                 "runtime localization tables selected by the implementation owner");
 
             EditEvidence evidence = new EditEvidence
@@ -457,7 +461,7 @@ namespace ParallelQA
             string[] tokens =
             {
                 "task.implementation.wave15-hazard-ending-foundation", "hazard.injury", "hazard.disaster", "hazard.food-theft",
-                "escape.raft", "escape.smoke", "escape.radio", "escape.flare", "escape.beacon", "19개", "idempotency",
+                "escape.raft", "escape.smoke", "escape.radio", "escape.flare", "escape.beacon", "21개", "idempotency",
                 "priority 내림차순", "ASCII"
             };
             string[] missing = tokens.Where(token => source.IndexOf(token, StringComparison.OrdinalIgnoreCase) < 0).ToArray();
@@ -645,8 +649,8 @@ namespace ParallelQA
 
         private static Observation ObservePlayableEscapePaths(CatalogProbe catalog)
         {
-            Observation smoke = ObserveSemanticProbe("escape.smoke", new[] { "progress", "complete" });
-            Observation radio = ObserveSemanticProbe("escape.radio", new[] { "progress", "complete" });
+            Observation smoke = ObserveSemanticProbe("escape.smoke", new[] { "escape.smoke", "progress", "complete" });
+            Observation radio = ObserveSemanticProbe("escape.radio", new[] { "escape.radio", "progress", "complete" });
             bool metadata = new[] { "escape.smoke", "escape.radio" }.All(id =>
             {
                 ContractEntry entry = catalog.Entries.FirstOrDefault(candidate => candidate.id == id);
@@ -699,9 +703,35 @@ namespace ParallelQA
         {
             string[] found = RequiredEndings.Where(id => catalog.Entries.Any(entry => entry.id == id)).ToArray();
             string[] samples = RequiredSamples.Where(id => found.Contains(id)).ToArray();
-            bool unique = catalog.Entries.Where(entry => entry.id.StartsWith("ending.", StringComparison.Ordinal)).GroupBy(entry => entry.id).All(group => group.Count() == 1);
-            return Obs(found.Length == 19 && samples.Length == 4 && unique,
-                "endings=" + found.Length + "/19; samples=" + samples.Length + "/4; unique=" + unique);
+            ContractEntry[] endingEntries = catalog.Entries.Where(entry =>
+                entry.id.StartsWith("ending.", StringComparison.Ordinal)).ToArray();
+            bool unique = endingEntries.GroupBy(entry => entry.id).All(group => group.Count() == 1);
+            bool exactIds = endingEntries.Length == RequiredEndings.Length &&
+                            endingEntries.Select(entry => entry.id).OrderBy(id => id, StringComparer.Ordinal)
+                                .SequenceEqual(RequiredEndings.OrderBy(id => id, StringComparer.Ordinal));
+            Dictionary<string, int> expectedCategories = new Dictionary<string, int>(StringComparer.Ordinal)
+            {
+                { "escape", 5 }, { "comic", 5 }, { "rare", 4 }, { "gamejam-stay", 2 }, { "day50", 5 }
+            };
+            Dictionary<string, int> actualCategories = endingEntries
+                .GroupBy(entry => MemberValue(entry, "Category"), StringComparer.Ordinal)
+                .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
+            bool categories = expectedCategories.All(pair =>
+                                  actualCategories.TryGetValue(pair.Key, out int count) && count == pair.Value) &&
+                              actualCategories.Keys.OrderBy(value => value, StringComparer.Ordinal)
+                                  .SequenceEqual(RequiredEndingCategories.OrderBy(value => value, StringComparer.Ordinal));
+            string categoryDetail = string.Join(",", RequiredEndingCategories.Select(category =>
+                category + "=" + (actualCategories.TryGetValue(category, out int count) ? count : 0)).ToArray());
+            return Obs(found.Length == RequiredEndings.Length && samples.Length == RequiredSamples.Length && unique && exactIds && categories,
+                "endings=" + found.Length + "/21; samples=" + samples.Length + "/4; unique=" + unique +
+                "; exactIds=" + exactIds + "; categories=" + categoryDetail);
+        }
+
+        private static string MemberValue(ContractEntry entry, string memberName)
+        {
+            MemberSnapshot member = entry == null ? null : entry.members.FirstOrDefault(value =>
+                string.Equals(value.name, memberName, StringComparison.OrdinalIgnoreCase));
+            return member == null ? string.Empty : (member.value ?? string.Empty).Trim('"');
         }
 
         private static Observation ObserveEndingResolver()
@@ -734,8 +764,10 @@ namespace ParallelQA
                     string identity = (typeName + "." + method.Name).ToLowerInvariant();
                     string semanticLower = semantic.ToLowerInvariant();
                     string semanticRoot = semanticLower.Split('.')[0];
-                    if (!identity.Contains(semanticLower.Replace(".", string.Empty)) &&
-                        !identity.Contains(semanticLower) && !identity.Contains(semanticRoot)) continue;
+                    string semanticCompact = semanticLower.Replace(".", string.Empty);
+                    bool semanticMatch = identity.Contains(semanticCompact) || identity.Contains(semanticLower) ||
+                                         (!semanticLower.Contains(".") && identity.Contains(semanticRoot));
+                    if (!semanticMatch) continue;
                     if (!ContainsAny(method.Name.ToLowerInvariant(), "probe", "verify", "contract", "fixture", "qa")) continue;
                     if (method.ContainsGenericParameters || method.GetParameters().Any(parameter => parameter.IsOut || parameter.ParameterType.IsByRef)) continue;
                     try
@@ -825,6 +857,9 @@ namespace ParallelQA
                 required.Add(id + ".summary");
                 required.Add(id + ".hint");
             }
+            string[] albumKeys = RequiredEndings.SelectMany(id => new[] { id + ".title", id + ".summary", id + ".hint" })
+                .Concat(RequiredEndingCategories.Select(category => "ending.album.category." + category)).ToArray();
+            required.AddRange(RequiredEndingCategories.Select(category => "ending.album.category." + category));
             int present = 0;
             int expanded = 0;
             foreach (string prefix in required)
@@ -834,8 +869,42 @@ namespace ParallelQA
                 present++;
                 if (row[3].Length >= Math.Ceiling(row[2].Length * 1.35) && row[3] != row[2]) expanded++;
             }
-            return Obs(present == required.Count && expanded == required.Count,
-                "required=" + required.Count + "; present=" + present + "; qpsExpanded=" + expanded + "; tablesRows=" + rows.Count);
+            int duplicateAlbumKeys = albumKeys.Count(key => rows.Count(row => string.Equals(row[0], key, StringComparison.Ordinal)) != 1);
+            int synchronizedTableValues = CountSynchronizedStringTableValues(rows, albumKeys);
+            int expectedTableValues = albumKeys.Length * 3;
+            return Obs(present == required.Count && expanded == required.Count && duplicateAlbumKeys == 0 &&
+                       synchronizedTableValues == expectedTableValues,
+                "required=" + required.Count + "; present=" + present + "; qpsExpanded=" + expanded +
+                "; albumKeys=" + albumKeys.Length + "; duplicateOrMissingAlbumKeys=" + duplicateAlbumKeys +
+                "; synchronizedStringTableValues=" + synchronizedTableValues + "/" + expectedTableValues +
+                "; tablesRows=" + rows.Count);
+        }
+
+        private static int CountSynchronizedStringTableValues(IReadOnlyList<string[]> rows, IEnumerable<string> requiredKeys)
+        {
+            StringTableCollection collection = LocalizationEditorSettings.GetStringTableCollection(PrototypeLocalization.TableName);
+            if (collection == null) return 0;
+            StringTable[] tables =
+            {
+                collection.GetTable(PrototypeLocalization.KoreanLocaleCode) as StringTable,
+                collection.GetTable(PrototypeLocalization.EnglishLocaleCode) as StringTable,
+                collection.GetTable(PrototypeLocalization.QpsLongLocaleCode) as StringTable
+            };
+            if (tables.Any(table => table == null)) return 0;
+
+            int synchronized = 0;
+            foreach (string key in requiredKeys)
+            {
+                string[] source = rows.SingleOrDefault(row => string.Equals(row[0], key, StringComparison.Ordinal));
+                if (source == null) continue;
+                for (int locale = 0; locale < tables.Length; locale += 1)
+                {
+                    StringTableEntry entry = tables[locale].GetEntry(key);
+                    string expected = source[locale + 1].Replace("\\n", "\n");
+                    if (entry != null && string.Equals(entry.Value, expected, StringComparison.Ordinal)) synchronized++;
+                }
+            }
+            return synchronized;
         }
 
         private static PlayProbe ObserveLivePlay(KimSurvivalPrototype prototype)
@@ -883,6 +952,24 @@ namespace ParallelQA
 
         private static void TryOpenSemanticPresentation(string semantic, string stableId)
         {
+            // Prefer the current production ending surface.  The older broad
+            // name scan can encounter KimSurvivalPrototype.OpenEndingAlbumFromPopup
+            // first; that method is a camp-menu action and legitimately no-ops
+            // when the album target is not active, leaving the comic closed.
+            foreach (MonoBehaviour behaviour in UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include))
+            {
+                if (behaviour == null) continue;
+                MethodInfo currentEnding = behaviour.GetType().GetMethod(
+                    "ShowEndingForVerification",
+                    BindingFlags.Instance | BindingFlags.Public,
+                    null,
+                    new[] { typeof(string) },
+                    null);
+                if (currentEnding == null) continue;
+                currentEnding.Invoke(behaviour, new object[] { stableId });
+                return;
+            }
+
             foreach (MonoBehaviour behaviour in UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include))
             {
                 if (behaviour == null) continue;

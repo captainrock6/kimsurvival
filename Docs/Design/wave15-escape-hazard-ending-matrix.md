@@ -2,7 +2,8 @@
 
 - 상태: `DESIGN CONTRACT COMPLETE / IMPLEMENTATION UNRUN`
 - 기준: `origin/master@7796cf57568d0bad24595379e833e1dd9b4d8d3f`
-- 기계 정본: `.forge/packets/wave15-fifty-day-campaign-rebaseline.json`의 `project.campaignContentContract`
+- 초기 Wave 15 기계 정본: `.forge/packets/wave15-fifty-day-campaign-rebaseline.json`의 `project.campaignContentContract`
+- 현재 통합 정본: `.forge/design/project.json`의 `campaignContentContract`, `Docs/Design/kim-survival-island-gdd.md#113-엔딩-카탈로그-21개`, `Docs/Design/gamejam-completion-matrix.md#2-제출-완료-매트릭스`
 - 밸런스 상태: `SAMPLE_ONLY_NOT_FINAL_FIFTY_DAY_BALANCE`
 
 이 문서는 50일 캠페인의 콘텐츠 데이터 계약이다. 탈출법·지역·위험·엔딩의 ID와 인과관계는 구현 기준으로 고정하지만, 준비 일수·풍부함·pity 횟수·위험 예산·행동 점수 임계값은 smoke용 표본이다. 실제 50일 플레이테스트 전에는 이를 정식 비용·드롭·소모로 인용하지 않는다.
@@ -81,13 +82,14 @@
 판정 순서:
 
 1. terminal은 `escape_complete`가 `day50_settlement`보다 우선한다.
-2. ending 후보는 `rare → comic → normal → Day50 lifestyle → Day50 fallback` 순이다.
+2. ending 후보는 terminal profile에 따라 `rare → comic → normal`, `GAME JAM Day 20 long-stay`, 또는 `Day50 lifestyle → Day50 fallback` 순으로 분리한다. 같은 정산의 조기 탈출은 GAME JAM long-stay보다 먼저 확정한다.
 3. 같은 단계 후보는 `priority 내림차순 → 충족 조건 수 내림차순 → 특별 사건 최초 day 오름차순 → ending ID ASCII 오름차순`으로 하나만 고른다.
 4. core ending 뒤 우세 행동 modifier 최대 1장과 사건 scar modifier 최대 1장을 삽입할 수 있다. modifier는 `endingId`를 바꾸지 않는다.
 
-## 5. 엔딩 19개
+## 5. 엔딩 21개
 
 임계값 숫자는 모두 smoke 표본이다. `achievement.*`는 향후 매핑 키일 뿐 Steamworks 업적이 아니다.
+카테고리별 정본 수량은 `escape 5 / comic 5 / rare 4 / gamejam-stay 2 / day50 5`다.
 
 | ID·분류·우선 | KO / EN 제목 | trigger·임계값 | KO / EN 요약 |
 |---|---|---|---|
@@ -105,6 +107,8 @@
 | `ending.rare.smoke.cloud-letter` 희귀 300 | 구름에 쓴 구조 요청 / SOS in the Clouds | 구름 글씨 + hazard≥12 | 연기가 완벽한 구조 문양을 그림 / Smoke draws a perfect distress sign. |
 | `ending.rare.radio.forecast-rescue` 희귀 300 | 첫 응답은 기상청 / Forecast: Rescue | 반복 응답 + mechanics≥12, 방송 3회 | 기상망이 폭풍 사이 구조 항로를 계산 / A weather network calculates a rescue route. |
 | `ending.rare.beacon.storm-eye` 희귀 300 | 폭풍의 눈에서 / Inside the Eye | 완전 재해 대응 + building·hazard≥10 | 폭풍의 고요 속에서 중계소를 켬 / He lights the relay inside the calm eye. |
+| `ending.gamejam.stay.natural-kim` gamejam-stay 40 | 무인도 자연인 김씨 / Mr. Kim, Island Naturalist | GAME JAM PROVISIONAL Day 20 미탈출 + search·farming·hunting-trapping·hazard-response 합이 건설·기계 합 이상 | 수색·농사·사냥 기록이 섬 생활 달력이 됨 / His search, farming, and hunting notes become an island-life calendar. |
+| `ending.gamejam.stay.island-engineer` gamejam-stay 40 | 무인도 건물주 김씨 / Mr. Kim, Island Landlord | GAME JAM PROVISIONAL Day 20 미탈출 + building·mechanics 합이 생존·채집 합보다 큼 | 구조선보다 다음 증축 도면을 기다림 / He awaits the next expansion plan more than a rescue boat. |
 | `ending.stay.green-king` Day50 50 | 김씨 농장 50일째 / Kim Farm, Day 50 | 미탈출 + farming 우세 | 탈출 대신 계절표가 필요한 밭을 만듦 / His farm grows large enough to need a calendar. |
 | `ending.stay.fortress-manager` Day50 50 | 무인도 관리사무소 / Island Facilities Office | 미탈출 + building 또는 hazard 우세 | 폭풍보다 점검표가 무서운 관리자가 됨 / Checklists become scarier than storms. |
 | `ending.stay.scrap-professor` Day50 50 | 표류물 공학 박사 / Doctor of Driftwood Engineering | 미탈출 + mechanics 또는 search 우세 | 쓸모없는 표류물은 없다는 이론을 증명 / He proves no salvage is useless. |
@@ -131,6 +135,8 @@
 | cloud letter | 풍향마다 조정 → 구름 아래 문양 → 항공 사진의 작은 김씨 | hazard-response | 바람에 문장을 맡겨 보자. | `achievement.ending.rare.smoke.cloud-letter` |
 | forecast rescue | 관측 주파수 응답 → 폭풍 사이 좌표 → 구조선에서 예보 | mechanics | 낡은 기록에는 아직 듣는 귀가 있다. | `achievement.ending.rare.radio.forecast-rescue` |
 | storm eye | 캠프가 폭풍 버팀 → 폭풍 눈에서 점등 → 주소 재확인 | event scar | 가장 거센 날 모든 대비가 답한다. | `achievement.ending.rare.beacon.storm-eye` |
+| natural Kim | 구조 신호대에 새 둥지 → 열매·발자국으로 식단 결정 → 저녁 덫부터 확인 | farming | 탈출하지 않는 것도 생활 방식이 될 수 있다. | `achievement.ending.gamejam.stay.natural-kim` |
+| island engineer | 지하 작업대 설비 점등 → 2층에서 다음 증축선 작성 → 구조선 앞에 임대 계약서 | building | 섬에 갇혀도 개발 계획은 멈추지 않는다. | `achievement.ending.gamejam.stay.island-engineer` |
 | green king | Day50 모종 → 캠프가 밭이 됨 → 신호대가 허수아비 | farming | 심는 계획이 떠나는 계획보다 많아진다면. | `achievement.ending.stay.green-king` |
 | fortress manager | 점검 도장 → 폭우가 배수로로 → 관리사무소 영업중 | 우세 행동 | 섬도 관리 구역이 될 수 있다. | `achievement.ending.stay.fortress-manager` |
 | scrap professor | 표류물 번호표 → 정체불명 기계 → 조개 박사모 | 우세 행동 | 주운 물건을 끝까지 연구해 보자. | `achievement.ending.stay.scrap-professor` |
@@ -152,7 +158,7 @@
 | 지역 | 해변·숲·얕은 바다 | 고지대·난파선 만·폐중계소는 catalog load |
 | 탈출 | `escape.smoke`, `escape.radio` | raft·flare·beacon은 data validation |
 | 위험 | 부상·재해·식량 도난 대표 instance | 나머지는 state catalog와 schema validation |
-| 엔딩 | smoke normal, radio normal, island DJ, just Kim | 나머지 15개는 resolver catalog·localization·panel key validation |
+| 엔딩 | Wave 15 smoke의 smoke normal, radio normal, island DJ, just Kim 4개 + 별도 통합 gate의 GAME JAM long-stay 2개 | 나머지 15개는 resolver catalog·localization·panel key validation |
 | 아트·Steam | placeholder comic 3장, 게임 내 gallery | 최종 원화·음향·Steamworks 업적 없음 |
 
 조정 가능 필드는 준비 일수, 자원 풍부함, 이동 시간 band, pity 3/5회, 위험 weight·일일 budget·동시 active, 행동 점수·cap·lead, 엔딩 threshold다. 구조 ID, primary 인과관계, 원자성, tie-break 순서와 achievement mapping ID는 수치 튜닝과 분리한다.
@@ -166,11 +172,11 @@
 
 ## 7. 구현·QA 수용 조건
 
-- catalog count는 method 5, region 6, hazard 7, ending 19, modifier 9이다. ID는 중복되지 않고 모든 참조가 존재한다.
+- catalog count는 method 5, region 6, hazard 7, ending 21, modifier 9이다. 엔딩 category는 `escape 5 / comic 5 / rare 4 / gamejam-stay 2 / day50 5`이며 ID는 중복되지 않고 모든 참조가 존재한다.
 - 같은 seed는 같은 key-part 배치와 hazard 선택을 만든다. seed 검증은 최소 세 탈출법의 primary+alternative chain을 보장한다.
 - 위험 preview/cancel은 무변경이며 resolve/recovery는 서로 다른 idempotent transaction이다.
 - 같은 ending snapshot은 항상 같은 `endingId`, 판정 근거, panel sequence와 achievement mapping ID를 반환한다.
-- 정상 탈출 fallback 5개와 Day50 fallback `ending.stay.just-kim` 때문에 유효 terminal snapshot이 미판정으로 끝나지 않는다.
+- 정상 탈출 fallback 5개, GAME JAM Day 20 long-stay 2개와 Day50 fallback `ending.stay.just-kim` 때문에 유효 terminal snapshot이 미판정으로 끝나지 않는다.
 - ko/en 제목·요약·힌트와 panel key가 모두 존재하고 qps-long은 레이아웃 QA 전용이다.
 - 물리 게임패드, 실제 사용자 50일 run, 최종 밸런스와 Steamworks는 실행 증거 없이는 PASS로 기록하지 않는다.
 

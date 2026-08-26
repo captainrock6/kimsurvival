@@ -256,10 +256,11 @@ ending.album.header	김씨의 생존 앨범 · {0}/{1} 해금	Mr. Kim's Survival
 ending.album.locked.title	아직 기록되지 않은 결말	An Undiscovered Outcome	⟦Áñ Úñdíscóvéréd Óútcóméáéíóúüñ¿¡⟧
 ending.album.status.unlocked	{0} · 해금 · DAY {1}\n로컬 기록	{0} · Found · DAY {1}\nLocal record	⟦{0} · Fóúñd · DÁY {1}\nLócál récórdáéíóúüñ¿¡áéí⟧
 ending.album.status.locked	{0} · 미해금\n실루엣 + 단서	{0} · Locked\nSilhouette + clue	⟦{0} · Lóckéd\nSílhoúétté + clúéáéíóúüñ¿¡⟧
-ending.album.category.escape	탈출	Escape	⟦Éscápé⟧
+ending.album.category.escape	탈출	Escape	⟦Éscápéá⟧
 ending.album.category.comic	코믹	Comic	⟦Cómíc⟧
 ending.album.category.rare	희귀	Rare	⟦Ráré⟧
-ending.album.category.day50	DAY 50	DAY 50	⟦DÁY 50⟧
+ending.album.category.gamejam-stay	GAME JAM 장기 체류	GAME JAM Long Stay	⟦GÁMÉ JÁM Lóñg Stáyáéíóúüñ⟧
+ending.album.category.day50	DAY 50	DAY 50	⟦DÁY 50á⟧
 ending.album.back	뒤로	Back	⟦Báck⟧
 expedition.map.title	수집 지도 · DAY {0}/{1} 원정 계획	Expedition Map · DAY {0}/{1} Plan	⟦Éxpédítíóñ Máp · DÁY {0}/{1} Pláñáéíóúüñ¿¡⟧
 expedition.map.node	◇ {0}	◇ {0}	⟦◇ {0}⟧
@@ -417,7 +418,7 @@ ending.rare.beacon.storm-eye.title	폭풍의 눈에서	Inside the Eye	⟦Íñsí
 ending.rare.beacon.storm-eye.summary	폭풍의 고요 속에서 중계소를 켰다.	He lights the relay inside the storm's calm eye.	⟦Hé líghts thé réláy íñsídé thé stórm's cálm éyé.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 ending.rare.beacon.storm-eye.hint	가장 거센 날 모든 대비가 답한다.	Every preparation answers on the fiercest day.	⟦Évéry prépárátíóñ áñswérs óñ thé fíércést dáy.áéíóúüñ¿¡áéíóúüñ¿⟧
 ending.gamejam.stay.natural-kim.title	무인도 자연인 김씨	Mr. Kim, Island Naturalist	⟦Mr. Kím, thé Ísláñd Ñátúrálíst óf Évérdáy Súrvíváláéíóúüñ¿¡⟧
-ending.gamejam.stay.natural-kim.summary	스무 날째, 김씨는 구조 일정보다 먹을 것과 짐승 길을 먼저 확인했다.	On day twenty, Mr. Kim checked food and animal trails before the rescue schedule.	⟦Óñ dáy twéñty, Mr. Kím chéckéd fóód súpplíés áñd áñímál tráíls béfóré thé réscúé schédúléáéíóúüñ¿¡áéíóúüñ¿¡⟧
+ending.gamejam.stay.natural-kim.summary	스무 날째, 김씨는 구조 일정보다 먹을 것과 짐승 길을 먼저 확인했다.	On day twenty, Mr. Kim checked food and animal trails before the rescue schedule.	⟦Óñ dáy twéñty, Mr. Kím chéckéd fóód súpplíés áñd áñímál tráíls béfóré thé réscúé schédúléáéíóúüñ¿¡áéíóúüñ¿¡á⟧
 ending.gamejam.stay.natural-kim.hint	수색·농사·사냥 기록은 어느새 섬 생활 달력이 되었다.	His search, farming, and hunting notes quietly became an island-life calendar.	⟦Hís séárch, fármíñg, áñd húñtíñg ñótés qúíétly bécámé á fúll ísláñd-lífé cáléñdáráéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 ending.gamejam.stay.island-engineer.title	무인도 건물주 김씨	Mr. Kim, Island Landlord	⟦Mr. Kím, thé Ísláñd Láñdlórd áñd Chíéf Éñgíñééráéíóúüñ¿¡⟧
 ending.gamejam.stay.island-engineer.summary	스무 날째, 김씨는 구조선보다 다음 증축 도면을 기다렸다.	On day twenty, Mr. Kim awaited the next expansion plan more than a rescue boat.	⟦Óñ dáy twéñty, Mr. Kím áwáítéd thé ñéxt éxpáñsióñ pláñ móré tháñ á réscúé bóátáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
@@ -499,6 +500,10 @@ search.tray.remaining	남은 발견물 {0}종	{0} finds remaining	⟦{0} fíñds
 search.tray.cost	수색 비용 체력 -{0} / 일광 -{1}	Search cost Energy -{0} / Daylight -{1}	⟦Séárch cóst Éñérgy -{0} / Dáylíght -{1}áéíóúüñ¿¡áéíó⟧
 search.tray.risk	위험 노출: {0}	Risk exposure: {0}	⟦Rísk éxpósúré: {0}áéíóúü⟧
 search.part.raft.sailcloth	뗏목 돛천	Raft sailcloth	⟦Ráft sáílclótháéí⟧
+search.part.smoke.flint	구조 신호용 부싯돌	Smoke signal flint	⟦Smóké sígñál flíñtáéíóúüñ⟧
+search.part.radio.transceiver	망가진 무전 송수신기	Broken radio transceiver	⟦Brókéñ rádíó tráñscéívéráéíóúüñ¿¡⟧
+search.part.radio.circuit-board	망가진 전자기판	Broken circuit board	⟦Brókéñ círcúít bóárdáéíóúüñ⟧
+search.part.radio.transistor	무전용 트랜지스터	Radio transistor	⟦Rádíó tráñsístóráéíóúüñ⟧
 controls.search_tray.keyboard_mouse	발견물: ←/→ 선택 · E/Enter 담기 · T 모두 담기 · 1–{1} 교체 · Esc 남기기 ({0})	Finds: ←/→ select · E/Enter take · T take all · 1–{1} swap · Esc leave ({0})	⟦Fíñds: ←/→ séléct ítém · É/Éñtér táké · T táké áll · 1–{1} swáp slót · Ésc léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.search_tray.gamepad	발견물: 스틱 선택 · A 담기 · RB 모두 담기 · D-pad+A 교체 · B 남기기 ({0})	Finds: stick select · A take · RB take all · D-pad+A swap · B leave ({0})	⟦Fíñds: stíck séléct ítém · Á táké · RB táké áll · D-pád+Á swáp slót · B léávé sáfély ({0})áéíóúüñ¿¡áéíóúüñ¿¡⟧
 resource.fabric	천	Fabric	⟦Fábrícá⟧

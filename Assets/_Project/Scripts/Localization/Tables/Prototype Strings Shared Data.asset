@@ -2131,6 +2131,26 @@ MonoBehaviour:
     m_Key: result.detail.gamejam_long_stay
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147274334239
+    m_Key: ending.album.category.gamejam-stay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334240
+    m_Key: search.part.smoke.flint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334241
+    m_Key: search.part.radio.transceiver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334242
+    m_Key: search.part.radio.circuit-board
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334243
+    m_Key: search.part.radio.transistor
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -2358,6 +2358,26 @@ MonoBehaviour:
     m_Localized: Twenty days of survival choices decided Mr. Kim's next life.
     m_Metadata:
       m_Items: []
+  - m_Id: 1212147274334239
+    m_Localized: GAME JAM Long Stay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334240
+    m_Localized: Smoke signal flint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334241
+    m_Localized: Broken radio transceiver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334242
+    m_Localized: Broken circuit board
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1212147274334243
+    m_Localized: Radio transistor
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

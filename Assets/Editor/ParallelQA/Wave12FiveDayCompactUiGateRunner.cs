@@ -16,9 +16,9 @@ using UnityEngine.UI;
 namespace ParallelQA
 {
     /// <summary>
-    /// Wave 12 RED-first contract for the adopted compact-a contextual prompt
-    /// and the approved five-day deadline. Product gaps are EXPECTED_FAIL;
-    /// runner/build failures remain INFRA_FAIL in the orchestration layer.
+    /// Wave 12 current contract for the adopted compact-a contextual prompt,
+    /// standard Day 50 flow, provisional Game Jam Day 20 flow, and early-escape
+    /// priority. Runner/build failures remain INFRA_FAIL in orchestration.
     /// </summary>
     public static class Wave12FiveDayCompactUiGateRunner
     {
@@ -82,7 +82,7 @@ namespace ParallelQA
             public string runId;
             public string baselineCommit;
             public string unityVersion;
-            public string deadline;
+            public string sessionFlow;
             public string adoptedPackage;
             public string runtimeFrame;
             public string inputLocaleIndependence;
@@ -133,13 +133,13 @@ namespace ParallelQA
             List<Check> checks = new List<Check>();
             Evidence evidence = NewEvidence();
 
-            Observation deadline = ObserveFiveDayDeadline();
-            evidence.deadline = deadline.Detail;
-            ExpectedProduct(checks, "W12-D01.five_day_deadline", "deadline", "P0",
-                "FinalDay is 5; Day 3 and Day 4 remain playable; ending Day 5 fails by deadline; signal completion rescues immediately before the deadline",
-                deadline.Passed, deadline.Detail,
-                "Advance fresh GameSession instances without Grant/warp through Day 5 and independently complete the signal early.",
-                "Assets/_Project/Scripts/Runtime/GameSession.cs; Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
+            Observation sessionFlow = ObserveSessionFlowProfiles();
+            evidence.sessionFlow = sessionFlow.Detail;
+            Product(checks, "W12-D01.session_flow_profiles", "session flow profiles", "P0",
+                "The standard profile settles on Day 50, the provisional Game Jam profile settles on Day 20 within its 15..20 tuning range, and early escape wins on Day 1 and at settlement",
+                () => RequireDetail(sessionFlow.Passed, sessionFlow.Detail),
+                "Capture PrototypeSessionFlowProfileCatalog verification and complete the signal on Day 1 in a fresh provisional-profile GameSession.",
+                "Assets/_Project/Scripts/Runtime/GameSession.cs");
 
             Observation package = ObserveAdoptedPackage();
             evidence.adoptedPackage = package.Detail;
@@ -150,14 +150,14 @@ namespace ParallelQA
                 ".forge/assets.json; .forge/feedback.json; Assets/_Project/Art/Generated/ui_set/job_20260823073121_f5da3402/**");
 
             Observation staticRuntime = ObserveStaticRuntimeConnection();
-            ExpectedProduct(checks, "W12-A02.compact_a_static_runtime_reference", "runtime art connection", "P0",
+            Product(checks, "W12-A02.compact_a_static_runtime_reference", "runtime art connection", "P0",
                 "Runtime/scene dependencies reference compact-a by its stable GUID/path and do not reference compact-b or compact-c",
-                staticRuntime.Passed, staticRuntime.Detail,
+                () => RequireDetail(staticRuntime.Passed, staticRuntime.Detail),
                 "Search the enabled scene, Runtime source, Resources, and Addressables settings for the adopted A GUID/path and B/C GUIDs.",
                 "Assets/_Project/Scripts/Runtime/**; Assets/_Project/Scenes/**; Assets/AddressableAssetsData/**");
 
             WriteJson("wave12-edit-evidence.json", evidence);
-            WriteReport("wave12-edit-contracts", "Wave 12 five-day/compact-a Edit contracts", started, checks);
+            WriteReport("wave12-edit-contracts", "Wave 12 session-profile/compact-a Edit contracts", started, checks);
         }
 
         public static void RunPlayContracts()
@@ -222,9 +222,9 @@ namespace ParallelQA
             {
                 Observation runtimeFrame = ObserveRuntimeFrame(prototype);
                 evidence.runtimeFrame = runtimeFrame.Detail;
-                ExpectedProduct(checks, "W12-P01.compact_a_frame_and_glyph_split", "runtime prompt", "P0",
+                Product(checks, "W12-P01.compact_a_frame_and_glyph_split", "runtime prompt", "P0",
                     "The actual prompt uses compact-a as a sliced Image with border L70/R30/T12/B12 and separates the input glyph from TMP action text",
-                    runtimeFrame.Passed, runtimeFrame.Detail,
+                    () => RequireDetail(runtimeFrame.Passed, runtimeFrame.Detail),
                     "Approach a direct slot, inspect the prompt Image/Sprite/GUID/type/border and its descendant glyph/action components.",
                     "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scenes/KimSurvivalPrototype.unity");
 
@@ -239,9 +239,9 @@ namespace ParallelQA
                 CaptureObservation captures = CaptureStateMatrix(prototype);
                 evidence.captureLayout = captures.Detail;
                 evidence.screenshots = captures.Screenshots;
-                ExpectedProduct(checks, "W12-P03.compact_a_locale_capture_layout", "1280x800 visual", "P1",
-                    "ko/en/qps-long far/near/popup/direct-slot captures are 1280x800; compact-a prompt is 220..440×40..44px, 12px below narration, clear of world silhouettes/path, with active TMP overflow 0",
-                    captures.Passed, captures.Detail,
+                Product(checks, "W12-P03.compact_a_locale_capture_layout", "1280x800 visual", "P1",
+                    "ko/en/qps-long far/near/popup/direct-slot captures are 1280x800; compact-a prompt is 512×48px, uses source fontMin >=18, stays 12px below narration and clear of world silhouettes/path, with active TMP overflow 0",
+                    () => RequireDetail(captures.Passed, captures.Detail),
                     "Open all twelve Wave 12 captures at 1:1 and compare the recorded prompt/narration Rects and overflow counts.",
                     "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs");
 
@@ -261,21 +261,21 @@ namespace ParallelQA
 
                 Observation currentVisual = ObserveFreshWave3NormalVisual();
                 Product(checks, "W12-P04.current_normal_wave3_visual", "1280x800 regression", "P1",
-                    "Fresh normal ko/en Wave 3 facts remain placement 24/24 PASS and exploration/swimming 10/10 PASS",
+                    "Fresh current hierarchy reports placement 4/4, exploration/swimming 4/4, normal search tray 16/16, and fresh-pity qps-long production scenes 37/37 PASS; protected-part trays remain a separate Wave B contract",
                     () => RequireDetail(currentVisual.Passed, currentVisual.Detail),
-                    "Open the fresh Wave 3 TSV/PNGs at 1:1 and inspect every normal placement/exploration failure row.",
-                    "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs; Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs");
+                    "Open the fresh Wave 3 TSV/PNGs at 1:1 and inspect every placement, search prompt, compact tray, and qps production-scene failure row.",
+                    "Assets/Editor/ParallelQA/Wave12FiveDayCompactUiGateRunner.cs; Assets/Editor/ParallelQA/Wave3VisualGate.cs");
 
                 string[] joysticks = Input.GetJoystickNames().Where(name => !string.IsNullOrWhiteSpace(name)).ToArray();
                 evidence.joystickNames = joysticks;
                 Unverified(checks, "W12-HW01.physical_gamepad", "input hardware", "P1",
-                    "A human completes near/popup/direct-slot and the five-day loop with a physical gamepad",
+                    "A human completes near/popup/direct-slot, an early escape, and the current session-profile loop with a physical gamepad",
                     joysticks.Length == 0 ? "no non-empty joystick name exposed to Unity batch Play Mode" : "device detected, but no human actuation evidence was captured",
                     "Run the Windows development build with a physical gamepad and record device identity plus human actuation.",
                     "manual release-candidate hardware evidence");
 
                 WriteJson("wave12-play-evidence.json", evidence);
-                Report report = WriteReport("wave12-play-contracts", "Wave 12 five-day/compact-a Play contracts", started, checks);
+                Report report = WriteReport("wave12-play-contracts", "Wave 12 session-profile/compact-a Play contracts", started, checks);
                 bool runnerPassed = report.infrastructureOverall == "PASS" && report.productFailed == 0;
                 SessionState.SetBool(PlayExitPassKey, runnerPassed);
                 SessionState.SetString(PlayMessageKey,
@@ -289,38 +289,52 @@ namespace ParallelQA
             StopPlayContracts();
         }
 
-        private static Observation ObserveFiveDayDeadline()
+        private static Observation ObserveSessionFlowProfiles()
         {
-            GameSession session = new GameSession();
-            List<string> states = new List<string> { "start=D" + session.Day };
-            bool day3Playable = false;
-            bool day4Playable = false;
-            bool day5Deadline = false;
-            for (int settlement = 0; settlement < 5 && session.Result == RunResult.None; settlement += 1)
-            {
-                Require(session.BeginSearch(), "begin search at Day " + session.Day);
-                Require(session.ReturnToCamp(false), "return at Day " + session.Day);
-                Require(session.EndDay(false, false), "settle Day " + session.Day);
-                states.Add("D" + session.Day + "/" + session.Phase + "/" + session.Result);
-                if (session.Day == 3 && session.Phase == GamePhase.Camp && session.Result == RunResult.None) day3Playable = true;
-                if (session.Day == 4 && session.Phase == GamePhase.Camp && session.Result == RunResult.None) day4Playable = true;
-                if (session.Day == 5 && session.Phase == GamePhase.Result && session.Result == RunResult.Deadline) day5Deadline = true;
-            }
+            PrototypeSessionFlowVerification verification = PrototypeSessionFlowProfileCatalog.CaptureVerification();
+            PrototypeSessionSettlementOutcome standardDayOneEscape = PrototypeSessionFlowProfileCatalog.ResolveSettlement(
+                PrototypeSessionFlowProfileCatalog.StandardProfileId, 1, true, true);
+            PrototypeSessionSettlementOutcome gameJamDayOneEscape = PrototypeSessionFlowProfileCatalog.ResolveSettlement(
+                PrototypeSessionFlowProfileCatalog.GameJamProvisionalProfileId, 1, true, true);
 
-            GameSession early = new GameSession();
+            GameSession early = new GameSession(
+                PrototypeExpeditionRegionCatalog.DefaultRunSeed,
+                PrototypeSessionFlowProfileCatalog.GameJamProvisionalProfileId);
             early.Grant(ResourceKind.Wood, 20);
             early.Grant(ResourceKind.Salvage, 20);
             Require(early.TryBuild(StructureKind.Workbench), "early workbench");
             Require(early.TryUpgradeSignal(), "early signal stage 1");
             Require(early.TryResearch(TechKind.Rope) && early.TryCraft(TechKind.Rope), "early rope");
             Require(early.TryUpgradeSignal(), "early signal stage 2");
-            bool earlyRescue = early.Day == 1 && early.Phase == GamePhase.Result && early.Result == RunResult.Rescued;
-            bool passed = GameSession.FinalDay == 5 && day3Playable && day4Playable && day5Deadline && earlyRescue;
+            bool earlyRescue = early.Day == 1 &&
+                               early.SessionProfileId == PrototypeSessionFlowProfileCatalog.GameJamProvisionalProfileId &&
+                               early.Phase == GamePhase.Result && early.Result == RunResult.Rescued;
+            bool passed = verification.ContractSatisfied &&
+                          verification.StandardProfileId == PrototypeSessionFlowProfileCatalog.StandardProfileId &&
+                          verification.StandardSettlementDay == GameSession.FinalDay &&
+                          verification.GameJamProfileId == PrototypeSessionFlowProfileCatalog.GameJamProvisionalProfileId &&
+                          verification.GameJamSettlementDay == PrototypeSessionFlowProfileCatalog.GameJamProvisionalSettlementDay &&
+                          verification.GameJamTunableMinimumDay == PrototypeSessionFlowProfileCatalog.GameJamTunableMinimumDay &&
+                          verification.GameJamTunableMaximumDay == PrototypeSessionFlowProfileCatalog.GameJamTunableMaximumDay &&
+                          verification.StandardDayTwentyOutcome == PrototypeSessionSettlementOutcome.Continue &&
+                          verification.StandardDayFiftyOutcome == PrototypeSessionSettlementOutcome.LongStay &&
+                          verification.GameJamDayNineteenOutcome == PrototypeSessionSettlementOutcome.Continue &&
+                          verification.GameJamDayTwentyOutcome == PrototypeSessionSettlementOutcome.LongStay &&
+                          verification.GameJamDayTwentyEscapeOutcome == PrototypeSessionSettlementOutcome.EarlyEscape &&
+                          standardDayOneEscape == PrototypeSessionSettlementOutcome.EarlyEscape &&
+                          gameJamDayOneEscape == PrototypeSessionSettlementOutcome.EarlyEscape && earlyRescue;
             return new Observation
             {
                 Passed = passed,
-                Detail = "FinalDay=" + GameSession.FinalDay + "; day3Playable=" + day3Playable + "; day4Playable=" + day4Playable +
-                         "; day5Deadline=" + day5Deadline + "; earlyDay1Rescue=" + earlyRescue + "; states=" + string.Join(">", states)
+                Detail = "contractSatisfied=" + verification.ContractSatisfied +
+                         "; standard=" + verification.StandardProfileId + "@D" + verification.StandardSettlementDay +
+                         " outcomes(D20/D50)=" + verification.StandardDayTwentyOutcome + "/" + verification.StandardDayFiftyOutcome +
+                         "; gameJam=" + verification.GameJamProfileId + "@D" + verification.GameJamSettlementDay +
+                         " tune=" + verification.GameJamTunableMinimumDay + ".." + verification.GameJamTunableMaximumDay +
+                         " outcomes(D19/D20/escape)=" + verification.GameJamDayNineteenOutcome + "/" +
+                         verification.GameJamDayTwentyOutcome + "/" + verification.GameJamDayTwentyEscapeOutcome +
+                         "; day1Priority(std/gamejam)=" + standardDayOneEscape + "/" + gameJamDayOneEscape +
+                         "; actualGameJamDay1SignalRescue=" + earlyRescue
             };
         }
 
@@ -469,6 +483,8 @@ namespace ParallelQA
                 Rect promptRect = measuredRects[0];
                 Rect narrationRect = measuredRects[1];
                 float gap = narrationRect.yMin - promptRect.yMax;
+                TMP_Text[] promptTexts = prompt.GetComponentsInChildren<TMP_Text>(true);
+                bool promptFontFloor = promptTexts.Length >= 2 && promptTexts.All(text => text.fontSizeMin + 0.01f >= 18f);
                 int nearOverflow = CountVisibleOverflow();
 
                 Invoke(prototype, "UseNearestCampTarget");
@@ -482,14 +498,15 @@ namespace ParallelQA
                 Invoke(prototype, "CancelCampModulePreview", true);
                 if (interaction.IsPopupOpen) Invoke(prototype, "CancelCampPopup");
 
-                bool compactGeometry = promptRect.width >= 220f && promptRect.width <= 440.1f &&
-                                       promptRect.height >= 40f && promptRect.height <= 44.1f && gap >= 11.9f;
+                bool compactGeometry = promptRect.width >= 511f && promptRect.width <= 513f &&
+                                       promptRect.height >= 47f && promptRect.height <= 49f && gap >= 11.9f;
                 bool overflowZero = nearOverflow == 0 && popupOverflow == 0 && previewOverflow == 0;
-                bool localePass = far && near && popup && preview && overflowZero && compactGeometry;
+                bool localePass = far && near && popup && preview && overflowZero && compactGeometry && promptFontFloor;
                 allStates &= localePass;
                 rows.Add(locale + "{far=" + far + ",near=" + near + ",popup=" + popup + ",preview=" + preview +
                          ",prompt=" + FormatRect(promptRect) + ",narration=" + FormatRect(narrationRect) + ",gap=" + gap.ToString("0.0") +
-                         ",overflow=" + nearOverflow + "/" + popupOverflow + "/" + previewOverflow + ",compact=" + compactGeometry + "}");
+                         ",overflow=" + nearOverflow + "/" + popupOverflow + "/" + previewOverflow +
+                         ",compact=" + compactGeometry + ",fontMin18=" + promptFontFloor + "}");
             }
 
             Observation wave11 = ObserveFreshWave11Layout();
@@ -529,6 +546,7 @@ namespace ParallelQA
             AddWave3PlacementFrames(prototype, QpsLong, PrototypeInputDevice.Gamepad, true, layoutAudit, frames);
             AddWave3ExplorationFrames(prototype, PrototypeLocalization.KoreanLocaleCode, "ko", layoutAudit, frames);
             AddWave3ExplorationFrames(prototype, PrototypeLocalization.EnglishLocaleCode, "en", layoutAudit, frames);
+            AddWave3QpsProductionFrames(prototype, layoutAudit, frames);
             bool visualPass = Wave3VisualGate.WriteReports(EvidenceFolder, RunId, BaselineCommit,
                 Application.unityVersion, string.Join(" ", Environment.GetCommandLineArgs()), started, frames);
             File.WriteAllText(Path.Combine(EvidenceFolder, "wave3-layout-audit.txt"),
@@ -612,6 +630,9 @@ namespace ParallelQA
             mapSelection.Close();
             localization.SetLocale(localeCode, false);
             Invoke(prototype, "RefreshAll");
+            int grantBefore = PrototypeProductionActionCounters.GrantCallCount;
+            int warpBefore = PrototypeProductionActionCounters.WarpCallCount;
+            int skipBefore = PrototypeProductionActionCounters.SkipCallCount;
 
             ProductionSearchNodeQaDriver.BeginExpedition(
                 prototype, PrototypeExpeditionRegionId.Shallows, prefix + " fresh visual");
@@ -632,6 +653,77 @@ namespace ParallelQA
             ProductionSearchNodeQaDriver.SearchAndTakeAllNext(prototype, false, prefix + " third land node");
             AddWave3Frame(prototype, "playmode-" + prefix + "-day2-exploration-1280x800.png",
                 prefix + " day2 exploration", layoutAudit, frames);
+            Require(PrototypeProductionActionCounters.GrantCallCount == grantBefore &&
+                    PrototypeProductionActionCounters.WarpCallCount == warpBefore &&
+                    PrototypeProductionActionCounters.SkipCallCount == skipBefore,
+                prefix + " normal production search scenes use no Grant, Warp, or Skip");
+        }
+
+        private static void AddWave3QpsProductionFrames(
+            KimSurvivalPrototype prototype,
+            List<string> layoutAudit,
+            List<Wave3VisualGate.FrameResult> frames)
+        {
+            GameSession session = prototype.Session;
+            PrototypeLocalization localization = GetField<PrototypeLocalization>(prototype, "localization");
+            PrototypeCampPlacement placement = GetField<PrototypeCampPlacement>(prototype, "campPlacement");
+            PrototypeSearchNodeRuntime searchRuntime = GetField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
+            PrototypeCampUse campUse = GetField<PrototypeCampUse>(prototype, "campUse");
+            PrototypeCampInteraction interaction = GetField<PrototypeCampInteraction>(prototype, "campInteraction");
+            PrototypeExpeditionMapSelection mapSelection = GetField<PrototypeExpeditionMapSelection>(prototype, "expeditionMapSelection");
+            object hazardRuntime = GetField<object>(prototype, "hazardEscapeEndingRuntime");
+
+            session.Reset();
+            searchRuntime.Reset(session.RunSeed);
+            placement.Reset();
+            campUse.Reset();
+            interaction.Reset();
+            mapSelection.Close();
+            Require(localization.SetQaLocale(), "qps-long production scene locale");
+            Invoke(prototype, "RefreshAll");
+            int grantBefore = PrototypeProductionActionCounters.GrantCallCount;
+            int warpBefore = PrototypeProductionActionCounters.WarpCallCount;
+            int skipBefore = PrototypeProductionActionCounters.SkipCallCount;
+
+            Invoke(prototype, "MoveNaturallyToCampTarget", PrototypeCampInteractionTargetKind.ModuleExpansionSlot);
+            Invoke(prototype, "RefreshAll");
+            Require(interaction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot &&
+                    interaction.HasProximityPrompt,
+                "qps-long production movement selects the module-expansion proximity target");
+            AddWave3Frame(prototype, "playmode-qps-long-camp-proximity-1280x800.png",
+                "qps-long camp proximity", layoutAudit, frames);
+
+            Invoke(prototype, "OpenCampTargetThroughProductionInput", PrototypeCampInteractionTargetKind.ModuleExpansionSlot);
+            Require(interaction.IsPopupOpen &&
+                    GetField<GameObject>(prototype, "campInteractionPopup").activeSelf,
+                "qps-long mapped Interact opens the compact production popup");
+            AddWave3Frame(prototype, "playmode-qps-long-camp-popup-1280x800.png",
+                "qps-long camp popup", layoutAudit, frames);
+            interaction.ClosePopup();
+
+            session.Reset();
+            Invoke(hazardRuntime, "ResetRuntime");
+            searchRuntime.Reset(session.RunSeed);
+            placement.Reset();
+            campUse.Reset();
+            interaction.Reset();
+            mapSelection.Close();
+            Invoke(prototype, "RefreshAll");
+            ProductionSearchNodeQaDriver.BeginExpedition(
+                prototype, PrototypeExpeditionRegionId.Beach, "qps-long production search");
+            ProductionSearchNodeQaDriver.Target target = ProductionSearchNodeQaDriver.MoveToNextWithoutProtectedPart(
+                prototype, false, "qps-long production search node");
+            ProductionSearchNodeQaDriver.Open(prototype, target, "qps-long production search node");
+            AddWave3Frame(prototype, "playmode-qps-long-search-tray-1280x800.png",
+                "qps-long search tray", layoutAudit, frames);
+            ProductionSearchNodeQaDriver.TakeAllAndClose(prototype, "qps-long production search node");
+
+            Require(PrototypeProductionActionCounters.GrantCallCount == grantBefore &&
+                    PrototypeProductionActionCounters.WarpCallCount == warpBefore &&
+                    PrototypeProductionActionCounters.SkipCallCount == skipBefore,
+                "qps-long production proximity, popup, and search tray use no Grant, Warp, or Skip");
+            localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
+            Invoke(prototype, "RefreshAll");
         }
 
         private static void AddWave3Frame(KimSurvivalPrototype prototype, string fileName, string scenario,
@@ -654,15 +746,24 @@ namespace ParallelQA
             string report = File.ReadAllText(path);
             Match placement = Regex.Match(report, @"PLACEMENT_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
             Match exploration = Regex.Match(report, @"EXPLORATION_SWIMMING_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
-            bool passed = placement.Success && exploration.Success && placement.Groups[1].Value == "PASS" &&
-                          placement.Groups[2].Value == "24" && placement.Groups[3].Value == "0" &&
-                          exploration.Groups[1].Value == "PASS" && exploration.Groups[2].Value == "10" && exploration.Groups[3].Value == "0";
+            Match searchTray = Regex.Match(report, @"SEARCH_TRAY_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
+            Match pseudo = Regex.Match(report, @"PSEUDO_LONG_GATE:\s+(PASS|FAIL)\s+·\s+targets=(\d+)\s+·\s+failures=(\d+)");
+            bool passed = ExactVisualFact(placement, 4) && ExactVisualFact(exploration, 4) &&
+                          ExactVisualFact(searchTray, 16) && ExactVisualFact(pseudo, 37);
             return new Observation
             {
                 Passed = passed,
                 Detail = "placement=" + (placement.Success ? placement.Value : "MISSING") + "; exploration=" +
-                         (exploration.Success ? exploration.Value : "MISSING") + "; source=" + Path.GetFileName(path)
+                         (exploration.Success ? exploration.Value : "MISSING") + "; searchTray=" +
+                         (searchTray.Success ? searchTray.Value : "MISSING") + "; qps=" +
+                         (pseudo.Success ? pseudo.Value : "MISSING") + "; source=" + Path.GetFileName(path)
             };
+        }
+
+        private static bool ExactVisualFact(Match match, int expectedTargets)
+        {
+            return match.Success && match.Groups[1].Value == "PASS" &&
+                   match.Groups[2].Value == expectedTargets.ToString() && match.Groups[3].Value == "0";
         }
 
         private static string Capture(KimSurvivalPrototype prototype, string locale, string state)
@@ -843,13 +944,6 @@ namespace ParallelQA
                 checks.Add(NewCheck(id, matrix, "INFRA_FAIL", "INFRASTRUCTURE", severity, expected, actual, reproduction, files));
                 return actual;
             }
-        }
-
-        private static void ExpectedProduct(List<Check> checks, string id, string matrix, string severity, string expected,
-            bool passed, string actual, string reproduction, string files)
-        {
-            checks.Add(NewCheck(id, matrix, passed ? "PASS" : "EXPECTED_FAIL", passed ? "NONE" : "PRODUCT_EXPECTED_GAP",
-                severity, expected, actual, reproduction, files));
         }
 
         private static void Unverified(List<Check> checks, string id, string matrix, string severity, string expected,

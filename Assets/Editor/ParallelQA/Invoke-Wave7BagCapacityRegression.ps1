@@ -225,9 +225,10 @@ if ($legacyEditText -notmatch 'Overall:\s+PASS') {
     Add-Defect $regressionDefects 'W7-10.legacy_edit' 'P0' 'PRODUCT_REGRESSION' 'Legacy deterministic Edit Check PASS' 'legacy Edit Check not PASS' 'Run ParallelQA.ParallelQaRunner.RunEditChecks.' 'inspect edit-checks.txt before assigning product ownership'
 }
 
-$placementPass = $null -ne $visual -and $visual.placement.status -eq 'PASS' -and $visual.placement.targets -eq 24 -and $visual.placement.failures -eq 0
-$explorationPass = $null -ne $visual -and $visual.explorationSwimming.status -eq 'PASS' -and $visual.explorationSwimming.targets -eq 10 -and $visual.explorationSwimming.failures -eq 0
-$qpsPass = $null -ne $visual -and $visual.qpsLong.status -eq 'PASS' -and $visual.qpsLong.targets -eq 10 -and $visual.qpsLong.failures -eq 0
+$placementPass = $null -ne $visual -and $visual.placement.status -eq 'PASS' -and $visual.placement.targets -eq 4 -and $visual.placement.failures -eq 0
+$explorationPass = $null -ne $visual -and $visual.explorationSwimming.status -eq 'PASS' -and $visual.explorationSwimming.targets -eq 4 -and $visual.explorationSwimming.failures -eq 0
+$searchTrayPass = $null -ne $visual -and $visual.searchTray.status -eq 'PASS' -and $visual.searchTray.targets -eq 16 -and $visual.searchTray.failures -eq 0
+$qpsPass = $null -ne $visual -and $visual.qpsLong.status -eq 'PASS' -and $visual.qpsLong.targets -eq 37 -and $visual.qpsLong.failures -eq 0
 $assetPass = $null -ne $asset -and $asset.overall -eq 'PASS'
 $addressLoadPass = $null -ne $preflight -and $preflight.ownershipOverall -eq 'PASS' -and $null -ne $asset -and @($asset.checks | Where-Object { $_.id -eq 'addressables.preflight_stability' -and $_.status -eq 'PASS' }).Count -eq 1
 $addressBuildPass = $null -ne $addressBuild -and $addressBuild.overall -eq 'PASS'
@@ -235,9 +236,10 @@ $addressSmokePass = $null -ne $addressSmoke -and $addressSmoke.overall -eq 'PASS
 $windowsBuildPass = $null -ne $windowsBuild -and $windowsBuild.result -eq 'Succeeded' -and $windowsBuild.errors -eq 0 -and $windowsBuild.executableExists
 $windowsSmokePass = $null -ne $windowsSmoke -and $windowsSmoke.result -eq 'PASS' -and $windowsSmoke.aliveAtMinimum -and $windowsSmoke.respondingAtMinimum
 
-if (-not $placementPass) { Add-Defect $regressionDefects 'W7-10.placement' 'P0' 'PRODUCT_REGRESSION' 'ko/en placement 24/24 PASS' 'fresh visual fact did not pass 24/24' 'Run the legacy full Play regression.' 'inspect wave3-visual-gate.txt' }
-if (-not $explorationPass) { Add-Defect $regressionDefects 'W7-10.swimming' 'P0' 'PRODUCT_REGRESSION' 'exploration/swimming 10/10 PASS' 'fresh visual fact did not pass 10/10' 'Run the legacy full Play regression.' 'inspect wave3-visual-gate.txt' }
-if (-not $qpsPass) { Add-Defect $regressionDefects 'W7-10.qps_long' 'P1' 'PRODUCT_REGRESSION' 'qps-long 10/10 PASS' 'fresh visual fact did not pass 10/10' 'Run the legacy full Play regression.' 'inspect wave3-visual-gate.txt' }
+if (-not $placementPass) { Add-Defect $regressionDefects 'W7-10.placement' 'P0' 'PRODUCT_REGRESSION' 'ko/en placement 4/4 PASS' 'fresh visual fact did not pass 4/4' 'Run the current full Play regression.' 'inspect wave3-visual-gate.txt' }
+if (-not $explorationPass) { Add-Defect $regressionDefects 'W7-10.swimming' 'P0' 'PRODUCT_REGRESSION' 'nearest-node exploration/swimming 4/4 PASS' 'fresh visual fact did not pass 4/4' 'Run the current full Play regression.' 'inspect wave3-visual-gate.txt' }
+if (-not $searchTrayPass) { Add-Defect $regressionDefects 'W7-10.search_tray' 'P0' 'PRODUCT_REGRESSION' 'ko/en compact search tray 16/16 PASS' 'fresh visual fact did not pass 16/16' 'Run the current full Play regression.' 'inspect wave3-visual-gate.txt' }
+if (-not $qpsPass) { Add-Defect $regressionDefects 'W7-10.qps_long' 'P1' 'PRODUCT_REGRESSION' 'qps-long fresh-pity production scenes 37/37 PASS; protected-part trays are Wave B' 'fresh visual fact did not pass 37/37' 'Run the current full Play regression.' 'inspect wave3-visual-gate.txt' }
 if (-not $assetPass) { Add-Defect $regressionDefects 'W7-10.asset_contracts' 'P0' 'PRODUCT_REGRESSION' 'asset/release contracts PASS' 'asset contract overall is not PASS' 'Run Wave4AssetReleaseGate.RunAssetContracts.' 'inspect asset-contracts.json' }
 if (-not ($addressLoadPass -and $addressBuildPass -and $addressSmokePass)) { Add-Defect $regressionDefects 'W7-10.addressables' 'P0' 'PRODUCT_REGRESSION' 'Addressables load/build/post-smoke PASS' "load=$addressLoadPass build=$addressBuildPass postSmoke=$addressSmokePass" 'Run the full Wave 7 command with a fresh run ID.' 'inspect Addressables contract JSON files' }
 if (-not ($windowsBuildPass -and $windowsSmokePass)) { Add-Defect $regressionDefects 'W7-10.windows' 'P0' 'PRODUCT_REGRESSION' 'Windows Development build and hidden smoke PASS' "build=$windowsBuildPass smoke=$windowsSmokePass" 'Run the full Wave 7 command with a fresh run ID.' 'inspect windows-development-build.json and windows-hidden-smoke.json' }
@@ -268,9 +270,10 @@ $summary = [ordered]@{
     wave7Layout = if ($null -ne $layout) { $layout.overall } else { 'MISSING' }
     existingRegressionOverall = $existingRegressionOverall
     wave6Progression = if ($null -ne $wave6Edit -and $null -ne $wave6Play -and $wave6Edit.productOverall -eq 'PASS' -and $wave6Play.productOverall -eq 'PASS') { 'PASS' } else { 'FAIL' }
-    placement = if ($placementPass) { 'PASS 24/24' } else { 'FAIL' }
-    explorationSwimming = if ($explorationPass) { 'PASS 10/10' } else { 'FAIL' }
-    qpsLong = if ($qpsPass) { 'PASS 10/10' } else { 'FAIL' }
+    placement = if ($placementPass) { 'PASS 4/4' } else { 'FAIL' }
+    explorationSwimming = if ($explorationPass) { 'PASS 4/4' } else { 'FAIL' }
+    searchTray = if ($searchTrayPass) { 'PASS 16/16' } else { 'FAIL' }
+    qpsLong = if ($qpsPass) { 'PASS 37/37 fresh pity; protected-part trays are Wave B' } else { 'FAIL' }
     addressables = "load=$(if($addressLoadPass){'PASS'}else{'FAIL'}) build=$(if($addressBuildPass){'PASS'}else{'FAIL'}) postSmoke=$(if($addressSmokePass){'PASS'}else{'FAIL'})"
     windowsDevelopmentBuild = if ($windowsBuildPass) { 'PASS' } else { 'FAIL' }
     windowsBuildWarnings = $warnings
@@ -300,6 +303,7 @@ $lines.Add("Existing regressions: $($summary.existingRegressionOverall)")
 $lines.Add("Wave 6 progression: $($summary.wave6Progression)")
 $lines.Add("Placement: $($summary.placement)")
 $lines.Add("Exploration/swimming: $($summary.explorationSwimming)")
+$lines.Add("Search tray: $($summary.searchTray)")
 $lines.Add("qps-long: $($summary.qpsLong)")
 $lines.Add("Addressables: $($summary.addressables)")
 $lines.Add("Windows build/smoke: $($summary.windowsDevelopmentBuild)/$($summary.hiddenSmoke) · warnings=$warnings")

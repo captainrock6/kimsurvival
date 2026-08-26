@@ -357,10 +357,11 @@ namespace ParallelQA
             localization.SetLocale(PrototypeLocalization.KoreanLocaleCode, false);
             InvokePrivate(prototype, "RefreshAll");
             Require(EventSystem.current != null, "EventSystem exists");
+            Button languageButton = GetButton(prototype, "languageButton");
+            EventSystem.current.SetSelectedGameObject(languageButton.gameObject);
             Require(EventSystem.current.currentSelectedGameObject != null, "Camp UI has a selected control");
             int initialReachableButtons = VerifyDirectionalNavigationFromCurrentSelection();
 
-            Button languageButton = GetButton(prototype, "languageButton");
             TMP_Text actionTitle = GetPrivateField<TMP_Text>(prototype, "actionTitleText");
             Submit(languageButton);
             Require(localization.CurrentLocaleCode == PrototypeLocalization.EnglishLocaleCode && actionTitle.text == "Base Camp · Craft / Build / Research", "UI Submit switches to English immediately");
@@ -465,6 +466,7 @@ namespace ParallelQA
             PrototypeCampInteraction campInteraction = GetPrivateField<PrototypeCampInteraction>(prototype, "campInteraction");
             PrototypeSearchNodeRuntime searchRuntime = GetPrivateField<PrototypeSearchNodeRuntime>(prototype, "searchNodeRuntime");
             PrototypeExpeditionMapSelection mapSelection = GetPrivateField<PrototypeExpeditionMapSelection>(prototype, "expeditionMapSelection");
+            object hazardRuntime = GetPrivateField<object>(prototype, "hazardEscapeEndingRuntime");
             session.Reset();
             searchRuntime.Reset(session.RunSeed);
             placement.Reset();
@@ -487,22 +489,34 @@ namespace ParallelQA
                     "qps-long placement valid", layoutAudit, wave3Frames);
 
                 placement.Cancel();
+                session.Reset();
+                searchRuntime.Reset(session.RunSeed);
+                campUse.Reset();
+                campInteraction.Reset();
+                mapSelection.Close();
                 InvokePrivate(prototype, "RefreshAll");
-                Require(campInteraction.HasProximityPrompt &&
+                int grantBefore = PrototypeProductionActionCounters.GrantCallCount;
+                int warpBefore = PrototypeProductionActionCounters.WarpCallCount;
+                int skipBefore = PrototypeProductionActionCounters.SkipCallCount;
+                InvokePrivate(prototype, "MoveNaturallyToCampTarget", PrototypeCampInteractionTargetKind.ModuleExpansionSlot);
+                InvokePrivate(prototype, "RefreshAll");
+                Require(campInteraction.ActiveTargetKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot &&
+                        campInteraction.HasProximityPrompt &&
                         GetPrivateField<GameObject>(prototype, "campProximityPrompt").activeSelf,
                     "qps-long compact camp proximity prompt is visible in the current hierarchy");
                 CaptureAndAudit(prototype, "playmode-qps-long-camp-proximity-1280x800.png",
                     "qps-long camp proximity", layoutAudit, wave3Frames);
 
-                Require(campInteraction.TryOpenPopup(), "qps-long current camp target opens the compact popup");
-                InvokePrivate(prototype, "RefreshAll");
-                Require(GetPrivateField<GameObject>(prototype, "campInteractionPopup").activeSelf,
-                    "qps-long compact camp popup is visible in the current hierarchy");
+                InvokePrivate(prototype, "OpenCampTargetThroughProductionInput", PrototypeCampInteractionTargetKind.ModuleExpansionSlot);
+                Require(campInteraction.IsPopupOpen &&
+                        GetPrivateField<GameObject>(prototype, "campInteractionPopup").activeSelf,
+                    "qps-long mapped Interact opens the compact production popup");
                 CaptureAndAudit(prototype, "playmode-qps-long-camp-popup-1280x800.png",
                     "qps-long camp popup", layoutAudit, wave3Frames);
 
                 campInteraction.ClosePopup();
                 session.Reset();
+                InvokePrivate(hazardRuntime, "ResetRuntime");
                 searchRuntime.Reset(session.RunSeed);
                 campUse.Reset();
                 campInteraction.Reset();
@@ -510,13 +524,18 @@ namespace ParallelQA
                 InvokePrivate(prototype, "RefreshAll");
                 ProductionSearchNodeQaDriver.BeginExpedition(
                     prototype, PrototypeExpeditionRegionId.Beach, "qps-long environmental search");
-                ProductionSearchNodeQaDriver.Target target = ProductionSearchNodeQaDriver.MoveToNext(
+                ProductionSearchNodeQaDriver.Target target = ProductionSearchNodeQaDriver.MoveToNextWithoutProtectedPart(
                     prototype, false, "qps-long search node");
                 ProductionSearchNodeQaDriver.Open(prototype, target, "qps-long search node");
                 Require(searchRuntime.IsTrayOpen && GetPrivateField<GameObject>(prototype, "searchLootTrayPanel").activeSelf,
                     "qps-long production interaction opens the compact environmental-search tray");
                 CaptureAndAudit(prototype, "playmode-qps-long-search-tray-1280x800.png",
                     "qps-long search tray", layoutAudit, wave3Frames);
+                ProductionSearchNodeQaDriver.TakeAllAndClose(prototype, "qps-long production search node");
+                Require(PrototypeProductionActionCounters.GrantCallCount == grantBefore &&
+                        PrototypeProductionActionCounters.WarpCallCount == warpBefore &&
+                        PrototypeProductionActionCounters.SkipCallCount == skipBefore,
+                    "qps-long production proximity, popup, and search tray use no Grant, Warp, or Skip");
             }
             finally
             {
@@ -1299,8 +1318,9 @@ namespace ParallelQA
 
         private static void InvokePrivate(object target, string methodName, params object[] arguments)
         {
-            MethodInfo method = target.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
-            Require(method != null, "private method " + methodName + " exists");
+            MethodInfo method = ResolveInstanceMethod(target, methodName, arguments,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            Require(method != null, "instance method " + methodName + " exists");
             try
             {
                 method.Invoke(target, arguments);
@@ -1313,7 +1333,8 @@ namespace ParallelQA
 
         private static T InvokePrivateResult<T>(object target, string methodName, params object[] arguments)
         {
-            MethodInfo method = target.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            MethodInfo method = ResolveInstanceMethod(target, methodName, arguments,
+                BindingFlags.Instance | BindingFlags.NonPublic);
             Require(method != null, "private method " + methodName + " exists");
             try
             {
@@ -1323,6 +1344,52 @@ namespace ParallelQA
             {
                 throw exception.InnerException ?? exception;
             }
+        }
+
+        private static MethodInfo ResolveInstanceMethod(
+            object target,
+            string methodName,
+            object[] arguments,
+            BindingFlags bindingFlags)
+        {
+            Require(target != null, "reflection target exists for " + methodName);
+            object[] suppliedArguments = arguments ?? Array.Empty<object>();
+            MethodInfo[] compatible = target.GetType()
+                .GetMethods(bindingFlags)
+                .Where(candidate => candidate.Name == methodName && !candidate.ContainsGenericParameters)
+                .Where(candidate =>
+                {
+                    ParameterInfo[] parameters = candidate.GetParameters();
+                    if (parameters.Length != suppliedArguments.Length)
+                    {
+                        return false;
+                    }
+
+                    for (int index = 0; index < parameters.Length; index += 1)
+                    {
+                        object argument = suppliedArguments[index];
+                        Type parameterType = parameters[index].ParameterType;
+                        if (argument == null)
+                        {
+                            if (parameterType.IsValueType && Nullable.GetUnderlyingType(parameterType) == null)
+                            {
+                                return false;
+                            }
+                        }
+                        else if (!parameterType.IsInstanceOfType(argument))
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                })
+                .ToArray();
+
+            Require(
+                compatible.Length <= 1,
+                "instance method " + methodName + " resolves uniquely for " + suppliedArguments.Length + " argument(s)");
+            return compatible.SingleOrDefault();
         }
 
         private static T GetPrivateField<T>(object target, string fieldName)
