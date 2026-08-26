@@ -296,7 +296,7 @@ function Get-InternalManifestAudit(
         manifestEntryCount = $entries.Count
         packagePayloadFileCount = $actualPayloadPaths.Count
         exactFileSet = $unlisted.Count -eq 0 -and $entries.Count -eq $actualPayloadPaths.Count
-        entries = @($entries)
+        entries = $entries.ToArray()
         unlistedFiles = $unlisted
         buildInfo = [ordered]@{
             path = $buildInfoRelative
@@ -313,7 +313,7 @@ function Get-InternalManifestAudit(
             identityMatches = $identityMatches
             parseError = $buildInfoParseError
         }
-        issues = @($issues)
+        issues = $issues.ToArray()
         status = if ($issues.Count -eq 0 -and $entries.Count -eq $actualPayloadPaths.Count) { 'PASS' } else { 'FAIL' }
     }
 }
@@ -418,7 +418,7 @@ function Expand-SafePackageZip(
     } finally {
         $archive.Dispose()
     }
-    return @($records)
+    return $records.ToArray()
 }
 
 function Compare-DirectorySnapshots($Expected, $Actual) {
@@ -450,7 +450,7 @@ function Compare-DirectorySnapshots($Expected, $Actual) {
         actualAggregateSha256 = $Actual.aggregateSha256
         missingFromExtracted = $missing
         extraInExtracted = $extra
-        contentMismatches = @($mismatches)
+        contentMismatches = $mismatches.ToArray()
         status = if ($missing.Count -eq 0 -and $extra.Count -eq 0 -and $mismatches.Count -eq 0 -and
             $Expected.aggregateSha256 -eq $Actual.aggregateSha256) { 'PASS' } else { 'FAIL' }
     }
