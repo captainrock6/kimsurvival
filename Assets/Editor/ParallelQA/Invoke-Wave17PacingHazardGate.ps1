@@ -146,6 +146,8 @@ $playStage = Invoke-HiddenProcess 'wave17-pacing-hazard-play' $UnityPath $playAr
     (Join-Path $workRoot 'wave17-play-stdout.log') (Join-Path $workRoot 'wave17-play-stderr.log')
 
 $wave16Summary = Read-Json (Join-Path $evidenceRoot 'wave16-summary.json')
+$wave16Edit = Read-Json (Join-Path $evidenceRoot 'wave16-edit-contracts.json')
+$wave16Play = Read-Json (Join-Path $evidenceRoot 'wave16-play-contracts.json')
 $wave15Summary = Read-Json (Join-Path $evidenceRoot 'wave15-summary.json')
 $wave14Gate = Read-Json (Join-Path $evidenceRoot 'wave14-qps-global-layout-gate.json')
 $wave12Summary = Read-Json (Join-Path $evidenceRoot 'wave12-summary.json')
@@ -178,6 +180,32 @@ $compileText = if (Test-Path -LiteralPath $compileLogPath) { Get-Content -Litera
 $compileErrors = @([regex]::Matches($compileText, '(?im)\berror\s+CS\d+\b')).Count
 $compileWarnings = @([regex]::Matches($compileText, '(?im)\bwarning\s+CS\d+\b')).Count
 
+$wave16ContractChecks = @()
+if ($null -ne $wave16Edit) { $wave16ContractChecks += @($wave16Edit.checks) }
+if ($null -ne $wave16Play) { $wave16ContractChecks += @($wave16Play.checks) }
+$observedCurrentWave16 = @($wave16ContractChecks |
+    Where-Object { $_.status -eq 'PASS' -and $frozenWave16Failures -contains [string]$_.id } |
+    ForEach-Object { [string]$_.id })
+$wave16EndingCatalog = @($wave16ContractChecks |
+    Where-Object { [string]$_.id -eq 'W16-N01.ending_catalog_21' } |
+    Select-Object -First 1)
+$wave16EndingCatalogPass = $wave16EndingCatalog.Count -eq 1 -and
+    $wave16EndingCatalog[0].status -eq 'PASS' -and
+    [string]$wave16EndingCatalog[0].actual -match 'endings=21/21' -and
+    [string]$wave16EndingCatalog[0].actual -match 'exactIds=True' -and
+    [string]$wave16EndingCatalog[0].actual -match 'escape=5,comic=5,rare=4,gamejam-stay=2,day50=5'
+$wave16CurrentContractPass = $null -ne $wave16Summary -and
+    $wave16Summary.overall -eq 'GREEN' -and $wave16Summary.productOverall -eq 'PASS' -and
+    (Compare-ExactSet $observedCurrentWave16 $frozenWave16Failures) -and $wave16EndingCatalogPass
+[string[]]$wave16BaselineObservedIds = @()
+if ($BaselineCommit -eq $redBaseline) {
+    if ($null -ne $wave16Summary) {
+        $wave16BaselineObservedIds = @($wave16Summary.productFailures | ForEach-Object { [string]$_.id })
+    }
+} else {
+    $wave16BaselineObservedIds = [string[]]$observedCurrentWave16
+}
+
 $infrastructureFailures = New-Object System.Collections.Generic.List[string]
 if ($null -eq $wave16Summary -or $wave16Summary.infrastructureOverall -ne 'PASS') {
     $infrastructureFailures.Add('fresh Wave 16 prerequisite summary is missing or infrastructure FAIL')
@@ -190,8 +218,16 @@ if ($BaselineCommit -eq $redBaseline) {
     if ($null -ne $wave16Summary -and @($wave16Summary.expectedGapIds).Count -ne 0) {
         $infrastructureFailures.Add('a540317 Wave 16 foundation must be recorded as 17 product failures, not legacy EXPECTED_GAP')
     }
-} elseif ($null -eq $wave16Summary -or $wave16Summary.overall -ne 'GREEN' -or $wave16Summary.productOverall -ne 'PASS') {
-    $infrastructureFailures.Add('post-implementation baseline must turn the frozen Wave 16 foundation fully GREEN')
+} else {
+    if ($null -eq $wave16Summary -or $wave16Summary.overall -ne 'GREEN' -or $wave16Summary.productOverall -ne 'PASS') {
+        $infrastructureFailures.Add('post-implementation baseline must turn the frozen Wave 16 foundation fully GREEN')
+    }
+    if (-not (Compare-ExactSet $observedCurrentWave16 $frozenWave16Failures)) {
+        $infrastructureFailures.Add("current GREEN Wave 16 contract did not report all 17 product IDs PASS; observed=$([string]::Join(',', $observedCurrentWave16))")
+    }
+    if (-not $wave16EndingCatalogPass) {
+        $infrastructureFailures.Add('current GREEN Wave 16 ending catalog contract is missing the exact 21-ending, five-category observation')
+    }
 }
 if ($null -eq $wave15Summary -or $wave15Summary.overall -ne 'GREEN' -or
     $wave15Summary.productOverall -ne 'PASS' -or $wave15Summary.infrastructureOverall -ne 'PASS') {
@@ -262,13 +298,13 @@ $summary = [ordered]@{
     productOverall = $productOverall
     infrastructureOverall = $infrastructureOverall
     frozenWave16Baseline = [ordered]@{
-        expectedCount = if ($BaselineCommit -eq $redBaseline) { 17 } else { 0 }
-        expectedIds = if ($BaselineCommit -eq $redBaseline) { $frozenWave16Failures } else { @() }
-        observedIds = if ($null -eq $wave16Summary) { @() } else { @($wave16Summary.productFailures | ForEach-Object { [string]$_.id }) }
+        expectedCount = $frozenWave16Failures.Count
+        expectedIds = [string[]]$frozenWave16Failures
+        observedIds = [string[]]$wave16BaselineObservedIds
         result = if ($BaselineCommit -eq $redBaseline) {
             if ($null -ne $wave16Summary -and (Compare-ExactSet @($wave16Summary.productFailures | ForEach-Object { [string]$_.id }) $frozenWave16Failures)) { 'PASS 17/17' } else { 'FAIL' }
-        } elseif ($null -ne $wave16Summary -and $wave16Summary.overall -eq 'GREEN' -and $wave16Summary.productOverall -eq 'PASS') {
-            'PASS CURRENT GREEN'
+        } elseif ($wave16CurrentContractPass) {
+            'PASS CURRENT GREEN 17/17 (ending catalog 21/21)'
         } else {
             'FAIL'
         }
@@ -319,7 +355,7 @@ $txtPath = Join-Path $evidenceRoot 'wave17-summary.txt'
     "Baseline: $BaselineCommit"
     "PowerShell: $shellEdition $shellVersion"
     "Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall"
-    "Frozen Wave 16 failures: $($summary.frozenWave16Baseline.result)"
+    "Wave 16 contract baseline: $($summary.frozenWave16Baseline.result)"
     "Wave 15/qps: $($summary.currentGreenLocks.wave15CampaignMap)/$($summary.currentGreenLocks.qpsLong)"
     "Compile/Build/Smoke/Addressables: $($summary.currentGreenLocks.compile)/$($summary.currentGreenLocks.windowsDevelopmentBuild)/$($summary.currentGreenLocks.hiddenSmoke)/$($summary.currentGreenLocks.addressables)"
     "Expected Wave 17 product gaps: $($expectedGaps.Count) [$([string]::Join(', ', @($summary.expectedGapIds)))]"

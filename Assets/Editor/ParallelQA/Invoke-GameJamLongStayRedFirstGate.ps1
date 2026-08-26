@@ -220,23 +220,8 @@ foreach ($definition in @(
     $stages.Add($stage)
 }
 
-$commandResults = [ordered]@{
-    schemaVersion = 1
-    title = 'GameJam long-stay ending command results'
-    runId = $RunId
-    baselineCommit = $BaselineCommit
-    startedUtc = $runStarted.ToString('O')
-    completedUtc = [DateTime]::UtcNow.ToString('O')
-    stages = @($stages | ForEach-Object { $_ })
-}
 $commandResultsPath = Join-Path $evidenceRoot 'gamejam-long-stay-command-results.json'
 $commandResultsTextPath = Join-Path $evidenceRoot 'gamejam-long-stay-command-results.txt'
-Write-Utf8NoBom $commandResultsPath (($commandResults | ConvertTo-Json -Depth 12) + [Environment]::NewLine)
-$commandLines = @('GameJam long-stay ending command results', "Run ID: $RunId", "Baseline: $BaselineCommit")
-foreach ($stage in $stages) {
-    $commandLines += "$($stage.name) | exit=$($stage.exitCode) | $($stage.command)"
-}
-Write-Utf8NoBom $commandResultsTextPath (($commandLines -join [Environment]::NewLine) + [Environment]::NewLine)
 
 $editReport = Read-Json (Join-Path $evidenceRoot 'gamejam-long-stay-edit-contracts.json')
 $playReport = Read-Json (Join-Path $evidenceRoot 'gamejam-long-stay-play-contracts.json')
@@ -279,6 +264,32 @@ $overall = if ($infrastructureOverall -eq 'FAIL') { 'FAIL' } elseif ($productOve
 $exitCode = if ($overall -eq 'GREEN') { 0 } elseif ($overall -eq 'RED') { 2 } else { 1 }
 $exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamLongStayRedFirstGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '$BaselineCommit'"
 
+$commandResults = [ordered]@{
+    schemaVersion = 1
+    title = 'GameJam long-stay ending command results'
+    runId = $RunId
+    baselineCommit = $BaselineCommit
+    startedUtc = $runStarted.ToString('O')
+    completedUtc = [DateTime]::UtcNow.ToString('O')
+    overall = $overall
+    productOverall = $productOverall
+    infrastructureOverall = $infrastructureOverall
+    exitCode = $exitCode
+    stages = @($stages | ForEach-Object { $_ })
+}
+Write-Utf8NoBom $commandResultsPath (($commandResults | ConvertTo-Json -Depth 12) + [Environment]::NewLine)
+$commandLines = @(
+    'GameJam long-stay ending command results',
+    "Run ID: $RunId",
+    "Baseline: $BaselineCommit",
+    "Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall",
+    "Exit code: $exitCode (0 GREEN, 2 product RED, 1 infrastructure FAIL)"
+)
+foreach ($stage in $stages) {
+    $commandLines += "$($stage.name) | exit=$($stage.exitCode) | $($stage.command)"
+}
+Write-Utf8NoBom $commandResultsTextPath (($commandLines -join [Environment]::NewLine) + [Environment]::NewLine)
+
 $summary = [ordered]@{
     schemaVersion = 2
     title = 'GameJam long-stay endings RED-first independent QA gate'
@@ -290,6 +301,7 @@ $summary = [ordered]@{
     overall = $overall
     productOverall = $productOverall
     infrastructureOverall = $infrastructureOverall
+    exitCode = $exitCode
     passed = $passes.Count
     expectedGaps = $expectedGaps.Count
     failed = $productFailures.Count
@@ -311,6 +323,7 @@ $summaryLines = @(
     "Run ID: $RunId",
     "Baseline: $BaselineCommit",
     "Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall",
+    "Exit code: $exitCode (0 GREEN, 2 product RED, 1 infrastructure FAIL)",
     "PASS/EXPECTED_GAP/FAIL: $($passes.Count)/$($expectedGaps.Count)/$($productFailures.Count)",
     "PASS IDs: $($passIds -join ',')",
     "EXPECTED_GAP IDs: $($gapIds -join ',')",
