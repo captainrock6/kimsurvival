@@ -1,0 +1,33 @@
+{
+    "SchemaVersion": 1,
+    "Title": "O6 raft terminal action and protected-part readability gate",
+    "UnityVersion": "6000.4.9f1",
+    "Passed": true,
+    "Checks": [
+        {
+            "Id": "O6-RAFT-01",
+            "Passed": true,
+            "Detail": "launchAttemptFood=0; closedWindowFixture=True"
+        },
+        {
+            "Id": "O6-RAFT-02",
+            "Passed": true,
+            "Detail": "failureAtomic=True; trace=raft.key-part.protected|camp.interaction.escape.raft.popup-cancelled|camp.interaction.escape.raft.popup-opened|camp.interaction.escape.raft.action-confirmed|raft.stage.hull|camp.interaction.escape.raft.popup-opened|camp.interaction.escape.raft.action-confirmed|raft.stage.sail|camp.interaction.escape.raft.popup-opened|camp.interaction.escape.raft.action-confirmed|raft.stage.supplies|camp.interaction.escape.raft.popup-opened|camp.interaction.escape.raft.action-confirmed|raft.weather.current.window.unsafe-rejected|raft.closed-window.no-cost|raft.snapshot.restored|raft.weather.current.window.allowed-launch"
+        },
+        {
+            "Id": "O6-RAFT-03",
+            "Passed": true,
+            "Detail": "success=True; terminal=True; day=6"
+        },
+        {
+            "Id": "O6-ESCAPE-01",
+            "Passed": true,
+            "Detail": "parts=part.raft.sailcloth,part.smoke.flint,part.radio.transceiver,part.radio.circuit-board,part.radio.transistor; localized=True; counters=True"
+        },
+        {
+            "Id": "O6-ESCAPE-02",
+            "Passed": true,
+            "Detail": "localized explicit open/closed next-action copy=True"
+        }
+    ]
+}

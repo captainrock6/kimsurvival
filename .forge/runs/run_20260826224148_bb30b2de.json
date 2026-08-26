@@ -2,25 +2,41 @@
   "schemaVersion": 1,
   "id": "run_20260826224148_bb30b2de",
   "createdAt": "2026-08-26T22:41:48.594Z",
-  "updatedAt": "2026-08-26T22:41:48.594Z",
+  "updatedAt": "2026-08-26T23:14:30.413Z",
   "sourceRequest": "O5-H1 수기 피드백을 근거로 캠프 팝업 연속성, 증축 발견성, 뗏목 완료 안내, 화면 밀도, 다층 가구, 수색 tray, 4→10 가방, 84 node 혼합 산출과 핵심 부품 발견성을 O6 범위로 교정한다.",
-  "state": "design_ready",
+  "state": "complete",
   "stages": {
     "design": {
       "status": "complete",
       "updatedAt": "2026-08-26T22:41:48.594Z"
     },
     "art": {
-      "status": "planned",
-      "updatedAt": "2026-08-26T22:41:48.594Z"
+      "status": "complete",
+      "note": "기존 채택 아트의 월드 표시 배율과 카메라 프레이밍을 교정하고 1280x800·1920x1080 KO/EN/qps-long 증거를 확보함",
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/world"
+      ],
+      "updatedAt": "2026-08-26T23:12:00.000Z"
     },
     "implementation": {
-      "status": "planned",
-      "updatedAt": "2026-08-26T22:41:48.594Z"
+      "status": "complete",
+      "note": "캠프 팝업·증축·다층 가구, 84 node 혼합 산출·4→10 가방, 뗏목 무손실 완료 안내와 핵심 부품 0/1을 통합함",
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root",
+        "Artifacts/ParallelQA/O6RaftTerminalParts/o6-raft-terminal-parts-report.json",
+        "Artifacts/ParallelQA/o6-search-bag-play"
+      ],
+      "updatedAt": "2026-08-26T23:12:00.000Z"
     },
     "verification": {
-      "status": "planned",
-      "updatedAt": "2026-08-26T22:41:48.594Z"
+      "status": "complete",
+      "note": "O6 전용 Edit/Play 게이트, Windows x64 Release, ZIP 대 폴더 비교와 압축 해제본 숨김 실행 PASS. 30분 자연 플레이는 O6-H1 대기",
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T090500Z_o6_release_d10d7c3/gamejam-release-build.json",
+        "Artifacts/ParallelQA/20260827T091500Z_o6_package_d10d7c3/gamejam-package-integrity-summary.json",
+        "Docs/Design/Playtest/Sessions/O6-H1-2026-08-27.md"
+      ],
+      "updatedAt": "2026-08-26T23:14:30.413Z"
     }
   }
 }

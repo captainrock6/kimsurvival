@@ -6141,7 +6141,12 @@
         "O5-H1-P0-002",
         "O5-H1-P1-010"
       ],
-      "candidateStatus": "IMPLEMENTATION_REQUIRED"
+      "candidateStatus": "AUTOMATED_GREEN_HUMAN_RETEST_PENDING",
+      "candidateCommit": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
+      "releaseEvidence": "Artifacts/ParallelQA/20260827T090500Z_o6_release_d10d7c3/gamejam-release-build.json",
+      "packageEvidence": "Artifacts/ParallelQA/20260827T091500Z_o6_package_d10d7c3/gamejam-package-integrity-summary.json",
+      "humanRetestChecklist": "Docs/Design/Playtest/Sessions/O6-H1-2026-08-27.md",
+      "packageZipSha256": "e5203fe2716caa9e10a688020f28402ddd95021f7542df57b14d2a78d1ec7a1f"
     }
   },
   "features": [

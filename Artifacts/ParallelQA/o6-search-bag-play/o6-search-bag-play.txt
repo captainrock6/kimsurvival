@@ -1,0 +1,2 @@
+PASS
+began=True opened=Opened rows=3/3 protectedFirst=True bagLeft=True bag4of10=True bag10=True

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "title": "Game Jam final package integrity and extracted smoke gate",
+  "runId": "20260827T091500Z_o6_package_d10d7c3",
+  "baselineCommit": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
+  "packageSourceCommit": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
+  "buildFlavor": "Release",
+  "observedHead": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
+  "startedUtc": "2026-08-26T23:14:16.8051641Z",
+  "completedUtc": "2026-08-26T23:14:30.4137778Z",
+  "overall": "PASS",
+  "packageFolder": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3",
+  "packageZip": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3.zip",
+  "packageZipSha256": "e5203fe2716caa9e10a688020f28402ddd95021f7542df57b14d2a78d1ec7a1f",
+  "sourcePackageImmutable": true,
+  "testedExtractedPayloadImmutable": true,
+  "postSmokeComparison": {
+    "expectedFileCount": 171,
+    "actualFileCount": 171,
+    "expectedAggregateSha256": "3bbb6e09a188c7584e64358f75c3a53b122cd2222330c4fa30c9ace0cabf0531",
+    "actualAggregateSha256": "3bbb6e09a188c7584e64358f75c3a53b122cd2222330c4fa30c9ace0cabf0531",
+    "missingFromExtracted": [],
+    "extraInExtracted": [],
+    "contentMismatches": [],
+    "status": "PASS"
+  },
+  "exitCode": 0,
+  "outputPolicy": "The runner writes repo files only below fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId>. A release hidden smoke is required, and the package must contain no debug symbols, WinPix runtime, player connection settings, profiler settings, or private/local addresses in boot.config.",
+  "releaseHygiene": {
+    "schemaVersion": 1,
+    "root": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3",
+    "bootConfig": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3\\KimSurvivalIsland_Data\\boot.config",
+    "bootConfigCount": 1,
+    "forbiddenFiles": [],
+    "forbiddenDirectories": [],
+    "forbiddenBootSettings": [],
+    "privateAddressMatches": [],
+    "buildInfoPath": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3\\BUILD-INFO.txt",
+    "releaseLabelMatches": true,
+    "buildOptionsMatch": true,
+    "status": "PASS"
+  },
+  "releaseBuildEvidence": {
+    "schemaVersion": 1,
+    "path": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\gamejam-release-build.json",
+    "sha256": "2b989f87af4502a517286ef1e152dec5ad5f01a9a84dfce4b56ae80ec679553e",
+    "sourceCommit": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
+    "observedHead": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
+    "buildOptions": "None",
+    "sourceCleanBeforeUnity": true,
+    "sourceCleanAfterUnity": true,
+    "packageFolder": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3",
+    "packageFolderAggregateSha256": "3bbb6e09a188c7584e64358f75c3a53b122cd2222330c4fa30c9ace0cabf0531",
+    "packageZip": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3.zip",
+    "packageZipSha256": "e5203fe2716caa9e10a688020f28402ddd95021f7542df57b14d2a78d1ec7a1f",
+    "executableSha256": "a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423",
+    "managedAssemblySha256": "fbe522b8e7e644266e089c14e6fadacec1b2dec9e2baefaedcac80057e631116",
+    "payloadFileCount": 171,
+    "issues": [],
+    "status": "PASS"
+  },
+  "evidenceRoot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3",
+  "workRoot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3",
+  "checks": [
+    {
+      "id": "PKG-I01.folder-internal-sha256-manifest",
+      "status": "PASS"
+    },
+    {
+      "id": "PKG-I02.zip-folder-exact-content",
+      "status": "PASS"
+    },
+    {
+      "id": "PKG-I03.extracted-hidden-smoke",
+      "status": "PASS"
+    },
+    {
+      "id": "PKG-I04.source-package-immutable",
+      "status": "PASS"
+    },
+    {
+      "id": "PKG-I05.tested-extracted-payload-immutable",
+      "status": "PASS"
+    },
+    {
+      "id": "PKG-I06.release-build-hygiene",
+      "status": "PASS"
+    },
+    {
+      "id": "PKG-I07.release-build-provenance",
+      "status": "PASS"
+    }
+  ],
+  "reports": {
+    "folderManifestJson": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-package-folder-manifest.json",
+    "folderManifestText": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-package-folder-manifest.txt",
+    "zipFolderComparisonJson": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-package-zip-folder-comparison.json",
+    "zipFolderComparisonText": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-package-zip-folder-comparison.txt",
+    "extractedSmokeJson": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-package-extracted-hidden-smoke.json",
+    "extractedSmokeText": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-package-extracted-hidden-smoke.txt",
+    "releaseBuildProvenanceJson": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-release-build-provenance.json",
+    "releaseBuildProvenanceText": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\gamejam-release-build-provenance.txt",
+    "capturedDevelopmentPlaytestLog": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T091500Z_o6_package_d10d7c3\\extracted-development-playtest.jsonl"
+  },
+  "exactRerun": "& '.\\Assets\\Editor\\ParallelQA\\Invoke-GameJamPackageIntegrityGate.ps1' -RunId '<FRESH_RUN_ID>' -BaselineCommit 'd10d7c3b51d305947acf0b12fb02b3adff0e4e5f' -PackageSourceCommit 'd10d7c3b51d305947acf0b12fb02b3adff0e4e5f' -PackageFolder 'C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3' -PackageZip 'C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\KimSurvivalIsland-gamejam-win64-release-d10d7c3.zip' -MinimumSmokeSeconds 8 -BuildFlavor Release -ReleaseBuildEvidencePath 'C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Artifacts\\ParallelQA\\20260827T090500Z_o6_release_d10d7c3\\gamejam-release-build.json'"
+}

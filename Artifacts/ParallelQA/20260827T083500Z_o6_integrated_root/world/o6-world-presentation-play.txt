@@ -1,0 +1,2 @@
+PASS
+playerScaled=True; structureRoots=4; camera=6.65; uiReference=1920x1080; hudReadable=True; targets=10; captures=KO1280,EN1920,QPS1280

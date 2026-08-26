@@ -4085,10 +4085,15 @@
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
         "Assets/Editor/ParallelQA"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/camp/o6-camp-modal-furniture-edit.txt",
+        "Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/camp/o6-camp-modal-furniture-play.txt"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-26T22:41:48.596Z"
+      "status": "done",
+      "updatedAt": "2026-08-26T23:12:00.000Z",
+      "note": "계획 지점 연결부, 유지형 결과 메시지와 세 층 가구 재배치 PASS.",
+      "completedAt": "2026-08-26T23:12:00.000Z"
     },
     {
       "id": "task.gamejam.o6-search-bag-node-density",
@@ -4118,10 +4123,15 @@
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
         "Assets/Editor/ParallelQA"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/search/o6-search-bag-resource-report.json",
+        "Artifacts/ParallelQA/o6-search-bag-play/o6-search-bag-play.txt"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-26T22:41:48.596Z"
+      "status": "done",
+      "updatedAt": "2026-08-26T23:12:00.000Z",
+      "note": "84 node·432 단위·혼합 2/4/10 산출, 보호 부품 선두 노출과 4→10 가방 PASS.",
+      "completedAt": "2026-08-26T23:12:00.000Z"
     },
     {
       "id": "task.gamejam.o6-raft-terminal-parts",
@@ -4148,10 +4158,14 @@
         "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
         "Assets/Editor/ParallelQA"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/O6RaftTerminalParts/o6-raft-terminal-parts-report.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-26T22:41:48.596Z"
+      "status": "done",
+      "updatedAt": "2026-08-26T23:12:00.000Z",
+      "note": "닫힌 출항 창 자원 무손실, 자연 경로 terminal과 세 탈출 경로 핵심 부품 0/1 PASS.",
+      "completedAt": "2026-08-26T23:12:00.000Z"
     },
     {
       "id": "task.gamejam.o6-integration-release",
@@ -4178,10 +4192,18 @@
         "Docs/Design/Playtest",
         "Builds/Windows"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root",
+        "Artifacts/ParallelQA/20260827T090500Z_o6_release_d10d7c3/gamejam-release-build.json",
+        "Artifacts/ParallelQA/20260827T091500Z_o6_package_d10d7c3/gamejam-package-integrity-summary.json",
+        "Docs/Design/Playtest/Sessions/O6-H1-2026-08-27.md"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "review",
+      "updatedAt": "2026-08-26T23:14:30.413Z",
+      "note": "커밋 d10d7c3 Release/ZIP/압축 해제 실행 PASS. O6-H1 30분 인간 자연 플레이 대기",
+      "completedAt": null
     }
   ],
-  "updatedAt": "2026-08-26T22:41:48.594Z"
+  "updatedAt": "2026-08-26T23:14:30.413Z"
 }

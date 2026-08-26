@@ -1,0 +1,2 @@
+PASS
+contract=gamejam.o6.world-framing.v1; campOrtho=6.65; expandedOrtho=6.65; explorationOrtho=6.35; backgroundWidth=24.50; zoomOut=1.182x; playerScale=0.82; structureScale=0.84; playerScreenRatio=0.218->0.151; uiReference=1920x1080; interactionCoordinates=unchanged; ladderCoordinates=unchanged
