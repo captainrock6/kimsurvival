@@ -69,7 +69,8 @@ function Assert-ExactReleaseSource([string]$Stage) {
     }
     $status = @(& git -C $projectRoot status --porcelain=v1 --untracked-files=all -- `
         Assets Packages ProjectSettings `
-        Docs/QA/gamejam-release-readme-ko.txt Docs/QA/gamejam-release-readme-en.txt)
+        Docs/QA/gamejam-release-readme-ko.txt Docs/QA/gamejam-release-readme-en.txt `
+        Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md)
     if ($LASTEXITCODE -ne 0) {
         throw "Unable to verify release source cleanliness $Stage."
     }
@@ -166,6 +167,8 @@ Copy-Item -LiteralPath (Join-Path $projectRoot 'Docs\QA\gamejam-release-readme-k
     -Destination (Join-Path $packageRoot 'README-KO.txt')
 Copy-Item -LiteralPath (Join-Path $projectRoot 'Docs\QA\gamejam-release-readme-en.txt') `
     -Destination (Join-Path $packageRoot 'README-EN.txt')
+Copy-Item -LiteralPath (Join-Path $projectRoot 'Docs\QA\gamejam-final-windows-candidate-30m-human-checklist-ko.md') `
+    -Destination (Join-Path $packageRoot 'QA-CHECKLIST-KO.md')
 
 $packagedExecutable = Join-Path $packageRoot 'KimSurvivalIsland.exe'
 $packagedAssembly = Join-Path $packageRoot 'KimSurvivalIsland_Data\Managed\Assembly-CSharp.dll'

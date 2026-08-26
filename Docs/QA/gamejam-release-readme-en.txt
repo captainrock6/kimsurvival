@@ -16,6 +16,7 @@ Core play
 Package identity
 - BUILD-INFO.txt records the exact source commit and hashes for the executable and managed game assembly.
 - SHA256SUMS.txt records SHA-256 for every other file in the package.
+- QA-CHECKLIST-KO.md contains the 30-minute manual playtest procedure and result ledger for this exact candidate.
 - This is a non-development Windows x64 candidate without the Unity player connection debugger.
 
 When reporting an issue, include the Windows version, display scaling, resolution, input device, Day/region/object, and expected versus observed behavior.
