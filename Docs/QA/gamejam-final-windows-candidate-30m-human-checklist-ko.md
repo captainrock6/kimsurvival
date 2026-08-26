@@ -8,6 +8,8 @@
 >
 > 목적: 자동화로 대신할 수 없는 `GJC-12`, `GJC-17`, `GJC-20`, `GJC-23`을 동일한 최종 후보 빌드에서 사람이 검증한다.
 
+> 운영용 정본은 이 파일이다. ZIP 안의 체크리스트는 패키징 당시 문서 커밋 `7678ab25` 사본이며, 후보 바이트를 보존하기 위해 자동 증거 갱신만으로 ZIP을 다시 만들지 않는다.
+
 이 문서는 과거 Day 3·Day 5 프로토타입용 절차가 아니다. 현재 GAME JAM 기준은 7개 지역, 4→6칸 가방, 같은 run의 위층·지하실, 뗏목·대형 연기·무전 조기 탈출, 임시 Day 20 장기 체류 엔딩이다. 표준 캠페인의 Day 50은 별도 자동 회귀로 보존한다.
 
 한 번의 대표 세션은 30분을 목표로 한다. KO 3명·EN 3명과 물리 게임패드는 공식 필수 검증이다. 7지역 누적 커버리지와 Day 20 장기 체류 2종은 같은 후보 빌드에서 수행하는 권장 회귀 표본이다. 대표 세션 하나만으로 이 항목들을 전부 통과했다고 기록하지 않는다.
@@ -18,7 +20,8 @@
 
 | 필드 | 정확한 값 |
 |---|---|
-| Git commit SHA-1, 40자리 | `3d64403813493d8de8e05f0844a5e616e164c6d4` |
+| 패키지 게임 소스 commit SHA-1, 40자리 | `3d64403813493d8de8e05f0844a5e616e164c6d4` |
+| QA 검증 러너 commit SHA-1, 40자리 | `2c9f36a200032d821992234788ef372747b8b925` |
 | Windows EXE 파일명 | `KimSurvivalIsland.exe` |
 | Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-3d64403\KimSurvivalIsland.exe` |
 | EXE SHA-256, 64자리 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
@@ -28,20 +31,21 @@
 | Unity 버전 | `6000.4.9f1` |
 | 화면 | `1280×800 / 창모드·전체화면: ____________________` |
 | Windows 버전 | `________________________________________` |
-| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403`, `Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403`, `Artifacts/ParallelQA/20260827T200000Z_gamejam_longstay_3d64403` |
+| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403`, `Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403`, `Artifacts/ParallelQA/finalqa_9263705_wave17`, `Artifacts/ParallelQA/finalqa_9263705_longstay`, `Artifacts/ParallelQA/pkg_2c9f36a_verified` |
 | 테스트 담당자·세션 ID | `________________________________________` |
 
 해시 기록 명령:
 
 ```powershell
-git rev-parse HEAD
+Get-Content -LiteralPath '<최종 후보 폴더>\BUILD-INFO.txt'
 Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 exe의 정확한 경로>'
 Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 폴더>\KimSurvivalIsland_Data\Managed\Assembly-CSharp.dll'
+Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 ZIP의 정확한 경로>'
 ```
 
 후보 무효 조건:
 
-- commit, EXE SHA 또는 게임 코드 DLL SHA가 기록과 다르다.
+- `BUILD-INFO.txt`의 게임 소스 commit, EXE SHA, 게임 코드 DLL SHA 또는 ZIP SHA가 기록과 다르다.
 - 테스트 중 빌드를 교체했지만 새 후보로 다시 시작하지 않았다.
 - 개발용 grant, 좌표 warp, day/phase skip, fixture 전용 메뉴를 사용했다.
 - 이전 save를 fresh-user 표본에 재사용했다.
@@ -50,7 +54,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 폴더>\KimSurvivalI
 
 ### 2.1 자동화 결과 — 후보 사전 조건
 
-다음은 사람이 느낌으로 재판정할 항목이 아니다. 다만 위의 정확한 commit·EXE SHA에서 생성된 최신 증거가 모두 PASS인지 확인한다.
+다음은 사람이 느낌으로 재판정할 항목이 아니다. 다만 위의 정확한 패키지 게임 소스·EXE·DLL·ZIP에서 생성된 최신 증거가 모두 PASS인지 확인한다.
 
 | 자동 게이트 | 최신 증거 | 판정 |
 |---|---|---|
@@ -61,6 +65,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 폴더>\KimSurvivalI
 | 질병 원자성·보호 부품·뗏목/연기/무전·위층/지하 | Wave C `gamejam-wave-c-play-contracts.json` | `[x] PASS [ ] FAIL` |
 | KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | Wave C `gamejam-wave-c-summary.json` | `[x] PASS [ ] FAIL` |
 | 엔딩 21종·core comic 3장+modifier·album exactly-once | Wave C `wave19-summary.json`, Long-stay `gamejam-long-stay-summary.json` | `[x] PASS [ ] FAIL` |
+| 내부 SHA manifest·ZIP/folder exact·압축 해제 hidden smoke·원본/해제본 불변·LocalLow 신규/시간/JSONL/SHA 검증 | `pkg_2c9f36a_verified/gamejam-package-integrity-summary.json`의 `PKG-I01~I06` | `[x] PASS [ ] FAIL` |
 
 하나라도 FAIL이면 수기 테스트 결과와 무관하게 후보는 `REJECT`다.
 

@@ -45,8 +45,11 @@
 - Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/windows-development-build.json
 - Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/windows-hidden-smoke.json
 - Artifacts/ParallelQA/20260827T200000Z_gamejam_longstay_3d64403/gamejam-long-stay-summary.json
+- Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json
+- Artifacts/ParallelQA/finalqa_9263705_longstay/gamejam-long-stay-summary.json
+- Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json
 
-이 증거는 현재 통합 브랜치에서 다시 생성한 GREEN 산출물이다. 우선순위는 현재 통합 probe, 같은 빌드의 세부 관찰, 과거 개별 wave PASS, backlog 상태, 설계 존재 순이다.
+이 증거는 현재 통합 브랜치에서 다시 생성한 GREEN 산출물이다. `finalqa_9263705_*`와 `pkg_2c9f36a_verified`는 후보 소스 이후 런타임 파일 변경 없이 QA 러너·Forge·문서만 보강한 커밋에서 생성했으며, 패키지 게이트는 후보의 BUILD-INFO 소스 `3d64403`과 QA HEAD `2c9f36a`를 별도 필드로 검증한다. 우선순위는 현재 통합 probe, 같은 빌드의 세부 관찰, 과거 개별 wave PASS, backlog 상태, 설계 존재 순이다.
 
 상태 의미:
 
@@ -61,7 +64,7 @@
 
 | ID | 제출 요구 | 상태 | 현재 증거와 판정 | 닫힘 조건 |
 |---|---|---|---|---|
-| GJC-01 | 컴파일·Windows 빌드·hidden smoke·Addressables·방화벽 | DONE | 컴파일 0 error/0 warning, Windows 빌드와 6초 이상 hidden smoke, Addressables·방화벽 검사가 모두 PASS이며 overall infrastructure도 PASS다. | 현재 녹색 lock을 이후 wave에서 회귀시키지 않는다. |
+| GJC-01 | 컴파일·Windows 빌드·hidden smoke·Addressables·방화벽 | DONE | 컴파일 0 error/0 warning, Windows 빌드와 6초 이상 hidden smoke, Addressables·방화벽 검사가 모두 PASS이며 overall infrastructure도 PASS다. 별도 `PKG-I01~I06`이 내부 manifest 265/265, ZIP↔폴더 266/266, 해제본 6.123초 생존·응답, 잔존 프로세스 0, 원본·테스트 payload 불변을 확인했다. LocalLow JSONL은 허용 경로·이번 실행 신규 생성·시간 범위·5줄 JSON 유효성·원본/증거 복사본 SHA 일치까지 검증했다. | 현재 녹색 lock을 이후 wave에서 회귀시키지 않는다. |
 | GJC-02 | 김씨의 직접 이동·근접 설비 상호작용 | DONE | current canonical camp/module/map lock과 Wave 11 직접 슬롯 상호작용 증거가 PASS다. 전역 메뉴 회귀 증거가 없다. | compact 문맥 prompt와 popup 복귀 회귀 0건을 유지한다. |
 | GJC-03 | 일반 설비 제한적 자유 배치·특수 anchor | DONE | 캠프/모듈 통합 lock이 PASS이고 기존 배치 계약이 현재 정본에 유지된다. | 이동 통로·anchor·취소 무변경 회귀 0건을 유지한다. |
 | GJC-04 | 수영 수색·복귀 | DONE | 현행 통합 회귀에서 수영과 생존 loop가 기존 녹색 lock으로 보존된다. | 자연 trace에서 grant/warp 없이 입수·복귀가 가능해야 한다. |
@@ -86,7 +89,7 @@
 | GJC-23 | 첫 사용자 30분 검증 | HUMAN_REQUIRED | KO 3명·EN 3명의 자연 세션은 실행되지 않았다. 결과를 만들어낼 수 없다. | 자동화 P0가 모두 GREEN인 동일 빌드에서 6세션을 수행하고 성공률·막힘·이해도를 기록한다. |
 | GJC-24 | Day 20 게임잼 장기 체류 엔딩 2종 | DONE | live 카탈로그 21개에 `ending.gamejam.stay.natural-kim`과 `ending.gamejam.stay.island-engineer`를 추가했다. 독립 GameJam long-stay Edit/Play 게이트 15/15가 자연 수색 우세·건설 우세의 서로 다른 Day 20 terminal, 조기 탈출 우선, 결정론, terminal·album exactly-once, KO/EN/qps 2종 comic clipping 0, 기존 Day 50 보존, grant·warp·skip 0을 PASS했다. | 후속 후보 빌드에서 21개 카탈로그와 session save v2 회귀를 유지한다. |
 
-집계는 DONE 20, PARTIAL 0, MISSING 0, HUMAN_REQUIRED 4이다. 최신 같은-run Wave C 게이트는 14/14 PASS, product PASS, infrastructure PASS, overall GREEN이며 선행 GSN 15/15, Wave 19 21/21, Wave 20 16/16과 Windows 빌드·hidden smoke·Addressables·방화벽을 함께 보존했다. 추가로 Day 20 장기 체류 독립 게이트가 15/15 GREEN이므로 자동화 가능한 GAME JAM 기능 범위는 닫혔다. 남은 GJC-12 가방 선택 체감, GJC-17 실제 시간, GJC-20 물리 게임패드, GJC-23 첫 사용자 6세션은 동일 Windows 후보 빌드에서 사람이 수행해야 한다.
+집계는 DONE 20, PARTIAL 0, MISSING 0, HUMAN_REQUIRED 4이다. 최신 같은-run Wave C 게이트는 14/14 PASS, product PASS, infrastructure PASS, overall GREEN이며 선행 GSN 15/15, Wave 19 21/21, Wave 20 16/16과 Windows 빌드·hidden smoke·Addressables·방화벽을 함께 보존했다. 추가로 보강 Wave 17은 17/17과 ending catalog 21/21, Day 20 장기 체류 독립 게이트는 15/15와 aggregate exit 0, 패키지 무결성 게이트는 PKG-I01~I06을 모두 PASS했다. 자동화 가능한 GAME JAM 기능 범위는 닫혔다. 남은 GJC-12 가방 선택 체감, GJC-17 실제 시간, GJC-20 물리 게임패드, GJC-23 첫 사용자 6세션은 동일 Windows 후보 빌드에서 사람이 수행해야 한다.
 
 ## 3. 완료된 3개 구현 wave 기록
 

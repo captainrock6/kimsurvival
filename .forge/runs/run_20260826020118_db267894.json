@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260826020118_db267894",
+  "createdAt": "2026-08-26T02:01:18.201Z",
+  "updatedAt": "2026-08-26T05:05:19.833Z",
+  "sourceRequest": "Update canonical Forge design with verified GAME JAM candidate source 3d64403 and final automated QA evidence; preserve GJC-12, GJC-17, GJC-20 and GJC-23 as human-required gates.",
+  "state": "blocked",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-26T02:01:18.201Z"
+    },
+    "art": {
+      "status": "complete",
+      "note": "Current adopted/runtime art is complete; review-only candidates and legacy hold assets remain explicitly unadopted.",
+      "evidence": [
+        ".forge/assets.json",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/wave19-asset-guid-evidence.json"
+      ],
+      "updatedAt": "2026-08-26T05:05:19.658Z"
+    },
+    "implementation": {
+      "status": "complete",
+      "note": "3d64403 automated GAME JAM implementation is GREEN; completion matrix is DONE 20/24 with no PARTIAL or MISSING requirements.",
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/finalqa_9263705_longstay/gamejam-long-stay-summary.json"
+      ],
+      "updatedAt": "2026-08-26T05:05:19.747Z"
+    },
+    "verification": {
+      "status": "blocked",
+      "note": "Automated gates are GREEN. HUMAN_REQUIRED only: GJC-12, GJC-17, GJC-20 and GJC-23 on exact candidate source 3d64403.",
+      "evidence": [
+        "Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json",
+        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
+        "Docs/Design/gamejam-completion-matrix.md",
+        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md"
+      ],
+      "updatedAt": "2026-08-26T05:05:19.833Z"
+    }
+  }
+}

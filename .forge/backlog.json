@@ -600,13 +600,15 @@
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-search-node-summary.json",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-play-contracts.json"
       ],
       "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-26T05:18:07.161Z",
+      "note": "Final candidate implements the live seven-region side-scrolling search-node loop.",
+      "completedAt": "2026-08-26T05:18:07.161Z",
       "createdAt": "2026-08-22T08:24:43.353Z"
     },
     {
@@ -638,13 +640,15 @@
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-search-node-summary.json",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-search-node-play-observation-evidence.json"
       ],
       "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-26T05:18:07.269Z",
+      "note": "Final candidate GSN 15/15 and Wave B runtime exploration contracts are GREEN.",
+      "completedAt": "2026-08-26T05:18:07.268Z",
       "createdAt": "2026-08-22T08:24:44.230Z"
     },
     {
@@ -867,11 +871,11 @@
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/windows-development-build.json",
         "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
       ],
-      "blockedReason": "자동 5일·compact A·Windows 빌드는 PASS다. grant·warp 없는 fresh 자연 경로, 첫 사용자 6세션(ko 3, en 3), 별도 물리 게임패드 ko/en 실기가 아직 없다.",
-      "status": "blocked",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
+      "blockedReason": "",
+      "status": "review",
+      "updatedAt": "2026-08-26T05:18:08.252Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
-      "note": "Stable legacy ID is preserved. Wave 12 5일 패키지가 canonical 실행 경로이며 외부 결과는 UNRUN, 과거 3일 자동 PASS는 역사적 증거다.",
+      "note": "Historical automated evidence is preserved. Current GJC-17/GJC-23 use the 30-minute checklist, while GJC-12 and GJC-20 have dedicated tasks.",
       "completedAt": null
     },
     {
@@ -1232,13 +1236,15 @@
       "evidence": [
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-play-contracts.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json"
       ],
       "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-26T05:18:07.375Z",
+      "note": "Hunger, health, return and recovery pressure are live in the final candidate.",
+      "completedAt": "2026-08-26T05:18:07.374Z",
       "createdAt": "2026-08-22T08:24:43.457Z"
     },
     {
@@ -1269,13 +1275,15 @@
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/kim-survival-exploration-1280x800.png",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png"
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json"
       ],
       "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-23T14:52:07.112Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-26T05:18:07.481Z",
+      "note": "Final candidate survival pressure and atomic recovery contracts are GREEN.",
+      "completedAt": "2026-08-26T05:18:07.480Z",
       "createdAt": "2026-08-22T08:24:44.342Z"
     },
     {
@@ -1331,13 +1339,15 @@
         "Artifacts/Verification/editmode-checks.txt",
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/windows-build.txt",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
+        "Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json"
       ],
       "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-25T14:19:28.853Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-26T05:18:07.589Z",
+      "note": "Raft, smoke and radio are distinct playable facility-bound escape paths in the final candidate.",
+      "completedAt": "2026-08-26T05:18:07.589Z",
       "createdAt": "2026-08-22T08:24:43.558Z"
     },
     {
@@ -1376,13 +1386,15 @@
         "Artifacts/Verification/playmode-checks.txt",
         "Artifacts/Verification/kim-survival-exploration-1280x800.png",
         "Artifacts/Verification/kim-survival-playmode-1280x800.png",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-edit-contracts.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json"
       ],
       "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-25T14:19:28.853Z",
-      "note": "기존 5일 프로토타입 증거는 역사적 회귀 기준으로 보존한다. Wave 15의 Day 50·지역 선택·위험·다중 탈출·행동 엔딩 수용 조건은 아직 구현·검증 전이다.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-26T05:18:07.698Z",
+      "note": "Three natural no-grant escape traces, retry atomicity and ending exactly-once are GREEN.",
+      "completedAt": "2026-08-26T05:18:07.698Z",
       "createdAt": "2026-08-22T08:24:44.452Z"
     },
     {
@@ -1849,11 +1861,16 @@
         "보호 핵심 부품과 시설 해체 환급을 포함한 softlock 검사가 모든 seed에서 최소 한 탈출 경로를 보장한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-edit-contracts.json",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-play-contracts.json"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:36:42.419Z"
+      "updatedAt": "2026-08-26T05:18:07.805Z",
+      "note": "The final candidate implements the exact seven-region finite 42-node seeded stock and protected-part distribution.",
+      "completedAt": "2026-08-26T05:18:07.804Z"
     },
     {
       "id": "task.qa.feature.resource-randomization",
@@ -1879,11 +1896,16 @@
         "보호 핵심 부품과 시설 해체 환급을 포함한 softlock 검사가 모든 seed에서 최소 한 탈출 경로를 보장한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-search-node-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:36:42.419Z"
+      "updatedAt": "2026-08-26T05:18:07.906Z",
+      "note": "Seed determinism, finite remainder, revisit persistence and protected-part placement are GREEN.",
+      "completedAt": "2026-08-26T05:18:07.905Z"
     },
     {
       "id": "task.feature.feature.survival-hazards",
@@ -1916,11 +1938,16 @@
         "제거형 위험과 일시적 위험을 구분하고 전자는 지역 영구 상태에 기록한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-play-contracts.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:36:42.419Z"
+      "updatedAt": "2026-08-26T05:18:08.018Z",
+      "note": "Region warning, insects, wildlife, dangerous plants, persistent hazards and disease lifecycle are live.",
+      "completedAt": "2026-08-26T05:18:08.017Z"
     },
     {
       "id": "task.qa.feature.survival-hazards",
@@ -1946,11 +1973,16 @@
         "제거형 위험과 일시적 위험을 구분하고 전자는 지역 영구 상태에 기록한다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-25T13:36:42.419Z"
+      "updatedAt": "2026-08-26T05:18:08.135Z",
+      "note": "Disease telegraph, exposure, symptom, aggravation, treatment and persistence contracts are GREEN.",
+      "completedAt": "2026-08-26T05:18:08.135Z"
     },
     {
       "id": "task.design.wave15-fifty-day-campaign-rebaseline",
@@ -2864,12 +2896,20 @@
         "Docs/Design/gamejam-wave-bc-design.md",
         "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-summary.json",
         "Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json",
-        "Docs/QA/gamejam-wave-c-integrated-green-e4bbc03.md"
+        "Docs/QA/gamejam-wave-c-integrated-green-e4bbc03.md",
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/finalqa_9263705_longstay/gamejam-long-stay-summary.json",
+        "Artifacts/ParallelQA/finalqa_9263705_wave17/wave17-summary.json",
+        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
+        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md"
       ],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-25T22:43:17.158Z",
-      "note": "Machine Wave C is 14/14, Day 20 long-stay is 15/15 and both are overall GREEN with a 28.98-minute no-cheat profile. Human timing, bag-choice, physical-gamepad and first-user gates remain."
+      "blockedReason": "GJC-17 actual 5-10/25-35 minute timing and GJC-23 KO 3 plus EN 3 fresh-user sessions require people on the exact 3d64403 candidate.",
+      "status": "blocked",
+      "updatedAt": "2026-08-26T05:07:17.122Z",
+      "note": "Automated Wave C 14/14, long-stay 15/15, Wave 17 17/17 and package PKG-I01-I06 are GREEN; only human timing and cohort evidence remain.",
+      "completedAt": null,
+      "createdAt": "2026-08-26T05:07:17.121Z"
     },
     {
       "id": "task.system.system.search-node-loot",
@@ -3429,12 +3469,17 @@
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/input-code-path-audit.txt",
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt",
         "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
+        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
+        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md"
       ],
-      "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "Wave 12 합성 입력의 prompt·locale·진행 독립성은 PASS다. 실제 게임패드는 UNVERIFIED이므로 ready를 유지한다."
+      "blockedReason": "GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact 3d64403 candidate.",
+      "status": "blocked",
+      "updatedAt": "2026-08-26T05:07:17.231Z",
+      "note": "Synthetic keyboard/gamepad semantic parity remains GREEN. Physical device evidence is intentionally not inferred.",
+      "completedAt": null,
+      "createdAt": "2026-08-26T05:07:17.231Z"
     },
     {
       "id": "task.art.animation.mr-kim.swim",
@@ -3868,12 +3913,15 @@
       "evidence": [
         "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
         "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/windows-hidden-smoke.txt",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt"
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
+        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
+        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md"
       ],
-      "blockedReason": "4→6 기능과 원자성은 최종 회귀 PASS다. 구매 후 grant·warp 없는 자연 Day 4~5 구조 경로의 독립 증거가 아직 없다.",
+      "blockedReason": "GJC-12 requires fresh-user observation that the 4-to-6 slot purchase creates useful expedition choice pressure on the exact candidate.",
       "status": "blocked",
-      "updatedAt": "2026-08-23T13:20:00.000Z",
-      "note": "기능 회귀 PASS는 보존한다. 자연 경로와 물리 게임패드 실기 결과를 자동 계약과 섞지 않는다.",
+      "updatedAt": "2026-08-26T05:07:17.342Z",
+      "note": "The 4-to-6 function, atomicity and persistence contracts are GREEN; only human feel and choice evidence remain.",
       "completedAt": null,
       "createdAt": "2026-08-23T03:05:27.603Z"
     },
@@ -4438,10 +4486,12 @@
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt",
         "Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt"
       ],
-      "blockedReason": "수직 슬라이스 이후 별도 사용자 승인, 공식 영문 제목, Steam App ID와 배포 권한이 필요하다.",
-      "status": "blocked",
-      "updatedAt": "2026-08-22T13:15:00.000Z",
-      "createdAt": "2026-08-22T13:15:00.000Z"
+      "blockedReason": "",
+      "status": "planned",
+      "updatedAt": "2026-08-26T05:18:08.373Z",
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "note": "Post-slice Steam release work is intentionally excluded from the GAME JAM submission gate.",
+      "completedAt": null
     },
     {
       "id": "task.feature.feature.custom-run-settings",
@@ -4468,9 +4518,9 @@
       "paths": [],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
+      "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-23T14:52:07.112Z"
+      "updatedAt": "2026-08-26T05:18:08.018Z"
     },
     {
       "id": "task.qa.feature.custom-run-settings",
