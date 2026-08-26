@@ -46,6 +46,13 @@ namespace KimSurvival
         public int OverflowCount;
         public int OffscreenCount;
         public int ClippedRequiredActionCount;
+        public int ActiveTextCount;
+        public int TextTextOverlapCount;
+        public int TextCardBoundaryViolationCount;
+        public float TitleFontSize;
+        public float MinimumCoreFontSize;
+        public float ModifierFontSize;
+        public string[] Violations = Array.Empty<string>();
     }
 
     [Serializable]

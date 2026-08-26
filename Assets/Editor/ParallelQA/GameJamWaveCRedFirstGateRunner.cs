@@ -961,7 +961,18 @@ namespace ParallelQA
                     modifierPanelCount = ReadInt(item, -1, "ModifierPanelCount", "LiveModifierPanelCount"),
                     overflowCount = ReadInt(item, -1, "OverflowCount", "TmpOverflowCount"),
                     offscreenCount = ReadInt(item, -1, "OffscreenCount", "OffscreenTextCount"),
-                    clippedRequiredActionCount = ReadInt(item, -1, "ClippedRequiredActionCount", "ClippedActionCount")
+                    clippedRequiredActionCount = ReadInt(item, -1, "ClippedRequiredActionCount", "ClippedActionCount"),
+                    activeGeometryTextCount = ReadInt(item, -1, "ActiveTextCount", "TextCount"),
+                    textTextOverlapCount = ReadInt(item, -1, "TextTextOverlapCount", "TextOverlapCount"),
+                    textCardBoundaryViolationCount = ReadInt(
+                        item,
+                        -1,
+                        "TextCardBoundaryViolationCount",
+                        "CardBoundaryViolationCount"),
+                    titleFontSize = ReadFloat(item, -1f, "TitleFontSize"),
+                    minimumCoreFontSize = ReadFloat(item, -1f, "MinimumCoreFontSize", "CoreFontSize"),
+                    modifierFontSize = ReadFloat(item, -1f, "ModifierFontSize"),
+                    geometryViolations = ReadStrings(item, "Violations", "GeometryViolations")
                 };
                 if (!string.IsNullOrWhiteSpace(layout.screenshot) && File.Exists(layout.screenshot))
                 {

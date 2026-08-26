@@ -307,7 +307,25 @@ namespace KimSurvival
                     "ParallelQA",
                     runId));
                 Directory.CreateDirectory(evidenceFolder);
-                observation.Layouts = hazardEscapeEndingRuntime.CaptureWaveCComicLayoutObservations(evidenceFolder);
+                PrototypeWaveCComicLayoutObservation[] layouts =
+                    hazardEscapeEndingRuntime.CaptureWaveCComicLayoutObservations(evidenceFolder);
+                Dictionary<string, PrototypeTerminalComicGeometryObservation> geometryByLocale =
+                    CaptureTerminalComicGeometryAudit().ToDictionary(value => value.Locale, StringComparer.Ordinal);
+                foreach (PrototypeWaveCComicLayoutObservation layout in layouts)
+                {
+                    if (!geometryByLocale.TryGetValue(layout.Locale, out PrototypeTerminalComicGeometryObservation geometry))
+                    {
+                        continue;
+                    }
+                    layout.ActiveTextCount = geometry.ActiveTextCount;
+                    layout.TextTextOverlapCount = geometry.TextTextOverlapCount;
+                    layout.TextCardBoundaryViolationCount = geometry.TextCardBoundaryViolationCount;
+                    layout.TitleFontSize = geometry.TitleFontSize;
+                    layout.MinimumCoreFontSize = geometry.MinimumCoreFontSize;
+                    layout.ModifierFontSize = geometry.ModifierFontSize;
+                    layout.Violations = geometry.Violations ?? Array.Empty<string>();
+                }
+                observation.Layouts = layouts;
                 observation.KnownLootBeforeFingerprint = knownBefore;
                 observation.KnownLootAfterFingerprint = searchNodeRuntime.Ledger.NewGameStockFingerprint;
                 observation.ProtectedBeforeFingerprint = protectedBefore;
