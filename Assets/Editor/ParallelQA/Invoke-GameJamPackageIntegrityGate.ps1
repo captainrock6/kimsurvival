@@ -39,7 +39,7 @@ if ($PSVersionTable.PSVersion.Major -lt 5) {
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')).Path
 $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
 $workRoot = Join-Path $projectRoot (Join-Path 'work\ParallelQA' $RunId)
-$extractRoot = Join-Path $workRoot 'extracted-package'
+$extractRoot = Join-Path $workRoot 'p'
 $playerLog = Join-Path $workRoot 'extracted-player.log'
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 $baselineCommitNormalized = $BaselineCommit.ToLowerInvariant()
@@ -368,6 +368,7 @@ function Expand-SafePackageZip(
             if (-not $relativePath.StartsWith($requiredPrefix, [StringComparison]::OrdinalIgnoreCase)) {
                 throw "ZIP file is outside the expected single top-level candidate folder: $relativePath"
             }
+            $payloadRelativePath = ConvertTo-SafeRelativePath $relativePath.Substring($requiredPrefix.Length)
             if ($seen.ContainsKey($relativePath)) {
                 throw "ZIP contains a duplicate case-insensitive file entry: $relativePath"
             }
@@ -383,7 +384,7 @@ function Expand-SafePackageZip(
             if ($unixFileType -eq 0xA000) {
                 throw "ZIP symbolic-link entries are not accepted: $relativePath"
             }
-            $destinationPath = Resolve-ContainedPath $Destination $relativePath
+            $destinationPath = Resolve-ContainedPath $Destination $payloadRelativePath
             $destinationDirectory = Split-Path -Parent $destinationPath
             if (-not (Test-Path -LiteralPath $destinationDirectory -PathType Container)) {
                 New-Item -ItemType Directory -Path $destinationDirectory -Force | Out-Null
@@ -410,7 +411,8 @@ function Expand-SafePackageZip(
                 $input.Dispose()
             }
             $records.Add([pscustomobject][ordered]@{
-                path = $relativePath
+                zipPath = $relativePath
+                path = $payloadRelativePath
                 compressedBytes = [long]$entry.CompressedLength
                 bytes = [long]$entry.Length
             })
@@ -670,7 +672,7 @@ try {
     $maximumZipEntries = $folderBefore.fileCount + $folderBefore.directoryCount + 1
     $zipEntries = @(Expand-SafePackageZip $packageZipPath $extractRoot $packageTopLevelDirectory `
         $folderBefore.fileCount $maximumZipEntries $folderBefore.bytes)
-    $extractedPackageRoot = Resolve-ContainedPath $extractRoot $packageTopLevelDirectory
+    $extractedPackageRoot = $extractRoot
     if (-not (Test-Path -LiteralPath $extractedPackageRoot -PathType Container)) {
         throw "ZIP did not produce the exact expected top-level candidate folder: $packageTopLevelDirectory"
     }
