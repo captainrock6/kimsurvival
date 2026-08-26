@@ -103,7 +103,7 @@ if (Test-Path -LiteralPath $verificationText -PathType Leaf) {
 }
 $startedUtc = [DateTime]::UtcNow
 $arguments = @(
-    '-batchmode', '-nographics', '-quit', '-projectPath', $projectRoot,
+    '-batchmode', '-force-d3d11', '-quit', '-projectPath', $projectRoot,
     '-executeMethod', 'KimSurvival.EditorTools.PrototypeProjectBuilder.BuildWindowsReleaseLogVerification',
     '-logFile', $buildLog
 )

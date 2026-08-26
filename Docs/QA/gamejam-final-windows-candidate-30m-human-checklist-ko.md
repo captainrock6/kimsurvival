@@ -1,8 +1,8 @@
 # GAME JAM 최종 Windows 후보 30분 수기 플레이테스트 체크리스트
 
-> **현재 상태: READY · AUTOMATED_GREEN · HUMAN_REQUIRED**
+> **현재 상태: O2_READY · O1_P1_CORRECTED · AUTOMATED_GREEN · HUMAN_REQUIRED**
 >
-> 제품 코드 `2bdea61`은 전체 통합 게이트·Release Windows 빌드·hidden smoke·패키지 무결성을 통과했다. 수기 세션은 이 문서를 포함해 다시 만든 최신 Release 패키지 하나만 사용하고, 정확한 source/EXE/DLL/ZIP 해시는 그 패키지의 `BUILD-INFO.txt`와 package integrity summary를 정본으로 삼는다.
+> O1에서 발견된 UI 위계, 재료 이름 불일치, 증축 설명, 캐릭터 접지·애니메이션, 런타임 리소스 구분 문제를 교정한 새 후보용 문서다. 수기 세션은 이 문서를 포함한 최신 Release 패키지 하나만 사용하고, 정확한 source/EXE/DLL/ZIP 해시는 그 패키지의 `BUILD-INFO.txt`와 package integrity summary를 정본으로 삼는다.
 
 > 대상: 《김씨 생존기: 무인도》 GAME JAM 최종 Windows 후보
 >
@@ -14,7 +14,7 @@
 
 > 누적 결과 원장: `Docs/Design/Playtest/gamejam-seven-region-search-node-results.md`
 
-> 운영용 정본은 이 파일이며 최종 Release ZIP에도 같은 사본을 포함한다. 자동 검증 이후 문서·Forge 상태만 바뀐 경우 제품 코드 기준은 `2bdea61`, 패키지 전체 source 기준은 `BUILD-INFO.txt`다.
+> 운영용 정본은 이 파일이며 최종 Release ZIP에도 같은 사본을 포함한다. O1 후보 `0cfcc02`는 폐기됐으며, 새 후보의 제품 코드와 패키지 source 기준은 모두 `BUILD-INFO.txt`다.
 
 이 문서는 과거 Day 3·Day 5 프로토타입용 절차가 아니다. 현재 GAME JAM 기준은 7개 지역, 4→6칸 가방, 같은 run의 위층·지하실, 뗏목·대형 연기·무전 조기 탈출, 임시 Day 20 장기 체류 엔딩이다. 표준 캠페인의 Day 50은 별도 자동 회귀로 보존한다.
 
@@ -26,22 +26,22 @@
 
 | 필드 | 최종 후보 기록 |
 |---|---|
-| 자동 GREEN 제품 코드 commit SHA-1, 40자리 | `2bdea6152727343c7e2c33bba340d89f8bc42d61` |
+| O2 교정 제품 코드 commit SHA-1, 40자리 | 최신 Release 패키지의 `BUILD-INFO.txt`에서 복사: `________________________________________` |
 | 최종 패키지 source commit SHA-1, 40자리 | 최신 Release 패키지의 `BUILD-INFO.txt`에서 복사: `________________________________________` |
 | QA 검증 러너 commit SHA-1, 40자리 | 최종 패키지 source와 동일: `________________________________________` |
 | Windows EXE 파일명 | `KimSurvivalIsland.exe` |
-| 자동 GREEN 기준 Release 폴더 | `work\ParallelQA\20260826T230000Z_gamejam_release_2bdea61\KimSurvivalIsland-gamejam-win64-release-2bdea61` |
-| 자동 GREEN 기준 EXE SHA-256 | `a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423` |
+| O2 후보 Release 폴더 | 전달된 새 후보 폴더: `________________________________________` |
+| O2 후보 EXE SHA-256 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 최종 후보 EXE SHA-256, 64자리 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 게임 코드 DLL 상대 경로 | `KimSurvivalIsland_Data\Managed\Assembly-CSharp.dll` |
-| 자동 GREEN 기준 게임 코드 DLL SHA-256 | `efdf3c2efdf529dd30ab27c4ff17859303a5c5f03dc176f7767222d6d9e4592f` |
+| O2 후보 게임 코드 DLL SHA-256 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 최종 후보 게임 코드 DLL SHA-256, 64자리 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 최종 후보 ZIP SHA-256, 64자리 | package integrity summary에서 복사: `________________________________________________________________` |
 | 최종 후보 빌드 완료 시각, KST | `BUILD-INFO.txt`에서 복사: `____________________` |
 | Unity 버전 | `6000.4.9f1` |
 | 화면 | `1280×800 / 창모드·전체화면: ____________________` |
 | Windows 버전 | `________________________________________` |
-| 자동 GREEN 증거 Run ID/경로 | `Artifacts/ParallelQA/20260826T223000Z_gamejam_waveb_2bdea61`, `Artifacts/ParallelQA/20260826T220000Z_gamejam_wavec_2bdea61`, `Artifacts/ParallelQA/20260826T230000Z_gamejam_release_2bdea61`, `Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61` |
+| O1 교정 자동 GREEN 증거 Run ID/경로 | `Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11`, `Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_final` |
 | 최종 Release·패키지 증거 Run ID/경로 | 최종 패키징 뒤 전달된 두 경로를 기록: `________________________________________` |
 | 테스트 담당자·세션 ID | `________________________________________` |
 
@@ -65,7 +65,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 ZIP의 정확한 경
 
 ### 2.1 자동화 결과 — 후보 사전 조건
 
-다음은 사람이 느낌으로 재판정할 항목이 아니다. 제품 코드 `2bdea61`의 최신 증거가 모두 PASS이며, 최종 패키지는 문서·Forge 상태 외 제품 소스 차이가 없고 별도 Release·패키지 무결성 게이트를 통과해야 한다.
+다음은 사람이 느낌으로 재판정할 항목이 아니다. O1 교정 소스의 최신 증거가 모두 PASS이며, 최종 패키지는 별도 Release·패키지 무결성 게이트를 통과해야 한다.
 
 | 자동 게이트 | 최신 증거 | 판정 |
 |---|---|---|
@@ -77,6 +77,8 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 ZIP의 정확한 경
 | KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | Wave C summary | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | 엔딩 21종·core comic 3장+modifier·album exactly-once | Wave C·Wave 19·long-stay 증거 | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | 내부 SHA manifest·ZIP/folder exact·압축 해제 hidden smoke·원본/해제본 불변·LocalLow 신규/시간/JSONL/SHA·release provenance | package integrity summary의 `PKG-I01~I07` | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
+
+O2에서는 자동 PASS와 별개로 다음 다섯 항목을 설명 없이 관찰한다: `H-001` 현재 주 행동과 정보 위계, `H-002` 수색 tray→가방→캠프의 같은 재료 이름·아이콘, `H-003` 증축 목적·비용·부족분·완료 공간, `H-004` 발 접지와 idle/walk/facing, `H-005` 자원·설비·상태의 시각 구분. 하나라도 다시 실패하면 후보는 `RETEST`다.
 
 최종 문서 패키징 뒤 Release·package integrity가 하나라도 FAIL이면 수기 테스트를 시작하지 않는다. FAIL이면 후보는 `REJECT`, 필수 증거가 없으면 `PAUSED`다.
 

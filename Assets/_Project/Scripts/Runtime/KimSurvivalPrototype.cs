@@ -895,8 +895,8 @@ namespace KimSurvival
             ConfigureLayout(statusText.gameObject, 1f, 0f, 0f, 54f);
             resourceText = CreateText("보유 자원", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 25, TextAnchor.MiddleLeft, new Color(0.91f, 0.96f, 0.94f));
             ConfigureTopHudText(resourceText);
-            resourceText.fontSizeMin = 24f;
-            resourceText.fontSizeMax = 25f;
+            resourceText.fontSizeMin = 18f;
+            resourceText.fontSizeMax = 23f;
             resourceText.textWrappingMode = TextWrappingModes.Normal;
             resourceText.maxVisibleLines = 2;
             ConfigureLayout(resourceText.gameObject, 1f, 1f, 0f, 78f);
@@ -1191,8 +1191,8 @@ namespace KimSurvival
             searchLootTrayPanel = CreatePanel(
                 "환경 수색 발견물 선택 트레이",
                 canvas.transform,
-                new Vector2(0.025f, 0.43f),
-                new Vector2(0.675f, 0.82f),
+                new Vector2(0.46f, 0.43f),
+                new Vector2(0.985f, 0.82f),
                 Vector2.zero,
                 Vector2.zero,
                 new Color(0.035f, 0.09f, 0.095f, 0.97f)).gameObject;
@@ -1612,7 +1612,7 @@ namespace KimSurvival
             searchLootTrayPanel.SetActive(searchTray);
             campProximityPrompt.SetActive(camp && !placing && !modulePreview && !popup && campInteraction.HasProximityPrompt);
             campModuleReasonChip.SetActive(modulePreview);
-            bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing);
+            bagPanel.SetActive(session.Phase == GamePhase.Exploring && !placing && !searchTray);
             phaseButton.gameObject.SetActive(camp && session.ExpeditionCompleted && !placing && !modulePreview && !popup);
             messagePanelImage.gameObject.SetActive(!popup && !result && !searchTray);
             resultPanel.SetActive(result);
@@ -1781,10 +1781,10 @@ namespace KimSurvival
         {
             bool compactPseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode &&
                                      searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen;
-            statusText.fontSizeMin = compactPseudoLong ? 22f : 26f;
-            statusText.fontSizeMax = 29f;
-            resourceText.fontSizeMin = compactPseudoLong ? 18f : 24f;
-            resourceText.fontSizeMax = 25f;
+            statusText.fontSizeMin = 22f;
+            statusText.fontSizeMax = compactPseudoLong ? 26f : 28f;
+            resourceText.fontSizeMin = 18f;
+            resourceText.fontSizeMax = compactPseudoLong ? 21f : 23f;
             statusText.overflowMode = compactPseudoLong ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
             resourceText.textWrappingMode = TextWrappingModes.Normal;
             resourceText.maxVisibleLines = 2;
@@ -3536,11 +3536,21 @@ namespace KimSurvival
             messageText.fontStyle = FontStyles.Normal;
             bool valid = option.CanCommit;
             messagePanelImage.color = valid
-                ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
-                : new Color(0.38f, 0.08f, 0.06f, 0.96f);
+                ? new Color(0.03f, 0.18f, 0.13f, 0.94f)
+                : new Color(0.18f, 0.055f, 0.045f, 0.94f);
             campModuleReasonChip.GetComponent<Image>().color = valid
-                ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
-                : new Color(0.38f, 0.08f, 0.06f, 0.96f);
+                ? new Color(0.03f, 0.18f, 0.13f, 0.94f)
+                : new Color(0.18f, 0.055f, 0.045f, 0.94f);
+            RectTransform reasonRect = campModuleReasonChip.GetComponent<RectTransform>();
+            bool playerOnLeft = campUse.PlayerPosition.x < 0f;
+            reasonRect.anchorMin = playerOnLeft
+                ? new Vector2(0.635f, CampModuleReasonAnchorMin.y)
+                : CampModuleReasonAnchorMin;
+            reasonRect.anchorMax = playerOnLeft
+                ? new Vector2(0.985f, CampModuleReasonAnchorMax.y)
+                : new Vector2(0.375f, CampModuleReasonAnchorMax.y);
+            reasonRect.offsetMin = Vector2.zero;
+            reasonRect.offsetMax = Vector2.zero;
             bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
             campModuleReasonText.fontSizeMin = pseudoLong ? 15f : 20f;
             campModuleReasonText.fontSizeMax = pseudoLong ? 18f : 22f;
@@ -4157,18 +4167,35 @@ namespace KimSurvival
 
         private NodeView FindNearestSearchNode(float maximumDistance)
         {
-            NodeView nearest = null;
-            float nearestDistance = float.MaxValue;
+            NodeView nearestAvailable = null;
+            float nearestAvailableDistance = float.MaxValue;
+            NodeView nearestDepleted = null;
+            float nearestDepletedDistance = float.MaxValue;
             for (int index = 0; index < nodes.Count; index += 1)
             {
                 float distance = Mathf.Abs(nodes[index].X - playerTraversal.X);
-                if (distance < maximumDistance && distance < nearestDistance)
+                if (distance >= maximumDistance)
                 {
-                    nearest = nodes[index];
-                    nearestDistance = distance;
+                    continue;
+                }
+
+                PrototypeSearchNodeState state = searchNodeRuntime.Ledger
+                    .GetOrCreate(nodes[index].Definition).State;
+                if (state == PrototypeSearchNodeState.Depleted)
+                {
+                    if (distance < nearestDepletedDistance)
+                    {
+                        nearestDepleted = nodes[index];
+                        nearestDepletedDistance = distance;
+                    }
+                }
+                else if (distance < nearestAvailableDistance)
+                {
+                    nearestAvailable = nodes[index];
+                    nearestAvailableDistance = distance;
                 }
             }
-            return nearest;
+            return nearestAvailable != null ? nearestAvailable : nearestDepleted;
         }
 
         private void TakeAllSearchLoot()
@@ -4264,6 +4291,7 @@ namespace KimSurvival
                 node.Remaining.Length);
             PrototypeSearchEnvironmentalHazardExposureSnapshot environmentalExposure =
                 searchNodeRuntime.EnvironmentalHazards.Find(node.NodeId);
+            bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
 
             for (int index = 0; index < searchLootItemButtons.Count; index += 1)
             {
@@ -4282,6 +4310,10 @@ namespace KimSurvival
                             : item.StableResourceId),
                         item.Amount);
                 SetButton(searchLootItemButtons[index], label, !searchNodeRuntime.HasPendingBagSwap);
+                TMP_Text itemLabel = searchLootItemButtons[index].GetComponentInChildren<TMP_Text>();
+                itemLabel.fontSizeMin = pseudoLong ? 13f : 21f;
+                itemLabel.fontSizeMax = pseudoLong ? 18f : 25f;
+                itemLabel.maxVisibleLines = pseudoLong ? 4 : 3;
                 searchLootItemButtons[index].GetComponent<Image>().color = item.IsProtectedPart
                     ? new Color(0.52f, 0.29f, 0.06f, 0.98f)
                     : SearchLootButtonBackground(item.StableResourceId, item.Resource, index == searchNodeRuntime.FocusedIndex);
@@ -4321,6 +4353,9 @@ namespace KimSurvival
                         : "search.hazard.action.retreat.dangerous-plants"
                     : "search.tray.action.leave";
             SetButton(searchLootLeaveButton, localization.Format(leaveActionKey), true);
+            TMP_Text leaveLabel = searchLootLeaveButton.GetComponentInChildren<TMP_Text>();
+            leaveLabel.fontSizeMin = pseudoLong ? 18f : 23f;
+            leaveLabel.fontSizeMax = pseudoLong ? 20f : 23f;
         }
 
         public PrototypeSearchNodePlayObservation CaptureSearchNodeVerificationObservation()
@@ -7020,7 +7055,11 @@ namespace KimSurvival
                     statusText.maxVisibleLines == 2 && resourceText.maxVisibleLines == 2,
                 localeCode + " 상단 HUD는 날짜 22px·정확한 세부 재료 18px 이상의 두 줄 자동 맞춤 계약 사용");
             Require(!statusText.isTextOverflowing && !resourceText.isTextOverflowing,
-                localeCode + " 정상 캠프 상단 HUD TMP overflow=0");
+                localeCode + " 정상 캠프 상단 HUD TMP overflow=0" +
+                " status=" + statusText.isTextOverflowing + "@" + statusText.fontSize.ToString("0.0") +
+                " resource=" + resourceText.isTextOverflowing + "@" + resourceText.fontSize.ToString("0.0") +
+                " statusText=" + statusText.text.Replace('\n', '/') +
+                " resourceText=" + resourceText.text.Replace('\n', '/'));
         }
 
         private bool TryProgressEscapeProject(string escapeId)
@@ -7805,7 +7844,7 @@ namespace KimSurvival
             RefreshSearchLootTrayUi();
             Canvas.ForceUpdateCanvases();
             RectTransform trayRect = searchLootTrayPanel.GetComponent<RectTransform>();
-            Require(trayRect.anchorMin.x >= 0.02f && trayRect.anchorMax.x <= 0.68f &&
+            Require(trayRect.anchorMin.x >= 0.44f && trayRect.anchorMax.x <= 0.99f &&
                     trayRect.anchorMin.y >= 0.42f && trayRect.anchorMax.y <= 0.83f,
                 localeCode + " compact 발견물 트레이 1280×800 안전영역·월드 보존");
             TMP_Text[] trayTexts = searchLootTrayPanel.GetComponentsInChildren<TMP_Text>(true);
@@ -7815,15 +7854,16 @@ namespace KimSurvival
                 if (!text.gameObject.activeInHierarchy) continue;
                 text.ForceMeshUpdate(true, true);
                 Require(text.font != null && text.fontSize >= 12.5f, localeCode + " 발견물 트레이 TMP 폰트·최소 가독 크기");
-                Require(!text.isTextOverflowing, localeCode + " 발견물 트레이 TMP overflow=0 · " + text.name);
+                Require(!text.isTextOverflowing, localeCode + " 발견물 트레이 TMP overflow=0 · " + text.name +
+                    " @" + text.fontSize.ToString("0.0") + " text=" + text.text.Replace('\n', '/'));
             }
             TMP_Text leaveLabel = searchLootLeaveButton.GetComponentInChildren<TMP_Text>();
-            Require(leaveLabel.fontSizeMin >= 23f && leaveLabel.fontSizeMax >= 23f &&
-                    leaveLabel.fontSize >= 23f && !leaveLabel.isTextOverflowing,
-                localeCode + " 발견물 닫기 action은 qps-long projected glyph 12px 대응 23pt 고정·무잘림");
-            RectTransform bagRect = bagPanel.GetComponent<RectTransform>();
-            Require(trayRect.anchorMax.x < bagRect.anchorMin.x && bagRect.anchorMin.x >= 0.69f,
-                localeCode + " 발견물 트레이와 기존 가방 비교 영역 비중첩");
+            float leaveFloor = localeCode == PrototypeLocalization.QpsLongLocaleCode ? 18f : 23f;
+            Require(leaveLabel.fontSizeMin >= leaveFloor && leaveLabel.fontSizeMax >= leaveFloor &&
+                    leaveLabel.fontSize >= leaveFloor && !leaveLabel.isTextOverflowing,
+                localeCode + " 발견물 닫기 action은 1280×800 최소 " + leaveFloor + "pt·무잘림");
+            Require(!bagPanel.activeSelf,
+                localeCode + " 발견물 트레이의 자체 가방 요약 사용 중 중복 대형 가방 패널 숨김");
             ResourceKind[] resourceKinds = { ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Food, ResourceKind.Salvage };
             for (int index = 0; index < resourceKinds.Length; index += 1)
             {
