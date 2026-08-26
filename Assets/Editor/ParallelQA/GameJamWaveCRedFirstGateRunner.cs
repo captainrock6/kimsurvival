@@ -585,7 +585,7 @@ namespace ParallelQA
                         Require(evidence.layouts.All(value => value.corePanelCount >= 3 && value.modifierPanelCount >= 1 &&
                                                               value.overflowCount == 0 && value.offscreenCount == 0 &&
                                                               value.clippedRequiredActionCount == 0 &&
-                                                              value.activeGeometryTextCount >= 5 &&
+                                                              value.activeGeometryTextCount >= 8 &&
                                                               value.textTextOverlapCount == 0 &&
                                                               value.textCardBoundaryViolationCount == 0 &&
                                                               value.titleFontSize >= 18f &&
@@ -625,8 +625,8 @@ namespace ParallelQA
                     "Run the representative seed via production input and record wall/profile time plus production action counters.",
                     "active production profile/event/counter observation surface");
 
-                HumanRequired(checks, "GWC-H01.gjc_12_20_23_remain_human", "matrix 141/145 human gates", "P1",
-                    "GJC-12, GJC-20, and GJC-23 remain HUMAN_REQUIRED; synthetic timing does not claim six human sessions or a physical gamepad",
+                HumanRequired(checks, "GWC-H01.gjc_12_17_20_23_remain_human", "matrix human gates", "P1",
+                    "GJC-12, GJC-17, GJC-20, and GJC-23 remain HUMAN_REQUIRED; synthetic timing does not claim human comprehension, measured human timing, six human sessions, or a physical gamepad",
                     "humanSessions=" + evidence.humanSessionCount + "; observationStatus=" + evidence.humanGateStatus,
                     "After Wave C automation is GREEN, run the same candidate build with KO 3 + EN 3 users and a physical gamepad.",
                     "Docs/Design/gamejam-completion-matrix.md");
@@ -1371,7 +1371,7 @@ namespace ParallelQA
                 productFailed = checks.Count(value => value.status == "FAIL"),
                 infrastructureFailed = checks.Count(value => value.status == "INFRA_FAIL"),
                 humanRequired = checks.Count(value => value.status == "HUMAN_REQUIRED"),
-                greenCompletionCondition = "Fresh GSN-E05/P05/P10 plus Wave C protected/pity, three natural escape routes, atomic retry, same-run upper+basement save, live KO/EN/qps comic, and 25-35 minute zero-cheat profile all PASS. GJC-12/20/23 remain HUMAN_REQUIRED.",
+                greenCompletionCondition = "Fresh GSN-E05/P05/P10 plus Wave C protected/pity, three natural escape routes, atomic retry, same-run upper+basement save, live KO/EN/qps comic, and 25-35 minute zero-cheat profile all PASS. GJC-12/17/20/23 remain HUMAN_REQUIRED.",
                 checks = checks.ToArray()
             };
             report.infrastructureOverall = report.infrastructureFailed == 0 ? "PASS" : "FAIL";

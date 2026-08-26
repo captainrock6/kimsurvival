@@ -700,11 +700,19 @@ namespace KimSurvival
 
             for (int index = 0; index < 3; index += 1)
             {
+                TMP_Text badge = FindTerminalComicText("Act Badge " + (index + 1));
+                ConfigureTerminalComicText(
+                    badge,
+                    new Vector2(0.055f, 0.62f),
+                    new Vector2(0.945f, 0.93f),
+                    15f,
+                    22f,
+                    3);
                 TMP_Text content = FindTerminalComicText("Copy " + (index + 1));
                 ConfigureTerminalComicText(
                     content,
-                    new Vector2(index == 1 ? 0.035f : 0.045f, 0.02f),
-                    new Vector2(index == 1 ? 0.965f : 0.955f, index == 1 ? 0.56f : 0.52f),
+                    new Vector2(0.055f, 0.06f),
+                    new Vector2(0.945f, 0.58f),
                     12f,
                     16f,
                     7);
@@ -724,7 +732,7 @@ namespace KimSurvival
         private GameObject FindTerminalComicObject(string objectName)
         {
             if (hazardEscapeEndingRuntime == null) return null;
-            Transform found = FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+            Transform found = FindObjectsByType<Transform>(FindObjectsInactive.Include)
                 .FirstOrDefault(value => value != null && string.Equals(value.gameObject.name, objectName, StringComparison.Ordinal));
             return found == null ? null : found.gameObject;
         }
@@ -744,7 +752,13 @@ namespace KimSurvival
         private static IEnumerable<TMP_Text> TerminalComicTexts(RectTransform frame)
         {
             if (frame == null) return Array.Empty<TMP_Text>();
-            string[] names = { "Finale Title", "Copy 1", "Copy 2", "Copy 3", "Survival Behavior Copy" };
+            string[] names =
+            {
+                "Finale Title",
+                "Act Badge 1", "Act Badge 2", "Act Badge 3",
+                "Copy 1", "Copy 2", "Copy 3",
+                "Survival Behavior Copy"
+            };
             return frame.GetComponentsInChildren<TMP_Text>(true)
                 .Where(value => value != null && names.Contains(value.gameObject.name, StringComparer.Ordinal));
         }

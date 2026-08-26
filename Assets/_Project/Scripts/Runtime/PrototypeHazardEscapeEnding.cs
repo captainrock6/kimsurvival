@@ -1264,6 +1264,8 @@ namespace KimSurvival
         private Image hazardPresentationIcon;
         private TMP_Text endingTitle;
         private readonly TMP_Text[] endingContents = new TMP_Text[3];
+        private readonly TMP_Text[] endingPanelBadges = new TMP_Text[3];
+        private readonly Image[] endingPanelSurfaces = new Image[3];
         private GameObject endingModifierPanel;
         private TMP_Text endingModifierText;
         private string currentEndingId = string.Empty;
@@ -1827,6 +1829,7 @@ namespace KimSurvival
             RebuildComicText(endingTitle);
             for (int index = 0; index < endingContents.Length; index += 1)
             {
+                RebuildComicText(endingPanelBadges[index]);
                 RebuildComicText(endingContents[index]);
             }
             RebuildComicText(endingModifierText);
@@ -2497,6 +2500,23 @@ namespace KimSurvival
                 outline.effectDistance = new Vector2(3f, -3f);
             }
 
+            if (selectedTriptych)
+            {
+                GameObject titleSurface = new GameObject("Finale Title Surface");
+                titleSurface.transform.SetParent(frame.transform, false);
+                RectTransform titleSurfaceRect = titleSurface.AddComponent<RectTransform>();
+                titleSurfaceRect.anchorMin = new Vector2(0.055f, 0.825f);
+                titleSurfaceRect.anchorMax = new Vector2(0.92f, 0.965f);
+                titleSurfaceRect.offsetMin = Vector2.zero;
+                titleSurfaceRect.offsetMax = Vector2.zero;
+                Image titleSurfaceImage = titleSurface.AddComponent<Image>();
+                titleSurfaceImage.color = new Color(0.025f, 0.16f, 0.18f, 0.98f);
+                titleSurfaceImage.raycastTarget = false;
+                Outline titleSurfaceOutline = titleSurface.AddComponent<Outline>();
+                titleSurfaceOutline.effectColor = new Color(0.96f, 0.76f, 0.30f, 0.95f);
+                titleSurfaceOutline.effectDistance = new Vector2(2f, -2f);
+            }
+
             endingTitle = CreateEndingText("Finale Title", frame.transform,
                 selectedTriptych ? new Vector2(0.065f, 0.835f) : new Vector2(0.04f, 0.84f),
                 selectedTriptych ? new Vector2(0.72f, 0.955f) : new Vector2(0.96f, 0.965f),
@@ -2519,22 +2539,47 @@ namespace KimSurvival
                 GameObject panel = new GameObject("Panel " + (index + 1));
                 panel.transform.SetParent(frame.transform, false);
                 RectTransform panelRect = panel.AddComponent<RectTransform>();
-                panelRect.anchorMin = new Vector2(minimum, selectedTriptych ? 0.315f : 0.06f);
+                panelRect.anchorMin = new Vector2(minimum, selectedTriptych ? 0.37f : 0.06f);
                 panelRect.anchorMax = new Vector2(maximum, selectedTriptych ? 0.80f : 0.80f);
                 panelRect.offsetMin = Vector2.zero;
                 panelRect.offsetMax = Vector2.zero;
                 Image panelImage = panel.AddComponent<Image>();
-                panelImage.color = selectedTriptych ? new Color(1f, 1f, 1f, 0f) :
+                panelImage.color = selectedTriptych ? new Color(0.90f, 0.84f, 0.66f, 0.99f) :
                     index == 1 ? new Color(0.12f, 0.28f, 0.30f, 1f) : new Color(0.16f, 0.20f, 0.22f, 1f);
                 panelImage.raycastTarget = false;
-                if (!selectedTriptych)
+                endingPanelSurfaces[index] = panelImage;
+                if (selectedTriptych)
+                {
+                    Outline panelOutline = panel.AddComponent<Outline>();
+                    panelOutline.effectColor = index == 1
+                        ? new Color(0.91f, 0.41f, 0.16f, 1f)
+                        : new Color(0.08f, 0.33f, 0.35f, 1f);
+                    panelOutline.effectDistance = new Vector2(3f, -3f);
+                }
+                else
                 {
                     Outline panelOutline = panel.AddComponent<Outline>();
                     panelOutline.effectColor = new Color(0.75f, 0.9f, 0.82f, 0.95f);
                     panelOutline.effectDistance = new Vector2(2f, -2f);
                 }
-                Vector2 copyMin = selectedTriptych ? new Vector2(0.04f, 0.02f) : new Vector2(0.07f, 0.09f);
-                Vector2 copyMax = selectedTriptych ? new Vector2(0.96f, 0.34f) : new Vector2(0.93f, 0.91f);
+                if (selectedTriptych)
+                {
+                    endingPanelBadges[index] = CreateEndingText(
+                        "Act Badge " + (index + 1),
+                        panel.transform,
+                        new Vector2(0.055f, 0.62f),
+                        new Vector2(0.945f, 0.93f),
+                        22,
+                        TextAlignmentOptions.Center);
+                    endingPanelBadges[index].enableAutoSizing = true;
+                    endingPanelBadges[index].fontSizeMin = 15f;
+                    endingPanelBadges[index].fontSizeMax = 22f;
+                    endingPanelBadges[index].maxVisibleLines = 3;
+                    endingPanelBadges[index].overflowMode = TextOverflowModes.Ellipsis;
+                    endingPanelBadges[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
+                }
+                Vector2 copyMin = selectedTriptych ? new Vector2(0.055f, 0.06f) : new Vector2(0.07f, 0.09f);
+                Vector2 copyMax = selectedTriptych ? new Vector2(0.945f, 0.58f) : new Vector2(0.93f, 0.91f);
                 endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, copyMin, copyMax, selectedTriptych ? 18 : 22, TextAlignmentOptions.Center);
                 endingContents[index].enableAutoSizing = true;
                 endingContents[index].fontSizeMin = selectedTriptych ? 12f : 14f;
@@ -2547,8 +2592,8 @@ namespace KimSurvival
             endingModifierPanel = new GameObject("Survival Behavior Modifier");
             endingModifierPanel.transform.SetParent(frame.transform, false);
             RectTransform modifierRect = endingModifierPanel.AddComponent<RectTransform>();
-            modifierRect.anchorMin = selectedTriptych ? new Vector2(0.065f, 0.075f) : new Vector2(0.08f, 0.055f);
-            modifierRect.anchorMax = selectedTriptych ? new Vector2(0.78f, 0.265f) : new Vector2(0.92f, 0.255f);
+            modifierRect.anchorMin = selectedTriptych ? new Vector2(0.055f, 0.055f) : new Vector2(0.08f, 0.055f);
+            modifierRect.anchorMax = selectedTriptych ? new Vector2(0.945f, 0.36f) : new Vector2(0.92f, 0.255f);
             modifierRect.offsetMin = Vector2.zero;
             modifierRect.offsetMax = Vector2.zero;
             Image modifierImage = endingModifierPanel.AddComponent<Image>();
@@ -2643,18 +2688,70 @@ namespace KimSurvival
             if (string.IsNullOrEmpty(currentEndingId) || endingTitle == null || localization == null) return;
             PrototypeEndingDefinition definition = PrototypeEndingCatalog.Get(currentEndingId);
             endingTitle.text = localization.Format(definition.StableId + ".title");
+            ApplyEndingPanelTheme(definition);
             for (int index = 0; index < endingContents.Length; index += 1)
             {
                 string role = localization.Format(definition.ComicPanelRoleIds[index] + ".label");
                 string content = localization.Format(definition.ComicPanelKeys[index]);
                 if (index == 2) content += "\n" + localization.Format("ending.panel.punchline.suffix");
-                endingContents[index].text = role + "\n" + content;
+                if (endingPanelBadges[index] != null)
+                {
+                    endingPanelBadges[index].text = (index + 1).ToString("00") + " · " + role;
+                }
+                endingContents[index].text = content;
             }
             PrototypeEndingModifierDefinition modifier = PrototypeEndingModifierCatalog.Resolve(behaviorTracker.Scores);
             currentEndingModifierId = modifier.StableId;
             if (endingModifierText != null)
             {
                 endingModifierText.text = localization.Format(modifier.TitleKey) + " · " + localization.Format(modifier.BodyKey);
+            }
+        }
+
+        private void ApplyEndingPanelTheme(PrototypeEndingDefinition definition)
+        {
+            if (definition == null) return;
+            Color[] colors;
+            if (string.Equals(definition.StableId, PrototypeEndingCatalog.GameJamNaturalKimEndingId, StringComparison.Ordinal))
+            {
+                colors = new[]
+                {
+                    new Color(0.77f, 0.86f, 0.68f, 0.99f),
+                    new Color(0.88f, 0.84f, 0.58f, 0.99f),
+                    new Color(0.67f, 0.81f, 0.68f, 0.99f)
+                };
+            }
+            else if (string.Equals(definition.StableId, PrototypeEndingCatalog.GameJamIslandEngineerEndingId, StringComparison.Ordinal))
+            {
+                colors = new[]
+                {
+                    new Color(0.72f, 0.82f, 0.84f, 0.99f),
+                    new Color(0.93f, 0.70f, 0.45f, 0.99f),
+                    new Color(0.65f, 0.76f, 0.82f, 0.99f)
+                };
+            }
+            else if (string.Equals(definition.Category, "comic", StringComparison.Ordinal))
+            {
+                colors = new[]
+                {
+                    new Color(0.96f, 0.80f, 0.46f, 0.99f),
+                    new Color(0.94f, 0.64f, 0.35f, 0.99f),
+                    new Color(0.91f, 0.76f, 0.48f, 0.99f)
+                };
+            }
+            else
+            {
+                colors = new[]
+                {
+                    new Color(0.76f, 0.84f, 0.76f, 0.99f),
+                    new Color(0.91f, 0.82f, 0.60f, 0.99f),
+                    new Color(0.72f, 0.82f, 0.78f, 0.99f)
+                };
+            }
+
+            for (int index = 0; index < endingPanelSurfaces.Length; index += 1)
+            {
+                if (endingPanelSurfaces[index] != null) endingPanelSurfaces[index].color = colors[index];
             }
         }
     }

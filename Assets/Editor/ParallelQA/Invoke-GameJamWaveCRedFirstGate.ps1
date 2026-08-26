@@ -296,7 +296,7 @@ $summary = [ordered]@{
         'one run commits and re-enters upper and basement through save/restore without changing escape resources',
         'KO, EN, and qps-long render three live core comic panels plus a modifier with no required-action clipping',
         'a representative seed produces a 25-35 minute production-input profile with grant, warp, and skip counters at zero',
-        'fresh same-run GSN-E05, GSN-P05, and GSN-P10 are PASS; GJC-12, GJC-20, and GJC-23 remain HUMAN_REQUIRED'
+        'fresh same-run GSN-E05, GSN-P05, and GSN-P10 are PASS; GJC-12, GJC-17, GJC-20, and GJC-23 remain HUMAN_REQUIRED'
     )
     infrastructureFailures = @($infrastructureFailures | ForEach-Object { [string]$_ })
     exactRerun = $exactRerun
@@ -315,7 +315,7 @@ $summaryLines = @(
     "Wave C PASS/EXPECTED_GAP/FAIL/HUMAN_REQUIRED: $($passes.Count)/$($expectedGaps.Count)/$($productFailures.Count)/$($humanRequired.Count)"
     "Expected gap IDs: $([string]::Join(', ', $gapIds))"
     "Product failure IDs: $([string]::Join(', ', $failureIds))"
-    'GJC-12/GJC-20/GJC-23: HUMAN_REQUIRED'
+    'GJC-12/GJC-17/GJC-20/GJC-23: HUMAN_REQUIRED'
     "Rerun: $exactRerun"
     "Exit code: $exitCode (0 GREEN, 2 product RED, 1 infrastructure FAIL)"
 )

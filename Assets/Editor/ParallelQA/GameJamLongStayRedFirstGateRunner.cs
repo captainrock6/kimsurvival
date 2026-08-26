@@ -572,7 +572,7 @@ namespace ParallelQA
                             Require(layouts.All(value => value.width == 1280 && value.height == 800 && value.corePanelCount == 3 &&
                                                               value.modifierPanelCount >= 1 && value.overflowCount == 0 &&
                                                               value.offscreenCount == 0 && value.clippedRequiredActionCount == 0 &&
-                                                              value.activeGeometryTextCount >= 5 && value.textTextOverlapCount == 0 &&
+                                                              value.activeGeometryTextCount >= 8 && value.textTextOverlapCount == 0 &&
                                                               value.textCardBoundaryViolationCount == 0 && value.titleFontSize >= 18f &&
                                                               value.minimumCoreFontSize >= 12f && value.modifierFontSize >= 13f),
                                 endingId + " layout=" + string.Join(" | ", layouts.Select(DescribeLayout).ToArray()));
