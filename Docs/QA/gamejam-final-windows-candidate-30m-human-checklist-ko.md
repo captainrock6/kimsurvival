@@ -18,15 +18,15 @@
 
 | 필드 | 정확한 값 |
 |---|---|
-| Git commit SHA-1, 40자리 | `________________________________________` |
-| Windows EXE 파일명 | `________________________________________.exe` |
-| Windows EXE 절대 경로 | `________________________________________________________________` |
-| EXE SHA-256, 64자리 | `________________________________________________________________` |
-| 빌드 시각, KST | `YYYY-MM-DD HH:mm:ss` |
-| Unity 버전 | `6000.4.9f1 / 실제: ____________________` |
+| Git commit SHA-1, 40자리 | `2fa17c0adec9ae6c11958e3b70b74bc8e286a098` |
+| Windows EXE 파일명 | `KimSurvivalIsland.exe` |
+| Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\StableWindowsBuild\KimSurvivalIsland.exe` |
+| EXE SHA-256, 64자리 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
+| 빌드 시각, KST | `2026-08-26 10:54:32` |
+| Unity 버전 | `6000.4.9f1` |
 | 화면 | `1280×800 / 창모드·전체화면: ____________________` |
 | Windows 버전 | `________________________________________` |
-| 자동화 증거 Run ID/경로 | `________________________________________` |
+| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0`, `Artifacts/ParallelQA/20260827T050000Z_gamejam_longstay_2fa17c0` |
 | 테스트 담당자·세션 ID | `________________________________________` |
 
 해시 기록 명령:
@@ -51,13 +51,13 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 exe의 정확한 경
 
 | 자동 게이트 | 최신 증거 | 판정 |
 |---|---|---|
-| 컴파일 0 error / 0 warning | `____________________________` | `[ ] PASS [ ] FAIL` |
-| Windows build·hidden smoke·Addressables·방화벽 | `____________________________` | `[ ] PASS [ ] FAIL` |
-| 7 region·21 archetype·42 node·일반 자원 144 | `____________________________` | `[ ] PASS [ ] FAIL` |
-| hidden/partial/depleted·유한 잔여·장벽·영구 위험 snapshot | `____________________________` | `[ ] PASS [ ] FAIL` |
-| 질병 원자성·보호 부품·뗏목/연기/무전·위층/지하 | `____________________________` | `[ ] PASS [ ] FAIL` |
-| KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | `____________________________` | `[ ] PASS [ ] FAIL` |
-| 엔딩 21종·core comic 3장+modifier·album exactly-once | `____________________________` | `[ ] PASS [ ] FAIL` |
+| 컴파일 0 error / 0 warning | Wave C `compile-result.txt` | `[x] PASS [ ] FAIL` |
+| Windows build·hidden smoke·Addressables·방화벽 | Wave C `windows-development-build.json`, `windows-hidden-smoke.json` | `[x] PASS [ ] FAIL` |
+| 7 region·21 archetype·42 node·일반 자원 144 | Wave C `gamejam-wave-b-edit-contracts.json` | `[x] PASS [ ] FAIL` |
+| hidden/partial/depleted·유한 잔여·장벽·영구 위험 snapshot | Wave C `gamejam-wave-b-play-contracts.json` | `[x] PASS [ ] FAIL` |
+| 질병 원자성·보호 부품·뗏목/연기/무전·위층/지하 | Wave C `gamejam-wave-c-play-contracts.json` | `[x] PASS [ ] FAIL` |
+| KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | Wave C `gamejam-wave-c-summary.json` | `[x] PASS [ ] FAIL` |
+| 엔딩 21종·core comic 3장+modifier·album exactly-once | Wave C `wave19-summary.json`, Long-stay `gamejam-long-stay-summary.json` | `[x] PASS [ ] FAIL` |
 
 하나라도 FAIL이면 수기 테스트 결과와 무관하게 후보는 `REJECT`다.
 

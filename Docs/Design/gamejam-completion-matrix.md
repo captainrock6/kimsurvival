@@ -1,12 +1,16 @@
 # GAME JAM 제출 완료 기준 감사
 
-> 정본 기준: e4bbc03531d54e023f7a90f7a608871a47d26d55
+> 후보 소스: 2fa17c0adec9ae6c11958e3b70b74bc8e286a098
 >
-> 감사 계약: gamejam.completion-matrix.v1
+> 감사 계약: gamejam.completion-matrix.v2
 >
 > 판정일: 2026-08-26
 >
 > 제출 판정: AUTOMATED_GREEN · HUMAN_REQUIRED
+
+> 테스트 후보: `work/ParallelQA/StableWindowsBuild/KimSurvivalIsland.exe`
+>
+> EXE SHA-256: `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d`
 
 이 문서는 통합 GDD와 Forge 수직 슬라이스가 요구하는 기능을 현재 실행 증거와 대조한 제출 게이트다. backlog의 done 표시는 작업 이력을 뜻할 뿐, 이 표의 DONE을 자동으로 보장하지 않는다. 현재 통합 게이트의 독립 probe가 과거 개별 PASS와 충돌하면 현재 통합 게이트를 우선한다.
 
@@ -24,15 +28,15 @@
 - Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-edit-contracts.json
 - Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-play-contracts.json
 - Artifacts/ParallelQA/20260826T082000Z_gamejam_wave_b_committed_green/gamejam-wave-b-summary.json
-- Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-summary.json
-- Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-edit-contracts.json
-- Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-play-contracts.json
-- Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json
-- 같은 폴더의 gamejam-search-node-edit-observation-evidence.json
-- 같은 폴더의 gamejam-search-node-play-observation-evidence.json
-- 같은 폴더의 wave19-summary.json, wave20-summary.json, wave16-summary.json
-- 같은 폴더의 compile-result.txt, windows-development-build.json, windows-hidden-smoke.json
-- 같은 폴더의 wave11-slot-play-evidence.json, wave19-play-observation-evidence.json
+- Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0/gamejam-wave-c-summary.json
+- Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0/gamejam-wave-c-edit-contracts.json
+- Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0/gamejam-wave-c-play-contracts.json
+- Artifacts/ParallelQA/20260827T050000Z_gamejam_longstay_2fa17c0/gamejam-long-stay-summary.json
+- Wave C 증거 폴더의 gamejam-search-node-edit-observation-evidence.json
+- Wave C 증거 폴더의 gamejam-search-node-play-observation-evidence.json
+- Wave C 증거 폴더의 wave19-summary.json, wave20-summary.json, wave16-summary.json
+- Wave C 증거 폴더의 compile-result.txt, windows-development-build.json, windows-hidden-smoke.json
+- Wave C 증거 폴더의 wave11-slot-play-evidence.json, wave19-play-observation-evidence.json
 
 이 증거는 현재 통합 브랜치에서 다시 생성한 GREEN 산출물이다. 우선순위는 현재 통합 probe, 같은 빌드의 세부 관찰, 과거 개별 wave PASS, backlog 상태, 설계 존재 순이다.
 
@@ -78,7 +82,7 @@
 
 ## 3. 완료된 3개 구현 wave 기록
 
-세 wave는 기존 task를 닫은 의존 순서다. 각 wave는 RED-first probe 뒤 GREEN으로 전환됐고, Wave C는 `20260826T160000Z_gamejam_wave_c_committed`에서 전체 회귀와 함께 닫혔다.
+세 wave는 기존 task를 닫은 의존 순서다. 각 wave는 RED-first probe 뒤 GREEN으로 전환됐고, Wave C는 후보 소스 `2fa17c0`의 `20260827T043000Z_gamejam_wavec_2fa17c0`에서 전체 회귀와 함께 닫혔다.
 
 ### Wave A — live 수색 node 세로 골격
 

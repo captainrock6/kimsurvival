@@ -1,13 +1,13 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "project": {
     "title": "김씨 생존기: 무인도",
-    "oneLinePitch": "무인도에 조난된 김씨가 일곱 수색 지역과 다층 캠프를 오가며 세 가지 방법으로 조기 탈출하거나 누적 행동에 따른 코믹 결말을 맞는 2D 거점 생존 게임.",
+    "oneLinePitch": "무인도에 조난된 김씨가 내용물을 알 수 없는 수색 오브젝트를 직접 뒤져 필요한 물건만 가방에 챙기고, 상태가 영구히 변하는 일곱 지역과 다층 캠프를 오가며 여러 방법으로 탈출하거나 행동 기반 코믹 엔딩을 맞는 2D 생존 게임.",
     "gameJamCompletionMatrixContract": {
       "schemaVersion": 2,
       "contractId": "gamejam.completion-matrix.v2",
       "sourceBaseline": "e4bbc03531d54e023f7a90f7a608871a47d26d55",
-      "currentIntegratedCommit": "WORKTREE_PENDING_COMMIT",
+      "currentIntegratedCommit": "2fa17c0adec9ae6c11958e3b70b74bc8e286a098",
       "humanDocument": "Docs/Design/gamejam-completion-matrix.md",
       "designSources": [
         "Docs/Design/kim-survival-island-gdd.md",
@@ -15,8 +15,8 @@
         ".forge/design/project.json#project.sevenRegionSearchNodeContract"
       ],
       "integratedEvidenceRoots": [
-        "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed",
-        "Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated"
+        "Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0",
+        "Artifacts/ParallelQA/20260827T050000Z_gamejam_longstay_2fa17c0"
       ],
       "evidencePrecedence": [
         "current_integrated_probe",
@@ -248,8 +248,8 @@
       ],
       "evidence": [
         "Docs/Design/gamejam-completion-matrix.md",
-        "Artifacts/ParallelQA/20260826T160000Z_gamejam_wave_c_committed/gamejam-wave-c-summary.json",
-        "Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json"
+        "Artifacts/ParallelQA/20260827T043000Z_gamejam_wavec_2fa17c0/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/20260827T050000Z_gamejam_longstay_2fa17c0/gamejam-long-stay-summary.json"
       ]
     }
   ],
