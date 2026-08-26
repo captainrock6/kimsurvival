@@ -553,12 +553,16 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 14658219261953
-    m_Localized: "{0} · A/D move · Ladder W/S or ↑↓ hold · E use nearby facility (1.25m)\nClick/arrows+Enter action · Built facilities move free · F1 language"
+    m_Localized: "{0} \xB7 A/D move \xB7 Ladder W/S or \u2191\u2193 hold \xB7 E use
+      nearby facility (1.25m)\nClick or arrows+Enter action \xB7 Built facilities
+      move free \xB7 F1 language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 14658219261954
-    m_Localized: "{0} · Left stick move · Ladder stick ↑↓ hold · X use nearby facility (1.25m)\nD-pad+A action · Built facilities move free · Y language"
+    m_Localized: "{0} \xB7 Left stick move \xB7 Ladder stick \u2191\u2193 hold \xB7
+      X use nearby facility (1.25m)\nD-pad+A action \xB7 Built facilities move free
+      \xB7 Y language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
@@ -2578,39 +2582,39 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000001
-    m_Localized: "Escape route"
+    m_Localized: Escape route
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000002
-    m_Localized: "Current progress"
+    m_Localized: Current progress
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000003
-    m_Localized: "Next step"
+    m_Localized: Next step
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000004
-    m_Localized: "Need"
+    m_Localized: Need
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000005
-    m_Localized: "Owned"
+    m_Localized: Owned
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000006
-    m_Localized: "Complete"
+    m_Localized: Complete
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000007
-    m_Localized: "Key parts"
+    m_Localized: Key parts
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000008
-    m_Localized: "Rescue window"
+    m_Localized: Rescue window
     m_Metadata:
       m_Items: []
   - m_Id: 9100000000000009
-    m_Localized: "Rope"
+    m_Localized: Rope
     m_Metadata:
       m_Items: []
   references:
