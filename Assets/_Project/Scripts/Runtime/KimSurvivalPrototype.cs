@@ -916,7 +916,7 @@ namespace KimSurvival
                 "발견물 트레이 제목",
                 searchLootTrayPanel.transform,
                 new Vector2(0.035f, 0.79f),
-                new Vector2(0.64f, 0.97f),
+                new Vector2(0.965f, 0.97f),
                 Vector2.zero,
                 Vector2.zero,
                 26,
@@ -924,7 +924,7 @@ namespace KimSurvival
                 new Color(1f, 0.86f, 0.38f));
             searchLootTitleText.fontStyle = FontStyles.Bold;
             searchLootTitleText.enableAutoSizing = true;
-            searchLootTitleText.fontSizeMin = 18f;
+            searchLootTitleText.fontSizeMin = 24f;
             searchLootTitleText.fontSizeMax = 26f;
             searchLootTitleText.maxVisibleLines = 1;
             searchLootTitleText.overflowMode = TextOverflowModes.Ellipsis;
