@@ -171,9 +171,9 @@ if ($null -eq $wave14Qps -or [string]$wave14Qps.infrastructureOverall -ne 'PASS'
     [int]$wave14Qps.targetCount -ne 10 -or [int]$wave14Qps.passedTargets -ne 10) {
     $infrastructureFailures.Add('Wave 14 current compact qps-long spatial UI contract is not exactly 10/10 PASS')
 }
-if ($null -eq $wave19Summary -or [int]$wave19Summary.wave19.passed -ne 21 -or
+if ($null -eq $wave19Summary -or [int]$wave19Summary.wave19.passed -ne 22 -or
     [int]$wave19Summary.wave19.failed -ne 0) {
-    $infrastructureFailures.Add('Wave 19 GREEN lock is not exactly 21/21 PASS')
+    $infrastructureFailures.Add('Wave 19 GREEN lock is not exactly 22/22 PASS')
 }
 foreach ($report in @($wave20Edit, $wave20Play)) {
     if ($null -eq $report -or [string]$report.infrastructureOverall -ne 'PASS' -or
@@ -243,7 +243,7 @@ $summary = [ordered]@{
         raftPlayableFlareBeaconDataOnly = if ($null -ne $wave18Edit -and @($wave18Edit.checks | Where-Object { [string]$_.id -eq 'W17-E03.raft_flare_beacon_data_only' -and [string]$_.status -eq 'PASS' }).Count -eq 1) { 'PASS' } else { 'FAIL' }
         compactQpsSpatialUi = if ($null -ne $wave14Qps -and [bool]$wave14Qps.currentTenTargetContractPassed) { 'PASS 10/10' } else { 'FAIL' }
     }
-    wave19GreenLock = if ($null -eq $wave19Summary) { [ordered]@{ passed = 0; total = 21 } } else { [ordered]@{ passed = [int]$wave19Summary.wave19.passed; total = 21; failed = [int]$wave19Summary.wave19.failed } }
+    wave19GreenLock = if ($null -eq $wave19Summary) { [ordered]@{ passed = 0; total = 22 } } else { [ordered]@{ passed = [int]$wave19Summary.wave19.passed; total = 22; failed = [int]$wave19Summary.wave19.failed } }
     wave20 = [ordered]@{
         passed = $productPasses.Count
         expectedGaps = $expectedGaps.Count
@@ -270,7 +270,7 @@ $summary = [ordered]@{
         'grant=false, warp=false, skip=false are observed on a real Play interaction trace',
         'ko/en/qps-long near/popup captures are 1280x800 with overflow/offscreen zero and prompt <=512x50',
         'keyboard/mouse and synthetic gamepad target/action semantics match',
-        'fresh Wave 18 23/23, current compact qps-long UI 10/10, Wave 19 21/21, and Wave 20 contracts pass; compile/build/smoke/Addressables/firewall remain PASS'
+        'fresh Wave 18 23/23, current compact qps-long UI 10/10, Wave 19 22/22, and Wave 20 contracts pass; compile/build/smoke/Addressables/firewall remain PASS'
     )
     infrastructureFailures = $infrastructureFailureSnapshot
     physicalGamepad = 'UNVERIFIED'
@@ -290,7 +290,7 @@ $text = @(
     "Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall"
     "Wave 18 current lock: $($summary.wave18GreenLock.passed)/23 · E03=$($summary.currentPrerequisiteContracts.raftPlayableFlareBeaconDataOnly)"
     "Wave 14 current compact qps: $($summary.currentPrerequisiteContracts.compactQpsSpatialUi)"
-    "Wave 19 GREEN lock: $($summary.wave19GreenLock.passed)/21"
+    "Wave 19 GREEN lock: $($summary.wave19GreenLock.passed)/22"
     "Wave 20 PASS/EXPECTED_GAP/FAIL: $($productPasses.Count)/$($expectedGaps.Count)/$($productFailures.Count)"
     "Expected gap IDs: $([string]::Join(', ', $gapIds))"
     "Unexpected failure IDs: $([string]::Join(', ', $failureIds))"
@@ -319,7 +319,7 @@ Write-Output "PRODUCT=$productOverall"
 Write-Output "INFRASTRUCTURE=$infrastructureOverall"
 Write-Output "WAVE18_CURRENT=$($summary.wave18GreenLock.passed)/23;E03=$($summary.currentPrerequisiteContracts.raftPlayableFlareBeaconDataOnly)"
 Write-Output "WAVE14_CURRENT_QPS=$($summary.currentPrerequisiteContracts.compactQpsSpatialUi)"
-Write-Output "WAVE19_GREEN=$($summary.wave19GreenLock.passed)/21"
+Write-Output "WAVE19_GREEN=$($summary.wave19GreenLock.passed)/22"
 Write-Output "WAVE20_PASS=$($productPasses.Count)"
 Write-Output "WAVE20_EXPECTED_GAP=$($expectedGaps.Count)"
 Write-Output "WAVE20_FAIL=$($productFailures.Count)"

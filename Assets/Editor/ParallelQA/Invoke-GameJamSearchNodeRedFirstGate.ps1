@@ -276,7 +276,7 @@ $summary = [ordered]@{
         'search cost/risk apply once and new hazards pause while the actual compact tray is open',
         'fresh ko/en/qps-long 1280x800 actual captures have zero overflow/offscreen and clear player/walking band',
         'keyboard/mouse and synthetic gamepad structured meanings match; grant/warp/skip remain false',
-        'fresh Wave 20 16/16, Wave 19 21/21, canonical camp/module/map, same-day notice, compile/build/smoke/Addressables/firewall remain PASS'
+        'fresh Wave 20 16/16, Wave 19 22/22, canonical camp/module/map, same-day notice, compile/build/smoke/Addressables/firewall remain PASS'
     )
     infrastructureFailures = @($infrastructureFailures | ForEach-Object { [string]$_ })
     physicalGamepad = 'UNVERIFIED'
@@ -295,7 +295,7 @@ $text = @(
     "Baseline: $BaselineCommit"
     "Overall/Product/Infrastructure: $overall/$productOverall/$infrastructureOverall"
     "Wave 20 GREEN lock: $($summary.wave20GreenLock.passed)/16"
-    "Wave 19 GREEN lock: $($summary.wave19GreenLock.passed)/21"
+    "Wave 19 GREEN lock: $($summary.wave19GreenLock.passed)/22"
     "Search node PASS/EXPECTED_GAP/FAIL: $($productPasses.Count)/$($expectedGaps.Count)/$($productFailures.Count)"
     "Wave 19 equivalent resource-icon lock: $($summary.wave19ResourceIconDiagnostic)"
     "Expected gap IDs: $([string]::Join(', ', $gapIds))"
@@ -325,7 +325,7 @@ Write-Output "OVERALL=$overall"
 Write-Output "PRODUCT=$productOverall"
 Write-Output "INFRASTRUCTURE=$infrastructureOverall"
 Write-Output "WAVE20_GREEN=$($summary.wave20GreenLock.passed)/16"
-Write-Output "WAVE19_GREEN=$($summary.wave19GreenLock.passed)/21"
+Write-Output "WAVE19_GREEN=$($summary.wave19GreenLock.passed)/22"
 Write-Output "SEARCH_NODE_PASS=$($productPasses.Count)"
 Write-Output "SEARCH_NODE_EXPECTED_GAP=$($expectedGaps.Count)"
 Write-Output "SEARCH_NODE_FAIL=$($productFailures.Count)"

@@ -152,9 +152,9 @@ if ($null -eq $gsnSummary -or [int]$gsnSummary.searchNode.passed -ne 15 -or
     [int]$gsnSummary.searchNode.expectedGaps -ne 0 -or [int]$gsnSummary.searchNode.failed -ne 0) {
     $infrastructureFailures.Add('GSN GREEN lock is not exactly 15/15 PASS')
 }
-if ($null -eq $gsnSummary -or [int]$gsnSummary.wave19GreenLock.passed -ne 21 -or
+if ($null -eq $gsnSummary -or [int]$gsnSummary.wave19GreenLock.passed -ne 22 -or
     [int]$gsnSummary.wave19GreenLock.failed -ne 0) {
-    $infrastructureFailures.Add('Wave 19 GREEN lock is not exactly 21/21 PASS')
+    $infrastructureFailures.Add('Wave 19 GREEN lock is not exactly 22/22 PASS')
 }
 if ($null -eq $gsnSummary -or [int]$gsnSummary.wave20GreenLock.passed -ne 16 -or
     [int]$gsnSummary.wave20GreenLock.failed -ne 0) {
@@ -221,7 +221,7 @@ $summary = [ordered]@{
     infrastructureOverall = $infrastructureOverall
     prerequisites = [ordered]@{
         gsn = if ($null -eq $gsnSummary) { 'MISSING' } else { "$($gsnSummary.searchNode.passed)/15" }
-        wave19 = if ($null -eq $gsnSummary) { 'MISSING' } else { "$($gsnSummary.wave19GreenLock.passed)/21" }
+        wave19 = if ($null -eq $gsnSummary) { 'MISSING' } else { "$($gsnSummary.wave19GreenLock.passed)/22" }
         wave20 = if ($null -eq $gsnSummary) { 'MISSING' } else { "$($gsnSummary.wave20GreenLock.passed)/16" }
     }
     waveB = [ordered]@{
@@ -246,7 +246,7 @@ $summary = [ordered]@{
         'hidden/partial/depleted, known remainder, broken barrier, and removed persistent hazard survive return, forced return, revisit, and snapshot restore',
         'one live natural disease trace completes telegraph, exposure, effect, worsen, and mitigate/treat with zero duplicate/cancel contamination',
         'ko/en/qps-long 1280x800 and keyboard/mouse/synthetic-gamepad meanings match without overflow, offscreen, player, or walking-band occlusion',
-        'GSN 15/15, Wave 19 21/21, Wave 20 16/16, compile/build/smoke/Addressables/firewall remain PASS'
+        'GSN 15/15, Wave 19 22/22, Wave 20 16/16, compile/build/smoke/Addressables/firewall remain PASS'
     )
     infrastructureFailures = @($infrastructureFailures | ForEach-Object { [string]$_ })
     physicalGamepad = 'UNVERIFIED'

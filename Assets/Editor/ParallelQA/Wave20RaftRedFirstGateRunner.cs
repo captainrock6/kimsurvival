@@ -1141,7 +1141,7 @@ namespace ParallelQA
                 infrastructureFailed = checks.Count(check => check.status == "INFRA_FAIL"),
                 unverified = checks.Count(check => check.status == "UNVERIFIED"),
                 notReady = checks.Count(check => check.status == "NOT_READY"),
-                greenCompletionCondition = "Fresh current Wave 19 21/21 and all Wave 20 checks pass with infrastructure PASS; the exact legacy raft-data-only and removed-world-badge locks may be explicitly superseded by the current contract.",
+                greenCompletionCondition = "Fresh current Wave 19 22/22 and all Wave 20 checks pass with infrastructure PASS; the exact legacy raft-data-only and removed-world-badge locks may be explicitly superseded by the current contract.",
                 checks = checks.ToArray()
             };
             report.productOverall = report.productFailed > 0 ? "FAIL" : report.expectedGaps > 0 ? "RED_EXPECTED_GAP" : "PASS";

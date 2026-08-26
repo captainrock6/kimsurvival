@@ -1814,7 +1814,7 @@ namespace ParallelQA
                 infrastructureFailed = checks.Count(value => value.status == "INFRA_FAIL"),
                 unverified = checks.Count(value => value.status == "UNVERIFIED"),
                 notReady = checks.Count(value => value.status == "NOT_READY"),
-                greenCompletionCondition = "Wave B product checks are all PASS from actual structured Edit/Play evidence while GSN 15/15, Wave 19 21/21, Wave 20 16/16, compile/build/smoke/Addressables/firewall remain GREEN.",
+                greenCompletionCondition = "Wave B product checks are all PASS from actual structured Edit/Play evidence while GSN 15/15, Wave 19 22/22, Wave 20 16/16, compile/build/smoke/Addressables/firewall remain GREEN.",
                 checks = checks.ToArray()
             };
             report.infrastructureOverall = report.infrastructureFailed == 0 ? "PASS" : "FAIL";

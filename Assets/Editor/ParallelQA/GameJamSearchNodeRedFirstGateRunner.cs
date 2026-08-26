@@ -1526,7 +1526,7 @@ namespace ParallelQA
                 infrastructureFailed = checks.Count(check => check.status == "INFRA_FAIL"),
                 unverified = checks.Count(check => check.status == "UNVERIFIED"),
                 notReady = checks.Count(check => check.status == "NOT_READY"),
-                greenCompletionCondition = "All GSN product checks pass from structured actual Edit/Play observations; fresh Wave 20 is 16/16, Wave 19 is 21/21, and compile/build/smoke/Addressables/firewall remain PASS. Physical hardware and Steam stay separate.",
+                greenCompletionCondition = "All GSN product checks pass from structured actual Edit/Play observations; fresh Wave 20 is 16/16, Wave 19 is 22/22, and compile/build/smoke/Addressables/firewall remain PASS. Physical hardware and Steam stay separate.",
                 checks = checks.ToArray()
             };
             report.productOverall = report.productFailed > 0 ? "FAIL" : report.expectedGaps > 0 ? "RED_EXPECTED_GAP" : "PASS";
