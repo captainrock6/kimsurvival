@@ -41,6 +41,7 @@ $evidenceRoot = Join-Path $projectRoot (Join-Path 'Artifacts\ParallelQA' $RunId)
 $workRoot = Join-Path $projectRoot (Join-Path 'work\ParallelQA' $RunId)
 $extractRoot = Join-Path $workRoot 'p'
 $playerLog = Join-Path $workRoot 'extracted-player.log'
+$capturedPlaytestLog = Join-Path $evidenceRoot 'extracted-development-playtest.jsonl'
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 $baselineCommitNormalized = $BaselineCommit.ToLowerInvariant()
 $packageSourceCommitNormalized = $PackageSourceCommit.ToLowerInvariant()
@@ -462,7 +463,8 @@ function Invoke-ExtractedHiddenSmoke(
     [string]$Root,
     [string]$ExecutablePathRelative,
     [int]$RequiredSeconds,
-    [string]$LogPath
+    [string]$LogPath,
+    [string]$CapturedPlaytestLogPath
 ) {
     $startedUtc = [DateTime]::UtcNow
     $safeExecutableRelative = ''
@@ -479,6 +481,8 @@ function Invoke-ExtractedHiddenSmoke(
     $terminatedByRunner = $false
     $cleanupSucceeded = $false
     $residualPackageProcessIds = @()
+    $developmentPlaytestLog = ''
+    $developmentPlaytestLogCaptured = $false
     $observedSeconds = 0.0
     try {
         $safeExecutableRelative = ConvertTo-SafeRelativePath $ExecutablePathRelative
@@ -560,8 +564,26 @@ function Invoke-ExtractedHiddenSmoke(
             if ([string]::IsNullOrWhiteSpace($launchError)) { $launchError = "Package process cleanup failed: $($_.Exception.Message)" }
         }
     }
+    try {
+        if (Test-Path -LiteralPath $LogPath -PathType Leaf) {
+            $playerLogText = Get-Content -LiteralPath $LogPath -Raw -Encoding UTF8
+            $playtestLogMatch = [regex]::Match($playerLogText, '(?m)^\[Kim Survival Playtest\] Development-only local JSONL:\s*(?<path>.+?)\s*$')
+            if ($playtestLogMatch.Success) {
+                $developmentPlaytestLog = $playtestLogMatch.Groups['path'].Value.Trim()
+                if (Test-Path -LiteralPath $developmentPlaytestLog -PathType Leaf) {
+                    [IO.File]::Copy($developmentPlaytestLog, $CapturedPlaytestLogPath, $false)
+                    $developmentPlaytestLogCaptured = Test-Path -LiteralPath $CapturedPlaytestLogPath -PathType Leaf
+                }
+            }
+        }
+    } catch {
+        if ([string]::IsNullOrWhiteSpace($launchError)) {
+            $launchError = "Development playtest log capture failed: $($_.Exception.Message)"
+        }
+    }
     $status = if ([string]::IsNullOrWhiteSpace($launchError) -and -not $earlyExit -and
-        $aliveAtMinimum -and $respondingByGraceDeadline -and $cleanupSucceeded) { 'PASS' } else { 'FAIL' }
+        $aliveAtMinimum -and $respondingByGraceDeadline -and $cleanupSucceeded -and
+        $developmentPlaytestLogCaptured) { 'PASS' } else { 'FAIL' }
     return [pscustomobject][ordered]@{
         schemaVersion = 1
         startedUtc = $startedUtc.ToString('O')
@@ -586,6 +608,9 @@ function Invoke-ExtractedHiddenSmoke(
         terminatedByRunner = $terminatedByRunner
         cleanupSucceeded = $cleanupSucceeded
         residualPackageProcessIds = @($residualPackageProcessIds)
+        developmentPlaytestLog = $developmentPlaytestLog
+        developmentPlaytestLogCaptured = $developmentPlaytestLogCaptured
+        capturedPlaytestLog = $CapturedPlaytestLogPath
         launchError = $launchError
         status = $status
     }
@@ -732,7 +757,8 @@ Write-Utf8Lines (Join-Path $evidenceRoot 'gamejam-package-zip-folder-comparison.
 )
 
 $smoke = if ($folderManifestAudit.status -eq 'PASS' -and $zipComparisonOverall -eq 'PASS') {
-    Invoke-ExtractedHiddenSmoke $extractedPackageRoot $executableRelativeNormalized $MinimumSmokeSeconds $playerLog
+    Invoke-ExtractedHiddenSmoke $extractedPackageRoot $executableRelativeNormalized $MinimumSmokeSeconds `
+        $playerLog $capturedPlaytestLog
 } else {
     [pscustomobject][ordered]@{
         schemaVersion = 1
@@ -758,6 +784,9 @@ $smoke = if ($folderManifestAudit.status -eq 'PASS' -and $zipComparisonOverall -
         terminatedByRunner = $false
         cleanupSucceeded = $false
         residualPackageProcessIds = @()
+        developmentPlaytestLog = ''
+        developmentPlaytestLogCaptured = $false
+        capturedPlaytestLog = $capturedPlaytestLog
         launchError = 'SKIPPED: package manifest or ZIP/folder integrity did not pass.'
         status = 'FAIL'
     }
@@ -785,6 +814,8 @@ Write-Utf8Lines (Join-Path $evidenceRoot 'gamejam-package-extracted-hidden-smoke
     "Alive/responding: $($smoke.aliveAtMinimum)/$($smoke.respondingByGraceDeadline)"
     "Early exit: $($smoke.earlyExit)"
     "Process cleanup / residual PIDs: $($smoke.cleanupSucceeded) / $([string]::Join(',', @($smoke.residualPackageProcessIds)))"
+    "Development LocalLow JSONL: $($smoke.developmentPlaytestLog)"
+    "Captured evidence JSONL: $($smoke.capturedPlaytestLog) / $($smoke.developmentPlaytestLogCaptured)"
     "Launch error: $($smoke.launchError)"
     "Result: $($smoke.status)"
 )
@@ -829,7 +860,8 @@ $checks = @(
     [ordered]@{ id = 'PKG-I02.zip-folder-exact-content'; status = $zipComparisonOverall },
     [ordered]@{ id = 'PKG-I03.extracted-hidden-smoke'; status = $smoke.status },
     [ordered]@{ id = 'PKG-I04.source-package-immutable'; status = if ($sourceImmutable) { 'PASS' } else { 'FAIL' } },
-    [ordered]@{ id = 'PKG-I05.tested-extracted-payload-immutable'; status = if ($testedPayloadImmutable) { 'PASS' } else { 'FAIL' } }
+    [ordered]@{ id = 'PKG-I05.tested-extracted-payload-immutable'; status = if ($testedPayloadImmutable) { 'PASS' } else { 'FAIL' } },
+    [ordered]@{ id = 'PKG-I06.development-playtest-log-captured'; status = if ($smoke.developmentPlaytestLogCaptured) { 'PASS' } else { 'FAIL' } }
 )
 $overall = if (@($checks | Where-Object { $_.status -ne 'PASS' }).Count -eq 0) { 'PASS' } else { 'FAIL' }
 $aggregateExitCode = if ($overall -eq 'PASS') { 0 } else { 1 }
@@ -852,7 +884,7 @@ $summary = [ordered]@{
     testedExtractedPayloadImmutable = $testedPayloadImmutable
     postSmokeComparison = $postSmokeComparison
     exitCode = $aggregateExitCode
-    outputPolicy = 'Only fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId> are written.'
+    outputPolicy = 'The runner writes repo files only below fresh Artifacts/ParallelQA/<RunId> and work/ParallelQA/<RunId>. The Development player also creates one timestamped JSONL below its normal LocalLow PlaytestLogs path; that path is disclosed and a copy is captured as evidence without deleting user data.'
     evidenceRoot = $evidenceRoot
     workRoot = $workRoot
     checks = $checks
@@ -863,6 +895,7 @@ $summary = [ordered]@{
         zipFolderComparisonText = Join-Path $evidenceRoot 'gamejam-package-zip-folder-comparison.txt'
         extractedSmokeJson = Join-Path $evidenceRoot 'gamejam-package-extracted-hidden-smoke.json'
         extractedSmokeText = Join-Path $evidenceRoot 'gamejam-package-extracted-hidden-smoke.txt'
+        capturedDevelopmentPlaytestLog = $capturedPlaytestLog
     }
     exactRerun = "& '.\Assets\Editor\ParallelQA\Invoke-GameJamPackageIntegrityGate.ps1' -RunId '<FRESH_RUN_ID>' -BaselineCommit '$baselineCommitNormalized' -PackageSourceCommit '$packageSourceCommitNormalized' -PackageFolder '$packageFolderPath' -PackageZip '$packageZipPath' -MinimumSmokeSeconds $MinimumSmokeSeconds"
 }
@@ -879,6 +912,7 @@ Write-Utf8Lines $summaryTextPath @(
     "Extracted hidden smoke: $($smoke.status)"
     "Source package unchanged: $sourceImmutable"
     "Tested extracted payload unchanged: $testedPayloadImmutable"
+    "Development LocalLow JSONL disclosed/captured: $($smoke.developmentPlaytestLog) / $($smoke.developmentPlaytestLogCaptured)"
     "ZIP SHA-256: $zipSha256Before"
     "Evidence: $evidenceRoot"
     "Work: $workRoot"
