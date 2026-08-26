@@ -3792,10 +3792,15 @@
         "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
         "Assets/Editor/ParallelQA"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T023500Z_o5_seed_regression_r4/o4-stable-resource-escape-seed-report.json"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-26T16:50:01.223Z"
+      "status": "done",
+      "updatedAt": "2026-08-26T17:25:51.833Z",
+      "note": "일반 자원 432와 대표 seed 5개 세 경로 자원 가능성 GREEN",
+      "completedAt": "2026-08-26T17:25:51.833Z",
+      "createdAt": "2026-08-26T17:25:51.833Z"
     },
     {
       "id": "task.gamejam.o5-region-remaining-map-p1",
@@ -3823,9 +3828,16 @@
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
         "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json",
+        "Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T17:25:53.276Z",
+      "note": "7개 지역 카드와 상세 rail 잔량 % GREEN",
+      "completedAt": "2026-08-26T17:25:53.275Z",
+      "createdAt": "2026-08-26T17:25:53.276Z"
     },
     {
       "id": "task.gamejam.o5-staged-escape-facilities-p1",
@@ -3854,9 +3866,16 @@
         "Assets/_Project/Scripts/Runtime/PrototypeRaftEscape.cs",
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json",
+        "Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T17:25:54.711Z",
+      "note": "미건설 비노출, 건설 후 생성, 상시 경로 텍스트 제거 GREEN",
+      "completedAt": "2026-08-26T17:25:54.711Z",
+      "createdAt": "2026-08-26T17:25:54.711Z"
     },
     {
       "id": "task.gamejam.o5-spaced-camp-icon-affordance-p1",
@@ -3884,9 +3903,15 @@
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.GameJamSubmissionHardening.cs",
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.ArtPresentation.cs"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "done",
+      "updatedAt": "2026-08-26T17:25:56.177Z",
+      "note": "초기 탈출 설비 제거로 밀집 완화 및 공통 아이콘 표식 Play Mode GREEN",
+      "completedAt": "2026-08-26T17:25:56.176Z",
+      "createdAt": "2026-08-26T17:25:56.177Z"
     },
     {
       "id": "task.gamejam.o5-art-production-wave",
@@ -3916,11 +3941,15 @@
         "Assets/_Project/Art/Generated",
         "Docs/Art"
       ],
-      "evidence": [],
+      "evidence": [
+        ".forge/assets.json"
+      ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-26T17:21:12.126Z",
-      "completedAt": null
+      "updatedAt": "2026-08-26T17:25:57.656Z",
+      "completedAt": null,
+      "note": "UI·7지역·수색 오브젝트·상호작용·탈출 설비 후보 5종 생성, 모두 review 유지",
+      "createdAt": "2026-08-26T17:25:57.634Z"
     },
     {
       "id": "task.gamejam.o5-integration-release",
@@ -3945,9 +3974,18 @@
         "Builds/Windows",
         "Docs/Design/Playtest"
       ],
-      "evidence": [],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json",
+        "Artifacts/ParallelQA/20260827T023500Z_o5_seed_regression_r4/o4-stable-resource-escape-seed-report.json",
+        "Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt",
+        "Artifacts/ParallelQA/20260827T033000Z_o5_release_553cbc5/gamejam-release-build.json"
+      ],
       "blockedReason": "",
-      "status": "planned"
+      "status": "review",
+      "updatedAt": "2026-08-26T17:25:59.076Z",
+      "note": "커밋 553cbc5 Release/ZIP PASS. O5 30분 인간 자연 플레이 재검증 대기",
+      "completedAt": null,
+      "createdAt": "2026-08-26T17:25:59.075Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -5375,5 +5413,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-26T17:21:12.126Z"
+  "updatedAt": "2026-08-26T17:25:59.076Z"
 }

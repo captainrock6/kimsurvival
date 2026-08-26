@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "title": "Game Jam Windows x64 non-development release candidate build",
+  "runId": "20260827T033000Z_o5_release_553cbc5",
+  "baselineCommit": "553cbc5da5d1ccaa5ebc46d2d46d0324b0d459c6",
+  "observedHead": "553cbc5da5d1ccaa5ebc46d2d46d0324b0d459c6",
+  "sourceCleanBeforeUnity": true,
+  "sourceCleanAfterUnity": true,
+  "startedUtc": "2026-08-26T17:23:55.8437997Z",
+  "completedUtc": "2026-08-26T17:24:33.5958880Z",
+  "unityPath": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe",
+  "unityExitCode": 0,
+  "buildOptions": "None",
+  "buildRoot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\Builds\\WindowsReleaseVerification",
+  "packageFolder": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T033000Z_o5_release_553cbc5\\KimSurvivalIsland-gamejam-win64-release-553cbc5",
+  "packageFolderAggregateSha256": "275cab8fe816147b9fa5f1329ccad699404492ba987dfa68430d533da5ab47cb",
+  "packageZip": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T033000Z_o5_release_553cbc5\\KimSurvivalIsland-gamejam-win64-release-553cbc5.zip",
+  "packageZipSha256": "179e6e1556764dd1aec630bf6c4e56cfa3aabf3c6e2d9a20e98297149926e801",
+  "executableSha256": "a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423",
+  "managedAssemblySha256": "ae9d22aaa5a0a531efbff2446b83eb615f16162b64701120d8fd20025b608e31",
+  "payloadFileCount": 171,
+  "releaseHygiene": {
+    "forbiddenFiles": [],
+    "forbiddenDirectories": [],
+    "forbiddenBootSettings": [],
+    "privateAddresses": [],
+    "status": "PASS"
+  },
+  "overall": "PASS"
+}

@@ -6114,7 +6114,11 @@
         },
         "completedEscapeId": ""
       },
-      "candidateStatus": "IMPLEMENTATION_REQUIRED"
+      "candidateStatus": "AUTOMATED_GREEN_HUMAN_RETEST_PENDING",
+      "candidateCommit": "553cbc5da5d1ccaa5ebc46d2d46d0324b0d459c6",
+      "releaseEvidence": "Artifacts/ParallelQA/20260827T033000Z_o5_release_553cbc5/gamejam-release-build.json",
+      "humanRetestChecklist": "Docs/Design/Playtest/Sessions/O5-H1-2026-08-27.md",
+      "packageZipSha256": "179e6e1556764dd1aec630bf6c4e56cfa3aabf3c6e2d9a20e98297149926e801"
     }
   },
   "features": [

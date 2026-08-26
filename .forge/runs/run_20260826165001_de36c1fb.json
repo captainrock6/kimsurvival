@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "run_20260826165001_de36c1fb",
   "createdAt": "2026-08-26T16:50:01.221Z",
-  "updatedAt": "2026-08-26T17:21:56.053Z",
+  "updatedAt": "2026-08-26T17:26:00.536Z",
   "sourceRequest": "O4-H1 수기 테스트 실패를 근거로 자원 3배, 지역 잔량 표시, 탈출 설비 단계화, 캠프 간격 확대, 상호작용 아이콘, UI·수색 아트 전면 보강을 O5 범위로 적용한다.",
-  "state": "in_progress",
+  "state": "complete",
   "stages": {
     "design": {
       "status": "complete",
@@ -28,8 +28,15 @@
       "updatedAt": "2026-08-26T17:21:56.053Z"
     },
     "verification": {
-      "status": "planned",
-      "updatedAt": "2026-08-26T16:50:01.221Z"
+      "status": "complete",
+      "note": "Edit/Play Mode, 대표 seed 5개, Windows x64 Release와 패키지 무결성 PASS; 인간 30분 자연 플레이는 별도 O5-H1 재검증 대기",
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json",
+        "Artifacts/ParallelQA/20260827T023500Z_o5_seed_regression_r4/o4-stable-resource-escape-seed-report.json",
+        "Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt",
+        "Artifacts/ParallelQA/20260827T033000Z_o5_release_553cbc5/gamejam-release-build.json"
+      ],
+      "updatedAt": "2026-08-26T17:26:00.536Z"
     }
   }
 }
