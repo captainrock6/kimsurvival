@@ -35,7 +35,7 @@ namespace KimSurvival
     {
         public const float UseRange = 1.25f;
         public const float PlayerStartX = -5f;
-        public const float PlayerFloorY = -2.18f;
+        public const float PlayerFloorY = PrototypeCampPlacement.FloorY;
         public const float PlayerMinimumX = -5.6f;
         public const float PlayerMaximumX = 8.6f;
 
@@ -72,7 +72,7 @@ namespace KimSurvival
                 PlayerPosition.x + actions.Horizontal * MovementSpeed * Mathf.Max(0f, deltaTime),
                 PlayerMinimumX,
                 PlayerMaximumX);
-            PlayerPosition = new Vector2(x, PlayerPosition.y);
+            PlayerPosition = new Vector2(x, PlayerFloorY);
         }
 
         public void Warp(float worldX)
@@ -84,7 +84,7 @@ namespace KimSurvival
         public void Warp(Vector2 position)
         {
             PrototypeProductionActionCounters.RecordWarp();
-            PlayerPosition = new Vector2(Mathf.Clamp(position.x, PlayerMinimumX, PlayerMaximumX), position.y);
+            PlayerPosition = new Vector2(Mathf.Clamp(position.x, PlayerMinimumX, PlayerMaximumX), PlayerFloorY);
         }
 
         public void EnterRoom(string roomId, float landingX)
@@ -101,7 +101,7 @@ namespace KimSurvival
             FacingDirection = snapshot.FacingDirection < 0f ? -1f : 1f;
             PlayerPosition = new Vector2(
                 Mathf.Clamp(snapshot.Position.x, PlayerMinimumX, PlayerMaximumX),
-                snapshot.Position.y);
+                PlayerFloorY);
         }
 
         public PrototypeCampUseSnapshot CaptureSnapshot()
@@ -134,7 +134,7 @@ namespace KimSurvival
             }
 
             CurrentRoomId = snapshot.StableRoomId;
-            PlayerPosition = new Vector2(snapshot.PlayerX, snapshot.PlayerY);
+            PlayerPosition = new Vector2(snapshot.PlayerX, PlayerFloorY);
             FacingDirection = snapshot.FacingDirection;
             campfirePrepared = snapshot.CampfirePrepared;
             rainCollectorPrepared = snapshot.RainCollectorPrepared;
