@@ -359,6 +359,8 @@ message.search.begin_region	{0}(으)로 출발한다. 정확한 수확량은 현
 expedition.map.title_region	수집 지도 · DAY {0}/{1}\n{2}	Expedition Map · DAY {0}/{1}\n{2}	⟦Éxpédítíóñ Máp · DÁY {0}/{1}\n{2}áéíóúüñ¿¡⟧
 expedition.map.node.state	{0} {1}\n{2}	{0} {1}\n{2}	⟦{0} {1}\n{2}áéí⟧
 expedition.map.rail.resources	예상 자원\n{0}	Expected resources\n{0}	⟦Éxpéctéd résóúrcés\n{0}áéíóúüñ¿¡⟧
+expedition.map.node.state_remaining	{0} {1}\n{2} · 자원 {3}%	{0} {1}\n{2} · Resources {3}%	⟦{0} {1}\n{2} · Résóúrcés {3}%áéíóúüñ¿¡⟧
+expedition.map.rail.resources_remaining	예상 자원\n{0}\n남은 자원 {1}% · {2}/{3}	Expected resources\n{0}\nRemaining {1}% · {2}/{3}	⟦Éxpéctéd résóúrcés\n{0}\nRémáíñíñg {1}% · {2}/{3}áéíóúüñ¿¡áéíóúüñ¿¡⟧
 expedition.map.rail.risk	! 위험 · 이동 시간 약 {1}분\n{0}	! Risk · travel time ~{1} min\n{0}	⟦! Rísk · trávél tímé ~{1} míñ\n{0}áéíóúüñ¿¡⟧
 expedition.map.rail.weather	~ 날씨\n{0}	~ Weather\n{0}	⟦~ Wéáthér\n{0}áéíóú⟧
 expedition.map.rail.equipment	△ 필요 장비\n{0}	△ Required gear\n{0}	⟦△ Réqúíréd géár\n{0}áéíóúüñ¿⟧
@@ -410,6 +412,9 @@ escape.project.message.progress	{0} 진행 {1}/{2}. 다음 투입도 현장에�
 escape.project.message.complete	{0} 완성. 구조 신호가 응답을 받았다.	{0} complete. The rescue signal received a response.	⟦{0} cómplété. Thé réscúé sígñál récéívéd á réspóñsé.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 escape.project.message.research	{0}에 필요한 연구·도구가 아직 없다.	The research or tool required by {0} is missing.	⟦Thé réséárch ór tóól réqúíréd by {0} ís míssíñg.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 escape.project.message.resources	{0}에 투입할 자원이 부족하다.	Not enough resources for {0}.	⟦Ñót éñóúgh résóúrcés fór {0}.áéíóúüñ¿¡á⟧
+escape.ui.build_facility	건설 · {0}\n{1}	Build · {0}\n{1}	⟦Búíld · {0}\n{1}áéíóú⟧
+escape.facility.message.built	{0} 설비를 건설했다. 이제 현장의 아이콘으로 직접 사용한다.	Built the {0} facility. Use its world icon to continue.	⟦Búílt thé {0} fácílíty. Úsé íts wórld ícóñ tó cóñtíñúé.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
+escape.facility.message.resources	{0} 설비를 건설할 자원이 부족하다.	Not enough resources to build the {0} facility.	⟦Ñót éñóúgh résóúrcés tó búíld thé {0} fácílíty.áéíóúüñ¿¡áéíóúüñ¿¡⟧
 camp.popup.detail.escape_smoke	부싯돌과 나무 12·섬유 2·연료 2를 두 단계로 넣고, 맑은 바람에 가시성을 확인한다.	Commit flint plus 12 wood, 2 fiber, and 2 fuel in two stages, then verify visibility in clear wind.	⟦Cómmít flíñt plús 12 wóód, 2 fíbér, áñd 2 fúél íñ twó stágés, théñ vérífy vísíbílíty íñ cléár wíñd.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 camp.popup.detail.escape_radio	무전기·전자기판·트랜지스터와 전자 2·전선 2·금속 1로 수리한 뒤 깨끗한 주파수를 찾는다.	Repair with the transceiver, circuit board, transistor, 2 electronics, 2 wire, and 1 metal, then find a clear frequency.	⟦Répáír wíth thé tráñscéívér, círcúít bóárd, tráñsístór, 2 éléctróñícs, 2 wíré, áñd 1 métál, théñ fíñd á cléár fréqúéñcy.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡á⟧
 ending.escape.raft.open-water.title	수평선 너머로	Beyond the Horizon	⟦Béyóñd thé Hórízóñáéíóúü⟧

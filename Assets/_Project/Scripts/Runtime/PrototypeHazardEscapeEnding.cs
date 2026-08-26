@@ -488,6 +488,7 @@ namespace KimSurvival
     public sealed class PrototypeEscapeProjectState
     {
         public string StableId = string.Empty;
+        public bool FacilityBuilt;
         public int Progress;
         public int RequiredProgress;
         public bool Complete;
@@ -528,6 +529,38 @@ namespace KimSurvival
                 states.Add(escapeId, state);
             }
             return state;
+        }
+
+        public IReadOnlyList<PrototypeStableResourceCost> GetFacilityBuildCosts(string escapeId)
+        {
+            switch (escapeId)
+            {
+                case "escape.raft":
+                    return new[] { new PrototypeStableResourceCost("resource.wood", 4), new PrototypeStableResourceCost("resource.salvage", 2) };
+                case "escape.smoke":
+                    return new[] { new PrototypeStableResourceCost("resource.wood", 6), new PrototypeStableResourceCost("resource.stone", 2) };
+                case "escape.radio":
+                    return new[] { new PrototypeStableResourceCost("resource.wood", 2), new PrototypeStableResourceCost("resource.salvage", 4) };
+                default:
+                    return Array.Empty<PrototypeStableResourceCost>();
+            }
+        }
+
+        public bool TryBuildFacility(GameSession session, string escapeId)
+        {
+            if (session == null || session.Phase != GamePhase.Camp || session.Result != RunResult.None) return false;
+            PrototypeEscapeProjectState state = GetState(escapeId);
+            if (state.FacilityBuilt) return true;
+            StableResourceAmount[] costs = GetFacilityBuildCosts(escapeId)
+                .Select(cost => ToStableResourceAmount(cost.StableResourceId, cost.Amount)).ToArray();
+            if (!session.TrySpendStableResources(costs))
+            {
+                state.LastResultCode = "escape.facility.requirement.resources";
+                return false;
+            }
+            state.FacilityBuilt = true;
+            state.LastResultCode = "escape.facility.built";
+            return true;
         }
 
         public bool TryProgress(GameSession session, string escapeId, string eventKey)

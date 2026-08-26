@@ -2375,6 +2375,26 @@ MonoBehaviour:
     m_Key: item.rope
     m_Metadata:
       m_Items: []
+  - m_Id: 1544851085836288
+    m_Key: expedition.map.node.state_remaining
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544851127779328
+    m_Key: expedition.map.rail.resources_remaining
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544851131973632
+    m_Key: escape.ui.build_facility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544851131973633
+    m_Key: escape.facility.message.built
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544851131973634
+    m_Key: escape.facility.message.resources
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

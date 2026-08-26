@@ -1,0 +1,33 @@
+{
+    "SchemaVersion": 1,
+    "Title": "O5 human resource and art correction gate",
+    "UnityVersion": "6000.4.9f1",
+    "Passed": true,
+    "Checks": [
+        {
+            "Id": "O5-R01",
+            "Passed": true,
+            "Detail": "general=432; expected=432"
+        },
+        {
+            "Id": "O5-R02",
+            "Passed": true,
+            "Detail": "region.coast.beach=48/48/100% | region.sea.shallows=54/54/100% | region.forest.grove=66/66/100% | region.ridge.highland=66/66/100% | region.cave.island=54/54/100% | region.cove.wreck=72/72/100% | region.ruins.relay=72/72/100%"
+        },
+        {
+            "Id": "O5-E01",
+            "Passed": true,
+            "Detail": "absent=True; smokeBuilt=True; snapshot=True"
+        },
+        {
+            "Id": "O5-U01",
+            "Passed": true,
+            "Detail": "persistent route-label calls absent; icon-first marker source present"
+        },
+        {
+            "Id": "O5-U02",
+            "Passed": true,
+            "Detail": "map card/detail remaining-resource semantics present"
+        }
+    ]
+}

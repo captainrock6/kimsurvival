@@ -2177,9 +2177,15 @@ namespace KimSurvival
                 PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PrepareRest, built));
             SetPopupActionVisible(signalButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.UpgradeSignal, true));
             SetPopupActionVisible(modulePreviewButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.PreviewModule, true));
-            SetPopupActionVisible(smokeProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressSmokeEscape, true));
-            SetPopupActionVisible(radioProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressRadioEscape, true));
-            SetPopupActionVisible(raftProjectButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.ProgressRaftEscape, true));
+            bool smokeBuilt = hazardEscapeEndingRuntime.EscapeDirector.GetState("escape.smoke").FacilityBuilt;
+            bool radioBuilt = hazardEscapeEndingRuntime.EscapeDirector.GetState("escape.radio").FacilityBuilt;
+            bool raftBuilt = hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId).FacilityBuilt;
+            SetPopupActionVisible(smokeProjectButton,
+                (planning && !smokeBuilt) || target == PrototypeCampInteractionTargetKind.SmokeBeacon);
+            SetPopupActionVisible(radioProjectButton,
+                (planning && !radioBuilt) || target == PrototypeCampInteractionTargetKind.RadioBench);
+            SetPopupActionVisible(raftProjectButton,
+                (planning && !raftBuilt) || target == PrototypeCampInteractionTargetKind.ShoreLaunch);
             SetPopupActionVisible(endingAlbumOpenButton, PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.OpenEndingAlbum, true));
             SetPopupActionVisible(cancelPopupButton, target != PrototypeCampInteractionTargetKind.None);
             LayoutVisiblePopupButtons();
@@ -2512,11 +2518,19 @@ namespace KimSurvival
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, campUse.CurrentFloorY + 0.34f, 0f);
             CreateStoragePlanningSilhouette(root.transform);
+            CreateO5InteractableMarker(root.transform, new Vector2(0f, 0.9f), "storage.planning");
         }
 
         private string FormatEscapeProjectButton(string escapeId)
         {
             PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
+            if (!state.FacilityBuilt)
+            {
+                return localization.Format(
+                    "escape.ui.build_facility",
+                    localization.Format(escapeId),
+                    FormatFacilityBuildCosts(escapeId));
+            }
             string status = state.Complete
                 ? localization.Format("escape.ui.complete")
                 : state.Progress + "/" + state.RequiredProgress;
@@ -2527,6 +2541,13 @@ namespace KimSurvival
         private string FormatRaftProjectButton()
         {
             PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId);
+            if (!state.FacilityBuilt)
+            {
+                return localization.Format(
+                    "escape.ui.build_facility",
+                    localization.Format(PrototypeRaftEscapeConfig.EscapeId),
+                    FormatFacilityBuildCosts(PrototypeRaftEscapeConfig.EscapeId));
+            }
             if (state.Complete)
             {
                 return localization.Format("escape.raft.action.complete");
@@ -2557,12 +2578,19 @@ namespace KimSurvival
                 localization.Format(window.CurrentId));
         }
 
+        private string FormatFacilityBuildCosts(string escapeId)
+        {
+            return string.Join(", ", hazardEscapeEndingRuntime.EscapeDirector.GetFacilityBuildCosts(escapeId)
+                .Select(cost => localization.Format(cost.StableResourceId) + " " + cost.Amount));
+        }
+
         private void CreateExpeditionMapMarker()
         {
             GameObject root = new GameObject("지도·출구 상호작용 표지판 · " + AssetExpeditionMap);
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(ExpeditionMapX, PrototypeCampPlacement.FloorY + 0.62f, 0f);
             CreateExpeditionSignSilhouette(root.transform);
+            CreateO5InteractableMarker(root.transform, new Vector2(0f, 1.04f), "camp.expedition-map");
         }
 
         private void CreateEndingAlbumMarker()
@@ -2574,20 +2602,27 @@ namespace KimSurvival
             CreateRect(root.transform, "앨범 등", new Vector2(0f, 0.18f), new Vector2(0.24f, 0.62f), new Color(0.95f, 0.63f, 0.22f, 0.98f), 5);
             CreateRect(root.transform, "앨범 라벨", new Vector2(0f, 0.18f), new Vector2(0.12f, 0.2f), new Color(0.92f, 0.88f, 0.62f, 0.98f), 6);
             CreateFootprintOutline(root.transform, new Vector2(0.72f, 0.28f), new Color(0.22f, 0.86f, 0.82f, 0.16f), null, new Vector2(0f, -0.6f));
+            CreateO5InteractableMarker(root.transform, new Vector2(0f, 1.02f), "camp.ending-album");
         }
 
         private void CreateEscapeProjectMarkers()
         {
-            CreateEscapeProjectMarker(
-                "escape.smoke",
-                SmokeBeaconX,
-                new Color(0.28f, 0.31f, 0.3f, 0.98f),
-                new Color(0.86f, 0.86f, 0.82f, 0.88f));
-            CreateEscapeProjectMarker(
-                "escape.radio",
-                RadioBenchX,
-                new Color(0.15f, 0.25f, 0.24f, 0.98f),
-                new Color(0.32f, 0.9f, 0.72f, 0.92f));
+            if (hazardEscapeEndingRuntime.EscapeDirector.GetState("escape.smoke").FacilityBuilt)
+            {
+                CreateEscapeProjectMarker(
+                    "escape.smoke",
+                    SmokeBeaconX,
+                    new Color(0.28f, 0.31f, 0.3f, 0.98f),
+                    new Color(0.86f, 0.86f, 0.82f, 0.88f));
+            }
+            if (hazardEscapeEndingRuntime.EscapeDirector.GetState("escape.radio").FacilityBuilt)
+            {
+                CreateEscapeProjectMarker(
+                    "escape.radio",
+                    RadioBenchX,
+                    new Color(0.15f, 0.25f, 0.24f, 0.98f),
+                    new Color(0.32f, 0.9f, 0.72f, 0.92f));
+            }
         }
 
         private void CreateEscapeProjectMarker(string escapeId, float x, Color bodyColor, Color signalColor)
@@ -2598,16 +2633,20 @@ namespace KimSurvival
             signalColor.a = Mathf.Min(signalColor.a, 0.62f);
             root.transform.position = new Vector3(x, PrototypeCampPlacement.FloorY + 0.39f, 0f);
             CreateEscapeProjectSilhouette(root.transform, escapeId, bodyColor, signalColor);
-            RegisterEscapeRouteWorldLabel(escapeId, root.transform, new Vector2(0f, 1.12f));
+            CreateO5InteractableMarker(root.transform, new Vector2(0f, 1.12f), escapeId);
         }
 
         private void CreateShoreLaunchMarker()
         {
+            if (!hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId).FacilityBuilt)
+            {
+                return;
+            }
             GameObject root = new GameObject("facility.shore-launch · engine-native timber cradle");
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(ShoreLaunchX, PrototypeCampPlacement.FloorY + 0.38f, 0f);
             CreateShoreLaunchSilhouette(root.transform);
-            RegisterEscapeRouteWorldLabel(PrototypeRaftEscapeConfig.EscapeId, root.transform, new Vector2(0f, 1.12f));
+            CreateO5InteractableMarker(root.transform, new Vector2(0f, 1.12f), PrototypeRaftEscapeConfig.EscapeId);
         }
 
         private void CreateStartRoomModuleSlots()
@@ -2964,24 +3003,33 @@ namespace KimSurvival
                     "camp.ending-album",
                     PrototypeCampInteractionTargetKind.EndingAlbum,
                     new Vector2(EndingAlbumX, PrototypeCampUse.PlayerFloorY)));
-                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                    "facility.smoke-beacon",
-                    PrototypeCampInteractionTargetKind.SmokeBeacon,
-                    new Vector2(SmokeBeaconX, PrototypeCampUse.PlayerFloorY),
-                    true,
-                    EscapeProjectInteractionPriority));
-                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                    "facility.radio-bench",
-                    PrototypeCampInteractionTargetKind.RadioBench,
-                    new Vector2(RadioBenchX, PrototypeCampUse.PlayerFloorY),
-                    true,
-                    EscapeProjectInteractionPriority));
-                campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                    "facility.shore-launch",
-                    PrototypeCampInteractionTargetKind.ShoreLaunch,
-                    new Vector2(ShoreLaunchX, PrototypeCampUse.PlayerFloorY),
-                    IsRaftShoreLaunchDiscoveredFromLiveSearch(),
-                    EscapeProjectInteractionPriority));
+                if (hazardEscapeEndingRuntime.EscapeDirector.GetState("escape.smoke").FacilityBuilt)
+                {
+                    campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                        "facility.smoke-beacon",
+                        PrototypeCampInteractionTargetKind.SmokeBeacon,
+                        new Vector2(SmokeBeaconX, PrototypeCampUse.PlayerFloorY),
+                        true,
+                        EscapeProjectInteractionPriority));
+                }
+                if (hazardEscapeEndingRuntime.EscapeDirector.GetState("escape.radio").FacilityBuilt)
+                {
+                    campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                        "facility.radio-bench",
+                        PrototypeCampInteractionTargetKind.RadioBench,
+                        new Vector2(RadioBenchX, PrototypeCampUse.PlayerFloorY),
+                        true,
+                        EscapeProjectInteractionPriority));
+                }
+                if (hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId).FacilityBuilt)
+                {
+                    campInteractionTargets.Add(new PrototypeCampInteractionTarget(
+                        "facility.shore-launch",
+                        PrototypeCampInteractionTargetKind.ShoreLaunch,
+                        new Vector2(ShoreLaunchX, PrototypeCampUse.PlayerFloorY),
+                        true,
+                        EscapeProjectInteractionPriority));
+                }
                 IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
                 for (int i = 0; i < definitions.Count; i += 1)
                 {
@@ -3337,17 +3385,23 @@ namespace KimSurvival
                 SetButton(
                     expeditionRegionButtons[i],
                     localization.Format(
-                        "expedition.map.node.state",
+                        "expedition.map.node.state_remaining",
                         selected ? selection.Marker : state.Marker,
                         localization.Format(profiles[i].NameKey),
-                        localization.Format(state.LocalizationKey)),
+                        localization.Format(state.LocalizationKey),
+                        searchNodeRuntime.Ledger.GetRegionRemainingPercent(profiles[i].StableId)),
                     true);
                 ApplyExpeditionRegionButtonPresentation(expeditionRegionButtons[i], state, selected);
             }
 
+            int remaining = searchNodeRuntime.Ledger.GetRegionRemainingGeneralAmount(focused.StableId);
+            int initial = searchNodeRuntime.Ledger.GetRegionInitialGeneralAmount(focused.StableId);
             expeditionMapDetailText.text = localization.Format(
-                "expedition.map.rail.resources",
-                localization.Format(focused.ResourceForecastKey));
+                "expedition.map.rail.resources_remaining",
+                localization.Format(focused.ResourceForecastKey),
+                searchNodeRuntime.Ledger.GetRegionRemainingPercent(focused.StableId),
+                remaining,
+                initial);
             expeditionMapRiskText.text = localization.Format(
                 "expedition.map.rail.risk",
                 localization.Format(focused.RiskKey),
@@ -7392,8 +7446,17 @@ namespace KimSurvival
                 return false;
             }
 
-            bool progressed = hazardEscapeEndingRuntime.TryProgressEscapeProject(escapeId);
             PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(escapeId);
+            if (!state.FacilityBuilt)
+            {
+                bool built = hazardEscapeEndingRuntime.EscapeDirector.TryBuildFacility(session, escapeId);
+                campFeedback = new PrototypeLocalizedText(
+                    built ? "escape.facility.message.built" : "escape.facility.message.resources",
+                    localization.Format(escapeId));
+                return built;
+            }
+
+            bool progressed = hazardEscapeEndingRuntime.TryProgressEscapeProject(escapeId);
             if (string.Equals(escapeId, PrototypeRaftEscapeConfig.EscapeId, StringComparison.Ordinal))
             {
                 campFeedback = new PrototypeLocalizedText(
@@ -7440,7 +7503,8 @@ namespace KimSurvival
 
         private void ExecuteRaftPopupAction()
         {
-            if (campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.ShoreLaunch ||
+            if ((campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.ShoreLaunch &&
+                 campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.StoragePlanning) ||
                 !campInteraction.TryConfirmAction())
             {
                 return;
@@ -8248,6 +8312,11 @@ namespace KimSurvival
             root.transform.SetParent(worldRoot, false);
             root.transform.position = new Vector3(x, water ? -1.72f : -2.25f, 0f);
             CreateSearchNodeArt(root.transform, definition, snapshot, water);
+            CreateO5InteractableMarker(
+                root.transform,
+                new Vector2(0f, water ? 0.82f : 0.9f),
+                definition.NodeId,
+                snapshot.State == PrototypeSearchNodeState.Depleted);
             float laneY = (water ? 1.18f : 1.25f) + (nodes.Count % 2) * 1.65f;
             SpriteRenderer labelBackground;
             TMP_Text label = CreateWorldBadge(
@@ -8403,6 +8472,7 @@ namespace KimSurvival
             structure.transform.SetParent(worldRoot, false);
             structure.transform.position = position;
             CreateStructureVisual(structure.transform, kind, GetStructureSprite(kind), size, color, 3, out _);
+            CreateO5InteractableMarker(structure.transform, new Vector2(0f, size.y * 0.5f + 0.32f), kind.ToString());
             structureViews[kind] = structure;
         }
 

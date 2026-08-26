@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-26T15:16:55.994Z",
+  "updatedAt": "2026-08-26T17:03:31.583Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -351,7 +351,7 @@
         "packagedAt": "2026-08-22T13:36:38.680Z"
       },
       "createdAt": "2026-08-22T07:58:18.357Z",
-      "updatedAt": "2026-08-26T15:11:08.783Z"
+      "updatedAt": "2026-08-26T16:50:01.249Z"
     },
     {
       "id": "background.coast-forest",
@@ -564,7 +564,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.369Z",
-      "updatedAt": "2026-08-26T15:11:08.794Z"
+      "updatedAt": "2026-08-26T16:50:01.259Z"
     },
     {
       "id": "character.mr-kim",
@@ -661,7 +661,7 @@
         "packagedAt": "2026-08-22T09:08:11.959Z"
       },
       "createdAt": "2026-08-22T07:58:18.376Z",
-      "updatedAt": "2026-08-26T15:11:08.807Z"
+      "updatedAt": "2026-08-26T16:50:01.270Z"
     },
     {
       "id": "object.camp-structures",
@@ -852,7 +852,7 @@
         "packagedAt": "2026-08-22T13:36:38.842Z"
       },
       "createdAt": "2026-08-22T07:58:18.385Z",
-      "updatedAt": "2026-08-26T15:11:08.817Z"
+      "updatedAt": "2026-08-26T16:50:01.279Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -1159,7 +1159,7 @@
         "packagedAt": "2026-08-22T22:03:55.368Z"
       },
       "createdAt": "2026-08-22T07:58:18.394Z",
-      "updatedAt": "2026-08-26T15:11:08.830Z"
+      "updatedAt": "2026-08-26T16:50:01.289Z"
     },
     {
       "id": "ui.survival-hud",
@@ -1359,7 +1359,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T07:58:18.404Z",
-      "updatedAt": "2026-08-26T15:11:08.843Z"
+      "updatedAt": "2026-08-26T16:50:01.301Z"
     },
     {
       "id": "effect.comedy-feedback",
@@ -1619,7 +1619,7 @@
         "packagedAt": "2026-08-22T22:56:15.525Z"
       },
       "createdAt": "2026-08-22T07:58:18.414Z",
-      "updatedAt": "2026-08-26T15:11:08.857Z"
+      "updatedAt": "2026-08-26T16:50:01.313Z"
     },
     {
       "id": "animation.mr-kim.swim",
@@ -1840,7 +1840,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-22T09:09:25.735Z",
-      "updatedAt": "2026-08-26T15:11:08.868Z"
+      "updatedAt": "2026-08-26T16:50:01.326Z"
     },
     {
       "id": "object.vine-wood-barrier",
@@ -2380,7 +2380,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T01:52:41.889Z",
-      "updatedAt": "2026-08-26T15:11:08.878Z"
+      "updatedAt": "2026-08-26T16:50:01.339Z"
     },
     {
       "id": "ui.camp-contextual-interaction",
@@ -2887,7 +2887,7 @@
         "packagedAt": "2026-08-23T10:11:28.729Z"
       },
       "createdAt": "2026-08-23T04:07:47.284Z",
-      "updatedAt": "2026-08-26T15:11:08.888Z"
+      "updatedAt": "2026-08-26T16:50:01.348Z"
     },
     {
       "id": "background.modular-island-camp",
@@ -3167,7 +3167,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.292Z",
-      "updatedAt": "2026-08-26T15:11:08.897Z"
+      "updatedAt": "2026-08-26T16:50:01.359Z"
     },
     {
       "id": "ui.camp-module-expansion",
@@ -3429,7 +3429,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T04:07:47.303Z",
-      "updatedAt": "2026-08-26T15:11:08.911Z"
+      "updatedAt": "2026-08-26T16:50:01.371Z"
     },
     {
       "id": "ui.wave10-art-review-board",
@@ -3950,7 +3950,7 @@
         "packagedAt": "2026-08-23T15:07:06.405Z"
       },
       "createdAt": "2026-08-23T14:15:54.679Z",
-      "updatedAt": "2026-08-26T15:11:08.920Z"
+      "updatedAt": "2026-08-26T16:50:01.380Z"
     },
     {
       "id": "icon.expedition-resource-risk-set",
@@ -4087,7 +4087,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-23T14:15:54.688Z",
-      "updatedAt": "2026-08-26T15:11:08.929Z"
+      "updatedAt": "2026-08-26T16:50:01.390Z"
     },
     {
       "id": "ui.escape-project-progress",
@@ -4234,7 +4234,7 @@
         "packagedAt": "2026-08-24T12:56:53.297Z"
       },
       "createdAt": "2026-08-23T14:15:54.697Z",
-      "updatedAt": "2026-08-26T15:11:08.941Z"
+      "updatedAt": "2026-08-26T16:50:01.415Z"
     },
     {
       "id": "ui.ending-comic",
@@ -4382,7 +4382,7 @@
         "packagedAt": "2026-08-24T12:56:53.482Z"
       },
       "createdAt": "2026-08-23T14:15:54.705Z",
-      "updatedAt": "2026-08-26T15:11:08.953Z"
+      "updatedAt": "2026-08-26T16:50:01.426Z"
     },
     {
       "id": "ui.ending-gallery",
@@ -4585,7 +4585,7 @@
         "packagedAt": "2026-08-24T13:52:59.990Z"
       },
       "createdAt": "2026-08-23T14:15:54.716Z",
-      "updatedAt": "2026-08-26T15:11:08.965Z"
+      "updatedAt": "2026-08-26T16:50:01.439Z"
     },
     {
       "id": "effect.survival-hazards",
@@ -4747,7 +4747,7 @@
         "packagedAt": "2026-08-24T12:56:53.114Z"
       },
       "createdAt": "2026-08-23T14:15:54.723Z",
-      "updatedAt": "2026-08-26T15:11:08.980Z"
+      "updatedAt": "2026-08-26T16:50:01.449Z"
     },
     {
       "id": "environment.expedition-region-kit",
@@ -4953,7 +4953,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-24T15:24:58.822Z",
-      "updatedAt": "2026-08-26T15:11:08.991Z"
+      "updatedAt": "2026-08-26T16:50:01.458Z"
     },
     {
       "id": "escape.raft",
@@ -5550,7 +5550,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-25T13:55:38.014Z",
-      "updatedAt": "2026-08-26T15:11:09.004Z"
+      "updatedAt": "2026-08-26T16:50:01.469Z"
     },
     {
       "id": "ui.search-loot-tray",
@@ -5748,7 +5748,7 @@
       ],
       "engine": {},
       "createdAt": "2026-08-25T13:55:38.025Z",
-      "updatedAt": "2026-08-26T15:11:09.014Z"
+      "updatedAt": "2026-08-26T16:50:01.478Z"
     },
     {
       "id": "icon.gamejam-hazard-part-set",
@@ -5991,7 +5991,7 @@
       "id": "object.camp-ladder",
       "name": "표류물 사다리와 지하 해치 세트",
       "assetType": "separated_parts",
-      "request": "김씨 생존기 무인도 캠프용 오리지널 2D 측면 오브젝트 세트. 위층으로 이어지는 표류목 수직 사다리, 지하실로 내려가는 해치와 짧은 사다리, 등반 가능 상태를 보여주는 작은 로프 매듭 표식으로 구성한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 실루엣, 비뚤하지만 기능적인 표류목·밧줄 재질, 1280x800 게임 화면에서 캐릭터 뒤에 묻히지 않는 대비, 각 부품 분리·무겹침·동일 여백·투명 배경, 본문 텍스트와 타사 고유 디자인 없음.",
+      "request": "김씨 생존기 무인도 캠프용 오리지널 2D 측면 오브젝트 세트. 위층으로 이어지는 표류목 수직 사다리, 지하실로 내려가는 해치와 짧은 사다리, 등반 가능 상태를 보여주는 작은 로프 매듭 표식으로 구성한다. 밝고 따뜻한 열대색, 굵고 읽기 쉬운 실루엣, 비뚤지만 기능적인 표류목·밧줄 재질, 1280x800 게임 화면에서 캐릭터 뒤에 묻히지 않는 대비, 각 부품 분리·무겹침·동일 여백·투명 배경, 본문 텍스트와 타사 고유 디자인 없음.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -6071,7 +6071,586 @@
       ],
       "engine": {},
       "createdAt": "2026-08-26T15:11:09.024Z",
-      "updatedAt": "2026-08-26T15:16:55.994Z"
+      "updatedAt": "2026-08-26T16:50:01.488Z"
+    },
+    {
+      "id": "ui.shop.main",
+      "name": "상점 UI",
+      "assetType": "ui_set",
+      "request": "상품, 가격, 재화와 구매 상태가 포함된 상점 UI 세트",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "ui.inventory.main",
+      "name": "인벤토리 UI",
+      "assetType": "ui_set",
+      "request": "아이템 목록, 선택, 상세 정보와 상태가 포함된 인벤토리 UI 세트",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "ui.character.main",
+      "name": "캐릭터 UI",
+      "assetType": "ui_set",
+      "request": "캐릭터 선택, 정보와 성장 상태를 보여주는 UI 세트",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "ui.equipment.main",
+      "name": "장비 UI",
+      "assetType": "ui_set",
+      "request": "장비 선택, 비교, 강화와 장착 상태를 보여주는 UI 세트",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "ui.settings.main",
+      "name": "설정 UI",
+      "assetType": "ui_set",
+      "request": "소리, 알림, 계정과 접근성 항목을 위한 설정 UI 세트",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "ui.battle.hud",
+      "name": "전투 HUD",
+      "assetType": "ui_set",
+      "request": "전투 중 핵심 자원, 상태와 행동을 읽기 쉽게 보여주는 HUD",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "ui.result.main",
+      "name": "결과/보상 UI",
+      "assetType": "ui_set",
+      "request": "플레이 결과, 획득 보상과 다음 행동을 보여주는 결과 UI",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "item.catalog",
+      "name": "아이템 카탈로그",
+      "assetType": "item",
+      "request": "인게임 크기에서 식별 가능한 아이템 리소스 카탈로그",
+      "status": "needed",
+      "source": "design-document",
+      "tags": [
+        "auto-discovered"
+      ],
+      "dependencies": [],
+      "jobIds": [],
+      "versions": [],
+      "currentJobId": null,
+      "parentJobId": null,
+      "artifacts": [],
+      "engine": {},
+      "createdAt": "2026-08-26T16:44:16.887Z",
+      "updatedAt": "2026-08-26T16:55:37.071Z"
+    },
+    {
+      "id": "ui.gamejam.interface-kit",
+      "name": "김씨 생존기 무인도 게임잼용 오리지널 Unity PC UI 컴포넌트 시트. 생존 HUD, 근접 프롬프트, 설비 팝업, 7지역 지도 카드와 남은 자원 퍼센트 배지, 발견물 트레이, 4칸/6칸 가방, 위험·부족·완료 상",
+      "assetType": "ui_set",
+      "request": "김씨 생존기 무인도 게임잼용 오리지널 Unity PC UI 컴포넌트 시트. 생존 HUD, 근접 프롬프트, 설비 팝업, 7지역 지도 카드와 남은 자원 퍼센트 배지, 발견물 트레이, 4칸/6칸 가방, 위험·부족·완료 상태를 따뜻한 열대 생존 시각 문법으로 통일. 1280x800/1920x1080, KO/EN 장문을 위한 빈 라벨 영역, 본문 텍스트와 타사 고유 UI 없음.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "o5",
+        "gamejam",
+        "ui-set",
+        "review-only"
+      ],
+      "dependencies": [
+        "icon.resource-tool-set"
+      ],
+      "jobIds": [
+        "job_20260826165624_98a5819f"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260826165624_98a5819f",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-26T16:56:24.577Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260826165624_98a5819f",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-26T17:00:26.090Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260826165624_98a5819f",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 76689,
+          "url": "/outputs/jobs/job_20260826165624_98a5819f/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 69654,
+          "url": "/outputs/jobs/job_20260826165624_98a5819f/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-12506dba-04d1-499e-9c2f-3ed2de482384.png",
+          "contentType": "image/png",
+          "bytes": 3065295,
+          "url": "/outputs/jobs/job_20260826165624_98a5819f/exec-12506dba-04d1-499e-9c2f-3ed2de482384.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 732,
+          "url": "/outputs/jobs/job_20260826165624_98a5819f/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1407,
+          "url": "/outputs/jobs/job_20260826165624_98a5819f/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-12506dba-04d1-499e-9c2f-3ed2de482384.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 12046,
+          "url": "/outputs/jobs/job_20260826165624_98a5819f/qa-preview-exec-12506dba-04d1-499e-9c2f-3ed2de482384.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-26T16:50:01.498Z",
+      "updatedAt": "2026-08-26T17:00:26.092Z"
+    },
+    {
+      "id": "background.expedition-seven-region-set",
+      "name": "같은 무인도지만 실루엣이 즉시 구분되는 오리지널 2D 횡스크롤 수색 지역 7장 콘셉트 보드: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면에 하나의 선명한 수평",
+      "assetType": "background",
+      "request": "같은 무인도지만 실루엣이 즉시 구분되는 오리지널 2D 횡스크롤 수색 지역 7장 콘셉트 보드: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면에 하나의 선명한 수평 gameplay band, 수색 오브젝트 여백, 전경·중경·원경 깊이, 따뜻한 열대색. UI/본문/타사 고유 구도 없음.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "o5",
+        "seven-regions",
+        "side-view",
+        "review-only"
+      ],
+      "dependencies": [],
+      "jobIds": [
+        "job_20260826165624_448aecdc"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260826165624_448aecdc",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-26T16:56:24.844Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260826165624_448aecdc",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-26T17:00:26.529Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260826165624_448aecdc",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 75777,
+          "url": "/outputs/jobs/job_20260826165624_448aecdc/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 68814,
+          "url": "/outputs/jobs/job_20260826165624_448aecdc/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-0cdc7139-c444-462e-ac92-56ccfa410815.png",
+          "contentType": "image/png",
+          "bytes": 2741864,
+          "url": "/outputs/jobs/job_20260826165624_448aecdc/exec-0cdc7139-c444-462e-ac92-56ccfa410815.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 728,
+          "url": "/outputs/jobs/job_20260826165624_448aecdc/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1407,
+          "url": "/outputs/jobs/job_20260826165624_448aecdc/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-0cdc7139-c444-462e-ac92-56ccfa410815.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 12614,
+          "url": "/outputs/jobs/job_20260826165624_448aecdc/qa-preview-exec-0cdc7139-c444-462e-ac92-56ccfa410815.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-26T16:50:01.507Z",
+      "updatedAt": "2026-08-26T17:00:26.531Z"
+    },
+    {
+      "id": "object.searchable-resource-node-production-set",
+      "name": "김씨 생존기 2D 측면용 오리지널 환경 수색 오브젝트 투명 스프라이트 시트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛 각각 미수색·부분 잔류·고갈 상태. 작은 크기에서도 종류와 상태가",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기 2D 측면용 오리지널 환경 수색 오브젝트 투명 스프라이트 시트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛 각각 미수색·부분 잔류·고갈 상태. 작은 크기에서도 종류와 상태가 읽히고 상단 상호작용 아이콘 여백, 부품 분리·무겹침·동일 여백·true alpha·본문 없음.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "o5",
+        "search-object",
+        "state-set",
+        "review-only"
+      ],
+      "dependencies": [],
+      "jobIds": [
+        "job_20260826165625_8961b353"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260826165625_8961b353",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-26T16:56:25.116Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260826165625_8961b353",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-26T17:00:26.326Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260826165625_8961b353",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 75944,
+          "url": "/outputs/jobs/job_20260826165625_8961b353/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 69009,
+          "url": "/outputs/jobs/job_20260826165625_8961b353/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.png",
+          "contentType": "image/png",
+          "bytes": 2773807,
+          "url": "/outputs/jobs/job_20260826165625_8961b353/exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 739,
+          "url": "/outputs/jobs/job_20260826165625_8961b353/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1407,
+          "url": "/outputs/jobs/job_20260826165625_8961b353/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 10096,
+          "url": "/outputs/jobs/job_20260826165625_8961b353/qa-preview-exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-26T16:50:01.520Z",
+      "updatedAt": "2026-08-26T17:00:26.328Z"
+    },
+    {
+      "id": "ui.interactable-marker-set",
+      "name": "김씨 생존기 캠프·지도·수색 오브젝트 위에 쓰는 오리지널 상호작용 아이콘 표식 세트. 작은 마름모 프레임 안에 사용, 제작, 건설, 지도, 수색, 등반, 탈출 프로젝트를 형태로 구분하고 available, nearb",
+      "assetType": "ui_set",
+      "request": "김씨 생존기 캠프·지도·수색 오브젝트 위에 쓰는 오리지널 상호작용 아이콘 표식 세트. 작은 마름모 프레임 안에 사용, 제작, 건설, 지도, 수색, 등반, 탈출 프로젝트를 형태로 구분하고 available, nearby, blocked, depleted 상태를 색과 테두리로 전달. 32~64px, 입력 글자는 빈 슬롯, 본문·타사 고유 아이콘 없음.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "o5",
+        "interaction",
+        "marker",
+        "review-only"
+      ],
+      "dependencies": [],
+      "jobIds": [
+        "job_20260826170114_ad2baabf"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260826170114_ad2baabf",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-26T17:01:14.268Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260826170114_ad2baabf",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-26T17:03:31.355Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260826170114_ad2baabf",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 76668,
+          "url": "/outputs/jobs/job_20260826170114_ad2baabf/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 69633,
+          "url": "/outputs/jobs/job_20260826170114_ad2baabf/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-b91ce93b-1ef0-4f65-9dc9-c3e37cd33cc3.png",
+          "contentType": "image/png",
+          "bytes": 2587586,
+          "url": "/outputs/jobs/job_20260826170114_ad2baabf/exec-b91ce93b-1ef0-4f65-9dc9-c3e37cd33cc3.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 731,
+          "url": "/outputs/jobs/job_20260826170114_ad2baabf/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1407,
+          "url": "/outputs/jobs/job_20260826170114_ad2baabf/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-b91ce93b-1ef0-4f65-9dc9-c3e37cd33cc3.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 11273,
+          "url": "/outputs/jobs/job_20260826170114_ad2baabf/qa-preview-exec-b91ce93b-1ef0-4f65-9dc9-c3e37cd33cc3.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-26T16:50:01.529Z",
+      "updatedAt": "2026-08-26T17:03:31.358Z"
+    },
+    {
+      "id": "object.escape-project-build-set",
+      "name": "계획대에서 건설한 뒤 캠프에 등장하는 오리지널 2D 측면 탈출 설비 투명 스프라이트 세트. 해안 뗏목 진수대, 대형 연기 신호대, 무전 복구 작업대를 blueprint·건설됨·진행 중·완료 상태로 구분. 표류목·밧줄",
+      "assetType": "separated_parts",
+      "request": "계획대에서 건설한 뒤 캠프에 등장하는 오리지널 2D 측면 탈출 설비 투명 스프라이트 세트. 해안 뗏목 진수대, 대형 연기 신호대, 무전 복구 작업대를 blueprint·건설됨·진행 중·완료 상태로 구분. 표류목·밧줄·천·재활용 금속·전자 부품의 코믹한 급조감, 부품 분리, true alpha, 본문 없음.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [
+        "o5",
+        "escape",
+        "build-state",
+        "review-only"
+      ],
+      "dependencies": [
+        "object.camp-structures"
+      ],
+      "jobIds": [
+        "job_20260826170114_89c38693"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260826170114_89c38693",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-26T17:01:14.510Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260826170114_89c38693",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-26T17:03:31.582Z",
+          "qualityScore": 92
+        }
+      ],
+      "currentJobId": "job_20260826170114_89c38693",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 75907,
+          "url": "/outputs/jobs/job_20260826170114_89c38693/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 68972,
+          "url": "/outputs/jobs/job_20260826170114_89c38693/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "exec-7398801e-87a9-47de-a146-88145760cf7e.png",
+          "contentType": "image/png",
+          "bytes": 2475155,
+          "url": "/outputs/jobs/job_20260826170114_89c38693/exec-7398801e-87a9-47de-a146-88145760cf7e.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 990,
+          "url": "/outputs/jobs/job_20260826170114_89c38693/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1558,
+          "url": "/outputs/jobs/job_20260826170114_89c38693/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-exec-7398801e-87a9-47de-a146-88145760cf7e.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 9912,
+          "url": "/outputs/jobs/job_20260826170114_89c38693/qa-preview-exec-7398801e-87a9-47de-a146-88145760cf7e.jpg"
+        }
+      ],
+      "engine": {},
+      "createdAt": "2026-08-26T16:50:01.540Z",
+      "updatedAt": "2026-08-26T17:03:31.583Z"
     }
   ]
 }

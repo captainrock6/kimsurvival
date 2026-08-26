@@ -2617,6 +2617,31 @@ MonoBehaviour:
     m_Localized: Rope
     m_Metadata:
       m_Items: []
+  - m_Id: 1544851085836288
+    m_Localized: "{0} {1}\n{2} \xB7 Resources {3}%"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1544851127779328
+    m_Localized: "Expected resources\n{0}\nRemaining {1}% \xB7 {2}/{3}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1544851131973632
+    m_Localized: "Build \xB7 {0}\n{1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1544851131973633
+    m_Localized: Built the {0} facility. Use its world icon to continue.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1544851131973634
+    m_Localized: Not enough resources to build the {0} facility.
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -2756,3 +2781,8 @@ MonoBehaviour:
         - id: 1471604172505089
         - id: 1471604172505092
         - id: 1471604172505093
+        - id: 1544851085836288
+        - id: 1544851127779328
+        - id: 1544851131973632
+        - id: 1544851131973633
+        - id: 1544851131973634

@@ -254,6 +254,7 @@ namespace KimSurvival
             return new PrototypeEscapeProjectState
             {
                 StableId = source.StableId,
+                FacilityBuilt = source.FacilityBuilt,
                 Progress = source.Progress,
                 RequiredProgress = source.RequiredProgress,
                 Complete = source.Complete,

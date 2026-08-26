@@ -2781,6 +2781,33 @@ MonoBehaviour:
     m_Localized: "\uBC27\uC904"
     m_Metadata:
       m_Items: []
+  - m_Id: 1544851085836288
+    m_Localized: "{0} {1}\n{2} \xB7 \uC790\uC6D0 {3}%"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 1544851127779328
+    m_Localized: "\uC608\uC0C1 \uC790\uC6D0\n{0}\n\uB0A8\uC740 \uC790\uC6D0 {1}%
+      \xB7 {2}/{3}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 1544851131973632
+    m_Localized: "\uAC74\uC124 \xB7 {0}\n{1}"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 1544851131973633
+    m_Localized: "{0} \uC124\uBE44\uB97C \uAC74\uC124\uD588\uB2E4. \uC774\uC81C \uD604\uC7A5\uC758
+      \uC544\uC774\uCF58\uC73C\uB85C \uC9C1\uC811 \uC0AC\uC6A9\uD55C\uB2E4."
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
+  - m_Id: 1544851131973634
+    m_Localized: "{0} \uC124\uBE44\uB97C \uAC74\uC124\uD560 \uC790\uC6D0\uC774 \uBD80\uC871\uD558\uB2E4."
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219866
   references:
     version: 2
     RefIds:
@@ -2920,3 +2947,8 @@ MonoBehaviour:
         - id: 1471604172505089
         - id: 1471604172505092
         - id: 1471604172505093
+        - id: 1544851085836288
+        - id: 1544851127779328
+        - id: 1544851131973632
+        - id: 1544851131973633
+        - id: 1544851131973634

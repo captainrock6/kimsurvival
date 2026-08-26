@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에 조난된 김씨가 유한 수색물을 선별해 직접 만든 설비와 다층 쉘터를 성장시키고, 선택한 탈출 프로젝트를 완성하는 코믹 2D 생존 게임.",
+    "o5HumanCorrectionContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o5-human-resource-art-correction.v1",
+      "rejectedCandidate": "746fd4884559b5df871b45838448e14e91f551fb",
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O4-H1-2026-08-27.md",
+      "telemetryEvidence": "kim-survival-playtest-20260826T143600860Z-377620b7.jsonl",
+      "openDefects": [
+        "O4-H1-P0-001",
+        "O4-H1-P1-001",
+        "O4-H1-P1-002",
+        "O4-H1-P1-003",
+        "O4-H1-P1-004",
+        "O4-H1-P1-005"
+      ],
+      "measuredBaseline": {
+        "duration": "21:29.28",
+        "maxDay": 16,
+        "regionsVisited": 7,
+        "expeditions": 16,
+        "searchNodeOpenCount": 63,
+        "protectedPartsAcquired": 5,
+        "resourceGains": {
+          "resource.wood": 57,
+          "resource.stone": 70,
+          "resource.food": 36,
+          "resource.salvage": 120
+        },
+        "completedEscapeId": ""
+      },
+      "candidateStatus": "IMPLEMENTATION_REQUIRED"
+    }
+  },
+  "verticalSlice": {
+    "goal": "O4-H1의 자연 플레이 실패를 교정해 처음 10분 안에 읽을 수 있는 캠프·지도·수색 루프와 약 30분 안에 실제로 완주 가능한 대표 탈출을 만든다.",
+    "playerPromise": "상호작용 가능한 대상을 아이콘으로 발견하고, 지역별 남은 자원을 비교해 필요한 곳을 뒤진 뒤, 직접 건설해 월드에 생긴 탈출 설비를 완성한다.",
+    "inScope": [
+      "일반 수색 자원의 node별 유한 산출량을 O4의 정확히 3배로 증량",
+      "수집 지도 7개 지역 카드와 상세 rail의 현재 남은 자원 백분율",
+      "캠프 고정 오브젝트의 접근 범위가 겹치지 않는 수평 재배치",
+      "뗏목·대형 연기·무전 설비의 계획대 건설 후 월드 등장과 save/restore",
+      "탈출 설비 상시 경로명·진행 텍스트 제거와 근접/팝업 상세 유지",
+      "캠프·수색의 오리지널 공통 상호작용 아이콘 표식",
+      "게임잼 UI, 7지역, 환경 수색 오브젝트와 탈출 설비의 정확한 아트 원장 및 우선 제작",
+      "O5 Windows 후보와 자연 플레이·자동 회귀 증거"
+    ],
+    "outOfScope": [
+      "사용자 명시 채택 전 review-only 신규 래스터 후보의 런타임 연결",
+      "O5에서 조명탄·고지대 중계소를 플레이 가능한 경로로 확장",
+      "본편 Day 50 최종 경제 밸런스 확정"
+    ],
+    "successCriteria": [
+      "새 run의 일반 수색 총량은 O4 144의 정확히 3배인 432이며 보호 부품 5개는 별도로 유지된다.",
+      "각 지도 지역은 현재 남은 양/초기 양에서 계산한 0~100%를 카드와 상세 rail에 표시하고 재방문 뒤 즉시 갱신한다.",
+      "O4-H1과 같은 자연 플레이 경로에서 적어도 한 탈출을 자원 softlock 없이 완료한다.",
+      "새 게임에는 세 탈출 설비가 없고 계획대에서 각각 건설한 설비만 월드와 상호작용 원장에 나타난다.",
+      "탈출 설비는 상시 본문 이름표를 표시하지 않으며, 아이콘 표식과 근접 한 줄 안내 및 팝업에서만 이름·진행·부족분을 보여준다.",
+      "캠프 오브젝트의 중심 간 접근 거리는 최소 상호작용 범위보다 커서 같은 위치에서 두 안내가 경합하지 않는다.",
+      "캠프·수색의 상호작용 가능한 오브젝트는 텍스트를 읽기 전에 같은 시각 문법의 아이콘으로 구분된다.",
+      "신규 UI·지역·오브젝트 아트 후보는 stable asset ID, Forge job, review 상태와 미연결 경계를 가진다."
+    ],
+    "risks": [
+      "자원 3배가 가방 교체와 지역 선택 압박을 약하게 만들 수 있어 후속 사용자 테스트가 필요하다.",
+      "기존 자동 감사는 총량만 보았으므로 시설 건설·생존 소비·원정 횟수를 포함한 자연 경로 회귀가 필요하다.",
+      "새 상호작용 표식이 다시 화면을 가리지 않도록 아이콘만 사용하고 본문은 근접 상태로 제한해야 한다."
+    ]
+  },
+  "artAssets": [
+    {
+      "id": "ui.gamejam.interface-kit",
+      "name": "게임잼 통합 UI 컴포넌트 세트",
+      "assetType": "ui_set",
+      "request": "김씨 생존기 무인도용 오리지널 Unity PC UI 세트. 최소 생존 HUD, 캠프 근접 프롬프트, 설비 팝업, 수집 지도 7지역 카드와 자원 잔량 배지, 수색 발견물 tray, 4칸/6칸 가방, 부족 자원·위험·완료 상태의 패널·프레임·탭·포커스 상태를 하나의 따뜻한 열대 생존 시각 문법으로 정리한다. 1280x800과 1920x1080, KO/EN/장문 로케일을 고려하고 모든 본문은 빈 라벨 영역으로 두어 엔진 TMP로 표시한다. 타사 고유 UI, 로고, 본문 텍스트 없음.",
+      "priority": "critical",
+      "dependencies": ["icon.resource-tool-set"],
+      "featureIds": ["feature.localization", "feature.dual-input", "feature.searchable-resource-nodes"],
+      "tags": ["o5", "gamejam", "ui-set", "review-only"]
+    },
+    {
+      "id": "background.expedition-seven-region-set",
+      "name": "일곱 수색 지역 측면 배경 세트",
+      "assetType": "background",
+      "request": "같은 무인도에 속하지만 즉시 구분되는 7개의 오리지널 2D 횡스크롤 측면 배경 세트: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면은 캐릭터가 걷는 하나의 수평 gameplay band와 환경 수색 오브젝트를 놓을 빈 공간, 전경·중경·원경 깊이, 따뜻한 열대색과 굵은 실루엣을 유지한다. UI와 본문 텍스트, 타사 고유 구도 없음.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.island-exploration", "feature.searchable-resource-nodes"],
+      "tags": ["o5", "seven-regions", "side-view", "review-only"]
+    },
+    {
+      "id": "object.searchable-resource-node-production-set",
+      "name": "환경 수색 오브젝트 프로덕션 세트",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기 2D 측면 수색용 오리지널 환경 오브젝트 세트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛을 미수색·부분 잔류·고갈 상태로 구분한다. 1280x800에서 작은 실루엣으로도 종류와 상태가 읽히고, 같은 공통 상호작용 아이콘을 얹을 상단 여백을 둔다. 각 부품 분리, 무겹침, 동일 여백, true alpha, 본문 텍스트 없음.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.searchable-resource-nodes", "feature.region-persistence"],
+      "tags": ["o5", "search-object", "state-set", "review-only"]
+    },
+    {
+      "id": "ui.interactable-marker-set",
+      "name": "공통 상호작용 아이콘 표식",
+      "assetType": "ui_set",
+      "request": "김씨 생존기 캠프·지도·수색 오브젝트 위에 쓰는 오리지널 아이콘 표식 세트. 작은 마름모 프레임 안에 사용, 제작, 건설, 지도, 수색, 등반, 탈출 프로젝트를 형태로 구분하고 available, nearby, blocked, depleted 상태를 색과 테두리로 전달한다. 게임 화면을 가리는 본문 이름표 없이 32~64px에서 읽히며 키 입력 문자는 별도 엔진 TMP 슬롯으로 둔다. 타사 고유 아이콘 복제 없음.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.camp-object-interaction", "feature.searchable-resource-nodes"],
+      "tags": ["o5", "interaction", "marker", "review-only"]
+    },
+    {
+      "id": "object.escape-project-build-set",
+      "name": "건설형 탈출 프로젝트 설비 세트",
+      "assetType": "separated_parts",
+      "request": "플레이어가 계획대에서 건설한 뒤 베이스캠프에 등장하는 오리지널 2D 측면 탈출 설비 세트. 해안 뗏목 진수대, 대형 연기 신호대, 무전 복구 작업대를 blueprint·건설됨·진행 중·완료 상태로 구분한다. 표류목, 밧줄, 천, 재활용 금속과 전자 부품의 코믹한 급조 감각, 각 부품 분리, true alpha, 본문 텍스트와 타사 고유 디자인 없음.",
+      "priority": "high",
+      "dependencies": ["object.camp-structures"],
+      "featureIds": ["feature.escape-outcome", "feature.raft-escape"],
+      "tags": ["o5", "escape", "build-state", "review-only"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task.gamejam.o5-triple-resource-budget-p0",
+      "lane": "implementation",
+      "title": "O4-H1 실측 기반 일반 수색 자원 3배",
+      "description": "42개 stable node의 일반 유한 산출량을 144에서 432로 정확히 3배 늘리고 seed 감사와 자연 경로에서 시설 건설·생존 소비까지 포함한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.searchable-resource-nodes", "feature.escape-outcome"],
+      "assetIds": [],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs", "Assets/Editor/ParallelQA"],
+      "acceptanceCriteria": ["모든 대표 seed의 일반 자원 총량은 정확히 432다.", "보호 부품 5개와 유한성·재방문 저장은 유지된다.", "O4-H1 자연 소비를 포함해 최소 한 경로가 완료된다."]
+    },
+    {
+      "id": "task.gamejam.o5-region-remaining-map-p1",
+      "lane": "implementation",
+      "title": "수집 지도 지역별 자원 잔량 퍼센트",
+      "description": "지역 stable ID별 초기·현재 유한 자원량을 ledger에서 계산해 7개 카드와 선택 상세에 0~100%로 표시한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o5-triple-resource-budget-p0"],
+      "featureIds": ["feature.region-persistence", "feature.searchable-resource-nodes"],
+      "assetIds": ["ui.gamejam.interface-kit"],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs", "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"],
+      "acceptanceCriteria": ["각 카드와 상세 rail에 같은 정수 %가 표시된다.", "node에서 물품을 가져오고 귀환하면 해당 지역 %가 감소한다.", "KO/EN/qps-long에서 잘리지 않는다."]
+    },
+    {
+      "id": "task.gamejam.o5-staged-escape-facilities-p1",
+      "lane": "implementation",
+      "title": "탈출 설비 후행 건설·등장",
+      "description": "새 게임에서 세 탈출 설비를 숨기고 계획대에서 건설한 설비만 월드와 상호작용 목록에 추가하며 save/restore한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o5-triple-resource-budget-p0"],
+      "featureIds": ["feature.escape-outcome", "feature.raft-escape", "feature.camp-object-interaction"],
+      "assetIds": ["object.escape-project-build-set"],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs", "Assets/_Project/Scripts/Runtime/PrototypeRaftEscape.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"],
+      "acceptanceCriteria": ["새 게임 월드에 세 설비가 없다.", "계획대 건설 직후 정확한 설비 하나만 등장한다.", "미건설 설비는 진행할 수 없고 건설 상태는 저장·복원된다."]
+    },
+    {
+      "id": "task.gamejam.o5-spaced-camp-icon-affordance-p1",
+      "lane": "implementation",
+      "title": "캠프 재배치와 공통 상호작용 아이콘",
+      "description": "캠프의 계획대·지도·앨범·탈출 설비 접근 lane을 벌리고 상시 본문 이름표를 제거한 뒤 캠프·수색 대상에 공통 아이콘 표식을 붙인다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o5-staged-escape-facilities-p1"],
+      "featureIds": ["feature.camp-object-interaction", "feature.searchable-resource-nodes"],
+      "assetIds": ["ui.interactable-marker-set"],
+      "paths": ["Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.GameJamSubmissionHardening.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.ArtPresentation.cs"],
+      "acceptanceCriteria": ["탈출 경로명·진행 본문은 월드에 상시 보이지 않는다.", "모든 현재 상호작용 대상은 같은 아이콘 문법을 가진다.", "인접 대상 접근 범위와 아이콘이 서로 겹치지 않는다."]
+    },
+    {
+      "id": "task.gamejam.o5-art-production-wave",
+      "lane": "art",
+      "title": "게임잼 UI·7지역·수색 오브젝트·탈출 설비 아트 제작",
+      "description": "정확한 stable asset ID로 UI, 일곱 지역, 수색 오브젝트, 표식과 탈출 설비 세트를 제작·검토·import한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.searchable-resource-nodes", "feature.camp-object-interaction", "feature.escape-outcome"],
+      "assetIds": ["ui.gamejam.interface-kit", "background.expedition-seven-region-set", "object.searchable-resource-node-production-set", "ui.interactable-marker-set", "object.escape-project-build-set"],
+      "paths": ["Assets/_Project/Art/Generated", "Docs/Art"],
+      "acceptanceCriteria": ["각 세트는 production request와 stable ID를 가진다.", "신규 후보는 quality review와 preview를 가진다.", "사용자 채택 전 review-only와 runtime 미연결 경계를 유지한다."]
+    },
+    {
+      "id": "task.gamejam.o5-integration-release",
+      "lane": "qa",
+      "title": "O5 통합·자연 경로·Windows 후보",
+      "description": "O4-H1 결함을 모두 재검증하고 compile, KO/EN/qps-long UI, 자연 탈출, Windows 빌드와 해시를 고정한다.",
+      "priority": "critical",
+      "dependencies": ["task.gamejam.o5-region-remaining-map-p1", "task.gamejam.o5-spaced-camp-icon-affordance-p1"],
+      "featureIds": [],
+      "assetIds": [],
+      "paths": ["Assets/Editor/ParallelQA", "Artifacts/ParallelQA", "Builds/Windows", "Docs/Design/Playtest"],
+      "acceptanceCriteria": ["compile 0 errors와 핵심 회귀가 GREEN이다.", "432 자원, 7개 잔량 %, 후행 설비, 비상시 이름표 제거와 아이콘 표식 증거가 있다.", "O5 commit·EXE·DLL·ZIP SHA-256과 새 수기 체크리스트를 기록한다."]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.o5.human-telemetry-overrides-synthetic-affordability",
+      "title": "자연 플레이 실측을 총량 자동 감사보다 우선한다",
+      "status": "accepted",
+      "rationale": "O4 자동 감사는 세 경로가 가능하다고 판정했지만 O4-H1은 일곱 지역과 보호 부품을 모두 경험하고도 Day 16에 탈출하지 못했다."
+    },
+    {
+      "id": "decision.o5.escape-facilities-are-built-world-objects",
+      "title": "탈출 방법은 설비를 만든 뒤 월드에 생긴다",
+      "status": "accepted",
+      "rationale": "처음부터 완성 설비와 경로명이 늘어서 있는 방식 대신, 플레이어의 제작 선택이 캠프 공간을 실제로 바꾸게 한다."
+    },
+    {
+      "id": "decision.o5.icon-first-contextual-text",
+      "title": "상호작용은 아이콘 우선·본문은 근접 문맥으로 제한한다",
+      "status": "accepted",
+      "rationale": "상시 본문 텍스트의 화면 점유를 없애면서도 상호작용 가능한 대상을 시각적으로 발견할 수 있어야 한다."
+    }
+  ],
+  "openQuestions": []
+}

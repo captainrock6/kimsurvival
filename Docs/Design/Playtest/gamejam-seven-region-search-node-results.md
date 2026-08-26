@@ -2,7 +2,7 @@
 
 > 대상: 《김씨 생존기: 무인도》 최종 Windows 후보
 >
-> 상태: `O4_CANDIDATE / AUTOMATED_GREEN / OWNER_RETEST_PENDING`
+> 상태: `O4-H1_REJECTED / P0_OPEN / O5_REQUIRED`
 >
 > 실행 절차 정본: `Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md`
 >
@@ -49,6 +49,7 @@
 | `O1` | `owner-01` | 기존 사용자 | KO 기본 | 키보드·마우스 | 굶주림 사망·탈출 확인 | `<01:00` | `21:50 내 확인` | 미기록 | 업그레이드가 필수로 느껴짐 | `H-001~H-005 P1` | `RETEST` | `Docs/Design/Playtest/Sessions/O1-2026-08-26.md` |
 | `O2` | `owner-01` | 기존 사용자·새 save | KO 기본 | 키보드·마우스 | 가방 full 뒤 새 발견물 담기 | `진행 불가` | `미도달` | `미관찰` | `미관찰` | `O2-P0-001 교체 가방 UI 숨김` | `REJECT` | `Docs/Design/Playtest/Sessions/O2-2026-08-26.md` |
 | `O3` | `owner-01` | 기존 사용자·새 save | KO 기본 | 키보드·마우스 | 7개 지역 수집·뗏목 2/3·연기 신호 | `미측정` | `21:29 진행 불가 종료` | `미기록` | `6칸 업그레이드 완료` | `O3-P0-001~003 · O3-P1-001` | `REJECT` | `Docs/Design/Playtest/Sessions/O3-2026-08-26.md` |
+| `O4-H1` | `owner-01` | 기존 사용자·새 save | KO 기본 | 키보드·마우스 | 7지역·세 경로 자원 시도 | `00:25 내외` | `21:29 · Day 16 · 탈출 불가` | `미기록` | `6칸 업그레이드` | `O4-H1-P0-001 · P1-001~005` | `REJECT` | `Docs/Design/Playtest/Sessions/O4-H1-2026-08-27.md` |
 | `K1` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
 | `K2` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
 | `K3` | `________` | `[ ]` | KO | `________` | `________` | `__:__` | `__:__` | `__` | `________` | `________` | `UNRUN` | `________` |
@@ -131,6 +132,12 @@
 | `O3-P0-002` | `P0` | `O3 · 21:29 · Day 16` | `KO · 키보드/마우스` | 7개 지역·탈출 설비 | 전 지역의 유한 자원을 수집하고 대표 경로 진행 | 최소 한 경로 완료 또는 정확한 회복 목표 표시 | O4 대표 seed 5개에서 세 경로 모두 완료 가능·softlock 없음 | `O4 stable-resource gate O4-S01~R03` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
 | `O3-P0-003` | `P0` | `O3 · 전 구간` | `KO · 키보드/마우스` | 베이스캠프 | 세 대표 탈출 설비를 찾아 비교 | 뗏목·연기·라디오가 이름과 목표로 구분 | O4는 세 설비에 상시 경로명과 현재 진행도를 표시 | `O4 ladder capture · Wave19 Play GREEN` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
 | `O3-P1-001` | `P1` | `O3 · Day 16` | `KO · 키보드/마우스` | 해안 진수대 팝업 | 진행도·다음 단계·보유/필요 자원을 읽음 | 정보가 분리되고 본문이 잘리지 않음 | O4는 불투명 compact 패널에서 설명·진행·다음 단계·보유/필요를 분리 | `O4 KO/EN/qps-long popup layout PASS` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O4-H1-P0-001` | `P0` | `O4-H1 · 21:29 · Day 16` | `KO · 키보드/마우스` | 7지역·세 탈출 설비 | 자연 수색만으로 최소 한 경로 완료 | O5는 일반 자원 144→432, 대표 seed 5개에서 세 경로 모두 자연 자원 예산 충족·softlock 없음 | `O5-R01 · O4-S01~R03` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O4-H1-P1-001` | `P1` | `O4-H1 · 전 구간` | `KO · 키보드/마우스` | 수집 지도 | 지역별 실제 남은 유한 자원 % 비교 | O5 지도 카드와 상세 패널에 저장 원장 기반 잔량 %와 남은/초기 수량 표시 | `O5-R02 · O5-U02 · O5 Play` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O4-H1-P1-002` | `P1` | `O4-H1 · 전 구간` | `KO · 키보드/마우스` | 베이스캠프 | 설비·표식·이동선이 겹치지 않음 | O5는 미건설 탈출 설비 3개를 월드에서 제거하고 계획 지점·지도·앨범만 남김 | `O5-E01 · O5 Play capture` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O4-H1-P1-003` | `P1` | `O4-H1 · 새 게임` | `KO · 키보드/마우스` | 베이스캠프 | 탈출 설비는 건설 뒤 등장 | O5는 계획 팝업에서 비용을 지불해 건설한 경로만 월드 오브젝트 생성 | `O5-E01 · smokeBuiltVisible` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O4-H1-P1-004` | `P1` | `O4-H1 · 전 구간` | `KO · 키보드/마우스` | 탈출 설비 | 월드에는 간결한 상호작용 아이콘만 표시 | O5는 상시 경로 텍스트를 제거하고 공통 다이아몬드 아이콘·근접 안내·팝업으로 단계화 | `O5-U01 · persistentRouteTextAbsent` | `1/1` | `FIXED_AUTOMATED_RETEST_PENDING` |
+| `O4-H1-P1-005` | `P1` | `O4-H1 · 전 구간` | `KO · 키보드/마우스` | 캠프·지도·수색 | 공통 표식과 완성도 있는 UI·지역·수색 오브젝트 세트 | O5 공통 표식은 live 연결; UI·7지역·수색 오브젝트·탈출 건설 세트는 신규 생성되어 Forge `review` 대기 | `O5-U01 · Forge art jobs 5종` | `1/1` | `PARTIAL_AUTOMATED_ART_REVIEW_PENDING` |
 
 P0는 즉시 후보 `REJECT`, P1은 후보 `RETEST`다. 수정 뒤에는 같은 행을 지우지 않고 수정 commit과 새 후보 세션을 연결한다.
 
@@ -143,12 +150,12 @@ P0는 즉시 후보 `REJECT`, P1은 후보 `RETEST`다. 수정 뒤에는 같은 
 | 실제 대표 탈출 25~35분 확인 | `RETEST — 정확 시각 미기록, 21:50에 UI 문제로 종료` |
 | 가방 4→6 선택 체감 확인 | `RETEST — 선택이 아니라 필수로 느낌` |
 | 물리 게임패드 핵심 흐름 확인 | `UNRUN` |
-| 미해결 P0/P1 0건 | `AUTOMATED PASS — O3 4건 수정, O4 사람 재현 확인 대기` |
+| 미해결 P0/P1 0건 | `RETEST — O4-H1 P0/P1 자동 교정 GREEN, O5 인간 재검증 대기` |
 
-최종 후보 판정: `O3_REJECTED · P0_OPEN · NOT_SUBMISSION_READY`
+최종 후보 판정: `O4-H1_REJECTED · O5_AUTOMATED_GREEN · HUMAN_RETEST_PENDING`
 
-판정자·일시: `owner-01 · 2026-08-26 23:57 KST`
+판정자·일시: `owner-01 · 2026-08-27 01:57 KST`
 
-한 줄 결론: `O3에서 7개 지역 수색 뒤에도 표시 자원과 실제 소모 판정이 달라 탈출이 막혔고 라디오 경로도 발견되지 않아 13c116d 후보를 폐기한다.`
+한 줄 결론: `O4-H1은 Day 16까지 일곱 지역의 63개 수색 node와 보호 부품 5개를 확보했지만 자연 자원 예산 부족으로 탈출이 불가능했고, 캠프 밀집·상시 경로 텍스트·아트 발견성 문제까지 확인되어 746fd48 후보를 폐기한다.`
 
-O4 자동 후보 판정: `AUTOMATED_GREEN · OWNER_RETEST_PENDING · PHYSICAL_GAMEPAD_UNVERIFIED`
+O5 자동 후보 판정: `RESOURCE_3X_GREEN · REGION_PERCENT_GREEN · STAGED_ESCAPE_GREEN · ICON_FIRST_GREEN · HUMAN_RETEST_PENDING · PHYSICAL_GAMEPAD_UNVERIFIED`

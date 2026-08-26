@@ -81,7 +81,8 @@ namespace ParallelQA
                 bool exactStock = report.SeedAudits.Length ==
                                   PrototypeEscapeResourceSeedAuditor.RepresentativeSeeds.Count &&
                                   report.SeedAudits.All(audit =>
-                                      audit.RegionCount == 7 && audit.NodeCount == 42 && audit.GeneralStockUnits == 144 &&
+                                      audit.RegionCount == 7 && audit.NodeCount == 42 &&
+                                      audit.GeneralStockUnits == PrototypeSearchRegionCatalog.BalanceProvisionalGeneralStockUnits &&
                                       audit.ProtectedPartUnits == 5 && audit.ExactStableStock && audit.StableCatalogComplete);
                 Add(checks, "O4-S01", exactStock,
                     SeedSummary(report.SeedAudits, audit =>

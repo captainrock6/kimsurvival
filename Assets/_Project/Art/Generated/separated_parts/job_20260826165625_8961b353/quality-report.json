@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 1,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.6122,
+      "contrastStdDev": 31.45,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 9,
+        "top": 45,
+        "right": 6,
+        "bottom": 62
+      },
+      "previewFile": "qa-preview-exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.jpg",
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-26T17:00:26.260Z",
+  "jobId": "job_20260826165625_8961b353",
+  "assetType": "separated_parts"
+}

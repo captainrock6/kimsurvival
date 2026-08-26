@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "grade": "review",
+  "score": 92,
+  "summary": {
+    "files": 1,
+    "errors": 0,
+    "warnings": 1
+  },
+  "files": [
+    {
+      "fileName": "exec-7398801e-87a9-47de-a146-88145760cf7e.png",
+      "kind": "raster",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "transparentRatio": 0.8057,
+      "contrastStdDev": 42.94,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 14,
+        "top": 0,
+        "right": 11,
+        "bottom": 32
+      },
+      "previewFile": "qa-preview-exec-7398801e-87a9-47de-a146-88145760cf7e.jpg",
+      "issues": [
+        {
+          "code": "edge-touch",
+          "severity": "warning",
+          "message": "�ֿ� ������Ʈ�� ĵ���� �����ڸ��� ��� �߸� ������ �ֽ��ϴ�."
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-26T17:03:31.545Z",
+  "jobId": "job_20260826170114_89c38693",
+  "assetType": "separated_parts"
+}

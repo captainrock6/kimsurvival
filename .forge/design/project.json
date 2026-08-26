@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "project": {
     "title": "김씨 생존기: 무인도",
-    "oneLinePitch": "무인도에 조난된 김씨가 유한 수색물을 선별해 세 가지 탈출 경로를 완성하고, 지붕이 있는 절개형 다층 쉘터의 사다리를 직접 오르내리며 생활 공간을 확장하는 코믹 2D 생존 게임.",
+    "oneLinePitch": "무인도에 조난된 김씨가 유한 수색물을 선별해 직접 만든 설비와 다층 쉘터를 성장시키고, 선택한 탈출 프로젝트를 완성하는 코믹 2D 생존 게임.",
     "genre": "코믹 2D 횡스크롤 거점 생존·유한 자원 수색·제작·행동 기반 다중 엔딩 게임",
     "targetPlatform": "게임잼 Windows PC 빌드, 한국어 기본·영어 지원, 키보드·마우스와 게임패드",
     "audience": "30분 안에 직접 탐색한 섬과 확장한 거점이 눈에 남고, 다른 탈출법과 엔딩을 위해 다시 플레이하고 싶은 싱글 플레이 생존 게임 이용자",
@@ -64,7 +64,7 @@
       "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
       "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
     ],
-    "updatedAt": "2026-08-26T15:11:08.747Z",
+    "updatedAt": "2026-08-26T16:50:01.222Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -6084,6 +6084,37 @@
       "cameraRule": "카메라는 김씨의 수직 위치를 부드럽게 따라 시작층·2층·지하실을 보여주고, 현재 건설된 쉘터 범위에서 clamp한다.",
       "artRule": "기존 engine_ready 아트를 우선 연결하고 신규 사다리 아트는 오리지널 후보 한 세트를 제작·검토하되 사용자 채택 전 review-only로 유지한다.",
       "candidateStatus": "IMPLEMENTATION_REQUIRED"
+    },
+    "o5HumanCorrectionContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o5-human-resource-art-correction.v1",
+      "rejectedCandidate": "746fd4884559b5df871b45838448e14e91f551fb",
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O4-H1-2026-08-27.md",
+      "telemetryEvidence": "kim-survival-playtest-20260826T143600860Z-377620b7.jsonl",
+      "openDefects": [
+        "O4-H1-P0-001",
+        "O4-H1-P1-001",
+        "O4-H1-P1-002",
+        "O4-H1-P1-003",
+        "O4-H1-P1-004",
+        "O4-H1-P1-005"
+      ],
+      "measuredBaseline": {
+        "duration": "21:29.28",
+        "maxDay": 16,
+        "regionsVisited": 7,
+        "expeditions": 16,
+        "searchNodeOpenCount": 63,
+        "protectedPartsAcquired": 5,
+        "resourceGains": {
+          "resource.wood": 57,
+          "resource.stone": 70,
+          "resource.food": 36,
+          "resource.salvage": 120
+        },
+        "completedEscapeId": ""
+      },
+      "candidateStatus": "IMPLEMENTATION_REQUIRED"
     }
   },
   "features": [
@@ -8361,8 +8392,113 @@
       ],
       "status": "needed",
       "source": "forge-director"
+    },
+    {
+      "id": "ui.gamejam.interface-kit",
+      "name": "게임잼 통합 UI 컴포넌트 세트",
+      "assetType": "ui_set",
+      "request": "김씨 생존기 무인도용 오리지널 Unity PC UI 세트. 최소 생존 HUD, 캠프 근접 프롬프트, 설비 팝업, 수집 지도 7지역 카드와 자원 잔량 배지, 수색 발견물 tray, 4칸/6칸 가방, 부족 자원·위험·완료 상태의 패널·프레임·탭·포커스 상태를 하나의 따뜻한 열대 생존 시각 문법으로 정리한다. 1280x800과 1920x1080, KO/EN/장문 로케일을 고려하고 모든 본문은 빈 라벨 영역으로 두어 엔진 TMP로 표시한다. 타사 고유 UI, 로고, 본문 텍스트 없음.",
+      "priority": "critical",
+      "dependencies": [
+        "icon.resource-tool-set"
+      ],
+      "featureIds": [
+        "feature.localization",
+        "feature.dual-input",
+        "feature.searchable-resource-nodes"
+      ],
+      "tags": [
+        "o5",
+        "gamejam",
+        "ui-set",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
+    },
+    {
+      "id": "background.expedition-seven-region-set",
+      "name": "일곱 수색 지역 측면 배경 세트",
+      "assetType": "background",
+      "request": "같은 무인도에 속하지만 즉시 구분되는 7개의 오리지널 2D 횡스크롤 측면 배경 세트: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면은 캐릭터가 걷는 하나의 수평 gameplay band와 환경 수색 오브젝트를 놓을 빈 공간, 전경·중경·원경 깊이, 따뜻한 열대색과 굵은 실루엣을 유지한다. UI와 본문 텍스트, 타사 고유 구도 없음.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.island-exploration",
+        "feature.searchable-resource-nodes"
+      ],
+      "tags": [
+        "o5",
+        "seven-regions",
+        "side-view",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
+    },
+    {
+      "id": "object.searchable-resource-node-production-set",
+      "name": "환경 수색 오브젝트 프로덕션 세트",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기 2D 측면 수색용 오리지널 환경 오브젝트 세트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛을 미수색·부분 잔류·고갈 상태로 구분한다. 1280x800에서 작은 실루엣으로도 종류와 상태가 읽히고, 같은 공통 상호작용 아이콘을 얹을 상단 여백을 둔다. 각 부품 분리, 무겹침, 동일 여백, true alpha, 본문 텍스트 없음.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence"
+      ],
+      "tags": [
+        "o5",
+        "search-object",
+        "state-set",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
+    },
+    {
+      "id": "ui.interactable-marker-set",
+      "name": "공통 상호작용 아이콘 표식",
+      "assetType": "ui_set",
+      "request": "김씨 생존기 캠프·지도·수색 오브젝트 위에 쓰는 오리지널 아이콘 표식 세트. 작은 마름모 프레임 안에 사용, 제작, 건설, 지도, 수색, 등반, 탈출 프로젝트를 형태로 구분하고 available, nearby, blocked, depleted 상태를 색과 테두리로 전달한다. 게임 화면을 가리는 본문 이름표 없이 32~64px에서 읽히며 키 입력 문자는 별도 엔진 TMP 슬롯으로 둔다. 타사 고유 아이콘 복제 없음.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-object-interaction",
+        "feature.searchable-resource-nodes"
+      ],
+      "tags": [
+        "o5",
+        "interaction",
+        "marker",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
+    },
+    {
+      "id": "object.escape-project-build-set",
+      "name": "건설형 탈출 프로젝트 설비 세트",
+      "assetType": "separated_parts",
+      "request": "플레이어가 계획대에서 건설한 뒤 베이스캠프에 등장하는 오리지널 2D 측면 탈출 설비 세트. 해안 뗏목 진수대, 대형 연기 신호대, 무전 복구 작업대를 blueprint·건설됨·진행 중·완료 상태로 구분한다. 표류목, 밧줄, 천, 재활용 금속과 전자 부품의 코믹한 급조 감각, 각 부품 분리, true alpha, 본문 텍스트와 타사 고유 디자인 없음.",
+      "priority": "high",
+      "dependencies": [
+        "object.camp-structures"
+      ],
+      "featureIds": [
+        "feature.escape-outcome",
+        "feature.raft-escape"
+      ],
+      "tags": [
+        "o5",
+        "escape",
+        "build-state",
+        "review-only"
+      ],
+      "status": "needed",
+      "source": "forge-director"
     }
   ],
   "openQuestions": [],
-  "updatedAt": "2026-08-26T15:11:08.746Z"
+  "updatedAt": "2026-08-26T16:50:01.221Z"
 }

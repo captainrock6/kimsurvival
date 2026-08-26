@@ -638,11 +638,12 @@ namespace KimSurvival
     public static class PrototypeSearchRegionCatalog
     {
         public const string ContractRevision = "gamejam.wave-bc.catalog-disease-parts.v1";
-        public const string LootTableRevision = "gamejam.wave-c.loot.same-run-144.v2";
+        public const string LootTableRevision = "gamejam.o5.loot.same-run-432.v1";
         public const string CatalogRevision = "gamejam.wave-b.7r21a42i.v1";
         public const string NewGameStockGenerationEvent = "new-game-stock-generation";
         public const string BalanceStatus = "BALANCE_PROVISIONAL";
-        public const int BalanceProvisionalGeneralStockUnits = 144;
+        public const int GameJamResourceYieldMultiplier = 3;
+        public const int BalanceProvisionalGeneralStockUnits = 432;
 
         // Ordinals 0/1/2 are save-compatible with the original Beach/Forest/Shallows enum.
         private static readonly string[] StableRegionIdsByExpeditionOrdinal =
@@ -1237,13 +1238,16 @@ namespace KimSurvival
                 string resourceSuffix = item.StableResourceId.StartsWith("resource.", StringComparison.Ordinal)
                     ? item.StableResourceId.Substring("resource.".Length)
                     : item.StableResourceId.Replace('.', '-');
-                contents.Add(new PrototypeSearchLootEntry
+                for (int batch = 0; batch < PrototypeSearchRegionCatalog.GameJamResourceYieldMultiplier; batch += 1)
                 {
-                    StableItemId = definition.NodeId + ".resource." + resourceSuffix,
-                    StableResourceId = item.StableResourceId,
-                    Resource = item.Resource,
-                    Amount = item.Amount
-                });
+                    contents.Add(new PrototypeSearchLootEntry
+                    {
+                        StableItemId = definition.NodeId + ".resource." + resourceSuffix + ".o5." + batch,
+                        StableResourceId = item.StableResourceId,
+                        Resource = item.Resource,
+                        Amount = item.Amount
+                    });
+                }
             }
 
             return contents.ToArray();
@@ -1449,6 +1453,30 @@ namespace KimSurvival
         public static PrototypeSearchNodeLedger CreateForRestore(int runSeed)
         {
             return new PrototypeSearchNodeLedger(runSeed, false);
+        }
+
+        public int GetRegionInitialGeneralAmount(string regionId)
+        {
+            PrototypeSearchRegionDefinition region = PrototypeSearchRegionCatalog.Get(regionId);
+            return region.Nodes.Sum(definition =>
+                generatedNewGameStock.TryGetValue(definition.NodeId, out PrototypeSearchLootEntry[] stock)
+                    ? stock.Where(item => !item.IsProtectedPart).Sum(item => Math.Max(0, item.Amount))
+                    : PrototypeSearchNodeLootResolver.Resolve(RunSeed, definition)
+                        .Where(item => !item.IsProtectedPart).Sum(item => Math.Max(0, item.Amount)));
+        }
+
+        public int GetRegionRemainingGeneralAmount(string regionId)
+        {
+            return nodes.Values
+                .Where(node => string.Equals(node.RegionId, regionId, StringComparison.Ordinal))
+                .Sum(node => node.GeneralRemainingAmount);
+        }
+
+        public int GetRegionRemainingPercent(string regionId)
+        {
+            int initial = GetRegionInitialGeneralAmount(regionId);
+            if (initial <= 0) return 0;
+            return Mathf.Clamp(Mathf.RoundToInt(GetRegionRemainingGeneralAmount(regionId) * 100f / initial), 0, 100);
         }
 
         public PrototypeSearchNodeSnapshot GetOrCreate(PrototypeSearchNodeDefinition definition)
@@ -2455,10 +2483,10 @@ namespace KimSurvival
         private static readonly Dictionary<string, int> ExactSearchStock =
             new Dictionary<string, int>(StringComparer.Ordinal)
             {
-                { "resource.wood", 22 }, { "resource.salvage", 18 }, { "resource.food", 12 },
-                { "resource.fabric", 6 }, { "resource.fiber", 10 }, { "resource.medicine", 6 },
-                { "resource.stone", 18 }, { "resource.metal", 14 }, { "resource.wire", 12 },
-                { "resource.fuel", 8 }, { "resource.chemicals", 6 }, { "resource.electronics", 12 }
+                { "resource.wood", 66 }, { "resource.salvage", 54 }, { "resource.food", 36 },
+                { "resource.fabric", 18 }, { "resource.fiber", 30 }, { "resource.medicine", 18 },
+                { "resource.stone", 54 }, { "resource.metal", 42 }, { "resource.wire", 36 },
+                { "resource.fuel", 24 }, { "resource.chemicals", 18 }, { "resource.electronics", 36 }
             };
 
         private static readonly RouteRequirement[] Routes =
@@ -2762,8 +2790,11 @@ namespace KimSurvival
             PrototypeSearchNodeDefinition depleteDefinition = definitions.First(node =>
                 !string.Equals(node.NodeId, definition.NodeId, StringComparison.Ordinal) &&
                 !protectedNodeIds.Contains(node.NodeId) &&
-                !string.Equals(node.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal));
+                node.FiniteYield.Count == 1);
             GameSession depleteSession = new GameSession(seed);
+            GameSessionStableState depleteBagState = depleteSession.CaptureStableState();
+            depleteBagState.ActiveBagSlotCount = GameSession.MaximumBagSlotCount;
+            bool depleteBagPrepared = depleteSession.RestoreStableState(depleteBagState);
             bool depleteBegan = depleteSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(depleteDefinition.RegionId));
             if (depleteDefinition.RequiresSwimming) depleteSession.SetSwimming(true);
             PrototypeSearchNodeRuntime depleteRuntime = new PrototypeSearchNodeRuntime(seed);
@@ -2824,7 +2855,7 @@ namespace KimSurvival
                           (takeResult == PrototypeSearchTakeResult.Added || takeResult == PrototypeSearchTakeResult.Depleted) &&
                            persistence && restoreShellStartsEmpty && productionRestoreOk && stockDoesNotRegenerate &&
                            depleteBegan && depleteOpened && hiddenObserved &&
-                          partialObserved && depletedObserved && depleteResult == PrototypeSearchTakeResult.Depleted &&
+                          depleteBagPrepared && partialObserved && depletedObserved && depleteResult == PrototypeSearchTakeResult.Depleted &&
                           protectedBegan && protectedOpened && protectedTaken && protectedUnique &&
                           fullBagBegan && filled && swapOpened && cancelAtomic && replaceAtomic &&
                           pityContract.Passed && diseaseContract.Passed;
@@ -2917,7 +2948,9 @@ namespace KimSurvival
                 acquiredRestoredRuntime.Ledger.HasProtectedPart(partId) &&
                 acquiredRestoredRuntime.Ledger.ProtectedPartPity.First(value =>
                     string.Equals(value.PartId, partId, StringComparison.Ordinal)).Acquired;
-            bool stockSeparated = restored != null && generalBefore == 144 && restored.GeneralRemainingAmount == 144 &&
+            bool stockSeparated = restored != null &&
+                                  generalBefore == PrototypeSearchRegionCatalog.BalanceProvisionalGeneralStockUnits &&
+                                  restored.GeneralRemainingAmount == PrototypeSearchRegionCatalog.BalanceProvisionalGeneralStockUnits &&
                                   protectedConserved == 5 && restored.ProtectedPartPity.Count == 5;
             bool duplicateZeroDelta = duplicateRejected && string.Equals(beforeDuplicate, afterDuplicate, StringComparison.Ordinal);
             bool passed = fiveUniqueMisses && armed.EligibleMissCount == 5 && armed.GuaranteeArmed && !armed.Acquired &&
