@@ -14,7 +14,7 @@
 
 ## 1. 후보 빌드 동결
 
-아래 두 해시가 비어 있거나 세션마다 다르면 테스트를 시작하지 않는다.
+아래 소스·EXE·게임 코드 DLL 해시가 비어 있거나 세션마다 다르면 테스트를 시작하지 않는다. Unity의 EXE는 런처이므로 실제 게임 코드 변경 여부는 `Assembly-CSharp.dll` 해시까지 함께 확인해야 한다.
 
 | 필드 | 정확한 값 |
 |---|---|
@@ -22,7 +22,9 @@
 | Windows EXE 파일명 | `KimSurvivalIsland.exe` |
 | Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-3d64403\KimSurvivalIsland.exe` |
 | EXE SHA-256, 64자리 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
-| 빌드 시각, KST | `2026-08-26 12:34:29` |
+| 게임 코드 DLL 상대 경로 | `KimSurvivalIsland_Data\Managed\Assembly-CSharp.dll` |
+| 게임 코드 DLL SHA-256, 64자리 | `b7e216c2892ee952905ccc2cbb37caa7050c355da38d6582e2d4c5d1b762f7e6` |
+| 빌드 완료 시각, KST | `2026-08-26 13:14:51` |
 | Unity 버전 | `6000.4.9f1` |
 | 화면 | `1280×800 / 창모드·전체화면: ____________________` |
 | Windows 버전 | `________________________________________` |
@@ -34,11 +36,12 @@
 ```powershell
 git rev-parse HEAD
 Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 exe의 정확한 경로>'
+Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 폴더>\KimSurvivalIsland_Data\Managed\Assembly-CSharp.dll'
 ```
 
 후보 무효 조건:
 
-- commit 또는 EXE SHA가 기록과 다르다.
+- commit, EXE SHA 또는 게임 코드 DLL SHA가 기록과 다르다.
 - 테스트 중 빌드를 교체했지만 새 후보로 다시 시작하지 않았다.
 - 개발용 grant, 좌표 warp, day/phase skip, fixture 전용 메뉴를 사용했다.
 - 이전 save를 fresh-user 표본에 재사용했다.
