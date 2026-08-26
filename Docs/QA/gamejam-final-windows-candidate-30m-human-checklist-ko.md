@@ -18,15 +18,15 @@
 
 | 필드 | 정확한 값 |
 |---|---|
-| Git commit SHA-1, 40자리 | `27902030d6e4fb8e9ac7c0a231ce34bf68a9c6ad` |
+| Git commit SHA-1, 40자리 | `3d64403813493d8de8e05f0844a5e616e164c6d4` |
 | Windows EXE 파일명 | `KimSurvivalIsland.exe` |
-| Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-2790203\KimSurvivalIsland.exe` |
+| Windows EXE 절대 경로 | `C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\KimSurvivalIsland-gamejam-win64-3d64403\KimSurvivalIsland.exe` |
 | EXE SHA-256, 64자리 | `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d` |
 | 빌드 시각, KST | `2026-08-26 12:34:29` |
 | Unity 버전 | `6000.4.9f1` |
 | 화면 | `1280×800 / 창모드·전체화면: ____________________` |
 | Windows 버전 | `________________________________________` |
-| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203`, `Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203`, `Artifacts/ParallelQA/20260827T141500Z_gamejam_longstay_2790203` |
+| 자동화 증거 Run ID/경로 | `Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403`, `Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403`, `Artifacts/ParallelQA/20260827T200000Z_gamejam_longstay_3d64403` |
 | 테스트 담당자·세션 ID | `________________________________________` |
 
 해시 기록 명령:

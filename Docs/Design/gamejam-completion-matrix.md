@@ -1,6 +1,6 @@
 # GAME JAM 제출 완료 기준 감사
 
-> 후보 소스: 27902030d6e4fb8e9ac7c0a231ce34bf68a9c6ad
+> 후보 소스: 3d64403813493d8de8e05f0844a5e616e164c6d4
 >
 > 감사 계약: gamejam.completion-matrix.v2
 >
@@ -8,7 +8,7 @@
 >
 > 제출 판정: AUTOMATED_GREEN · HUMAN_REQUIRED
 
-> 테스트 후보: `work/ParallelQA/KimSurvivalIsland-gamejam-win64-2790203/KimSurvivalIsland.exe`
+> 테스트 후보: `work/ParallelQA/KimSurvivalIsland-gamejam-win64-3d64403/KimSurvivalIsland.exe`
 >
 > EXE SHA-256: `93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d`
 
@@ -24,21 +24,21 @@
 
 현재 통합 증거:
 
-- Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203/gamejam-wave-b-summary.json
-- Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203/gamejam-wave-b-edit-contracts.json
-- Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203/gamejam-wave-b-play-contracts.json
-- Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203/gamejam-search-node-summary.json
-- Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203/gamejam-search-node-edit-observation-evidence.json
-- Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203/gamejam-search-node-play-observation-evidence.json
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/gamejam-wave-c-summary.json
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/gamejam-wave-c-edit-contracts.json
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/gamejam-wave-c-play-contracts.json
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/wave19-summary.json
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/wave20-summary.json
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/compile-result.txt
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/windows-development-build.json
-- Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/windows-hidden-smoke.json
-- Artifacts/ParallelQA/20260827T141500Z_gamejam_longstay_2790203/gamejam-long-stay-summary.json
+- Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json
+- Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-edit-contracts.json
+- Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-play-contracts.json
+- Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-search-node-summary.json
+- Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-search-node-edit-observation-evidence.json
+- Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-search-node-play-observation-evidence.json
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-edit-contracts.json
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/wave19-summary.json
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/wave20-summary.json
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/compile-result.txt
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/windows-development-build.json
+- Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/windows-hidden-smoke.json
+- Artifacts/ParallelQA/20260827T200000Z_gamejam_longstay_3d64403/gamejam-long-stay-summary.json
 
 이 증거는 현재 통합 브랜치에서 다시 생성한 GREEN 산출물이다. 우선순위는 현재 통합 probe, 같은 빌드의 세부 관찰, 과거 개별 wave PASS, backlog 상태, 설계 존재 순이다.
 
@@ -84,7 +84,7 @@
 
 ## 3. 완료된 3개 구현 wave 기록
 
-세 wave는 기존 task를 닫은 의존 순서다. 각 wave는 RED-first probe 뒤 GREEN으로 전환됐고, Wave C는 후보 소스 `2790203`의 `20260827T134000Z_gamejam_wavec_2790203`에서 전체 회귀와 함께 닫혔다.
+세 wave는 기존 task를 닫은 의존 순서다. 각 wave는 RED-first probe 뒤 GREEN으로 전환됐고, Wave C는 후보 소스 `3d64403`의 `20260827T180000Z_gamejam_wavec_3d64403`에서 전체 회귀와 함께 닫혔다.
 
 ### Wave A — live 수색 node 세로 골격
 

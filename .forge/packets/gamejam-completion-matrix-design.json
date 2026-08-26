@@ -7,7 +7,7 @@
       "schemaVersion": 2,
       "contractId": "gamejam.completion-matrix.v2",
       "sourceBaseline": "e4bbc03531d54e023f7a90f7a608871a47d26d55",
-      "currentIntegratedCommit": "27902030d6e4fb8e9ac7c0a231ce34bf68a9c6ad",
+      "currentIntegratedCommit": "3d64403813493d8de8e05f0844a5e616e164c6d4",
       "humanDocument": "Docs/Design/gamejam-completion-matrix.md",
       "designSources": [
         "Docs/Design/kim-survival-island-gdd.md",
@@ -15,9 +15,9 @@
         ".forge/design/project.json#project.sevenRegionSearchNodeContract"
       ],
       "integratedEvidenceRoots": [
-        "Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203",
-        "Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203",
-        "Artifacts/ParallelQA/20260827T141500Z_gamejam_longstay_2790203"
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403",
+        "Artifacts/ParallelQA/20260827T200000Z_gamejam_longstay_3d64403"
       ],
       "evidencePrecedence": [
         "current_integrated_probe",
@@ -249,9 +249,9 @@
       ],
       "evidence": [
         "Docs/Design/gamejam-completion-matrix.md",
-        "Artifacts/ParallelQA/20260827T130000Z_gamejam_waveb_2790203/gamejam-wave-b-summary.json",
-        "Artifacts/ParallelQA/20260827T134000Z_gamejam_wavec_2790203/gamejam-wave-c-summary.json",
-        "Artifacts/ParallelQA/20260827T141500Z_gamejam_longstay_2790203/gamejam-long-stay-summary.json"
+        "Artifacts/ParallelQA/20260827T190000Z_gamejam_waveb_3d64403/gamejam-wave-b-summary.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-summary.json",
+        "Artifacts/ParallelQA/20260827T200000Z_gamejam_longstay_3d64403/gamejam-long-stay-summary.json"
       ]
     }
   ],
