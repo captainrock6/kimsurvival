@@ -1266,6 +1266,10 @@ namespace KimSurvival
         private readonly TMP_Text[] endingContents = new TMP_Text[3];
         private readonly TMP_Text[] endingPanelBadges = new TMP_Text[3];
         private readonly Image[] endingPanelSurfaces = new Image[3];
+        private readonly RectTransform[] endingIllustrationRoots = new RectTransform[3];
+        private readonly Image[,] endingIllustrationParts = new Image[3, 12];
+        private Texture2D endingCircleTexture;
+        private Sprite endingCircleSprite;
         private GameObject endingModifierPanel;
         private TMP_Text endingModifierText;
         private string currentEndingId = string.Empty;
@@ -2296,6 +2300,8 @@ namespace KimSurvival
             if (semanticSurface != null) Destroy(semanticSurface.gameObject);
             if (endingComicRoot != null) Destroy(endingComicRoot);
             if (hazardPresentationRoot != null) Destroy(hazardPresentationRoot);
+            if (endingCircleSprite != null) Destroy(endingCircleSprite);
+            if (endingCircleTexture != null) Destroy(endingCircleTexture);
             foreach (Sprite sprite in hazardPhaseSprites.Values)
             {
                 if (sprite != null) Destroy(sprite);
@@ -2480,6 +2486,17 @@ namespace KimSurvival
             markerRect.offsetMin = Vector2.zero;
             markerRect.offsetMax = Vector2.zero;
 
+            GameObject blackout = new GameObject("Finale Full Screen Backdrop");
+            blackout.transform.SetParent(endingMarker.transform, false);
+            RectTransform blackoutRect = blackout.AddComponent<RectTransform>();
+            blackoutRect.anchorMin = Vector2.zero;
+            blackoutRect.anchorMax = Vector2.one;
+            blackoutRect.offsetMin = Vector2.zero;
+            blackoutRect.offsetMax = Vector2.zero;
+            Image blackoutImage = blackout.AddComponent<Image>();
+            blackoutImage.color = new Color(0.012f, 0.038f, 0.046f, 1f);
+            blackoutImage.raycastTarget = true;
+
             GameObject frame = new GameObject("Finale Surface");
             frame.transform.SetParent(endingMarker.transform, false);
             RectTransform frameRect = frame.AddComponent<RectTransform>();
@@ -2515,6 +2532,17 @@ namespace KimSurvival
                 Outline titleSurfaceOutline = titleSurface.AddComponent<Outline>();
                 titleSurfaceOutline.effectColor = new Color(0.96f, 0.76f, 0.30f, 0.95f);
                 titleSurfaceOutline.effectDistance = new Vector2(2f, -2f);
+
+                GameObject storySurface = new GameObject("Finale Story Surface");
+                storySurface.transform.SetParent(frame.transform, false);
+                RectTransform storySurfaceRect = storySurface.AddComponent<RectTransform>();
+                storySurfaceRect.anchorMin = new Vector2(0.035f, 0.235f);
+                storySurfaceRect.anchorMax = new Vector2(0.965f, 0.825f);
+                storySurfaceRect.offsetMin = Vector2.zero;
+                storySurfaceRect.offsetMax = Vector2.zero;
+                Image storySurfaceImage = storySurface.AddComponent<Image>();
+                storySurfaceImage.color = new Color(0.035f, 0.14f, 0.16f, 1f);
+                storySurfaceImage.raycastTarget = false;
             }
 
             endingTitle = CreateEndingText("Finale Title", frame.transform,
@@ -2531,15 +2559,15 @@ namespace KimSurvival
             for (int index = 0; index < 3; index += 1)
             {
                 float minimum = selectedTriptych
-                    ? (index == 0 ? 0.045f : index == 1 ? 0.465f : 0.695f)
+                    ? 0.045f + index * 0.305f
                     : 0.025f + index * 0.325f;
                 float maximum = selectedTriptych
-                    ? (index == 0 ? 0.445f : index == 1 ? 0.675f : 0.955f)
+                    ? minimum + 0.285f
                     : minimum + 0.30f;
                 GameObject panel = new GameObject("Panel " + (index + 1));
                 panel.transform.SetParent(frame.transform, false);
                 RectTransform panelRect = panel.AddComponent<RectTransform>();
-                panelRect.anchorMin = new Vector2(minimum, selectedTriptych ? 0.37f : 0.06f);
+                panelRect.anchorMin = new Vector2(minimum, selectedTriptych ? 0.25f : 0.06f);
                 panelRect.anchorMax = new Vector2(maximum, selectedTriptych ? 0.80f : 0.80f);
                 panelRect.offsetMin = Vector2.zero;
                 panelRect.offsetMax = Vector2.zero;
@@ -2548,6 +2576,31 @@ namespace KimSurvival
                     index == 1 ? new Color(0.12f, 0.28f, 0.30f, 1f) : new Color(0.16f, 0.20f, 0.22f, 1f);
                 panelImage.raycastTarget = false;
                 endingPanelSurfaces[index] = panelImage;
+                if (selectedTriptych)
+                {
+                    GameObject illustration = new GameObject("Comic Illustration " + (index + 1));
+                    illustration.transform.SetParent(panel.transform, false);
+                    RectTransform illustrationRect = illustration.AddComponent<RectTransform>();
+                    illustrationRect.anchorMin = new Vector2(0.055f, 0.40f);
+                    illustrationRect.anchorMax = new Vector2(0.945f, 0.69f);
+                    illustrationRect.offsetMin = Vector2.zero;
+                    illustrationRect.offsetMax = Vector2.zero;
+                    endingIllustrationRoots[index] = illustrationRect;
+                    for (int part = 0; part < endingIllustrationParts.GetLength(1); part += 1)
+                    {
+                        GameObject ink = new GameObject("Ink " + (part + 1));
+                        ink.transform.SetParent(illustration.transform, false);
+                        RectTransform inkRect = ink.AddComponent<RectTransform>();
+                        inkRect.anchorMin = Vector2.zero;
+                        inkRect.anchorMax = Vector2.one;
+                        inkRect.offsetMin = Vector2.zero;
+                        inkRect.offsetMax = Vector2.zero;
+                        Image inkImage = ink.AddComponent<Image>();
+                        inkImage.raycastTarget = false;
+                        inkImage.gameObject.SetActive(false);
+                        endingIllustrationParts[index, part] = inkImage;
+                    }
+                }
                 if (selectedTriptych)
                 {
                     Outline panelOutline = panel.AddComponent<Outline>();
@@ -2567,7 +2620,7 @@ namespace KimSurvival
                     endingPanelBadges[index] = CreateEndingText(
                         "Act Badge " + (index + 1),
                         panel.transform,
-                        new Vector2(0.055f, 0.62f),
+                        new Vector2(0.055f, 0.70f),
                         new Vector2(0.945f, 0.93f),
                         22,
                         TextAlignmentOptions.Center);
@@ -2578,11 +2631,11 @@ namespace KimSurvival
                     endingPanelBadges[index].overflowMode = TextOverflowModes.Ellipsis;
                     endingPanelBadges[index].color = new Color(0.03f, 0.14f, 0.16f, 1f);
                 }
-                Vector2 copyMin = selectedTriptych ? new Vector2(0.055f, 0.06f) : new Vector2(0.07f, 0.09f);
-                Vector2 copyMax = selectedTriptych ? new Vector2(0.945f, 0.58f) : new Vector2(0.93f, 0.91f);
+                Vector2 copyMin = selectedTriptych ? new Vector2(0.055f, 0.055f) : new Vector2(0.07f, 0.09f);
+                Vector2 copyMax = selectedTriptych ? new Vector2(0.945f, 0.385f) : new Vector2(0.93f, 0.91f);
                 endingContents[index] = CreateEndingText("Copy " + (index + 1), panel.transform, copyMin, copyMax, selectedTriptych ? 18 : 22, TextAlignmentOptions.Center);
                 endingContents[index].enableAutoSizing = true;
-                endingContents[index].fontSizeMin = selectedTriptych ? 12f : 14f;
+                endingContents[index].fontSizeMin = selectedTriptych ? 14f : 14f;
                 endingContents[index].fontSizeMax = selectedTriptych ? 18f : 22f;
                 endingContents[index].maxVisibleLines = 5;
                 endingContents[index].overflowMode = TextOverflowModes.Ellipsis;
@@ -2593,7 +2646,7 @@ namespace KimSurvival
             endingModifierPanel.transform.SetParent(frame.transform, false);
             RectTransform modifierRect = endingModifierPanel.AddComponent<RectTransform>();
             modifierRect.anchorMin = selectedTriptych ? new Vector2(0.055f, 0.055f) : new Vector2(0.08f, 0.055f);
-            modifierRect.anchorMax = selectedTriptych ? new Vector2(0.945f, 0.36f) : new Vector2(0.92f, 0.255f);
+            modifierRect.anchorMax = selectedTriptych ? new Vector2(0.945f, 0.235f) : new Vector2(0.92f, 0.255f);
             modifierRect.offsetMin = Vector2.zero;
             modifierRect.offsetMax = Vector2.zero;
             Image modifierImage = endingModifierPanel.AddComponent<Image>();
@@ -2753,6 +2806,296 @@ namespace KimSurvival
             {
                 if (endingPanelSurfaces[index] != null) endingPanelSurfaces[index].color = colors[index];
             }
+            ApplyEndingPanelIllustrations(definition);
+        }
+
+        private void ApplyEndingPanelIllustrations(PrototypeEndingDefinition definition)
+        {
+            for (int panel = 0; panel < endingIllustrationRoots.Length; panel += 1)
+            {
+                for (int part = 0; part < endingIllustrationParts.GetLength(1); part += 1)
+                {
+                    if (endingIllustrationParts[panel, part] != null)
+                    {
+                        endingIllustrationParts[panel, part].gameObject.SetActive(false);
+                    }
+                }
+            }
+
+            if (endingIllustrationRoots.Any(value => value == null)) return;
+            string id = definition.StableId ?? string.Empty;
+            if (string.Equals(id, PrototypeEndingCatalog.GameJamNaturalKimEndingId, StringComparison.Ordinal))
+            {
+                DrawPalm(0);
+                DrawGarden(1);
+                DrawHut(2);
+                return;
+            }
+
+            if (string.Equals(id, PrototypeEndingCatalog.GameJamIslandEngineerEndingId, StringComparison.Ordinal))
+            {
+                DrawScrap(0);
+                DrawRobot(1);
+                DrawSignalTower(2);
+                return;
+            }
+
+            if (id.IndexOf(".smoke.", StringComparison.Ordinal) >= 0)
+            {
+                DrawLogs(0);
+                DrawFire(1);
+                DrawRescueBoat(2);
+                return;
+            }
+
+            if (id.IndexOf(".radio.", StringComparison.Ordinal) >= 0)
+            {
+                DrawScrap(0);
+                DrawRadio(1);
+                DrawSignalTower(2);
+                return;
+            }
+
+            if (id.IndexOf(".raft.", StringComparison.Ordinal) >= 0)
+            {
+                DrawLogs(0);
+                DrawRaft(1);
+                DrawRescueBoat(2);
+                return;
+            }
+
+            if (id.IndexOf(".flare.", StringComparison.Ordinal) >= 0 ||
+                id.IndexOf(".beacon.", StringComparison.Ordinal) >= 0)
+            {
+                DrawScrap(0);
+                DrawFlare(1);
+                DrawSignalTower(2);
+                return;
+            }
+
+            DrawPalm(0);
+            DrawCamp(1);
+            DrawRescueBoat(2);
+        }
+
+        private void DrawPalm(int panel)
+        {
+            Color ink = new Color(0.035f, 0.20f, 0.16f, 0.96f);
+            Color accent = new Color(0.98f, 0.61f, 0.18f, 0.96f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.76f, 0.58f), new Vector2(0.94f, 0.93f), accent, 0f, true);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.45f, 0.08f), new Vector2(0.52f, 0.72f), ink, -7f);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.20f, 0.64f), new Vector2(0.50f, 0.76f), ink, 18f);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.46f, 0.68f), new Vector2(0.78f, 0.80f), ink, -18f);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.27f, 0.55f), new Vector2(0.51f, 0.68f), ink, 40f);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.48f, 0.57f), new Vector2(0.72f, 0.70f), ink, -42f);
+            SetEndingIllustrationPart(panel, 6, new Vector2(0.08f, 0.04f), new Vector2(0.92f, 0.11f), ink);
+        }
+
+        private void DrawGarden(int panel)
+        {
+            Color ink = new Color(0.04f, 0.22f, 0.17f, 0.96f);
+            Color fruit = new Color(0.94f, 0.45f, 0.18f, 0.98f);
+            for (int row = 0; row < 3; row += 1)
+            {
+                float y = 0.10f + row * 0.17f;
+                SetEndingIllustrationPart(panel, row, new Vector2(0.08f, y), new Vector2(0.92f, y + 0.055f), ink);
+            }
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.23f, 0.24f), new Vector2(0.28f, 0.75f), ink);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.48f, 0.25f), new Vector2(0.53f, 0.82f), ink);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.72f, 0.22f), new Vector2(0.77f, 0.70f), ink);
+            SetEndingIllustrationPart(panel, 6, new Vector2(0.15f, 0.53f), new Vector2(0.28f, 0.73f), fruit, -28f, true);
+            SetEndingIllustrationPart(panel, 7, new Vector2(0.50f, 0.63f), new Vector2(0.64f, 0.85f), fruit, 24f, true);
+            SetEndingIllustrationPart(panel, 8, new Vector2(0.73f, 0.46f), new Vector2(0.86f, 0.66f), fruit, 24f, true);
+        }
+
+        private void DrawHut(int panel)
+        {
+            Color ink = new Color(0.035f, 0.16f, 0.16f, 0.98f);
+            Color warm = new Color(0.95f, 0.54f, 0.18f, 0.98f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.22f, 0.10f), new Vector2(0.73f, 0.57f), ink);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.16f, 0.58f), new Vector2(0.51f, 0.72f), ink, 26f);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.46f, 0.58f), new Vector2(0.80f, 0.72f), ink, -26f);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.43f, 0.10f), new Vector2(0.55f, 0.42f), warm);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.79f, 0.50f), new Vector2(0.90f, 0.71f), warm, 0f, true);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.82f, 0.18f), new Vector2(0.87f, 0.51f), ink);
+            SetEndingIllustrationPart(panel, 6, new Vector2(0.07f, 0.04f), new Vector2(0.94f, 0.10f), ink);
+        }
+
+        private void DrawScrap(int panel)
+        {
+            Color ink = new Color(0.04f, 0.16f, 0.20f, 0.98f);
+            Color accent = new Color(0.96f, 0.43f, 0.13f, 0.98f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.14f, 0.11f), new Vector2(0.56f, 0.25f), ink, 8f);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.34f, 0.25f), new Vector2(0.77f, 0.39f), ink, -12f);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.20f, 0.39f), new Vector2(0.63f, 0.53f), accent, 6f);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.67f, 0.18f), new Vector2(0.74f, 0.78f), ink, -28f);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.61f, 0.68f), new Vector2(0.80f, 0.90f), accent, 0f, true);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.08f, 0.04f), new Vector2(0.92f, 0.10f), ink);
+        }
+
+        private void DrawRobot(int panel)
+        {
+            Color ink = new Color(0.035f, 0.16f, 0.20f, 0.98f);
+            Color accent = new Color(0.97f, 0.43f, 0.12f, 1f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.31f, 0.36f), new Vector2(0.69f, 0.72f), ink);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.37f, 0.72f), new Vector2(0.63f, 0.93f), accent);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.42f, 0.79f), new Vector2(0.47f, 0.86f), Color.white, 0f, true);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.53f, 0.79f), new Vector2(0.58f, 0.86f), Color.white, 0f, true);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.17f, 0.46f), new Vector2(0.31f, 0.56f), ink);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.69f, 0.46f), new Vector2(0.83f, 0.56f), ink);
+            SetEndingIllustrationPart(panel, 6, new Vector2(0.36f, 0.12f), new Vector2(0.44f, 0.36f), ink);
+            SetEndingIllustrationPart(panel, 7, new Vector2(0.56f, 0.12f), new Vector2(0.64f, 0.36f), ink);
+            SetEndingIllustrationPart(panel, 8, new Vector2(0.48f, 0.92f), new Vector2(0.52f, 1.00f), ink);
+        }
+
+        private void DrawSignalTower(int panel)
+        {
+            Color ink = new Color(0.03f, 0.15f, 0.19f, 0.98f);
+            Color pulse = new Color(0.98f, 0.42f, 0.12f, 0.98f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.46f, 0.08f), new Vector2(0.54f, 0.80f), ink);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.28f, 0.08f), new Vector2(0.72f, 0.16f), ink);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.38f, 0.67f), new Vector2(0.62f, 0.91f), pulse, 0f, true);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.20f, 0.71f), new Vector2(0.36f, 0.77f), pulse, 18f);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.64f, 0.71f), new Vector2(0.80f, 0.77f), pulse, -18f);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.14f, 0.87f), new Vector2(0.34f, 0.93f), pulse, 35f);
+            SetEndingIllustrationPart(panel, 6, new Vector2(0.66f, 0.87f), new Vector2(0.86f, 0.93f), pulse, -35f);
+        }
+
+        private void DrawLogs(int panel)
+        {
+            Color ink = new Color(0.20f, 0.12f, 0.07f, 0.98f);
+            Color spark = new Color(0.98f, 0.64f, 0.14f, 1f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.16f, 0.28f), new Vector2(0.84f, 0.43f), ink, 14f);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.16f, 0.28f), new Vector2(0.84f, 0.43f), ink, -14f);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.43f, 0.52f), new Vector2(0.57f, 0.76f), spark, 45f);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.66f, 0.63f), new Vector2(0.72f, 0.73f), spark, 0f, true);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.74f, 0.78f), new Vector2(0.79f, 0.87f), spark, 0f, true);
+        }
+
+        private void DrawFire(int panel)
+        {
+            DrawLogs(panel);
+            Color flame = new Color(0.95f, 0.25f, 0.08f, 1f);
+            Color smoke = new Color(0.12f, 0.20f, 0.20f, 0.84f);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.36f, 0.38f), new Vector2(0.64f, 0.77f), flame, 45f);
+            SetEndingIllustrationPart(panel, 6, new Vector2(0.38f, 0.70f), new Vector2(0.59f, 0.93f), smoke, 0f, true);
+            SetEndingIllustrationPart(panel, 7, new Vector2(0.52f, 0.82f), new Vector2(0.72f, 1.00f), smoke, 0f, true);
+        }
+
+        private void DrawRaft(int panel)
+        {
+            Color ink = new Color(0.05f, 0.18f, 0.20f, 0.98f);
+            Color sail = new Color(0.96f, 0.56f, 0.16f, 0.98f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.14f, 0.18f), new Vector2(0.86f, 0.31f), ink);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.47f, 0.28f), new Vector2(0.53f, 0.91f), ink);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.52f, 0.48f), new Vector2(0.79f, 0.78f), sail, -18f);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.05f, 0.06f), new Vector2(0.34f, 0.11f), ink, 4f);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.37f, 0.06f), new Vector2(0.66f, 0.11f), ink, -4f);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.69f, 0.06f), new Vector2(0.96f, 0.11f), ink, 4f);
+        }
+
+        private void DrawRescueBoat(int panel)
+        {
+            Color ink = new Color(0.03f, 0.15f, 0.20f, 0.98f);
+            Color rescue = new Color(0.96f, 0.43f, 0.12f, 1f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.13f, 0.25f), new Vector2(0.87f, 0.45f), ink, -4f);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.35f, 0.44f), new Vector2(0.72f, 0.64f), rescue);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.50f, 0.62f), new Vector2(0.56f, 0.91f), ink);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.56f, 0.70f), new Vector2(0.78f, 0.86f), rescue, -12f);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.04f, 0.08f), new Vector2(0.32f, 0.14f), ink, 5f);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.36f, 0.08f), new Vector2(0.64f, 0.14f), ink, -5f);
+            SetEndingIllustrationPart(panel, 6, new Vector2(0.68f, 0.08f), new Vector2(0.96f, 0.14f), ink, 5f);
+        }
+
+        private void DrawRadio(int panel)
+        {
+            Color ink = new Color(0.03f, 0.15f, 0.20f, 0.98f);
+            Color pulse = new Color(0.97f, 0.44f, 0.12f, 1f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.23f, 0.18f), new Vector2(0.77f, 0.68f), ink);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.33f, 0.48f), new Vector2(0.50f, 0.61f), pulse);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.57f, 0.31f), new Vector2(0.67f, 0.46f), pulse, 0f, true);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.29f, 0.68f), new Vector2(0.34f, 0.96f), ink, -20f);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.72f, 0.66f), new Vector2(0.88f, 0.72f), pulse, -20f);
+            SetEndingIllustrationPart(panel, 5, new Vector2(0.76f, 0.79f), new Vector2(0.94f, 0.85f), pulse, -32f);
+        }
+
+        private void DrawFlare(int panel)
+        {
+            Color ink = new Color(0.04f, 0.15f, 0.19f, 0.98f);
+            Color flare = new Color(0.98f, 0.30f, 0.08f, 1f);
+            SetEndingIllustrationPart(panel, 0, new Vector2(0.43f, 0.13f), new Vector2(0.54f, 0.63f), ink, -10f);
+            SetEndingIllustrationPart(panel, 1, new Vector2(0.42f, 0.61f), new Vector2(0.57f, 0.84f), flare, 0f, true);
+            SetEndingIllustrationPart(panel, 2, new Vector2(0.24f, 0.75f), new Vector2(0.40f, 0.81f), flare, 22f);
+            SetEndingIllustrationPart(panel, 3, new Vector2(0.59f, 0.76f), new Vector2(0.77f, 0.82f), flare, -22f);
+            SetEndingIllustrationPart(panel, 4, new Vector2(0.46f, 0.85f), new Vector2(0.52f, 1.00f), flare);
+        }
+
+        private void DrawCamp(int panel)
+        {
+            DrawFire(panel);
+            Color ink = new Color(0.03f, 0.15f, 0.18f, 0.98f);
+            SetEndingIllustrationPart(panel, 8, new Vector2(0.77f, 0.16f), new Vector2(0.88f, 0.37f), ink, 0f, true);
+            SetEndingIllustrationPart(panel, 9, new Vector2(0.80f, 0.03f), new Vector2(0.85f, 0.18f), ink);
+        }
+
+        private void SetEndingIllustrationPart(
+            int panel,
+            int part,
+            Vector2 anchorMin,
+            Vector2 anchorMax,
+            Color color,
+            float rotation = 0f,
+            bool circle = false)
+        {
+            if (panel < 0 || panel >= endingIllustrationParts.GetLength(0) ||
+                part < 0 || part >= endingIllustrationParts.GetLength(1)) return;
+            Image image = endingIllustrationParts[panel, part];
+            if (image == null) return;
+            RectTransform rect = image.rectTransform;
+            rect.anchorMin = anchorMin;
+            rect.anchorMax = anchorMax;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.localRotation = Quaternion.Euler(0f, 0f, rotation);
+            image.sprite = circle ? GetEndingCircleSprite() : null;
+            image.type = Image.Type.Simple;
+            image.color = color;
+            image.gameObject.SetActive(true);
+        }
+
+        private Sprite GetEndingCircleSprite()
+        {
+            if (endingCircleSprite != null) return endingCircleSprite;
+            const int size = 32;
+            endingCircleTexture = new Texture2D(size, size, TextureFormat.RGBA32, false)
+            {
+                name = "Runtime Comic Circle",
+                filterMode = FilterMode.Bilinear,
+                wrapMode = TextureWrapMode.Clamp
+            };
+            Color[] pixels = new Color[size * size];
+            Vector2 center = new Vector2((size - 1) * 0.5f, (size - 1) * 0.5f);
+            float radius = size * 0.47f;
+            for (int y = 0; y < size; y += 1)
+            {
+                for (int x = 0; x < size; x += 1)
+                {
+                    float alpha = Mathf.Clamp01(radius + 0.8f - Vector2.Distance(new Vector2(x, y), center));
+                    pixels[y * size + x] = new Color(1f, 1f, 1f, alpha);
+                }
+            }
+            endingCircleTexture.SetPixels(pixels);
+            endingCircleTexture.Apply(false, true);
+            endingCircleSprite = Sprite.Create(
+                endingCircleTexture,
+                new Rect(0f, 0f, size, size),
+                new Vector2(0.5f, 0.5f),
+                100f,
+                0,
+                SpriteMeshType.FullRect);
+            endingCircleSprite.name = "Runtime Comic Circle";
+            return endingCircleSprite;
         }
     }
 }

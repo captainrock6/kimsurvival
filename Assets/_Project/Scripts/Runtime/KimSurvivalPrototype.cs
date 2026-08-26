@@ -703,7 +703,7 @@ namespace KimSurvival
                 TMP_Text badge = FindTerminalComicText("Act Badge " + (index + 1));
                 ConfigureTerminalComicText(
                     badge,
-                    new Vector2(0.055f, 0.62f),
+                    new Vector2(0.055f, 0.70f),
                     new Vector2(0.945f, 0.93f),
                     15f,
                     22f,
@@ -711,11 +711,11 @@ namespace KimSurvival
                 TMP_Text content = FindTerminalComicText("Copy " + (index + 1));
                 ConfigureTerminalComicText(
                     content,
-                    new Vector2(0.055f, 0.06f),
-                    new Vector2(0.945f, 0.58f),
-                    12f,
+                    new Vector2(0.055f, 0.055f),
+                    new Vector2(0.945f, 0.385f),
+                    14f,
                     16f,
-                    7);
+                    5);
             }
 
             TMP_Text modifier = FindTerminalComicText("Survival Behavior Copy");
