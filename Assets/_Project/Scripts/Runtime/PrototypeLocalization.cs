@@ -171,6 +171,17 @@ namespace KimSurvival
             return Format("resource." + kind.ToString().ToLowerInvariant());
         }
 
+        public string ResourceName(string stableResourceId, ResourceKind legacyKind)
+        {
+            string canonicalId = PrototypeResourcePresentation.NormalizeStableId(stableResourceId, legacyKind);
+            return Format(canonicalId);
+        }
+
+        public string ResourceName(BagStack stack)
+        {
+            return ResourceName(stack.StableResourceId, stack.Kind);
+        }
+
         public string StructureName(StructureKind kind)
         {
             switch (kind)

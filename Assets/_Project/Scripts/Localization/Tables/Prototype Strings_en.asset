@@ -2431,6 +2431,93 @@ MonoBehaviour:
     m_Localized: Back away from plant
     m_Metadata:
       m_Items: []
+  - m_Id: 1471604059258880
+    m_Localized: Locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310784
+    m_Localized: Available
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310785
+    m_Localized: Previewing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310786
+    m_Localized: Completed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310787
+    m_Localized: Moves living and crafting upstairs to clear the main floor.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310788
+    m_Localized: Extends the camp sideways for movement and outdoor work.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310789
+    m_Localized: Creates sheltered storage and a mechanical workspace.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310790
+    m_Localized: 'Suggested: workbench and research'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310791
+    m_Localized: 'Suggested: campfire and rain collector'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505088
+    m_Localized: 'Suggested: storage and machinery'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505089
+    m_Localized: "About {0} general facilities \xB7 {1}m usable"
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1471604172505090
+    m_Localized: Prerequisite met
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505091
+    m_Localized: 'Prerequisite: build a workbench'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505092
+    m_Localized: 'Prerequisite: reach DAY {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1471604172505093
+    m_Localized: 'Prerequisite: workbench and DAY {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
+  - m_Id: 1471604172505094
+    m_Localized: This room is already complete.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505095
+    m_Localized: No further recommendation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505096
+    m_Localized: Ready to build now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505097
+    m_Localized: Resolve the prerequisite first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505098
+    m_Localized: Gather the missing materials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505099
+    m_Localized: Resolve the blocked space condition
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -2567,3 +2654,6 @@ MonoBehaviour:
         - id: 1172586372513793
         - id: 1172586372513794
         - id: 1212147270139911
+        - id: 1471604172505089
+        - id: 1471604172505092
+        - id: 1471604172505093

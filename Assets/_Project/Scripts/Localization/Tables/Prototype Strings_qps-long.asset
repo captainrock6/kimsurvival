@@ -2609,6 +2609,93 @@ MonoBehaviour:
     m_Localized: "\u27E6B\xE1ck \xE1w\xE1y fr\xF3m pl\xE1\xF1t\xE1\xE9\xED\xF3\xFA\xFC\u27E7"
     m_Metadata:
       m_Items: []
+  - m_Id: 1471604059258880
+    m_Localized: "\u27E6Locked\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310784
+    m_Localized: "\u27E6Available\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310785
+    m_Localized: "\u27E6Previewing\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310786
+    m_Localized: "\u27E6Completed\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310787
+    m_Localized: "\u27E6Moves living and crafting upstairs to clear the main floor.\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310788
+    m_Localized: "\u27E6Extends the camp sideways for movement and outdoor work.\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310789
+    m_Localized: "\u27E6Creates sheltered storage and a mechanical workspace.\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310790
+    m_Localized: "\u27E6Suggested: workbench and research\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310791
+    m_Localized: "\u27E6Suggested: campfire and rain collector\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505088
+    m_Localized: "\u27E6Suggested: storage and machinery\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505089
+    m_Localized: "\u27E6About {0} general facilities \xB7 {1}m usable\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1471604172505090
+    m_Localized: "\u27E6Prerequisite met\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505091
+    m_Localized: "\u27E6Prerequisite: build a workbench\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505092
+    m_Localized: "\u27E6Prerequisite: reach DAY {0}\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1471604172505093
+    m_Localized: "\u27E6Prerequisite: workbench and DAY {0}\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items:
+      - rid: 828367092230914048
+  - m_Id: 1471604172505094
+    m_Localized: "\u27E6This room is already complete.\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505095
+    m_Localized: "\u27E6No further recommendation\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505096
+    m_Localized: "\u27E6Ready to build now\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505097
+    m_Localized: "\u27E6Resolve the prerequisite first\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505098
+    m_Localized: "\u27E6Gather the missing materials\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505099
+    m_Localized: "\u27E6Resolve the blocked space condition\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\xE1\u27E7"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -2745,3 +2832,6 @@ MonoBehaviour:
         - id: 1172586372513793
         - id: 1172586372513794
         - id: 1212147270139911
+        - id: 1471604172505089
+        - id: 1471604172505092
+        - id: 1471604172505093

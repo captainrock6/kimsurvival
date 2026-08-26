@@ -192,6 +192,27 @@ ui.module.expand	방 확장 미리보기	Preview Room Expansion	⟦Prévíéw R�
 module.name.upper	위층 방	Upper room	⟦Úppér róómáé⟧
 module.name.side	옆방	Side room	⟦Sídé róómáé⟧
 module.name.basement	지하실	Basement	⟦Báséméñtá⟧
+module.state.locked	잠김	Locked	⟦Lockedá⟧
+module.state.available	건설 가능	Available	⟦Availableáá⟧
+module.state.in_progress	미리보기 중	Previewing	⟦Previewingáá⟧
+module.state.completed	완성	Completed	⟦Completedáá⟧
+module.purpose.upper	생활·제작 설비를 위로 분리해 시작층 동선을 확보한다.	Moves living and crafting upstairs to clear the main floor.	⟦Moves living and crafting upstairs to clear the main floor.áááááááááááááááááááááá⟧
+module.purpose.side	캠프 바닥을 옆으로 넓혀 이동과 야외 작업 공간을 확보한다.	Extends the camp sideways for movement and outdoor work.	⟦Extends the camp sideways for movement and outdoor work.ááááááááááááááááááááá⟧
+module.purpose.basement	비와 바람을 피하는 보관·기계 작업 공간을 만든다.	Creates sheltered storage and a mechanical workspace.	⟦Creates sheltered storage and a mechanical workspace.áááááááááááááááááááá⟧
+module.suggested_use.upper	추천 설비: 작업대·연구 설비	Suggested: workbench and research	⟦Suggested: workbench and researcháááááááááááá⟧
+module.suggested_use.side	추천 설비: 모닥불·빗물받이	Suggested: campfire and rain collector	⟦Suggested: campfire and rain collectoráááááááááááááá⟧
+module.suggested_use.basement	추천 설비: 보관·기계 설비	Suggested: storage and machinery	⟦Suggested: storage and machineryááááááááááá⟧
+module.capacity.general_sheltered	일반 설비 약 {0}개 · 유효 폭 {1}m	About {0} general facilities · {1}m usable	⟦About {0} general facilities · {1}m usableááááááááááááááá⟧
+module.prerequisite.met	선행 조건 충족	Prerequisite met	⟦Prerequisite metááááá⟧
+module.prerequisite.workbench	선행 조건: 작업대 건설	Prerequisite: build a workbench	⟦Prerequisite: build a workbenchááááááááááá⟧
+module.prerequisite.day	선행 조건: DAY {0} 도달	Prerequisite: reach DAY {0}	⟦Prerequisite: reach DAY {0}ááááááááá⟧
+module.prerequisite.workbench_day	선행 조건: 작업대 건설·DAY {0} 도달	Prerequisite: workbench and DAY {0}	⟦Prerequisite: workbench and DAY {0}áááááááááááá⟧
+module.reason.completed	이미 완성한 방이다.	This room is already complete.	⟦This room is already complete.áááááááááá⟧
+module.recommend.none	추가 추천 없음	No further recommendation	⟦No further recommendationáááááááá⟧
+module.recommend.ready	지금 바로 건설 가능	Ready to build now	⟦Ready to build nowáááááá⟧
+module.recommend.unlock	먼저 선행 조건 해결	Resolve the prerequisite first	⟦Resolve the prerequisite firstáááááááááá⟧
+module.recommend.gather	부족한 재료부터 수집	Gather the missing materials	⟦Gather the missing materialsáááááááááá⟧
+module.recommend.resolve	막힌 공간 조건 해결	Resolve the blocked space condition	⟦Resolve the blocked space conditionáááááááááááá⟧
 module.preview.summary	{0} · 증축 후보\n{1}\n{2}\n{3}	{0} · Expansion preview\n{1}\n{2}\n{3}	⟦{0} · Éxpáñsíóñ prévíéw\n{1}\n{2}\n{3}áéíóúüñ¿¡áéíóú⟧
 module.preview.narration	{0} 연결 슬롯을 살핀다. 확정 전까지 캠프 상태는 바뀌지 않는다.	Inspecting the {0} connection slot. Camp state stays unchanged until commit.	⟦Íñspéctíñg thé {0} cóññéctíóñ slót. Cámp státé stáys úñcháñgéd úñtíl cómmít.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
 ui.module.preview.cost	{0} · 나무 {1} · 표류물 {2}\n{3}	{0} · Wood {1} · Salvage {2}\n{3}	⟦{0} · Wóód {1} · Sálvágé {2}\n{3}áéíóúüñ¿¡⟧

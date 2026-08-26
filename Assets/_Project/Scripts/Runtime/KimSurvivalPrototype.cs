@@ -84,8 +84,8 @@ namespace KimSurvival
         private static readonly Color CompactPromptTextColor = new Color(0.015f, 0.06f, 0.08f, 1f);
         private static readonly Vector2 CampProximityPromptAnchorMin = new Vector2(0.3f, 0.6f);
         private static readonly Vector2 CampProximityPromptAnchorMax = new Vector2(0.7f, 0.66f);
-        private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.328125f, 0.59f);
-        private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.671875f, 0.67f);
+        private static readonly Vector2 CampModuleReasonAnchorMin = new Vector2(0.025f, 0.34f);
+        private static readonly Vector2 CampModuleReasonAnchorMax = new Vector2(0.39f, 0.69f);
         private static readonly Vector2 CampPopupDefaultAnchorMin = new Vector2(0.56f, 0.2f);
         private static readonly Vector2 CampPopupDefaultAnchorMax = new Vector2(0.96f, 0.82f);
         private static readonly Vector2 CampPopupModuleSlotAnchorMin = new Vector2(0.62f, 0.36f);
@@ -133,6 +133,7 @@ namespace KimSurvival
 
         private readonly List<NodeView> nodes = new List<NodeView>();
         private readonly List<Button> bagButtons = new List<Button>();
+        private readonly List<Image> bagButtonIcons = new List<Image>();
         private readonly List<Button> campPopupButtons = new List<Button>();
         private readonly List<Button> expeditionRegionButtons = new List<Button>();
         private readonly List<Button> endingAlbumCardButtons = new List<Button>();
@@ -152,6 +153,7 @@ namespace KimSurvival
         private readonly PrototypeCampModuleExpansion campModuleExpansion = new PrototypeCampModuleExpansion(PrototypeCampModuleExpansionConfig.CreateVerticalSliceBalance());
         private readonly CampModuleValidationContext campModuleValidation = new CampModuleValidationContext();
         private readonly List<SpriteRenderer> modulePreviewOutlineRenderers = new List<SpriteRenderer>();
+        private PrototypeCampModuleExpansionPresenter campModulePresenter;
 
         private GameSession session;
         private PrototypeLocalization localization;
@@ -443,6 +445,7 @@ namespace KimSurvival
             session = new GameSession(
                 PrototypeExpeditionRegionCatalog.CreateRuntimeSeed(),
                 PrototypeSessionFlowProfileCatalog.GameJamProvisionalProfileId);
+            campModulePresenter = new PrototypeCampModuleExpansionPresenter(campModuleExpansion);
             searchNodeRuntime = new PrototypeSearchNodeRuntime(session.RunSeed);
             endingAlbumCollection = PrototypeEndingAlbumCollection.LoadDefault();
             localization = new PrototypeLocalization();
@@ -878,55 +881,59 @@ namespace KimSurvival
             scaler.matchWidthOrHeight = 0.5f;
             canvasObject.AddComponent<GraphicRaycaster>();
 
-            RectTransform top = CreatePanel("상태 HUD", canvas.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -190f), new Vector2(-24f, -20f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
+            RectTransform top = CreatePanel("상태 HUD", canvas.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -162f), new Vector2(-24f, -16f), new Color(0.035f, 0.075f, 0.095f, 0.94f));
             VerticalLayoutGroup topLayout = top.gameObject.AddComponent<VerticalLayoutGroup>();
-            topLayout.padding = new RectOffset(160, 160, 0, 0);
-            topLayout.spacing = 0f;
+            topLayout.padding = new RectOffset(76, 76, 4, 4);
+            topLayout.spacing = 2f;
             topLayout.childAlignment = TextAnchor.MiddleCenter;
             topLayout.childControlWidth = true;
             topLayout.childControlHeight = true;
             topLayout.childForceExpandWidth = true;
             topLayout.childForceExpandHeight = true;
-            statusText = CreateText("날짜·상태", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleLeft, Color.white);
+            statusText = CreateText("날짜·상태", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 29, TextAnchor.MiddleLeft, Color.white);
             ConfigureTopHudText(statusText);
-            ConfigureLayout(statusText.gameObject, 1f, 1f, 0f, 68f);
-            resourceText = CreateText("보유 자원", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleRight, new Color(1f, 0.9f, 0.52f));
+            ConfigureLayout(statusText.gameObject, 1f, 0f, 0f, 54f);
+            resourceText = CreateText("보유 자원", top, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 25, TextAnchor.MiddleLeft, new Color(0.91f, 0.96f, 0.94f));
             ConfigureTopHudText(resourceText);
-            ConfigureLayout(resourceText.gameObject, 1f, 1f, 0f, 68f);
+            resourceText.fontSizeMin = 24f;
+            resourceText.fontSizeMax = 25f;
+            resourceText.textWrappingMode = TextWrappingModes.Normal;
+            resourceText.maxVisibleLines = 2;
+            ConfigureLayout(resourceText.gameObject, 1f, 1f, 0f, 78f);
 
-            RectTransform message = CreatePanel("김씨 독백 · 배치 상태 · " + AssetComedy, canvas.transform, new Vector2(0.25f, 0.68f), new Vector2(0.75f, 0.8f), Vector2.zero, Vector2.zero, new Color(0.07f, 0.08f, 0.07f, 0.84f));
+            RectTransform message = CreatePanel("김씨 독백 · 배치 상태 · " + AssetComedy, canvas.transform, new Vector2(0.23f, 0.715f), new Vector2(0.77f, 0.795f), Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.085f, 0.9f));
             messagePanelImage = message.GetComponent<Image>();
-            messageText = CreateText("김씨 독백 또는 배치 상태", message, Vector2.zero, Vector2.one, new Vector2(22f, 6f), new Vector2(-22f, -6f), 27, TextAnchor.MiddleCenter, Color.white);
+            messageText = CreateText("김씨 독백 또는 배치 상태", message, Vector2.zero, Vector2.one, new Vector2(20f, 5f), new Vector2(-20f, -5f), 24, TextAnchor.MiddleCenter, Color.white);
 
-            RectTransform controlPanel = CreatePanel("조작 안내", canvas.transform, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 20f), new Vector2(-32f, 165f), new Color(0.05f, 0.09f, 0.12f, 0.92f));
+            RectTransform controlPanel = CreatePanel("조작 안내", canvas.transform, new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 14f), new Vector2(-32f, 118f), new Color(0.035f, 0.075f, 0.095f, 0.94f));
             HorizontalLayoutGroup controlLayout = controlPanel.gameObject.AddComponent<HorizontalLayoutGroup>();
-            controlLayout.padding = new RectOffset(110, 110, 8, 8);
-            controlLayout.spacing = 16f;
+            controlLayout.padding = new RectOffset(76, 76, 6, 6);
+            controlLayout.spacing = 12f;
             controlLayout.childAlignment = TextAnchor.MiddleCenter;
             controlLayout.childControlWidth = true;
             controlLayout.childControlHeight = true;
             controlLayout.childForceExpandWidth = true;
             controlLayout.childForceExpandHeight = true;
-            controlsText = CreateText("조작", controlPanel, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 32, TextAnchor.MiddleCenter, Color.white);
+            controlsText = CreateText("조작", controlPanel, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, 27, TextAnchor.MiddleCenter, Color.white);
             controlsText.enableAutoSizing = true;
-            controlsText.fontSizeMin = 23f;
-            controlsText.fontSizeMax = 32f;
+            controlsText.fontSizeMin = 21f;
+            controlsText.fontSizeMax = 27f;
             controlsText.overflowMode = TextOverflowModes.Ellipsis;
             controlsText.maxVisibleLines = 3;
-            ConfigureLayout(controlsText.gameObject, 4f, 1f, 760f, 0f);
+            ConfigureLayout(controlsText.gameObject, 4f, 1f, 700f, 0f);
             languageButton = CreateButton("언어 설정", controlPanel, Vector2.zero, Vector2.one, string.Empty, delegate { localization.CycleLocale(); });
-            ConfigureLayout(languageButton.gameObject, 1.45f, 1f, 320f, 0f);
+            ConfigureLayout(languageButton.gameObject, 1.25f, 1f, 270f, 0f);
             TMP_Text languageLabel = languageButton.GetComponentInChildren<TMP_Text>();
-            languageLabel.fontSize = 32f;
+            languageLabel.fontSize = 27f;
             languageLabel.enableAutoSizing = true;
-            languageLabel.fontSizeMin = 30f;
-            languageLabel.fontSizeMax = 32f;
+            languageLabel.fontSizeMin = 22f;
+            languageLabel.fontSizeMax = 27f;
             languageLabel.textWrappingMode = TextWrappingModes.NoWrap;
             languageLabel.overflowMode = TextOverflowModes.Overflow;
             languageLabel.maxVisibleLines = 1;
             phaseButton = CreateButton("수색·정산", controlPanel, Vector2.zero, Vector2.one, string.Empty, HandlePhaseButton);
-            ConfigureLayout(phaseButton.gameObject, 1.65f, 1f, 310f, 0f);
-            phaseButton.GetComponentInChildren<TMP_Text>().fontSize = 30f;
+            ConfigureLayout(phaseButton.gameObject, 1.45f, 1f, 280f, 0f);
+            phaseButton.GetComponentInChildren<TMP_Text>().fontSize = 27f;
 
             campActions = new GameObject("Legacy campActions dashboard · disabled");
             campActions.transform.SetParent(canvas.transform, false);
@@ -963,14 +970,14 @@ namespace KimSurvival
             campProximityText.raycastTarget = false;
 
             campModuleReasonChip = CreatePanel("방 증축 비용·사유 칩", canvas.transform, CampModuleReasonAnchorMin, CampModuleReasonAnchorMax, Vector2.zero, Vector2.zero, new Color(0.03f, 0.08f, 0.09f, 0.96f)).gameObject;
-            campModuleReasonText = CreateText("방 증축 비용·사유", campModuleReasonChip.transform, Vector2.zero, Vector2.one, new Vector2(16f, 4f), new Vector2(-16f, -4f), 22, TextAnchor.MiddleCenter, Color.white);
+            campModuleReasonText = CreateText("방 증축 목적·상태·비용", campModuleReasonChip.transform, Vector2.zero, Vector2.one, new Vector2(20f, 14f), new Vector2(-20f, -14f), 22, TextAnchor.UpperLeft, Color.white);
             campModuleReasonText.fontStyle = FontStyles.Bold;
             campModuleReasonText.enableAutoSizing = true;
-            campModuleReasonText.fontSizeMin = 18f;
+            campModuleReasonText.fontSizeMin = 16f;
             campModuleReasonText.fontSizeMax = 22f;
             campModuleReasonText.textWrappingMode = TextWrappingModes.Normal;
             campModuleReasonText.overflowMode = TextOverflowModes.Overflow;
-            campModuleReasonText.maxVisibleLines = 2;
+            campModuleReasonText.maxVisibleLines = 7;
 
             campInteractionPopup = CreatePanel("설비 전용 소형 팝업", canvas.transform, CampPopupDefaultAnchorMin, CampPopupDefaultAnchorMax, Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.075f, 0.97f)).gameObject;
             campInteractionPopupFrameImage = campInteractionPopup.GetComponent<Image>();
@@ -1143,11 +1150,14 @@ namespace KimSurvival
 
             BuildEndingAlbumUi();
 
-            bagPanel = CreatePanel("가방 · " + AssetIcons, canvas.transform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-455f, 170f), new Vector2(-30f, 795f), new Color(0.09f, 0.11f, 0.12f, 0.92f)).gameObject;
-            bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -128f), new Vector2(-18f, -8f), 34, TextAnchor.MiddleCenter, new Color(1f, 0.91f, 0.5f));
+            bagPanel = CreatePanel("수색 가방 · 채택 " + AssetIcons, canvas.transform, new Vector2(0.69f, 0.19f), new Vector2(0.975f, 0.73f), Vector2.zero, Vector2.zero, new Color(0.035f, 0.075f, 0.085f, 0.95f)).gameObject;
+            Outline bagOutline = bagPanel.AddComponent<Outline>();
+            bagOutline.effectColor = new Color(0.31f, 0.72f, 0.72f, 0.85f);
+            bagOutline.effectDistance = new Vector2(2f, -2f);
+            bagTitleText = CreateText("가방 제목", bagPanel.transform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(18f, -86f), new Vector2(-18f, -8f), 30, TextAnchor.MiddleCenter, new Color(1f, 0.86f, 0.38f));
             bagTitleText.enableAutoSizing = true;
             bagTitleText.fontSizeMin = 24f;
-            bagTitleText.fontSizeMax = 34f;
+            bagTitleText.fontSizeMax = 30f;
             bagTitleText.textWrappingMode = TextWrappingModes.Normal;
             bagTitleText.maxVisibleLines = 3;
             bagTitleText.overflowMode = TextOverflowModes.Ellipsis;
@@ -1156,13 +1166,14 @@ namespace KimSurvival
                 int capturedIndex = i;
                 Button slot = CreateBagButton(bagPanel.transform, i, delegate { ReplaceBagSlotFromActiveContext(capturedIndex); });
                 TMP_Text slotLabel = slot.GetComponentInChildren<TMP_Text>();
-                slotLabel.fontSize = 34f;
+                slotLabel.fontSize = 27f;
                 slotLabel.enableAutoSizing = true;
-                slotLabel.fontSizeMin = 22f;
-                slotLabel.fontSizeMax = 34f;
+                slotLabel.fontSizeMin = 21f;
+                slotLabel.fontSizeMax = 28f;
                 slotLabel.textWrappingMode = TextWrappingModes.Normal;
                 slotLabel.maxVisibleLines = 3;
                 slotLabel.overflowMode = TextOverflowModes.Ellipsis;
+                bagButtonIcons.Add(CreateBagItemIcon(slot.transform, i));
                 bagButtons.Add(slot);
             }
 
@@ -1178,10 +1189,10 @@ namespace KimSurvival
         private void BuildSearchLootTrayUi()
         {
             searchLootTrayPanel = CreatePanel(
-                "환경 수색 발견물 compact tray placeholder",
+                "환경 수색 발견물 선택 트레이",
                 canvas.transform,
-                new Vector2(0.025f, 0.54f),
-                new Vector2(0.59f, 0.82f),
+                new Vector2(0.025f, 0.43f),
+                new Vector2(0.675f, 0.82f),
                 Vector2.zero,
                 Vector2.zero,
                 new Color(0.035f, 0.09f, 0.095f, 0.97f)).gameObject;
@@ -1219,21 +1230,21 @@ namespace KimSurvival
                 TextAnchor.MiddleLeft,
                 Color.white);
             searchLootStatusText.enableAutoSizing = true;
-            searchLootStatusText.fontSizeMin = 15f;
-            searchLootStatusText.fontSizeMax = 20f;
+            searchLootStatusText.fontSizeMin = 19f;
+            searchLootStatusText.fontSizeMax = 22f;
             searchLootStatusText.textWrappingMode = TextWrappingModes.Normal;
             searchLootStatusText.maxVisibleLines = 2;
             searchLootStatusText.overflowMode = TextOverflowModes.Ellipsis;
 
             Vector2[] itemMin =
             {
-                new Vector2(0.035f, 0.36f), new Vector2(0.27f, 0.36f),
-                new Vector2(0.505f, 0.36f), new Vector2(0.74f, 0.36f)
+                new Vector2(0.035f, 0.46f), new Vector2(0.505f, 0.46f),
+                new Vector2(0.035f, 0.27f), new Vector2(0.505f, 0.27f)
             };
             Vector2[] itemMax =
             {
-                new Vector2(0.255f, 0.60f), new Vector2(0.49f, 0.60f),
-                new Vector2(0.725f, 0.60f), new Vector2(0.965f, 0.60f)
+                new Vector2(0.49f, 0.64f), new Vector2(0.965f, 0.64f),
+                new Vector2(0.49f, 0.45f), new Vector2(0.965f, 0.45f)
             };
             for (int index = 0; index < 4; index += 1)
             {
@@ -1247,8 +1258,8 @@ namespace KimSurvival
                     delegate { FocusSearchLoot(capturedIndex); });
                 TMP_Text label = itemButton.GetComponentInChildren<TMP_Text>();
                 label.enableAutoSizing = true;
-                label.fontSizeMin = 13f;
-                label.fontSizeMax = 19f;
+                label.fontSizeMin = 21f;
+                label.fontSizeMax = 25f;
                 label.textWrappingMode = TextWrappingModes.Normal;
                 label.maxVisibleLines = 3;
                 label.overflowMode = TextOverflowModes.Ellipsis;
@@ -1269,16 +1280,16 @@ namespace KimSurvival
             searchLootBagText = CreateText(
                 "현재 가방 요약",
                 searchLootTrayPanel.transform,
-                new Vector2(0.035f, 0.2f),
-                new Vector2(0.965f, 0.35f),
+                new Vector2(0.035f, 0.15f),
+                new Vector2(0.965f, 0.26f),
                 Vector2.zero,
                 Vector2.zero,
                 18,
                 TextAnchor.MiddleLeft,
                 new Color(0.77f, 0.94f, 0.94f));
             searchLootBagText.enableAutoSizing = true;
-            searchLootBagText.fontSizeMin = 13f;
-            searchLootBagText.fontSizeMax = 18f;
+            searchLootBagText.fontSizeMin = 18f;
+            searchLootBagText.fontSizeMax = 21f;
             searchLootBagText.textWrappingMode = TextWrappingModes.Normal;
             searchLootBagText.maxVisibleLines = 2;
             searchLootBagText.overflowMode = TextOverflowModes.Ellipsis;
@@ -1286,27 +1297,30 @@ namespace KimSurvival
             searchLootTakeButton = CreateButton(
                 "선택 발견물 담기",
                 searchLootTrayPanel.transform,
-                new Vector2(0.035f, 0.035f),
-                new Vector2(0.32f, 0.19f),
+                new Vector2(0.035f, 0.025f),
+                new Vector2(0.32f, 0.14f),
                 string.Empty,
                 TakeFocusedSearchLoot);
             searchLootTakeAllButton = CreateButton(
                 "담을 수 있는 발견물 모두 담기",
                 searchLootTrayPanel.transform,
-                new Vector2(0.335f, 0.035f),
-                new Vector2(0.66f, 0.19f),
+                new Vector2(0.335f, 0.025f),
+                new Vector2(0.66f, 0.14f),
                 string.Empty,
                 TakeAllSearchLoot);
             searchLootLeaveButton = CreateButton(
                 "발견물 남기고 닫기",
                 searchLootTrayPanel.transform,
-                new Vector2(0.675f, 0.035f),
-                new Vector2(0.965f, 0.19f),
+                new Vector2(0.675f, 0.025f),
+                new Vector2(0.965f, 0.14f),
                 string.Empty,
                 CloseSearchLootTray);
             ConfigureExpeditionMapButton(searchLootTakeButton);
             ConfigureExpeditionMapButton(searchLootTakeAllButton);
             ConfigureExpeditionMapButton(searchLootLeaveButton);
+            ConfigureActionButtonRole(searchLootTakeButton, new Color(0.92f, 0.62f, 0.18f), new Color(0.04f, 0.08f, 0.08f));
+            ConfigureActionButtonRole(searchLootTakeAllButton, new Color(0.17f, 0.52f, 0.48f), Color.white);
+            ConfigureActionButtonRole(searchLootLeaveButton, new Color(0.18f, 0.25f, 0.27f), Color.white);
             TMP_Text searchLootLeaveLabel = searchLootLeaveButton.GetComponentInChildren<TMP_Text>();
             searchLootLeaveLabel.fontSize = 23f;
             searchLootLeaveLabel.fontSizeMin = 23f;
@@ -1666,7 +1680,7 @@ namespace KimSurvival
                 ? localization.Format("hud.status.exploring", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), Mathf.RoundToInt(session.Daylight), session.Health)
                 : localization.Format("hud.status.camp", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), session.Health);
             resourceText.text = IsGameJamLiveEscapeProfile
-                ? FormatGameJamEscapeResourceHud()
+                ? FormatReadableStableResourceHud()
                 : localization.Format(
                     "hud.resources",
                     session.GetStorage(ResourceKind.Wood),
@@ -1682,12 +1696,12 @@ namespace KimSurvival
             messageText.text = localization.Format(activeMessage);
             string device = localization.DeviceName(playerInput.ActiveDevice);
             float messageFontSize = activeMessage.Key.StartsWith("message.signal", StringComparison.Ordinal)
-                ? 30f
-                : activeMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 30f : 27f;
+                ? 27f
+                : activeMessage.Key.StartsWith("message.bag_upgrade", StringComparison.Ordinal) ? 27f : 24f;
             messageText.fontSize = messageFontSize;
             messageText.fontStyle = FontStyles.Normal;
             messageText.enableAutoSizing = true;
-            messageText.fontSizeMin = 22f;
+            messageText.fontSizeMin = 20f;
             messageText.fontSizeMax = messageFontSize;
             messageText.textWrappingMode = TextWrappingModes.Normal;
             messageText.overflowMode = TextOverflowModes.Overflow;
@@ -1737,17 +1751,47 @@ namespace KimSurvival
             ApplySearchTrayHudLayoutPolicy();
         }
 
+        private string FormatReadableStableResourceHud()
+        {
+            StableResourceAmount[] stored = session.GetStableStorageEntries()
+                .Where(value => value.Amount > 0)
+                .ToArray();
+            if (stored.Length == 0)
+            {
+                return "—";
+            }
+
+            int firstRowCount = Mathf.CeilToInt(stored.Length * 0.5f);
+            string firstRow = FormatReadableResourceHudRow(stored.Take(firstRowCount));
+            string secondRow = FormatReadableResourceHudRow(stored.Skip(firstRowCount));
+            return string.IsNullOrEmpty(secondRow) ? firstRow : firstRow + "\n" + secondRow;
+        }
+
+        private string FormatReadableResourceHudRow(IEnumerable<StableResourceAmount> entries)
+        {
+            return string.Join("  ·  ", entries.Select(value =>
+            {
+                string name = localization.ResourceName(value.StableResourceId, value.LegacyKind);
+                string accent = PrototypeResourcePresentation.AccentHex(value.StableResourceId, value.LegacyKind);
+                return "<color=#" + accent + ">" + name + "</color> " + value.Amount;
+            }).ToArray());
+        }
+
         private void ApplySearchTrayHudLayoutPolicy()
         {
             bool compactPseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode &&
                                      searchNodeRuntime != null && searchNodeRuntime.IsTrayOpen;
-            statusText.fontSizeMin = compactPseudoLong ? 26f : 30f;
-            resourceText.fontSizeMin = compactPseudoLong ? 26f : 30f;
+            statusText.fontSizeMin = compactPseudoLong ? 22f : 26f;
+            statusText.fontSizeMax = 29f;
+            resourceText.fontSizeMin = compactPseudoLong ? 18f : 24f;
+            resourceText.fontSizeMax = 25f;
             statusText.overflowMode = compactPseudoLong ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
-            resourceText.overflowMode = compactPseudoLong ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
+            resourceText.textWrappingMode = TextWrappingModes.Normal;
+            resourceText.maxVisibleLines = 2;
+            resourceText.overflowMode = TextOverflowModes.Ellipsis;
 
-            controlsText.fontSizeMin = compactPseudoLong ? 18f : 23f;
-            controlsText.fontSizeMax = compactPseudoLong ? 28f : 32f;
+            controlsText.fontSizeMin = compactPseudoLong ? 17f : 21f;
+            controlsText.fontSizeMax = compactPseudoLong ? 23f : 27f;
             controlsText.maxVisibleLines = 3;
             controlsText.overflowMode = TextOverflowModes.Ellipsis;
 
@@ -1755,16 +1799,16 @@ namespace KimSurvival
             languageLabel.enableAutoSizing = true;
             languageLabel.textWrappingMode = TextWrappingModes.NoWrap;
             languageLabel.maxVisibleLines = 1;
-            languageLabel.fontSizeMin = compactPseudoLong ? 18f : 30f;
-            languageLabel.fontSizeMax = compactPseudoLong ? 26f : 32f;
+            languageLabel.fontSizeMin = compactPseudoLong ? 18f : 22f;
+            languageLabel.fontSizeMax = compactPseudoLong ? 23f : 27f;
             languageLabel.overflowMode = compactPseudoLong ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
 
             bagTitleText.enableAutoSizing = true;
             bagTitleText.textWrappingMode = TextWrappingModes.Normal;
             bagTitleText.maxVisibleLines = compactPseudoLong ? 3 : 2;
             bagTitleText.overflowMode = compactPseudoLong ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
-            bagTitleText.fontSizeMin = compactPseudoLong ? 18f : 24f;
-            bagTitleText.fontSizeMax = compactPseudoLong ? 28f : 34f;
+            bagTitleText.fontSizeMin = compactPseudoLong ? 17f : 22f;
+            bagTitleText.fontSizeMax = compactPseudoLong ? 25f : 30f;
             for (int index = 0; index < bagButtons.Count; index += 1)
             {
                 TMP_Text label = bagButtons[index].GetComponentInChildren<TMP_Text>();
@@ -1772,8 +1816,8 @@ namespace KimSurvival
                 label.textWrappingMode = TextWrappingModes.Normal;
                 label.maxVisibleLines = compactPseudoLong ? 3 : 2;
                 label.overflowMode = compactPseudoLong ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
-                label.fontSizeMin = compactPseudoLong ? 18f : 22f;
-                label.fontSizeMax = compactPseudoLong ? 26f : 34f;
+                label.fontSizeMin = compactPseudoLong ? 18f : 21f;
+                label.fontSizeMax = compactPseudoLong ? 24f : 28f;
             }
         }
 
@@ -2155,17 +2199,34 @@ namespace KimSurvival
             {
                 bool active = session.IsBagSlotActive(i);
                 BagStack stack = session.GetBagSlot(i);
+                string stableResourceId = PrototypeResourcePresentation.NormalizeStableId(stack.StableResourceId, stack.Kind);
                 TMP_Text label = bagButtons[i].GetComponentInChildren<TMP_Text>();
                 label.text = !active
                     ? localization.Format("bag.slot.locked", i + 1)
                     : stack.IsEmpty
                     ? localization.Format("bag.slot.empty", i + 1)
-                    : localization.Format("bag.slot.stack", i + 1, stack.Kind, stack.Amount);
+                    : localization.Format("bag.slot.stack", i + 1, localization.ResourceName(stableResourceId, stack.Kind), stack.Amount);
                 bagButtons[i].interactable = active && session.Phase == GamePhase.Exploring && session.HasPendingLoot;
                 Image image = bagButtons[i].GetComponent<Image>();
                 image.color = !active
                     ? new Color(0.08f, 0.1f, 0.1f, 0.95f)
-                    : stack.IsEmpty ? new Color(0.18f, 0.22f, 0.22f, 0.95f) : ResourceColor(stack.Kind, 0.95f);
+                    : stack.IsEmpty
+                        ? new Color(0.12f, 0.18f, 0.19f, 0.95f)
+                        : PrototypeResourcePresentation.Surface(stableResourceId, stack.Kind, false);
+                Outline outline = bagButtons[i].GetComponent<Outline>();
+                if (outline != null)
+                {
+                    outline.effectColor = stack.IsEmpty || !active
+                        ? new Color(0.23f, 0.31f, 0.32f, 0.7f)
+                        : PrototypeResourcePresentation.Accent(stableResourceId, stack.Kind, 0.95f);
+                }
+                Image icon = i < bagButtonIcons.Count ? bagButtonIcons[i] : null;
+                if (icon != null)
+                {
+                    icon.sprite = stack.IsEmpty || !active ? null : GetResourceIconSprite(stack.Kind);
+                    icon.color = stack.IsEmpty || !active ? Color.clear : Color.white;
+                    icon.enabled = icon.sprite != null;
+                }
             }
         }
 
@@ -2556,7 +2617,7 @@ namespace KimSurvival
         {
             CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
             Vector2 center = GetModulePreviewCenter(evaluation.Definition.Archetype);
-            modulePreviewGhost = new GameObject("증축 후보 ghost placeholder · " + evaluation.Definition.RoomId);
+            modulePreviewGhost = new GameObject("증축 후보 공간 · " + evaluation.Definition.RoomId);
             modulePreviewGhost.transform.SetParent(worldRoot, false);
             modulePreviewGhost.transform.position = center;
             SpriteRenderer fill = CreateRect(
@@ -2598,8 +2659,9 @@ namespace KimSurvival
                 return;
             }
 
-            CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
-            bool valid = evaluation.CanCommit;
+            CampModuleExpansionOptionViewModel option = campModulePresenter.BuildSelected(session, campModuleValidation);
+            CampModuleEvaluation evaluation = option.Evaluation;
+            bool valid = option.CanCommit;
             modulePreviewGhost.transform.position = GetModulePreviewCenter(evaluation.Definition.Archetype);
             Color outline = valid ? new Color(0.72f, 1f, 0.66f, 1f) : new Color(1f, 0.78f, 0.68f, 1f);
             for (int i = 0; i < modulePreviewOutlineRenderers.Count; i += 1)
@@ -2609,9 +2671,13 @@ namespace KimSurvival
             modulePreviewBadgeRenderer.color = valid
                 ? new Color(0.03f, 0.34f, 0.15f, 0.98f)
                 : new Color(0.5f, 0.05f, 0.04f, 0.98f);
-            modulePreviewBadgeText.text = localization.Format(
-                valid ? "world.module.preview.slot.valid" : "world.module.preview.slot.invalid",
-                localization.Format(ModuleNameKey(evaluation.Definition.Archetype)));
+            modulePreviewBadgeText.text =
+                localization.Format(option.Semantic.NameKey) + "\n" +
+                localization.Format(option.StateKey) + " · " +
+                localization.Format(
+                    option.Semantic.PlacementCapacityKey,
+                    option.EstimatedGeneralFacilityCapacity,
+                    option.UsablePlacementWidth);
         }
 
         private void CreateModuleConnectorVisual(Transform parent, CampModuleConnectorKind kind, Vector2 position, bool valid)
@@ -3456,34 +3522,73 @@ namespace KimSurvival
 
         private void ApplyCampModulePreviewGuidance(PrototypeInputDevice device)
         {
-            CampModuleEvaluation evaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
-            string moduleName = localization.Format(ModuleNameKey(evaluation.Definition.Archetype));
-            string reason = FormatCampModulePrimaryReason(evaluation, moduleName);
+            CampModuleExpansionOptionViewModel option = campModulePresenter.BuildSelected(session, campModuleValidation);
+            CampModuleEvaluation evaluation = option.Evaluation;
+            string moduleName = localization.Format(option.Semantic.NameKey);
+            string reason = FormatCampModulePresentationReason(option, moduleName);
             messageText.text = localization.Format("module.preview.narration", moduleName);
-            messageText.fontSize = 30f;
+            messageText.fontSize = 24f;
             messageText.enableAutoSizing = true;
-            messageText.fontSizeMin = 24f;
-            messageText.fontSizeMax = 30f;
+            messageText.fontSizeMin = 20f;
+            messageText.fontSizeMax = 24f;
             messageText.overflowMode = TextOverflowModes.Ellipsis;
-            messageText.maxVisibleLines = 5;
-            messageText.fontStyle = FontStyles.Bold;
-            bool valid = evaluation.CanCommit;
+            messageText.maxVisibleLines = 2;
+            messageText.fontStyle = FontStyles.Normal;
+            bool valid = option.CanCommit;
             messagePanelImage.color = valid
                 ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
                 : new Color(0.38f, 0.08f, 0.06f, 0.96f);
             campModuleReasonChip.GetComponent<Image>().color = valid
                 ? new Color(0.04f, 0.27f, 0.15f, 0.96f)
                 : new Color(0.38f, 0.08f, 0.06f, 0.96f);
-            campModuleReasonText.text = localization.Format(
-                "ui.module.preview.cost",
-                moduleName,
-                evaluation.Cost.Wood,
-                evaluation.Cost.Salvage,
-                reason);
+            bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
+            campModuleReasonText.fontSizeMin = pseudoLong ? 15f : 20f;
+            campModuleReasonText.fontSizeMax = pseudoLong ? 18f : 22f;
+            campModuleReasonText.maxVisibleLines = 10;
+            campModuleReasonText.text =
+                moduleName + " · " + localization.Format(option.StateKey) + "\n" +
+                localization.Format(option.Semantic.PurposeKey) + "\n" +
+                localization.Format(option.Semantic.SuggestedUseKey) + "\n" +
+                localization.Format(
+                    option.Semantic.PlacementCapacityKey,
+                    option.EstimatedGeneralFacilityCapacity,
+                    option.UsablePlacementWidth) + "\n" +
+                localization.Format(
+                    "module.cost.provisional",
+                    option.Cost.Wood,
+                    option.Cost.Stone,
+                    option.Cost.Salvage) + "\n" +
+                localization.Format(option.PrerequisiteKey, option.MinimumDay) + "\n" +
+                reason;
             controlsText.text = localization.Format(
                 PrototypeInputPromptKeys.CampModulePreview(device),
                 localization.DeviceName(device));
             UpdateCampModulePreviewGhost();
+        }
+
+        private string FormatCampModulePresentationReason(
+            CampModuleExpansionOptionViewModel option,
+            string moduleName)
+        {
+            if (option.Shortage.Any)
+            {
+                var missing = new List<string>();
+                AddMissingResource(missing, "resource.wood", option.Shortage.Wood);
+                AddMissingResource(missing, "resource.stone", option.Shortage.Stone);
+                AddMissingResource(missing, "resource.food", option.Shortage.Food);
+                AddMissingResource(missing, "resource.salvage", option.Shortage.Salvage);
+                return localization.Format("interaction.module.missing", moduleName, string.Join(" · ", missing.ToArray()));
+            }
+            return localization.Format(option.ReasonKey);
+        }
+
+        private void AddMissingResource(List<string> missing, string stableResourceId, int amount)
+        {
+            if (amount <= 0) return;
+            ResourceKind legacyKind = GameSession.TryGetLegacyResourceKind(stableResourceId, out ResourceKind kind)
+                ? kind
+                : ResourceKind.Salvage;
+            missing.Add(localization.ResourceName(stableResourceId, legacyKind) + " " + amount);
         }
 
         private string FormatCampModulePrimaryReason(CampModuleEvaluation evaluation, string moduleName)
@@ -4179,7 +4284,7 @@ namespace KimSurvival
                 SetButton(searchLootItemButtons[index], label, !searchNodeRuntime.HasPendingBagSwap);
                 searchLootItemButtons[index].GetComponent<Image>().color = item.IsProtectedPart
                     ? new Color(0.52f, 0.29f, 0.06f, 0.98f)
-                    : SearchLootButtonBackground(item.Resource, index == searchNodeRuntime.FocusedIndex);
+                    : SearchLootButtonBackground(item.StableResourceId, item.Resource, index == searchNodeRuntime.FocusedIndex);
                 Image icon = index < searchLootItemIcons.Count ? searchLootItemIcons[index] : null;
                 if (icon != null)
                 {
@@ -5936,11 +6041,11 @@ namespace KimSurvival
                     campModuleReasonChip.activeSelf && campInteraction.OpenPopupTargetId == "slot.start.upper" &&
                     campModuleExpansion.SelectedArchetype == CampModuleArchetype.Upper &&
                     modulePreviewGhost != null && modulePreviewOutlineRenderers.Count == 4,
-                "위층 슬롯의 ui.module.expand Submit 뒤에만 같은 위층 후보 placeholder 미리보기");
+                "위층 슬롯의 ui.module.expand Submit 뒤에만 같은 위층 후보 공간 미리보기");
             CampModuleEvaluation lockedEvaluation = campModuleExpansion.Evaluate(session, campModuleValidation);
             Require(lockedEvaluation.Geometry == CampModuleGeometryStatus.Valid &&
                     lockedEvaluation.Economy == CampModuleEconomyStatus.Locked &&
-                    campModuleReasonText.text.Contains(localization.Format("interaction.module.locked_workbench")) &&
+                    campModuleReasonText.text.Contains(localization.Format("module.prerequisite.workbench")) &&
                     campModuleReasonText.text.Contains("나무 " + lockedEvaluation.Cost.Wood) &&
                     campModuleReasonText.text.Contains("표류물 " + lockedEvaluation.Cost.Salvage),
                 "작업대 전 preview는 geometry/economy를 분리하고 canonical 잠금 사유와 실제 위층 비용을 함께 표시");
@@ -6911,9 +7016,9 @@ namespace KimSurvival
             resourceText.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
             Require(statusText.enableAutoSizing && resourceText.enableAutoSizing &&
-                    statusText.fontSizeMin >= 26f && resourceText.fontSizeMin >= 26f &&
+                    statusText.fontSizeMin >= 22f && resourceText.fontSizeMin >= 18f &&
                     statusText.maxVisibleLines == 2 && resourceText.maxVisibleLines == 2,
-                localeCode + " 상단 HUD는 1280x800용 두 줄 자동 맞춤 계약 사용");
+                localeCode + " 상단 HUD는 날짜 22px·정확한 세부 재료 18px 이상의 두 줄 자동 맞춤 계약 사용");
             Require(!statusText.isTextOverflowing && !resourceText.isTextOverflowing,
                 localeCode + " 정상 캠프 상단 HUD TMP overflow=0");
         }
@@ -7345,7 +7450,7 @@ namespace KimSurvival
         private void RequireReadableCampModulePreview(bool allowEllipsis)
         {
             Require(campModuleExpansion.IsPreviewActive && modulePreviewGhost != null && modulePreviewBadgeText != null,
-                "증축 미리보기 상태와 placeholder 표현 존재");
+                "증축 미리보기 상태와 공간 윤곽 표현 존재");
             messageText.ForceMeshUpdate(true, true);
             controlsText.ForceMeshUpdate(true, true);
             campModuleReasonText.ForceMeshUpdate(true, true);
@@ -7353,27 +7458,27 @@ namespace KimSurvival
             Canvas.ForceUpdateCanvases();
             Require(!campActions.activeSelf && !campInteractionPopup.activeSelf && !campProximityPrompt.activeSelf &&
                     campModuleReasonChip.activeSelf && !bagPanel.activeSelf,
-                "증축 미리보기는 전역 대시보드·설비 팝업·근접 안내·가방을 숨기고 비용·사유 칩 하나만 표시");
+                "증축 미리보기는 전역 대시보드·설비 팝업·근접 안내·가방을 숨기고 목적·상태·비용 카드 하나만 표시");
             RectTransform reasonRect = campModuleReasonChip.GetComponent<RectTransform>();
             RectTransform messageRect = messagePanelImage.rectTransform;
             float reasonWidth = (reasonRect.anchorMax.x - reasonRect.anchorMin.x) * CampProximityPromptReferenceWidth;
             float reasonHeight = (reasonRect.anchorMax.y - reasonRect.anchorMin.y) * CampProximityPromptReferenceHeight;
             float reasonGap = (messageRect.anchorMin.y - reasonRect.anchorMax.y) * CampProximityPromptReferenceHeight;
-            Require(reasonWidth <= 440.1f && reasonHeight <= 64.1f && reasonGap >= 7.9f &&
-                    campModuleReasonText.enableAutoSizing && campModuleReasonText.fontSizeMin >= 18f &&
-                    campModuleReasonText.maxVisibleLines == 2 && campModuleReasonText.overflowMode == TextOverflowModes.Overflow &&
+            Require(reasonWidth <= 468f && reasonHeight <= 280.1f && reasonGap >= 19.9f &&
+                    campModuleReasonText.enableAutoSizing && campModuleReasonText.fontSizeMin >= (allowEllipsis ? 15f : 20f) &&
+                    campModuleReasonText.maxVisibleLines == 10 && campModuleReasonText.overflowMode == TextOverflowModes.Overflow &&
                     !campModuleReasonText.isTextOverflowing,
-                "1280x800 ko/en/qps-long 비용·사유 칩은 440x64·2줄·18px·무잘림 계약 사용");
+                "1280x800 목적·추천 용도·수용량·비용·선행 조건·부족분 카드 무잘림 계약 사용");
             if (allowEllipsis)
             {
                 Require(messageText.enableAutoSizing && controlsText.enableAutoSizing &&
-                        messageText.fontSizeMin >= 24f && controlsText.fontSizeMin >= 23f &&
+                        messageText.fontSizeMin >= 20f && controlsText.fontSizeMin >= 17f &&
                         messageText.overflowMode == TextOverflowModes.Ellipsis && controlsText.overflowMode == TextOverflowModes.Ellipsis,
                     "1280x800 qps-long 증축 상태·입력 안내 자동 맞춤·말줄임 안전 영역 정책");
             }
             else
             {
-                Require(messageText.fontSize >= 30f && !messageText.isTextOverflowing && !controlsText.isTextOverflowing,
+                Require(messageText.fontSize >= 24f && !messageText.isTextOverflowing && !controlsText.isTextOverflowing,
                     "1280x800 ko/en 증축 상태·공통 입력 안내 잘림 없음");
             }
             Require(modulePreviewOutlineRenderers.Count == 4 && modulePreviewBadgeRenderer != null &&
@@ -7542,7 +7647,7 @@ namespace KimSurvival
             messageText.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
             Require(signalLabel.fontSize >= 23f && !signalLabel.isTextOverflowing, "1280x800 신호대 단계·요구조건 라벨 잘림 없음");
-            Require(messageText.fontSizeMin >= 22f && !messageText.isTextOverflowing, "1280x800 축소 독백 카드의 신호대 부족 사유 잘림 없음");
+            Require(messageText.fontSizeMin >= 20f && !messageText.isTextOverflowing, "1280x800 축소 독백 카드의 신호대 부족 사유 잘림 없음");
         }
 
         private void RequireReadablePlacementUi()
@@ -7569,10 +7674,10 @@ namespace KimSurvival
             languageLabel.ForceMeshUpdate(true, true);
             Canvas.ForceUpdateCanvases();
 
-            Require(statusText.fontSizeMin >= 28f && resourceText.fontSizeMin >= 28f &&
+            Require(statusText.fontSizeMin >= 22f && resourceText.fontSizeMin >= 18f &&
                     !statusText.isTextOverflowing && !resourceText.isTextOverflowing,
-                "qps-long 최소 HUD는 1280x800 글자 높이·2행·무잘림 계약 사용");
-            Require(languageLabel.enableAutoSizing && languageLabel.fontSizeMin >= 30f &&
+                "qps-long 최소 HUD는 1280x800 날짜·세부 재료 2행·무잘림 계약 사용");
+            Require(languageLabel.enableAutoSizing && languageLabel.fontSizeMin >= 18f &&
                     languageLabel.maxVisibleLines == 1 && !languageLabel.isTextOverflowing,
                 "qps-long 언어 전환은 우측 안전 여백 안의 1줄 자동 맞춤 사용");
             Require(zoneBadge == null && signalBadge == null,
@@ -7700,8 +7805,8 @@ namespace KimSurvival
             RefreshSearchLootTrayUi();
             Canvas.ForceUpdateCanvases();
             RectTransform trayRect = searchLootTrayPanel.GetComponent<RectTransform>();
-            Require(trayRect.anchorMin.x >= 0.02f && trayRect.anchorMax.x <= 0.60f &&
-                    trayRect.anchorMin.y >= 0.53f && trayRect.anchorMax.y <= 0.83f,
+            Require(trayRect.anchorMin.x >= 0.02f && trayRect.anchorMax.x <= 0.68f &&
+                    trayRect.anchorMin.y >= 0.42f && trayRect.anchorMax.y <= 0.83f,
                 localeCode + " compact 발견물 트레이 1280×800 안전영역·월드 보존");
             TMP_Text[] trayTexts = searchLootTrayPanel.GetComponentsInChildren<TMP_Text>(true);
             for (int index = 0; index < trayTexts.Length; index += 1)
@@ -7717,14 +7822,15 @@ namespace KimSurvival
                     leaveLabel.fontSize >= 23f && !leaveLabel.isTextOverflowing,
                 localeCode + " 발견물 닫기 action은 qps-long projected glyph 12px 대응 23pt 고정·무잘림");
             RectTransform bagRect = bagPanel.GetComponent<RectTransform>();
-            Require(trayRect.anchorMax.x < 0.61f && bagRect.offsetMin.x <= -455f,
+            Require(trayRect.anchorMax.x < bagRect.anchorMin.x && bagRect.anchorMin.x >= 0.69f,
                 localeCode + " 발견물 트레이와 기존 가방 비교 영역 비중첩");
             ResourceKind[] resourceKinds = { ResourceKind.Wood, ResourceKind.Stone, ResourceKind.Food, ResourceKind.Salvage };
             for (int index = 0; index < resourceKinds.Length; index += 1)
             {
                 ResourceKind kind = resourceKinds[index];
-                Require(ColorContrastRatio(Color.white, SearchLootButtonBackground(kind, false)) >= 4.5f &&
-                        ColorContrastRatio(Color.white, SearchLootButtonBackground(kind, true)) >= 4.5f,
+                string stableResourceId = GameSession.StableResourceIdForLegacy(kind);
+                Require(ColorContrastRatio(Color.white, SearchLootButtonBackground(stableResourceId, kind, false)) >= 4.5f &&
+                        ColorContrastRatio(Color.white, SearchLootButtonBackground(stableResourceId, kind, true)) >= 4.5f,
                     localeCode + " " + kind + " 발견물 비선택·선택 버튼의 흰 글자 대비 4.5:1 이상");
             }
             Require(nodes.All(node => node.Root.GetComponentsInChildren<TextMeshPro>(true)
@@ -8447,8 +8553,8 @@ namespace KimSurvival
             TMP_Text label = button.GetComponentInChildren<TMP_Text>();
             label.fontStyle = FontStyles.Bold;
             label.enableAutoSizing = true;
-            label.fontSizeMin = 18f;
-            label.fontSizeMax = 22f;
+            label.fontSizeMin = 20f;
+            label.fontSizeMax = 24f;
             label.textWrappingMode = TextWrappingModes.Normal;
             label.maxVisibleLines = 2;
             label.overflowMode = TextOverflowModes.Overflow;
@@ -8460,8 +8566,15 @@ namespace KimSurvival
             int row = index / 2;
             float left = 22f + column * 196f;
             float right = left + 185f;
-            float top = -302f - row * 105f;
-            return CreateButton("가방 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), localization.Format("bag.slot.empty", index + 1), callback, new Vector2(left, top - 88f), new Vector2(right, top));
+            float top = -104f - row * 112f;
+            Button button = CreateButton("가방 " + index, parent, new Vector2(0f, 1f), new Vector2(0f, 1f), localization.Format("bag.slot.empty", index + 1), callback, new Vector2(left, top - 96f), new Vector2(right, top));
+            TMP_Text label = button.GetComponentInChildren<TMP_Text>();
+            label.rectTransform.offsetMin = new Vector2(54f, 5f);
+            label.rectTransform.offsetMax = new Vector2(-8f, -5f);
+            Outline outline = button.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0.23f, 0.31f, 0.32f, 0.7f);
+            outline.effectDistance = new Vector2(2f, -2f);
+            return button;
         }
 
         private Button CreateButton(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, string label, UnityEngine.Events.UnityAction callback)
@@ -8542,21 +8655,9 @@ namespace KimSurvival
             }
         }
 
-        private static Color SearchLootButtonBackground(ResourceKind kind, bool selected)
+        private static Color SearchLootButtonBackground(string stableResourceId, ResourceKind kind, bool selected)
         {
-            switch (kind)
-            {
-                case ResourceKind.Wood:
-                    return selected ? new Color(0.38f, 0.18f, 0.05f, 1f) : new Color(0.25f, 0.11f, 0.04f, 1f);
-                case ResourceKind.Stone:
-                    return selected ? new Color(0.25f, 0.3f, 0.34f, 1f) : new Color(0.16f, 0.19f, 0.22f, 1f);
-                case ResourceKind.Food:
-                    return selected ? new Color(0.11f, 0.36f, 0.14f, 1f) : new Color(0.08f, 0.25f, 0.1f, 1f);
-                case ResourceKind.Salvage:
-                    return selected ? new Color(0.4f, 0.22f, 0.04f, 1f) : new Color(0.25f, 0.14f, 0.03f, 1f);
-                default:
-                    return new Color(0.12f, 0.16f, 0.17f, 1f);
-            }
+            return PrototypeResourcePresentation.Surface(stableResourceId, kind, selected);
         }
 
         private static float ColorContrastRatio(Color first, Color second)
@@ -8597,6 +8698,45 @@ namespace KimSurvival
                 default:
                     return null;
             }
+        }
+
+        private static void ConfigureActionButtonRole(Button button, Color surfaceColor, Color textColor)
+        {
+            if (button == null) return;
+            Image image = button.GetComponent<Image>();
+            if (image != null)
+            {
+                image.color = surfaceColor;
+            }
+            ColorBlock colors = button.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1f, 1f, 1f, 1f);
+            colors.selectedColor = new Color(1f, 0.92f, 0.72f, 1f);
+            colors.pressedColor = new Color(0.82f, 0.82f, 0.82f, 1f);
+            colors.disabledColor = new Color(0.45f, 0.45f, 0.45f, 0.7f);
+            button.colors = colors;
+            TMP_Text label = button.GetComponentInChildren<TMP_Text>();
+            if (label != null)
+            {
+                label.color = textColor;
+            }
+        }
+
+        private static Image CreateBagItemIcon(Transform parent, int index)
+        {
+            GameObject iconObject = new GameObject("가방 재료 아이콘 " + (index + 1));
+            iconObject.transform.SetParent(parent, false);
+            RectTransform rect = iconObject.AddComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0f, 0.5f);
+            rect.anchorMax = new Vector2(0f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = new Vector2(29f, 0f);
+            rect.sizeDelta = new Vector2(38f, 38f);
+            Image icon = iconObject.AddComponent<Image>();
+            icon.preserveAspect = true;
+            icon.raycastTarget = false;
+            icon.enabled = false;
+            return icon;
         }
 
         private static Image CreateSearchLootItemIcon(Transform parent, int index)

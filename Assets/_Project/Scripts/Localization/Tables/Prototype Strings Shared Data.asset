@@ -2191,6 +2191,90 @@ MonoBehaviour:
     m_Key: search.hazard.action.retreat.dangerous-plants
     m_Metadata:
       m_Items: []
+  - m_Id: 1471604059258880
+    m_Key: module.state.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310784
+    m_Key: module.state.available
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310785
+    m_Key: module.state.in_progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310786
+    m_Key: module.state.completed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310787
+    m_Key: module.purpose.upper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310788
+    m_Key: module.purpose.side
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310789
+    m_Key: module.purpose.basement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310790
+    m_Key: module.suggested_use.upper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604168310791
+    m_Key: module.suggested_use.side
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505088
+    m_Key: module.suggested_use.basement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505089
+    m_Key: module.capacity.general_sheltered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505090
+    m_Key: module.prerequisite.met
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505091
+    m_Key: module.prerequisite.workbench
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505092
+    m_Key: module.prerequisite.day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505093
+    m_Key: module.prerequisite.workbench_day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505094
+    m_Key: module.reason.completed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505095
+    m_Key: module.recommend.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505096
+    m_Key: module.recommend.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505097
+    m_Key: module.recommend.unlock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505098
+    m_Key: module.recommend.gather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1471604172505099
+    m_Key: module.recommend.resolve
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
