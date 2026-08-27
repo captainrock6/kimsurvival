@@ -483,12 +483,20 @@ namespace KimSurvival
             if (!session.IsExpeditionRegionUnlocked(PrototypeExpeditionRegionId.Forest))
             {
                 if (!session.BeginSearch(PrototypeExpeditionRegionId.Beach) ||
-                    !session.ReturnToCamp(false) || !session.EndDay(false, false)) return false;
+                    !Gather(session, ResourceKind.Food, 2) ||
+                    !Gather(session, ResourceKind.Wood, 2) ||
+                    !session.ReturnToCamp(false) ||
+                    !session.UseFood() ||
+                    !session.EndDay(false, false)) return false;
             }
             if (!session.IsExpeditionRegionUnlocked(PrototypeExpeditionRegionId.Shallows))
             {
                 if (!session.BeginSearch(PrototypeExpeditionRegionId.Forest) ||
-                    !session.ReturnToCamp(false) || !session.EndDay(false, false)) return false;
+                    !Gather(session, ResourceKind.Food, 2) ||
+                    !Gather(session, ResourceKind.Wood, 2) ||
+                    !session.ReturnToCamp(false) ||
+                    !session.UseFood() ||
+                    !session.EndDay(false, false)) return false;
             }
             return session.IsExpeditionRegionUnlocked(PrototypeExpeditionRegionId.Shallows);
         }
@@ -516,6 +524,20 @@ namespace KimSurvival
                 true) && director.TryHandleRaftAction(session, session.RunSeed, session.Day, eventKey);
             if (opened) { trace.Add("camp.interaction.escape.raft.popup-opened"); interactions += 1; }
             if (confirmed) { trace.Add("camp.interaction.escape.raft.action-confirmed"); interactions += 1; }
+            if (!action)
+            {
+                PrototypeEscapeProjectState state = director.GetState(PrototypeRaftEscapeConfig.EscapeId);
+                trace.Add("raft.action-rejected phase=" + session.Phase +
+                          " result=" + session.Result +
+                          " day=" + session.Day +
+                          " energy=" + session.Energy +
+                          " hunger=" + session.Hunger +
+                          " wood=" + session.GetStorage(ResourceKind.Wood) +
+                          " salvage=" + session.GetStorage(ResourceKind.Salvage) +
+                          " food=" + session.GetStorage(ResourceKind.Food) +
+                          " progress=" + state.Progress +
+                          " code=" + state.LastResultCode);
+            }
             interaction.ClosePopup();
             return action;
         }

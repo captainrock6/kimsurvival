@@ -17,7 +17,7 @@
         {
             "Id": "O6-RAFT-03",
             "Passed": true,
-            "Detail": "success=True; terminal=True; day=6"
+            "Detail": "success=True; terminal=True; day=9"
         },
         {
             "Id": "O6-ESCAPE-01",

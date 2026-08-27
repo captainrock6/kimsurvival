@@ -219,7 +219,8 @@ namespace ParallelQA
                               audit.ProtectedAssignmentsValid && audit.AllPlayableRoutesCompletable && audit.NoSoftlock);
             Add(checks, "O7-S06", passed,
                 "runtime=" + runtime.Passed + "; seeds=" + string.Join(",", seedAudits.Select(audit =>
-                    audit.Seed + ":parts" + audit.ProtectedPartUnits + "/routes" + audit.AllPlayableRoutesCompletable)));
+                    audit.Seed + ":parts" + audit.ProtectedPartUnits + "/routes" + audit.AllPlayableRoutesCompletable)) +
+                "; runtimeDetail=" + runtime.Detail);
         }
 
         private static void Add(ICollection<Check> checks, string id, bool passed, string detail)

@@ -2509,9 +2509,9 @@ namespace KimSurvival
         private static readonly Dictionary<string, int> ExactSearchStock =
             new Dictionary<string, int>(StringComparer.Ordinal)
             {
-                { "resource.wood", 84 }, { "resource.salvage", 60 }, { "resource.food", 36 },
-                { "resource.fabric", 18 }, { "resource.fiber", 30 }, { "resource.medicine", 18 },
-                { "resource.stone", 66 }, { "resource.metal", 36 }, { "resource.wire", 30 },
+                { "resource.wood", 84 }, { "resource.salvage", 54 }, { "resource.food", 36 },
+                { "resource.fabric", 18 }, { "resource.fiber", 24 }, { "resource.medicine", 18 },
+                { "resource.stone", 78 }, { "resource.metal", 36 }, { "resource.wire", 30 },
                 { "resource.fuel", 24 }, { "resource.chemicals", 12 }, { "resource.electronics", 18 }
             };
 
@@ -2769,6 +2769,9 @@ namespace KimSurvival
                 !string.Equals(node.HazardId, PrototypeDiseaseRuntime.TriggerHazardId, StringComparison.Ordinal));
             PrototypeSearchLootEntry[] first = PrototypeSearchNodeLootResolver.Resolve(seed, definition);
             GameSession session = new GameSession(seed);
+            GameSessionStableState sessionState = session.CaptureStableState();
+            sessionState.MaxUnlockedExpeditionOrdinal = PrototypeExpeditionRegionCatalog.All.Count - 1;
+            bool sessionRegionsPrepared = session.RestoreStableState(sessionState);
             bool began = session.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(definition.RegionId));
             if (definition.RequiresSwimming) session.SetSwimming(true);
             PrototypeSearchNodeRuntime runtime = new PrototypeSearchNodeRuntime(seed);
@@ -2823,10 +2826,12 @@ namespace KimSurvival
             PrototypeSearchNodeDefinition depleteDefinition = definitions.First(node =>
                 !string.Equals(node.NodeId, definition.NodeId, StringComparison.Ordinal) &&
                 !protectedNodeIds.Contains(node.NodeId) &&
-                node.FiniteYield.Count == 1);
+                node.FiniteYield.Count > 0 &&
+                node.FiniteYield.Sum(item => Math.Max(0, item.Amount)) <= GameSession.MaximumBagSlotCount);
             GameSession depleteSession = new GameSession(seed);
             GameSessionStableState depleteBagState = depleteSession.CaptureStableState();
             depleteBagState.ActiveBagSlotCount = GameSession.MaximumBagSlotCount;
+            depleteBagState.MaxUnlockedExpeditionOrdinal = PrototypeExpeditionRegionCatalog.All.Count - 1;
             bool depleteBagPrepared = depleteSession.RestoreStableState(depleteBagState);
             bool depleteBegan = depleteSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(depleteDefinition.RegionId));
             if (depleteDefinition.RequiresSwimming) depleteSession.SetSwimming(true);
@@ -2843,6 +2848,9 @@ namespace KimSurvival
             PrototypeSearchNodeDefinition sailclothDefinition = definitions.First(node =>
                 string.Equals(node.NodeId, PrototypeSearchNodeLootResolver.ResolveSailclothNodeId(seed), StringComparison.Ordinal));
             GameSession protectedSession = new GameSession(seed);
+            GameSessionStableState protectedSessionState = protectedSession.CaptureStableState();
+            protectedSessionState.MaxUnlockedExpeditionOrdinal = PrototypeExpeditionRegionCatalog.All.Count - 1;
+            bool protectedRegionsPrepared = protectedSession.RestoreStableState(protectedSessionState);
             bool protectedBegan = protectedSession.BeginSearch(PrototypeSearchRegionCatalog.StartingExpeditionFor(sailclothDefinition.RegionId));
             if (sailclothDefinition.RequiresSwimming) protectedSession.SetSwimming(true);
             PrototypeSearchNodeRuntime protectedRuntime = new PrototypeSearchNodeRuntime(seed);
@@ -2885,12 +2893,12 @@ namespace KimSurvival
             bool passed = sevenRegions && exactShape && stableNodes && legacyIdsPreserved && exactlyFourteenAdded &&
                           exactlyFortyTwoO6Expanded &&
                           exactFiniteBalance && deterministic &&
-                          differentSeedVaries && began && costOnce && selected &&
+                           differentSeedVaries && sessionRegionsPrepared && began && costOnce && selected &&
                           (takeResult == PrototypeSearchTakeResult.Added || takeResult == PrototypeSearchTakeResult.Depleted) &&
                            persistence && restoreShellStartsEmpty && productionRestoreOk && stockDoesNotRegenerate &&
                            depleteBegan && depleteOpened && hiddenObserved &&
                           depleteBagPrepared && partialObserved && depletedObserved && depleteResult == PrototypeSearchTakeResult.Depleted &&
-                          protectedBegan && protectedOpened && protectedTaken && protectedUnique &&
+                           protectedRegionsPrepared && protectedBegan && protectedOpened && protectedTaken && protectedUnique &&
                           fullBagBegan && filled && swapOpened && cancelAtomic && replaceAtomic &&
                           pityContract.Passed && diseaseContract.Passed;
             return new PrototypeSearchNodeContractResult(
