@@ -3508,13 +3508,15 @@
         "Builds/Windows"
       ],
       "evidence": [
-        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/compile-result.txt"
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/compile-result.txt",
+        "Artifacts/ParallelQA/20260827T134000Z_o7_release_1df5c7d/gamejam-release-build.json",
+        "Artifacts/ParallelQA/20260827T134500Z_o7_package_1df5c7d/gamejam-package-integrity-summary.json"
       ],
       "blockedReason": "",
-      "status": "in_progress",
-      "updatedAt": "2026-08-27T13:33:05.741Z",
-      "note": "Integrated O7 and legacy escape/resource regressions are green; exact-source Windows Release and package integrity remain.",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-27T13:37:07.755Z",
+      "note": "Exact source 1df5c7de1a82d21ef9c902b98d2761e7d8730368 built as non-development Windows Release; PKG-I01 through I07 passed. O7-H1 natural human play remains required.",
+      "completedAt": "2026-08-27T13:37:07.754Z",
       "createdAt": "2026-08-27T13:33:05.740Z"
     },
     {
@@ -4328,5 +4330,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-27T13:33:05.741Z"
+  "updatedAt": "2026-08-27T13:37:07.755Z"
 }

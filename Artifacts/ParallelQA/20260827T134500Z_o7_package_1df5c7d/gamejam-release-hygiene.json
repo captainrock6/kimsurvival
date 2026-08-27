@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "root": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T134000Z_o7_release_1df5c7d\\KimSurvivalIsland-gamejam-win64-release-1df5c7d",
+  "bootConfig": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T134000Z_o7_release_1df5c7d\\KimSurvivalIsland-gamejam-win64-release-1df5c7d\\KimSurvivalIsland_Data\\boot.config",
+  "bootConfigCount": 1,
+  "forbiddenFiles": [],
+  "forbiddenDirectories": [],
+  "forbiddenBootSettings": [],
+  "privateAddressMatches": [],
+  "buildInfoPath": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\ParallelQA\\20260827T134000Z_o7_release_1df5c7d\\KimSurvivalIsland-gamejam-win64-release-1df5c7d\\BUILD-INFO.txt",
+  "releaseLabelMatches": true,
+  "buildOptionsMatch": true,
+  "status": "PASS"
+}

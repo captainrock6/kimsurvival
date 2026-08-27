@@ -1,0 +1,19 @@
+Game Jam final package integrity and extracted smoke gate
+Run ID: 20260827T134500Z_o7_package_1df5c7d
+QA baseline / observed HEAD: 1df5c7de1a82d21ef9c902b98d2761e7d8730368 / 1df5c7de1a82d21ef9c902b98d2761e7d8730368
+Package source commit: 1df5c7de1a82d21ef9c902b98d2761e7d8730368
+Build flavor: Release
+Result: PASS
+Exit code: 0
+Folder manifest: PASS
+ZIP versus folder: PASS
+Extracted hidden smoke: PASS
+Source package unchanged: True
+Tested extracted payload unchanged: True
+Development LocalLow JSONL validated/captured:  / True
+Release hygiene: PASS
+Release build provenance: PASS
+JSONL source/captured SHA-256:  /
+ZIP SHA-256: 35491714fae9aab61cd36cd6f4a773765bb68014de6af6f809e63864d0986c36
+Evidence: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260827T134500Z_o7_package_1df5c7d
+Work: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260827T134500Z_o7_package_1df5c7d

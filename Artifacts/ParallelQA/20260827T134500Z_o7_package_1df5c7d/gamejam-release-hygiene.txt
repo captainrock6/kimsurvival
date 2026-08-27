@@ -1,0 +1,11 @@
+Game Jam release package hygiene audit
+Run ID: 20260827T134500Z_o7_package_1df5c7d
+Boot config: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\ParallelQA\20260827T134000Z_o7_release_1df5c7d\KimSurvivalIsland-gamejam-win64-release-1df5c7d\KimSurvivalIsland_Data\boot.config
+Boot config count: 1
+Forbidden files:
+Forbidden directories:
+Forbidden boot settings:
+Private/local addresses:
+BUILD-INFO release label: True
+BUILD-INFO BuildOptions.None: True
+Result: PASS
