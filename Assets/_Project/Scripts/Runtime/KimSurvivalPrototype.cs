@@ -2450,6 +2450,10 @@ namespace KimSurvival
 
         private void CreateFixedPlacementAnchorMarkers()
         {
+            if (!PrototypeCampPlacement.IsFixedAnchorStructure(campPlacement.SelectedKind))
+            {
+                return;
+            }
             Vector2 structureSize = PrototypeCampPlacement.GetStructureSize(campPlacement.SelectedKind);
             IReadOnlyList<CampPlacementAnchor> anchors = PrototypeCampPlacement.GetAnchorsForRoom(campPlacement.CandidateRoomId);
             for (int index = 0; index < anchors.Count; index += 1)
@@ -3178,6 +3182,7 @@ namespace KimSurvival
             if (campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ExpeditionMap)
             {
                 expeditionMapSelection.Open(session.SelectedRegionId);
+                expeditionMapSelection.SyncSequentialUnlock(session.MaxUnlockedExpeditionOrdinal);
             }
 
             if (playtestLog != null)
@@ -3369,6 +3374,8 @@ namespace KimSurvival
             }
 
             PrototypeExpeditionRegionProfile focused = PrototypeExpeditionRegionCatalog.Get(expeditionMapSelection.FocusedRegionId);
+            bool focusedLocked = expeditionMapSelection.GetRegionState(focused.Id) ==
+                                 PrototypeExpeditionRegionVisualState.Locked;
             expeditionMapTitleText.text = localization.Format(
                 "expedition.map.title_region",
                 session.Day,
@@ -3412,15 +3419,22 @@ namespace KimSurvival
             expeditionMapEquipmentText.text = localization.Format(
                 "expedition.map.rail.equipment",
                 localization.Format(focused.EquipmentKey));
-            expeditionMapSpecialText.text = localization.Format(
-                "expedition.map.rail.special",
-                localization.Format(focused.SpecialDiscoveryKey));
+            expeditionMapSpecialText.text = focusedLocked
+                ? localization.Format(
+                    "expedition.map.rail.locked_sequence",
+                    session.MaxUnlockedExpeditionOrdinal + 1,
+                    PrototypeExpeditionRegionCatalog.All.Count)
+                : localization.Format(
+                    "expedition.map.rail.special",
+                    localization.Format(focused.SpecialDiscoveryKey));
             bool canDepartToday = session.Phase == GamePhase.Camp && !session.ExpeditionCompleted &&
                                   session.Result == RunResult.None && expeditionMapSelection.CanDepartFocusedRegion();
             SetButton(
                 expeditionMapConfirmButton,
                 session.ExpeditionCompleted
                     ? localization.Format("expedition.map.depart.completed")
+                    : focusedLocked
+                        ? localization.Format("expedition.map.depart.locked")
                     : localization.Format("expedition.map.depart", localization.Format(focused.NameKey)),
                 canDepartToday);
             SetButton(expeditionMapCancelButton, localization.Format("expedition.map.cancel.short"), true);
@@ -7234,7 +7248,7 @@ namespace KimSurvival
 
             Require(session.Day == 50 && session.Result == RunResult.None,
                 "Play Mode Day 49 정산 뒤 Day 50이 실제 플레이 가능");
-            Require(session.BeginSearch(PrototypeExpeditionRegionId.Shallows) && session.ReturnToCamp(false) &&
+            Require(session.BeginSearch(PrototypeExpeditionRegionId.Beach) && session.ReturnToCamp(false) &&
                     session.UseFood() && session.EndDay() &&
                     session.Result == RunResult.Deadline && session.Day == 50,
                 "Play Mode 미탈출 Day 50 종료에서만 terminal resolution");
@@ -7545,6 +7559,8 @@ namespace KimSurvival
                 return;
             }
 
+            ClearO6CampPopupResult();
+
             PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId);
             string actionName = "escape.raft." + state.LaunchState + "." + state.Progress;
             bool succeeded = playtestLog != null
@@ -7568,6 +7584,7 @@ namespace KimSurvival
             }
             else
             {
+                CaptureO6CampPopupResult(succeeded);
                 campInteraction.PrepareOpenPopupForReturn();
             }
             RefreshAll();

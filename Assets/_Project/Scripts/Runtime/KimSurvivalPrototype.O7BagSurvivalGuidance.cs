@@ -12,8 +12,8 @@ namespace KimSurvival
     {
         public const int O7SafeBedHealthRecovery = 5;
 
-        private static readonly Vector2 O7CompactBagAnchorMin = new Vector2(0.018f, 0.145f);
-        private static readonly Vector2 O7CompactBagAnchorMax = new Vector2(0.315f, 0.505f);
+        private static readonly Vector2 O7CompactBagAnchorMin = new Vector2(0.012f, 0.105f);
+        private static readonly Vector2 O7CompactBagAnchorMax = new Vector2(0.232f, 0.395f);
 
         private GameObject o7SurvivalHelpPanel;
         private Button o7SurvivalHelpButton;
@@ -204,13 +204,13 @@ namespace KimSurvival
             }
 
             RectTransform titleRect = bagTitleText.rectTransform;
-            titleRect.anchorMin = new Vector2(0.035f, 0.80f);
+            titleRect.anchorMin = new Vector2(0.035f, 0.78f);
             titleRect.anchorMax = new Vector2(0.965f, 0.975f);
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
             bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;
-            bagTitleText.fontSizeMin = pseudoLong ? 13f : 16f;
-            bagTitleText.fontSizeMax = pseudoLong ? 17f : 21f;
+            bagTitleText.fontSizeMin = pseudoLong ? 10f : 12f;
+            bagTitleText.fontSizeMax = pseudoLong ? 13f : 16f;
             bagTitleText.maxVisibleLines = 2;
             bagTitleText.overflowMode = TextOverflowModes.Ellipsis;
 
@@ -220,8 +220,8 @@ namespace KimSurvival
                 int row = index / 2;
                 float left = 0.035f + column * 0.48f;
                 float right = left + 0.45f;
-                float top = 0.785f - row * 0.145f;
-                float bottom = top - 0.125f;
+                float top = 0.755f - row * 0.143f;
+                float bottom = top - 0.118f;
                 RectTransform buttonRect = bagButtons[index].GetComponent<RectTransform>();
                 buttonRect.anchorMin = new Vector2(left, bottom);
                 buttonRect.anchorMax = new Vector2(right, top);
@@ -229,11 +229,11 @@ namespace KimSurvival
                 buttonRect.offsetMax = Vector2.zero;
 
                 TMP_Text label = bagButtons[index].GetComponentInChildren<TMP_Text>();
-                label.rectTransform.offsetMin = new Vector2(34f, 2f);
-                label.rectTransform.offsetMax = new Vector2(-5f, -2f);
+                label.rectTransform.offsetMin = new Vector2(26f, 1f);
+                label.rectTransform.offsetMax = new Vector2(-3f, -1f);
                 label.enableAutoSizing = true;
-                label.fontSizeMin = pseudoLong ? 9f : 11f;
-                label.fontSizeMax = pseudoLong ? 13f : 17f;
+                label.fontSizeMin = pseudoLong ? 7f : 9f;
+                label.fontSizeMax = pseudoLong ? 10f : 13f;
                 label.maxVisibleLines = 2;
                 label.textWrappingMode = TextWrappingModes.Normal;
                 label.overflowMode = TextOverflowModes.Ellipsis;
@@ -244,8 +244,8 @@ namespace KimSurvival
                     iconRect.anchorMin = new Vector2(0f, 0.5f);
                     iconRect.anchorMax = new Vector2(0f, 0.5f);
                     iconRect.pivot = new Vector2(0.5f, 0.5f);
-                    iconRect.anchoredPosition = new Vector2(17f, 0f);
-                    iconRect.sizeDelta = new Vector2(24f, 24f);
+                    iconRect.anchoredPosition = new Vector2(13f, 0f);
+                    iconRect.sizeDelta = new Vector2(18f, 18f);
                 }
             }
         }
@@ -275,10 +275,10 @@ namespace KimSurvival
         public static bool RunO7BagSurvivalDomainContracts(out string detail)
         {
             var checks = new List<string>();
-            bool layout = O7CompactBagAnchorMax.x <= 0.32f &&
+            bool layout = O7CompactBagAnchorMax.x <= 0.24f &&
                           O7CompactBagAnchorMin.x >= 0f &&
-                          O7CompactBagAnchorMin.y >= 0.13f &&
-                          O7CompactBagAnchorMax.y <= 0.52f;
+                          O7CompactBagAnchorMin.y >= 0.09f &&
+                          O7CompactBagAnchorMax.y <= 0.41f;
             checks.Add("compact-bottom-left=" + layout);
 
             var bedSession = new GameSession();

@@ -638,7 +638,7 @@ namespace KimSurvival
     public static class PrototypeSearchRegionCatalog
     {
         public const string ContractRevision = "gamejam.wave-bc.catalog-disease-parts.v1";
-        public const string LootTableRevision = "gamejam.o7.loot.84-nodes-weighted-common-432.v1";
+        public const string LootTableRevision = "gamejam.o8.loot.early-route-guarantees-432.v1";
         public const string CatalogRevision = "gamejam.o7.7r21a84i-spaced.v1";
         public const string NewGameStockGenerationEvent = "new-game-stock-generation";
         public const string BalanceStatus = "BALANCE_PROVISIONAL";
@@ -792,7 +792,7 @@ namespace KimSurvival
                 Pair("region.coast.beach", "driftline", "low",
                     "node.coast.beach.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf",
                     "node.coast.beach.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, "hazard.high-surf",
-                    Yield("resource.salvage", 2), Yield("resource.wood", 1)),
+                    Yield("resource.salvage", 1), Yield("resource.wood", 1), Yield("resource.food", 1)),
                 Pair("region.coast.beach", "tide-cache", "low",
                     "node.coast.beach.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects",
                     "node.coast.beach.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.insects",
@@ -820,15 +820,15 @@ namespace KimSurvival
                 Pair("region.forest.grove", "deadfall", "medium",
                     "node.forest.grove.tree-hollow.01", PrototypeSearchNodeKind.TreeHollow, false, PrototypeDiseaseRuntime.TriggerHazardId,
                     "node.forest.grove.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, PrototypeDiseaseRuntime.TriggerHazardId,
-                    Yield("resource.wood", 4)),
+                    Yield("resource.wood", 3), Yield("resource.stone", 1)),
                 Pair("region.forest.grove", "forage-patch", "low",
                     "node.forest.grove.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
                     "node.forest.grove.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
-                    Yield("resource.food", 2), Yield("resource.medicine", 1)),
+                    Yield("resource.food", 1), Yield("resource.medicine", 1), Yield("resource.stone", 1)),
                 Pair("region.forest.grove", "vine-hollow", "medium",
                     "node.forest.grove.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.wildlife",
                     "node.forest.grove.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.wildlife",
-                    Yield("resource.fiber", 3), Yield("resource.medicine", 1))),
+                    Yield("resource.fiber", 2), Yield("resource.medicine", 1), Yield("resource.wood", 1))),
             new PrototypeSearchRegionDefinition(
                 "region.ridge.highland",
                 Pair("region.ridge.highland", "rockfall", "high",
@@ -1760,6 +1760,10 @@ namespace KimSurvival
                 string.Equals(snapshot.ContractRevision, PrototypeSearchRegionCatalog.ContractRevision, StringComparison.Ordinal) &&
                 string.Equals(snapshot.LootTableRevision, PrototypeSearchRegionCatalog.LootTableRevision, StringComparison.Ordinal) &&
                 string.Equals(snapshot.CatalogRevision, PrototypeSearchRegionCatalog.CatalogRevision, StringComparison.Ordinal);
+            bool migrateO7Exact84 = source.Length == PrototypeSearchRegionCatalog.SearchNodeCount &&
+                string.Equals(snapshot.ContractRevision, PrototypeSearchRegionCatalog.ContractRevision, StringComparison.Ordinal) &&
+                string.Equals(snapshot.LootTableRevision, "gamejam.o7.loot.84-nodes-weighted-common-432.v1", StringComparison.Ordinal) &&
+                string.Equals(snapshot.CatalogRevision, PrototypeSearchRegionCatalog.CatalogRevision, StringComparison.Ordinal);
             bool migrateO6Exact84 = source.Length == PrototypeSearchRegionCatalog.SearchNodeCount &&
                 string.Equals(snapshot.ContractRevision, PrototypeSearchRegionCatalog.ContractRevision, StringComparison.Ordinal) &&
                 string.Equals(snapshot.LootTableRevision, "gamejam.o6.loot.84-nodes-mixed-density-432.v1", StringComparison.Ordinal) &&
@@ -1767,7 +1771,7 @@ namespace KimSurvival
             bool migrateLegacy28 = source.Length == 28 &&
                 PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.All(sourceIds.Contains) &&
                 sourceIds.All(id => PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.Contains(id));
-            if (!exactRevision && !migrateO6Exact84 && !migrateLegacy28) return false;
+            if (!exactRevision && !migrateO7Exact84 && !migrateO6Exact84 && !migrateLegacy28) return false;
             HashSet<string> expectedNodeIds = new HashSet<string>(
                 PrototypeSearchRegionCatalog.Nodes.Select(node => node.NodeId),
                 StringComparer.Ordinal);
@@ -3011,7 +3015,9 @@ namespace KimSurvival
 
             GameSession forcedSession = new GameSession(seed);
             PrototypeSearchNodeRuntime forcedRuntime = new PrototypeSearchNodeRuntime(seed);
-            bool forcedBegan = forcedSession.BeginSearch(PrototypeExpeditionRegionId.Forest);
+            bool forcedDiscovered = forcedSession.BeginSearch(PrototypeExpeditionRegionId.Beach) &&
+                                    forcedSession.ReturnToCamp(false) && forcedSession.EndDay(false, false);
+            bool forcedBegan = forcedDiscovered && forcedSession.BeginSearch(PrototypeExpeditionRegionId.Forest);
             bool forcedOpened = diseaseNodes.All(node =>
             {
                 bool opened = forcedRuntime.TryOpen(node, forcedSession) == PrototypeSearchOpenResult.Opened;
@@ -3030,7 +3036,9 @@ namespace KimSurvival
 
             GameSession treatmentSession = new GameSession(seed);
             PrototypeSearchNodeRuntime treatmentRuntime = new PrototypeSearchNodeRuntime(seed);
-            bool began = treatmentSession.BeginSearch(PrototypeExpeditionRegionId.Forest);
+            bool treatmentDiscovered = treatmentSession.BeginSearch(PrototypeExpeditionRegionId.Beach) &&
+                                       treatmentSession.ReturnToCamp(false) && treatmentSession.EndDay(false, false);
+            bool began = treatmentDiscovered && treatmentSession.BeginSearch(PrototypeExpeditionRegionId.Forest);
             bool medicineCollected = CollectNaturalMedicine(treatmentSession, treatmentRuntime, medicineNode);
             bool telegraph = treatmentRuntime.TryTelegraphDisease(diseaseNodes[0]);
             bool exposureNodesOpened = diseaseNodes.All(node =>

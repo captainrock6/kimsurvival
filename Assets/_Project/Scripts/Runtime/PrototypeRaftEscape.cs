@@ -451,6 +451,7 @@ namespace KimSurvival
             PrototypeKeyPartPityState pity,
             ICollection<string> trace)
         {
+            if (!DiscoverShallowsNaturally(session)) return false;
             for (int search = 1; search <= CampaignKeyPartPityConfig.EligibleGuaranteeSearchCount; search += 1)
             {
                 if (!session.BeginSearch(PrototypeExpeditionRegionId.Shallows)) return false;
@@ -475,6 +476,21 @@ namespace KimSurvival
             }
             if (pity.ProtectedOwned) trace.Add("raft.key-part.protected");
             return pity.ProtectedOwned && session.HasRope;
+        }
+
+        private static bool DiscoverShallowsNaturally(GameSession session)
+        {
+            if (!session.IsExpeditionRegionUnlocked(PrototypeExpeditionRegionId.Forest))
+            {
+                if (!session.BeginSearch(PrototypeExpeditionRegionId.Beach) ||
+                    !session.ReturnToCamp(false) || !session.EndDay(false, false)) return false;
+            }
+            if (!session.IsExpeditionRegionUnlocked(PrototypeExpeditionRegionId.Shallows))
+            {
+                if (!session.BeginSearch(PrototypeExpeditionRegionId.Forest) ||
+                    !session.ReturnToCamp(false) || !session.EndDay(false, false)) return false;
+            }
+            return session.IsExpeditionRegionUnlocked(PrototypeExpeditionRegionId.Shallows);
         }
 
         private static bool Gather(GameSession session, ResourceKind kind, int amount)

@@ -36,7 +36,7 @@ namespace KimSurvival
     /// </summary>
     public static class PrototypeO7SearchBalance
     {
-        public const string ContractId = "gamejam.o7.search-space-economy.v1";
+        public const string ContractId = "gamejam.o8.sequential-early-economy.v1";
         public const int ExpectedRegionCount = 7;
         public const int ExpectedNodeCount = 84;
         public const int ExpectedGeneralStockUnits = 432;
@@ -189,13 +189,21 @@ namespace KimSurvival
             bool representativeBudget = budgets.All(budget => budget.SpareWood >= MinimumRouteSpareWood);
             bool protectedParts = PrototypeSearchNodeLootResolver.ResolveProtectedPartAssignments(
                                       seed, PrototypeSearchRegionCatalog.ContractRevision).Length == 5;
+            int beachFoodBeforeBarrier = AccessibleRegionTotal(seed, "region.coast.beach", "resource.food");
+            int beachWoodBeforeBarrier = AccessibleRegionTotal(seed, "region.coast.beach", "resource.wood");
+            int beachSalvageBeforeBarrier = AccessibleRegionTotal(seed, "region.coast.beach", "resource.salvage");
+            int forestStoneBeforeBarrier = AccessibleRegionTotal(seed, "region.forest.grove", "resource.stone");
+            int forestWoodBeforeBarrier = AccessibleRegionTotal(seed, "region.forest.grove", "resource.wood");
+            bool earlyRoute = beachFoodBeforeBarrier >= 2 && beachWoodBeforeBarrier >= 4 &&
+                              beachSalvageBeforeBarrier >= 2 && forestStoneBeforeBarrier >= 2 &&
+                              forestWoodBeforeBarrier >= 4;
 
             bool passed = exactShape && spacing && minimumDiversity && wreckAndRelayCommon &&
                           electronicsPlausible && weightedSpecialties && finiteStock && representativeBudget &&
-                          protectedParts;
+                          protectedParts && earlyRoute;
             detail = string.Format(
                 CultureInfo.InvariantCulture,
-                "contract={0}; shape={1}r/{2}n; world={3:0.0}..{4:0.0}; gaps=min{5:0.00},spacious{6:0.0}%,clusters{7}/{8}; pools={9}; wreckRelayCommon={10}; electronicsRegions={11}; stock={12},wood={13}@{14}regions; budgets={15}; protected=5",
+                "contract={0}; shape={1}r/{2}n; world={3:0.0}..{4:0.0}; gaps=min{5:0.00},spacious{6:0.0}%,clusters{7}/{8}; pools={9}; wreckRelayCommon={10}; electronicsRegions={11}; stock={12},wood={13}@{14}regions; budgets={15}; protected=5; early=beach(food{16},wood{17},salvage{18})/forest(stone{19},wood{20})",
                 ContractId,
                 regions.Length,
                 nodes.Length,
@@ -212,8 +220,25 @@ namespace KimSurvival
                 woodUnits,
                 woodRegionCount,
                 string.Join(",", budgets.Select(budget => budget.EscapeId + ":" + budget.RequiredWood + "/" +
-                    (budget.RequiredWood + budget.SpareWood) + "(+" + budget.SpareWood + ")")));
+                    (budget.RequiredWood + budget.SpareWood) + "(+" + budget.SpareWood + ")")),
+                beachFoodBeforeBarrier,
+                beachWoodBeforeBarrier,
+                beachSalvageBeforeBarrier,
+                forestStoneBeforeBarrier,
+                forestWoodBeforeBarrier);
             return passed;
+        }
+
+        public static int AccessibleRegionTotal(int seed, string regionId, string stableResourceId)
+        {
+            PrototypeSearchRegionDefinition region = PrototypeSearchRegionCatalog.Get(regionId);
+            Dictionary<string, float> worldXByNode = BuildLayout(region)
+                .ToDictionary(entry => entry.NodeId, entry => entry.WorldX, StringComparer.Ordinal);
+            return region.Nodes
+                .Where(node => worldXByNode[node.NodeId] <= PlayerLockedMaximumX)
+                .Sum(node => PrototypeSearchNodeLootResolver.ResolveGeneralStock(seed, node)
+                    .Where(item => string.Equals(item.StableResourceId, stableResourceId, StringComparison.Ordinal))
+                    .Sum(item => Math.Max(0, item.Amount)));
         }
 
         public static int RegionTotal(int seed, string regionId, string stableResourceId)

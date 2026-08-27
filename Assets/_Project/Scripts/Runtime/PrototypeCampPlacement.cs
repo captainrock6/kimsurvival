@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
@@ -171,6 +172,7 @@ namespace KimSurvival
         public const float EntranceMaximumX = -2.6f;
         public const float RequiredPathMinimumX = -0.4f;
         public const float RequiredPathMaximumX = 0.4f;
+        public const float FreePlacementClearance = 0.12f;
 
         private const float AnchorTolerance = 0.06f;
         private const float HorizontalEngageThreshold = 0.55f;
@@ -220,6 +222,10 @@ namespace KimSurvival
                         return new PrototypeLocalizedText("placement.wrong_zone", selectedKind);
                     case CampPlacementValidity.OverlapsStructure:
                         return new PrototypeLocalizedText("placement.overlap");
+                    case CampPlacementValidity.BlocksEntrance:
+                        return new PrototypeLocalizedText("placement.blocks_entrance");
+                    case CampPlacementValidity.BlocksRequiredPath:
+                        return new PrototypeLocalizedText("placement.blocks_path");
                     default:
                         return new PrototypeLocalizedText("placement.outside");
                 }
@@ -241,10 +247,23 @@ namespace KimSurvival
             IsActive = true;
 
             if (relocating && installedPlacements.TryGetValue(kind, out CampInstalledStructurePlacement installed) &&
-                string.Equals(installed.RoomId, roomZone.RoomId, StringComparison.Ordinal) &&
-                TryGetAnchor(roomZone.RoomId, installed.StableAnchorId, out CampPlacementAnchor installedAnchor))
+                string.Equals(installed.RoomId, roomZone.RoomId, StringComparison.Ordinal))
             {
-                SelectAnchor(installedAnchor);
+                if (IsFixedAnchorStructure(kind) &&
+                    TryGetAnchor(roomZone.RoomId, installed.StableAnchorId, out CampPlacementAnchor installedAnchor))
+                {
+                    SelectAnchor(installedAnchor);
+                }
+                else
+                {
+                    SelectFreePosition(installed.X);
+                }
+                return;
+            }
+
+            if (!IsFixedAnchorStructure(kind))
+            {
+                SelectFreePosition(FindNearestValidFreeX(kind, roomZone, GetDefaultFreeX(kind, roomZone), installedPlacements));
                 return;
             }
 
@@ -265,7 +284,8 @@ namespace KimSurvival
             if (!IsActive) return;
             if (actions.UsePointer)
             {
-                SelectNearestCompatibleAnchor(actions.PointerWorldX);
+                if (IsFixedAnchorStructure(selectedKind)) SelectNearestCompatibleAnchor(actions.PointerWorldX);
+                else SelectFreePosition(actions.PointerWorldX);
                 horizontalLatched = false;
                 return;
             }
@@ -274,13 +294,19 @@ namespace KimSurvival
             if (Mathf.Abs(horizontal) <= HorizontalReleaseThreshold) horizontalLatched = false;
             else if (!horizontalLatched && Mathf.Abs(horizontal) >= HorizontalEngageThreshold)
             {
-                CycleAnchor(horizontal > 0f ? 1 : -1);
+                if (IsFixedAnchorStructure(selectedKind)) CycleAnchor(horizontal > 0f ? 1 : -1);
+                else SelectFreePosition(candidateX + (horizontal > 0f ? GridSize : -GridSize));
                 horizontalLatched = true;
             }
         }
 
         public void SetCandidateX(float worldX)
         {
+            if (!IsFixedAnchorStructure(selectedKind))
+            {
+                SelectFreePosition(worldX);
+                return;
+            }
             if (!SelectNearestCompatibleAnchor(worldX))
             {
                 candidateAnchorId = string.Empty;
@@ -310,6 +336,17 @@ namespace KimSurvival
         public void EnsureInstalled(StructureKind kind)
         {
             if (installedPlacements.ContainsKey(kind)) return;
+            if (!IsFixedAnchorStructure(kind))
+            {
+                CampPlacementRoomZone room = CampPlacementRoomZone.StartRoom;
+                float x = FindNearestValidFreeX(kind, room, GetDefaultFreeX(kind, room), installedPlacements);
+                installedPlacements[kind] = new CampInstalledStructurePlacement(
+                    room.RoomId,
+                    GetZoneId(CampPlacementZone.GeneralGround),
+                    BuildFreePlacementId(room.RoomId, x),
+                    x);
+                return;
+            }
             CampPlacementAnchor anchor = GetCompatibleAnchors(kind, PrototypeCampModuleCatalog.StartRoomId)
                 .FirstOrDefault(candidate => !IsAnchorOccupied(candidate.RoomId, candidate.StableAnchorId, kind));
             if (string.IsNullOrEmpty(anchor.StableAnchorId))
@@ -384,6 +421,11 @@ namespace KimSurvival
 
         public CampPlacementValidity Validate(StructureKind kind, float worldX)
         {
+            if (!IsFixedAnchorStructure(kind))
+            {
+                float snappedX = Snap(worldX);
+                return ValidateFreePosition(kind, snappedX, activeRoomZone, installedPlacements);
+            }
             CampPlacementAnchor anchor = GetCompatibleAnchors(kind, activeRoomZone.RoomId)
                 .OrderBy(candidate => Mathf.Abs(candidate.X - worldX)).FirstOrDefault();
             if (string.IsNullOrEmpty(anchor.StableAnchorId) || Mathf.Abs(anchor.X - worldX) > GridSize + AnchorTolerance)
@@ -429,7 +471,12 @@ namespace KimSurvival
 
         public static CampPlacementZone GetRequiredZone(StructureKind kind)
         {
-            return kind == StructureKind.RainCollector ? CampPlacementZone.OpenSkyGround : CampPlacementZone.GeneralGround;
+            return CampPlacementZone.GeneralGround;
+        }
+
+        public static bool IsFixedAnchorStructure(StructureKind kind)
+        {
+            return kind == StructureKind.Campfire;
         }
 
         public static string GetZoneId(CampPlacementZone zone)
@@ -488,7 +535,7 @@ namespace KimSurvival
             if (!TryGetRoomZone("room.upper.standard", out CampPlacementRoomZone upperRoom) ||
                 !TryGetRoomZone("room.basement.standard", out CampPlacementRoomZone basementRoom))
             {
-                detail = "Known module room IDs did not resolve to fixed-anchor rooms.";
+                detail = "Known module room IDs did not resolve to hybrid-placement rooms.";
                 return false;
             }
 
@@ -519,7 +566,7 @@ namespace KimSurvival
                 !restored.IsInstalledInRoom(StructureKind.Campfire, upperRoom.RoomId) ||
                 !restored.IsInstalledInRoom(StructureKind.Workbench, basementRoom.RoomId))
             {
-                detail = "The v2 fixed-anchor round trip failed.";
+                detail = "The v2 hybrid-placement round trip failed.";
                 return false;
             }
 
@@ -551,7 +598,7 @@ namespace KimSurvival
                 return false;
             }
 
-            detail = "v2 room+anchor round trip, v1 coordinate migration, invalid-anchor atomic rejection and Reset passed.";
+            detail = "v2 room+hybrid-coordinate round trip, v1 coordinate migration, invalid-id atomic rejection and Reset passed.";
             return true;
         }
 
@@ -574,6 +621,12 @@ namespace KimSurvival
             CampPlacementAnchor anchor,
             IReadOnlyDictionary<StructureKind, CampInstalledStructurePlacement> placements)
         {
+            if (!IsFixedAnchorStructure(kind))
+            {
+                return TryGetRoomZone(anchor.RoomId, out CampPlacementRoomZone roomZone)
+                    ? ValidateFreePosition(kind, anchor.X, roomZone, placements)
+                    : CampPlacementValidity.OutsideCampBounds;
+            }
             if (anchor.Zone != PrototypeO7CampCorrectionPolicy.RequiredAnchorZone(kind, anchor.RoomId))
                 return CampPlacementValidity.WrongZone;
             foreach (KeyValuePair<StructureKind, CampInstalledStructurePlacement> installed in placements)
@@ -629,11 +682,99 @@ namespace KimSurvival
             candidateX = anchor.X;
         }
 
+        private void SelectFreePosition(float preferredX)
+        {
+            float halfWidth = GetStructureSize(selectedKind).x * 0.5f;
+            float minimum = Mathf.Ceil((activeRoomZone.BuildMinimumX + halfWidth) / GridSize) * GridSize;
+            float maximum = Mathf.Floor((activeRoomZone.BuildMaximumX - halfWidth) / GridSize) * GridSize;
+            candidateX = Mathf.Clamp(Snap(preferredX), minimum, maximum);
+            candidateAnchorId = BuildFreePlacementId(activeRoomZone.RoomId, candidateX);
+        }
+
         private static bool TryGetAnchor(string roomId, string anchorId, out CampPlacementAnchor anchor)
         {
+            if (TryParseFreePlacementId(anchorId, out string freeRoomId, out float freeX) &&
+                string.Equals(roomId, freeRoomId, StringComparison.Ordinal))
+            {
+                anchor = new CampPlacementAnchor(
+                    BuildFreePlacementId(freeRoomId, freeX),
+                    freeRoomId,
+                    freeX,
+                    CampPlacementZone.GeneralGround);
+                return true;
+            }
             anchor = GetAnchorsForRoom(roomId).FirstOrDefault(candidate =>
                 string.Equals(candidate.StableAnchorId, anchorId, StringComparison.Ordinal));
             return !string.IsNullOrEmpty(anchor.StableAnchorId);
+        }
+
+        private static CampPlacementValidity ValidateFreePosition(
+            StructureKind kind,
+            float x,
+            CampPlacementRoomZone roomZone,
+            IReadOnlyDictionary<StructureKind, CampInstalledStructurePlacement> placements)
+        {
+            float halfWidth = GetStructureSize(kind).x * 0.5f;
+            if (x - halfWidth < roomZone.BuildMinimumX - AnchorTolerance ||
+                x + halfWidth > roomZone.BuildMaximumX + AnchorTolerance)
+            {
+                return CampPlacementValidity.OutsideCampBounds;
+            }
+            if (RangesOverlap(x - halfWidth, x + halfWidth,
+                    roomZone.EntranceMinimumX, roomZone.EntranceMaximumX))
+            {
+                return CampPlacementValidity.BlocksEntrance;
+            }
+            if (RangesOverlap(x - halfWidth, x + halfWidth,
+                    roomZone.RequiredPathMinimumX, roomZone.RequiredPathMaximumX))
+            {
+                return CampPlacementValidity.BlocksRequiredPath;
+            }
+            foreach (KeyValuePair<StructureKind, CampInstalledStructurePlacement> installed in placements)
+            {
+                if (installed.Key == kind ||
+                    !string.Equals(installed.Value.RoomId, roomZone.RoomId, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+                float occupiedHalfWidth = GetStructureSize(installed.Key).x * 0.5f;
+                if (Mathf.Abs(installed.Value.X - x) <
+                    occupiedHalfWidth + halfWidth + FreePlacementClearance)
+                {
+                    return CampPlacementValidity.OverlapsStructure;
+                }
+            }
+            return CampPlacementValidity.Valid;
+        }
+
+        private static bool RangesOverlap(float firstMinimum, float firstMaximum, float secondMinimum, float secondMaximum)
+        {
+            return firstMinimum < secondMaximum - AnchorTolerance &&
+                   firstMaximum > secondMinimum + AnchorTolerance;
+        }
+
+        private static string BuildFreePlacementId(string roomId, float x)
+        {
+            return "free|" + roomId + "|" + Snap(x).ToString("0.00", CultureInfo.InvariantCulture);
+        }
+
+        private static bool TryParseFreePlacementId(string stableId, out string roomId, out float x)
+        {
+            roomId = string.Empty;
+            x = 0f;
+            if (string.IsNullOrWhiteSpace(stableId) || !stableId.StartsWith("free|", StringComparison.Ordinal))
+            {
+                return false;
+            }
+            string[] parts = stableId.Split('|');
+            if (parts.Length != 3 || string.IsNullOrWhiteSpace(parts[1]) ||
+                !float.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out x))
+            {
+                return false;
+            }
+            roomId = parts[1];
+            x = Snap(x);
+            return true;
         }
 
         private static bool TryBuildRestoredPlacements(
@@ -654,7 +795,38 @@ namespace KimSurvival
             {
                 if (entry == null || !Enum.IsDefined(typeof(StructureKind), entry.Structure) ||
                     !string.Equals(entry.StableStructureId, GetStructureId(entry.Structure), StringComparison.Ordinal) ||
-                    !stableIds.Add(entry.StableStructureId) || !TryGetRoomZone(entry.StableRoomId, out _)) return false;
+                    !stableIds.Add(entry.StableStructureId) ||
+                    !TryGetRoomZone(entry.StableRoomId, out CampPlacementRoomZone roomZone)) return false;
+
+                if (!IsFixedAnchorStructure(entry.Structure))
+                {
+                    float restoredX;
+                    bool currentFreeId = TryParseFreePlacementId(entry.StableAnchorId, out string freeRoomId, out float freeX) &&
+                                         string.Equals(freeRoomId, entry.StableRoomId, StringComparison.Ordinal) &&
+                                         Mathf.Abs(freeX - Snap(entry.X)) <= AnchorTolerance;
+                    bool previousFixedAnchor = TryGetAnchor(entry.StableRoomId, entry.StableAnchorId, out CampPlacementAnchor previousAnchor) &&
+                                               !entry.StableAnchorId.StartsWith("free|", StringComparison.Ordinal) &&
+                                               Mathf.Abs(previousAnchor.X - entry.X) <= AnchorTolerance;
+                    if (!legacy && !currentFreeId && !previousFixedAnchor) return false;
+                    restoredX = Snap(legacy ? entry.X : currentFreeId ? freeX : previousAnchor.X);
+                    CampPlacementValidity restoredValidity = ValidateFreePosition(
+                        entry.Structure, restoredX, roomZone, candidate);
+                    if (restoredValidity != CampPlacementValidity.Valid && (legacy || previousFixedAnchor))
+                    {
+                        restoredX = FindNearestValidFreeX(entry.Structure, roomZone, restoredX, candidate);
+                        restoredValidity = ValidateFreePosition(entry.Structure, restoredX, roomZone, candidate);
+                    }
+                    if (restoredValidity != CampPlacementValidity.Valid)
+                    {
+                        return false;
+                    }
+                    candidate.Add(entry.Structure, new CampInstalledStructurePlacement(
+                        entry.StableRoomId,
+                        GetZoneId(CampPlacementZone.GeneralGround),
+                        BuildFreePlacementId(entry.StableRoomId, restoredX),
+                        restoredX));
+                    continue;
+                }
 
                 CampPlacementAnchor anchor;
                 if (legacy)
@@ -721,6 +893,40 @@ namespace KimSurvival
                 case StructureKind.Sofa: return 1.5f;
                 default: return 1.5f;
             }
+        }
+
+        private static float GetDefaultFreeX(StructureKind kind, CampPlacementRoomZone roomZone)
+        {
+            float preferred = kind == StructureKind.RainCollector
+                ? roomZone.BuildMaximumX - GetStructureSize(kind).x * 0.5f
+                : 1.5f;
+            float halfWidth = GetStructureSize(kind).x * 0.5f;
+            float minimum = Mathf.Ceil((roomZone.BuildMinimumX + halfWidth) / GridSize) * GridSize;
+            float maximum = Mathf.Floor((roomZone.BuildMaximumX - halfWidth) / GridSize) * GridSize;
+            return Mathf.Clamp(Snap(preferred), minimum, maximum);
+        }
+
+        private static float FindNearestValidFreeX(
+            StructureKind kind,
+            CampPlacementRoomZone roomZone,
+            float preferredX,
+            IReadOnlyDictionary<StructureKind, CampInstalledStructurePlacement> placements)
+        {
+            float halfWidth = GetStructureSize(kind).x * 0.5f;
+            float minimum = Mathf.Ceil((roomZone.BuildMinimumX + halfWidth) / GridSize) * GridSize;
+            float maximum = Mathf.Floor((roomZone.BuildMaximumX - halfWidth) / GridSize) * GridSize;
+            List<float> candidates = new List<float>();
+            for (float x = minimum; x <= maximum + AnchorTolerance; x += GridSize)
+            {
+                candidates.Add(Snap(x));
+            }
+            float valid = candidates
+                .OrderBy(x => Mathf.Abs(x - preferredX))
+                .FirstOrDefault(x => ValidateFreePosition(kind, x, roomZone, placements) == CampPlacementValidity.Valid);
+            return candidates.Any(x => Mathf.Abs(x - valid) <= AnchorTolerance &&
+                                       ValidateFreePosition(kind, x, roomZone, placements) == CampPlacementValidity.Valid)
+                ? valid
+                : Mathf.Clamp(Snap(preferredX), minimum, maximum);
         }
 
         private static float Snap(float value) { return Mathf.Round(value / GridSize) * GridSize; }

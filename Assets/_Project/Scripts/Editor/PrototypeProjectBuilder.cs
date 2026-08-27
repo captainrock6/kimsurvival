@@ -1297,7 +1297,8 @@ namespace KimSurvival.EditorTools
             GameSession selected = new GameSession(seed);
             PrototypeExpeditionRegionProfile forest = PrototypeExpeditionRegionCatalog.Get(PrototypeExpeditionRegionId.Forest);
             PrototypeExpeditionNodeResult forestNode = forest.ResolveNode(seed, forest.WaterNodeCount);
-            Assert(selected.BeginSearch(PrototypeExpeditionRegionId.Forest) &&
+            Assert(selected.BeginSearch(PrototypeExpeditionRegionId.Beach) && selected.ReturnToCamp(false) &&
+                   selected.EndDay(false, false) && selected.BeginSearch(PrototypeExpeditionRegionId.Forest) &&
                    selected.SelectedRegionId == PrototypeExpeditionRegionId.Forest &&
                    selected.ActiveRegionProfileId == forest.StableId &&
                    selected.TryGather(forestNode.Resource, forestNode.Amount, forestNode.Water, forestNode.ActionId, forestNode.ResultId) == GatherResult.Added &&

@@ -64,7 +64,7 @@ namespace KimSurvival.EditorTools
             }
             Check(day49Continues && deadline.Day == 50 && deadline.Result == RunResult.None,
                 "day_49_settlement_continues", failures);
-            Check(deadline.BeginSearch(PrototypeExpeditionRegionId.Shallows) && deadline.ReturnToCamp(false) &&
+            Check(deadline.BeginSearch(PrototypeExpeditionRegionId.Beach) && deadline.ReturnToCamp(false) &&
                   deadline.UseFood() && deadline.EndDay() && deadline.Day == 50 && deadline.Result == RunResult.Deadline,
                 "day_50_settlement_terminal", failures);
 

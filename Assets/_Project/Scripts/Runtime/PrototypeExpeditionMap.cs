@@ -551,13 +551,30 @@ namespace KimSurvival
             return true;
         }
 
+        public void SyncSequentialUnlock(int maxUnlockedOrdinal)
+        {
+            int frontier = Math.Max(0, Math.Min(regionStates.Length - 1, maxUnlockedOrdinal));
+            for (int index = 0; index < regionStates.Length; index += 1)
+            {
+                regionStates[index] = index <= frontier
+                    ? PrototypeExpeditionRegionVisualState.DepartureReady
+                    : PrototypeExpeditionRegionVisualState.Locked;
+            }
+            if (FocusedIndex > frontier)
+            {
+                FocusedIndex = frontier;
+            }
+        }
+
         private static PrototypeExpeditionRegionVisualState[] CreateInitialRegionStates()
         {
             PrototypeExpeditionRegionVisualState[] states =
                 new PrototypeExpeditionRegionVisualState[PrototypeExpeditionRegionCatalog.All.Count];
             for (int index = 0; index < states.Length; index += 1)
             {
-                states[index] = PrototypeExpeditionRegionVisualState.DepartureReady;
+                states[index] = index == 0
+                    ? PrototypeExpeditionRegionVisualState.DepartureReady
+                    : PrototypeExpeditionRegionVisualState.Locked;
             }
             return states;
         }

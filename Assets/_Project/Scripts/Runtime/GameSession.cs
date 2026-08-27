@@ -312,6 +312,7 @@ namespace KimSurvival
     [Serializable]
     public sealed class GameSessionStableState
     {
+        public int MaxUnlockedExpeditionOrdinal;
         public int ActiveBagSlotCount = GameSession.DefaultBagSlotCount;
         public BagStack[] Bag = Array.Empty<BagStack>();
         public StableResourceAmount[] Storage = Array.Empty<StableResourceAmount>();
@@ -373,6 +374,7 @@ namespace KimSurvival
         public string PendingStableResourceId { get; private set; }
         public int PendingAmount { get; private set; }
         public int RunSeed { get; private set; }
+        public int MaxUnlockedExpeditionOrdinal { get; private set; }
         public PrototypeExpeditionRegionId? SelectedRegionId { get; private set; }
         public string ActiveRegionProfileId { get; private set; }
         public string LastExpeditionResultId { get; private set; }
@@ -436,6 +438,7 @@ namespace KimSurvival
             IsSwimming = false;
             SignalStage = 0;
             ActiveBagSlotCount = DefaultBagSlotCount;
+            MaxUnlockedExpeditionOrdinal = 0;
             PendingKind = null;
             PendingStableResourceId = string.Empty;
             PendingAmount = 0;
@@ -672,6 +675,7 @@ namespace KimSurvival
 
             return new GameSessionStableState
             {
+                MaxUnlockedExpeditionOrdinal = MaxUnlockedExpeditionOrdinal,
                 ActiveBagSlotCount = ActiveBagSlotCount,
                 Bag = capturedBag,
                 Storage = GetStableStorageEntries(),
@@ -690,7 +694,9 @@ namespace KimSurvival
 
         public bool RestoreStableState(GameSessionStableState state)
         {
-            if (state == null || state.ActiveBagSlotCount < DefaultBagSlotCount ||
+            if (state == null || state.MaxUnlockedExpeditionOrdinal < 0 ||
+                state.MaxUnlockedExpeditionOrdinal >= PrototypeExpeditionRegionCatalog.All.Count ||
+                state.ActiveBagSlotCount < DefaultBagSlotCount ||
                 state.ActiveBagSlotCount > MaximumBagSlotCount ||
                 (state.ActiveBagSlotCount - DefaultBagSlotCount) % 2 != 0)
             {
@@ -769,6 +775,7 @@ namespace KimSurvival
             Array.Clear(bag, 0, bag.Length);
             Array.Copy(restoredBag, bag, restoredBag.Length);
             ActiveBagSlotCount = state.ActiveBagSlotCount;
+            MaxUnlockedExpeditionOrdinal = state.MaxUnlockedExpeditionOrdinal;
             PendingKind = state.HasPendingLoot ? state.PendingKind : (ResourceKind?)null;
             PendingStableResourceId = restoredPendingStableResourceId;
             PendingAmount = state.HasPendingLoot ? state.PendingAmount : 0;
@@ -1167,6 +1174,12 @@ namespace KimSurvival
                 return false;
             }
 
+            if (!IsExpeditionRegionUnlocked(region))
+            {
+                LastMessage = Text("message.search.region_locked");
+                return false;
+            }
+
             ClearBag();
             Daylight = 100f;
             IsSwimming = false;
@@ -1174,8 +1187,20 @@ namespace KimSurvival
             ActiveRegionProfileId = PrototypeExpeditionRegionCatalog.Get(region).StableId;
             LastExpeditionResultId = string.Empty;
             Phase = GamePhase.Exploring;
+            int enteredOrdinal = (int)region;
+            if (enteredOrdinal == MaxUnlockedExpeditionOrdinal &&
+                MaxUnlockedExpeditionOrdinal < PrototypeExpeditionRegionCatalog.All.Count - 1)
+            {
+                MaxUnlockedExpeditionOrdinal += 1;
+            }
             LastMessage = Text("message.search.begin_region", region);
             return true;
+        }
+
+        public bool IsExpeditionRegionUnlocked(PrototypeExpeditionRegionId region)
+        {
+            return Enum.IsDefined(typeof(PrototypeExpeditionRegionId), region) &&
+                   (int)region <= MaxUnlockedExpeditionOrdinal;
         }
 
         public bool SetSwimming(bool swimming)

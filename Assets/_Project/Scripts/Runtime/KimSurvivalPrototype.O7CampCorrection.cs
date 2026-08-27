@@ -9,13 +9,13 @@ using UnityEngine.UI;
 namespace KimSurvival
 {
     /// <summary>
-    /// O7 correction policy shared by the production UI and the fixed-anchor
+    /// O8 correction policy shared by the production UI and hybrid placement
     /// placement domain. Keeping the rules here makes the human-test contract
     /// independently testable instead of relying on screen coordinates.
     /// </summary>
     public static class PrototypeO7CampCorrectionPolicy
     {
-        public const string ContractId = "gamejam.o7-camp-expansion-feedback-furniture.v1";
+        public const string ContractId = "gamejam.o8-camp-hybrid-free-placement.v1";
 
         public static bool CanOwnExpansionPreview(
             PrototypeCampInteractionTargetKind targetKind,
@@ -29,21 +29,16 @@ namespace KimSurvival
 
         public static bool IsPortableMultiFloorFacility(StructureKind kind)
         {
-            return kind == StructureKind.Bed ||
+            return kind == StructureKind.Workbench ||
+                   kind == StructureKind.Bed ||
                    kind == StructureKind.Sofa ||
                    kind == StructureKind.RainCollector;
         }
 
         public static CampPlacementZone RequiredAnchorZone(StructureKind kind, string roomId)
         {
-            if (kind == StructureKind.RainCollector &&
-                string.Equals(roomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal))
-            {
-                return CampPlacementZone.OpenSkyGround;
-            }
-
-            // Expanded-room rain collectors represent a roof-fed inlet/cistern.
-            // They use the same stable fixture anchors while keeping room ownership.
+            // O8: ordinary facilities use collision-checked coordinate placement on
+            // every completed floor. Campfire/escape/connector fixtures remain fixed.
             return CampPlacementZone.GeneralGround;
         }
 
@@ -266,6 +261,7 @@ namespace KimSurvival
             };
             StructureKind[] portable =
             {
+                StructureKind.Workbench,
                 StructureKind.Bed,
                 StructureKind.Sofa,
                 StructureKind.RainCollector
@@ -288,7 +284,7 @@ namespace KimSurvival
                         !placement.IsInstalledInRoom(kind, roomId) ||
                         string.IsNullOrWhiteSpace(placement.GetInstalledAnchorId(kind)))
                     {
-                        detail = kind + " could not commit to a compatible fixed anchor in " + roomId + ".";
+                        detail = kind + " could not commit to a compatible free coordinate in " + roomId + ".";
                         return false;
                     }
 
@@ -311,14 +307,14 @@ namespace KimSurvival
                             placement.GetInstalledAnchorId(kind),
                             StringComparison.Ordinal))
                     {
-                        detail = kind + " fixed-anchor save/restore failed in " + roomId + ".";
+                        detail = kind + " free-coordinate save/restore failed in " + roomId + ".";
                         return false;
                     }
                 }
             }
 
             detail = "PASS · visible planning-marker-only preview; hidden/blank/remote origins rejected; " +
-                     "bed, sofa and rain collector fixed-anchor placement/save/restore across start, upper and basement rooms.";
+                     "workbench, bed, sofa and rain collector free-coordinate placement/save/restore across start, upper and basement rooms.";
             return true;
         }
 
