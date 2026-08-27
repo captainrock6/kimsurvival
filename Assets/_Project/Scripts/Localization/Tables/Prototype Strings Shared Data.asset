@@ -2443,6 +2443,26 @@ MonoBehaviour:
     m_Key: message.camp.use.bed.health
     m_Metadata:
       m_Items: []
+  - m_Id: 1884312701222912
+    m_Key: placement.blocks_entrance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312747360256
+    m_Key: placement.blocks_path
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312768331776
+    m_Key: expedition.map.depart.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312780914688
+    m_Key: message.search.region_locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312785108992
+    m_Key: expedition.map.rail.locked_sequence
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

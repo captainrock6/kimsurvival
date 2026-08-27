@@ -314,17 +314,17 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 900972593
-    m_Localized: Place {0} at this fixed spot
+    m_Localized: Place {0} here
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 900972594
-    m_Localized: Move {0} to this fixed spot
+    m_Localized: Move {0} here
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 900972595
-    m_Localized: No compatible fixed install spot is available in this room.
+    m_Localized: This position is outside the room's buildable area.
     m_Metadata:
       m_Items: []
   - m_Id: 900972596
@@ -541,13 +541,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 14658173124608
-    m_Localized: "{0} \xB7 Point at a fixed install spot\nClick/Enter confirm \xB7
-      Right-click/Esc cancel\nF1 language"
+    m_Localized: "{0} \xB7 Point to a position in this room\nClick/Enter confirm
+      \xB7 Right-click/Esc cancel\nF1 language"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 14658219261952
-    m_Localized: "{0} \xB7 Choose a fixed spot with the left stick\nA confirm \xB7
+    m_Localized: "{0} \xB7 Move within this room with the left stick\nA confirm \xB7
       B cancel\nY language"
     m_Metadata:
       m_Items:
@@ -1724,8 +1724,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142592
-    m_Localized: Build the hull, rig the protected sailcloth, load supplies, then
-      confirm a safe weather and current window.
+    m_Localized: "Complete hull \u2192 sail \u2192 voyage food at this launch. After
+      stage 3, check today's weather and current in this same popup; if launch is
+      open, press the same action once more to escape."
     m_Metadata:
       m_Items: []
   - m_Id: 1102836460142593
@@ -1777,7 +1778,7 @@ MonoBehaviour:
       m_Items:
       - rid: 828367071277219867
   - m_Id: 1102836460142604
-    m_Localized: "Check launch window \xB7 {0} / {1}"
+    m_Localized: "Check today's weather/current here \xB7 {0} / {1}"
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
@@ -2701,6 +2702,28 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 828367071277219867
+  - m_Id: 1884312701222912
+    m_Localized: Cannot place a facility where it blocks the entrance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312747360256
+    m_Localized: Cannot block the ladder or required path.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312768331776
+    m_Localized: "Locked \xB7 Search the previous region first"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312780914688
+    m_Localized: Enter the previous expedition region first to discover this route.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1884312785108992
+    m_Localized: "\u25A6 Sequential unlock\n{0}/{1} regions currently open\nEnter
+      the previous region once to unlock."
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -2850,3 +2873,4 @@ MonoBehaviour:
         - id: 231960701288454
         - id: 1632711927382016
         - id: 1851891050070019
+        - id: 1884312785108992
