@@ -4394,15 +4394,19 @@
         "Assets/_Project/Scripts/Runtime/GameSession.cs",
         "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs",
         "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
-        "Assets/Editor/ParallelQA"
+        "Assets/Editor/ParallelQA",
+        "Assets/_Project/Scripts/Runtime/PrototypeO7SearchBalance.cs"
       ],
       "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "Artifacts/ParallelQA/O7SearchSpaceEconomy/o7-search-space-economy-report.json"
       ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T15:15:00.000Z",
-      "createdAt": "2026-08-27T14:42:28.573Z"
+      "status": "done",
+      "updatedAt": "2026-08-27T15:38:34.229Z",
+      "createdAt": "2026-08-27T14:42:28.573Z",
+      "note": "Unity PASS: sequential unlock, 7r/84n, 432 units, early beach/forest economy.",
+      "completedAt": "2026-08-27T15:38:34.229Z"
     },
     {
       "id": "task.gamejam.o8-compact-bag-raft-feedback",
@@ -4432,12 +4436,16 @@
         "Assets/Editor/ParallelQA"
       ],
       "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "work/ParallelQA/20260827T153000Z_o8_candidate_6d03413/bag/o7-bag-survival-play.txt",
+        "Artifacts/ParallelQA/O6RaftTerminalParts/o6-raft-terminal-parts-report.json"
       ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T15:15:00.000Z",
-      "createdAt": "2026-08-27T14:42:28.573Z"
+      "status": "done",
+      "updatedAt": "2026-08-27T15:38:43.892Z",
+      "createdAt": "2026-08-27T14:42:28.573Z",
+      "note": "Unity Play PASS: compact bottom-left bag and natural raft route through sequential unlock.",
+      "completedAt": "2026-08-27T15:38:43.891Z"
     },
     {
       "id": "task.gamejam.o8-hybrid-free-placement",
@@ -4465,12 +4473,15 @@
         "Assets/Editor/ParallelQA"
       ],
       "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "work/ParallelQA/20260827T153000Z_o8_candidate_6d03413/camp/o7-camp-correction-play.txt"
       ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T15:15:00.000Z",
-      "createdAt": "2026-08-27T14:42:28.573Z"
+      "status": "done",
+      "updatedAt": "2026-08-27T15:38:52.089Z",
+      "createdAt": "2026-08-27T14:42:28.573Z",
+      "note": "Unity Play PASS: four general facilities free-place and restore across start, upper and basement rooms.",
+      "completedAt": "2026-08-27T15:38:52.088Z"
     },
     {
       "id": "task.gamejam.o8-integration-release",
@@ -4493,15 +4504,20 @@
         "Assets/Editor/ParallelQA",
         "Artifacts/ParallelQA",
         "Docs/Design/Playtest",
-        "Builds/Windows"
+        "Builds/Windows",
+        "work/ParallelQA/20260827T161000Z_o8_release_03dae26/KimSurvivalIsland-gamejam-win64-release-03dae26"
       ],
       "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "Artifacts/ParallelQA/20260827T161000Z_o8_release_03dae26/gamejam-release-build.json",
+        "work/ParallelQA/20260827T153700Z_o8_h1_owner/o8-h1-player.log"
       ],
-      "blockedReason": "Unity 6000.4.9f1 Editor license unavailable (batch exit 198); Player build and observation gates pending.",
-      "status": "blocked",
+      "blockedReason": "",
+      "status": "review",
       "createdAt": "2026-08-27T14:42:28.573Z",
-      "updatedAt": "2026-08-27T15:15:00.000Z"
+      "updatedAt": "2026-08-27T15:39:00.502Z",
+      "note": "Release PASS at 03dae26; O8-H1 30-minute natural human playtest launched PID 24256.",
+      "completedAt": null
     },
     {
       "id": "task.art.background.island-camp",
@@ -5929,5 +5945,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-27T14:42:28.572Z"
+  "updatedAt": "2026-08-27T15:39:00.503Z"
 }

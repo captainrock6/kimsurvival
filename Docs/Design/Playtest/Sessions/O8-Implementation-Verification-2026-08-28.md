@@ -1,8 +1,8 @@
-# O8 교정 구현·정적 검증 기록
+# O8 교정 구현·후보 빌드 검증 기록
 
 - 기준 세션: `O7-H1_RETEST_REQUIRED · HUMAN_FAIL · PROGRESSION_BLOCKED`
 - 교정 범위: 초반 수집 경제, 순차 지역 해금, 초소형 가방, 진수대 피드백, 일반 설비 다층 자유 배치
-- 상태: `SOURCE_COMPILED · DOMAIN_PASS · PLAYER_BUILD_BLOCKED_BY_UNITY_LICENSE`
+- 상태: `UNITY_PASS · RELEASE_BUILD_PASS · O8-H1_IN_PROGRESS`
 
 ## 반영 결과
 
@@ -30,10 +30,20 @@
 | 배치 저장 원자성 | `PASS · basement round-trip · 범위 밖 free ID 거부` |
 | 가방·생존 도메인 | `PASS · compact-bottom-left · 침대/소파/체력/일광 회귀` |
 | 로컬라이제이션 TSV | `PASS · 602 keys · 4 columns · duplicate 0` |
+| Unity 라이선스·컴파일 | `PASS · Unity Personal entitlement · errors 0` |
+| O8 가방 Play 관찰 | `PASS · 4/10·10/10 슬롯 · 좌하단 compact · 탐색 tray 비중첩` |
+| O8 캠프 Play 관찰 | `PASS · 계획 지점만 미리보기 · 실패 팝업 유지 · KO/EN/qps-long` |
+| 진수대 자연 경로 | `PASS · 순차 해금 중 해변/숲 수집 · 3단계 · closed-window 원자성 · early terminal` |
+| Windows x64 Release | `PASS · source 03dae26 · BuildOptions None · hygiene PASS · 171 payload files` |
 
-## 남은 실행 검증
+## O8 후보
 
-Unity `6000.4.9f1` 배치 실행은 `No valid Unity Editor license found`와 종료 코드 `198`로 차단되었다. 따라서 실제 Player 빌드, 화면 캡처, 진수대 토스트 관찰, O8 자연 플레이는 라이선스 복구 뒤 수행한다. 코드 컴파일 실패나 테스트 실패로 후보 빌드가 중단된 것은 아니다.
+- 소스 커밋: `03dae2620ef3e849ccc242d95fb6309080ad7e98`
+- 실행 파일: `work/ParallelQA/20260827T161000Z_o8_release_03dae26/KimSurvivalIsland-gamejam-win64-release-03dae26/KimSurvivalIsland.exe`
+- ZIP: `work/ParallelQA/20260827T161000Z_o8_release_03dae26/KimSurvivalIsland-gamejam-win64-release-03dae26.zip`
+- ZIP SHA-256: `b8f5aae5c97809c6d296b1c4e6b00f7817fe483aec0d89f8e36a3b5dcf82cb6c`
+- 릴리스 증거: `Artifacts/ParallelQA/20260827T161000Z_o8_release_03dae26/gamejam-release-build.json`
+- 수기 세션: `O8-H1 · 2026-08-28 00:37 KST · PID 24256 · 1280×800 windowed · keyboard/mouse`
 
 ## O8 수기 재검증 우선순위
 

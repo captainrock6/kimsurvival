@@ -42,7 +42,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.908Z",
       "createdAt": "2026-08-22T08:24:41.805Z"
@@ -83,7 +83,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "중복 정산 없이 Day 50 흐름과 같은 날 조기 구조 우선순위 PASS.",
       "completedAt": "2026-08-23T15:55:25.412Z",
       "createdAt": "2026-08-22T08:24:41.917Z"
@@ -119,7 +119,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.034Z",
       "createdAt": "2026-08-22T08:24:42.034Z"
@@ -151,7 +151,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-22T08:24:42.155Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.154Z",
       "createdAt": "2026-08-22T08:24:42.155Z"
@@ -196,7 +196,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T15:11:08.748Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.262Z",
       "createdAt": "2026-08-22T08:24:42.263Z"
@@ -238,7 +238,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "선택 지역만 실제 수색 노드·보상 profile에 반영되고 기존 일광·귀환 회귀 PASS.",
       "completedAt": "2026-08-23T15:55:25.605Z",
       "createdAt": "2026-08-22T08:24:42.368Z"
@@ -282,7 +282,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-23T15:55:25.316Z",
       "note": "Day 1/50, Day 49 계속, Day 50 terminal, 조기 탈출 우선순위를 통합 검증.",
       "completedAt": "2026-08-23T15:55:25.315Z",
       "createdAt": "2026-08-22T08:24:42.913Z"
@@ -321,7 +321,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-25T11:33:30.447Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.446Z",
       "createdAt": "2026-08-22T08:24:43.778Z"
@@ -360,7 +360,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.031Z",
       "createdAt": "2026-08-22T08:24:43.031Z"
@@ -397,7 +397,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.893Z",
       "createdAt": "2026-08-22T08:24:43.893Z"
@@ -436,7 +436,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-22T08:24:43.138Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.138Z",
       "createdAt": "2026-08-22T08:24:43.138Z"
@@ -470,7 +470,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-22T08:24:44.007Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.006Z",
       "createdAt": "2026-08-22T08:24:44.007Z"
@@ -522,7 +522,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.248Z",
       "createdAt": "2026-08-22T08:24:43.249Z"
@@ -573,7 +573,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "최종 일반 ko/en 배치 24/24와 제한적 자유 배치 회귀 PASS로 자동 계약을 완료했다. 물리 패드는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T08:24:44.124Z"
@@ -626,7 +626,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T05:18:07.161Z",
       "note": "Final candidate implements the live seven-region side-scrolling search-node loop.",
       "completedAt": "2026-08-26T05:18:07.161Z",
       "createdAt": "2026-08-22T08:24:43.353Z"
@@ -666,7 +666,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T05:18:07.269Z",
       "note": "Final candidate GSN 15/15 and Wave B runtime exploration contracts are GREEN.",
       "completedAt": "2026-08-26T05:18:07.268Z",
       "createdAt": "2026-08-22T08:24:44.230Z"
@@ -706,7 +706,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:13.820Z",
       "createdAt": "2026-08-22T11:32:13.820Z"
@@ -751,7 +751,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-23T14:17:12.252Z",
       "note": "5일 전이와 동결 계약 회귀는 PASS다. grant·warp 없는 fresh Day 4~5 자연 경로와 완전 자원 장부가 없어 ready를 유지한다.",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "completedAt": "2026-08-23T14:17:12.251Z"
@@ -795,7 +795,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-23T03:32:10.566Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "",
       "completedAt": "2026-08-23T03:32:10.566Z"
@@ -834,7 +834,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "최종 1280×800 일반 ko/en placement 24/24 및 exploration/swimming 10/10 PASS 증거로 완료했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
@@ -896,7 +896,7 @@
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T05:18:08.252Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Historical automated evidence is preserved. Current GJC-17/GJC-23 use the 30-minute checklist, while GJC-12 and GJC-20 have dedicated tasks.",
       "completedAt": null
@@ -950,7 +950,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "Wave 12 P01-P03가 compact A 9-slice, 분리 glyph/TMP, far/near/popup, locale와 입력 의미를 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:35:59.187Z"
@@ -994,7 +994,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "최종 compact A와 직접 설비 상호작용 자동 계약을 통과했다. 물리 게임패드 실기는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -1037,7 +1037,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "Wave 11 최종 slot edit/play가 이전 expected gap을 닫고 직접 슬롯 3/3, 보행로 3/3, 미리보기·취소·확정 원자성을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:48:19.864Z"
@@ -1075,7 +1075,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.085Z",
       "createdAt": "2026-08-22T08:24:42.476Z"
@@ -1122,7 +1122,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T05:18:07.375Z",
       "note": "Hunger, health, return and recovery pressure are live in the final candidate.",
       "completedAt": "2026-08-26T05:18:07.374Z",
       "createdAt": "2026-08-22T08:24:43.457Z"
@@ -1161,7 +1161,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T05:18:07.481Z",
       "note": "Final candidate survival pressure and atomic recovery contracts are GREEN.",
       "completedAt": "2026-08-26T05:18:07.480Z",
       "createdAt": "2026-08-22T08:24:44.342Z"
@@ -1225,7 +1225,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T05:18:07.589Z",
       "note": "Raft, smoke and radio are distinct playable facility-bound escape paths in the final candidate.",
       "completedAt": "2026-08-26T05:18:07.589Z",
       "createdAt": "2026-08-22T08:24:43.558Z"
@@ -1272,7 +1272,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T05:18:07.698Z",
       "note": "Three natural no-grant escape traces, retry atomicity and ending exactly-once are GREEN.",
       "completedAt": "2026-08-26T05:18:07.698Z",
       "createdAt": "2026-08-22T08:24:44.452Z"
@@ -1303,7 +1303,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "지도 확정 전 출발 차단, 취소 시 상태·위치·방향 보존 PASS.",
       "completedAt": "2026-08-23T15:55:25.503Z"
@@ -1338,7 +1338,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.740Z"
@@ -1370,7 +1370,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Wave B at 2bdea61 proves the non-disease search-hazard lifecycle, persistence, localization and atomicity; Release and package gates are GREEN.",
       "completedAt": "2026-08-26T08:25:00.000Z"
@@ -1409,7 +1409,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T04:36:36.963Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "",
       "completedAt": "2026-08-26T04:36:36.962Z"
@@ -1440,7 +1440,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.406Z"
@@ -1484,7 +1484,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "",
       "completedAt": "2026-08-23T16:32:52.262Z"
@@ -1521,7 +1521,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.260Z"
     },
@@ -1564,7 +1564,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "The final candidate implements the exact seven-region finite 42-node seeded stock and protected-part distribution.",
       "completedAt": "2026-08-26T05:18:07.804Z"
     },
@@ -1603,7 +1603,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "Seed determinism, finite remainder, revisit persistence and protected-part placement are GREEN.",
       "completedAt": "2026-08-26T05:18:07.905Z"
     },
@@ -1645,7 +1645,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "note": "Wave B at 2bdea61 proves insect, dangerous-plant and disease production lifecycles with persistence and atomicity.",
       "completedAt": "2026-08-26T08:25:00.000Z"
     },
@@ -1680,7 +1680,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.574Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "note": "Wave B/C at 2bdea61 are GREEN for environmental hazards, disease, persistence, KO/EN/qps and regressions.",
       "completedAt": "2026-08-26T08:25:00.000Z"
     },
@@ -1720,7 +1720,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-23T15:55:25.108Z",
       "note": "통합 master GREEN: Day 50·지도·세 지역·seed·softlock·ko/en/qps-long·Windows 회귀 PASS.",
       "completedAt": "2026-08-23T15:55:25.108Z"
     },
@@ -1768,7 +1768,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-24T12:57:44.476Z",
       "note": "",
       "completedAt": "2026-08-24T12:57:44.476Z"
     },
@@ -1806,7 +1806,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-23T15:55:25.220Z",
       "note": "독립 RED-first 게이트를 통합 master에서 EXPECTED_GAPS=0 GREEN으로 전환.",
       "completedAt": "2026-08-23T15:55:25.219Z"
     },
@@ -1844,7 +1844,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-25T11:33:29.249Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.248Z",
       "createdAt": "2026-08-25T11:33:29.249Z"
@@ -1884,7 +1884,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-25T11:33:49.761Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:49.760Z",
       "createdAt": "2026-08-25T11:33:49.761Z"
@@ -1942,7 +1942,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "모듈 기능 자체는 완료 상태를 유지한다. Day 3 증축+구조 원장은 숙련자 조기 성공 증거이고, 첫 플레이어 Day 4~5 경로는 새 통합 QA 대상이다.",
       "completedAt": "2026-08-23T08:14:57.365Z"
     },
@@ -1995,7 +1995,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "Wave 11 slot 계약과 최종 5일 전체 회귀가 W2/D1, run당 1회, 실패 무변경, 연결·통로 보존을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -2035,7 +2035,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.641Z"
@@ -2071,7 +2071,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:49.922Z"
     },
@@ -2100,10 +2100,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN proved finite region snapshots, node remainders, broken barriers, permanent hazard removal and new-run seed reset contracts.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.606Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.feature.feature.region-persistence",
@@ -2134,10 +2133,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN proved finite node, barrier and permanent-hazard state across transition, revisit and snapshot restore.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.606Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.region-persistence",
@@ -2163,10 +2161,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "GSN-E03, GSN-P02, GSN-P03 and GSN-P06 passed on the integrated runtime.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.606Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.seven-region-catalog",
@@ -2207,10 +2204,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T08:20:00.000Z",
       "note": "Committed Wave B product gate passed exact 7/21/42/144, legacy 28 plus new 14 IDs, seed/revision determinism, new-game-only stock generation, and KO/EN/qps live surfaces.",
-      "completedAt": "2026-08-26T08:20:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T08:20:00.000Z"
     },
     {
       "id": "task.gamejam.persistent-region-runtime",
@@ -2239,10 +2235,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN proved finite node stock, stable visit state, barriers, protected parts and permanent hazard removal without revisit regeneration.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.smoke-radio-material-routes",
@@ -2286,10 +2281,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-25T22:43:17.158Z",
       "note": "Committed Wave C GREEN proves protected flint/radio parts, distinct regions, 3/5 pity, independent natural raft/smoke/radio interactions, atomic wait/retry and exactly-once ending/album records.",
-      "completedAt": "2026-08-25T22:43:17.158Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-25T22:43:17.158Z"
     },
     {
       "id": "task.gamejam.insect-plant-wildlife-disease",
@@ -2330,10 +2324,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "note": "Wave B at 2bdea61 proves jungle-fever, insect and dangerous-plant lifecycles; integrated Release and package gates are GREEN.",
-      "completedAt": "2026-08-26T08:25:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T08:25:00.000Z"
     },
     {
       "id": "task.gamejam.upper-basement-both",
@@ -2367,10 +2360,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-25T22:43:17.158Z",
       "note": "Committed Wave C GWC-P05 proves upper and basement commit, re-entry, composite-save restore and zero escape-resource delta in one run.",
-      "completedAt": "2026-08-25T22:43:17.158Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-25T22:43:17.158Z"
     },
     {
       "id": "task.gamejam.qa-thirty-minute-seven-region-slice",
@@ -2424,7 +2416,7 @@
       ],
       "blockedReason": "O1 human session failed GJC-17 and opened H-001 through H-005. Correct and freeze a new candidate before timing/cohort retest.",
       "status": "blocked",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T12:03:32.122Z",
       "note": "At 2bdea61 Wave B/C are overall GREEN, GSN is 15/15, Wave 19 is 22/22, Wave 20 is 16/16, Release is PASS and PKG-I01-I07 are PASS. Only the four human gates remain.",
       "completedAt": null,
       "createdAt": "2026-08-26T05:07:17.121Z"
@@ -2458,10 +2450,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN passed deterministic contents, hidden/partial/depleted lifecycle, atomic bag transactions, one-time costs and protected-part routing.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.feature.feature.searchable-resource-nodes",
@@ -2499,10 +2490,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Actual Scene traversal, compact loot tray, take/leave/swap/cancel, persistence, localization and dual-input contracts passed without grant, warp or skip.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.searchable-resource-nodes",
@@ -2531,10 +2521,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "All 15 search-node product checks passed with Wave 19 22/22 and Wave 20 16/16 regression locks.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.system.system.raft-escape",
@@ -2565,7 +2554,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T14:42:28.573Z",
       "note": "Wave 20 16/16 GREEN: atomic stages, failure retry, save/restore, terminal ending and album idempotency verified.",
       "completedAt": "2026-08-25T14:59:52.461Z",
       "createdAt": "2026-08-25T14:59:52.461Z"
@@ -2617,7 +2606,7 @@
       "note": "Protected sailcloth now routes from deterministic environmental search nodes into the 16/16 GREEN shore-launch route.",
       "completedAt": "2026-08-26T05:30:00.000Z",
       "createdAt": "2026-08-25T14:59:52.564Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-27T14:42:28.573Z"
     },
     {
       "id": "task.qa.feature.raft-escape",
@@ -2656,7 +2645,7 @@
       "note": "Integrated rerun passed Wave 20 16/16 plus protected sailcloth search-node acquisition and persistence contracts.",
       "completedAt": "2026-08-26T05:30:00.000Z",
       "createdAt": "2026-08-25T14:59:52.656Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-27T14:42:28.573Z"
     },
     {
       "id": "task.gamejam.o1-ui-resource-semantics",
@@ -2694,7 +2683,7 @@
       "note": "H-001, H-002 and H-005 are integrated: twelve canonical resource IDs now use matching KO/EN names and adopted icon families across search tray, bag and camp HUD; 1280x800 KO/EN/qps automated layout checks are GREEN. O2 human confirmation remains in the integration task.",
       "completedAt": "2026-08-26T13:03:34.480Z",
       "createdAt": "2026-08-26T12:03:31.713Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o1-camp-expansion-ux",
@@ -2729,7 +2718,7 @@
       "note": "H-003 implementation is integrated with explicit locked/available/in-progress/completed state, purpose, capacity, exact cost, shortage and prerequisite copy; KO/EN/qps module contracts are GREEN. O2 human confirmation remains in the integration task.",
       "completedAt": "2026-08-26T13:03:34.480Z",
       "createdAt": "2026-08-26T12:03:31.848Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o1-character-ground-animation",
@@ -2764,7 +2753,7 @@
       "note": "H-004 implementation is integrated with a foot anchor/collider, grounded idle breathing, 7 fps walk key poses and facing; existing swim is preserved. Automated grounding/animation checks and root visual review are GREEN; O2 human confirmation remains in the integration task.",
       "completedAt": "2026-08-26T13:03:34.480Z",
       "createdAt": "2026-08-26T12:03:31.990Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o1-corrective-integration-retest",
@@ -2802,8 +2791,7 @@
       "status": "in_progress",
       "note": "Candidate b3f980f is frozen. H-001 through H-005, compile, search-node, module, art connection, character, full survival, non-development Release and package integrity 7/7 are GREEN. O2 owner retest remains before submission readiness.",
       "completedAt": null,
-      "updatedAt": "2026-08-27T14:42:28.575Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o2-bag-swap-visibility-p0",
@@ -2835,7 +2823,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.anchor-shelter-placement",
@@ -2869,7 +2857,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.anchor-shelter-roof-living-furniture",
@@ -2906,7 +2894,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.o2-anchor-shelter-integration-retest",
@@ -2941,7 +2929,7 @@
       "blockedReason": "",
       "status": "review",
       "createdAt": "2026-08-26T14:27:19.204Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.o4-stable-resource-ledger-p0",
@@ -2969,8 +2957,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "updatedAt": "2026-08-26T15:11:08.748Z"
     },
     {
       "id": "task.gamejam.o4-three-route-discoverability-p0",
@@ -3000,9 +2987,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-27T14:41:39.607Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o4-natural-resource-budget-p0",
@@ -3030,9 +3015,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-27T14:41:39.607Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o4-shore-launch-popup-p1",
@@ -3060,9 +3043,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-27T14:41:39.607Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o4-ladder-camera",
@@ -3091,8 +3072,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "updatedAt": "2026-08-26T15:11:08.748Z"
     },
     {
       "id": "task.gamejam.o4-integration-release",
@@ -3120,9 +3100,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-27T14:41:39.607Z",
-      "updatedAt": "2026-08-27T14:42:28.575Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o5-triple-resource-budget-p0",
@@ -3150,7 +3128,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T17:25:51.833Z",
       "note": "일반 자원 432와 대표 seed 5개 세 경로 자원 가능성 GREEN",
       "completedAt": "2026-08-26T17:25:51.833Z",
       "createdAt": "2026-08-26T17:25:51.833Z"
@@ -3187,7 +3165,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T17:25:53.276Z",
       "note": "7개 지역 카드와 상세 rail 잔량 % GREEN",
       "completedAt": "2026-08-26T17:25:53.275Z",
       "createdAt": "2026-08-26T17:25:53.276Z"
@@ -3225,7 +3203,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T17:25:54.711Z",
       "note": "미건설 비노출, 건설 후 생성, 상시 경로 텍스트 제거 GREEN",
       "completedAt": "2026-08-26T17:25:54.711Z",
       "createdAt": "2026-08-26T17:25:54.711Z"
@@ -3261,7 +3239,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T17:25:56.177Z",
       "note": "초기 탈출 설비 제거로 밀집 완화 및 공통 아이콘 표식 Play Mode GREEN",
       "completedAt": "2026-08-26T17:25:56.176Z",
       "createdAt": "2026-08-26T17:25:56.177Z"
@@ -3297,7 +3275,7 @@
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T17:25:59.076Z",
       "note": "커밋 553cbc5 Release/ZIP PASS. O5 30분 인간 자연 플레이 재검증 대기",
       "completedAt": null,
       "createdAt": "2026-08-26T17:25:59.075Z"
@@ -3334,10 +3312,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T23:12:00.000Z",
       "note": "계획 지점 연결부, 유지형 결과 메시지와 세 층 가구 재배치 PASS.",
-      "completedAt": "2026-08-26T23:12:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T23:12:00.000Z"
     },
     {
       "id": "task.gamejam.o6-search-bag-node-density",
@@ -3373,10 +3350,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T23:12:00.000Z",
       "note": "84 node·432 단위·혼합 2/4/10 산출, 보호 부품 선두 노출과 4→10 가방 PASS.",
-      "completedAt": "2026-08-26T23:12:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T23:12:00.000Z"
     },
     {
       "id": "task.gamejam.o6-raft-terminal-parts",
@@ -3408,10 +3384,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-26T23:12:00.000Z",
       "note": "닫힌 출항 창 자원 무손실, 자연 경로 terminal과 세 탈출 경로 핵심 부품 0/1 PASS.",
-      "completedAt": "2026-08-26T23:12:00.000Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-26T23:12:00.000Z"
     },
     {
       "id": "task.gamejam.o6-integration-release",
@@ -3446,10 +3421,9 @@
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T11:48:18.283Z",
       "note": "O6-H1 25:43 소유자 테스트에서 P1 8건 확인. O7 교정과 동일 후보 기준 재검증 필요.",
-      "completedAt": null,
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": null
     },
     {
       "id": "task.gamejam.o7-camp-expansion-feedback-furniture",
@@ -3484,7 +3458,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T13:33:05.351Z",
       "note": "Visible planning point only, persistent central result feedback, and 3-floor bed/sofa/rain placement passed O7 Edit and Play gates.",
       "completedAt": "2026-08-27T13:33:05.350Z",
       "createdAt": "2026-08-27T13:33:05.351Z"
@@ -3521,7 +3495,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T13:33:05.480Z",
       "note": "7 regions, 84 stable nodes, expanded spacing, O6 migration, 84 wood across 5 regions, weighted plausible pools, and three-route budget passed.",
       "completedAt": "2026-08-27T13:33:05.479Z",
       "createdAt": "2026-08-27T13:33:05.480Z"
@@ -3558,7 +3532,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T13:33:05.622Z",
       "note": "Compact bottom-left 10-slot bag, first-camp guidance, and actual energy/health/daylight recovery contracts passed.",
       "completedAt": "2026-08-27T13:33:05.621Z",
       "createdAt": "2026-08-27T13:33:05.622Z"
@@ -3594,10 +3568,159 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-27T13:37:07.755Z",
       "note": "Exact source 1df5c7de1a82d21ef9c902b98d2761e7d8730368 built as non-development Windows Release; PKG-I01 through I07 passed. O7-H1 natural human play remains required.",
       "completedAt": "2026-08-27T13:37:07.754Z",
       "createdAt": "2026-08-27T13:33:05.740Z"
+    },
+    {
+      "id": "task.gamejam.o8-sequential-unlock-early-economy",
+      "lane": "implementation",
+      "title": "O8 순차 지역 해금·초반 수집 경제",
+      "description": "해변부터 일곱 지역을 첫 진입 순으로 해금하고 단계별 필수 최소 자원을 결정적으로 보장한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.expedition-map",
+        "feature.resource-randomization",
+        "feature.region-persistence"
+      ],
+      "assetIds": [
+        "ui.expedition-map",
+        "object.searchable-resource-node-production-set"
+      ],
+      "acceptanceCriteria": [
+        "해변만 최초 해금되고 첫 진입 때마다 다음 한 지역이 저장 가능하게 열린다.",
+        "해변·숲의 도구 없는 최소 자원과 전체 단계 경제 감사가 통과한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
+        "Assets/Editor/ParallelQA",
+        "Assets/_Project/Scripts/Runtime/PrototypeO7SearchBalance.cs"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "Artifacts/ParallelQA/O7SearchSpaceEconomy/o7-search-space-economy-report.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T15:38:34.229Z",
+      "createdAt": "2026-08-27T14:42:28.573Z",
+      "note": "Unity PASS: sequential unlock, 7r/84n, 432 units, early beach/forest economy.",
+      "completedAt": "2026-08-27T15:38:34.229Z"
+    },
+    {
+      "id": "task.gamejam.o8-compact-bag-raft-feedback",
+      "lane": "implementation",
+      "title": "O8 초소형 가방·진수대 출항 피드백",
+      "description": "상시 가방과 슬롯 폭을 줄이고 진수대 단계 실패와 최종 출항 행동을 같은 팝업에서 명확히 한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-choice",
+        "feature.raft-escape",
+        "feature.camp-object-interaction"
+      ],
+      "assetIds": [
+        "ui.gamejam.interface-kit",
+        "ui.escape-project-progress"
+      ],
+      "acceptanceCriteria": [
+        "가방은 좌측 하단 24% 이하 폭으로 줄고 모든 용량 단계가 읽힌다.",
+        "진수대 불가 토스트와 최종 출항 행동이 같은 팝업에서 검증된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O7BagSurvivalGuidance.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeRaftEscape.cs",
+        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "work/ParallelQA/20260827T153000Z_o8_candidate_6d03413/bag/o7-bag-survival-play.txt",
+        "Artifacts/ParallelQA/O6RaftTerminalParts/o6-raft-terminal-parts-report.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T15:38:43.892Z",
+      "createdAt": "2026-08-27T14:42:28.573Z",
+      "note": "Unity Play PASS: compact bottom-left bag and natural raft route through sequential unlock.",
+      "completedAt": "2026-08-27T15:38:43.891Z"
+    },
+    {
+      "id": "task.gamejam.o8-hybrid-free-placement",
+      "lane": "implementation",
+      "title": "O8 일반 설비 다층 자유 배치",
+      "description": "탈출 장비·모닥불·연결부만 고정하고 다른 설비를 완성된 세 층에서 자유 배치·재배치·저장한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-building",
+        "feature.camp-module-expansion"
+      ],
+      "assetIds": [
+        "object.camp-structures",
+        "ui.camp-module-expansion"
+      ],
+      "acceptanceCriteria": [
+        "일반 설비가 1층·2층·지하 자유 좌표로 이동하고 특수 설비 고정 앵커가 유지된다.",
+        "충돌·사다리·출입구·필수 통로와 저장 복원이 검증된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O7CampCorrection.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "work/ParallelQA/20260827T153000Z_o8_candidate_6d03413/camp/o7-camp-correction-play.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T15:38:52.089Z",
+      "createdAt": "2026-08-27T14:42:28.573Z",
+      "note": "Unity Play PASS: four general facilities free-place and restore across start, upper and basement rooms.",
+      "completedAt": "2026-08-27T15:38:52.088Z"
+    },
+    {
+      "id": "task.gamejam.o8-integration-release",
+      "lane": "qa",
+      "title": "O8 통합·회귀·후보 빌드",
+      "description": "O7-H1 P0 1건과 P1 5건을 통합 검증하고 Windows O8 후보 패키지를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o8-sequential-unlock-early-economy",
+        "task.gamejam.o8-compact-bag-raft-feedback",
+        "task.gamejam.o8-hybrid-free-placement"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "O7-H1 발견 사항마다 자동 또는 관찰 가능한 검증 증거가 있다.",
+        "정확한 소스 커밋으로 Windows O8 후보와 ZIP을 만들고 무결성을 검증한다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA",
+        "Docs/Design/Playtest",
+        "Builds/Windows",
+        "work/ParallelQA/20260827T161000Z_o8_release_03dae26/KimSurvivalIsland-gamejam-win64-release-03dae26"
+      ],
+      "evidence": [
+        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md",
+        "Artifacts/ParallelQA/20260827T161000Z_o8_release_03dae26/gamejam-release-build.json",
+        "work/ParallelQA/20260827T153700Z_o8_h1_owner/o8-h1-player.log"
+      ],
+      "blockedReason": "",
+      "status": "review",
+      "createdAt": "2026-08-27T14:42:28.573Z",
+      "updatedAt": "2026-08-27T15:39:00.502Z",
+      "note": "Release PASS at 03dae26; O8-H1 30-minute natural human playtest launched PID 24256.",
+      "completedAt": null
     },
     {
       "id": "task.system.system.comedy-feedback",
@@ -3628,7 +3751,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-22T08:24:42.590Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.589Z",
       "createdAt": "2026-08-22T08:24:42.590Z"
@@ -3661,7 +3784,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-22T08:24:42.698Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.697Z",
       "createdAt": "2026-08-22T08:24:42.698Z"
@@ -3692,7 +3815,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.575Z",
+      "updatedAt": "2026-08-22T08:24:42.801Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.800Z",
       "createdAt": "2026-08-22T08:24:42.801Z"
@@ -3727,7 +3850,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-22T08:24:43.665Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.664Z",
       "createdAt": "2026-08-22T08:24:43.665Z"
@@ -3767,7 +3890,7 @@
       ],
       "blockedReason": "GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.",
       "status": "blocked",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "note": "Synthetic keyboard/gamepad semantic parity is GREEN at 2bdea61. Physical device evidence remains intentionally uninferred.",
       "completedAt": null,
       "createdAt": "2026-08-26T05:07:17.231Z"
@@ -3797,7 +3920,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-22T09:25:36.302Z",
       "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
       "completedAt": "2026-08-22T09:25:36.301Z",
       "createdAt": "2026-08-22T09:25:36.302Z"
@@ -3838,7 +3961,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-22T09:25:37.709Z",
       "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
       "completedAt": "2026-08-22T09:25:37.708Z",
       "createdAt": "2026-08-22T09:25:37.709Z"
@@ -3871,7 +3994,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-22T09:25:39.001Z",
       "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
       "completedAt": "2026-08-22T09:25:39.001Z",
       "createdAt": "2026-08-22T09:25:39.001Z"
@@ -3906,7 +4029,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-22T11:32:14.998Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:14.998Z",
       "createdAt": "2026-08-22T11:32:14.998Z"
@@ -3942,7 +4065,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-22T11:32:16.130Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:16.130Z",
       "createdAt": "2026-08-22T11:32:16.130Z"
@@ -3990,7 +4113,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-23T13:34:37.660Z",
       "note": "Wave 14 제품 레이아웃 수정으로 1280x800 ko/en 배치 24/24, 수색·수영 10/10, 실제 qps-long 10/10을 PASS했다. locale/device 전환의 target·진행 지문 불변과 Wave 13 로그 포함 표준 Edit/Play 회귀를 재검증했다. 물리 게임패드 실기는 별도 dual-input QA 항목에 UNVERIFIED로 유지한다.",
       "completedAt": "2026-08-23T13:34:37.659Z",
       "createdAt": "2026-08-23T13:34:37.660Z"
@@ -4033,7 +4156,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-23T09:35:20.554Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Actual non-shipping qps-long locale passes data-driven module and layout checks while the player locale cycle remains ko/en.",
       "completedAt": "2026-08-23T09:35:20.554Z"
@@ -4064,7 +4187,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-23T03:05:27.413Z",
       "note": "4→6칸 원자적 1회 확장, 날짜 유지, 새 게임 초기화 및 KO/EN 상태 계약 통과.",
       "completedAt": "2026-08-23T03:05:27.413Z",
       "createdAt": "2026-08-23T03:05:27.413Z"
@@ -4104,7 +4227,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-23T03:05:27.511Z",
       "note": "가방 기능 자체는 완료 상태를 유지한다. 기존 자연 3일 구조 경로는 조기 성공 증거이며 Wave 12 통합 경로는 새 QA 대상이다.",
       "completedAt": "2026-08-23T03:05:27.510Z",
       "createdAt": "2026-08-23T03:05:27.511Z"
@@ -4146,7 +4269,7 @@
       ],
       "blockedReason": "O1 found the upgrade mandatory and material identity unreadable. Fix H-002 and rebalance/retest GJC-12 on a new candidate.",
       "status": "blocked",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-26T12:03:32.258Z",
       "note": "The 4-to-6 function, atomicity and persistence contracts are GREEN at 2bdea61. Only human feel and choice-pressure evidence remains.",
       "completedAt": null,
       "createdAt": "2026-08-23T03:05:27.603Z"
@@ -4192,7 +4315,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-25T11:33:30.810Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.810Z"
     },
@@ -4230,10 +4353,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-25T23:11:52.230Z",
       "note": "Catalog 21, two stable Day 20 endings, early-escape priority, deterministic terminal and album exactly-once, KO/EN/qps comic layout, standard Day 50 preservation and no-cheat observation passed 15/15.",
-      "completedAt": "2026-08-25T23:11:52.230Z",
-      "createdAt": "2026-08-27T14:41:39.607Z"
+      "completedAt": "2026-08-25T23:11:52.230Z"
     },
     {
       "id": "task.system.system.ending-gallery",
@@ -4258,7 +4380,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-25T11:33:50.254Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:50.254Z"
@@ -4292,7 +4414,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-25T11:33:50.086Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:50.085Z"
     },
@@ -4321,7 +4443,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-25T11:33:58.584Z",
       "note": "Integrated Wave 19 album near/popup/open, ko/en/qps-long, persistence and dual input contracts passed.",
       "completedAt": "2026-08-25T11:33:58.583Z"
     },
@@ -4351,7 +4473,7 @@
       ],
       "blockedReason": "",
       "status": "planned",
-      "updatedAt": "2026-08-27T14:42:28.576Z",
+      "updatedAt": "2026-08-26T05:18:08.373Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Post-slice Steam release work is intentionally excluded from the GAME JAM submission gate.",
       "completedAt": null
@@ -4383,7 +4505,7 @@
       "blockedReason": "",
       "status": "ready",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.576Z"
+      "updatedAt": "2026-08-26T05:18:08.018Z"
     },
     {
       "id": "task.qa.feature.custom-run-settings",
@@ -4408,141 +4530,8 @@
       "blockedReason": "",
       "status": "planned",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-27T14:42:28.576Z"
-    },
-    {
-      "id": "task.gamejam.o8-sequential-unlock-early-economy",
-      "lane": "implementation",
-      "title": "O8 순차 지역 해금·초반 수집 경제",
-      "description": "해변부터 일곱 지역을 첫 진입 순으로 해금하고 단계별 필수 최소 자원을 결정적으로 보장한다.",
-      "priority": "critical",
-      "dependencies": [],
-      "featureIds": [
-        "feature.expedition-map",
-        "feature.resource-randomization",
-        "feature.region-persistence"
-      ],
-      "assetIds": [
-        "ui.expedition-map",
-        "object.searchable-resource-node-production-set"
-      ],
-      "acceptanceCriteria": [
-        "해변만 최초 해금되고 첫 진입 때마다 다음 한 지역이 저장 가능하게 열린다.",
-        "해변·숲의 도구 없는 최소 자원과 전체 단계 경제 감사가 통과한다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/PrototypeExpeditionMap.cs",
-        "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
-        "Assets/Editor/ParallelQA"
-      ],
-      "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
-      ],
-      "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T15:15:00.000Z",
-      "createdAt": "2026-08-27T14:42:28.573Z"
-    },
-    {
-      "id": "task.gamejam.o8-compact-bag-raft-feedback",
-      "lane": "implementation",
-      "title": "O8 초소형 가방·진수대 출항 피드백",
-      "description": "상시 가방과 슬롯 폭을 줄이고 진수대 단계 실패와 최종 출항 행동을 같은 팝업에서 명확히 한다.",
-      "priority": "critical",
-      "dependencies": [],
-      "featureIds": [
-        "feature.inventory-choice",
-        "feature.raft-escape",
-        "feature.camp-object-interaction"
-      ],
-      "assetIds": [
-        "ui.gamejam.interface-kit",
-        "ui.escape-project-progress"
-      ],
-      "acceptanceCriteria": [
-        "가방은 좌측 하단 24% 이하 폭으로 줄고 모든 용량 단계가 읽힌다.",
-        "진수대 불가 토스트와 최종 출항 행동이 같은 팝업에서 검증된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O7BagSurvivalGuidance.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scripts/Runtime/PrototypeRaftEscape.cs",
-        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
-        "Assets/Editor/ParallelQA"
-      ],
-      "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
-      ],
-      "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T15:15:00.000Z",
-      "createdAt": "2026-08-27T14:42:28.573Z"
-    },
-    {
-      "id": "task.gamejam.o8-hybrid-free-placement",
-      "lane": "implementation",
-      "title": "O8 일반 설비 다층 자유 배치",
-      "description": "탈출 장비·모닥불·연결부만 고정하고 다른 설비를 완성된 세 층에서 자유 배치·재배치·저장한다.",
-      "priority": "critical",
-      "dependencies": [],
-      "featureIds": [
-        "feature.camp-building",
-        "feature.camp-module-expansion"
-      ],
-      "assetIds": [
-        "object.camp-structures",
-        "ui.camp-module-expansion"
-      ],
-      "acceptanceCriteria": [
-        "일반 설비가 1층·2층·지하 자유 좌표로 이동하고 특수 설비 고정 앵커가 유지된다.",
-        "충돌·사다리·출입구·필수 통로와 저장 복원이 검증된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/PrototypeCampPlacement.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O7CampCorrection.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/Editor/ParallelQA"
-      ],
-      "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
-      ],
-      "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T15:15:00.000Z",
-      "createdAt": "2026-08-27T14:42:28.573Z"
-    },
-    {
-      "id": "task.gamejam.o8-integration-release",
-      "lane": "qa",
-      "title": "O8 통합·회귀·후보 빌드",
-      "description": "O7-H1 P0 1건과 P1 5건을 통합 검증하고 Windows O8 후보 패키지를 고정한다.",
-      "priority": "critical",
-      "dependencies": [
-        "task.gamejam.o8-sequential-unlock-early-economy",
-        "task.gamejam.o8-compact-bag-raft-feedback",
-        "task.gamejam.o8-hybrid-free-placement"
-      ],
-      "featureIds": [],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "O7-H1 발견 사항마다 자동 또는 관찰 가능한 검증 증거가 있다.",
-        "정확한 소스 커밋으로 Windows O8 후보와 ZIP을 만들고 무결성을 검증한다."
-      ],
-      "paths": [
-        "Assets/Editor/ParallelQA",
-        "Artifacts/ParallelQA",
-        "Docs/Design/Playtest",
-        "Builds/Windows"
-      ],
-      "evidence": [
-        "Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md"
-      ],
-      "blockedReason": "Unity 6000.4.9f1 Editor license unavailable (batch exit 198); Player build and observation gates pending.",
-      "status": "blocked",
-      "createdAt": "2026-08-27T14:42:28.573Z",
-      "updatedAt": "2026-08-27T15:15:00.000Z"
+      "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-27T14:42:28.572Z"
+  "updatedAt": "2026-08-27T15:39:00.503Z"
 }
