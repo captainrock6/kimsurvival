@@ -12,7 +12,7 @@ hud.status.camp	DAY {0}/{1} · {2}\n허기 {3} | 기력 {4} | 체력 {5}	DAY {0}
 hud.status.exploring	DAY {0}/{1} · {2}\n허기 {3} | 기력 {4} | 일광 {5} | 체력 {6}	DAY {0}/{1} · {2}\nHunger {3} | Energy {4} | Daylight {5} | Health {6}	⟦DÁY {0}/{1} · {2}\nHúñgér {3} | Éñérgy {4} | Dáylíght {5} | Héálth {6}áéíóúüñ¿¡áéíóúüñ¿¡áéíó⟧
 hud.resources	나무 {0}   돌 {1}   식량 {2}   표류물 {3}\n신호대 {4}/2   도끼 {5}   밧줄 {6}	Wood {0}   Stone {1}   Food {2}   Salvage {3}\nSignal {4}/2   Axe {5}   Rope {6}	⟦Wóód {0}   Stóñé {1}   Fóód {2}   Sálvágé {3}\nSígñál {4}/2   Áxé {5}   Rópé {6}áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
 controls.placement.keyboard_mouse	{0} · 포인터로 방 안 위치 선택\n클릭/Enter 확정 · 우클릭/Esc 취소\nF1 언어	{0} · Point to a position in this room\nClick/Enter confirm · Right-click/Esc cancel\nF1 language	⟦{0} · Póíñt tó á pósítíóñ íñ thís róóm\nClíck/Enter cóñfírm · Ríght-clíck/Esc cáñcél\nF1 láñgúágéáéíóúüñ¿¡ · éxpáñdéd lóçálé téstíñg⟧
-controls.placement.gamepad	{0} · 왼쪽 스틱으로 방 안 위치 이동\nA 확정 · B 취소\nY 언어	{0} · Move within this room with the left stick\nA confirm · B cancel\nY language	⟦{0} · Móvé wíthíñ thís róóm wíth thé léft stíck\nÁ cóñfírm · B cáñcél\nY láñgúágéáéíóúüñ¿¡⟧
+controls.placement.gamepad	{0} · 왼쪽 스틱으로 방 안 위치 이동\nA 확정 · B 취소\nY 언어	{0} · Move within this room with the left stick\nA confirm · B cancel\nY language	⟦{0} · Móvé wíthíñ thís róóm wíth thé léft stíck\nÁ cóñfírm · B cáñcél\nY láñgúágéáéíóúüñ¿¡ · éxpáñdéd tést⟧
 controls.camp.keyboard_mouse	{0} · A/D 이동 · 사다리 W/S·↑↓ 유지 · E 가까운 설비 사용(1.25m)\n클릭 또는 방향키+Enter 행동 · 완공 설비 무료 재배치 · F1 언어	{0} · A/D move · Ladder W/S or ↑↓ hold · E use nearby facility (1.25m)\nClick or arrows+Enter action · Built facilities move free · F1 language	⟦{0} · A/D móvé · Láddér W/S ór ↑↓ hóld · E úsé ñéárby fácílíty (1.25m)\nClíck ór árróws+Enter áctíóñ · Búílt fácílítíés móvé fréé · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéí⟧
 controls.camp.gamepad	{0} · 왼쪽 스틱 이동 · 사다리 스틱 ↑↓ 유지 · X 가까운 설비 사용(1.25m)\n방향 패드+A 행동 · 완공 설비 무료 재배치 · Y 언어	{0} · Left stick move · Ladder stick ↑↓ hold · X use nearby facility (1.25m)\nD-pad+A action · Built facilities move free · Y language	⟦{0} · Léft stíck móvé · Láddér stíck ↑↓ hóld · X úsé ñéárby fácílíty (1.25m)\nD-pád+A áctíóñ · Búílt fácílítíés móvé fréé · Y láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡⟧
 controls.camp.popup.keyboard_mouse	{0} · 방향키로 행동 선택 · Enter 확인\nEsc 취소 · 이동 잠김 · F1 언어	{0} · Arrow keys select · Enter confirm\nEsc cancel · Movement locked · F1 language	⟦{0} · Árrów kéys séléct · Enter cóñfírm\nÉsc cáñcél · Móvéméñt lóckéd · F1 láñgúágéáéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúü⟧
@@ -116,13 +116,13 @@ world.structure.relocate	{0}\n↔ 무료 재배치	{0}\n↔ Move Free	⟦{0}\n�
 world.placement.valid	{0}\n설치 가능	{0}\nValid Placement	⟦{0}\nVálíd Plácéméñtáéíóúü⟧
 world.placement.invalid	{0}\n설치 불가	{0}\nInvalid Placement	⟦{0}\nÍñválíd Plácéméñtáéíóúüñ⟧
 world.kim	김씨	Mr. Kim	⟦Mr. Kímá⟧
-placement.valid.build	{0} · 이 위치에 설치 가능	Place {0} here	⟦Plácé {0} héréáéíóúüñ⟧
-placement.valid.relocate	{0} · 이 위치로 이동 가능	Move {0} here	⟦Móvé {0} héréáéíóúüñ⟧
-placement.outside	방의 설치 가능 범위를 벗어났다.	This position is outside the room's buildable area.	⟦Thís pósítíóñ ís óútsídé thé róóm's búíldáblé áréááéíóúüñ¿¡⟧
+placement.valid.build	{0} · 이 위치에 설치 가능	Place {0} here	⟦Plácé {0} héréáéíó⟧
+placement.valid.relocate	{0} · 이 위치로 이동 가능	Move {0} here	⟦Móvé {0} héréáéí⟧
+placement.outside	방의 설치 가능 범위를 벗어났다.	This position is outside the room's buildable area.	⟦Thís pósítíóñ ís óútsídé thé róóm's búíldáblé áréááéíóúüñ¿¡ téstéá⟧
 placement.wrong_zone	{0}은(는) 지정된 호환 바닥에만 놓을 수 있다.	{0} must stay on its compatible ground zone.	⟦{0} múst stáy óñ íts cómpátíblé gróúñd zóñé.áéíóúüñ¿¡áéíóúüñ⟧
 placement.overlap	이미 다른 설비가 차지한 설치 지점이다.	Another facility already occupies this install spot.	⟦Áñóthér fácílíty álréády óccúpíés thís íñstáll spót.áéíóúüñ¿¡áéíóúüñ¿¡á⟧
-placement.blocks_entrance	출입구를 막는 위치에는 설치할 수 없다.	Cannot place a facility where it blocks the entrance.	⟦Cáññót plácé á fácílíty whéré ít blócks thé éñtráñcéáéíóúüñ¿¡⟧
-placement.blocks_path	사다리·필수 통로를 막는 위치에는 설치할 수 없다.	Cannot block the ladder or required path.	⟦Cáññót blóck thé láddér ór réqúíréd pátháéíóúüñ¿¡⟧
+placement.blocks_entrance	출입구를 막는 위치에는 설치할 수 없다.	Cannot place a facility where it blocks the entrance.	⟦Cáññót plácé á fácílíty whéré ít blócks thé éñtráñcéáéíóúüñ¿¡ téstíñg⟧
+placement.blocks_path	사다리·필수 통로를 막는 위치에는 설치할 수 없다.	Cannot block the ladder or required path.	⟦Cáññót blóck thé láddér ór réqúíréd pátháéíóúüñ¿¡ tést⟧
 placement.entrance	캠프 출입구를 막을 수 없다.	The camp entrance must stay clear.	⟦Thé cámp éñtráñcé múst stáy cléár.áéíóúüñ¿¡áéí⟧
 placement.path	필수 이동 통로를 비워 둬야 한다.	The required travel path must stay clear.	⟦Thé réqúíréd trávél páth múst stáy cléár.áéíóúüñ¿¡áéíóúü⟧
 placement.invalid	배치할 수 없는 위치다.	That position is invalid.	⟦Thát pósítíóñ ís íñválíd.áéíóúüñ¿¡⟧
@@ -316,7 +316,7 @@ expedition.map.node	◇ {0}	◇ {0}	⟦◇ {0}⟧
 expedition.map.node.focused	◆ {0} · 선택	◆ {0} · Selected	⟦◆ {0} · Séléctédáéíó⟧
 expedition.map.detail	{0}\n{1}\n예상 자원: {2}\n이동 시간: 약 {3}분\n현재 위험: {4}\n날씨: {5}\n필요 장비: {6}\n특별 발견: {7}	{0}\n{1}\nExpected resources: {2}\nTravel time: about {3} min\nCurrent risk: {4}\nWeather: {5}\nRequired gear: {6}\nSpecial discovery: {7}	⟦{0}\n{1}\nÉxpéctéd résóúrcés: {2}\nTrávél tímé: ábóút {3} míñútés\nCúrréñt rísk: {4}\nWéáthér: {5}\nRéqúíréd géár: {6}\nSpécíál díscóvéry: {7}áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñáéíóú⟧
 expedition.map.depart	{0}(으)로 출발	Depart for {0}	⟦Dépárt fór {0}áéí⟧
-expedition.map.depart.locked	잠김 · 이전 지역 먼저 수색	Locked · Search the previous region first	⟦Lóckéd · Séárch thé prévíóús régíóñ fírstáéíóúüñ¿¡⟧
+expedition.map.depart.locked	잠김 · 이전 지역 먼저 수색	Locked · Search the previous region first	⟦Lóckéd · Séárch thé prévíóús régíóñ fírstáéíóúüñ¿¡ tést⟧
 expedition.map.cancel	캠프로 돌아가기	Return to Camp	⟦Rétúrñ tó Cámpáéí⟧
 expedition.region.beach.name	해변	Beach	⟦Béách⟧
 expedition.region.beach.summary	표류물이 밀려오는 넓은 모래 해안.	A broad sandy coast where useful debris washes ashore.	⟦Á bróád sáñdy cóást whéré úséfúl débrís wáshés áshóré.áéíóúüñ¿¡áéíóúüñ¿¡⟧
@@ -368,7 +368,7 @@ expedition.region.ruins_relay.weather	뇌우 · 강풍 · 비	Thunderstorms · S
 expedition.region.ruins_relay.equipment	밧줄·절연 장비 필수	Rope and insulation gear required	⟦Rópé áñd íñsúlátíóñ géár réqúírédáéíóúüñ¿¡⟧
 expedition.region.ruins_relay.special	? 회로기판·트랜지스터·중계 기록 가능성	? Possible circuit board, transistor, and relay log	⟦? Póssíblé círcúít bóárd, tráñsístór, áñd réláy lógáéíóúüñ¿¡áéíóúüñ¿¡⟧
 message.search.choose_region	지도·출구에서 오늘 갈 지역을 먼저 골라야 한다.	Choose today's region at the expedition map and exit first.	⟦Chóósé tódáy's régíóñ át thé éxpédítíóñ máp áñd éxít fírst.áéíóúüñ¿¡áéíóúüñ¿¡áéíóú⟧
-message.search.region_locked	이전 수집 지역에 먼저 들어가야 다음 길을 발견할 수 있다.	Enter the previous expedition region first to discover this route.	⟦Éñtér thé prévíóús éxpédítíóñ régíóñ fírst tó díscóvér thís róútéáéíóúüñ¿¡⟧
+message.search.region_locked	이전 수집 지역에 먼저 들어가야 다음 길을 발견할 수 있다.	Enter the previous expedition region first to discover this route.	⟦Éñtér thé prévíóús éxpédítíóñ régíóñ fírst tó díscóvér thís róútéáéíóúüñ¿¡ · éxpáñdédá⟧
 message.search.begin_region	{0}(으)로 출발한다. 정확한 수확량은 현장에서 확인하자.	Departing for {0}. Exact yields remain unknown until the search.	⟦Dépártíñg fór {0}. Éxáct yíélds rémáíñ úñkñówñ úñtíl thé séárch.áéíóúüñ¿¡áéíóúüñ¿¡áéíóúüñ⟧
 expedition.map.title_region	수집 지도 · DAY {0}/{1}\n{2}	Expedition Map · DAY {0}/{1}\n{2}	⟦Éxpédítíóñ Máp · DÁY {0}/{1}\n{2}áéíóúüñ¿¡⟧
 expedition.map.node.state	{0} {1}\n{2}	{0} {1}\n{2}	⟦{0} {1}\n{2}áéí⟧
@@ -376,10 +376,10 @@ expedition.map.rail.resources	예상 자원\n{0}	Expected resources\n{0}	⟦Éxp
 expedition.map.node.state_remaining	{0} {1}\n{2} · 자원 {3}%	{0} {1}\n{2} · Resources {3}%	⟦{0} {1}\n{2} · Résóúrcés {3}%áéíóúüñ¿¡⟧
 expedition.map.rail.resources_remaining	예상 자원\n{0}\n남은 자원 {1}% · {2}/{3}	Expected resources\n{0}\nRemaining {1}% · {2}/{3}	⟦Éxpéctéd résóúrcés\n{0}\nRémáíñíñg {1}% · {2}/{3}áéíóúüñ¿¡áéíóúüñ¿¡⟧
 expedition.map.rail.risk	! 위험 · 이동 시간 약 {1}분\n{0}	! Risk · travel time ~{1} min\n{0}	⟦! Rísk · trávél tímé ~{1} míñ\n{0}áéíóúüñ¿¡⟧
-expedition.map.rail.weather	~ 날씨\n{0}	~ Weather\n{0}	⟦~ Wéáthér\n{0}áéíóú⟧
-expedition.map.rail.equipment	△ 필요 장비\n{0}	△ Required gear\n{0}	⟦△ Réqúíréd géár\n{0}áéíóúüñ¿⟧
+expedition.map.rail.weather	~ 날씨\n{0}	~ Weather\n{0}	⟦~ Wéáthér\n{0}áéí⟧
+expedition.map.rail.equipment	△ 필요 장비\n{0}	△ Required gear\n{0}	⟦△ Réqúíréd géár\n{0}áéíóúüñ⟧
 expedition.map.rail.special	? 특별 발견\n{0}	? Special discovery\n{0}	⟦? Spécíál díscóvéry\n{0}áéíóúüñ¿¡⟧
-expedition.map.rail.locked_sequence	▦ 순차 해금\n현재 {0}/{1} 지역 개방\n직전 지역에 한 번 진입하면 열린다.	▦ Sequential unlock\n{0}/{1} regions currently open\nEnter the previous region once to unlock.	⟦▦ Séqúéñtíál úñlóck\n{0}/{1} régíóñs cúrréñtly ópéñ\nÉñtér thé prévíóús régíóñ óñcé tó úñlóckáéíóúüñ¿¡⟧
+expedition.map.rail.locked_sequence	▦ 순차 해금\n현재 {0}/{1} 지역 개방\n직전 지역에 한 번 진입하면 열린다.	▦ Sequential unlock\n{0}/{1} regions currently open\nEnter the previous region once to unlock.	⟦▦ Séqúéñtíál úñlóck\n{0}/{1} régíóñs cúrréñtly ópéñ\nÉñtér thé prévíóús régíóñ óñcé tó úñlóckáéíóúüñ¿¡ · éxpáñdéd lóçáléáéí⟧
 expedition.map.cancel.short	닫기	Close	⟦Çlósé⟧
 expedition.map.state.default	지역 확인	Region known	⟦Régíóñ kñówñáéíó⟧
 expedition.map.state.selected	선택됨	Selected	⟦Séléctédá⟧
@@ -393,7 +393,7 @@ hazard.disaster	자연재해 위험	Disaster hazard	⟦Dísástér házárdáé�
 hazard.food-theft	식량 도난 위험	Food-theft hazard	⟦Fóód-théft házárdáéíóú⟧
 escape.raft	뗏목 탈출	Raft escape	⟦Ráft éscápéáéí⟧
 camp.target.shore_launch	해안 진수대	Shore launch	⟦Shore launcháéí⟧
-camp.popup.detail.escape_raft	이 진수대에서 선체→돛→항해 식량을 차례로 완성한다. 3단계 뒤 같은 팝업에서 오늘 날씨·조류를 확인하고, 출항 가능이면 같은 버튼을 한 번 더 눌러 탈출한다.	Complete hull → sail → voyage food at this launch. After stage 3, check today's weather and current in this same popup; if launch is open, press the same action once more to escape.	⟦Cómplété húll → sáíl → vóyágé fóód át thís láúñch. Áftér stágé 3, chéck tódáy's wéáthér áñd cúrréñt íñ thís sámé pópúp; íf láúñch ís ópéñ, préss thé sámé áctíóñ óñcé móré tó éscápéáéíóúüñ¿¡⟧
+camp.popup.detail.escape_raft	이 진수대에서 선체→돛→항해 식량을 차례로 완성한다. 3단계 뒤 같은 팝업에서 오늘 날씨·조류를 확인하고, 출항 가능이면 같은 버튼을 한 번 더 눌러 탈출한다.	Complete hull → sail → voyage food at this launch. After stage 3, check today's weather and current in this same popup; if launch is open, press the same action once more to escape.	⟦Cómplété húll → sáíl → vóyágé fóód át thís láúñch. Áftér stágé 3, chéck tódáy's wéáthér áñd cúrréñt íñ thís sámé pópúp; íf láúñch ís ópéñ, préss thé sámé áctíóñ óñcé móré tó éscápéáéíóúüñ¿¡ · éxpáñdéd lóçálé vérífícátíóñ fór thé éñtíré flów⟧
 raft.stage.hull	선체	Hull	⟦Hull⟧
 raft.stage.sail	돛	Sail	⟦Sail⟧
 raft.stage.supplies	항해 보급	Voyage supplies	⟦Voyage suppliesáéíó⟧
@@ -405,7 +405,7 @@ escape.raft.cost.hull	나무 {0} / 표류물 {1}	Wood {0} / Salvage {1}	⟦Wood 
 escape.raft.cost.sail	나무 {0} / 표류물 {1} · 밧줄 {2} · 돛천 {3}	Wood {0} / Salvage {1} · Rope {2} · Sailcloth {3}	⟦Wood {0} / Salvage {1} · Rope {2} · Sailcloth {3}áéíóúüñ¿¡áéíóúüñ¿¡⟧
 escape.raft.cost.supplies	식량 {0}	Food {0}	⟦Food {0}áé⟧
 escape.raft.action.stage	{0} {1}/{2} · {3}	{0} {1}/{2} · {3}	⟦{0} {1}/{2} · {3}áéíóú⟧
-escape.raft.action.check_window	오늘 날씨·조류 확인 · 이 진수대에서 계속 · {0} / {1}	Check today's weather/current here · {0} / {1}	⟦Chéck tódáy's wéáthér/cúrréñt héré · {0} / {1}áéíóúüñ¿¡⟧
+escape.raft.action.check_window	오늘 날씨·조류 확인 · 이 진수대에서 계속 · {0} / {1}	Check today's weather/current here · {0} / {1}	⟦Chéck tódáy's wéáthér/cúrréñt héré · {0} / {1}áéíóúüñ¿¡ tést⟧
 escape.raft.action.confirm	출항 가능 · 다시 눌러 지금 탈출 · {0} / {1}	Launch ready · Press again to escape now · {0} / {1}	⟦Launch ready · Press again to escape now · {0} / {1}áéíóúüñ¿¡áéíóúü⟧
 escape.raft.action.retry	오늘 출항 불가 · 식량 소모 없음 · 다음 날 대기 · {0} / {1}	Launch closed today · No food spent · Wait for next day · {0} / {1}	⟦Launch closed today · No food spent · Wait for next day · {0} / {1}áéíóúüñ¿¡áéíóúüñ¿¡áé⟧
 escape.raft.action.complete	뗏목 탈출 완료	Raft escape complete	⟦Raft escape completeáéíóúü⟧
