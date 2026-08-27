@@ -42,9 +42,9 @@ namespace KimSurvival
 
         private const float LandMoveSpeed = 4.2f;
         private const float SwimMoveSpeed = 2.65f;
-        private const float MinimumX = -10.5f;
-        private const float LockedMaximumX = 8f;
-        private const float UnlockedMaximumX = 19f;
+        private const float MinimumX = PrototypeO7SearchBalance.PlayerMinimumX;
+        private const float LockedMaximumX = PrototypeO7SearchBalance.PlayerLockedMaximumX;
+        private const float UnlockedMaximumX = PrototypeO7SearchBalance.PlayerUnlockedMaximumX;
         private const float BarrierNoticeX = 7.75f;
         private const float JumpSpeed = 6.5f;
         private const float Gravity = 18f;

@@ -1983,6 +1983,7 @@ namespace KimSurvival
             expeditionMapPanel.SetActive(expeditionMapPopup);
             endingAlbumPanel.SetActive(endingAlbumPopup);
             campProximityPrompt.SetActive(camp && !campInteraction.IsPopupOpen && campInteraction.HasProximityPrompt);
+            RefreshO7CampPopupResultBanner();
             if (campInteraction.HasProximityPrompt)
             {
                 ApplyCampProximityPresentation(
@@ -2153,7 +2154,6 @@ namespace KimSurvival
             SetPopupActionVisible(workbenchButton, (target == PrototypeCampInteractionTargetKind.Workbench || planning) &&
                 PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
             SetPopupActionVisible(rainButton, (target == PrototypeCampInteractionTargetKind.RainCollector || planning) &&
-                campUse.CurrentRoomId == PrototypeCampModuleCatalog.StartRoomId &&
                 PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
             SetPopupActionVisible(bedButton, (target == PrototypeCampInteractionTargetKind.Bed || planning) &&
                 PrototypeCampInteractionCatalog.OwnsAction(target, PrototypeCampInteractionAction.BuildOrRelocate, built));
@@ -3043,22 +3043,6 @@ namespace KimSurvival
                         true,
                         EscapeProjectInteractionPriority));
                 }
-                IReadOnlyList<CampModuleDefinition> definitions = PrototypeCampModuleCatalog.All;
-                for (int i = 0; i < definitions.Count; i += 1)
-                {
-                    CampModuleDefinition definition = definitions[i];
-                    bool committedSlot = campModuleExpansion.IsCommitted(definition.Archetype);
-                    if (!committedSlot)
-                    {
-                        campInteractionTargets.Add(new PrototypeCampInteractionTarget(
-                            definition.StartSlotId,
-                            PrototypeCampInteractionTargetKind.ModuleExpansionSlot,
-                            new Vector2(definition.StartConnectorDisplayX, PrototypeCampUse.PlayerFloorY),
-                            true,
-                            ModuleInteractionPriority));
-                    }
-                }
-
                 if (!IsGameJamLiveEscapeProfile)
                 {
                     campInteractionTargets.Add(new PrototypeCampInteractionTarget(
@@ -3591,6 +3575,11 @@ namespace KimSurvival
 
         private bool BeginCampModulePreview()
         {
+            if (!IsO7ExpansionPreviewOriginAllowed())
+            {
+                return false;
+            }
+
             if (campUse.CurrentRoomId != PrototypeCampModuleCatalog.StartRoomId)
             {
                 if (campInteraction.OpenPopupKind != PrototypeCampInteractionTargetKind.ModuleExpansionSlot)
@@ -3620,7 +3609,7 @@ namespace KimSurvival
                           string.Equals(modulePreviewReturnTargetId, originTargetId, StringComparison.Ordinal);
             bool began = resume
                 ? campModuleExpansion.ResumePreview(snapshot)
-                : campModuleExpansion.BeginPreview(snapshot, initialArchetype);
+                : BeginO7CampModulePreviewFromVisiblePlanningPoint(snapshot, initialArchetype);
             if (began)
             {
                 modulePreviewReturnTargetKind = originKind;
@@ -4109,16 +4098,12 @@ namespace KimSurvival
             searchWorldContextLabels.Add(barrierLabel.transform.parent.gameObject);
 
             PrototypeSearchRegionDefinition searchRegion = PrototypeSearchRegionCatalog.Get(regionId);
-            int waterCount = searchRegion.Nodes.Count(node => node.RequiresSwimming);
-            int landCount = searchRegion.Nodes.Count - waterCount;
-            int waterIndex = 0;
-            int landIndex = 0;
+            Dictionary<string, float> o7NodePositions = PrototypeO7SearchBalance.BuildLayout(searchRegion)
+                .ToDictionary(entry => entry.NodeId, entry => entry.WorldX, StringComparer.Ordinal);
             for (int index = 0; index < searchRegion.Nodes.Count; index += 1)
             {
                 PrototypeSearchNodeDefinition definition = searchRegion.Nodes[index];
-                float position = definition.RequiresSwimming
-                    ? EvenlySpacedSearchNodeX(-9.6f, -4.75f, waterIndex++, waterCount)
-                    : EvenlySpacedSearchNodeX(-2.3f, 18f, landIndex++, landCount);
+                float position = o7NodePositions[definition.NodeId];
                 SpawnSearchNode(position, definition);
             }
             CreateKim(new Vector2(playerTraversal.X, playerTraversal.Y));
@@ -4212,7 +4197,7 @@ namespace KimSurvival
 
             playerPresentation.Apply(traversalStep.Presentation);
 
-            float targetCameraX = Mathf.Clamp(playerTraversal.X + 2.5f, -6.5f, 12.5f);
+            float targetCameraX = PrototypeO7SearchBalance.CameraTargetX(playerTraversal.X);
             Vector3 cameraPosition = worldCamera.transform.position;
             cameraPosition.x = Mathf.Lerp(cameraPosition.x, targetCameraX, deltaTime * 4f);
             worldCamera.transform.position = cameraPosition;
@@ -5478,7 +5463,7 @@ namespace KimSurvival
                  " target=" + target.X.ToString("0.00") + " actual=" + playerTraversal.X.ToString("0.00") +
                  " axe=" + session.HasAxe + " phase=" + session.Phase));
             Vector3 cameraPosition = worldCamera.transform.position;
-            cameraPosition.x = Mathf.Clamp(playerTraversal.X + 2.5f, -6.5f, 12.5f);
+            cameraPosition.x = PrototypeO7SearchBalance.CameraTargetX(playerTraversal.X);
             worldCamera.transform.position = cameraPosition;
             UpdateResourceLabelLayout();
         }
@@ -7002,7 +6987,7 @@ namespace KimSurvival
             session.TickSearch(1f, true);
             Require(waterDaylightBefore - session.Daylight > 0.9f && waterEnergyBefore - session.Energy > 0.5f, "수영의 추가 일광·체력 소모");
             playerPresentation.Apply(waterNodePresentation);
-            worldCamera.transform.position = new Vector3(Mathf.Clamp(playerTraversal.X + 2.5f, -6.5f, 12.5f), 0f, -10f);
+            worldCamera.transform.position = new Vector3(PrototypeO7SearchBalance.CameraTargetX(playerTraversal.X), 0f, -10f);
             UpdateResourceLabelLayout();
             RefreshHud();
 
@@ -7136,7 +7121,7 @@ namespace KimSurvival
             float energyBeforeMovement = session.Energy;
             session.TickSearch(1f, true);
             Require(session.Daylight < daylightBeforeMovement && session.Energy < energyBeforeMovement, "이동 중 일광·체력 소모");
-            worldCamera.transform.position = new Vector3(Mathf.Clamp(playerTraversal.X + 2.5f, -6.5f, 12.5f), 0f, -10f);
+            worldCamera.transform.position = new Vector3(PrototypeO7SearchBalance.CameraTargetX(playerTraversal.X), 0f, -10f);
             UpdateResourceLabelLayout();
             RefreshHud();
             Require(languageButton.GetComponentInChildren<TMP_Text>().text == localization.Format("ui.language.switch.en"), "수색 중 언어 설정 문구 유지");

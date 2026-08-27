@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "title": "김씨 생존기: 무인도",
+    "oneLinePitch": "무인도에서 직접 설비를 사용하고 수색지를 뒤져 여러 탈출 방법을 완성하는 코믹 2D 생존 게임",
+    "o7HumanCorrectionContract": {
+      "schemaVersion": 1,
+      "contractId": "gamejam.o7-human-usability-balance-correction.v1",
+      "rejectedCandidateCommit": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
+      "humanEvidence": "Docs/Design/Playtest/Sessions/O6-H1-2026-08-27.md",
+      "observedPlayDuration": "25:43",
+      "openP1Defects": 8,
+      "candidateStatus": "IMPLEMENTATION_REQUIRED"
+    }
+  },
+  "verticalSlice": {
+    "goal": "O6-H1에서 확인된 증축 입력, 수색 공간, 피드백, 가방, 다층 설비, 생존 온보딩, 나무 경제, 지역 자원 분포 문제를 모두 교정하고 25~35분 자연 탈출 경로를 다시 검증한다.",
+    "playerPromise": "플레이어는 표시된 대상에만 상호작용하고, 실패 이유와 회복법을 즉시 이해하며, 시야를 가리지 않는 가방과 자연스럽게 분산된 수색물로 탈출 자원을 계획한다.",
+    "inScope": [
+      "표시된 창고 증축 계획 지점에서만 위층·지하 출입 연결부 미리보기와 건설을 허용한다.",
+      "7개 수색 지역의 공간을 넓히고 84개 수색 노드 총량과 저장 상태를 유지한 채 대부분 간격을 벌리고 일부 군집만 남긴다.",
+      "팝업의 실패·성공 결과를 팝업을 닫지 않은 채 화면 중앙 약간 상단에 눈에 띄게 표시한다.",
+      "수색 가방을 지면 위 좌측 하단의 컴팩트 패널로 옮겨 오른쪽 수색 공간을 가리지 않는다.",
+      "침대·소파·빗물받이를 완성된 1층·2층·지하의 호환 설비 앵커에 설치하고 이동할 수 있게 한다.",
+      "체력·기력·일광의 의미와 실제 회복 방법을 한국어 기본·영어 지원 온보딩과 설비 상호작용으로 설명한다.",
+      "25~35분 탈출 경로에서 나무 부족으로 진행이 막히지 않도록 나무 공급과 비용을 조정한다.",
+      "지역별 전문성은 가중치로 유지하되 환경상 자연스러운 나무·표류물·돌을 여러 지역에 혼합하고 전자 부품은 개연성 있는 기술 지역에 둔다."
+    ],
+    "outOfScope": [
+      "새 탈출 방법 추가",
+      "새 비트맵·래스터 아트 생성",
+      "최종 50일 장기 밸런스 확정",
+      "수색 노드 총량 84개 변경",
+      "핵심 탈출 부품의 보호 배치 보장 삭제"
+    ],
+    "successCriteria": [
+      "O6-H1-P1-001: 빈 공간에는 위층·지하 연결부 프롬프트가 없고, 보이는 증축 계획 표식과 상호작용했을 때만 미리보기가 열린다.",
+      "O6-H1-P1-002: 7개 지역과 84개 노드, 노드별 잔여 자원·파괴·위험 저장이 유지되며 노드는 넓은 맵에 대부분 여유 있게 배치되고 일부 의도적 군집만 존재한다.",
+      "O6-H1-P1-003: 부족·불가·성공 이유가 팝업을 유지한 채 중앙 약간 상단의 고대비 결과 메시지로 표시되고 KO·EN·qps-ploc에서 잘리지 않는다.",
+      "O6-H1-P1-004: 가방은 1280x800과 1920x1080에서 좌측 하단 지면 위에 작게 보이며 캐릭터와 우측 끝 수색 공간을 가리지 않는다.",
+      "O6-H1-P1-005: 침대·소파·빗물받이는 완성된 1층·2층·지하 호환 앵커에서 설치·재배치되고 저장/복원 후 중복되거나 사라지지 않는다.",
+      "O6-H1-P1-006: 첫 캠프 안내와 상태 설명은 기력이 이동·수색에 쓰이고 휴식·식사로 회복됨, 체력이 부상·질병으로 감소하고 치료·안전한 휴식으로 회복됨, 일광은 수색 중 남은 시간이며 다음 날 초기화됨을 설명한다.",
+      "O6-H1-P1-007: 대표 결정적 시드의 25~35분 경로에서 생존 설비, 최소 1회 가방 업그레이드, 한 탈출 경로에 필요한 나무를 선택과 여유를 남긴 채 획득할 수 있다.",
+      "O6-H1-P1-008: 일반 수색 지역은 최소 3종의 환경상 자연스러운 일반 자원 풀을 가지며 난파선·폐중계소에도 나무 또는 표류물·돌이 섞이고 전자 부품은 개연성 있는 기술 지역에만 배치된다.",
+      "기존 세 탈출 경로, 7개 지역, 84개 노드, 수색 상태 저장, 가방 4→6→8→10, KO 기본·EN 지원 계약이 회귀하지 않는다.",
+      "Unity EditMode·PlayMode, O7 전용 수용 테스트, 1280x800·1920x1080 화면 검증, Windows 후보 빌드와 패키지 무결성 게이트가 모두 통과한다."
+    ],
+    "risks": [
+      "공간 확대가 카메라 경계와 이동 시간을 과도하게 늘릴 수 있다.",
+      "나무 공급 증가가 선택 압박을 제거할 수 있다.",
+      "다층 설비 이동이 저장 키 또는 기존 배치 상태와 충돌할 수 있다.",
+      "작은 가방이 아이템 이름과 수량 판독성을 떨어뜨릴 수 있다."
+    ]
+  },
+  "tasks": [
+    {
+      "id": "task.gamejam.o7-camp-expansion-feedback-furniture",
+      "lane": "implementation",
+      "title": "O7 캠프 증축 표식·팝업 피드백·다층 설비",
+      "description": "증축 연결부 입력을 보이는 계획 표식으로 제한하고 팝업 결과 피드백과 다층 가구·빗물받이 배치를 교정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.camp-module-expansion", "feature.camp-building", "feature.camp-object-interaction"],
+      "assetIds": ["object.camp-structures", "ui.camp-module-expansion"],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs", "Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6CampModal.cs", "Assets/Editor/ParallelQA"],
+      "acceptanceCriteria": [
+        "연결부 미리보기는 보이는 증축 계획 표식에서만 열린다.",
+        "팝업 실패·성공 메시지는 중앙 상단 고대비로 표시되고 팝업은 유지된다.",
+        "침대·소파·빗물받이를 완성된 세 층에서 설치·이동·저장복원할 수 있다."
+      ]
+    },
+    {
+      "id": "task.gamejam.o7-search-space-resource-economy",
+      "lane": "implementation",
+      "title": "O7 수색 공간·나무 경제·지역 자원 가중치",
+      "description": "84개 영속 수색 노드를 더 넓고 자연스럽게 배치하고 나무 경제와 지역별 가중 자원 풀을 재조정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.searchable-resource-nodes", "feature.region-persistence", "feature.expedition-map"],
+      "assetIds": ["object.searchable-resource-node-production-set", "ui.expedition-map"],
+      "paths": ["Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs", "Assets/_Project/Scripts/Runtime/GameSession.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6WorldPresentation.cs", "Assets/Editor/ParallelQA"],
+      "acceptanceCriteria": [
+        "7개 지역 84개 노드와 지속 상태를 유지하면서 지역 폭과 노드 간격을 개선한다.",
+        "나무 공급이 25~35분 탈출 경로를 막지 않는다.",
+        "지역 전문성은 가중치로 유지하고 개연성 있는 일반 자원을 여러 지역에 혼합한다."
+      ]
+    },
+    {
+      "id": "task.gamejam.o7-bag-survival-onboarding",
+      "lane": "implementation",
+      "title": "O7 컴팩트 가방·생존 상태 온보딩",
+      "description": "수색 가방을 좌측 하단에 컴팩트하게 배치하고 체력·기력·일광의 의미와 실제 회복 수단을 온보딩한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": ["feature.inventory-choice", "feature.inventory-capacity-upgrade", "feature.survival-pressure"],
+      "assetIds": ["ui.gamejam.interface-kit"],
+      "paths": ["Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6SearchBagObservation.cs", "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs", "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv", "Assets/Editor/ParallelQA"],
+      "acceptanceCriteria": [
+        "가방은 좌측 하단 컴팩트 패널로 표시되어 월드 시야를 가리지 않는다.",
+        "체력·기력·일광의 의미와 회복법이 첫 안내와 상태 도움말에서 명확하다.",
+        "실제 휴식·식사·치료 동작과 설명이 일치한다."
+      ]
+    },
+    {
+      "id": "task.gamejam.o7-integration-release",
+      "lane": "qa",
+      "title": "O7 통합·회귀·후보 빌드",
+      "description": "세 구현 작업을 통합하고 P1 8건과 기존 핵심 계약을 회귀 검증해 Windows O7 후보 패키지를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o7-camp-expansion-feedback-furniture",
+        "task.gamejam.o7-search-space-resource-economy",
+        "task.gamejam.o7-bag-survival-onboarding"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "paths": ["Assets/Editor/ParallelQA", "Artifacts/ParallelQA", "Docs/Design/Playtest", "Builds/Windows"],
+      "acceptanceCriteria": [
+        "P1 8건 각각에 자동 또는 관찰 가능한 검증 증거가 있다.",
+        "기존 세 탈출·7지역·84노드·저장·가방 업그레이드·KO/EN 계약이 통과한다.",
+        "정확한 소스 커밋으로 Windows O7 후보 패키지를 만들고 무결성을 검증한다."
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.gamejam.o7-visible-expansion-marker-only",
+      "title": "다층 연결부는 보이는 증축 계획 표식에서만 시작한다",
+      "status": "accepted",
+      "rationale": "표시되지 않은 공간의 우선순위가 설비 상호작용을 가로채지 않게 하고 플레이어 입력과 화면 표식을 일치시킨다."
+    },
+    {
+      "id": "decision.gamejam.o7-weighted-region-resources",
+      "title": "지역 전문성은 배타성이 아닌 가중치로 표현한다",
+      "status": "accepted",
+      "rationale": "지역 정체성을 유지하면서도 자연스러운 공통 자원의 부재로 탈출이 막히는 문제를 방지한다."
+    },
+    {
+      "id": "decision.gamejam.o7-daylight-is-time-budget",
+      "title": "일광은 회복 게이지가 아니라 당일 수색 시간 예산이다",
+      "status": "accepted",
+      "rationale": "회복 방법을 찾느라 혼란을 겪지 않도록 다음 날 초기화되는 시간 자원임을 UI와 도움말에서 명확히 한다."
+    },
+    {
+      "id": "decision.gamejam.o7-compact-left-bag",
+      "title": "수색 가방은 좌측 하단 컴팩트 패널을 표준으로 한다",
+      "status": "accepted",
+      "rationale": "가방 현황은 항상 보이되 우측 수색 공간과 상호작용 대상을 가리지 않게 한다."
+    }
+  ],
+  "openQuestions": []
+}

@@ -1,0 +1,89 @@
+{
+    "SchemaVersion": 1,
+    "ContractId": "gamejam.o7.search-space-economy.v1",
+    "UnityVersion": "6000.4.9f1",
+    "Passed": true,
+    "Checks": [
+        {
+            "Id": "O7-S01",
+            "Passed": true,
+            "Detail": "regions=7; nodes=84; layoutIds=84; preserved=28+14+42"
+        },
+        {
+            "Id": "O7-S02",
+            "Passed": true,
+            "Detail": "gaps=76; min=1.85; spacious=84.2%; clusters=12; spans=33.6,47.0,33.6,33.6,33.6,33.6,33.6"
+        },
+        {
+            "Id": "O7-S03",
+            "Passed": true,
+            "Detail": "poolSizes=region.coast.beach:4,region.sea.shallows:5,region.forest.grove:4,region.ridge.highland:6,region.cave.island:5,region.cove.wreck:7,region.ruins.relay:7; commonWreckRelay=True/True; electronics=region.cove.wreck,region.ruins.relay; weighted=True"
+        },
+        {
+            "Id": "O7-S04",
+            "Passed": true,
+            "Detail": "wood=84@5regions; budgets=escape.raft:10/20/spare10,escape.smoke:19/44/spare25,escape.radio:7/44/spare37"
+        },
+        {
+            "Id": "O7-S05",
+            "Passed": true,
+            "Detail": "remaining=432->431; nodes=84; regions=7; barrier=True; hazard=True; o6Migration=True"
+        },
+        {
+            "Id": "O7-S06",
+            "Passed": true,
+            "Detail": "runtime=True; seeds=15000501:parts5/routesTrue,170017:parts5/routesTrue,180018:parts5/routesTrue,220026:parts5/routesTrue,420042:parts5/routesTrue"
+        },
+        {
+            "Id": "O7-S07",
+            "Passed": true,
+            "Detail": "contract=gamejam.o7.search-space-economy.v1; shape=7r/84n; world=-16.0..33.0; gaps=min1.85,spacious84.2%,clusters12/76; pools=region.coast.beach:4,region.sea.shallows:5,region.forest.grove:4,region.ridge.highland:6,region.cave.island:5,region.cove.wreck:7,region.ruins.relay:7; wreckRelayCommon=True; electronicsRegions=region.cove.wreck,region.ruins.relay; stock=432,wood=84@5regions; budgets=escape.raft:10/20(+10),escape.smoke:19/44(+25),escape.radio:7/44(+37); protected=5"
+        }
+    ],
+    "WoodBudgets": [
+        {
+            "EscapeId": "escape.raft",
+            "StartingWood": 2,
+            "SearchWood": 18,
+            "SurvivalFacilityWood": 2,
+            "BagUpgradeWood": 2,
+            "EscapeRouteWood": 6,
+            "RequiredWood": 10,
+            "SpareWood": 10,
+            "SourceRegionIds": [
+                "region.coast.beach",
+                "region.sea.shallows"
+            ]
+        },
+        {
+            "EscapeId": "escape.smoke",
+            "StartingWood": 2,
+            "SearchWood": 42,
+            "SurvivalFacilityWood": 2,
+            "BagUpgradeWood": 2,
+            "EscapeRouteWood": 15,
+            "RequiredWood": 19,
+            "SpareWood": 25,
+            "SourceRegionIds": [
+                "region.forest.grove",
+                "region.ridge.highland",
+                "region.cave.island"
+            ]
+        },
+        {
+            "EscapeId": "escape.radio",
+            "StartingWood": 2,
+            "SearchWood": 42,
+            "SurvivalFacilityWood": 2,
+            "BagUpgradeWood": 2,
+            "EscapeRouteWood": 3,
+            "RequiredWood": 7,
+            "SpareWood": 37,
+            "SourceRegionIds": [
+                "region.cove.wreck",
+                "region.ruins.relay",
+                "region.ridge.highland"
+            ]
+        }
+    ]
+}

@@ -42,7 +42,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.908Z",
       "createdAt": "2026-08-22T08:24:41.805Z"
@@ -83,7 +83,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "중복 정산 없이 Day 50 흐름과 같은 날 조기 구조 우선순위 PASS.",
       "completedAt": "2026-08-23T15:55:25.412Z",
       "createdAt": "2026-08-22T08:24:41.917Z"
@@ -117,7 +117,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-22T08:24:42.034Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.034Z",
       "createdAt": "2026-08-22T08:24:42.034Z"
@@ -149,7 +149,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-22T08:24:42.155Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.154Z",
       "createdAt": "2026-08-22T08:24:42.155Z"
@@ -194,7 +194,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T15:11:08.748Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:42.262Z",
       "createdAt": "2026-08-22T08:24:42.263Z"
@@ -236,7 +236,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "선택 지역만 실제 수색 노드·보상 profile에 반영되고 기존 일광·귀환 회귀 PASS.",
       "completedAt": "2026-08-23T15:55:25.605Z",
       "createdAt": "2026-08-22T08:24:42.368Z"
@@ -280,7 +280,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T15:55:25.316Z",
       "note": "Day 1/50, Day 49 계속, Day 50 terminal, 조기 탈출 우선순위를 통합 검증.",
       "completedAt": "2026-08-23T15:55:25.315Z",
       "createdAt": "2026-08-22T08:24:42.913Z"
@@ -319,7 +319,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T11:33:30.447Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.446Z",
       "createdAt": "2026-08-22T08:24:43.778Z"
@@ -355,7 +355,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-22T08:24:43.031Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.031Z",
       "createdAt": "2026-08-22T08:24:43.031Z"
@@ -389,7 +389,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-22T08:24:43.893Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.893Z",
       "createdAt": "2026-08-22T08:24:43.893Z"
@@ -428,7 +428,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-22T08:24:43.138Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.138Z",
       "createdAt": "2026-08-22T08:24:43.138Z"
@@ -462,7 +462,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-22T08:24:44.007Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:44.006Z",
       "createdAt": "2026-08-22T08:24:44.007Z"
@@ -510,7 +510,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-22T10:15:38.551Z",
       "note": "",
       "completedAt": "2026-08-22T08:24:43.248Z",
       "createdAt": "2026-08-22T08:24:43.249Z"
@@ -557,7 +557,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "최종 일반 ko/en 배치 24/24와 제한적 자유 배치 회귀 PASS로 자동 계약을 완료했다. 물리 패드는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T08:24:44.124Z"
@@ -610,7 +610,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.161Z",
       "note": "Final candidate implements the live seven-region side-scrolling search-node loop.",
       "completedAt": "2026-08-26T05:18:07.161Z",
       "createdAt": "2026-08-22T08:24:43.353Z"
@@ -650,7 +650,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.269Z",
       "note": "Final candidate GSN 15/15 and Wave B runtime exploration contracts are GREEN.",
       "completedAt": "2026-08-26T05:18:07.268Z",
       "createdAt": "2026-08-22T08:24:44.230Z"
@@ -687,7 +687,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "",
       "completedAt": "2026-08-22T11:32:13.820Z",
       "createdAt": "2026-08-22T11:32:13.820Z"
@@ -732,7 +732,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T14:17:12.252Z",
       "note": "5일 전이와 동결 계약 회귀는 PASS다. grant·warp 없는 fresh Day 4~5 자연 경로와 완전 자원 장부가 없어 ready를 유지한다.",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "completedAt": "2026-08-23T14:17:12.251Z"
@@ -776,7 +776,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T03:32:10.566Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "",
       "completedAt": "2026-08-23T03:32:10.566Z"
@@ -815,7 +815,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "최종 1280×800 일반 ko/en placement 24/24 및 exploration/swimming 10/10 PASS 증거로 완료했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-22T13:15:00.000Z"
@@ -877,7 +877,7 @@
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:08.252Z",
       "createdAt": "2026-08-22T13:15:00.000Z",
       "note": "Historical automated evidence is preserved. Current GJC-17/GJC-23 use the 30-minute checklist, while GJC-12 and GJC-20 have dedicated tasks.",
       "completedAt": null
@@ -931,7 +931,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "Wave 12 P01-P03가 compact A 9-slice, 분리 glyph/TMP, far/near/popup, locale와 입력 의미를 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:35:59.187Z"
@@ -975,7 +975,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "최종 compact A와 직접 설비 상호작용 자동 계약을 통과했다. 물리 게임패드 실기는 dual-input 항목에 별도 유지한다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -1018,7 +1018,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T13:20:00.000Z",
       "note": "Wave 11 최종 slot edit/play가 이전 expected gap을 닫고 직접 슬롯 3/3, 보행로 3/3, 미리보기·취소·확정 원자성을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z",
       "createdAt": "2026-08-23T04:48:19.864Z"
@@ -1056,7 +1056,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.085Z",
       "createdAt": "2026-08-22T08:24:42.476Z"
@@ -1103,7 +1103,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.375Z",
       "note": "Hunger, health, return and recovery pressure are live in the final candidate.",
       "completedAt": "2026-08-26T05:18:07.374Z",
       "createdAt": "2026-08-22T08:24:43.457Z"
@@ -1142,7 +1142,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.481Z",
       "note": "Final candidate survival pressure and atomic recovery contracts are GREEN.",
       "completedAt": "2026-08-26T05:18:07.480Z",
       "createdAt": "2026-08-22T08:24:44.342Z"
@@ -1206,7 +1206,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.589Z",
       "note": "Raft, smoke and radio are distinct playable facility-bound escape paths in the final candidate.",
       "completedAt": "2026-08-26T05:18:07.589Z",
       "createdAt": "2026-08-22T08:24:43.558Z"
@@ -1253,7 +1253,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.698Z",
       "note": "Three natural no-grant escape traces, retry atomicity and ending exactly-once are GREEN.",
       "completedAt": "2026-08-26T05:18:07.698Z",
       "createdAt": "2026-08-22T08:24:44.452Z"
@@ -1281,7 +1281,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T15:55:25.503Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "지도 확정 전 출발 차단, 취소 시 상태·위치·방향 보존 PASS.",
       "completedAt": "2026-08-23T15:55:25.503Z"
@@ -1313,7 +1313,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.740Z"
@@ -1345,7 +1345,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Wave B at 2bdea61 proves the non-disease search-hazard lifecycle, persistence, localization and atomicity; Release and package gates are GREEN.",
       "completedAt": "2026-08-26T08:25:00.000Z"
@@ -1384,7 +1384,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T04:36:36.963Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "",
       "completedAt": "2026-08-26T04:36:36.962Z"
@@ -1415,7 +1415,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.406Z"
@@ -1456,7 +1456,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "",
       "completedAt": "2026-08-23T16:32:52.262Z"
@@ -1490,7 +1490,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.260Z"
     },
@@ -1529,7 +1529,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.805Z",
       "note": "The final candidate implements the exact seven-region finite 42-node seeded stock and protected-part distribution.",
       "completedAt": "2026-08-26T05:18:07.804Z"
     },
@@ -1564,7 +1564,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T05:18:07.906Z",
       "note": "Seed determinism, finite remainder, revisit persistence and protected-part placement are GREEN.",
       "completedAt": "2026-08-26T05:18:07.905Z"
     },
@@ -1606,7 +1606,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "note": "Wave B at 2bdea61 proves insect, dangerous-plant and disease production lifecycles with persistence and atomicity.",
       "completedAt": "2026-08-26T08:25:00.000Z"
     },
@@ -1641,7 +1641,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "note": "Wave B/C at 2bdea61 are GREEN for environmental hazards, disease, persistence, KO/EN/qps and regressions.",
       "completedAt": "2026-08-26T08:25:00.000Z"
     },
@@ -1681,7 +1681,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T15:55:25.108Z",
       "note": "통합 master GREEN: Day 50·지도·세 지역·seed·softlock·ko/en/qps-long·Windows 회귀 PASS.",
       "completedAt": "2026-08-23T15:55:25.108Z"
     },
@@ -1729,7 +1729,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-24T12:57:44.476Z",
       "note": "",
       "completedAt": "2026-08-24T12:57:44.476Z"
     },
@@ -1767,7 +1767,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-23T15:55:25.220Z",
       "note": "독립 RED-first 게이트를 통합 master에서 EXPECTED_GAPS=0 GREEN으로 전환.",
       "completedAt": "2026-08-23T15:55:25.219Z"
     },
@@ -1805,7 +1805,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T11:33:29.249Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:29.248Z",
       "createdAt": "2026-08-25T11:33:29.249Z"
@@ -1845,7 +1845,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T11:33:49.761Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:49.760Z",
       "createdAt": "2026-08-25T11:33:49.761Z"
@@ -1900,7 +1900,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T15:11:08.748Z",
       "note": "모듈 기능 자체는 완료 상태를 유지한다. Day 3 증축+구조 원장은 숙련자 조기 성공 증거이고, 첫 플레이어 Day 4~5 경로는 새 통합 QA 대상이다.",
       "completedAt": "2026-08-23T08:14:57.365Z"
     },
@@ -1950,7 +1950,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T04:35:59.187Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-26T15:11:08.748Z",
       "note": "Wave 11 slot 계약과 최종 5일 전체 회귀가 W2/D1, run당 1회, 실패 무변경, 연결·통로 보존을 증명했다.",
       "completedAt": "2026-08-23T13:20:00.000Z"
     },
@@ -1990,7 +1990,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "createdAt": "2026-08-23T14:16:09.804Z",
       "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
       "completedAt": "2026-08-25T11:33:30.641Z"
@@ -2026,7 +2026,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.596Z",
+      "updatedAt": "2026-08-25T13:36:42.419Z",
       "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
       "completedAt": "2026-08-25T11:33:49.922Z"
     },
@@ -2055,10 +2055,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN proved finite region snapshots, node remainders, broken barriers, permanent hazard removal and new-run seed reset contracts.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.feature.feature.region-persistence",
@@ -2089,10 +2088,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN proved finite node, barrier and permanent-hazard state across transition, revisit and snapshot restore.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.region-persistence",
@@ -2118,10 +2116,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "GSN-E03, GSN-P02, GSN-P03 and GSN-P06 passed on the integrated runtime.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.seven-region-catalog",
@@ -2162,10 +2159,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T08:20:00.000Z",
       "note": "Committed Wave B product gate passed exact 7/21/42/144, legacy 28 plus new 14 IDs, seed/revision determinism, new-game-only stock generation, and KO/EN/qps live surfaces.",
-      "completedAt": "2026-08-26T08:20:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T08:20:00.000Z"
     },
     {
       "id": "task.gamejam.persistent-region-runtime",
@@ -2194,10 +2190,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN proved finite node stock, stable visit state, barriers, protected parts and permanent hazard removal without revisit regeneration.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.smoke-radio-material-routes",
@@ -2241,10 +2236,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-25T22:43:17.158Z",
       "note": "Committed Wave C GREEN proves protected flint/radio parts, distinct regions, 3/5 pity, independent natural raft/smoke/radio interactions, atomic wait/retry and exactly-once ending/album records.",
-      "completedAt": "2026-08-25T22:43:17.158Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-25T22:43:17.158Z"
     },
     {
       "id": "task.gamejam.insect-plant-wildlife-disease",
@@ -2285,10 +2279,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
       "note": "Wave B at 2bdea61 proves jungle-fever, insect and dangerous-plant lifecycles; integrated Release and package gates are GREEN.",
-      "completedAt": "2026-08-26T08:25:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T08:25:00.000Z"
     },
     {
       "id": "task.gamejam.upper-basement-both",
@@ -2322,10 +2315,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-25T22:43:17.158Z",
       "note": "Committed Wave C GWC-P05 proves upper and basement commit, re-entry, composite-save restore and zero escape-resource delta in one run.",
-      "completedAt": "2026-08-25T22:43:17.158Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-25T22:43:17.158Z"
     },
     {
       "id": "task.gamejam.qa-thirty-minute-seven-region-slice",
@@ -2379,7 +2371,7 @@
       ],
       "blockedReason": "O1 human session failed GJC-17 and opened H-001 through H-005. Correct and freeze a new candidate before timing/cohort retest.",
       "status": "blocked",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T12:03:32.122Z",
       "note": "At 2bdea61 Wave B/C are overall GREEN, GSN is 15/15, Wave 19 is 22/22, Wave 20 is 16/16, Release is PASS and PKG-I01-I07 are PASS. Only the four human gates remain.",
       "completedAt": null,
       "createdAt": "2026-08-26T05:07:17.121Z"
@@ -2413,10 +2405,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Integrated GREEN passed deterministic contents, hidden/partial/depleted lifecycle, atomic bag transactions, one-time costs and protected-part routing.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.feature.feature.searchable-resource-nodes",
@@ -2454,10 +2445,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "Actual Scene traversal, compact loot tray, take/leave/swap/cancel, persistence, localization and dual-input contracts passed without grant, warp or skip.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.searchable-resource-nodes",
@@ -2486,10 +2476,9 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T05:30:00.000Z",
       "note": "All 15 search-node product checks passed with Wave 19 22/22 and Wave 20 16/16 regression locks.",
-      "completedAt": "2026-08-26T05:30:00.000Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "completedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.system.system.raft-escape",
@@ -2517,7 +2506,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-25T14:59:52.461Z",
       "note": "Wave 20 16/16 GREEN: atomic stages, failure retry, save/restore, terminal ending and album idempotency verified.",
       "completedAt": "2026-08-25T14:59:52.461Z",
       "createdAt": "2026-08-25T14:59:52.461Z"
@@ -2566,7 +2555,7 @@
       "note": "Protected sailcloth now routes from deterministic environmental search nodes into the 16/16 GREEN shore-launch route.",
       "completedAt": "2026-08-26T05:30:00.000Z",
       "createdAt": "2026-08-25T14:59:52.564Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.qa.feature.raft-escape",
@@ -2602,7 +2591,7 @@
       "note": "Integrated rerun passed Wave 20 16/16 plus protected sailcloth search-node acquisition and persistence contracts.",
       "completedAt": "2026-08-26T05:30:00.000Z",
       "createdAt": "2026-08-25T14:59:52.656Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T05:30:00.000Z"
     },
     {
       "id": "task.gamejam.o1-ui-resource-semantics",
@@ -2640,7 +2629,7 @@
       "note": "H-001, H-002 and H-005 are integrated: twelve canonical resource IDs now use matching KO/EN names and adopted icon families across search tray, bag and camp HUD; 1280x800 KO/EN/qps automated layout checks are GREEN. O2 human confirmation remains in the integration task.",
       "completedAt": "2026-08-26T13:03:34.480Z",
       "createdAt": "2026-08-26T12:03:31.713Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o1-camp-expansion-ux",
@@ -2675,7 +2664,7 @@
       "note": "H-003 implementation is integrated with explicit locked/available/in-progress/completed state, purpose, capacity, exact cost, shortage and prerequisite copy; KO/EN/qps module contracts are GREEN. O2 human confirmation remains in the integration task.",
       "completedAt": "2026-08-26T13:03:34.480Z",
       "createdAt": "2026-08-26T12:03:31.848Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o1-character-ground-animation",
@@ -2710,7 +2699,7 @@
       "note": "H-004 implementation is integrated with a foot anchor/collider, grounded idle breathing, 7 fps walk key poses and facing; existing swim is preserved. Automated grounding/animation checks and root visual review are GREEN; O2 human confirmation remains in the integration task.",
       "completedAt": "2026-08-26T13:03:34.480Z",
       "createdAt": "2026-08-26T12:03:31.990Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o1-corrective-integration-retest",
@@ -2748,8 +2737,7 @@
       "status": "in_progress",
       "note": "Candidate b3f980f is frozen. H-001 through H-005, compile, search-node, module, art connection, character, full survival, non-development Release and package integrity 7/7 are GREEN. O2 owner retest remains before submission readiness.",
       "completedAt": null,
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T13:03:34.480Z"
     },
     {
       "id": "task.gamejam.o2-bag-swap-visibility-p0",
@@ -2781,7 +2769,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.anchor-shelter-placement",
@@ -2815,7 +2803,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.anchor-shelter-roof-living-furniture",
@@ -2852,7 +2840,7 @@
       "blockedReason": "",
       "status": "done",
       "createdAt": "2026-08-26T14:27:19.203Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.o2-anchor-shelter-integration-retest",
@@ -2887,7 +2875,7 @@
       "blockedReason": "",
       "status": "review",
       "createdAt": "2026-08-26T14:27:19.204Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T14:30:22.468Z"
     },
     {
       "id": "task.gamejam.o4-stable-resource-ledger-p0",
@@ -2915,8 +2903,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T15:11:08.748Z"
     },
     {
       "id": "task.gamejam.o4-three-route-discoverability-p0",
@@ -2946,9 +2933,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-26T22:41:48.597Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o4-natural-resource-budget-p0",
@@ -2976,9 +2961,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-26T22:41:48.597Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o4-shore-launch-popup-p1",
@@ -3006,9 +2989,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-26T22:41:48.597Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o4-ladder-camera",
@@ -3037,8 +3018,7 @@
       "evidence": [],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
+      "updatedAt": "2026-08-26T15:11:08.748Z"
     },
     {
       "id": "task.gamejam.o4-integration-release",
@@ -3066,9 +3046,7 @@
       ],
       "evidence": [],
       "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-26T22:41:48.597Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
+      "status": "planned"
     },
     {
       "id": "task.gamejam.o5-triple-resource-budget-p0",
@@ -3096,7 +3074,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T17:25:51.833Z",
       "note": "일반 자원 432와 대표 seed 5개 세 경로 자원 가능성 GREEN",
       "completedAt": "2026-08-26T17:25:51.833Z",
       "createdAt": "2026-08-26T17:25:51.833Z"
@@ -3133,7 +3111,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T17:25:53.276Z",
       "note": "7개 지역 카드와 상세 rail 잔량 % GREEN",
       "completedAt": "2026-08-26T17:25:53.275Z",
       "createdAt": "2026-08-26T17:25:53.276Z"
@@ -3171,7 +3149,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T17:25:54.711Z",
       "note": "미건설 비노출, 건설 후 생성, 상시 경로 텍스트 제거 GREEN",
       "completedAt": "2026-08-26T17:25:54.711Z",
       "createdAt": "2026-08-26T17:25:54.711Z"
@@ -3207,7 +3185,7 @@
       ],
       "blockedReason": "",
       "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T17:25:56.177Z",
       "note": "초기 탈출 설비 제거로 밀집 완화 및 공통 아이콘 표식 Play Mode GREEN",
       "completedAt": "2026-08-26T17:25:56.176Z",
       "createdAt": "2026-08-26T17:25:56.177Z"
@@ -3243,821 +3221,10 @@
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
+      "updatedAt": "2026-08-26T17:25:59.076Z",
       "note": "커밋 553cbc5 Release/ZIP PASS. O5 30분 인간 자연 플레이 재검증 대기",
       "completedAt": null,
       "createdAt": "2026-08-26T17:25:59.075Z"
-    },
-    {
-      "id": "task.system.system.comedy-feedback",
-      "lane": "implementation",
-      "title": "상황형 코믹 피드백 구현",
-      "description": "자원 부족, 도구 반동, 환경 사고와 실패 결과에 짧은 연출·효과음 자리·김씨 독백을 규칙 기반으로 연결한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.crafting-research",
-        "feature.island-exploration",
-        "feature.survival-pressure",
-        "feature.escape-outcome"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "최소 3개 서로 다른 게임 상태에서 반복을 방해하지 않는 짧은 코믹 피드백이 발생하고 원래 결과가 명확히 전달된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.589Z",
-      "createdAt": "2026-08-22T08:24:42.590Z"
-    },
-    {
-      "id": "task.system.system.input-actions",
-      "lane": "implementation",
-      "title": "Unity 입력 액션 구현",
-      "description": "이동, 상호작용, 가방, 메뉴, 취소, 귀환을 장치 독립 액션으로 정의하고 키보드·마우스와 게임패드 바인딩을 제공한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.dual-input",
-        "feature.island-exploration",
-        "feature.camp-building"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "두 입력 방식이 같은 게임 로직을 호출하고 장치 전환 시 중복 입력이나 조작 불능이 발생하지 않는다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.697Z",
-      "createdAt": "2026-08-22T08:24:42.698Z"
-    },
-    {
-      "id": "task.system.system.responsive-ui",
-      "lane": "implementation",
-      "title": "PC·휴대형 UI 가독성 구현",
-      "description": "16:9와 16:10 화면에서 HUD 앵커, 텍스트 크기, 포커스, 입력 아이콘 전환을 관리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.dual-input"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "1920×1080과 1280×800에서 필수 정보가 잘리지 않고 게임패드 포커스와 현재 입력 안내가 보인다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:42.800Z",
-      "createdAt": "2026-08-22T08:24:42.801Z"
-    },
-    {
-      "id": "task.feature.feature.dual-input",
-      "lane": "implementation",
-      "title": "PC 이중 입력 구현",
-      "description": "키보드·마우스와 게임패드가 같은 게임 액션을 사용하고 현재 입력 장치에 맞는 안내를 표시한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.dual-input"
-      ],
-      "assetIds": [
-        "ui.survival-hud"
-      ],
-      "acceptanceCriteria": [
-        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
-        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
-        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "",
-      "completedAt": "2026-08-22T08:24:43.664Z",
-      "createdAt": "2026-08-22T08:24:43.665Z"
-    },
-    {
-      "id": "task.qa.feature.dual-input",
-      "lane": "qa",
-      "title": "PC 이중 입력 검증",
-      "description": "PC 이중 입력의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.dual-input"
-      ],
-      "featureIds": [
-        "feature.dual-input"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
-        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
-        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다.",
-        "실제 XInput 또는 Steam Input 호환 장치의 제품명·VID/PID·연결 방식을 기록하고 ko/en 전체 루프, 배치, 수영, 가방 교체와 언어 설정을 실기 입력만으로 완주한다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/input-code-path-audit.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt",
-        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json",
-        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
-        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
-        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
-        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
-      ],
-      "blockedReason": "GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.",
-      "status": "blocked",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Synthetic keyboard/gamepad semantic parity is GREEN at 2bdea61. Physical device evidence remains intentionally uninferred.",
-      "completedAt": null,
-      "createdAt": "2026-08-26T05:07:17.231Z"
-    },
-    {
-      "id": "task.system.system.swimming",
-      "lane": "implementation",
-      "title": "수영 이동과 수상 위험 구현",
-      "description": "물 영역 감지, 육상·수영 상태 전환, 수면 이동, 해안 복귀, 추가 체력·일광 비용과 수상 수색 지점을 처리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.swimming"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "수영 상태가 육상 이동·점프와 충돌하지 않고 진입과 이탈 때 플레이어 위치와 생존 상태를 보존한다.",
-        "수영 비용과 수상 보상이 동일한 규칙으로 재현되며 강제 귀환·실패 판정과 연결된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
-      "completedAt": "2026-08-22T09:25:36.301Z",
-      "createdAt": "2026-08-22T09:25:36.302Z"
-    },
-    {
-      "id": "task.feature.feature.swimming",
-      "lane": "implementation",
-      "title": "해안 수영과 수상 수색 구현",
-      "description": "김씨가 해안에서 수면으로 자연스럽게 진입해 헤엄치고, 육지보다 큰 체력·일광 비용을 감수해 수상 표류물과 암초 수색 지점에 접근한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.island-exploration",
-        "task.feature.feature.survival-pressure"
-      ],
-      "featureIds": [
-        "feature.swimming"
-      ],
-      "assetIds": [
-        "background.coast-forest",
-        "character.mr-kim",
-        "animation.mr-kim.swim",
-        "ui.survival-hud",
-        "effect.comedy-feedback"
-      ],
-      "acceptanceCriteria": [
-        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
-        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
-        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
-        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "README.md"
-      ],
-      "evidence": [
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
-      "completedAt": "2026-08-22T09:25:37.708Z",
-      "createdAt": "2026-08-22T09:25:37.709Z"
-    },
-    {
-      "id": "task.qa.feature.swimming",
-      "lane": "qa",
-      "title": "해안 수영과 수상 수색 검증",
-      "description": "해안 수영과 수상 수색의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.swimming"
-      ],
-      "featureIds": [
-        "feature.swimming"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
-        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
-        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
-        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
-      ],
-      "paths": [],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt",
-        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
-      "completedAt": "2026-08-22T09:25:39.001Z",
-      "createdAt": "2026-08-22T09:25:39.001Z"
-    },
-    {
-      "id": "task.system.system.localization",
-      "lane": "implementation",
-      "title": "Unity 국제화와 현지화 구현",
-      "description": "Unity Localization 기반의 안정적인 문자열 키, 한국어·영어 테이블, Smart String 변수, 현재 로케일, 설정 저장, 한국어 폴백과 로케일별 TextMeshPro 폰트 매핑을 관리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.localization"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "모든 플레이어 노출 문구가 문자열 키를 통해 조회되고 수량·날짜·버튼명은 문자열 연결이 아닌 형식 인수로 전달된다.",
-        "ko와 en 로케일 전환이 현재 화면에 즉시 반영되고 선택 값이 재실행 후 복원된다.",
-        "누락 키 또는 번역은 한국어로 폴백되고 개발 빌드에서 식별 가능한 로그를 남긴다.",
-        "로케일별 TextMeshPro 기본 폰트와 폴백 목록을 데이터로 교체할 수 있으며 지원 글리프 누락을 검출한다.",
-        "es, ja, zh-Hans, zh-Hant 같은 새 로케일 등록에 게임 플레이 코드 수정이 필요하지 않다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
-        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
-        "Assets/_Project/Scripts/Localization"
-      ],
-      "evidence": [
-        "Artifacts/Verification/editmode-checks.txt",
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "",
-      "completedAt": "2026-08-22T11:32:14.998Z",
-      "createdAt": "2026-08-22T11:32:14.998Z"
-    },
-    {
-      "id": "task.feature.feature.localization",
-      "lane": "implementation",
-      "title": "한국어·영어와 확장 가능한 국제화 구현",
-      "description": "한국어를 기본·원문 언어로, 영어를 첫 지원 언어로 제공하고 향후 로케일을 게임 로직 변경 없이 추가할 수 있게 한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.localization"
-      ],
-      "assetIds": [
-        "ui.survival-hud"
-      ],
-      "acceptanceCriteria": [
-        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
-        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
-        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
-        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
-        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
-        "Assets/_Project/Scripts/Localization"
-      ],
-      "evidence": [
-        "Artifacts/Verification/playmode-checks.txt",
-        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
-        "Artifacts/Verification/windows-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "",
-      "completedAt": "2026-08-22T11:32:16.130Z",
-      "createdAt": "2026-08-22T11:32:16.130Z"
-    },
-    {
-      "id": "task.qa.feature.localization",
-      "lane": "qa",
-      "title": "한국어·영어와 확장 가능한 국제화 검증",
-      "description": "한국어·영어와 확장 가능한 국제화의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.localization"
-      ],
-      "featureIds": [
-        "feature.localization"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
-        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
-        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
-        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
-        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다.",
-        "ko/en/qps-long의 canonical 138키와 named placeholder 집합이 일치하고 qps-long은 35~50% 팽창·글리프·1280×800 수용 기준을 통과한다.",
-        "플레이어용 세이브·로드를 추가하지 않고 ko에서 만든 QA 진행 snapshot을 en과 qps-long에서 복원해도 Day, 자원, 상태, 연구·설비·신호 단계가 변하지 않는다.",
-        "입력 프롬프트는 action placeholder로 장치에 따라 갱신되며 locale과 진행 상태를 바꾸지 않는다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/Design/vertical-slice-localization.md",
-        "Docs/QA/ko-en-localization-test-plan.md",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt",
-        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave3-visual-gate.txt",
-        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave12-play-contracts.json",
-        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave11-full-regression.txt",
-        "Artifacts/Verification/wave14-qps-global-layout-runtime-final/editmode-checks.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Wave 14 제품 레이아웃 수정으로 1280x800 ko/en 배치 24/24, 수색·수영 10/10, 실제 qps-long 10/10을 PASS했다. locale/device 전환의 target·진행 지문 불변과 Wave 13 로그 포함 표준 Edit/Play 회귀를 재검증했다. 물리 게임패드 실기는 별도 dual-input QA 항목에 UNVERIFIED로 유지한다.",
-      "completedAt": "2026-08-23T13:34:37.659Z",
-      "createdAt": "2026-08-23T13:34:37.660Z"
-    },
-    {
-      "id": "task.wave3.implementation.third-locale",
-      "lane": "implementation",
-      "title": "Wave 3 P2 제3 로케일·저장 독립성 구현",
-      "description": "비출하 qps-long을 데이터로 등록하고 canonical 138키, 장문 팽창, 확장 글리프, action 입력 프롬프트와 언어 비의존 QA 진행 snapshot 계약을 구현한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.localization"
-      ],
-      "featureIds": [
-        "feature.localization",
-        "feature.dual-input"
-      ],
-      "assetIds": [
-        "ui.survival-hud"
-      ],
-      "acceptanceCriteria": [
-        "ko/en/qps-long이 데이터 기반 목록에 등록되고 qps-long 추가에 게임 플레이·화면 분기 코드 변경이 필요하지 않다.",
-        "qps-long 138키는 en 대비 35~50% 확장되고 named placeholder·숫자·태그·action 토큰을 보존한다.",
-        "플레이어용 세이브·로드를 추가하지 않고 ko→en→qps-long→ko QA snapshot 왕복에서 Day, 자원, E/H/L, 연구·도구, 설비 좌표, 신호와 결과가 동일하다.",
-        "qps-long은 제품 언어 목록에서 숨고 es/ja/zh 글리프 probe에 tofu가 없다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/Design/vertical-slice-localization.md",
-        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
-        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
-        "Assets/_Project/Scripts/Localization",
-        "Assets/_Project/Scripts/Localization/Tables/Prototype Strings_qps-long.asset"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
-        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-module-play-contracts.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "createdAt": "2026-08-22T13:15:00.000Z",
-      "note": "Actual non-shipping qps-long locale passes data-driven module and layout checks while the player locale cycle remains ko/en.",
-      "completedAt": "2026-08-23T09:35:20.554Z"
-    },
-    {
-      "id": "task.system.system.bag-capacity-upgrade",
-      "lane": "implementation",
-      "title": "가방 용량 성장 구현",
-      "description": "현재 활성 가방 칸 수, 작업대 조건, 1회 비용 지불, 날짜 간 지속과 새 게임 초기화를 처리한다.",
-      "priority": "high",
-      "dependencies": [],
-      "featureIds": [
-        "feature.inventory-capacity-upgrade"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "가방의 물리 배열과 현재 활성 용량을 분리해 잠긴 슬롯이 업그레이드 전에 획득·선택·교체 대상이 되지 않는다.",
-        "업그레이드 성공은 원자적으로 비용을 한 번 차감하고 활성 용량을 6으로 바꾸며 날짜 전환 후에도 유지한다.",
-        "새 게임 초기화는 활성 용량, 잠금 상태와 대기 중 교체 선택을 기본 4칸 상태로 되돌린다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-edit-contracts.txt",
-        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-play-contracts.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "4→6칸 원자적 1회 확장, 날짜 유지, 새 게임 초기화 및 KO/EN 상태 계약 통과.",
-      "completedAt": "2026-08-23T03:05:27.413Z",
-      "createdAt": "2026-08-23T03:05:27.413Z"
-    },
-    {
-      "id": "task.feature.feature.inventory-capacity-upgrade",
-      "lane": "implementation",
-      "title": "가방 4→6칸 확장 구현",
-      "description": "작업대에서 자원을 투자해 한 게임에 한 번 가방을 4칸에서 6칸으로 확장하고, 구조 신호 투자와 다음 수색 효율 사이의 선택을 만든다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.inventory-choice",
-        "task.feature.feature.crafting-research"
-      ],
-      "featureIds": [
-        "feature.inventory-capacity-upgrade"
-      ],
-      "assetIds": [
-        "ui.survival-hud",
-        "ui.bag-capacity-upgrade"
-      ],
-      "acceptanceCriteria": [
-        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
-        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
-        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
-        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 5일 경로가 grant·좌표 warp 없이 Day 4~5 구조에 도달하며, 숙련자의 기존 Day 3 조기 구조 가능성도 보존된다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
-        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
-        "Docs/Design/wave7-bag-capacity-upgrade.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
-        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-layout-metrics.txt"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "가방 기능 자체는 완료 상태를 유지한다. 기존 자연 3일 구조 경로는 조기 성공 증거이며 Wave 12 통합 경로는 새 QA 대상이다.",
-      "completedAt": "2026-08-23T03:05:27.510Z",
-      "createdAt": "2026-08-23T03:05:27.511Z"
-    },
-    {
-      "id": "task.qa.feature.inventory-capacity-upgrade",
-      "lane": "qa",
-      "title": "가방 4→6칸 확장 검증",
-      "description": "가방 4→6칸 확장의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.feature.feature.inventory-capacity-upgrade"
-      ],
-      "featureIds": [
-        "feature.inventory-capacity-upgrade"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
-        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
-        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
-        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
-        "가방 확장을 선택한 자연스러운 5일 경로가 grant·좌표 warp 없이 Day 4~5 구조에 도달하며, 숙련자의 기존 Day 3 조기 구조 가능성도 보존된다."
-      ],
-      "paths": [
-        "Assets/Editor/ParallelQA/Invoke-Wave7BagCapacityRegression.ps1",
-        "Assets/Editor/ParallelQA/Wave7BagCapacityRegressionRunner.cs",
-        "Docs/QA/wave7-bag-capacity-regression.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
-        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/windows-hidden-smoke.txt",
-        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt",
-        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
-        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
-        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
-        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
-        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md"
-      ],
-      "blockedReason": "O1 found the upgrade mandatory and material identity unreadable. Fix H-002 and rebalance/retest GJC-12 on a new candidate.",
-      "status": "blocked",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "The 4-to-6 function, atomicity and persistence contracts are GREEN at 2bdea61. Only human feel and choice-pressure evidence remains.",
-      "completedAt": null,
-      "createdAt": "2026-08-23T03:05:27.603Z"
-    },
-    {
-      "id": "task.qa.wave15-hazard-ending-redfirst",
-      "lane": "qa",
-      "title": "Wave 15 위험·탈출·엔딩 red-first 게이트",
-      "description": "위험 인과와 원자성, 다섯 탈출 ID, 조기 탈출·Day 50 우선순위, 행동 score·tie-breaker·sample ending과 Wave 16 SAMPLE_ONLY 페이싱·softlock·개발 로그 개인정보 부재를 검증한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.design.wave15-escape-hazard-ending-matrix",
-        "task.design.wave16-fifty-day-pacing"
-      ],
-      "featureIds": [
-        "feature.survival-hazards",
-        "feature.escape-outcome",
-        "feature.behavioral-endings",
-        "feature.expedition-map",
-        "feature.resource-randomization"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "예고 없는 즉사·중복 피해·중복 자원 차감이 없다.",
-        "escape와 ending ID가 안정적이고 같은 snapshot에서 결정론적이다.",
-        "Steam 연동과 물리 게임패드는 별도 미검증 게이트로 유지한다.",
-        "Day 1/11/21/36/50 경계, Day 49 계속, Day 50 terminal과 조기 탈출 우선순위를 fixture로 검증한다.",
-        "7개 지역 primary·alternative 해금과 같은 seed의 전망·pity·위험 재현성을 검증한다.",
-        "rolling 5일 평온일, major 다음 회복 예약, 도난/파손 단일 차감과 Day 50 surprise major 금지를 검증한다.",
-        "seed 생성·확장 해금·Day 35·49마다 최소 3개 탈출 경로가 완성 가능하고 pity 3 hint/5 guarantee가 정확하다.",
-        "연기·무전은 별도 30분 playable fixture, raft·flare·beacon은 data-only로 보고해 증거 수준을 섞지 않는다.",
-        "마지막 2점 행동 하나가 established identity를 바꾸지 않고 같은 terminal snapshot은 같은 ending ID를 낸다.",
-        "Steam 연동, 물리 게임패드, 실제 장기 사용자 run과 최종 밸런스는 별도 미검증으로 유지한다."
-      ],
-      "paths": [
-        ".forge/design/project.json",
-        ".forge/design/vertical-slice.json",
-        "Docs/Design/wave16-fifty-day-pacing.md"
-      ],
-      "evidence": [
-        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
-      "completedAt": "2026-08-25T11:33:30.810Z"
-    },
-    {
-      "id": "task.gamejam.long-stay-two-endings",
-      "lane": "implementation",
-      "title": "게임잼 장기 체류 엔딩 2종",
-      "description": "PROVISIONAL Day 20 미탈출 상태에서 생존·채집 우세의 자연인 김씨와 건설·기계 우세의 무인도 건물주 김씨 중 하나를 누적 행동으로 결정한다.",
-      "priority": "high",
-      "dependencies": [
-        "task.gamejam.upper-basement-both",
-        "task.gamejam.insect-plant-wildlife-disease"
-      ],
-      "featureIds": [
-        "feature.behavioral-endings",
-        "feature.escape-outcome"
-      ],
-      "assetIds": [
-        "ui.ending-comic",
-        "ui.ending-gallery"
-      ],
-      "acceptanceCriteria": [
-        "같은 snapshot은 두 장기 체류 ending ID 중 정확히 하나와 사람이 읽을 수 있는 판정 근거를 낸다.",
-        "조기 탈출 완료는 같은 정산의 장기 체류 판정보다 우선한다.",
-        "Day 20 값은 데이터로 조정 가능하고 Day 15~20 플레이테스트에서 한 축만 변경한다."
-      ],
-      "paths": [
-        "Assets/_Project/Scripts/Runtime/GameSession.cs",
-        "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
-      ],
-      "evidence": [
-        "Docs/Design/kim-survival-island-gdd.md#17-게임잼-범위",
-        "Docs/Design/gamejam-completion-matrix.md#2-제출-완료-매트릭스",
-        "Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Catalog 21, two stable Day 20 endings, early-escape priority, deterministic terminal and album exactly-once, KO/EN/qps comic layout, standard Day 50 preservation and no-cheat observation passed 15/15.",
-      "completedAt": "2026-08-25T23:11:52.230Z",
-      "createdAt": "2026-08-26T22:41:48.597Z"
-    },
-    {
-      "id": "task.system.system.ending-gallery",
-      "lane": "implementation",
-      "title": "엔딩 해금과 갤러리 구현",
-      "description": "안정 ending ID, 해금 여부, 힌트와 코믹북 패널 키를 관리하고 향후 Steam achievement mapping을 위한 외부 키를 분리한다.",
-      "priority": "medium",
-      "dependencies": [],
-      "featureIds": [
-        "feature.ending-gallery",
-        "feature.behavioral-endings",
-        "feature.localization"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "게임 내 해금은 Steam 연결 없이 동작하며 외부 업적 키 부재가 플레이를 막지 않는다.",
-        "게임 내 해금·힌트·modifier panel은 Steam 연결 없이 동작하며 achievementMappingId는 future-only이고 외부 업적 키 부재가 플레이를 막지 않는다."
-      ],
-      "paths": [],
-      "evidence": [
-        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "createdAt": "2026-08-23T14:16:09.804Z",
-      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
-      "completedAt": "2026-08-25T11:33:50.254Z"
-    },
-    {
-      "id": "task.feature.feature.ending-gallery",
-      "lane": "implementation",
-      "title": "김씨의 생존 앨범 구현",
-      "description": "발견한 엔딩의 코믹북 컷신을 다시 보고 미발견 엔딩은 실루엣과 비스포일러 힌트로 보여주는 게임 내 갤러리다.",
-      "priority": "medium",
-      "dependencies": [
-        "task.feature.feature.behavioral-endings",
-        "task.feature.feature.localization"
-      ],
-      "featureIds": [
-        "feature.ending-gallery"
-      ],
-      "assetIds": [
-        "ui.ending-comic",
-        "ui.ending-gallery"
-      ],
-      "acceptanceCriteria": [
-        "해금된 ending ID와 최초 해금 시점이 저장 가능한 데이터로 분리된다.",
-        "미해금 희귀 엔딩은 결말을 직접 노출하지 않는 힌트를 사용한다.",
-        "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
-      ],
-      "paths": [],
-      "evidence": [
-        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
-      "completedAt": "2026-08-25T11:33:50.085Z"
-    },
-    {
-      "id": "task.qa.feature.ending-gallery",
-      "lane": "qa",
-      "title": "김씨의 생존 앨범 검증",
-      "description": "김씨의 생존 앨범의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "medium",
-      "dependencies": [
-        "task.feature.feature.ending-gallery"
-      ],
-      "featureIds": [
-        "feature.ending-gallery"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "해금된 ending ID와 최초 해금 시점이 저장 가능한 데이터로 분리된다.",
-        "미해금 희귀 엔딩은 결말을 직접 노출하지 않는 힌트를 사용한다.",
-        "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
-      ],
-      "paths": [],
-      "evidence": [
-        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
-      ],
-      "blockedReason": "",
-      "status": "done",
-      "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "note": "Integrated Wave 19 album near/popup/open, ko/en/qps-long, persistence and dual input contracts passed.",
-      "completedAt": "2026-08-25T11:33:58.583Z"
-    },
-    {
-      "id": "task.postslice.steam-release-readiness",
-      "lane": "implementation",
-      "title": "수직 슬라이스 이후 Steam 출하 준비",
-      "description": "별도 승인 뒤 Steamworks, App ID, Depot, Steam Input, Cloud·업적, 공식 영문 제목, 스토어와 업로드를 release 범위로 개설한다.",
-      "priority": "low",
-      "dependencies": [
-        "task.wave3.qa.integrated-three-day"
-      ],
-      "featureIds": [],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "사용자가 공식 영문 제목, App ID와 배포 권한 범위를 별도로 승인한다.",
-        "Windows x64 release build, depot, Steam Input, store/upload와 선택한 Cloud·업적 범위를 별도 체크리스트로 검증한다.",
-        "Wave 3 수직 슬라이스 완료로 Steam 출하 준비를 완료 처리하지 않는다."
-      ],
-      "paths": [
-        "Docs/Design/wave3-implementation-acceptance.md",
-        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
-      ],
-      "evidence": [
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt",
-        "Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt"
-      ],
-      "blockedReason": "",
-      "status": "planned",
-      "updatedAt": "2026-08-26T22:41:48.597Z",
-      "createdAt": "2026-08-22T13:15:00.000Z",
-      "note": "Post-slice Steam release work is intentionally excluded from the GAME JAM submission gate.",
-      "completedAt": null
-    },
-    {
-      "id": "task.feature.feature.custom-run-settings",
-      "lane": "implementation",
-      "title": "사용자 설정 생존 플레이 구현",
-      "description": "표준 캠페인 완성 뒤 데드라인, 자원 희귀도, 허기·체력 소모, 위험 빈도와 강도를 별도 run profile로 조절한다.",
-      "priority": "low",
-      "dependencies": [
-        "task.feature.feature.phase-cycle",
-        "task.feature.feature.resource-randomization",
-        "task.feature.feature.survival-hazards"
-      ],
-      "featureIds": [
-        "feature.custom-run-settings"
-      ],
-      "assetIds": [
-        "ui.survival-hud"
-      ],
-      "acceptanceCriteria": [
-        "표준 Day 50 profile과 custom profile이 저장·표시에서 구분된다.",
-        "custom 변경은 표준 밸런스 데이터 자체를 덮어쓰지 않는다.",
-        "업적 인정 정책은 Steam 연동 전까지 미결로 표시한다."
-      ],
-      "paths": [],
-      "evidence": [],
-      "blockedReason": "",
-      "status": "ready",
-      "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
-    },
-    {
-      "id": "task.qa.feature.custom-run-settings",
-      "lane": "qa",
-      "title": "사용자 설정 생존 플레이 검증",
-      "description": "사용자 설정 생존 플레이의 수용 조건을 실행 환경에서 검증한다.",
-      "priority": "low",
-      "dependencies": [
-        "task.feature.feature.custom-run-settings"
-      ],
-      "featureIds": [
-        "feature.custom-run-settings"
-      ],
-      "assetIds": [],
-      "acceptanceCriteria": [
-        "표준 Day 50 profile과 custom profile이 저장·표시에서 구분된다.",
-        "custom 변경은 표준 밸런스 데이터 자체를 덮어쓰지 않는다.",
-        "업적 인정 정책은 Steam 연동 전까지 미결로 표시한다."
-      ],
-      "paths": [],
-      "evidence": [],
-      "blockedReason": "",
-      "status": "planned",
-      "createdAt": "2026-08-23T14:16:09.804Z",
-      "updatedAt": "2026-08-26T22:41:48.597Z"
     },
     {
       "id": "task.gamejam.o6-camp-modal-furniture",
@@ -4203,7 +3370,963 @@
       "updatedAt": "2026-08-27T11:48:18.283Z",
       "note": "O6-H1 25:43 소유자 테스트에서 P1 8건 확인. O7 교정과 동일 후보 기준 재검증 필요.",
       "completedAt": null
+    },
+    {
+      "id": "task.gamejam.o7-camp-expansion-feedback-furniture",
+      "lane": "implementation",
+      "title": "O7 캠프 증축 표식·팝업 피드백·다층 설비",
+      "description": "증축 연결부 입력을 보이는 계획 표식으로 제한하고 팝업 결과 피드백과 다층 가구·빗물받이 배치를 교정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-module-expansion",
+        "feature.camp-building",
+        "feature.camp-object-interaction"
+      ],
+      "assetIds": [
+        "object.camp-structures",
+        "ui.camp-module-expansion"
+      ],
+      "acceptanceCriteria": [
+        "연결부 미리보기는 보이는 증축 계획 표식에서만 열린다.",
+        "팝업 실패·성공 메시지는 중앙 상단 고대비로 표시되고 팝업은 유지된다.",
+        "침대·소파·빗물받이를 완성된 세 층에서 설치·이동·저장복원할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6CampModal.cs",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/camp/o7-camp-correction-edit.txt",
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/camp/o7-camp-correction-play.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T13:33:05.351Z",
+      "note": "Visible planning point only, persistent central result feedback, and 3-floor bed/sofa/rain placement passed O7 Edit and Play gates.",
+      "completedAt": "2026-08-27T13:33:05.350Z",
+      "createdAt": "2026-08-27T13:33:05.351Z"
+    },
+    {
+      "id": "task.gamejam.o7-search-space-resource-economy",
+      "lane": "implementation",
+      "title": "O7 수색 공간·나무 경제·지역 자원 가중치",
+      "description": "84개 영속 수색 노드를 더 넓고 자연스럽게 배치하고 나무 경제와 지역별 가중 자원 풀을 재조정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.expedition-map"
+      ],
+      "assetIds": [
+        "object.searchable-resource-node-production-set",
+        "ui.expedition-map"
+      ],
+      "acceptanceCriteria": [
+        "7개 지역 84개 노드와 지속 상태를 유지하면서 지역 폭과 노드 간격을 개선한다.",
+        "나무 공급이 25~35분 탈출 경로를 막지 않는다.",
+        "지역 전문성은 가중치로 유지하고 개연성 있는 일반 자원을 여러 지역에 혼합한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6WorldPresentation.cs",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/search/o7-search-space-economy-report.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T13:33:05.480Z",
+      "note": "7 regions, 84 stable nodes, expanded spacing, O6 migration, 84 wood across 5 regions, weighted plausible pools, and three-route budget passed.",
+      "completedAt": "2026-08-27T13:33:05.479Z",
+      "createdAt": "2026-08-27T13:33:05.480Z"
+    },
+    {
+      "id": "task.gamejam.o7-bag-survival-onboarding",
+      "lane": "implementation",
+      "title": "O7 컴팩트 가방·생존 상태 온보딩",
+      "description": "수색 가방을 좌측 하단에 컴팩트하게 배치하고 체력·기력·일광의 의미와 실제 회복 수단을 온보딩한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-choice",
+        "feature.inventory-capacity-upgrade",
+        "feature.survival-pressure"
+      ],
+      "assetIds": [
+        "ui.gamejam.interface-kit"
+      ],
+      "acceptanceCriteria": [
+        "가방은 좌측 하단 컴팩트 패널로 표시되어 월드 시야를 가리지 않는다.",
+        "체력·기력·일광의 의미와 회복법이 첫 안내와 상태 도움말에서 명확하다.",
+        "실제 휴식·식사·치료 동작과 설명이 일치한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6SearchBagObservation.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/bag-survival/o7-bag-survival-edit.txt",
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/bag-survival/o7-bag-survival-play.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T13:33:05.622Z",
+      "note": "Compact bottom-left 10-slot bag, first-camp guidance, and actual energy/health/daylight recovery contracts passed.",
+      "completedAt": "2026-08-27T13:33:05.621Z",
+      "createdAt": "2026-08-27T13:33:05.622Z"
+    },
+    {
+      "id": "task.gamejam.o7-integration-release",
+      "lane": "qa",
+      "title": "O7 통합·회귀·후보 빌드",
+      "description": "세 구현 작업을 통합하고 P1 8건과 기존 핵심 계약을 회귀 검증해 Windows O7 후보 패키지를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o7-camp-expansion-feedback-furniture",
+        "task.gamejam.o7-search-space-resource-economy",
+        "task.gamejam.o7-bag-survival-onboarding"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "P1 8건 각각에 자동 또는 관찰 가능한 검증 증거가 있다.",
+        "기존 세 탈출·7지역·84노드·저장·가방 업그레이드·KO/EN 계약이 통과한다.",
+        "정확한 소스 커밋으로 Windows O7 후보 패키지를 만들고 무결성을 검증한다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA",
+        "Docs/Design/Playtest",
+        "Builds/Windows"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/compile-result.txt"
+      ],
+      "blockedReason": "",
+      "status": "in_progress",
+      "updatedAt": "2026-08-27T13:33:05.741Z",
+      "note": "Integrated O7 and legacy escape/resource regressions are green; exact-source Windows Release and package integrity remain.",
+      "completedAt": null,
+      "createdAt": "2026-08-27T13:33:05.740Z"
+    },
+    {
+      "id": "task.system.system.comedy-feedback",
+      "lane": "implementation",
+      "title": "상황형 코믹 피드백 구현",
+      "description": "자원 부족, 도구 반동, 환경 사고와 실패 결과에 짧은 연출·효과음 자리·김씨 독백을 규칙 기반으로 연결한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.crafting-research",
+        "feature.island-exploration",
+        "feature.survival-pressure",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "최소 3개 서로 다른 게임 상태에서 반복을 방해하지 않는 짧은 코믹 피드백이 발생하고 원래 결과가 명확히 전달된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:42.590Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:42.589Z",
+      "createdAt": "2026-08-22T08:24:42.590Z"
+    },
+    {
+      "id": "task.system.system.input-actions",
+      "lane": "implementation",
+      "title": "Unity 입력 액션 구현",
+      "description": "이동, 상호작용, 가방, 메뉴, 취소, 귀환을 장치 독립 액션으로 정의하고 키보드·마우스와 게임패드 바인딩을 제공한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.dual-input",
+        "feature.island-exploration",
+        "feature.camp-building"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "두 입력 방식이 같은 게임 로직을 호출하고 장치 전환 시 중복 입력이나 조작 불능이 발생하지 않는다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:42.698Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:42.697Z",
+      "createdAt": "2026-08-22T08:24:42.698Z"
+    },
+    {
+      "id": "task.system.system.responsive-ui",
+      "lane": "implementation",
+      "title": "PC·휴대형 UI 가독성 구현",
+      "description": "16:9와 16:10 화면에서 HUD 앵커, 텍스트 크기, 포커스, 입력 아이콘 전환을 관리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "1920×1080과 1280×800에서 필수 정보가 잘리지 않고 게임패드 포커스와 현재 입력 안내가 보인다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:42.801Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:42.800Z",
+      "createdAt": "2026-08-22T08:24:42.801Z"
+    },
+    {
+      "id": "task.feature.feature.dual-input",
+      "lane": "implementation",
+      "title": "PC 이중 입력 구현",
+      "description": "키보드·마우스와 게임패드가 같은 게임 액션을 사용하고 현재 입력 장치에 맞는 안내를 표시한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.dual-input"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
+        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
+        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scenes/KimSurvivalPrototype.unity"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T08:24:43.665Z",
+      "note": "",
+      "completedAt": "2026-08-22T08:24:43.664Z",
+      "createdAt": "2026-08-22T08:24:43.665Z"
+    },
+    {
+      "id": "task.qa.feature.dual-input",
+      "lane": "qa",
+      "title": "PC 이중 입력 검증",
+      "description": "PC 이중 입력의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.dual-input"
+      ],
+      "featureIds": [
+        "feature.dual-input"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "키보드·마우스와 게임패드 각각으로 새 게임부터 결말까지 핵심 행동을 수행할 수 있다.",
+        "현재 사용 중인 입력 방식에 맞춰 버튼 안내가 자동 전환된다.",
+        "게임패드만으로 모든 프로토타입 메뉴와 선택 창을 조작할 수 있다.",
+        "실제 XInput 또는 Steam Input 호환 장치의 제품명·VID/PID·연결 방식을 기록하고 ko/en 전체 루프, 배치, 수영, 가방 교체와 언어 설정을 실기 입력만으로 완주한다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/input-code-path-audit.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-full-loop.txt",
+        "Artifacts/Verification/kim-survival-placement-en-valid-gamepad-1280x800.png",
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
+        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
+        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
+        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md"
+      ],
+      "blockedReason": "GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.",
+      "status": "blocked",
+      "updatedAt": "2026-08-26T08:25:00.000Z",
+      "note": "Synthetic keyboard/gamepad semantic parity is GREEN at 2bdea61. Physical device evidence remains intentionally uninferred.",
+      "completedAt": null,
+      "createdAt": "2026-08-26T05:07:17.231Z"
+    },
+    {
+      "id": "task.system.system.swimming",
+      "lane": "implementation",
+      "title": "수영 이동과 수상 위험 구현",
+      "description": "물 영역 감지, 육상·수영 상태 전환, 수면 이동, 해안 복귀, 추가 체력·일광 비용과 수상 수색 지점을 처리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "수영 상태가 육상 이동·점프와 충돌하지 않고 진입과 이탈 때 플레이어 위치와 생존 상태를 보존한다.",
+        "수영 비용과 수상 보상이 동일한 규칙으로 재현되며 강제 귀환·실패 판정과 연결된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:36.302Z",
+      "note": "Implemented deterministic shore transitions, swim movement, extra energy/daylight costs, water-only gathering, forced state cleanup, and placeholder swim presentation.",
+      "completedAt": "2026-08-22T09:25:36.301Z",
+      "createdAt": "2026-08-22T09:25:36.302Z"
+    },
+    {
+      "id": "task.feature.feature.swimming",
+      "lane": "implementation",
+      "title": "해안 수영과 수상 수색 구현",
+      "description": "김씨가 해안에서 수면으로 자연스럽게 진입해 헤엄치고, 육지보다 큰 체력·일광 비용을 감수해 수상 표류물과 암초 수색 지점에 접근한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.island-exploration",
+        "task.feature.feature.survival-pressure"
+      ],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [
+        "background.coast-forest",
+        "character.mr-kim",
+        "animation.mr-kim.swim",
+        "ui.survival-hud",
+        "effect.comedy-feedback"
+      ],
+      "acceptanceCriteria": [
+        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
+        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
+        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
+        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "README.md"
+      ],
+      "evidence": [
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:37.709Z",
+      "note": "Playable shallow-water route now includes two water search nodes and seamless land/swim/land traversal using placeholder visuals.",
+      "completedAt": "2026-08-22T09:25:37.708Z",
+      "createdAt": "2026-08-22T09:25:37.709Z"
+    },
+    {
+      "id": "task.qa.feature.swimming",
+      "lane": "qa",
+      "title": "해안 수영과 수상 수색 검증",
+      "description": "해안 수영과 수상 수색의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.swimming"
+      ],
+      "featureIds": [
+        "feature.swimming"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "해안 경계에서 별도 로딩 없이 육상과 수영 상태가 안정적으로 전환된다.",
+        "수영 중 좌우 이동과 해안 복귀가 가능하고 육상보다 체력과 일광을 더 빠르게 소모한다.",
+        "최소 2개의 수상 또는 암초 수색 지점이 육상과 다른 위치 선택을 만든다.",
+        "체력이 부족한 상태에서 무리하게 수영하면 원인과 귀환 위험을 명확하게 피드백한다."
+      ],
+      "paths": [],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt",
+        "Artifacts/Verification/kim-survival-swimming-1280x800.png"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T09:25:39.001Z",
+      "note": "Edit checks, Play Mode route verification, visual capture, and Windows development build all passed.",
+      "completedAt": "2026-08-22T09:25:39.001Z",
+      "createdAt": "2026-08-22T09:25:39.001Z"
+    },
+    {
+      "id": "task.system.system.localization",
+      "lane": "implementation",
+      "title": "Unity 국제화와 현지화 구현",
+      "description": "Unity Localization 기반의 안정적인 문자열 키, 한국어·영어 테이블, Smart String 변수, 현재 로케일, 설정 저장, 한국어 폴백과 로케일별 TextMeshPro 폰트 매핑을 관리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "모든 플레이어 노출 문구가 문자열 키를 통해 조회되고 수량·날짜·버튼명은 문자열 연결이 아닌 형식 인수로 전달된다.",
+        "ko와 en 로케일 전환이 현재 화면에 즉시 반영되고 선택 값이 재실행 후 복원된다.",
+        "누락 키 또는 번역은 한국어로 폴백되고 개발 빌드에서 식별 가능한 로그를 남긴다.",
+        "로케일별 TextMeshPro 기본 폰트와 폴백 목록을 데이터로 교체할 수 있으며 지원 글리프 누락을 검출한다.",
+        "es, ja, zh-Hans, zh-Hant 같은 새 로케일 등록에 게임 플레이 코드 수정이 필요하지 않다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
+        "Assets/_Project/Scripts/Localization"
+      ],
+      "evidence": [
+        "Artifacts/Verification/editmode-checks.txt",
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T11:32:14.998Z",
+      "note": "",
+      "completedAt": "2026-08-22T11:32:14.998Z",
+      "createdAt": "2026-08-22T11:32:14.998Z"
+    },
+    {
+      "id": "task.feature.feature.localization",
+      "lane": "implementation",
+      "title": "한국어·영어와 확장 가능한 국제화 구현",
+      "description": "한국어를 기본·원문 언어로, 영어를 첫 지원 언어로 제공하고 향후 로케일을 게임 로직 변경 없이 추가할 수 있게 한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.localization"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
+        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
+        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
+        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
+        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Localization"
+      ],
+      "evidence": [
+        "Artifacts/Verification/playmode-checks.txt",
+        "Artifacts/Verification/kim-survival-playmode-1280x800.png",
+        "Artifacts/Verification/windows-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-22T11:32:16.130Z",
+      "note": "",
+      "completedAt": "2026-08-22T11:32:16.130Z",
+      "createdAt": "2026-08-22T11:32:16.130Z"
+    },
+    {
+      "id": "task.qa.feature.localization",
+      "lane": "qa",
+      "title": "한국어·영어와 확장 가능한 국제화 검증",
+      "description": "한국어·영어와 확장 가능한 국제화의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.localization"
+      ],
+      "featureIds": [
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "한국어가 최초 기본 언어이며 설정에서 영어로 즉시 전환할 수 있다.",
+        "한국어와 영어 각각으로 핵심 루프 전체의 UI, 상호작용 안내, 아이템·설비 이름, 결과와 김씨 독백을 읽을 수 있다.",
+        "선택 언어가 로컬 설정에 저장되고 재실행 후 복원된다.",
+        "번역 누락 시 빈칸이나 키 문자열 대신 한국어 원문이 표시되고 개발 빌드에 누락 키가 기록된다.",
+        "새 로케일은 문자열 테이블, 로케일 메타데이터와 폰트 매핑을 추가하는 것으로 등록할 수 있다.",
+        "ko/en/qps-long의 canonical 138키와 named placeholder 집합이 일치하고 qps-long은 35~50% 팽창·글리프·1280×800 수용 기준을 통과한다.",
+        "플레이어용 세이브·로드를 추가하지 않고 ko에서 만든 QA 진행 snapshot을 en과 qps-long에서 복원해도 Day, 자원, 상태, 연구·설비·신호 단계가 변하지 않는다.",
+        "입력 프롬프트는 action placeholder로 장치에 따라 갱신되며 locale과 진행 상태를 바꾸지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-localization.md",
+        "Docs/QA/ko-en-localization-test-plan.md",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/playmode-layout-metrics.txt",
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave12-play-contracts.json",
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave3-visual-gate.txt",
+        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave3-visual-gate.txt",
+        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave12-play-contracts.json",
+        "Artifacts/ParallelQA/20260823T141000Z_bd1c580_wave14_final/wave11-full-regression.txt",
+        "Artifacts/Verification/wave14-qps-global-layout-runtime-final/editmode-checks.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T13:34:37.660Z",
+      "note": "Wave 14 제품 레이아웃 수정으로 1280x800 ko/en 배치 24/24, 수색·수영 10/10, 실제 qps-long 10/10을 PASS했다. locale/device 전환의 target·진행 지문 불변과 Wave 13 로그 포함 표준 Edit/Play 회귀를 재검증했다. 물리 게임패드 실기는 별도 dual-input QA 항목에 UNVERIFIED로 유지한다.",
+      "completedAt": "2026-08-23T13:34:37.659Z",
+      "createdAt": "2026-08-23T13:34:37.660Z"
+    },
+    {
+      "id": "task.wave3.implementation.third-locale",
+      "lane": "implementation",
+      "title": "Wave 3 P2 제3 로케일·저장 독립성 구현",
+      "description": "비출하 qps-long을 데이터로 등록하고 canonical 138키, 장문 팽창, 확장 글리프, action 입력 프롬프트와 언어 비의존 QA 진행 snapshot 계약을 구현한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.localization"
+      ],
+      "featureIds": [
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "ko/en/qps-long이 데이터 기반 목록에 등록되고 qps-long 추가에 게임 플레이·화면 분기 코드 변경이 필요하지 않다.",
+        "qps-long 138키는 en 대비 35~50% 확장되고 named placeholder·숫자·태그·action 토큰을 보존한다.",
+        "플레이어용 세이브·로드를 추가하지 않고 ko→en→qps-long→ko QA snapshot 왕복에서 Day, 자원, E/H/L, 연구·도구, 설비 좌표, 신호와 결과가 동일하다.",
+        "qps-long은 제품 언어 목록에서 숨고 es/ja/zh 글리프 probe에 tofu가 없다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/Design/vertical-slice-localization.md",
+        "Assets/_Project/Scripts/Runtime/PrototypeLocalization.cs",
+        "Assets/_Project/Scripts/Editor/PrototypeLocalizationAssetBuilder.cs",
+        "Assets/_Project/Scripts/Localization",
+        "Assets/_Project/Scripts/Localization/Tables/Prototype Strings_qps-long.asset"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/visual-review.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/locale-relaunch-persistence.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/hardcoded-player-strings.txt",
+        "Artifacts/ParallelQA/20260823T100500Z_bcf31dd_integrated/wave10-module-play-contracts.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T09:35:20.554Z",
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "note": "Actual non-shipping qps-long locale passes data-driven module and layout checks while the player locale cycle remains ko/en.",
+      "completedAt": "2026-08-23T09:35:20.554Z"
+    },
+    {
+      "id": "task.system.system.bag-capacity-upgrade",
+      "lane": "implementation",
+      "title": "가방 용량 성장 구현",
+      "description": "현재 활성 가방 칸 수, 작업대 조건, 1회 비용 지불, 날짜 간 지속과 새 게임 초기화를 처리한다.",
+      "priority": "high",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "가방의 물리 배열과 현재 활성 용량을 분리해 잠긴 슬롯이 업그레이드 전에 획득·선택·교체 대상이 되지 않는다.",
+        "업그레이드 성공은 원자적으로 비용을 한 번 차감하고 활성 용량을 6으로 바꾸며 날짜 전환 후에도 유지한다.",
+        "새 게임 초기화는 활성 용량, 잠금 상태와 대기 중 교체 선택을 기본 4칸 상태로 되돌린다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-edit-contracts.txt",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-play-contracts.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T03:05:27.413Z",
+      "note": "4→6칸 원자적 1회 확장, 날짜 유지, 새 게임 초기화 및 KO/EN 상태 계약 통과.",
+      "completedAt": "2026-08-23T03:05:27.413Z",
+      "createdAt": "2026-08-23T03:05:27.413Z"
+    },
+    {
+      "id": "task.feature.feature.inventory-capacity-upgrade",
+      "lane": "implementation",
+      "title": "가방 4→6칸 확장 구현",
+      "description": "작업대에서 자원을 투자해 한 게임에 한 번 가방을 4칸에서 6칸으로 확장하고, 구조 신호 투자와 다음 수색 효율 사이의 선택을 만든다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.inventory-choice",
+        "task.feature.feature.crafting-research"
+      ],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [
+        "ui.survival-hud",
+        "ui.bag-capacity-upgrade"
+      ],
+      "acceptanceCriteria": [
+        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
+        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
+        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
+        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
+        "가방 확장을 선택한 자연스러운 5일 경로가 grant·좌표 warp 없이 Day 4~5 구조에 도달하며, 숙련자의 기존 Day 3 조기 구조 가능성도 보존된다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
+        "Docs/Design/wave7-bag-capacity-upgrade.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-layout-metrics.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-23T03:05:27.511Z",
+      "note": "가방 기능 자체는 완료 상태를 유지한다. 기존 자연 3일 구조 경로는 조기 성공 증거이며 Wave 12 통합 경로는 새 QA 대상이다.",
+      "completedAt": "2026-08-23T03:05:27.510Z",
+      "createdAt": "2026-08-23T03:05:27.511Z"
+    },
+    {
+      "id": "task.qa.feature.inventory-capacity-upgrade",
+      "lane": "qa",
+      "title": "가방 4→6칸 확장 검증",
+      "description": "가방 4→6칸 확장의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.feature.feature.inventory-capacity-upgrade"
+      ],
+      "featureIds": [
+        "feature.inventory-capacity-upgrade"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "새 게임은 4칸·칸당 2개로 시작하고 작업대에서 나무 2와 표류물 1을 정확히 한 번 지불하면 6칸으로 확장된다.",
+        "업그레이드 전 실패·취소와 완료 후 반복 입력은 자원을 소모하지 않으며 새 게임에서는 다시 4칸이 된다.",
+        "활성화된 5·6번 슬롯이 획득, 중첩, 교체, 폐기, 귀환 이전과 키보드·게임패드 조작에 참여한다.",
+        "한국어·영어 비용과 상태 문구가 1280×800 및 1920×1080에서 겹치거나 잘리지 않는다.",
+        "가방 확장을 선택한 자연스러운 5일 경로가 grant·좌표 warp 없이 Day 4~5 구조에 도달하며, 숙련자의 기존 Day 3 조기 구조 가능성도 보존된다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA/Invoke-Wave7BagCapacityRegression.ps1",
+        "Assets/Editor/ParallelQA/Wave7BagCapacityRegressionRunner.cs",
+        "Docs/QA/wave7-bag-capacity-regression.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/wave7-summary.txt",
+        "Artifacts/ParallelQA/20260823T031500Z_wave7_bag_release_gate/windows-hidden-smoke.txt",
+        "Artifacts/ParallelQA/20260823T125000Z_13ecded_release/wave11-full-regression.txt",
+        "Artifacts/ParallelQA/20260827T180000Z_gamejam_wavec_3d64403/gamejam-wave-c-play-contracts.json",
+        "Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json",
+        "Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md",
+        "Docs/Design/Playtest/gamejam-seven-region-search-node-results.md",
+        "Docs/Design/Playtest/Sessions/O1-2026-08-26.md"
+      ],
+      "blockedReason": "O1 found the upgrade mandatory and material identity unreadable. Fix H-002 and rebalance/retest GJC-12 on a new candidate.",
+      "status": "blocked",
+      "updatedAt": "2026-08-26T12:03:32.258Z",
+      "note": "The 4-to-6 function, atomicity and persistence contracts are GREEN at 2bdea61. Only human feel and choice-pressure evidence remains.",
+      "completedAt": null,
+      "createdAt": "2026-08-23T03:05:27.603Z"
+    },
+    {
+      "id": "task.qa.wave15-hazard-ending-redfirst",
+      "lane": "qa",
+      "title": "Wave 15 위험·탈출·엔딩 red-first 게이트",
+      "description": "위험 인과와 원자성, 다섯 탈출 ID, 조기 탈출·Day 50 우선순위, 행동 score·tie-breaker·sample ending과 Wave 16 SAMPLE_ONLY 페이싱·softlock·개발 로그 개인정보 부재를 검증한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.design.wave15-escape-hazard-ending-matrix",
+        "task.design.wave16-fifty-day-pacing"
+      ],
+      "featureIds": [
+        "feature.survival-hazards",
+        "feature.escape-outcome",
+        "feature.behavioral-endings",
+        "feature.expedition-map",
+        "feature.resource-randomization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "예고 없는 즉사·중복 피해·중복 자원 차감이 없다.",
+        "escape와 ending ID가 안정적이고 같은 snapshot에서 결정론적이다.",
+        "Steam 연동과 물리 게임패드는 별도 미검증 게이트로 유지한다.",
+        "Day 1/11/21/36/50 경계, Day 49 계속, Day 50 terminal과 조기 탈출 우선순위를 fixture로 검증한다.",
+        "7개 지역 primary·alternative 해금과 같은 seed의 전망·pity·위험 재현성을 검증한다.",
+        "rolling 5일 평온일, major 다음 회복 예약, 도난/파손 단일 차감과 Day 50 surprise major 금지를 검증한다.",
+        "seed 생성·확장 해금·Day 35·49마다 최소 3개 탈출 경로가 완성 가능하고 pity 3 hint/5 guarantee가 정확하다.",
+        "연기·무전은 별도 30분 playable fixture, raft·flare·beacon은 data-only로 보고해 증거 수준을 섞지 않는다.",
+        "마지막 2점 행동 하나가 established identity를 바꾸지 않고 같은 terminal snapshot은 같은 ending ID를 낸다.",
+        "Steam 연동, 물리 게임패드, 실제 장기 사용자 run과 최종 밸런스는 별도 미검증으로 유지한다."
+      ],
+      "paths": [
+        ".forge/design/project.json",
+        ".forge/design/vertical-slice.json",
+        "Docs/Design/wave16-fifty-day-pacing.md"
+      ],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-25T11:33:30.810Z",
+      "note": "Integrated master 96af07d passed Wave 19 product and infrastructure gates.",
+      "completedAt": "2026-08-25T11:33:30.810Z"
+    },
+    {
+      "id": "task.gamejam.long-stay-two-endings",
+      "lane": "implementation",
+      "title": "게임잼 장기 체류 엔딩 2종",
+      "description": "PROVISIONAL Day 20 미탈출 상태에서 생존·채집 우세의 자연인 김씨와 건설·기계 우세의 무인도 건물주 김씨 중 하나를 누적 행동으로 결정한다.",
+      "priority": "high",
+      "dependencies": [
+        "task.gamejam.upper-basement-both",
+        "task.gamejam.insect-plant-wildlife-disease"
+      ],
+      "featureIds": [
+        "feature.behavioral-endings",
+        "feature.escape-outcome"
+      ],
+      "assetIds": [
+        "ui.ending-comic",
+        "ui.ending-gallery"
+      ],
+      "acceptanceCriteria": [
+        "같은 snapshot은 두 장기 체류 ending ID 중 정확히 하나와 사람이 읽을 수 있는 판정 근거를 낸다.",
+        "조기 탈출 완료는 같은 정산의 장기 체류 판정보다 우선한다.",
+        "Day 20 값은 데이터로 조정 가능하고 Day 15~20 플레이테스트에서 한 축만 변경한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeHazardEscapeEnding.cs"
+      ],
+      "evidence": [
+        "Docs/Design/kim-survival-island-gdd.md#17-게임잼-범위",
+        "Docs/Design/gamejam-completion-matrix.md#2-제출-완료-매트릭스",
+        "Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-25T23:11:52.230Z",
+      "note": "Catalog 21, two stable Day 20 endings, early-escape priority, deterministic terminal and album exactly-once, KO/EN/qps comic layout, standard Day 50 preservation and no-cheat observation passed 15/15.",
+      "completedAt": "2026-08-25T23:11:52.230Z"
+    },
+    {
+      "id": "task.system.system.ending-gallery",
+      "lane": "implementation",
+      "title": "엔딩 해금과 갤러리 구현",
+      "description": "안정 ending ID, 해금 여부, 힌트와 코믹북 패널 키를 관리하고 향후 Steam achievement mapping을 위한 외부 키를 분리한다.",
+      "priority": "medium",
+      "dependencies": [],
+      "featureIds": [
+        "feature.ending-gallery",
+        "feature.behavioral-endings",
+        "feature.localization"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "게임 내 해금은 Steam 연결 없이 동작하며 외부 업적 키 부재가 플레이를 막지 않는다.",
+        "게임 내 해금·힌트·modifier panel은 Steam 연결 없이 동작하며 achievementMappingId는 future-only이고 외부 업적 키 부재가 플레이를 막지 않는다."
+      ],
+      "paths": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-25T11:33:50.254Z",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
+      "completedAt": "2026-08-25T11:33:50.254Z"
+    },
+    {
+      "id": "task.feature.feature.ending-gallery",
+      "lane": "implementation",
+      "title": "김씨의 생존 앨범 구현",
+      "description": "발견한 엔딩의 코믹북 컷신을 다시 보고 미발견 엔딩은 실루엣과 비스포일러 힌트로 보여주는 게임 내 갤러리다.",
+      "priority": "medium",
+      "dependencies": [
+        "task.feature.feature.behavioral-endings",
+        "task.feature.feature.localization"
+      ],
+      "featureIds": [
+        "feature.ending-gallery"
+      ],
+      "assetIds": [
+        "ui.ending-comic",
+        "ui.ending-gallery"
+      ],
+      "acceptanceCriteria": [
+        "해금된 ending ID와 최초 해금 시점이 저장 가능한 데이터로 분리된다.",
+        "미해금 희귀 엔딩은 결말을 직접 노출하지 않는 힌트를 사용한다.",
+        "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
+      ],
+      "paths": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-25T11:33:50.086Z",
+      "note": "Integrated master 96af07d passed ending album, behavioral ending, Wave 18 and Wave 19 gates.",
+      "completedAt": "2026-08-25T11:33:50.085Z"
+    },
+    {
+      "id": "task.qa.feature.ending-gallery",
+      "lane": "qa",
+      "title": "김씨의 생존 앨범 검증",
+      "description": "김씨의 생존 앨범의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "medium",
+      "dependencies": [
+        "task.feature.feature.ending-gallery"
+      ],
+      "featureIds": [
+        "feature.ending-gallery"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "해금된 ending ID와 최초 해금 시점이 저장 가능한 데이터로 분리된다.",
+        "미해금 희귀 엔딩은 결말을 직접 노출하지 않는 힌트를 사용한다.",
+        "모든 제목·설명·패널 문구는 엔진 로컬라이제이션 키를 사용한다."
+      ],
+      "paths": [],
+      "evidence": [
+        "Artifacts/Verification/wave19-integrated-96af07d/wave19-summary.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-25T11:33:58.584Z",
+      "note": "Integrated Wave 19 album near/popup/open, ko/en/qps-long, persistence and dual input contracts passed.",
+      "completedAt": "2026-08-25T11:33:58.583Z"
+    },
+    {
+      "id": "task.postslice.steam-release-readiness",
+      "lane": "implementation",
+      "title": "수직 슬라이스 이후 Steam 출하 준비",
+      "description": "별도 승인 뒤 Steamworks, App ID, Depot, Steam Input, Cloud·업적, 공식 영문 제목, 스토어와 업로드를 release 범위로 개설한다.",
+      "priority": "low",
+      "dependencies": [
+        "task.wave3.qa.integrated-three-day"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "사용자가 공식 영문 제목, App ID와 배포 권한 범위를 별도로 승인한다.",
+        "Windows x64 release build, depot, Steam Input, store/upload와 선택한 Cloud·업적 범위를 별도 체크리스트로 검증한다.",
+        "Wave 3 수직 슬라이스 완료로 Steam 출하 준비를 완료 처리하지 않는다."
+      ],
+      "paths": [
+        "Docs/Design/wave3-implementation-acceptance.md",
+        "Docs/QA/parallel-pc-steam-readiness-audit-e695c36.md"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/steam-readiness-audit.txt",
+        "Artifacts/ParallelQA/20260822T113642Z_e695c36/windows-development-build.txt"
+      ],
+      "blockedReason": "",
+      "status": "planned",
+      "updatedAt": "2026-08-26T05:18:08.373Z",
+      "createdAt": "2026-08-22T13:15:00.000Z",
+      "note": "Post-slice Steam release work is intentionally excluded from the GAME JAM submission gate.",
+      "completedAt": null
+    },
+    {
+      "id": "task.feature.feature.custom-run-settings",
+      "lane": "implementation",
+      "title": "사용자 설정 생존 플레이 구현",
+      "description": "표준 캠페인 완성 뒤 데드라인, 자원 희귀도, 허기·체력 소모, 위험 빈도와 강도를 별도 run profile로 조절한다.",
+      "priority": "low",
+      "dependencies": [
+        "task.feature.feature.phase-cycle",
+        "task.feature.feature.resource-randomization",
+        "task.feature.feature.survival-hazards"
+      ],
+      "featureIds": [
+        "feature.custom-run-settings"
+      ],
+      "assetIds": [
+        "ui.survival-hud"
+      ],
+      "acceptanceCriteria": [
+        "표준 Day 50 profile과 custom profile이 저장·표시에서 구분된다.",
+        "custom 변경은 표준 밸런스 데이터 자체를 덮어쓰지 않는다.",
+        "업적 인정 정책은 Steam 연동 전까지 미결로 표시한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "ready",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-26T05:18:08.018Z"
+    },
+    {
+      "id": "task.qa.feature.custom-run-settings",
+      "lane": "qa",
+      "title": "사용자 설정 생존 플레이 검증",
+      "description": "사용자 설정 생존 플레이의 수용 조건을 실행 환경에서 검증한다.",
+      "priority": "low",
+      "dependencies": [
+        "task.feature.feature.custom-run-settings"
+      ],
+      "featureIds": [
+        "feature.custom-run-settings"
+      ],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "표준 Day 50 profile과 custom profile이 저장·표시에서 구분된다.",
+        "custom 변경은 표준 밸런스 데이터 자체를 덮어쓰지 않는다.",
+        "업적 인정 정책은 Steam 연동 전까지 미결로 표시한다."
+      ],
+      "paths": [],
+      "evidence": [],
+      "blockedReason": "",
+      "status": "planned",
+      "createdAt": "2026-08-23T14:16:09.804Z",
+      "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-27T11:48:18.283Z"
+  "updatedAt": "2026-08-27T13:33:05.741Z"
 }

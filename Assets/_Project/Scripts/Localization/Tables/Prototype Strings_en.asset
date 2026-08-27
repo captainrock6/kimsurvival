@@ -2676,6 +2676,31 @@ MonoBehaviour:
     m_Localized: "Launch closed today \xB7 Wait for next day with no resource cost"
     m_Metadata:
       m_Items: []
+  - m_Id: 1851891012321280
+    m_Localized: "Health \xB7 Energy \xB7 Daylight Help"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070016
+    m_Localized: "Got It \xB7 Return to Camp"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070017
+    m_Localized: Mr. Kim's Survival Notes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070018
+    m_Localized: "Energy \xB7 Spent while moving and searching. Recover by eating
+      and at day settlement: base rest 20, campfire 38, bed +20, sofa +8.\nHealth
+      \xB7 Reduced by injury and disease. Recover with treatment and prepared safe
+      bed rest (once per day, +5).\nDaylight \xB7 Time left in today's expedition.
+      It cannot be refilled in the field and resets to 100 next day."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070019
+    m_Localized: Safe bed rest restored {0} Health
+    m_Metadata:
+      m_Items:
+      - rid: 828367071277219867
   references:
     version: 2
     RefIds:
@@ -2824,3 +2849,4 @@ MonoBehaviour:
         - id: 231960701288453
         - id: 231960701288454
         - id: 1632711927382016
+        - id: 1851891050070019

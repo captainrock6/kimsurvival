@@ -1,0 +1,2 @@
+PASS
+compact-bottom-left=True; bed-settlement-energy+40=True; sofa-settlement-energy+28=True; safe-rest-health-once+5=True; daylight-time-budget-reset-next-day=True

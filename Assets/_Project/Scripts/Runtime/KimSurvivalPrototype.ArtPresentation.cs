@@ -37,13 +37,13 @@ namespace KimSurvival
 
             GameObject artRoot = new GameObject("Expedition Region Art · " + profile.StableId + " · " + AssetSearchBackground);
             artRoot.transform.SetParent(worldRoot, false);
-            CreateRect(artRoot.transform, "채색 하늘", new Vector2(4f, 1.45f), new Vector2(36f, 8.3f), palette.Sky, -20);
-            CreateRect(artRoot.transform, "수평선 빛 띠", new Vector2(4f, -0.12f), new Vector2(36f, 1.2f), palette.Horizon, -19);
-            CreateRect(artRoot.transform, "연안 수면", new Vector2(-8f, -1.15f), new Vector2(10f, 3f), palette.Water, -15);
-            CreateRect(artRoot.transform, "수면 반사 A", new Vector2(-8.2f, -0.42f), new Vector2(9.4f, 0.12f), ColorWithAlpha(palette.Horizon, 0.72f), -14);
-            CreateRect(artRoot.transform, "수면 반사 B", new Vector2(-7.4f, -1.24f), new Vector2(7.6f, 0.08f), new Color(0.82f, 0.96f, 0.98f, 0.56f), -14);
-            CreateRect(artRoot.transform, "연안 모래 바닥", new Vector2(-8f, -3.55f), new Vector2(10f, 1.3f), palette.Sand, -12);
-            CreateRect(artRoot.transform, "탐사 지면", new Vector2(8.5f, -3.25f), new Vector2(25f, 1.9f), palette.Land, -10);
+            CreateRect(artRoot.transform, "채색 하늘", new Vector2(8f, 1.45f), new Vector2(60f, 8.3f), palette.Sky, -20);
+            CreateRect(artRoot.transform, "수평선 빛 띠", new Vector2(8f, -0.12f), new Vector2(60f, 1.2f), palette.Horizon, -19);
+            CreateRect(artRoot.transform, "연안 수면", new Vector2(-10f, -1.15f), new Vector2(12f, 3f), palette.Water, -15);
+            CreateRect(artRoot.transform, "수면 반사 A", new Vector2(-10.2f, -0.42f), new Vector2(11.4f, 0.12f), ColorWithAlpha(palette.Horizon, 0.72f), -14);
+            CreateRect(artRoot.transform, "수면 반사 B", new Vector2(-9.4f, -1.24f), new Vector2(9.6f, 0.08f), new Color(0.82f, 0.96f, 0.98f, 0.56f), -14);
+            CreateRect(artRoot.transform, "연안 모래 바닥", new Vector2(-10f, -3.55f), new Vector2(12f, 1.3f), palette.Sand, -12);
+            CreateRect(artRoot.transform, "탐사 지면", new Vector2(17f, -3.25f), new Vector2(44f, 1.9f), palette.Land, -10);
             CreateRect(artRoot.transform, "포말 해안선", new Vector2(PrototypePlayerTraversal.CoastlineX, -2.35f), new Vector2(0.30f, 1.25f), new Color(0.90f, 0.98f, 0.94f, 0.92f), -4);
 
             switch (region)

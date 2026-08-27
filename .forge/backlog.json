@@ -4092,10 +4092,10 @@
         "Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/world/o6-world-presentation-play.txt"
       ],
       "blockedReason": "",
-      "status": "done",
-      "updatedAt": "2026-08-26T23:12:00.000Z",
+      "status": "review",
+      "updatedAt": "2026-08-27T12:59:52.612Z",
       "note": "카메라 6.65/6.35, 김씨 82%, 설비 84%와 두 해상도 시각 게이트 PASS.",
-      "completedAt": "2026-08-26T23:12:00.000Z"
+      "completedAt": null
     },
     {
       "id": "task.gamejam.o6-raft-terminal-parts",
@@ -4167,6 +4167,152 @@
       "updatedAt": "2026-08-27T11:48:18.283Z",
       "note": "O6-H1 25:43 소유자 테스트에서 P1 8건 확인. O7 교정과 동일 후보 기준 재검증 필요.",
       "completedAt": null
+    },
+    {
+      "id": "task.gamejam.o7-camp-expansion-feedback-furniture",
+      "lane": "implementation",
+      "title": "O7 캠프 증축 표식·팝업 피드백·다층 설비",
+      "description": "증축 연결부 입력을 보이는 계획 표식으로 제한하고 팝업 결과 피드백과 다층 가구·빗물받이 배치를 교정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.camp-module-expansion",
+        "feature.camp-building",
+        "feature.camp-object-interaction"
+      ],
+      "assetIds": [
+        "object.camp-structures",
+        "ui.camp-module-expansion"
+      ],
+      "acceptanceCriteria": [
+        "연결부 미리보기는 보이는 증축 계획 표식에서만 열린다.",
+        "팝업 실패·성공 메시지는 중앙 상단 고대비로 표시되고 팝업은 유지된다.",
+        "침대·소파·빗물받이를 완성된 세 층에서 설치·이동·저장복원할 수 있다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeCampModuleExpansion.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeCampUse.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6CampModal.cs",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/camp/o7-camp-correction-edit.txt",
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/camp/o7-camp-correction-play.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T13:33:05.351Z",
+      "note": "Visible planning point only, persistent central result feedback, and 3-floor bed/sofa/rain placement passed O7 Edit and Play gates.",
+      "completedAt": "2026-08-27T13:33:05.350Z",
+      "createdAt": "2026-08-27T13:33:05.351Z"
+    },
+    {
+      "id": "task.gamejam.o7-search-space-resource-economy",
+      "lane": "implementation",
+      "title": "O7 수색 공간·나무 경제·지역 자원 가중치",
+      "description": "84개 영속 수색 노드를 더 넓고 자연스럽게 배치하고 나무 경제와 지역별 가중 자원 풀을 재조정한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.searchable-resource-nodes",
+        "feature.region-persistence",
+        "feature.expedition-map"
+      ],
+      "assetIds": [
+        "object.searchable-resource-node-production-set",
+        "ui.expedition-map"
+      ],
+      "acceptanceCriteria": [
+        "7개 지역 84개 노드와 지속 상태를 유지하면서 지역 폭과 노드 간격을 개선한다.",
+        "나무 공급이 25~35분 탈출 경로를 막지 않는다.",
+        "지역 전문성은 가중치로 유지하고 개연성 있는 일반 자원을 여러 지역에 혼합한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypeSearchNodeRuntime.cs",
+        "Assets/_Project/Scripts/Runtime/GameSession.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6WorldPresentation.cs",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/search/o7-search-space-economy-report.json"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T13:33:05.480Z",
+      "note": "7 regions, 84 stable nodes, expanded spacing, O6 migration, 84 wood across 5 regions, weighted plausible pools, and three-route budget passed.",
+      "completedAt": "2026-08-27T13:33:05.479Z",
+      "createdAt": "2026-08-27T13:33:05.480Z"
+    },
+    {
+      "id": "task.gamejam.o7-bag-survival-onboarding",
+      "lane": "implementation",
+      "title": "O7 컴팩트 가방·생존 상태 온보딩",
+      "description": "수색 가방을 좌측 하단에 컴팩트하게 배치하고 체력·기력·일광의 의미와 실제 회복 수단을 온보딩한다.",
+      "priority": "critical",
+      "dependencies": [],
+      "featureIds": [
+        "feature.inventory-choice",
+        "feature.inventory-capacity-upgrade",
+        "feature.survival-pressure"
+      ],
+      "assetIds": [
+        "ui.gamejam.interface-kit"
+      ],
+      "acceptanceCriteria": [
+        "가방은 좌측 하단 컴팩트 패널로 표시되어 월드 시야를 가리지 않는다.",
+        "체력·기력·일광의 의미와 회복법이 첫 안내와 상태 도움말에서 명확하다.",
+        "실제 휴식·식사·치료 동작과 설명이 일치한다."
+      ],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O6SearchBagObservation.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Localization/PrototypeStrings.tsv",
+        "Assets/Editor/ParallelQA"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/bag-survival/o7-bag-survival-edit.txt",
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/bag-survival/o7-bag-survival-play.txt"
+      ],
+      "blockedReason": "",
+      "status": "done",
+      "updatedAt": "2026-08-27T13:33:05.622Z",
+      "note": "Compact bottom-left 10-slot bag, first-camp guidance, and actual energy/health/daylight recovery contracts passed.",
+      "completedAt": "2026-08-27T13:33:05.621Z",
+      "createdAt": "2026-08-27T13:33:05.622Z"
+    },
+    {
+      "id": "task.gamejam.o7-integration-release",
+      "lane": "qa",
+      "title": "O7 통합·회귀·후보 빌드",
+      "description": "세 구현 작업을 통합하고 P1 8건과 기존 핵심 계약을 회귀 검증해 Windows O7 후보 패키지를 고정한다.",
+      "priority": "critical",
+      "dependencies": [
+        "task.gamejam.o7-camp-expansion-feedback-furniture",
+        "task.gamejam.o7-search-space-resource-economy",
+        "task.gamejam.o7-bag-survival-onboarding"
+      ],
+      "featureIds": [],
+      "assetIds": [],
+      "acceptanceCriteria": [
+        "P1 8건 각각에 자동 또는 관찰 가능한 검증 증거가 있다.",
+        "기존 세 탈출·7지역·84노드·저장·가방 업그레이드·KO/EN 계약이 통과한다.",
+        "정확한 소스 커밋으로 Windows O7 후보 패키지를 만들고 무결성을 검증한다."
+      ],
+      "paths": [
+        "Assets/Editor/ParallelQA",
+        "Artifacts/ParallelQA",
+        "Docs/Design/Playtest",
+        "Builds/Windows"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/compile-result.txt"
+      ],
+      "blockedReason": "",
+      "status": "in_progress",
+      "updatedAt": "2026-08-27T13:33:05.741Z",
+      "note": "Integrated O7 and legacy escape/resource regressions are green; exact-source Windows Release and package integrity remain.",
+      "completedAt": null,
+      "createdAt": "2026-08-27T13:33:05.740Z"
     },
     {
       "id": "task.art.background.island-camp",
@@ -5594,5 +5740,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-27T11:48:18.284Z"
+  "updatedAt": "2026-08-27T13:33:05.741Z"
 }

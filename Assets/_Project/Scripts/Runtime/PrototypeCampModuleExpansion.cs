@@ -203,6 +203,7 @@ namespace KimSurvival
     public static class PrototypeCampModuleCatalog
     {
         public const string StartRoomId = "room.start";
+        public const string VisiblePlanningPointId = "storage.planning";
         public static readonly Rect StartRoomBounds = new Rect(0f, 0f, 18f, 5f);
 
         private static readonly CampModuleDefinition[] Definitions =
@@ -868,6 +869,28 @@ namespace KimSurvival
             IsPreviewActive = false;
             TransactionGuard = CampModuleTransactionGuard.Idle;
             return true;
+        }
+
+        /// <summary>
+        /// O7 production entry point. Expansion preview is intentionally gated by the
+        /// visible storage/expansion planning marker instead of an invisible world
+        /// coordinate or an unbuilt connector hotspot.
+        /// </summary>
+        public bool BeginPreviewFromVisiblePlanningPoint(
+            CampModuleReturnSnapshot snapshot,
+            string stablePlanningPointId,
+            CampModuleArchetype initialArchetype)
+        {
+            if (!string.Equals(
+                    stablePlanningPointId,
+                    PrototypeCampModuleCatalog.VisiblePlanningPointId,
+                    StringComparison.Ordinal) ||
+                !string.Equals(snapshot.RoomId, PrototypeCampModuleCatalog.StartRoomId, StringComparison.Ordinal))
+            {
+                return false;
+            }
+
+            return BeginPreview(snapshot, initialArchetype);
         }
 
         private static CampModuleCommittedRoomSnapshot CreateCommittedRoom(

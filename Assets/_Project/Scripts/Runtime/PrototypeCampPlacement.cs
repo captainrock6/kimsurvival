@@ -574,7 +574,8 @@ namespace KimSurvival
             CampPlacementAnchor anchor,
             IReadOnlyDictionary<StructureKind, CampInstalledStructurePlacement> placements)
         {
-            if (anchor.Zone != GetRequiredZone(kind)) return CampPlacementValidity.WrongZone;
+            if (anchor.Zone != PrototypeO7CampCorrectionPolicy.RequiredAnchorZone(kind, anchor.RoomId))
+                return CampPlacementValidity.WrongZone;
             foreach (KeyValuePair<StructureKind, CampInstalledStructurePlacement> installed in placements)
             {
                 if (installed.Key == kind) continue;
@@ -587,7 +588,8 @@ namespace KimSurvival
 
         private static IReadOnlyList<CampPlacementAnchor> GetCompatibleAnchors(StructureKind kind, string roomId)
         {
-            return GetAnchorsForRoom(roomId).Where(anchor => anchor.Zone == GetRequiredZone(kind)).ToArray();
+            CampPlacementZone requiredZone = PrototypeO7CampCorrectionPolicy.RequiredAnchorZone(kind, roomId);
+            return GetAnchorsForRoom(roomId).Where(anchor => anchor.Zone == requiredZone).ToArray();
         }
 
         private bool IsAnchorOccupied(string anchorId, StructureKind exceptKind)
@@ -658,14 +660,17 @@ namespace KimSurvival
                 if (legacy)
                 {
                     anchor = GetAnchorsForRoom(entry.StableRoomId)
-                        .Where(value => value.Zone == GetRequiredZone(entry.Structure) &&
+                        .Where(value => value.Zone == PrototypeO7CampCorrectionPolicy.RequiredAnchorZone(
+                                            entry.Structure, entry.StableRoomId) &&
                                         !occupiedAnchors.Contains(value.RoomId + "|" + value.StableAnchorId))
                         .OrderBy(value => Mathf.Abs(value.X - entry.X)).FirstOrDefault();
                 }
                 else if (!TryGetAnchor(entry.StableRoomId, entry.StableAnchorId, out anchor)) return false;
 
                 string occupiedKey = anchor.RoomId + "|" + anchor.StableAnchorId;
-                if (string.IsNullOrEmpty(anchor.StableAnchorId) || anchor.Zone != GetRequiredZone(entry.Structure) ||
+                if (string.IsNullOrEmpty(anchor.StableAnchorId) ||
+                    anchor.Zone != PrototypeO7CampCorrectionPolicy.RequiredAnchorZone(
+                        entry.Structure, entry.StableRoomId) ||
                     !string.Equals(entry.StablePlacementZoneId, GetZoneId(anchor.Zone), StringComparison.Ordinal) ||
                     !occupiedAnchors.Add(occupiedKey)) return false;
 

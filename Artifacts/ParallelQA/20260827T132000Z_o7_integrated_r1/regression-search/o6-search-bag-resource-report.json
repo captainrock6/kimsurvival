@@ -1,0 +1,48 @@
+{
+    "SchemaVersion": 1,
+    "Title": "O6 search, bag, and finite resource gate",
+    "UnityVersion": "6000.4.9f1",
+    "Passed": true,
+    "Checks": [
+        {
+            "Id": "O6-S01",
+            "Passed": true,
+            "Detail": "nodes=84; perRegion=12,12,12,12,12,12,12; total=432; density=2/4/10"
+        },
+        {
+            "Id": "O6-S02",
+            "Passed": true,
+            "Detail": "maxDiscoveryRows=4; duplicateResourceRows=False"
+        },
+        {
+            "Id": "O6-S03",
+            "Passed": true,
+            "Detail": "protectedParts=5; allLeadDiscoveryTray=True"
+        },
+        {
+            "Id": "O6-S04",
+            "Passed": true,
+            "Detail": "before=432; after=430; restored=430; nodes=84"
+        },
+        {
+            "Id": "O6-S05",
+            "Passed": true,
+            "Detail": "catalog=gamejam.o7.7r21a84i-spaced.v1 balance=BALANCE_PROVISIONAL regions=7 archetypes=21 instances=84 generalUnits=432 protectedUnits=5 duplicateStableIds=0 existing=28 waveB=14 o6=42 removedLegacy=0 stableResources=12 protectedAssignments=5 radioRegions=3 initialNodeCollisions=0 deterministic=True differentSeedVaries=True restoreShellGenerationEvents=0 productionRestore=True stockDoesNotRegenerate=True hidden-partial-depleted=True barrierPersistent=True permanentHazardPersistent=True core=True/True/True/True/True/True/True traversal=True/True/Added deplete=True/True/Depleted protected=True/True/True swap=True/True/True costOnce=True selectionHazardPaused=true cancelAtomic=True replaceAtomic=True sailclothProtectedUnique=True snapshotRestore=True pityPassed=True diseasePassed=True | pityParts=5 eligibleMisses=5 hint3=True arm5=True nextEligibleGuaranteed=True generalUnits=432 protectedConserved=5 restore=True acquiredRestore=True duplicateZeroDelta=True fiveUniqueMisses=True armedUnacquired=True stockSeparated=True | disease=hazard-profile.disease.jungle-fever trace=telegraph>exposure>effect>worsen>mitigate>treat forcedReturnAtomic=True cancelAtomic=True treatmentCostAtomic=True setup=True/True/True/True/True/True/True/True/True/True/True/True environmentalRecoveryDelta=3 grant=false warp=false skip=false fixtureOnly=false"
+        },
+        {
+            "Id": "O6-S06",
+            "Passed": true,
+            "Detail": "15000501:nodes=84,general=432,routes=True,safe=True | 170017:nodes=84,general=432,routes=True,safe=True | 180018:nodes=84,general=432,routes=True,safe=True | 220026:nodes=84,general=432,routes=True,safe=True | 420042:nodes=84,general=432,routes=True,safe=True"
+        },
+        {
+            "Id": "O6-B01",
+            "Passed": true,
+            "Detail": "ladder=4->6->8->10; costs=True; restore10=True; reject9=True"
+        },
+        {
+            "Id": "O6-U01",
+            "Passed": true,
+            "Detail": "discoveryRows=True; alwaysVisibleBag=True"
+        }
+    ]
+}

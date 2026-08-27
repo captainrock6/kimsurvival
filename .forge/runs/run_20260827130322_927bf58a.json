@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260827130322_927bf58a",
+  "createdAt": "2026-08-27T13:03:22.246Z",
+  "updatedAt": "2026-08-27T13:03:22.246Z",
+  "sourceRequest": "O6-H1 P1 8건을 O7 완료 조건으로 고정하고, 4개 작업으로 병렬 구현·통합한 뒤 O7 후보 빌드를 만들어줘.",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-27T13:03:22.246Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-27T13:03:22.246Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-27T13:03:22.246Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-27T13:03:22.246Z"
+    }
+  }
+}

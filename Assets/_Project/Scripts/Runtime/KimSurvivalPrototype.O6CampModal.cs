@@ -61,10 +61,16 @@ namespace KimSurvival
         private void ClearO6CampPopupResult()
         {
             o6CampPopupResult = PrototypeLocalizedText.Empty;
+            o7CampPopupResultSucceeded = false;
+            if (o7CampResultBanner != null)
+            {
+                o7CampResultBanner.SetActive(false);
+            }
         }
 
         private void CaptureO6CampPopupResult(bool succeeded)
         {
+            o7CampPopupResultSucceeded = succeeded;
             if (!campFeedback.IsEmpty)
             {
                 o6CampPopupResult = campFeedback;

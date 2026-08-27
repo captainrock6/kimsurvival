@@ -1,0 +1,2 @@
+PASS
+PASS · visible planning-marker-only preview; hidden/blank/remote origins rejected; bed, sofa and rain collector fixed-anchor placement/save/restore across start, upper and basement rooms.

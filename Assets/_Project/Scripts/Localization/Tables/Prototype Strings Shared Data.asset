@@ -2423,6 +2423,26 @@ MonoBehaviour:
     m_Key: escape.raft.next.wait_next_day
     m_Metadata:
       m_Items: []
+  - m_Id: 1851891012321280
+    m_Key: survival.help.button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070016
+    m_Key: survival.help.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070017
+    m_Key: survival.help.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070018
+    m_Key: survival.help.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1851891050070019
+    m_Key: message.camp.use.bed.health
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

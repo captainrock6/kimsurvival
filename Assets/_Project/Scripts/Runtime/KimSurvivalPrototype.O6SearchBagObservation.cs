@@ -20,6 +20,8 @@ namespace KimSurvival
             RefreshAll();
             PrototypeSearchOpenResult opened = searchNodeRuntime.TryOpen(definition, session);
             RefreshAll(true);
+            ApplyO7CompactBagLayout();
+            Canvas.ForceUpdateCanvases();
 
             PrototypeSearchNodeSnapshot active = searchNodeRuntime.ActiveNode;
             int visibleRows = searchLootItemButtons.Count(button => button.gameObject.activeSelf);
@@ -44,6 +46,8 @@ namespace KimSurvival
             expanded.ActiveBagSlotCount = GameSession.MaximumBagSlotCount;
             bool expandedRestored = session.RestoreStableState(expanded);
             RefreshAll(true);
+            ApplyO7CompactBagLayout();
+            Canvas.ForceUpdateCanvases();
             bool tenActive = expandedRestored && bagButtons.Count == 10 &&
                              bagButtons.All(button => !button.GetComponentInChildren<TMPro.TMP_Text>().text.Contains("잠김"));
             CaptureVerificationPng(Path.Combine(evidenceFolder,

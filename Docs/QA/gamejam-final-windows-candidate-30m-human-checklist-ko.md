@@ -1,12 +1,12 @@
 # GAME JAM 최종 Windows 후보 30분 수기 플레이테스트 체크리스트
 
-> **현재 상태: O2_READY · O1_P1_CORRECTED · AUTOMATED_GREEN · HUMAN_REQUIRED**
+> **현재 상태: O7_BUILD_PENDING · O6_H1_P1_EIGHT_CORRECTIONS · HUMAN_REQUIRED**
 >
-> O1에서 발견된 UI 위계, 재료 이름 불일치, 증축 설명, 캐릭터 접지·애니메이션, 런타임 리소스 구분 문제를 교정한 새 후보용 문서다. 수기 세션은 이 문서를 포함한 최신 Release 패키지 하나만 사용하고, 정확한 source/EXE/DLL/ZIP 해시는 그 패키지의 `BUILD-INFO.txt`와 package integrity summary를 정본으로 삼는다.
+> O6-H1에서 발견된 표시 없는 증축 입력, 수색물 밀집, 약한 결과 피드백, 우측을 가리는 가방, 다층 생활 설비 제한, 생존 수치 설명 부재, 나무 병목, 배타적인 지역 자원표를 교정한 O7 후보용 문서다. 수기 세션은 이 문서를 포함한 최신 Release 패키지 하나만 사용하고, 정확한 source/EXE/DLL/ZIP 해시는 그 패키지의 `BUILD-INFO.txt`와 package integrity summary를 정본으로 삼는다.
 
 > 대상: 《김씨 생존기: 무인도》 GAME JAM 최종 Windows 후보
 >
-> 기준일: 2026-08-26
+> 기준일: 2026-08-27
 >
 > 정본: `Docs/Design/kim-survival-island-gdd.md`, `Docs/Design/gamejam-completion-matrix.md`
 >
@@ -14,9 +14,11 @@
 
 > 누적 결과 원장: `Docs/Design/Playtest/gamejam-seven-region-search-node-results.md`
 
-> 운영용 정본은 이 파일이며 최종 Release ZIP에도 같은 사본을 포함한다. O1 후보 `0cfcc02`는 폐기됐으며, 새 후보의 제품 코드와 패키지 source 기준은 모두 `BUILD-INFO.txt`다.
+> 운영용 정본은 이 파일이며 최종 Release ZIP에도 같은 사본을 포함한다. O6 후보 `d10d7c3`은 인간 테스트 P1 8건으로 폐기됐으며, O7 제품 코드와 패키지 source 기준은 모두 `BUILD-INFO.txt`다.
 
-이 문서는 과거 Day 3·Day 5 프로토타입용 절차가 아니다. 현재 GAME JAM 기준은 7개 지역, 4→6칸 가방, 같은 run의 위층·지하실, 뗏목·대형 연기·무전 조기 탈출, 임시 Day 20 장기 체류 엔딩이다. 표준 캠페인의 Day 50은 별도 자동 회귀로 보존한다.
+이 문서는 과거 Day 3·Day 5 프로토타입용 절차가 아니다. 현재 GAME JAM 기준은 7개 지역, 정확히 84개 stable 수색물, 4→6→8→10칸 가방, 같은 run의 위층·지하실, 뗏목·대형 연기·무전 조기 탈출, 임시 Day 20 장기 체류 엔딩이다. 표준 캠페인의 Day 50은 별도 자동 회귀로 보존한다.
+
+O7에서는 대표 세션을 시작하기 전에 `Docs/Design/Playtest/Sessions/O7-H1-2026-08-27.md`의 P1 여덟 항목을 함께 사용한다. 특히 빈 지점 증축 미리보기 금지, 중앙 상단 결과 배너, 좌측 하단 컴팩트 가방, 3개 층의 침대·소파·빗물받이, 체력·기력·일광 온보딩, 넓어진 수색 공간, 나무 선택 예산, 환경상 타당한 가중 지역 자원 분포가 하나라도 실패하면 후보는 `RETEST`다.
 
 한 번의 대표 세션은 30분을 목표로 한다. KO 3명·EN 3명과 물리 게임패드는 공식 필수 검증이다. 7지역 누적 커버리지와 Day 20 장기 체류 2종은 같은 후보 빌드에서 수행하는 권장 회귀 표본이다. 대표 세션 하나만으로 이 항목들을 전부 통과했다고 기록하지 않는다.
 
@@ -26,15 +28,15 @@
 
 | 필드 | 최종 후보 기록 |
 |---|---|
-| O2 교정 제품 코드 commit SHA-1, 40자리 | 최신 Release 패키지의 `BUILD-INFO.txt`에서 복사: `________________________________________` |
+| O7 교정 제품 코드 commit SHA-1, 40자리 | 최신 Release 패키지의 `BUILD-INFO.txt`에서 복사: `________________________________________` |
 | 최종 패키지 source commit SHA-1, 40자리 | 최신 Release 패키지의 `BUILD-INFO.txt`에서 복사: `________________________________________` |
 | QA 검증 러너 commit SHA-1, 40자리 | 최종 패키지 source와 동일: `________________________________________` |
 | Windows EXE 파일명 | `KimSurvivalIsland.exe` |
-| O2 후보 Release 폴더 | 전달된 새 후보 폴더: `________________________________________` |
-| O2 후보 EXE SHA-256 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
+| O7 후보 Release 폴더 | 전달된 새 후보 폴더: `________________________________________` |
+| O7 후보 EXE SHA-256 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 최종 후보 EXE SHA-256, 64자리 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 게임 코드 DLL 상대 경로 | `KimSurvivalIsland_Data\Managed\Assembly-CSharp.dll` |
-| O2 후보 게임 코드 DLL SHA-256 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
+| O7 후보 게임 코드 DLL SHA-256 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 최종 후보 게임 코드 DLL SHA-256, 64자리 | `BUILD-INFO.txt`에서 복사: `________________________________________________________________` |
 | 최종 후보 ZIP SHA-256, 64자리 | package integrity summary에서 복사: `________________________________________________________________` |
 | 최종 후보 빌드 완료 시각, KST | `BUILD-INFO.txt`에서 복사: `____________________` |
@@ -71,14 +73,14 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '<최종 후보 ZIP의 정확한 경
 |---|---|---|
 | 컴파일 0 error / 0 warning | Wave C `compile-result.txt` | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | Windows build·hidden smoke·Addressables·방화벽 | Wave C와 Release build 증거 | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
-| 7 region·21 archetype·42 node·일반 자원 144 | Wave B `gamejam-wave-b-edit-contracts.json` | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
+| 7 region·84 stable node·일반 자원 432·O6 저장 migration | O7 `o7-search-space-economy-report.json` | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | hidden/partial/depleted·유한 잔여·장벽·영구 위험 snapshot | Wave B `gamejam-wave-b-play-contracts.json` | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | 환경 위험·질병 원자성·보호 부품·뗏목/연기/무전·위층/지하 | Wave B/C Play 계약 | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | KO/EN/qps-long 레이아웃·synthetic gamepad 의미 동등 | Wave C summary | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | 엔딩 21종·core comic 3장+modifier·album exactly-once | Wave C·Wave 19·long-stay 증거 | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 | 내부 SHA manifest·ZIP/folder exact·압축 해제 hidden smoke·원본/해제본 불변·LocalLow 신규/시간/JSONL/SHA·release provenance | package integrity summary의 `PKG-I01~I07` | `[x] PASS [ ] FAIL [ ] EVIDENCE_PENDING` |
 
-O2에서는 자동 PASS와 별개로 다음 다섯 항목을 설명 없이 관찰한다: `H-001` 현재 주 행동과 정보 위계, `H-002` 수색 tray→가방→캠프의 같은 재료 이름·아이콘, `H-003` 증축 목적·비용·부족분·완료 공간, `H-004` 발 접지와 idle/walk/facing, `H-005` 자원·설비·상태의 시각 구분. 하나라도 다시 실패하면 후보는 `RETEST`다.
+O7에서는 기존 다섯 관찰 항목에 더해 O6-H1 P1 여덟 건을 설명 없이 관찰한다. 현재 주 행동과 정보 위계, 수색 tray→가방→캠프의 같은 재료 이름·아이콘, 증축 목적·비용·부족분·완료 공간, 발 접지와 idle/walk/facing, 자원·설비·상태의 시각 구분도 계속 회귀한다. 하나라도 다시 실패하면 후보는 `RETEST`다.
 
 최종 문서 패키징 뒤 Release·package integrity가 하나라도 FAIL이면 수기 테스트를 시작하지 않는다. FAIL이면 후보는 `REJECT`, 필수 증거가 없으면 `PAUSED`다.
 
@@ -140,7 +142,7 @@ O2에서는 자동 PASS와 별개로 다음 다섯 항목을 설명 없이 관�
 
 ## 5. 10~25분 — 성장·영속성·다층 캠프
 
-### 5.1 가방 4→6 체감
+### 5.1 가방 4→6 1단계 체감과 8→10 표시 회귀
 
 작업대에 직접 이동해 1회 업그레이드한다. 현재 계약 비용은 나무 2·표류물 1, 칸당 중첩 한도는 2다.
 

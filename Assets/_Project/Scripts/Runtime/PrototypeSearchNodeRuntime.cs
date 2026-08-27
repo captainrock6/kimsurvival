@@ -638,8 +638,8 @@ namespace KimSurvival
     public static class PrototypeSearchRegionCatalog
     {
         public const string ContractRevision = "gamejam.wave-bc.catalog-disease-parts.v1";
-        public const string LootTableRevision = "gamejam.o6.loot.84-nodes-mixed-density-432.v1";
-        public const string CatalogRevision = "gamejam.o6.7r21a84i.v1";
+        public const string LootTableRevision = "gamejam.o7.loot.84-nodes-weighted-common-432.v1";
+        public const string CatalogRevision = "gamejam.o7.7r21a84i-spaced.v1";
         public const string NewGameStockGenerationEvent = "new-game-stock-generation";
         public const string BalanceStatus = "BALANCE_PROVISIONAL";
         public const int SearchNodeCount = 84;
@@ -862,29 +862,29 @@ namespace KimSurvival
                 Pair("region.cove.wreck", "cargo-locker", "medium",
                     "node.cove.wreck.wreck-locker.01", PrototypeSearchNodeKind.WreckLocker, false, "hazard.high-surf",
                     "node.cove.wreck.drift-pile.01", PrototypeSearchNodeKind.DriftPile, false, "hazard.high-surf",
-                    Yield("resource.salvage", 3), Yield("resource.metal", 2)),
+                    Yield("resource.salvage", 3), Yield("resource.metal", 1), Yield("resource.stone", 1)),
                 Pair("region.cove.wreck", "rigging-locker", "medium",
                     "node.cove.wreck.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.injury",
                     "node.cove.wreck.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.injury",
-                    Yield("resource.fabric", 2), Yield("resource.fiber", 1), Yield("resource.chemicals", 1)),
+                    Yield("resource.fabric", 2), Yield("resource.fiber", 1), Yield("resource.wood", 1)),
                 Pair("region.cove.wreck", "engine-bay", "high",
                     "node.cove.wreck.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster",
                     "node.cove.wreck.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.disaster",
-                    Yield("resource.electronics", 2), Yield("resource.wood", 1))),
+                    Yield("resource.electronics", 1), Yield("resource.wood", 2))),
             new PrototypeSearchRegionDefinition(
                 "region.ruins.relay",
                 Pair("region.ruins.relay", "control-cabinet", "high",
                     "node.ruins.relay.facility-cabinet.01", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
                     "node.ruins.relay.facility-cabinet.02", PrototypeSearchNodeKind.FacilityCabinet, false, "hazard.disaster",
-                    Yield("resource.electronics", 3), Yield("resource.wire", 1)),
+                    Yield("resource.electronics", 2), Yield("resource.wire", 1), Yield("resource.salvage", 1)),
                 Pair("region.ruins.relay", "cable-duct", "high",
                     "node.ruins.relay.rock-crevice.01", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
                     "node.ruins.relay.rock-crevice.02", PrototypeSearchNodeKind.RockCrevice, false, "hazard.injury",
-                    Yield("resource.wire", 3), Yield("resource.metal", 1)),
+                    Yield("resource.wire", 2), Yield("resource.metal", 1), Yield("resource.stone", 1)),
                 Pair("region.ruins.relay", "generator-room", "high",
                     "node.ruins.relay.grass-patch.01", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
                     "node.ruins.relay.grass-patch.02", PrototypeSearchNodeKind.GrassPatch, false, "hazard.dangerous-plants",
-                    Yield("resource.fuel", 2), Yield("resource.metal", 1), Yield("resource.electronics", 1)))
+                    Yield("resource.fuel", 2), Yield("resource.metal", 1), Yield("resource.wood", 1)))
         };
 
         public static IReadOnlyList<PrototypeSearchRegionDefinition> All { get { return Regions; } }
@@ -1760,10 +1760,14 @@ namespace KimSurvival
                 string.Equals(snapshot.ContractRevision, PrototypeSearchRegionCatalog.ContractRevision, StringComparison.Ordinal) &&
                 string.Equals(snapshot.LootTableRevision, PrototypeSearchRegionCatalog.LootTableRevision, StringComparison.Ordinal) &&
                 string.Equals(snapshot.CatalogRevision, PrototypeSearchRegionCatalog.CatalogRevision, StringComparison.Ordinal);
+            bool migrateO6Exact84 = source.Length == PrototypeSearchRegionCatalog.SearchNodeCount &&
+                string.Equals(snapshot.ContractRevision, PrototypeSearchRegionCatalog.ContractRevision, StringComparison.Ordinal) &&
+                string.Equals(snapshot.LootTableRevision, "gamejam.o6.loot.84-nodes-mixed-density-432.v1", StringComparison.Ordinal) &&
+                string.Equals(snapshot.CatalogRevision, "gamejam.o6.7r21a84i.v1", StringComparison.Ordinal);
             bool migrateLegacy28 = source.Length == 28 &&
                 PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.All(sourceIds.Contains) &&
                 sourceIds.All(id => PrototypeSearchRegionCatalog.ExistingCanonicalNodeIds.Contains(id));
-            if (!exactRevision && !migrateLegacy28) return false;
+            if (!exactRevision && !migrateO6Exact84 && !migrateLegacy28) return false;
             HashSet<string> expectedNodeIds = new HashSet<string>(
                 PrototypeSearchRegionCatalog.Nodes.Select(node => node.NodeId),
                 StringComparer.Ordinal);
@@ -1860,6 +1864,7 @@ namespace KimSurvival
             stockGenerationEvents.Clear();
             stockGenerationEvents.AddRange(snapshot.StockGenerationEvents ?? Array.Empty<string>());
             newGameStockFingerprint = snapshot.NewGameStockFingerprint ?? string.Empty;
+            if (migrateO6Exact84) stockGenerationEvents.Add("migration-o7-preserve-o6-finite-stock");
             if (migrateLegacy28) stockGenerationEvents.Add("migration-add-wave-b-14-stock");
             return true;
         }
@@ -2500,10 +2505,10 @@ namespace KimSurvival
         private static readonly Dictionary<string, int> ExactSearchStock =
             new Dictionary<string, int>(StringComparer.Ordinal)
             {
-                { "resource.wood", 66 }, { "resource.salvage", 54 }, { "resource.food", 36 },
+                { "resource.wood", 84 }, { "resource.salvage", 60 }, { "resource.food", 36 },
                 { "resource.fabric", 18 }, { "resource.fiber", 30 }, { "resource.medicine", 18 },
-                { "resource.stone", 54 }, { "resource.metal", 42 }, { "resource.wire", 36 },
-                { "resource.fuel", 24 }, { "resource.chemicals", 18 }, { "resource.electronics", 36 }
+                { "resource.stone", 66 }, { "resource.metal", 36 }, { "resource.wire", 30 },
+                { "resource.fuel", 24 }, { "resource.chemicals", 12 }, { "resource.electronics", 18 }
             };
 
         private static readonly RouteRequirement[] Routes =

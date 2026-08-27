@@ -1,0 +1,1424 @@
+{
+    "SchemaVersion": 1,
+    "Title": "O4 stable resource and escape seed gate",
+    "UnityVersion": "6000.4.9f1",
+    "StartedUtc": "2026-08-27T13:29:14.2361740Z",
+    "CompletedUtc": "2026-08-27T13:29:14.4355026Z",
+    "Passed": true,
+    "Checks": [
+        {
+            "Id": "O4-L01",
+            "Passed": true,
+            "Detail": "canonical/spendable=2/2; legacy-derived=5; medicine=3"
+        },
+        {
+            "Id": "O4-L02",
+            "Passed": true,
+            "Detail": "meal=True; canonical=1; aggregate=4; medicine=3"
+        },
+        {
+            "Id": "O4-L03",
+            "Passed": true,
+            "Detail": "catalog=12; ids=resource.chemicals,resource.electronics,resource.fabric,resource.fiber,resource.food,resource.fuel,resource.medicine,resource.metal,resource.salvage,resource.stone,resource.wire,resource.wood"
+        },
+        {
+            "Id": "O4-L04",
+            "Passed": true,
+            "Detail": "duplicateSpend=True; wood=0; rejected=True; foodUnchanged=1"
+        },
+        {
+            "Id": "O4-S00",
+            "Passed": true,
+            "Detail": "catalog=gamejam.o7.7r21a84i-spaced.v1 balance=BALANCE_PROVISIONAL regions=7 archetypes=21 instances=84 generalUnits=432 protectedUnits=5 duplicateStableIds=0 existing=28 waveB=14 o6=42 removedLegacy=0 stableResources=12 protectedAssignments=5 radioRegions=3 initialNodeCollisions=0 deterministic=True differentSeedVaries=True restoreShellGenerationEvents=0 productionRestore=True stockDoesNotRegenerate=True hidden-partial-depleted=True barrierPersistent=True permanentHazardPersistent=True core=True/True/True/True/True/True/True traversal=True/True/Added deplete=True/True/Depleted protected=True/True/True swap=True/True/True costOnce=True selectionHazardPaused=true cancelAtomic=True replaceAtomic=True sailclothProtectedUnique=True snapshotRestore=True pityPassed=True diseasePassed=True | pityParts=5 eligibleMisses=5 hint3=True arm5=True nextEligibleGuaranteed=True generalUnits=432 protectedConserved=5 restore=True acquiredRestore=True duplicateZeroDelta=True fiveUniqueMisses=True armedUnacquired=True stockSeparated=True | disease=hazard-profile.disease.jungle-fever trace=telegraph>exposure>effect>worsen>mitigate>treat forcedReturnAtomic=True cancelAtomic=True treatmentCostAtomic=True setup=True/True/True/True/True/True/True/True/True/True/True/True environmentalRecoveryDelta=3 grant=false warp=false skip=false fixtureOnly=false"
+        },
+        {
+            "Id": "O4-S01",
+            "Passed": true,
+            "Detail": "15000501:regions=7,nodes=84,general=432,parts=5,exact=True | 170017:regions=7,nodes=84,general=432,parts=5,exact=True | 180018:regions=7,nodes=84,general=432,parts=5,exact=True | 220026:regions=7,nodes=84,general=432,parts=5,exact=True | 420042:regions=7,nodes=84,general=432,parts=5,exact=True"
+        },
+        {
+            "Id": "O4-S02",
+            "Passed": true,
+            "Detail": "15000501:assignments=5,radioDistinct=True | 170017:assignments=5,radioDistinct=True | 180018:assignments=5,radioDistinct=True | 220026:assignments=5,radioDistinct=True | 420042:assignments=5,radioDistinct=True"
+        },
+        {
+            "Id": "O4-R01",
+            "Passed": true,
+            "Detail": "15000501:escape.raft=14/421/True,escape.smoke=22/413/True,escape.radio=12/423/True | 170017:escape.raft=14/421/True,escape.smoke=22/413/True,escape.radio=12/423/True | 180018:escape.raft=14/421/True,escape.smoke=22/413/True,escape.radio=12/423/True | 220026:escape.raft=14/421/True,escape.smoke=22/413/True,escape.radio=12/423/True | 420042:escape.raft=14/421/True,escape.smoke=22/413/True,escape.radio=12/423/True"
+        },
+        {
+            "Id": "O4-R02",
+            "Passed": true,
+            "Detail": "15000501:any=True,all=True,noSoftlock=True | 170017:any=True,all=True,noSoftlock=True | 180018:any=True,all=True,noSoftlock=True | 220026:any=True,all=True,noSoftlock=True | 420042:any=True,all=True,noSoftlock=True"
+        },
+        {
+            "Id": "O4-R03",
+            "Passed": true,
+            "Detail": "smoke=True escape.smoke stable-cost atomic protected-parts duplicate-cost-zero | radio=True escape.radio stable-cost atomic protected-parts duplicate-cost-zero | raft=True escape.raft natural shore-launch hull sail supplies protected-sailcloth weather current closed-window-no-cost snapshot-restore retry early-terminal grant=false warp=false result=escape_complete"
+        }
+    ],
+    "Ledger": {
+        "CanonicalFoodBefore": 2,
+        "SpendableFoodBefore": 2,
+        "LegacyFoodAggregateBefore": 5,
+        "MedicineBefore": 3,
+        "CanonicalFoodAfterMeal": 1,
+        "LegacyFoodAggregateAfterMeal": 4,
+        "MedicineAfterMeal": 3,
+        "StableCatalogCount": 12,
+        "StableStorageAfter": [
+            {
+                "StableResourceId": "resource.wood",
+                "LegacyKind": 0,
+                "Amount": 2
+            },
+            {
+                "StableResourceId": "resource.salvage",
+                "LegacyKind": 3,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.food",
+                "LegacyKind": 2,
+                "Amount": 1
+            },
+            {
+                "StableResourceId": "resource.fabric",
+                "LegacyKind": 3,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.fiber",
+                "LegacyKind": 0,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.medicine",
+                "LegacyKind": 2,
+                "Amount": 3
+            },
+            {
+                "StableResourceId": "resource.stone",
+                "LegacyKind": 1,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.metal",
+                "LegacyKind": 1,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.wire",
+                "LegacyKind": 3,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.fuel",
+                "LegacyKind": 3,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.chemicals",
+                "LegacyKind": 3,
+                "Amount": 0
+            },
+            {
+                "StableResourceId": "resource.electronics",
+                "LegacyKind": 3,
+                "Amount": 0
+            }
+        ]
+    },
+    "SeedAudits": [
+        {
+            "Seed": 15000501,
+            "RegionCount": 7,
+            "NodeCount": 84,
+            "GeneralStockUnits": 432,
+            "ProtectedPartUnits": 5,
+            "ExactStableStock": true,
+            "StableCatalogComplete": true,
+            "ProtectedAssignmentsValid": true,
+            "RadioPartsUseDistinctRegions": true,
+            "AtLeastOneRouteCompletable": true,
+            "AllPlayableRoutesCompletable": true,
+            "NoSoftlock": true,
+            "StableResources": [
+                {
+                    "StableResourceId": "resource.chemicals",
+                    "SearchStock": 12,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 12
+                },
+                {
+                    "StableResourceId": "resource.electronics",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fabric",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fiber",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.food",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.fuel",
+                    "SearchStock": 24,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 24
+                },
+                {
+                    "StableResourceId": "resource.medicine",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.metal",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.salvage",
+                    "SearchStock": 60,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 60
+                },
+                {
+                    "StableResourceId": "resource.stone",
+                    "SearchStock": 66,
+                    "StartingStorage": 1,
+                    "TotalAvailable": 67
+                },
+                {
+                    "StableResourceId": "resource.wire",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.wood",
+                    "SearchStock": 84,
+                    "StartingStorage": 2,
+                    "TotalAvailable": 86
+                }
+            ],
+            "ProtectedAssignments": [
+                {
+                    "PartId": "part.raft.sailcloth",
+                    "AssignedNodeId": "node.sea.shallows.drift-pile.01",
+                    "SourceRegionId": "region.sea.shallows",
+                    "AssignmentPass": -1,
+                    "RepairState": "legacy-sailcloth"
+                },
+                {
+                    "PartId": "part.smoke.flint",
+                    "AssignedNodeId": "node.forest.grove.drift-pile.01",
+                    "SourceRegionId": "region.forest.grove",
+                    "AssignmentPass": 7,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transceiver",
+                    "AssignedNodeId": "node.cove.wreck.rock-crevice.01",
+                    "SourceRegionId": "region.cove.wreck",
+                    "AssignmentPass": 7,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.circuit-board",
+                    "AssignedNodeId": "node.sea.shallows.wreck-locker.01",
+                    "SourceRegionId": "region.sea.shallows",
+                    "AssignmentPass": 7,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transistor",
+                    "AssignedNodeId": "node.ridge.highland.facility-cabinet.02",
+                    "SourceRegionId": "region.ridge.highland",
+                    "AssignmentPass": 7,
+                    "RepairState": "initial-pass"
+                }
+            ],
+            "Routes": [
+                {
+                    "EscapeId": "escape.raft",
+                    "Seed": 15000501,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 14,
+                    "RemainingAvailableUnits": 421,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 6
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 5
+                        },
+                        {
+                            "StableResourceId": "resource.food",
+                            "LegacyKind": 2,
+                            "Amount": 3
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.raft.sailcloth"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.sea.shallows.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.sea.shallows"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.smoke",
+                    "Seed": 15000501,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 22,
+                    "RemainingAvailableUnits": 413,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 15
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.fiber",
+                            "LegacyKind": 0,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.fuel",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.smoke.flint"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.forest.grove.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.forest.grove"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.radio",
+                    "Seed": 15000501,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 12,
+                    "RemainingAvailableUnits": 423,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.stone",
+                            "LegacyKind": 1,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.electronics",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.wire",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.metal",
+                            "LegacyKind": 1,
+                            "Amount": 1
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.radio.transceiver",
+                        "part.radio.circuit-board",
+                        "part.radio.transistor"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.cove.wreck.rock-crevice.01",
+                        "node.sea.shallows.wreck-locker.01",
+                        "node.ridge.highland.facility-cabinet.02"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.cove.wreck",
+                        "region.sea.shallows",
+                        "region.ridge.highland"
+                    ]
+                }
+            ]
+        },
+        {
+            "Seed": 170017,
+            "RegionCount": 7,
+            "NodeCount": 84,
+            "GeneralStockUnits": 432,
+            "ProtectedPartUnits": 5,
+            "ExactStableStock": true,
+            "StableCatalogComplete": true,
+            "ProtectedAssignmentsValid": true,
+            "RadioPartsUseDistinctRegions": true,
+            "AtLeastOneRouteCompletable": true,
+            "AllPlayableRoutesCompletable": true,
+            "NoSoftlock": true,
+            "StableResources": [
+                {
+                    "StableResourceId": "resource.chemicals",
+                    "SearchStock": 12,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 12
+                },
+                {
+                    "StableResourceId": "resource.electronics",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fabric",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fiber",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.food",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.fuel",
+                    "SearchStock": 24,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 24
+                },
+                {
+                    "StableResourceId": "resource.medicine",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.metal",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.salvage",
+                    "SearchStock": 60,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 60
+                },
+                {
+                    "StableResourceId": "resource.stone",
+                    "SearchStock": 66,
+                    "StartingStorage": 1,
+                    "TotalAvailable": 67
+                },
+                {
+                    "StableResourceId": "resource.wire",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.wood",
+                    "SearchStock": 84,
+                    "StartingStorage": 2,
+                    "TotalAvailable": 86
+                }
+            ],
+            "ProtectedAssignments": [
+                {
+                    "PartId": "part.raft.sailcloth",
+                    "AssignedNodeId": "node.coast.beach.drift-pile.01",
+                    "SourceRegionId": "region.coast.beach",
+                    "AssignmentPass": -1,
+                    "RepairState": "legacy-sailcloth"
+                },
+                {
+                    "PartId": "part.smoke.flint",
+                    "AssignedNodeId": "node.forest.grove.tree-hollow.01",
+                    "SourceRegionId": "region.forest.grove",
+                    "AssignmentPass": 5,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transceiver",
+                    "AssignedNodeId": "node.ruins.relay.grass-patch.02",
+                    "SourceRegionId": "region.ruins.relay",
+                    "AssignmentPass": 5,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.circuit-board",
+                    "AssignedNodeId": "node.cove.wreck.rock-crevice.02",
+                    "SourceRegionId": "region.cove.wreck",
+                    "AssignmentPass": 5,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transistor",
+                    "AssignedNodeId": "node.ridge.highland.facility-cabinet.01",
+                    "SourceRegionId": "region.ridge.highland",
+                    "AssignmentPass": 5,
+                    "RepairState": "initial-pass"
+                }
+            ],
+            "Routes": [
+                {
+                    "EscapeId": "escape.raft",
+                    "Seed": 170017,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 14,
+                    "RemainingAvailableUnits": 421,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 6
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 5
+                        },
+                        {
+                            "StableResourceId": "resource.food",
+                            "LegacyKind": 2,
+                            "Amount": 3
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.raft.sailcloth"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.coast.beach.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.coast.beach"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.smoke",
+                    "Seed": 170017,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 22,
+                    "RemainingAvailableUnits": 413,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 15
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.fiber",
+                            "LegacyKind": 0,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.fuel",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.smoke.flint"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.forest.grove.tree-hollow.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.forest.grove"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.radio",
+                    "Seed": 170017,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 12,
+                    "RemainingAvailableUnits": 423,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.stone",
+                            "LegacyKind": 1,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.electronics",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.wire",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.metal",
+                            "LegacyKind": 1,
+                            "Amount": 1
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.radio.transceiver",
+                        "part.radio.circuit-board",
+                        "part.radio.transistor"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.ruins.relay.grass-patch.02",
+                        "node.cove.wreck.rock-crevice.02",
+                        "node.ridge.highland.facility-cabinet.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.ruins.relay",
+                        "region.cove.wreck",
+                        "region.ridge.highland"
+                    ]
+                }
+            ]
+        },
+        {
+            "Seed": 180018,
+            "RegionCount": 7,
+            "NodeCount": 84,
+            "GeneralStockUnits": 432,
+            "ProtectedPartUnits": 5,
+            "ExactStableStock": true,
+            "StableCatalogComplete": true,
+            "ProtectedAssignmentsValid": true,
+            "RadioPartsUseDistinctRegions": true,
+            "AtLeastOneRouteCompletable": true,
+            "AllPlayableRoutesCompletable": true,
+            "NoSoftlock": true,
+            "StableResources": [
+                {
+                    "StableResourceId": "resource.chemicals",
+                    "SearchStock": 12,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 12
+                },
+                {
+                    "StableResourceId": "resource.electronics",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fabric",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fiber",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.food",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.fuel",
+                    "SearchStock": 24,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 24
+                },
+                {
+                    "StableResourceId": "resource.medicine",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.metal",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.salvage",
+                    "SearchStock": 60,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 60
+                },
+                {
+                    "StableResourceId": "resource.stone",
+                    "SearchStock": 66,
+                    "StartingStorage": 1,
+                    "TotalAvailable": 67
+                },
+                {
+                    "StableResourceId": "resource.wire",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.wood",
+                    "SearchStock": 84,
+                    "StartingStorage": 2,
+                    "TotalAvailable": 86
+                }
+            ],
+            "ProtectedAssignments": [
+                {
+                    "PartId": "part.raft.sailcloth",
+                    "AssignedNodeId": "node.sea.shallows.drift-pile.01",
+                    "SourceRegionId": "region.sea.shallows",
+                    "AssignmentPass": -1,
+                    "RepairState": "legacy-sailcloth"
+                },
+                {
+                    "PartId": "part.smoke.flint",
+                    "AssignedNodeId": "node.cave.island.drift-pile.01",
+                    "SourceRegionId": "region.cave.island",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transceiver",
+                    "AssignedNodeId": "node.ruins.relay.grass-patch.02",
+                    "SourceRegionId": "region.ruins.relay",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.circuit-board",
+                    "AssignedNodeId": "node.cove.wreck.rock-crevice.02",
+                    "SourceRegionId": "region.cove.wreck",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transistor",
+                    "AssignedNodeId": "node.ridge.highland.facility-cabinet.01",
+                    "SourceRegionId": "region.ridge.highland",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                }
+            ],
+            "Routes": [
+                {
+                    "EscapeId": "escape.raft",
+                    "Seed": 180018,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 14,
+                    "RemainingAvailableUnits": 421,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 6
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 5
+                        },
+                        {
+                            "StableResourceId": "resource.food",
+                            "LegacyKind": 2,
+                            "Amount": 3
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.raft.sailcloth"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.sea.shallows.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.sea.shallows"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.smoke",
+                    "Seed": 180018,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 22,
+                    "RemainingAvailableUnits": 413,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 15
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.fiber",
+                            "LegacyKind": 0,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.fuel",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.smoke.flint"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.cave.island.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.cave.island"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.radio",
+                    "Seed": 180018,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 12,
+                    "RemainingAvailableUnits": 423,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.stone",
+                            "LegacyKind": 1,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.electronics",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.wire",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.metal",
+                            "LegacyKind": 1,
+                            "Amount": 1
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.radio.transceiver",
+                        "part.radio.circuit-board",
+                        "part.radio.transistor"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.ruins.relay.grass-patch.02",
+                        "node.cove.wreck.rock-crevice.02",
+                        "node.ridge.highland.facility-cabinet.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.ruins.relay",
+                        "region.cove.wreck",
+                        "region.ridge.highland"
+                    ]
+                }
+            ]
+        },
+        {
+            "Seed": 220026,
+            "RegionCount": 7,
+            "NodeCount": 84,
+            "GeneralStockUnits": 432,
+            "ProtectedPartUnits": 5,
+            "ExactStableStock": true,
+            "StableCatalogComplete": true,
+            "ProtectedAssignmentsValid": true,
+            "RadioPartsUseDistinctRegions": true,
+            "AtLeastOneRouteCompletable": true,
+            "AllPlayableRoutesCompletable": true,
+            "NoSoftlock": true,
+            "StableResources": [
+                {
+                    "StableResourceId": "resource.chemicals",
+                    "SearchStock": 12,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 12
+                },
+                {
+                    "StableResourceId": "resource.electronics",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fabric",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fiber",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.food",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.fuel",
+                    "SearchStock": 24,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 24
+                },
+                {
+                    "StableResourceId": "resource.medicine",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.metal",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.salvage",
+                    "SearchStock": 60,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 60
+                },
+                {
+                    "StableResourceId": "resource.stone",
+                    "SearchStock": 66,
+                    "StartingStorage": 1,
+                    "TotalAvailable": 67
+                },
+                {
+                    "StableResourceId": "resource.wire",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.wood",
+                    "SearchStock": 84,
+                    "StartingStorage": 2,
+                    "TotalAvailable": 86
+                }
+            ],
+            "ProtectedAssignments": [
+                {
+                    "PartId": "part.raft.sailcloth",
+                    "AssignedNodeId": "node.sea.shallows.drift-pile.01",
+                    "SourceRegionId": "region.sea.shallows",
+                    "AssignmentPass": -1,
+                    "RepairState": "legacy-sailcloth"
+                },
+                {
+                    "PartId": "part.smoke.flint",
+                    "AssignedNodeId": "node.ridge.highland.tree-hollow.01",
+                    "SourceRegionId": "region.ridge.highland",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transceiver",
+                    "AssignedNodeId": "node.ruins.relay.grass-patch.01",
+                    "SourceRegionId": "region.ruins.relay",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.circuit-board",
+                    "AssignedNodeId": "node.cove.wreck.rock-crevice.01",
+                    "SourceRegionId": "region.cove.wreck",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transistor",
+                    "AssignedNodeId": "node.cave.island.facility-cabinet.01",
+                    "SourceRegionId": "region.cave.island",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                }
+            ],
+            "Routes": [
+                {
+                    "EscapeId": "escape.raft",
+                    "Seed": 220026,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 14,
+                    "RemainingAvailableUnits": 421,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 6
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 5
+                        },
+                        {
+                            "StableResourceId": "resource.food",
+                            "LegacyKind": 2,
+                            "Amount": 3
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.raft.sailcloth"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.sea.shallows.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.sea.shallows"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.smoke",
+                    "Seed": 220026,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 22,
+                    "RemainingAvailableUnits": 413,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 15
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.fiber",
+                            "LegacyKind": 0,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.fuel",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.smoke.flint"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.ridge.highland.tree-hollow.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.ridge.highland"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.radio",
+                    "Seed": 220026,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 12,
+                    "RemainingAvailableUnits": 423,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.stone",
+                            "LegacyKind": 1,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.electronics",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.wire",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.metal",
+                            "LegacyKind": 1,
+                            "Amount": 1
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.radio.transceiver",
+                        "part.radio.circuit-board",
+                        "part.radio.transistor"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.ruins.relay.grass-patch.01",
+                        "node.cove.wreck.rock-crevice.01",
+                        "node.cave.island.facility-cabinet.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.ruins.relay",
+                        "region.cove.wreck",
+                        "region.cave.island"
+                    ]
+                }
+            ]
+        },
+        {
+            "Seed": 420042,
+            "RegionCount": 7,
+            "NodeCount": 84,
+            "GeneralStockUnits": 432,
+            "ProtectedPartUnits": 5,
+            "ExactStableStock": true,
+            "StableCatalogComplete": true,
+            "ProtectedAssignmentsValid": true,
+            "RadioPartsUseDistinctRegions": true,
+            "AtLeastOneRouteCompletable": true,
+            "AllPlayableRoutesCompletable": true,
+            "NoSoftlock": true,
+            "StableResources": [
+                {
+                    "StableResourceId": "resource.chemicals",
+                    "SearchStock": 12,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 12
+                },
+                {
+                    "StableResourceId": "resource.electronics",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fabric",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.fiber",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.food",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.fuel",
+                    "SearchStock": 24,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 24
+                },
+                {
+                    "StableResourceId": "resource.medicine",
+                    "SearchStock": 18,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 18
+                },
+                {
+                    "StableResourceId": "resource.metal",
+                    "SearchStock": 36,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 36
+                },
+                {
+                    "StableResourceId": "resource.salvage",
+                    "SearchStock": 60,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 60
+                },
+                {
+                    "StableResourceId": "resource.stone",
+                    "SearchStock": 66,
+                    "StartingStorage": 1,
+                    "TotalAvailable": 67
+                },
+                {
+                    "StableResourceId": "resource.wire",
+                    "SearchStock": 30,
+                    "StartingStorage": 0,
+                    "TotalAvailable": 30
+                },
+                {
+                    "StableResourceId": "resource.wood",
+                    "SearchStock": 84,
+                    "StartingStorage": 2,
+                    "TotalAvailable": 86
+                }
+            ],
+            "ProtectedAssignments": [
+                {
+                    "PartId": "part.raft.sailcloth",
+                    "AssignedNodeId": "node.coast.beach.drift-pile.01",
+                    "SourceRegionId": "region.coast.beach",
+                    "AssignmentPass": -1,
+                    "RepairState": "legacy-sailcloth"
+                },
+                {
+                    "PartId": "part.smoke.flint",
+                    "AssignedNodeId": "node.forest.grove.drift-pile.01",
+                    "SourceRegionId": "region.forest.grove",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transceiver",
+                    "AssignedNodeId": "node.sea.shallows.drift-pile.01",
+                    "SourceRegionId": "region.sea.shallows",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.circuit-board",
+                    "AssignedNodeId": "node.cove.wreck.rock-crevice.01",
+                    "SourceRegionId": "region.cove.wreck",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                },
+                {
+                    "PartId": "part.radio.transistor",
+                    "AssignedNodeId": "node.cave.island.facility-cabinet.01",
+                    "SourceRegionId": "region.cave.island",
+                    "AssignmentPass": 1,
+                    "RepairState": "initial-pass"
+                }
+            ],
+            "Routes": [
+                {
+                    "EscapeId": "escape.raft",
+                    "Seed": 420042,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 14,
+                    "RemainingAvailableUnits": 421,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 6
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 5
+                        },
+                        {
+                            "StableResourceId": "resource.food",
+                            "LegacyKind": 2,
+                            "Amount": 3
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.raft.sailcloth"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.coast.beach.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.coast.beach"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.smoke",
+                    "Seed": 420042,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 22,
+                    "RemainingAvailableUnits": 413,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 15
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.fiber",
+                            "LegacyKind": 0,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.fuel",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.smoke.flint"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.forest.grove.drift-pile.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.forest.grove"
+                    ]
+                },
+                {
+                    "EscapeId": "escape.radio",
+                    "Seed": 420042,
+                    "ResourceAffordable": true,
+                    "ProtectedPartsAvailable": true,
+                    "NaturallyCompletable": true,
+                    "RequiredGeneralUnits": 12,
+                    "RemainingAvailableUnits": 423,
+                    "RequiredResources": [
+                        {
+                            "StableResourceId": "resource.wood",
+                            "LegacyKind": 0,
+                            "Amount": 3
+                        },
+                        {
+                            "StableResourceId": "resource.stone",
+                            "LegacyKind": 1,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.salvage",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.electronics",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.wire",
+                            "LegacyKind": 3,
+                            "Amount": 2
+                        },
+                        {
+                            "StableResourceId": "resource.metal",
+                            "LegacyKind": 1,
+                            "Amount": 1
+                        }
+                    ],
+                    "RequiredProtectedPartIds": [
+                        "part.radio.transceiver",
+                        "part.radio.circuit-board",
+                        "part.radio.transistor"
+                    ],
+                    "ProtectedPartNodeIds": [
+                        "node.sea.shallows.drift-pile.01",
+                        "node.cove.wreck.rock-crevice.01",
+                        "node.cave.island.facility-cabinet.01"
+                    ],
+                    "ProtectedPartRegionIds": [
+                        "region.sea.shallows",
+                        "region.cove.wreck",
+                        "region.cave.island"
+                    ]
+                }
+            ]
+        }
+    ]
+}
