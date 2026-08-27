@@ -1,24 +1,27 @@
 # 김씨 생존기: 무인도 프로토타입 현황
 
-무인도에 조난된 김씨가 내용물을 알 수 없는 수색 오브젝트를 직접 뒤져 필요한 물건만 가방에 챙기고, 상태가 영구히 변하는 일곱 지역과 다층 캠프를 오가며 여러 방법으로 탈출하거나 행동 기반 코믹 엔딩을 맞는 2D 생존 게임.
+무인도에 고립된 평범한 김씨가 환경 수색물을 뒤져 필요한 것만 챙기고, 위아래로 확장한 캠프와 여러 탈출 프로젝트에 투자해 자신의 생활 방식이 반영된 코믹북 결말에 도달하는 2D 생존 게임
 
 ## 버티컬 슬라이스
 
-처음 10분 안에 환경 수색 오브젝트를 뒤지고 발견물을 선별하는 유한 수색과 다층 캠프 투자를 이해시키고, 약 30분 안에 뗏목·대형 연기·무전 구조 중 하나를 완성해 행동 기반 코믹북 엔딩을 보게 한다.
+시스템 알파를 최종 방향의 콘텐츠·아트·애니메이션·스토리·엔딩·오디오가 연결된 30분 게임잼 제출 버티컬 슬라이스로 완성한다.
 
 ## 실행 단계
 
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | complete | Existing engine_ready/adopted character, structure and four resource icon families are connected to live runtime surfaces; review-only assets remain unadopted. |
-| implementation | complete | H-001 through H-005 product corrections are integrated: canonical resource semantics, readable contextual UI, camp expansion presenter and grounded idle/walk/facing animation. |
-| verification | in_progress | Candidate b3f980f is frozen; automated, root visual, non-development Release and package integrity 7/7 are GREEN. O2 owner retest remains before submission readiness. |
+| art | planned |  |
+| implementation | planned |  |
+| verification | planned |  |
 
 ## 다음 작업
 
 - **O1 P1 교정 통합·새 후보 재검증** (qa, critical) — task.gamejam.o1-corrective-integration-retest
-- **사용자 설정 생존 플레이 구현** (implementation, low) — task.feature.feature.custom-run-settings
+- **O9 시놉시스·도입·엔딩 beat·아트 범위 잠금** (design, critical) — task.o9.design.content-lock
+- **김씨 설비 사용 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.facility-use
+- **김씨 idle 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.idle
+- **김씨 사다리 등반 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.ladder
 
 ## 작업
 
@@ -26,21 +29,21 @@
 |---|---|---|---|---|
 | task.system.system.run-state | implementation | critical | done | 게임잼 캠페인·지역·다층 캠프 상태 구현 |
 | task.system.system.phase-flow | implementation | critical | done | 30분 조기 탈출·장기 체류 흐름 구현 |
-| task.system.system.inventory | implementation | critical | done | 자원·도구·가방 구현 |
+| task.system.system.inventory | implementation | critical | done | 자원·도구·컴팩트 가방 구현 |
 | task.system.system.crafting-tech | implementation | critical | done | 제작법과 연구 구현 |
-| task.system.system.camp-structures | implementation | critical | done | 다층 캠프 설비·연결부 구현 |
+| task.system.system.camp-structures | implementation | critical | done | 다층 캠프 설비·사다리·수직 카메라 구현 |
 | task.system.system.island-search | implementation | critical | done | 7지역 유한 수색과 변화 기록 구현 |
 | task.feature.feature.phase-cycle | implementation | critical | done | 50일 캠프·수색·정산 주기 구현 |
 | task.qa.feature.phase-cycle | qa | critical | done | 50일 캠프·수색·정산 주기 검증 |
-| task.feature.feature.inventory-choice | implementation | critical | done | 4칸 가방 선택 구현 |
-| task.qa.feature.inventory-choice | qa | critical | done | 4칸 가방 선택 검증 |
+| task.feature.feature.inventory-choice | implementation | critical | done | 컴팩트 상시 가방 선택 구현 |
+| task.qa.feature.inventory-choice | qa | critical | done | 컴팩트 상시 가방 선택 검증 |
 | task.feature.feature.crafting-research | implementation | critical | done | 제작과 간단한 연구 구현 |
 | task.qa.feature.crafting-research | qa | critical | done | 제작과 간단한 연구 검증 |
-| task.feature.feature.camp-building | implementation | critical | done | 베이스캠프 건설과 배치 구현 |
-| task.qa.feature.camp-building | qa | critical | done | 베이스캠프 건설과 배치 검증 |
+| task.feature.feature.camp-building | implementation | critical | done | 하이브리드 베이스캠프 건설과 자유 배치 구현 |
+| task.qa.feature.camp-building | qa | critical | done | 하이브리드 베이스캠프 건설과 자유 배치 검증 |
 | task.feature.feature.island-exploration | implementation | critical | done | 선택 지역 횡스크롤 수색 구현 |
 | task.qa.feature.island-exploration | qa | critical | done | 선택 지역 횡스크롤 수색 검증 |
-| task.system.system.camp-placement | implementation | critical | done | 다층 제한적 자유 배치 구현 |
+| task.system.system.camp-placement | implementation | critical | done | 다층 하이브리드 자유 배치 구현 |
 | task.wave3.implementation.balance-v0-2 | implementation | critical | done | Wave 12 5일 기한 재기준선 적용 (v0.2 동결) |
 | task.wave3.implementation.spatial-camp-use | implementation | critical | done | Wave 3 공간형 캠프 사용 정합화 |
 | task.wave3.implementation.world-label-readability | implementation | critical | done | Wave 3 P1 월드 라벨 가독성 수정 |
@@ -62,15 +65,15 @@
 | task.design.wave14-natural-route-ledger | design | critical | done | Wave 14 5일 자연 플레이 경로·밸런스 장부 |
 | task.art.ui.expedition-map | art | critical | done | 수집 지역 선택 지도 UI 제작 |
 | task.art.icon.expedition-resource-risk-set | art | critical | review | 수집 자원·위험·날씨 아이콘 세트 제작 |
-| task.system.system.expedition-selection | implementation | critical | done | 수집 지도와 지역 선택 구현 |
-| task.system.system.region-loot-rng | implementation | critical | done | 7지역 유한 loot·부품 softlock 보호 구현 |
+| task.system.system.expedition-selection | implementation | critical | done | 순차 해금 수집 지도와 지역 선택 구현 |
+| task.system.system.region-loot-rng | implementation | critical | done | 단계 보장형 7지역 유한 loot·부품 softlock 보호 구현 |
 | task.system.system.hazard-director | implementation | critical | done | 벌레·야생동물·위험 식물·질병 디렉터 구현 |
 | task.system.system.escape-projects | implementation | critical | done | 유한 재료형 뗏목·연기·무전 프로젝트 구현 |
 | task.system.system.ending-resolution | implementation | critical | done | 탈출·Day 20 장기 체류 판정 구현 |
-| task.feature.feature.expedition-map | implementation | critical | done | 7지역 상태형 수집 지도 구현 |
-| task.qa.feature.expedition-map | qa | critical | done | 7지역 상태형 수집 지도 검증 |
-| task.feature.feature.resource-randomization | implementation | critical | done | 7지역 유한 자원·핵심 부품 분배 구현 |
-| task.qa.feature.resource-randomization | qa | critical | done | 7지역 유한 자원·핵심 부품 분배 검증 |
+| task.feature.feature.expedition-map | implementation | critical | done | 순차 해금형 7지역 수집 지도 구현 |
+| task.qa.feature.expedition-map | qa | critical | done | 순차 해금형 7지역 수집 지도 검증 |
+| task.feature.feature.resource-randomization | implementation | critical | done | 단계 보장형 7지역 유한 자원·핵심 부품 분배 구현 |
+| task.qa.feature.resource-randomization | qa | critical | done | 단계 보장형 7지역 유한 자원·핵심 부품 분배 검증 |
 | task.feature.feature.survival-hazards | implementation | critical | done | 지역 위험도·질병 생존 위험 구현 |
 | task.qa.feature.survival-hazards | qa | critical | done | 지역 위험도·질병 생존 위험 검증 |
 | task.design.wave15-fifty-day-campaign-rebaseline | design | critical | done | Wave 15 50일 캠페인·수집 지도·위험·다중 엔딩 재기준선 |
@@ -83,8 +86,8 @@
 | task.design.wave18-green-transition-contract | design | critical | done | Wave 18 15개 FAIL GREEN 전환 계약 |
 | task.implementation.wave18-green-transition | implementation | critical | done | Wave 18 15개 제품 FAIL GREEN 전환 구현 |
 | task.qa.wave18-green-transition | qa | critical | done | Wave 18 GREEN 전환 통합 검증 |
-| task.feature.feature.camp-module-expansion | implementation | critical | done | 2층·지하실 다층 캠프 확장 구현 |
-| task.qa.feature.camp-module-expansion | qa | critical | done | 2층·지하실 다층 캠프 확장 검증 |
+| task.feature.feature.camp-module-expansion | implementation | critical | done | 자유 배치형 2층·지하실 다층 캠프 확장 구현 |
+| task.qa.feature.camp-module-expansion | qa | critical | done | 자유 배치형 2층·지하실 다층 캠프 확장 검증 |
 | task.feature.feature.behavioral-endings | implementation | critical | done | 탈출·장기 체류 행동 기반 엔딩 구현 |
 | task.qa.feature.behavioral-endings | qa | critical | done | 탈출·장기 체류 행동 기반 엔딩 검증 |
 | task.system.system.region-persistence | implementation | critical | done | 지역별 유한 월드 상태 구현 |
@@ -99,19 +102,81 @@
 | task.system.system.search-node-loot | implementation | critical | done | 결정론적 수색 오브젝트·발견물 transaction 구현 |
 | task.feature.feature.searchable-resource-nodes | implementation | critical | done | 환경 수색 오브젝트·발견물 선별 구현 |
 | task.qa.feature.searchable-resource-nodes | qa | critical | done | 환경 수색 오브젝트·발견물 선별 검증 |
-| task.system.system.raft-escape | implementation | critical | done | 뗏목 단계·출항 창 상태기계 구현 |
-| task.feature.feature.raft-escape | implementation | critical | done | 뗏목 제작·해안 진수 탈출 구현 |
-| task.qa.feature.raft-escape | qa | critical | done | 뗏목 제작·해안 진수 탈출 검증 |
+| task.system.system.raft-escape | implementation | critical | done | 진수대 단일 팝업 단계·출항 상태기계 구현 |
+| task.feature.feature.raft-escape | implementation | critical | done | 설명 가능한 뗏목 제작·해안 진수 탈출 구현 |
+| task.qa.feature.raft-escape | qa | critical | done | 설명 가능한 뗏목 제작·해안 진수 탈출 검증 |
 | task.design.gamejam-seven-region-search-node-contract | design | critical | done | 게임잼 7지역 수색 node·유한 자원 계약 |
 | task.design.gamejam-completion-matrix | design | critical | done | GAME JAM 제출 완료 기준 감사 |
 | task.gamejam.o1-ui-resource-semantics | implementation | critical | done | O1 UI·재료 의미 일관성 교정 |
 | task.gamejam.o1-camp-expansion-ux | implementation | critical | done | O1 다층 캠프 증축 UX 교정 |
 | task.gamejam.o1-character-ground-animation | implementation | critical | done | O1 김씨 지면 접지·지상 애니메이션 교정 |
 | task.gamejam.o1-corrective-integration-retest | qa | critical | in_progress | O1 P1 교정 통합·새 후보 재검증 |
+| task.gamejam.o2-bag-swap-visibility-p0 | implementation | critical | done | O2 가방 교체 UI 진행 불가 교정 |
+| task.gamejam.anchor-shelter-placement | implementation | critical | done | 고정 설치 지점형 다층 쉘터 배치 |
+| task.gamejam.anchor-shelter-roof-living-furniture | implementation | critical | done | 1층 지붕·위층·지하·침대·소파 |
+| task.gamejam.o2-anchor-shelter-integration-retest | qa | critical | review | O2 P0·고정 쉘터 통합 재검증 |
+| task.gamejam.o4-stable-resource-ledger-p0 | implementation | critical | ready | O3 표시·소모 자원 단일 원장화 |
+| task.gamejam.o4-three-route-discoverability-p0 | implementation | critical | planned | 세 탈출 경로 발견성과 상태 안내 |
+| task.gamejam.o4-natural-resource-budget-p0 | qa | critical | planned | 유한 수색 자원·세 탈출 경로 가능성 검증 |
+| task.gamejam.o4-shore-launch-popup-p1 | implementation | critical | planned | 해안 진수대 단계·진척·비용 UI 재구성 |
+| task.gamejam.o4-ladder-camera | implementation | critical | ready | 사다리 직접 등반과 수직 카메라 |
+| task.gamejam.o4-integration-release | qa | critical | planned | O4 통합·Windows 후보 동결 |
+| task.art.ui.gamejam.interface-kit | art | critical | review | 게임잼 통합 UI 컴포넌트 세트 제작 |
+| task.art.background.expedition-seven-region-set | art | critical | review | 일곱 수색 지역 production 배경 세트 제작 |
+| task.art.object.searchable-resource-node-production-set | art | critical | review | 환경 수색 오브젝트 production 세트 제작 |
+| task.art.ui.interactable-marker-set | art | critical | review | 공통 상호작용 표식 production 세트 제작 |
+| task.gamejam.o5-triple-resource-budget-p0 | implementation | critical | done | O4-H1 실측 기반 일반 수색 자원 3배 |
+| task.gamejam.o5-region-remaining-map-p1 | implementation | critical | done | 수집 지도 지역별 자원 잔량 퍼센트 |
+| task.gamejam.o5-staged-escape-facilities-p1 | implementation | critical | done | 탈출 설비 후행 건설·등장 |
+| task.gamejam.o5-spaced-camp-icon-affordance-p1 | implementation | critical | done | 캠프 재배치와 공통 상호작용 아이콘 |
+| task.gamejam.o5-art-production-wave | art | critical | review | 게임잼 UI·7지역·수색 오브젝트·탈출 설비 아트 제작 |
+| task.gamejam.o5-integration-release | qa | critical | review | O5 통합·자연 경로·Windows 후보 |
+| task.gamejam.o6-camp-modal-furniture | implementation | critical | done | 증축 발견성과 캠프 팝업 연속성·다층 가구 |
+| task.gamejam.o6-search-bag-node-density | implementation | critical | done | 상시 가방·전체 발견물·4→10 성장·84 node |
+| task.gamejam.o6-world-scale-layout | art | critical | review | 넓은 카메라와 작은 캐릭터·캠프 설비 배치 |
+| task.gamejam.o6-raft-terminal-parts | implementation | critical | done | 뗏목 출항 완료 흐름과 핵심 부품 0/1 |
+| task.gamejam.o6-integration-release | qa | critical | review | O6 병렬 통합·전체 회귀·Windows 후보 |
+| task.gamejam.o7-camp-expansion-feedback-furniture | implementation | critical | done | O7 캠프 증축 표식·팝업 피드백·다층 설비 |
+| task.gamejam.o7-search-space-resource-economy | implementation | critical | done | O7 수색 공간·나무 경제·지역 자원 가중치 |
+| task.gamejam.o7-bag-survival-onboarding | implementation | critical | done | O7 컴팩트 가방·생존 상태 온보딩 |
+| task.gamejam.o7-integration-release | qa | critical | done | O7 통합·회귀·후보 빌드 |
+| task.gamejam.o8-sequential-unlock-early-economy | implementation | critical | done | O8 순차 지역 해금·초반 수집 경제 |
+| task.gamejam.o8-compact-bag-raft-feedback | implementation | critical | done | O8 초소형 가방·진수대 출항 피드백 |
+| task.gamejam.o8-hybrid-free-placement | implementation | critical | done | O8 일반 설비 다층 자유 배치 |
+| task.gamejam.o8-integration-release | qa | critical | review | O8 통합·회귀·후보 빌드 |
+| task.art.character.mr-kim | art | critical | done | 김씨 production model과 기준 포즈 제작 |
+| task.art.object.camp-structures | art | critical | done | 캠프 생활·제작 설비 production 세트 제작 |
+| task.art.background.modular-island-camp | art | critical | review | 게임잼 production 다층 캠프 제작 |
+| task.art.object.escape-project-build-set | art | critical | review | 세 탈출 프로젝트 production 설비 세트 제작 |
+| task.art.ui.gamejam-title-opening | art | critical | ready | 타이틀·도입·크레딧 UI 세트 제작 |
+| task.art.animation.mr-kim.idle | art | critical | ready | 김씨 idle 애니메이션 제작 |
+| task.art.animation.mr-kim.walk | art | critical | ready | 김씨 걷기 애니메이션 제작 |
+| task.art.animation.mr-kim.search | art | critical | ready | 김씨 뒤지기 애니메이션 제작 |
+| task.art.animation.mr-kim.facility-use | art | critical | ready | 김씨 설비 사용 애니메이션 제작 |
+| task.art.animation.mr-kim.ladder | art | critical | ready | 김씨 사다리 등반 애니메이션 제작 |
+| task.art.icon.gamejam-item-resource-part-set | art | critical | ready | 게임잼 자원·부품·도구 아이콘 19종 제작 |
+| task.art.ending.comic-core-five-set | art | critical | ready | 게임잼 core ending 5종 코믹 패널 제작 |
+| task.system.system.narrative-presentation | implementation | critical | ready | 도입·진행 비트 프레젠테이션 구현 |
+| task.system.system.character-animation-presentation | implementation | critical | ready | 김씨 애니메이션 상태기 구현 |
+| task.feature.feature.gamejam-narrative-framing | implementation | critical | ready | 게임잼 도입과 진행 서사 구현 |
+| task.qa.feature.gamejam-narrative-framing | qa | critical | planned | 게임잼 도입과 진행 서사 검증 |
+| task.feature.feature.gamejam-presentation-shell | implementation | critical | ready | 게임잼 최종 방향 UI와 월드 프레젠테이션 구현 |
+| task.qa.feature.gamejam-presentation-shell | qa | critical | planned | 게임잼 최종 방향 UI와 월드 프레젠테이션 검증 |
+| task.feature.feature.gamejam-character-animation | implementation | critical | ready | 김씨 핵심 행동 애니메이션 구현 |
+| task.qa.feature.gamejam-character-animation | qa | critical | planned | 김씨 핵심 행동 애니메이션 검증 |
+| task.feature.feature.gamejam-authored-endings | implementation | critical | ready | 게임잼 제작 엔딩 묶음 구현 |
+| task.qa.feature.gamejam-authored-endings | qa | critical | planned | 게임잼 제작 엔딩 묶음 검증 |
+| task.o9.design.content-lock | design | critical | ready | O9 시놉시스·도입·엔딩 beat·아트 범위 잠금 |
+| task.o9.art.style-benchmark | art | critical | review | O9 김씨·캠프·해변·HUD style benchmark 채택 |
+| task.o9.art.first-loop-production | art | critical | review | O9 첫 루프 production UI·월드·아이템 |
+| task.o9.art.character-core-animation | art | critical | ready | O9 김씨 core animation production |
+| task.o9.implementation.presentation-alpha | implementation | critical | planned | O9 콘텐츠·프레젠테이션 알파 통합 |
+| task.o9.qa.first-loop-presentation | qa | critical | planned | O9 5~10분 first-loop 콘텐츠·프레젠테이션 검증 |
+| task.o10.art.content-beta-production | art | critical | review | O10 일곱 지역·다층 캠프·세 탈출·필수 엔딩 production |
+| task.o10.implementation.content-beta | implementation | critical | planned | O10 30분 콘텐츠 베타 통합 |
+| task.o10.qa.thirty-minute-content-beta | qa | critical | planned | O10 30분 자연 플레이 재개 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
-| task.art.character.mr-kim | art | high | done | 김씨 2D 캐릭터 제작 |
-| task.art.object.camp-structures | art | high | done | 캠프 설비 분리 파츠 제작 |
 | task.system.system.comedy-feedback | implementation | high | done | 상황형 코믹 피드백 구현 |
 | task.system.system.input-actions | implementation | high | done | Unity 입력 액션 구현 |
 | task.system.system.responsive-ui | implementation | high | done | PC·휴대형 UI 가독성 구현 |
@@ -130,7 +195,6 @@
 | task.feature.feature.inventory-capacity-upgrade | implementation | high | done | 가방 4→6칸 확장 구현 |
 | task.qa.feature.inventory-capacity-upgrade | qa | high | blocked | 가방 4→6칸 확장 검증 |
 | task.design.wave7-bag-capacity-balance | design | high | done | Wave 7 가방 확장 비용과 3일 경로 검증 |
-| task.art.background.modular-island-camp | art | high | review | 측면 절개형 모듈 베이스캠프 제작 |
 | task.art.ui.camp-module-expansion | art | high | review | 방 모듈 증축 상태 UI 제작 |
 | task.art.ui.escape-project-progress | art | high | done | 다중 탈출 프로젝트 상태 UI 제작 |
 | task.art.ui.ending-comic | art | high | done | 엔딩 코믹북 컷신 프레임 제작 |
@@ -140,6 +204,14 @@
 | task.gamejam.long-stay-two-endings | implementation | high | done | 게임잼 장기 체류 엔딩 2종 |
 | task.art.object.searchable-resource-node-kit | art | high | review | 7지역 환경 수색 오브젝트 키트 제작 |
 | task.art.ui.search-loot-tray | art | high | review | 발견물 선별 트레이 UI 제작 |
+| task.art.object.camp-ladder | art | high | review | 표류물 사다리와 지하 해치 세트 제작 |
+| task.gamejam.o4-ladder-art-review | art | high | review | 사다리·지하 해치 오리지널 아트 후보 |
+| task.art.animation.mr-kim.hurt-sick | art | high | ready | 김씨 부상·질병·탈진 반응 세트 제작 |
+| task.art.animation.mr-kim.rest-eat | art | high | ready | 김씨 휴식·식사 회복 애니메이션 제작 |
+| task.art.ending.comic-variant-panel-set | art | high | ready | 코믹·희귀·행동 modifier 교체 패널 제작 |
+| task.system.system.gamejam-audio-presentation | implementation | high | ready | 게임잼 기능 오디오 구현 |
+| task.o9.art.ending-preview-audio | art | high | ready | O9 대표 엔딩 1종과 첫 루프 기능 오디오 |
+| task.o11.art.replayability-variants | art | high | ready | O11 코믹·희귀 변형과 행동 modifier panel |
 | task.art.icon.resource-tool-set | art | medium | done | 자원·도구 아이콘 세트 제작 |
 | task.art.effect.comedy-feedback | art | medium | done | 코믹 피드백 효과 세트 제작 |
 | task.art.ui.bag-capacity-upgrade | art | medium | review | 가방 확장 UI 상태 세트 제작 |
@@ -157,12 +229,29 @@
 - ui.survival-hud: review · 최소 생존 HUD
 - animation.mr-kim.swim: review · 김씨 수영 애니메이션
 - ui.bag-capacity-upgrade: review · 가방 확장 UI 상태 세트
-- background.modular-island-camp: review · 측면 절개형 모듈 베이스캠프
+- background.modular-island-camp: review · 게임잼 production 다층 캠프
 - ui.camp-module-expansion: review · 방 모듈 증축 상태 UI
 - icon.expedition-resource-risk-set: review · 수집 자원·위험·날씨 아이콘 세트
 - environment.expedition-region-kit: review · 7지역 지속 수색 환경 키트
 - object.searchable-resource-node-kit: review · 7지역 환경 수색 오브젝트 키트
 - ui.search-loot-tray: review · 발견물 선별 트레이 UI
+- object.camp-ladder: review · 표류물 사다리와 지하 해치 세트
+- ui.gamejam.interface-kit: review · 게임잼 통합 UI 컴포넌트 세트
+- background.expedition-seven-region-set: review · 일곱 수색 지역 production 배경 세트
+- object.searchable-resource-node-production-set: review · 환경 수색 오브젝트 production 세트
+- ui.interactable-marker-set: review · 공통 상호작용 표식 production 세트
+- object.escape-project-build-set: review · 세 탈출 프로젝트 production 설비 세트
+- ui.gamejam-title-opening: needed · 타이틀·도입·크레딧 UI 세트
+- animation.mr-kim.idle: needed · 김씨 idle 애니메이션
+- animation.mr-kim.walk: needed · 김씨 걷기 애니메이션
+- animation.mr-kim.search: needed · 김씨 뒤지기 애니메이션
+- animation.mr-kim.facility-use: needed · 김씨 설비 사용 애니메이션
+- animation.mr-kim.ladder: needed · 김씨 사다리 등반 애니메이션
+- animation.mr-kim.hurt-sick: needed · 김씨 부상·질병·탈진 반응 세트
+- animation.mr-kim.rest-eat: needed · 김씨 휴식·식사 회복 애니메이션
+- icon.gamejam-item-resource-part-set: needed · 게임잼 자원·부품·도구 아이콘 19종
+- ending.comic-core-five-set: needed · 게임잼 core ending 5종 코믹 패널
+- ending.comic-variant-panel-set: needed · 코믹·희귀·행동 modifier 교체 패널
 
 ## 검증 증거
 
@@ -401,6 +490,7 @@
 - task.gamejam.qa-thirty-minute-seven-region-slice: Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json
 - task.gamejam.qa-thirty-minute-seven-region-slice: Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md
 - task.gamejam.qa-thirty-minute-seven-region-slice: Docs/Design/Playtest/gamejam-seven-region-search-node-results.md
+- task.gamejam.qa-thirty-minute-seven-region-slice: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
 - task.system.system.search-node-loot: Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json
 - task.feature.feature.searchable-resource-nodes: Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json
 - task.qa.feature.searchable-resource-nodes: Artifacts/ParallelQA/20260826T053000Z_gamejam_search_node_integrated_green/gamejam-search-node-summary.json
@@ -420,14 +510,76 @@
 - task.design.gamejam-completion-matrix: Artifacts/ParallelQA/20260826T233000Z_gamejam_package_2bdea61/gamejam-package-integrity-summary.json
 - task.gamejam.o1-ui-resource-semantics: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
 - task.gamejam.o1-ui-resource-semantics: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
+- task.gamejam.o1-ui-resource-semantics: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-search-node-play-contracts.txt
+- task.gamejam.o1-ui-resource-semantics: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt
 - task.gamejam.o1-camp-expansion-ux: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
 - task.gamejam.o1-camp-expansion-ux: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
+- task.gamejam.o1-camp-expansion-ux: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave11-slot-play-contracts.txt
 - task.gamejam.o1-character-ground-animation: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
 - task.gamejam.o1-character-ground-animation: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
+- task.gamejam.o1-character-ground-animation: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt
 - task.gamejam.o1-corrective-integration-retest: Docs/Design/gamejam-o1-human-p1-corrective-wave.md
-- task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
+- task.gamejam.o1-corrective-integration-retest: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_final/compile-result.txt
+- task.gamejam.o1-corrective-integration-retest: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-wave-c-play-contracts.txt
+- task.gamejam.o1-corrective-integration-retest: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/gamejam-search-node-play-contracts.txt
+- task.gamejam.o1-corrective-integration-retest: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave11-slot-play-contracts.txt
+- task.gamejam.o1-corrective-integration-retest: Artifacts/ParallelQA/20260826T214500Z_o1_p1_integrated_r11/wave19-play-contracts.txt
+- task.gamejam.o2-bag-swap-visibility-p0: Docs/Design/Playtest/Sessions/O2-2026-08-26.md
+- task.gamejam.o2-bag-swap-visibility-p0: Artifacts/ParallelQA/manual-wave9/o2-p0-bag-swap-ko-1280x800.png
+- task.gamejam.o2-bag-swap-visibility-p0: Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt
+- task.gamejam.anchor-shelter-placement: Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md
+- task.gamejam.anchor-shelter-placement: Artifacts/ParallelQA/manual-wave9/o2-anchor-shelter-cutaway-ko-1280x800.png
+- task.gamejam.anchor-shelter-placement: Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt
+- task.gamejam.anchor-shelter-roof-living-furniture: Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md
+- task.gamejam.anchor-shelter-roof-living-furniture: Artifacts/ParallelQA/manual-wave9/o2-anchor-shelter-cutaway-ko-1280x800.png
+- task.gamejam.anchor-shelter-roof-living-furniture: Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt
+- task.gamejam.o2-anchor-shelter-integration-retest: Docs/Design/gamejam-o2-p0-anchor-shelter-rebaseline.md
+- task.gamejam.o2-anchor-shelter-integration-retest: Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt
+- task.gamejam.o2-anchor-shelter-integration-retest: Artifacts/Verification/windows-build.txt
+- task.gamejam.o2-anchor-shelter-integration-retest: Builds/Windows/KimSurvivalIsland.exe
+- task.gamejam.o5-triple-resource-budget-p0: Artifacts/ParallelQA/20260827T023500Z_o5_seed_regression_r4/o4-stable-resource-escape-seed-report.json
+- task.gamejam.o5-region-remaining-map-p1: Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json
+- task.gamejam.o5-region-remaining-map-p1: Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt
+- task.gamejam.o5-staged-escape-facilities-p1: Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json
+- task.gamejam.o5-staged-escape-facilities-p1: Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt
+- task.gamejam.o5-spaced-camp-icon-affordance-p1: Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt
+- task.gamejam.o5-art-production-wave: .forge/assets.json
+- task.gamejam.o5-integration-release: Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json
+- task.gamejam.o5-integration-release: Artifacts/ParallelQA/20260827T023500Z_o5_seed_regression_r4/o4-stable-resource-escape-seed-report.json
+- task.gamejam.o5-integration-release: Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt
+- task.gamejam.o5-integration-release: Artifacts/ParallelQA/20260827T033000Z_o5_release_553cbc5/gamejam-release-build.json
+- task.gamejam.o6-camp-modal-furniture: Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/camp/o6-camp-modal-furniture-edit.txt
+- task.gamejam.o6-camp-modal-furniture: Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/camp/o6-camp-modal-furniture-play.txt
+- task.gamejam.o6-search-bag-node-density: Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/search/o6-search-bag-resource-report.json
+- task.gamejam.o6-search-bag-node-density: Artifacts/ParallelQA/o6-search-bag-play/o6-search-bag-play.txt
+- task.gamejam.o6-world-scale-layout: Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/world/o6-world-presentation-edit.txt
+- task.gamejam.o6-world-scale-layout: Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root/world/o6-world-presentation-play.txt
+- task.gamejam.o6-raft-terminal-parts: Artifacts/ParallelQA/O6RaftTerminalParts/o6-raft-terminal-parts-report.json
+- task.gamejam.o6-integration-release: Artifacts/ParallelQA/20260827T083500Z_o6_integrated_root
+- task.gamejam.o6-integration-release: Artifacts/ParallelQA/20260827T090500Z_o6_release_d10d7c3/gamejam-release-build.json
+- task.gamejam.o6-integration-release: Artifacts/ParallelQA/20260827T091500Z_o6_package_d10d7c3/gamejam-package-integrity-summary.json
+- task.gamejam.o6-integration-release: Docs/Design/Playtest/Sessions/O6-H1-2026-08-27.md
+- task.gamejam.o7-camp-expansion-feedback-furniture: Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/camp/o7-camp-correction-edit.txt
+- task.gamejam.o7-camp-expansion-feedback-furniture: Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/camp/o7-camp-correction-play.txt
+- task.gamejam.o7-search-space-resource-economy: Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/search/o7-search-space-economy-report.json
+- task.gamejam.o7-bag-survival-onboarding: Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/bag-survival/o7-bag-survival-edit.txt
+- task.gamejam.o7-bag-survival-onboarding: Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/bag-survival/o7-bag-survival-play.txt
+- task.gamejam.o7-integration-release: Artifacts/ParallelQA/20260827T132000Z_o7_integrated_r1/compile-result.txt
+- task.gamejam.o7-integration-release: Artifacts/ParallelQA/20260827T134000Z_o7_release_1df5c7d/gamejam-release-build.json
+- task.gamejam.o7-integration-release: Artifacts/ParallelQA/20260827T134500Z_o7_package_1df5c7d/gamejam-package-integrity-summary.json
+- task.gamejam.o8-sequential-unlock-early-economy: Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md
+- task.gamejam.o8-sequential-unlock-early-economy: Artifacts/ParallelQA/O7SearchSpaceEconomy/o7-search-space-economy-report.json
+- task.gamejam.o8-compact-bag-raft-feedback: Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md
+- task.gamejam.o8-compact-bag-raft-feedback: work/ParallelQA/20260827T153000Z_o8_candidate_6d03413/bag/o7-bag-survival-play.txt
+- task.gamejam.o8-compact-bag-raft-feedback: Artifacts/ParallelQA/O6RaftTerminalParts/o6-raft-terminal-parts-report.json
+- task.gamejam.o8-hybrid-free-placement: Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md
+- task.gamejam.o8-hybrid-free-placement: work/ParallelQA/20260827T153000Z_o8_candidate_6d03413/camp/o7-camp-correction-play.txt
+- task.gamejam.o8-integration-release: Docs/Design/Playtest/Sessions/O8-Implementation-Verification-2026-08-28.md
+- task.gamejam.o8-integration-release: Artifacts/ParallelQA/20260827T161000Z_o8_release_03dae26/gamejam-release-build.json
+- task.gamejam.o8-integration-release: work/ParallelQA/20260827T153700Z_o8_h1_owner/o8-h1-player.log
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
+- task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.system.system.comedy-feedback: Artifacts/Verification/editmode-checks.txt
 - task.system.system.comedy-feedback: Artifacts/Verification/playmode-checks.txt
 - task.system.system.comedy-feedback: Artifacts/Verification/windows-build.txt
@@ -492,6 +644,7 @@
 - task.qa.feature.inventory-capacity-upgrade: Artifacts/ParallelQA/pkg_2c9f36a_verified/gamejam-package-integrity-summary.json
 - task.qa.feature.inventory-capacity-upgrade: Docs/QA/gamejam-final-windows-candidate-30m-human-checklist-ko.md
 - task.qa.feature.inventory-capacity-upgrade: Docs/Design/Playtest/gamejam-seven-region-search-node-results.md
+- task.qa.feature.inventory-capacity-upgrade: Docs/Design/Playtest/Sessions/O1-2026-08-26.md
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#4-업그레이드-전-가방-선택-보존-검증
 - task.design.wave7-bag-capacity-balance: Docs/Design/wave7-bag-capacity-upgrade.md#6-w2d1-구매-포함-자연-3일-구조-장부
 - task.design.wave7-bag-capacity-balance: Artifacts/ParallelQA/20260823T004700Z_642a73c_wave6_integrated/wave6-edit-contracts.txt
@@ -516,10 +669,11 @@
 
 ## 차단 요소
 
-- task.gamejam.qa-thirty-minute-seven-region-slice: Automated gates are GREEN. GJC-12, GJC-17, GJC-20 and GJC-23 still require people or a physical device on the exact final Release candidate.
+- task.gamejam.qa-thirty-minute-seven-region-slice: O1 human session failed GJC-17 and opened H-001 through H-005. Correct and freeze a new candidate before timing/cohort retest.
 - task.qa.feature.dual-input: GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.
-- task.qa.feature.inventory-capacity-upgrade: GJC-12 requires fresh-user observation that the 4-to-6 slot purchase creates useful expedition choice pressure on the exact final Release candidate.
+- task.qa.feature.inventory-capacity-upgrade: O1 found the upgrade mandatory and material identity unreadable. Fix H-002 and rebalance/retest GJC-12 on a new candidate.
 
 ## 미결 질문
 
-- 없음
+- question.story.stranding-cause · 김씨의 조난 원인은 현실적인 사고, 폭풍 표류, 정체불명 섬 중 어느 방향으로 확정할 것인가? 이 선택은 도입 3~5컷, 지역 단서와 정상·코믹 엔딩의 톤을 결정한다.
+- question.art.style-anchor · 기존 김씨의 잉크 선을 기준으로 배경을 단순화할지, 배경의 회화성을 기준으로 김씨를 다시 정리할지 어느 쪽을 style benchmark로 채택할 것인가? 이 선택은 모든 캐릭터 animation, 7지역, 캠프, 엔딩 패널과 UI 장식의 재작업 위험을 결정한다.

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "run_20260827160135_2446a51c",
+  "createdAt": "2026-08-27T16:01:35.592Z",
+  "updatedAt": "2026-08-27T16:01:35.592Z",
+  "sourceRequest": "O8-H1 테스트를 중단하고 게임잼 제출에 필요한 콘텐츠·아트·애니메이션·스토리·엔딩 범위를 점검해 다음 제작 단계 계획으로 반영",
+  "state": "design_ready",
+  "stages": {
+    "design": {
+      "status": "complete",
+      "updatedAt": "2026-08-27T16:01:35.592Z"
+    },
+    "art": {
+      "status": "planned",
+      "updatedAt": "2026-08-27T16:01:35.592Z"
+    },
+    "implementation": {
+      "status": "planned",
+      "updatedAt": "2026-08-27T16:01:35.592Z"
+    },
+    "verification": {
+      "status": "planned",
+      "updatedAt": "2026-08-27T16:01:35.592Z"
+    }
+  }
+}

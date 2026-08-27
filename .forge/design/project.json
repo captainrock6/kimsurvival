@@ -2,70 +2,52 @@
   "schemaVersion": 1,
   "project": {
     "title": "김씨 생존기: 무인도",
-    "oneLinePitch": "무인도에서 직접 설비를 사용하고 순서대로 열리는 수색지를 뒤져 여러 탈출 방법을 완성하는 코믹 2D 생존 게임",
-    "genre": "코믹 2D 횡스크롤 거점 생존·유한 자원 수색·제작·행동 기반 다중 엔딩 게임",
-    "targetPlatform": "게임잼 Windows PC 빌드, 한국어 기본·영어 지원, 키보드·마우스와 게임패드",
-    "audience": "30분 안에 직접 탐색한 섬과 확장한 거점이 눈에 남고, 다른 탈출법과 엔딩을 위해 다시 플레이하고 싶은 싱글 플레이 생존 게임 이용자",
+    "oneLinePitch": "무인도에 고립된 평범한 김씨가 환경 수색물을 뒤져 필요한 것만 챙기고, 위아래로 확장한 캠프와 여러 탈출 프로젝트에 투자해 자신의 생활 방식이 반영된 코믹북 결말에 도달하는 2D 생존 게임",
+    "genre": "코믹 2D 횡스크롤 거점 생존·유한 자원 수색·제작·행동 기반 다중 엔딩",
+    "targetPlatform": "게임잼 Windows PC, 한국어 기본·영어 지원, 키보드·마우스와 게임패드",
+    "audience": "30분 안에 섬을 뒤지고 캠프를 키우며 한 가지 탈출과 행동 기반 결말을 완주하고, 다른 경로를 다시 시도하고 싶은 싱글 플레이 이용자",
     "pillars": [
-      "다녀온 섬은 그대로 남는다: 자원 고갈, 부순 장벽, 제거하거나 남긴 위험과 획득한 핵심 부품을 같은 run에서 영구 보존한다.",
-      "탈출법이 수색 계획을 바꾼다: 연기는 막대한 나무와 부싯돌을, 무전은 서로 다른 지역에 흩어진 고유 기계 부품 전부를 요구한다.",
-      "캠프와 삶이 위아래로 자란다: 시작층·2층·지하실을 직접 연결하고 설비를 배치한 방식과 누적 행동이 탈출·장기 체류 엔딩을 결정한다."
+      "다녀온 섬의 자원·장벽·위험 상태가 그대로 남는다.",
+      "탈출법이 다음 수색 지역과 자원 투자 우선순위를 바꾼다.",
+      "김씨의 동작·공간 성장·누적 생활 방식이 코믹한 결말의 근거가 된다."
     ],
     "playerVerbs": [
       "이동한다",
       "접근한다",
-      "상호작용한다",
-      "지역을 비교한다",
       "뒤진다",
-      "발견물을 선별한다",
-      "수영한다",
-      "장벽을 부순다",
-      "위험을 피하거나 제거한다",
-      "운반한다",
+      "선별한다",
+      "귀환한다",
+      "제작한다",
+      "연구한다",
+      "건설한다",
       "치료한다",
-      "제작·연구한다"
+      "탈출을 준비한다"
     ],
     "coreLoop": [
-      "시작층·2층·지하실을 직접 오가며 설비와 상호작용하고 허기·체력·부상·질병·장비와 탈출 프로젝트를 점검한다.",
-      "지도 오브젝트에서 최소 일곱 지역의 남은 자원 전망, 위험도, 확인된 위험, 날씨, 필요 장비와 핵심 부품 단서를 비교한다.",
-      "선택 지역을 횡스크롤로 이동하며 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함과 폐시설 캐비닛 같은 수색 오브젝트를 찾는다.",
-      "수색 오브젝트를 뒤지는 시간·체력·위험을 감수해 숨겨진 유한 내용물을 공개한다.",
-      "발견된 물품 중 가방 용량과 현재 목표에 맞는 것만 담고 나머지는 그 오브젝트에 남긴다.",
-      "가방·체력·일광·질병 노출을 보고 귀환하며 수색 오브젝트 잔량, 장벽, 위험 제거와 핵심 부품 상태를 지역별로 저장한다.",
-      "귀환 자원을 치료·생존·가방·2층·지하·설비 또는 대형 연기·무전 구조 프로젝트 중 어디에 쓸지 선택한다.",
-      "연기는 대량의 나무와 부싯돌을 모아 여러 단계로 유지하고, 무전은 망가진 무전기·전자기판·트랜지스터 등 흩어진 부품 전부를 복구한다.",
-      "조기 탈출 또는 게임잼 장기 체류 판정일에 도달하면 탈출법, 캠프 확장과 누적 생활 방식으로 하나의 코믹북 엔딩을 결정한다."
+      "캠프를 직접 걷고 설비·생존 상태·탈출 프로젝트를 점검한다.",
+      "지도에서 순서대로 열린 지역의 자원 잔량·위험·단서를 비교한다.",
+      "지역을 이동하며 환경 수색물을 뒤지고 숨겨진 발견물을 공개한다.",
+      "가방과 현재 목표에 맞는 발견물만 골라 담고 귀환한다.",
+      "자원을 회복·도구·가방·다층 캠프·탈출 프로젝트에 투자한다.",
+      "조기 탈출 또는 장기 체류 판정에서 누적 행동이 반영된 코믹북 결말을 본다."
     ],
-    "artDirection": "밝고 따뜻한 열대색의 오리지널 2D 측면 일러스트. 일곱 지역은 같은 섬이라는 통일감을 유지하되 해변·맹그로브·숲·절벽·동굴·난파선·폐시설의 실루엣과 전경을 즉시 구분한다. 벌레·야생동물·위험 식물·질병은 고어나 혐오 표현 없이 과장된 동작, 상태 아이콘과 코믹한 김씨 반응으로 전달한다. 캠프는 시작층 위 2층과 아래 지하가 보이는 측면 절개형이며 모든 본문은 엔진 텍스트로 분리한다.",
+    "artDirection": "따뜻한 열대색과 굵고 읽기 쉬운 실루엣을 사용하는 오리지널 2D 측면 일러스트. 평범하고 약간 지친 생활인 김씨의 잉크 선과 과장된 반응을 기준으로 배경 세부를 한 단계 단순화하고, PC 횡스크롤 플레이 공간을 가리지 않는 절제된 구조물·UI 문법을 사용한다. 모든 본문은 엔진 텍스트로 분리한다.",
     "constraints": [
-      "게임잼 첫 플레이는 5~10분 안에 캠프→지도→수색 오브젝트 뒤지기→발견물 선별→귀환→투자의 핵심 루프를 이해하고 약 30분 안에 대표 탈출 엔딩을 볼 수 있어야 한다.",
-      "본편 표준 캠페인의 Day 50 데드라인은 유지하며 게임잼 빌드는 그 전에 자연 조기 탈출이 가능하도록 별도 밸런스 프로필을 사용한다.",
-      "게임잼 빌드에는 서로 구분되는 수색 지역이 최소 7개 있어야 하며 새 게임에서는 해변만 열리고 현재 지역 첫 진입으로 연결된 다음 지역 하나가 영구 해금된다.",
-      "각 지역은 위험도와 벌레·야생동물·위험 식물·질병·환경 위험 중 고유 조합을 지도에서 예고한다.",
-      "일반 자원과 탈출 핵심 부품의 주 수집 방식은 바닥의 개별 아이템 줍기가 아니라 환경 수색 오브젝트 상호작용과 발견물 선별이다.",
-      "수색 오브젝트의 내용물은 run seed와 안정 node ID로 한 번 결정되며 재방문·취소·재시작으로 재추첨되지 않는다.",
-      "지역 자원은 run마다 유한하며 방문 뒤 수색 오브젝트의 미발견·부분 잔류·고갈, 부순 장벽, 획득한 핵심 부품과 영구 제거 위험을 지역 안정 ID로 보존한다.",
-      "해변과 숲은 도구 없는 초반 진행에 필요한 식량·기초 재료·돌의 최소 합계를 보장하고, 이후 지역은 주력 자원 외에 다음 단계의 자연스러운 보조 자원을 제공한다.",
-      "무전 구조는 망가진 무전기, 망가진 전자기판과 트랜지스터를 포함한 고유 부품 전부를 서로 다른 지역에서 회수해야 완료된다.",
-      "대형 연기 신호는 다른 경로보다 훨씬 많은 나무를 소모하고 부싯돌을 요구하며 단계별 투입과 기상 조건을 가진다.",
-      "지붕이 있는 시작층·2층·지하실은 같은 run에서 모두 건설·이동 가능하고 일반 설비와 생활 가구를 각 방의 유효 영역에 자유 배치·재배치할 수 있어야 한다.",
-      "탈출 장비·모닥불·사다리와 증축 연결부만 StableAnchorId 고정 지점을 사용하며, 나머지 일반 설비는 StableRoomId와 방 내부 좌표를 저장한다.",
-      "유한 자원 때문에 모든 탈출법이 동시에 막히지 않도록 핵심 부품 보호, 시설 해체 환급, 총자원 예산과 대체 탈출 경로를 검증한다.",
-      "위험과 질병은 무예고 즉사 대신 예고→노출→상태 이상→악화의 단계와 장비·치료·회피 수단을 가진다.",
-      "금지된 성적 콘텐츠, 불법 약물 중심 테마, 극단적 고어, 현실 정치 선전, 혐오·차별과 타사 IP 복제를 포함하지 않는다."
+      "게임잼 첫 플레이는 5~10분 안에 캠프→지도→환경 수색물→선별→귀환→첫 투자 루프를 이해해야 한다.",
+      "약 30분 안에 뗏목·대형 연기·무전 중 하나와 3~5컷 엔딩에 도달해야 한다.",
+      "일곱 지역, 지붕 있는 1층·2층·지하, 세 탈출 경로, KO/EN과 확장 가능한 현지화 키를 유지한다.",
+      "review contact sheet를 런타임 최종 자산으로 사용하지 않고 지역·상태·프레임별 엔진 소스로 분리한다.",
+      "사용자가 채택하지 않은 Forge 아트 후보를 최종 자산으로 간주하지 않는다.",
+      "타사 IP, 고유 UI·건물·캐릭터·문구를 복제하지 않는다."
     ],
     "assumptions": [
-      "게임잼 7지역의 안정 순서는 시작 해변, 밀림 숲, 맹그로브 얕은물, 바위 절벽, 섬 동굴, 난파선 만, 폐기상 관측소이며 첫 진입이 다음 하나를 해금한다.",
-      "지역 상태 저장은 우선 한 run 안의 재방문 지속성을 뜻하며 게임 종료 후 이어하기 저장은 게임잼 필수 범위에서 제외한다.",
-      "게임잼의 장기 체류 엔딩 판정일은 우선 Day 20으로 두고 인간 플레이테스트 결과에 따라 Day 15~20 사이에서 조정한다.",
-      "장기 체류 엔딩 두 개는 Day 15와 Day 20에 각각 강제 종료하는 방식이 아니라 동일한 판정일에서 누적 생존·채집 우세와 건설·기계 우세 중 하나를 고르는 방식으로 가정한다.",
-      "대표 탈출은 Day 4~10 사이에 가능하고 장기 체류 엔딩은 의도적으로 탈출하지 않은 반복 플레이용 목표이므로 첫 30분 완주 기준에 포함하지 않는다.",
-      "일반 자원 수치, 연기 신호의 총 나무 비용과 장기 체류 판정일은 BALANCE_PROVISIONAL이며 자연 플레이테스트 전 확정하지 않는다.",
-      "일반 자원과 보호 핵심 부품은 모두 수색 결과로 발견하며, 월드에 직접 보이는 작은 물건은 비수집 장식 또는 수색 단서로만 사용한다.",
-      "처음 뒤지기 전에는 정확한 아이템과 수량을 숨기고 오브젝트 종류와 지역 전망만 제공하며, 한 번 확인하고 두고 간 물건은 재방문 시 알려진 잔여물로 표시한다.",
-      "뒤지는 애니메이션은 일광·체력과 위험 노출을 소비하지만 발견물 선별 창이 열린 동안에는 새 공격·위험 판정을 진행하지 않아 UI를 읽는 시간을 벌하지 않는다."
+      "BALANCE_PROVISIONAL: O9는 30분 밸런스가 아니라 첫 5~10분 콘텐츠·프레젠테이션 가독성을 검증한다.",
+      "조난 원인과 도입의 구체 사건은 사용자가 방향을 고르기 전까지 확정하지 않는다.",
+      "게임잼에서 완성할 core ending은 뗏목·연기·무전 일반 3종과 장기 체류 2종이다.",
+      "코믹 2종과 희귀 1종은 core sequence의 일부 패널을 교체하는 목표 범위다.",
+      "기존 김씨의 생활인 실루엣은 유지하되 애니메이션용 일관된 모델 시트로 다시 정리한다."
     ],
-    "updatedAt": "2026-08-27T14:42:28.572Z",
+    "updatedAt": "2026-08-27T16:02:07.227Z",
     "campaignContentContract": {
       "schemaVersion": 1,
       "contractId": "campaign.wave15.escape-hazard-ending-matrix.v1",
@@ -6909,6 +6891,144 @@
       ],
       "createdAt": "2026-08-27T14:41:39.604Z",
       "updatedAt": "2026-08-27T14:42:28.573Z"
+    },
+    {
+      "id": "feature.gamejam-narrative-framing",
+      "name": "게임잼 도입과 진행 서사",
+      "description": "김씨의 조난·즉시 목표를 짧게 제시하고 첫 귀환·제작·증축·탈출 프로젝트와 일곱 지역 발견을 같은 코미디 톤으로 연결한다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.phase-cycle",
+        "feature.localization"
+      ],
+      "screenIds": [
+        "screen.title",
+        "screen.opening",
+        "screen.camp",
+        "screen.expedition-map",
+        "screen.result"
+      ],
+      "assetIds": [
+        "ui.gamejam-title-opening",
+        "character.mr-kim",
+        "ui.ending-comic"
+      ],
+      "acceptanceCriteria": [
+        "도입은 30~45초 이내이며 언제든 스킵 가능하고 스킵 여부가 gameplay state를 바꾸지 않는다.",
+        "10분 안의 첫 루프에 목표와 다음 행동을 설명하는 짧은 비트가 있으나 조작을 장시간 막지 않는다.",
+        "일곱 지역 첫 소개는 위험·주요 자원·다음 단서를 숫자와 같은 의미로 KO/EN에 전달한다."
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "feature.gamejam-presentation-shell",
+      "name": "게임잼 최종 방향 UI와 월드 프레젠테이션",
+      "description": "타이틀부터 엔딩까지 하나의 시각 문법으로 묶고 캠프·일곱 지역·수색물·아이템·탈출 설비를 engine-ready production asset으로 교체한다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.localization",
+        "feature.camp-object-interaction",
+        "feature.searchable-resource-nodes",
+        "feature.escape-outcome"
+      ],
+      "screenIds": [
+        "screen.title",
+        "screen.opening",
+        "screen.camp",
+        "screen.expedition-map",
+        "screen.island",
+        "screen.result",
+        "screen.ending-gallery",
+        "screen.settings"
+      ],
+      "assetIds": [
+        "ui.gamejam-title-opening",
+        "ui.gamejam.interface-kit",
+        "background.modular-island-camp",
+        "background.expedition-seven-region-set",
+        "object.camp-structures",
+        "object.searchable-resource-node-production-set",
+        "object.escape-project-build-set",
+        "ui.interactable-marker-set",
+        "icon.gamejam-item-resource-part-set"
+      ],
+      "acceptanceCriteria": [
+        "O9 첫 루프에서 임시 네모·도식형 캐릭터·contact sheet·개발자 설명 패널이 주 표현으로 보이지 않는다.",
+        "모든 래스터 UI는 본문 없는 장식 소스이며 실제 라벨·숫자는 TMP 현지화 문자열이다.",
+        "1280×800과 1920×1080 KO/EN에서 월드·캐릭터·상호작용 대상을 동시에 가리는 화면이 없다.",
+        "일곱 지역과 세 탈출 설비의 상태가 텍스트를 읽기 전에도 실루엣과 색으로 구분된다."
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "feature.gamejam-character-animation",
+      "name": "김씨 핵심 행동 애니메이션",
+      "description": "정지 포즈 교체를 실제 프레임 애니메이션과 명시적 gameplay state 전환으로 교체한다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.camp-object-interaction",
+        "feature.swimming",
+        "feature.survival-hazards"
+      ],
+      "screenIds": [
+        "screen.camp",
+        "screen.island",
+        "screen.result"
+      ],
+      "assetIds": [
+        "character.mr-kim",
+        "animation.mr-kim.idle",
+        "animation.mr-kim.walk",
+        "animation.mr-kim.search",
+        "animation.mr-kim.facility-use",
+        "animation.mr-kim.ladder",
+        "animation.mr-kim.swim",
+        "animation.mr-kim.hurt-sick",
+        "animation.mr-kim.rest-eat"
+      ],
+      "acceptanceCriteria": [
+        "walk loop에서 발 접지점이 고정되고 collider·월드 Y와 시각 발바닥의 오차가 눈에 띄지 않는다.",
+        "수색·설비 사용·사다리·수영·회복 상태가 서로 다른 동작으로 읽힌다.",
+        "입력 취소·화면 전환·피격 뒤 animator state가 고정되거나 잘못 반복되지 않는다."
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "feature.gamejam-authored-endings",
+      "name": "게임잼 제작 엔딩 묶음",
+      "description": "21개 데이터 카탈로그 중 필수 5개 core ending을 실제 3컷로 제작하고 코믹 2종·희귀 1종과 행동 modifier를 교체 패널로 조립한다.",
+      "priority": "critical",
+      "status": "planned",
+      "dependencies": [
+        "feature.behavioral-endings",
+        "feature.ending-gallery",
+        "feature.localization"
+      ],
+      "screenIds": [
+        "screen.result",
+        "screen.ending-gallery"
+      ],
+      "assetIds": [
+        "ui.ending-comic",
+        "ui.ending-gallery",
+        "ending.comic-core-five-set",
+        "ending.comic-variant-panel-set"
+      ],
+      "acceptanceCriteria": [
+        "뗏목·연기·무전 일반 3종과 자연인·건물주 장기 체류 2종이 서로 다른 고유 3컷를 가진다.",
+        "각 core sequence는 결과·원인·후일담을 그림과 엔진 텍스트로 전달한다.",
+        "코믹 2종·희귀 1종은 core의 일부 패널을 교체하고 resolver의 ending ID와 그림이 일치한다.",
+        "수영·기계·건설·생존채집 우세 modifier는 재사용 후일담 패널로 누적 행동 근거를 보여 준다.",
+        "나머지 ending ID는 앨범에서 미발견 실루엣과 비스포일러 힌트를 유지한다."
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     }
   ],
   "screens": [
@@ -7378,6 +7498,74 @@
       ],
       "createdAt": "2026-08-23T14:16:09.803Z",
       "updatedAt": "2026-08-23T14:52:07.111Z"
+    },
+    {
+      "id": "screen.title",
+      "name": "게임잼 타이틀과 제출 셸",
+      "purpose": "게임 제목, 새 게임, 설정, 조작 안내, 크레딧·라이선스와 종료를 제공한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.gamejam-narrative-framing",
+        "feature.gamejam-presentation-shell",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [
+        "ui.gamejam-title-opening",
+        "ui.gamejam.interface-kit"
+      ],
+      "entryPoints": [
+        "실행 직후",
+        "엔딩 뒤 타이틀 복귀"
+      ],
+      "actions": [
+        "새 게임",
+        "설정",
+        "조작 안내",
+        "크레딧·라이선스",
+        "종료"
+      ],
+      "states": [
+        "한국어",
+        "영어",
+        "키보드·마우스",
+        "게임패드",
+        "첫 실행"
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "screen.opening",
+      "name": "김씨 조난 도입 코믹",
+      "purpose": "조난 원인, 김씨의 상태와 즉시 목표를 3~5컷로 전달하고 캠프로 전환한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.gamejam-narrative-framing",
+        "feature.localization",
+        "feature.dual-input"
+      ],
+      "assetIds": [
+        "ui.gamejam-title-opening",
+        "character.mr-kim"
+      ],
+      "entryPoints": [
+        "새 게임 확정"
+      ],
+      "actions": [
+        "다음 컷",
+        "이전 컷",
+        "전체 스킵"
+      ],
+      "states": [
+        "첫 컷",
+        "중간 컷",
+        "마지막 컷",
+        "스킵 확인",
+        "캠프 전환"
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     }
   ],
   "systems": [
@@ -7933,6 +8121,72 @@
       ],
       "createdAt": "2026-08-27T14:41:39.604Z",
       "updatedAt": "2026-08-27T14:42:28.573Z"
+    },
+    {
+      "id": "system.narrative-presentation",
+      "name": "도입·진행 비트 프레젠테이션",
+      "description": "run state를 바꾸지 않는 도입과 first-time 지역·시설 비트를 안정 ID로 한 번씩 표시한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.gamejam-narrative-framing"
+      ],
+      "dependencies": [
+        "system.run-state",
+        "system.localization",
+        "system.input-actions"
+      ],
+      "acceptanceCriteria": [
+        "도입 스킵과 비트 닫기가 자원·날짜·seed·해금 상태를 변경하지 않는다.",
+        "같은 run에서 first-time 비트가 반복 입력으로 중복 재생되지 않는다.",
+        "KO/EN 전환 뒤 현재 패널이 즉시 갱신된다."
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "system.character-animation-presentation",
+      "name": "김씨 애니메이션 상태기",
+      "description": "이동·수색·설비 사용·사다리·수영·피해·회복 gameplay state를 실제 animation clip과 전환한다.",
+      "priority": "critical",
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "dependencies": [
+        "system.input-actions",
+        "system.swimming",
+        "system.survival",
+        "system.camp-structures"
+      ],
+      "acceptanceCriteria": [
+        "한 프레임에 상충하는 이동·사다리·상호작용 clip이 동시에 재생되지 않는다.",
+        "각 clip의 발·손 commit frame과 gameplay transaction이 시각적으로 일치한다.",
+        "동작 종료·취소·화면 전환 뒤 idle 또는 유효 locomotion으로 복귀한다."
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "system.gamejam-audio-presentation",
+      "name": "게임잼 기능 오디오",
+      "description": "환경 loop, UI·수색·제작·위험·탈출 SFX와 엔딩 theme/sting을 화면 상태와 중복 없이 재생한다.",
+      "priority": "high",
+      "featureIds": [
+        "feature.gamejam-presentation-shell",
+        "feature.gamejam-authored-endings"
+      ],
+      "dependencies": [
+        "system.phase-flow",
+        "system.survival",
+        "system.escape-projects",
+        "system.ending-resolution"
+      ],
+      "acceptanceCriteria": [
+        "위험 예고·부상·질병·치료 소리는 화면을 보지 않아도 서로 구분된다.",
+        "반복 수색·UI 이동 소리는 동시 중첩과 피로를 제한한다.",
+        "탈출 완료와 엔딩 punchline은 일반 성공·실패음과 구분된다."
+      ],
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     }
   ],
   "artAssets": [
@@ -7986,15 +8240,17 @@
     },
     {
       "id": "character.mr-kim",
-      "name": "김씨 2D 캐릭터",
+      "name": "김씨 production model과 기준 포즈",
       "assetType": "sprite_animation",
-      "request": "평범하지만 생활력 있어 보이는 오리지널 한국인 성인 김씨의 2D 측면 캐릭터. 특정 배우나 기존 캐릭터를 닮지 않으며, 해진 일상복과 급조한 작은 가방을 착용한다. 과장된 표정과 몸짓이 작은 화면에서도 읽혀야 하며 대기, 걷기, 점프, 오르기, 채집, 수색, 도구 반동, 기력 소진의 핵심 포즈가 같은 비율과 기준점으로 제공되어야 한다.",
-      "priority": "high",
+      "request": "기존의 평범하고 약간 지친 한국인 생활인 김씨, 주황 티셔츠·짙은 반바지·샌들·급조 배낭 실루엣을 유지한 Unity 2D side-view production model source. 모든 후속 animation에서 머리·몸·사지 비율, 얼굴, 의상 색, 발바닥 ground pivot, target height를 고정한다. idle 기준과 locomotion key pose를 동일 camera/scale의 true-alpha cells로 제공하며 장면 배경, 글자, 그림자 오염과 인물 중복을 넣지 않는다.",
+      "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.island-exploration",
         "feature.survival-pressure",
-        "feature.escape-outcome"
+        "feature.escape-outcome",
+        "feature.gamejam-character-animation",
+        "feature.gamejam-narrative-framing"
       ],
       "tags": [
         "unity",
@@ -8002,17 +8258,22 @@
         "side-view",
         "character",
         "comedy",
-        "animation"
+        "animation",
+        "mr-kim",
+        "production-model",
+        "ground-pivot"
       ],
       "status": "needed",
-      "source": "forge-director"
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:01:35.594Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "object.camp-structures",
-      "name": "고정 지점형 캠프 설비와 생활 가구",
+      "name": "캠프 생활·제작 설비 production 세트",
       "assetType": "separated_parts",
-      "request": "기존 채택 모닥불·작업대·빗물받이를 보존하면서 침대·소파와 고정 설치 지점 표식을 추가하는 오리지널 측면 실루엣 세트. 한국어·영어 본문을 굽지 않고 true-alpha, bottom-center pivot, 작은 화면 가독성을 지킨다. 새 후보는 사용자 채택 전 review-only로 유지한다.",
-      "priority": "high",
+      "request": "김씨 생존기 다층 캠프용 side-view production object set: 모닥불, 작업대, 빗물받이, 침대, 소파, 수집 지도/계획대, 엔딩 앨범, 보관함. 각 설비는 미건설 preview가 아니라 built/active/disabled 또는 필요한 진행 상태를 분리하고 동일 ground pivot, target scale, true alpha와 자유 배치 collision footprint manifest를 제공한다. 겹침, 장면 배경, 본문 텍스트 없음.",
+      "priority": "critical",
       "dependencies": [
         "background.island-camp",
         "background.modular-island-camp"
@@ -8021,7 +8282,8 @@
         "feature.camp-building",
         "feature.crafting-research",
         "feature.escape-outcome",
-        "feature.camp-module-expansion"
+        "feature.camp-module-expansion",
+        "feature.gamejam-presentation-shell"
       ],
       "tags": [
         "unity",
@@ -8035,12 +8297,16 @@
         "bed",
         "sofa",
         "fixed-anchor",
-        "review-only"
+        "review-only",
+        "facility",
+        "furniture",
+        "separated",
+        "production"
       ],
       "status": "needed",
       "source": "forge-director",
       "createdAt": "2026-08-22T10:15:38.551Z",
-      "updatedAt": "2026-08-26T14:30:22.468Z"
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "icon.resource-tool-set",
@@ -8134,13 +8400,14 @@
       "id": "animation.mr-kim.swim",
       "name": "김씨 수영 애니메이션",
       "assetType": "sprite_animation",
-      "request": "채택된 character.mr-kim 디자인을 정확히 유지하는 2D 측면 수면 수영 루프. 짧고 헝클어진 검은 머리, 빛바랜 주황색 반팔 셔츠, 짙은 초록 반바지, 슬리퍼와 급조 등가방을 유지하고, 물 위에서 다소 서툴지만 앞으로 나아가는 성인 김씨의 팔 젓기·발차기 6~8프레임을 같은 비율과 기준점으로 제공한다. 카메라 이동, 물 배경, 글자와 별도 소품 없이 투명 배경이며 작은 화면에서 머리·팔·등가방 실루엣이 읽혀야 한다.",
+      "request": "채택된 김씨 production model과 동일한 얼굴·의상·비율의 side-view surface swim 6~8 frame loop 및 짧은 shore entry/exit key pose. 수면선, 몸통 각도, stroke timing, true alpha와 fixed canvas를 유지하며 장면 배경을 넣지 않는다.",
       "priority": "high",
       "dependencies": [
         "character.mr-kim"
       ],
       "featureIds": [
-        "feature.swimming"
+        "feature.swimming",
+        "feature.gamejam-character-animation"
       ],
       "tags": [
         "unity",
@@ -8148,10 +8415,16 @@
         "side-view",
         "character",
         "swimming",
-        "animation"
+        "animation",
+        "mr-kim",
+        "swim",
+        "loop",
+        "transition"
       ],
       "status": "needed",
-      "source": "forge-director"
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:01:35.594Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "ui.bag-capacity-upgrade",
@@ -8202,15 +8475,16 @@
     },
     {
       "id": "background.modular-island-camp",
-      "name": "열대 절개형 다층 쉘터",
+      "name": "게임잼 production 다층 캠프",
       "assetType": "background",
-      "request": "지붕이 있는 시작층과 위층·지하실 성장을 한눈에 읽는 오리지널 표류물 쉘터. 밝은 열대색과 표류목·천막·선체 조각을 사용하고 제3자 고유 화면 구성, 정확한 방 배치, UI, 아이콘, 아트는 복제하지 않는다.",
-      "priority": "high",
+      "request": "Unity 2D 16:9 측면 절개형 무인도 캠프 production set. 지붕 있는 시작 1층, 위 2층, 아래 지하가 사다리·해치로 실제 연결되고 각 방의 자유 배치 영역과 통로가 비어 있다. 같은 따뜻한 열대색과 잉크 선, 단순화된 background/midground/foreground/room shell/ground collision layers, 1280×800 및 1920×1080 camera crop 안전 영역을 제공한다. 설비·캐릭터·UI·본문은 포함하지 않는다.",
+      "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.camp-module-expansion",
         "feature.camp-object-interaction",
-        "feature.camp-building"
+        "feature.camp-building",
+        "feature.gamejam-presentation-shell"
       ],
       "tags": [
         "cutaway",
@@ -8221,12 +8495,17 @@
         "cutaway-shelter",
         "fixed-anchor",
         "original",
-        "review-only"
+        "review-only",
+        "camp",
+        "upper-floor",
+        "basement",
+        "layered",
+        "production"
       ],
       "status": "needed",
       "source": "forge-director",
       "createdAt": "2026-08-26T13:36:27.869Z",
-      "updatedAt": "2026-08-26T14:30:22.468Z"
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "ui.camp-module-expansion",
@@ -8512,108 +8791,409 @@
       "id": "ui.gamejam.interface-kit",
       "name": "게임잼 통합 UI 컴포넌트 세트",
       "assetType": "ui_set",
-      "request": "김씨 생존기 무인도용 오리지널 Unity PC UI 세트. 최소 생존 HUD, 캠프 근접 프롬프트, 설비 팝업, 수집 지도 7지역 카드와 자원 잔량 배지, 수색 발견물 tray, 4칸/6칸 가방, 부족 자원·위험·완료 상태의 패널·프레임·탭·포커스 상태를 하나의 따뜻한 열대 생존 시각 문법으로 정리한다. 1280x800과 1920x1080, KO/EN/장문 로케일을 고려하고 모든 본문은 빈 라벨 영역으로 두어 엔진 TMP로 표시한다. 타사 고유 UI, 로고, 본문 텍스트 없음.",
+      "request": "contact sheet가 아니라 Unity에 직접 적용할 editable PC UI production source. 최소 생존 HUD, 상태 이상, compact 근접 prompt, 설비 팝업, 제작·연구, 건설·재배치, 방 증축, 7지역 지도 카드와 잔량·위험, 발견물 tray, 4/6/8/10칸 compact bag, 탈출 단계, toast, pause/settings를 하나의 절제된 열대 생존 문법으로 만든다. SVG/9-slice/engine-native layout을 우선하고 모든 본문은 빈 TMP 영역으로 둔다. 1280×800·1920×1080 KO/EN/qps-long, keyboard/gamepad focus, normal/focus/pressed/disabled/blocked/complete 상태를 제공한다.",
       "priority": "critical",
       "dependencies": [
-        "icon.resource-tool-set"
+        "icon.resource-tool-set",
+        "icon.gamejam-item-resource-part-set"
       ],
       "featureIds": [
         "feature.localization",
         "feature.dual-input",
-        "feature.searchable-resource-nodes"
+        "feature.searchable-resource-nodes",
+        "feature.gamejam-presentation-shell"
       ],
       "tags": [
         "o5",
         "gamejam",
         "ui-set",
-        "review-only"
+        "review-only",
+        "ui",
+        "production-source",
+        "pc",
+        "localization"
       ],
       "status": "needed",
-      "source": "forge-director"
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:01:35.594Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "background.expedition-seven-region-set",
-      "name": "일곱 수색 지역 측면 배경 세트",
+      "name": "일곱 수색 지역 production 배경 세트",
       "assetType": "background",
-      "request": "같은 무인도에 속하지만 즉시 구분되는 7개의 오리지널 2D 횡스크롤 측면 배경 세트: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면은 캐릭터가 걷는 하나의 수평 gameplay band와 환경 수색 오브젝트를 놓을 빈 공간, 전경·중경·원경 깊이, 따뜻한 열대색과 굵은 실루엣을 유지한다. UI와 본문 텍스트, 타사 고유 구도 없음.",
+      "request": "하나의 contact sheet가 아니라 별도 엔진 파일로 납품하는 7개의 Unity 2D side-scroller production background: 해변, 숲, 얕은 바다, 바위 해안, 동굴, 난파선, 폐중계소. 각 지역은 동일 island art bible 아래 unique silhouette·palette accent·foreground cue를 가지며 background/midground/gameplay ground/foreground와 optional water layer를 분리한다. 캐릭터·수색물·UI·본문 없음, 1280×800/1920×1080 카메라와 넓은 수색물 간격을 고려한다.",
       "priority": "critical",
       "dependencies": [],
       "featureIds": [
         "feature.island-exploration",
-        "feature.searchable-resource-nodes"
+        "feature.searchable-resource-nodes",
+        "feature.gamejam-presentation-shell"
       ],
       "tags": [
         "o5",
         "seven-regions",
         "side-view",
-        "review-only"
+        "review-only",
+        "gamejam",
+        "layered",
+        "production-files"
       ],
       "status": "needed",
-      "source": "forge-director"
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:01:35.594Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "object.searchable-resource-node-production-set",
-      "name": "환경 수색 오브젝트 프로덕션 세트",
+      "name": "환경 수색 오브젝트 production 세트",
       "assetType": "separated_parts",
-      "request": "김씨 생존기 2D 측면 수색용 오리지널 환경 오브젝트 세트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛을 미수색·부분 잔류·고갈 상태로 구분한다. 1280x800에서 작은 실루엣으로도 종류와 상태가 읽히고, 같은 공통 상호작용 아이콘을 얹을 상단 여백을 둔다. 각 부품 분리, 무겹침, 동일 여백, true alpha, 본문 텍스트 없음.",
+      "request": "7지역 side-view 수색용 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛의 미수색·부분 잔류·고갈 상태 production set. 같은 잉크 선과 단순화된 열대 배경 문법, 1280×800 작은 실루엣 가독성, marker 여백, true alpha, 동일 여백과 ground pivot, 각 셀 무겹침. 내용물 아이템과 본문 텍스트는 넣지 않는다.",
       "priority": "critical",
-      "dependencies": [],
+      "dependencies": [
+        "background.expedition-seven-region-set"
+      ],
       "featureIds": [
         "feature.searchable-resource-nodes",
-        "feature.region-persistence"
+        "feature.region-persistence",
+        "feature.gamejam-presentation-shell"
       ],
       "tags": [
         "o5",
         "search-object",
         "state-set",
-        "review-only"
+        "review-only",
+        "search-node",
+        "three-states",
+        "seven-regions",
+        "production"
       ],
       "status": "needed",
-      "source": "forge-director"
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:01:35.594Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "ui.interactable-marker-set",
-      "name": "공통 상호작용 아이콘 표식",
+      "name": "공통 상호작용 표식 production 세트",
       "assetType": "ui_set",
-      "request": "김씨 생존기 캠프·지도·수색 오브젝트 위에 쓰는 오리지널 아이콘 표식 세트. 작은 마름모 프레임 안에 사용, 제작, 건설, 지도, 수색, 등반, 탈출 프로젝트를 형태로 구분하고 available, nearby, blocked, depleted 상태를 색과 테두리로 전달한다. 게임 화면을 가리는 본문 이름표 없이 32~64px에서 읽히며 키 입력 문자는 별도 엔진 TMP 슬롯으로 둔다. 타사 고유 아이콘 복제 없음.",
+      "request": "캠프·지도·수색물·사다리·탈출 설비 위에 표시할 32~64px icon-led marker set. use/search/build/map/climb/escape와 available/nearby/blocked/depleted 상태를 색뿐 아니라 outline·shape로 구분하고, 입력 glyph는 별도 TMP/engine slot으로 둔다. PC 횡스크롤 화면을 가리는 본문 이름표 없음, editable SVG와 engine-ready state files 제공.",
       "priority": "critical",
-      "dependencies": [],
+      "dependencies": [
+        "ui.gamejam.interface-kit"
+      ],
       "featureIds": [
         "feature.camp-object-interaction",
-        "feature.searchable-resource-nodes"
+        "feature.searchable-resource-nodes",
+        "feature.gamejam-presentation-shell"
       ],
       "tags": [
         "o5",
         "interaction",
         "marker",
-        "review-only"
+        "review-only",
+        "states",
+        "svg",
+        "production"
       ],
       "status": "needed",
-      "source": "forge-director"
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:01:35.594Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     },
     {
       "id": "object.escape-project-build-set",
-      "name": "건설형 탈출 프로젝트 설비 세트",
+      "name": "세 탈출 프로젝트 production 설비 세트",
       "assetType": "separated_parts",
-      "request": "플레이어가 계획대에서 건설한 뒤 베이스캠프에 등장하는 오리지널 2D 측면 탈출 설비 세트. 해안 뗏목 진수대, 대형 연기 신호대, 무전 복구 작업대를 blueprint·건설됨·진행 중·완료 상태로 구분한다. 표류목, 밧줄, 천, 재활용 금속과 전자 부품의 코믹한 급조 감각, 각 부품 분리, true alpha, 본문 텍스트와 타사 고유 디자인 없음.",
-      "priority": "high",
+      "request": "김씨 생존기 side-view 캠프용 뗏목 진수대, 대형 연기 신호대, 무전 복구 작업대의 blueprint/build/progress/complete 상태별 production source. 뗏목은 선체·돛·보급, 연기는 장작 구조·점화·대형 연기, 무전은 작업대·부품·안테나·송신 완료가 읽힌다. 동일 style/scale/ground pivot, true alpha, 상태별 무겹침, 본문 텍스트 없음.",
+      "priority": "critical",
       "dependencies": [
         "object.camp-structures"
       ],
       "featureIds": [
         "feature.escape-outcome",
-        "feature.raft-escape"
+        "feature.raft-escape",
+        "feature.gamejam-presentation-shell"
       ],
       "tags": [
         "o5",
         "escape",
         "build-state",
-        "review-only"
+        "review-only",
+        "raft",
+        "smoke",
+        "radio",
+        "stages",
+        "production"
       ],
       "status": "needed",
-      "source": "forge-director"
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:01:35.594Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "ui.gamejam-title-opening",
+      "name": "타이틀·도입·크레딧 UI 세트",
+      "assetType": "ui_set",
+      "request": "김씨 생존기: 무인도 Windows PC 게임잼 빌드의 타이틀, 새 게임, 설정, 조작 안내, 크레딧·라이선스와 3~5컷 도입 프레임을 위한 editable UI component set. 1280×800과 1920×1080, KO/EN/qps-long, 키보드·게임패드 focus를 지원한다. 따뜻한 열대색과 표류목·천의 절제된 장식을 사용하고 gameplay character art와 본문 텍스트는 굽지 않는다. blank label area, 9-slice 가능한 패널, normal/focus/pressed/disabled 상태를 분리한다.",
+      "priority": "critical",
+      "dependencies": [
+        "ui.gamejam.interface-kit"
+      ],
+      "featureIds": [
+        "feature.gamejam-narrative-framing",
+        "feature.gamejam-presentation-shell"
+      ],
+      "tags": [
+        "gamejam",
+        "title",
+        "opening",
+        "credits",
+        "pc",
+        "localization"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "animation.mr-kim.idle",
+      "name": "김씨 idle 애니메이션",
+      "assetType": "sprite_animation",
+      "request": "채택된 김씨 production model의 side-view idle breathing loop. 4~6 frames, 8~10 FPS, seamless loop, 고정 발바닥과 body scale, true alpha, 동일 canvas와 pivot.",
+      "priority": "critical",
+      "dependencies": [
+        "character.mr-kim"
+      ],
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "tags": [
+        "mr-kim",
+        "idle",
+        "loop"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "animation.mr-kim.walk",
+      "name": "김씨 걷기 애니메이션",
+      "assetType": "sprite_animation",
+      "request": "채택된 김씨 production model의 side-view walk cycle. 8 frames, 10~12 FPS, 발 접지와 보폭 일관성, backpack follow-through, 좌우 flip 안전, true alpha, 동일 canvas와 ground pivot.",
+      "priority": "critical",
+      "dependencies": [
+        "character.mr-kim"
+      ],
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "tags": [
+        "mr-kim",
+        "walk",
+        "locomotion",
+        "loop"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "animation.mr-kim.search",
+      "name": "김씨 뒤지기 애니메이션",
+      "assetType": "sprite_animation",
+      "request": "채택된 김씨가 side-view 환경 수색물 앞에 숙여 손으로 뒤지는 6~8 frame action. 시작·손 commit·회수 pose가 명확하고 발 pivot과 대상 방향을 고정한다. true alpha, 동일 canvas와 scale.",
+      "priority": "critical",
+      "dependencies": [
+        "character.mr-kim"
+      ],
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "tags": [
+        "mr-kim",
+        "search",
+        "interaction"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "animation.mr-kim.facility-use",
+      "name": "김씨 설비 사용 애니메이션",
+      "assetType": "sprite_animation",
+      "request": "채택된 김씨가 side-view 작업대·지도·건설 설비를 손으로 조작하는 공통 6 frame action. reach, commit, recover가 명확하고 도구는 교체 가능한 별도 layer를 고려한다. true alpha, 동일 canvas와 ground pivot.",
+      "priority": "critical",
+      "dependencies": [
+        "character.mr-kim"
+      ],
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "tags": [
+        "mr-kim",
+        "facility-use",
+        "interaction"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "animation.mr-kim.ladder",
+      "name": "김씨 사다리 등반 애니메이션",
+      "assetType": "sprite_animation",
+      "request": "채택된 김씨의 정면에 가까운 2D ladder climb 6 frame loop. 손발 교차, 일정 rung 간격, backpack follow-through, 위·아래 재생 가능, true alpha와 고정 center pivot.",
+      "priority": "critical",
+      "dependencies": [
+        "character.mr-kim",
+        "object.camp-ladder"
+      ],
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "tags": [
+        "mr-kim",
+        "ladder",
+        "vertical-traversal",
+        "loop"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "animation.mr-kim.hurt-sick",
+      "name": "김씨 부상·질병·탈진 반응 세트",
+      "assetType": "sprite_animation",
+      "request": "채택된 김씨의 side-view hurt recoil, sick cough, exhausted slump를 짧고 고어 없이 구분하는 production reaction set. 각 action 3~5 frames, true alpha, 동일 ground pivot과 scale.",
+      "priority": "high",
+      "dependencies": [
+        "character.mr-kim"
+      ],
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "tags": [
+        "mr-kim",
+        "hurt",
+        "sick",
+        "exhausted"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "animation.mr-kim.rest-eat",
+      "name": "김씨 휴식·식사 회복 애니메이션",
+      "assetType": "sprite_animation",
+      "request": "채택된 김씨가 side-view 침대·소파에서 쉬고 식사를 하는 짧은 회복 action set. rest settle, eat commit, relieved reaction을 구분하고 true alpha, 동일 character scale을 유지한다.",
+      "priority": "high",
+      "dependencies": [
+        "character.mr-kim",
+        "object.camp-structures"
+      ],
+      "featureIds": [
+        "feature.gamejam-character-animation"
+      ],
+      "tags": [
+        "mr-kim",
+        "rest",
+        "eat",
+        "recovery"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "icon.gamejam-item-resource-part-set",
+      "name": "게임잼 자원·부품·도구 아이콘 19종",
+      "assetType": "logo_icon",
+      "request": "김씨 생존기 inventory와 발견물 tray용 오리지널 icon catalog. 자원 12종 wood/salvage/food/fabric/fiber/medicine/stone/metal/wire/fuel/chemicals/electronics, 보호 부품 5종 raft sailcloth/smoke flint/broken radio transceiver/broken circuit board/radio transistor, 도구 2종 stone axe/rope를 32·48·64px에서 서로 구분한다. 통일된 굵은 외곽선, material color, true alpha, equal cells와 safe margin, 본문·수량·배경 없음.",
+      "priority": "critical",
+      "dependencies": [
+        "icon.resource-tool-set"
+      ],
+      "featureIds": [
+        "feature.gamejam-presentation-shell"
+      ],
+      "tags": [
+        "inventory",
+        "resource",
+        "key-part",
+        "tool",
+        "icon-catalog"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "ending.comic-core-five-set",
+      "name": "게임잼 core ending 5종 코믹 패널",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기 게임잼 ending용 15개 독립 comic panel illustration. raft open-water, smoke seen-from-afar, radio clear-signal, stay natural-kim, stay island-engineer 각각 setup/escalation/aftermath 3컷. 같은 김씨 production model과 섬 art bible, 결과·원인·후일담이 그림만으로 읽히는 과장된 포즈, 16:9 UI frame 안의 동일 panel safe area, true alpha 또는 panel-ready opaque source, 본문·말풍선·타사 IP 없음. 각 패널 파일과 ending/panel role manifest를 분리한다.",
+      "priority": "critical",
+      "dependencies": [
+        "character.mr-kim",
+        "ui.ending-comic"
+      ],
+      "featureIds": [
+        "feature.gamejam-authored-endings"
+      ],
+      "tags": [
+        "ending",
+        "comic",
+        "five-core",
+        "fifteen-panels",
+        "production"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
+    },
+    {
+      "id": "ending.comic-variant-panel-set",
+      "name": "코믹·희귀·행동 modifier 교체 패널",
+      "assetType": "separated_parts",
+      "request": "core ending sequence에 끼우는 독립 comic replacement panel set: island-barbecue 2컷, island-dj 2컷, current-reader 2컷, swimming/mechanics/building/survival-search 행동 modifier 후일담 4컷. core five set과 동일 김씨·선 굵기·palette·panel safe area, true alpha 또는 panel-ready source, 각 ending/stat ID manifest, 본문·말풍선 없음.",
+      "priority": "high",
+      "dependencies": [
+        "ending.comic-core-five-set"
+      ],
+      "featureIds": [
+        "feature.gamejam-authored-endings"
+      ],
+      "tags": [
+        "ending",
+        "variant",
+        "modifier",
+        "comic",
+        "replayability"
+      ],
+      "status": "needed",
+      "source": "forge-director",
+      "createdAt": "2026-08-27T16:02:07.228Z",
+      "updatedAt": "2026-08-27T16:02:07.228Z"
     }
   ],
-  "openQuestions": [],
-  "updatedAt": "2026-08-27T14:42:28.572Z"
+  "openQuestions": [
+    "question.story.stranding-cause · 김씨의 조난 원인은 현실적인 사고, 폭풍 표류, 정체불명 섬 중 어느 방향으로 확정할 것인가? 이 선택은 도입 3~5컷, 지역 단서와 정상·코믹 엔딩의 톤을 결정한다.",
+    "question.art.style-anchor · 기존 김씨의 잉크 선을 기준으로 배경을 단순화할지, 배경의 회화성을 기준으로 김씨를 다시 정리할지 어느 쪽을 style benchmark로 채택할 것인가? 이 선택은 모든 캐릭터 animation, 7지역, 캠프, 엔딩 패널과 UI 장식의 재작업 위험을 결정한다."
+  ],
+  "updatedAt": "2026-08-27T16:02:07.227Z"
 }
