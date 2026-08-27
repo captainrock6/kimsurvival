@@ -6141,12 +6141,33 @@
         "O5-H1-P0-002",
         "O5-H1-P1-010"
       ],
-      "candidateStatus": "AUTOMATED_GREEN_HUMAN_RETEST_PENDING",
+      "candidateStatus": "HUMAN_RETEST_REQUIRES_O7",
       "candidateCommit": "d10d7c3b51d305947acf0b12fb02b3adff0e4e5f",
       "releaseEvidence": "Artifacts/ParallelQA/20260827T090500Z_o6_release_d10d7c3/gamejam-release-build.json",
       "packageEvidence": "Artifacts/ParallelQA/20260827T091500Z_o6_package_d10d7c3/gamejam-package-integrity-summary.json",
       "humanRetestChecklist": "Docs/Design/Playtest/Sessions/O6-H1-2026-08-27.md",
-      "packageZipSha256": "e5203fe2716caa9e10a688020f28402ddd95021f7542df57b14d2a78d1ec7a1f"
+      "packageZipSha256": "e5203fe2716caa9e10a688020f28402ddd95021f7542df57b14d2a78d1ec7a1f",
+      "humanRetestResult": {
+        "startedAt": "2026-08-27T20:20:44+09:00",
+        "endedAt": "2026-08-27T20:46:27+09:00",
+        "duration": "25:43",
+        "inputAndLocale": "KO keyboard-mouse",
+        "playerLog": "work/ParallelQA/20260827T202044_o6_h1_owner/o6-h1-player.log",
+        "playerLogSha256": "5ae4fd897d1a94c158fafbae3472d6a816f18958b1d2afad3f3cf16a0b4efdc0",
+        "crashOrManagedException": false,
+        "newTelemetry": false,
+        "newDefectIds": [
+          "O6-H1-P1-001",
+          "O6-H1-P1-002",
+          "O6-H1-P1-003",
+          "O6-H1-P1-004",
+          "O6-H1-P1-005",
+          "O6-H1-P1-006",
+          "O6-H1-P1-007",
+          "O6-H1-P1-008"
+        ],
+        "verdict": "O6-H1_RETEST_REQUIRED_O7_CORRECTION_REQUIRED_NOT_SUBMISSION_READY"
+      }
     }
   },
   "features": [

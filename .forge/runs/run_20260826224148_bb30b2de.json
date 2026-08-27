@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260826224148_bb30b2de",
   "createdAt": "2026-08-26T22:41:48.594Z",
-  "updatedAt": "2026-08-26T23:14:30.413Z",
+  "updatedAt": "2026-08-27T11:48:18.283Z",
   "sourceRequest": "O5-H1 수기 피드백을 근거로 캠프 팝업 연속성, 증축 발견성, 뗏목 완료 안내, 화면 밀도, 다층 가구, 수색 tray, 4→10 가방, 84 node 혼합 산출과 핵심 부품 발견성을 O6 범위로 교정한다.",
   "state": "complete",
   "stages": {
@@ -30,13 +30,13 @@
     },
     "verification": {
       "status": "complete",
-      "note": "O6 전용 Edit/Play 게이트, Windows x64 Release, ZIP 대 폴더 비교와 압축 해제본 숨김 실행 PASS. 30분 자연 플레이는 O6-H1 대기",
+      "note": "자동 게이트와 Release 패키지는 PASS. O6-H1 25:43 소유자 자연 플레이에서 P1 8건이 확인되어 O7 교정 후 동일 후보 기준 재검증 필요",
       "evidence": [
         "Artifacts/ParallelQA/20260827T090500Z_o6_release_d10d7c3/gamejam-release-build.json",
         "Artifacts/ParallelQA/20260827T091500Z_o6_package_d10d7c3/gamejam-package-integrity-summary.json",
         "Docs/Design/Playtest/Sessions/O6-H1-2026-08-27.md"
       ],
-      "updatedAt": "2026-08-26T23:14:30.413Z"
+      "updatedAt": "2026-08-27T11:48:18.283Z"
     }
   }
 }

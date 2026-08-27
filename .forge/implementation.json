@@ -4200,10 +4200,10 @@
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-26T23:14:30.413Z",
-      "note": "커밋 d10d7c3 Release/ZIP/압축 해제 실행 PASS. O6-H1 30분 인간 자연 플레이 대기",
+      "updatedAt": "2026-08-27T11:48:18.283Z",
+      "note": "O6-H1 25:43 소유자 테스트에서 P1 8건 확인. O7 교정과 동일 후보 기준 재검증 필요.",
       "completedAt": null
     }
   ],
-  "updatedAt": "2026-08-26T23:14:30.413Z"
+  "updatedAt": "2026-08-27T11:48:18.283Z"
 }
