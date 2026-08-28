@@ -716,26 +716,34 @@ namespace KimSurvival
                     texture != null && O11ProductionVisualsReady,
                     string.Empty,
                     false,
-                    true));
+                    false));
             }
 
             Texture2D kimAtlas = Resources.Load<Texture2D>("O11/mr-kim-core-atlas");
+            Texture2D kimLadderStrip = Resources.Load<Texture2D>("O11/mr-kim-ladder-strip-v2");
+            Texture2D kimSwimStrip = Resources.Load<Texture2D>("O11/mr-kim-swim-strip-v2");
             string animationDetail = "player presentation unavailable";
             bool kimContract = playerPresentation != null &&
                                playerPresentation.RunO11AnimationContractProbe(out animationDetail);
             foreach (string state in new[] { "idle", "walk", "search", "ladder", "swim" })
             {
+                Texture2D stateTexture = state == "ladder"
+                    ? kimLadderStrip
+                    : state == "swim" ? kimSwimStrip : kimAtlas;
+                string sourceKind = state == "ladder" || state == "swim"
+                    ? "code-driven-four-frame-strip:"
+                    : "code-driven-atlas-state:";
                 bindings.Add(ObserveO11Asset(
                     "kim." + state,
-                    kimAtlas,
-                    kimAtlas != null && kimContract,
-                    "code-driven-atlas-state:" + state,
+                    stateTexture,
+                    stateTexture != null && kimContract,
+                    sourceKind + state,
                     false,
                     false));
             }
             RestoreO11PlayerMovementPresentation();
             trace.Add("assets.visual=" + visualContract + ";detail=" + visualDetail +
-                      ";regions-review-only=true;kim=" + kimContract + ";" + animationDetail);
+                      ";regions-adopted-formal=true;kim=" + kimContract + ";" + animationDetail);
             return bindings.ToArray();
         }
 
