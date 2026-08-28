@@ -2,6 +2,17 @@ using UnityEngine;
 
 namespace KimSurvival
 {
+    public enum PrototypePlayerActionPose
+    {
+        None,
+        Search,
+        FacilityUse,
+        Climb,
+        Hurt,
+        Rest,
+        Eat
+    }
+
     public sealed class PrototypePlayerPresentation : MonoBehaviour
     {
         private const float WalkFrameRate = 7f;
@@ -22,6 +33,11 @@ namespace KimSurvival
         private Sprite idleSprite;
         private Sprite walkSprite;
         private Sprite swimSprite;
+        private Sprite climbSprite;
+        private Sprite searchSprite;
+        private Sprite facilityUseSprite;
+        private Sprite hurtSprite;
+        private Sprite restSprite;
         private Vector3 baseScale = Vector3.one;
         private Quaternion baseRotation = Quaternion.identity;
         private Vector3 basePosition = Vector3.zero;
@@ -34,6 +50,9 @@ namespace KimSurvival
         private bool hasGroundedParameter;
         private bool wasSpriteMoving;
         private float spriteMovementStartedAt;
+        private PrototypePlayerActionPose actionPose;
+        private PrototypePlayerActionPose conditionPose;
+        private float actionUntil;
 
         public void Configure(Transform visual, bool placeholderPose)
         {
@@ -54,10 +73,29 @@ namespace KimSurvival
 
         public void ConfigureSpriteStates(SpriteRenderer renderer, Sprite idle, Sprite walk, Sprite swim)
         {
+            ConfigureSpriteStates(renderer, idle, walk, swim, idle, idle, idle, idle, idle);
+        }
+
+        public void ConfigureSpriteStates(
+            SpriteRenderer renderer,
+            Sprite idle,
+            Sprite walk,
+            Sprite swim,
+            Sprite climb,
+            Sprite search,
+            Sprite facilityUse,
+            Sprite hurt,
+            Sprite rest)
+        {
             stateRenderer = renderer;
             idleSprite = idle;
             walkSprite = walk != null ? walk : idle;
             swimSprite = swim != null ? swim : idle;
+            climbSprite = climb != null ? climb : idle;
+            searchSprite = search != null ? search : idle;
+            facilityUseSprite = facilityUse != null ? facilityUse : idle;
+            hurtSprite = hurt != null ? hurt : idle;
+            restSprite = rest != null ? rest : idle;
             if (stateRenderer != null)
             {
                 stateRendererBaseScale = stateRenderer.transform.localScale;
@@ -65,6 +103,18 @@ namespace KimSurvival
                 stateRendererBaseRotation = stateRenderer.transform.localRotation;
             }
             ConfigureBodyCollider();
+        }
+
+        public void PlayAction(PrototypePlayerActionPose pose, float duration)
+        {
+            actionPose = pose;
+            actionUntil = Time.unscaledTime + Mathf.Max(0.05f, duration);
+            wasSpriteMoving = false;
+        }
+
+        public void SetConditionPose(PrototypePlayerActionPose pose)
+        {
+            conditionPose = pose;
         }
 
         public void Apply(PrototypePlayerPresentationState state)
@@ -131,6 +181,13 @@ namespace KimSurvival
             spriteTransform.localRotation = stateRendererBaseRotation;
             spriteTransform.localScale = stateRendererBaseScale;
 
+            if (actionPose != PrototypePlayerActionPose.None && animationTime <= actionUntil)
+            {
+                ApplyActionSprite(actionPose, spriteTransform, animationTime);
+                return;
+            }
+            actionPose = PrototypePlayerActionPose.None;
+
             if (state.IsSwimming)
             {
                 stateRenderer.sprite = swimSprite;
@@ -154,12 +211,48 @@ namespace KimSurvival
             }
 
             wasSpriteMoving = false;
+            if (conditionPose != PrototypePlayerActionPose.None)
+            {
+                ApplyActionSprite(conditionPose, spriteTransform, animationTime);
+                return;
+            }
             stateRenderer.sprite = idleSprite;
             float breath = Mathf.Sin(animationTime * IdleBreathSpeed);
             spriteTransform.localScale = new Vector3(
                 stateRendererBaseScale.x * (1f - breath * IdleBreathAmount * 0.45f),
                 stateRendererBaseScale.y * (1f + breath * IdleBreathAmount),
                 stateRendererBaseScale.z);
+        }
+
+        private void ApplyActionSprite(PrototypePlayerActionPose pose, Transform spriteTransform, float animationTime)
+        {
+            if (pose == PrototypePlayerActionPose.Search)
+            {
+                stateRenderer.sprite = searchSprite;
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, Mathf.Sin(animationTime * 16f) * 2.4f);
+            }
+            else if (pose == PrototypePlayerActionPose.FacilityUse || pose == PrototypePlayerActionPose.Eat)
+            {
+                stateRenderer.sprite = facilityUseSprite;
+                float work = Mathf.Abs(Mathf.Sin(animationTime * 13f));
+                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(0f, -work * 0.035f, 0f);
+            }
+            else if (pose == PrototypePlayerActionPose.Climb)
+            {
+                stateRenderer.sprite = climbSprite;
+                float climb = Mathf.Sin(animationTime * 12f);
+                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(0f, climb * 0.045f, 0f);
+            }
+            else if (pose == PrototypePlayerActionPose.Hurt)
+            {
+                stateRenderer.sprite = hurtSprite;
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, -5f);
+            }
+            else
+            {
+                stateRenderer.sprite = restSprite;
+                spriteTransform.localScale = new Vector3(stateRendererBaseScale.x, stateRendererBaseScale.y * 0.96f, stateRendererBaseScale.z);
+            }
         }
 
         private void ConfigureBodyCollider()

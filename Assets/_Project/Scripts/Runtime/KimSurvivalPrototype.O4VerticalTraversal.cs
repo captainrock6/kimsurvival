@@ -43,6 +43,10 @@ namespace KimSurvival
                 climbing ? 1f : 0f,
                 false,
                 true));
+            if (climbing)
+            {
+                playerPresentation.PlayAction(PrototypePlayerActionPose.Climb, 0.16f);
+            }
         }
 
         private void UpdateO4CampWorldCamera(float deltaTime)

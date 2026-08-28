@@ -5131,12 +5131,18 @@
         "게임잼 금지 콘텐츠와 타사 IP 의존이 없다.",
         "21개 전체 제작과 필수 5+목표 3 제작 범위가 명확히 분리된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Docs/Design/gamejam-o9-content-lock.md"
+      ],
+      "evidence": [
+        "User locked storm drift and ink-Kim simplified-world direction; document defines stable KO/EN beats for opening, first loop, seven regions, five core endings and three variants."
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "status": "done",
+      "updatedAt": "2026-08-28T10:32:50.851Z",
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "",
+      "completedAt": "2026-08-28T10:32:50.850Z"
     },
     {
       "id": "task.o9.art.style-benchmark",
@@ -5162,13 +5168,18 @@
         "현실적 회화 배경·잉크 캐릭터·모바일풍 UI 사이의 불일치가 하나의 명시적 style rule로 해결된다.",
         "사용자 채택과 보존할 특징이 Forge feedback에 기록된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Art/Generated/ui_set/job_20260828103426_790ffb10/exec-1f8ee5d7-2cc2-4bf2-879d-12d3aab9a5f6.png"
+      ],
+      "evidence": [
+        "Docs/Art/O9/o9-style-benchmark-review.md"
+      ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
+      "updatedAt": "2026-08-28T10:59:31.742Z",
       "completedAt": null,
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "Forge mechanical QA 100/pass. User ADOPT/REVISE/HOLD decision remains required; candidate is not adopted."
     },
     {
       "id": "task.o9.art.first-loop-production",
@@ -5198,13 +5209,18 @@
         "첫 루프의 모든 필수 아이템 이름과 아이콘이 수색 tray·가방·캠프 창고에서 동일하다.",
         "채택된 job만 engine package 상태가 된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs"
+      ],
+      "evidence": [
+        "Docs/Art/O9/o9-style-benchmark-review.md"
+      ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
+      "updatedAt": "2026-08-28T10:59:52.260Z",
       "completedAt": null,
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "Title, five-beat storm opening, objective chip, compact HUD skin and first-loop cues are implemented with existing adopted Kim art; benchmark adoption and Unity visual review remain pending."
     },
     {
       "id": "task.o9.art.character-core-animation",
@@ -5231,13 +5247,19 @@
         "walk actual-size review에서 foot sliding과 ground float가 보이지 않는다.",
         "search와 facility-use commit frame이 runtime transaction hook으로 지정된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt"
+      ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
+      "updatedAt": "2026-08-28T10:59:31.867Z",
       "completedAt": null,
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "Eight readable action-state presentations are wired from the existing Kim atlas; Unity visual review remains pending."
     },
     {
       "id": "task.o9.implementation.presentation-alpha",
@@ -5277,12 +5299,19 @@
         "기존 O8 자원·가방·수색·캠프·탈출 transaction 회귀가 모두 통과한다.",
         "임시 네모와 개발자용 설명 패널은 디버그 빌드에서만 명시적으로 켤 수 있다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeGameJamNarrative.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-27T16:02:07.229Z"
+      "updatedAt": "2026-08-28T10:59:52.370Z",
+      "note": "O9 presentation alpha is source-complete and compiles under Unity Roslyn references. Headless Unity Play Mode is blocked by local license recognition.",
+      "completedAt": null
     },
     {
       "id": "task.o9.qa.first-loop-presentation",
@@ -5306,11 +5335,15 @@
         "O9 통과 전에는 30분 밸런스 자연 플레이를 재개하지 않는다."
       ],
       "paths": [],
-      "evidence": [],
-      "blockedReason": "",
-      "status": "planned",
+      "evidence": [
+        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/unity-compile-escalated.log"
+      ],
+      "blockedReason": "Unity 6000.4.9f1 batch mode returned exit 198: no valid Editor license found. Visual, Play Mode and Windows player validation cannot be claimed.",
+      "status": "blocked",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-27T16:02:07.229Z"
+      "updatedAt": "2026-08-28T10:59:52.474Z",
+      "note": "",
+      "completedAt": null
     },
     {
       "id": "task.o10.art.content-beta-production",
@@ -5343,13 +5376,19 @@
         "필수 5 ending의 15 core panel이 동일 김씨와 style을 유지한다.",
         "각 자산은 actual-size in-engine review를 통과한 뒤 채택된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs"
+      ],
+      "evidence": [
+        "Docs/QA/o9-o10-continuous-production-gate-20260828.md"
+      ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
+      "updatedAt": "2026-08-28T10:59:52.585Z",
       "completedAt": null,
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "Existing Kim atlas is wired into eight readable action states; code-native item/tool icons and functional audio are integrated. Final art/audio adoption and Unity visual review remain pending."
     },
     {
       "id": "task.o10.implementation.content-beta",
@@ -5379,12 +5418,21 @@
         "5 core ending이 terminal resolver와 앨범에서 같은 panel sequence로 재생된다.",
         "O8 기능 체크리스트와 기존 자동 회귀가 새 자산 통합 뒤에도 통과한다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeGameJamNarrative.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs"
+      ],
+      "evidence": [
+        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt"
+      ],
       "blockedReason": "",
-      "status": "planned",
+      "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-27T16:02:07.229Z"
+      "updatedAt": "2026-08-28T10:59:52.690Z",
+      "note": "O10 source contract covers five opening beats, seven regions, nineteen stable item IDs, three playable escapes, five core endings, eight Kim poses, item/tool icons and functional audio. Play Mode and build validation remain pending.",
+      "completedAt": null
     },
     {
       "id": "task.o10.qa.thirty-minute-content-beta",
@@ -5407,11 +5455,15 @@
         "진행 불가, 보이지 않는 상호작용, 임시 아트 노출과 오디오 없는 핵심 거래가 없다."
       ],
       "paths": [],
-      "evidence": [],
-      "blockedReason": "",
-      "status": "planned",
+      "evidence": [
+        "Docs/QA/o9-o10-continuous-production-gate-20260828.md"
+      ],
+      "blockedReason": "Unity batch license is unavailable, and the style benchmark still requires explicit user adoption. No 30-minute content-beta candidate is claimed.",
+      "status": "blocked",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-27T16:02:07.229Z"
+      "updatedAt": "2026-08-28T10:59:52.791Z",
+      "note": "",
+      "completedAt": null
     },
     {
       "id": "task.art.background.island-camp",
@@ -6569,13 +6621,18 @@
         "첫 루프의 이동·수색·발견·담기·귀환·제작·UI 확정 소리가 서로 구분된다.",
         "오디오의 라이선스와 출처가 크레딧 파일에 기록된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs"
+      ],
+      "evidence": [
+        "Docs/QA/o9-o10-continuous-production-gate-20260828.md"
+      ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
+      "updatedAt": "2026-08-28T10:59:31.980Z",
       "completedAt": null,
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "Functional procedural ambience and action/story/ending cues are wired without paid APIs; final authored audio and visual review remain pending."
     },
     {
       "id": "task.o11.art.replayability-variants",
@@ -6886,5 +6943,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-27T16:02:07.227Z"
+  "updatedAt": "2026-08-28T10:59:52.792Z"
 }

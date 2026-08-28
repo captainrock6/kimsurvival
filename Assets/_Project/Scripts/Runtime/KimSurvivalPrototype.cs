@@ -176,6 +176,11 @@ namespace KimSurvival
         private Sprite kimIdleSprite;
         private Sprite kimWalkSprite;
         private Sprite kimSwimSprite;
+        private Sprite kimClimbSprite;
+        private Sprite kimSearchSprite;
+        private Sprite kimFacilityUseSprite;
+        private Sprite kimHurtSprite;
+        private Sprite kimRestSprite;
         private Transform worldRoot;
         private SpriteRenderer campBackgroundRenderer;
         private SpriteRenderer campGameplayGroundRenderer;
@@ -480,6 +485,7 @@ namespace KimSurvival
             hazardEscapeEndingRuntime = gameObject.AddComponent<PrototypeWaveRuntime>();
             hazardEscapeEndingRuntime.Initialize(session, localization, canvas, playtestLog, campInteractionTargets, endingAlbumCollection);
             ApplyTerminalComicLayoutPolicy();
+            BuildO9O10Presentation();
             renderedPhase = (GamePhase)(-1);
             RefreshAll();
         }
@@ -490,6 +496,13 @@ namespace KimSurvival
             if (playerInput.ReadSystemActions().LanguagePressed)
             {
                 localization.CycleLocale();
+            }
+
+            if (UpdateO9O10Presentation())
+            {
+                RefreshO9O10Presentation();
+                RefreshO9AudioState();
+                return;
             }
 
             if (session.Phase == GamePhase.Exploring)
@@ -524,6 +537,8 @@ namespace KimSurvival
             {
                 playtestLog.ObserveState();
             }
+            RefreshO9O10Presentation();
+            RefreshO9AudioState();
         }
 
         public void ConfigureCampBackgroundLayers(Sprite background, Sprite gameplayGround, Sprite foreground)
@@ -572,6 +587,12 @@ namespace KimSurvival
             DestroyRuntimeSprite(kimIdleSprite);
             DestroyRuntimeSprite(kimWalkSprite);
             DestroyRuntimeSprite(kimSwimSprite);
+            DestroyRuntimeSprite(kimClimbSprite);
+            DestroyRuntimeSprite(kimSearchSprite);
+            DestroyRuntimeSprite(kimFacilityUseSprite);
+            DestroyRuntimeSprite(kimHurtSprite);
+            DestroyRuntimeSprite(kimRestSprite);
+            DestroyO9O10Presentation();
             if (playtestLog != null)
             {
                 playtestLog.Dispose();
@@ -588,6 +609,7 @@ namespace KimSurvival
         private void HandleLocaleChanged()
         {
             RefreshAll(session != null && session.Phase == GamePhase.Exploring);
+            RefreshO9O10Presentation();
         }
 
         public PrototypeTerminalComicGeometryObservation[] CaptureTerminalComicGeometryAudit()
@@ -2300,7 +2322,9 @@ namespace KimSurvival
                 Image icon = i < bagButtonIcons.Count ? bagButtonIcons[i] : null;
                 if (icon != null)
                 {
-                    icon.sprite = stack.IsEmpty || !active ? null : GetResourceIconSprite(stack.Kind);
+                    icon.sprite = stack.IsEmpty || !active
+                        ? null
+                        : GetO10ItemIconSprite(stack.StableResourceId, stack.Kind, false);
                     icon.color = stack.IsEmpty || !active ? Color.clear : Color.white;
                     icon.enabled = icon.sprite != null;
                 }
@@ -2427,6 +2451,11 @@ namespace KimSurvival
             campBackgroundRenderer = CreateCampBackgroundLayer(backgroundRoot.transform, "배경", campBackgroundSprite, -30);
             campGameplayGroundRenderer = CreateCampBackgroundLayer(backgroundRoot.transform, "게임플레이 지면", campGameplayGroundSprite, -20);
             campForegroundRenderer = CreateCampBackgroundLayer(backgroundRoot.transform, "전경", campForegroundSprite, 12);
+            // O9 art lock: Mr. Kim keeps the strongest ink/colour contrast. The camp
+            // layers are deliberately pushed toward faded paper and broad colour masses.
+            campBackgroundRenderer.color = new Color(0.84f, 0.90f, 0.84f, 1f);
+            campGameplayGroundRenderer.color = new Color(0.88f, 0.86f, 0.74f, 1f);
+            campForegroundRenderer.color = new Color(0.82f, 0.88f, 0.79f, 0.93f);
         }
 
         private void CreateStartShelterCutaway()
@@ -3957,6 +3986,7 @@ namespace KimSurvival
                 }
             }
             RefreshAll();
+            PlayO9CampAction(actionName, succeeded);
         }
 
         private bool TryExecuteSignalAction()
@@ -4299,6 +4329,7 @@ namespace KimSurvival
                 return;
             }
 
+            int healthBeforeSearch = session.Health;
             bool revisited = searchNodeRuntime.Ledger.GetOrCreate(nearest.Definition).State != PrototypeSearchNodeState.Hidden;
             bool environmentalTelegraphed = !revisited &&
                 searchNodeRuntime.TryTelegraphEnvironmentalHazard(nearest.Definition);
@@ -4343,6 +4374,7 @@ namespace KimSurvival
                     hazardEscapeEndingRuntime.RecordMeaningfulBehavior("stat.search", 1);
                 }
                 RefreshAll(true);
+                PlayO9SearchCue(session.Health < healthBeforeSearch);
                 return;
             }
             string reasonKey = result == PrototypeSearchOpenResult.NeedSwimming
@@ -4571,7 +4603,10 @@ namespace KimSurvival
                 Image icon = index < searchLootItemIcons.Count ? searchLootItemIcons[index] : null;
                 if (icon != null)
                 {
-                    icon.sprite = item.IsProtectedPart ? null : GetResourceIconSprite(item.Resource);
+                    icon.sprite = GetO10ItemIconSprite(
+                        item.IsProtectedPart ? item.ProtectedPartId : item.StableResourceId,
+                        item.Resource,
+                        item.IsProtectedPart);
                     icon.enabled = icon.sprite != null;
                 }
             }
@@ -8787,12 +8822,29 @@ namespace KimSurvival
             playerPresentation.Configure(visual.transform, placeholderPose);
             if (kimRenderer != null)
             {
-                playerPresentation.ConfigureSpriteStates(kimRenderer, kimIdleSprite, kimWalkSprite, kimSwimSprite);
+                playerPresentation.ConfigureSpriteStates(
+                    kimRenderer,
+                    kimIdleSprite,
+                    kimWalkSprite,
+                    kimSwimSprite,
+                    kimClimbSprite,
+                    kimSearchSprite,
+                    kimFacilityUseSprite,
+                    kimHurtSprite,
+                    kimRestSprite);
             }
             PrototypePlayerPresentationState initialPresentation = session.Phase == GamePhase.Exploring
                 ? playerTraversal.CurrentPresentation(session.IsSwimming)
                 : new PrototypePlayerPresentationState(position.x, position.y, 1f, 0f, false, true);
             playerPresentation.Apply(initialPresentation);
+            if (searchNodeRuntime != null && searchNodeRuntime.Disease.IsTreatable)
+            {
+                playerPresentation.SetConditionPose(PrototypePlayerActionPose.Hurt);
+            }
+            else if (searchNodeRuntime != null && searchNodeRuntime.Disease.Phase == PrototypeDiseasePhase.Recovering)
+            {
+                playerPresentation.SetConditionPose(PrototypePlayerActionPose.Rest);
+            }
         }
 
         private void CreatePalm(Vector2 position, float scale)
@@ -9300,6 +9352,11 @@ namespace KimSurvival
             kimIdleSprite = CreateKimAtlasCell(source.x, topRowY, cellWidth, cellHeight, "kim-idle-adopted");
             kimWalkSprite = CreateKimAtlasCell(source.x + cellWidth, topRowY, cellWidth, cellHeight, "kim-walk-adopted");
             kimSwimSprite = CreateKimAtlasCell(source.x + cellWidth * 2f, topRowY, cellWidth, cellHeight, "kim-swim-readable-adopted");
+            kimClimbSprite = CreateKimAtlasCell(source.x + cellWidth * 3f, topRowY, cellWidth, cellHeight, "kim-climb-adopted");
+            kimSearchSprite = CreateKimAtlasCell(source.x, source.y, cellWidth, cellHeight, "kim-search-adopted");
+            kimFacilityUseSprite = CreateKimAtlasCell(source.x + cellWidth, source.y, cellWidth, cellHeight, "kim-facility-use-adopted");
+            kimHurtSprite = CreateKimAtlasCell(source.x + cellWidth * 2f, source.y, cellWidth, cellHeight, "kim-hurt-adopted");
+            kimRestSprite = CreateKimAtlasCell(source.x + cellWidth * 3f, source.y, cellWidth, cellHeight, "kim-rest-adopted");
         }
 
         private Sprite CreateKimAtlasCell(float x, float y, float width, float height, string spriteName)

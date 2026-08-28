@@ -1,0 +1,15 @@
+O9/O10 runtime source compile
+Date: 2026-08-28
+Unity source profile: 6000.4.9f1 Assembly-CSharp.rsp
+Compiler: Unity bundled Roslyn csc.dll
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 0
+Output: Assembly-CSharp-static.dll
+Output bytes: 777216
+SHA-256: 4697EA4E756A510E7EF7586966567A3111A09E03F9E0B084B499DBAAA0E74314
+Scope: runtime source compilation only; not a Unity Player build or Play Mode result.
+
+Unity batch validation status: BLOCKED
+Package Manager sandbox retry: failed to connect to local UPM.
+Escalated retry: UPM connected, licensing returned "No valid Unity Editor license found" and return code 198.
