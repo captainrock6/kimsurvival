@@ -12,16 +12,16 @@
 |---|---|---|
 | design | complete |  |
 | art | in_progress | O9 style benchmark V2 adopted and engine-ready; remaining character animation, seven-region art and ending production continue. |
-| implementation | complete | O10 runtime, simplified HUD, submission shell and Windows x64 Release candidate are implemented. |
-| verification | in_progress | O10 automated candidate gates are green and O10-H1 owner 30-minute natural playtest started at 2026-08-28 23:22 KST. |
+| implementation | in_progress | O10-H1 exposed two P0 core-contract defects plus animation and balance regressions; candidate aa2bb218 is rejected. |
+| verification | in_progress | Automated O10 gate remains green, but O10-H1 human test failed at about 18m40s. Retest is paused until P0 fixes and production presentation integration. |
 
 ## 다음 작업
 
+- **O10 30분 콘텐츠 베타 통합** (implementation, critical) — task.o10.implementation.content-beta
 - **O1 P1 교정 통합·새 후보 재검증** (qa, critical) — task.gamejam.o1-corrective-integration-retest
 - **김씨 설비 사용 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.facility-use
 - **김씨 idle 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.idle
 - **김씨 사다리 등반 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.ladder
-- **김씨 뒤지기 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.search
 
 ## 작업
 
@@ -173,8 +173,8 @@
 | task.o9.implementation.presentation-alpha | implementation | critical | review | O9 콘텐츠·프레젠테이션 알파 통합 |
 | task.o9.qa.first-loop-presentation | qa | critical | review | O9 5~10분 first-loop 콘텐츠·프레젠테이션 검증 |
 | task.o10.art.content-beta-production | art | critical | review | O10 일곱 지역·다층 캠프·세 탈출·필수 엔딩 production |
-| task.o10.implementation.content-beta | implementation | critical | review | O10 30분 콘텐츠 베타 통합 |
-| task.o10.qa.thirty-minute-content-beta | qa | critical | review | O10 30분 자연 플레이 재개 게이트 |
+| task.o10.implementation.content-beta | implementation | critical | in_progress | O10 30분 콘텐츠 베타 통합 |
+| task.o10.qa.thirty-minute-content-beta | qa | critical | blocked | O10 30분 자연 플레이 재개 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.system.system.comedy-feedback | implementation | high | done | 상황형 코믹 피드백 구현 |
@@ -589,9 +589,12 @@
 - task.o9.qa.first-loop-presentation: Artifacts/ParallelQA/20260828T120000Z_o9_o10/unity-compile-escalated.log
 - task.o9.qa.first-loop-presentation: Docs/QA/o10-candidate-gate-20260828.md
 - task.o10.art.content-beta-production: Docs/QA/o9-o10-continuous-production-gate-20260828.md
+- task.o10.art.content-beta-production: O10-H1-P1-002 and O10-H1-P1-005
 - task.o10.implementation.content-beta: Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt
+- task.o10.implementation.content-beta: O10-H1-P0-001 through P1-004
 - task.o10.qa.thirty-minute-content-beta: Docs/QA/o9-o10-continuous-production-gate-20260828.md
 - task.o10.qa.thirty-minute-content-beta: Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt
+- task.o10.qa.thirty-minute-content-beta: Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.system.system.comedy-feedback: Artifacts/Verification/editmode-checks.txt
 - task.system.system.comedy-feedback: Artifacts/Verification/playmode-checks.txt
@@ -684,6 +687,7 @@
 ## 차단 요소
 
 - task.gamejam.qa-thirty-minute-seven-region-slice: O1 human session failed GJC-17 and opened H-001 through H-005. Correct and freeze a new candidate before timing/cohort retest.
+- task.o10.qa.thirty-minute-content-beta: O10-H1 stopped at about 18m40s. Fix P0 multi-floor facility placement and shore-launch atomicity, then connect production UI/search art and character animation and rebalance stamina/escape routes before another owner test.
 - task.qa.feature.dual-input: GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.
 - task.qa.feature.inventory-capacity-upgrade: O1 found the upgrade mandatory and material identity unreadable. Fix H-002 and rebalance/retest GJC-12 on a new candidate.
 

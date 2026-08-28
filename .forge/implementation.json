@@ -4128,16 +4128,18 @@
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.cs",
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs",
         "Assets/_Project/Scripts/Runtime/PrototypeGameJamNarrative.cs",
-        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs"
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
+        "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
       ],
       "evidence": [
-        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt"
+        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt",
+        "O10-H1-P0-001 through P1-004"
       ],
       "blockedReason": "",
-      "status": "review",
+      "status": "in_progress",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T10:59:52.690Z",
-      "note": "O10 source contract covers five opening beats, seven regions, nineteen stable item IDs, three playable escapes, five core endings, eight Kim poses, item/tool icons and functional audio. Play Mode and build validation remain pending.",
+      "updatedAt": "2026-08-28T14:44:07.686Z",
+      "note": "O10-H1 human FAIL: multi-floor general facility placement remains unavailable, shore-launch availability is contradictory and invalid retries consume food, post-expansion Kim state sticks, stamina recovery and escape-route balance need correction.",
       "completedAt": null
     },
     {
@@ -4160,16 +4162,19 @@
         "5 core ending이 고유 3컷와 행동 근거를 표시한다.",
         "진행 불가, 보이지 않는 상호작용, 임시 아트 노출과 오디오 없는 핵심 거래가 없다."
       ],
-      "paths": [],
+      "paths": [
+        "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
+      ],
       "evidence": [
         "Docs/QA/o9-o10-continuous-production-gate-20260828.md",
-        "Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt"
+        "Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt",
+        "Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception"
       ],
-      "blockedReason": "",
-      "status": "review",
+      "blockedReason": "O10-H1 stopped at about 18m40s. Fix P0 multi-floor facility placement and shore-launch atomicity, then connect production UI/search art and character animation and rebalance stamina/escape routes before another owner test.",
+      "status": "blocked",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T13:01:22.099Z",
-      "note": "O10 Windows Release candidate and automated execution gate are green. Exact-candidate 30-minute natural route playtest and physical gamepad remain.",
+      "updatedAt": "2026-08-28T14:44:07.803Z",
+      "note": "Candidate aa2bb218 rejected for next human playtest and not submission-ready.",
       "completedAt": null
     },
     {
@@ -5007,5 +5012,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-28T14:23:49.134Z"
+  "updatedAt": "2026-08-28T14:44:07.803Z"
 }
