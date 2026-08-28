@@ -2,37 +2,47 @@
   "schemaVersion": 1,
   "id": "run_20260828103239_3672013f",
   "createdAt": "2026-08-28T10:32:39.295Z",
-  "updatedAt": "2026-08-28T14:44:08.013Z",
+  "updatedAt": "2026-08-28T15:59:37.221Z",
   "sourceRequest": "폭풍 표류 조난 원인과 기존 김씨 잉크선 중심의 단순화된 배경·UI 스타일을 사용자 확정으로 잠그고 O9 콘텐츠 제작을 시작한다.",
   "state": "in_progress",
   "stages": {
     "design": {
       "status": "complete",
-      "updatedAt": "2026-08-28T10:32:39.295Z"
+      "note": "O11 P0 2/P1 5 completion conditions and evidence boundaries are reconciled at integration HEAD 2c88100b.",
+      "evidence": [
+        "Docs/Design/o11-corrective-production-gate.md",
+        ".forge/design/vertical-slice.json"
+      ],
+      "updatedAt": "2026-08-28T15:59:37.221Z"
     },
     "art": {
       "status": "in_progress",
-      "note": "O9 style benchmark V2 adopted and engine-ready; remaining character animation, seven-region art and ending production continue.",
+      "note": "Adopted V2 UI grammar and the Kim atlas are connected. Seven new region backgrounds are visible only in a provisional review build and remain user-unadopted; ladder/swim poses remain emergency quality.",
       "evidence": [
-        "Assets/_Project/Art/Generated/ui_set/job_20260828122852_c9ccf2aa/forge-import.json"
+        "Assets/_Project/Art/Generated/ui_set/job_20260828122852_c9ccf2aa/forge-import.json",
+        "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json",
+        "commit 2c88100b1cb103ba7d603177dfbbad286729cdf6"
       ],
-      "updatedAt": "2026-08-28T14:23:49.264Z"
+      "updatedAt": "2026-08-28T15:59:37.221Z"
     },
     "implementation": {
       "status": "in_progress",
-      "note": "O10-H1 exposed two P0 core-contract defects plus animation and balance regressions; candidate aa2bb218 is rejected.",
+      "note": "O11 system and balance corrections plus adopted V2 UI, Kim atlas and provisional seven-region runtime binding are integrated. The broader content-beta task remains in review because P1-005 production/adoption is open.",
       "evidence": [
-        "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
+        "Artifacts/ParallelQA/o11-survival-balance-gate.log",
+        "commits f3701d4a, 097a02a8, b3779b37, 2c88100b",
+        "Docs/Design/o11-corrective-production-gate.md"
       ],
-      "updatedAt": "2026-08-28T14:44:07.917Z"
+      "updatedAt": "2026-08-28T15:59:37.221Z"
     },
     "verification": {
       "status": "in_progress",
-      "note": "Automated O10 gate remains green, but O10-H1 human test failed at about 18m40s. Retest is paused until P0 fixes and production presentation integration.",
+      "note": "Historical O11 RED is a pre-fix baseline. O11-H1 is UNRUN and remains paused until seven-region art adoption, ladder/swim quality, and a fresh integrated automated gate are satisfied.",
       "evidence": [
-        "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
+        "Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/O11-summary.json",
+        "Docs/Design/o11-corrective-production-gate.md"
       ],
-      "updatedAt": "2026-08-28T14:44:08.013Z"
+      "updatedAt": "2026-08-28T15:59:37.221Z"
     }
   }
 }

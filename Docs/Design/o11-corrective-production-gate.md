@@ -13,6 +13,22 @@ O11의 목적은 O10-H1에서 확인된 `P0 2건`과 `P1 5건`을 모두 닫고,
 
 각 작업은 `aa67a12b`에서 시작한다. 다른 작업의 소유 파일을 수정하지 않으며, 디렉터 작업만 브랜치를 통합하고 Forge 원장·후보 빌드·최종 보고서를 갱신한다.
 
+## 통합 HEAD `2c88100b` 현재 판정
+
+이 표는 완료 조건을 완화하지 않고, 제품 연결과 아직 필요한 증거를 분리한다. `Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/`는 O11 구현 전 RED 기준선이다.
+
+| ID | 판정 | 근거 | 다음 닫힘 증거 |
+|---|---|---|---|
+| `O10-H1-P0-001` | `IMPLEMENTATION_COMPLETE · RETEST_REQUIRED` | `f3701d4a`의 다층 배치·저장 계약과 결정론 verifier | 현재 후보에서 12개 방×설비 관찰, 저장복원, 통로/충돌 거부 |
+| `O10-H1-P0-002` | `IMPLEMENTATION_COMPLETE · RETEST_REQUIRED` | `f3701d4a`의 뗏목 원자 transaction·재시도 교정 | 불가능·중복은 zero-delta, 가능은 한 번만 terminal commit |
+| `O10-H1-P1-001` | `IMPLEMENTATION_COMPLETE · RETEST_REQUIRED` | `f3701d4a`의 증축 반응 상태 복귀 | 위층·지하 각각 반응→idle/move→다음 행동 실제 관찰 |
+| `O10-H1-P1-002` | `RUNTIME_COMPLETE · RETEST_REQUIRED` | 사용자 채택 V2 문법과 `2c88100b` 런타임 UI 연결 | KO/EN 1280×800·1920×1080 Game View 무겹침 |
+| `O10-H1-P1-003` | `AUTOMATED_PASS · HUMAN_UNVERIFIED` | `Artifacts/ParallelQA/o11-survival-balance-gate.log`의 연속 수색/회복 PASS | 초보 자연 플레이 3회 연속 수색의 실제 탐색 시간·회복 이해 |
+| `O10-H1-P1-004` | `IMPLEMENTATION_COMPLETE · HUMAN_UNVERIFIED` | `b3779b37` 수치, `097a02a8` 통합 인지형 게이트, `f3701d4a` O11 비용 적용 | live O11 비용으로 게이트 재실행 후 뗏목·연기·무전 대표 seed 자연 완주 |
+| `O10-H1-P1-005` | `BLOCKED · PARTIAL` | `2c88100b`에서 김씨 atlas와 7지역 배경을 provisional review build에 연결. 걷기·수색은 개선 | 7지역 신규 배경은 사용자 미채택(`review`, `selectedCandidate=null`, formal runtime false). 사다리·수영 포즈는 응급 품질 |
+
+현재 통합 결과는 시스템·밸런스·채택 V2 UI·김씨 atlas·7지역 배경의 **기술적 런타임 연결 완료**다. 그러나 신규 7지역 배경의 연결은 채택을 뜻하지 않으며 `P1-005` production/adoption은 차단 상태다. 그러므로 일곱 항목 전체 PASS, O11 후보 생성, O11-H1 재개를 아직 선언하지 않는다.
+
 ## 결함별 합격 조건
 
 | ID | O11 합격 조건 |

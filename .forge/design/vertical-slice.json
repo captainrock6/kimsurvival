@@ -30,7 +30,73 @@
     "한 달 범위에서 21개 엔딩 전체 제작은 불가능하다."
   ],
   "playerPromise": "처음 10분 안에 내가 직접 섬을 뒤지고 필요한 것만 챙겨 캠프에 투자한다는 재미를 이해하고, 30분 안에 내 행동 때문에 달라진 김씨의 결말을 본다.",
-  "updatedAt": "2026-08-28T10:32:39.295Z",
+  "updatedAt": "2026-08-28T15:59:37.221Z",
+  "o11CorrectiveGate": {
+    "contractId": "gamejam.o11.o10-h1-corrective-gate.v1",
+    "sourceCommit": "2c88100b1cb103ba7d603177dfbbad286729cdf6",
+    "overallStatus": "BLOCKED_PARTIAL",
+    "historicalRedEvidence": "Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red",
+    "humanDocument": "Docs/Design/o11-corrective-production-gate.md",
+    "items": [
+      {
+        "id": "O10-H1-P0-001",
+        "status": "IMPLEMENTATION_COMPLETE_RETEST_REQUIRED",
+        "evidenceCommit": "f3701d4a"
+      },
+      {
+        "id": "O10-H1-P0-002",
+        "status": "IMPLEMENTATION_COMPLETE_RETEST_REQUIRED",
+        "evidenceCommit": "f3701d4a"
+      },
+      {
+        "id": "O10-H1-P1-001",
+        "status": "IMPLEMENTATION_COMPLETE_RETEST_REQUIRED",
+        "evidenceCommit": "f3701d4a"
+      },
+      {
+        "id": "O10-H1-P1-002",
+        "status": "RUNTIME_COMPLETE_RETEST_REQUIRED",
+        "evidenceCommit": "2c88100b",
+        "adoptedGrammarJobId": "job_20260828122852_c9ccf2aa"
+      },
+      {
+        "id": "O10-H1-P1-003",
+        "status": "AUTOMATED_PASS_HUMAN_UNVERIFIED",
+        "evidencePath": "Artifacts/ParallelQA/o11-survival-balance-gate.log"
+      },
+      {
+        "id": "O10-H1-P1-004",
+        "status": "IMPLEMENTATION_COMPLETE_HUMAN_UNVERIFIED",
+        "evidenceCommits": [
+          "b3779b37",
+          "097a02a8",
+          "f3701d4a"
+        ],
+        "remaining": "rerun deterministic gate against live O11 costs and complete three natural representative seeds"
+      },
+      {
+        "id": "O10-H1-P1-005",
+        "status": "BLOCKED_ART_ADOPTION_AND_MOTION_QUALITY",
+        "runtimeConnectionCommit": "2c88100b",
+        "regionArtDecision": "review",
+        "selectedCandidate": null,
+        "formalRuntimeConnected": false,
+        "motionQuality": {
+          "walk": "improved",
+          "search": "improved",
+          "ladder": "emergency",
+          "swim": "emergency"
+        }
+      }
+    ],
+    "candidateReady": false,
+    "humanRetestRun": false,
+    "blockingReasons": [
+      "seven new search backgrounds are provisional review assets and have not been adopted by the user",
+      "ladder and swim poses remain emergency quality",
+      "current integrated candidate has not completed the O11-H1 natural human retest"
+    ]
+  },
   "sampleDataContract": {
     "status": "SAMPLE_ONLY_NOT_FINAL_BALANCE",
     "source": "project.campaignContentContract.implementationSmoke",
