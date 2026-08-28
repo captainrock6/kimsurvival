@@ -1,0 +1,13 @@
+O11=FAIL
+PRODUCT=FAIL
+INFRASTRUCTURE=PASS
+BASELINE=2c88100b1cb103ba7d603177dfbbad286729cdf6
+OBSERVATION=MISSING
+PASS/EXPECTED_GAP/FAIL=0/0/7
+O11-P0-001=FAIL · observation=False; placementRows=0; rejectionRows=0; matrix=False; rejectionMatrix=False; cheatFree=False
+O11-P0-002=FAIL · cases=0; impossible=False; duplicate=False; possibleAtomic=False; cheatFree=False
+O11-P1-001=FAIL · rows=0; upper+basement=False; cheatFree=False
+O11-P1-002=FAIL · styleRuntime=False; layouts=0; ko/en@2=False
+O11-P1-003=FAIL · rows=0; three=False; deterministic=False; cheatFree=False
+O11-P1-004=FAIL · rows=0; seeds=0; feasible+band=False; cheatFree=False
+O11-P1-005=FAIL · rows=0; regions7=False; kim5=False; independentAdoption=False; region=review/job_20260826165624_448aecdc; nodes=review/job_20260826165625_8961b353; manifest=review/review; allowlist=0; package/runtime/formal=False/False/False; provisionalReview=True

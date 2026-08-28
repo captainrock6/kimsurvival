@@ -1,0 +1,53 @@
+{
+    "runId": "O11_20260829T090000Z_2c88100b_readiness",
+    "baselineCommit": "2c88100b1cb103ba7d603177dfbbad286729cdf6",
+    "unityVersion": "6000.4.9f1",
+    "scene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+    "o10HumanResultPath": "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md",
+    "v2AssetId": "ui.gamejam.style-benchmark",
+    "v2JobId": "job_20260828122852_c9ccf2aa",
+    "v2RegistryEngineReady": true,
+    "v2RegistryAdopted": true,
+    "v2PackagePresent": true,
+    "v2ImageGuid": "6ea907ec446c7dd4eb6a039227d04b84",
+    "sceneV2DependencyCount": 0,
+    "projectAnimationClipCount": 0,
+    "projectAnimationClipPaths": [],
+    "productionArt": {
+        "regionAssetId": "background.expedition-seven-region-set",
+        "regionStatus": "review",
+        "regionJobId": "job_20260826165624_448aecdc",
+        "nodeAssetId": "object.searchable-resource-node-production-set",
+        "nodeStatus": "review",
+        "nodeJobId": "job_20260826165625_8961b353",
+        "manifestPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json",
+        "manifestReviewState": "review",
+        "manifestDecision": "review",
+        "manifestRuntimeAllowlistCount": 0,
+        "manifestPackageAllowed": false,
+        "manifestRuntimeConnectAllowed": false,
+        "manifestProvisionalReviewBuildConnection": true,
+        "manifestFormalRuntimeConnected": false,
+        "independentlyApproved": false,
+        "blocker": "region=review/job_20260826165624_448aecdc; nodes=review/job_20260826165625_8961b353; manifest=review/review; allowlist=0; package/runtime/formal=False/False/False; provisionalReview=True"
+    },
+    "requiredFacilities": [
+        "structure.workbench",
+        "structure.rain_collector",
+        "structure.bed",
+        "structure.sofa"
+    ],
+    "requiredRooms": [
+        "room.start",
+        "room.upper.standard",
+        "room.basement.standard"
+    ],
+    "requiredCharacterStates": [
+        "kim.idle",
+        "kim.walk",
+        "kim.search",
+        "kim.ladder",
+        "kim.swim"
+    ],
+    "note": "Static evidence is diagnostic only; GREEN requires the live structured Play observation."
+}

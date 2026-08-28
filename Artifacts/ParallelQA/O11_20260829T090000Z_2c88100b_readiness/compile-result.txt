@@ -1,0 +1,17 @@
+Unity script compilation
+Run ID: O11_20260829T090000Z_2c88100b_readiness
+Started UTC: 2026-08-28T16:02:10.2763633Z
+Completed UTC: 2026-08-28T16:02:10.4704538Z
+Unity: 6000.4.9f1
+Baseline commit: 2c88100b1cb103ba7d603177dfbbad286729cdf6
+Project: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\O11PostIntegration2c88100b
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\O11PostIntegration2c88100b" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\O11PostIntegration2c88100b\work\ParallelQA\O11_20260829T090000Z_2c88100b_readiness\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 3
+Raw logs: C:\Users\dev\.codex\worktrees\aa6f\신규 개발 본부\work\O11PostIntegration2c88100b\work\ParallelQA\O11_20260829T090000Z_2c88100b_readiness\unity-compile.log
+Warning inventory:
+Assets\_Project\Scripts\Runtime\O11ProductionVisualsBootstrap.cs(13,17): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets\_Project\Scripts\Runtime\O11ProductionVisualsBootstrap.cs(27,29): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets\_Project\Scripts\Runtime\KimSurvivalPrototype.O7BagSurvivalGuidance.cs(23,22): warning CS0414: The field 'KimSurvivalPrototype.o7InitialGuideDismissed' is assigned but its value is never used
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

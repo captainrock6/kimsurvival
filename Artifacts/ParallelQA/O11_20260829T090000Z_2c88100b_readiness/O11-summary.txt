@@ -1,0 +1,12 @@
+O11 independent integration gate
+Run ID: O11_20260829T090000Z_2c88100b_readiness
+Baseline: 2c88100b1cb103ba7d603177dfbbad286729cdf6
+Overall/Product/Infrastructure: RED/FAIL/PASS
+Compile: PASS 0 errors / 3 baseline warnings / 0 O11 warnings
+Build/smoke locks: NOT_RUN_READINESS_PREFLIGHT
+Product PASS/EXPECTED_GAP/FAIL: 0/0/7
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\O11IntegrationGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '2c88100b1cb103ba7d603177dfbbad286729cdf6' -ReadinessOnly
+Full rerun after bridge: & '.\Assets\Editor\ParallelQA\O11IntegrationGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '<BRIDGE_INTEGRATED_FULL_SHA>' -IncludeBuild
+Exit code: 2 (0 GREEN/readiness-pass, 2 product RED, 1 infrastructure failure)
