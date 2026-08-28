@@ -1148,7 +1148,8 @@ namespace KimSurvival
             }
 
             ConsumeLegacyStorage(ResourceKind.Food, 1);
-            Hunger = Math.Min(100f, Hunger + 35f);
+            Hunger = Math.Min(100f, Hunger + PrototypeO11BalanceConfig.MealHungerRecovery);
+            Energy = Math.Min(100f, Energy + PrototypeO11BalanceConfig.MealEnergyRecovery);
             LastMessage = Text("message.food.eaten");
             return true;
         }
@@ -1227,8 +1228,14 @@ namespace KimSurvival
                 return;
             }
 
-            float daylightDrain = IsSwimming ? 1.15f : 0.75f;
-            float energyDrain = IsSwimming ? (moving ? 0.65f : 0.22f) : (moving ? 0.18f : 0f);
+            float daylightDrain = IsSwimming
+                ? PrototypeO11BalanceConfig.SwimmingDaylightPerSecond
+                : PrototypeO11BalanceConfig.LandDaylightPerSecond;
+            float energyDrain = IsSwimming
+                ? (moving
+                    ? PrototypeO11BalanceConfig.SwimmingMovingEnergyPerSecond
+                    : PrototypeO11BalanceConfig.SwimmingIdleEnergyPerSecond)
+                : (moving ? PrototypeO11BalanceConfig.LandMovingEnergyPerSecond : 0f);
             Daylight = Math.Max(0f, Daylight - deltaTime * daylightDrain);
             if (energyDrain > 0f)
             {
@@ -1359,7 +1366,9 @@ namespace KimSurvival
                     : PrototypeExpeditionRegionCatalog.Get(SelectedRegionId.Value)
                         .ResolveActionResultId(RunSeed, actionId);
             }
-            Energy = Math.Max(0f, Energy - (waterSearch ? 9f : 6f));
+            Energy = Math.Max(0f, Energy - (waterSearch
+                ? PrototypeO11BalanceConfig.LegacyWaterGatherEnergyCost
+                : PrototypeO11BalanceConfig.LegacyLandGatherEnergyCost));
             string stableResourceId = StableResourceIdForLegacy(kind);
             int remaining = AddToBag(stableResourceId, kind, amount);
             if (Energy <= 0f)
@@ -1448,7 +1457,7 @@ namespace KimSurvival
             Phase = GamePhase.Camp;
             if (forced)
             {
-                Energy = Math.Max(1f, Energy - 22f);
+                Energy = Math.Max(1f, Energy - PrototypeO11BalanceConfig.ForcedReturnEnergyCost);
                 LastMessage = Text("message.return.forced");
             }
             else
@@ -1477,24 +1486,28 @@ namespace KimSurvival
                 return false;
             }
 
-            Hunger = Math.Max(0f, Hunger - 35f);
+            Hunger = Math.Max(0f, Hunger - PrototypeO11BalanceConfig.DailyHungerCost);
             if (Hunger <= 0f)
             {
-                Energy = Math.Max(0f, Energy - 35f);
+                Energy = Math.Max(0f, Energy - PrototypeO11BalanceConfig.StarvationEnergyCost);
             }
 
-            float rest = campfirePrepared && HasStructure(StructureKind.Campfire) ? 38f : 20f;
+            float rest = PrototypeO11BalanceConfig.NextDayBaseRecovery;
+            if (campfirePrepared && HasStructure(StructureKind.Campfire))
+            {
+                rest += PrototypeO11BalanceConfig.CampfireRecovery;
+            }
             if (rainCollectorPrepared && HasStructure(StructureKind.RainCollector))
             {
-                rest += 10f;
+                rest += PrototypeO11BalanceConfig.RainCollectorRecovery;
             }
             if (bedPrepared && HasStructure(StructureKind.Bed))
             {
-                rest += 20f;
+                rest += PrototypeO11BalanceConfig.BedRecovery;
             }
             if (sofaPrepared && HasStructure(StructureKind.Sofa))
             {
-                rest += 8f;
+                rest += PrototypeO11BalanceConfig.SofaRecovery;
             }
 
             Energy = Math.Min(100f, Energy + rest);
