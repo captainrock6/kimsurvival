@@ -16,8 +16,8 @@ namespace KimSurvival
             new Dictionary<string, Texture2D>(StringComparer.Ordinal);
         private readonly Dictionary<string, Sprite> o11SearchNodeSprites =
             new Dictionary<string, Sprite>(StringComparer.Ordinal);
-        private readonly Dictionary<int, O11SearchNodeBinding> o11SearchNodeBindings =
-            new Dictionary<int, O11SearchNodeBinding>();
+        private readonly Dictionary<EntityId, O11SearchNodeBinding> o11SearchNodeBindings =
+            new Dictionary<EntityId, O11SearchNodeBinding>();
 
         private sealed class O11SearchNodeBinding
         {
@@ -33,7 +33,7 @@ namespace KimSurvival
                 return;
             }
 
-            int[] staleIds = o11SearchNodeBindings
+            EntityId[] staleIds = o11SearchNodeBindings
                 .Where(pair => pair.Value == null || pair.Value.Renderer == null)
                 .Select(pair => pair.Key)
                 .ToArray();
@@ -57,7 +57,7 @@ namespace KimSurvival
                     continue;
                 }
 
-                int instanceId = node.Root.GetEntityId();
+                EntityId instanceId = node.Root.GetEntityId();
                 if (!o11SearchNodeBindings.TryGetValue(instanceId, out O11SearchNodeBinding binding) ||
                     binding == null || binding.Renderer == null)
                 {
