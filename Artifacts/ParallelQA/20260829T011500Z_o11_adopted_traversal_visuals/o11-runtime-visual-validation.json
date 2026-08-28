@@ -1,0 +1,311 @@
+{
+    "schema": "kim-survival.o11-production-visual-validation.v2",
+    "adoptedStyleJob": "job_20260828122852_c9ccf2aa",
+    "reviewArtJob": "job_20260828150559_41c64580",
+    "adoptedCharacterJob": "job_20260822085926_374033c5",
+    "regionSourceJob": "job_20260826165624_448aecdc",
+    "ladderStrip": "O11/mr-kim-ladder-strip-v2",
+    "swimStrip": "O11/mr-kim-swim-strip-v2",
+    "fullScreenRasterLoadedAtRuntime": false,
+    "contractPassed": true,
+    "contractDetail": "job_20260828122852_c9ccf2aa; thin-hud=True; bottom-left-square-bag=True/True; animation=True(states=8; distinct-cells=True; polished-traversal[swim/ladder]=4/4; cycles[idle/walk/search/ladder/swim]=True/True/True/True/True; pivot=(0.500, 0.055); fixed[core/swim/ladder]=True/True/True; scale=True); regions=True(count=7; stableIds=True; silhouettes+hazard-patterns=True; distinct-fields=True; sprite-pairs=7/7; sizes=True; ink-kim-only=True; active-bg-fg=True; legacy-geometry-hidden=True); search-nodes=True(job_20260825150605_49020784; candidate=object.searchable-resource-node-kit.state-language-a; textures=True; true-alpha=True; slices=18/18:True; active-bindings=True; legacy-hidden=True; markers=True; state-order=True; adopted/formal=true)",
+    "captures": [
+        {
+            "scenario": "camp",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-camp-ko-1280x800.png",
+            "prepared": true,
+            "detail": "camp; locale=ko; phase=Camp; popup=None; bag=False; tray=False"
+        },
+        {
+            "scenario": "camp",
+            "locale": "ko",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-camp-ko-1920x1080.png",
+            "prepared": true,
+            "detail": "camp; locale=ko; phase=Camp; popup=None; bag=False; tray=False"
+        },
+        {
+            "scenario": "search",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-search-ko-1280x800.png",
+            "prepared": true,
+            "detail": "search; locale=ko; phase=Exploring; popup=None; bag=True; tray=False"
+        },
+        {
+            "scenario": "search",
+            "locale": "ko",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-search-ko-1920x1080.png",
+            "prepared": true,
+            "detail": "search; locale=ko; phase=Exploring; popup=None; bag=True; tray=False"
+        },
+        {
+            "scenario": "bag",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-bag-ko-1280x800.png",
+            "prepared": true,
+            "detail": "bag; locale=ko; phase=Exploring; popup=None; bag=True; tray=True"
+        },
+        {
+            "scenario": "bag",
+            "locale": "ko",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-bag-ko-1920x1080.png",
+            "prepared": true,
+            "detail": "bag; locale=ko; phase=Exploring; popup=None; bag=True; tray=True"
+        },
+        {
+            "scenario": "facility-popup",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-facility-popup-ko-1280x800.png",
+            "prepared": true,
+            "detail": "facility-popup; locale=ko; phase=Camp; popup=Workbench; bag=False; tray=False"
+        },
+        {
+            "scenario": "facility-popup",
+            "locale": "ko",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-facility-popup-ko-1920x1080.png",
+            "prepared": true,
+            "detail": "facility-popup; locale=ko; phase=Camp; popup=Workbench; bag=False; tray=False"
+        },
+        {
+            "scenario": "escape-popup",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-escape-popup-ko-1280x800.png",
+            "prepared": true,
+            "detail": "escape-popup; locale=ko; phase=Camp; popup=ShoreLaunch; bag=False; tray=False"
+        },
+        {
+            "scenario": "escape-popup",
+            "locale": "ko",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-escape-popup-ko-1920x1080.png",
+            "prepared": true,
+            "detail": "escape-popup; locale=ko; phase=Camp; popup=ShoreLaunch; bag=False; tray=False"
+        },
+        {
+            "scenario": "camp",
+            "locale": "en",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-camp-en-1280x800.png",
+            "prepared": true,
+            "detail": "camp; locale=en; phase=Camp; popup=None; bag=False; tray=False"
+        },
+        {
+            "scenario": "camp",
+            "locale": "en",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-camp-en-1920x1080.png",
+            "prepared": true,
+            "detail": "camp; locale=en; phase=Camp; popup=None; bag=False; tray=False"
+        },
+        {
+            "scenario": "search",
+            "locale": "en",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-search-en-1280x800.png",
+            "prepared": true,
+            "detail": "search; locale=en; phase=Exploring; popup=None; bag=True; tray=False"
+        },
+        {
+            "scenario": "search",
+            "locale": "en",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-search-en-1920x1080.png",
+            "prepared": true,
+            "detail": "search; locale=en; phase=Exploring; popup=None; bag=True; tray=False"
+        },
+        {
+            "scenario": "bag",
+            "locale": "en",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-bag-en-1280x800.png",
+            "prepared": true,
+            "detail": "bag; locale=en; phase=Exploring; popup=None; bag=True; tray=True"
+        },
+        {
+            "scenario": "bag",
+            "locale": "en",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-bag-en-1920x1080.png",
+            "prepared": true,
+            "detail": "bag; locale=en; phase=Exploring; popup=None; bag=True; tray=True"
+        },
+        {
+            "scenario": "facility-popup",
+            "locale": "en",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-facility-popup-en-1280x800.png",
+            "prepared": true,
+            "detail": "facility-popup; locale=en; phase=Camp; popup=Workbench; bag=False; tray=False"
+        },
+        {
+            "scenario": "facility-popup",
+            "locale": "en",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-facility-popup-en-1920x1080.png",
+            "prepared": true,
+            "detail": "facility-popup; locale=en; phase=Camp; popup=Workbench; bag=False; tray=False"
+        },
+        {
+            "scenario": "escape-popup",
+            "locale": "en",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-escape-popup-en-1280x800.png",
+            "prepared": true,
+            "detail": "escape-popup; locale=en; phase=Camp; popup=ShoreLaunch; bag=False; tray=False"
+        },
+        {
+            "scenario": "escape-popup",
+            "locale": "en",
+            "resolution": "1920x1080",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-escape-popup-en-1920x1080.png",
+            "prepared": true,
+            "detail": "escape-popup; locale=en; phase=Camp; popup=ShoreLaunch; bag=False; tray=False"
+        },
+        {
+            "scenario": "region-Beach",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-region-beach-ko-1280x800.png",
+            "prepared": true,
+            "detail": "Beach; profile=region.coast.beach; nodes=12"
+        },
+        {
+            "scenario": "region-Forest",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-region-forest-ko-1280x800.png",
+            "prepared": true,
+            "detail": "Forest; profile=region.forest.grove; nodes=12"
+        },
+        {
+            "scenario": "region-Shallows",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-region-shallows-ko-1280x800.png",
+            "prepared": true,
+            "detail": "Shallows; profile=region.sea.shallows; nodes=12"
+        },
+        {
+            "scenario": "region-RidgeHighland",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-region-ridgehighland-ko-1280x800.png",
+            "prepared": true,
+            "detail": "RidgeHighland; profile=region.ridge.highland; nodes=12"
+        },
+        {
+            "scenario": "region-CaveIsland",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-region-caveisland-ko-1280x800.png",
+            "prepared": true,
+            "detail": "CaveIsland; profile=region.cave.island; nodes=12"
+        },
+        {
+            "scenario": "region-CoveWreck",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-region-covewreck-ko-1280x800.png",
+            "prepared": true,
+            "detail": "CoveWreck; profile=region.cove.wreck; nodes=12"
+        },
+        {
+            "scenario": "region-RuinsRelay",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-region-ruinsrelay-ko-1280x800.png",
+            "prepared": true,
+            "detail": "RuinsRelay; profile=region.ruins.relay; nodes=12"
+        },
+        {
+            "scenario": "animation-idle-frame-0",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-idle-frame-0-ko-1280x800.png",
+            "prepared": true,
+            "detail": "idle; production-state=idle; frame=1; sprite=kim-idle-adopted; local-pos=(0.000, 0.000, 0.000); local-rot-z=0.00"
+        },
+        {
+            "scenario": "animation-idle-frame-1",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-idle-frame-1-ko-1280x800.png",
+            "prepared": true,
+            "detail": "idle; production-state=idle; frame=1; sprite=kim-idle-adopted; local-pos=(0.000, 0.000, 0.000); local-rot-z=0.00"
+        },
+        {
+            "scenario": "animation-walk-frame-0",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-walk-frame-0-ko-1280x800.png",
+            "prepared": true,
+            "detail": "walk; production-state=walk; frame=0; sprite=kim-walk-adopted; local-pos=(0.000, 0.000, 0.000); local-rot-z=1.20"
+        },
+        {
+            "scenario": "animation-walk-frame-1",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-walk-frame-1-ko-1280x800.png",
+            "prepared": true,
+            "detail": "walk; production-state=walk; frame=2; sprite=kim-idle-adopted; local-pos=(0.000, 0.000, 0.000); local-rot-z=0.92"
+        },
+        {
+            "scenario": "animation-search-frame-0",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-search-frame-0-ko-1280x800.png",
+            "prepared": true,
+            "detail": "search; production-state=search; frame=1; sprite=kim-search-adopted; local-pos=(0.024, 0.000, 0.000); local-rot-z=3.03"
+        },
+        {
+            "scenario": "animation-search-frame-1",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-search-frame-1-ko-1280x800.png",
+            "prepared": true,
+            "detail": "search; production-state=search; frame=2; sprite=kim-search-adopted; local-pos=(-0.022, 0.000, 0.000); local-rot-z=357.16"
+        },
+        {
+            "scenario": "animation-ladder-frame-0",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-ladder-frame-0-ko-1280x800.png",
+            "prepared": true,
+            "detail": "ladder; production-state=ladder; frame=1; sprite=kim-ladder-polished-1-adopted; local-pos=(0.009, 0.024, 0.000); local-rot-z=0.66"
+        },
+        {
+            "scenario": "animation-ladder-frame-1",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-ladder-frame-1-ko-1280x800.png",
+            "prepared": true,
+            "detail": "ladder; production-state=ladder; frame=2; sprite=kim-ladder-polished-2-adopted; local-pos=(-0.009, -0.022, 0.000); local-rot-z=359.38"
+        },
+        {
+            "scenario": "animation-swim-frame-0",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-swim-frame-0-ko-1280x800.png",
+            "prepared": true,
+            "detail": "swim; production-state=swim; frame=1; sprite=kim-swim-polished-1-adopted; local-pos=(0.015, -0.090, 0.000); local-rot-z=0.68"
+        },
+        {
+            "scenario": "animation-swim-frame-1",
+            "locale": "ko",
+            "resolution": "1280x800",
+            "path": "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-animation-swim-frame-1-ko-1280x800.png",
+            "prepared": true,
+            "detail": "swim; production-state=swim; frame=2; sprite=kim-swim-polished-2-adopted; local-pos=(-0.014, -0.085, 0.000); local-rot-z=359.38"
+        }
+    ],
+    "completedUtc": "2026-08-28T16:52:02.0567424Z"
+}

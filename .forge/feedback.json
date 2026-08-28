@@ -310,7 +310,59 @@
         "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260828122852_c9ccf2aa\\exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.png"
       ],
       "updatedAt": "2026-08-28T14:19:44.895Z"
+    },
+    {
+      "jobId": "job_20260826165624_448aecdc",
+      "assetId": "background.expedition-seven-region-set",
+      "assetType": "background",
+      "request": "같은 무인도지만 실루엣이 즉시 구분되는 오리지널 2D 횡스크롤 수색 지역 7장 콘셉트 보드: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면에 하나의 선명한 수평 gameplay band, 수색 오브젝트 여백, 전경·중경·원경 깊이, 따뜻한 열대색. UI/본문/타사 고유 구도 없음.",
+      "decision": "adopted",
+      "tags": [],
+      "note": "사용자가 O11 리뷰 후보를 확인하고 7개 수색 지역 아트를 정식 채택함. 각 지역의 고유 실루엣·색상·전경 단서와 단순화된 잉크 스타일을 보존한다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\background\\job_20260826165624_448aecdc\\exec-0cdc7139-c444-462e-ac92-56ccfa410815.png"
+      ],
+      "updatedAt": "2026-08-28T16:38:27.004Z"
+    },
+    {
+      "jobId": "job_20260825150605_49020784",
+      "assetId": "object.searchable-resource-node-kit",
+      "assetType": "separated_parts",
+      "request": "Review-only 안정 후보 object.searchable-resource-node-kit.state-language-a. 밝고 따뜻한 열대 2D 횡스크롤 측면 원화로 풀숲, 바위틈, 표류물 더미, 속 빈 나무 구멍, 난파선 수납함, 폐시설 캐비닛 여섯 종류를 만든다. 각 노드는 세 상태가 형태로 읽혀야 한다: unknown은 닫힌 덩어리 실루엣과 수색 단서 모양, known-partial은 열린 틈/젖혀진 덮개와 노치형 잔여물 표식 슬롯, depleted는 꺼진 중심·빈 내부·교차 끈 또는 반복 사선 홈으로 고갈을 표시한다. 정확한 loot 아이템이나 수량, 글자, 김씨, 지면, 배경을 굽지 않는다. true alpha, 각 파츠 독립, bottom-center pivot, 동일 종류 상태 간 크기·바닥선 일치, 사방 투명 여백, 1280x800에서 캐릭터 허리 아래 규모, 자원 노드와 보행 band를 가리지 않는 측면 실루엣을 유지한다. 위험 노출, 보호 핵심 부품, 알려진 잔여물은 별도 엔진 아이콘 슬롯으로만 연결한다. decision=review, selectedCandidate=null, runtimeAllowlist=[], packageAllowed=false, runtimeConnectAllowed=false, runtimeConnected=false. 사용자 승인 전 adopt/package/runtime/scene/Addressables 금지.",
+      "decision": "adopted",
+      "tags": [],
+      "note": "사용자가 O11 리뷰 후보를 확인하고 런타임에 연결된 6종 수색 노드 3상태 세트를 정식 채택함. 상태별 식별성과 김씨 생존기 잉크선 스타일을 보존한다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-actual-size-1280x800.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-drift-pile-states.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-facility-cabinet-states.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-grass-thicket-states.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-review-board-1920x1080.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-rock-crevice-states.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-state-language-a-source.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-state-readability-1280x800.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-states-atlas.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-status-icon-readability.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-status-icons-64.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-status-icons-editable.svg",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-tree-hollow-states.png",
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\search-node-wreck-chest-states.png"
+      ],
+      "updatedAt": "2026-08-28T16:38:27.193Z"
+    },
+    {
+      "jobId": "job_20260826165625_8961b353",
+      "assetId": "object.searchable-resource-node-production-set",
+      "assetType": "separated_parts",
+      "request": "김씨 생존기 2D 측면용 오리지널 환경 수색 오브젝트 투명 스프라이트 시트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛 각각 미수색·부분 잔류·고갈 상태. 작은 크기에서도 종류와 상태가 읽히고 상단 상호작용 아이콘 여백, 부품 분리·무겹침·동일 여백·true alpha·본문 없음.",
+      "decision": "adopted",
+      "tags": [],
+      "note": "사용자가 O11 리뷰 후보의 6종 수색 노드 production 세트를 정식 채택함. 런타임은 canonical node kit의 개별 3상태 파일을 사용한다.",
+      "artifacts": [
+        "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260826165625_8961b353\\exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.png"
+      ],
+      "updatedAt": "2026-08-28T16:38:27.461Z"
     }
   ],
-  "updatedAt": "2026-08-28T14:19:44.959Z"
+  "updatedAt": "2026-08-28T16:38:27.502Z"
 }

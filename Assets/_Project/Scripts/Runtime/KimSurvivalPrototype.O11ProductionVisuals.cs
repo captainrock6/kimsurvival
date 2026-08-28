@@ -15,6 +15,10 @@ namespace KimSurvival
         private const float O11BagSlotGap = 8f;
         private bool o11ProductionVisualsInitialized;
         private Texture2D o11KimAtlasTexture;
+        private Texture2D o11KimLadderStripTexture;
+        private Texture2D o11KimSwimStripTexture;
+        private Sprite[] o11KimLadderFrames = Array.Empty<Sprite>();
+        private Sprite[] o11KimSwimFrames = Array.Empty<Sprite>();
         private Sprite o11KimAtlasRuntimeSprite;
         private PrototypePlayerPresentation o11ConfiguredPlayerPresentation;
         private Transform o11RegionSpriteRoot;
@@ -226,6 +230,8 @@ namespace KimSurvival
                 PrepareKimSprites();
             }
 
+            EnsureO11PolishedTraversalFrames();
+
             Transform visual = playerRoot.childCount > 0 ? playerRoot.GetChild(0) : playerRoot;
             SpriteRenderer runtimeRenderer = null;
             foreach (SpriteRenderer renderer in playerRoot.GetComponentsInChildren<SpriteRenderer>(true))
@@ -271,6 +277,7 @@ namespace KimSurvival
                 kimFacilityUseSprite,
                 kimHurtSprite,
                 kimRestSprite);
+            playerPresentation.ConfigurePolishedTraversalSprites(o11KimSwimFrames, o11KimLadderFrames);
             PrototypePlayerPresentationState current = session.Phase == GamePhase.Exploring
                 ? playerTraversal.CurrentPresentation(session.IsSwimming)
                 : new PrototypePlayerPresentationState(
@@ -282,6 +289,54 @@ namespace KimSurvival
                     true);
             playerPresentation.Apply(current);
             o11ConfiguredPlayerPresentation = playerPresentation;
+        }
+
+        private void EnsureO11PolishedTraversalFrames()
+        {
+            if (o11KimLadderFrames.Length == 4 && o11KimSwimFrames.Length == 4)
+            {
+                return;
+            }
+
+            o11KimLadderStripTexture = o11KimLadderStripTexture ?? LoadO11Texture("O11/mr-kim-ladder-strip-v2");
+            o11KimSwimStripTexture = o11KimSwimStripTexture ?? LoadO11Texture("O11/mr-kim-swim-strip-v2");
+            if (o11KimLadderStripTexture == null || o11KimSwimStripTexture == null || kimIdleSprite == null)
+            {
+                return;
+            }
+
+            o11KimLadderFrames = CreateO11TraversalFrames(o11KimLadderStripTexture, "kim-ladder-polished", 0.07f);
+            o11KimSwimFrames = CreateO11TraversalFrames(o11KimSwimStripTexture, "kim-swim-polished", 0.47f);
+            if (o11KimLadderFrames.Length == 4)
+            {
+                DestroyRuntimeSprite(kimClimbSprite);
+                kimClimbSprite = o11KimLadderFrames[0];
+            }
+            if (o11KimSwimFrames.Length == 4)
+            {
+                DestroyRuntimeSprite(kimSwimSprite);
+                kimSwimSprite = o11KimSwimFrames[0];
+            }
+        }
+
+        private Sprite[] CreateO11TraversalFrames(Texture2D texture, string stateName, float pivotY)
+        {
+            const int frameCount = 4;
+            float frameWidth = texture.width / (float)frameCount;
+            float pixelsPerUnit = texture.height / Mathf.Max(0.01f, kimIdleSprite.bounds.size.y);
+            var frames = new Sprite[frameCount];
+            for (int index = 0; index < frameCount; index += 1)
+            {
+                frames[index] = Sprite.Create(
+                    texture,
+                    new Rect(index * frameWidth, 0f, frameWidth, texture.height),
+                    new Vector2(0.5f, pivotY),
+                    pixelsPerUnit,
+                    0u,
+                    SpriteMeshType.FullRect);
+                frames[index].name = stateName + "-" + index + "-adopted";
+            }
+            return frames;
         }
 
         private void EnsureO11RegionRuntimePresentation()

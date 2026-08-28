@@ -2,7 +2,7 @@
   "id": "job_20260826165624_448aecdc",
   "status": "succeeded",
   "createdAt": "2026-08-26T16:56:24.776Z",
-  "updatedAt": "2026-08-26T17:00:26.512Z",
+  "updatedAt": "2026-08-28T16:38:27.016Z",
   "input": {
     "assetType": "background",
     "assetId": "background.expedition-seven-region-set",
@@ -180,7 +180,15 @@
       "url": "/outputs/jobs/job_20260826165624_448aecdc/qa-preview-exec-0cdc7139-c444-462e-ac92-56ccfa410815.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 O11 리뷰 후보를 확인하고 7개 수색 지역 아트를 정식 채택함. 각 지역의 고유 실루엣·색상·전경 단서와 단순화된 잉크 스타일을 보존한다.",
+    "selectedArtifacts": [
+      "exec-0cdc7139-c444-462e-ac92-56ccfa410815.png"
+    ],
+    "updatedAt": "2026-08-28T16:38:27.004Z"
+  },
   "events": [
     {
       "at": "2026-08-26T16:56:24.776Z",
@@ -216,6 +224,11 @@
       "at": "2026-08-26T17:00:26.512Z",
       "level": "info",
       "message": "Codex/로컬 결과 4개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-28T16:38:27.016Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

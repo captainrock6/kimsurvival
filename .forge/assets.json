@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-28T15:10:40.568Z",
+  "updatedAt": "2026-08-28T16:38:39.152Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -5284,7 +5284,7 @@
       "name": "7지역 환경 수색 오브젝트 키트",
       "assetType": "separated_parts",
       "request": "김씨 생존기: 무인도의 2D 측면 수색용 오브젝트 키트. 풀숲, 바위틈, 표류물 더미, 속 빈 나무, 조개·해초 웅덩이, 동굴 잔해, 난파선 수납함, 폐기상 관측소 캐비닛을 같은 열대 코믹 생존 화풍으로 제작한다. 각 오브젝트는 미수색, 뒤지는 중 피드백용 분리 파츠, 부분 수색, 고갈, 위험 단서 상태를 엔진에서 전환할 수 있게 분리하고 실제 개별 loot 아이템은 배경에 굽지 않는다. true-alpha, bottom-center pivot, 명확한 상호작용 실루엣, 1280x800 가독성, 한국어·영어 텍스트 미포함, 배경·충돌·위험·발견물 아이콘 분리를 지킨다. 기존 환경 키트와 후보는 사용자 채택 전 runtime에 연결하지 않는다.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "gamejam",
@@ -5319,6 +5319,13 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-25T16:19:42.919Z",
+          "qualityScore": 62
+        },
+        {
+          "jobId": "job_20260825150605_49020784",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-28T16:38:27.299Z",
           "qualityScore": 62
         }
       ],
@@ -5564,17 +5571,29 @@
           "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-wreck-chest-states.jpg"
         }
       ],
-      "decision": "review",
-      "selectedCandidate": null,
-      "runtimeAllowlist": [],
-      "packageAllowed": false,
-      "runtimeConnectAllowed": false,
-      "runtimeConnected": false,
-      "provisionalReviewBuildConnection": true,
+      "decision": "adopted",
+      "selectedCandidate": "object.searchable-resource-node-kit.state-language-a",
+      "runtimeAllowlist": [
+        "grass-thicket",
+        "rock-crevice",
+        "drift-pile",
+        "tree-hollow",
+        "wreck-chest",
+        "facility-cabinet"
+      ],
+      "packageAllowed": true,
+      "runtimeConnectAllowed": true,
+      "runtimeConnected": true,
+      "provisionalReviewBuildConnection": false,
       "provisionalRuntimeBinding": "Assets/_Project/Art/Runtime/Resources/O11/SearchNodes/o11-search-node-runtime-manifest.json",
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784",
+        "manifest": "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260825150605_49020784\\forge-import.json",
+        "packagedAt": "2026-08-28T16:38:37.549Z"
+      },
       "createdAt": "2026-08-25T13:55:38.014Z",
-      "updatedAt": "2026-08-28T16:17:54.000Z"
+      "updatedAt": "2026-08-28T16:38:37.550Z"
     },
     {
       "id": "ui.search-loot-tray",
@@ -6349,10 +6368,10 @@
     },
     {
       "id": "background.expedition-seven-region-set",
-      "name": "일곱 수색 지역 production 배경 세트",
+      "name": "같은 무인도지만 실루엣이 즉시 구분되는 오리지널 2D 횡스크롤 수색 지역 7장 콘셉트 보드: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면에 하나의 선명한 수평",
       "assetType": "background",
-      "request": "하나의 contact sheet가 아니라 별도 엔진 파일로 납품하는 7개의 Unity 2D side-scroller production background: 해변, 숲, 얕은 바다, 바위 해안, 동굴, 난파선, 폐중계소. 각 지역은 동일 island art bible 아래 unique silhouette·palette accent·foreground cue를 가지며 background/midground/gameplay ground/foreground와 optional water layer를 분리한다. 캐릭터·수색물·UI·본문 없음, 1280×800/1920×1080 카메라와 넓은 수색물 간격을 고려한다.",
-      "status": "review",
+      "request": "같은 무인도지만 실루엣이 즉시 구분되는 오리지널 2D 횡스크롤 수색 지역 7장 콘셉트 보드: 시작 해변, 맹그로브 얕은물, 밀림 숲, 바람 절벽, 섬 동굴, 난파선 만, 폐중계 관측소. 각 장면에 하나의 선명한 수평 gameplay band, 수색 오브젝트 여백, 전경·중경·원경 깊이, 따뜻한 열대색. UI/본문/타사 고유 구도 없음.",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "o5",
@@ -6380,6 +6399,13 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-26T17:00:26.529Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260826165624_448aecdc",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-28T16:38:27.046Z",
           "qualityScore": 100
         }
       ],
@@ -6429,16 +6455,21 @@
           "url": "/outputs/jobs/job_20260826165624_448aecdc/qa-preview-exec-0cdc7139-c444-462e-ac92-56ccfa410815.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\background\\job_20260826165624_448aecdc",
+        "manifest": "Assets\\_Project\\Art\\Generated\\background\\job_20260826165624_448aecdc\\forge-import.json",
+        "packagedAt": "2026-08-28T16:38:35.926Z"
+      },
       "createdAt": "2026-08-26T16:50:01.507Z",
-      "updatedAt": "2026-08-28T10:32:39.597Z"
+      "updatedAt": "2026-08-28T16:38:35.928Z"
     },
     {
       "id": "object.searchable-resource-node-production-set",
-      "name": "환경 수색 오브젝트 production 세트",
+      "name": "김씨 생존기 2D 측면용 오리지널 환경 수색 오브젝트 투명 스프라이트 시트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛 각각 미수색·부분 잔류·고갈 상태. 작은 크기에서도 종류와 상태가",
       "assetType": "separated_parts",
-      "request": "7지역 side-view 수색용 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛의 미수색·부분 잔류·고갈 상태 production set. 같은 잉크 선과 단순화된 열대 배경 문법, 1280×800 작은 실루엣 가독성, marker 여백, true alpha, 동일 여백과 ground pivot, 각 셀 무겹침. 내용물 아이템과 본문 텍스트는 넣지 않는다.",
-      "status": "review",
+      "request": "김씨 생존기 2D 측면용 오리지널 환경 수색 오브젝트 투명 스프라이트 시트. 풀숲, 바위틈, 표류물 더미, 나무 구멍, 난파선 수납함, 폐시설 캐비닛 각각 미수색·부분 잔류·고갈 상태. 작은 크기에서도 종류와 상태가 읽히고 상단 상호작용 아이콘 여백, 부품 분리·무겹침·동일 여백·true alpha·본문 없음.",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "o5",
@@ -6469,6 +6500,13 @@
           "parentJobId": null,
           "status": "review",
           "at": "2026-08-26T17:00:26.326Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260826165625_8961b353",
+          "parentJobId": null,
+          "status": "adopted",
+          "at": "2026-08-28T16:38:27.494Z",
           "qualityScore": 100
         }
       ],
@@ -6518,9 +6556,14 @@
           "url": "/outputs/jobs/job_20260826165625_8961b353/qa-preview-exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260826165625_8961b353",
+        "manifest": "Assets\\_Project\\Art\\Generated\\separated_parts\\job_20260826165625_8961b353\\forge-import.json",
+        "packagedAt": "2026-08-28T16:38:39.151Z"
+      },
       "createdAt": "2026-08-26T16:50:01.520Z",
-      "updatedAt": "2026-08-28T10:32:39.608Z"
+      "updatedAt": "2026-08-28T16:38:39.152Z"
     },
     {
       "id": "ui.interactable-marker-set",

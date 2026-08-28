@@ -37,6 +37,8 @@ namespace KimSurvival
         private Sprite walkSprite;
         private Sprite swimSprite;
         private Sprite climbSprite;
+        private Sprite[] swimFrames = System.Array.Empty<Sprite>();
+        private Sprite[] climbFrames = System.Array.Empty<Sprite>();
         private Sprite searchSprite;
         private Sprite facilityUseSprite;
         private Sprite hurtSprite;
@@ -109,6 +111,18 @@ namespace KimSurvival
                 stateRendererBaseRotation = stateRenderer.transform.localRotation;
             }
             ConfigureBodyCollider();
+        }
+
+        public void ConfigurePolishedTraversalSprites(Sprite[] polishedSwimFrames, Sprite[] polishedClimbFrames)
+        {
+            swimFrames = polishedSwimFrames == null
+                ? System.Array.Empty<Sprite>()
+                : polishedSwimFrames.Where(sprite => sprite != null).ToArray();
+            climbFrames = polishedClimbFrames == null
+                ? System.Array.Empty<Sprite>()
+                : polishedClimbFrames.Where(sprite => sprite != null).ToArray();
+            if (swimFrames.Length > 0) swimSprite = swimFrames[0];
+            if (climbFrames.Length > 0) climbSprite = climbFrames[0];
         }
 
         public void PlayAction(PrototypePlayerActionPose pose, float duration)
@@ -197,17 +211,17 @@ namespace KimSurvival
 
             if (state.IsSwimming)
             {
-                stateRenderer.sprite = swimSprite;
                 float cycle = animationTime * SwimCycleRate;
                 ActiveProductionState = "swim";
                 ActiveProductionFrame = Mathf.FloorToInt(cycle) & 3;
+                stateRenderer.sprite = FrameOrFallback(swimFrames, ActiveProductionFrame, swimSprite);
                 float stroke = Mathf.Sin(cycle * Mathf.PI * 0.5f);
                 float kick = Mathf.Cos(cycle * Mathf.PI);
-                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(stroke * 0.025f, kick * 0.035f, 0f);
-                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, -1.5f + stroke * 3f);
+                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(stroke * 0.018f, -0.08f + kick * 0.022f, 0f);
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, stroke * 0.8f);
                 spriteTransform.localScale = new Vector3(
-                    stateRendererBaseScale.x * (1f + kick * 0.015f),
-                    stateRendererBaseScale.y * (1f - kick * 0.015f),
+                    stateRendererBaseScale.x * (1f + kick * 0.008f),
+                    stateRendererBaseScale.y * (1f - kick * 0.006f),
                     stateRendererBaseScale.z);
                 wasSpriteMoving = false;
                 return;
@@ -273,10 +287,10 @@ namespace KimSurvival
             else if (pose == PrototypePlayerActionPose.Climb)
             {
                 ActiveProductionState = "ladder";
-                stateRenderer.sprite = climbSprite;
+                stateRenderer.sprite = FrameOrFallback(climbFrames, ActiveProductionFrame, climbSprite);
                 float climb = Mathf.Sin(cycle * Mathf.PI * 0.5f);
-                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(climb * 0.018f, climb * 0.045f, 0f);
-                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, climb * 1.8f);
+                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(climb * 0.010f, climb * 0.025f, 0f);
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, climb * 0.7f);
             }
             else if (pose == PrototypePlayerActionPose.Hurt)
             {
@@ -312,7 +326,11 @@ namespace KimSurvival
             }
 
             Vector2 referencePivot = NormalizedPivot(required[0]);
-            bool fixedPivot = required.All(sprite => Vector2.Distance(referencePivot, NormalizedPivot(sprite)) <= 0.002f);
+            Sprite[] coreSprites = { idleSprite, walkSprite, searchSprite, facilityUseSprite, hurtSprite, restSprite };
+            bool fixedCorePivot = coreSprites.All(sprite =>
+                Vector2.Distance(referencePivot, NormalizedPivot(sprite)) <= 0.002f);
+            bool fixedSwimPivot = HasConsistentPivot(swimFrames);
+            bool fixedClimbPivot = HasConsistentPivot(climbFrames);
             bool bottomPivot = referencePivot.y <= 0.08f && Mathf.Abs(referencePivot.x - 0.5f) <= 0.01f;
             bool validScale = Mathf.Abs(baseScale.x) > 0.001f && Mathf.Abs(baseScale.y) > 0.001f;
             bool distinctAtlasCells = required.Select(sprite => sprite.name).Distinct().Count() == required.Length;
@@ -375,13 +393,33 @@ namespace KimSurvival
             conditionPose = PrototypePlayerActionPose.None;
             Apply(idle, now + 0.5f);
 
+            bool polishedTraversalFrames = swimFrames.Length >= 4 && climbFrames.Length >= 4 &&
+                                            swimFrames.Select(sprite => sprite.name).Distinct().Count() >= 4 &&
+                                            climbFrames.Select(sprite => sprite.name).Distinct().Count() >= 4;
             bool productionCycles = idleMoves && walkMoves && searchMoves && ladderMoves && swimMoves;
-            bool passed = fixedPivot && bottomPivot && validScale && distinctAtlasCells && productionCycles;
+            bool passed = fixedCorePivot && fixedSwimPivot && fixedClimbPivot && bottomPivot && validScale && distinctAtlasCells &&
+                          polishedTraversalFrames && productionCycles;
             detail = "states=8; distinct-cells=" + distinctAtlasCells +
+                     "; polished-traversal[swim/ladder]=" + swimFrames.Length + "/" + climbFrames.Length +
                      "; cycles[idle/walk/search/ladder/swim]=" +
                      idleMoves + "/" + walkMoves + "/" + searchMoves + "/" + ladderMoves + "/" + swimMoves +
-                     "; pivot=" + referencePivot.ToString("F3") + "; fixed=" + fixedPivot + "; scale=" + validScale;
+                     "; pivot=" + referencePivot.ToString("F3") +
+                     "; fixed[core/swim/ladder]=" + fixedCorePivot + "/" + fixedSwimPivot + "/" + fixedClimbPivot +
+                     "; scale=" + validScale;
             return passed;
+        }
+
+        private static Sprite FrameOrFallback(Sprite[] frames, int frame, Sprite fallback)
+        {
+            return frames != null && frames.Length > 0 ? frames[Mathf.Abs(frame) % frames.Length] : fallback;
+        }
+
+        private static bool HasConsistentPivot(Sprite[] frames)
+        {
+            if (frames == null || frames.Length == 0) return false;
+            Vector2 pivot = NormalizedPivot(frames[0]);
+            return frames.All(sprite => sprite != null &&
+                Vector2.Distance(pivot, NormalizedPivot(sprite)) <= 0.002f);
         }
 
         private static bool PoseChanged(Vector3 first, Vector3 second)

@@ -265,7 +265,7 @@ namespace KimSurvival
                      "; textures=" + sourceTextures + "; true-alpha=" + trueAlpha +
                      "; slices=18/18:" + allSlices + "; active-bindings=" + activeBindings +
                      "; legacy-hidden=" + legacyHidden + "; markers=" + markersPreserved +
-                     "; state-order=" + stateOrder + "; review/provisional=true";
+                     "; state-order=" + stateOrder + "; adopted/formal=true";
             return passed;
         }
 
@@ -320,7 +320,7 @@ namespace KimSurvival
             Canvas.ForceUpdateCanvases();
             detail = "kind=" + kind + "; state=" + state + "; locale=" + localeCode +
                      "; region=" + region + "; node=" + definition.NodeId +
-                     "; candidate=" + O11SearchNodeCandidateId + "; review/provisional=true";
+                     "; candidate=" + O11SearchNodeCandidateId + "; adopted/formal=true";
             return true;
         }
 

@@ -2,7 +2,7 @@
   "id": "job_20260826165625_8961b353",
   "status": "succeeded",
   "createdAt": "2026-08-26T16:56:25.049Z",
-  "updatedAt": "2026-08-26T17:00:26.305Z",
+  "updatedAt": "2026-08-28T16:38:27.471Z",
   "input": {
     "assetType": "separated_parts",
     "assetId": "object.searchable-resource-node-production-set",
@@ -180,7 +180,15 @@
       "url": "/outputs/jobs/job_20260826165625_8961b353/qa-preview-exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 O11 리뷰 후보의 6종 수색 노드 production 세트를 정식 채택함. 런타임은 canonical node kit의 개별 3상태 파일을 사용한다.",
+    "selectedArtifacts": [
+      "exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.png"
+    ],
+    "updatedAt": "2026-08-28T16:38:27.461Z"
+  },
   "events": [
     {
       "at": "2026-08-26T16:56:25.049Z",
@@ -216,6 +224,11 @@
       "at": "2026-08-26T17:00:26.305Z",
       "level": "info",
       "message": "Codex/로컬 결과 4개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-28T16:38:27.471Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,

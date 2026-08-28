@@ -2,7 +2,7 @@
   "id": "job_20260825150605_49020784",
   "status": "succeeded",
   "createdAt": "2026-08-25T15:06:05.982Z",
-  "updatedAt": "2026-08-25T15:19:19.112Z",
+  "updatedAt": "2026-08-28T16:38:27.204Z",
   "input": {
     "assetType": "separated_parts",
     "assetId": "object.searchable-resource-node-kit",
@@ -303,7 +303,7 @@
       "kind": "editable-source",
       "fileName": "search-node-visual-qa.json",
       "contentType": "application/json",
-      "bytes": 6498,
+      "bytes": 5786,
       "url": "/outputs/jobs/job_20260825150605_49020784/search-node-visual-qa.json"
     },
     {
@@ -419,7 +419,28 @@
       "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-wreck-chest-states.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [],
+    "note": "사용자가 O11 리뷰 후보를 확인하고 런타임에 연결된 6종 수색 노드 3상태 세트를 정식 채택함. 상태별 식별성과 김씨 생존기 잉크선 스타일을 보존한다.",
+    "selectedArtifacts": [
+      "search-node-actual-size-1280x800.png",
+      "search-node-drift-pile-states.png",
+      "search-node-facility-cabinet-states.png",
+      "search-node-grass-thicket-states.png",
+      "search-node-review-board-1920x1080.png",
+      "search-node-rock-crevice-states.png",
+      "search-node-state-language-a-source.png",
+      "search-node-state-readability-1280x800.png",
+      "search-node-states-atlas.png",
+      "search-node-status-icon-readability.png",
+      "search-node-status-icons-64.png",
+      "search-node-status-icons-editable.svg",
+      "search-node-tree-hollow-states.png",
+      "search-node-wreck-chest-states.png"
+    ],
+    "updatedAt": "2026-08-28T16:38:27.193Z"
+  },
   "events": [
     {
       "at": "2026-08-25T15:06:05.982Z",
@@ -455,6 +476,11 @@
       "at": "2026-08-25T15:19:19.112Z",
       "level": "info",
       "message": "Codex/로컬 결과 32개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-28T16:38:27.204Z",
+      "level": "info",
+      "message": "피드백 저장: 채택"
     }
   ],
   "error": null,
@@ -730,7 +756,7 @@
         {
           "fileName": "search-node-visual-qa.json",
           "kind": "editable-source",
-          "bytes": 6498,
+          "bytes": 5786,
           "issues": []
         },
         {

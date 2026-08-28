@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-28T16:38:37.547Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "object.searchable-resource-node-kit",
+  "jobId": "job_20260825150605_49020784",
+  "assetType": "separated_parts",
+  "sourceFiles": [
+    "search-node-actual-size-1280x800.png",
+    "search-node-drift-pile-states.png",
+    "search-node-facility-cabinet-states.png",
+    "search-node-grass-thicket-states.png",
+    "search-node-review-board-1920x1080.png",
+    "search-node-rock-crevice-states.png",
+    "search-node-state-language-a-source.png",
+    "search-node-state-readability-1280x800.png",
+    "search-node-states-atlas.png",
+    "search-node-status-icon-readability.png",
+    "search-node-status-icons-64.png",
+    "search-node-status-icons-editable.svg",
+    "search-node-tree-hollow-states.png",
+    "search-node-wreck-chest-states.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "CompressedHQ",
+    "maxSize": 1536,
+    "mipmaps": false,
+    "alphaIsTransparency": true,
+    "nineSliceHint": false
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

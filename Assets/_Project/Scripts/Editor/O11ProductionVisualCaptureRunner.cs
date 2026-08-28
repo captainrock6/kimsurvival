@@ -16,7 +16,7 @@ namespace KimSurvivalEditor
         private const string RunningKey = "KimSurvival.O11VisualCapture.Running";
         private const string PassedKey = "KimSurvival.O11VisualCapture.Passed";
         private const string MessageKey = "KimSurvival.O11VisualCapture.Message";
-        private const string CaptureFolder = "Artifacts/ParallelQA/20260829T004300Z_o11_production_visuals_green";
+        private const string CaptureFolder = "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals";
         private static bool tickAttached;
         private static double earliestRunTime;
         private static double timeoutAt;
@@ -40,6 +40,8 @@ namespace KimSurvivalEditor
             public string reviewArtJob = "job_20260828150559_41c64580";
             public string adoptedCharacterJob = "job_20260822085926_374033c5";
             public string regionSourceJob = "job_20260826165624_448aecdc";
+            public string ladderStrip = "O11/mr-kim-ladder-strip-v2";
+            public string swimStrip = "O11/mr-kim-swim-strip-v2";
             public bool fullScreenRasterLoadedAtRuntime;
             public bool contractPassed;
             public string contractDetail = string.Empty;

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-28T16:38:39.149Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "object.searchable-resource-node-production-set",
+  "jobId": "job_20260826165625_8961b353",
+  "assetType": "separated_parts",
+  "sourceFiles": [
+    "exec-1899eeb5-9b43-418f-be39-2f4aa2bfb3c5.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "CompressedHQ",
+    "maxSize": 1024,
+    "mipmaps": false,
+    "alphaIsTransparency": false,
+    "nineSliceHint": false
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}
