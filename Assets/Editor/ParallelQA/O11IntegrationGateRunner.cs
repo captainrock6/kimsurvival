@@ -83,10 +83,59 @@ namespace ParallelQA
             public int sceneV2DependencyCount;
             public int projectAnimationClipCount;
             public string[] projectAnimationClipPaths = Array.Empty<string>();
+            public ProductionArtAudit productionArt = new ProductionArtAudit();
             public string[] requiredFacilities = { "structure.workbench", "structure.rain_collector", "structure.bed", "structure.sofa" };
             public string[] requiredRooms = { "room.start", "room.upper.standard", "room.basement.standard" };
             public string[] requiredCharacterStates = { "kim.idle", "kim.walk", "kim.search", "kim.ladder", "kim.swim" };
             public string note = "Static evidence is diagnostic only; GREEN requires the live structured Play observation.";
+        }
+
+        [Serializable]
+        private sealed class ForgeAssetLedger
+        {
+            public ForgeAssetRecord[] assets = Array.Empty<ForgeAssetRecord>();
+        }
+
+        [Serializable]
+        private sealed class ForgeAssetRecord
+        {
+            public string id = string.Empty;
+            public string status = string.Empty;
+            public string currentJobId = string.Empty;
+        }
+
+        [Serializable]
+        private sealed class RegionRuntimeManifest
+        {
+            public string reviewState = string.Empty;
+            public string decision = string.Empty;
+            public string selectedCandidate = string.Empty;
+            public string[] runtimeAllowlist = Array.Empty<string>();
+            public bool packageAllowed;
+            public bool runtimeConnectAllowed;
+            public bool provisionalReviewBuildConnection;
+            public bool formalRuntimeConnected;
+        }
+
+        [Serializable]
+        private sealed class ProductionArtAudit
+        {
+            public string regionAssetId = "background.expedition-seven-region-set";
+            public string regionStatus = string.Empty;
+            public string regionJobId = string.Empty;
+            public string nodeAssetId = "object.searchable-resource-node-production-set";
+            public string nodeStatus = string.Empty;
+            public string nodeJobId = string.Empty;
+            public string manifestPath = "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json";
+            public string manifestReviewState = string.Empty;
+            public string manifestDecision = string.Empty;
+            public int manifestRuntimeAllowlistCount;
+            public bool manifestPackageAllowed;
+            public bool manifestRuntimeConnectAllowed;
+            public bool manifestProvisionalReviewBuildConnection;
+            public bool manifestFormalRuntimeConnected;
+            public bool independentlyApproved;
+            public string blocker = string.Empty;
         }
 
         [Serializable]
@@ -269,7 +318,8 @@ namespace ParallelQA
                 v2ImageGuid = string.IsNullOrEmpty(imagePath) ? string.Empty : AssetDatabase.AssetPathToGUID(imagePath.Replace('\\', '/')),
                 sceneV2DependencyCount = dependencies.Count(path => path.Replace('\\', '/').StartsWith(jobFolder + "/", StringComparison.Ordinal)),
                 projectAnimationClipCount = clipPaths.Length,
-                projectAnimationClipPaths = clipPaths
+                projectAnimationClipPaths = clipPaths,
+                productionArt = AuditProductionArtAdoption()
             };
             WriteJson("O11-edit-evidence.json", evidence);
             File.WriteAllText(Path.Combine(EvidenceFolder, "O11-edit-result.txt"),
@@ -278,6 +328,7 @@ namespace ParallelQA
                 "Unity=" + Application.unityVersion + Environment.NewLine +
                 "V2 adopted/engine-ready/package/scene-dependencies=" + evidence.v2RegistryAdopted + "/" +
                 evidence.v2RegistryEngineReady + "/" + evidence.v2PackagePresent + "/" + evidence.sceneV2DependencyCount + Environment.NewLine +
+                "Production search art approved=" + evidence.productionArt.independentlyApproved + " · " + evidence.productionArt.blocker + Environment.NewLine +
                 "AnimationClip assets=" + evidence.projectAnimationClipCount + Environment.NewLine,
                 Utf8NoBom);
         }
@@ -555,8 +606,75 @@ namespace ParallelQA
             string[] states = { "kim.idle", "kim.walk", "kim.search", "kim.ladder", "kim.swim" };
             bool regionPass = regions.All(id => rows.Any(row => ValidAsset(row, id, false)));
             bool statePass = states.All(id => rows.Any(row => ValidAsset(row, id, true)));
-            actual = "rows=" + rows.Length + "; regions7=" + regionPass + "; kim5=" + statePass;
-            return value != null && regionPass && statePass;
+            ProductionArtAudit adoption = AuditProductionArtAdoption();
+            actual = "rows=" + rows.Length + "; regions7=" + regionPass + "; kim5=" + statePass +
+                     "; independentAdoption=" + adoption.independentlyApproved + "; " + adoption.blocker;
+            return value != null && regionPass && statePass && adoption.independentlyApproved;
+        }
+
+        private static ProductionArtAudit AuditProductionArtAdoption()
+        {
+            ProductionArtAudit result = new ProductionArtAudit();
+            string projectRoot = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+            string ledgerPath = Path.Combine(projectRoot, ".forge", "assets.json");
+            if (File.Exists(ledgerPath))
+            {
+                ForgeAssetLedger ledger = JsonUtility.FromJson<ForgeAssetLedger>(File.ReadAllText(ledgerPath));
+                ForgeAssetRecord[] assets = ledger == null ? Array.Empty<ForgeAssetRecord>() : ledger.assets ?? Array.Empty<ForgeAssetRecord>();
+                ForgeAssetRecord region = assets.FirstOrDefault(asset => asset != null && Eq(asset.id, result.regionAssetId));
+                ForgeAssetRecord node = assets.FirstOrDefault(asset => asset != null && Eq(asset.id, result.nodeAssetId));
+                if (region != null)
+                {
+                    result.regionStatus = region.status ?? string.Empty;
+                    result.regionJobId = region.currentJobId ?? string.Empty;
+                }
+                if (node != null)
+                {
+                    result.nodeStatus = node.status ?? string.Empty;
+                    result.nodeJobId = node.currentJobId ?? string.Empty;
+                }
+            }
+
+            string manifestFullPath = Path.Combine(projectRoot, result.manifestPath.Replace('/', Path.DirectorySeparatorChar));
+            if (File.Exists(manifestFullPath))
+            {
+                RegionRuntimeManifest manifest = JsonUtility.FromJson<RegionRuntimeManifest>(File.ReadAllText(manifestFullPath));
+                if (manifest != null)
+                {
+                    result.manifestReviewState = manifest.reviewState ?? string.Empty;
+                    result.manifestDecision = manifest.decision ?? string.Empty;
+                    result.manifestRuntimeAllowlistCount = (manifest.runtimeAllowlist ?? Array.Empty<string>()).Length;
+                    result.manifestPackageAllowed = manifest.packageAllowed;
+                    result.manifestRuntimeConnectAllowed = manifest.runtimeConnectAllowed;
+                    result.manifestProvisionalReviewBuildConnection = manifest.provisionalReviewBuildConnection;
+                    result.manifestFormalRuntimeConnected = manifest.formalRuntimeConnected;
+                }
+            }
+
+            bool regionApproved = IsApprovedForgeStatus(result.regionStatus);
+            bool nodeApproved = IsApprovedForgeStatus(result.nodeStatus);
+            bool manifestApproved = result.manifestFormalRuntimeConnected && result.manifestRuntimeConnectAllowed &&
+                                    result.manifestPackageAllowed && result.manifestRuntimeAllowlistCount > 0 &&
+                                    !Eq(result.manifestReviewState, "review") && !Eq(result.manifestDecision, "review");
+            result.independentlyApproved = regionApproved && nodeApproved && manifestApproved;
+            result.blocker = "region=" + ValueOrMissing(result.regionStatus) + "/" + ValueOrMissing(result.regionJobId) +
+                             "; nodes=" + ValueOrMissing(result.nodeStatus) + "/" + ValueOrMissing(result.nodeJobId) +
+                             "; manifest=" + ValueOrMissing(result.manifestReviewState) + "/" + ValueOrMissing(result.manifestDecision) +
+                             "; allowlist=" + result.manifestRuntimeAllowlistCount +
+                             "; package/runtime/formal=" + result.manifestPackageAllowed + "/" +
+                             result.manifestRuntimeConnectAllowed + "/" + result.manifestFormalRuntimeConnected +
+                             "; provisionalReview=" + result.manifestProvisionalReviewBuildConnection;
+            return result;
+        }
+
+        private static bool IsApprovedForgeStatus(string value)
+        {
+            return Eq(value, "adopted") || Eq(value, "engine_ready");
+        }
+
+        private static string ValueOrMissing(string value)
+        {
+            return string.IsNullOrWhiteSpace(value) ? "MISSING" : value;
         }
 
         private static bool ValidAsset(AssetBindingObservation row, string id, bool clipRequired)

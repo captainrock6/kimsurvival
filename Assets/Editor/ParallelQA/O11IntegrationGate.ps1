@@ -11,6 +11,8 @@ param(
 
     [switch]$IncludeBuild,
 
+    [switch]$ReadinessOnly,
+
     [ValidateRange(6, 60)]
     [int]$MinimumSmokeSeconds = 6
 )
@@ -36,8 +38,11 @@ $head = (& git -C $projectRoot rev-parse HEAD).Trim().ToLowerInvariant()
 if ($LASTEXITCODE -ne 0 -or $head -ne $BaselineCommit.ToLowerInvariant()) {
     throw "O11 baseline mismatch. Expected $BaselineCommit, observed $head"
 }
-if (-not $IncludeBuild -and $head -ne $redBaseline) {
-    throw 'Post-integration O11 validation must include -IncludeBuild; build omission is allowed only for the exact RED baseline.'
+if ($IncludeBuild -and $ReadinessOnly) {
+    throw '-IncludeBuild and -ReadinessOnly are mutually exclusive.'
+}
+if (-not $IncludeBuild -and -not $ReadinessOnly -and $head -ne $redBaseline) {
+    throw 'Post-integration O11 validation must include -IncludeBuild. Use -ReadinessOnly only for the non-GREEN compile/edit/play bridge preflight.'
 }
 
 New-Item -ItemType Directory -Path $workRoot | Out-Null
@@ -141,7 +146,7 @@ if ($null -eq $product -or [string]$product.runId -ne $effectiveRunId -or [strin
     $infrastructureFailures.Add('fresh O11 Play/product report is missing or identity-mismatched')
 }
 
-$buildStatus = 'NOT_RUN_RED_BASELINE_POLICY'
+$buildStatus = if ($ReadinessOnly) { 'NOT_RUN_READINESS_PREFLIGHT' } else { 'NOT_RUN_RED_BASELINE_POLICY' }
 $lockSummary = $null
 if ($IncludeBuild) {
     $lockSummary = Read-Json (Join-Path $evidenceRoot 'gamejam-search-node-summary.json')
@@ -156,10 +161,19 @@ if ($IncludeBuild) {
 
 $infrastructureOverall = if ($infrastructureFailures.Count -eq 0) { 'PASS' } else { 'FAIL' }
 $productOverall = if ($null -eq $product) { 'UNKNOWN' } else { [string]$product.productOverall }
-$overall = if ($infrastructureOverall -eq 'FAIL') { 'FAIL' } elseif ($productOverall -eq 'PASS') { 'GREEN' } else { 'RED' }
-$exitCode = if ($overall -eq 'GREEN') { 0 } elseif ($overall -eq 'RED') { 2 } else { 1 }
+$overall = if ($infrastructureOverall -eq 'FAIL') {
+    'FAIL'
+} elseif ($ReadinessOnly -and $productOverall -eq 'PASS') {
+    'READY_FOR_FULL_GATE'
+} elseif ($productOverall -eq 'PASS') {
+    'GREEN'
+} else {
+    'RED'
+}
+$exitCode = if ($overall -eq 'GREEN' -or $overall -eq 'READY_FOR_FULL_GATE') { 0 } elseif ($overall -eq 'RED') { 2 } else { 1 }
 $exactRerun = "& '.\Assets\Editor\ParallelQA\O11IntegrationGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '$BaselineCommit'" +
-    $(if ($IncludeBuild -or $head -ne $redBaseline) { ' -IncludeBuild' } else { '' })
+    $(if ($IncludeBuild) { ' -IncludeBuild' } elseif ($ReadinessOnly) { ' -ReadinessOnly' } else { '' })
+$exactFullRerun = "& '.\Assets\Editor\ParallelQA\O11IntegrationGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit '<BRIDGE_INTEGRATED_FULL_SHA>' -IncludeBuild"
 
 $summary = [ordered]@{
     schemaVersion = 1
@@ -169,6 +183,7 @@ $summary = [ordered]@{
     startedUtc = $startedUtc.ToString('O')
     completedUtc = [DateTime]::UtcNow.ToString('O')
     powershell = [ordered]@{ edition = [string]$PSVersionTable.PSEdition; version = [string]$PSVersionTable.PSVersion }
+    mode = if ($ReadinessOnly) { 'READINESS_ONLY' } elseif ($IncludeBuild) { 'FULL' } else { 'RED_BASELINE' }
     overall = $overall
     productOverall = $productOverall
     infrastructureOverall = $infrastructureOverall
@@ -187,6 +202,7 @@ $summary = [ordered]@{
     infrastructureFailures = $infrastructureFailures.ToArray()
     stages = $stages.ToArray()
     exactRerun = $exactRerun
+    exactFullRerunAfterBridge = $exactFullRerun
     exitCode = $exitCode
 }
 
@@ -203,7 +219,8 @@ $text = @(
     'Physical gamepad: UNVERIFIED'
     'Steam: NOT_READY'
     "Rerun: $exactRerun"
-    "Exit code: $exitCode (0 GREEN, 2 expected RED, 1 infrastructure/product unexpected FAIL)"
+    "Full rerun after bridge: $exactFullRerun"
+    "Exit code: $exitCode (0 GREEN/readiness-pass, 2 product RED, 1 infrastructure failure)"
 ) -join [Environment]::NewLine
 [IO.File]::WriteAllText((Join-Path $evidenceRoot 'O11-summary.txt'), $text + [Environment]::NewLine, $utf8NoBom)
 

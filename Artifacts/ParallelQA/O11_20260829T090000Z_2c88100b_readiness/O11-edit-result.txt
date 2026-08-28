@@ -1,0 +1,6 @@
+INFRASTRUCTURE=PASS
+Baseline=2c88100b1cb103ba7d603177dfbbad286729cdf6
+Unity=6000.4.9f1
+V2 adopted/engine-ready/package/scene-dependencies=True/True/True/0
+Production search art approved=False · region=review/job_20260826165624_448aecdc; nodes=review/job_20260826165625_8961b353; manifest=review/review; allowlist=0; package/runtime/formal=False/False/False; provisionalReview=True
+AnimationClip assets=0
