@@ -4958,12 +4958,20 @@
         "1280×800과 1920×1080 KO/EN에서 월드·캐릭터·상호작용 대상을 동시에 가리는 화면이 없다.",
         "일곱 지역과 세 탈출 설비의 상태가 텍스트를 읽기 전에도 실루엣과 색으로 구분된다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O11ProductionVisuals.cs",
+        "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json",
+        "Docs/Design/o11-corrective-production-gate.md"
+      ],
+      "evidence": [
+        "commit 2c88100b1cb103ba7d603177dfbbad286729cdf6",
+        "adopted V2 grammar job_20260828122852_c9ccf2aa"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "status": "review",
+      "updatedAt": "2026-08-28T15:59:37.221Z",
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "Adopted V2 UI grammar and the O11 runtime presentation binding are complete. The seven new region backgrounds are connected only to a provisional review build and remain unadopted, so production acceptance is not complete."
     },
     {
       "id": "task.qa.feature.gamejam-presentation-shell",
@@ -5021,12 +5029,19 @@
         "수색·설비 사용·사다리·수영·회복 상태가 서로 다른 동작으로 읽힌다.",
         "입력 취소·화면 전환·피격 뒤 animator state가 고정되거나 잘못 반복되지 않는다."
       ],
-      "paths": [],
-      "evidence": [],
+      "paths": [
+        "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-core-atlas.png",
+        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
+        "Docs/Design/o11-corrective-production-gate.md"
+      ],
+      "evidence": [
+        "commit 2c88100b1cb103ba7d603177dfbbad286729cdf6"
+      ],
       "blockedReason": "",
-      "status": "ready",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "status": "review",
+      "updatedAt": "2026-08-28T15:59:37.221Z",
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "The Kim atlas is connected and walk/search readability improved. Ladder and swim poses remain emergency quality, so the full core-action animation acceptance is still open."
     },
     {
       "id": "task.qa.feature.gamejam-character-animation",
@@ -5381,20 +5396,22 @@
         "각 자산은 actual-size in-engine review를 통과한 뒤 채택된다."
       ],
       "paths": [
-        "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
-        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs",
+        "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json",
+        "Assets/_Project/Art/Source/O11/o11-production-visual-manifest.json",
+        "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-core-atlas.png",
         "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
       ],
       "evidence": [
         "Docs/QA/o9-o10-continuous-production-gate-20260828.md",
-        "O10-H1-P1-002 and O10-H1-P1-005"
+        "commit 2c88100b1cb103ba7d603177dfbbad286729cdf6",
+        "O10-H1-P1-002 runtime connection complete; O10-H1-P1-005 adoption blocked"
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-28T14:44:07.584Z",
+      "updatedAt": "2026-08-28T15:59:37.221Z",
       "completedAt": null,
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "note": "O10-H1 human FAIL: adopted style benchmark direction is not yet realized as runtime bag/popup/search-area production art, and core character animation remains placeholder-level."
+      "note": "Adopted V2 UI grammar, the Kim atlas, and seven region backgrounds are technically connected at 2c88100b. The new region backgrounds remain review/provisional with selectedCandidate=null, and ladder/swim poses remain emergency quality; therefore P1-005 production/adoption is blocked."
     },
     {
       "id": "task.o10.implementation.content-beta",
@@ -5429,17 +5446,23 @@
         "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O9O10Presentation.cs",
         "Assets/_Project/Scripts/Runtime/PrototypeGameJamNarrative.cs",
         "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeO11SystemContracts.cs",
+        "Assets/_Project/Scripts/Runtime/PrototypeO11BalanceConfig.cs",
+        "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O11ProductionVisuals.cs",
+        "Docs/Design/o11-corrective-production-gate.md",
         "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
       ],
       "evidence": [
         "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt",
-        "O10-H1-P0-001 through P1-004"
+        "Artifacts/ParallelQA/o11-survival-balance-gate.log",
+        "commits f3701d4a, 097a02a8, b3779b37, 2c88100b",
+        "O10-H1-P0-001 through P1-004 implementation complete; human retest pending"
       ],
       "blockedReason": "",
-      "status": "in_progress",
+      "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T14:44:07.686Z",
-      "note": "O10-H1 human FAIL: multi-floor general facility placement remains unavailable, shore-launch availability is contradictory and invalid retries consume food, post-expansion Kim state sticks, stamina recovery and escape-route balance need correction.",
+      "updatedAt": "2026-08-28T15:59:37.221Z",
+      "note": "O11 system, balance, adopted V2 UI binding, Kim atlas and seven-region provisional runtime connection are integrated. This task is in review rather than done because P1-005 production/adoption and the current natural human retest remain open.",
       "completedAt": null
     },
     {
@@ -5463,18 +5486,21 @@
         "진행 불가, 보이지 않는 상호작용, 임시 아트 노출과 오디오 없는 핵심 거래가 없다."
       ],
       "paths": [
+        "Docs/Design/o11-corrective-production-gate.md",
         "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
       ],
       "evidence": [
         "Docs/QA/o9-o10-continuous-production-gate-20260828.md",
         "Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt",
+        "Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/O11-summary.json",
+        "Artifacts/ParallelQA/o11-survival-balance-gate.log",
         "Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception"
       ],
-      "blockedReason": "O10-H1 stopped at about 18m40s. Fix P0 multi-floor facility placement and shore-launch atomicity, then connect production UI/search art and character animation and rebalance stamina/escape routes before another owner test.",
+      "blockedReason": "O11 corrections are integrated, but P1-005 is not closed: seven new search backgrounds are provisional review assets with no user adoption, and ladder/swim poses remain emergency quality. Re-run the integrated automated gate and create a new O11-H1 candidate only after that production/adoption gate is satisfied.",
       "status": "blocked",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T14:44:07.803Z",
-      "note": "Candidate aa2bb218 rejected for next human playtest and not submission-ready.",
+      "updatedAt": "2026-08-28T15:59:37.221Z",
+      "note": "The old aa2bb218 candidate remains rejected. No O11-H1 human result is claimed; the historical O11 RED artifact is a pre-fix baseline, not current PASS evidence.",
       "completedAt": null
     },
     {
@@ -6955,5 +6981,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-28T14:44:07.803Z"
+  "updatedAt": "2026-08-28T15:59:37.221Z"
 }

@@ -1,7 +1,7 @@
 # 《김씨 생존기: 무인도》 통합 게임 디자인 문서 (GDD)
 
-> 문서 버전: 1.4 · O8-H1 콘텐츠·프레젠테이션 게이트 전환
-> 최신화 기준일: 2026-08-28
+> 문서 버전: 1.5 · O11 통합 상태 정합성
+> 최신화 기준일: 2026-08-29
 > 대상: 게임잼용 30분 버티컬 슬라이스와 이후 PC·Steam 정식 버전
 > 문서 목적: 여러 Wave 문서와 Forge 정본에 흩어진 최신 결정을 한 번에 읽을 수 있도록 통합한다.
 
@@ -821,7 +821,7 @@
 
 ## 19. 현재 구현 상태 스냅샷
 
-기준: 2026-08-28 O8 정확 소스 Release·패키지 자동 검증 완료. O8-H1은 기능 실패 판정 없이 `STOPPED · CONTENT_PRESENTATION_GATE`로 종료했다. 현재 단계는 제출 후보가 아니라 시스템 알파이며, 상세 감사와 다음 제작 게이트는 `Docs/Design/gamejam-content-presentation-production-plan.md`를 따른다.
+기준: `codex/gamejam-wave-b-integration`의 통합 HEAD `2c88100b`. O10-H1에서 나온 P0 2건·P1 5건은 O11에서 시스템·밸런스·프레젠테이션 런타임까지 교정됐지만, 아래 표처럼 **제품 연결 완료**, **자동 증거**, **사용자 채택**, **자연 플레이 재검증**을 서로 다른 상태로 기록한다. 현재 단계는 제출 후보가 아니며 `O10-H1-P1-005`의 production/adoption 조건 때문에 다음 인간 후보 생성이 차단돼 있다.
 
 ### 19.1 확인된 기반
 
@@ -850,11 +850,11 @@
 
 ### 19.3 구현 우선순위
 
-1. **O9 콘텐츠·프레젠테이션 알파**: 시놉시스·도입·아트 style benchmark를 잠그고, 최종 방향 UI, 김씨 core animation, 캠프 1층·해변·숲, 대표 엔딩 1종과 첫 루프 기능 오디오를 실제 런타임에 연결한다.
-2. O9 뒤 5~10분 first-loop 사용자 테스트로 설명자 없이 캠프→지도→수색→선별→귀환→첫 투자를 이해하는지 검증한다.
-3. **O10 30분 콘텐츠 베타**: 7지역·다층 캠프·19개 필수 아이템·위험·세 탈출 설비, 5 core ending과 필수 오디오를 연결한다.
-4. O10 뒤에만 30분 자연 플레이를 재개하고, O8 기능 체크리스트와 세 탈출 경로 완주를 함께 검증한다.
-5. **O11/O12**에서 코믹·희귀 변형, 행동 modifier, 물리 게임패드, KO 3명·EN 3명 first-user 세션과 Release 제출 패키지를 완료한다.
+1. 신규 7지역 배경은 현재 provisional review-build 연결을 유지한 채 사용자가 채택하거나, 채택된 production 대체물을 지정한다. 채택 전에는 `P1-005`를 닫지 않는다.
+2. 김씨 사다리·수영 포즈를 응급 품질에서 핵심 행동 판독 품질로 올리고, 개선된 걷기·수색이 퇴행하지 않는지 확인한다.
+3. O11 red-first 게이트를 현재 통합 HEAD에서 다시 실행해 P0 저장·원자성, KO/EN 배치, 세 탈출 경로를 GREEN 증거로 남긴다.
+4. 위 조건 뒤 `O11-H1` 25~35분 자연 플레이를 재개한다. 자동 시뮬레이션은 사용자 완주·재미·가독성 증거를 대신하지 않는다.
+5. 물리 게임패드와 KO 3명·EN 3명 first-user 세션은 별도 `UNVERIFIED` 게이트로 유지한다.
 
 ### 19.4 2026-08-28 O9/O10 연속 제작 반영
 
@@ -867,6 +867,22 @@
 - 기존 O8 기반의 7지역, 84개 수색물, 다층 캠프와 사다리, 세 플레이 가능 탈출 경로, 핵심 5엔딩의 판정·코믹북 표면은 O10 콘텐츠 계약으로 유지한다.
 - O9 스타일 벤치마크는 Forge review 후보다. 사용자 채택 전에는 최종 production art로 간주하지 않는다.
 - 현재 소스는 Unity Roslyn 정적 컴파일을 통과했다. Unity batch build는 로컬 라이선스가 `No valid Unity Editor license`를 반환해 실행 검증이 보류되었으며, 라이선스 복구 뒤 1280×800·1920×1080 KO/EN 캡처와 Windows 후보 빌드를 다시 생성해야 한다.
+
+### 19.5 O11 결함별 현재 상태
+
+상세 수용 조건은 `Docs/Design/o11-corrective-production-gate.md`가 정본이다. `Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/`는 구현 전 RED 기준선이며 현재 PASS 증거로 재해석하지 않는다.
+
+| ID | 현재 상태 | 현재 증거 | 닫히지 않은 조건 |
+|---|---|---|---|
+| `O10-H1-P0-001` | `IMPLEMENTATION_COMPLETE · RETEST_REQUIRED` | `f3701d4a`, `PrototypeO11SystemContracts.cs`, `PrototypeO11SystemVerifier.cs` | 현재 통합 빌드의 시작층·2층·지하 배치/재배치/저장복원 자연 경로 |
+| `O10-H1-P0-002` | `IMPLEMENTATION_COMPLETE · RETEST_REQUIRED` | `f3701d4a`, `PrototypeRaftEscape.cs`, O11 system verifier | 불가능·중복·가능 출항을 현재 빌드에서 실행한 zero-delta/terminal 증거 |
+| `O10-H1-P1-001` | `IMPLEMENTATION_COMPLETE · RETEST_REQUIRED` | `f3701d4a`의 증축 후 상태 복귀 계약 | 위층·지하 각각 반응→idle/move 복귀의 현재 Game View 증거 |
+| `O10-H1-P1-002` | `RUNTIME_COMPLETE · RETEST_REQUIRED` | 채택 V2 `job_20260828122852_c9ccf2aa`, `2c88100b`의 O11 UI 런타임 연결 | KO/EN 1280×800·1920×1080 실제 캡처의 무겹침 확인 |
+| `O10-H1-P1-003` | `AUTOMATED_PASS · HUMAN_UNVERIFIED` | `Artifacts/ParallelQA/o11-survival-balance-gate.log`: 3회 연속 수색 뒤 Day 4 기력 `39.7→100.0`, 무식사 `35.0` | 초보 자연 플레이의 회복 선택 이해·반복 피로 |
+| `O10-H1-P1-004` | `IMPLEMENTATION_COMPLETE · HUMAN_UNVERIFIED` | `b3779b37` 수치 계약, `097a02a8` 통합 인지형 게이트, `f3701d4a` 적용 | 커밋된 로그는 O10 live/O11 proposal PASS이므로 현재 live O11 비용의 게이트 재실행과 세 대표 seed 자연 완주 |
+| `O10-H1-P1-005` | `BLOCKED · PARTIAL` | `2c88100b`에서 김씨 atlas와 7지역 배경의 provisional runtime 연결; 걷기·수색 개선 | 신규 7지역 배경 `review`·`selectedCandidate=null`로 사용자 미채택. 사다리·수영 포즈는 응급 품질이며 production/adoption 조건 미충족 |
+
+따라서 O11 교정 코드는 통합됐지만 전체 게이트는 `BLOCKED_PARTIAL`이다. 특히 “런타임에서 보인다”는 사실은 “사용자가 채택한 production art다”라는 뜻이 아니며, O11-H1 결과도 아직 생성하지 않는다.
 
 ---
 
