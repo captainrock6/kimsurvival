@@ -10,7 +10,7 @@ namespace KimSurvival
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Install()
         {
-            if (FindObjectOfType<O11ProductionVisualsBootstrap>() != null)
+            if (Object.FindAnyObjectByType<O11ProductionVisualsBootstrap>() != null)
             {
                 return;
             }
@@ -24,7 +24,7 @@ namespace KimSurvival
         {
             if (prototype == null)
             {
-                prototype = FindObjectOfType<KimSurvivalPrototype>();
+                prototype = Object.FindAnyObjectByType<KimSurvivalPrototype>();
             }
 
             if (prototype != null)
