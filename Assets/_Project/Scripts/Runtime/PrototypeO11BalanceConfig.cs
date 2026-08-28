@@ -222,6 +222,15 @@ namespace KimSurvival
             };
         }
 
+        public static PrototypeO11RouteBurden CaptureRouteBurden(string escapeId, int seed)
+        {
+            PrototypeO11RaftCostProfile liveProfile = DetectRaftCostProfile();
+            return BuildRouteBurden(
+                escapeId,
+                seed,
+                liveProfile == PrototypeO11RaftCostProfile.O11Applied);
+        }
+
         public static bool RunContractProbe(out string detail)
         {
             PrototypeO11ExpeditionLedger before = SimulateThreeExpeditions(false);
