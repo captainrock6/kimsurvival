@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "source": "o11-seven-region-environment-clean.png",
+  "sourceSha256": "1887eeaf2383a0d46132ae8aa4aa70f65a264a4e2c1448e3920972a14296b571",
+  "processing": "deterministic horizontal-divider slice plus dark/saturated lower-band alpha extraction",
+  "retryCount": 0,
+  "reviewState": "review",
+  "decision": "review",
+  "selectedCandidate": null,
+  "runtimeAllowlist": [],
+  "packageAllowed": false,
+  "runtimeConnectAllowed": false,
+  "provisionalReviewBuildConnection": true,
+  "formalRuntimeConnected": false,
+  "runtimeUse": "provisional O11 production presentation requested by user; no adoption implication",
+  "regions": [
+    {
+      "id": "region.beach",
+      "sourceRect": [
+        0,
+        2,
+        1054,
+        215
+      ],
+      "background": "o11-region-beach-background.png",
+      "foreground": "o11-region-beach-foreground.png",
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "pixelsPerUnit": 100,
+      "backgroundSortingOrder": -20,
+      "foregroundSortingOrder": 1
+    },
+    {
+      "id": "region.shallows",
+      "sourceRect": [
+        0,
+        222,
+        1054,
+        206
+      ],
+      "background": "o11-region-shallows-background.png",
+      "foreground": "o11-region-shallows-foreground.png",
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "pixelsPerUnit": 100,
+      "backgroundSortingOrder": -20,
+      "foregroundSortingOrder": 1
+    },
+    {
+      "id": "region.forest",
+      "sourceRect": [
+        0,
+        432,
+        1054,
+        213
+      ],
+      "background": "o11-region-forest-background.png",
+      "foreground": "o11-region-forest-foreground.png",
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "pixelsPerUnit": 100,
+      "backgroundSortingOrder": -20,
+      "foregroundSortingOrder": 1
+    },
+    {
+      "id": "region.ridge-highland",
+      "sourceRect": [
+        0,
+        648,
+        1054,
+        208
+      ],
+      "background": "o11-region-ridge-highland-background.png",
+      "foreground": "o11-region-ridge-highland-foreground.png",
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "pixelsPerUnit": 100,
+      "backgroundSortingOrder": -20,
+      "foregroundSortingOrder": 1
+    },
+    {
+      "id": "region.island-cave",
+      "sourceRect": [
+        0,
+        858,
+        1054,
+        196
+      ],
+      "background": "o11-region-island-cave-background.png",
+      "foreground": "o11-region-island-cave-foreground.png",
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "pixelsPerUnit": 100,
+      "backgroundSortingOrder": -20,
+      "foregroundSortingOrder": 1
+    },
+    {
+      "id": "region.wreck-cove",
+      "sourceRect": [
+        0,
+        1058,
+        1054,
+        206
+      ],
+      "background": "o11-region-wreck-cove-background.png",
+      "foreground": "o11-region-wreck-cove-foreground.png",
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "pixelsPerUnit": 100,
+      "backgroundSortingOrder": -20,
+      "foregroundSortingOrder": 1
+    },
+    {
+      "id": "region.ruins-relay",
+      "sourceRect": [
+        0,
+        1267,
+        1054,
+        223
+      ],
+      "background": "o11-region-ruins-relay-background.png",
+      "foreground": "o11-region-ruins-relay-foreground.png",
+      "pivot": [
+        0.5,
+        0.0
+      ],
+      "pixelsPerUnit": 100,
+      "backgroundSortingOrder": -20,
+      "foregroundSortingOrder": 1
+    }
+  ]
+}

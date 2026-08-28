@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "assetId": "ui.gamejam.o11-production-visual-kit",
+  "jobId": "job_20260828150559_41c64580",
+  "decision": "review",
+  "selectedCandidate": null,
+  "packageAllowed": false,
+  "runtimeConnectAllowed": false,
+  "runtimeAllowlist": [],
+  "adoptedGrammarSource": {
+    "assetId": "ui.gamejam.style-benchmark",
+    "jobId": "job_20260828122852_c9ccf2aa",
+    "runtimeBitmapAllowed": false,
+    "preservedTraits": [
+      "bold-ink-kim",
+      "large-flat-tropical-fields",
+      "thin-top-hud",
+      "short-square-bag-bottom-left",
+      "clear-central-play-band",
+      "amber-emphasis",
+      "teal-focus"
+    ]
+  },
+  "reviewSources": [
+    "o11-production-visual-system.svg",
+    "o11-ink-panel-9slice.svg",
+    "o11-focus-corners.svg",
+    "o11-hazard-patterns.svg"
+  ],
+  "unityImplementation": {
+    "usesFullScreenRaster": false,
+    "engineTextOnly": true,
+    "locales": ["ko", "en", "qps-long"],
+    "minimumFocusPixels": 44,
+    "referenceResolutions": [[1280, 800], [1920, 1080]],
+    "panelNineSlice": {"left": 18, "right": 18, "top": 18, "bottom": 18},
+    "runtimeFiles": [
+      "Assets/_Project/Scripts/Runtime/PrototypeO11ProductionSkin.cs",
+      "Assets/_Project/Scripts/Runtime/KimSurvivalPrototype.O11ProductionVisuals.cs",
+      "Assets/_Project/Scripts/Runtime/O11ProductionVisualsBootstrap.cs",
+      "Assets/_Project/Scripts/Runtime/PrototypePlayerPresentation.cs",
+      "Assets/_Project/Scripts/Runtime/PrototypeResourcePresentation.cs"
+    ]
+  },
+  "bag": {
+    "anchor": "bottom-left",
+    "maximumSlots": 10,
+    "columns": 5,
+    "rows": 2,
+    "slotPixelsAt1920x1080": [88, 88],
+    "iconPixels": [44, 44]
+  },
+  "regions": [
+    "region.beach",
+    "region.forest",
+    "region.shallows",
+    "region.ridge-highland",
+    "region.cave-island",
+    "region.cove-wreck",
+    "region.ruins-relay"
+  ],
+  "animationStates": [
+    "idle",
+    "walk",
+    "search",
+    "facility-use",
+    "ladder",
+    "swim",
+    "hurt-sick",
+    "rest-eat"
+  ],
+  "animationSource": {
+    "assetId": "character.mr-kim",
+    "jobId": "job_20260822085926_374033c5",
+    "footPivotNormalized": [0.5, 0.055],
+    "dedicatedReviewSwimJobRuntimeAllowed": false
+  }
+}

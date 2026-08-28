@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "grade": "pass",
+  "score": 100,
+  "summary": {
+    "files": 1,
+    "errors": 0,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "o11-production-visual-system-1920x1080-3.png",
+      "kind": "raster",
+      "width": 1920,
+      "height": 1080,
+      "hasAlpha": true,
+      "transparentRatio": 0.031,
+      "contrastStdDev": 64.7,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 8,
+        "top": 8,
+        "right": 8,
+        "bottom": 8
+      },
+      "previewFile": "qa-preview-o11-production-visual-system-1920x1080-3.jpg",
+      "issues": []
+    }
+  ],
+  "generatedAt": "2026-08-28T15:10:40.441Z",
+  "jobId": "job_20260828150559_41c64580",
+  "assetType": "ui_set"
+}

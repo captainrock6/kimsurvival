@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-28T14:19:54.324Z",
+  "updatedAt": "2026-08-28T15:10:40.568Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -7090,6 +7090,239 @@
       },
       "createdAt": "2026-08-28T10:34:26.049Z",
       "updatedAt": "2026-08-28T14:19:54.324Z"
+    },
+    {
+      "id": "ui.gamejam.o11-production-visual-kit",
+      "name": "Create one editable review-only O11 visual system source: thin engine HUD, bottom-left square 4-to-10-slot bag, thin ink",
+      "assetType": "ui_set",
+      "request": "Create one editable review-only O11 visual system source: thin engine HUD, bottom-left square 4-to-10-slot bag, thin ink camp/search/facility/escape panels with amber emphasis and teal focus, seven distinct expedition color fields/background silhouettes/searchable-object silhouettes/hazard patterns, and an eight-state Kim animation handoff. Use no rasterized KO/EN body text and never use the benchmark as a full-screen runtime texture. Runtime code may implement only the already-adopted V2 grammar; this new art candidate must keep selectedCandidate null and runtime allowlist empty.",
+      "status": "review",
+      "source": "forge-job",
+      "tags": [],
+      "dependencies": [],
+      "jobIds": [
+        "job_20260828150530_65e13460",
+        "job_20260828150559_41c64580"
+      ],
+      "versions": [
+        {
+          "jobId": "job_20260828150530_65e13460",
+          "parentJobId": null,
+          "status": "failed",
+          "at": "2026-08-28T15:05:30.443Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260828150559_41c64580",
+          "parentJobId": null,
+          "status": "awaiting_import",
+          "at": "2026-08-28T15:05:59.748Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260828150559_41c64580",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-28T15:09:18.727Z",
+          "qualityScore": 62
+        },
+        {
+          "jobId": "job_20260828150559_41c64580",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-28T15:10:00.670Z",
+          "qualityScore": 62
+        },
+        {
+          "jobId": "job_20260828150559_41c64580",
+          "parentJobId": null,
+          "status": "review",
+          "at": "2026-08-28T15:10:40.564Z",
+          "qualityScore": 100
+        }
+      ],
+      "currentJobId": "job_20260828150559_41c64580",
+      "parentJobId": null,
+      "artifacts": [
+        {
+          "kind": "codex-request",
+          "fileName": "codex-request.json",
+          "contentType": "application/json",
+          "bytes": 82823,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/codex-request.json"
+        },
+        {
+          "kind": "prompt",
+          "fileName": "prompt.txt",
+          "contentType": "text/plain",
+          "bytes": 74323,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/prompt.txt"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-production-visual-system.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 8415,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-production-visual-system.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-production-visual-system-1920x1080.png",
+          "contentType": "image/png",
+          "bytes": 159253,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-production-visual-system-1920x1080.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-ink-panel-9slice.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 363,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-ink-panel-9slice.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-focus-corners.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 325,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-focus-corners.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-hazard-patterns.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 553,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-hazard-patterns.svg"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "o11-production-visual-manifest.json",
+          "contentType": "application/json",
+          "bytes": 2199,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-production-visual-manifest.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 1894,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 2340,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-o11-production-visual-system-1920x1080.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8951,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/qa-preview-o11-production-visual-system-1920x1080.jpg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-production-visual-system-2.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 8415,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-production-visual-system-2.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-production-visual-system-1920x1080-2.png",
+          "contentType": "image/png",
+          "bytes": 159254,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-production-visual-system-1920x1080-2.png"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-ink-panel-9slice-2.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 363,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-ink-panel-9slice-2.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-focus-corners-2.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 325,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-focus-corners-2.svg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-hazard-patterns-2.svg",
+          "contentType": "image/svg+xml",
+          "bytes": 553,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-hazard-patterns-2.svg"
+        },
+        {
+          "kind": "editable-source",
+          "fileName": "o11-production-visual-manifest-2.json",
+          "contentType": "application/json",
+          "bytes": 2199,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-production-visual-manifest-2.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 1908,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 2354,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-o11-production-visual-system-1920x1080-2.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8948,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/qa-preview-o11-production-visual-system-1920x1080-2.jpg"
+        },
+        {
+          "kind": "image",
+          "fileName": "o11-production-visual-system-1920x1080-3.png",
+          "contentType": "image/png",
+          "bytes": 159218,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/o11-production-visual-system-1920x1080-3.png"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.json",
+          "contentType": "application/json",
+          "bytes": 724,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/quality-report.json"
+        },
+        {
+          "kind": "quality-report",
+          "fileName": "quality-report.html",
+          "contentType": "text/html",
+          "bytes": 1405,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/quality-report.html"
+        },
+        {
+          "kind": "quality-preview",
+          "fileName": "qa-preview-o11-production-visual-system-1920x1080-3.jpg",
+          "contentType": "image/jpeg",
+          "bytes": 8872,
+          "url": "/outputs/jobs/job_20260828150559_41c64580/qa-preview-o11-production-visual-system-1920x1080-3.jpg"
+        }
+      ],
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "packageAllowed": false,
+      "runtimeConnectAllowed": false,
+      "runtimeConnected": false,
+      "provisionalReviewBuildConnection": true,
+      "engine": {},
+      "createdAt": "2026-08-28T15:04:12.941Z",
+      "updatedAt": "2026-08-28T15:10:40.568Z"
     }
   ]
 }
