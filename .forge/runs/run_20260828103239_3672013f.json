@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260828103239_3672013f",
   "createdAt": "2026-08-28T10:32:39.295Z",
-  "updatedAt": "2026-08-28T13:01:08.639Z",
+  "updatedAt": "2026-08-28T14:23:49.767Z",
   "sourceRequest": "폭풍 표류 조난 원인과 기존 김씨 잉크선 중심의 단순화된 배경·UI 스타일을 사용자 확정으로 잠그고 O9 콘텐츠 제작을 시작한다.",
   "state": "in_progress",
   "stages": {
@@ -12,11 +12,11 @@
     },
     "art": {
       "status": "in_progress",
-      "note": "REVISE V2 is imported and visually reviewed; it remains review-only pending explicit ADOPT/REVISE/HOLD.",
+      "note": "O9 style benchmark V2 adopted and engine-ready; remaining character animation, seven-region art and ending production continue.",
       "evidence": [
-        "Docs/Art/O9/o9-style-benchmark-v2-review.md"
+        "Assets/_Project/Art/Generated/ui_set/job_20260828122852_c9ccf2aa/forge-import.json"
       ],
-      "updatedAt": "2026-08-28T13:01:05.353Z"
+      "updatedAt": "2026-08-28T14:23:49.264Z"
     },
     "implementation": {
       "status": "complete",
@@ -28,11 +28,11 @@
     },
     "verification": {
       "status": "in_progress",
-      "note": "Unity license restored; edit, Play Mode, render capture, Release build and player smoke are green. Human 5-10 minute and 30-minute playtests remain.",
+      "note": "O10 automated candidate gates are green and O10-H1 owner 30-minute natural playtest started at 2026-08-28 23:22 KST.",
       "evidence": [
-        "Docs/QA/o10-candidate-gate-20260828.md"
+        "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md"
       ],
-      "updatedAt": "2026-08-28T13:01:08.639Z"
+      "updatedAt": "2026-08-28T14:23:49.767Z"
     }
   }
 }

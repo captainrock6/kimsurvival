@@ -11,9 +11,9 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | in_progress | REVISE V2 is imported and visually reviewed; it remains review-only pending explicit ADOPT/REVISE/HOLD. |
+| art | in_progress | O9 style benchmark V2 adopted and engine-ready; remaining character animation, seven-region art and ending production continue. |
 | implementation | complete | O10 runtime, simplified HUD, submission shell and Windows x64 Release candidate are implemented. |
-| verification | in_progress | Unity license restored; edit, Play Mode, render capture, Release build and player smoke are green. Human 5-10 minute and 30-minute playtests remain. |
+| verification | in_progress | O10 automated candidate gates are green and O10-H1 owner 30-minute natural playtest started at 2026-08-28 23:22 KST. |
 
 ## 다음 작업
 
@@ -581,6 +581,8 @@
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
 - task.o9.design.content-lock: User locked storm drift and ink-Kim simplified-world direction; document defines stable KO/EN beats for opening, first loop, seven regions, five core endings and three variants.
 - task.o9.art.style-benchmark: Docs/Art/O9/o9-style-benchmark-review.md
+- task.o9.art.style-benchmark: 사용자 ADOPT · Forge job_20260828122852_c9ccf2aa engine_ready · 큰 색면 배경/얇은 HUD/좌측 하단 가방/중앙 플레이 공간 기준
+- task.o9.art.style-benchmark: Forge feedback adopted and Unity package manifest generated
 - task.o9.art.first-loop-production: Docs/Art/O9/o9-style-benchmark-review.md
 - task.o9.art.character-core-animation: Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt
 - task.o9.implementation.presentation-alpha: Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-28T12:30:37.583Z",
+  "updatedAt": "2026-08-28T14:19:54.324Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -6977,7 +6977,7 @@
       "name": "O9/O10 단순화 스타일 벤치마크 V2",
       "assetType": "ui_set",
       "request": "O9/O10 실제 게임 화면 스타일 벤치마크 V2. 1920x1080, 2D side-view PC gameplay mockup. 기존 김씨의 주황 티셔츠, 짙은 반바지, 샌들, 급조 배낭, 지친 표정과 굵은 검정 잉크 윤곽은 그대로 보존한다. 지붕 있는 1층 절개형 캠프와 모닥불·작업대·빗물받이·지도대를 넉넉히 띄운다. 배경은 하늘·바다·먼 섬·해변의 4개 큰 평면 색면과 아주 적은 붓결만 사용하고 구름·야자·돌·지면 반복 디테일을 절반 이하로 줄여 김씨보다 낮은 대비로 둔다. 캠프 벽과 지붕도 큰 평면과 핵심 외곽선만 남긴다. 상단 HUD는 얇은 무장식 먹물색 반투명 띠 하나, 단순 평면 아이콘과 짧은 게이지만 둔다. 가방은 김씨 발밑 화면 좌측 하단에 작은 정사각 슬롯 6개를 가로 한 줄로 둔다. 중앙 하단 가방, 두꺼운 표류목·밧줄 장식 프레임, 거대한 팝업, 모바일풍 광택, 래스터 본문 글자, 과도한 장식과 질감을 금지한다. 상호작용 대상에는 작은 흰 원 표식 하나만 둔다. 화면 중앙과 지면은 플레이를 위해 비워 둔다. 타사 게임의 고유 레이아웃·아이콘·문구를 복제하지 않는다.",
-      "status": "review",
+      "status": "engine_ready",
       "source": "forge-job",
       "tags": [
         "o9",
@@ -7027,6 +7027,13 @@
           "status": "review",
           "at": "2026-08-28T12:30:37.581Z",
           "qualityScore": 70
+        },
+        {
+          "jobId": "job_20260828122852_c9ccf2aa",
+          "parentJobId": "job_20260828103426_790ffb10",
+          "status": "adopted",
+          "at": "2026-08-28T14:19:44.942Z",
+          "qualityScore": 70
         }
       ],
       "currentJobId": "job_20260828122852_c9ccf2aa",
@@ -7075,9 +7082,14 @@
           "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/qa-preview-exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.jpg"
         }
       ],
-      "engine": {},
+      "engine": {
+        "kind": "unity",
+        "packagePath": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260828122852_c9ccf2aa",
+        "manifest": "Assets\\_Project\\Art\\Generated\\ui_set\\job_20260828122852_c9ccf2aa\\forge-import.json",
+        "packagedAt": "2026-08-28T14:19:54.321Z"
+      },
       "createdAt": "2026-08-28T10:34:26.049Z",
-      "updatedAt": "2026-08-28T12:30:37.583Z"
+      "updatedAt": "2026-08-28T14:19:54.324Z"
     }
   ]
 }

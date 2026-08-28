@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-28T14:19:54.304Z",
+  "projectId": "김씨 생존기: 무인도",
+  "assetId": "ui.gamejam.style-benchmark",
+  "jobId": "job_20260828122852_c9ccf2aa",
+  "assetType": "ui_set",
+  "sourceFiles": [
+    "exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.png"
+  ],
+  "import": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "filterMode": "Bilinear",
+    "compression": "Uncompressed",
+    "maxSize": 2048,
+    "mipmaps": false,
+    "alphaIsTransparency": false,
+    "nineSliceHint": true
+  },
+  "sliceGrid": null,
+  "stateFiles": []
+}

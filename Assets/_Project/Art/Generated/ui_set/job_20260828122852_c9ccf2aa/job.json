@@ -2,7 +2,7 @@
   "id": "job_20260828122852_c9ccf2aa",
   "status": "succeeded",
   "createdAt": "2026-08-28T12:28:52.662Z",
-  "updatedAt": "2026-08-28T12:30:37.563Z",
+  "updatedAt": "2026-08-28T14:19:44.910Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.gamejam.style-benchmark",
@@ -198,7 +198,19 @@
       "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/qa-preview-exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "adopted",
+    "tags": [
+      "o9-style-anchor",
+      "simplified-background",
+      "simplified-ui"
+    ],
+    "note": "사용자가 O9 스타일 벤치마크 V2를 명시적으로 ADOPT했다. 기존 김씨의 굵은 잉크선과 주황 셔츠를 유지하고, 큰 색면의 단순한 열대 배경, 얇은 상단 HUD, 좌측 하단 소형 가방, 비워 둔 중앙 플레이 공간을 후속 제작 기준으로 보존한다.",
+    "selectedArtifacts": [
+      "exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.png"
+    ],
+    "updatedAt": "2026-08-28T14:19:44.895Z"
+  },
   "events": [
     {
       "at": "2026-08-28T12:28:52.662Z",
@@ -234,6 +246,11 @@
       "at": "2026-08-28T12:30:37.563Z",
       "level": "info",
       "message": "Codex/로컬 결과 4개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-28T14:19:44.910Z",
+      "level": "info",
+      "message": "피드백 저장: 채택 · o9-style-anchor, simplified-background, simplified-ui"
     }
   ],
   "error": null,
