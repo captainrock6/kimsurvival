@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace KimSurvival
@@ -22,6 +23,32 @@ namespace KimSurvival
         public Color Accent { get; }
     }
 
+    public readonly struct PrototypeRegionProductionVisual
+    {
+        public PrototypeRegionProductionVisual(
+            PrototypeExpeditionRegionId regionId,
+            string stableId,
+            string backgroundSilhouette,
+            string searchableSilhouette,
+            string hazardMark,
+            Color fieldColor)
+        {
+            RegionId = regionId;
+            StableId = stableId;
+            BackgroundSilhouette = backgroundSilhouette;
+            SearchableSilhouette = searchableSilhouette;
+            HazardMark = hazardMark;
+            FieldColor = fieldColor;
+        }
+
+        public PrototypeExpeditionRegionId RegionId { get; }
+        public string StableId { get; }
+        public string BackgroundSilhouette { get; }
+        public string SearchableSilhouette { get; }
+        public string HazardMark { get; }
+        public Color FieldColor { get; }
+    }
+
     public static class PrototypeResourcePresentation
     {
         private static readonly PrototypeResourceVisual[] Catalog =
@@ -41,10 +68,25 @@ namespace KimSurvival
         };
 
         private static readonly Dictionary<string, PrototypeResourceVisual> ByStableId = BuildLookup();
+        private static readonly PrototypeRegionProductionVisual[] O11Regions =
+        {
+            Region(PrototypeExpeditionRegionId.Beach, "region.beach", "dune+palm", "drift-pile", "wind-notch", 0.88f, 0.69f, 0.36f),
+            Region(PrototypeExpeditionRegionId.Forest, "region.forest", "canopy", "grass+tree-hollow", "thorn-crosshatch", 0.30f, 0.50f, 0.22f),
+            Region(PrototypeExpeditionRegionId.Shallows, "region.shallows", "waterline+coral", "sandbar-debris", "wave-chevron", 0.05f, 0.66f, 0.75f),
+            Region(PrototypeExpeditionRegionId.RidgeHighland, "region.ridge-highland", "stepped-ridge", "rock-crevice", "fall-triangle", 0.46f, 0.43f, 0.37f),
+            Region(PrototypeExpeditionRegionId.CaveIsland, "region.cave-island", "cave-mouth", "rock-crevice", "darkness-rings", 0.16f, 0.24f, 0.23f),
+            Region(PrototypeExpeditionRegionId.CoveWreck, "region.cove-wreck", "broken-hull", "wreck-locker", "splinter-stripes", 0.50f, 0.42f, 0.27f),
+            Region(PrototypeExpeditionRegionId.RuinsRelay, "region.ruins-relay", "relay-tower", "facility-cabinet", "electric-zigzag", 0.40f, 0.42f, 0.36f)
+        };
 
         public static IReadOnlyList<PrototypeResourceVisual> All
         {
             get { return Catalog; }
+        }
+
+        public static IReadOnlyList<PrototypeRegionProductionVisual> ProductionRegions
+        {
+            get { return O11Regions; }
         }
 
         public static string NormalizeStableId(string stableResourceId, ResourceKind legacyKind)
@@ -115,6 +157,25 @@ namespace KimSurvival
             return true;
         }
 
+        public static bool RunO11RegionContractProbe(out string detail)
+        {
+            bool seven = O11Regions.Length == 7;
+            bool stableIds = O11Regions.Select(region => region.StableId).Distinct(StringComparer.Ordinal).Count() == 7;
+            bool regionIds = O11Regions.Select(region => region.RegionId).Distinct().Count() == 7;
+            bool silhouettes = O11Regions.All(region =>
+                !string.IsNullOrWhiteSpace(region.BackgroundSilhouette) &&
+                !string.IsNullOrWhiteSpace(region.SearchableSilhouette) &&
+                !string.IsNullOrWhiteSpace(region.HazardMark));
+            bool separatedFields = O11Regions.Select(region => ColorUtility.ToHtmlStringRGB(region.FieldColor))
+                .Distinct(StringComparer.Ordinal).Count() == 7;
+            bool passed = seven && stableIds && regionIds && silhouettes && separatedFields;
+            detail = "count=" + O11Regions.Length +
+                     "; stableIds=" + stableIds +
+                     "; silhouettes+hazard-patterns=" + silhouettes +
+                     "; distinct-fields=" + separatedFields;
+            return passed;
+        }
+
         private static PrototypeResourceVisual Visual(
             string stableResourceId,
             ResourceKind legacyKind,
@@ -123,6 +184,25 @@ namespace KimSurvival
             float blue)
         {
             return new PrototypeResourceVisual(stableResourceId, legacyKind, new Color(red, green, blue, 1f));
+        }
+
+        private static PrototypeRegionProductionVisual Region(
+            PrototypeExpeditionRegionId regionId,
+            string stableId,
+            string backgroundSilhouette,
+            string searchableSilhouette,
+            string hazardMark,
+            float red,
+            float green,
+            float blue)
+        {
+            return new PrototypeRegionProductionVisual(
+                regionId,
+                stableId,
+                backgroundSilhouette,
+                searchableSilhouette,
+                hazardMark,
+                new Color(red, green, blue, 1f));
         }
 
         private static Dictionary<string, PrototypeResourceVisual> BuildLookup()

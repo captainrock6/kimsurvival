@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace KimSurvival
@@ -19,6 +20,8 @@ namespace KimSurvival
         private const float IdleBreathSpeed = 2.4f;
         private const float IdleBreathAmount = 0.018f;
         private const float WalkLeanDegrees = 1.35f;
+        private const float SwimCycleRate = 4.5f;
+        private const float ActionCycleRate = 5.5f;
         private const float BodyWidth = 0.72f;
         private const float BodyHeight = 2.15f;
 
@@ -53,6 +56,9 @@ namespace KimSurvival
         private PrototypePlayerActionPose actionPose;
         private PrototypePlayerActionPose conditionPose;
         private float actionUntil;
+
+        public string ActiveProductionState { get; private set; } = "idle";
+        public int ActiveProductionFrame { get; private set; }
 
         public void Configure(Transform visual, bool placeholderPose)
         {
@@ -169,7 +175,8 @@ namespace KimSurvival
             {
                 swimWakeRoot.gameObject.SetActive(state.IsSwimming);
                 swimWakeRoot.position = new Vector3(state.X, PrototypePlayerTraversal.WaterY - 0.25f, 0f);
-                swimWakeRoot.localScale = new Vector3(state.Facing, 1f, 1f);
+                float wakePulse = state.IsSwimming ? 1f + Mathf.Sin(animationTime * SwimCycleRate * Mathf.PI) * 0.08f : 1f;
+                swimWakeRoot.localScale = new Vector3(state.Facing * wakePulse, 1f / wakePulse, 1f);
             }
         }
 
@@ -191,6 +198,17 @@ namespace KimSurvival
             if (state.IsSwimming)
             {
                 stateRenderer.sprite = swimSprite;
+                float cycle = animationTime * SwimCycleRate;
+                ActiveProductionState = "swim";
+                ActiveProductionFrame = Mathf.FloorToInt(cycle) & 3;
+                float stroke = Mathf.Sin(cycle * Mathf.PI * 0.5f);
+                float kick = Mathf.Cos(cycle * Mathf.PI);
+                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(stroke * 0.025f, kick * 0.035f, 0f);
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, -1.5f + stroke * 3f);
+                spriteTransform.localScale = new Vector3(
+                    stateRendererBaseScale.x * (1f + kick * 0.015f),
+                    stateRendererBaseScale.y * (1f - kick * 0.015f),
+                    stateRendererBaseScale.z);
                 wasSpriteMoving = false;
                 return;
             }
@@ -203,10 +221,16 @@ namespace KimSurvival
                 }
                 wasSpriteMoving = true;
                 float movementTime = Mathf.Max(0f, animationTime - spriteMovementStartedAt);
-                int frame = Mathf.FloorToInt(movementTime * WalkFrameRate) & 1;
-                stateRenderer.sprite = frame == 0 ? walkSprite : idleSprite;
+                int frame = Mathf.FloorToInt(movementTime * WalkFrameRate) & 3;
+                ActiveProductionState = "walk";
+                ActiveProductionFrame = frame;
+                stateRenderer.sprite = frame == 0 || frame == 3 ? walkSprite : idleSprite;
                 float stride = Mathf.Sin(movementTime * WalkFrameRate * Mathf.PI);
                 spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, stride * WalkLeanDegrees);
+                spriteTransform.localScale = new Vector3(
+                    stateRendererBaseScale.x * (1f + Mathf.Abs(stride) * 0.012f),
+                    stateRendererBaseScale.y * (1f - Mathf.Abs(stride) * 0.008f),
+                    stateRendererBaseScale.z);
                 return;
             }
 
@@ -218,6 +242,8 @@ namespace KimSurvival
             }
             stateRenderer.sprite = idleSprite;
             float breath = Mathf.Sin(animationTime * IdleBreathSpeed);
+            ActiveProductionState = "idle";
+            ActiveProductionFrame = Mathf.FloorToInt(animationTime * IdleBreathSpeed) & 3;
             spriteTransform.localScale = new Vector3(
                 stateRendererBaseScale.x * (1f - breath * IdleBreathAmount * 0.45f),
                 stateRendererBaseScale.y * (1f + breath * IdleBreathAmount),
@@ -226,33 +252,147 @@ namespace KimSurvival
 
         private void ApplyActionSprite(PrototypePlayerActionPose pose, Transform spriteTransform, float animationTime)
         {
+            float cycle = animationTime * ActionCycleRate;
+            ActiveProductionFrame = Mathf.FloorToInt(cycle) & 3;
             if (pose == PrototypePlayerActionPose.Search)
             {
+                ActiveProductionState = "search";
                 stateRenderer.sprite = searchSprite;
-                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, Mathf.Sin(animationTime * 16f) * 2.4f);
+                float reach = Mathf.Sin(cycle * Mathf.PI * 0.5f);
+                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(reach * 0.025f, 0f, 0f);
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, reach * 3.2f);
             }
             else if (pose == PrototypePlayerActionPose.FacilityUse || pose == PrototypePlayerActionPose.Eat)
             {
+                ActiveProductionState = pose == PrototypePlayerActionPose.Eat ? "rest-eat" : "facility-use";
                 stateRenderer.sprite = facilityUseSprite;
-                float work = Mathf.Abs(Mathf.Sin(animationTime * 13f));
+                float work = Mathf.Abs(Mathf.Sin(cycle * Mathf.PI * 0.5f));
                 spriteTransform.localPosition = stateRendererBasePosition + new Vector3(0f, -work * 0.035f, 0f);
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, work * 2.1f);
             }
             else if (pose == PrototypePlayerActionPose.Climb)
             {
+                ActiveProductionState = "ladder";
                 stateRenderer.sprite = climbSprite;
-                float climb = Mathf.Sin(animationTime * 12f);
-                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(0f, climb * 0.045f, 0f);
+                float climb = Mathf.Sin(cycle * Mathf.PI * 0.5f);
+                spriteTransform.localPosition = stateRendererBasePosition + new Vector3(climb * 0.018f, climb * 0.045f, 0f);
+                spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, climb * 1.8f);
             }
             else if (pose == PrototypePlayerActionPose.Hurt)
             {
+                ActiveProductionState = "hurt-sick";
                 stateRenderer.sprite = hurtSprite;
                 spriteTransform.localRotation = stateRendererBaseRotation * Quaternion.Euler(0f, 0f, -5f);
             }
             else
             {
+                ActiveProductionState = "rest-eat";
                 stateRenderer.sprite = restSprite;
                 spriteTransform.localScale = new Vector3(stateRendererBaseScale.x, stateRendererBaseScale.y * 0.96f, stateRendererBaseScale.z);
             }
+        }
+
+        public bool RunO11AnimationContractProbe(out string detail)
+        {
+            Sprite[] required =
+            {
+                idleSprite,
+                walkSprite,
+                searchSprite,
+                facilityUseSprite,
+                climbSprite,
+                swimSprite,
+                hurtSprite,
+                restSprite
+            };
+            if (stateRenderer == null || required.Any(sprite => sprite == null))
+            {
+                detail = "missing renderer or one of eight adopted atlas poses";
+                return false;
+            }
+
+            Vector2 referencePivot = NormalizedPivot(required[0]);
+            bool fixedPivot = required.All(sprite => Vector2.Distance(referencePivot, NormalizedPivot(sprite)) <= 0.002f);
+            bool bottomPivot = referencePivot.y <= 0.08f && Mathf.Abs(referencePivot.x - 0.5f) <= 0.01f;
+            bool validScale = Mathf.Abs(baseScale.x) > 0.001f && Mathf.Abs(baseScale.y) > 0.001f;
+            bool distinctAtlasCells = required.Select(sprite => sprite.name).Distinct().Count() == required.Length;
+
+            float now = Time.unscaledTime;
+            Vector3 originalPosition = transform.position;
+            PrototypePlayerPresentationState idle = new PrototypePlayerPresentationState(
+                originalPosition.x, originalPosition.y, 1f, 0f, false, true);
+            PrototypePlayerPresentationState walk = new PrototypePlayerPresentationState(
+                originalPosition.x, originalPosition.y, 1f, 1f, false, true);
+            PrototypePlayerPresentationState swim = new PrototypePlayerPresentationState(
+                originalPosition.x, originalPosition.y, 1f, 1f, true, false);
+
+            actionPose = PrototypePlayerActionPose.None;
+            conditionPose = PrototypePlayerActionPose.None;
+            Apply(idle, now);
+            Vector3 idleScaleA = stateRenderer.transform.localScale;
+            int idleFrameA = ActiveProductionFrame;
+            Apply(idle, now + 0.47f);
+            bool idleMoves = PoseChanged(idleScaleA, stateRenderer.transform.localScale) || idleFrameA != ActiveProductionFrame;
+
+            Apply(walk, now + 0.6f);
+            Sprite walkSpriteA = stateRenderer.sprite;
+            Quaternion walkRotationA = stateRenderer.transform.localRotation;
+            int walkFrameA = ActiveProductionFrame;
+            Apply(walk, now + 0.93f);
+            bool walkMoves = walkSpriteA != stateRenderer.sprite || walkFrameA != ActiveProductionFrame ||
+                             Quaternion.Angle(walkRotationA, stateRenderer.transform.localRotation) > 0.05f;
+
+            Apply(swim, now + 1.0f);
+            Vector3 swimPositionA = stateRenderer.transform.localPosition;
+            Quaternion swimRotationA = stateRenderer.transform.localRotation;
+            int swimFrameA = ActiveProductionFrame;
+            Apply(swim, now + 1.31f);
+            bool swimMoves = PoseChanged(swimPositionA, stateRenderer.transform.localPosition) ||
+                             swimFrameA != ActiveProductionFrame ||
+                             Quaternion.Angle(swimRotationA, stateRenderer.transform.localRotation) > 0.05f;
+
+            PlayAction(PrototypePlayerActionPose.Search, 2f);
+            Apply(idle, now + 0.05f);
+            Vector3 searchPositionA = stateRenderer.transform.localPosition;
+            Quaternion searchRotationA = stateRenderer.transform.localRotation;
+            int searchFrameA = ActiveProductionFrame;
+            Apply(idle, now + 0.36f);
+            bool searchMoves = PoseChanged(searchPositionA, stateRenderer.transform.localPosition) ||
+                               searchFrameA != ActiveProductionFrame ||
+                               Quaternion.Angle(searchRotationA, stateRenderer.transform.localRotation) > 0.05f;
+
+            PlayAction(PrototypePlayerActionPose.Climb, 2f);
+            Apply(idle, now + 0.10f);
+            Vector3 ladderPositionA = stateRenderer.transform.localPosition;
+            Quaternion ladderRotationA = stateRenderer.transform.localRotation;
+            int ladderFrameA = ActiveProductionFrame;
+            Apply(idle, now + 0.41f);
+            bool ladderMoves = PoseChanged(ladderPositionA, stateRenderer.transform.localPosition) ||
+                               ladderFrameA != ActiveProductionFrame ||
+                               Quaternion.Angle(ladderRotationA, stateRenderer.transform.localRotation) > 0.05f;
+
+            actionPose = PrototypePlayerActionPose.None;
+            conditionPose = PrototypePlayerActionPose.None;
+            Apply(idle, now + 0.5f);
+
+            bool productionCycles = idleMoves && walkMoves && searchMoves && ladderMoves && swimMoves;
+            bool passed = fixedPivot && bottomPivot && validScale && distinctAtlasCells && productionCycles;
+            detail = "states=8; distinct-cells=" + distinctAtlasCells +
+                     "; cycles[idle/walk/search/ladder/swim]=" +
+                     idleMoves + "/" + walkMoves + "/" + searchMoves + "/" + ladderMoves + "/" + swimMoves +
+                     "; pivot=" + referencePivot.ToString("F3") + "; fixed=" + fixedPivot + "; scale=" + validScale;
+            return passed;
+        }
+
+        private static bool PoseChanged(Vector3 first, Vector3 second)
+        {
+            return Vector3.Distance(first, second) > 0.0005f;
+        }
+
+        private static Vector2 NormalizedPivot(Sprite sprite)
+        {
+            Rect rect = sprite.rect;
+            return new Vector2(sprite.pivot.x / rect.width, sprite.pivot.y / rect.height);
         }
 
         private void ConfigureBodyCollider()
