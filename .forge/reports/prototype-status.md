@@ -1,27 +1,27 @@
 # 김씨 생존기: 무인도 프로토타입 현황
 
-무인도에 고립된 평범한 김씨가 환경 수색물을 뒤져 필요한 것만 챙기고, 위아래로 확장한 캠프와 여러 탈출 프로젝트에 투자해 자신의 생활 방식이 반영된 코믹북 결말에 도달하는 2D 생존 게임
+폭풍에 표류해 무인도에 고립된 평범한 김씨가 환경 수색물을 뒤져 필요한 것만 챙기고 다층 캠프와 세 탈출 프로젝트에 투자해 자신의 생활 방식이 반영된 코믹북 결말에 도달하는 2D 생존 게임
 
 ## 버티컬 슬라이스
 
-시스템 알파를 최종 방향의 콘텐츠·아트·애니메이션·스토리·엔딩·오디오가 연결된 30분 게임잼 제출 버티컬 슬라이스로 완성한다.
+폭풍 표류 도입부터 실제 아트·애니메이션·UI·오디오가 연결된 30분 게임잼 콘텐츠 베타까지 완성한다.
 
 ## 실행 단계
 
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete |  |
-| art | planned |  |
-| implementation | planned |  |
-| verification | planned |  |
+| art | in_progress | REVISE V2 is imported and visually reviewed; it remains review-only pending explicit ADOPT/REVISE/HOLD. |
+| implementation | complete | O10 runtime, simplified HUD, submission shell and Windows x64 Release candidate are implemented. |
+| verification | in_progress | Unity license restored; edit, Play Mode, render capture, Release build and player smoke are green. Human 5-10 minute and 30-minute playtests remain. |
 
 ## 다음 작업
 
 - **O1 P1 교정 통합·새 후보 재검증** (qa, critical) — task.gamejam.o1-corrective-integration-retest
-- **O9 시놉시스·도입·엔딩 beat·아트 범위 잠금** (design, critical) — task.o9.design.content-lock
 - **김씨 설비 사용 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.facility-use
 - **김씨 idle 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.idle
 - **김씨 사다리 등반 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.ladder
+- **김씨 뒤지기 애니메이션 제작** (art, critical) — task.art.animation.mr-kim.search
 
 ## 작업
 
@@ -166,15 +166,15 @@
 | task.qa.feature.gamejam-character-animation | qa | critical | planned | 김씨 핵심 행동 애니메이션 검증 |
 | task.feature.feature.gamejam-authored-endings | implementation | critical | ready | 게임잼 제작 엔딩 묶음 구현 |
 | task.qa.feature.gamejam-authored-endings | qa | critical | planned | 게임잼 제작 엔딩 묶음 검증 |
-| task.o9.design.content-lock | design | critical | ready | O9 시놉시스·도입·엔딩 beat·아트 범위 잠금 |
+| task.o9.design.content-lock | design | critical | done | O9 시놉시스·도입·엔딩 beat·아트 범위 잠금 |
 | task.o9.art.style-benchmark | art | critical | review | O9 김씨·캠프·해변·HUD style benchmark 채택 |
 | task.o9.art.first-loop-production | art | critical | review | O9 첫 루프 production UI·월드·아이템 |
 | task.o9.art.character-core-animation | art | critical | ready | O9 김씨 core animation production |
-| task.o9.implementation.presentation-alpha | implementation | critical | planned | O9 콘텐츠·프레젠테이션 알파 통합 |
-| task.o9.qa.first-loop-presentation | qa | critical | planned | O9 5~10분 first-loop 콘텐츠·프레젠테이션 검증 |
+| task.o9.implementation.presentation-alpha | implementation | critical | review | O9 콘텐츠·프레젠테이션 알파 통합 |
+| task.o9.qa.first-loop-presentation | qa | critical | review | O9 5~10분 first-loop 콘텐츠·프레젠테이션 검증 |
 | task.o10.art.content-beta-production | art | critical | review | O10 일곱 지역·다층 캠프·세 탈출·필수 엔딩 production |
-| task.o10.implementation.content-beta | implementation | critical | planned | O10 30분 콘텐츠 베타 통합 |
-| task.o10.qa.thirty-minute-content-beta | qa | critical | planned | O10 30분 자연 플레이 재개 게이트 |
+| task.o10.implementation.content-beta | implementation | critical | review | O10 30분 콘텐츠 베타 통합 |
+| task.o10.qa.thirty-minute-content-beta | qa | critical | review | O10 30분 자연 플레이 재개 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.system.system.comedy-feedback | implementation | high | done | 상황형 코믹 피드백 구현 |
@@ -579,6 +579,17 @@
 - task.gamejam.o8-integration-release: work/ParallelQA/20260827T153700Z_o8_h1_owner/o8-h1-player.log
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
+- task.o9.design.content-lock: User locked storm drift and ink-Kim simplified-world direction; document defines stable KO/EN beats for opening, first loop, seven regions, five core endings and three variants.
+- task.o9.art.style-benchmark: Docs/Art/O9/o9-style-benchmark-review.md
+- task.o9.art.first-loop-production: Docs/Art/O9/o9-style-benchmark-review.md
+- task.o9.art.character-core-animation: Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt
+- task.o9.implementation.presentation-alpha: Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt
+- task.o9.qa.first-loop-presentation: Artifacts/ParallelQA/20260828T120000Z_o9_o10/unity-compile-escalated.log
+- task.o9.qa.first-loop-presentation: Docs/QA/o10-candidate-gate-20260828.md
+- task.o10.art.content-beta-production: Docs/QA/o9-o10-continuous-production-gate-20260828.md
+- task.o10.implementation.content-beta: Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt
+- task.o10.qa.thirty-minute-content-beta: Docs/QA/o9-o10-continuous-production-gate-20260828.md
+- task.o10.qa.thirty-minute-content-beta: Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.system.system.comedy-feedback: Artifacts/Verification/editmode-checks.txt
 - task.system.system.comedy-feedback: Artifacts/Verification/playmode-checks.txt
@@ -658,6 +669,7 @@
 - task.gamejam.long-stay-two-endings: Docs/Design/kim-survival-island-gdd.md#17-게임잼-범위
 - task.gamejam.long-stay-two-endings: Docs/Design/gamejam-completion-matrix.md#2-제출-완료-매트릭스
 - task.gamejam.long-stay-two-endings: Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json
+- task.o9.art.ending-preview-audio: Docs/QA/o9-o10-continuous-production-gate-20260828.md
 - task.art.icon.resource-tool-set: Forge asset icon.resource-tool-set adopted via job_20260822141317_caf8e11d
 - task.art.effect.comedy-feedback: Forge asset effect.comedy-feedback adopted via job_20260822224357_275de712
 - task.art.ui.ending-gallery: Forge asset ui.ending-gallery adopted via job_20260824133802_f43c6431
@@ -675,5 +687,4 @@
 
 ## 미결 질문
 
-- question.story.stranding-cause · 김씨의 조난 원인은 현실적인 사고, 폭풍 표류, 정체불명 섬 중 어느 방향으로 확정할 것인가? 이 선택은 도입 3~5컷, 지역 단서와 정상·코믹 엔딩의 톤을 결정한다.
-- question.art.style-anchor · 기존 김씨의 잉크 선을 기준으로 배경을 단순화할지, 배경의 회화성을 기준으로 김씨를 다시 정리할지 어느 쪽을 style benchmark로 채택할 것인가? 이 선택은 모든 캐릭터 animation, 7지역, 캠프, 엔딩 패널과 UI 장식의 재작업 위험을 결정한다.
+- 없음
