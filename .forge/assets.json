@@ -5564,9 +5564,17 @@
           "url": "/outputs/jobs/job_20260825150605_49020784/qa-preview-search-node-wreck-chest-states.jpg"
         }
       ],
+      "decision": "review",
+      "selectedCandidate": null,
+      "runtimeAllowlist": [],
+      "packageAllowed": false,
+      "runtimeConnectAllowed": false,
+      "runtimeConnected": false,
+      "provisionalReviewBuildConnection": true,
+      "provisionalRuntimeBinding": "Assets/_Project/Art/Runtime/Resources/O11/SearchNodes/o11-search-node-runtime-manifest.json",
       "engine": {},
       "createdAt": "2026-08-25T13:55:38.014Z",
-      "updatedAt": "2026-08-28T10:32:39.548Z"
+      "updatedAt": "2026-08-28T16:17:54.000Z"
     },
     {
       "id": "ui.search-loot-tray",

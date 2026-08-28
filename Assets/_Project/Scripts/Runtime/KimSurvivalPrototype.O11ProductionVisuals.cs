@@ -46,6 +46,7 @@ namespace KimSurvival
 
             EnsureO11KimRuntimePresentation();
             EnsureO11RegionRuntimePresentation();
+            EnsureO11SearchNodeRuntimePresentation();
             ApplyO11HudLayout();
             ApplyO11CompactBagLayout();
             ApplyO11ContextPanelSkin();
@@ -490,8 +491,10 @@ namespace KimSurvival
             bool regionSprites = RunO11RegionSpriteContract(out string spriteDetail);
             bool region = regionCatalog && regionSprites;
             checks.Add("regions=" + region + "(" + regionDetail + "; " + spriteDetail + ")");
+            bool searchNodes = RunO11SearchNodeVisualContract(out string searchNodeDetail);
+            checks.Add("search-nodes=" + searchNodes + "(" + searchNodeDetail + ")");
 
-            bool passed = thinHud && compactBag && squareSlots && animation && region;
+            bool passed = thinHud && compactBag && squareSlots && animation && region && searchNodes;
             detail = PrototypeO11ProductionSkin.AdoptedStyleJobId + "; " + string.Join("; ", checks.ToArray());
             return passed;
         }

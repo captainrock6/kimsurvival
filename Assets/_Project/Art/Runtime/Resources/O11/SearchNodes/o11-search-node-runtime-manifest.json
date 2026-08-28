@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "requestedAssetAlias": "object.searchable-resource-node-production-set",
+  "canonicalAssetId": "object.searchable-resource-node-kit",
+  "candidateId": "object.searchable-resource-node-kit.state-language-a",
+  "jobId": "job_20260825150605_49020784",
+  "decision": "review",
+  "selectedCandidate": null,
+  "runtimeAllowlist": [],
+  "packageAllowed": false,
+  "runtimeConnectAllowed": false,
+  "formalRuntimeConnected": false,
+  "provisionalReviewBuildConnection": true,
+  "sourcePolicy": "byte-identical copies of the existing Forge review strips; no generation or revision",
+  "slice": {
+    "textureSize": [1152, 384],
+    "cellSize": [384, 384],
+    "stateOrder": ["hidden", "revealed-partial", "depleted"],
+    "pivot": [0.5, 0.0625],
+    "pixelsPerUnit": 100,
+    "targetWorldHeight": {"land": 1.8, "water": 1.5}
+  },
+  "bindings": [
+    {"kind": "GrassPatch", "key": "grass-thicket", "sha256": "206d65f343c3d9cffdfa5e5191f5a80204ffb2cfc23910095ef71bd304066c50"},
+    {"kind": "RockCrevice", "key": "rock-crevice", "sha256": "bf431de1a1e828504b19455ad19d8f60843880344a256c281a1f4afad95ef2a2"},
+    {"kind": "DriftPile", "key": "drift-pile", "sha256": "0949a758f4b36eec8d09820dea2249cdb0846f5c5db6a6a3bd647e1008435c7d"},
+    {"kind": "TreeHollow", "key": "tree-hollow", "sha256": "d5cc32a5cf64614df49513bfc78b1cac8736873e95832aa2da8de0a4e9e5a430"},
+    {"kind": "WreckLocker", "key": "wreck-chest", "sha256": "7cc560e82cc1604db0756719f9c6c7233051c09575fb38fcc53fb6fbf051f616"},
+    {"kind": "FacilityCabinet", "key": "facility-cabinet", "sha256": "19418e83d18a9a0ae18c5c5375826c12af01a578988b5b4c2c636ab72c3d2d7a"}
+  ],
+  "preservedRuntimeSemantics": [
+    "node root and stable node ID",
+    "proximity interaction marker",
+    "ledger-backed hidden/revealed/depleted state",
+    "loot and protected-part overlays",
+    "world collision and traversal",
+    "save/restore state"
+  ],
+  "disabledLegacyRenderers": "only the procedural search-object plank/rectangle renderers"
+}
