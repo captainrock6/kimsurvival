@@ -1,0 +1,10 @@
+PASS
+Unity: 6000.4.9f1
+Output: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Builds\O11FormalCandidate-1344f6c2\KimsSurvivalIsland.exe
+Result: Succeeded
+Errors: 0
+Warnings: 0
+Bytes: 153616517
+Duration: 00:00:17.7066233
+Completed UTC: 2026-08-28T16:59:36.3661520Z
+SHA256: a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423

@@ -1,0 +1,90 @@
+{
+    "schemaVersion": 1,
+    "title": "O11 independent integration RED-first gate",
+    "runId": "O11_formal_1344f6c2_20260829T0158Z",
+    "baselineCommit": "1344f6c2ed84fa9bedebdc9d384c0b915aae6af8",
+    "unityVersion": "6000.4.9f1",
+    "completedUtc": "2026-08-28T16:58:36.1327668Z",
+    "overall": "GREEN",
+    "productOverall": "PASS",
+    "infrastructureOverall": "PASS",
+    "passed": 7,
+    "expectedGaps": 0,
+    "failed": 0,
+    "physicalGamepad": "UNVERIFIED",
+    "steamReadiness": "NOT_READY",
+    "observationOwner": "KimSurvival.KimSurvivalPrototype",
+    "observationMethod": "CaptureO11LiveIntegrationObservation",
+    "checks": [
+        {
+            "id": "O11-P0-001",
+            "severity": "P0",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "expected": "Four general facilities place and relocate in start/upper/basement, exact StableRoomId/X restores, and collision/entrance/path attempts reject atomically.",
+            "actual": "observation=True; placementRows=12; rejectionRows=9; matrix=True; rejectionMatrix=True; cheatFree=True",
+            "reproduction": "Complete both modules; place then relocate workbench/rain collector/bed/sofa in each room; save, reload, and attempt collision/entrance/path positions.",
+            "greenCondition": "12 unique facility-room observations plus exact restore coordinates and canonical rejection reasons."
+        },
+        {
+            "id": "O11-P0-002",
+            "severity": "P0",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "expected": "Launch availability and confirmation agree; impossible/duplicate input is locked with a reason and zero mutation; possible confirmation succeeds in one transaction.",
+            "actual": "cases=3; impossible=True; duplicate=True; possibleAtomic=True; cheatFree=True",
+            "reproduction": "At shore launch, exercise impossible, same-day duplicate, and possible cases while recording button state and before/after ledgers.",
+            "greenCondition": "All three cases are observed through the live popup with zero failed-case deltas and one possible-case terminal commit."
+        },
+        {
+            "id": "O11-P1-001",
+            "severity": "P1",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "expected": "After upper and basement construction reactions, Kim returns to idle and subsequently moves.",
+            "actual": "rows=2; upper+basement=True; cheatFree=True",
+            "reproduction": "Commit upper and basement modules, wait for each reaction, then issue ordinary movement.",
+            "greenCondition": "Both room traces contain reaction then idle and live movement without grant/warp/skip."
+        },
+        {
+            "id": "O11-P1-002",
+            "severity": "P1",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "expected": "Adopted V2 skin is runtime-bound and KO/EN bag, popup, and world do not overlap at 1280x800 or 1920x1080.",
+            "actual": "styleRuntime=True; layouts=4; ko/en@2=True",
+            "reproduction": "Open bag and representative facility/escape popups in KO and EN at both target resolutions.",
+            "greenCondition": "Runtime asset binding to ui.gamejam.style-benchmark/job_20260828122852_c9ccf2aa and four zero-overlap/overflow captures."
+        },
+        {
+            "id": "O11-P1-003",
+            "severity": "P1",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "expected": "Three consecutive searches and recovery methods produce deterministic stamina pacing.",
+            "actual": "rows=3; three=True; deterministic=True; cheatFree=True",
+            "reproduction": "Follow one natural seed through search-return-recovery three times and repeat from a fresh identical seed.",
+            "greenCondition": "Three ordered live costs, effective recovery, positive next-search windows, and byte-equal repeat fingerprints."
+        },
+        {
+            "id": "O11-P1-004",
+            "severity": "P1",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "expected": "Representative seeds keep raft, smoke, and radio feasible; raft is never 25% or more easier than both alternatives.",
+            "actual": "rows=9; seeds=3; feasible+band=True; cheatFree=True",
+            "reproduction": "For each representative seed derive the natural resource/research/part/time burden of raft, smoke, and radio.",
+            "greenCondition": "At least three seeds x three feasible routes and raft burden >= 75% of min(smoke, radio) for every seed."
+        },
+        {
+            "id": "O11-P1-005",
+            "severity": "P1",
+            "status": "PASS",
+            "classification": "PRODUCT",
+            "expected": "Seven production search-region visuals and Kim idle/walk/search/ladder/swim use real runtime GUIDs/clips, not placeholders or review-only art.",
+            "actual": "rows=13; regions7=True; kim5=True; independentAdoption=True; region=engine_ready/job_20260826165624_448aecdc; nodes=engine_ready/job_20260826165625_8961b353; manifest=engine_ready/adopted; allowlist=7; package/runtime/formal=True/True/True; provisionalReview=False",
+            "reproduction": "Visit all seven regions and exercise all five Kim states while recording the rendered asset GUID/clip.",
+            "greenCondition": "Seven region IDs and five Kim state IDs have runtime-observed non-placeholder, non-review GUID/clip bindings."
+        }
+    ]
+}

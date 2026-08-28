@@ -1,0 +1,538 @@
+{
+    "ContractId": "gamejam.o11.live-observation.v1",
+    "Trace": [
+        "placement.rows=12,rejections=9",
+        "raft.natural=escape_complete,day=9,interactions=13",
+        "reaction.rows=2",
+        "layout.rows=4,violations=0",
+        "pacing.repeat=True",
+        "route-burden.rows=9,profile=O11Applied",
+        "assets.visual=True;detail=job_20260828122852_c9ccf2aa; thin-hud=True; bottom-left-square-bag=True/True; animation=True(states=8; distinct-cells=True; polished-traversal[swim/ladder]=4/4; cycles[idle/walk/search/ladder/swim]=True/True/True/True/True; pivot=(0.500, 0.055); fixed[core/swim/ladder]=True/True/True; scale=True); regions=True(count=7; stableIds=True; silhouettes+hazard-patterns=True; distinct-fields=True; sprite-pairs=7/7; sizes=True; ink-kim-only=True; active-bg-fg=True; legacy-geometry-hidden=True); search-nodes=True(job_20260825150605_49020784; candidate=object.searchable-resource-node-kit.state-language-a; textures=True; true-alpha=True; slices=18/18:True; active-bindings=True; legacy-hidden=True; markers=True; state-order=True; adopted/formal=true);regions-adopted-formal=true;kim=True;states=8; distinct-cells=True; polished-traversal[swim/ladder]=4/4; cycles[idle/walk/search/ladder/swim]=True/True/True/True/True; pivot=(0.500, 0.055); fixed[core/swim/ladder]=True/True/True; scale=True",
+        "production-actions=grant:0,warp:0,skip:0"
+    ],
+    "Grant": false,
+    "Warp": false,
+    "Skip": false,
+    "Placements": [
+        {
+            "FacilityId": "structure.workbench",
+            "StableRoomId": "room.start",
+            "InitialX": 1.5,
+            "RelocatedX": -1.5,
+            "RestoredX": -1.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.workbench",
+            "StableRoomId": "room.upper.standard",
+            "InitialX": 1.5,
+            "RelocatedX": -1.5,
+            "RestoredX": -1.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.workbench",
+            "StableRoomId": "room.basement.standard",
+            "InitialX": 0.5,
+            "RelocatedX": -4.0,
+            "RestoredX": -4.0,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.rain_collector",
+            "StableRoomId": "room.start",
+            "InitialX": 3.5,
+            "RelocatedX": -1.5,
+            "RestoredX": -1.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.rain_collector",
+            "StableRoomId": "room.upper.standard",
+            "InitialX": 4.0,
+            "RelocatedX": -2.0,
+            "RestoredX": -2.0,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.rain_collector",
+            "StableRoomId": "room.basement.standard",
+            "InitialX": 0.5,
+            "RelocatedX": -4.0,
+            "RestoredX": -4.0,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.bed",
+            "StableRoomId": "room.start",
+            "InitialX": 1.5,
+            "RelocatedX": -1.5,
+            "RestoredX": -1.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.bed",
+            "StableRoomId": "room.upper.standard",
+            "InitialX": 1.5,
+            "RelocatedX": -1.5,
+            "RestoredX": -1.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.bed",
+            "StableRoomId": "room.basement.standard",
+            "InitialX": 0.5,
+            "RelocatedX": -3.5,
+            "RestoredX": -3.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.sofa",
+            "StableRoomId": "room.start",
+            "InitialX": 1.5,
+            "RelocatedX": -1.5,
+            "RestoredX": -1.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.sofa",
+            "StableRoomId": "room.upper.standard",
+            "InitialX": 1.5,
+            "RelocatedX": -1.5,
+            "RestoredX": -1.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        },
+        {
+            "FacilityId": "structure.sofa",
+            "StableRoomId": "room.basement.standard",
+            "InitialX": 0.5,
+            "RelocatedX": -3.5,
+            "RestoredX": -3.5,
+            "PlacementCommitted": true,
+            "RelocationCommitted": true,
+            "SnapshotRestored": true
+        }
+    ],
+    "PlacementRejections": [
+        {
+            "StableRoomId": "room.start",
+            "ReasonId": "placement.overlap",
+            "Rejected": true,
+            "BeforeFingerprint": "e216c1532b89829ba9b499f549ca7944",
+            "AfterFingerprint": "e216c1532b89829ba9b499f549ca7944"
+        },
+        {
+            "StableRoomId": "room.start",
+            "ReasonId": "placement.blocks_entrance",
+            "Rejected": true,
+            "BeforeFingerprint": "e216c1532b89829ba9b499f549ca7944",
+            "AfterFingerprint": "e216c1532b89829ba9b499f549ca7944"
+        },
+        {
+            "StableRoomId": "room.start",
+            "ReasonId": "placement.blocks_path",
+            "Rejected": true,
+            "BeforeFingerprint": "e216c1532b89829ba9b499f549ca7944",
+            "AfterFingerprint": "e216c1532b89829ba9b499f549ca7944"
+        },
+        {
+            "StableRoomId": "room.upper.standard",
+            "ReasonId": "placement.overlap",
+            "Rejected": true,
+            "BeforeFingerprint": "88de0d73d24480fcf27a5c22c5676b7c",
+            "AfterFingerprint": "88de0d73d24480fcf27a5c22c5676b7c"
+        },
+        {
+            "StableRoomId": "room.upper.standard",
+            "ReasonId": "placement.blocks_entrance",
+            "Rejected": true,
+            "BeforeFingerprint": "88de0d73d24480fcf27a5c22c5676b7c",
+            "AfterFingerprint": "88de0d73d24480fcf27a5c22c5676b7c"
+        },
+        {
+            "StableRoomId": "room.upper.standard",
+            "ReasonId": "placement.blocks_path",
+            "Rejected": true,
+            "BeforeFingerprint": "88de0d73d24480fcf27a5c22c5676b7c",
+            "AfterFingerprint": "88de0d73d24480fcf27a5c22c5676b7c"
+        },
+        {
+            "StableRoomId": "room.basement.standard",
+            "ReasonId": "placement.overlap",
+            "Rejected": true,
+            "BeforeFingerprint": "b5bc81b524e8d900812d796478bd1187",
+            "AfterFingerprint": "b5bc81b524e8d900812d796478bd1187"
+        },
+        {
+            "StableRoomId": "room.basement.standard",
+            "ReasonId": "placement.blocks_entrance",
+            "Rejected": true,
+            "BeforeFingerprint": "b5bc81b524e8d900812d796478bd1187",
+            "AfterFingerprint": "b5bc81b524e8d900812d796478bd1187"
+        },
+        {
+            "StableRoomId": "room.basement.standard",
+            "ReasonId": "placement.blocks_path",
+            "Rejected": true,
+            "BeforeFingerprint": "b5bc81b524e8d900812d796478bd1187",
+            "AfterFingerprint": "b5bc81b524e8d900812d796478bd1187"
+        }
+    ],
+    "Launches": [
+        {
+            "CaseId": "launch.impossible",
+            "AvailabilityDisplayed": false,
+            "ButtonInteractable": false,
+            "ReasonId": "escape.raft.launch.window_closed",
+            "Confirmed": false,
+            "SameTransaction": true,
+            "FoodBefore": 0,
+            "FoodAfter": 0,
+            "ResourcesBefore": "cost-commits=3;duplicate-delta=0",
+            "ResourcesAfter": "cost-commits=3;duplicate-delta=0",
+            "ProgressBefore": "3/3:raft.stage.hull,raft.stage.sail,raft.stage.supplies",
+            "ProgressAfter": "3/3:raft.stage.hull,raft.stage.sail,raft.stage.supplies",
+            "CommitCount": 0,
+            "TerminalCount": 0
+        },
+        {
+            "CaseId": "launch.duplicate_same_day",
+            "AvailabilityDisplayed": false,
+            "ButtonInteractable": false,
+            "ReasonId": "escape.raft.launch.same_day_locked",
+            "Confirmed": false,
+            "SameTransaction": true,
+            "FoodBefore": 0,
+            "FoodAfter": 0,
+            "ResourcesBefore": "cost-commits=3;duplicate-delta=0",
+            "ResourcesAfter": "cost-commits=3;duplicate-delta=0",
+            "ProgressBefore": "3/3:raft.stage.hull,raft.stage.sail,raft.stage.supplies",
+            "ProgressAfter": "3/3:raft.stage.hull,raft.stage.sail,raft.stage.supplies",
+            "CommitCount": 0,
+            "TerminalCount": 0
+        },
+        {
+            "CaseId": "launch.possible",
+            "AvailabilityDisplayed": true,
+            "ButtonInteractable": true,
+            "ReasonId": "escape_complete",
+            "Confirmed": true,
+            "SameTransaction": true,
+            "FoodBefore": 0,
+            "FoodAfter": 0,
+            "ResourcesBefore": "launch-ready:cost-commits=3;duplicate-delta=0",
+            "ResourcesAfter": "terminal:escape.raft",
+            "ProgressBefore": "3/3:raft.stage.hull,raft.stage.sail,raft.stage.supplies",
+            "ProgressAfter": "escape_complete",
+            "CommitCount": 1,
+            "TerminalCount": 1
+        }
+    ],
+    "Reactions": [
+        {
+            "StableRoomId": "room.upper.standard",
+            "StateSequence": [
+                "construction.commit:room.upper.standard",
+                "facility-use",
+                "idle",
+                "walk"
+            ],
+            "MovementObservedAfterReaction": true
+        },
+        {
+            "StableRoomId": "room.basement.standard",
+            "StateSequence": [
+                "construction.commit:room.basement.standard",
+                "facility-use",
+                "idle",
+                "walk"
+            ],
+            "MovementObservedAfterReaction": true
+        }
+    ],
+    "Layouts": [
+        {
+            "Locale": "ko",
+            "Width": 1280,
+            "Height": 800,
+            "Screenshot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\O11FormalCandidate_1344f6c2\\Artifacts\\ParallelQA\\O11_formal_1344f6c2_20260829T0158Z\\O11-baseline-camp-ko-1280x800.png",
+            "OverflowCount": 0,
+            "OffscreenCount": 0,
+            "BagPopupOverlapCount": 0,
+            "WorldOcclusionCount": 0
+        },
+        {
+            "Locale": "ko",
+            "Width": 1920,
+            "Height": 1080,
+            "Screenshot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\O11FormalCandidate_1344f6c2\\Artifacts\\ParallelQA\\O11_formal_1344f6c2_20260829T0158Z\\O11-baseline-camp-ko-1920x1080.png",
+            "OverflowCount": 0,
+            "OffscreenCount": 0,
+            "BagPopupOverlapCount": 0,
+            "WorldOcclusionCount": 0
+        },
+        {
+            "Locale": "en",
+            "Width": 1280,
+            "Height": 800,
+            "Screenshot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\O11FormalCandidate_1344f6c2\\Artifacts\\ParallelQA\\O11_formal_1344f6c2_20260829T0158Z\\O11-baseline-camp-en-1280x800.png",
+            "OverflowCount": 0,
+            "OffscreenCount": 0,
+            "BagPopupOverlapCount": 0,
+            "WorldOcclusionCount": 0
+        },
+        {
+            "Locale": "en",
+            "Width": 1920,
+            "Height": 1080,
+            "Screenshot": "C:\\Users\\dev\\Documents\\ChatGPT\\신규 개발 본부\\work\\O11FormalCandidate_1344f6c2\\Artifacts\\ParallelQA\\O11_formal_1344f6c2_20260829T0158Z\\O11-baseline-camp-en-1920x1080.png",
+            "OverflowCount": 0,
+            "OffscreenCount": 0,
+            "BagPopupOverlapCount": 0,
+            "WorldOcclusionCount": 0
+        }
+    ],
+    "Pacing": [
+        {
+            "SearchIndex": 1,
+            "EnergyBefore": 100.0,
+            "EnergyAfter": 57.5,
+            "RecoveryMethodId": "recovery.meal+next-day-base",
+            "RecoveryAmount": 42.5,
+            "NextSearchAvailableSeconds": 666.6666259765625
+        },
+        {
+            "SearchIndex": 2,
+            "EnergyBefore": 100.0,
+            "EnergyAfter": 57.5,
+            "RecoveryMethodId": "recovery.meal+next-day-base",
+            "RecoveryAmount": 42.5,
+            "NextSearchAvailableSeconds": 666.6666259765625
+        },
+        {
+            "SearchIndex": 3,
+            "EnergyBefore": 100.0,
+            "EnergyAfter": 57.5,
+            "RecoveryMethodId": "recovery.meal+next-day-base",
+            "RecoveryAmount": 42.5,
+            "NextSearchAvailableSeconds": 666.6666259765625
+        }
+    ],
+    "RouteBurdens": [
+        {
+            "Seed": 15000501,
+            "EscapeId": "escape.raft",
+            "Feasible": true,
+            "BurdenScore": 53.75,
+            "ResourceFingerprint": "stock=432;common=20;food=3;advanced=0;research=2;commits=5;day=8+1",
+            "ProtectedPartId": "part.raft.sailcloth"
+        },
+        {
+            "Seed": 15000501,
+            "EscapeId": "escape.smoke",
+            "Feasible": true,
+            "BurdenScore": 59.0,
+            "ResourceFingerprint": "stock=432;common=26;food=0;advanced=4;research=2;commits=3;day=4+1",
+            "ProtectedPartId": "part.smoke.flint"
+        },
+        {
+            "Seed": 15000501,
+            "EscapeId": "escape.radio",
+            "Feasible": true,
+            "BurdenScore": 64.75,
+            "ResourceFingerprint": "stock=432;common=13;food=0;advanced=5;research=2;commits=3;day=11+0",
+            "ProtectedPartId": "part.radio.circuit-board,part.radio.transceiver,part.radio.transistor"
+        },
+        {
+            "Seed": 180018,
+            "EscapeId": "escape.raft",
+            "Feasible": true,
+            "BurdenScore": 53.75,
+            "ResourceFingerprint": "stock=432;common=20;food=3;advanced=0;research=2;commits=5;day=8+1",
+            "ProtectedPartId": "part.raft.sailcloth"
+        },
+        {
+            "Seed": 180018,
+            "EscapeId": "escape.smoke",
+            "Feasible": true,
+            "BurdenScore": 57.0,
+            "ResourceFingerprint": "stock=432;common=26;food=0;advanced=4;research=2;commits=3;day=4+0",
+            "ProtectedPartId": "part.smoke.flint"
+        },
+        {
+            "Seed": 180018,
+            "EscapeId": "escape.radio",
+            "Feasible": true,
+            "BurdenScore": 66.75,
+            "ResourceFingerprint": "stock=432;common=13;food=0;advanced=5;research=2;commits=3;day=11+1",
+            "ProtectedPartId": "part.radio.circuit-board,part.radio.transceiver,part.radio.transistor"
+        },
+        {
+            "Seed": 220026,
+            "EscapeId": "escape.raft",
+            "Feasible": true,
+            "BurdenScore": 53.75,
+            "ResourceFingerprint": "stock=432;common=20;food=3;advanced=0;research=2;commits=5;day=8+1",
+            "ProtectedPartId": "part.raft.sailcloth"
+        },
+        {
+            "Seed": 220026,
+            "EscapeId": "escape.smoke",
+            "Feasible": true,
+            "BurdenScore": 57.0,
+            "ResourceFingerprint": "stock=432;common=26;food=0;advanced=4;research=2;commits=3;day=4+0",
+            "ProtectedPartId": "part.smoke.flint"
+        },
+        {
+            "Seed": 220026,
+            "EscapeId": "escape.radio",
+            "Feasible": true,
+            "BurdenScore": 66.75,
+            "ResourceFingerprint": "stock=432;common=13;food=0;advanced=5;research=2;commits=3;day=11+1",
+            "ProtectedPartId": "part.radio.circuit-board,part.radio.transceiver,part.radio.transistor"
+        }
+    ],
+    "AssetBindings": [
+        {
+            "StableId": "ui.gamejam.style-benchmark",
+            "Guid": "859520c99f6605f4597564140b6e83ca",
+            "AssetPath": "Assets/_Project/Scripts/Runtime/PrototypeO11ProductionSkin.cs",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "region.coast.beach",
+            "Guid": "a7ea4a35ae09a6345ad9bc9951fca339",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-beach-background.png",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "region.sea.shallows",
+            "Guid": "d1a659791502a234c9b6a0a7e122c4b2",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-shallows-background.png",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "region.forest.grove",
+            "Guid": "e93660ec2deb0cd42acdeca4889b0e10",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-forest-background.png",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "region.ridge.highland",
+            "Guid": "296046a720b40ae48a83ec3542af8c35",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-ridge-highland-background.png",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "region.cave.island",
+            "Guid": "3807af89c6257734ebee5f148e6f861a",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-island-cave-background.png",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "region.cove.wreck",
+            "Guid": "5eceb480e41a0a1468c4ba83def34943",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-wreck-cove-background.png",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "region.ruins.relay",
+            "Guid": "1dfa47d536754044a8d29c9f2988e182",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-ruins-relay-background.png",
+            "ClipName": "",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "kim.idle",
+            "Guid": "426ba73b70886e842ad69559e71ec3ea",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-core-atlas.png",
+            "ClipName": "code-driven-atlas-state:idle",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "kim.walk",
+            "Guid": "426ba73b70886e842ad69559e71ec3ea",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-core-atlas.png",
+            "ClipName": "code-driven-atlas-state:walk",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "kim.search",
+            "Guid": "426ba73b70886e842ad69559e71ec3ea",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-core-atlas.png",
+            "ClipName": "code-driven-atlas-state:search",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "kim.ladder",
+            "Guid": "5e0cf797f2f64c20a29b11453575fc18",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-ladder-strip-v2.png",
+            "ClipName": "code-driven-four-frame-strip:ladder",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        },
+        {
+            "StableId": "kim.swim",
+            "Guid": "166e93afeae54a47b539ccce49168eb2",
+            "AssetPath": "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-swim-strip-v2.png",
+            "ClipName": "code-driven-four-frame-strip:swim",
+            "RuntimeObserved": true,
+            "Placeholder": false,
+            "ReviewOnly": false
+        }
+    ],
+    "PacingFirstFingerprint": "88ecfb252f34a4df3102c0ea93b8757c",
+    "PacingRepeatFingerprint": "88ecfb252f34a4df3102c0ea93b8757c"
+}

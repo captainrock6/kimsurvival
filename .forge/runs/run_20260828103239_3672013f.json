@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "run_20260828103239_3672013f",
   "createdAt": "2026-08-28T10:32:39.295Z",
-  "updatedAt": "2026-08-28T15:59:37.221Z",
+  "updatedAt": "2026-08-28T17:04:02.161Z",
   "sourceRequest": "폭풍 표류 조난 원인과 기존 김씨 잉크선 중심의 단순화된 배경·UI 스타일을 사용자 확정으로 잠그고 O9 콘텐츠 제작을 시작한다.",
   "state": "in_progress",
   "stages": {
@@ -17,32 +17,31 @@
     },
     "art": {
       "status": "in_progress",
-      "note": "Adopted V2 UI grammar and the Kim atlas are connected. Seven new region backgrounds are visible only in a provisional review build and remain user-unadopted; ladder/swim poses remain emergency quality.",
+      "note": "O11 production blocker complete: user-adopted seven regions and six search nodes are packaged/formally connected; ladder and swim now use polished four-frame runtime strips. Broader game-jam ending/audio art remains outside this candidate.",
       "evidence": [
-        "Assets/_Project/Art/Generated/ui_set/job_20260828122852_c9ccf2aa/forge-import.json",
-        "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json",
-        "commit 2c88100b1cb103ba7d603177dfbbad286729cdf6"
+        "Docs/QA/o11-formal-candidate-report.md",
+        "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-runtime-visual-validation.json"
       ],
-      "updatedAt": "2026-08-28T15:59:37.221Z"
+      "updatedAt": "2026-08-28T17:03:59.173Z"
     },
     "implementation": {
       "status": "in_progress",
-      "note": "O11 system and balance corrections plus adopted V2 UI, Kim atlas and provisional seven-region runtime binding are integrated. The broader content-beta task remains in review because P1-005 production/adoption is open.",
+      "note": "O11 exact source 1344f6c2 passes all seven product checks and produced a non-development Windows x64 candidate. Broader content-beta remains in review pending human 30-minute play.",
       "evidence": [
-        "Artifacts/ParallelQA/o11-survival-balance-gate.log",
-        "commits f3701d4a, 097a02a8, b3779b37, 2c88100b",
-        "Docs/Design/o11-corrective-production-gate.md"
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-summary.json",
+        "Docs/QA/o11-formal-candidate-report.md"
       ],
-      "updatedAt": "2026-08-28T15:59:37.221Z"
+      "updatedAt": "2026-08-28T17:04:00.673Z"
     },
     "verification": {
       "status": "in_progress",
-      "note": "Historical O11 RED is a pre-fix baseline. O11-H1 is UNRUN and remains paused until seven-region art adoption, ladder/swim quality, and a fresh integrated automated gate are satisfied.",
+      "note": "O11 automated product gate 7/7, compile infrastructure, non-development build, original smoke and extracted-ZIP smoke pass. Human natural 30-minute and physical gamepad verification remain.",
       "evidence": [
-        "Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/O11-summary.json",
-        "Docs/Design/o11-corrective-production-gate.md"
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-product-report.json",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/windows-smoke-result.txt",
+        "Builds/KimsSurvivalIsland-O11FormalCandidate-1344f6c2.zip"
       ],
-      "updatedAt": "2026-08-28T15:59:37.221Z"
+      "updatedAt": "2026-08-28T17:04:02.161Z"
     }
   }
 }

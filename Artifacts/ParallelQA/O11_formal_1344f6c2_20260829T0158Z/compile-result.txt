@@ -1,0 +1,15 @@
+Unity script compilation
+Run ID: O11_formal_1344f6c2_20260829T0158Z
+Started UTC: 2026-08-28T16:58:15.3854692Z
+Completed UTC: 2026-08-28T16:58:15.5810049Z
+Unity: 6000.4.9f1
+Baseline commit: 1344f6c2ed84fa9bedebdc9d384c0b915aae6af8
+Project: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\O11FormalCandidate_1344f6c2
+Command: "C:\Program Files\Unity\Hub\Editor\6000.4.9f1\Editor\Unity.exe" -batchmode -nographics -quit -projectPath "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\O11FormalCandidate_1344f6c2" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile "C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\O11FormalCandidate_1344f6c2\work\ParallelQA\O11_formal_1344f6c2_20260829T0158Z\unity-compile.log"
+Result: PASS
+Compiler errors: 0
+Compiler warnings: 1
+Raw logs: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\work\O11FormalCandidate_1344f6c2\work\ParallelQA\O11_formal_1344f6c2_20260829T0158Z\unity-compile.log
+Warning inventory:
+Assets\_Project\Scripts\Runtime\KimSurvivalPrototype.O7BagSurvivalGuidance.cs(23,22): warning CS0414: The field 'KimSurvivalPrototype.o7InitialGuideDismissed' is assigned but its value is never used
+Scope: Unity reached the independent QA execute method after script compilation; diagnostics were counted from the command's raw Unity log.

@@ -1,0 +1,10 @@
+O11 Windows candidate smoke
+Source commit: 1344f6c2ed84fa9bedebdc9d384c0b915aae6af8
+Original executable started: True
+Original alive after 8 seconds: True
+Original early exit: None
+ZIP extracted executable started: True
+ZIP extracted executable alive after 8 seconds: True
+ZIP extracted early exit: None
+Executable SHA256: A197542AD0D026C5C3BC7AEAD606B6B0184ADAD7B4EE3635326C575B25A5B423
+ZIP SHA256: B7C400EFBD06CE527B0352F6BE43AC8F082EDE2E6B20A7BC6E2CB87B94229622

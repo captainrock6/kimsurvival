@@ -4154,13 +4154,16 @@
         "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt",
         "Artifacts/ParallelQA/o11-survival-balance-gate.log",
         "commits f3701d4a, 097a02a8, b3779b37, 2c88100b",
-        "O10-H1-P0-001 through P1-004 implementation complete; human retest pending"
+        "O10-H1-P0-001 through P1-004 implementation complete; human retest pending",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-summary.json",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/windows-release-build.txt",
+        "Docs/QA/o11-formal-candidate-report.md"
       ],
       "blockedReason": "",
       "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T15:59:37.221Z",
-      "note": "O11 system, balance, adopted V2 UI binding, Kim atlas and seven-region provisional runtime connection are integrated. This task is in review rather than done because P1-005 production/adoption and the current natural human retest remain open.",
+      "updatedAt": "2026-08-28T17:03:42.118Z",
+      "note": "O11 자동 제품 게이트 7/7과 비개발 Windows 후보 빌드·원본/ZIP 스모크가 통과했다. 30분 사람 자연 플레이 재검증 전까지 review.",
       "completedAt": null
     },
     {
@@ -4192,13 +4195,16 @@
         "Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt",
         "Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/O11-summary.json",
         "Artifacts/ParallelQA/o11-survival-balance-gate.log",
-        "Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception"
+        "Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-product-report.json",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/windows-smoke-result.txt",
+        "Builds/KimsSurvivalIsland-O11FormalCandidate-1344f6c2.zip"
       ],
-      "blockedReason": "O11 corrections are integrated, but P1-005 is not closed: seven new search backgrounds are provisional review assets with no user adoption, and ladder/swim poses remain emergency quality. Re-run the integrated automated gate and create a new O11-H1 candidate only after that production/adoption gate is satisfied.",
-      "status": "blocked",
+      "blockedReason": "",
+      "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T15:59:37.221Z",
-      "note": "The old aa2bb218 candidate remains rejected. No O11-H1 human result is claimed; the historical O11 RED artifact is a pre-fix baseline, not current PASS evidence.",
+      "updatedAt": "2026-08-28T17:03:43.769Z",
+      "note": "기존 adoption/motion blocker는 O11 7/7 PASS와 정식 후보 빌드로 해소됐다. 정확한 후보에 대한 30분 자연 플레이와 물리 입력 검증은 사용자 수행 대기.",
       "completedAt": null
     },
     {
@@ -5036,5 +5042,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-28T15:59:37.221Z"
+  "updatedAt": "2026-08-28T17:03:43.770Z"
 }

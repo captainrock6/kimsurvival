@@ -1,0 +1,13 @@
+O11=GREEN
+PRODUCT=PASS
+INFRASTRUCTURE=PASS
+BASELINE=1344f6c2ed84fa9bedebdc9d384c0b915aae6af8
+OBSERVATION=KimSurvival.KimSurvivalPrototype.CaptureO11LiveIntegrationObservation
+PASS/EXPECTED_GAP/FAIL=7/0/0
+O11-P0-001=PASS · observation=True; placementRows=12; rejectionRows=9; matrix=True; rejectionMatrix=True; cheatFree=True
+O11-P0-002=PASS · cases=3; impossible=True; duplicate=True; possibleAtomic=True; cheatFree=True
+O11-P1-001=PASS · rows=2; upper+basement=True; cheatFree=True
+O11-P1-002=PASS · styleRuntime=True; layouts=4; ko/en@2=True
+O11-P1-003=PASS · rows=3; three=True; deterministic=True; cheatFree=True
+O11-P1-004=PASS · rows=9; seeds=3; feasible+band=True; cheatFree=True
+O11-P1-005=PASS · rows=13; regions7=True; kim5=True; independentAdoption=True; region=engine_ready/job_20260826165624_448aecdc; nodes=engine_ready/job_20260826165625_8961b353; manifest=engine_ready/adopted; allowlist=7; package/runtime/formal=True/True/True; provisionalReview=False

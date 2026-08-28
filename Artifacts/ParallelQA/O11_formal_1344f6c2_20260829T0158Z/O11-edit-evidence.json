@@ -1,0 +1,53 @@
+{
+    "runId": "O11_formal_1344f6c2_20260829T0158Z",
+    "baselineCommit": "1344f6c2ed84fa9bedebdc9d384c0b915aae6af8",
+    "unityVersion": "6000.4.9f1",
+    "scene": "Assets/_Project/Scenes/KimSurvivalPrototype.unity",
+    "o10HumanResultPath": "Docs/Design/Playtest/Sessions/O10-H1-2026-08-28.md",
+    "v2AssetId": "ui.gamejam.style-benchmark",
+    "v2JobId": "job_20260828122852_c9ccf2aa",
+    "v2RegistryEngineReady": true,
+    "v2RegistryAdopted": true,
+    "v2PackagePresent": true,
+    "v2ImageGuid": "6ea907ec446c7dd4eb6a039227d04b84",
+    "sceneV2DependencyCount": 0,
+    "projectAnimationClipCount": 0,
+    "projectAnimationClipPaths": [],
+    "productionArt": {
+        "regionAssetId": "background.expedition-seven-region-set",
+        "regionStatus": "engine_ready",
+        "regionJobId": "job_20260826165624_448aecdc",
+        "nodeAssetId": "object.searchable-resource-node-production-set",
+        "nodeStatus": "engine_ready",
+        "nodeJobId": "job_20260826165625_8961b353",
+        "manifestPath": "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json",
+        "manifestReviewState": "engine_ready",
+        "manifestDecision": "adopted",
+        "manifestRuntimeAllowlistCount": 7,
+        "manifestPackageAllowed": true,
+        "manifestRuntimeConnectAllowed": true,
+        "manifestProvisionalReviewBuildConnection": false,
+        "manifestFormalRuntimeConnected": true,
+        "independentlyApproved": true,
+        "blocker": "region=engine_ready/job_20260826165624_448aecdc; nodes=engine_ready/job_20260826165625_8961b353; manifest=engine_ready/adopted; allowlist=7; package/runtime/formal=True/True/True; provisionalReview=False"
+    },
+    "requiredFacilities": [
+        "structure.workbench",
+        "structure.rain_collector",
+        "structure.bed",
+        "structure.sofa"
+    ],
+    "requiredRooms": [
+        "room.start",
+        "room.upper.standard",
+        "room.basement.standard"
+    ],
+    "requiredCharacterStates": [
+        "kim.idle",
+        "kim.walk",
+        "kim.search",
+        "kim.ladder",
+        "kim.swim"
+    ],
+    "note": "Static evidence is diagnostic only; GREEN requires the live structured Play observation."
+}

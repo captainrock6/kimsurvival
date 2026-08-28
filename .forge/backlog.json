@@ -3774,11 +3774,13 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset background.expedition-seven-region-set adopted via job_20260826165624_448aecdc"
+      ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-28T17:02:24.170Z",
+      "completedAt": "2026-08-28T17:02:24.170Z",
       "createdAt": "2026-08-27T16:01:35.594Z"
     },
     {
@@ -3800,11 +3802,13 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset object.searchable-resource-node-production-set adopted via job_20260826165625_8961b353"
+      ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
-      "completedAt": null,
+      "status": "done",
+      "updatedAt": "2026-08-28T17:02:24.170Z",
+      "completedAt": "2026-08-28T17:02:24.170Z",
       "createdAt": "2026-08-27T16:01:35.594Z"
     },
     {
@@ -4773,11 +4777,17 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-ladder-strip-v2.png",
+        "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-runtime-visual-validation.json",
+        "Docs/QA/o11-formal-candidate-report.md"
+      ],
       "blockedReason": "",
       "status": "ready",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
-      "createdAt": "2026-08-27T16:02:07.229Z"
+      "updatedAt": "2026-08-28T17:03:37.381Z",
+      "createdAt": "2026-08-27T16:02:07.229Z",
+      "note": "O11 정식 후보에서 절벽이 포함된 emergency pose를 제거하고 투명 4프레임 교차 등반 스트립을 런타임 연결했다. 시각 계약과 O11 P1-005 PASS.",
+      "completedAt": null
     },
     {
       "id": "task.art.icon.gamejam-item-resource-part-set",
@@ -5404,14 +5414,18 @@
       "evidence": [
         "Docs/QA/o9-o10-continuous-production-gate-20260828.md",
         "commit 2c88100b1cb103ba7d603177dfbbad286729cdf6",
-        "O10-H1-P1-002 runtime connection complete; O10-H1-P1-005 adoption blocked"
+        "O10-H1-P1-002 runtime connection complete; O10-H1-P1-005 adoption blocked",
+        ".forge/feedback.json",
+        "Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json",
+        "Assets/_Project/Art/Runtime/Resources/O11/SearchNodes/o11-search-node-runtime-manifest.json",
+        "Docs/QA/o11-formal-candidate-report.md"
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-28T15:59:37.221Z",
+      "updatedAt": "2026-08-28T17:03:40.483Z",
       "completedAt": null,
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "note": "Adopted V2 UI grammar, the Kim atlas, and seven region backgrounds are technically connected at 2c88100b. The new region backgrounds remain review/provisional with selectedCandidate=null, and ladder/swim poses remain emergency quality; therefore P1-005 production/adoption is blocked."
+      "note": "O11 차단 항목이었던 7지역·6노드가 사용자 ADOPT 후 패키징·정식 런타임 연결되었고 사다리/수영도 production 4프레임으로 교체됐다. 전체 30분 콘텐츠 아트는 사람 자연 플레이 시각 리뷰가 남아 review 유지."
     },
     {
       "id": "task.o10.implementation.content-beta",
@@ -5456,13 +5470,16 @@
         "Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt",
         "Artifacts/ParallelQA/o11-survival-balance-gate.log",
         "commits f3701d4a, 097a02a8, b3779b37, 2c88100b",
-        "O10-H1-P0-001 through P1-004 implementation complete; human retest pending"
+        "O10-H1-P0-001 through P1-004 implementation complete; human retest pending",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-summary.json",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/windows-release-build.txt",
+        "Docs/QA/o11-formal-candidate-report.md"
       ],
       "blockedReason": "",
       "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T15:59:37.221Z",
-      "note": "O11 system, balance, adopted V2 UI binding, Kim atlas and seven-region provisional runtime connection are integrated. This task is in review rather than done because P1-005 production/adoption and the current natural human retest remain open.",
+      "updatedAt": "2026-08-28T17:03:42.118Z",
+      "note": "O11 자동 제품 게이트 7/7과 비개발 Windows 후보 빌드·원본/ZIP 스모크가 통과했다. 30분 사람 자연 플레이 재검증 전까지 review.",
       "completedAt": null
     },
     {
@@ -5494,13 +5511,16 @@
         "Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt",
         "Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/O11-summary.json",
         "Artifacts/ParallelQA/o11-survival-balance-gate.log",
-        "Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception"
+        "Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-product-report.json",
+        "Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/windows-smoke-result.txt",
+        "Builds/KimsSurvivalIsland-O11FormalCandidate-1344f6c2.zip"
       ],
-      "blockedReason": "O11 corrections are integrated, but P1-005 is not closed: seven new search backgrounds are provisional review assets with no user adoption, and ladder/swim poses remain emergency quality. Re-run the integrated automated gate and create a new O11-H1 candidate only after that production/adoption gate is satisfied.",
-      "status": "blocked",
+      "blockedReason": "",
+      "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T15:59:37.221Z",
-      "note": "The old aa2bb218 candidate remains rejected. No O11-H1 human result is claimed; the historical O11 RED artifact is a pre-fix baseline, not current PASS evidence.",
+      "updatedAt": "2026-08-28T17:03:43.769Z",
+      "note": "기존 adoption/motion blocker는 O11 7/7 PASS와 정식 후보 빌드로 해소됐다. 정확한 후보에 대한 30분 자연 플레이와 물리 입력 검증은 사용자 수행 대기.",
       "completedAt": null
     },
     {
@@ -5752,12 +5772,15 @@
       "evidence": [
         "Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json",
         "Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/quality-report.json",
-        "Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/mr-kim-swim-visual-qa.json"
+        "Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/mr-kim-swim-visual-qa.json",
+        "Assets/_Project/Art/Runtime/Resources/O11/mr-kim-swim-strip-v2.png",
+        "Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-runtime-visual-validation.json",
+        "Docs/QA/o11-formal-candidate-report.md"
       ],
       "blockedReason": "",
       "status": "review",
-      "updatedAt": "2026-08-27T16:02:07.229Z",
-      "note": "기존 job_20260822091448_251bc2a1의 missing-alpha 실패 기록은 보존한다. Wave 19 child job_20260824152541_e93cada7의 안정 후보 animation.mr-kim.swim.surface-cycle-a는 true alpha 6포즈, Forge 100점/경고 0으로 review 중이다. surface 3포즈의 실제 루프 타이밍과 수면선 정렬은 사용자 선택 후 Unity에서 확인해야 하며 adopt/package/runtime 연결은 금지한다.",
+      "updatedAt": "2026-08-28T17:03:38.936Z",
+      "note": "O11 정식 후보에서 점프 자세 재사용을 제거하고 투명 4프레임 수평 영법 스트립을 런타임 연결했다. 시각 계약과 O11 P1-005 PASS.",
       "completedAt": null,
       "createdAt": "2026-08-22T09:25:35.033Z"
     },
@@ -6461,11 +6484,13 @@
         "Forge 품질 게이트와 육안 검토를 통과하고 사용자가 채택 여부를 판단할 수 있다."
       ],
       "paths": [],
-      "evidence": [],
+      "evidence": [
+        "Forge asset object.searchable-resource-node-kit adopted via job_20260825150605_49020784"
+      ],
       "blockedReason": "",
-      "status": "review",
-      "updatedAt": "2026-08-25T17:02:44.025Z",
-      "completedAt": null
+      "status": "done",
+      "updatedAt": "2026-08-28T17:02:24.170Z",
+      "completedAt": "2026-08-28T17:02:24.170Z"
     },
     {
       "id": "task.art.ui.search-loot-tray",
@@ -6981,5 +7006,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-28T15:59:37.221Z"
+  "updatedAt": "2026-08-28T17:03:43.770Z"
 }

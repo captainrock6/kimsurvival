@@ -11,9 +11,9 @@
 | 단계 | 상태 | 메모 |
 |---|---|---|
 | design | complete | O11 P0 2/P1 5 completion conditions and evidence boundaries are reconciled at integration HEAD 2c88100b. |
-| art | in_progress | Adopted V2 UI grammar and the Kim atlas are connected. Seven new region backgrounds are visible only in a provisional review build and remain user-unadopted; ladder/swim poses remain emergency quality. |
-| implementation | in_progress | O11 system and balance corrections plus adopted V2 UI, Kim atlas and provisional seven-region runtime binding are integrated. The broader content-beta task remains in review because P1-005 production/adoption is open. |
-| verification | in_progress | Historical O11 RED is a pre-fix baseline. O11-H1 is UNRUN and remains paused until seven-region art adoption, ladder/swim quality, and a fresh integrated automated gate are satisfied. |
+| art | in_progress | O11 production blocker complete: user-adopted seven regions and six search nodes are packaged/formally connected; ladder and swim now use polished four-frame runtime strips. Broader game-jam ending/audio art remains outside this candidate. |
+| implementation | in_progress | O11 exact source 1344f6c2 passes all seven product checks and produced a non-development Windows x64 candidate. Broader content-beta remains in review pending human 30-minute play. |
+| verification | in_progress | O11 automated product gate 7/7, compile infrastructure, non-development build, original smoke and extracted-ZIP smoke pass. Human natural 30-minute and physical gamepad verification remain. |
 
 ## 다음 작업
 
@@ -122,8 +122,8 @@
 | task.gamejam.o4-ladder-camera | implementation | critical | ready | 사다리 직접 등반과 수직 카메라 |
 | task.gamejam.o4-integration-release | qa | critical | planned | O4 통합·Windows 후보 동결 |
 | task.art.ui.gamejam.interface-kit | art | critical | review | 게임잼 통합 UI 컴포넌트 세트 제작 |
-| task.art.background.expedition-seven-region-set | art | critical | review | 일곱 수색 지역 production 배경 세트 제작 |
-| task.art.object.searchable-resource-node-production-set | art | critical | review | 환경 수색 오브젝트 production 세트 제작 |
+| task.art.background.expedition-seven-region-set | art | critical | done | 일곱 수색 지역 production 배경 세트 제작 |
+| task.art.object.searchable-resource-node-production-set | art | critical | done | 환경 수색 오브젝트 production 세트 제작 |
 | task.art.ui.interactable-marker-set | art | critical | review | 공통 상호작용 표식 production 세트 제작 |
 | task.gamejam.o5-triple-resource-budget-p0 | implementation | critical | done | O4-H1 실측 기반 일반 수색 자원 3배 |
 | task.gamejam.o5-region-remaining-map-p1 | implementation | critical | done | 수집 지도 지역별 자원 잔량 퍼센트 |
@@ -174,7 +174,7 @@
 | task.o9.qa.first-loop-presentation | qa | critical | review | O9 5~10분 first-loop 콘텐츠·프레젠테이션 검증 |
 | task.o10.art.content-beta-production | art | critical | review | O10 일곱 지역·다층 캠프·세 탈출·필수 엔딩 production |
 | task.o10.implementation.content-beta | implementation | critical | review | O10 30분 콘텐츠 베타 통합 |
-| task.o10.qa.thirty-minute-content-beta | qa | critical | blocked | O10 30분 자연 플레이 재개 게이트 |
+| task.o10.qa.thirty-minute-content-beta | qa | critical | review | O10 30분 자연 플레이 재개 게이트 |
 | task.art.background.island-camp | art | high | done | 무인도 베이스캠프 배경 제작 |
 | task.art.background.coast-forest | art | high | review | 해변·숲 수색 구역 제작 |
 | task.system.system.comedy-feedback | implementation | high | done | 상황형 코믹 피드백 구현 |
@@ -202,7 +202,7 @@
 | task.qa.wave15-hazard-ending-redfirst | qa | high | done | Wave 15 위험·탈출·엔딩 red-first 게이트 |
 | task.design.wave19-resource-playtest-contract | design | high | done | Wave 19 리소스 통합 첫 사용자 플레이테스트 계약 |
 | task.gamejam.long-stay-two-endings | implementation | high | done | 게임잼 장기 체류 엔딩 2종 |
-| task.art.object.searchable-resource-node-kit | art | high | review | 7지역 환경 수색 오브젝트 키트 제작 |
+| task.art.object.searchable-resource-node-kit | art | high | done | 7지역 환경 수색 오브젝트 키트 제작 |
 | task.art.ui.search-loot-tray | art | high | review | 발견물 선별 트레이 UI 제작 |
 | task.art.object.camp-ladder | art | high | review | 표류물 사다리와 지하 해치 세트 제작 |
 | task.gamejam.o4-ladder-art-review | art | high | review | 사다리·지하 해치 오리지널 아트 후보 |
@@ -233,12 +233,9 @@
 - ui.camp-module-expansion: review · 방 모듈 증축 상태 UI
 - icon.expedition-resource-risk-set: review · 수집 자원·위험·날씨 아이콘 세트
 - environment.expedition-region-kit: review · 7지역 지속 수색 환경 키트
-- object.searchable-resource-node-kit: review · 7지역 환경 수색 오브젝트 키트
 - ui.search-loot-tray: review · 발견물 선별 트레이 UI
 - object.camp-ladder: review · 표류물 사다리와 지하 해치 세트
 - ui.gamejam.interface-kit: review · 게임잼 통합 UI 컴포넌트 세트
-- background.expedition-seven-region-set: review · 일곱 수색 지역 production 배경 세트
-- object.searchable-resource-node-production-set: review · 환경 수색 오브젝트 production 세트
 - ui.interactable-marker-set: review · 공통 상호작용 표식 production 세트
 - object.escape-project-build-set: review · 세 탈출 프로젝트 production 설비 세트
 - ui.gamejam-title-opening: needed · 타이틀·도입·크레딧 UI 세트
@@ -537,6 +534,8 @@
 - task.gamejam.o2-anchor-shelter-integration-retest: Artifacts/ParallelQA/manual-wave9/wave9-play-contracts.txt
 - task.gamejam.o2-anchor-shelter-integration-retest: Artifacts/Verification/windows-build.txt
 - task.gamejam.o2-anchor-shelter-integration-retest: Builds/Windows/KimSurvivalIsland.exe
+- task.art.background.expedition-seven-region-set: Forge asset background.expedition-seven-region-set adopted via job_20260826165624_448aecdc
+- task.art.object.searchable-resource-node-production-set: Forge asset object.searchable-resource-node-production-set adopted via job_20260826165625_8961b353
 - task.gamejam.o5-triple-resource-budget-p0: Artifacts/ParallelQA/20260827T023500Z_o5_seed_regression_r4/o4-stable-resource-escape-seed-report.json
 - task.gamejam.o5-region-remaining-map-p1: Artifacts/ParallelQA/20260827T024000Z_o5_human_correction_r2/o5-human-resource-art-correction-report.json
 - task.gamejam.o5-region-remaining-map-p1: Artifacts/ParallelQA/20260827T030500Z_o5_runtime_visual_r4/o5-human-correction-play.txt
@@ -579,6 +578,9 @@
 - task.gamejam.o8-integration-release: work/ParallelQA/20260827T153700Z_o8_h1_owner/o8-h1-player.log
 - task.art.character.mr-kim: Forge asset character.mr-kim adopted via job_20260822085926_374033c5
 - task.art.object.camp-structures: Forge asset object.camp-structures adopted and packaged via job_20260822130400_6d786a69
+- task.art.animation.mr-kim.ladder: Assets/_Project/Art/Runtime/Resources/O11/mr-kim-ladder-strip-v2.png
+- task.art.animation.mr-kim.ladder: Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-runtime-visual-validation.json
+- task.art.animation.mr-kim.ladder: Docs/QA/o11-formal-candidate-report.md
 - task.feature.feature.gamejam-presentation-shell: commit 2c88100b1cb103ba7d603177dfbbad286729cdf6
 - task.feature.feature.gamejam-presentation-shell: adopted V2 grammar job_20260828122852_c9ccf2aa
 - task.feature.feature.gamejam-character-animation: commit 2c88100b1cb103ba7d603177dfbbad286729cdf6
@@ -594,15 +596,25 @@
 - task.o10.art.content-beta-production: Docs/QA/o9-o10-continuous-production-gate-20260828.md
 - task.o10.art.content-beta-production: commit 2c88100b1cb103ba7d603177dfbbad286729cdf6
 - task.o10.art.content-beta-production: O10-H1-P1-002 runtime connection complete; O10-H1-P1-005 adoption blocked
+- task.o10.art.content-beta-production: .forge/feedback.json
+- task.o10.art.content-beta-production: Assets/_Project/Art/Runtime/Resources/O11/Regions/o11-region-runtime-manifest.json
+- task.o10.art.content-beta-production: Assets/_Project/Art/Runtime/Resources/O11/SearchNodes/o11-search-node-runtime-manifest.json
+- task.o10.art.content-beta-production: Docs/QA/o11-formal-candidate-report.md
 - task.o10.implementation.content-beta: Artifacts/ParallelQA/20260828T120000Z_o9_o10/source-compile-result.txt
 - task.o10.implementation.content-beta: Artifacts/ParallelQA/o11-survival-balance-gate.log
 - task.o10.implementation.content-beta: commits f3701d4a, 097a02a8, b3779b37, 2c88100b
 - task.o10.implementation.content-beta: O10-H1-P0-001 through P1-004 implementation complete; human retest pending
+- task.o10.implementation.content-beta: Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-summary.json
+- task.o10.implementation.content-beta: Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/windows-release-build.txt
+- task.o10.implementation.content-beta: Docs/QA/o11-formal-candidate-report.md
 - task.o10.qa.thirty-minute-content-beta: Docs/QA/o9-o10-continuous-production-gate-20260828.md
 - task.o10.qa.thirty-minute-content-beta: Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt
 - task.o10.qa.thirty-minute-content-beta: Artifacts/ParallelQA/O11_20260829T003000Z_aa67a12_ps51_red/O11-summary.json
 - task.o10.qa.thirty-minute-content-beta: Artifacts/ParallelQA/o11-survival-balance-gate.log
 - task.o10.qa.thirty-minute-content-beta: Owner feedback 2026-08-28 23:41 KST; player log clean of crash/managed exception
+- task.o10.qa.thirty-minute-content-beta: Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/O11-product-report.json
+- task.o10.qa.thirty-minute-content-beta: Artifacts/ParallelQA/O11_formal_1344f6c2_20260829T0158Z/windows-smoke-result.txt
+- task.o10.qa.thirty-minute-content-beta: Builds/KimsSurvivalIsland-O11FormalCandidate-1344f6c2.zip
 - task.art.background.island-camp: Forge asset background.island-camp adopted and packaged via job_20260822130341_c082e4b6
 - task.system.system.comedy-feedback: Artifacts/Verification/editmode-checks.txt
 - task.system.system.comedy-feedback: Artifacts/Verification/playmode-checks.txt
@@ -627,6 +639,9 @@
 - task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260822091448_251bc2a1/quality-report.json
 - task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/quality-report.json
 - task.art.animation.mr-kim.swim: Assets/_Project/Art/Generated/sprite_animation/job_20260824152541_e93cada7/mr-kim-swim-visual-qa.json
+- task.art.animation.mr-kim.swim: Assets/_Project/Art/Runtime/Resources/O11/mr-kim-swim-strip-v2.png
+- task.art.animation.mr-kim.swim: Artifacts/ParallelQA/20260829T011500Z_o11_adopted_traversal_visuals/o11-runtime-visual-validation.json
+- task.art.animation.mr-kim.swim: Docs/QA/o11-formal-candidate-report.md
 - task.art.environment.expedition-region-kit: Assets/_Project/Art/Generated/separated_parts/job_20260824152619_30c0f7dd/quality-report.json
 - task.art.environment.expedition-region-kit: Assets/_Project/Art/Generated/separated_parts/job_20260824152619_30c0f7dd/expedition-region-kit-visual-qa.json
 - task.system.system.swimming: Artifacts/Verification/editmode-checks.txt
@@ -682,6 +697,7 @@
 - task.gamejam.long-stay-two-endings: Docs/Design/kim-survival-island-gdd.md#17-게임잼-범위
 - task.gamejam.long-stay-two-endings: Docs/Design/gamejam-completion-matrix.md#2-제출-완료-매트릭스
 - task.gamejam.long-stay-two-endings: Artifacts/ParallelQA/20260826T174500Z_gamejam_long_stay_integrated/gamejam-long-stay-summary.json
+- task.art.object.searchable-resource-node-kit: Forge asset object.searchable-resource-node-kit adopted via job_20260825150605_49020784
 - task.o9.art.ending-preview-audio: Docs/QA/o9-o10-continuous-production-gate-20260828.md
 - task.art.icon.resource-tool-set: Forge asset icon.resource-tool-set adopted via job_20260822141317_caf8e11d
 - task.art.effect.comedy-feedback: Forge asset effect.comedy-feedback adopted via job_20260822224357_275de712
@@ -695,7 +711,6 @@
 ## 차단 요소
 
 - task.gamejam.qa-thirty-minute-seven-region-slice: O1 human session failed GJC-17 and opened H-001 through H-005. Correct and freeze a new candidate before timing/cohort retest.
-- task.o10.qa.thirty-minute-content-beta: O11 corrections are integrated, but P1-005 is not closed: seven new search backgrounds are provisional review assets with no user adoption, and ladder/swim poses remain emergency quality. Re-run the integrated automated gate and create a new O11-H1 candidate only after that production/adoption gate is satisfied.
 - task.qa.feature.dual-input: GJC-20 requires a physical XInput or Steam Input compatible gamepad playthrough on the exact final Release candidate.
 - task.qa.feature.inventory-capacity-upgrade: O1 found the upgrade mandatory and material identity unreadable. Fix H-002 and rebalance/retest GJC-12 on a new candidate.
 
