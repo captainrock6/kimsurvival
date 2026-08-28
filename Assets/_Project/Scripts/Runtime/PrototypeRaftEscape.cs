@@ -12,11 +12,13 @@ namespace KimSurvival
         public const string EscapeId = "escape.raft";
         public const string KeyPartId = "part.raft.sailcloth";
         public const int StageCount = 3;
-        public const int HullWoodCost = 2;
-        public const int HullSalvageCost = 1;
-        public const int SailWoodCost = 1;
+        public const int HullWoodCost = 3;
+        public const int HullSalvageCost = 2;
+        public const int SailWoodCost = 2;
         public const int SailSalvageCost = 1;
-        public const int SuppliesFoodCost = 2;
+        public const int SuppliesFoodCost = 3;
+        public const bool RequiresStoneAxePreparation = true;
+        public const int MaximumNaturalPreparationDays = 12;
         // Supplies are committed in stage three. Checking or retrying a launch
         // window must never charge food again, especially on a closed day.
         public const int LaunchAttemptFoodCost = 0;
@@ -47,6 +49,29 @@ namespace KimSurvival
         public string CurrentId = string.Empty;
         public bool Allowed;
         public string ResultCode = string.Empty;
+    }
+
+    public readonly struct PrototypeRaftLaunchAvailability
+    {
+        public PrototypeRaftLaunchAvailability(
+            PrototypeRaftLaunchWindow window,
+            bool projectReady,
+            bool canLaunch,
+            bool lockedForDay,
+            string resultCode)
+        {
+            Window = window;
+            ProjectReady = projectReady;
+            CanLaunch = canLaunch;
+            LockedForDay = lockedForDay;
+            ResultCode = resultCode ?? string.Empty;
+        }
+
+        public PrototypeRaftLaunchWindow Window { get; }
+        public bool ProjectReady { get; }
+        public bool CanLaunch { get; }
+        public bool LockedForDay { get; }
+        public string ResultCode { get; }
     }
 
     public static class PrototypeRaftLaunchWindowResolver
@@ -142,30 +167,30 @@ namespace KimSurvival
             {
                 return TryCommitRaftStage(session, state.Progress, eventKeyPrefix + ".stage." + state.Progress);
             }
+            return TryConfirmRaftLaunch(
+                session,
+                seed,
+                day,
+                eventKeyPrefix + ".launch.day." + day);
+        }
 
-            if (state.LaunchState == PrototypeRaftLaunchStates.Failed)
-            {
-                state.LaunchState = PrototypeRaftLaunchStates.Ready;
-                state.LastResultCode = "escape.raft.launch.retry_ready";
-                return true;
-            }
-
-            if (state.LaunchState == PrototypeRaftLaunchStates.Ready)
-            {
-                state.LaunchState = PrototypeRaftLaunchStates.Confirm;
-                state.LastResultCode = "escape.raft.launch.confirm";
-                return true;
-            }
-
-            if (state.LaunchState == PrototypeRaftLaunchStates.Confirm)
-            {
-                return TryConfirmRaftLaunch(
-                    session,
-                    seed,
-                    day,
-                    eventKeyPrefix + ".launch." + state.LaunchAttemptCount + ".day." + day);
-            }
-            return false;
+        public PrototypeRaftLaunchAvailability ResolveRaftLaunchAvailability(
+            GameSession session,
+            int seed,
+            int day)
+        {
+            PrototypeEscapeProjectState state = GetState(PrototypeRaftEscapeConfig.EscapeId);
+            PrototypeRaftLaunchWindow window = PrototypeRaftLaunchWindowResolver.Resolve(seed, day);
+            bool ready = session != null && session.Phase == GamePhase.Camp && session.Result == RunResult.None &&
+                         session.Day == day && state.Progress == PrototypeRaftEscapeConfig.StageCount &&
+                         state.KeyPartProtected && state.FacilityBuilt;
+            bool closed = ready && !window.Allowed;
+            return new PrototypeRaftLaunchAvailability(
+                window,
+                ready,
+                ready && window.Allowed,
+                closed,
+                !ready ? "escape.raft.requirement.not_ready" : window.ResultCode);
         }
 
         public bool TryCommitRaftStage(GameSession session, int stageIndex, string eventKey)
@@ -183,6 +208,11 @@ namespace KimSurvival
             int salvage = stageIndex == 0 ? PrototypeRaftEscapeConfig.HullSalvageCost :
                 stageIndex == 1 ? PrototypeRaftEscapeConfig.SailSalvageCost : 0;
             int food = stageIndex == 2 ? PrototypeRaftEscapeConfig.SuppliesFoodCost : 0;
+            if (stageIndex == 0 && PrototypeRaftEscapeConfig.RequiresStoneAxePreparation && !session.HasAxe)
+            {
+                state.LastResultCode = "escape.raft.requirement.research";
+                return false;
+            }
             if (stageIndex == 1 && !session.HasRope)
             {
                 state.LastResultCode = "escape.raft.requirement.rope";
@@ -215,10 +245,21 @@ namespace KimSurvival
         {
             PrototypeEscapeProjectState state = GetState(PrototypeRaftEscapeConfig.EscapeId);
             if (!string.IsNullOrEmpty(eventKey) && committedEventKeys.Contains(eventKey)) return true;
-            if (session == null || session.Phase != GamePhase.Camp || session.Result != RunResult.None ||
-                state.Progress != PrototypeRaftEscapeConfig.StageCount || !state.KeyPartProtected ||
-                state.LaunchState != PrototypeRaftLaunchStates.Confirm || day != session.Day)
+            PrototypeRaftLaunchAvailability availability = ResolveRaftLaunchAvailability(session, seed, day);
+            if (!availability.ProjectReady)
             {
+                return false;
+            }
+
+            state.LastLaunchDay = day;
+            state.LastWeatherId = availability.Window.WeatherId;
+            state.LastCurrentId = availability.Window.CurrentId;
+            if (!availability.CanLaunch)
+            {
+                // Closed-window observation is a day lock, not a paid attempt.
+                // Repeated submits resolve to this exact state with zero mutation.
+                state.LaunchState = PrototypeRaftLaunchStates.Failed;
+                state.LastResultCode = "escape.raft.launch.failed_window";
                 return false;
             }
             if (!session.TrySpendResources(0, 0, PrototypeRaftEscapeConfig.LaunchAttemptFoodCost, 0))
@@ -227,24 +268,14 @@ namespace KimSurvival
                 return false;
             }
 
-            committedEventKeys.Add(eventKey);
-            PrototypeRaftLaunchWindow window = PrototypeRaftLaunchWindowResolver.Resolve(seed, day);
-            state.LaunchAttemptCount += 1;
-            state.LastLaunchDay = day;
-            state.LastWeatherId = window.WeatherId;
-            state.LastCurrentId = window.CurrentId;
-            if (!window.Allowed)
-            {
-                state.LaunchState = PrototypeRaftLaunchStates.Failed;
-                state.LastResultCode = "escape.raft.launch.failed_window";
-                return false;
-            }
-
+            state.LaunchState = PrototypeRaftLaunchStates.Confirm;
             if (!session.TryCompleteEscapeProject(PrototypeRaftEscapeConfig.EscapeId))
             {
                 state.LastResultCode = "escape.raft.launch.terminal_rejected";
                 return false;
             }
+            committedEventKeys.Add(eventKey);
+            state.LaunchAttemptCount += 1;
             state.Complete = true;
             state.LaunchState = PrototypeRaftLaunchStates.Complete;
             state.LastResultCode = "escape.project.complete";
@@ -287,7 +318,9 @@ namespace KimSurvival
                            result.InteractionTrace.Contains("raft.snapshot.restored") && result.InteractionTrace.Contains("raft.key-part.protected");
             return new PrototypeContractProbe(success,
                 "escape.raft natural shore-launch hull sail supplies protected-sailcloth weather current " +
-                "closed-window-no-cost snapshot-restore retry early-terminal grant=false warp=false result=" + result.ResultCode);
+                "closed-window-no-cost snapshot-restore retry early-terminal grant=false warp=false result=" + result.ResultCode +
+                " progress=" + result.Progress + "/" + result.RequiredProgress +
+                " day=" + result.Day + " trace=" + string.Join(",", result.InteractionTrace ?? Array.Empty<string>()));
         }
 
         public static PrototypeNaturalEscapeRouteResult RunNaturalRoute(IReadOnlyList<PrototypeCampInteractionTarget> liveTargets)
@@ -301,6 +334,8 @@ namespace KimSurvival
             };
             List<string> trace = new List<string>();
             bool prepared = PrepareNaturalMaterialsAndSailcloth(session, director, pity, trace);
+            prepared &= director.TryBuildFacility(session, PrototypeRaftEscapeConfig.EscapeId);
+            if (prepared) trace.Add("raft.shore-launch.facility-built");
             PrototypeCampInteractionTarget target = FindShoreLaunch(liveTargets);
             PrototypeCampInteraction interaction = new PrototypeCampInteraction();
             int interactions = 0;
@@ -343,18 +378,20 @@ namespace KimSurvival
             {
                 prepared = AdvanceUntil(session, false);
             }
-            prepared &= Interact(interaction, target, director, session, "natural.raft.arm.failure", trace, ref interactions);
             int foodBeforeFailure = session.GetStorage(ResourceKind.Food);
             string failureKey = "natural.raft.launch.failure.day." + session.Day;
-            bool failedAttempt = prepared && !director.TryConfirmRaftLaunch(session, session.RunSeed, session.Day, failureKey);
+            bool failedAttempt = prepared && !Interact(
+                interaction, target, director, session, failureKey, trace, ref interactions);
             int foodAfterFailure = session.GetStorage(ResourceKind.Food);
-            bool duplicateAccepted = director.TryConfirmRaftLaunch(session, session.RunSeed, session.Day, failureKey);
+            bool duplicateRejected = !Interact(
+                interaction, target, director, session, failureKey, trace, ref interactions);
             int foodAfterDuplicate = session.GetStorage(ResourceKind.Food);
             PrototypeEscapeProjectState failedState = director.GetState(PrototypeRaftEscapeConfig.EscapeId);
-            bool failureAtomic = failedAttempt && duplicateAccepted &&
-                                 foodBeforeFailure - foodAfterFailure == PrototypeRaftEscapeConfig.LaunchAttemptFoodCost &&
-                                 foodAfterDuplicate == foodAfterFailure && failedState.Progress == PrototypeRaftEscapeConfig.StageCount &&
-                                 failedState.KeyPartProtected && failedState.LaunchState == PrototypeRaftLaunchStates.Failed;
+            bool failureAtomic = failedAttempt && duplicateRejected &&
+                                  foodBeforeFailure - foodAfterFailure == PrototypeRaftEscapeConfig.LaunchAttemptFoodCost &&
+                                  foodAfterDuplicate == foodAfterFailure && failedState.Progress == PrototypeRaftEscapeConfig.StageCount &&
+                                  failedState.KeyPartProtected && failedState.LaunchState == PrototypeRaftLaunchStates.Failed &&
+                                  failedState.LaunchAttemptCount == 0;
             if (failureAtomic)
             {
                 trace.Add("raft.weather.current.window.unsafe-rejected");
@@ -366,17 +403,18 @@ namespace KimSurvival
             bool restoredOk = restored.RestoreSnapshot(JsonUtility.FromJson<PrototypeEscapeProjectSaveSnapshot>(json));
             PrototypeEscapeProjectState restoredState = restored.GetState(PrototypeRaftEscapeConfig.EscapeId);
             restoredOk &= restoredState.Progress == PrototypeRaftEscapeConfig.StageCount && restoredState.KeyPartProtected &&
-                          restoredState.LaunchAttemptCount == 1 && restoredState.LaunchState == PrototypeRaftLaunchStates.Failed;
+                           restoredState.LaunchAttemptCount == 0 && restoredState.LaunchState == PrototypeRaftLaunchStates.Failed;
             if (restoredOk) trace.Add("raft.snapshot.restored");
 
             bool advanced = failureAtomic && restoredOk && AdvanceUntil(session, true);
-            bool retryReady = advanced && restored.TryHandleRaftAction(session, session.RunSeed, session.Day, "natural.raft.retry");
-            bool confirmation = retryReady && restored.TryHandleRaftAction(session, session.RunSeed, session.Day, "natural.raft.confirm");
-            bool launched = confirmation && restored.TryConfirmRaftLaunch(
+            bool launched = advanced && Interact(
+                interaction,
+                target,
+                restored,
                 session,
-                session.RunSeed,
-                session.Day,
-                "natural.raft.launch.success.day." + session.Day);
+                "natural.raft.launch.success.day." + session.Day,
+                trace,
+                ref interactions);
             PrototypeEscapeProjectState finalState = restored.GetState(PrototypeRaftEscapeConfig.EscapeId);
             bool complete = launched && finalState.Complete && finalState.LaunchState == PrototypeRaftLaunchStates.Complete &&
                             session.Result == RunResult.Rescued && session.CompletedEscapeId == PrototypeRaftEscapeConfig.EscapeId &&
@@ -457,14 +495,19 @@ namespace KimSurvival
                 if (!session.BeginSearch(PrototypeExpeditionRegionId.Shallows)) return false;
                 bool gathered = search == 1
                     ? Gather(session, ResourceKind.Wood, 2) && Gather(session, ResourceKind.Salvage, 2) &&
-                      Gather(session, ResourceKind.Salvage, 2) && Gather(session, ResourceKind.Food, 2)
-                    : Gather(session, ResourceKind.Wood, 2) && Gather(session, ResourceKind.Wood, 2) &&
-                      Gather(session, ResourceKind.Salvage, 2) && Gather(session, ResourceKind.Food, 2);
+                      Gather(session, ResourceKind.Stone, 2) && Gather(session, ResourceKind.Food, 2)
+                    : Gather(session, ResourceKind.Wood, 2) && Gather(session, ResourceKind.Salvage, 2) &&
+                      Gather(session, ResourceKind.Food, 2);
                 if (!gathered || !session.ReturnToCamp(false)) return false;
                 pity.RecordSearch("natural.raft.shallows." + search, true, true, false, false, pity.ProtectedOwned);
                 director.SynchronizeRaftSailcloth(pity.ProtectedOwned);
                 if (search == 1 &&
-                    (!session.TryBuild(StructureKind.Workbench) || !session.TryResearch(TechKind.Rope) || !session.TryCraft(TechKind.Rope)))
+                    (!session.TryBuild(StructureKind.Workbench) || !session.TryResearch(TechKind.StoneAxe)))
+                {
+                    return false;
+                }
+                if (search == 2 &&
+                    (!session.TryCraft(TechKind.StoneAxe) || !session.TryResearch(TechKind.Rope) || !session.TryCraft(TechKind.Rope)))
                 {
                     return false;
                 }
@@ -475,7 +518,8 @@ namespace KimSurvival
                 }
             }
             if (pity.ProtectedOwned) trace.Add("raft.key-part.protected");
-            return pity.ProtectedOwned && session.HasRope;
+            return pity.ProtectedOwned && session.HasRope && session.HasAxe &&
+                   session.Day <= PrototypeRaftEscapeConfig.MaximumNaturalPreparationDays;
         }
 
         private static bool DiscoverShallowsNaturally(GameSession session)

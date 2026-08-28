@@ -715,11 +715,9 @@ namespace KimSurvival
             IReadOnlyDictionary<StructureKind, CampInstalledStructurePlacement> placements)
         {
             float halfWidth = GetStructureSize(kind).x * 0.5f;
-            if (x - halfWidth < roomZone.BuildMinimumX - AnchorTolerance ||
-                x + halfWidth > roomZone.BuildMaximumX + AnchorTolerance)
-            {
-                return CampPlacementValidity.OutsideCampBounds;
-            }
+            // Connector/door feedback takes precedence at the room edge. In an
+            // upper or basement room the ladder footprint intentionally straddles
+            // the nominal build boundary; "outside" hid the route that must stay clear.
             if (RangesOverlap(x - halfWidth, x + halfWidth,
                     roomZone.EntranceMinimumX, roomZone.EntranceMaximumX))
             {
@@ -729,6 +727,11 @@ namespace KimSurvival
                     roomZone.RequiredPathMinimumX, roomZone.RequiredPathMaximumX))
             {
                 return CampPlacementValidity.BlocksRequiredPath;
+            }
+            if (x - halfWidth < roomZone.BuildMinimumX - AnchorTolerance ||
+                x + halfWidth > roomZone.BuildMaximumX + AnchorTolerance)
+            {
+                return CampPlacementValidity.OutsideCampBounds;
             }
             foreach (KeyValuePair<StructureKind, CampInstalledStructurePlacement> installed in placements)
             {

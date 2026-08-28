@@ -775,7 +775,10 @@ namespace KimSurvival
             committedRooms.Add(committedRoom);
             if (!committedArchetype.HasValue) committedArchetype = selectedArchetype;
             IsPreviewActive = false;
-            TransactionGuard = CampModuleTransactionGuard.Committed;
+            // The synchronous commit has closed its preview. Leaving Committed
+            // latched leaked the build-reaction state into the next movement frame;
+            // IsPreviewActive still supplies duplicate-submit rejection.
+            TransactionGuard = CampModuleTransactionGuard.Idle;
             return CampModuleCommitStatus.Succeeded;
         }
 
