@@ -1934,7 +1934,7 @@ namespace KimSurvival
                 available && session.HasStructure(StructureKind.Workbench) && diseaseTreatmentInputAvailable);
             SetButton(smokeProjectButton, FormatEscapeProjectButton("escape.smoke"), available);
             SetButton(radioProjectButton, FormatEscapeProjectButton("escape.radio"), available);
-            SetButton(raftProjectButton, FormatRaftProjectButton(), available);
+            SetButton(raftProjectButton, FormatRaftProjectButton(), available && IsRaftPopupActionAvailable());
             SetButton(endingAlbumOpenButton, localization.Format("button.ending_album.open"), available);
             SetButton(cancelPopupButton, localization.Format("button.popup.cancel"), available);
             bool directModuleSlot = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.ModuleExpansionSlot;
@@ -2548,7 +2548,8 @@ namespace KimSurvival
             }
 
             bool relocatingWithinCurrentRoom = relocating && campPlacement.IsInstalledInRoom(kind, campUse.CurrentRoomId);
-            if (relocatingWithinCurrentRoom && !RequireStructureUse(kind))
+            bool usingRoomPlanningPoint = campInteraction.OpenPopupKind == PrototypeCampInteractionTargetKind.StoragePlanning;
+            if (relocatingWithinCurrentRoom && !usingRoomPlanningPoint && !RequireStructureUse(kind))
             {
                 return;
             }
@@ -2605,22 +2606,38 @@ namespace KimSurvival
                        localization.Format("escape.ui.progress") + " " + state.Progress + "/" + state.RequiredProgress;
             }
 
-            PrototypeRaftLaunchWindow window = hazardEscapeEndingRuntime.CurrentRaftLaunchWindow;
-            if (state.LaunchState == PrototypeRaftLaunchStates.Failed)
-            {
-                return localization.Format("escape.raft.action.retry", localization.Format(state.LastWeatherId), localization.Format(state.LastCurrentId));
-            }
-            if (state.LaunchState == PrototypeRaftLaunchStates.Confirm)
+            PrototypeRaftLaunchAvailability availability = hazardEscapeEndingRuntime.EscapeDirector.ResolveRaftLaunchAvailability(
+                session,
+                session.RunSeed,
+                session.Day);
+            if (availability.CanLaunch)
             {
                 return localization.Format(
                     "escape.raft.action.confirm",
-                    localization.Format(window.WeatherId),
-                    localization.Format(window.CurrentId));
+                    localization.Format(availability.Window.WeatherId),
+                    localization.Format(availability.Window.CurrentId));
             }
             return localization.Format(
-                "escape.raft.action.check_window",
-                localization.Format(window.WeatherId),
-                localization.Format(window.CurrentId));
+                "escape.raft.action.retry",
+                localization.Format(availability.Window.WeatherId),
+                localization.Format(availability.Window.CurrentId));
+        }
+
+        private bool IsRaftPopupActionAvailable()
+        {
+            if (hazardEscapeEndingRuntime == null || session == null)
+            {
+                return false;
+            }
+            PrototypeEscapeProjectState state = hazardEscapeEndingRuntime.EscapeDirector.GetState(PrototypeRaftEscapeConfig.EscapeId);
+            if (!state.FacilityBuilt || state.Progress < PrototypeRaftEscapeConfig.StageCount)
+            {
+                return true;
+            }
+            return hazardEscapeEndingRuntime.EscapeDirector.ResolveRaftLaunchAvailability(
+                session,
+                session.RunSeed,
+                session.Day).CanLaunch;
         }
 
         private string FormatFacilityBuildCosts(string escapeId)
@@ -3724,6 +3741,7 @@ namespace KimSurvival
                 playtestLog.ObserveState("module.commit." + evaluation.Definition.Archetype.ToString().ToLowerInvariant());
             }
             RefreshAll();
+            RestoreO11PlayerMovementPresentation();
             return true;
         }
 
@@ -6580,7 +6598,14 @@ namespace KimSurvival
             Require(campPlacement.IsActive && campPlacement.CandidateRoomId == upperDefinition.RoomId &&
                     campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
                     campPlacement.IsInstalledInRoom(StructureKind.Workbench, upperDefinition.RoomId),
-                "위층 고정 설치 지점에 작업대 설치");
+                "위층 제한적 자유 배치 구역에 작업대 설치");
+            OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.StoragePlanning);
+            workbenchButton.onClick.Invoke();
+            Require(campPlacement.IsActive && campPlacement.IsRelocating &&
+                    campPlacement.CandidateRoomId == upperDefinition.RoomId,
+                "같은 방 계획 지점에서 작업대 무료 재배치 흐름 재진입");
+            campPlacement.Cancel();
+            RefreshAll();
             OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Workbench);
             repairButton.onClick.Invoke();
             Require(campFeedback.Key == "message.workbench.repair.ready",
@@ -6590,7 +6615,7 @@ namespace KimSurvival
             Require(campPlacement.IsActive && campPlacement.CandidateRoomId == upperDefinition.RoomId &&
                     campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
                     campPlacement.IsInstalledInRoom(StructureKind.Bed, upperDefinition.RoomId),
-                "위층의 별도 고정 설치 지점에 침대 설치");
+                "위층의 별도 제한적 자유 배치 위치에 침대 설치");
             OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Bed);
             prepareBedButton.onClick.Invoke();
             Require(campUse.IsDayBenefitPrepared(StructureKind.Bed),
@@ -6630,7 +6655,7 @@ namespace KimSurvival
             Require(campPlacement.IsActive && campPlacement.CandidateRoomId == basementDefinition.RoomId &&
                     campPlacement.CurrentValidity == CampPlacementValidity.Valid && ConfirmCampPlacement() &&
                     campPlacement.IsInstalledInRoom(StructureKind.Sofa, basementDefinition.RoomId),
-                "지하실의 별도 고정 설치 지점에 소파 설치");
+                "지하실의 별도 제한적 자유 배치 위치에 소파 설치");
             OpenCampPopupForVerification(PrototypeCampInteractionTargetKind.Sofa);
             prepareSofaButton.onClick.Invoke();
             Require(campUse.IsDayBenefitPrepared(StructureKind.Sofa),
@@ -7554,10 +7579,10 @@ namespace KimSurvival
             bool progressed = hazardEscapeEndingRuntime.TryProgressEscapeProject(escapeId);
             if (string.Equals(escapeId, PrototypeRaftEscapeConfig.EscapeId, StringComparison.Ordinal))
             {
-                campFeedback = new PrototypeLocalizedText(
-                    RaftFeedbackKey(state.LastResultCode),
-                    state.Progress,
-                    state.RequiredProgress);
+                string feedbackKey = RaftFeedbackKey(state.LastResultCode);
+                campFeedback = string.Equals(feedbackKey, "escape.project.message.research", StringComparison.Ordinal)
+                    ? new PrototypeLocalizedText(feedbackKey, localization.Format(escapeId))
+                    : new PrototypeLocalizedText(feedbackKey, state.Progress, state.RequiredProgress);
                 return progressed;
             }
             campFeedback = new PrototypeLocalizedText(
@@ -7580,6 +7605,8 @@ namespace KimSurvival
                     return "escape.raft.message.rope";
                 case "escape.raft.requirement.sailcloth":
                     return "escape.raft.message.sailcloth";
+                case "escape.raft.requirement.research":
+                    return "escape.project.message.research";
                 case "escape.raft.requirement.launch_cost":
                 case "escape.raft.requirement.resources":
                     return "escape.raft.message.resources";
