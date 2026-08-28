@@ -1,0 +1,11 @@
+O11 independent integration gate
+Run ID: O11_20260829T003000Z_aa67a12_ps51_red
+Baseline: aa67a12bb38180f7cf2635a2a2bca3c403b5248a
+Overall/Product/Infrastructure: RED/RED_EXPECTED_GAP/PASS
+Compile: PASS 0 errors / 0 baseline warnings / 0 O11 warnings
+Build/smoke locks: NOT_RUN_RED_BASELINE_POLICY
+Product PASS/EXPECTED_GAP/FAIL: 0/7/0
+Physical gamepad: UNVERIFIED
+Steam: NOT_READY
+Rerun: & '.\Assets\Editor\ParallelQA\O11IntegrationGate.ps1' -RunId '<NEW_RUN_ID>' -BaselineCommit 'aa67a12bb38180f7cf2635a2a2bca3c403b5248a'
+Exit code: 2 (0 GREEN, 2 expected RED, 1 infrastructure/product unexpected FAIL)

@@ -1,0 +1,130 @@
+{
+    "schemaVersion":  1,
+    "title":  "O11 independent edit/play/render/build integration gate",
+    "runId":  "O11_20260829T003000Z_aa67a12_ps51_red",
+    "baselineCommit":  "aa67a12bb38180f7cf2635a2a2bca3c403b5248a",
+    "startedUtc":  "2026-08-28T15:10:20.4633515Z",
+    "completedUtc":  "2026-08-28T15:10:52.2594363Z",
+    "powershell":  {
+                       "edition":  "Desktop",
+                       "version":  "5.1.26100.9168"
+                   },
+    "overall":  "RED",
+    "productOverall":  "RED_EXPECTED_GAP",
+    "infrastructureOverall":  "PASS",
+    "product":  {
+                    "passed":  0,
+                    "expectedGaps":  7,
+                    "failed":  0,
+                    "checks":  [
+                                   {
+                                       "id":  "O11-P0-001",
+                                       "severity":  "P0",
+                                       "status":  "EXPECTED_GAP",
+                                       "classification":  "PRODUCT",
+                                       "expected":  "Four general facilities place and relocate in start/upper/basement, exact StableRoomId/X restores, and collision/entrance/path attempts reject atomically.",
+                                       "actual":  "observation=False; placementRows=0; rejectionRows=0; matrix=False; rejectionMatrix=False; cheatFree=False",
+                                       "reproduction":  "Complete both modules; place then relocate workbench/rain collector/bed/sofa in each room; save, reload, and attempt collision/entrance/path positions.",
+                                       "greenCondition":  "12 unique facility-room observations plus exact restore coordinates and canonical rejection reasons."
+                                   },
+                                   {
+                                       "id":  "O11-P0-002",
+                                       "severity":  "P0",
+                                       "status":  "EXPECTED_GAP",
+                                       "classification":  "PRODUCT",
+                                       "expected":  "Launch availability and confirmation agree; impossible/duplicate input is locked with a reason and zero mutation; possible confirmation succeeds in one transaction.",
+                                       "actual":  "cases=0; impossible=False; duplicate=False; possibleAtomic=False; cheatFree=False",
+                                       "reproduction":  "At shore launch, exercise impossible, same-day duplicate, and possible cases while recording button state and before/after ledgers.",
+                                       "greenCondition":  "All three cases are observed through the live popup with zero failed-case deltas and one possible-case terminal commit."
+                                   },
+                                   {
+                                       "id":  "O11-P1-001",
+                                       "severity":  "P1",
+                                       "status":  "EXPECTED_GAP",
+                                       "classification":  "PRODUCT",
+                                       "expected":  "After upper and basement construction reactions, Kim returns to idle and subsequently moves.",
+                                       "actual":  "rows=0; upper+basement=False; cheatFree=False",
+                                       "reproduction":  "Commit upper and basement modules, wait for each reaction, then issue ordinary movement.",
+                                       "greenCondition":  "Both room traces contain reaction then idle and live movement without grant/warp/skip."
+                                   },
+                                   {
+                                       "id":  "O11-P1-002",
+                                       "severity":  "P1",
+                                       "status":  "EXPECTED_GAP",
+                                       "classification":  "PRODUCT",
+                                       "expected":  "Adopted V2 skin is runtime-bound and KO/EN bag, popup, and world do not overlap at 1280x800 or 1920x1080.",
+                                       "actual":  "styleRuntime=False; layouts=0; ko/en@2=False",
+                                       "reproduction":  "Open bag and representative facility/escape popups in KO and EN at both target resolutions.",
+                                       "greenCondition":  "Runtime asset binding to ui.gamejam.style-benchmark/job_20260828122852_c9ccf2aa and four zero-overlap/overflow captures."
+                                   },
+                                   {
+                                       "id":  "O11-P1-003",
+                                       "severity":  "P1",
+                                       "status":  "EXPECTED_GAP",
+                                       "classification":  "PRODUCT",
+                                       "expected":  "Three consecutive searches and recovery methods produce deterministic stamina pacing.",
+                                       "actual":  "rows=0; three=False; deterministic=False; cheatFree=False",
+                                       "reproduction":  "Follow one natural seed through search-return-recovery three times and repeat from a fresh identical seed.",
+                                       "greenCondition":  "Three ordered live costs, effective recovery, positive next-search windows, and byte-equal repeat fingerprints."
+                                   },
+                                   {
+                                       "id":  "O11-P1-004",
+                                       "severity":  "P1",
+                                       "status":  "EXPECTED_GAP",
+                                       "classification":  "PRODUCT",
+                                       "expected":  "Representative seeds keep raft, smoke, and radio feasible; raft is never 25% or more easier than both alternatives.",
+                                       "actual":  "rows=0; seeds=0; feasible+band=False; cheatFree=False",
+                                       "reproduction":  "For each representative seed derive the natural resource/research/part/time burden of raft, smoke, and radio.",
+                                       "greenCondition":  "At least three seeds x three feasible routes and raft burden \u003e= 75% of min(smoke, radio) for every seed."
+                                   },
+                                   {
+                                       "id":  "O11-P1-005",
+                                       "severity":  "P1",
+                                       "status":  "EXPECTED_GAP",
+                                       "classification":  "PRODUCT",
+                                       "expected":  "Seven production search-region visuals and Kim idle/walk/search/ladder/swim use real runtime GUIDs/clips, not placeholders or review-only art.",
+                                       "actual":  "rows=0; regions7=False; kim5=False",
+                                       "reproduction":  "Visit all seven regions and exercise all five Kim states while recording the rendered asset GUID/clip.",
+                                       "greenCondition":  "Seven region IDs and five Kim state IDs have runtime-observed non-placeholder, non-review GUID/clip bindings."
+                                   }
+                               ]
+                },
+    "compile":  "PASS 0 errors / 0 baseline warnings / 0 O11 warnings",
+    "buildSmokeLocks":  "NOT_RUN_RED_BASELINE_POLICY",
+    "physicalGamepad":  "UNVERIFIED",
+    "steamReadiness":  "NOT_READY",
+    "infrastructureFailures":  [
+
+                               ],
+    "stages":  [
+                   {
+                       "name":  "compile",
+                       "startedUtc":  "2026-08-28T15:10:20.4832567Z",
+                       "completedUtc":  "2026-08-28T15:10:28.5710842Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\" -executeMethod ParallelQA.ParallelQaRunner.RecordCompilePass -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\unity-compile.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\compile-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\compile-stderr.log"
+                   },
+                   {
+                       "name":  "edit",
+                       "startedUtc":  "2026-08-28T15:10:28.6013554Z",
+                       "completedUtc":  "2026-08-28T15:10:36.6821548Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -nographics -quit -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\" -executeMethod ParallelQA.O11IntegrationGateRunner.RunEditContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\unity-edit.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\edit-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\edit-stderr.log"
+                   },
+                   {
+                       "name":  "play-render",
+                       "startedUtc":  "2026-08-28T15:10:36.6903240Z",
+                       "completedUtc":  "2026-08-28T15:10:51.8299598Z",
+                       "exitCode":  0,
+                       "command":  "\"C:\\Program Files\\Unity\\Hub\\Editor\\6000.4.9f1\\Editor\\Unity.exe\" -batchmode -force-d3d11 -projectPath \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\" -executeMethod ParallelQA.O11IntegrationGateRunner.RunPlayContracts -logFile \"C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\unity-play-render.log\"",
+                       "standardOutput":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\play-render-stdout.log",
+                       "standardError":  "C:\\Users\\dev\\.codex\\worktrees\\aa6f\\신규 개발 본부\\work\\O11QaGate\\work\\ParallelQA\\O11_20260829T003000Z_aa67a12_ps51_red\\play-render-stderr.log"
+                   }
+               ],
+    "exactRerun":  "\u0026 \u0027.\\Assets\\Editor\\ParallelQA\\O11IntegrationGate.ps1\u0027 -RunId \u0027\u003cNEW_RUN_ID\u003e\u0027 -BaselineCommit \u0027aa67a12bb38180f7cf2635a2a2bca3c403b5248a\u0027",
+    "exitCode":  2
+}

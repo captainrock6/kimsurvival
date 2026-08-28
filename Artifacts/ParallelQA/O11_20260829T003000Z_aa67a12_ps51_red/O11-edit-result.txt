@@ -1,0 +1,5 @@
+INFRASTRUCTURE=PASS
+Baseline=aa67a12bb38180f7cf2635a2a2bca3c403b5248a
+Unity=6000.4.9f1
+V2 adopted/engine-ready/package/scene-dependencies=True/True/True/0
+AnimationClip assets=0

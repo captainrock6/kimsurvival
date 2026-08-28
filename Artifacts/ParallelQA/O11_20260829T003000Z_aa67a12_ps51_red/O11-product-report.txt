@@ -1,0 +1,13 @@
+O11=RED
+PRODUCT=RED_EXPECTED_GAP
+INFRASTRUCTURE=PASS
+BASELINE=aa67a12bb38180f7cf2635a2a2bca3c403b5248a
+OBSERVATION=MISSING
+PASS/EXPECTED_GAP/FAIL=0/7/0
+O11-P0-001=EXPECTED_GAP · observation=False; placementRows=0; rejectionRows=0; matrix=False; rejectionMatrix=False; cheatFree=False
+O11-P0-002=EXPECTED_GAP · cases=0; impossible=False; duplicate=False; possibleAtomic=False; cheatFree=False
+O11-P1-001=EXPECTED_GAP · rows=0; upper+basement=False; cheatFree=False
+O11-P1-002=EXPECTED_GAP · styleRuntime=False; layouts=0; ko/en@2=False
+O11-P1-003=EXPECTED_GAP · rows=0; three=False; deterministic=False; cheatFree=False
+O11-P1-004=EXPECTED_GAP · rows=0; seeds=0; feasible+band=False; cheatFree=False
+O11-P1-005=EXPECTED_GAP · rows=0; regions7=False; kim5=False
