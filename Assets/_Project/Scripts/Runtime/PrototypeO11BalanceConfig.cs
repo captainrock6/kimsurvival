@@ -41,6 +41,13 @@ namespace KimSurvival
         public bool Passes;
     }
 
+    public enum PrototypeO11RaftCostProfile
+    {
+        Unknown,
+        O10Pending,
+        O11Applied
+    }
+
     /// <summary>
     /// O11 owns the small, explainable survival correction and the read-only
     /// three-route burden contract. Escape state machines remain owned by their
@@ -187,13 +194,15 @@ namespace KimSurvival
 
         public static PrototypeO11RouteBand CaptureRouteBand(bool proposedRaft)
         {
+            PrototypeO11RaftCostProfile liveProfile = DetectRaftCostProfile();
+            bool useO11RaftCosts = proposedRaft || liveProfile == PrototypeO11RaftCostProfile.O11Applied;
             var all = new Dictionary<string, List<PrototypeO11RouteBurden>>(StringComparer.Ordinal);
             foreach (string route in new[] { "escape.raft", "escape.smoke", "escape.radio" })
                 all.Add(route, new List<PrototypeO11RouteBurden>());
             foreach (int seed in RepresentativeSeeds)
             {
                 foreach (string route in all.Keys.ToArray())
-                    all[route].Add(BuildRouteBurden(route, seed, proposedRaft));
+                    all[route].Add(BuildRouteBurden(route, seed, useO11RaftCosts));
             }
 
             float[] shortest = all.Values.Select(values => values.Min(value => value.BurdenScore)).ToArray();
@@ -203,8 +212,10 @@ namespace KimSurvival
             int representativeSeed = PrototypeExpeditionRegionCatalog.DefaultRunSeed;
             return new PrototypeO11RouteBand
             {
-                ProfileId = proposedRaft ? "o11.raft-patch-proposed" : "o10.live",
-                Representative = all.Keys.Select(route => BuildRouteBurden(route, representativeSeed, proposedRaft)).ToArray(),
+                ProfileId = proposedRaft
+                    ? "o11.raft-patch-proposed"
+                    : liveProfile == PrototypeO11RaftCostProfile.O11Applied ? "o11.live" : "o10.live",
+                Representative = all.Keys.Select(route => BuildRouteBurden(route, representativeSeed, useO11RaftCosts)).ToArray(),
                 MinimumShortestRatio = shortestRatio,
                 MinimumMedianRatio = medianRatio,
                 Passes = shortestRatio >= MinimumRouteBurdenRatio && medianRatio >= MinimumRouteBurdenRatio
@@ -222,34 +233,77 @@ namespace KimSurvival
                                       Approximately(before.FourthExpeditionStartEnergy, 39.7f);
             bool survivalPass = after.FourthExpeditionStartEnergy >= MinimumFourthExpeditionStartEnergy &&
                                 noFood.FourthExpeditionStartEnergy < MinimumFourthExpeditionStartEnergy;
-            bool routeCorrectionRequired = !live.Passes && proposal.Passes;
+            PrototypeO11RaftCostProfile raftCostProfile = DetectRaftCostProfile();
+            bool routeIntegrationPass = RouteIntegrationSatisfied(raftCostProfile, live.Passes, proposal.Passes);
+            bool bothIntegrationBranchesCovered =
+                RouteIntegrationSatisfied(PrototypeO11RaftCostProfile.O10Pending, false, proposal.Passes) &&
+                RouteIntegrationSatisfied(PrototypeO11RaftCostProfile.O11Applied, proposal.Passes, proposal.Passes) &&
+                !RouteIntegrationSatisfied(PrototypeO11RaftCostProfile.Unknown, true, true) &&
+                !RouteIntegrationSatisfied(PrototypeO11RaftCostProfile.O10Pending, true, true) &&
+                !RouteIntegrationSatisfied(PrototypeO11RaftCostProfile.O11Applied, false, true);
             bool finiteStockPass = VerifyFiniteStockAndProtectedParts();
-            bool catalogPass = VerifyMeasuredRouteCatalog();
+            bool catalogPass = VerifyMeasuredRouteCatalog(raftCostProfile);
             bool sessionWiringPass = VerifyGameSessionSurvivalWiring(out string sessionWiringDetail);
             string routeDetail = string.Join(",", live.Representative.Select((value, index) =>
                 value.EscapeId + ":" + value.BurdenScore.ToString("0.00", CultureInfo.InvariantCulture) +
                 ">" + proposal.Representative[index].BurdenScore.ToString("0.00", CultureInfo.InvariantCulture) +
                 "@" + value.PreparationDays + "+" + value.WaitDays));
-            bool passed = baselineReproduced && survivalPass && routeCorrectionRequired && finiteStockPass &&
-                          catalogPass && sessionWiringPass;
+            bool passed = baselineReproduced && survivalPass && routeIntegrationPass &&
+                          bothIntegrationBranchesCovered && finiteStockPass && catalogPass && sessionWiringPass;
             detail = string.Format(
                 CultureInfo.InvariantCulture,
-                "contract={0}; energy=before(cost{1:0.0},d4{2:0.0})/after(cost{3:0.0},d4{4:0.0})/noFood(d4{5:0.0}); route=live(short{6:0.000},median{7:0.000})/proposal(short{8:0.000},median{9:0.000})[{10}]; stockParts={11}; catalog={12}; session={13}",
+                "contract={0}; energy=before(cost{1:0.0},d4{2:0.0})/after(cost{3:0.0},d4{4:0.0})/noFood(d4{5:0.0}); route=profile{6}/live(short{7:0.000},median{8:0.000})/proposal(short{9:0.000},median{10:0.000})[{11}]; integration={12}/branches={13}; stockParts={14}; catalog={15}; session={16}",
                 ContractId,
                 before.ExpeditionEnergyCost,
                 before.FourthExpeditionStartEnergy,
                 after.ExpeditionEnergyCost,
                 after.FourthExpeditionStartEnergy,
                 noFood.FourthExpeditionStartEnergy,
+                raftCostProfile,
                 live.MinimumShortestRatio,
                 live.MinimumMedianRatio,
                 proposal.MinimumShortestRatio,
                 proposal.MinimumMedianRatio,
                 routeDetail,
+                routeIntegrationPass,
+                bothIntegrationBranchesCovered,
                 finiteStockPass,
                 catalogPass,
                 sessionWiringDetail);
             return passed;
+        }
+
+        public static PrototypeO11RaftCostProfile DetectRaftCostProfile()
+        {
+            bool o10 = PrototypeRaftEscapeConfig.HullWoodCost == 2 &&
+                       PrototypeRaftEscapeConfig.HullSalvageCost == 1 &&
+                       PrototypeRaftEscapeConfig.SailWoodCost == 1 &&
+                       PrototypeRaftEscapeConfig.SailSalvageCost == 1 &&
+                       PrototypeRaftEscapeConfig.SuppliesFoodCost == 2;
+            if (o10) return PrototypeO11RaftCostProfile.O10Pending;
+
+            bool o11 = PrototypeRaftEscapeConfig.HullWoodCost == ProposedRaftHullWoodCost &&
+                       PrototypeRaftEscapeConfig.HullSalvageCost == ProposedRaftHullSalvageCost &&
+                       PrototypeRaftEscapeConfig.SailWoodCost == ProposedRaftSailWoodCost &&
+                       PrototypeRaftEscapeConfig.SailSalvageCost == ProposedRaftSailSalvageCost &&
+                       PrototypeRaftEscapeConfig.SuppliesFoodCost == ProposedRaftSuppliesFoodCost;
+            return o11 ? PrototypeO11RaftCostProfile.O11Applied : PrototypeO11RaftCostProfile.Unknown;
+        }
+
+        public static bool RouteIntegrationSatisfied(
+            PrototypeO11RaftCostProfile profile,
+            bool livePasses,
+            bool proposalPasses)
+        {
+            switch (profile)
+            {
+                case PrototypeO11RaftCostProfile.O10Pending:
+                    return !livePasses && proposalPasses;
+                case PrototypeO11RaftCostProfile.O11Applied:
+                    return livePasses;
+                default:
+                    return false;
+            }
         }
 
         private static bool VerifyGameSessionSurvivalWiring(out string detail)
@@ -340,15 +394,11 @@ namespace KimSurvival
             };
         }
 
-        private static bool VerifyMeasuredRouteCatalog()
+        private static bool VerifyMeasuredRouteCatalog(PrototypeO11RaftCostProfile raftCostProfile)
         {
             PrototypeEscapeProjectDefinition smoke = PrototypeEscapeProjectCatalog.Get("escape.smoke");
             PrototypeEscapeProjectDefinition radio = PrototypeEscapeProjectCatalog.Get("escape.radio");
-            return PrototypeRaftEscapeConfig.HullWoodCost == 2 &&
-                   PrototypeRaftEscapeConfig.HullSalvageCost == 1 &&
-                   PrototypeRaftEscapeConfig.SailWoodCost == 1 &&
-                   PrototypeRaftEscapeConfig.SailSalvageCost == 1 &&
-                   PrototypeRaftEscapeConfig.SuppliesFoodCost == 2 &&
+            return raftCostProfile != PrototypeO11RaftCostProfile.Unknown &&
                    PrototypeRaftEscapeConfig.LaunchAttemptFoodCost == 0 &&
                    smoke.StableCosts.Sum(value => value.Amount) == 16 &&
                    radio.StableCosts.Sum(value => value.Amount) == 5 &&
@@ -365,8 +415,8 @@ namespace KimSurvival
             PrototypeO7WoodRouteBudget raftBudget = PrototypeO7SearchBalance
                 .BuildRepresentativeWoodBudgets(PrototypeExpeditionRegionCatalog.DefaultRunSeed)
                 .First(value => string.Equals(value.EscapeId, "escape.raft", StringComparison.Ordinal));
-            int proposedExtraWood = (ProposedRaftHullWoodCost - PrototypeRaftEscapeConfig.HullWoodCost) +
-                                    (ProposedRaftSailWoodCost - PrototypeRaftEscapeConfig.SailWoodCost);
+            int proposedExtraWood = Math.Max(0, ProposedRaftHullWoodCost - PrototypeRaftEscapeConfig.HullWoodCost) +
+                                    Math.Max(0, ProposedRaftSailWoodCost - PrototypeRaftEscapeConfig.SailWoodCost);
             return seedsPass && raftBudget.SpareWood - proposedExtraWood >= PrototypeO7SearchBalance.MinimumRouteSpareWood;
         }
 
