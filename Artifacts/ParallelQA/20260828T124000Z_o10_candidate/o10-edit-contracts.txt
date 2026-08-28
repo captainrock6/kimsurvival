@@ -1,0 +1,6 @@
+PASS
+PASS · PASS O9/O10: storm-drift lock, five opening beats, seven regions, nineteen items, three playable escapes and five core endings.
+PASS · Playable scene exists: Assets/_Project/Scenes/KimSurvivalPrototype.unity
+PASS · Unity editor version: 6000.4.9f1
+PASS · Revised style benchmark V2 exists and remains review-only.
+Completed UTC: 2026-08-28T13:05:26.2435499Z

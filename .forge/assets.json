@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "projectId": "project_db816549bd50",
   "projectName": "김씨 생존기: 무인도",
-  "updatedAt": "2026-08-28T10:36:26.452Z",
+  "updatedAt": "2026-08-28T12:30:37.583Z",
   "assets": [
     {
       "id": "background.shelter",
@@ -6974,9 +6974,9 @@
     },
     {
       "id": "ui.gamejam.style-benchmark",
-      "name": "O9 실제 화면 스타일 벤치마크를 제작한다. 1920x1080 단일 게임 플레이 화면, 2D side view. 기존 김씨의 주황 티셔츠·짙은 반바지·샌들·급조 배낭과 굵은 잉크 윤곽을 정확히 보존한다. 따뜻한 해변",
+      "name": "O9/O10 단순화 스타일 벤치마크 V2",
       "assetType": "ui_set",
-      "request": "O9 실제 화면 스타일 벤치마크를 제작한다. 1920x1080 단일 게임 플레이 화면, 2D side view. 기존 김씨의 주황 티셔츠·짙은 반바지·샌들·급조 배낭과 굵은 잉크 윤곽을 정확히 보존한다. 따뜻한 해변과 지붕 있는 1층 절개형 캠프는 큰 색면과 제한된 질감으로 단순화하고 김씨보다 대비를 낮춘다. 모닥불·작업대·빗물받이·지도대를 넉넉한 간격으로 배치하고 김씨 발은 지면에 닿는다. 상단에는 얇은 먹물색 생존 HUD, 대상 위에는 작은 흰 원형 상호작용 표식, 하단에는 작고 얇은 compact prompt를 둔다. UI는 표류목과 바랜 천의 얇은 테두리, 호박색 강조, 청록 focus만 사용하고 래스터 본문 글자·모바일풍 광택·거대한 중앙 패널은 넣지 않는다. 타사 게임의 고유 UI나 레이아웃은 복제하지 않는다.",
+      "request": "O9/O10 실제 게임 화면 스타일 벤치마크 V2. 1920x1080, 2D side-view PC gameplay mockup. 기존 김씨의 주황 티셔츠, 짙은 반바지, 샌들, 급조 배낭, 지친 표정과 굵은 검정 잉크 윤곽은 그대로 보존한다. 지붕 있는 1층 절개형 캠프와 모닥불·작업대·빗물받이·지도대를 넉넉히 띄운다. 배경은 하늘·바다·먼 섬·해변의 4개 큰 평면 색면과 아주 적은 붓결만 사용하고 구름·야자·돌·지면 반복 디테일을 절반 이하로 줄여 김씨보다 낮은 대비로 둔다. 캠프 벽과 지붕도 큰 평면과 핵심 외곽선만 남긴다. 상단 HUD는 얇은 무장식 먹물색 반투명 띠 하나, 단순 평면 아이콘과 짧은 게이지만 둔다. 가방은 김씨 발밑 화면 좌측 하단에 작은 정사각 슬롯 6개를 가로 한 줄로 둔다. 중앙 하단 가방, 두꺼운 표류목·밧줄 장식 프레임, 거대한 팝업, 모바일풍 광택, 래스터 본문 글자, 과도한 장식과 질감을 금지한다. 상호작용 대상에는 작은 흰 원 표식 하나만 둔다. 화면 중앙과 지면은 플레이를 위해 비워 둔다. 타사 게임의 고유 레이아웃·아이콘·문구를 복제하지 않는다.",
       "status": "review",
       "source": "forge-job",
       "tags": [
@@ -6989,7 +6989,8 @@
         "ui.gamejam.interface-kit"
       ],
       "jobIds": [
-        "job_20260828103426_790ffb10"
+        "job_20260828103426_790ffb10",
+        "job_20260828122852_c9ccf2aa"
       ],
       "versions": [
         {
@@ -7005,57 +7006,78 @@
           "status": "review",
           "at": "2026-08-28T10:36:26.450Z",
           "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260828103426_790ffb10",
+          "parentJobId": null,
+          "status": "revision_needed",
+          "at": "2026-08-28T12:28:52.358Z",
+          "qualityScore": 100
+        },
+        {
+          "jobId": "job_20260828122852_c9ccf2aa",
+          "parentJobId": "job_20260828103426_790ffb10",
+          "status": "awaiting_import",
+          "at": "2026-08-28T12:28:52.742Z",
+          "qualityScore": null
+        },
+        {
+          "jobId": "job_20260828122852_c9ccf2aa",
+          "parentJobId": "job_20260828103426_790ffb10",
+          "status": "review",
+          "at": "2026-08-28T12:30:37.581Z",
+          "qualityScore": 70
         }
       ],
-      "currentJobId": "job_20260828103426_790ffb10",
-      "parentJobId": null,
+      "currentJobId": "job_20260828122852_c9ccf2aa",
+      "parentJobId": "job_20260828103426_790ffb10",
       "artifacts": [
         {
           "kind": "codex-request",
           "fileName": "codex-request.json",
           "contentType": "application/json",
-          "bytes": 80534,
-          "url": "/outputs/jobs/job_20260828103426_790ffb10/codex-request.json"
+          "bytes": 68997,
+          "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/codex-request.json"
         },
         {
           "kind": "prompt",
           "fileName": "prompt.txt",
           "contentType": "text/plain",
-          "bytes": 73068,
-          "url": "/outputs/jobs/job_20260828103426_790ffb10/prompt.txt"
+          "bytes": 61489,
+          "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/prompt.txt"
         },
         {
           "kind": "image",
-          "fileName": "exec-1f8ee5d7-2cc2-4bf2-879d-12d3aab9a5f6.png",
+          "fileName": "exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.png",
           "contentType": "image/png",
-          "bytes": 2555210,
-          "url": "/outputs/jobs/job_20260828103426_790ffb10/exec-1f8ee5d7-2cc2-4bf2-879d-12d3aab9a5f6.png"
+          "bytes": 1973547,
+          "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.png"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.json",
           "contentType": "application/json",
-          "bytes": 723,
-          "url": "/outputs/jobs/job_20260828103426_790ffb10/quality-report.json"
+          "bytes": 953,
+          "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/quality-report.json"
         },
         {
           "kind": "quality-report",
           "fileName": "quality-report.html",
           "contentType": "text/html",
-          "bytes": 1406,
-          "url": "/outputs/jobs/job_20260828103426_790ffb10/quality-report.html"
+          "bytes": 1536,
+          "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/quality-report.html"
         },
         {
           "kind": "quality-preview",
-          "fileName": "qa-preview-exec-1f8ee5d7-2cc2-4bf2-879d-12d3aab9a5f6.jpg",
+          "fileName": "qa-preview-exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.jpg",
           "contentType": "image/jpeg",
-          "bytes": 9760,
-          "url": "/outputs/jobs/job_20260828103426_790ffb10/qa-preview-exec-1f8ee5d7-2cc2-4bf2-879d-12d3aab9a5f6.jpg"
+          "bytes": 8625,
+          "url": "/outputs/jobs/job_20260828122852_c9ccf2aa/qa-preview-exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.jpg"
         }
       ],
       "engine": {},
       "createdAt": "2026-08-28T10:34:26.049Z",
-      "updatedAt": "2026-08-28T10:36:26.452Z"
+      "updatedAt": "2026-08-28T12:30:37.583Z"
     }
   ]
 }

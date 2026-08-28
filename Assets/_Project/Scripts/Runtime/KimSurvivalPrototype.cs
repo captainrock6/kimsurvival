@@ -609,6 +609,7 @@ namespace KimSurvival
         private void HandleLocaleChanged()
         {
             RefreshAll(session != null && session.Phase == GamePhase.Exploring);
+            RefreshO7SurvivalGuidanceUi();
             RefreshO9O10Presentation();
         }
 
@@ -1638,6 +1639,10 @@ namespace KimSurvival
             SetButton(restartButton, localization.Format("ui.restart"), true);
             string languageKey = localization.CurrentLocaleCode == PrototypeLocalization.KoreanLocaleCode ? "ui.language.switch.ko" : "ui.language.switch.en";
             SetButton(languageButton, localization.Format(languageKey), true);
+            // Keep the inactive popup title localized as well. The spatial camp hides this
+            // panel until Kim interacts with a facility, but accessibility/automation can
+            // still inspect its text while the panel is closed.
+            actionTitleText.text = localization.Format("ui.camp.title");
             bool camp = session.Phase == GamePhase.Camp;
             bool result = session.Phase == GamePhase.Result;
             bool placing = camp && campPlacement.IsActive;
@@ -1724,6 +1729,9 @@ namespace KimSurvival
             statusText.text = session.Phase == GamePhase.Exploring
                 ? localization.Format("hud.status.exploring", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), Mathf.RoundToInt(session.Daylight), session.Health)
                 : localization.Format("hud.status.camp", session.Day, session.SettlementDay, phaseName, Mathf.RoundToInt(session.Hunger), Mathf.RoundToInt(session.Energy), session.Health);
+            // O10 keeps the persistent state strip compact; explicit locale line breaks
+            // become a readable separator while the detailed resource row stays below.
+            statusText.text = statusText.text.Replace("\r\n", "  ·  ").Replace("\n", "  ·  ");
             resourceText.text = IsGameJamLiveEscapeProfile
                 ? FormatReadableStableResourceHud()
                 : localization.Format(
@@ -7518,7 +7526,10 @@ namespace KimSurvival
             Require(!statusText.isTextOverflowing && !resourceText.isTextOverflowing,
                 localeCode + " 정상 캠프 상단 HUD TMP overflow=0" +
                 " status=" + statusText.isTextOverflowing + "@" + statusText.fontSize.ToString("0.0") +
+                " statusRect=" + statusText.rectTransform.rect.width.ToString("0.0") + "x" + statusText.rectTransform.rect.height.ToString("0.0") +
+                " statusPreferred=" + statusText.preferredWidth.ToString("0.0") + "x" + statusText.preferredHeight.ToString("0.0") +
                 " resource=" + resourceText.isTextOverflowing + "@" + resourceText.fontSize.ToString("0.0") +
+                " resourceRect=" + resourceText.rectTransform.rect.width.ToString("0.0") + "x" + resourceText.rectTransform.rect.height.ToString("0.0") +
                 " statusText=" + statusText.text.Replace('\n', '/') +
                 " resourceText=" + resourceText.text.Replace('\n', '/'));
         }

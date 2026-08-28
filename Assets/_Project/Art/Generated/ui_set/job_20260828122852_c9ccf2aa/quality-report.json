@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "grade": "fail",
+  "score": 70,
+  "summary": {
+    "files": 1,
+    "errors": 1,
+    "warnings": 0
+  },
+  "files": [
+    {
+      "fileName": "exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.png",
+      "kind": "raster",
+      "width": 1672,
+      "height": 941,
+      "hasAlpha": false,
+      "transparentRatio": 0,
+      "contrastStdDev": 51.49,
+      "powerOfTwo": false,
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "previewFile": "qa-preview-exec-3439c1c8-6785-4409-b8a1-92a05c37ad4f.jpg",
+      "issues": [
+        {
+          "code": "missing-alpha",
+          "severity": "error",
+          "message": "���� ��� ��û������ ���� �ȼ��� �߰ߵ��� �ʾҽ��ϴ�."
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-28T12:30:37.539Z",
+  "jobId": "job_20260828122852_c9ccf2aa",
+  "assetType": "ui_set"
+}

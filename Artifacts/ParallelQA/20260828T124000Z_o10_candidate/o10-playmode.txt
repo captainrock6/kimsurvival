@@ -1,0 +1,8 @@
+PASS
+PASS · PASS O9/O10: storm-drift lock, five opening beats, seven regions, nineteen items, three playable escapes and five core endings.
+PASS · Spatial camp starts directly in batch verification with a visible first objective.
+PASS · Korean/English runtime language switch updates immediately.
+PASS · Simplified top HUD has no KO/EN/qps-long TMP overflow.
+PASS · Captured current spatial camp: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260828T124000Z_o10_candidate\o10-camp-ko-1280x800.png
+PASS · Captured title shell: C:\Users\dev\Documents\ChatGPT\신규 개발 본부\Artifacts\ParallelQA\20260828T124000Z_o10_candidate\o10-title-ko-1280x800.png
+Completed UTC: 2026-08-28T13:02:39.6864456Z

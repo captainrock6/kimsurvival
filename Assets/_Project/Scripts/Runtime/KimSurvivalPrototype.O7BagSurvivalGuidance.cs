@@ -46,8 +46,8 @@ namespace KimSurvival
             o7SurvivalHelpButton = CreateButton(
                 "O7 상태 도움말 열기",
                 canvas.transform,
-                new Vector2(0.82f, 0.805f),
-                new Vector2(0.975f, 0.865f),
+                new Vector2(0.82f, 0.67f),
+                new Vector2(0.975f, 0.73f),
                 string.Empty,
                 ToggleO7SurvivalGuidance);
             Outline buttonOutline = o7SurvivalHelpButton.gameObject.AddComponent<Outline>();
@@ -161,16 +161,9 @@ namespace KimSurvival
             o7SurvivalHelpTitle.text = localization.Format("survival.help.title");
             o7SurvivalHelpBody.text = localization.Format("survival.help.body");
 
-            bool shouldPresentInitialGuide = cleanCamp && session.Day == 1 &&
-                                             !session.ExpeditionCompleted &&
-                                             !o7InitialGuideDismissed;
             if (!cleanCamp)
             {
                 o7SurvivalHelpPanel.SetActive(false);
-            }
-            else if (shouldPresentInitialGuide && !o7SurvivalHelpPanel.activeSelf)
-            {
-                o7SurvivalHelpPanel.SetActive(true);
             }
 
             bool pseudoLong = localization.CurrentLocaleCode == PrototypeLocalization.QpsLongLocaleCode;

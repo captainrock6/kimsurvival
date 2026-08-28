@@ -1,0 +1,13 @@
+O10 CANDIDATE AUTOMATED GATE: PASS
+Unity: 6000.4.9f1
+License: Unity Personal / Assigned / Unlimited
+Edit contracts: PASS
+Play Mode (GPU batch): PASS
+KO/EN immediate localization and KO/EN/qps-long HUD overflow: PASS
+KO 1280x800 camp/title captures: PASS
+Windows x64 Release build: PASS, 0 errors, 0 warnings
+Executable SHA256: a197542ad0d026c5c3bc7aead606b6b0184adad7b4ee3635326c575b25a5b423
+Archive SHA256: 9d7023332ee20cf9360f0109ca211843ec3921e9971b302a27e19c6d3248209b
+Player smoke: PASS, alive after 6 seconds, then test process stopped
+Human 5-10 minute and 30-minute playtests: PENDING
+Style benchmark V2 adoption: PENDING

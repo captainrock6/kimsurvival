@@ -4086,13 +4086,14 @@
       ],
       "paths": [],
       "evidence": [
-        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/unity-compile-escalated.log"
+        "Artifacts/ParallelQA/20260828T120000Z_o9_o10/unity-compile-escalated.log",
+        "Docs/QA/o10-candidate-gate-20260828.md"
       ],
-      "blockedReason": "Unity 6000.4.9f1 batch mode returned exit 198: no valid Editor license found. Visual, Play Mode and Windows player validation cannot be claimed.",
-      "status": "blocked",
+      "blockedReason": "",
+      "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T10:59:52.474Z",
-      "note": "",
+      "updatedAt": "2026-08-28T13:01:20.611Z",
+      "note": "Unity license restored. O10 edit contracts, GPU Play Mode, KO render captures, Release build and player smoke are green; owner 5-10 minute no-explanation playtest remains.",
       "completedAt": null
     },
     {
@@ -4161,13 +4162,14 @@
       ],
       "paths": [],
       "evidence": [
-        "Docs/QA/o9-o10-continuous-production-gate-20260828.md"
+        "Docs/QA/o9-o10-continuous-production-gate-20260828.md",
+        "Artifacts/ParallelQA/20260828T124000Z_o10_candidate/o10-verification-summary.txt"
       ],
-      "blockedReason": "Unity batch license is unavailable, and the style benchmark still requires explicit user adoption. No 30-minute content-beta candidate is claimed.",
-      "status": "blocked",
+      "blockedReason": "",
+      "status": "review",
       "createdAt": "2026-08-27T16:02:07.229Z",
-      "updatedAt": "2026-08-28T10:59:52.791Z",
-      "note": "",
+      "updatedAt": "2026-08-28T13:01:22.099Z",
+      "note": "O10 Windows Release candidate and automated execution gate are green. Exact-candidate 30-minute natural route playtest and physical gamepad remain.",
       "completedAt": null
     },
     {
@@ -5005,5 +5007,5 @@
       "updatedAt": "2026-08-23T14:52:07.112Z"
     }
   ],
-  "updatedAt": "2026-08-28T10:59:52.792Z"
+  "updatedAt": "2026-08-28T13:01:22.100Z"
 }

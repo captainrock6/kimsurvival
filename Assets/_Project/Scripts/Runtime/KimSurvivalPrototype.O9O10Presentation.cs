@@ -88,29 +88,54 @@ namespace KimSurvival
             RectTransform top = statusText == null ? null : statusText.transform.parent as RectTransform;
             if (top != null)
             {
-                top.anchorMin = new Vector2(0.018f, 0.895f);
+                top.anchorMin = new Vector2(0.018f, 0.89f);
                 top.anchorMax = new Vector2(0.982f, 0.985f);
                 top.offsetMin = Vector2.zero;
                 top.offsetMax = Vector2.zero;
                 Image surface = top.GetComponent<Image>();
                 if (surface != null) surface.color = O9Ink;
-                VerticalLayoutGroup layout = top.GetComponent<VerticalLayoutGroup>();
-                if (layout != null)
+                VerticalLayoutGroup vertical = top.GetComponent<VerticalLayoutGroup>();
+                if (vertical != null)
                 {
-                    layout.padding = new RectOffset(42, 42, 1, 1);
-                    layout.spacing = 0f;
+                    vertical.enabled = true;
+                    vertical.padding = new RectOffset(34, 34, 3, 3);
+                    vertical.spacing = 0f;
+                    vertical.childControlHeight = true;
+                    vertical.childForceExpandHeight = false;
                 }
-                statusText.fontSizeMax = 22f;
-                statusText.fontSizeMin = 16f;
-                resourceText.fontSizeMax = 19f;
-                resourceText.fontSizeMin = 14f;
+                LayoutElement statusLayout = statusText.GetComponent<LayoutElement>();
+                LayoutElement resourceLayout = resourceText.GetComponent<LayoutElement>();
+                if (statusLayout != null)
+                {
+                    statusLayout.ignoreLayout = false;
+                    statusLayout.minHeight = 44f;
+                    statusLayout.preferredHeight = 44f;
+                    statusLayout.flexibleHeight = 0f;
+                }
+                if (resourceLayout != null)
+                {
+                    resourceLayout.ignoreLayout = false;
+                    resourceLayout.minHeight = 50f;
+                    resourceLayout.preferredHeight = 50f;
+                    resourceLayout.flexibleHeight = 0f;
+                }
+                statusText.alignment = TextAlignmentOptions.MidlineLeft;
+                resourceText.alignment = TextAlignmentOptions.MidlineRight;
+                statusText.textWrappingMode = TextWrappingModes.Normal;
+                statusText.maxVisibleLines = 2;
+                resourceText.textWrappingMode = TextWrappingModes.Normal;
+                resourceText.maxVisibleLines = 2;
+                statusText.fontSizeMax = 28f;
+                statusText.fontSizeMin = 22f;
+                resourceText.fontSizeMax = 23f;
+                resourceText.fontSizeMin = 18f;
             }
 
             RectTransform message = messageText == null ? null : messageText.transform.parent as RectTransform;
             if (message != null)
             {
-                message.anchorMin = new Vector2(0.52f, 0.80f);
-                message.anchorMax = new Vector2(0.975f, 0.885f);
+                message.anchorMin = new Vector2(0.52f, 0.74f);
+                message.anchorMax = new Vector2(0.975f, 0.825f);
                 message.offsetMin = Vector2.zero;
                 message.offsetMax = Vector2.zero;
                 messageText.fontSize = 20f;
@@ -170,8 +195,8 @@ namespace KimSurvival
             firstObjectiveRoot = CreatePanel(
                 "O9 First Loop Objective",
                 canvas.transform,
-                new Vector2(0.025f, 0.80f),
-                new Vector2(0.49f, 0.885f),
+                new Vector2(0.025f, 0.74f),
+                new Vector2(0.49f, 0.825f),
                 Vector2.zero,
                 Vector2.zero,
                 new Color(O9Ink.r, O9Ink.g, O9Ink.b, 0.91f)).gameObject;

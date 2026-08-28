@@ -2,7 +2,7 @@
   "id": "job_20260828103426_790ffb10",
   "status": "succeeded",
   "createdAt": "2026-08-28T10:34:26.375Z",
-  "updatedAt": "2026-08-28T10:36:26.431Z",
+  "updatedAt": "2026-08-28T12:28:52.301Z",
   "input": {
     "assetType": "ui_set",
     "assetId": "ui.gamejam.style-benchmark",
@@ -215,7 +215,19 @@
       "url": "/outputs/jobs/job_20260828103426_790ffb10/qa-preview-exec-1f8ee5d7-2cc2-4bf2-879d-12d3aab9a5f6.jpg"
     }
   ],
-  "feedback": null,
+  "feedback": {
+    "decision": "revise",
+    "tags": [
+      "simplify-background",
+      "simplify-ui",
+      "bag-bottom-left"
+    ],
+    "note": "사용자 REVISE. 김씨의 주황 셔츠·굵은 잉크선·절개형 캠프와 넓은 설비 간격은 유지한다. 배경의 구름·야자·지면 질감과 캠프 재료 묘사는 절반 이하로 줄이고 큰 평면 색면으로 단순화한다. 상단 HUD는 얇고 무장식으로, 가방은 좌측 하단 발밑에 6개의 짧은 정사각 슬롯으로 이동한다. 중앙 하단 인벤토리와 두꺼운 밧줄·나뭇가지 장식 프레임은 제거한다.",
+    "selectedArtifacts": [
+      "exec-1f8ee5d7-2cc2-4bf2-879d-12d3aab9a5f6.png"
+    ],
+    "updatedAt": "2026-08-28T12:28:52.290Z"
+  },
   "events": [
     {
       "at": "2026-08-28T10:34:26.375Z",
@@ -251,6 +263,11 @@
       "at": "2026-08-28T10:36:26.431Z",
       "level": "info",
       "message": "Codex/로컬 결과 4개를 가져왔습니다."
+    },
+    {
+      "at": "2026-08-28T12:28:52.301Z",
+      "level": "info",
+      "message": "피드백 저장: 수정 필요 · simplify-background, simplify-ui, bag-bottom-left"
     }
   ],
   "error": null,
