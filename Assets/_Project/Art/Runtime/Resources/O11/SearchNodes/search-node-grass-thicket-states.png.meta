@@ -1,31 +1,5 @@
-param(
-    [string]$RuntimeRoot = 'Assets/_Project/Art/Runtime/Resources/O11'
-)
-
-$ErrorActionPreference = 'Stop'
-
-function Get-StableGuid([string]$MetaPath) {
-    if (Test-Path -LiteralPath $MetaPath) {
-        $match = Select-String -LiteralPath $MetaPath -Pattern '^guid: ([0-9a-f]{32})$' | Select-Object -First 1
-        if ($null -ne $match) {
-            return $match.Matches[0].Groups[1].Value
-        }
-    }
-    throw "A pre-existing stable Unity GUID is required: $MetaPath"
-}
-
-function Write-TextureMeta(
-    [string]$PngPath,
-    [int]$PixelsPerUnit,
-    [bool]$AlphaTransparency,
-    [int]$TextureType,
-    [int]$SpriteMode) {
-    $metaPath = "$PngPath.meta"
-    $guid = Get-StableGuid $metaPath
-    $alphaValue = if ($AlphaTransparency) { 1 } else { 0 }
-    $content = @"
 fileFormatVersion: 2
-guid: $guid
+guid: 389f6a7cd6c93c7c310cb896daf7b284
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,18 +43,18 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: $SpriteMode
+  spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0}
-  spritePixelsToUnits: $PixelsPerUnit
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
-  alphaIsTransparency: $alphaValue
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: $TextureType
+  textureType: 0
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -128,18 +102,3 @@ TextureImporter:
   userData: O11 production runtime texture; region set remains review/provisional
   assetBundleName: ""
   assetBundleVariant: ""
-"@
-    [System.IO.File]::WriteAllText(
-        (Resolve-Path -LiteralPath $metaPath).Path,
-        $content.Replace("`r`n", "`n"),
-        (New-Object System.Text.UTF8Encoding($false)))
-}
-
-Write-TextureMeta (Join-Path $RuntimeRoot 'mr-kim-core-atlas.png') 128 $true 0 0
-Get-ChildItem -LiteralPath (Join-Path $RuntimeRoot 'Regions') -Filter '*.png' | ForEach-Object {
-    $alpha = $_.BaseName.EndsWith('-foreground', [System.StringComparison]::Ordinal)
-    Write-TextureMeta $_.FullName 100 $alpha 0 0
-}
-Get-ChildItem -LiteralPath (Join-Path $RuntimeRoot 'SearchNodes') -Filter '*.png' | ForEach-Object {
-    Write-TextureMeta $_.FullName 100 $true 0 0
-}
