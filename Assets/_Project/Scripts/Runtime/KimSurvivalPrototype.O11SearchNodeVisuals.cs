@@ -57,7 +57,7 @@ namespace KimSurvival
                     continue;
                 }
 
-                int instanceId = node.Root.GetInstanceID();
+                int instanceId = node.Root.GetEntityId();
                 if (!o11SearchNodeBindings.TryGetValue(instanceId, out O11SearchNodeBinding binding) ||
                     binding == null || binding.Renderer == null)
                 {
@@ -248,7 +248,7 @@ namespace KimSurvival
                                   (nodes.Count > 0 && nodes.All(node =>
                                       node != null && node.Root != null &&
                                       o11SearchNodeBindings.TryGetValue(
-                                          node.Root.GetInstanceID(), out O11SearchNodeBinding binding) &&
+                                          node.Root.GetEntityId(), out O11SearchNodeBinding binding) &&
                                       binding != null && binding.Renderer != null && binding.Renderer.enabled));
             bool legacyHidden = session.Phase != GamePhase.Exploring || nodes.All(node =>
                 node.Root.GetComponentsInChildren<SpriteRenderer>(true).All(renderer =>
